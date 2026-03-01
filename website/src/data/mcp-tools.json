@@ -1,41 +1,818 @@
-[ERROR] COMPILATION ERROR : 
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[162,38] cannot find symbol
-  symbol:   method getShortId()
-  location: variable pv of type mage.view.PlayerView
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[178,46] constructor ShortIdRegistry in class mage.util.ShortIdRegistry cannot be applied to given types;
-  required: no arguments
-  found:    java.lang.String
-  reason: actual and formal argument lists differ in length
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[1694,83] cannot find symbol
-  symbol:   method tryResolve(java.lang.String)
-  location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[4206,41] cannot find symbol
-  symbol:   method tryResolve(java.lang.String)
-  location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[5158,41] cannot find symbol
-  symbol:   method tryResolve(java.lang.String)
-  location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project mage-client-bridge: Compilation failure: Compilation failure: 
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[162,38] cannot find symbol
-[ERROR]   symbol:   method getShortId()
-[ERROR]   location: variable pv of type mage.view.PlayerView
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[178,46] constructor ShortIdRegistry in class mage.util.ShortIdRegistry cannot be applied to given types;
-[ERROR]   required: no arguments
-[ERROR]   found:    java.lang.String
-[ERROR]   reason: actual and formal argument lists differ in length
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[1694,83] cannot find symbol
-[ERROR]   symbol:   method tryResolve(java.lang.String)
-[ERROR]   location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[4206,41] cannot find symbol
-[ERROR]   symbol:   method tryResolve(java.lang.String)
-[ERROR]   location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] /Users/gregorstocks/conductor/workspaces/mage-bench/austin/Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java:[5158,41] cannot find symbol
-[ERROR]   symbol:   method tryResolve(java.lang.String)
-[ERROR]   location: variable shortIds of type mage.util.ShortIdRegistry
-[ERROR] -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor to pass to the next get_game_log call",
+          "type": "integer"
+        },
+        "cursor_reset": {
+          "conditional": "when cursor parameter was used",
+          "description": "Whether requested cursor was too old and had to be reset to oldest retained log offset",
+          "type": "boolean"
+        },
+        "since_player": {
+          "conditional": "when since_turn parameter was used",
+          "description": "The player whose turn the log starts from",
+          "type": "string"
+        },
+        "log": {
+          "description": "Game log text (may be truncated if max_chars was set)",
+          "type": "string"
+        },
+        "since_turn": {
+          "conditional": "when since_turn parameter was used",
+          "description": "The per-player turn number the log starts from",
+          "type": "integer"
+        },
+        "truncated": {
+          "description": "Whether older content was omitted",
+          "type": "boolean"
+        },
+        "total_length": {
+          "description": "Total length of the full game log in characters",
+          "type": "integer"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Truncated log",
+        "value": "{\n  \"log\": \"Alice turn 3 (20 - 15)\\nAlice casts Lightning Bolt...\",\n  \"total_length\": 5234,\n  \"truncated\": true,\n  \"cursor\": 5234\n}"
+      },
+      {
+        "label": "Cursor delta",
+        "value": "{\n  \"log\": \"Bob casts Swords to Plowshares targeting Goblin Guide.\",\n  \"total_length\": 5301,\n  \"truncated\": false,\n  \"cursor\": 5301\n}"
+      },
+      {
+        "label": "Since turn recap",
+        "value": "{\n  \"log\": \"Bob turn 2 (20 - 18)\\nBob casts Sol Ring\\nAlice turn 3 (20 - 18)\\nAlice plays Forest\",\n  \"total_length\": 5400,\n  \"truncated\": false,\n  \"cursor\": 5400,\n  \"since_turn\": 2,\n  \"since_player\": \"Bob\"\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor offset from previous get_game_log call. Returns new log text since this offset. Mutually exclusive with since_turn.",
+          "type": "integer"
+        },
+        "max_chars": {
+          "description": "Max characters to return (0 or omit for all)",
+          "type": "integer"
+        },
+        "since_player": {
+          "description": "Player name for since_turn filter. Defaults to you (the calling player). Only used with since_turn.",
+          "type": "string"
+        },
+        "since_turn": {
+          "description": "Return log entries starting from this player turn number. Turn markers use per-player numbering (e.g. 'Alice turn 3'). Mutually exclusive with cursor.",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "get_game_log",
+    "description": "Get game log text. Three modes: (1) since_turn=N to get events since a player's Nth turn (best for recapping opponents' turns in multiplayer), (2) cursor from a previous call for incremental updates, (3) max_chars for the most recent N characters."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor to pass to the next get_game_history call for incremental updates",
+          "type": "integer"
+        },
+        "event_count": {
+          "description": "Number of events included in this response",
+          "type": "integer"
+        },
+        "history": {
+          "description": "Formatted game history text grouped by turn/phase",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Full history",
+        "value": "{\n  \"history\": \"Turn 1 (Alice):\\n  Precombat Main:\\n    - Alice played Mountain\\n    - Alice cast Goblin Guide\\n\\nTurn 1 (Bob):\\n  Precombat Main:\\n    - Bob played Island\\n\",\n  \"cursor\": 8,\n  \"event_count\": 4\n}"
+      },
+      {
+        "label": "Incremental update",
+        "value": "{\n  \"history\": \"Turn 3 (Alice):\\n  Precombat Main:\\n    - Alice cast Lightning Bolt targeting Bob's Grizzly Bears\\n  Declare Attackers:\\n    - Alice attacked with Goblin Guide\\n\",\n  \"cursor\": 24,\n  \"event_count\": 2\n}"
+      },
+      {
+        "label": "No new events",
+        "value": "{\n  \"history\": \"No game events recorded yet.\",\n  \"cursor\": 24,\n  \"event_count\": 0\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor from a previous get_game_history call. Returns only new events since this cursor. Mutually exclusive with since_turn.",
+          "type": "integer"
+        },
+        "since_turn": {
+          "description": "Only include events from this turn number onward",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "get_game_history",
+    "description": "Get structured game history showing player actions (casts, attacks, blocks, life changes, etc.) grouped by turn and phase. Unlike get_game_log which returns raw chat text, this returns structured action descriptions. Use cursor for incremental updates between decisions."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "description": "Whether the message was sent",
+          "type": "boolean"
+        },
+        "error": {
+          "description": "Error message when success is false",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Success",
+        "value": "{\n  \"success\": true\n}"
+      },
+      {
+        "label": "Error",
+        "value": "{\n  \"success\": false,\n  \"error\": \"no active game\"\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "Message to send",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "name": "send_chat_message",
+    "description": "Send a chat message to the game"
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "combat_phase": {
+          "description": "\"declare_attackers\" or \"declare_blockers\"",
+          "type": "string"
+        },
+        "action_type": {
+          "description": "XMage callback method name",
+          "type": "string"
+        },
+        "stop_reason": {
+          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
+          "type": "string"
+        },
+        "response_type": {
+          "conditional": "action_pending",
+          "description": "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
+          "type": "string"
+        },
+        "untapped_lands": {
+          "conditional": "action_pending",
+          "description": "Number of untapped lands",
+          "type": "integer"
+        },
+        "message": {
+          "conditional": "action_pending",
+          "description": "Human-readable prompt from XMage",
+          "type": "string"
+        },
+        "action_pending": {
+          "description": "Whether a decision-requiring action was found",
+          "type": "boolean"
+        },
+        "player_dead": {
+          "description": "Whether you died during priority passing",
+          "type": "boolean"
+        },
+        "has_playable_cards": {
+          "description": "Whether you have playable cards in hand",
+          "type": "boolean"
+        },
+        "board_unchanged": {
+          "conditional": "action_pending",
+          "description": "True when the provided board_cursor matches — board field is omitted.",
+          "type": "boolean"
+        },
+        "context": {
+          "conditional": "action_pending",
+          "description": "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
+          "type": "string"
+        },
+        "recent_chat": {
+          "description": "Chat messages received since last check",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "board_cursor": {
+          "conditional": "action_pending",
+          "description": "Cursor for the current board state. Pass back in the next call to skip the board if unchanged.",
+          "type": "integer"
+        },
+        "choices": {
+          "conditional": "action_pending",
+          "description": "Structured choices with index, name, and type-specific fields",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "your_hand": {
+          "conditional": "action_pending",
+          "description": "Hand cards with name, mana_cost",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "board": {
+          "conditional": "action_pending",
+          "description": "Full board state — same format as get_game_state players array. Omitted when board_unchanged=true (board_cursor matched).",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "current_step": {
+          "description": "Current game step (only for reached_step/step_not_reached)",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Playable cards found",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 18,\n      \"is_you\": false\n    }\n  ],\n  \"board_cursor\": 3,\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+      },
+      {
+        "label": "Board unchanged (cursor matched)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board_unchanged\": true,\n  \"board_cursor\": 3,\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+      },
+      {
+        "label": "Non-priority action (mulligan)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"board_cursor\": 1,\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "until": {
+          "description": "Skip ahead to a target. Step values yield within the current turn (client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values use server-side yield: end_of_turn (skip rest of turn), my_turn (skip to your next turn), stack_resolved (wait for stack to resolve). Omit to block until next actionable priority.",
+          "type": "string",
+          "enum": [
+            "upkeep",
+            "draw",
+            "precombat_main",
+            "begin_combat",
+            "declare_attackers",
+            "declare_blockers",
+            "end_combat",
+            "postcombat_main",
+            "end_of_turn",
+            "my_turn",
+            "stack_resolved"
+          ]
+        },
+        "board_cursor": {
+          "description": "Board cursor from a previous pass_priority or get_action_choices result. When provided and the board hasn't changed, the board field is omitted to save tokens.",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "pass_priority",
+    "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, non-priority action like mulligan/targeting). With until: skips ahead to a target step or phase. Step values (current turn, client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values (server-side): end_of_turn, my_turn, stack_resolved. Always stops for combat and non-priority actions. Auto-handles mechanical callbacks (mana payment failures, optional targets with no legal targets). Returns stop_reason indicating why the call returned. When action_pending=true, includes full action choices (response_type, choices, context, etc.) so you can call choose_action immediately."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor for the latest known game state",
+          "type": "integer"
+        },
+        "phase": {
+          "description": "Current phase (e.g. PRECOMBAT_MAIN, COMBAT)",
+          "type": "string"
+        },
+        "priority_player": {
+          "description": "Name of the player who currently has priority",
+          "type": "string"
+        },
+        "stack": {
+          "description": "Stack objects: name, rules, targets (resolved target names)",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "active_player": {
+          "description": "Name of the player whose turn it is",
+          "type": "string"
+        },
+        "players": {
+          "description": "Player objects: name, life, library_size, hand_size, is_active, is_you, hand (yours only), battlefield, graveyard, exile, mana_pool, counters, commanders",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "available": {
+          "description": "Whether game state is available",
+          "type": "boolean"
+        },
+        "unchanged": {
+          "description": "True when the provided cursor already matches the latest state",
+          "type": "boolean"
+        },
+        "step": {
+          "description": "Current step within the phase",
+          "type": "string"
+        },
+        "combat": {
+          "description": "Combat groups: attackers, blockers, blocked, defending",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "turn": {
+          "description": "Current turn number",
+          "type": "integer"
+        },
+        "error": {
+          "description": "Error message",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Mid-game state",
+        "value": "{\n  \"available\": true,\n  \"turn\": 4,\n  \"phase\": \"PRECOMBAT_MAIN\",\n  \"step\": \"PRECOMBAT_MAIN\",\n  \"active_player\": \"Player1\",\n  \"priority_player\": \"Player1\",\n  \"players\": [\n    {\n      \"name\": \"Player1\",\n      \"life\": 18,\n      \"library_size\": 49,\n      \"hand_size\": 5,\n      \"is_active\": true,\n      \"is_you\": true,\n      \"hand\": [\n        {\n          \"name\": \"Lightning Bolt\",\n          \"mana_cost\": \"{R}\",\n          \"playable\": true\n        },\n        {\n          \"name\": \"Mountain\",\n          \"is_land\": true,\n          \"playable\": true\n        }\n      ],\n      \"battlefield\": [\n        {\n          \"name\": \"Mountain\",\n          \"tapped\": false\n        },\n        {\n          \"name\": \"Goblin Guide\",\n          \"tapped\": false,\n          \"power\": 2,\n          \"toughness\": 2\n        }\n      ],\n      \"mana_pool\": {\n        \"R\": 0\n      }\n    },\n    {\n      \"name\": \"Player2\",\n      \"life\": 20,\n      \"library_size\": 52,\n      \"hand_size\": 7,\n      \"is_active\": false,\n      \"is_you\": false,\n      \"battlefield\": [\n        {\n          \"name\": \"Island\",\n          \"tapped\": false\n        }\n      ]\n    }\n  ],\n  \"stack\": []\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "State cursor from previous get_game_state call. If unchanged, returns a compact payload.",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "get_game_state",
+    "description": "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, hand (yours only), battlefield (name, tapped, P/T, counters, rules, token/copy/face_down flags, modified + original_card when changed from printed card), graveyard (name, rules), exile (name, rules), commanders."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "second_face": {
+          "description": "Back face for transform/MDFC cards (same fields)",
+          "type": "object"
+        },
+        "cards": {
+          "description": "Array of card objects (batch mode). Each has name, mana_cost, type, rules, and optional power/toughness/starting_loyalty/starting_defense/second_face",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "success": {
+          "description": "Whether the lookup succeeded",
+          "type": "boolean"
+        },
+        "mana_cost": {
+          "description": "Mana cost (e.g. \"{2}{R}\")",
+          "type": "string"
+        },
+        "name": {
+          "description": "Card name",
+          "type": "string"
+        },
+        "rules": {
+          "description": "Oracle text lines",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "power": {
+          "description": "Power (creatures only)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type line (e.g. \"Creature — Human Wizard\")",
+          "type": "string"
+        },
+        "toughness": {
+          "description": "Toughness (creatures only)",
+          "type": "string"
+        },
+        "starting_defense": {
+          "description": "Starting defense (battles only)",
+          "type": "string"
+        },
+        "error": {
+          "description": "Error message",
+          "type": "string"
+        },
+        "starting_loyalty": {
+          "description": "Starting loyalty (planeswalkers only)",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Single creature",
+        "value": "{\n  \"success\": true,\n  \"name\": \"Snapcaster Mage\",\n  \"mana_cost\": \"{1}{U}\",\n  \"type\": \"Creature — Human Wizard\",\n  \"rules\": [\n    \"Flash\",\n    \"When Snapcaster Mage enters the battlefield, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.\"\n  ],\n  \"power\": \"2\",\n  \"toughness\": \"1\"\n}"
+      },
+      {
+        "label": "Transform card with second face",
+        "value": "{\n  \"success\": true,\n  \"name\": \"Delver of Secrets\",\n  \"mana_cost\": \"{U}\",\n  \"type\": \"Creature — Human Wizard\",\n  \"rules\": [\n    \"At the beginning of your upkeep, look at the top card of your library. You may reveal that card. If an instant or sorcery card is revealed this way, transform Delver of Secrets.\"\n  ],\n  \"power\": \"1\",\n  \"toughness\": \"1\",\n  \"second_face\": {\n    \"name\": \"Insectile Aberration\",\n    \"type\": \"Creature — Human Insect\",\n    \"rules\": [\n      \"Flying\"\n    ],\n    \"power\": \"3\",\n    \"toughness\": \"2\"\n  }\n}"
+      },
+      {
+        "label": "Batch lookup",
+        "value": "{\n  \"success\": true,\n  \"cards\": [\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"type\": \"Instant\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    },\n    {\n      \"name\": \"Counterspell\",\n      \"mana_cost\": \"{U}{U}\",\n      \"type\": \"Instant\",\n      \"rules\": [\n        \"Counter target spell.\"\n      ]\n    }\n  ]\n}"
+      },
+      {
+        "label": "Not found",
+        "value": "{\n  \"success\": false,\n  \"error\": \"not found\"\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "object_ids": {
+          "description": "Batch in-game object short ID lookup (e.g. [\"p1\",\"p2\"])",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "card_name": {
+          "description": "Single card name lookup",
+          "type": "string"
+        },
+        "card_names": {
+          "description": "Batch card name lookup",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "object_id": {
+          "description": "Short ID of an in-game object (e.g. \"p3\")",
+          "type": "string"
+        }
+      }
+    },
+    "name": "get_oracle_text",
+    "description": "Get oracle text and card details. Provide exactly one of: card_name (single), card_names (batch array), object_id (in-game object), or object_ids (batch array of in-game objects). Returns name, mana_cost, type, rules, and where applicable: power/toughness, starting_loyalty, starting_defense, second_face."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "combat_phase": {
+          "description": "\"declare_attackers\" or \"declare_blockers\"",
+          "type": "string"
+        },
+        "stack": {
+          "description": "Spells/abilities currently on the stack: name, owner, targets (only present when stack is non-empty)",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "action_type": {
+          "description": "XMage callback method name",
+          "type": "string"
+        },
+        "min_amount": {
+          "description": "Minimum allowed value",
+          "type": "integer"
+        },
+        "response_type": {
+          "description": "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
+          "type": "string"
+        },
+        "stop_reason": {
+          "description": "Why pass_priority returned (only when until is set)",
+          "type": "string"
+        },
+        "combat": {
+          "description": "Combat groups during any combat step: attackers (name/id/power/toughness), blockers, blocked boolean, defending player",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "untapped_lands": {
+          "description": "Number of untapped lands",
+          "type": "integer"
+        },
+        "message": {
+          "description": "Human-readable prompt from XMage",
+          "type": "string"
+        },
+        "action_pending": {
+          "description": "Whether an action is pending (false if nothing to do)",
+          "type": "boolean"
+        },
+        "board_unchanged": {
+          "description": "True when the provided board_cursor matches — board field is omitted.",
+          "type": "boolean"
+        },
+        "context": {
+          "description": "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
+          "type": "string"
+        },
+        "max_amount": {
+          "description": "Maximum allowed value",
+          "type": "integer"
+        },
+        "respond_with": {
+          "description": "Exact choose_action parameter(s) to use for this action type",
+          "type": "string"
+        },
+        "recent_chat": {
+          "description": "Chat messages received since last check",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "board_cursor": {
+          "description": "Cursor for the current board state. Pass back in the next call to skip the board if unchanged.",
+          "type": "integer"
+        },
+        "choices": {
+          "description": "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "your_hand": {
+          "description": "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "board": {
+          "description": "Full board state — same format as get_game_state players array: life, library_size, hand (yours only with rules), battlefield (name, tapped, P/T, rules, counters), graveyard (name, rules), exile (name, rules), mana_pool, counters, commanders. Omitted when board_unchanged=true (board_cursor matched).",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Select (play cards)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Select card to play or pass priority\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"Player1\",\n      \"life\": 20,\n      \"is_you\": true,\n      \"is_active\": true,\n      \"library_size\": 49,\n      \"hand_size\": 5,\n      \"hand\": [\n        {\n          \"name\": \"Lightning Bolt\",\n          \"mana_cost\": \"{R}\",\n          \"rules\": [\n            \"Lightning Bolt deals 3 damage to any target.\"\n          ],\n          \"playable\": true\n        },\n        {\n          \"name\": \"Mountain\",\n          \"is_land\": true,\n          \"rules\": [\n            \"{T}: Add {R}.\"\n          ],\n          \"playable\": true\n        }\n      ],\n      \"battlefield\": [\n        {\n          \"name\": \"Mountain\",\n          \"tapped\": false,\n          \"rules\": [\n            \"{T}: Add {R}.\"\n          ],\n          \"id\": \"p1\"\n        },\n        {\n          \"name\": \"Goblin Guide\",\n          \"tapped\": false,\n          \"power\": 2,\n          \"toughness\": 2,\n          \"rules\": [\n            \"Haste\",\n            \"Whenever Goblin Guide attacks, defending player reveals the top card of their library. If it's a land card, that player puts it into their hand.\"\n          ],\n          \"id\": \"p2\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Player2\",\n      \"life\": 20,\n      \"is_you\": false,\n      \"is_active\": false,\n      \"library_size\": 52,\n      \"hand_size\": 7,\n      \"battlefield\": [\n        {\n          \"name\": \"Island\",\n          \"tapped\": false,\n          \"rules\": [\n            \"{T}: Add {U}.\"\n          ],\n          \"id\": \"p3\"\n        }\n      ]\n    }\n  ],\n  \"board_cursor\": 5,\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+      },
+      {
+        "label": "Board unchanged (cursor matched)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Play instants and activated abilities\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 PRECOMBAT_MAIN (Opponent)\",\n  \"board_unchanged\": true,\n  \"board_cursor\": 5,\n  \"stack\": [\n    {\n      \"name\": \"Sheoldred's Edict\",\n      \"owner\": \"Opponent\"\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Counterspell\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{U}{U}\"\n    }\n  ],\n  \"untapped_lands\": 3\n}"
+      },
+      {
+        "label": "Boolean (mulligan)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"board_cursor\": 1,\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    }\n  ]\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "until": {
+          "description": "Skip ahead to a target, then return choices. Same values as pass_priority's until parameter. Omit to return immediately.",
+          "type": "string",
+          "enum": [
+            "upkeep",
+            "draw",
+            "precombat_main",
+            "begin_combat",
+            "declare_attackers",
+            "declare_blockers",
+            "end_combat",
+            "postcombat_main",
+            "end_of_turn",
+            "my_turn",
+            "stack_resolved"
+          ]
+        },
+        "board_cursor": {
+          "description": "Board cursor from a previous pass_priority or get_action_choices result. When provided and the board hasn't changed, the board field is omitted to save tokens.",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "get_action_choices",
+    "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), full board state, stack (when non-empty), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers; combat shows all combat groups (attackers, blockers, blocked status) during any combat step."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "retryable": {
+          "description": "Whether the action can be retried with different parameters",
+          "type": "boolean"
+        },
+        "declared": {
+          "description": "IDs of successfully declared attackers/blockers (batch combat)",
+          "type": "array"
+        },
+        "next_action_hint": {
+          "description": "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue",
+          "type": "string"
+        },
+        "action_taken": {
+          "description": "Description of what was done (e.g. \"selected_0\", \"yes\", \"passed_priority\", \"batch_attack\")",
+          "type": "string"
+        },
+        "failed": {
+          "description": "Entries that failed during batch combat: {id, reason}",
+          "type": "array"
+        },
+        "interrupted": {
+          "description": "Whether batch combat was interrupted by a trigger",
+          "type": "boolean"
+        },
+        "error": {
+          "description": "Error message",
+          "type": "string"
+        },
+        "next_action_pending": {
+          "description": "Whether a follow-up action arrived from the server (e.g. bestow mode selection, kicker choice). Call get_action_choices or choose_action next — not pass_priority.",
+          "type": "boolean"
+        },
+        "next_action_type": {
+          "description": "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)",
+          "type": "string"
+        },
+        "success": {
+          "description": "Whether the action was accepted",
+          "type": "boolean"
+        },
+        "warning": {
+          "description": "Warning (e.g. possible game loop detected)",
+          "type": "string"
+        },
+        "mana_plan_set": {
+          "description": "Whether a mana plan was stored for upcoming payment callbacks",
+          "type": "boolean"
+        },
+        "error_code": {
+          "description": "Machine-readable error code: no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type",
+          "type": "string"
+        },
+        "mana_plan_size": {
+          "description": "Number of entries in the stored mana plan",
+          "type": "integer"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "ID-based selection",
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"selected_2\"\n}"
+      },
+      {
+        "label": "Boolean answer",
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"no\"\n}"
+      },
+      {
+        "label": "Cast with mana plan",
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"selected_2\",\n  \"mana_plan_set\": true,\n  \"mana_plan_size\": 3\n}"
+      },
+      {
+        "label": "Batch attack",
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"batch_attack\",\n  \"declared\": [\n    \"p1\",\n    \"p2\",\n    \"p3\"\n  ]\n}"
+      },
+      {
+        "label": "Batch block",
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"batch_block\",\n  \"declared\": [\n    {\n      \"id\": \"p5\",\n      \"blocks\": \"p1\"\n    },\n    {\n      \"id\": \"p6\",\n      \"blocks\": \"p2\"\n    }\n  ]\n}"
+      },
+      {
+        "label": "Error",
+        "value": "{\n  \"success\": false,\n  \"error\": \"Index 5 is out of range (valid: 0-3). Call get_action_choices to see current options.\",\n  \"error_code\": \"index_out_of_range\",\n  \"retryable\": true\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Amount value (for get_amount actions)",
+          "type": "integer"
+        },
+        "answer": {
+          "description": "Yes/No response. For GAME_ASK: true means YES to the question, false means NO. For mulligan: true = YES MULLIGAN (discard hand, draw new cards), false = NO KEEP (keep this hand). For GAME_SELECT: false = pass priority (done playing cards this phase), true = confirm combat (done declaring attackers/blockers). Also false to cancel target/mana selection.",
+          "type": "boolean"
+        },
+        "amounts": {
+          "description": "Multiple amount values (for multi_amount actions)",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "auto_tap": {
+          "description": "Controls automatic mana tapping. Default behavior (omitted or true): auto-tap pays mana by tapping the first available source. Used alone for full auto-tap, or as fallback after a mana_plan runs out. Set false WITH a mana_plan to require the plan to be complete — spell is cancelled if the plan doesn't cover all pips. WARNING: auto-tap has no color awareness and uses a naive heuristic for dual lands. Prefer mana_plan for color-sensitive spells.",
+          "type": "boolean"
+        },
+        "pile": {
+          "description": "Pile number: 1 or 2 (for pile choices)",
+          "type": "integer"
+        },
+        "index": {
+          "description": "Choice index from get_action_choices",
+          "type": "integer"
+        },
+        "mana_plan": {
+          "description": "Mana payment instructions for casting a spell (use with index/id). Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already in your mana pool — they do NOT produce mana. Only use pool colors after something else has already added mana to your pool (e.g. a ritual spell or a triggered ability). Entries are consumed in order, one per mana pip. If any entry fails (permanent not available), the spell is cancelled. If the plan runs out before all pips are paid, auto-tap fills the rest (unless auto_tap=false, which cancels instead). Example: casting a 3-mana spell with 2 lands: [\"p1\", \"p5:1\"] — auto-tap handles the 3rd pip.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attackers": {
+          "description": "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). Use [\"all\"] to declare all possible attackers. Automatically confirms after declaring.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "blockers": {
+          "description": "Declare multiple blockers at once. Array of \"blocker_id:attacker_id\" strings. Example: [\"p5:p1\",\"p6:p2\"] means p5 blocks p1, p6 blocks p2. Automatically confirms after declaring.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index.",
+          "type": "string"
+        },
+        "text": {
+          "description": "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)",
+          "type": "string"
+        }
+      }
+    },
+    "name": "choose_action",
+    "description": "Respond to pending action. Blocks until an action is pending (like pass_priority). Use id or index to pick a choice (card, attacker, blocker, target, ability, mana source). Use answer for yes/no, pass priority, or confirm combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. Call get_action_choices first."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "description": "Whether the concession was sent",
+          "type": "boolean"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Success",
+        "value": "{\n  \"success\": true\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {}
+    },
+    "name": "concede",
+    "description": "Concede the current game. The game ends immediately with the opponent winning."
+  }
+]
