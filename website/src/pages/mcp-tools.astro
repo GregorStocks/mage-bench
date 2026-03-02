@@ -50,14 +50,6 @@ function getOutputFields(tool: any) {
     generated from the same schema the LLM clients use.
   </p>
 
-  <p class="toolset-note">
-    Not all players receive all tools. Each player preset references a named
-    <strong>toolset</strong> that controls which tools are available to that model.
-    Weaker models may get a smaller set of tools to avoid confusion, while stronger
-    models can handle the full suite. See <a href="https://github.com/GregorStocks/mage-bench/blob/master/puppeteer/toolsets.json"><code>toolsets.json</code></a> and
-    <a href="https://github.com/GregorStocks/mage-bench/blob/master/puppeteer/presets.json"><code>presets.json</code></a> for the current configuration.
-  </p>
-
   {categories.map(category => (
     <section>
       <h2>{category.title}</h2>
@@ -77,8 +69,8 @@ function getOutputFields(tool: any) {
             <p class="tool-desc">{tool.description}</p>
 
             {props.length > 0 ? (
-              <>
-                <h4>Parameters</h4>
+              <details class="field-details">
+                <summary>Parameters ({props.length})</summary>
                 <table>
                   <thead>
                     <tr>
@@ -99,14 +91,14 @@ function getOutputFields(tool: any) {
                     ))}
                   </tbody>
                 </table>
-              </>
+              </details>
             ) : (
               <p class="no-params">No parameters.</p>
             )}
 
             {outputFields.length > 0 && (
-              <>
-                <h4>Response</h4>
+              <details class="field-details">
+                <summary>Response ({outputFields.length} fields)</summary>
                 <table>
                   <thead>
                     <tr>
@@ -127,7 +119,7 @@ function getOutputFields(tool: any) {
                     ))}
                   </tbody>
                 </table>
-              </>
+              </details>
             )}
 
             {examples.length > 0 && (
@@ -190,22 +182,6 @@ function getOutputFields(tool: any) {
     color: var(--accent-primary);
   }
 
-  .toolset-note {
-    background: rgba(var(--accent-secondary-rgb), 0.08);
-    border: 1px solid rgba(var(--accent-secondary-rgb), 0.25);
-    border-left: 3px solid var(--accent-secondary);
-    border-radius: 4px;
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-
-  .toolset-note code {
-    font-family: var(--font-mono);
-    color: var(--accent-primary);
-    font-size: 0.85rem;
-  }
-
   .category-desc {
     color: var(--text-secondary);
     margin-bottom: 1rem;
@@ -254,6 +230,24 @@ function getOutputFields(tool: any) {
     font-style: italic;
     font-size: 0.9rem;
     margin-bottom: 0;
+  }
+
+  .field-details {
+    margin-top: 0.75rem;
+  }
+
+  .field-details summary {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    font-weight: 600;
+  }
+
+  .field-details summary:hover {
+    color: var(--accent-primary);
   }
 
   h4 {

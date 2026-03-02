@@ -274,7 +274,7 @@ if (fs.existsSync(exportsDir)) {
     // State
     let currentMetric = 'timeoutRate';
     let currentFormat = 'all';
-    let selectedModels = new Set(allModels.slice(0, 5).map(m => m[0]));
+    let selectedModels = new Set(allModels.map(m => m[0]));
     let minEpochTrend = trendData.minLeaderboardEpoch;
     let smoothingWindow = 5;
 

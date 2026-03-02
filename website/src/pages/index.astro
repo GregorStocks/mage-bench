@@ -43,16 +43,17 @@ if (allModelIds.size === 0) {
 const totalModels = allModelIds.size;
 const formatCount = Object.keys(formats).filter(f => f !== 'combined' && ((formats[f] as any)?.totalGames ?? 0) > 0).length || 5;
 
-// Recent games (3 most recent)
+// Recent games — 3 most recent 1v1 and 3 most recent commander
 const gamesDir = path.join(process.cwd(), 'public', 'games');
-const recentGames: Array<Record<string, any>> = [];
+const recentDuels: Array<Record<string, any>> = [];
+const recentCommander: Array<Record<string, any>> = [];
 if (fs.existsSync(gamesDir)) {
   const files = fs.readdirSync(gamesDir)
     .filter((f: string) => f.startsWith('game_'))
     .sort()
     .reverse();
   for (const file of files) {
-    if (recentGames.length >= 3) break;
+    if (recentDuels.length >= 3 && recentCommander.length >= 3) break;
     let data;
     if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
       data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
@@ -65,7 +66,7 @@ if (fs.existsSync(gamesDir)) {
       continue;
     }
     const formatKey = DECK_TYPE_FORMATS[data.deckType] || 'commander';
-    recentGames.push({
+    const entry = {
       id: data.id,
       format: formatKey,
       formatLabel: FORMAT_DISPLAY[formatKey] || formatKey,
@@ -75,7 +76,12 @@ if (fs.existsSync(gamesDir)) {
         name: p.name,
         model: p.model ? (p.model.includes('/') ? p.model.split('/').pop() : p.model) : '',
       })),
-    });
+    };
+    if (formatKey === 'commander') {
+      if (recentCommander.length < 3) recentCommander.push(entry);
+    } else {
+      if (recentDuels.length < 3) recentDuels.push(entry);
+    }
   }
 }
 ---
@@ -121,28 +127,6 @@ if (fs.existsSync(gamesDir)) {
     </div>
   </section>
 
-  <section class="flow-diagram">
-    <div class="flow-step">
-      <div class="flow-icon">LLM</div>
-      <div class="flow-desc">Thinks & decides</div>
-    </div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">
-      <div class="flow-icon">MCP Bridge</div>
-      <div class="flow-desc">Translates actions</div>
-    </div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">
-      <div class="flow-icon">XMage</div>
-      <div class="flow-desc">Enforces rules</div>
-    </div>
-    <div class="flow-arrow">&rarr;</div>
-    <div class="flow-step">
-      <div class="flow-icon">Game State</div>
-      <div class="flow-desc">Back to LLM</div>
-    </div>
-  </section>
-
   {top5.length > 0 && (
     <section class="leaderboard-preview">
       <h2>Top Models <a href="/leaderboard" class="section-link">Full leaderboard &rarr;</a></h2>
@@ -161,11 +145,11 @@ if (fs.existsSync(gamesDir)) {
     </section>
   )}
 
-  {recentGames.length > 0 && (
+  {recentDuels.length > 0 && (
     <section class="recent-games">
-      <h2>Recent Games <a href="/games" class="section-link">All games &rarr;</a></h2>
+      <h2>Recent 1v1 Games <a href="/games" class="section-link">All games &rarr;</a></h2>
       <div class="game-strip">
-        {recentGames.map((game) => (
+        {recentDuels.map((game) => (
           <a href={`/games/${game.id}`} class="mini-game-card" data-format={game.format}>
             <div class="mgc-header">
               <span class={`mgc-format mgc-format-${game.format}`}>{game.formatLabel}</span>
@@ -175,7 +159,31 @@ if (fs.existsSync(gamesDir)) {
               {game.players.map((p: any) => (
                 <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
                   <span class="mgc-pname">{p.name}</span>
-                  {p.name === game.winner && <span class="mgc-star">&#9733;</span>}
+                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
+                </div>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recentCommander.length > 0 && (
+    <section class="recent-games">
+      <h2>Recent Commander Games <a href="/games?format=commander" class="section-link">All commander &rarr;</a></h2>
+      <div class="game-strip">
+        {recentCommander.map((game) => (
+          <a href={`/games/${game.id}`} class="mini-game-card" data-format={game.format}>
+            <div class="mgc-header">
+              <span class={`mgc-format mgc-format-${game.format}`}>{game.formatLabel}</span>
+              <span class="mgc-turns">{game.totalTurns} turns</span>
+            </div>
+            <div class="mgc-players">
+              {game.players.map((p: any) => (
+                <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
+                  <span class="mgc-pname">{p.name}</span>
+                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
                 </div>
               ))}
             </div>
@@ -277,44 +285,6 @@ if (fs.existsSync(gamesDir)) {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-  }
-
-  /* Flow diagram */
-  .flow-diagram {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem 0 2.5rem;
-    flex-wrap: wrap;
-  }
-
-  .flow-step {
-    text-align: center;
-    padding: 0.8rem 1.2rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    min-width: 100px;
-  }
-
-  .flow-icon {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--accent-primary);
-    margin-bottom: 0.2rem;
-  }
-
-  .flow-desc {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-  }
-
-  .flow-arrow {
-    font-size: 1.2rem;
-    color: var(--accent-secondary);
-    font-weight: 700;
   }
 
   /* Leaderboard preview */
@@ -516,9 +486,15 @@ if (fs.existsSync(gamesDir)) {
     color: var(--color-success);
   }
 
-  .mgc-star {
-    color: var(--color-success);
-    font-size: 0.9rem;
+  .mgc-winner-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    margin-left: auto;
   }
 
   @media (max-width: 600px) {
@@ -534,27 +510,6 @@ if (fs.existsSync(gamesDir)) {
 
     .stat-number {
       font-size: 1.6rem;
-    }
-
-    .flow-diagram {
-      gap: 0.3rem;
-    }
-
-    .flow-step {
-      min-width: 70px;
-      padding: 0.5rem;
-    }
-
-    .flow-icon {
-      font-size: 0.8rem;
-    }
-
-    .flow-desc {
-      font-size: 0.65rem;
-    }
-
-    .flow-arrow {
-      font-size: 0.9rem;
     }
 
     .game-strip {

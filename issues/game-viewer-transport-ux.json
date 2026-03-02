@@ -1,0 +1,11 @@
+{
+  "title": "Game viewer transport controls are cluttered — reorganize buttons and unify snapshot counter",
+  "description": "The game replay page has too many semi-redundant forward/backward navigation buttons. There are snapshot-level prev/next, turn-level prev/next, start/end, play/pause, a slider, a jump-to input box, AND a separate 'N / M' counter — all in one row. The snapshot jump input (e.g. '214') and the counter ('214 / 311') right next to it are redundant and should be unified into a single editable element.\n\nSuggested improvements:\n- Unify the number input and the counter into one component (e.g. an editable 'N / M' display)\n- Group controls logically: playback controls (play/pause, speed) vs navigation (start/prev/next/end) vs turn-level nav\n- Consider whether both snapshot-level and turn-level prev/next are needed as separate buttons, or if turn nav could be a dropdown-only control\n- The slider is good and should stay prominent",
+  "status": "open",
+  "priority": 3,
+  "type": "enhancement",
+  "labels": ["website", "ux"],
+  "not_autoclaimable": true,
+  "created_at": "2026-03-01T12:00:00.000000-08:00",
+  "updated_at": "2026-03-01T12:00:00.000000-08:00"
+}
