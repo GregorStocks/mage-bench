@@ -1563,12 +1563,23 @@
       var cx = sx + dx * 0.5;
       var cy = sy + dy * 0.5 - Math.min(40, Math.abs(dx) * 0.15);
 
+      // Glow layer (thicker, semi-transparent)
+      var glow = document.createElementNS(SVG_NS, "path");
+      glow.setAttribute("d", "M" + sx + "," + sy + " Q" + cx + "," + cy + " " + tx + "," + ty);
+      glow.setAttribute("stroke", "#e94560");
+      glow.setAttribute("stroke-width", "6");
+      glow.setAttribute("fill", "none");
+      glow.setAttribute("stroke-opacity", "0.3");
+      glow.setAttribute("stroke-linecap", "round");
+      svg.appendChild(glow);
+
+      // Main line
       var path = document.createElementNS(SVG_NS, "path");
       path.setAttribute("d", "M" + sx + "," + sy + " Q" + cx + "," + cy + " " + tx + "," + ty);
       path.setAttribute("stroke", "#e94560");
-      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-width", "2.5");
       path.setAttribute("fill", "none");
-      path.setAttribute("stroke-opacity", "0.8");
+      path.setAttribute("stroke-linecap", "round");
       path.setAttribute("marker-end", "url(#target-arrowhead)");
       svg.appendChild(path);
     }

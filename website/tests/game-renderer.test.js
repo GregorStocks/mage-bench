@@ -846,7 +846,8 @@ describe("drawTargetArrows", () => {
     R.drawTargetArrows(gameLeft);
     const svg = gameLeft.querySelector(".target-arrows-svg");
     expect(svg).not.toBeNull();
-    expect(svg.querySelectorAll("path").length).toBe(1);
+    // 2 paths per arrow: glow layer + main line
+    expect(svg.querySelectorAll("path").length).toBe(2);
     cleanup(gameLeft);
   });
 
@@ -872,7 +873,8 @@ describe("drawTargetArrows", () => {
     R.drawTargetArrows(gameLeft);
     const svg = gameLeft.querySelector(".target-arrows-svg");
     expect(svg).not.toBeNull();
-    expect(svg.querySelectorAll("path").length).toBe(1);
+    // 2 paths per arrow: glow layer + main line
+    expect(svg.querySelectorAll("path").length).toBe(2);
     cleanup(gameLeft);
   });
 
