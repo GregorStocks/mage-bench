@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session, potato_process, spectator_process):
+def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Verify board_unchanged=true when get_action_choices follows pass_priority.
 
     Script: choose starting player, keep hand, T1 play Mountain. After
@@ -26,7 +26,7 @@ def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session
         game_dir=tmp_path / "board_cursor_dedup",
         deck_a=DECK_BOLT_AND_BURN,
         deck_b=DECK_FILLER,
-        script=[
+        script_a=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
@@ -43,7 +43,7 @@ def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session
             {"name": "choose_action", "arguments": {"choice": "no"}},
         ],
         golden_name="board_cursor_dedup",
-        bridge=bridge_session,
-        potato=potato_process,
+        bridge_a=bridge_session,
+        bridge_b=opponent_session,
         spectator=spectator_process,
     )

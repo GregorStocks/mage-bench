@@ -15,6 +15,10 @@ REQUIRED_FIELDS = {
     "updated_at",
 }
 
+OPTIONAL_FIELDS = {"not_autoclaimable"}
+
+KNOWN_FIELDS = REQUIRED_FIELDS | OPTIONAL_FIELDS
+
 
 def lint_issues(project_root: Path) -> list[str]:
     issues_dir = project_root / "issues"
@@ -43,6 +47,13 @@ def lint_issues(project_root: Path) -> list[str]:
             )
             continue
 
+        # Reject unknown fields
+        unknown = set(issue.keys()) - KNOWN_FIELDS
+        if unknown:
+            errors.append(
+                f"{issue_file.name}: unknown fields: {', '.join(sorted(unknown))}"
+            )
+
         # Resolved/closed issues should be deleted
         if issue["status"] != "open":
             errors.append(
@@ -63,7 +74,7 @@ def lint_issues(project_root: Path) -> list[str]:
 
 
 def main():
-    project_root = Path(__file__).resolve().parent.parent
+    project_root = Path(__file__).resolve().parent.parent.parent
     errors = lint_issues(project_root)
 
     if errors:
