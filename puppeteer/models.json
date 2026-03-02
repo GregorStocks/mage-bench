@@ -389,6 +389,50 @@
       "_tier": "dirt-cheap",
       "ignore_providers": ["google"],
       "_notes": "Meta's latest Llama 4. 1M context. No reasoning mode. Non-thinking baseline. Google provider breaks tool calling (outputs ReAct-style text instead of tool_calls)."
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview",
+      "name": "Gemini 3.1 Pro",
+      "name_part": "Gem31P",
+      "_input_per_m": 2.00,
+      "_output_per_m": 12.00,
+      "_context_k": 1000,
+      "_thinking": true,
+      "_tier": "mid",
+      "_notes": "Successor to Gemini 3 Pro. Enhanced agentic reliability and token efficiency. Mandatory reasoning with configurable effort."
+    },
+    {
+      "id": "openai/gpt-oss-120b",
+      "name": "GPT-OSS 120B",
+      "name_part": "GptOSS",
+      "_input_per_m": 0.04,
+      "_output_per_m": 0.19,
+      "_context_k": 131,
+      "_thinking": true,
+      "_tier": "dirt-cheap",
+      "_notes": "OpenAI open-weight model (Apache 2.0). 117B total, 5.1B active (MoE). Matches o4-mini on TauBench tool-use benchmark. Configurable reasoning effort."
+    },
+    {
+      "id": "mistralai/mistral-medium-3.1",
+      "name": "Mistral Medium 3.1",
+      "name_part": "MstMed",
+      "_input_per_m": 0.40,
+      "_output_per_m": 2.00,
+      "_context_k": 131,
+      "_thinking": false,
+      "_tier": "cheap",
+      "_notes": "Mistral enterprise model. No reasoning mode. Good tool calling. First Mistral model in active rotation."
+    },
+    {
+      "id": "qwen/qwen3-coder",
+      "name": "Qwen3 Coder 480B",
+      "name_part": "QwCdr",
+      "_input_per_m": 0.22,
+      "_output_per_m": 1.00,
+      "_context_k": 262,
+      "_thinking": false,
+      "_tier": "cheap",
+      "_notes": "480B total / 35B active MoE. Purpose-built for agentic tool-calling workflows. No reasoning mode."
     }
   ],
   "_thinking_config": {
