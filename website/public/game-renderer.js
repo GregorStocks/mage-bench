@@ -1555,13 +1555,8 @@
       var targetRect = targetEl.getBoundingClientRect();
       var sx = sourceRect.right - containerRect.left;
       var sy = sourceRect.top + sourceRect.height / 2 - containerRect.top;
-      var tx = targetRect.left - containerRect.left;
+      var tx = targetRect.left + targetRect.width / 2 - containerRect.left;
       var ty = targetRect.top + targetRect.height / 2 - containerRect.top;
-
-      // If target is to the left of source (e.g. stack→stack), adjust
-      if (tx < sx) {
-        tx = targetRect.right - containerRect.left;
-      }
 
       var dx = tx - sx;
       var dy = ty - sy;
