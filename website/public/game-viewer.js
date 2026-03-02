@@ -888,13 +888,23 @@
       }
     });
 
-    // Build snapshot -> decisions map
+    // Build snapshot -> decisions map, carrying forward to fill gaps
     var snapshotDecisionMap = {};
+    var _rawDecisionMap = {};
     (game.decisions || []).forEach(function (d) {
       var si = d.snapshotIndex;
-      if (!snapshotDecisionMap[si]) snapshotDecisionMap[si] = [];
-      snapshotDecisionMap[si].push(d);
+      if (!_rawDecisionMap[si]) _rawDecisionMap[si] = [];
+      _rawDecisionMap[si].push(d);
     });
+    var _lastDecisions = null;
+    for (var _di = 0; _di < game.snapshots.length; _di++) {
+      if (_rawDecisionMap[_di]) {
+        _lastDecisions = _rawDecisionMap[_di];
+      }
+      if (_lastDecisions) {
+        snapshotDecisionMap[_di] = _lastDecisions;
+      }
+    }
 
 
     // Set up transport
