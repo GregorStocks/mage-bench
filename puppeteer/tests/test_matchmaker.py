@@ -11,6 +11,7 @@ from puppeteer.matchmaker import (
     _CALIBRATION_GAMES,
     _build_key_to_preset,
     _build_matchup_matrix,
+    _load_games_index,
     get_round_robin_matchup,
     pick_round_robin_format,
 )
@@ -30,6 +31,12 @@ def _write_models(path: Path, models: list[dict]) -> None:
 def _write_game(games_dir: Path, game_id: str, game: dict) -> None:
     gz_path = games_dir / f"{game_id}.json.gz"
     gz_path.write_bytes(gzip.compress(json.dumps(game).encode()))
+
+
+def _write_game_json(games_dir: Path, game_id: str, game: dict) -> None:
+    """Write a plain .json game file (not gzipped)."""
+    json_path = games_dir / f"{game_id}.json"
+    json_path.write_text(json.dumps(game))
 
 
 def _make_1v1_game(
@@ -97,6 +104,46 @@ def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path]:
     _write_presets(presets_path, presets)
     _write_models(models_path, [{"id": f"v/{name}", "name": name.title()} for name in names])
     return games_dir, presets_path, models_path
+
+
+class TestLoadGamesIndex:
+    def test_loads_json_files(self, tmp_path: Path) -> None:
+        games_dir = tmp_path / "games"
+        games_dir.mkdir()
+        game = _make_1v1_game("g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta")
+        _write_game_json(games_dir, "game_1", game)
+        result = _load_games_index(games_dir)
+        assert len(result) == 1
+        assert result[0]["id"] == "g1"
+
+    def test_loads_gzipped_files(self, tmp_path: Path) -> None:
+        games_dir = tmp_path / "games"
+        games_dir.mkdir()
+        game = _make_1v1_game("g2", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta")
+        _write_game(games_dir, "game_2", game)
+        result = _load_games_index(games_dir)
+        assert len(result) == 1
+        assert result[0]["id"] == "g2"
+
+    def test_deduplicates_json_and_gz(self, tmp_path: Path) -> None:
+        """When both .json and .json.gz exist for the same game, load only once."""
+        games_dir = tmp_path / "games"
+        games_dir.mkdir()
+        game = _make_1v1_game("g3", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta")
+        _write_game(games_dir, "game_3", game)
+        _write_game_json(games_dir, "game_3", game)
+        result = _load_games_index(games_dir)
+        assert len(result) == 1
+
+    def test_loads_mixed_formats(self, tmp_path: Path) -> None:
+        games_dir = tmp_path / "games"
+        games_dir.mkdir()
+        _write_game_json(games_dir, "game_a", _make_1v1_game("a", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta"))
+        _write_game(games_dir, "game_b", _make_1v1_game("b", "2026-01-02T00:00:00Z", "P2", "v/alpha", "v/beta"))
+        result = _load_games_index(games_dir)
+        assert len(result) == 2
+        ids = {g["id"] for g in result}
+        assert ids == {"a", "b"}
 
 
 class TestBuildKeyToPreset:
