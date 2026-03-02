@@ -420,6 +420,9 @@
   function makeCardThumbnail(cardName, cardObj, cardImages, isTapped, previewEls) {
     var wrapper = document.createElement("div");
     wrapper.className = "card-thumb" + (isTapped ? " tapped" : "");
+    if (cardObj && cardObj.id) {
+      wrapper.setAttribute("data-card-id", cardObj.id);
+    }
     var isToken = isTokenCard(cardObj || { name: cardName });
 
     var img = document.createElement("img");
@@ -490,6 +493,9 @@
   function makeAbilityThumbnail(abilityInfo, cardObj, cardImages, previewEls) {
     var wrapper = document.createElement("div");
     wrapper.className = "card-thumb ability-thumb";
+    if (cardObj && cardObj.id) {
+      wrapper.setAttribute("data-card-id", cardObj.id);
+    }
 
     if (abilityInfo.sourceCard) {
       var img = document.createElement("img");
@@ -898,6 +904,7 @@
       // Header
       var header = document.createElement("div");
       header.className = "player-header";
+      header.setAttribute("data-player-name", player.name || "");
 
       var nameEl = document.createElement("div");
       nameEl.className = "player-name";
@@ -1146,6 +1153,9 @@
         var obj = typeof item === "string" ? null : item;
         var wrapper = document.createElement("div");
         wrapper.className = "stack-item";
+        if (obj && obj.id) {
+          wrapper.setAttribute("data-card-id", obj.id);
+        }
         var abilityInfo = parseStackAbility(name, obj);
         if (abilityInfo.isAbility) {
           wrapper.appendChild(makeAbilityThumbnail(abilityInfo, obj, cardImages, previewEls));
@@ -1153,6 +1163,22 @@
           wrapper.appendChild(makeCardThumbnail(name, obj, cardImages, false, previewEls));
         }
         if (obj && obj.targets && obj.targets.length > 0) {
+          var targetIds = [];
+          var targetNames = [];
+          obj.targets.forEach(function (t) {
+            if (typeof t === "string") {
+              targetNames.push(t);
+            } else {
+              if (t.id) targetIds.push(t.id);
+              targetNames.push(t.name || "");
+            }
+          });
+          if (targetIds.length > 0) {
+            wrapper.setAttribute("data-target-ids", targetIds.join(","));
+          }
+          if (targetNames.length > 0) {
+            wrapper.setAttribute("data-target-names", targetNames.join(","));
+          }
           var targetEl = document.createElement("div");
           targetEl.className = "stack-target";
           targetEl.textContent = "\u2192 " + obj.targets.map(function (t) {
@@ -1463,6 +1489,122 @@
     });
   }
 
+  // ── Target arrows from stack items ──
+
+  var SVG_NS = "http://www.w3.org/2000/svg";
+
+  function _findTargetElement(container, targetId, targetName) {
+    // Match by card/permanent ID first
+    if (targetId) {
+      var byId = container.querySelector('[data-card-id="' + targetId + '"]');
+      if (byId) return byId;
+    }
+    // Match by player name
+    if (targetName) {
+      var byPlayer = container.querySelector('.player-header[data-player-name="' + targetName + '"]');
+      if (byPlayer) return byPlayer;
+    }
+    return null;
+  }
+
+  function _findTargetByName(container, name) {
+    // Player name first
+    var byPlayer = container.querySelector('.player-header[data-player-name="' + name + '"]');
+    if (byPlayer) return byPlayer;
+    // Card by img alt text
+    var thumbs = container.querySelectorAll(".card-thumb");
+    for (var i = 0; i < thumbs.length; i++) {
+      var img = thumbs[i].querySelector("img");
+      if (img && img.alt === name) return thumbs[i];
+    }
+    return null;
+  }
+
+  function drawTargetArrows(gameLeftEl) {
+    if (!gameLeftEl) return;
+    // Remove existing overlay
+    var existing = gameLeftEl.querySelector(".target-arrows-svg");
+    if (existing) existing.parentNode.removeChild(existing);
+
+    var stackItems = gameLeftEl.querySelectorAll(".stack-item[data-target-ids], .stack-item[data-target-names]");
+    if (stackItems.length === 0) return;
+
+    var svg = document.createElementNS(SVG_NS, "svg");
+    svg.setAttribute("class", "target-arrows-svg");
+
+    // Arrowhead marker
+    var defs = document.createElementNS(SVG_NS, "defs");
+    var marker = document.createElementNS(SVG_NS, "marker");
+    marker.setAttribute("id", "target-arrowhead");
+    marker.setAttribute("markerWidth", "8");
+    marker.setAttribute("markerHeight", "6");
+    marker.setAttribute("refX", "8");
+    marker.setAttribute("refY", "3");
+    marker.setAttribute("orient", "auto");
+    var polygon = document.createElementNS(SVG_NS, "polygon");
+    polygon.setAttribute("points", "0 0, 8 3, 0 6");
+    polygon.setAttribute("fill", "#e94560");
+    marker.appendChild(polygon);
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+
+    var containerRect = gameLeftEl.getBoundingClientRect();
+
+    function drawArrow(sourceThumb, targetEl) {
+      var sourceRect = sourceThumb.getBoundingClientRect();
+      var targetRect = targetEl.getBoundingClientRect();
+      var sx = sourceRect.right - containerRect.left;
+      var sy = sourceRect.top + sourceRect.height / 2 - containerRect.top;
+      var tx = targetRect.left - containerRect.left;
+      var ty = targetRect.top + targetRect.height / 2 - containerRect.top;
+
+      // If target is to the left of source (e.g. stack→stack), adjust
+      if (tx < sx) {
+        tx = targetRect.right - containerRect.left;
+      }
+
+      var dx = tx - sx;
+      var dy = ty - sy;
+      var cx = sx + dx * 0.5;
+      var cy = sy + dy * 0.5 - Math.min(40, Math.abs(dx) * 0.15);
+
+      var path = document.createElementNS(SVG_NS, "path");
+      path.setAttribute("d", "M" + sx + "," + sy + " Q" + cx + "," + cy + " " + tx + "," + ty);
+      path.setAttribute("stroke", "#e94560");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke-opacity", "0.8");
+      path.setAttribute("marker-end", "url(#target-arrowhead)");
+      svg.appendChild(path);
+    }
+
+    for (var i = 0; i < stackItems.length; i++) {
+      var item = stackItems[i];
+      var sourceThumb = item.querySelector(".card-thumb");
+      if (!sourceThumb) continue;
+
+      var targetIds = (item.getAttribute("data-target-ids") || "").split(",").filter(Boolean);
+      var targetNames = (item.getAttribute("data-target-names") || "").split(",").filter(Boolean);
+
+      if (targetIds.length > 0) {
+        for (var j = 0; j < targetIds.length; j++) {
+          var el = _findTargetElement(gameLeftEl, targetIds[j], targetNames[j] || "");
+          if (el) drawArrow(sourceThumb, el);
+        }
+      } else if (targetNames.length > 0) {
+        for (var j = 0; j < targetNames.length; j++) {
+          var el = _findTargetByName(gameLeftEl, targetNames[j]);
+          if (el) drawArrow(sourceThumb, el);
+        }
+      }
+    }
+
+    // Only append if we drew any paths
+    if (svg.querySelectorAll("path").length > 0) {
+      gameLeftEl.appendChild(svg);
+    }
+  }
+
   // ── Public API ──
 
   var GameRenderer = {
@@ -1496,6 +1638,8 @@
     computeDiff: computeDiff,
     diffStringBag: diffStringBag,
     diffBattlefield: diffBattlefield,
+    // Target arrows
+    drawTargetArrows: drawTargetArrows,
     // Positioned mode
     renderPositionLayer: renderPositionLayer,
     collectPositionCards: collectPositionCards,

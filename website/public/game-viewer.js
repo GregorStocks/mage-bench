@@ -502,6 +502,9 @@
       // Stack
       R.renderStack(dom.stackSection, dom.stackCards, snap.stack, game.cardImages, dom.previewEls);
 
+      // Target arrows from stack items to their targets
+      R.drawTargetArrows(dom.gameLeft);
+
       // Action log: show full accumulated log up to current snapshot
       dom.actionList.innerHTML = "";
       var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
