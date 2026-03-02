@@ -5395,20 +5395,13 @@ public class BridgeCallbackHandler {
             updateLastGameView(gv, "handleGameOver");
         }
 
-        // Remove from activeGames FIRST so that concurrent MCP tool calls
-        // (pullBridgeEvents, passPriority, concede) see the game as ended
-        // immediately, rather than racing with the RPC below.  Without this,
-        // pullBridgeEvents can read activeGames before the remove, then call
-        // session.getBridgeEvents() after client.stop() — hanging on a dead
-        // connection and deadlocking the replay subprocess.
-        UUID playerId = activeGames.remove(gameId);
-        synchronized (actionLock) {
-            actionLock.notifyAll();
-        }
-
-        // Pull bridge events one last time — the playerId we just removed
-        // is still valid for the RPC.  After this, the server GameController
-        // may be gone and the RPC will return empty.
+        // Pull bridge events one last time BEFORE removing from activeGames.
+        // This ensures cachedBridgeEvents is populated before passPriority
+        // sees the game as ended (via activeGames.isEmpty()) and returns
+        // game_over to Python — preventing a race where get_game_history
+        // finds both pullBridgeEvents() empty (game removed) and the cache
+        // still empty (not yet populated by handleGameOver).
+        UUID playerId = activeGames.get(gameId);
         if (playerId != null) {
             try {
                 int savedCursor = bridgeEventCursor;
@@ -5425,6 +5418,18 @@ public class BridgeCallbackHandler {
             } catch (Exception e) {
                 logger.warn("[" + client.getUsername() + "] Failed to pull final bridge events on game over", e);
             }
+        }
+
+        // Remove from activeGames so that concurrent MCP tool calls
+        // (pullBridgeEvents, passPriority, concede) see the game as ended.
+        // This also triggers passPriority's game-over bail-out
+        // (activeGames.isEmpty()), but now the cache is already populated.
+        // The remove must still happen before client.stop() to prevent
+        // concurrent pullBridgeEvents from calling session.getBridgeEvents()
+        // on a dead connection.
+        activeGames.remove(gameId);
+        synchronized (actionLock) {
+            actionLock.notifyAll();
         }
         UUID chatId = gameChatIds.remove(gameId);
         if (chatId != null) {
