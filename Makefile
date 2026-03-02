@@ -133,7 +133,7 @@ run-client:
 WEBSITE_PORT ?= 4321
 .PHONY: website
 website: leaderboard
-	cd website && npm install && npx astro dev --port $(WEBSITE_PORT)
+	cd website && npm install && npx astro dev --host --port $(WEBSITE_PORT)
 
 # Export a game log for the website visualizer
 # Usage: make export-game GAME=game_20260208_220934
