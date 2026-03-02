@@ -79,18 +79,23 @@ public class ObserverMain {
                 }
             }
 
-            // Auto-update settings if needed (same as MageFrame)
-            int settingsVersion = PreferencesDialog.getCachedValue(PreferencesDialog.KEY_SETTINGS_VERSION, 0);
-            if (settingsVersion == 0) {
-                LOGGER.info("Settings: first run, applying GUI size settings");
-                int screenDPI = Toolkit.getDefaultToolkit().getScreenResolution();
-                int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-                String preset = PreferencesDialog.getDefaultSizeSettings().findBestPreset(screenDPI, screenHeight);
-                if (preset != null) {
-                    LOGGER.info("Settings: selected preset " + preset);
-                    PreferencesDialog.getDefaultSizeSettings().applyPreset(preset);
+            // Auto-update settings if needed (same as MageFrame).
+            // In noWindow mode (golden tests), skip screen-dependent settings —
+            // DPI and screen size are meaningless for a headless observer.
+            boolean noWindow = Boolean.getBoolean("xmage.observer.noWindow");
+            if (!noWindow) {
+                int settingsVersion = PreferencesDialog.getCachedValue(PreferencesDialog.KEY_SETTINGS_VERSION, 0);
+                if (settingsVersion == 0) {
+                    LOGGER.info("Settings: first run, applying GUI size settings");
+                    int screenDPI = Toolkit.getDefaultToolkit().getScreenResolution();
+                    int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+                    String preset = PreferencesDialog.getDefaultSizeSettings().findBestPreset(screenDPI, screenHeight);
+                    if (preset != null) {
+                        LOGGER.info("Settings: selected preset " + preset);
+                        PreferencesDialog.getDefaultSizeSettings().applyPreset(preset);
+                    }
+                    PreferencesDialog.saveValue(PreferencesDialog.KEY_SETTINGS_VERSION, String.valueOf(1));
                 }
-                PreferencesDialog.saveValue(PreferencesDialog.KEY_SETTINGS_VERSION, String.valueOf(1));
             }
 
             // Disable macOS fullscreen toggle — it grabs focus and we never want that.
