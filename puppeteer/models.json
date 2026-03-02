@@ -200,7 +200,7 @@
       "_context_k": 262,
       "_thinking": false,
       "_tier": "cheap",
-      "_notes": "No reasoning mode. Devstral (similar family) was tested and produced 0/255 reasoning text. Probably a weak Magic player without thinking. Skip unless specifically benchmarking non-thinking models."
+      "_notes": "No reasoning mode. 675B total, 41B active (MoE). Apache 2.0. Devstral (smaller model) was tested and produced 0/255 reasoning text."
     },
     {
       "id": "x-ai/grok-4",

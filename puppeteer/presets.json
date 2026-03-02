@@ -36,6 +36,7 @@
     "gem31p-medium": { "model": "google/gemini-3.1-pro-preview", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "gptoss-medium": { "model": "openai/gpt-oss-120b", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "mistmed31":     { "model": "mistralai/mistral-medium-3.1", "status": "active", "system_prompt": "default", "toolset": "default" },
-    "qwen3c":        { "model": "qwen/qwen3-coder", "status": "active", "system_prompt": "default", "toolset": "default" }
+    "qwen3c":        { "model": "qwen/qwen3-coder", "status": "active", "system_prompt": "default", "toolset": "default" },
+    "mistlg":        { "model": "mistralai/mistral-large-2512", "status": "active", "system_prompt": "default", "toolset": "default" }
   }
 }
