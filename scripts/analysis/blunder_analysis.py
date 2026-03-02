@@ -214,8 +214,6 @@ since then. Use this to understand how the game reached the current state.
 
 {CHOSEN_FALSE_GUIDANCE}
 
-{TOOL_REFERENCE}
-
 {SHARED_SEVERITY}
 
 ## Output Format
@@ -927,6 +925,9 @@ def build_decision_prompt(
             "back because the player could not complete the mana payment. The spell "
             "never resolved — the net result was no action taken this priority window."
         )
+
+    user_msg += f"\n\n{TOOL_REFERENCE}"
+
     return PER_DECISION_SYSTEM, user_msg
 
 
