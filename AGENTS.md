@@ -8,6 +8,7 @@ When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tes
 
 - **bridge_join timeout**: The potato or bridge didn't join the table in time. Usually a keepAlive loop issue where the previous game's cleanup races with the next game's setup.
 - **Nondeterministic game replay**: Auto-pass or priority logic behaves differently across runs.
+- **game_seq drift**: The `game_seq` in tool results comes from `lastGameView`, which is updated asynchronously. If `game_seq` is nondeterministic, the fix is to make the source deterministic (e.g. update `lastGameView` from the authoritative callback), **not** to strip `game_seq` from golden comparisons or the `_strip_volatile` function.
 
 Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hook. If you believe a failure is infrastructure-related (e.g. GitHub runner OOM, network timeout downloading dependencies), ask Gregor to re-run it.
 

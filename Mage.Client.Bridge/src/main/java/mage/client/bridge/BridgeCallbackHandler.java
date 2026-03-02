@@ -5368,6 +5368,19 @@ public class BridgeCallbackHandler {
     private void handleGameOver(UUID gameId, ClientCallback callback) {
         GameClientMessage message = (GameClientMessage) callback.getData();
 
+        // Update lastGameView with the final game-over GameView BEFORE
+        // removing from activeGames.  The game-over callback carries the
+        // authoritative final GameView with the deterministic game_seq.
+        // Without this, passPriority's game-over bail-out reads
+        // lastGameView from the last asynchronous gameUpdate push, whose
+        // game_seq depends on how many updates arrived before this callback
+        // — causing nondeterministic game_seq in tool results and golden
+        // test flakes.
+        GameView gv = message.getGameView();
+        if (gv != null) {
+            updateLastGameView(gv, "handleGameOver");
+        }
+
         // Remove from activeGames FIRST so that concurrent MCP tool calls
         // (pullBridgeEvents, passPriority, concede) see the game as ended
         // immediately, rather than racing with the RPC below.  Without this,
