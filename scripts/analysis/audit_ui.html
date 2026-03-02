@@ -277,6 +277,75 @@ body {
   font-style: italic;
 }
 
+/* Mark Current button */
+#mark-current-btn {
+  padding: 0.45rem;
+  background: var(--border);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+  width: 100%;
+}
+#mark-current-btn:hover { background: rgba(233,69,96,0.2); }
+#mark-current-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--border); }
+
+/* Disambiguation overlay */
+#disambig-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#disambig-overlay.hidden { display: none; }
+#disambig-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+#disambig-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.disambig-item {
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.3rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+.disambig-item:hover { background: rgba(233,69,96,0.1); border-color: var(--accent); }
+.disambig-player { font-weight: 700; color: var(--text); }
+.disambig-turn { color: var(--text-dim); font-size: 0.8rem; }
+.disambig-message { color: var(--text); font-size: 0.82rem; margin-top: 0.15rem; }
+.disambig-chosen { color: var(--text-dim); font-size: 0.78rem; }
+#disambig-cancel {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--bg);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+#disambig-cancel:hover { color: var(--text); }
+
 /* Spinner */
 .spinner {
   display: inline-block;
@@ -334,6 +403,7 @@ body {
           </div>
         </div>
         <div id="verdict-panel">
+          <button id="mark-current-btn" disabled>Mark Current Decision<span class="shortcut-hint">[M]</span></button>
           <div id="existing-verdict" class="hidden"></div>
           <div id="existing-notes" class="hidden"></div>
           <div id="verdict-buttons">
@@ -347,6 +417,14 @@ body {
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="disambig-overlay" class="hidden">
+  <div id="disambig-box">
+    <div id="disambig-title">Multiple decisions at this snapshot</div>
+    <div id="disambig-list"></div>
+    <button id="disambig-cancel">Cancel</button>
   </div>
 </div>
 
@@ -384,6 +462,10 @@ body {
   var notesInput = document.getElementById("notes-input");
   var submitBtn = document.getElementById("submit-btn");
   var verdictStatus = document.getElementById("verdict-status");
+  var markCurrentBtn = document.getElementById("mark-current-btn");
+  var disambigOverlay = document.getElementById("disambig-overlay");
+  var disambigList = document.getElementById("disambig-list");
+  var disambigCancel = document.getElementById("disambig-cancel");
 
   // -- Data loading --
 
@@ -610,10 +692,12 @@ body {
       viewer = null;
     }
     currentGameId = null;
+    markCurrentBtn.disabled = true;
   }
 
   function selectPlay(idx) {
     if (idx < 0 || idx >= filteredPlays.length) return;
+    directSelection = false;
     selectedIdx = idx;
     highlightSelected();
     var play = filteredPlays[idx];
@@ -654,6 +738,7 @@ body {
         });
         currentGameId = play.game_id;
       }
+      markCurrentBtn.disabled = false;
 
       // Render audit context
       renderAuditContext(detail);
@@ -767,19 +852,22 @@ body {
     .then(function() {
       verdictStatus.textContent = "Saved: " + selectedVerdict.replace(/_/g, " ");
 
-      var play = filteredPlays[selectedIdx];
-      play.verdict = selectedVerdict;
-      allPlays.forEach(function(p) {
-        if (p.game_id === play.game_id && p.decision_index === play.decision_index) {
-          p.verdict = selectedVerdict;
-        }
-      });
-
-      renderPlayList();
+      if (!directSelection && selectedIdx >= 0 && selectedIdx < filteredPlays.length) {
+        var play = filteredPlays[selectedIdx];
+        play.verdict = selectedVerdict;
+        allPlays.forEach(function(p) {
+          if (p.game_id === play.game_id && p.decision_index === play.decision_index) {
+            p.verdict = selectedVerdict;
+          }
+        });
+        renderPlayList();
+        advanceToNextUnaudited();
+      } else {
+        directSelection = false;
+      }
       loadStats();
 
       submitting = false;
-      advanceToNextUnaudited();
     })
     .catch(function(e) {
       verdictStatus.textContent = "Error: " + e.message;
@@ -804,9 +892,123 @@ body {
     verdictStatus.textContent = "All plays audited!";
   }
 
+  // -- Mark Current Decision --
+
+  // Select a decision directly by game_id + decision_index (not from sidebar).
+  // Loads detail into the audit bar so the user can vote on it.
+  var directSelection = false; // true when selected via "Mark Current" (not sidebar)
+
+  function selectDecisionDirect(gameId, di) {
+    detailEmpty.style.display = "none";
+    detailContent.style.display = "flex";
+    verdictStatus.textContent = "Loading...";
+    updateHash(gameId, di);
+
+    // Check if this decision is in the sidebar and select it there
+    var sidebarIdx = filteredPlays.findIndex(function(p) {
+      return p.game_id === gameId && p.decision_index === di;
+    });
+    if (sidebarIdx >= 0) {
+      // Found in sidebar — use normal selectPlay
+      directSelection = false;
+      selectPlay(sidebarIdx);
+      return;
+    }
+
+    // Not in sidebar — load directly
+    directSelection = true;
+    selectedIdx = -1;
+    highlightSelected(); // clear sidebar highlight
+
+    Promise.all([
+      fetch("/api/plays/" + gameId + "/" + di).then(function(r) { return r.json(); }),
+      loadGameData(gameId),
+    ])
+    .then(function(results) {
+      var detail = results[0];
+      currentDetail = detail;
+
+      // Navigate the viewer
+      if (currentGameId === gameId && viewer) {
+        viewer.goTo(detail.aftermath_index);
+      } else {
+        if (viewer) viewer.destroy();
+        viewer = GameViewer.create(viewerContainer, results[1], {
+          initialSnapshot: detail.aftermath_index,
+        });
+        currentGameId = gameId;
+      }
+      markCurrentBtn.disabled = false;
+
+      renderAuditContext(detail);
+    })
+    .catch(function(e) {
+      verdictStatus.textContent = "Error: " + e.message;
+    });
+  }
+
+  function markCurrentDecision() {
+    if (!viewer || !currentGameId) return;
+    var snapIdx = viewer.getCurrentIndex();
+
+    verdictStatus.textContent = "Finding decisions at snapshot " + snapIdx + "...";
+
+    fetch("/api/decisions-at-snapshot/" + currentGameId + "/" + snapIdx)
+      .then(function(r) { return r.json(); })
+      .then(function(decisions) {
+        if (decisions.length === 0) {
+          verdictStatus.textContent = "No decision at snapshot " + snapIdx;
+          return;
+        }
+        if (decisions.length === 1) {
+          selectDecisionDirect(currentGameId, decisions[0].decision_index);
+          return;
+        }
+        // Multiple decisions — show disambiguation
+        showDisambiguation(decisions);
+      })
+      .catch(function(e) {
+        verdictStatus.textContent = "Error: " + e.message;
+      });
+  }
+
+  function showDisambiguation(decisions) {
+    disambigList.innerHTML = "";
+    decisions.forEach(function(d) {
+      var item = document.createElement("div");
+      item.className = "disambig-item";
+      item.innerHTML =
+        '<span class="disambig-player">' + escapeHtml(d.player) + '</span>' +
+        ' <span class="disambig-turn">T' + d.turn + ' ' + escapeHtml(d.phase || '') + '</span>' +
+        '<div class="disambig-message">' + escapeHtml(d.message) + '</div>' +
+        '<div class="disambig-chosen">Chose: ' + escapeHtml(d.chosen) + '</div>';
+      item.addEventListener("click", function() {
+        disambigOverlay.classList.add("hidden");
+        selectDecisionDirect(currentGameId, d.decision_index);
+      });
+      disambigList.appendChild(item);
+    });
+    disambigOverlay.classList.remove("hidden");
+  }
+
+  markCurrentBtn.addEventListener("click", markCurrentDecision);
+
+  disambigCancel.addEventListener("click", function() {
+    disambigOverlay.classList.add("hidden");
+  });
+  disambigOverlay.addEventListener("click", function(e) {
+    if (e.target === disambigOverlay) disambigOverlay.classList.add("hidden");
+  });
+
   // -- Keyboard shortcuts --
 
   document.addEventListener("keydown", function(e) {
+    // Close disambiguation overlay on Escape
+    if (e.key === "Escape" && !disambigOverlay.classList.contains("hidden")) {
+      disambigOverlay.classList.add("hidden");
+      e.preventDefault();
+      return;
+    }
     // Don't intercept when typing in notes or in viewer inputs
     if (e.target === notesInput) {
       if (e.key === "Enter" && !e.shiftKey) {
@@ -846,6 +1048,11 @@ body {
       case "Enter":
         e.preventDefault();
         submitVerdict();
+        break;
+      case "m":
+      case "M":
+        e.preventDefault();
+        markCurrentDecision();
         break;
       case "s":
       case "S":

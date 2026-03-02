@@ -23,6 +23,10 @@ from blunder_eval_common import (
     compute_aftermath_index,
     decision_index as get_decision_index,
     game_path_for_id,
+    is_cast_rolled_back,
+    is_forced,
+    is_mana_ability_subdecision,
+    is_rolled_back,
     load_game,
     load_game_ground_truth,
     load_ground_truth,
@@ -229,6 +233,47 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     return audited_entry
 
 
+def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
+    """Find all interesting decisions at a given snapshot index.
+
+    Checks both snapshot_index (before the decision) and aftermath_index
+    (after the decision resolved). Excludes forced, rolled-back, and
+    mana-ability sub-decisions.
+    """
+    decisions = _load_decisions_cached(game_id)
+    game_data = _load_game_cached(game_id)
+    snapshots = game_data.get("snapshots", [])
+
+    results = []
+    seen_di: set[int] = set()
+
+    for d in decisions:
+        if is_forced(d) or is_rolled_back(d) or is_cast_rolled_back(d):
+            continue
+        if is_mana_ability_subdecision(d):
+            continue
+
+        di = get_decision_index(d)
+        s_idx = get_snapshot_index(d)
+        a_idx = compute_aftermath_index(d, snapshots)
+
+        if s_idx == snap_idx or a_idx == snap_idx:
+            if di not in seen_di:
+                seen_di.add(di)
+                results.append({
+                    "decision_index": di,
+                    "player": d.get("player", "?"),
+                    "turn": d.get("turn", "?"),
+                    "phase": d.get("phase", "?"),
+                    "message": d.get("message", "?"),
+                    "chosen": chosen_display(d),
+                    "snapshot_index": s_idx,
+                    "aftermath_index": a_idx,
+                })
+
+    return results
+
+
 def _compute_stats() -> dict:
     """Compute audit progress stats."""
     all_gt = load_ground_truth()
@@ -334,6 +379,27 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 detail = _build_play_detail(game_id, di)
                 self._send_json(detail)
+            except Exception as e:
+                self._send_error(500, str(e))
+            return
+
+        # API: decisions at a snapshot index
+        if path.startswith("/api/decisions-at-snapshot/"):
+            parts = path.split("/")
+            if len(parts) != 5:
+                self._send_error(
+                    400, "Expected /api/decisions-at-snapshot/{game_id}/{snapshot_index}"
+                )
+                return
+            game_id = parts[3]
+            try:
+                snap_idx = int(parts[4])
+            except ValueError:
+                self._send_error(400, "Invalid snapshot index")
+                return
+            try:
+                results = _find_decisions_at_snapshot(game_id, snap_idx)
+                self._send_json(results)
             except Exception as e:
                 self._send_error(500, str(e))
             return
