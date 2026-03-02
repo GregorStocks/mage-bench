@@ -27,10 +27,20 @@ function serveGzPlugin() {
   };
 }
 
+// Load hostname from config for Vite's allowedHosts (remote access via tunnel/DNS).
+// Config file only exists on dev machines, not in CI.
+const configPath = path.join(process.env.HOME || '', '.mage-bench', 'config.json');
+const allowedHosts = fs.existsSync(configPath)
+  ? [JSON.parse(fs.readFileSync(configPath, 'utf-8')).hostname]
+  : [];
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://mage-bench.com',
   vite: {
     plugins: [serveGzPlugin()],
+    server: {
+      allowedHosts,
+    },
   },
 });

@@ -33,7 +33,7 @@ Use real timestamps (the actual time you're creating the issue), not `00:00:00` 
 | `labels` | string[] | Tags like "spectator", "bridge", "puppeteer" |
 | `created_at` | string | ISO 8601 timestamp |
 | `updated_at` | string | ISO 8601 timestamp |
-| `not_autoclaimable` | bool? | If true, `autoclaim-issue.py` skips this issue (has preconditions) |
+| `not_autoclaimable` | bool? | If true, `autoclaim-issue.py` skips this issue (has preconditions). **Do NOT set this unless Gregor explicitly says to.** Most issues should be autoclaimable. |
 
 ## Querying
 

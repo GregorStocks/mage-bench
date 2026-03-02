@@ -271,6 +271,15 @@ const { slug } = Astro.params;
 
         viewer = GameViewer.create(viewerContainer, game, {
           initialSnapshot: initialSnapshot,
+          onSnapshotChange: function (index) {
+            var url = new URL(window.location);
+            if (index === 0) {
+              url.searchParams.delete("s");
+            } else {
+              url.searchParams.set("s", index);
+            }
+            history.replaceState(null, "", url);
+          },
         });
 
         // Auto-focus the viewer for keyboard navigation

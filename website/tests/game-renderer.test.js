@@ -756,3 +756,144 @@ describe("makeCardChip with zero power", () => {
   });
 });
 
+// ── makeCardThumbnail data-card-id ──────────────────────────
+
+describe("makeCardThumbnail data-card-id", () => {
+  const mockPreviewEls = {
+    container: document.createElement("div"),
+    image: document.createElement("img"),
+    name: document.createElement("div"),
+    cost: document.createElement("div"),
+    type: document.createElement("div"),
+    stats: document.createElement("div"),
+    rules: document.createElement("pre"),
+  };
+
+  it("sets data-card-id when cardObj has id", () => {
+    const thumb = R.makeCardThumbnail("Lightning Bolt", { id: "p26", name: "Lightning Bolt" }, {}, false, mockPreviewEls);
+    expect(thumb.getAttribute("data-card-id")).toBe("p26");
+  });
+
+  it("omits data-card-id when cardObj has no id", () => {
+    const thumb = R.makeCardThumbnail("Lightning Bolt", { name: "Lightning Bolt" }, {}, false, mockPreviewEls);
+    expect(thumb.getAttribute("data-card-id")).toBeNull();
+  });
+
+  it("omits data-card-id when cardObj is null", () => {
+    const thumb = R.makeCardThumbnail("Lightning Bolt", null, {}, false, mockPreviewEls);
+    expect(thumb.getAttribute("data-card-id")).toBeNull();
+  });
+});
+
+// ── drawTargetArrows ────────────────────────────────────────
+
+describe("drawTargetArrows", () => {
+  function makeGameLeft() {
+    const gameLeft = document.createElement("div");
+    gameLeft.style.position = "relative";
+    document.body.appendChild(gameLeft);
+    return gameLeft;
+  }
+
+  function cleanup(el) {
+    if (el.parentNode) el.parentNode.removeChild(el);
+  }
+
+  it("does not create SVG when no stack items with targets", () => {
+    const gameLeft = makeGameLeft();
+    const stackItem = document.createElement("div");
+    stackItem.className = "stack-item";
+    gameLeft.appendChild(stackItem);
+
+    R.drawTargetArrows(gameLeft);
+    expect(gameLeft.querySelector(".target-arrows-svg")).toBeNull();
+    cleanup(gameLeft);
+  });
+
+  it("removes previous SVG overlay on re-call", () => {
+    const gameLeft = makeGameLeft();
+
+    // Create a fake previous SVG
+    const oldSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    oldSvg.setAttribute("class", "target-arrows-svg");
+    oldSvg.id = "old-svg";
+    gameLeft.appendChild(oldSvg);
+
+    R.drawTargetArrows(gameLeft);
+    expect(gameLeft.querySelector("#old-svg")).toBeNull();
+    cleanup(gameLeft);
+  });
+
+  it("creates SVG with path when target element exists", () => {
+    const gameLeft = makeGameLeft();
+
+    // Stack item targeting a card
+    const stackItem = document.createElement("div");
+    stackItem.className = "stack-item";
+    stackItem.setAttribute("data-target-ids", "p10");
+    stackItem.setAttribute("data-target-names", "Dark Depths");
+    const thumb = document.createElement("div");
+    thumb.className = "card-thumb";
+    stackItem.appendChild(thumb);
+    gameLeft.appendChild(stackItem);
+
+    // Target card on battlefield
+    const target = document.createElement("div");
+    target.className = "card-thumb";
+    target.setAttribute("data-card-id", "p10");
+    gameLeft.appendChild(target);
+
+    R.drawTargetArrows(gameLeft);
+    const svg = gameLeft.querySelector(".target-arrows-svg");
+    expect(svg).not.toBeNull();
+    // 2 paths per arrow: glow layer + main line
+    expect(svg.querySelectorAll("path").length).toBe(2);
+    cleanup(gameLeft);
+  });
+
+  it("matches player targets by data-player-name", () => {
+    const gameLeft = makeGameLeft();
+
+    // Stack item targeting a player
+    const stackItem = document.createElement("div");
+    stackItem.className = "stack-item";
+    stackItem.setAttribute("data-target-ids", "p1");
+    stackItem.setAttribute("data-target-names", "Opponent");
+    const thumb = document.createElement("div");
+    thumb.className = "card-thumb";
+    stackItem.appendChild(thumb);
+    gameLeft.appendChild(stackItem);
+
+    // Player header
+    const header = document.createElement("div");
+    header.className = "player-header";
+    header.setAttribute("data-player-name", "Opponent");
+    gameLeft.appendChild(header);
+
+    R.drawTargetArrows(gameLeft);
+    const svg = gameLeft.querySelector(".target-arrows-svg");
+    expect(svg).not.toBeNull();
+    // 2 paths per arrow: glow layer + main line
+    expect(svg.querySelectorAll("path").length).toBe(2);
+    cleanup(gameLeft);
+  });
+
+  it("draws no SVG when target not found in DOM", () => {
+    const gameLeft = makeGameLeft();
+
+    const stackItem = document.createElement("div");
+    stackItem.className = "stack-item";
+    stackItem.setAttribute("data-target-ids", "p99");
+    stackItem.setAttribute("data-target-names", "Ghost");
+    const thumb = document.createElement("div");
+    thumb.className = "card-thumb";
+    stackItem.appendChild(thumb);
+    gameLeft.appendChild(stackItem);
+
+    R.drawTargetArrows(gameLeft);
+    // No matching target, so no paths drawn, so no SVG appended
+    expect(gameLeft.querySelector(".target-arrows-svg")).toBeNull();
+    cleanup(gameLeft);
+  });
+});
+
