@@ -18,9 +18,9 @@ const formats: Record<string, any> = (benchmarkData as any).formats ?? {
   combined: { totalGames: benchmarkData.totalGames, models: benchmarkData.models },
 };
 
-// Only show tabs for formats that have games (always show jumpstart)
+// Only show tabs for formats that have games (always show combined)
 const activeFormats = FORMAT_ORDER.filter(
-  (f) => f === 'jumpstart' || (formats[f] && formats[f].totalGames > 0)
+  (f) => f === 'combined' || (formats[f] && formats[f].totalGames > 0)
 );
 
 const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length > 1;
@@ -42,7 +42,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
     <div class="format-tabs" id="format-tabs" style={activeFormats.length <= 1 ? 'display:none' : ''}>
       {activeFormats.map((fmt: string) => (
-        <button class:list={['format-tab', { active: fmt === 'jumpstart' }]} data-format={fmt}>
+        <button class:list={['format-tab', { active: fmt === 'combined' }]} data-format={fmt}>
           {FORMAT_LABELS[fmt] || fmt}
           <span class="tab-count">({(formats[fmt]?.totalGames ?? 0)})</span>
         </button>
@@ -57,7 +57,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     <p class="scoring-link"><a href="/scoring">How scoring works</a></p>
 
     <div class="table-wrap">
-      <table id="leaderboard-table" class="format-jumpstart">
+      <table id="leaderboard-table" class="format-combined">
         <thead>
           <tr>
             <th class="rank-col">#</th>
@@ -71,7 +71,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           </tr>
         </thead>
         {activeFormats.map((fmt: string) => (
-          <tbody data-format={fmt} style={fmt !== 'jumpstart' ? 'display: none;' : ''}>
+          <tbody data-format={fmt} style={fmt !== 'combined' ? 'display: none;' : ''}>
             {(formats[fmt]?.models || []).map((m: any, i: number) => (
               <tr
                 data-model-id={m.modelId}
@@ -118,7 +118,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
-  let activeFormat = 'jumpstart';
+  let activeFormat = 'combined';
 
   function getActiveTbody(): HTMLTableSectionElement {
     return table!.querySelector(`tbody[data-format="${activeFormat}"]`) as HTMLTableSectionElement;
@@ -158,7 +158,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       btn.classList.add('active');
 
       activeFormat = fmt;
-      table!.classList.toggle('format-jumpstart', fmt === 'jumpstart');
+      table!.classList.toggle('format-combined', fmt === 'combined');
       updateGamesLinks();
       applyFilters();
     });

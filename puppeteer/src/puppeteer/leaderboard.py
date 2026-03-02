@@ -594,14 +594,14 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
                 if key in inactive_statuses:
                     model["inactive"] = inactive_statuses[key]
 
-    # Build output with backward-compatible top-level fields from jumpstart (primary format)
-    pool_jumpstart = format_results.get("jumpstart", {"generatedAt": "", "totalGames": 0, "models": []})
+    # Build output with backward-compatible top-level fields from combined (primary rating)
+    pool_combined = format_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
     # Sum games across real pools (not combined, which double-counts)
     total_games = sum(format_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in format_results)
     output = {
-        "generatedAt": pool_jumpstart.get("generatedAt", ""),
+        "generatedAt": pool_combined.get("generatedAt", ""),
         "totalGames": total_games,
-        "models": pool_jumpstart.get("models", []),
+        "models": pool_combined.get("models", []),
         "formats": format_results,
         "minEpoch": MIN_LEADERBOARD_EPOCH,
         "minBlunderVersion": MIN_BLUNDER_VERSION,
