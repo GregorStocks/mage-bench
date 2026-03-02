@@ -250,8 +250,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       if (!rankCell) return;
       if (el.style.display === 'none') {
         rankCell.textContent = '';
+        delete el.dataset.rank;
       } else {
-        rankCell.textContent = String(rank++);
+        const r = rank++;
+        rankCell.textContent = String(r);
+        el.dataset.rank = String(r);
       }
     });
   }
@@ -264,23 +267,24 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
 <style>
   h1 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
   .subtitle {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
     line-height: 1.7;
   }
 
   .subtitle time {
-    color: #e0e0e0;
+    color: var(--text-primary);
   }
 
   .excluded-note {
-    color: #fbbf24;
+    color: var(--color-warning);
     font-size: 0.85rem;
   }
 
@@ -295,23 +299,48 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     font-family: inherit;
     font-size: 0.85rem;
     padding: 0.4rem 0.9rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 20px;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .format-tab:hover {
-    border-color: #e94560;
-    color: #e0e0e0;
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   .format-tab.active {
-    background: #e94560;
-    border-color: #e94560;
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
     color: #fff;
+  }
+
+  .format-tab.active[data-format="standard"] {
+    background: var(--format-standard);
+    border-color: var(--format-standard);
+  }
+
+  .format-tab.active[data-format="modern"] {
+    background: var(--format-modern);
+    border-color: var(--format-modern);
+  }
+
+  .format-tab.active[data-format="legacy"] {
+    background: var(--format-legacy);
+    border-color: var(--format-legacy);
+  }
+
+  .format-tab.active[data-format="commander"] {
+    background: var(--format-commander);
+    border-color: var(--format-commander);
+  }
+
+  .format-tab.active[data-format="combined"] {
+    background: var(--accent-secondary);
+    border-color: var(--accent-secondary);
   }
 
   .tab-count {
@@ -326,17 +355,12 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   .methodology-link a {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     text-decoration: none;
   }
 
   .methodology-link a:hover {
-    color: #e94560;
-  }
-
-  .methodology-link .sep {
-    color: #0f3460;
-    margin: 0 0.3rem;
+    color: var(--accent-primary);
   }
 
   .inactive-toggle {
@@ -344,11 +368,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     align-items: center;
     gap: 0.5rem;
     font-size: 0.85rem;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     cursor: pointer;
     white-space: nowrap;
     margin-left: auto;
-    border-bottom: 1px dotted #a0a0b8;
+    border-bottom: 1px dotted var(--text-secondary);
     padding-bottom: 1px;
   }
 
@@ -364,7 +388,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     display: inline-block;
     width: 32px;
     height: 18px;
-    background: #0f3460;
+    background: var(--border-default);
     border-radius: 9px;
     transition: background 0.2s;
     flex-shrink: 0;
@@ -376,13 +400,13 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     left: 2px;
     width: 14px;
     height: 14px;
-    background: #a0a0b8;
+    background: var(--text-secondary);
     border-radius: 50%;
     transition: transform 0.2s, background 0.2s;
   }
 
   .inactive-toggle input:checked + .toggle-track {
-    background: #e94560;
+    background: var(--accent-primary);
   }
 
   .inactive-toggle input:checked + .toggle-track .toggle-thumb {
@@ -405,8 +429,8 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   th {
     text-align: left;
     padding: 0.6rem 0.75rem;
-    border-bottom: 2px solid #0f3460;
-    color: #a0a0b8;
+    border-bottom: 2px solid var(--border-default);
+    color: var(--text-secondary);
     font-weight: 600;
     cursor: pointer;
     user-select: none;
@@ -415,11 +439,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   th:hover {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   th.sorted {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   .sort-arrow {
@@ -431,7 +455,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   td {
     padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   .rank-col {
@@ -442,13 +466,16 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   .rank-cell {
     text-align: center;
-    color: #a0a0b8;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
     font-variant-numeric: tabular-nums;
   }
 
   .model-name {
     font-weight: 600;
-    color: #e0e0e0;
+    color: var(--text-primary);
   }
 
   .num {
@@ -457,7 +484,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   .games-link {
-    color: #e94560;
+    color: var(--accent-primary);
     text-decoration: none;
   }
 
@@ -466,15 +493,15 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   .blunder-good {
-    color: #a8d9a5;
+    color: var(--color-success);
   }
 
   .blunder-ok {
-    color: #fbbf24;
+    color: var(--color-warning);
   }
 
   .blunder-bad {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   th[data-sort="rating"],
@@ -485,17 +512,39 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     text-align: right;
   }
 
-
-  tbody tr {
-    transition: background 0.15s;
+  /* Medal treatment for top 3 */
+  tbody tr[data-rank="1"] {
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.08), transparent 50%);
+    box-shadow: inset 3px 0 0 #ffd700;
   }
 
-  tbody tr:nth-child(even) {
+  tbody tr[data-rank="1"] .rank-cell { color: #ffd700; }
+
+  tbody tr[data-rank="2"] {
+    background: linear-gradient(to right, rgba(192, 192, 192, 0.06), transparent 50%);
+    box-shadow: inset 3px 0 0 #c0c0c0;
+  }
+
+  tbody tr[data-rank="2"] .rank-cell { color: #c0c0c0; }
+
+  tbody tr[data-rank="3"] {
+    background: linear-gradient(to right, rgba(205, 127, 50, 0.06), transparent 50%);
+    box-shadow: inset 3px 0 0 #cd7f32;
+  }
+
+  tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
+
+  tbody tr {
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+
+  tbody tr:nth-child(even):not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
     background: rgba(22, 33, 62, 0.3);
   }
 
   tbody tr:hover {
-    background: rgba(233, 69, 96, 0.08);
+    background: rgba(var(--accent-primary-rgb), 0.12);
+    box-shadow: inset 3px 0 0 var(--accent-primary);
   }
 
   tbody tr.inactive {
@@ -503,19 +552,19 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   .inactive-label {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-weight: 400;
   }
 
   .no-results {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-style: italic;
     text-align: center;
     padding: 2rem 0;
   }
 
   .empty-state {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     text-align: center;
     padding: 4rem 0;
     font-size: 1.1rem;

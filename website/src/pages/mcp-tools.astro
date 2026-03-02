@@ -154,15 +154,18 @@ function getOutputFields(tool: any) {
 
 <style>
   h1 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin-bottom: 1.5rem;
   }
 
   h2 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin: 2.5rem 0 0.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #0f3460;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary)) 1;
   }
 
   h3 {
@@ -170,9 +173,10 @@ function getOutputFields(tool: any) {
   }
 
   h3 code {
+    font-family: var(--font-mono);
     font-size: 1.1rem;
-    color: #e94560;
-    background: #16213e;
+    color: var(--accent-primary);
+    background: var(--bg-surface);
     padding: 0.2rem 0.5rem;
     border-radius: 3px;
   }
@@ -183,32 +187,34 @@ function getOutputFields(tool: any) {
   }
 
   a {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   .toolset-note {
-    background: rgba(15, 52, 96, 0.4);
-    border: 1px solid #0f3460;
+    background: rgba(var(--accent-secondary-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-secondary-rgb), 0.25);
+    border-left: 3px solid var(--accent-secondary);
     border-radius: 4px;
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
-    color: #a0a0b8;
+    color: var(--text-secondary);
   }
 
   .toolset-note code {
-    color: #e94560;
+    font-family: var(--font-mono);
+    color: var(--accent-primary);
     font-size: 0.85rem;
   }
 
   .category-desc {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     margin-bottom: 1rem;
   }
 
   .tool {
     margin-bottom: 1.5rem;
     padding: 1rem;
-    border: 1px solid #0f3460;
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     background: rgba(22, 33, 62, 0.3);
   }
@@ -227,30 +233,31 @@ function getOutputFields(tool: any) {
   th {
     text-align: left;
     padding: 0.5rem;
-    border-bottom: 1px solid #0f3460;
-    color: #a0a0b8;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-secondary);
     font-weight: 600;
   }
 
   td {
     padding: 0.5rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   td code {
-    color: #e94560;
+    font-family: var(--font-mono);
+    color: var(--accent-primary);
     font-size: 0.85rem;
   }
 
   .no-params {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-style: italic;
     font-size: 0.9rem;
     margin-bottom: 0;
   }
 
   h4 {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     margin: 1rem 0 0.25rem;
     text-transform: uppercase;
@@ -258,7 +265,7 @@ function getOutputFields(tool: any) {
   }
 
   .condition {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     white-space: nowrap;
   }
@@ -268,7 +275,7 @@ function getOutputFields(tool: any) {
   }
 
   .examples summary {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -277,34 +284,36 @@ function getOutputFields(tool: any) {
   }
 
   .examples summary:hover {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   .example-label {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.8rem;
     font-weight: 600;
     margin: 0.5rem 0 0.25rem;
   }
 
   pre {
-    background: #0d1b2a;
-    border: 1px solid #0f3460;
+    background: var(--bg-deep);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     padding: 0.75rem;
     overflow-x: auto;
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     margin: 0 0 0.5rem;
     line-height: 1.5;
   }
 
   pre code {
+    font-family: var(--font-mono);
     color: #c0c0d0;
   }
 
   .source-link {
     margin-top: 2rem;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.9rem;
   }
 </style>

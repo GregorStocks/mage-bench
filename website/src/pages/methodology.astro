@@ -105,40 +105,44 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
 <style>
   h1 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
   h2 {
-    color: #e0e0e0;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-    border-bottom: 1px solid #0f3460;
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary)) 1;
   }
 
   h3 {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   p {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 1rem;
   }
 
   a {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   code {
-    background: #16213e;
+    font-family: var(--font-mono);
+    background: var(--bg-deep);
     padding: 0.15rem 0.4rem;
     border-radius: 3px;
     font-size: 0.85em;
-    color: #e0e0e0;
+    color: var(--accent-secondary);
   }
 
   .weights-table {
@@ -151,15 +155,15 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   .weights-table th {
     text-align: left;
     padding: 0.5rem 0.75rem;
-    border-bottom: 2px solid #0f3460;
-    color: #a0a0b8;
+    border-bottom: 2px solid var(--border-default);
+    color: var(--text-secondary);
     font-weight: 600;
   }
 
   .weights-table td {
     padding: 0.5rem 0.75rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
-    color: #e0e0e0;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
   }
 
   .weights-table .num {

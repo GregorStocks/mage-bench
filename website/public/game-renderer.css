@@ -140,13 +140,13 @@
 .player-model {
   font-size: 0.65rem;
   color: #888;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
 }
 
 .player-cost {
   font-size: 0.65rem;
   color: #a8d9a5;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
 }
 
 .player-counters {
@@ -894,7 +894,7 @@
 
 /* Timestamp on every log entry */
 .entry-ts {
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.75em;
   color: #555;
   margin-right: 0.35rem;
@@ -963,7 +963,7 @@
 
 .llm-compact {
   color: #888;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.72rem;
   padding: 1px 0;
   display: flex;
@@ -990,7 +990,7 @@
 
 .llm-tool-detail summary {
   cursor: pointer;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   padding: 1px 0;
   list-style: disclosure-closed;
   word-break: break-all;
@@ -1040,7 +1040,7 @@
 .llm-cost {
   color: #666;
   font-size: 0.65rem;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   margin-left: 6px;
 }
 
@@ -1269,7 +1269,7 @@
 #epoch-info {
   font-size: 0.6rem;
   color: #666;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
 }
 
 #epoch-banner {
@@ -1315,7 +1315,7 @@
 
 #error-summary .error-list li {
   margin: 0.15rem 0;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
 }
 
 #error-summary .error-list .error-link {

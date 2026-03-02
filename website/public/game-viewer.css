@@ -30,7 +30,7 @@
   border-radius: 4px;
   padding: 0.35rem 0.6rem;
   cursor: pointer;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.85rem;
   transition: background 0.15s;
 }
@@ -59,7 +59,7 @@
   border-radius: 4px;
   padding: 0.35rem 0.5rem;
   cursor: pointer;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   transition: background 0.15s;
 }
@@ -74,7 +74,7 @@
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   padding: 0.3rem 0.4rem;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   cursor: pointer;
 }
@@ -97,7 +97,7 @@
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   padding: 0.3rem 0.4rem;
-  font-family: monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 0.8rem;
   text-align: center;
   flex-shrink: 0;
