@@ -78,8 +78,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "get_game_state"
+          "arguments": {
+            "index": 0
+          },
+          "name": "choose_action"
         },
         "id": "call_2",
         "type": "function"
@@ -88,32 +90,14 @@
   },
   {
     "content": {
-      "active_player": "",
-      "available": true,
-      "cursor": 1,
+      "action_taken": "auto_selected_required_target",
       "game_seq": 1,
-      "players": [
-        {
-          "hand": [],
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": true,
-          "library_size": 50,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 60,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "",
-      "stack": [],
-      "turn": 1
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Mulligan down to 6 cards?",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true,
+      "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
     },
     "role": "tool",
     "tool_call_id": "call_2"
@@ -124,8 +108,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "get_game_state"
+          "arguments": {
+            "board_cursor": 1
+          },
+          "name": "pass_priority"
         },
         "id": "call_3",
         "type": "function"
@@ -134,32 +120,142 @@
   },
   {
     "content": {
-      "active_player": "",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 1,
-      "players": [
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
         {
-          "hand": [],
-          "hand_size": 0,
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            }
+          ],
+          "hand_size": 7,
           "is_active": false,
           "is_you": true,
-          "library_size": 50,
+          "library_size": 43,
           "life": 20,
           "name": "TestPlayer"
         },
         {
-          "hand_size": 0,
+          "hand_size": 7,
           "is_active": false,
           "is_you": false,
-          "library_size": 60,
+          "library_size": 53,
           "life": 20,
           "name": "Opponent"
         }
       ],
-      "priority_player": "",
-      "stack": [],
-      "turn": 1
+      "board_cursor": 2,
+      "context": "T1 ()",
+      "game_seq": 5,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "choice=yes or choice=no",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        }
+      ]
     },
     "role": "tool",
     "tool_call_id": "call_3"
@@ -170,8 +266,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "get_game_history"
+          "arguments": {
+            "answer": false
+          },
+          "name": "choose_action"
         },
         "id": "call_4",
         "type": "function"
@@ -180,11 +278,325 @@
   },
   {
     "content": {
-      "cursor": 0,
-      "event_count": 0,
-      "history": "No game events recorded yet."
+      "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
+      "error_code": "missing_param",
+      "game_seq": 5,
+      "retryable": true,
+      "success": false
     },
     "role": "tool",
     "tool_call_id": "call_4"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 2
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_5",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board_cursor": 2,
+      "board_unchanged": true,
+      "context": "T1 ()",
+      "game_seq": 5,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "choice=yes or choice=no",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        }
+      ]
+    },
+    "role": "tool",
+    "tool_call_id": "call_5"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_state"
+        },
+        "id": "call_6",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 5,
+      "players": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 43,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "",
+      "stack": [],
+      "turn": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_6"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_state"
+        },
+        "id": "call_7",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 5,
+      "players": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Ancient Tomb",
+              "rules": [
+                "{T}: Add {C}{C}. {this} deals 2 damage to you."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{2}{R}",
+              "name": "Blood Moon",
+              "rules": [
+                "Nonbasic lands are Mountains."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 43,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "",
+      "stack": [],
+      "turn": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_7"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_8",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 14,
+      "event_count": 14,
+      "history": "Turn 1:\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Blood Moon\n    - TestPlayer drew Blood Moon\n    - TestPlayer drew Blood Moon\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_8"
   }
 ]
