@@ -19,6 +19,7 @@ from puppeteer.orchestrator import (
     _wait_for_game_start,
     _wait_with_pilot_monitoring,
     _write_error_log,
+    start_observer_client,
 )
 
 
@@ -598,3 +599,46 @@ def test_setup_game_cleans_up_pilots_on_timeout(
             _setup_game(0, 1, config, MagicMock(), Path("/fake"), log_dir, "20260101_000000")
 
         spectator_proc.terminate.assert_called_once()
+
+
+# --- start_observer_client headless detection tests ---
+
+
+@patch("puppeteer.orchestrator.shutil.which", return_value="/usr/bin/xvfb-run")
+@patch("puppeteer.orchestrator.sys.platform", "linux")
+def test_start_observer_xvfb_on_headless_linux(mock_which):
+    """On headless Linux (no DISPLAY), observer args should be prefixed with xvfb-run."""
+    with patch.dict("os.environ", {}, clear=True):
+        pm = MagicMock()
+        pm.start_process.return_value = MagicMock()
+        config = Config()
+        start_observer_client(pm, Path("/fake/root"), config, Path("/tmp/test.log"))
+        args = pm.start_process.call_args.kwargs["args"]
+        assert args[0] == "/usr/bin/xvfb-run"
+        assert "--auto-servernum" in args
+        assert "mvn" in args
+
+
+@patch("puppeteer.orchestrator.sys.platform", "linux")
+def test_start_observer_no_xvfb_when_display_set():
+    """With DISPLAY set, observer args should NOT be prefixed with xvfb-run."""
+    with patch.dict("os.environ", {"DISPLAY": ":1"}, clear=True):
+        pm = MagicMock()
+        pm.start_process.return_value = MagicMock()
+        config = Config()
+        start_observer_client(pm, Path("/fake/root"), config, Path("/tmp/test.log"))
+        args = pm.start_process.call_args.kwargs["args"]
+        assert args[0] == "mvn"
+
+
+@patch("puppeteer.orchestrator.shutil.which", return_value=None)
+@patch("puppeteer.orchestrator.sys.platform", "linux")
+def test_start_observer_fails_without_xvfb(mock_which):
+    """On headless Linux without xvfb-run, should raise AssertionError."""
+    import pytest
+
+    with patch.dict("os.environ", {}, clear=True):
+        pm = MagicMock()
+        config = Config()
+        with pytest.raises(AssertionError, match="xvfb-run is not installed"):
+            start_observer_client(pm, Path("/fake/root"), config, Path("/tmp/test.log"))
