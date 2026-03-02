@@ -516,37 +516,41 @@ def _run_replay_on_bridge(
     return prompt
 
 
+def _is_game_over(data: dict) -> bool:
+    return bool(data.get("game_over") or data.get("player_dead") or data.get("stop_reason") == "game_over")
+
+
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
-    Uses ``choose_action`` directly (no ``pass_priority``) to respond to
-    each game callback individually — matching the old potato's behaviour
-    of calling ``sendPlayerBoolean(false)`` once per callback.
+    Uses ``choose_action`` to respond to each game callback individually,
+    matching the old potato's behaviour of calling
+    ``sendPlayerBoolean(false)`` once per callback.
 
-    ``pass_priority`` has an internal auto-pass loop that batches multiple
-    callbacks in one call (auto-passes the first GAME_SELECT with playable
-    cards, then returns on the second).  This changes the interaction
-    pattern with the game engine and can cause different game-flow
-    compared to the potato, which handled each callback one-at-a-time.
-
-    ``choose_action`` block-waits up to 10 s for a pending callback, then
-    responds.  For boolean/select prompts "no" passes priority; for index
-    prompts (GAME_CHOOSE_ABILITY etc.) we fall back to index 0 (first
-    option), which is what the potato's ``executeDefaultAction`` did.
+    When ``choose_action`` returns ``no_pending_action`` (no callback within
+    10 s), falls back to ``pass_priority`` which has built-in stall recovery
+    and will wait properly for the next callback.
     """
     while True:
         result = bridge.call_tool("choose_action", {"choice": "no"})
         data = json.loads(result)
-        if data.get("game_over") or data.get("player_dead"):
+        if _is_game_over(data):
             break
         if data.get("error_code") == "no_pending_action":
-            break
+            # No callback in 10 s — game may still be active (e.g. waiting
+            # for the scripted player).  Use pass_priority to wait with
+            # proper stall recovery instead of polling choose_action.
+            result = bridge.call_tool("pass_priority", {})
+            data = json.loads(result)
+            if _is_game_over(data):
+                break
+            continue
         # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE)
         # need an index — select the first option, matching the potato.
         if not data.get("success") and data.get("retryable"):
             result = bridge.call_tool("choose_action", {"choice": "0"})
             data = json.loads(result)
-            if data.get("game_over") or data.get("player_dead"):
+            if _is_game_over(data):
                 break
 
 
