@@ -6,6 +6,8 @@ from puppeteer.decision_renderer import (
     _chosen_display,
     _format_choice,
     _render_card_reference,
+    _render_chosen_block,
+    _resolve_mana_plan,
     permanent_display,
     render_decision,
 )
@@ -386,3 +388,104 @@ class TestChosenDisplay:
     def test_index_chosen(self) -> None:
         choices = [{"name": "Lightning Bolt"}, {"name": "Mountain"}]
         assert _chosen_display(0, {}, choices) == "Lightning Bolt"
+
+
+class TestResolveManaplan:
+    def test_resolves_ids_to_names(self) -> None:
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
+            ]
+        }
+        assert _resolve_mana_plan("p1,p5", snapshot) == "Mountain (p1), Forest (p5)"
+
+    def test_multi_ability_land_selector(self) -> None:
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Stomping Ground", "id": "p5"}]},
+            ]
+        }
+        assert _resolve_mana_plan("p5:1", snapshot) == "Stomping Ground (p5:1)"
+
+    def test_pool_colors_unresolved(self) -> None:
+        snapshot = {"players": [{"battlefield": []}]}
+        assert _resolve_mana_plan("RED,BLUE", snapshot) == "RED, BLUE"
+
+    def test_no_snapshot(self) -> None:
+        assert _resolve_mana_plan("p1,p5:1", None) == "p1, p5:1"
+
+    def test_mixed_ids_and_colors(self) -> None:
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
+            ]
+        }
+        assert _resolve_mana_plan("p1,RED", snapshot) == "Mountain (p1), RED"
+
+
+class TestChosenBlockManaPlan:
+    def test_shows_mana_plan(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": {"choice": "p3", "mana_plan": "p1,p5"},
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
+            ]
+        }
+        block = _render_chosen_block(decision, snapshot)
+        assert "Chosen: Lightning Bolt" in block
+        assert "Mana plan: Mountain (p1), Forest (p5)" in block
+
+    def test_shows_auto_tap_false(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": {"choice": "p3", "mana_plan": "p1", "auto_tap": False},
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
+            ]
+        }
+        block = _render_chosen_block(decision, snapshot)
+        assert "auto_tap=false" in block
+
+    def test_no_mana_plan_no_extra_line(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": {"choice": "p3"},
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+        block = _render_chosen_block(decision)
+        assert "Mana plan" not in block
+
+    def test_mana_plan_in_full_render(self) -> None:
+        snap = _make_snapshot(
+            players=[
+                {
+                    "name": "Alice",
+                    "life": 20,
+                    "library_size": 50,
+                    "battlefield": [{"name": "Mountain", "id": "p1"}],
+                    "graveyard": [],
+                    "hand": [{"name": "Lightning Bolt"}],
+                    "hand_count": 1,
+                    "exile": [],
+                },
+            ]
+        )
+        decision = _make_decision(
+            chosen=0,
+            chosen_args={"choice": "p3", "mana_plan": "p1"},
+        )
+        text = render_decision(decision, snap, include_chosen=True)
+        assert "Mana plan: Mountain (p1)" in text

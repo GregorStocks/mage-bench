@@ -111,7 +111,9 @@ MAX_WORKERS = 50
 # v29: fix batch attack/block decisions rendering as "(no response)" — now shows
 #      actual attackers/blockers from chosenArgs (eliminates false-positive annotations)
 # v30: validate that all required fields are non-null strings (fixes null betterLine)
-BLUNDER_SCRIPT_VERSION = 30
+# v31: include choose_action tool spec in system prompt so annotator understands
+#      mana_plan, batch combat, and other tool parameters; show mana_plan in chosen block
+BLUNDER_SCRIPT_VERSION = 31
 
 # --- Prompt components ---
 
@@ -172,6 +174,30 @@ for them — typically passing or skipping. Treat this like "Chosen: False" \
 for blunder evaluation: if skipping was wrong given the available choices, \
 flag it."""
 
+def _build_tool_reference() -> str:
+    """Build a tool reference section from the MCP tool spec for choose_action."""
+    mcp_tools_path = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json"
+    mcp_tools = json.loads(mcp_tools_path.read_text())
+    tool = next((t for t in mcp_tools if t["name"] == "choose_action"), None)
+    assert tool is not None, "choose_action not found in mcp-tools.json"
+
+    lines = [
+        "## Tool Reference: choose_action",
+        "",
+        f"Players respond to each pending action by calling choose_action. {tool['description']}",
+        "",
+        "Parameters:",
+    ]
+    for name, schema in tool["inputSchema"]["properties"].items():
+        desc = schema.get("description", "")
+        type_ = schema.get("type", "")
+        lines.append(f"- {name} ({type_}): {desc}")
+
+    return "\n".join(lines)
+
+
+TOOL_REFERENCE = _build_tool_reference()
+
 PER_DECISION_SYSTEM = f"""\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
@@ -186,6 +212,8 @@ since then. Use this to understand how the game reached the current state.
 {BLUNDER_EXAMPLES}
 
 {CHOSEN_FALSE_GUIDANCE}
+
+{TOOL_REFERENCE}
 
 {SHARED_SEVERITY}
 

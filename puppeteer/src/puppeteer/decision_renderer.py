@@ -82,7 +82,7 @@ def render_decision(
 
     # Chosen action (for annotator)
     if include_chosen:
-        chosen_block = _render_chosen_block(decision)
+        chosen_block = _render_chosen_block(decision, snapshot)
         if chosen_block:
             decision_parts.append(chosen_block)
 
@@ -313,7 +313,7 @@ def _format_choice(c: object) -> str:
     return parts[0]
 
 
-def _render_chosen_block(decision: dict) -> str:
+def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
@@ -323,6 +323,15 @@ def _render_chosen_block(decision: dict) -> str:
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
     lines.append(f"  Chosen: {chosen_name}")
+
+    # Show mana plan if the player specified one
+    mana_plan = chosen_args.get("mana_plan")
+    if mana_plan:
+        resolved = _resolve_mana_plan(mana_plan, snapshot)
+        plan_str = f"  Mana plan: {resolved}"
+        if chosen_args.get("auto_tap") is False:
+            plan_str += " (auto_tap=false)"
+        lines.append(plan_str)
 
     # Show targeting / activation details from subsequent actions.
     # These are part of the decision itself (what the player targeted), not
@@ -342,6 +351,32 @@ def _render_chosen_block(decision: dict) -> str:
         )
 
     return "\n".join(lines)
+
+
+def _resolve_mana_plan(mana_plan: str, snapshot: dict | None) -> str:
+    """Resolve mana_plan permanent IDs to readable names using the snapshot."""
+    # Build ID -> name map from battlefield permanents
+    id_to_name: dict[str, str] = {}
+    if snapshot:
+        for p in snapshot.get("players", []):
+            for perm in p.get("battlefield", []):
+                if isinstance(perm, dict) and perm.get("id"):
+                    id_to_name[perm["id"]] = perm.get("name", perm["id"])
+
+    parts: list[str] = []
+    for entry in mana_plan.split(","):
+        entry = entry.strip()
+        if not entry:
+            continue
+        # Format: "p1" or "p5:1" (ability selector) or "RED"/"BLUE" (pool color)
+        base_id = entry.split(":")[0]
+        name = id_to_name.get(base_id)
+        if name:
+            parts.append(f"{name} ({entry})")
+        else:
+            parts.append(entry)
+
+    return ", ".join(parts)
 
 
 def _chosen_display(
