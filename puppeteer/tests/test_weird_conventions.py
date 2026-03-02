@@ -7,7 +7,9 @@ convention that's easy to violate and tedious to police manually.
 
 import ast
 import json
+import os
 import re
+import subprocess
 from pathlib import Path
 from typing import Any, ClassVar
 
@@ -42,11 +44,78 @@ def _load_json(path: Path) -> Any:
     return json.loads(path.read_text())
 
 
-def _glob_game_files() -> list[Path]:
+def _all_game_files() -> list[Path]:
     gz_files = set(GAMES_DIR.glob("game_*.json.gz"))
     gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
     json_files = [p for p in GAMES_DIR.glob("game_*.json") if p.name not in gz_stems]
     return sorted(gz_files | set(json_files))
+
+
+def _changed_game_filenames() -> set[str] | None:
+    """Return filenames of game exports changed since master, or None for all.
+
+    Returns None (= validate everything) when on master, when the export
+    script or schema changed, or when git commands fail.
+    """
+    try:
+        branch = subprocess.run(
+            ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+        if branch == "master":
+            return None
+
+        merge_base = subprocess.run(
+            ["git", "merge-base", "master", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+
+        diff_result = subprocess.run(
+            ["git", "diff", "--name-only", merge_base],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        untracked_result = subprocess.run(
+            ["git", "ls-files", "--others", "--exclude-standard"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+
+        changed = set(diff_result.stdout.strip().splitlines())
+        changed.update(untracked_result.stdout.strip().splitlines())
+
+        # If export script or schema changed, validate everything
+        if changed & {"scripts/export_game.py", "schemas/game-export-v2.schema.json"}:
+            return None
+
+        prefix = "website/public/games/"
+        return {f.removeprefix(prefix) for f in changed if f.startswith(prefix)}
+    except subprocess.CalledProcessError:
+        return None
+
+
+def _glob_game_files() -> list[Path]:
+    """Game export files to validate.
+
+    By default only files changed since master are returned.
+    Set CHECK_ALL_EXPORTS=1 to validate every export.
+    """
+    all_files = _all_game_files()
+
+    if os.environ.get("CHECK_ALL_EXPORTS") == "1":
+        return all_files
+
+    changed = _changed_game_filenames()
+    if changed is None:
+        return all_files
+
+    return [f for f in all_files if f.name in changed]
 
 
 # ---------------------------------------------------------------------------
