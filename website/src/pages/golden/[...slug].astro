@@ -1164,7 +1164,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
   // Set up mouse-following card preview
   R.setupMousePreview(previewEls.container);
 
-  // Render first snapshot (or jump to ?s=N if specified)
+  // Render snapshot (jump to ?s=N if specified, otherwise default to final)
   var params = new URLSearchParams(window.location.search);
   var startSnap = params.get("s");
   if (startSnap !== null) {
@@ -1172,10 +1172,10 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     if (!isNaN(snapNum) && snapNum >= 0 && snapNum < game.snapshots.length) {
       goTo(snapNum);
     } else {
-      renderSnapshot(0);
+      goTo(game.snapshots.length - 1);
     }
   } else {
-    renderSnapshot(0);
+    goTo(game.snapshots.length - 1);
   }
 
   window.addEventListener("blur", function () { R.hidePreview(previewEls); });

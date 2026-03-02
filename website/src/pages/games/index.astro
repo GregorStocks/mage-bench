@@ -124,17 +124,18 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
 <style>
   h1 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
   .subtitle {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     margin-bottom: 2rem;
   }
 
   .loading {
-    color: #a0a0b8;
+    color: var(--text-secondary);
   }
 </style>
 
@@ -150,23 +151,43 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     font-family: inherit;
     font-size: 0.85rem;
     padding: 0.4rem 0.9rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 20px;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .format-tab:hover {
-    border-color: #e94560;
-    color: #e0e0e0;
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   .format-tab.active {
-    background: #e94560;
-    border-color: #e94560;
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
     color: #fff;
+  }
+
+  .format-tab.active[data-format="standard"] {
+    background: var(--format-standard);
+    border-color: var(--format-standard);
+  }
+
+  .format-tab.active[data-format="modern"] {
+    background: var(--format-modern);
+    border-color: var(--format-modern);
+  }
+
+  .format-tab.active[data-format="legacy"] {
+    background: var(--format-legacy);
+    border-color: var(--format-legacy);
+  }
+
+  .format-tab.active[data-format="commander"] {
+    background: var(--format-commander);
+    border-color: var(--format-commander);
   }
 
   .tab-count {
@@ -197,23 +218,23 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     font-family: inherit;
     font-size: 0.8rem;
     padding: 0.3rem 0.7rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 20px;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s;
   }
 
   .model-tab:hover {
-    border-color: #e94560;
-    color: #e0e0e0;
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   .model-tab.active {
-    background: rgba(233, 69, 96, 0.15);
-    border-color: #e94560;
-    color: #e94560;
+    background: rgba(var(--accent-primary-rgb), 0.15);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
   }
 
   .filter-bar {
@@ -280,25 +301,32 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
 <style is:global>
   .no-games {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-style: italic;
   }
 
   .game-card {
     display: block;
     margin-bottom: 1rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     text-decoration: none;
-    color: #e0e0e0;
-    transition: border-color 0.2s;
+    color: var(--text-primary);
+    transition: border-color 0.2s, transform 0.2s;
     overflow: hidden;
   }
 
   .game-card:hover {
-    border-color: #e94560;
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
   }
+
+  .game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
+  .game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
+  .game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
+  .game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
+  .game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
 
   .game-header {
     display: flex;
@@ -311,7 +339,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .game-date {
-    color: #a0a0b8;
+    color: var(--text-secondary);
   }
 
   .format-badge {
@@ -344,24 +372,24 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .game-turns {
-    color: #a0a0b8;
+    color: var(--text-secondary);
   }
 
-  .game-winner {
-    font-weight: 600;
-  }
-
-  .winner-none {
-    color: #a0a0b8;
-    font-style: italic;
-  }
-
-  .winner-found {
-    color: #a8d9a5;
+  .winner-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 0.4rem;
   }
 
   .yt-link {
-    color: #e94560;
+    color: var(--accent-primary);
     text-decoration: none;
     font-size: 0.75rem;
     margin-left: 0.5rem;
@@ -391,7 +419,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .player-cell.is-winner {
-    box-shadow: inset 3px 0 0 #a8d9a5;
+    box-shadow: inset 3px 0 0 var(--color-success);
+    background: rgba(168, 217, 165, 0.04);
   }
 
   .player-name {
@@ -405,7 +434,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .player-model-inline {
     font-size: 0.75rem;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-weight: 400;
   }
 
@@ -496,15 +525,15 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .player-blunder-score.blunder-low {
-    color: #a8d9a5;
+    color: var(--color-success);
   }
 
   .player-blunder-score.blunder-med {
-    color: #fbbf24;
+    color: var(--color-warning);
   }
 
   .player-blunder-score.blunder-high {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   .epoch-badge {
@@ -724,6 +753,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     // Format badge
     var formatKey = getGameFormat(game.deckType);
     var formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
+    a.dataset.format = formatKey;
     var fmtBadge = document.createElement("span");
     fmtBadge.className = "format-badge format-" + formatLabel.toLowerCase();
     fmtBadge.textContent = formatLabel;
@@ -734,15 +764,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     turnsEl.textContent = game.totalTurns + " turns";
     header.appendChild(turnsEl);
 
-    var winnerEl = document.createElement("span");
-    if (game.winner) {
-      winnerEl.className = "game-winner winner-found";
-      winnerEl.textContent = "\u2605 " + game.winner;
-    } else {
-      winnerEl.className = "game-winner winner-none";
-      winnerEl.textContent = "No winner";
-    }
-    header.appendChild(winnerEl);
 
     // Old harness badge
     var epoch = game.harnessEpoch || 1;
@@ -788,6 +809,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
       var nameText = document.createTextNode(p.name);
       nameRow.appendChild(nameText);
+
+      if (game.winner && p.name === game.winner) {
+        var badge = document.createElement("span");
+        badge.className = "winner-badge";
+        badge.textContent = "WINNER";
+        nameRow.appendChild(badge);
+      }
 
       if (p.model) {
         var modelName = p.model;

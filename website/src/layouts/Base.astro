@@ -25,6 +25,9 @@ const navLinks = [
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <title>{title} | mage-bench</title>
   </head>
   <body>
@@ -44,29 +47,69 @@ const navLinks = [
       <slot />
     </main>
     <footer>
-      <p>
+      <p class="footer-tagline">LLMs play Magic: The Gathering.</p>
+      <div class="footer-links">
         <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
-        <span class="sep">|</span>
         <a href="/contact">Contact</a>
-      </p>
+      </div>
     </footer>
   </body>
 </html>
 
 <style>
+  :global(:root) {
+    --bg-base: #1a1a2e;
+    --bg-surface: #16213e;
+    --bg-elevated: #1e2a4a;
+    --bg-deep: #0d1b2a;
+    --border-default: #0f3460;
+    --border-subtle: rgba(15, 52, 96, 0.5);
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0b8;
+    --text-muted: #666;
+    --accent-primary: #e94560;
+    --accent-primary-rgb: 233, 69, 96;
+    --accent-secondary: #14b8a6;
+    --accent-secondary-rgb: 20, 184, 166;
+    --color-success: #a8d9a5;
+    --color-warning: #fbbf24;
+    --color-danger: #ef4444;
+    --format-standard: #66bb6a;
+    --format-modern: #42a5f5;
+    --format-legacy: #ab47bc;
+    --format-commander: #ffa726;
+    --format-jumpstart: #e94560;
+    --font-heading: 'Rajdhani', system-ui, sans-serif;
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
   :global(*, *::before, *::after) {
     box-sizing: border-box;
     margin: 0;
   }
 
   :global(body) {
-    font-family: system-ui, -apple-system, sans-serif;
-    color: #e0e0e0;
-    background: #1a1a2e;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: var(--bg-base);
+    background-image: radial-gradient(ellipse at 20% 0%, rgba(15, 52, 96, 0.4) 0%, transparent 60%),
+                      radial-gradient(ellipse at 80% 100%, rgba(233, 69, 96, 0.06) 0%, transparent 50%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
+
+  :global(body)::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: -1;
+  }
+
 
   nav {
     display: flex;
@@ -74,15 +117,22 @@ const navLinks = [
     flex-wrap: wrap;
     gap: 0.5rem 2rem;
     padding: 1rem 2rem;
-    background: #16213e;
-    border-bottom: 1px solid #0f3460;
+    background: rgba(22, 33, 62, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-default);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   .site-title {
-    font-size: 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
     font-weight: 700;
-    color: #e94560;
+    color: var(--accent-primary);
     text-decoration: none;
+    letter-spacing: 0.02em;
   }
 
   nav ul {
@@ -94,14 +144,31 @@ const navLinks = [
   }
 
   nav a {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
+    position: relative;
+    font-weight: 600;
+    font-size: 0.9rem;
   }
 
-  nav a:hover,
+  nav a:hover {
+    color: var(--accent-primary);
+  }
+
   nav a.active {
-    color: #e94560;
+    color: var(--accent-primary);
+  }
+
+  nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    border-radius: 1px;
   }
 
   main {
@@ -118,21 +185,42 @@ const navLinks = [
 
   footer {
     text-align: center;
-    padding: 2rem;
-    color: #666;
-    border-top: 1px solid #0f3460;
+    padding: 3rem 2rem 2rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-default);
+    background: linear-gradient(to bottom, var(--bg-base), var(--bg-deep));
   }
 
-  footer .sep {
-    margin: 0 0.5rem;
+  .footer-tagline {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
   }
 
   footer a {
-    color: #a0a0b8;
+    color: var(--text-secondary);
     text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
   }
 
   footer a:hover {
-    color: #e94560;
+    color: var(--accent-primary);
+  }
+
+  @media (max-width: 600px) {
+    nav {
+      position: relative;
+    }
   }
 </style>

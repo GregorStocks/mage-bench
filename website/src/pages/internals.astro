@@ -274,7 +274,7 @@ if (fs.existsSync(exportsDir)) {
     // State
     let currentMetric = 'timeoutRate';
     let currentFormat = 'all';
-    let selectedModels = new Set(allModels.slice(0, 5).map(m => m[0]));
+    let selectedModels = new Set(allModels.map(m => m[0]));
     let minEpochTrend = trendData.minLeaderboardEpoch;
     let smoothingWindow = 5;
 
@@ -920,7 +920,8 @@ if (fs.existsSync(exportsDir)) {
 
 <style>
   h1 {
-    color: #e94560;
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
@@ -929,14 +930,14 @@ if (fs.existsSync(exportsDir)) {
     display: flex;
     gap: 0;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid #0f3460;
+    border-bottom: 2px solid var(--border-default);
   }
 
   .tab {
     padding: 0.6rem 1.25rem;
     background: none;
     border: none;
-    color: #a0a0b8;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     font-family: inherit;
     cursor: pointer;
@@ -946,12 +947,12 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .tab:hover {
-    color: #e0e0e0;
+    color: var(--text-primary);
   }
 
   .tab.active {
-    color: #e94560;
-    border-bottom-color: #e94560;
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
   }
 
   .tab-content {

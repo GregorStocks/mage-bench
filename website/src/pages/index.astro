@@ -1,5 +1,89 @@
 ---
 import Base from '../layouts/Base.astro';
+import benchmarkData from '../data/benchmark-results.json';
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+
+const DECK_TYPE_FORMATS: Record<string, string> = {
+  "Constructed - Standard": "standard",
+  "Constructed - Modern": "modern",
+  "Constructed - Legacy": "legacy",
+  "Variant Magic - Freeform Commander": "commander",
+  "Variant Magic - Commander": "commander",
+  "Limited": "jumpstart",
+};
+
+const FORMAT_DISPLAY: Record<string, string> = {
+  standard: "Standard",
+  modern: "Modern",
+  legacy: "Legacy",
+  commander: "Commander",
+  jumpstart: "Jumpstart",
+};
+
+// Stats
+const formats: Record<string, any> = (benchmarkData as any).formats ?? {};
+const combinedModels = (benchmarkData as any).models ?? [];
+const top5 = combinedModels.slice(0, 5);
+const totalGames = benchmarkData.totalGames;
+
+const allModelIds = new Set<string>();
+for (const [, fmt] of Object.entries(formats)) {
+  for (const m of ((fmt as any).models ?? [])) {
+    allModelIds.add(m.modelId);
+  }
+}
+// Fallback: count from top-level models if formats is empty
+if (allModelIds.size === 0) {
+  for (const m of combinedModels) {
+    allModelIds.add(m.modelId);
+  }
+}
+const totalModels = allModelIds.size;
+const formatCount = Object.keys(formats).filter(f => f !== 'combined' && ((formats[f] as any)?.totalGames ?? 0) > 0).length || 5;
+
+// Recent games — 3 most recent 1v1 and 3 most recent commander
+const gamesDir = path.join(process.cwd(), 'public', 'games');
+const recentDuels: Array<Record<string, any>> = [];
+const recentCommander: Array<Record<string, any>> = [];
+if (fs.existsSync(gamesDir)) {
+  const files = fs.readdirSync(gamesDir)
+    .filter((f: string) => f.startsWith('game_'))
+    .sort()
+    .reverse();
+  for (const file of files) {
+    if (recentDuels.length >= 3 && recentCommander.length >= 3) break;
+    let data;
+    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
+      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
+    } else if (file.endsWith('.json.gz')) {
+      const jsonPath = path.join(gamesDir, file.replace('.json.gz', '.json'));
+      if (fs.existsSync(jsonPath)) continue;
+      const compressed = fs.readFileSync(path.join(gamesDir, file));
+      data = JSON.parse(zlib.gunzipSync(compressed).toString());
+    } else {
+      continue;
+    }
+    const formatKey = DECK_TYPE_FORMATS[data.deckType] || 'commander';
+    const entry = {
+      id: data.id,
+      format: formatKey,
+      formatLabel: FORMAT_DISPLAY[formatKey] || formatKey,
+      winner: data.winner,
+      totalTurns: data.totalTurns,
+      players: (data.players || []).map((p: any) => ({
+        name: p.name,
+        model: p.model ? (p.model.includes('/') ? p.model.split('/').pop() : p.model) : '',
+      })),
+    };
+    if (formatKey === 'commander') {
+      if (recentCommander.length < 3) recentCommander.push(entry);
+    } else {
+      if (recentDuels.length < 3) recentDuels.push(entry);
+    }
+  }
+}
 ---
 
 <Base title="Home">
@@ -12,11 +96,7 @@ import Base from '../layouts/Base.astro';
     <p>
       mage-bench is a fork of <a href="https://github.com/magefree/mage">XMage</a>
       that enables large language models to play Magic: The Gathering against each
-      other across multiple formats — Commander, Standard, Modern, and Legacy.
-    </p>
-    <p>
-      LLMs sit down at a virtual table, each piloting a deck, making decisions about
-      mulligans, spells, combat, and politics — just like human players would.
+      other across multiple formats — Jumpstart, Standard, Modern, Legacy, and Commander.
     </p>
     <p>
       The XMage game server presents each LLM with the current game state and available
@@ -31,24 +111,109 @@ import Base from '../layouts/Base.astro';
     <a href="/architecture">Architecture</a>
     <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
   </section>
+
+  <section class="stats-strip">
+    <div class="stat-card">
+      <span class="stat-number">{totalGames}</span>
+      <span class="stat-label">Games Played</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{totalModels}</span>
+      <span class="stat-label">Models Tested</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">{formatCount}</span>
+      <span class="stat-label">Formats</span>
+    </div>
+  </section>
+
+  {top5.length > 0 && (
+    <section class="leaderboard-preview">
+      <h2>Top Models <a href="/leaderboard" class="section-link">Full leaderboard &rarr;</a></h2>
+      <div class="mini-leaderboard">
+        {top5.map((m: any, i: number) => (
+          <div class:list={['mini-row', { 'mini-gold': i === 0, 'mini-silver': i === 1, 'mini-bronze': i === 2 }]}>
+            <span class="mini-rank">{i + 1}</span>
+            <div class="mini-info">
+              <span class="mini-name">{m.modelName}</span>
+              <span class="mini-provider">{m.provider}</span>
+            </div>
+            <span class="mini-rating">{m.rating}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recentDuels.length > 0 && (
+    <section class="recent-games">
+      <h2>Recent 1v1 Games <a href="/games" class="section-link">All games &rarr;</a></h2>
+      <div class="game-strip">
+        {recentDuels.map((game) => (
+          <a href={`/games/${game.id}`} class="mini-game-card" data-format={game.format}>
+            <div class="mgc-header">
+              <span class={`mgc-format mgc-format-${game.format}`}>{game.formatLabel}</span>
+              <span class="mgc-turns">{game.totalTurns} turns</span>
+            </div>
+            <div class="mgc-players">
+              {game.players.map((p: any) => (
+                <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
+                  <span class="mgc-pname">{p.name}</span>
+                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
+                </div>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {recentCommander.length > 0 && (
+    <section class="recent-games">
+      <h2>Recent Commander Games <a href="/games?format=commander" class="section-link">All commander &rarr;</a></h2>
+      <div class="game-strip">
+        {recentCommander.map((game) => (
+          <a href={`/games/${game.id}`} class="mini-game-card" data-format={game.format}>
+            <div class="mgc-header">
+              <span class={`mgc-format mgc-format-${game.format}`}>{game.formatLabel}</span>
+              <span class="mgc-turns">{game.totalTurns} turns</span>
+            </div>
+            <div class="mgc-players">
+              {game.players.map((p: any) => (
+                <div class:list={['mgc-player', { 'mgc-winner': p.name === game.winner }]}>
+                  <span class="mgc-pname">{p.name}</span>
+                  {p.name === game.winner && <span class="mgc-winner-label">WINNER</span>}
+                </div>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 </Base>
 
 <style>
   .hero {
     text-align: center;
-    padding: 4rem 0 1rem;
+    padding: 4rem 0 1.5rem;
   }
 
   h1 {
-    font-size: 3rem;
-    color: #e94560;
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--accent-primary);
     margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
   }
 
   .tagline {
-    font-size: 1.25rem;
-    color: #a0a0b8;
+    font-size: 1.3rem;
+    color: var(--text-secondary);
     margin-bottom: 0;
+    font-weight: 400;
   }
 
   .intro {
@@ -60,7 +225,7 @@ import Base from '../layouts/Base.astro';
   }
 
   .intro a {
-    color: #e94560;
+    color: var(--accent-primary);
   }
 
   .links {
@@ -73,15 +238,282 @@ import Base from '../layouts/Base.astro';
 
   .links a {
     padding: 0.75rem 1.5rem;
-    border: 1px solid #e94560;
-    color: #e94560;
+    border: 1px solid var(--accent-primary);
+    color: var(--accent-primary);
     text-decoration: none;
     border-radius: 4px;
+    font-weight: 600;
     transition: background 0.2s, color 0.2s;
   }
 
   .links a:hover {
-    background: #e94560;
-    color: #1a1a2e;
+    background: var(--accent-primary);
+    color: var(--bg-base);
+  }
+
+  /* Stats strip */
+  .stats-strip {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 1.2rem 2rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    min-width: 140px;
+  }
+
+  .stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    line-height: 1.1;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Leaderboard preview */
+  .leaderboard-preview {
+    padding: 0 0 2.5rem;
+  }
+
+  .leaderboard-preview h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .section-link {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    text-decoration: none;
+    margin-left: auto;
+  }
+
+  .section-link:hover {
+    color: var(--accent-primary);
+  }
+
+  .mini-leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mini-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .mini-row:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .mini-gold {
+    border-left: 3px solid #ffd700;
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.06), var(--bg-surface) 40%);
+  }
+
+  .mini-silver {
+    border-left: 3px solid #c0c0c0;
+    background: linear-gradient(to right, rgba(192, 192, 192, 0.04), var(--bg-surface) 40%);
+  }
+
+  .mini-bronze {
+    border-left: 3px solid #cd7f32;
+    background: linear-gradient(to right, rgba(205, 127, 50, 0.04), var(--bg-surface) 40%);
+  }
+
+  .mini-rank {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    min-width: 1.5rem;
+    text-align: center;
+  }
+
+  .mini-gold .mini-rank { color: #ffd700; }
+  .mini-silver .mini-rank { color: #c0c0c0; }
+  .mini-bronze .mini-rank { color: #cd7f32; }
+
+  .mini-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mini-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+
+  .mini-provider {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .mini-rating {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Recent games */
+  .recent-games {
+    padding: 0 0 2rem;
+  }
+
+  .recent-games h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .game-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .mini-game-card {
+    display: block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .mini-game-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+  }
+
+  .mini-game-card[data-format="standard"] { border-top: 3px solid var(--format-standard); }
+  .mini-game-card[data-format="modern"] { border-top: 3px solid var(--format-modern); }
+  .mini-game-card[data-format="legacy"] { border-top: 3px solid var(--format-legacy); }
+  .mini-game-card[data-format="commander"] { border-top: 3px solid var(--format-commander); }
+  .mini-game-card[data-format="jumpstart"] { border-top: 3px solid var(--format-jumpstart); }
+
+  .mgc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.8rem;
+  }
+
+  .mgc-format {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+
+  .mgc-format-standard { background: rgba(76, 175, 80, 0.15); color: var(--format-standard); }
+  .mgc-format-modern { background: rgba(33, 150, 243, 0.15); color: var(--format-modern); }
+  .mgc-format-legacy { background: rgba(156, 39, 176, 0.15); color: var(--format-legacy); }
+  .mgc-format-commander { background: rgba(255, 152, 0, 0.15); color: var(--format-commander); }
+  .mgc-format-jumpstart { background: rgba(233, 69, 96, 0.15); color: var(--format-jumpstart); }
+
+  .mgc-turns {
+    color: var(--text-secondary);
+  }
+
+  .mgc-players {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .mgc-player {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.15rem 0;
+    font-size: 0.85rem;
+  }
+
+  .mgc-winner {
+    font-weight: 700;
+  }
+
+  .mgc-pname {
+    color: var(--text-primary);
+  }
+
+  .mgc-winner .mgc-pname {
+    color: var(--color-success);
+  }
+
+  .mgc-winner-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+
+  @media (max-width: 600px) {
+    .stats-strip {
+      gap: 0.75rem;
+    }
+
+    .stat-card {
+      min-width: auto;
+      flex: 1;
+      padding: 0.8rem 0.5rem;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+    }
+
+    .game-strip {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

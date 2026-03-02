@@ -75,6 +75,19 @@ describe("leaderboard has data", () => {
   });
 });
 
+describe("benchmark-results excluded games count is consistent", () => {
+  test("excludedGames matches actual count of games below minEpoch", () => {
+    const benchmarkPath = path.join(process.cwd(), "src", "data", "benchmark-results.json");
+    const data = JSON.parse(fs.readFileSync(benchmarkPath, "utf-8"));
+    const { excludedGames, minEpoch, epochCounts } = data;
+    if (!minEpoch || !epochCounts) return; // skip if fields missing
+    const countBelow = Object.entries(epochCounts)
+      .filter(([epoch]) => parseInt(epoch) < minEpoch)
+      .reduce((sum, [, count]) => sum + count, 0);
+    expect(excludedGames).toBe(countBelow);
+  });
+});
+
 describe("game pages", () => {
   test("at least one game page exists", () => {
     const gamesDir = path.join(distDir, "games");
