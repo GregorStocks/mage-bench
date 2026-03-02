@@ -11,31 +11,29 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class GetOracleTextTool {
     @Tool(
         name = "get_oracle_text",
-        description = "Get oracle text and card details. Provide exactly one of: card_name (single), "
-            + "card_names (batch array), object_id (in-game object), or object_ids (batch array of in-game objects). "
-            + "Returns name, mana_cost, type, rules, and where applicable: power/toughness, starting_loyalty, "
-            + "starting_defense, second_face.",
+        description = "Get oracle text for cards. Use card_name/card_names for lookup by name, "
+            + "or object_id/object_ids for in-game objects.",
         output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether the lookup succeeded"),
+            @Tool.Field(name = "success", type = "boolean", description = "Whether lookup succeeded"),
             @Tool.Field(name = "name", type = "string", description = "Card name"),
-            @Tool.Field(name = "mana_cost", type = "string", description = "Mana cost (e.g. \"{2}{R}\")"),
-            @Tool.Field(name = "type", type = "string", description = "Type line (e.g. \"Creature — Human Wizard\")"),
+            @Tool.Field(name = "mana_cost", type = "string", description = "Mana cost"),
+            @Tool.Field(name = "type", type = "string", description = "Type line"),
             @Tool.Field(name = "rules", type = "array[string]", description = "Oracle text lines"),
-            @Tool.Field(name = "power", type = "string", description = "Power (creatures only)"),
-            @Tool.Field(name = "toughness", type = "string", description = "Toughness (creatures only)"),
-            @Tool.Field(name = "starting_loyalty", type = "string", description = "Starting loyalty (planeswalkers only)"),
-            @Tool.Field(name = "starting_defense", type = "string", description = "Starting defense (battles only)"),
-            @Tool.Field(name = "second_face", type = "object", description = "Back face for transform/MDFC cards (same fields)"),
-            @Tool.Field(name = "cards", type = "array[object]", description = "Array of card objects (batch mode). Each has name, mana_cost, type, rules, and optional power/toughness/starting_loyalty/starting_defense/second_face"),
+            @Tool.Field(name = "power", type = "string", description = "Power"),
+            @Tool.Field(name = "toughness", type = "string", description = "Toughness"),
+            @Tool.Field(name = "starting_loyalty", type = "string", description = "Starting loyalty"),
+            @Tool.Field(name = "starting_defense", type = "string", description = "Starting defense"),
+            @Tool.Field(name = "second_face", type = "object", description = "Back face (transform/MDFC)"),
+            @Tool.Field(name = "cards", type = "array[object]", description = "Card objects (batch mode)"),
             @Tool.Field(name = "error", type = "string", description = "Error message")
         }
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
-            @Param(description = "Single card name lookup") String card_name,
-            @Param(description = "Batch card name lookup") String[] card_names,
-            @Param(description = "Short ID of an in-game object (e.g. \"p3\")") String object_id,
-            @Param(description = "Batch in-game object short ID lookup (e.g. [\"p1\",\"p2\"])") String[] object_ids) {
+            @Param(description = "Card name") String card_name,
+            @Param(description = "Card names (batch)") String[] card_names,
+            @Param(description = "In-game object ID (e.g. \"p3\")") String object_id,
+            @Param(description = "In-game object IDs (batch)") String[] object_ids) {
         return handler.getOracleText(card_name, object_id, card_names, object_ids);
     }
 

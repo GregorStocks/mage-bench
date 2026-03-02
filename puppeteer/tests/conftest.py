@@ -1,5 +1,7 @@
 """Shared fixtures for golden prompt integration tests."""
 
+import gzip
+import json
 import os
 import re
 import subprocess
@@ -249,6 +251,44 @@ def spectator_process(xmage_server, project_root):
     except subprocess.TimeoutExpired:
         kill_tree(proc.pid)
     spectator_log_fh.close()
+
+
+# ---------------------------------------------------------------------------
+# Session-scoped fixtures for game export tests (shared across test files)
+# ---------------------------------------------------------------------------
+
+
+def _glob_game_files() -> list[Path]:
+    """Find all game export files, preferring .json.gz over .json."""
+    games_dir = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
+    gz_files = set(games_dir.glob("game_*.json.gz"))
+    gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
+    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
+    return sorted(gz_files | set(json_files))
+
+
+def _load_game(path: Path) -> dict:
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt") as f:
+            return json.load(f)
+    with open(path) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="session")
+def all_games_data() -> dict[Path, dict]:
+    """Load and parse all game export files once for the entire test session."""
+    return {path: _load_game(path) for path in _glob_game_files()}
+
+
+@pytest.fixture(scope="session")
+def game_export_validator():
+    """Compile the game-export JSON Schema validator once for the session."""
+    import jsonschema
+
+    schema_path = Path(__file__).resolve().parent.parent.parent / "schemas" / "game-export-v2.schema.json"
+    schema = json.loads(schema_path.read_text())
+    return jsonschema.Draft7Validator(schema)
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

@@ -11,79 +11,56 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class ChooseActionTool {
     @Tool(
         name = "choose_action",
-        description = "Respond to pending action. Blocks until an action is pending (like pass_priority). "
-            + "Use choice to select by ID (\"p3\"), index (\"0\"), or answer yes/no (\"yes\"/\"no\"). "
-            + "Use attackers/blockers for batch combat. "
-            + "Call get_action_choices first.",
+        description = "Respond to pending action. Blocks until an action is pending. "
+            + "Use choice for ID/index/yes/no, attackers/blockers for batch combat.",
         output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether the action was accepted"),
-            @Tool.Field(name = "action_taken", type = "string", description = "Description of what was done (e.g. \"selected_0\", \"yes\", \"passed_priority\", \"batch_attack\")"),
+            @Tool.Field(name = "success", type = "boolean", description = "Whether accepted"),
+            @Tool.Field(name = "action_taken", type = "string", description = "What was done, e.g. selected_0, yes, batch_attack"),
             @Tool.Field(name = "error", type = "string", description = "Error message"),
             @Tool.Field(name = "error_code", type = "string",
-                description = "Machine-readable error code: no_pending_action, missing_param, "
-                    + "index_out_of_range, invalid_choice, internal_error, unknown_action_type"),
+                description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type"),
             @Tool.Field(name = "retryable", type = "boolean",
-                description = "Whether the action can be retried with different parameters"),
-            @Tool.Field(name = "warning", type = "string", description = "Warning (e.g. possible game loop detected)"),
-            @Tool.Field(name = "mana_plan_set", type = "boolean", description = "Whether a mana plan was stored for upcoming payment callbacks"),
-            @Tool.Field(name = "mana_plan_size", type = "integer", description = "Number of entries in the stored mana plan"),
-            @Tool.Field(name = "declared", type = "array", description = "IDs of successfully declared attackers/blockers (batch combat)"),
-            @Tool.Field(name = "failed", type = "array", description = "Entries that failed during batch combat: {id, reason}"),
-            @Tool.Field(name = "interrupted", type = "boolean", description = "Whether batch combat was interrupted by a trigger"),
-            @Tool.Field(name = "game_seq", type = "integer",
-                description = "Game sequence number for determinism tracking"),
+                description = "Can retry with different parameters"),
+            @Tool.Field(name = "warning", type = "string", description = "Warning message"),
+            @Tool.Field(name = "mana_plan_set", type = "boolean", description = "Mana plan was stored"),
+            @Tool.Field(name = "mana_plan_size", type = "integer", description = "Entries in stored mana plan"),
+            @Tool.Field(name = "declared", type = "array", description = "Declared attacker/blocker IDs"),
+            @Tool.Field(name = "failed", type = "array", description = "Failed batch entries: {id, reason}"),
+            @Tool.Field(name = "interrupted", type = "boolean", description = "Batch combat interrupted by trigger"),
+            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number"),
             @Tool.Field(name = "next_action_pending", type = "boolean",
-                description = "Whether a follow-up action arrived from the server (e.g. bestow mode selection, kicker choice). Call get_action_choices or choose_action next — not pass_priority."),
+                description = "Follow-up action arrived (call get_action_choices/choose_action, not pass_priority)"),
             @Tool.Field(name = "next_action_type", type = "string",
-                description = "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)"),
+                description = "Follow-up action callback name"),
             @Tool.Field(name = "next_action_message", type = "string",
-                description = "Human-readable message describing the follow-up action (e.g. the question text for GAME_ASK)"),
+                description = "Follow-up action message"),
             @Tool.Field(name = "next_action_hint", type = "string",
-                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue"),
+                description = "How to handle the follow-up action"),
             @Tool.Field(name = "choices", type = "array[object]",
-                description = "Available choices (attached to error responses so the model can self-correct without a separate get_action_choices call)"),
+                description = "Choices (on errors, for self-correction)"),
             @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
             @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
-            @Tool.Field(name = "recent_chat", type = "array[string]", description = "Chat messages received since last check")
+            @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages")
         }
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
-            @Param(description = "Selection or response. Accepts: permanent ID (\"p3\"), "
-                + "index (\"0\"), or yes/no (\"yes\", \"no\"). "
-                + "Use \"yes\"/\"no\" for boolean questions, mulligans (yes=mulligan, no=keep), "
-                + "pass priority (\"no\"), confirm combat (\"yes\"). "
-                + "Use IDs or indices for cards, targets, abilities, mana sources.") String choice,
-            @Param(description = "Amount value (for get_amount actions)") Integer amount,
-            @Param(description = "Multiple amount values (for multi_amount actions)") int[] amounts,
-            @Param(description = "Pile number: 1 or 2 (for pile choices)") Integer pile,
-            @Param(description = "Text value for GAME_CHOOSE_CHOICE (use instead of choice to pick any option by name, "
-                + "e.g. a creature type not in the filtered list)") String text,
-            @Param(description = "Comma-separated mana payment instructions for casting a spell (use with choice). "
-                + "Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). "
-                + "For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). "
-                + "IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. "
-                + "Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already "
-                + "in your mana pool — they do NOT produce mana. Only use pool colors after something "
-                + "else has already added mana to your pool (e.g. a ritual spell or a triggered ability). "
-                + "Entries are consumed in order, one per mana pip. "
-                + "If any entry fails (permanent not available), the spell is cancelled. "
-                + "If the plan runs out before all pips are paid, auto-tap fills the rest "
-                + "(unless auto_tap=false, which cancels instead). "
-                + "Example: \"p1,p5:1\" for a 3-mana spell with 2 lands — auto-tap handles the 3rd pip.") String mana_plan,
-            @Param(description = "Controls automatic mana tapping. Default behavior (omitted or true): "
-                + "auto-tap pays mana by tapping the first available source. Used alone for full auto-tap, "
-                + "or as fallback after a mana_plan runs out. "
-                + "Set false WITH a mana_plan to require the plan to be complete — spell is cancelled if "
-                + "the plan doesn't cover all pips. "
-                + "WARNING: auto-tap has no color awareness and uses a naive heuristic for dual lands. "
-                + "Prefer mana_plan for color-sensitive spells.") Boolean auto_tap,
-            @Param(description = "Declare multiple attackers at once. Comma-separated short IDs (e.g. \"p1,p2\"). "
-                + "Use \"all\" to declare all possible attackers. "
-                + "Automatically confirms after declaring.") String attackers,
-            @Param(description = "Declare multiple blockers at once. Comma-separated \"blocker_id:attacker_id\" pairs. "
-                + "Example: \"p5:p1,p6:p2\" means p5 blocks p1, p6 blocks p2. "
-                + "Automatically confirms after declaring.") String blockers) {
+            @Param(description = "ID (\"p3\"), index (\"0\"), or yes/no. "
+                + "yes=mulligan/confirm, no=keep/pass.") String choice,
+            @Param(description = "Amount value (for amount actions)") Integer amount,
+            @Param(description = "Multiple amount values (for multi_amount)") int[] amounts,
+            @Param(description = "Pile number: 1 or 2") Integer pile,
+            @Param(description = "Text value for GAME_CHOOSE_CHOICE (pick option by name)") String text,
+            @Param(description = "Comma-separated permanent IDs to tap for mana (e.g. \"p1,p5:1\"). "
+                + ":N selects ability on multi-ability lands. "
+                + "Pool colors (RED, BLUE, etc.) only SPEND existing pool mana, not produce. "
+                + "Auto-tap fills remaining pips.") String mana_plan,
+            @Param(description = "Auto-tap mana (default true). "
+                + "Set false with mana_plan to require complete plan.") Boolean auto_tap,
+            @Param(description = "Batch attack: comma-separated IDs (e.g. \"p1,p2\") or \"all\". "
+                + "Auto-confirms.") String attackers,
+            @Param(description = "Batch block: comma-separated \"blocker:attacker\" pairs "
+                + "(e.g. \"p5:p1,p6:p2\"). Auto-confirms.") String blockers) {
         // Parse choice into index/id/answer for the handler
         Integer index = null;
         String id = null;

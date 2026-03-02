@@ -11,7 +11,7 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class ConcedeTool {
     @Tool(
         name = "concede",
-        description = "Concede the current game. The game ends immediately with the opponent winning.",
+        description = "Concede the current game.",
         output = {
             @Tool.Field(name = "success", type = "boolean", description = "Whether the concession was sent")
         }

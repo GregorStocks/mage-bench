@@ -11,19 +11,18 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class GetGameHistoryTool {
     @Tool(
         name = "get_game_history",
-        description = "Get structured game history showing player actions (casts, attacks, blocks, life changes, etc.) "
-            + "grouped by turn and phase. Unlike get_game_log which returns raw chat text, this returns "
-            + "structured action descriptions. Use cursor for incremental updates between decisions.",
+        description = "Get structured game history (casts, attacks, life changes) grouped by turn/phase. "
+            + "Use cursor for incremental updates.",
         output = {
-            @Tool.Field(name = "history", type = "string", description = "Formatted game history text grouped by turn/phase"),
-            @Tool.Field(name = "cursor", type = "integer", description = "Cursor to pass to the next get_game_history call for incremental updates"),
-            @Tool.Field(name = "event_count", type = "integer", description = "Number of events included in this response")
+            @Tool.Field(name = "history", type = "string", description = "History text grouped by turn/phase"),
+            @Tool.Field(name = "cursor", type = "integer", description = "Cursor for next call"),
+            @Tool.Field(name = "event_count", type = "integer", description = "Events in this response")
         }
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
-            @Param(description = "Only include events from this turn number onward") Integer since_turn,
-            @Param(description = "Cursor from a previous get_game_history call. Returns only new events since this cursor. Mutually exclusive with since_turn.") Integer cursor) {
+            @Param(description = "Events from this turn onward") Integer since_turn,
+            @Param(description = "Cursor for incremental updates. Mutually exclusive with since_turn.") Integer cursor) {
 
         if (since_turn != null && cursor != null) {
             throw new RuntimeException("since_turn and cursor are mutually exclusive — provide one or neither");

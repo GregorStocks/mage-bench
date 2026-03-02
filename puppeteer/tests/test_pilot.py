@@ -54,6 +54,7 @@ async def test_401_raises_permanent_failure():
             model="test-model",
             system_prompt="You are a test.",
             tools=[],
+            prices={},
             username="test-player",
         )
 
@@ -72,6 +73,7 @@ async def test_403_raises_permanent_failure():
             model="test-model",
             system_prompt="You are a test.",
             tools=[],
+            prices={},
             username="test-player",
         )
 
@@ -90,6 +92,7 @@ async def test_402_raises_permanent_failure():
             model="test-model",
             system_prompt="You are a test.",
             tools=[],
+            prices={},
             username="test-player",
         )
 
@@ -108,6 +111,7 @@ async def test_404_raises_permanent_failure():
             model="test-model",
             system_prompt="You are a test.",
             tools=[],
+            prices={},
             username="test-player",
         )
 
@@ -148,6 +152,7 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
             model="test-model",
             system_prompt="You are a test.",
             tools=[{"type": "function", "function": {"name": "pass_priority", "parameters": {}}}],
+            prices={},
             username="test-player",
         )
         mock_auto_pass.assert_called_once()
@@ -189,6 +194,7 @@ async def test_game_over_from_get_action_choices_triggers_auto_pass():
             model="test-model",
             system_prompt="You are a test.",
             tools=[{"type": "function", "function": {"name": "get_action_choices", "parameters": {}}}],
+            prices={},
             username="test-player",
         )
         mock_auto_pass.assert_called_once()
@@ -234,6 +240,7 @@ async def test_game_over_from_choose_action_triggers_auto_pass():
             model="test-model",
             system_prompt="You are a test.",
             tools=[{"type": "function", "function": {"name": "choose_action", "parameters": {}}}],
+            prices={},
             username="test-player",
         )
         mock_auto_pass.assert_called_once()
@@ -394,6 +401,7 @@ async def test_repeated_pass_error_forces_plain_pass():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
@@ -449,6 +457,7 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
@@ -500,6 +509,7 @@ async def test_successful_pass_resets_error_counter():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 

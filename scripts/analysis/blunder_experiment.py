@@ -257,7 +257,8 @@ def _call_llm(
     response = client.chat.completions.create(**kwargs)
     elapsed = time.monotonic() - start
 
-    text = response.choices[0].message.content or ""  # noqa: MBF001
+    text = response.choices[0].message.content
+    assert text is not None, "LLM returned no content"
     usage = response.usage
     assert usage is not None, "API response missing usage data"
 
@@ -929,7 +930,8 @@ def _call_llm_messages(
     response = client.chat.completions.create(**kwargs)
     elapsed = time.monotonic() - start
 
-    text = response.choices[0].message.content or ""  # noqa: MBF001
+    text = response.choices[0].message.content
+    assert text is not None, "LLM returned no content"
     usage = response.usage
     assert usage is not None, "API response missing usage data"
 
