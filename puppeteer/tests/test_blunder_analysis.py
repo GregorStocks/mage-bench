@@ -139,7 +139,11 @@ def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: i
     response = MagicMock()
     response.choices = [MagicMock()]
     response.choices[0].message.content = content
-    response.usage = MagicMock(prompt_tokens=prompt_tokens, completion_tokens=completion_tokens)
+    response.usage = MagicMock(
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+        prompt_tokens_details=None,
+    )
     return response
 
 
