@@ -1,5 +1,10 @@
 {
   "title": "make update-golden should work in headless environments",
   "description": "On machines without a display (SSH, containers), `make update-golden` and `make run` fail because the observer JVM needs Swing/AWT. Two prerequisites: (1) the full JDK (not just headless) must be installed — `java-21-openjdk` not just `java-21-openjdk-headless` — so AWT/Swing libraries are available, and (2) a virtual framebuffer like Xvfb must provide a DISPLAY. With `sudo dnf install java-21-openjdk xorg-x11-server-Xvfb` and `export DISPLAY=:99`, golden tests work. The Makefile should auto-detect this and either start Xvfb or error with a clear message about missing dependencies. Alternatively, add headless guards to ObserverMain.java so it doesn't need a display at all in noWindow mode (guard SplashScreen, Toolkit, and JFrame creation).",
-  "status": "open"
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["infra"],
+  "created_at": "2026-03-01T16:30:00.000000-08:00",
+  "updated_at": "2026-03-01T16:30:00.000000-08:00"
 }
