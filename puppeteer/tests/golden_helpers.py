@@ -519,18 +519,35 @@ def _run_replay_on_bridge(
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
-    Responds to each priority window individually (no ``until`` parameter)
-    so we don't race ahead of the other player's script.  Handles mulligans
-    by keeping the hand and answers all other prompts with "no"/pass.
+    Uses ``choose_action`` directly (no ``pass_priority``) to respond to
+    each game callback individually — matching the old potato's behaviour
+    of calling ``sendPlayerBoolean(false)`` once per callback.
+
+    ``pass_priority`` has an internal auto-pass loop that batches multiple
+    callbacks in one call (auto-passes the first GAME_SELECT with playable
+    cards, then returns on the second).  This changes the interaction
+    pattern with the game engine and can cause different game-flow
+    compared to the potato, which handled each callback one-at-a-time.
+
+    ``choose_action`` block-waits up to 10 s for a pending callback, then
+    responds.  For boolean/select prompts "no" passes priority; for index
+    prompts (GAME_CHOOSE_ABILITY etc.) we fall back to index 0 (first
+    option), which is what the potato's ``executeDefaultAction`` did.
     """
     while True:
-        result = bridge.call_tool("pass_priority", {})
+        result = bridge.call_tool("choose_action", {"choice": "no"})
         data = json.loads(result)
-        game_ended = data.get("game_over") or data.get("player_dead") or data.get("stop_reason") == "game_over"
-        if game_ended:
+        if data.get("game_over") or data.get("player_dead"):
             break
-        if data.get("action_pending"):
-            bridge.call_tool("choose_action", {"choice": "no"})
+        if data.get("error_code") == "no_pending_action":
+            break
+        # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE)
+        # need an index — select the first option, matching the potato.
+        if not data.get("success") and data.get("retryable"):
+            result = bridge.call_tool("choose_action", {"choice": "0"})
+            data = json.loads(result)
+            if data.get("game_over") or data.get("player_dead"):
+                break
 
 
 # ---------------------------------------------------------------------------
