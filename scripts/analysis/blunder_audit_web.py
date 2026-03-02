@@ -260,16 +260,18 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
         if s_idx == snap_idx or a_idx == snap_idx:
             if di not in seen_di:
                 seen_di.add(di)
-                results.append({
-                    "decision_index": di,
-                    "player": d.get("player", "?"),
-                    "turn": d.get("turn", "?"),
-                    "phase": d.get("phase", "?"),
-                    "message": d.get("message", "?"),
-                    "chosen": chosen_display(d),
-                    "snapshot_index": s_idx,
-                    "aftermath_index": a_idx,
-                })
+                results.append(
+                    {
+                        "decision_index": di,
+                        "player": d.get("player", "?"),
+                        "turn": d.get("turn", "?"),
+                        "phase": d.get("phase", "?"),
+                        "message": d.get("message", "?"),
+                        "chosen": chosen_display(d),
+                        "snapshot_index": s_idx,
+                        "aftermath_index": a_idx,
+                    }
+                )
 
     return results
 
@@ -388,7 +390,8 @@ class AuditHandler(BaseHTTPRequestHandler):
             parts = path.split("/")
             if len(parts) != 5:
                 self._send_error(
-                    400, "Expected /api/decisions-at-snapshot/{game_id}/{snapshot_index}"
+                    400,
+                    "Expected /api/decisions-at-snapshot/{game_id}/{snapshot_index}",
                 )
                 return
             game_id = parts[3]
