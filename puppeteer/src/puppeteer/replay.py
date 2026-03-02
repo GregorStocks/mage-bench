@@ -175,8 +175,8 @@ async def run_replay(
     port: int,
     username: str,
     project_root: Path,
+    script: list[dict],
     deck_path: Path | None = None,
-    script: list[dict] | None = None,
     game_dir: Path | None = None,
     table_id: str | None = None,
     skip_history: bool = False,
@@ -242,7 +242,6 @@ async def run_replay(
             async def call_tool(name: str, arguments: dict) -> str:
                 return await execute_tool(session, name, arguments)
 
-            script = script or []  # noqa: MBF001
             prompt = await execute_replay_script(call_tool, script, system_prompt, game_log, skip_history=skip_history)
 
             # Write prompt to file

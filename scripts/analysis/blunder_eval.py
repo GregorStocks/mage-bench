@@ -134,8 +134,8 @@ def print_report(comparison: dict) -> None:
                 else "BAD"
             )
             print(f"    [{impact}] {d['play_key']}: {direction} (human={d['verdict']})")
-            base_desc = d.get("baseline_description") or ""  # noqa: MBF001
-            eval_desc = d.get("eval_description") or ""  # noqa: MBF001
+            base_desc = d.get("baseline_description")
+            eval_desc = d.get("eval_description")
             if base_desc:
                 wrapped = textwrap.fill(
                     base_desc,
@@ -152,7 +152,7 @@ def print_report(comparison: dict) -> None:
                     subsequent_indent=indent + "          ",
                 )
                 print(wrapped)
-            human_notes = d.get("human_notes") or ""  # noqa: MBF001
+            human_notes = d.get("human_notes")
             if human_notes:
                 wrapped = textwrap.fill(
                     human_notes,

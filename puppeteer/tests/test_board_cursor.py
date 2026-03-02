@@ -150,6 +150,7 @@ async def test_board_cursor_injected_into_pass_priority():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
@@ -202,6 +203,7 @@ async def test_board_cursor_injected_into_get_action_choices():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
@@ -254,6 +256,7 @@ async def test_board_cursor_updates_on_new_value():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
@@ -307,6 +310,7 @@ async def test_no_cursor_injected_for_other_tools():
             model="test-model",
             system_prompt="You are a test.",
             tools=_TOOLS,
+            prices={},
             username="test-player",
         )
 
