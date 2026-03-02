@@ -40,7 +40,7 @@ async def execute_replay_script(
     script: list[dict],
     system_prompt: str,
     game_log: GameLogWriter | None = None,
-    skip_history: bool = False,
+    skip_postscript: bool = False,
 ) -> list[dict]:
     """Execute a replay script and return the captured prompt messages.
 
@@ -109,36 +109,38 @@ async def execute_replay_script(
         except (json.JSONDecodeError, TypeError):
             pass
 
-    # Always capture final game state (used by golden page prompt display)
-    state_result = await call_tool("get_game_state", {})
-    if game_log:
-        game_log.emit("tool_call", tool="get_game_state", arguments={}, result=state_result)
-    state_call_id = f"call_{len(script) + 1}"
-    history.append(
-        {
-            "role": "assistant",
-            "content": None,
-            "tool_calls": [
-                {
-                    "id": state_call_id,
-                    "type": "function",
-                    "function": {
-                        "name": "get_game_state",
-                        "arguments": json.dumps({}),
-                    },
-                }
-            ],
-        }
-    )
-    history.append(
-        {
-            "role": "tool",
-            "tool_call_id": state_call_id,
-            "content": state_result,
-        }
-    )
+    # Capture final game state + history for prompt display.
+    # skip_postscript=True skips these — used for player B to avoid racing
+    # with player A's post-script calls after the game ends.
+    if not skip_postscript:
+        state_result = await call_tool("get_game_state", {})
+        if game_log:
+            game_log.emit("tool_call", tool="get_game_state", arguments={}, result=state_result)
+        state_call_id = f"call_{len(script) + 1}"
+        history.append(
+            {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [
+                    {
+                        "id": state_call_id,
+                        "type": "function",
+                        "function": {
+                            "name": "get_game_state",
+                            "arguments": json.dumps({}),
+                        },
+                    }
+                ],
+            }
+        )
+        history.append(
+            {
+                "role": "tool",
+                "tool_call_id": state_call_id,
+                "content": state_result,
+            }
+        )
 
-    if not skip_history:
         history_result = await call_tool("get_game_history", {})
         if game_log:
             game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
@@ -179,7 +181,7 @@ async def run_replay(
     script: list[dict] | None = None,
     game_dir: Path | None = None,
     table_id: str | None = None,
-    skip_history: bool = False,
+    skip_postscript: bool = False,
 ) -> list[dict]:
     """Run the replay pilot.
 
@@ -243,7 +245,9 @@ async def run_replay(
                 return await execute_tool(session, name, arguments)
 
             script = script or []  # noqa: MBF001
-            prompt = await execute_replay_script(call_tool, script, system_prompt, game_log, skip_history=skip_history)
+            prompt = await execute_replay_script(
+                call_tool, script, system_prompt, game_log, skip_postscript=skip_postscript
+            )
 
             # Write prompt to file
             if game_dir:
@@ -275,7 +279,11 @@ def main() -> int:
     parser.add_argument("--script", type=Path, help="Path to script JSON file")
     parser.add_argument("--game-dir", type=Path, help="Game log directory")
     parser.add_argument("--table-id", help="UUID of the specific table to join")
-    parser.add_argument("--skip-history", action="store_true", help="Skip the post-script get_game_history call")
+    parser.add_argument(
+        "--skip-postscript",
+        action="store_true",
+        help="Skip post-script get_game_state and get_game_history calls",
+    )
     args = parser.parse_args()
 
     # Determine project root
@@ -304,7 +312,7 @@ def main() -> int:
                 script=script,
                 game_dir=args.game_dir,
                 table_id=args.table_id,
-                skip_history=args.skip_history,
+                skip_postscript=args.skip_postscript,
             )
         )
     except KeyboardInterrupt:

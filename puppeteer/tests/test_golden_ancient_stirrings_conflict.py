@@ -15,7 +15,7 @@ def test_ancient_stirrings_short_id_conflict(
     tmp_path,
     project_root,
     bridge_session,
-    potato_process,
+    opponent_session,
     spectator_process,
 ):
     """Cast Ancient Stirrings, select a card from lookedAt zone, verify no ID conflicts.
@@ -35,7 +35,7 @@ def test_ancient_stirrings_short_id_conflict(
         game_dir=tmp_path / "ancient_stirrings",
         deck_a=DECK_ANCIENT_STIRRINGS,
         deck_b=DECK_FILLER,
-        script=[
+        script_a=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
@@ -59,8 +59,8 @@ def test_ancient_stirrings_short_id_conflict(
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="ancient_stirrings_short_id",
-        bridge=bridge_session,
-        potato=potato_process,
+        bridge_a=bridge_session,
+        bridge_b=opponent_session,
         spectator=spectator_process,
     )
 
