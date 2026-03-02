@@ -136,22 +136,18 @@
     var html = [
       '<div id="transport">',
       '  <div class="transport-buttons">',
-      '    <button id="btn-start" title="First snapshot">|&lt;</button>',
       '    <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>',
-      '    <button id="btn-next" title="Next (Right arrow)">&gt;</button>',
-      '    <button id="btn-end" title="Last snapshot">&gt;|</button>',
       '    <button id="btn-auto" title="Auto-play">Play</button>',
-      '  </div>',
-      '  <div class="turn-nav">',
-      '    <button id="btn-prev-turn" title="Previous turn ([)">&lt;T</button>',
-      '    <select id="turn-select" title="Jump to turn"></select>',
-      '    <button id="btn-next-turn" title="Next turn (])">T&gt;</button>',
+      '    <button id="btn-next" title="Next (Right arrow)">&gt;</button>',
       '  </div>',
       '  <div id="slider-container">',
       '    <input type="range" id="slider" min="0" max="0" value="0" />',
       '  </div>',
-      '  <input type="number" id="snapshot-jump" min="1" max="1" value="1" title="Jump to snapshot #" />',
-      '  <div id="snapshot-counter"></div>',
+      '  <div class="snapshot-position">',
+      '    <input type="number" id="snapshot-jump" min="1" max="1" value="1" title="Jump to snapshot #" />',
+      '    <span class="snap-divider">/</span>',
+      '    <span class="snap-total">1</span>',
+      '  </div>',
       '</div>',
       '<div id="game-content">',
       '  <div id="game-left">',
@@ -200,17 +196,12 @@
 
     return {
       // Transport
-      btnStart: container.querySelector("#btn-start"),
       btnPrev: container.querySelector("#btn-prev"),
       btnNext: container.querySelector("#btn-next"),
-      btnEnd: container.querySelector("#btn-end"),
       btnAuto: container.querySelector("#btn-auto"),
       slider: container.querySelector("#slider"),
-      counterEl: container.querySelector("#snapshot-counter"),
       snapshotJump: container.querySelector("#snapshot-jump"),
-      turnSelect: container.querySelector("#turn-select"),
-      btnPrevTurn: container.querySelector("#btn-prev-turn"),
-      btnNextTurn: container.querySelector("#btn-next-turn"),
+      snapTotal: container.querySelector(".snap-total"),
       // Display
       playersGrid: container.querySelector("#players-grid"),
       stackSection: container.querySelector("#stack-section"),
@@ -446,6 +437,25 @@
         markers.appendChild(dot);
       });
       dom.sliderContainer.appendChild(markers);
+    }
+
+    function renderTurnMarkers(turnStarts, totalSnapshots) {
+      var existing = dom.sliderContainer.querySelector(".turn-markers");
+      if (existing) existing.remove();
+
+      if (!turnStarts || turnStarts.length <= 1 || totalSnapshots <= 1) return;
+
+      var container = document.createElement("div");
+      container.className = "turn-markers";
+      // Skip the first turn (index 0) — no need for a marker at the very start
+      for (var i = 1; i < turnStarts.length; i++) {
+        var tick = document.createElement("div");
+        tick.className = "turn-marker";
+        var pct = (turnStarts[i].index / (totalSnapshots - 1)) * 100;
+        tick.style.left = pct + "%";
+        container.appendChild(tick);
+      }
+      dom.sliderContainer.appendChild(container);
     }
 
     // ── Core rendering ──
@@ -753,18 +763,7 @@
       // Update transport
       dom.slider.value = String(index);
       dom.snapshotJump.value = String(index + 1);
-      dom.counterEl.textContent = (index + 1) + " / " + game.snapshots.length;
-
-      // Sync turn dropdown
-      if (turnStartIndices.length > 0) {
-        var currentTurn = snap.turn;
-        for (var ti = turnStartIndices.length - 1; ti >= 0; ti--) {
-          if (turnStartIndices[ti].turn <= currentTurn) {
-            dom.turnSelect.selectedIndex = ti;
-            break;
-          }
-        }
-      }
+      dom.snapTotal.textContent = String(game.snapshots.length);
     }
 
     // ── Navigation ──
@@ -883,14 +882,6 @@
       }
     });
 
-    // Populate turn dropdown
-    turnStartIndices.forEach(function (t) {
-      var opt = document.createElement("option");
-      opt.value = String(t.index);
-      opt.textContent = "Turn " + t.turn;
-      dom.turnSelect.appendChild(opt);
-    });
-
     // Set up transport
     dom.slider.max = String(game.snapshots.length - 1);
     dom.snapshotJump.max = String(game.snapshots.length);
@@ -941,24 +932,10 @@
       }
     });
 
-    dom.btnStart.addEventListener("click", function () { goTo(0); });
     dom.btnPrev.addEventListener("click", function () { goTo(currentIndex - 1); });
     dom.btnNext.addEventListener("click", function () { goTo(currentIndex + 1); });
-    dom.btnEnd.addEventListener("click", function () { goTo(game.snapshots.length - 1); });
     dom.btnAuto.addEventListener("click", toggleAutoPlay);
     dom.slider.addEventListener("input", function () { goTo(Number(dom.slider.value)); });
-
-    dom.turnSelect.addEventListener("change", function () { goTo(Number(dom.turnSelect.value)); });
-    dom.btnPrevTurn.addEventListener("click", function () {
-      var idx = Math.max(0, dom.turnSelect.selectedIndex - 1);
-      dom.turnSelect.selectedIndex = idx;
-      goTo(Number(dom.turnSelect.value));
-    });
-    dom.btnNextTurn.addEventListener("click", function () {
-      var idx = Math.min(turnStartIndices.length - 1, dom.turnSelect.selectedIndex + 1);
-      dom.turnSelect.selectedIndex = idx;
-      goTo(Number(dom.turnSelect.value));
-    });
 
     // Keyboard shortcuts — bound on container so they don't conflict with other UI
     container.setAttribute("tabindex", "0");
@@ -970,14 +947,25 @@
       if (e.key === "End") { e.preventDefault(); goTo(game.snapshots.length - 1); }
       if (e.key === " ") { e.preventDefault(); toggleAutoPlay(); }
       if (e.key === "Escape") { R.hidePreview(dom.previewEls); }
-      if (e.key === "[") { e.preventDefault(); dom.btnPrevTurn.click(); }
-      if (e.key === "]") { e.preventDefault(); dom.btnNextTurn.click(); }
+      if (e.key === "[") {
+        e.preventDefault();
+        for (var i = turnStartIndices.length - 1; i >= 0; i--) {
+          if (turnStartIndices[i].index < currentIndex) { goTo(turnStartIndices[i].index); break; }
+        }
+      }
+      if (e.key === "]") {
+        e.preventDefault();
+        for (var i = 0; i < turnStartIndices.length; i++) {
+          if (turnStartIndices[i].index > currentIndex) { goTo(turnStartIndices[i].index); break; }
+        }
+      }
     });
 
     // Set up mouse-following card preview
     R.setupMousePreview(dom.previewEls.container);
 
-    // Render annotation markers
+    // Render turn boundary markers and annotation markers on slider
+    renderTurnMarkers(turnStartIndices, game.snapshots.length);
     if (hasAnnotations) {
       renderAnnotationMarkers(game.annotations, game.snapshots.length);
     }
