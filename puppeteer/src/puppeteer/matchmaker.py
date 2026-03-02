@@ -33,20 +33,26 @@ def get_active_presets(presets_data: dict) -> list[str]:
 
 def _load_games_index(games_dir: Path) -> list[dict]:
     """Load minimal game index for rating computation."""
+    fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch")
     games = []
-    for gz_path in sorted(games_dir.glob("game_*.json.gz")):
-        game = json.loads(gzip.decompress(gz_path.read_bytes()))
-        games.append(
-            {
-                "id": game["id"],
-                "timestamp": game.get("timestamp", ""),
-                "gameType": game.get("gameType", ""),
-                "deckType": game.get("deckType", ""),
-                "winner": game.get("winner"),
-                "players": game.get("players", []),
-                "harnessEpoch": game.get("harnessEpoch"),
-            }
-        )
+    # Collect both .json and .json.gz game files, deduplicating by stem
+    seen_stems: set[str] = set()
+    for path in sorted(games_dir.glob("game_*")):
+        if path.suffix == ".gz" and path.name.endswith(".json.gz"):
+            stem = path.name.removesuffix(".json.gz")
+        elif path.suffix == ".json":
+            stem = path.stem
+        else:
+            continue
+        if stem in seen_stems:
+            continue
+        seen_stems.add(stem)
+
+        if path.name.endswith(".json.gz"):
+            game = json.loads(gzip.decompress(path.read_bytes()))
+        else:
+            game = json.loads(path.read_text())
+        games.append({f: game.get(f, [] if f == "players" else "") for f in fields})
     return games
 
 
