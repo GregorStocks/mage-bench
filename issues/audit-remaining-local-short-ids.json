@@ -4,10 +4,8 @@
   "status": "open",
   "priority": 4,
   "type": "task",
-  "labels": [
-    "bridge",
-    "short-ids"
-  ],
+  "labels": ["bridge", "short-ids"],
+  "not_autoclaimable": true,
   "created_at": "2026-02-28T12:00:00.000000-08:00",
   "updated_at": "2026-02-28T12:00:00.000000-08:00"
 }
