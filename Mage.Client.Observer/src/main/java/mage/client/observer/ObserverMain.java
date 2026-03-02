@@ -61,8 +61,13 @@ public class ObserverMain {
                 }
             }
 
-            // Show splash unless in lite mode
-            if (!liteMode) {
+            boolean noWindow = Boolean.getBoolean("xmage.observer.noWindow");
+
+            // Show splash unless in lite mode or noWindow mode.
+            // SplashScreen.getSplashScreen() throws HeadlessException without a
+            // display, so skip it entirely when noWindow is set (golden tests
+            // run under xvfb but there's no splash JAR manifest anyway).
+            if (!liteMode && !noWindow) {
                 final SplashScreen splash = SplashScreen.getSplashScreen();
                 if (splash != null) {
                     Graphics2D g2 = splash.createGraphics();
@@ -82,7 +87,6 @@ public class ObserverMain {
             // Auto-update settings if needed (same as MageFrame).
             // In noWindow mode (golden tests), skip screen-dependent settings —
             // DPI and screen size are meaningless for a headless observer.
-            boolean noWindow = Boolean.getBoolean("xmage.observer.noWindow");
             if (!noWindow) {
                 int settingsVersion = PreferencesDialog.getCachedValue(PreferencesDialog.KEY_SETTINGS_VERSION, 0);
                 if (settingsVersion == 0) {

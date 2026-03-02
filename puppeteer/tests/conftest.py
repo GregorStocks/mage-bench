@@ -4,7 +4,9 @@ import gzip
 import json
 import os
 import re
+import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -206,6 +208,16 @@ def spectator_process(xmage_server, project_root):
             "xmage.sets.allowed": allowed_sets,
         },
     )
+
+    # The observer needs a display for Swing (JFrame) even in noWindow mode.
+    # On headless Linux, wrap with xvfb-run like the orchestrator does.
+    if sys.platform == "linux" and "DISPLAY" not in os.environ and "WAYLAND_DISPLAY" not in os.environ:
+        xvfb = shutil.which("xvfb-run")
+        assert xvfb is not None, (
+            "Headless environment detected (no DISPLAY set) but xvfb-run is not installed. "
+            "Install xvfb for your distribution (e.g. apt-get install xvfb or dnf install xorg-x11-server-Xvfb)."
+        )
+        spectator_cmd = [xvfb, "--auto-servernum", "--server-args=-screen 0 1920x1080x24", *spectator_cmd]
 
     spectator_log = tmp_dir / "spectator.log"
     spectator_log_fh = open(spectator_log, "w")
