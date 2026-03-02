@@ -37,21 +37,10 @@ describe("top-level pages load with expected content", () => {
     expect(html).toContain("Replay past mage-bench games");
   });
 
-  test("architecture page", () => {
-    const html = readPage("architecture");
-    expect(html).toContain("Architecture");
-    expect(html).toContain("XMage");
-  });
-
-  test("methodology page", () => {
-    const html = readPage("methodology");
-    expect(html).toContain("Methodology");
+  test("scoring page", () => {
+    const html = readPage("scoring");
+    expect(html).toContain("Scoring");
     expect(html).toContain("Ratings");
-  });
-
-  test("mcp-tools page", () => {
-    const html = readPage("mcp-tools");
-    expect(html).toContain("MCP Tools");
   });
 
   test("contact page", () => {
