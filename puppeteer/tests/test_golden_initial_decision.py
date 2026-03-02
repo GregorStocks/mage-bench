@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, potato_process, spectator_process):
+def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, opponent_session, spectator_process):
     """Verify the prompt at the very first LLM decision point.
 
     Script: pass_priority (to get the initial decision) then get_game_state.
@@ -25,12 +25,18 @@ def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, 
         game_dir=tmp_path / "initial_decision",
         deck_a=DECK_RED_STOMPY,
         deck_b=DECK_GOBLINS,
-        script=[
+        script_a=[
+            # Choose TestPlayer as starting player, keep hand.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # First real decision point — capture state.
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="initial_decision",
-        bridge=bridge_session,
-        potato=potato_process,
+        bridge_a=bridge_session,
+        bridge_b=opponent_session,
         spectator=spectator_process,
     )

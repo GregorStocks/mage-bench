@@ -4,12 +4,19 @@ import pytest
 
 from tests.golden_helpers import (
     DECK_SAVANNAH_LIONS,
-    run_golden_scenario_two_replay,
+    run_golden_scenario,
 )
 
 
 @pytest.mark.golden
-def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_process):
+def test_savannah_lions_trade(
+    xmage_server,
+    tmp_path,
+    project_root,
+    bridge_session,
+    opponent_session,
+    spectator_process,
+):
     """Both players play Savannah Lions, P1 attacks T2, P2 blocks, both die.
 
     Script:
@@ -20,7 +27,7 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_pr
     - Capture state at postcombat main with both Lions in graveyards.
     """
     server, port = xmage_server
-    run_golden_scenario_two_replay(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -70,5 +77,7 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_pr
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="savannah_lions_trade",
+        bridge_a=bridge_session,
+        bridge_b=opponent_session,
         spectator=spectator_process,
     )

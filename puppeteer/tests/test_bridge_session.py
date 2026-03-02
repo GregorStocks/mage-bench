@@ -1,14 +1,11 @@
-"""Unit tests for BridgeSession and PotatoProcess wrappers."""
+"""Unit tests for BridgeSession wrapper."""
 
-import io
 import json
-import subprocess
-from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from tests.golden_helpers import BridgeSession, PotatoProcess
+from tests.golden_helpers import BridgeSession
 
 
 def _mock_http_response(data: dict) -> MagicMock:
@@ -102,63 +99,3 @@ class TestBridgeSession:
         bridge = BridgeSession("http://localhost:9999/mcp")
         with pytest.raises(RuntimeError, match="Connection refused"):
             bridge.call_tool("pass_priority", {})
-
-
-class TestPotatoProcess:
-    def test_join_next_game_writes_deck_path(self, tmp_path: Path):
-        proc = MagicMock(spec=subprocess.Popen)
-        proc.stdin = io.BytesIO()
-        log_path = tmp_path / "potato.log"
-        log_path.touch()
-
-        potato = PotatoProcess(proc, log_path)
-        potato.join_next_game("/path/to/deck.dck")
-
-        proc.stdin.seek(0)
-        text = proc.stdin.read().decode("utf-8")
-        assert text.strip() == "/path/to/deck.dck"
-
-    def test_close_does_not_raise(self, tmp_path: Path):
-        proc = MagicMock(spec=subprocess.Popen)
-        proc.stdin = io.BytesIO()
-        log_path = tmp_path / "potato.log"
-        log_path.touch()
-        potato = PotatoProcess(proc, log_path)
-        potato.close()  # Should not raise
-
-    def test_wait_for_ready_finds_marker(self, tmp_path: Path):
-        proc = MagicMock(spec=subprocess.Popen)
-        proc.stdin = io.BytesIO()
-        log_path = tmp_path / "potato.log"
-        log_path.write_text("some log output\nPOTATO_READY\nmore output\n")
-
-        potato = PotatoProcess(proc, log_path)
-        potato.wait_for_ready(timeout=1)  # Should return immediately
-
-    def test_wait_for_ready_timeout(self, tmp_path: Path):
-        proc = MagicMock(spec=subprocess.Popen)
-        proc.stdin = io.BytesIO()
-        log_path = tmp_path / "potato.log"
-        log_path.write_text("no marker here\n")
-
-        potato = PotatoProcess(proc, log_path)
-        with pytest.raises(TimeoutError):
-            potato.wait_for_ready(timeout=0.3)
-
-    def test_wait_for_ready_tracks_position(self, tmp_path: Path):
-        proc = MagicMock(spec=subprocess.Popen)
-        proc.stdin = io.BytesIO()
-        log_path = tmp_path / "potato.log"
-        log_path.write_text("POTATO_READY\nfirst game done\n")
-
-        potato = PotatoProcess(proc, log_path)
-        potato.wait_for_ready(timeout=1)  # Finds first marker
-
-        # Second wait should NOT find the same marker
-        with pytest.raises(TimeoutError):
-            potato.wait_for_ready(timeout=0.3)
-
-        # Write a second marker
-        with open(log_path, "a") as f:
-            f.write("POTATO_READY\n")
-        potato.wait_for_ready(timeout=1)  # Finds second marker

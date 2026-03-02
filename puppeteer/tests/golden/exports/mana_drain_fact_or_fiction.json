@@ -280,8 +280,8 @@
       "index": 0,
       "isForced": false,
       "llmEventIndices": [
-        2,
-        3
+        1,
+        2
       ],
       "message": "Select a starting player",
       "phase": null,
@@ -315,45 +315,12 @@
       "index": 1,
       "isForced": false,
       "llmEventIndices": [
-        4,
-        6
+        3,
+        4
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
-      "step": null,
-      "subsequentActions": [],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "no",
-        "game_seq": 6,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 6,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
-      },
-      "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
-        5,
-        7
-      ],
-      "message": "Mulligan down to 6 cards?",
-      "phase": null,
-      "player": "Opponent",
       "responseType": "boolean",
       "snapshotIndex": 1,
       "step": null,
@@ -412,11 +379,11 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 3,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
-        8,
-        9
+        5,
+        6
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
@@ -437,104 +404,11 @@
       "subsequentActions": [
         "TestPlayer puts Island from hand onto the Battlefield",
         "TestPlayer casts Sol Ring from hand",
-        "TestPlayer puts Sol Ring from stack onto the Battlefield"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 26,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 26,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p7",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 1,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 4,
-      "isForced": false,
-      "llmEventIndices": [
-        11,
-        12
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p7",
-          "p24"
-        ]
-      },
-      "player": "Opponent",
-      "responseType": "select",
-      "snapshotIndex": 13,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+        "TestPlayer puts Sol Ring from stack onto the Battlefield",
         "Opponent puts Plains from hand onto the Battlefield",
         "Opponent skip attack"
       ],
-      "turn": 2
-    },
-    {
-      "actionResult": {},
-      "actionSeq": 36,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 1,
-      "choices": [
-        {
-          "action": "cast",
-          "id": "p8",
-          "index": 0,
-          "mana_cost": "{W}",
-          "name": "Savannah Lions",
-          "power": "2",
-          "toughness": "1"
-        }
-      ],
-      "chosen": null,
-      "chosenArgs": {},
-      "index": 5,
-      "isForced": false,
-      "llmEventIndices": [
-        13
-      ],
-      "message": "Play spells and abilities",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "playableCards": [
-          "p8"
-        ],
-        "untappedLands": 1
-      },
-      "player": "Opponent",
-      "responseType": "select",
-      "snapshotIndex": 18,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [],
-      "turn": 2
+      "turn": 1
     },
     {
       "actionResult": {},
@@ -575,10 +449,10 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 6,
+      "index": 3,
       "isForced": false,
       "llmEventIndices": [
-        14
+        8
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -649,11 +523,11 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 7,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
-        15,
-        16
+        9,
+        10
       ],
       "message": "Play spells and abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -666,163 +540,13 @@
       "snapshotIndex": 20,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Island from hand onto the Battlefield"
-      ],
-      "turn": 3
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 43,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 43,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 8,
-      "isForced": true,
-      "llmEventIndices": [
-        17,
-        18
-      ],
-      "message": "",
-      "phase": "PRECOMBAT_MAIN",
-      "player": "Opponent",
-      "responseType": "",
-      "snapshotIndex": 22,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer skip attack"
-      ],
-      "turn": 3
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 51,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 51,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 3,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p26",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "cast",
-          "id": "p8",
-          "index": 2,
-          "mana_cost": "{W}",
-          "name": "Savannah Lions",
-          "power": "2",
-          "toughness": "1"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 9,
-      "isForced": false,
-      "llmEventIndices": [
-        19,
-        20
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p24",
-          "p26",
-          "p8"
-        ],
-        "untappedLands": 1
-      },
-      "player": "Opponent",
-      "responseType": "select",
-      "snapshotIndex": 27,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
+        "TestPlayer puts Island from hand onto the Battlefield",
+        "TestPlayer skip attack",
         "Opponent puts Plains from hand onto the Battlefield",
-        "Opponent skip attack"
-      ],
-      "turn": 4
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 61,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 61,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 1,
-      "choices": [
-        {
-          "action": "cast",
-          "id": "p8",
-          "index": 0,
-          "mana_cost": "{W}",
-          "name": "Savannah Lions",
-          "power": "2",
-          "toughness": "1"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 10,
-      "isForced": false,
-      "llmEventIndices": [
-        21,
-        22
-      ],
-      "message": "Play spells and abilities",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1,
-        "playableCards": [
-          "p8"
-        ],
-        "untappedLands": 2
-      },
-      "player": "Opponent",
-      "responseType": "select",
-      "snapshotIndex": 32,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
+        "Opponent skip attack",
         "Opponent casts Savannah Lions from hand"
       ],
-      "turn": 4
+      "turn": 3
     },
     {
       "actionResult": {
@@ -850,11 +574,11 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 11,
+      "index": 5,
       "isForced": false,
       "llmEventIndices": [
-        23,
-        24
+        11,
+        12
       ],
       "message": "Play instants and activated abilities",
       "phase": "POSTCOMBAT_MAIN",
@@ -893,10 +617,10 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 12,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
-        25
+        13
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -943,11 +667,11 @@
         "choice": "0",
         "mana_plan": "COLORLESS"
       },
-      "index": 13,
+      "index": 7,
       "isForced": false,
       "llmEventIndices": [
-        26,
-        27
+        14,
+        15
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -963,130 +687,6 @@
         "TestPlayer casts Fact or Fiction from hand",
         "TestPlayer reveals Air Elemental, Djinn of Wishes, Mind Control, Serra Angel, Shivan Dragon (source: Fact or Fiction)"
       ],
-      "turn": 5
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_target_0",
-        "game_seq": 90,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select cards to put in the first pile (selected 1 of 5)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "actionSeq": 90,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 5,
-      "choices": [
-        {
-          "id": "l27",
-          "index": 0,
-          "name": "Air Elemental",
-          "target_type": "card"
-        },
-        {
-          "id": "l28",
-          "index": 1,
-          "name": "Djinn of Wishes",
-          "target_type": "card"
-        },
-        {
-          "id": "l29",
-          "index": 2,
-          "name": "Mind Control",
-          "target_type": "card"
-        },
-        {
-          "id": "l30",
-          "index": 3,
-          "name": "Serra Angel",
-          "target_type": "card"
-        },
-        {
-          "id": "l31",
-          "index": 4,
-          "name": "Shivan Dragon",
-          "target_type": "card"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 14,
-      "isForced": false,
-      "llmEventIndices": [
-        28,
-        29
-      ],
-      "message": "Select cards to put in the first pile (selected 0 of 5)",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "untappedLands": 1
-      },
-      "player": "Opponent",
-      "responseType": "index",
-      "snapshotIndex": 48,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
-      "turn": 5
-    },
-    {
-      "actionResult": {
-        "action_taken": "cancelled",
-        "game_seq": 91,
-        "success": true
-      },
-      "actionSeq": 91,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 4,
-      "choices": [
-        {
-          "id": "l28",
-          "index": 0,
-          "name": "Djinn of Wishes",
-          "target_type": "card"
-        },
-        {
-          "id": "l29",
-          "index": 1,
-          "name": "Mind Control",
-          "target_type": "card"
-        },
-        {
-          "id": "l30",
-          "index": 2,
-          "name": "Serra Angel",
-          "target_type": "card"
-        },
-        {
-          "id": "l31",
-          "index": 3,
-          "name": "Shivan Dragon",
-          "target_type": "card"
-        }
-      ],
-      "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
-      },
-      "index": 15,
-      "isForced": false,
-      "llmEventIndices": [
-        30,
-        36
-      ],
-      "message": "Select cards to put in the first pile (selected 1 of 5)",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "untappedLands": 1
-      },
-      "player": "Opponent",
-      "responseType": "index",
-      "snapshotIndex": 48,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
       "turn": 5
     },
     {
@@ -1107,11 +707,11 @@
       "chosenArgs": {
         "pile": 1
       },
-      "index": 16,
+      "index": 8,
       "isForced": true,
       "llmEventIndices": [
-        31,
-        32
+        16,
+        17
       ],
       "message": "Choose a pile to put into hand.",
       "phase": "PRECOMBAT_MAIN",
@@ -1153,204 +753,9 @@
         "concede"
       ],
       "model": "",
-      "player": "Opponent",
-      "seq": 1,
-      "type": "game_start"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
       "player": "TestPlayer",
       "seq": 1,
       "type": "game_start"
-    },
-    {
-      "args": {},
-      "gameSeq": 6,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p7",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p8",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 1,
-        "context": "T1 ()",
-        "game_seq": 6,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "choice=yes or choice=no",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "mana_cost": "{2}{W}{W}",
-            "name": "Ajani Goldmane",
-            "rules": [
-              "+1: You gain 2 life.",
-              "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-              "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-            ]
-          },
-          {
-            "mana_cost": "{3}{W}{W}",
-            "name": "Baneslayer Angel",
-            "power": "5",
-            "rules": [
-              "Flying",
-              "First strike",
-              "Lifelink",
-              "Protection from Demons and from Dragons"
-            ],
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{4}{W}{W}",
-            "name": "Captain of the Watch",
-            "power": "3",
-            "rules": [
-              "Vigilance",
-              "Other Soldier creatures you control get +1/+1 and have vigilance.",
-              "When {this} enters, create three 1/1 white Soldier creature tokens."
-            ],
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{2}{W}{W}",
-            "name": "Guardian Seraph",
-            "power": "3",
-            "rules": [
-              "Flying",
-              "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-            ],
-            "toughness": "4"
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "mana_cost": "{W}",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          },
-          {
-            "mana_cost": "{3}{W}{W}",
-            "name": "Serra Angel",
-            "power": "4",
-            "rules": [
-              "Flying",
-              "Vigilance"
-            ],
-            "toughness": "4"
-          }
-        ]
-      },
-      "seq": 2,
-      "tool": "pass_priority",
-      "type": "tool_call"
     },
     {
       "args": {},
@@ -1409,25 +814,6 @@
     },
     {
       "args": {
-        "choice": "no"
-      },
-      "gameSeq": 6,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 6,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 3,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "0"
       },
       "gameSeq": 1,
@@ -1443,163 +829,6 @@
       },
       "seq": 3,
       "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 1
-      },
-      "gameSeq": 26,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p7",
-                "is_land": true,
-                "name": "Plains",
-                "playable": true,
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p24",
-                "is_land": true,
-                "name": "Plains",
-                "playable": true,
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p8",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 8,
-            "is_active": true,
-            "is_you": true,
-            "library_size": 52,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 2,
-        "choices": [
-          {
-            "action": "land",
-            "id": "p7",
-            "index": 0,
-            "name": "Plains"
-          },
-          {
-            "action": "land",
-            "id": "p24",
-            "index": 1,
-            "name": "Plains"
-          }
-        ],
-        "context": "T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN",
-        "game_seq": 26,
-        "has_playable_cards": true,
-        "land_drops_used": 0,
-        "message": "Play spells and abilities",
-        "respond_with": "choice=pN to play, or choice=no to pass",
-        "response_type": "select",
-        "stop_reason": "playable_cards"
-      },
-      "seq": 4,
-      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1752,25 +981,6 @@
     },
     {
       "args": {
-        "choice": "0"
-      },
-      "gameSeq": 26,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 26,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 5,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "no"
       },
       "gameSeq": 5,
@@ -1786,163 +996,6 @@
       },
       "seq": 5,
       "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 2,
-        "until": "end_of_turn"
-      },
-      "gameSeq": 36,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p7",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p24",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p8",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "playable": true,
-                "power": "2",
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 7,
-            "is_active": true,
-            "is_you": true,
-            "library_size": 52,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 3,
-        "choices": [
-          {
-            "action": "cast",
-            "id": "p8",
-            "index": 0,
-            "mana_cost": "{W}",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ],
-        "context": "T1 Postcombat Main/Postcombat Main (Opponent) YOUR_MAIN",
-        "game_seq": 36,
-        "has_playable_cards": true,
-        "land_drops_used": 1,
-        "message": "Play spells and abilities",
-        "respond_with": "choice=pN to play, or choice=no to pass",
-        "response_type": "select",
-        "stop_reason": "playable_cards",
-        "untapped_lands": 1
-      },
-      "seq": 6,
-      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2083,24 +1136,6 @@
     },
     {
       "args": {
-        "board_cursor": 3,
-        "until": "precombat_main"
-      },
-      "gameSeq": 43,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "current_step": "Precombat Main",
-        "game_seq": 43,
-        "stop_reason": "step_not_reached"
-      },
-      "seq": 7,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "0"
       },
       "gameSeq": 15,
@@ -2122,25 +1157,6 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 43,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 43,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 8,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "choice": "0"
-      },
       "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
@@ -2154,192 +1170,6 @@
       },
       "seq": 8,
       "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 3
-      },
-      "gameSeq": 51,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p7",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p24",
-                "is_land": true,
-                "name": "Plains",
-                "playable": true,
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p26",
-                "is_land": true,
-                "name": "Plains",
-                "playable": true,
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p8",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "playable": true,
-                "power": "2",
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 8,
-            "is_active": true,
-            "is_you": true,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p11",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 52,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 4,
-        "choices": [
-          {
-            "action": "land",
-            "id": "p24",
-            "index": 0,
-            "name": "Plains"
-          },
-          {
-            "action": "land",
-            "id": "p26",
-            "index": 1,
-            "name": "Plains"
-          },
-          {
-            "action": "cast",
-            "id": "p8",
-            "index": 2,
-            "mana_cost": "{W}",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ],
-        "context": "T2 Precombat Main/Precombat Main (Opponent) YOUR_MAIN",
-        "game_seq": 51,
-        "has_playable_cards": true,
-        "land_drops_used": 0,
-        "message": "Play spells and abilities",
-        "respond_with": "choice=pN to play, or choice=no to pass",
-        "response_type": "select",
-        "stop_reason": "playable_cards",
-        "untapped_lands": 1
-      },
-      "seq": 9,
-      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2502,25 +1332,6 @@
     },
     {
       "args": {
-        "choice": "0"
-      },
-      "gameSeq": 51,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 51,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 10,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "board_cursor": 5,
         "until": "precombat_main"
       },
@@ -2579,178 +1390,6 @@
     },
     {
       "args": {
-        "board_cursor": 4
-      },
-      "gameSeq": 61,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p7",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p24",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p26",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p8",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "playable": true,
-                "power": "2",
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 7,
-            "is_active": true,
-            "is_you": true,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p11",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": false
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 52,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 5,
-        "choices": [
-          {
-            "action": "cast",
-            "id": "p8",
-            "index": 0,
-            "mana_cost": "{W}",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ],
-        "context": "T2 Postcombat Main/Postcombat Main (Opponent) YOUR_MAIN",
-        "game_seq": 61,
-        "has_playable_cards": true,
-        "land_drops_used": 1,
-        "message": "Play spells and abilities",
-        "respond_with": "choice=pN to play, or choice=no to pass",
-        "response_type": "select",
-        "stop_reason": "playable_cards",
-        "untapped_lands": 2
-      },
-      "seq": 11,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "0"
       },
       "gameSeq": 38,
@@ -2765,25 +1404,6 @@
         "success": true
       },
       "seq": 11,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "choice": "0"
-      },
-      "gameSeq": 61,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 61,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 12,
       "tool": "choose_action",
       "type": "tool_call"
     },
@@ -2932,220 +1552,6 @@
     },
     {
       "args": {
-        "board_cursor": 5
-      },
-      "gameSeq": 90,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p7",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p24",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "graveyard": [
-              {
-                "id": "p8",
-                "name": "Savannah Lions"
-              }
-            ],
-            "hand": [
-              {
-                "id": "p3",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Ajani Goldmane",
-                "rules": [
-                  "+1: You gain 2 life.",
-                  "-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.",
-                  "-6: Create a white Avatar creature token. It has \"This creature's power and toughness are each equal to your life total.\""
-                ]
-              },
-              {
-                "id": "p4",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Baneslayer Angel",
-                "power": "5",
-                "rules": [
-                  "Flying",
-                  "First strike",
-                  "Lifelink",
-                  "Protection from Demons and from Dragons"
-                ],
-                "toughness": "5"
-              },
-              {
-                "id": "p5",
-                "mana_cost": "{4}{W}{W}",
-                "name": "Captain of the Watch",
-                "power": "3",
-                "rules": [
-                  "Vigilance",
-                  "Other Soldier creatures you control get +1/+1 and have vigilance.",
-                  "When {this} enters, create three 1/1 white Soldier creature tokens."
-                ],
-                "toughness": "3"
-              },
-              {
-                "id": "p6",
-                "mana_cost": "{2}{W}{W}",
-                "name": "Guardian Seraph",
-                "power": "3",
-                "rules": [
-                  "Flying",
-                  "If a source an opponent controls would deal damage to you, prevent 1 of that damage."
-                ],
-                "toughness": "4"
-              },
-              {
-                "id": "p26",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p9",
-                "mana_cost": "{3}{W}{W}",
-                "name": "Serra Angel",
-                "power": "4",
-                "rules": [
-                  "Flying",
-                  "Vigilance"
-                ],
-                "toughness": "4"
-              }
-            ],
-            "hand_size": 6,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p11",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": true
-              }
-            ],
-            "graveyard": [
-              {
-                "id": "p15",
-                "name": "Mana Drain",
-                "rules": [
-                  "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
-                ]
-              }
-            ],
-            "hand_size": 4,
-            "is_active": true,
-            "is_you": false,
-            "library_size": 51,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "board_cursor": 6,
-        "can_cancel": true,
-        "choices": [
-          {
-            "id": "l27",
-            "index": 0,
-            "name": "Air Elemental",
-            "target_type": "card"
-          },
-          {
-            "id": "l28",
-            "index": 1,
-            "name": "Djinn of Wishes",
-            "target_type": "card"
-          },
-          {
-            "id": "l29",
-            "index": 2,
-            "name": "Mind Control",
-            "target_type": "card"
-          },
-          {
-            "id": "l30",
-            "index": 3,
-            "name": "Serra Angel",
-            "target_type": "card"
-          },
-          {
-            "id": "l31",
-            "index": 4,
-            "name": "Shivan Dragon",
-            "target_type": "card"
-          }
-        ],
-        "context": "T3 Precombat Main/Precombat Main (TestPlayer)",
-        "game_seq": 90,
-        "message": "Select cards to put in the first pile (selected 0 of 5)",
-        "required": false,
-        "respond_with": "choice=pN, or choice=no to cancel",
-        "response_type": "index",
-        "stack": [
-          {
-            "name": "Fact or Fiction"
-          },
-          {
-            "name": "Ability",
-            "targets": [
-              {
-                "id": "p2",
-                "name": "TestPlayer"
-              }
-            ]
-          }
-        ],
-        "stop_reason": "non_priority_action",
-        "untapped_lands": 1
-      },
-      "seq": 13,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "0"
       },
       "gameSeq": 66,
@@ -3160,25 +1566,6 @@
         "success": true
       },
       "seq": 13,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "choice": "0"
-      },
-      "gameSeq": 90,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 90,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select cards to put in the first pile (selected 1 of 5)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "seq": 14,
       "tool": "choose_action",
       "type": "tool_call"
     },
@@ -3349,71 +1736,6 @@
     },
     {
       "args": {
-        "board_cursor": 6
-      },
-      "gameSeq": 91,
-      "player": "Opponent",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board_cursor": 6,
-        "board_unchanged": true,
-        "can_cancel": true,
-        "choices": [
-          {
-            "id": "l28",
-            "index": 0,
-            "name": "Djinn of Wishes",
-            "target_type": "card"
-          },
-          {
-            "id": "l29",
-            "index": 1,
-            "name": "Mind Control",
-            "target_type": "card"
-          },
-          {
-            "id": "l30",
-            "index": 2,
-            "name": "Serra Angel",
-            "target_type": "card"
-          },
-          {
-            "id": "l31",
-            "index": 3,
-            "name": "Shivan Dragon",
-            "target_type": "card"
-          }
-        ],
-        "context": "T3 Precombat Main/Precombat Main (TestPlayer)",
-        "game_seq": 91,
-        "message": "Select cards to put in the first pile (selected 1 of 5)",
-        "required": false,
-        "respond_with": "choice=pN, or choice=no to cancel",
-        "response_type": "index",
-        "stack": [
-          {
-            "name": "Fact or Fiction"
-          },
-          {
-            "name": "Ability",
-            "targets": [
-              {
-                "id": "p2",
-                "name": "TestPlayer"
-              }
-            ]
-          }
-        ],
-        "stop_reason": "non_priority_action",
-        "untapped_lands": 1
-      },
-      "seq": 15,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "board_cursor": 7,
         "until": "precombat_main"
       },
@@ -3460,21 +1782,6 @@
     },
     {
       "args": {
-        "choice": "no"
-      },
-      "gameSeq": 91,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "cancelled",
-        "game_seq": 91,
-        "success": true
-      },
-      "seq": 16,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "choice": "0",
         "mana_plan": "COLORLESS"
       },
@@ -3493,22 +1800,6 @@
       },
       "seq": 16,
       "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 6
-      },
-      "gameSeq": 104,
-      "player": "Opponent",
-      "result": {
-        "action_pending": false,
-        "game_over": true,
-        "game_seq": 104,
-        "stop_reason": "game_over"
-      },
-      "seq": 17,
-      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -3708,107 +1999,6 @@
       },
       "seq": 17,
       "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 104,
-      "player": "Opponent",
-      "result": {
-        "active_player": "TestPlayer",
-        "available": true,
-        "cursor": 1,
-        "game_seq": 104,
-        "phase": "Precombat Main",
-        "players": [
-          {
-            "battlefield": [
-              {
-                "id": "p7",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p24",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "graveyard": [
-              {
-                "id": "p8",
-                "name": "Savannah Lions"
-              }
-            ],
-            "hand_size": 6,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p11",
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Sol Ring",
-                "rules": [
-                  "{T}: Add {C}{C}."
-                ],
-                "tapped": true
-              }
-            ],
-            "hand_size": 0,
-            "is_active": true,
-            "is_you": false,
-            "library_size": 0,
-            "life": 20,
-            "name": "TestPlayer"
-          }
-        ],
-        "priority_player": "TestPlayer",
-        "stack": [
-          {
-            "id": "p30",
-            "name": "Ability",
-            "rules": [
-              "At the beginning of your next main phase, add {C}."
-            ],
-            "targets": [
-              {
-                "id": "p2",
-                "name": "TestPlayer"
-              }
-            ]
-          }
-        ],
-        "step": "Precombat Main",
-        "turn": 3
-      },
-      "seq": 18,
-      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -4254,19 +2444,6 @@
     {
       "deckName": "plains_lions_opponent",
       "name": "Opponent",
-      "toolCallsFailed": 0,
-      "toolCallsOk": 17,
-      "tools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
       "type": "replay"
     }
   ],
