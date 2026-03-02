@@ -30,7 +30,12 @@
     "decision_index": 34
   },
   {
-    "decision_index": 42
+    "decision_index": 42,
+    "annotation_version": 30,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Domesticated Hydra uses 4 mana to deploy a single 3/3, leaving 1 Mountain unused. The alternative of Fertilid (2G) + Dragon Fodder (1R) uses all 5 mana, deploys three bodies (2/2 + two 1/1s), provides future ramp via Fertilid's ability, and critically sets up Volley Veteran for next turn to enter dealing 2+ damage (with Goblins on board).",
+    "verdict": "blunder",
+    "human_notes": "mana plan is insufficient to cast the hydra"
   },
   {
     "decision_index": 44
