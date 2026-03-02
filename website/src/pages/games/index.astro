@@ -388,6 +388,18 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     color: var(--color-success);
   }
 
+  .winner-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    vertical-align: middle;
+  }
+
   .yt-link {
     color: var(--accent-primary);
     text-decoration: none;
@@ -767,7 +779,11 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     var winnerEl = document.createElement("span");
     if (game.winner) {
       winnerEl.className = "game-winner winner-found";
-      winnerEl.textContent = "\u2605 " + game.winner;
+      var winnerLabel = document.createElement("span");
+      winnerLabel.className = "winner-badge";
+      winnerLabel.textContent = "WINNER";
+      winnerEl.textContent = game.winner + " ";
+      winnerEl.appendChild(winnerLabel);
     } else {
       winnerEl.className = "game-winner winner-none";
       winnerEl.textContent = "No winner";
