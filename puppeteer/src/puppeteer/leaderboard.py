@@ -931,3 +931,31 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
     output_path = data_dir / "internals-data.json"
     output_path.write_text(json.dumps(output, indent=2) + "\n")
     return output_path
+
+
+def generate_blunder_stats(data_dir: Path) -> Path:
+    """Read blunder-stats.jsonl and write blunder-internals.json.
+
+    The JSONL file is appended to by blunder_analysis.py on each annotation
+    run.  This function parses it into a JSON array sorted by timestamp for
+    the internals page.
+    """
+    jsonl_path = data_dir / "blunder-stats.jsonl"
+    records: list[dict[str, Any]] = []
+    if jsonl_path.exists():
+        for line in jsonl_path.read_text().splitlines():
+            line = line.strip()
+            if line:
+                records.append(json.loads(line))
+
+    records.sort(key=lambda r: r.get("ts", ""))
+
+    output: dict[str, Any] = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "runs": records,
+    }
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    output_path = data_dir / "blunder-internals.json"
+    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    return output_path

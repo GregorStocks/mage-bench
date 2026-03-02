@@ -878,6 +878,35 @@ def _write_annotations(gz_path: str, annotations: list) -> None:
         os.unlink(ann_path)
 
 
+def _append_blunder_stats(
+    *,
+    game_id: str,
+    decisions_analyzed: int,
+    total_prompt: int,
+    total_completion: int,
+    total_cached: int,
+    total_cost: float,
+) -> None:
+    """Append a run record to blunder-stats.jsonl for internals tracking."""
+    from datetime import datetime, timezone
+
+    stats_path = REPO_ROOT / "website" / "src" / "data" / "blunder-stats.jsonl"
+    record = {
+        "gameId": game_id,
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "version": BLUNDER_SCRIPT_VERSION,
+        "model": OPUS_MODEL,
+        "decisionsAnalyzed": decisions_analyzed,
+        "promptTokens": total_prompt,
+        "completionTokens": total_completion,
+        "cachedTokens": total_cached,
+        "costUsd": round(total_cost, 4),
+    }
+    with open(stats_path, "a") as f:
+        f.write(json.dumps(record) + "\n")
+    print(f"  Blunder stats appended to {stats_path}")
+
+
 def build_decision_prompt(
     overview: str,
     decision: dict,
@@ -1317,6 +1346,7 @@ def main(gz_path: str) -> None:
         )
 
     total_prompt = sum(r.get("prompt_tokens", 0) for r in raw_records)
+    total_completion = sum(r.get("completion_tokens", 0) for r in raw_records)
     total_cached = sum(r.get("cached_tokens", 0) for r in raw_records)
     cache_pct = total_cached / total_prompt * 100 if total_prompt > 0 else 0
     print(
@@ -1361,6 +1391,14 @@ def main(gz_path: str) -> None:
     if not annotations:
         print("\nNo blunders found.")
         _write_annotations(gz_path, [])
+        _append_blunder_stats(
+            game_id=data["id"],
+            decisions_analyzed=len(non_forced),
+            total_prompt=total_prompt,
+            total_completion=total_completion,
+            total_cached=total_cached,
+            total_cost=total_cost,
+        )
         print(f"\nTotal cost: ${total_cost:.3f}")
         return
 
@@ -1381,6 +1419,16 @@ def main(gz_path: str) -> None:
 
     # Auto-ingest: add annotated decisions to ground truth for future eval
     _auto_ingest_ground_truth(data["id"], annotations, decisions, snapshots)
+
+    # Append run stats to blunder-stats.jsonl for internals tracking
+    _append_blunder_stats(
+        game_id=data["id"],
+        decisions_analyzed=len(non_forced),
+        total_prompt=total_prompt,
+        total_completion=total_completion,
+        total_cached=total_cached,
+        total_cost=total_cost,
+    )
 
     print(f"\nTotal cost: ${total_cost:.3f}")
 

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import modelStats from '../data/model-stats.json';
 import internalsData from '../data/internals-data.json';
+import blunderData from '../data/blunder-internals.json';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -30,6 +31,7 @@ if (fs.existsSync(exportsDir)) {
   <div class="tabs">
     <button class="tab active" data-tab="trends">Trends</button>
     <button class="tab" data-tab="model-stats">Model Stats</button>
+    <button class="tab" data-tab="blunder">Blunder Analysis</button>
     <button class="tab" data-tab="golden">Golden Tests</button>
   </div>
 
@@ -165,6 +167,33 @@ if (fs.existsSync(exportsDir)) {
     </div>
   </div>
 
+  <!-- Blunder Analysis Tab -->
+  <div class="tab-content" id="tab-blunder">
+    <div class="trends-controls">
+      <div class="metric-row">
+        <span class="control-label">Metric</span>
+        <div class="metric-buttons" id="blunder-metric-buttons">
+          <button class="metric-btn active" data-metric="cacheRate">Cache%</button>
+          <button class="metric-btn" data-metric="cost">Cost</button>
+          <button class="metric-btn" data-metric="promptTokens">Prompt Tok</button>
+          <button class="metric-btn" data-metric="decisions">Decisions</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label class="control-label">
+            Min Version
+            <input type="number" id="blunder-min-version" value="1" min="1" />
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="blunder-chart"></canvas>
+    </div>
+    <p class="chart-note" id="blunder-chart-note"></p>
+  </div>
+
   <!-- Golden Tests Tab -->
   <div class="tab-content" id="tab-golden">
     <p class="subtitle">Board states from golden prompt tests. Click a scenario to view the full game replay.</p>
@@ -184,6 +213,7 @@ if (fs.existsSync(exportsDir)) {
   <!-- Data blobs -->
   <script type="application/json" id="model-stats-data" set:html={JSON.stringify(modelStats)} />
   <script type="application/json" id="internals-data" set:html={JSON.stringify(internalsData)} />
+  <script type="application/json" id="blunder-data" set:html={JSON.stringify(blunderData)} />
 
   <!-- Chart.js trends -->
   <script>
@@ -915,6 +945,161 @@ if (fs.existsSync(exportsDir)) {
     minEpochInput.addEventListener('input', render);
     searchInput.addEventListener('input', render);
     render();
+  </script>
+
+  <!-- Blunder Analysis chart -->
+  <script>
+    import { Chart, registerables } from 'chart.js';
+    Chart.register(...registerables);
+
+    interface BlunderRun {
+      gameId: string;
+      ts: string;
+      version: number;
+      model: string;
+      decisionsAnalyzed: number;
+      promptTokens: number;
+      completionTokens: number;
+      cachedTokens: number;
+      costUsd: number;
+    }
+
+    const blunderRaw = JSON.parse(document.getElementById('blunder-data')!.textContent!) as {
+      runs: BlunderRun[];
+    };
+
+    const BLUNDER_METRICS: Record<string, {
+      label: string;
+      unit: string;
+      compute: (r: BlunderRun) => number | null;
+    }> = {
+      cacheRate: {
+        label: 'Cache Rate',
+        unit: '%',
+        compute: (r) => r.promptTokens > 0 ? (r.cachedTokens / r.promptTokens) * 100 : null,
+      },
+      cost: {
+        label: 'Cost',
+        unit: '$',
+        compute: (r) => r.costUsd,
+      },
+      promptTokens: {
+        label: 'Prompt Tokens',
+        unit: '',
+        compute: (r) => r.promptTokens,
+      },
+      decisions: {
+        label: 'Decisions Analyzed',
+        unit: '',
+        compute: (r) => r.decisionsAnalyzed,
+      },
+    };
+
+    let blunderMetric = 'cacheRate';
+    let blunderMinVersion = 1;
+    let blunderChart: Chart | null = null;
+
+    const blunderCanvas = document.getElementById('blunder-chart') as HTMLCanvasElement;
+    const blunderNote = document.getElementById('blunder-chart-note') as HTMLElement;
+
+    // Metric button switching
+    document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        blunderMetric = btn.getAttribute('data-metric')!;
+        updateBlunderChart();
+      });
+    });
+
+    const blunderMinVersionInput = document.getElementById('blunder-min-version') as HTMLInputElement;
+    blunderMinVersionInput.addEventListener('input', () => {
+      blunderMinVersion = parseInt(blunderMinVersionInput.value) || 1;
+      updateBlunderChart();
+    });
+
+    function updateBlunderChart() {
+      const metric = BLUNDER_METRICS[blunderMetric];
+      const filtered = blunderRaw.runs
+        .filter(r => r.version >= blunderMinVersion && r.ts)
+        .sort((a, b) => a.ts.localeCompare(b.ts));
+
+      const points: { x: number; y: number; label: string }[] = [];
+      filtered.forEach((r, i) => {
+        const val = metric.compute(r);
+        if (val !== null) {
+          const date = new Date(r.ts);
+          const dateStr = `${date.getMonth() + 1}/${date.getDate()}`;
+          points.push({ x: i, y: val, label: `${r.gameId}\n${dateStr} v${r.version}` });
+        }
+      });
+
+      // Date labels for x-axis
+      const dateLabels = new Map<number, Date>();
+      filtered.forEach((r, i) => dateLabels.set(i, new Date(r.ts)));
+
+      blunderNote.textContent = `${filtered.length} annotation run(s)`;
+
+      if (blunderChart) blunderChart.destroy();
+
+      blunderChart = new Chart(blunderCanvas, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: metric.label,
+            data: points,
+            backgroundColor: 'rgba(233, 69, 96, 0.6)',
+            borderColor: '#e94560',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const p = ctx.raw as { x: number; y: number; label: string };
+                  const val = metric.unit === '%' ? p.y.toFixed(1) + '%'
+                    : metric.unit === '$' ? '$' + p.y.toFixed(3)
+                    : p.y.toLocaleString();
+                  return `${p.label}: ${val}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: 'linear',
+              title: { display: true, text: 'Annotation Run', color: '#a0a0b8' },
+              ticks: {
+                color: '#a0a0b8',
+                callback: function(value: string | number) {
+                  const idx = typeof value === 'string' ? parseInt(value) : value;
+                  const d = dateLabels.get(idx);
+                  return d ? `${d.getMonth() + 1}/${d.getDate()}` : '';
+                },
+              },
+              grid: { color: 'rgba(255,255,255,0.05)' },
+            },
+            y: {
+              title: {
+                display: true,
+                text: metric.unit ? `${metric.label} (${metric.unit})` : metric.label,
+                color: '#a0a0b8',
+              },
+              ticks: { color: '#a0a0b8' },
+              grid: { color: 'rgba(255,255,255,0.05)' },
+            },
+          },
+        },
+      });
+    }
+
+    updateBlunderChart();
   </script>
 </Base>
 
