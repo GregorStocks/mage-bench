@@ -2023,6 +2023,7 @@ public class BridgeCallbackHandler {
         // This prevents the LLM from waking up to an empty state.
         if (Boolean.TRUE.equals(result.get("success"))) {
             long waitStart = System.currentTimeMillis();
+            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback (max " + STALL_NUDGE_MS + "ms)");
             while (pendingAction == null) {
                 if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                     break;
@@ -2041,6 +2042,13 @@ public class BridgeCallbackHandler {
                 retryLastResponseIfLost();
             }
             PendingAction next = pendingAction;
+            long waitElapsed = System.currentTimeMillis() - waitStart;
+            if (next != null) {
+                logger.debug("[" + client.getUsername() + "] chooseAction: next callback arrived after " + waitElapsed + "ms");
+            } else {
+                logger.info("[" + client.getUsername() + "] chooseAction: next callback NOT arrived after " + waitElapsed + "ms"
+                    + " (pendingAction=null, lastResponseSentAt=" + lastResponseSentAt + ")");
+            }
             if (next != null) {
                 result.put("next_action_pending", true);
                 result.put("next_action_type", next.method().name());
@@ -3418,9 +3426,15 @@ public class BridgeCallbackHandler {
             }
 
             // Stall recovery: lost response retry and lost callback nudge.
-            // Lost response retry
+            // Lost response retry — clear tracked response afterward so the
+            // stall recovery condition (lastResponseSentAt == 0) becomes
+            // satisfiable.  Without this, a single lost response permanently
+            // blocks stall recovery and the bridge hangs for 60s.
             if (retryLastResponseIfLost()) {
                 startTime = System.currentTimeMillis();
+                clearTrackedResponse();
+                logger.info("[" + client.getUsername()
+                    + "] Cleared tracked response after lost-response retry — stall recovery now enabled");
             }
 
             // Lost callback recovery — only after we've received at least one
