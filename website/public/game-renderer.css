@@ -551,6 +551,11 @@
   width: 100%;
 }
 
+.stack-item {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .stack-target {
   font-size: 0.7em;
   color: #8899aa;
