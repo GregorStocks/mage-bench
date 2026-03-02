@@ -979,6 +979,14 @@
     // Set up mouse-following card preview
     R.setupMousePreview(dom.previewEls.container);
 
+    // Preload all card images into browser cache
+    if (game.cardImages) {
+      Object.keys(game.cardImages).forEach(function (name) {
+        var img = new Image();
+        img.src = game.cardImages[name];
+      });
+    }
+
     // Render turn boundary markers and annotation markers on slider
     renderTurnMarkers(turnStartIndices, game.snapshots.length);
     if (hasAnnotations) {
