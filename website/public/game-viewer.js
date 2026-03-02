@@ -502,6 +502,9 @@
       // Stack
       R.renderStack(dom.stackSection, dom.stackCards, snap.stack, game.cardImages, dom.previewEls);
 
+      // Pending decisions for this snapshot
+      R.renderDecisions(dom.stackSection, snapshotDecisionMap[index] || [], playerColorMap);
+
       // Action log: show full accumulated log up to current snapshot
       dom.actionList.innerHTML = "";
       var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
@@ -881,6 +884,14 @@
           active_player: snap.active_player,
         });
       }
+    });
+
+    // Build snapshot -> decisions map
+    var snapshotDecisionMap = {};
+    (game.decisions || []).forEach(function (d) {
+      var si = d.snapshotIndex;
+      if (!snapshotDecisionMap[si]) snapshotDecisionMap[si] = [];
+      snapshotDecisionMap[si].push(d);
     });
 
     // Populate turn dropdown

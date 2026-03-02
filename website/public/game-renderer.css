@@ -117,6 +117,7 @@
 .player-name.has-priority {
   text-decoration: underline;
   text-underline-offset: 2px;
+  color: #ffd700;
 }
 
 /* Active turn: accent-colored outline on entire player card */
@@ -563,6 +564,23 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Decision prompts (shown below stack) */
+.decisions-container {
+  margin-top: 0.5rem;
+}
+
+.decision-prompt {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.75rem;
+  color: #a0a0b8;
+  border-left: 2px solid #e94560;
+  margin-top: 0.3rem;
+}
+
+.decision-player {
+  font-weight: 600;
 }
 
 /* Stack ability thumbnails */

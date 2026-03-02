@@ -1165,6 +1165,38 @@
     }
   }
 
+  // ── Decision rendering ──
+
+  function renderDecisions(stackSection, decisions, playerColorMap) {
+    var existing = stackSection.querySelector(".decisions-container");
+    if (existing) existing.remove();
+    if (!decisions || decisions.length === 0) return;
+
+    var container = document.createElement("div");
+    container.className = "decisions-container";
+
+    decisions.forEach(function (d) {
+      var el = document.createElement("div");
+      el.className = "decision-prompt";
+      var colorIdx = playerColorMap[d.player];
+      var colorClass = colorIdx != null ? PLAYER_COLORS[colorIdx] : "";
+
+      var playerSpan = document.createElement("span");
+      playerSpan.className = "decision-player" + (colorClass ? " " + colorClass : "");
+      playerSpan.textContent = d.player;
+
+      var msgSpan = document.createElement("span");
+      msgSpan.className = "decision-message";
+      msgSpan.textContent = " \u2014 " + d.message;
+
+      el.appendChild(playerSpan);
+      el.appendChild(msgSpan);
+      container.appendChild(el);
+    });
+
+    stackSection.appendChild(container);
+  }
+
   // ── Phase/step formatting ──
 
   var STEP_LABELS = {
@@ -1489,6 +1521,7 @@
     // Rendering
     renderPlayers: renderPlayers,
     renderStack: renderStack,
+    renderDecisions: renderDecisions,
     renderStatusLine: renderStatusLine,
     computePlayerTurnNumbers: computePlayerTurnNumbers,
     setupMousePreview: setupMousePreview,
