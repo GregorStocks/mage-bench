@@ -831,8 +831,21 @@ def start_observer_client(
     if config.skip_init_shuffling:
         env["XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING"] = "true"
 
+    args = ["mvn", "-q", "exec:java"]
+
+    # Auto-detect headless Linux and wrap with xvfb-run for virtual framebuffer.
+    # This lets Swing render to a virtual X11 display so recording still works.
+    if sys.platform == "linux" and "DISPLAY" not in os.environ and "WAYLAND_DISPLAY" not in os.environ:
+        xvfb = shutil.which("xvfb-run")
+        assert xvfb is not None, (
+            "Headless environment detected (no DISPLAY set) but xvfb-run is not installed. "
+            "Install xvfb for your distribution (e.g. apt-get install xvfb or dnf install xorg-x11-server-Xvfb)."
+        )
+        args = [xvfb, "--auto-servernum", "--server-args=-screen 0 1920x1080x24", *args]
+        logger.info("Headless environment detected — wrapping observer with xvfb-run")
+
     return pm.start_process(
-        args=["mvn", "-q", "exec:java"],
+        args=args,
         cwd=project_root / "Mage.Client.Observer",
         env=env,
         log_file=log_path,
