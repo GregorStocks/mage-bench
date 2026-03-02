@@ -169,9 +169,6 @@
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-game" checked /> Game</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-chat" checked /> Chat</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-annotations" checked /> Blunders</label>',
-      '          <label id="llm-toggle-label" class="hidden">',
-      '            <input type="checkbox" id="llm-toggle" checked /> Show LLM thinking',
-      '          </label>',
       '        </div>',
       '      </div>',
       '      <div id="action-list"></div>',
@@ -219,8 +216,6 @@
         rules: container.querySelector("#preview-rules"),
       },
       // Filters
-      llmToggleLabel: container.querySelector("#llm-toggle-label"),
-      llmToggle: container.querySelector("#llm-toggle"),
       playerFilter: container.querySelector("#player-filter"),
       filterLlmEl: container.querySelector("#filter-llm"),
       filterGameEl: container.querySelector("#filter-game"),
@@ -248,7 +243,6 @@
     var turnStartIndices = [];
     var phaseTransitions = [];
     var playerTurnNumbers = [];
-    var showLlm = true;
     var isCommander = false;
     var filterPlayer = "";
     var filterLlm = true;
@@ -565,7 +559,7 @@
       // All LLM events up to current snapshot
       var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
       var relevantLlm = [];
-      if (hasLlmEvents && showLlm) {
+      if (hasLlmEvents) {
         var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var nextTs = nextSnap ? (nextSnap.ts || "") : "";
         var nextSeq = nextSnap ? (nextSnap.seq || Infinity) : Infinity;
@@ -833,7 +827,6 @@
       || (game.llmEvents && game.llmEvents.some(function (e) { return e.tool === "send_chat_message"; }));
     var hasAnnotations = game.annotations && game.annotations.length > 0;
     if (hasLlm) {
-      dom.llmToggleLabel.classList.remove("hidden");
       dom.filterLlmEl.parentElement.classList.remove("hidden");
     }
     dom.filterGameEl.parentElement.classList.remove("hidden");
@@ -902,11 +895,6 @@
     dom.snapshotJump.max = String(game.snapshots.length);
 
     // ── Event listeners ──
-
-    dom.llmToggle.addEventListener("change", function () {
-      showLlm = dom.llmToggle.checked;
-      renderSnapshot(currentIndex);
-    });
 
     dom.playerFilter.addEventListener("change", function () {
       filterPlayer = dom.playerFilter.value;
