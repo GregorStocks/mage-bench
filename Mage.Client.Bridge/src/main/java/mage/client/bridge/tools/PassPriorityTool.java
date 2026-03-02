@@ -11,119 +11,103 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class PassPriorityTool {
     @Tool(
         name = "pass_priority",
-        description = "Pass priority. Blocks until you have a pending action (playable cards, "
-            + "combat, non-priority action like mulligan/targeting). "
-            + "With until: skips ahead to a target step or phase. "
-            + "Step values (current turn, client-side): upkeep, draw, precombat_main, "
-            + "begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. "
-            + "Cross-turn values (server-side): end_of_turn, my_turn, stack_resolved. "
-            + "Always stops for combat and non-priority actions. "
-            + "Auto-handles mechanical callbacks (mana payment failures, "
-            + "optional targets with no legal targets). "
-            + "Returns stop_reason indicating why the call returned. "
-            + "When action_pending=true, includes full action choices "
-            + "(response_type, choices, context, etc.) so you can call choose_action immediately.",
+        description = "Pass priority. Blocks until you have a pending action "
+            + "(playable cards, combat, or non-priority action like mulligan/targeting). "
+            + "With until: skip to a target step/phase; always stops for combat and non-priority actions. "
+            + "When action_pending=true, includes choices so you can call choose_action immediately.",
         output = {
-            @Tool.Field(name = "action_pending", type = "boolean", description = "Whether a decision-requiring action was found"),
+            @Tool.Field(name = "action_pending", type = "boolean", description = "Whether a decision is needed"),
             @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
-            @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards in hand"),
-            @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
-            @Tool.Field(name = "current_step", type = "string", description = "Current game step (only for reached_step/step_not_reached)"),
-            @Tool.Field(name = "recent_chat", type = "array[string]", description = "Chat messages received since last check"),
-            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died during priority passing"),
+            @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards"),
+            @Tool.Field(name = "combat_phase", type = "string", description = "declare_attackers or declare_blockers"),
+            @Tool.Field(name = "current_step", type = "string", description = "Current step (for reached_step/step_not_reached)"),
+            @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages"),
+            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
             @Tool.Field(name = "stop_reason", type = "string",
-                description = "Why the call returned: playable_cards, combat, non_priority_action, "
-                    + "game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)"),
+                description = "Why returned: playable_cards, combat, non_priority_action, "
+                    + "game_over, reached_step, step_not_reached"),
             @Tool.Field(name = "response_type", type = "string",
-                description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
+                description = "select, boolean, index, amount, pile, or multi_amount",
                 conditional = "action_pending"),
-            @Tool.Field(name = "message", type = "string", description = "Human-readable prompt from XMage",
+            @Tool.Field(name = "message", type = "string", description = "Prompt from XMage",
                 conditional = "action_pending"),
             @Tool.Field(name = "context", type = "string",
-                description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
+                description = "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
                 conditional = "action_pending"),
             @Tool.Field(name = "board", type = "array[object]",
-                description = "Full board state — same format as get_game_state players array. "
-                    + "Omitted when board_unchanged=true (board_cursor matched).",
+                description = "Board state (players array). Omitted when board_unchanged=true.",
                 conditional = "action_pending"),
             @Tool.Field(name = "board_cursor", type = "integer",
-                description = "Cursor for the current board state. Pass back in the next call to skip the board if unchanged.",
+                description = "Pass back to skip unchanged board.",
                 conditional = "action_pending"),
             @Tool.Field(name = "board_unchanged", type = "boolean",
-                description = "True when the provided board_cursor matches — board field is omitted.",
+                description = "Board omitted (cursor matched).",
                 conditional = "action_pending"),
             @Tool.Field(name = "choices", type = "array[object]",
-                description = "Structured choices with index, name, and type-specific fields",
+                description = "Available choices with index and name",
                 conditional = "action_pending"),
-            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards with name, mana_cost",
+            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards",
                 conditional = "action_pending"),
-            @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands",
+            @Tool.Field(name = "untapped_lands", type = "integer", description = "Untapped land count",
                 conditional = "action_pending"),
-            @Tool.Field(name = "game_seq", type = "integer", description = "Game sequence number for determinism tracking"),
-            @Tool.Field(name = "error", type = "string", description = "Error message (e.g. invalid until value)"),
-            @Tool.Field(name = "warning", type = "string", description = "Warning (e.g. action changed before choices were fetched)"),
+            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number"),
+            @Tool.Field(name = "error", type = "string", description = "Error message"),
+            @Tool.Field(name = "warning", type = "string", description = "Warning message"),
             @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
             @Tool.Field(name = "respond_with", type = "string",
-                description = "Exact choose_action parameter(s) to use for the pending action",
+                description = "choose_action parameter(s) to use",
                 conditional = "action_pending"),
             @Tool.Field(name = "stack", type = "array[object]",
-                description = "Spells/abilities currently on the stack (only present when stack is non-empty)",
+                description = "Stack (when non-empty)",
                 conditional = "action_pending"),
             @Tool.Field(name = "combat", type = "array[object]",
-                description = "Combat groups: attackers, blockers, blocked, defending",
+                description = "Combat groups",
                 conditional = "action_pending"),
             @Tool.Field(name = "land_drops_used", type = "integer",
-                description = "Number of lands played this turn",
+                description = "Lands played this turn",
                 conditional = "action_pending"),
             @Tool.Field(name = "already_attacking", type = "array[object]",
-                description = "Creatures already declared as attackers",
+                description = "Pre-declared attackers",
                 conditional = "action_pending"),
             @Tool.Field(name = "incoming_attackers", type = "array[object]",
-                description = "Attacking creatures during declare_blockers",
+                description = "Attackers (during declare_blockers)",
                 conditional = "action_pending"),
             @Tool.Field(name = "required", type = "boolean",
-                description = "Whether targeting is required",
+                description = "Targeting is required",
                 conditional = "action_pending"),
             @Tool.Field(name = "can_cancel", type = "boolean",
-                description = "Whether targeting can be cancelled",
+                description = "Targeting can be cancelled",
                 conditional = "action_pending"),
             @Tool.Field(name = "note", type = "string",
-                description = "Informational note (e.g. filtered choice list size)",
+                description = "Informational note",
                 conditional = "action_pending"),
             @Tool.Field(name = "pile1", type = "array[object]",
-                description = "First pile contents (for GAME_CHOOSE_PILE)",
+                description = "Pile 1 contents",
                 conditional = "action_pending"),
             @Tool.Field(name = "pile2", type = "array[object]",
-                description = "Second pile contents (for GAME_CHOOSE_PILE)",
+                description = "Pile 2 contents",
                 conditional = "action_pending"),
             @Tool.Field(name = "min", type = "integer",
-                description = "Minimum allowed value (for GAME_GET_AMOUNT)",
+                description = "Min allowed value",
                 conditional = "action_pending"),
             @Tool.Field(name = "max", type = "integer",
-                description = "Maximum allowed value (for GAME_GET_AMOUNT)",
+                description = "Max allowed value",
                 conditional = "action_pending"),
             @Tool.Field(name = "total_min", type = "integer",
-                description = "Total minimum across all items (for GAME_GET_MULTI_AMOUNT)",
+                description = "Total min (multi_amount)",
                 conditional = "action_pending"),
             @Tool.Field(name = "total_max", type = "integer",
-                description = "Total maximum across all items (for GAME_GET_MULTI_AMOUNT)",
+                description = "Total max (multi_amount)",
                 conditional = "action_pending"),
             @Tool.Field(name = "items", type = "array[object]",
-                description = "Per-item details for multi_amount: description, min, max, default",
+                description = "Per-item details for multi_amount",
                 conditional = "action_pending")
         }
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
             @Param(
-                description = "Skip ahead to a target. "
-                    + "Step values yield within the current turn (client-side): "
-                    + "upkeep, draw, precombat_main, begin_combat, declare_attackers, "
-                    + "declare_blockers, end_combat, postcombat_main. "
-                    + "Cross-turn values use server-side yield: "
-                    + "end_of_turn (skip rest of turn), my_turn (skip to your next turn), "
-                    + "stack_resolved (wait for stack to resolve). "
-                    + "Omit to block until next actionable priority.",
+                description = "Skip to a target step/phase. Omit to block until next action.",
                 allowed_values = {
                     "upkeep", "draw", "precombat_main", "begin_combat",
                     "declare_attackers", "declare_blockers",
@@ -132,8 +116,7 @@ public class PassPriorityTool {
                 }
             ) String until,
             @Param(
-                description = "Board cursor from a previous pass_priority or get_action_choices result. "
-                    + "When provided and the board hasn't changed, the board field is omitted to save tokens."
+                description = "Board cursor from previous result. Omits board when unchanged."
             ) Long board_cursor) {
         return handler.passPriority(until, board_cursor);
     }

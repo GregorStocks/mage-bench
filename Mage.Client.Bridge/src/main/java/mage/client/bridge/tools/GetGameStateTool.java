@@ -12,28 +12,26 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 public class GetGameStateTool {
     @Tool(
         name = "get_game_state",
-        description = "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, "
-            + "hand (yours only), battlefield (name, tapped, P/T, counters, rules, token/copy/face_down flags, "
-            + "modified + original_card when changed from printed card), graveyard (name, rules), exile (name, rules), commanders.",
+        description = "Get full game state: turn, phase, players (life, hand, battlefield, graveyard, exile), stack, combat.",
         output = {
-            @Tool.Field(name = "available", type = "boolean", description = "Whether game state is available"),
+            @Tool.Field(name = "available", type = "boolean", description = "Whether state is available"),
             @Tool.Field(name = "error", type = "string", description = "Error message"),
-            @Tool.Field(name = "cursor", type = "integer", description = "Cursor for the latest known game state"),
-            @Tool.Field(name = "unchanged", type = "boolean", description = "True when the provided cursor already matches the latest state"),
-            @Tool.Field(name = "turn", type = "integer", description = "Current turn number"),
-            @Tool.Field(name = "phase", type = "string", description = "Current phase (e.g. PRECOMBAT_MAIN, COMBAT)"),
-            @Tool.Field(name = "step", type = "string", description = "Current step within the phase"),
-            @Tool.Field(name = "active_player", type = "string", description = "Name of the player whose turn it is"),
-            @Tool.Field(name = "priority_player", type = "string", description = "Name of the player who currently has priority"),
-            @Tool.Field(name = "players", type = "array[object]", description = "Player objects: name, life, library_size, hand_size, is_active, is_you, hand (yours only), battlefield, graveyard, exile, mana_pool, counters, commanders"),
-            @Tool.Field(name = "stack", type = "array[object]", description = "Stack objects: name, rules, targets (resolved target names)"),
-            @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups: attackers, blockers, blocked, defending"),
-            @Tool.Field(name = "game_seq", type = "integer", description = "Game sequence number for determinism tracking")
+            @Tool.Field(name = "cursor", type = "integer", description = "State cursor"),
+            @Tool.Field(name = "unchanged", type = "boolean", description = "Cursor matched (no changes)"),
+            @Tool.Field(name = "turn", type = "integer", description = "Turn number"),
+            @Tool.Field(name = "phase", type = "string", description = "Current phase"),
+            @Tool.Field(name = "step", type = "string", description = "Current step"),
+            @Tool.Field(name = "active_player", type = "string", description = "Whose turn it is"),
+            @Tool.Field(name = "priority_player", type = "string", description = "Who has priority"),
+            @Tool.Field(name = "players", type = "array[object]", description = "Player objects with life, hand, battlefield, graveyard, exile, mana_pool"),
+            @Tool.Field(name = "stack", type = "array[object]", description = "Stack: name, rules, targets"),
+            @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups"),
+            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number")
         }
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
-            @Param(description = "State cursor from previous get_game_state call. If unchanged, returns a compact payload.") Long cursor) {
+            @Param(description = "Cursor from previous call. Returns compact payload if unchanged.") Long cursor) {
         return handler.getGameState(cursor);
     }
 
