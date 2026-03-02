@@ -6,19 +6,16 @@ convention that's easy to violate and tedious to police manually.
 """
 
 import ast
-import gzip
 import json
 import re
 from pathlib import Path
 from typing import Any, ClassVar
 
-import jsonschema
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
-SCHEMA_PATH = REPO_ROOT / "schemas" / "game-export-v2.schema.json"
 DECKS_DIR = REPO_ROOT / "data" / "decks"
 CONFIGS_DIR = REPO_ROOT / "configs"
 
@@ -42,13 +39,6 @@ _EXPECTED_DECK_FORMATS = {"standard", "modern", "legacy", "commander", "jumpstar
 
 
 def _load_json(path: Path) -> Any:
-    return json.loads(path.read_text())
-
-
-def _load_game(path: Path) -> dict:
-    if path.suffix == ".gz":
-        with gzip.open(path, "rt") as f:
-            return json.load(f)
     return json.loads(path.read_text())
 
 
@@ -193,11 +183,9 @@ class TestAllExportsValid:
         _glob_game_files(),
         ids=lambda p: p.name,
     )
-    def test_game_conforms_to_schema(self, game_file: Path) -> None:
-        schema = _load_json(SCHEMA_PATH)
-        validator = jsonschema.Draft7Validator(schema)
-        data = _load_game(game_file)
-        errors = sorted(validator.iter_errors(data), key=lambda e: list(e.absolute_path))
+    def test_game_conforms_to_schema(self, game_file: Path, all_games_data: dict, game_export_validator) -> None:
+        data = all_games_data[game_file]
+        errors = sorted(game_export_validator.iter_errors(data), key=lambda e: list(e.absolute_path))
         assert not errors, f"{errors[0].message} (at {'/'.join(str(p) for p in errors[0].absolute_path)})"
 
 
@@ -371,15 +359,14 @@ class TestConfigReferencesValid:
 
 
 class TestExportedGameModelsKnown:
-    def test_game_models_exist(self) -> None:
+    def test_game_models_exist(self, all_games_data: dict) -> None:
         """Every player.model in exported games must be in models.json or the retired allowlist."""
         models_data = _load_json(PUPPETEER_DIR / "models.json")
         model_ids = {m["id"] for m in models_data["models"]}
         allowed = model_ids | _RETIRED_MODELS
 
         unknown: list[str] = []
-        for game_file in _glob_game_files():
-            data = _load_game(game_file)
+        for game_file, data in all_games_data.items():
             for player in data.get("players", []):
                 model = player.get("model")
                 if model and model not in allowed:
