@@ -375,19 +375,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     color: var(--text-secondary);
   }
 
-  .game-winner {
-    font-weight: 600;
-  }
-
-  .winner-none {
-    color: var(--text-secondary);
-    font-style: italic;
-  }
-
-  .winner-found {
-    color: var(--color-success);
-  }
-
   .winner-badge {
     display: inline-block;
     font-size: 0.55rem;
@@ -398,6 +385,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     padding: 0.05rem 0.35rem;
     border-radius: 2px;
     vertical-align: middle;
+    margin-left: 0.4rem;
   }
 
   .yt-link {
@@ -776,19 +764,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     turnsEl.textContent = game.totalTurns + " turns";
     header.appendChild(turnsEl);
 
-    var winnerEl = document.createElement("span");
-    if (game.winner) {
-      winnerEl.className = "game-winner winner-found";
-      var winnerLabel = document.createElement("span");
-      winnerLabel.className = "winner-badge";
-      winnerLabel.textContent = "WINNER";
-      winnerEl.textContent = game.winner + " ";
-      winnerEl.appendChild(winnerLabel);
-    } else {
-      winnerEl.className = "game-winner winner-none";
-      winnerEl.textContent = "No winner";
-    }
-    header.appendChild(winnerEl);
 
     // Old harness badge
     var epoch = game.harnessEpoch || 1;
@@ -834,6 +809,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
       var nameText = document.createTextNode(p.name);
       nameRow.appendChild(nameText);
+
+      if (game.winner && p.name === game.winner) {
+        var badge = document.createElement("span");
+        badge.className = "winner-badge";
+        badge.textContent = "WINNER";
+        nameRow.appendChild(badge);
+      }
 
       if (p.model) {
         var modelName = p.model;

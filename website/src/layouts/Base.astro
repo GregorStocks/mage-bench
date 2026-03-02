@@ -110,29 +110,6 @@ const navLinks = [
     z-index: -1;
   }
 
-  :global(@keyframes fadeInUp) {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  :global(main > *:nth-child(1)) { animation: fadeInUp 0.4s ease-out both; }
-  :global(main > *:nth-child(2)) { animation: fadeInUp 0.4s ease-out 0.06s both; }
-  :global(main > *:nth-child(3)) { animation: fadeInUp 0.4s ease-out 0.12s both; }
-  :global(main > *:nth-child(4)) { animation: fadeInUp 0.4s ease-out 0.18s both; }
-  :global(main > *:nth-child(5)) { animation: fadeInUp 0.4s ease-out 0.24s both; }
-  :global(main > *:nth-child(6)) { animation: fadeInUp 0.4s ease-out 0.30s both; }
-  :global(main > *:nth-child(7)) { animation: fadeInUp 0.4s ease-out 0.36s both; }
-  :global(main > *:nth-child(8)) { animation: fadeInUp 0.4s ease-out 0.42s both; }
-  :global(main > *:nth-child(9)) { animation: fadeInUp 0.4s ease-out 0.48s both; }
-  :global(main > *:nth-child(10)) { animation: fadeInUp 0.4s ease-out 0.54s both; }
-
-  @media (prefers-reduced-motion: reduce) {
-    :global(*, *::before, *::after) {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
 
   nav {
     display: flex;
