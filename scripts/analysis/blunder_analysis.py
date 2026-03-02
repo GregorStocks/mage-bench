@@ -174,6 +174,7 @@ for them — typically passing or skipping. Treat this like "Chosen: False" \
 for blunder evaluation: if skipping was wrong given the available choices, \
 flag it."""
 
+
 def _build_tool_reference() -> str:
     """Build a tool reference section from the MCP tool spec for choose_action."""
     mcp_tools_path = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json"

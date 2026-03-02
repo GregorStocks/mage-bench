@@ -361,7 +361,7 @@ def _resolve_mana_plan(mana_plan: str, snapshot: dict | None) -> str:
         for p in snapshot.get("players", []):
             for perm in p.get("battlefield", []):
                 if isinstance(perm, dict) and perm.get("id"):
-                    id_to_name[perm["id"]] = perm.get("name", perm["id"])
+                    id_to_name[perm["id"]] = perm.get("name") or perm["id"]
 
     parts: list[str] = []
     for entry in mana_plan.split(","):
