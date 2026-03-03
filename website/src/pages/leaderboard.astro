@@ -11,7 +11,7 @@ const FORMAT_LABELS: Record<string, string> = {
   combined: 'Combined',
 };
 
-const FORMAT_ORDER = ['jumpstart', 'standard', 'modern', 'legacy', 'commander', 'combined'];
+const FORMAT_ORDER = ['combined', 'jumpstart', 'standard', 'modern', 'legacy', 'commander'];
 
 // Build per-format data from the formats key (or fall back to single leaderboard)
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {
