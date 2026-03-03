@@ -458,6 +458,40 @@
         return null;
       }
 
+      // send_chat_message: show mcp badge + message text, raw call behind disclosure
+      if (tc.tool === "send_chat_message") {
+        var chatContainer = document.createElement("span");
+        chatContainer.className = "llm-decision-display";
+
+        var chatBadge = document.createElement("span");
+        chatBadge.className = "log-badge badge-mcp";
+        chatBadge.textContent = "mcp";
+        chatContainer.appendChild(chatBadge);
+
+        var chatText = document.createElement("span");
+        chatText.className = "decision-action-text";
+        chatText.textContent = "send_chat_message: " + ((tc.args && tc.args.message) || "");
+        chatContainer.appendChild(chatText);
+
+        var chatRaw = document.createElement("details");
+        chatRaw.className = "llm-tool-raw";
+        var chatRawSummary = document.createElement("summary");
+        chatRawSummary.textContent = "raw";
+        chatRaw.appendChild(chatRawSummary);
+        var chatRawInner = document.createElement("div");
+        var chatRawArgs = formatToolArgs(tc.args);
+        chatRawInner.innerHTML = '<div class="llm-tool-raw-call">' + escapeHtml(tc.tool) + "(" + escapeHtml(chatRawArgs) + ")</div>";
+        if (tc.result) {
+          var chatRawPre = document.createElement("pre");
+          chatRawPre.textContent = tryFormatJson(tc.result);
+          chatRawInner.appendChild(chatRawPre);
+        }
+        chatRaw.appendChild(chatRawInner);
+        chatContainer.appendChild(chatRaw);
+
+        return chatContainer;
+      }
+
       // Default: original rendering for unmapped tool calls
       var wrapper = document.createElement("span");
       wrapper.className = "llm-tool-default";
