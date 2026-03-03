@@ -1,0 +1,160 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const reports = (await getCollection('reports'))
+  .filter(r => import.meta.env.DEV || !r.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+function shortModel(model: string): string {
+  const slash = model.indexOf('/');
+  return slash !== -1 ? model.substring(slash + 1) : model;
+}
+---
+
+<Base title="After-Action Reports">
+  <h1>After-Action Reports</h1>
+  <p class="subtitle">Narrative breakdowns of notable games.</p>
+
+  {reports.length === 0 ? (
+    <p class="no-reports">No reports yet.</p>
+  ) : (
+    <div class="report-list">
+      {reports.map(report => (
+        <a href={`/reports/${report.id}`} class="report-card">
+          <div class="report-header">
+            <time>{formatDate(report.data.pubDate)}</time>
+            <span class="format-badge">{report.data.format}</span>
+            <span class="turns">{report.data.totalTurns} turns</span>
+          </div>
+          <h2>{report.data.title}</h2>
+          <p class="report-desc">{report.data.description}</p>
+          <div class="report-players">
+            {report.data.players.map((p, i) => (
+              <>
+                {i > 0 && <span class="vs">vs</span>}
+                <span class:list={['player', { winner: p.name === report.data.winner }]}>
+                  {p.name}
+                  <span class="model">({shortModel(p.model)})</span>
+                </span>
+              </>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Base>
+
+<style>
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .no-reports {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .report-card {
+    display: block;
+    padding: 1rem 1.25rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .report-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+
+  .report-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .format-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+    background: rgba(233, 69, 96, 0.15);
+    color: #e94560;
+  }
+
+  .turns {
+    color: var(--text-secondary);
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+
+  .report-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .report-players {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+  }
+
+  .player {
+    color: var(--text-secondary);
+  }
+
+  .player.winner {
+    color: #a8d9a5;
+    font-weight: 600;
+  }
+
+  .vs {
+    color: #666;
+    font-size: 0.75rem;
+  }
+
+  .model {
+    font-size: 0.75rem;
+    color: #666;
+  }
+</style>

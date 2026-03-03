@@ -14,4 +14,23 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const reports = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/reports' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    gameId: z.string(),
+    pubDate: z.coerce.date(),
+    format: z.string(),
+    winner: z.string().nullable(),
+    players: z.array(z.object({
+      name: z.string(),
+      model: z.string(),
+      deck: z.string().optional(),
+    })),
+    totalTurns: z.number(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { blog, reports };
