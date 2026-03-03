@@ -47,7 +47,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  35 - Server-assigned short IDs for callback cards (scry, tutor, pile choices) (Mar 1)
 #  36 - Simplify choose_action: merge index/id/answer into choice; arrays to comma-separated strings (Mar 1)
 #  37 - Shorten MCP tool/param/output descriptions for token efficiency (Mar 1)
-HARNESS_EPOCH = 37
+#  38 - Remove bridge-side stall recovery (lost response retry + speculative pass) (Mar 2)
+HARNESS_EPOCH = 38
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
