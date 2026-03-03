@@ -53,7 +53,9 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
             @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
             @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages"),
-            @Tool.Field(name = "stop_reason", type = "string", description = "Why returned (when until is set)")
+            @Tool.Field(name = "stop_reason", type = "string", description = "Why returned (when until is set)"),
+            @Tool.Field(name = "action_taken", type = "string", description = "What was done when an action was auto-resolved"),
+            @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards")
         }
     )
     public static Map<String, Object> execute(

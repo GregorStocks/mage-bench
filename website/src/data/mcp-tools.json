@@ -688,6 +688,10 @@
           "description": "Min allowed value",
           "type": "integer"
         },
+        "has_playable_cards": {
+          "description": "Whether you have playable cards",
+          "type": "boolean"
+        },
         "context": {
           "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
           "type": "string"
@@ -734,6 +738,10 @@
         "max": {
           "description": "Max allowed value",
           "type": "integer"
+        },
+        "action_taken": {
+          "description": "What was done when an action was auto-resolved",
+          "type": "string"
         },
         "untapped_lands": {
           "description": "Untapped land count",
