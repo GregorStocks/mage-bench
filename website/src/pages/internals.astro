@@ -44,7 +44,6 @@ if (fs.existsSync(exportsDir)) {
           <button class="metric-btn active" data-metric="timeoutRate">TO Rate</button>
           <button class="metric-btn" data-metric="costPerGame">Cost/Game</button>
           <button class="metric-btn" data-metric="cacheRate">Cache%</button>
-          <button class="metric-btn" data-metric="winRate">Win%</button>
           <button class="metric-btn" data-metric="toolCallsPerGame">Tools/Game</button>
           <button class="metric-btn" data-metric="avgPromptTokens">Prompt Tok</button>
           <button class="metric-btn" data-metric="avgCompletionTokens">Compl Tok</button>
@@ -110,7 +109,6 @@ if (fs.existsSync(exportsDir)) {
           <col style="width: 17%;" />
           <col style="width: 7%;" />
           <col style="width: 4%;" />
-          <col style="width: 4%;" />
           <col style="width: 6%;" />
           <col style="width: 5%;" />
           <col style="width: 4%;" />
@@ -128,7 +126,6 @@ if (fs.existsSync(exportsDir)) {
             <th data-sort="modelName" data-type="string">Model</th>
             <th data-sort="provider" data-type="string">Provider</th>
             <th data-sort="gamesPlayed" data-type="number">Games</th>
-            <th data-sort="winRate" data-type="number">Win%</th>
             <th data-sort="timeoutRate" data-type="number" class="sorted desc">TO Rate <span class="sort-arrow">&#9660;</span></th>
             <th data-sort="totalTimeouts" data-type="number">Timeouts</th>
             <th data-sort="totalOtherErrors" data-type="number">Errors</th>
@@ -422,11 +419,6 @@ if (fs.existsSync(exportsDir)) {
         unit: '%',
         compute: (p) => p.promptTokens > 0 && !hasUnreliableCache(p.key)
             ? (p.cachedTokens / p.promptTokens) * 100 : null,
-      },
-      winRate: {
-        label: 'Win (1=yes, 0=no)',
-        unit: '',
-        compute: (p) => p.won ? 1 : 0,
       },
       toolCallsPerGame: {
         label: 'Tool Calls per Game',
@@ -727,8 +719,6 @@ if (fs.existsSync(exportsDir)) {
       modelName: string;
       provider: string;
       gamesPlayed: number;
-      wins: number;
-      winRate: number;
       totalTimeouts: number;
       totalOtherErrors: number;
       timeoutRate: number;
@@ -748,7 +738,7 @@ if (fs.existsSync(exportsDir)) {
     function aggregate(minEpoch: number): AggregatedStats[] {
       const results: AggregatedStats[] = [];
       for (const [key, model] of Object.entries(models) as [string, any][]) {
-        let gamesPlayed = 0, wins = 0, totalCost = 0;
+        let gamesPlayed = 0, totalCost = 0;
         let totalPrompt = 0, totalCompletion = 0, successfulResponses = 0;
         let totalCached = 0, totalReasoning = 0;
         let hasPreTokenDetailData = false;
@@ -761,7 +751,6 @@ if (fs.existsSync(exportsDir)) {
           if (epochNum < minEpoch) continue;
           if (epochNum < TOKEN_DETAIL_EPOCH) hasPreTokenDetailData = true;
           gamesPlayed += bucket.gamesPlayed;
-          wins += bucket.wins;
           totalCost += bucket.totalCostUsd;
           totalPrompt += bucket.totalPromptTokens;
           totalCompletion += bucket.totalCompletionTokens;
@@ -793,8 +782,6 @@ if (fs.existsSync(exportsDir)) {
           modelName: model.modelName,
           provider: model.provider,
           gamesPlayed,
-          wins,
-          winRate: gamesPlayed > 0 ? wins / gamesPlayed : 0,
           totalTimeouts,
           totalOtherErrors,
           timeoutRate: totalAttempts > 0 ? totalTimeouts / totalAttempts : 0,
@@ -848,7 +835,6 @@ if (fs.existsSync(exportsDir)) {
           <td class="model-name">${esc(s.modelName)}</td>
           <td>${esc(s.provider)}</td>
           <td class="num">${s.gamesPlayed}</td>
-          <td class="num">${(s.winRate * 100).toFixed(1)}%</td>
           <td class="num"><span class="${timeoutRateClass(s.timeoutRate)}">${(s.timeoutRate * 100).toFixed(1)}%</span></td>
           <td class="num">${s.totalTimeouts}</td>
           <td class="num">${s.totalOtherErrors}</td>
@@ -1471,7 +1457,6 @@ if (fs.existsSync(exportsDir)) {
   }
 
   th[data-sort="gamesPlayed"],
-  th[data-sort="winRate"],
   th[data-sort="timeoutRate"],
   th[data-sort="totalTimeouts"],
   th[data-sort="totalOtherErrors"],

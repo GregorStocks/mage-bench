@@ -2,8 +2,7 @@
 """Find game exports that haven't been analyzed yet.
 
 Cross-references game files in website/public/games/ against analysis
-files in doc/claudes/analyses/{fast,deep}/ or report files in
-website/src/content/reports/.
+files in doc/claudes/analyses/{fast,deep}/.
 
 Skips games that are too stale: if N+ analyses exist for games newer
 than a given game, any bugs from that game have likely already been
@@ -13,7 +12,6 @@ Usage:
     find_unanalyzed.py                    # 10 most recent unanalyzed (fast)
     find_unanalyzed.py --count 5          # 5 most recent
     find_unanalyzed.py --type deep        # check deep/ instead of fast/
-    find_unanalyzed.py --type report      # check reports/ instead
     find_unanalyzed.py --max-staleness 50 # skip games with 50+ newer analyses
     find_unanalyzed.py --max-staleness 0  # no staleness limit
 """
@@ -24,7 +22,6 @@ from pathlib import Path
 from blunder_eval_common import GAMES_DIR, REPO_ROOT, glob_game_files
 
 ANALYSES_DIR = REPO_ROOT / "doc" / "claudes" / "analyses"
-REPORTS_DIR = REPO_ROOT / "website" / "src" / "content" / "reports"
 
 DEFAULT_MAX_STALENESS = 30
 
@@ -38,10 +35,7 @@ def game_id_from_path(p: Path) -> str:
 
 
 def find_unanalyzed(analysis_type: str, count: int, max_staleness: int) -> list[Path]:
-    if analysis_type == "report":
-        analysis_dir = REPORTS_DIR
-    else:
-        analysis_dir = ANALYSES_DIR / analysis_type
+    analysis_dir = ANALYSES_DIR / analysis_type
     analyzed: set[str] = set()
     if analysis_dir.is_dir():
         for f in analysis_dir.glob("game_*.md"):
@@ -79,7 +73,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--type",
-        choices=["fast", "deep", "report"],
+        choices=["fast", "deep"],
         default="fast",
         help="Analysis type to check (default: fast)",
     )

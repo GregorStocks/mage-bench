@@ -1,14 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection } from 'astro:content';
 import benchmarkData from '../../data/benchmark-results.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
-
-const allReports = await getCollection('reports');
-const reportGameIds = new Set(allReports.map(r => r.data.gameId));
 
 const gamesDir = path.join(process.cwd(), 'public', 'games');
 const games: Array<Record<string, unknown>> = [];
@@ -82,7 +78,6 @@ if (fs.existsSync(gamesDir)) {
       harnessEpoch: data.harnessEpoch ?? null,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
-    if (reportGameIds.has(data.id)) entry.hasReport = true;
     const annotations = data.annotations;
     if (annotations == null) {
       throw new Error(`Game ${data.id} has no annotations`);
@@ -414,17 +409,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .yt-link:hover {
-    text-decoration: underline;
-  }
-
-  .report-link {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-size: 0.75rem;
-    margin-left: 0.5rem;
-  }
-
-  .report-link:hover {
     text-decoration: underline;
   }
 
@@ -946,24 +930,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         ytFooter.className = "game-footer";
         ytFooter.appendChild(ytLink);
         a.appendChild(ytFooter);
-      }
-    }
-
-    // After-action report link in footer
-    if (game.hasReport) {
-      var reportLink = document.createElement("a");
-      reportLink.href = "/reports/" + game.id;
-      reportLink.className = "report-link";
-      reportLink.textContent = "Report";
-      reportLink.onclick = function (e) { e.stopPropagation(); };
-      var footerEl2 = a.querySelector(".game-footer");
-      if (footerEl2) {
-        footerEl2.appendChild(reportLink);
-      } else {
-        var rptFooter = document.createElement("div");
-        rptFooter.className = "game-footer";
-        rptFooter.appendChild(reportLink);
-        a.appendChild(rptFooter);
       }
     }
 
