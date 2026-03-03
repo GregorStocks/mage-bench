@@ -18,7 +18,7 @@ const FORMAT_DISPLAY: Record<string, string> = {
   standard: "Standard",
   modern: "Modern",
   legacy: "Legacy",
-  commander: "Commander",
+  commander: "Commander (Exhibition)",
   jumpstart: "Jumpstart",
 };
 
@@ -170,7 +170,7 @@ if (fs.existsSync(gamesDir)) {
 
   {recentCommander.length > 0 && (
     <section class="recent-games">
-      <h2>Recent Commander Games <a href="/games?format=commander" class="section-link">All commander &rarr;</a></h2>
+      <h2>Recent Exhibition Games <a href="/games?format=commander" class="section-link">All exhibition &rarr;</a></h2>
       <div class="game-strip">
         {recentCommander.map((game) => (
           <a href={`/games/${game.id}`} class="mini-game-card" data-format={game.format}>

@@ -1,4 +1,4 @@
-"""Generate leaderboard data from game results using Elo and OpenSkill ratings."""
+"""Generate leaderboard data from game results using Elo ratings."""
 
 from __future__ import annotations
 
@@ -9,8 +9,6 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-
-from openskill.models import PlackettLuce
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION, MIN_LEADERBOARD_EPOCH
 
@@ -70,9 +68,9 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     return thinking
 
 
-# Scale raw OpenSkill ordinals (centered at 0) to a DCI-style rating.
-_OPENSKILL_BASE = 1600
-_OPENSKILL_SCALE = 100
+# Elo rating parameters.
+_ELO_START = 1600
+_ELO_K = 32
 
 # Map XMage deckType strings to canonical format names for leaderboard bucketing.
 _DECK_TYPE_TO_FORMAT: dict[str, str] = {
@@ -90,7 +88,7 @@ FORMAT_LABELS: dict[str, str] = {
     "standard": "Standard",
     "modern": "Modern",
     "legacy": "Legacy",
-    "commander": "Commander",
+    "commander": "Commander (Exhibition)",
     "combined": "Combined",
 }
 
@@ -247,26 +245,18 @@ def _placements_from_winner(game: dict) -> dict[str, int]:
     return placements
 
 
-def _openskill_display_rating(ordinal: float) -> int:
-    """Convert raw OpenSkill ordinal to display rating."""
-    return round(ordinal * _OPENSKILL_SCALE + _OPENSKILL_BASE)
-
-
-def compute_openskill_ratings(
+def compute_elo_ratings(
     games_index: list[dict],
     games_dir: Path | None = None,
-) -> tuple[dict[str, float], list[dict]]:
-    """Compute OpenSkill PlackettLuce ratings from game history.
+) -> tuple[dict[str, int], list[dict]]:
+    """Compute Elo ratings from 1v1 game history.
 
-    Uses full placement orderings for multiplayer games (e.g. Commander).
-    Games with no placement data are skipped (no rating update) but still
-    record snapshots.
+    Standard Elo with K=32. Games with fewer than 2 pilots or no placement
+    data are skipped (no rating update) but still record snapshots.
 
-    Returns (final_ratings, per_game_ratings) with the same shape as
-    compute_elo_ratings.
+    Returns (final_ratings, per_game_ratings).
     """
-    model = PlackettLuce()
-    os_ratings: dict[str, Any] = {}
+    ratings: dict[str, float] = {}
     per_game: list[dict] = []
 
     sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))
@@ -276,47 +266,46 @@ def compute_openskill_ratings(
         if len(pilots) < 2:
             for p in pilots:
                 key = _player_key(p)
-                if key not in os_ratings:
-                    os_ratings[key] = model.rating(name=key)
+                if key not in ratings:
+                    ratings[key] = float(_ELO_START)
             if pilots:
                 key = _player_key(pilots[0])
-                display = _openskill_display_rating(os_ratings[key].ordinal())
                 per_game.append(
                     {
                         "id": game.get("id", ""),
-                        "players": [{"key": key, "ratingBefore": display, "ratingAfter": display}],
+                        "players": [
+                            {"key": key, "ratingBefore": round(ratings[key]), "ratingAfter": round(ratings[key])}
+                        ],
                     }
                 )
             continue
 
         for p in pilots:
             key = _player_key(p)
-            if key not in os_ratings:
-                os_ratings[key] = model.rating(name=key)
+            if key not in ratings:
+                ratings[key] = float(_ELO_START)
 
         pilot_keys = [_player_key(p) for p in pilots]
-        before = {key: _openskill_display_rating(os_ratings[key].ordinal()) for key in pilot_keys}
+        before = {key: round(ratings[key]) for key in pilot_keys}
 
         placements = extract_placements(game, games_dir)
-
-        teams = [[os_ratings[key]] for key in pilot_keys]
         has_placements = any(p["name"] in placements for p in pilots)
-        if has_placements:
-            # Winner-takes-all: 1st place wins, everyone else ties as losers.
-            # Commander is "one winner, three losers" — elimination order
-            # among non-winners is not a meaningful signal.
-            ranks: list[float] = []
-            for p in pilots:
-                placement = placements.get(p["name"])
-                ranks.append(1.0 if placement == 1 else 2.0)
-            updated = model.rate(teams, ranks=ranks)
-        else:
-            updated = teams
 
-        for i, key in enumerate(pilot_keys):
-            os_ratings[key] = updated[i][0]
+        if has_placements and len(pilots) == 2:
+            key_a, key_b = pilot_keys
+            ra, rb = ratings[key_a], ratings[key_b]
+            ea = 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
+            eb = 1.0 - ea
 
-        after = {key: _openskill_display_rating(os_ratings[key].ordinal()) for key in pilot_keys}
+            # Determine scores: winner gets 1, loser gets 0
+            placement_a = placements.get(pilots[0]["name"])
+            sa = 1.0 if placement_a == 1 else 0.0
+            sb = 1.0 - sa
+
+            ratings[key_a] = ra + _ELO_K * (sa - ea)
+            ratings[key_b] = rb + _ELO_K * (sb - eb)
+
+        after = {key: round(ratings[key]) for key in pilot_keys}
         per_game.append(
             {
                 "id": game.get("id", ""),
@@ -331,9 +320,9 @@ def compute_openskill_ratings(
             }
         )
 
-    final: dict[str, float] = {}
-    for mid, r in os_ratings.items():
-        final[mid] = _openskill_display_rating(r.ordinal())
+    final: dict[str, int] = {}
+    for key, r in ratings.items():
+        final[key] = round(r)
 
     return final, per_game
 
@@ -345,7 +334,7 @@ def generate_leaderboard(
 ) -> tuple[dict, dict[str, dict[str, dict[str, int]]]]:
     """Aggregate game results into leaderboard data.
 
-    Uses OpenSkill PlackettLuce for ratings.
+    Uses Elo for ratings (1v1 games only).
 
     Returns (benchmark_results, ratings_by_game) where ratings_by_game is
     {game_id: {model_id: {before, after}}}.
@@ -353,7 +342,7 @@ def generate_leaderboard(
     # Filter to games with a winner for leaderboard purposes
     scored_games = [g for g in games_index if g.get("winner")]
 
-    final_ratings, per_game = compute_openskill_ratings(scored_games, games_dir)
+    final_ratings, per_game = compute_elo_ratings(scored_games, games_dir)
 
     # Build ratings_by_game lookup
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
@@ -415,7 +404,7 @@ def generate_leaderboard(
         win_rate = wins / games_played
         avg_cost = s["total_cost"] / games_played
         provider_slug = model_id.split("/", 1)[0]
-        rating = final_ratings.get(key, _OPENSKILL_BASE)
+        rating = final_ratings.get(key, _ELO_START)
 
         display_name = model_registry.get(model_id) or derive_display_name(model_id)
         if effort:
@@ -460,7 +449,111 @@ def generate_leaderboard(
     return benchmark_results, ratings_by_game
 
 
-_FORMAT_POOLS = ("jumpstart", "standard", "modern", "legacy", "commander")
+_RATED_POOLS = ("jumpstart", "standard", "modern", "legacy")
+_EXHIBITION_POOLS = ("commander",)
+_FORMAT_POOLS = _RATED_POOLS + _EXHIBITION_POOLS
+
+
+def generate_exhibition_leaderboard(
+    games_index: list[dict],
+    model_registry: dict[str, str],
+) -> dict:
+    """Aggregate exhibition game results into stats-only leaderboard (no rating).
+
+    Returns benchmark_results dict with models sorted by win rate.
+    """
+    scored_games = [g for g in games_index if g.get("winner")]
+
+    stats: dict[str, dict[str, float]] = {}
+    for game in scored_games:
+        blunder_weight_by_name: dict[str, float] = {}
+        for ann in game.get("annotations", []):
+            if ann.get("type") == "blunder":
+                name = ann.get("player", "")
+                severity = ann.get("severity", "")
+                blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
+
+        total_turns = game.get("totalTurns", 0)
+
+        for p in game.get("players", []):
+            if p.get("type") != "pilot" or not p.get("model"):
+                continue
+            key = _player_key(p)
+            if key not in stats:
+                stats[key] = {
+                    "games_played": 0,
+                    "wins": 0,
+                    "timeout_losses": 0,
+                    "total_cost": 0.0,
+                    "total_tool_calls_ok": 0,
+                    "total_tool_calls_failed": 0,
+                    "total_thinking_time": 0.0,
+                    "total_weighted_blunders": 0.0,
+                    "total_annotated_turns": 0,
+                }
+            stats[key]["games_played"] += 1
+            if game.get("winner") == p["name"]:
+                stats[key]["wins"] += 1
+            if p.get("timedOut"):
+                stats[key]["timeout_losses"] += 1
+            stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
+            stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
+            stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
+            stats[key]["total_thinking_time"] += p.get("thinkingTimeSecs", 0.0)
+            assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
+            assert total_turns > 0, f"Game {game.get('id')} has no turns"
+            stats[key]["total_annotated_turns"] += total_turns
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
+
+    models: list[dict[str, str | int | float | None]] = []
+    for key, s in stats.items():
+        model_id, effort = _split_key(key)
+        games_played = int(s["games_played"])
+        wins = int(s["wins"])
+        win_rate = wins / games_played
+        avg_cost = s["total_cost"] / games_played
+        provider_slug = model_id.split("/", 1)[0]
+
+        display_name = model_registry.get(model_id) or derive_display_name(model_id)
+        if effort:
+            display_name = f"{display_name} ({effort})"
+
+        avg_tool_calls_ok = s["total_tool_calls_ok"] / games_played
+        avg_tool_calls_failed = s["total_tool_calls_failed"] / games_played
+        avg_thinking_time = s["total_thinking_time"] / games_played
+        total_annotated_turns = int(s["total_annotated_turns"])
+        assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
+        blunder_score = s["total_weighted_blunders"] / total_annotated_turns
+        timeout_losses = int(s["timeout_losses"])
+        timeout_loss_rate = timeout_losses / games_played
+        entry: dict[str, str | int | float | None] = {
+            "modelId": model_id,
+            "modelName": display_name,
+            "provider": capitalize_provider(provider_slug),
+            "rating": None,
+            "gamesPlayed": games_played,
+            "winRate": round(win_rate, 4),
+            "timeoutLosses": timeout_losses,
+            "timeoutLossRate": round(timeout_loss_rate, 4),
+            "avgApiCost": round(avg_cost, 2),
+            "avgToolCallsOk": round(avg_tool_calls_ok, 1),
+            "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
+            "avgThinkingTimeSecs": round(avg_thinking_time, 1),
+            "blunderScore": round(blunder_score, 2),
+        }
+        if effort:
+            entry["reasoningEffort"] = effort
+        models.append(entry)
+
+    # Sort by win rate desc, then games played desc (no rating to sort by)
+    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"]))  # type: ignore[operator]
+
+    return {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "totalGames": len(scored_games),
+        "exhibition": True,
+        "models": models,
+    }
 
 
 def generate_all_leaderboards(
@@ -471,8 +564,9 @@ def generate_all_leaderboards(
     """Generate per-format leaderboards plus a combined view.
 
     Returns (format_results, ratings_by_game) where format_results maps
-    each format in FORMAT_LABELS to its benchmark_results dict. All formats
-    use OpenSkill PlackettLuce. The "combined" pool includes all games.
+    each format to its benchmark_results dict. Rated pools use Elo.
+    Exhibition pools (Commander) get stats only, no rating. The "combined"
+    pool includes only rated (1v1) games.
     """
     # Partition games by format
     games_by_format: dict[str, list[dict]] = {fmt: [] for fmt in _FORMAT_POOLS}
@@ -484,15 +578,19 @@ def generate_all_leaderboards(
     format_results: dict[str, dict] = {}
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
 
-    # Independent OpenSkill pool per format
-    for fmt in _FORMAT_POOLS:
+    # Independent Elo pool per rated format
+    for fmt in _RATED_POOLS:
         results, ratings = generate_leaderboard(games_by_format[fmt], model_registry, games_dir)
         format_results[fmt] = results
         ratings_by_game.update(ratings)
 
-    # Combined: all games in one pool (separate rating computation, not used for per-game display)
-    all_games = [g for games in games_by_format.values() for g in games]
-    combined_results, _ = generate_leaderboard(all_games, model_registry, games_dir)
+    # Exhibition pools: stats only, no rating
+    for fmt in _EXHIBITION_POOLS:
+        format_results[fmt] = generate_exhibition_leaderboard(games_by_format[fmt], model_registry)
+
+    # Combined: only rated (1v1) games in one pool
+    rated_games = [g for fmt in _RATED_POOLS for g in games_by_format[fmt]]
+    combined_results, _ = generate_leaderboard(rated_games, model_registry, games_dir)
     format_results["combined"] = combined_results
 
     return format_results, ratings_by_game

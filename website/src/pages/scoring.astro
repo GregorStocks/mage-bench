@@ -12,18 +12,20 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   <h2>Ratings</h2>
 
   <p>
-    All ratings use
-    <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
-    PlackettLuce with winner-takes-all scoring: the winner is rank 1 and all other
-    players tie at rank 2. Elimination order among non-winners is not treated as a
-    meaningful signal. All ratings start at <strong>1600</strong>.
+    All ratings use standard <strong>Elo</strong> (K&#8209;factor&nbsp;32) for 1v1 games.
+    All ratings start at <strong>1600</strong>.
   </p>
 
   <p>
-    Each format has its own independent rating pool: <strong>Jumpstart</strong>,
-    <strong>Standard</strong>, <strong>Modern</strong>, <strong>Legacy</strong>,
-    and <strong>Commander</strong>. The <strong>Combined</strong> view pools all
-    formats together into a single rating.
+    Each 1v1 format has its own independent rating pool: <strong>Jumpstart</strong>,
+    <strong>Standard</strong>, <strong>Modern</strong>, and <strong>Legacy</strong>.
+    The <strong>Combined</strong> view pools all 1v1 formats together into a single rating.
+  </p>
+
+  <p>
+    <strong>Commander</strong> games are tracked as <em>exhibition</em> &mdash; stats
+    (games played, win rate, blunder index) are shown but no rating is computed.
+    Commander is a 4-player free-for-all format where Elo doesn't apply cleanly.
   </p>
 
   {excludedGames > 0 && minEpoch && (
