@@ -66954,7 +66954,7 @@
     }
   ],
   "blunderScriptVersion": 18,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -71625,5 +71625,143 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Balustrade Spy": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Vampire Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Cabal Ritual": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard."
+    },
+    "Cabal Therapy": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a nonland card name. Target player reveals their hand and discards all cards with that name.\nFlashback—Sacrifice a creature. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Elvish Spirit Guide": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Spirit",
+      "oracle_text": "Exile this creature from your hand: Add {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Glaring Fleshraker": {
+      "mana_cost": "{2}{C}",
+      "type_line": "Creature — Eldrazi Drone",
+      "oracle_text": "Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"\nWhenever another colorless creature you control enters, this creature deals 1 damage to each opponent.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Karn, the Great Creator": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Planeswalker — Karn",
+      "oracle_text": "Activated abilities of artifacts your opponents control can't be activated.\n+1: Until your next turn, up to one target noncreature artifact becomes an artifact creature with power and toughness each equal to its mana value.\n−2: You may reveal an artifact card you own from outside the game or choose a face-up artifact card you own in exile. Put that card into your hand.",
+      "loyalty": "5"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Manifold Key": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Untap another target artifact.\n{3}, {T}: Target creature can't be blocked this turn."
+    },
+    "Mystic Forge": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "You may look at the top card of your library any time.\nYou may cast artifact spells and colorless spells from the top of your library.\n{T}, Pay 1 life: Exile the top card of your library."
+    },
+    "Narcomoeba": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Illusion",
+      "oracle_text": "Flying\nWhen this card is put into your graveyard from your library, you may put it onto the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Tezzeret, Cruel Captain": {
+      "mana_cost": "{3}",
+      "type_line": "Legendary Planeswalker — Tezzeret",
+      "oracle_text": "Whenever an artifact you control enters, put a loyalty counter on Tezzeret.\n0: Untap target artifact or creature. If it's an artifact creature, put a +1/+1 counter on it.\n−3: Search your library for an artifact card with mana value 1 or less, reveal it, put it into your hand, then shuffle.\n−7: You get an emblem with \"At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it's not a creature, it becomes a 0/0 Robot artifact creature.\"",
+      "loyalty": "4"
+    },
+    "Thassa's Oracle": {
+      "mana_cost": "{U}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "When this creature enters, look at the top X cards of your library, where X is your devotion to blue. Put up to one of them on top of your library and the rest on the bottom of your library in a random order. If X is greater than or equal to the number of cards in your library, you win the game. (Each {U} in the mana costs of permanents you control counts toward your devotion to blue.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Undercity Informer": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "{1}, Sacrifice a creature: Target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Unmask": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may exile a black card from your hand rather than pay this spell's mana cost.\nTarget player reveals their hand. You choose a nonland card from it. That player discards that card."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Urza's Tower": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's Tower",
+      "oracle_text": "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
+    },
+    "Urza's Workshop": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's",
+      "oracle_text": "{T}: Add {C}.\nMetalcraft — {T}: Add {C} for each Urza's land you control. Activate only if you control three or more artifacts."
+    },
+    "Voltaic Key": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Untap target artifact."
+    }
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_184350_g3",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -74012,5 +74012,128 @@
       "player": "Grok4F Villain"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Aegis Turtle": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Turtle",
+      "oracle_text": "",
+      "power": "0",
+      "toughness": "5"
+    },
+    "Chandra's Incinerator": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "This spell costs {X} less to cast, where X is the total amount of noncombat damage dealt to your opponents this turn.\nTrample\nWhenever a source you control deals noncombat damage to an opponent, this creature deals that much damage to target creature or planeswalker that player controls.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Chandra's Magmutt": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Elemental Dog",
+      "oracle_text": "{T}: This creature deals 1 damage to target player or planeswalker.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Chandra, Heart of Fire": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Legendary Planeswalker — Chandra",
+      "oracle_text": "+1: Discard your hand, then exile the top three cards of your library. Until end of turn, you may play cards exiled this way.\n+1: Chandra deals 2 damage to any target.\n−9: Search your graveyard and library for any number of red instant and/or sorcery cards, exile them, then shuffle. You may cast them this turn. Add six {R}.",
+      "loyalty": "5"
+    },
+    "Fanatical Firebrand": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "Haste (This creature can attack and {T} as soon as it comes under your control.)\n{T}, Sacrifice this creature: It deals 1 damage to any target.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Filigree Attendant": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Artifact Creature — Homunculus",
+      "oracle_text": "Flying\nFiligree Attendant's power is equal to the number of artifacts you control.",
+      "power": "*",
+      "toughness": "3"
+    },
+    "Homing Lightning": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Homing Lightning deals 4 damage to target creature and each other creature with the same name as that creature."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Lightning Visionary": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Minotaur Shaman",
+      "oracle_text": "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Living Lightning": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Elemental Shaman",
+      "oracle_text": "When this creature dies, return target instant or sorcery card from your graveyard to your hand.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Mechanized Production": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant artifact you control\nAt the beginning of your upkeep, create a token that's a copy of enchanted artifact. Then if you control eight or more artifacts with the same name as one another, you win the game."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Pillar of Flame": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Pillar of Flame deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+    },
+    "Pursued Whale": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Whale",
+      "oracle_text": "When this creature enters, each opponent creates a 1/1 red Pirate creature token with \"This token can't block\" and \"Creatures you control attack each combat if able.\"\nSpells your opponents cast that target this creature cost {3} more to cast.",
+      "power": "8",
+      "toughness": "8"
+    },
+    "Shambling Suit": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Shambling Suit's power is equal to the number of artifacts and/or enchantments you control.",
+      "power": "*",
+      "toughness": "3"
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Unstable Obelisk": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{7}, {T}, Sacrifice this artifact: Destroy target permanent."
+    },
+    "Waterknot": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, tap enchanted creature.\nEnchanted creature doesn't untap during its controller's untap step."
+    },
+    "Young Pyromancer": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast an instant or sorcery spell, create a 1/1 red Elemental creature token.",
+      "power": "2",
+      "toughness": "1"
+    }
+  }
 }

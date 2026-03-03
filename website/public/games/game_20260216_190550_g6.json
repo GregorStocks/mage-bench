@@ -361,7 +361,10 @@
     "Wild Endeavor": "https://api.scryfall.com/cards/afc/312?format=image&version=small",
     "Wulfgar of Icewind Dale": "https://api.scryfall.com/cards/afc/329?format=image&version=small",
     "Shivan Hellkite": "https://api.scryfall.com/cards/10e/231?format=image&version=small",
-    "Vrondiss, Rage of Ancients": "https://api.scryfall.com/cards/afc/328?format=image&version=small"
+    "Vrondiss, Rage of Ancients": "https://api.scryfall.com/cards/afc/328?format=image&version=small",
+    "Beast Token": "https://cards.scryfall.io/small/front/e/b/eb243b20-85e6-4eba-9403-42272975e8a5.jpg?1752946415",
+    "Dragon Spirit Token": "https://cards.scryfall.io/small/front/a/4/a4c06e08-2026-471d-a6d0-bbb0f040420a.jpg?1674338542",
+    "Human Soldier Token": "https://cards.scryfall.io/small/front/6/3/631c2c16-132d-4607-ab7e-207a6af188e5.jpg?1757686920"
   },
   "snapshots": [
     {
@@ -236358,7 +236361,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -248052,5 +248055,796 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Arjun, the Shifting Flame": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Sphinx Wizard",
+      "oracle_text": "Flying\nWhenever you cast a spell, put the cards in your hand on the bottom of your library in any order, then draw that many cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Atarka, World Render": {
+      "mana_cost": "{5}{R}{G}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying, trample\nWhenever a Dragon you control attacks, it gains double strike until end of turn.",
+      "power": "6",
+      "toughness": "4"
+    },
+    "Awaken the Sky Tyrant": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "When a source an opponent controls deals damage to you, sacrifice this enchantment. If you do, create a 5/5 red Dragon creature token with flying."
+    },
+    "Bag of Devouring": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever you sacrifice another nontoken artifact or creature, exile it.\n{2}, {T}, Sacrifice another artifact or creature: Draw a card.\n{3}, {T}, Sacrifice this artifact: Roll a d10. Return up to X cards from among cards exiled with this artifact to their owners' hands, where X is the result."
+    },
+    "Bag of Tricks": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Artifact",
+      "oracle_text": "{4}{G}, {T}: Roll a d8. Reveal cards from the top of your library until you reveal a creature card with mana value equal to the result. Put that card onto the battlefield and the rest on the bottom of your library in a random order."
+    },
+    "Basilisk Collar": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has deathtouch and lifelink. (Any amount of damage it deals to a creature is enough to destroy it. Damage dealt by this creature also causes you to gain that much life.)\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Bastion of Remembrance": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, create a 1/1 white Human Soldier creature token.\nWhenever a creature you control dies, each opponent loses 1 life and you gain 1 life."
+    },
+    "Beast Within": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token."
+    },
+    "Bedevil": {
+      "mana_cost": "{B}{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact, creature, or planeswalker."
+    },
+    "Bituminous Blast": {
+      "mana_cost": "{3}{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Cascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)\nBituminous Blast deals 4 damage to target creature."
+    },
+    "Blackcleave Cliffs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {R}."
+    },
+    "Blasphemous Act": {
+      "mana_cost": "{8}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {1} less to cast for each creature on the battlefield.\nBlasphemous Act deals 13 damage to each creature."
+    },
+    "Blatant Thievery": {
+      "mana_cost": "{4}{U}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each opponent, gain control of target permanent that player controls."
+    },
+    "Blood Pact": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target player draws two cards and loses 2 life."
+    },
+    "Blood Seeker": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Vampire Shaman",
+      "oracle_text": "Whenever a creature an opponent controls enters, you may have that player lose 1 life.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Bloodfell Caves": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {R}."
+    },
+    "Blue Sun's Zenith": {
+      "mana_cost": "{X}{U}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target player draws X cards. Shuffle Blue Sun's Zenith into its owner's library."
+    },
+    "Blustersquall": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Tap target creature you don't control.\nOverload {3}{U} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Braids, Arisen Nightmare": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Legendary Creature — Nightmare",
+      "oracle_text": "At the beginning of your end step, you may sacrifice an artifact, creature, enchantment, land, or planeswalker. If you do, each opponent may sacrifice a permanent of their choice that shares a card type with it. For each opponent who doesn't, that player loses 2 life and you draw a card.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Brash Taunter": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Indestructible\nWhenever this creature is dealt damage, it deals that much damage to target opponent.\n{2}{R}, {T}: This creature fights another target creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Broodbirth Viper": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Creature — Snake",
+      "oracle_text": "Myriad (Whenever this creature attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)\nWhenever this creature deals combat damage to a player, you may draw a card.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Bucknard's Everfull Purse": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Roll a d4 and create a number of Treasure tokens equal to the result. The player to your right gains control of this artifact."
+    },
+    "Chain Reaction": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Chain Reaction deals X damage to each creature, where X is the number of creatures on the battlefield."
+    },
+    "Chameleon Colossus": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nProtection from black\n{2}{G}{G}: This creature gets +X/+X until end of turn, where X is its power.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Chaos Warp": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "The owner of target permanent shuffles it into their library, then reveals the top card of their library. If it's a permanent card, they put it onto the battlefield."
+    },
+    "Cinder Glade": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Combustible Gearhulk": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "First strike\nWhen this creature enters, target opponent may have you draw three cards. If the player doesn't, you mill three cards, then this creature deals damage to that player equal to the total mana value of those cards.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Commander's Sphere": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card."
+    },
+    "Counterflux": {
+      "mana_cost": "{U}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "This spell can't be countered.\nCounter target spell you don't control.\nOverload {1}{U}{U}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Crucible of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}: Put a storage counter on this land.\n{T}, Remove X storage counters from this land: Add X mana in any combination of colors. Spend this mana only to cast Dragon spells or activate abilities of Dragons."
+    },
+    "Dark-Dweller Oracle": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "{1}, Sacrifice a creature: Exile the top card of your library. You may play that card this turn. (You still pay its costs. You can play a land this way only if you have an available land play remaining.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Dead Man's Chest": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature an opponent controls\nWhen enchanted creature dies, exile cards equal to its power from the top of its owner's library. You may cast spells from among those cards for as long as they remain exiled, and mana of any type can be spent to cast them."
+    },
+    "Dire Fleet Daredevil": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Pirate",
+      "oracle_text": "First strike\nWhen this creature enters, exile target instant or sorcery card from an opponent's graveyard. You may cast it this turn, and mana of any type can be spent to cast that spell. If that spell would be put into a graveyard, exile it instead.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Dominate": {
+      "mana_cost": "{X}{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target creature with mana value X or less."
+    },
+    "Dragon Mage": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon Wizard",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, each player discards their hand, then draws seven cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Dragon's Hoard": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever a Dragon you control enters, put a gold counter on this artifact.\n{T}, Remove a gold counter from this artifact: Draw a card.\n{T}: Add one mana of any color."
+    },
+    "Dragonlord's Servant": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "Dragon spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Dragonmaster Outcast": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "At the beginning of your upkeep, if you control six or more lands, create a 5/5 red Dragon creature token with flying.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Druid of Purification": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "When this creature enters, starting with you, each player may choose an artifact or enchantment you don't control. Destroy each permanent chosen this way.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Etali, Primal Storm": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Legendary Creature — Elder Dinosaur",
+      "oracle_text": "Whenever Etali attacks, exile the top card of each player's library, then you may cast any number of spells from among those cards without paying their mana costs.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Etherium-Horn Sorcerer": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Artifact Creature — Minotaur Wizard Sorcerer",
+      "oracle_text": "{1}{U}{R}: Return this creature to its owner's hand.\nCascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)",
+      "power": "3",
+      "toughness": "6"
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fact or Fiction": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+    },
+    "Fate Unraveler": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Enchantment Creature — Hag",
+      "oracle_text": "Whenever an opponent draws a card, this creature deals 1 damage to that player.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Fear of Burning Alive": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Enchantment Creature — Nightmare",
+      "oracle_text": "When this creature enters, it deals 4 damage to each opponent.\nDelirium — Whenever a source you control deals noncombat damage to an opponent, if there are four or more card types among cards in your graveyard, this creature deals that amount of damage to target creature that player controls.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Feed the Swarm": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target creature or enchantment an opponent controls. You lose life equal to that permanent's mana value."
+    },
+    "Fevered Suspicion": {
+      "mana_cost": "{6}{B}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each opponent exiles cards from the top of their library until they exile a nonland card. You may cast any number of spells from among those nonland cards without paying their mana costs.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)"
+    },
+    "Florian, Voldaren Scion": {
+      "mana_cost": "{1}{B}{R}",
+      "type_line": "Legendary Creature — Vampire Noble",
+      "oracle_text": "First strike\nAt the beginning of each of your postcombat main phases, look at the top X cards of your library, where X is the total amount of life your opponents lost this turn. Exile one of those cards and put the rest on the bottom of your library in a random order. You may play the exiled card this turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Foreboding Ruins": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal a Swamp or Mountain card from your hand. If you don't, this land enters tapped.\n{T}: Add {B} or {R}."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Grab the Prize": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, discard a card.\nDraw two cards. If the discarded card wasn't a land card, Grab the Prize deals 2 damage to each opponent."
+    },
+    "Gratuitous Violence": {
+      "mana_cost": "{2}{R}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "If a creature you control would deal damage to a permanent or player, it deals double that damage instead."
+    },
+    "Gray Merchant of Asphodel": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "When this creature enters, each opponent loses X life, where X is your devotion to black. You gain life equal to the life lost this way. (Each {B} in the mana costs of permanents you control counts toward your devotion to black.)",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Gruul Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {R}{G}."
+    },
+    "Gruul Turf": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {R}{G}."
+    },
+    "Haven of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a Dragon creature spell.\n{2}, {T}, Sacrifice this land: Return target Dragon creature card or Ugin planeswalker card from your graveyard to your hand."
+    },
+    "Hex": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy six target creatures."
+    },
+    "Hoard-Smelter Dragon": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\n{3}{R}: Destroy target artifact. This creature gets +X/+0 until end of turn, where X is that artifact's mana value.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Ignite the Future": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top three cards of your library. Until the end of your next turn, you may play those cards. If this spell was cast from a graveyard, you may play cards this way without paying their mana costs.\nFlashback {7}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Indomitable Might": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Flash\nEnchant creature\nEnchanted creature gets +3/+3.\nEnchanted creature's controller may have it assign its combat damage as though it weren't blocked."
+    },
+    "Infernal Grasp": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature. You lose 2 life."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Izzet Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{R}."
+    },
+    "Kaervek the Merciless": {
+      "mana_cost": "{5}{B}{R}",
+      "type_line": "Legendary Creature — Human Shaman",
+      "oracle_text": "Whenever an opponent casts a spell, Kaervek deals damage equal to that spell's mana value to any target.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Karazikar, the Eye Tyrant": {
+      "mana_cost": "{3}{B}{R}",
+      "type_line": "Legendary Creature — Beholder",
+      "oracle_text": "Whenever you attack a player, tap target creature that player controls and goad it. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)\nWhenever an opponent attacks another one of your opponents, you and the attacking player each draw a card and lose 1 life.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Kindred Summons": {
+      "mana_cost": "{5}{G}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose a creature type. Reveal cards from the top of your library until you reveal X creature cards of the chosen type, where X is the number of creatures you control of that type. Put those cards onto the battlefield, then shuffle the rest of the revealed cards into your library."
+    },
+    "Klauth, Unrivaled Ancient": {
+      "mana_cost": "{5}{R}{G}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying, haste\nWhenever Klauth attacks, add X mana in any combination of colors, where X is the total power of attacking creatures. Spend this mana only to cast spells. Until end of turn, you don't lose this mana as steps and phases end.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Light Up the Stage": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Spectacle {R} (You may cast this spell for its spectacle cost rather than its mana cost if an opponent lost life this turn.)\nExile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Lightning Greaves": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has haste and shroud. (It can't be the target of spells or abilities.)\nEquip {0}"
+    },
+    "Lightning Rager": {
+      "mana_cost": "",
+      "type_line": "Token Creature — Elemental",
+      "oracle_text": "Trample, haste\nAt the beginning of the end step, sacrifice this creature.",
+      "power": "5",
+      "toughness": "1"
+    },
+    "Loyal Apprentice": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Haste\nLieutenant — At the beginning of combat on your turn, if you control your commander, create a 1/1 colorless Thopter artifact creature token with flying. That token gains haste until end of turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Marionette Master": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Fabricate 3 (When this creature enters, put three +1/+1 counters on it or create three 1/1 colorless Servo artifact creature tokens.)\nWhenever an artifact you control is put into a graveyard from the battlefield, target opponent loses life equal to this creature's power.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Mask of Griselbrand": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature has flying and lifelink.\nWhenever equipped creature dies, you may pay X life, where X is its power. If you do, draw X cards.\nEquip {3}"
+    },
+    "Mayhem Devil": {
+      "mana_cost": "{1}{B}{R}",
+      "type_line": "Creature — Devil",
+      "oracle_text": "Whenever a player sacrifices a permanent, this creature deals 1 damage to any target.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Melek, Izzet Paragon": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Weird Wizard",
+      "oracle_text": "Play with the top card of your library revealed.\nYou may cast instant and sorcery spells from the top of your library.\nWhenever you cast an instant or sorcery spell from your library, copy it. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Meteor Blast": {
+      "mana_cost": "{X}{R}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Meteor Blast deals 4 damage to each of X targets."
+    },
+    "Mind Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Mizzix of the Izmagnus": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Creature — Goblin Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell with mana value greater than the number of experience counters you have, you get an experience counter.\nInstant and sorcery spells you cast cost {1} less to cast for each experience counter you have.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mogis, God of Slaughter": {
+      "mana_cost": "{2}{B}{R}",
+      "type_line": "Legendary Enchantment Creature — God",
+      "oracle_text": "Indestructible\nAs long as your devotion to black and red is less than seven, Mogis isn't a creature.\nAt the beginning of each opponent's upkeep, Mogis deals 2 damage to that player unless they sacrifice a creature of their choice.",
+      "power": "7",
+      "toughness": "5"
+    },
+    "Morbid Opportunist": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "Whenever one or more other creatures die, draw a card. This ability triggers only once each turn.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Mortuary Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you may put target creature card from your graveyard on top of your library.\n{T}: Add {B}."
+    },
+    "Mossfire Valley": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {R}{G}."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mystic Retrieval": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target instant or sorcery card from your graveyard to your hand.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Orazca Relic": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\n{T}: Add {C}.\n{T}, Sacrifice this artifact: You gain 3 life and draw a card. Activate only if you have the city's blessing."
+    },
+    "Outpost Siege": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.\n• Dragons — Whenever a creature you control leaves the battlefield, this enchantment deals 1 damage to any target."
+    },
+    "Prosper, Tome-Bound": {
+      "mana_cost": "{2}{B}{R}",
+      "type_line": "Legendary Creature — Tiefling Warlock",
+      "oracle_text": "Deathtouch\nMystic Arcanum — At the beginning of your end step, exile the top card of your library. Until the end of your next turn, you may play that card.\nPact Boon — Whenever you play a card from exile, create a Treasure token.",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Psychosis Crawler": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact Creature — Phyrexian Horror",
+      "oracle_text": "Psychosis Crawler's power and toughness are each equal to the number of cards in your hand.\nWhenever you draw a card, each opponent loses 1 life.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Rakdos Carnarium": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{R}."
+    },
+    "Rakdos Charm": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Exile target player's graveyard.\n• Destroy target artifact.\n• Each creature deals 1 damage to its controller."
+    },
+    "Rakdos Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {B}{R}."
+    },
+    "Rampant Growth": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    },
+    "Return to Nature": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target artifact.\n• Destroy target enchantment.\n• Exile target card from a graveyard."
+    },
+    "Rishkar's Expertise": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw cards equal to the greatest power among creatures you control.\nYou may cast a spell with mana value 5 or less from your hand without paying its mana cost."
+    },
+    "Rite of the Raging Storm": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Creatures named Lightning Rager can't attack you or planeswalkers you control.\nAt the beginning of each player's upkeep, that player creates a 5/1 red Elemental creature token named Lightning Rager. It has trample, haste, and \"At the beginning of the end step, sacrifice this token.\""
+    },
+    "Savage Ventmaw": {
+      "mana_cost": "{4}{R}{G}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever this creature attacks, add {R}{R}{R}{G}{G}{G}. Until end of turn, you don't lose this mana as steps and phases end.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Shadowblood Ridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {B}{R}."
+    },
+    "Shivan Gorge": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {C}.\n{2}{R}, {T}: Shivan Gorge deals 1 damage to each opponent."
+    },
+    "Skyship Stalker": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Cat Dragon",
+      "oracle_text": "Flying\n{R}: This creature gets +1/+0 until end of turn.\n{R}: This creature gains first strike until end of turn.\n{R}: This creature gains haste until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Smoldering Marsh": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Spinerock Knoll": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {R}.\n{R}, {T}: You may play the exiled card without paying its mana cost if an opponent was dealt 7 or more damage this turn."
+    },
+    "Spit Flame": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Spit Flame deals 4 damage to target creature.\nWhenever a Dragon you control enters, you may pay {R}. If you do, return this card from your graveyard to your hand."
+    },
+    "Star Athlete": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "Menace\nWhenever this creature attacks, choose up to one target nonland permanent. Its controller may sacrifice it. If they don't, this creature deals 5 damage to that player.\nBlitz {3}{R} (If you cast this spell for its blitz cost, it gains haste and \"When this creature dies, draw a card.\" Sacrifice it at the beginning of the next end step.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Steam Augury": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Reveal the top five cards of your library and separate them into two piles. An opponent chooses one of those piles. Put that pile into your hand and the other into your graveyard."
+    },
+    "Stroke of Genius": {
+      "mana_cost": "{X}{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target player draws X cards."
+    },
+    "Sulfurous Springs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This land deals 1 damage to you."
+    },
+    "Suspended Sentence": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature an opponent controls. That player loses 3 life. Exile Suspended Sentence with three time counters on it.\nSuspend 3—{1}{B} (Rather than cast this card from your hand, you may pay {1}{B} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swiftwater Cliffs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {R}."
+    },
+    "Tainted Peak": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. Activate only if you control a Swamp."
+    },
+    "Talisman of Indulgence": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This artifact deals 1 damage to you."
+    },
+    "Taurean Mauler": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nWhenever an opponent casts a spell, you may put a +1/+1 counter on this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Tectonic Giant": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Elemental Giant",
+      "oracle_text": "Whenever this creature attacks or becomes the target of a spell an opponent controls, choose one —\n• This creature deals 3 damage to each opponent.\n• Exile the top two cards of your library. Choose one of them. Until the end of your next turn, you may play that card.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Terror of Mount Velus": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nDouble strike (This creature deals both first-strike and regular combat damage.)\nWhen this creature enters, creatures you control gain double strike until end of turn.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Theater of Horrors": {
+      "mana_cost": "{1}{B}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, exile the top card of your library.\nDuring your turn, if an opponent lost life this turn, you may play lands and cast spells from among cards exiled with this enchantment.\n{3}{R}: This enchantment deals 1 damage to target opponent or planeswalker."
+    },
+    "Thought Vessel": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Thunderbreak Regent": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever a Dragon you control becomes the target of a spell or ability an opponent controls, this creature deals 3 damage to that player.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Underdark Rift": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{5}, {T}, Exile this land: Roll a d10. Put target artifact, creature, or planeswalker into its owner's library just beneath the top X cards of that library, where X is the result. Activate only as a sorcery."
+    },
+    "Unstable Obelisk": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{7}, {T}, Sacrifice this artifact: Destroy target permanent."
+    },
+    "Vandalblast": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target artifact you don't control.\nOverload {4}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Vengeful Ancestor": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Spirit Dragon",
+      "oracle_text": "Flying\nWhenever this creature enters or attacks, goad target creature. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)\nWhenever a goaded creature attacks, it deals 1 damage to its controller.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Vial Smasher the Fierce": {
+      "mana_cost": "{1}{B}{R}",
+      "type_line": "Legendary Creature — Goblin Berserker",
+      "oracle_text": "Whenever you cast your first spell each turn, choose an opponent at random. Vial Smasher deals damage equal to that spell's mana value to that player or a planeswalker that player controls.\nPartner (You can have two commanders if both have partner.)",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Vivid Creek": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {U}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vrondiss, Rage of Ancients": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Barbarian",
+      "oracle_text": "Enrage — Whenever Vrondiss is dealt damage, you may create a 5/4 red and green Dragon Spirit creature token with \"When this token deals damage, sacrifice it.\"\nWhenever you roll one or more dice, you may have Vrondiss deal 1 damage to itself.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Warchief Giant": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Giant Warrior",
+      "oracle_text": "Haste\nMyriad (Whenever this creature attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
+      "power": "5",
+      "toughness": "3"
+    },
+    "Warlock Class": {
+      "mana_cost": "{B}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nAt the beginning of your end step, if a creature died this turn, each opponent loses 1 life.\n{1}{B}: Level 2\nWhen this Class becomes level 2, look at the top three cards of your library. Put one of them into your hand and the rest into your graveyard.\n{6}{B}: Level 3\nAt the beginning of your end step, each opponent loses life equal to the life they lost this turn. (Damage causes loss of life.)"
+    },
+    "Windfall": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way."
+    },
+    "Witch's Clinic": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}: Target commander gains lifelink until end of turn."
+    },
+    "Word of Seizing": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nUntap target permanent and gain control of it until end of turn. It gains haste until end of turn."
+    },
+    "Worn Powerstone": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}."
+    },
+    "Wulfgar of Icewind Dale": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Human Barbarian",
+      "oracle_text": "Melee (Whenever this creature attacks, it gets +1/+1 until end of turn for each opponent you attacked this combat.)\nIf a creature you control attacking causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "You Find Some Prisoners": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Break Their Chains — Destroy target artifact.\n• Interrogate Them — Exile the top three cards of target opponent's library. Choose one of them. Until the end of your next turn, you may play that card, and you may spend mana as though it were mana of any color to cast it."
+    }
+  }
 }

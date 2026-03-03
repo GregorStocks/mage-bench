@@ -108,7 +108,9 @@
     "Pyroclasm": "https://api.scryfall.com/cards/dsk/149?format=image&version=small",
     "Sear": "https://api.scryfall.com/cards/ecl/154?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
-    "Spell Pierce": "https://api.scryfall.com/cards/dft/64?format=image&version=small"
+    "Spell Pierce": "https://api.scryfall.com/cards/dft/64?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -69356,7 +69358,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -79279,5 +79281,155 @@
         "untappedLands": 6
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Artist's Talent": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you cast a noncreature spell, you may discard a card. If you do, draw a card.\n{2}{R}: Level 2\nNoncreature spells you cast cost {1} less to cast.\n{2}{R}: Level 3\nIf a source you control would deal noncombat damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead."
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Combustion Technique": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Combustion Technique deals damage equal to 2 plus the number of Lesson cards in your graveyard to target creature. If that creature would die this turn, exile it instead."
+    },
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Firebending Lesson": {
+      "mana_cost": "{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nFirebending Lesson deals 2 damage to target creature. If this spell was kicked, it deals 5 damage to that creature instead."
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Gran-Gran": {
+      "mana_cost": "{U}",
+      "type_line": "Legendary Creature — Human Peasant Ally",
+      "oracle_text": "Whenever Gran-Gran becomes tapped, draw a card, then discard a card.\nNoncreature spells you cast cost {1} less to cast as long as there are three or more Lesson cards in your graveyard.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "It'll Quench Ya!": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Counter target spell unless its controller pays {2}."
+    },
+    "Jeskai Revelation": {
+      "mana_cost": "{4}{U}{R}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Return target spell or permanent to its owner's hand. Jeskai Revelation deals 4 damage to any target. Create two 1/1 white Monk creature tokens with prowess. Draw two cards. You gain 4 life."
+    },
+    "Meticulous Archive": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Mistrise Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {U}.\n{U}, {T}: The next spell you cast this turn can't be countered."
+    },
+    "Monument to Endurance": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever you discard a card, choose one that hasn't been chosen this turn —\n• Draw a card.\n• Create a Treasure token.\n• Each opponent loses 3 life."
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Ral, Crackling Wit": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Planeswalker — Ral",
+      "oracle_text": "Whenever you cast a noncreature spell, put a loyalty counter on Ral.\n+1: Create a 1/1 blue and red Otter creature token with prowess.\n−3: Draw three cards, then discard two cards.\n−10: Draw three cards. You get an emblem with \"Instant and sorcery spells you cast have storm.\" (Whenever you cast an instant or sorcery spell, copy it for each spell cast before it this turn.)",
+      "loyalty": "4"
+    },
+    "Rest in Peace": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile all graveyards.\nIf a card or token would be put into a graveyard from anywhere, exile it instead."
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stomping Ground": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "Willowrush Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
+    }
+  }
 }

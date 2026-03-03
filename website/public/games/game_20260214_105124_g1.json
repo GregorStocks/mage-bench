@@ -106,7 +106,10 @@
     "Ghost Vacuum": "https://api.scryfall.com/cards/dsk/248?format=image&version=small",
     "Obsidian Charmaw": "https://api.scryfall.com/cards/mh2/137?format=image&version=small",
     "Orim's Chant": "https://api.scryfall.com/cards/mh3/265?format=image&version=small",
-    "Surgical Extraction": "https://api.scryfall.com/cards/2x2/94?format=image&version=small"
+    "Surgical Extraction": "https://api.scryfall.com/cards/2x2/94?format=image&version=small",
+    "Cat Token": "https://cards.scryfall.io/small/front/9/0/902fba98-92b7-461b-ac6e-29cb2c4e307f.jpg?1738355211",
+    "Orc Army Token": "https://cards.scryfall.io/small/front/d/b/db598f33-2ff9-4e0b-a067-05fecc03435f.jpg?1713834708",
+    "Warrior Token": "https://cards.scryfall.io/small/front/7/e/7edc0515-a130-45a7-aa09-0e23bba41587.jpg?1742506712"
   },
   "snapshots": [
     {
@@ -97088,7 +97091,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -106882,5 +106885,143 @@
         "untappedLands": 8
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arena of Glory": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain.\n{T}: Add {R}.\n{R}, {T}, Exert this land: Add {R}{R}. If that mana is spent on a creature spell, it gains haste until end of turn. (An exerted permanent won't untap during your next untap step.)"
+    },
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Emperor of Bones": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Skeleton Noble",
+      "oracle_text": "At the beginning of combat on your turn, exile up to one target card from a graveyard.\n{1}{B}: Adapt 2.\nWhenever one or more +1/+1 counters are put on this creature, put a creature card exiled with this creature onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Fatal Push": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature if it has mana value 2 or less.\nRevolt — Destroy that creature if it has mana value 4 or less instead if a permanent left the battlefield under your control this turn."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Galvanic Discharge": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose target creature or planeswalker. You get {E}{E}{E} (three energy counters), then you may pay any amount of {E}. Galvanic Discharge deals that much damage to that permanent."
+    },
+    "Godless Shrine": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Marsh Flats": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Ocelot Pride": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "First strike, lifelink\nAscend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nAt the beginning of your end step, if you gained life this turn, create a 1/1 white Cat creature token. Then if you have the city's blessing, for each token you control that entered this turn, create a token that's a copy of it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Orcish Bowmasters": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Orc Archer",
+      "oracle_text": "Flash\nWhen this creature enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, this creature deals 1 damage to any target. Then amass Orcs 1.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Phlage, Titan of Fire's Fury": {
+      "mana_cost": "{1}{R}{W}",
+      "type_line": "Legendary Creature — Elder Giant",
+      "oracle_text": "When Phlage enters, sacrifice it unless it escaped.\nWhenever Phlage enters or attacks, it deals 3 damage to any target and you gain 3 life.\nEscape—{R}{R}{W}{W}, Exile five other cards from your graveyard. (You may cast this card from your graveyard for its escape cost.)",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Ragavan, Nimble Pilferer": {
+      "mana_cost": "{R}",
+      "type_line": "Legendary Creature — Monkey Pirate",
+      "oracle_text": "Whenever Ragavan deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Seasoned Pyromancer": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "When this creature enters, discard two cards, then draw two cards. For each nonland card discarded this way, create a 1/1 red Elemental creature token.\n{3}{R}{R}, Exile this card from your graveyard: Create two 1/1 red Elemental creature tokens.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Solitude": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Flash\nLifelink\nWhen this creature enters, exile up to one other target creature. That creature's controller gains life equal to its power.\nEvoke—Exile a white card from your hand.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thraben Charm": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Thraben Charm deals damage equal to twice the number of creatures you control to target creature.\n• Destroy target enchantment.\n• Exile any number of target players' graveyards."
+    },
+    "Voice of Victory": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Bard",
+      "oracle_text": "Mobilize 2 (Whenever this creature attacks, create two tapped and attacking 1/1 red Warrior creature tokens. Sacrifice them at the beginning of the next end step.)\nYour opponents can't cast spells during your turn.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    }
+  }
 }

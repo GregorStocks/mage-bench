@@ -46095,7 +46095,7 @@
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -49370,5 +49370,158 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "City of Traitors": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When you play another land, sacrifice this land.\n{T}: Add {C}{C}."
+    },
+    "Coveted Jewel": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, draw three cards.\n{T}: Add three mana of any one color.\nWhenever one or more creatures an opponent controls attack you and aren't blocked, that player draws three cards and gains control of this artifact. Untap it."
+    },
+    "Crop Rotation": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for a land card, put that card onto the battlefield, then shuffle."
+    },
+    "Echoing Deeps": {
+      "mana_cost": "",
+      "type_line": "Land — Cave",
+      "oracle_text": "You may have this land enter tapped as a copy of any land card in a graveyard, except it's a Cave in addition to its other types.\n{T}: Add {C}."
+    },
+    "Emrakul, the Aeons Torn": {
+      "mana_cost": "{15}",
+      "type_line": "Legendary Creature — Eldrazi",
+      "oracle_text": "This spell can't be countered.\nWhen you cast this spell, take an extra turn after this one.\nFlying, protection from spells that are one or more colors, annihilator 6\nWhen Emrakul is put into a graveyard from anywhere, its owner shuffles their graveyard into their library.",
+      "power": "15",
+      "toughness": "15"
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Karakas": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Return target legendary creature to its owner's hand."
+    },
+    "Lush Portico": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Mox Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "If this artifact would enter, you may discard a land card instead. If you do, put this artifact onto the battlefield. If you don't, put it into its owner's graveyard.\n{T}: Add one mana of any color."
+    },
+    "Phyrexian Metamorph": {
+      "mana_cost": "{3}{U/P}",
+      "type_line": "Artifact Creature — Phyrexian Shapeshifter",
+      "oracle_text": "({U/P} can be paid with either {U} or 2 life.)\nYou may have this creature enter as a copy of any artifact or creature on the battlefield, except it's an artifact in addition to its other types.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Pithing Needle": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a card name.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Preordain": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Scry 2, then draw a card. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+    },
+    "Savannah": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)"
+    },
+    "See Beyond": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw two cards, then shuffle a card from your hand into your library."
+    },
+    "Show and Tell": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player may put an artifact, creature, enchantment, or land card from their hand onto the battlefield."
+    },
+    "Stock Up": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Sylvan Library": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your draw step, you may draw two additional cards. If you do, choose two cards in your hand drawn this turn. For each of those cards, pay 4 life or put the card on top of your library."
+    },
+    "Talon Gates of Madara": {
+      "mana_cost": "",
+      "type_line": "Land — Gate",
+      "oracle_text": "When this land enters, up to one target creature phases out.\n{T}: Add {C}.\n{1}, {T}: Add one mana of any color.\n{4}: Put this card from your hand onto the battlefield."
+    },
+    "The One Ring": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
+    },
+    "The Tabernacle at Pendrell Vale": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "All creatures have \"At the beginning of your upkeep, destroy this creature unless you pay {1}.\""
+    },
+    "Thespian's Stage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "Windswept Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Plains card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

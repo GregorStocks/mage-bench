@@ -102288,7 +102288,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -112715,5 +112715,128 @@
         "untappedLands": 7
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Bitterbloom Bearer": {
+      "mana_cost": "{B}{B}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flash\nFlying\nAt the beginning of your upkeep, you lose 1 life and create a 1/1 blue and black Faerie creature token with flying.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Deep-Cavern Bat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Bat",
+      "oracle_text": "Flying, lifelink\nWhen this creature enters, look at target opponent's hand. You may exile a nonland card from it until this creature leaves the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Earthbender Ascension": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, earthbend 2. Then search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nLandfall — Whenever a land you control enters, put a quest counter on this enchantment. When you do, if it has four or more quest counters on it, put a +1/+1 counter on target creature you control. It gains trample until end of turn."
+    },
+    "Enduring Curiosity": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment Creature — Cat Glimmer",
+      "oracle_text": "Flash\nWhenever a creature you control deals combat damage to a player, draw a card.\nWhen Enduring Curiosity dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Fabled Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land."
+    },
+    "Floodpits Drowner": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk",
+      "oracle_text": "Flash\nVigilance\nWhen this creature enters, tap target creature an opponent controls and put a stun counter on it.\n{1}{U}, {T}: Shuffle this creature and target creature with a stun counter on it into their owners' libraries.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mossborn Hydra": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elemental Hydra",
+      "oracle_text": "Trample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)\nThis creature enters with a +1/+1 counter on it.\nLandfall — Whenever a land you control enters, double the number of +1/+1 counters on this creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Restless Reef": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U} or {B}.\n{2}{U}{B}: Until end of turn, this land becomes a 4/4 blue and black Shark creature with deathtouch. It's still a land.\nWhenever this land attacks, target player mills four cards."
+    },
+    "Sazh's Chocobo": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Landfall — Whenever a land you control enters, put a +1/+1 counter on this creature.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Soulstone Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}: This land becomes a 3/3 creature with vigilance and all creature types. It's still a land."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Tishana's Tidebinder": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Flash\nWhen this creature enters, counter up to one target activated or triggered ability. If an ability of an artifact, creature, or planeswalker is countered this way, that permanent loses all abilities for as long as this creature remains on the battlefield. (Mana abilities can't be targeted.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    }
+  }
 }

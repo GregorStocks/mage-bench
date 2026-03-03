@@ -10880,7 +10880,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -12278,5 +12278,129 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Abhorrent Oculus": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Eye",
+      "oracle_text": "As an additional cost to cast this spell, exile six cards from your graveyard.\nFlying\nAt the beginning of each opponent's upkeep, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Doorkeeper Thrull": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Thrull",
+      "oracle_text": "Flash\nFlying\nArtifacts and creatures entering don't cause abilities to trigger.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Emperor of Bones": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Skeleton Noble",
+      "oracle_text": "At the beginning of combat on your turn, exile up to one target card from a graveyard.\n{1}{B}: Adapt 2.\nWhenever one or more +1/+1 counters are put on this creature, put a creature card exiled with this creature onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Godless Shrine": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Gran-Gran": {
+      "mana_cost": "{U}",
+      "type_line": "Legendary Creature — Human Peasant Ally",
+      "oracle_text": "Whenever Gran-Gran becomes tapped, draw a card, then discard a card.\nNoncreature spells you cast cost {1} less to cast as long as there are three or more Lesson cards in your graveyard.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Leyline Binding": {
+      "mana_cost": "{5}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nDomain — This spell costs {1} less to cast for each basic land type among lands you control.\nWhen this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+    },
+    "Leyline of the Guildpact": {
+      "mana_cost": "{G/W}{G/U}{B/G}{R/G}",
+      "type_line": "Enchantment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nEach nonland permanent you control is all colors.\nLands you control are every basic land type in addition to their other types."
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Phlage, Titan of Fire's Fury": {
+      "mana_cost": "{1}{R}{W}",
+      "type_line": "Legendary Creature — Elder Giant",
+      "oracle_text": "When Phlage enters, sacrifice it unless it escaped.\nWhenever Phlage enters or attacks, it deals 3 damage to any target and you gain 3 life.\nEscape—{R}{R}{W}{W}, Exile five other cards from your graveyard. (You may cast this card from your graveyard for its escape cost.)",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Psychic Frog": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Whenever this creature deals combat damage to a player or planeswalker, draw a card.\nDiscard a card: Put a +1/+1 counter on this creature.\nExile three cards from your graveyard: This creature gains flying until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Ragavan, Nimble Pilferer": {
+      "mana_cost": "{R}",
+      "type_line": "Legendary Creature — Monkey Pirate",
+      "oracle_text": "Whenever Ragavan deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Raucous Theater": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Scion of Draco": {
+      "mana_cost": "{12}",
+      "type_line": "Artifact Creature — Dragon",
+      "oracle_text": "Domain — This spell costs {2} less to cast for each basic land type among lands you control.\nFlying\nEach creature you control has vigilance if it's white, hexproof if it's blue, lifelink if it's black, first strike if it's red, and trample if it's green.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Stubborn Denial": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell unless its controller pays {1}.\nFerocious — If you control a creature with power 4 or greater, counter that spell instead."
+    },
+    "Teferi, Time Raveler": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Planeswalker — Teferi",
+      "oracle_text": "Each opponent can cast spells only any time they could cast a sorcery.\n+1: Until your next turn, you may cast sorcery spells as though they had flash.\n−3: Return up to one target artifact, creature, or enchantment to its owner's hand. Draw a card.",
+      "loyalty": "4"
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thundering Falls": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    }
+  }
 }

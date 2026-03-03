@@ -28063,7 +28063,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -29311,5 +29311,148 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Ardyn, the Usurper": {
+      "mana_cost": "{5}{B}{B}{B}",
+      "type_line": "Legendary Creature — Elder Human Noble",
+      "oracle_text": "Demons you control have menace, lifelink, and haste.\nStarscourge — At the beginning of combat on your turn, exile up to one target creature card from a graveyard. If you exiled a card this way, create a token that's a copy of that card, except it's a 5/5 black Demon.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Bitter Triumph": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card or pay 3 life.\nDestroy target creature or planeswalker."
+    },
+    "Blazemire Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {B}.\n{T}: Add {R}. Activate only if you control a Swamp or a Mountain."
+    },
+    "Bloodthorn Flail": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+1.\nEquip—Pay {3} or discard a card."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Bringer of the Last Gift": {
+      "mana_cost": "{6}{B}{B}",
+      "type_line": "Creature — Vampire Demon",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it, each player sacrifices all other creatures they control. Then each player returns all creature cards from their graveyard that weren't put there this way to the battlefield.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Formidable Speaker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle.\n{1}, {T}: Untap another target permanent.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Greasewrench Goblin": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Artificer",
+      "oracle_text": "Exhaust — {2}{R}: Discard up to two cards, then draw that many cards. Put a +1/+1 counter on this creature. (Activate each exhaust ability only once.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Iron-Shield Elf": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "Discard a card: This creature gains indestructible until end of turn. Tap it. (Damage and effects that say \"destroy\" don't destroy it. If its toughness is 0 or less, it still dies.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Moonshadow": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Menace\nThis creature enters with six -1/-1 counters on it.\nWhenever one or more permanent cards are put into your graveyard from anywhere while this creature has a -1/-1 counter on it, remove a -1/-1 counter from this creature.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Oblivious Bookworm": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "At the beginning of your end step, you may draw a card. If you do, discard a card unless a permanent entered the battlefield face down under your control this turn or you turned a permanent face up this turn.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Overgrown Tomb": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Forest",
+      "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Sunspine Lynx": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Elemental Cat",
+      "oracle_text": "Players can't gain life.\nDamage can't be prevented.\nWhen this creature enters, it deals damage to each player equal to the number of nonbasic lands that player controls.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Superior Spider-Man": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Spider Human Hero",
+      "oracle_text": "Mind Swap — You may have Superior Spider-Man enter as a copy of any creature card in a graveyard, except his name is Superior Spider-Man and he's a 4/4 Spider Human Hero in addition to his other types. When you do, exile that card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Terror of the Peaks": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nSpells your opponents cast that target this creature cost an additional 3 life to cast.\nWhenever another creature you control enters, this creature deals damage equal to that creature's power to any target.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Town Greeter": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Human Citizen",
+      "oracle_text": "When this creature enters, mill four cards. You may put a land card from among them into your hand. If you put a Town card into your hand this way, you gain 2 life. (To mill four cards, a player puts the top four cards of their library into their graveyard.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Wistfulness": {
+      "mana_cost": "{3}{G/U}{G/U}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "When this creature enters, if {G}{G} was spent to cast it, exile target artifact or enchantment an opponent controls.\nWhen this creature enters, if {U}{U} was spent to cast it, draw two cards, then discard a card.\nEvoke {G/U}{G/U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "6",
+      "toughness": "5"
+    }
+  }
 }

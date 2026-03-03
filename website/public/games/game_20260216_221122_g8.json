@@ -92,7 +92,8 @@
     "Clarion Conqueror": "https://api.scryfall.com/cards/tdm/5?format=image&version=small",
     "Duress": "https://api.scryfall.com/cards/fdn/606?format=image&version=small",
     "Requisition Raid": "https://api.scryfall.com/cards/otj/26?format=image&version=small",
-    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small"
+    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -85120,7 +85121,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -86473,5 +86474,168 @@
         "untappedLands": 7
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ardyn, the Usurper": {
+      "mana_cost": "{5}{B}{B}{B}",
+      "type_line": "Legendary Creature — Elder Human Noble",
+      "oracle_text": "Demons you control have menace, lifelink, and haste.\nStarscourge — At the beginning of combat on your turn, exile up to one target creature card from a graveyard. If you exiled a card this way, create a token that's a copy of that card, except it's a 5/5 black Demon.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Bitter Triumph": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card or pay 3 life.\nDestroy target creature or planeswalker."
+    },
+    "Blooming Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {G}."
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Concealed Courtyard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {B}."
+    },
+    "Deceit": {
+      "mana_cost": "{4}{U/B}{U/B}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "When this creature enters, if {U}{U} was spent to cast it, return up to one other target nonland permanent to its owner's hand.\nWhen this creature enters, if {B}{B} was spent to cast it, target opponent reveals their hand. You choose a nonland card from it. That player discards that card.\nEvoke {U/B}{U/B}",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Formidable Speaker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle.\n{1}, {T}: Untap another target permanent.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Grim Bauble": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, target creature an opponent controls gets -2/-2 until end of turn.\n{2}{B}, {T}, Sacrifice this artifact: Surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Harvester of Misery": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Menace\nWhen this creature enters, other creatures get -2/-2 until end of turn.\n{1}{B}, Discard this card: Target creature gets -2/-2 until end of turn.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kaito, Bane of Nightmares": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Planeswalker — Kaito",
+      "oracle_text": "Ninjutsu {1}{U}{B} ({1}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nDuring your turn, as long as Kaito has one or more loyalty counters on him, he's a 3/4 Ninja creature and has hexproof.\n+1: You get an emblem with \"Ninjas you control get +1/+1.\"\n0: Surveil 2. Then draw a card for each opponent who lost life this turn.\n−2: Tap target creature. Put two stun counters on it.",
+      "loyalty": "4"
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Nowhere to Run": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, target creature an opponent controls gets -3/-3 until end of turn.\nCreatures your opponents control can be the targets of spells and abilities as though they didn't have hexproof. Ward abilities of those creatures don't trigger."
+    },
+    "Oblivious Bookworm": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "At the beginning of your end step, you may draw a card. If you do, discard a card unless a permanent entered the battlefield face down under your control this turn or you turned a permanent face up this turn.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Overgrown Tomb": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Forest",
+      "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Sunpearl Kirin": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kirin",
+      "oracle_text": "Flash\nFlying\nWhen this creature enters, return up to one other target nonland permanent you control to its owner's hand. If it was a token, draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Superior Spider-Man": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Spider Human Hero",
+      "oracle_text": "Mind Swap — You may have Superior Spider-Man enter as a copy of any creature card in a graveyard, except his name is Superior Spider-Man and he's a 4/4 Spider Human Hero in addition to his other types. When you do, exile that card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Wistfulness": {
+      "mana_cost": "{3}{G/U}{G/U}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "When this creature enters, if {G}{G} was spent to cast it, exile target artifact or enchantment an opponent controls.\nWhen this creature enters, if {U}{U} was spent to cast it, draw two cards, then discard a card.\nEvoke {G/U}{G/U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "6",
+      "toughness": "5"
+    }
+  }
 }

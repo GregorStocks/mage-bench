@@ -105,7 +105,8 @@
     "Ashiok, Dream Render": "https://api.scryfall.com/cards/war/228?format=image&version=small",
     "Pest Control": "https://api.scryfall.com/cards/big/22?format=image&version=small",
     "Supreme Verdict": "https://api.scryfall.com/cards/clu/211?format=image&version=small",
-    "Wrath of the Skies": "https://api.scryfall.com/cards/mh3/49?format=image&version=small"
+    "Wrath of the Skies": "https://api.scryfall.com/cards/mh3/49?format=image&version=small",
+    "Monk Token": "https://cards.scryfall.io/small/front/e/4/e49c80ac-5c90-4fd2-ad40-cc77af160f64.jpg?1764117699"
   },
   "snapshots": [
     {
@@ -42665,7 +42666,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -46541,5 +46542,145 @@
         "untappedLands": 2
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Atraxa, Grand Unifier": {
+      "mana_cost": "{3}{G}{W}{U}{B}",
+      "type_line": "Legendary Creature — Phyrexian Angel",
+      "oracle_text": "Flying, vigilance, deathtouch, lifelink\nWhen Atraxa enters, reveal the top ten cards of your library. For each card type, you may put a card of that type from among the revealed cards into your hand. Put the rest on the bottom of your library in a random order. (Artifact, battle, creature, enchantment, instant, land, planeswalker, and sorcery are card types.)",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Cori-Steel Cutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and haste.\nFlurry — Whenever you cast your second spell each turn, create a 1/1 white Monk creature token with prowess. You may attach this Equipment to it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)\nEquip {1}{R}"
+    },
+    "Expressive Iteration": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library. Put one of them into your hand, put one of them on the bottom of your library, and exile one of them. You may play the exiled card this turn."
+    },
+    "Faithful Mending": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You gain 2 life, draw two cards, then discard two cards.\nFlashback {1}{W}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Negation": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Godless Shrine": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Goryo's Vengeance": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant — Arcane",
+      "oracle_text": "Return target legendary creature card from your graveyard to the battlefield. That creature gains haste. Exile it at the beginning of the next end step.\nSplice onto Arcane {2}{B} (As you cast an Arcane spell, you may reveal this card from your hand and pay its splice cost. If you do, add this card's effects to that spell.)"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lava Dart": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lava Dart deals 1 damage to any target.\nFlashback—Sacrifice a Mountain. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Marsh Flats": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Meticulous Archive": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Monastery Swiftspear": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Monk",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mutagenic Growth": {
+      "mana_cost": "{G/P}",
+      "type_line": "Instant",
+      "oracle_text": "({G/P} can be paid with either {G} or 2 life.)\nTarget creature gets +2/+2 until end of turn."
+    },
+    "Preordain": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Scry 2, then draw a card. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+    },
+    "Psychic Frog": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Whenever this creature deals combat damage to a player or planeswalker, draw a card.\nDiscard a card: Put a +1/+1 counter on this creature.\nExile three cards from your graveyard: This creature gains flying until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thundering Falls": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

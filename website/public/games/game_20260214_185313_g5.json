@@ -34236,7 +34236,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -37570,5 +37570,145 @@
         "combatPhase": "declare_attackers"
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Balustrade Spy": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Vampire Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Bayou": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Forest",
+      "oracle_text": "({T}: Add {B} or {G}.)"
+    },
+    "Birds of Paradise": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Flying\n{T}: Add one mana of any color.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Cabal Ritual": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard."
+    },
+    "Cabal Therapy": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a nonland card name. Target player reveals their hand and discards all cards with that name.\nFlashback—Sacrifice a creature. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Elvish Spirit Guide": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Spirit",
+      "oracle_text": "Exile this creature from your hand: Add {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Endurance": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Flash\nReach\nWhen this creature enters, up to one target player puts all the cards from their graveyard on the bottom of their library in a random order.\nEvoke—Exile a green card from your hand.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gaea's Cradle": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {G} for each creature you control."
+    },
+    "Grist, the Hunger Tide": {
+      "mana_cost": "{1}{B}{G}",
+      "type_line": "Legendary Planeswalker — Grist",
+      "oracle_text": "As long as Grist isn't on the battlefield, it's a 1/1 Insect creature in addition to its other types.\n+1: Create a 1/1 black and green Insect creature token, then mill a card. If an Insect card was milled this way, put a loyalty counter on Grist and repeat this process.\n−2: You may sacrifice a creature. When you do, destroy target creature or planeswalker.\n−5: Each opponent loses life equal to the number of creature cards in your graveyard.",
+      "loyalty": "3"
+    },
+    "Hogaak, Arisen Necropolis": {
+      "mana_cost": "{5}{B/G}{B/G}",
+      "type_line": "Legendary Creature — Avatar",
+      "oracle_text": "You can't spend mana to cast this spell.\nConvoke, delve (Each creature you tap while casting this spell pays for {1} or one mana of that creature's color. Each card you exile from your graveyard pays for {1}.)\nYou may cast this card from your graveyard.\nTrample",
+      "power": "8",
+      "toughness": "8"
+    },
+    "Ignoble Hierarch": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "Exalted (Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.)\n{T}: Add {B}, {R}, or {G}.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Jack-o'-Lantern": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}, Sacrifice this artifact: Exile up to one target card from a graveyard. Draw a card.\n{1}, Exile this card from your graveyard: Add one mana of any color."
+    },
+    "Narcomoeba": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Illusion",
+      "oracle_text": "Flying\nWhen this card is put into your graveyard from your library, you may put it onto the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Once Upon a Time": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.\nLook at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order."
+    },
+    "Poxwalkers": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "Deathtouch\nCurse of the Walking Pox — Whenever you cast a spell from anywhere other than your hand, return this card from your graveyard to the battlefield tapped.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Undercity Informer": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "{1}, Sacrifice a creature: Target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Unmask": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may exile a black card from your hand rather than pay this spell's mana cost.\nTarget player reveals their hand. You choose a nonland card from it. That player discards that card."
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wight of the Reliquary": {
+      "mana_cost": "{B}{G}",
+      "type_line": "Creature — Zombie Knight",
+      "oracle_text": "Vigilance\nThis creature gets +1/+1 for each creature card in your graveyard.\n{T}, Sacrifice another creature: Search your library for a land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    }
+  }
 }

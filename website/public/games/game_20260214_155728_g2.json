@@ -107,7 +107,9 @@
     "Grafdigger's Cage": "https://api.scryfall.com/cards/m20/227?format=image&version=small",
     "Trinisphere": "https://api.scryfall.com/cards/2xm/303?format=image&version=small",
     "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small",
-    "Vexing Bauble": "https://api.scryfall.com/cards/mh3/212?format=image&version=small"
+    "Vexing Bauble": "https://api.scryfall.com/cards/mh3/212?format=image&version=small",
+    "Eldrazi Spawn Token": "https://cards.scryfall.io/small/front/d/0/d0da4f8d-cce9-4d08-8d11-792e0b2af7d0.jpg?1561758122",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -120907,7 +120909,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -138790,5 +138792,230 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Artist's Talent": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you cast a noncreature spell, you may discard a card. If you do, draw a card.\n{2}{R}: Level 2\nNoncreature spells you cast cost {1} less to cast.\n{2}{R}: Level 3\nIf a source you control would deal noncombat damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Commercial District": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Desperate Ritual": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant — Arcane",
+      "oracle_text": "Add {R}{R}{R}.\nSplice onto Arcane {1}{R} (As you cast an Arcane spell, you may reveal this card from your hand and pay its splice cost. If you do, add this card's effects to that spell.)"
+    },
+    "Devourer of Destiny": {
+      "mana_cost": "{5}{C}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "You may reveal this card from your opening hand. If you do, at the beginning of your first upkeep, look at the top four cards of your library. You may put one of those cards back on top of your library. Exile the rest.\nWhen you cast this spell, exile target permanent that's one or more colors.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Eldrazi Temple": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {C}{C}. Spend this mana only to cast colorless Eldrazi spells or activate abilities of colorless Eldrazi."
+    },
+    "Emrakul, the Promised End": {
+      "mana_cost": "{13}",
+      "type_line": "Legendary Creature — Eldrazi",
+      "oracle_text": "This spell costs {1} less to cast for each card type among cards in your graveyard.\nWhen you cast this spell, you gain control of target opponent during that player's next turn. After that turn, that player takes an extra turn.\nFlying, trample, protection from instants",
+      "power": "13",
+      "toughness": "13"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gemstone Caverns": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "If this card is in your opening hand and you're not the starting player, you may begin the game with Gemstone Caverns on the battlefield with a luck counter on it. If you do, exile a card from your hand.\n{T}: Add {C}. If Gemstone Caverns has a luck counter on it, instead add one mana of any color."
+    },
+    "Ghost Quarter": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target land. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Glimpse the Impossible": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top three cards of your library. You may play those cards this turn. At the beginning of the next end step, if any of those cards remain exiled, put them into your graveyard, then create a 0/1 colorless Eldrazi Spawn creature token for each card put into your graveyard this way. Those tokens have \"Sacrifice this token: Add {C}.\""
+    },
+    "Grapeshot": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Grapeshot deals 1 damage to any target.\nStorm (When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies.)"
+    },
+    "Icetill Explorer": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Insect Scout",
+      "oracle_text": "You may play an additional land on each of your turns.\nYou may play lands from your graveyard.\nLandfall — Whenever a land you control enters, mill a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Kozilek's Return": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Devoid (This card has no color.)\nKozilek's Return deals 2 damage to each creature.\nWhenever you cast an Eldrazi creature spell with mana value 7 or greater, you may exile this card from your graveyard. If you do, this card deals 5 damage to each creature."
+    },
+    "Malevolent Rumble": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Reveal the top four cards of your library. You may put a permanent card from among them into your hand. Put the rest into your graveyard. Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\""
+    },
+    "Manamorphose": {
+      "mana_cost": "{1}{R/G}",
+      "type_line": "Instant",
+      "oracle_text": "Add two mana in any combination of colors.\nDraw a card."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Past in Flames": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each instant and sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.\nFlashback {4}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Prismatic Ending": {
+      "mana_cost": "{X}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Converge — Exile target nonland permanent if its mana value is less than or equal to the number of colors of mana spent to cast this spell."
+    },
+    "Pyretic Ritual": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Add {R}{R}{R}."
+    },
+    "Reckless Impulse": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Ruby Medallion": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "Red spells you cast cost {1} less to cast."
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Shifting Woodland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Forest.\n{T}: Add {G}.\nDelirium — {2}{G}{G}: This land becomes a copy of target permanent card in your graveyard until end of turn. Activate only if there are four or more card types among cards in your graveyard."
+    },
+    "Sire of Seven Deaths": {
+      "mana_cost": "{7}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "First strike, vigilance\nMenace, trample\nReach, lifelink\nWard—Pay 7 life.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Sowing Mycospawn": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Eldrazi Fungus",
+      "oracle_text": "Devoid (This card has no color.)\nKicker {1}{C} (You may pay an additional {1}{C} as you cast this spell.)\nWhen you cast this spell, search your library for a land card, put it onto the battlefield, then shuffle.\nWhen you cast this spell, if it was kicked, exile target land.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Stomping Ground": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Strike It Rich": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Sunbaked Canyon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {R} or {W}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Talisman of Impulse": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {R} or {G}. This artifact deals 1 damage to you."
+    },
+    "Ugin's Labyrinth": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Imprint — When this land enters, you may exile a colorless card with mana value 7 or greater from your hand.\n{T}: Add {C}. If a card is exiled with this land, add {C}{C} instead.\n{T}: Return the exiled card to its owner's hand."
+    },
+    "Ugin, Eye of the Storms": {
+      "mana_cost": "{7}",
+      "type_line": "Legendary Planeswalker — Ugin",
+      "oracle_text": "When you cast this spell, exile up to one target permanent that's one or more colors.\nWhenever you cast a colorless spell, exile up to one target permanent that's one or more colors.\n+2: You gain 3 life and draw a card.\n0: Add {C}{C}{C}.\n−11: Search your library for any number of colorless nonland cards, exile them, then shuffle. Until end of turn, you may cast those cards without paying their mana costs.",
+      "loyalty": "7"
+    },
+    "Utopia Sprawl": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color."
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wish": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may play a card you own from outside the game this turn."
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "World Breaker": {
+      "mana_cost": "{6}{G}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "Devoid (This card has no color.)\nWhen you cast this spell, exile target artifact, enchantment, or land.\nReach\n{2}{C}, Sacrifice a land: Return this card from your graveyard to your hand. ({C} represents colorless mana.)",
+      "power": "5",
+      "toughness": "7"
+    },
+    "Wrenn's Resolve": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    }
+  }
 }

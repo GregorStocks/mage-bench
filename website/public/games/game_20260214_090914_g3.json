@@ -86974,7 +86974,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -97814,5 +97814,94 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Blooming Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {G}."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Craterhoof Behemoth": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Haste\nWhen this creature enters, creatures you control gain trample and get +X/+X until end of turn, where X is the number of creatures you control.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Nature's Rhythm": {
+      "mana_cost": "{X}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a creature card with mana value X or less, put it onto the battlefield, then shuffle.\nHarmonize {X}{G}{G}{G}{G} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by an amount of generic mana equal to its power. Then exile this spell.)"
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Spider Manifestation": {
+      "mana_cost": "{1}{R/G}",
+      "type_line": "Creature — Spider Avatar",
+      "oracle_text": "Reach\n{T}: Add {R} or {G}.\nWhenever you cast a spell with mana value 4 or greater, untap this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Superior Spider-Man": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Spider Human Hero",
+      "oracle_text": "Mind Swap — You may have Superior Spider-Man enter as a copy of any creature card in a graveyard, except his name is Superior Spider-Man and he's a 4/4 Spider Human Hero in addition to his other types. When you do, exile that card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Willowrush Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
+    },
+    "Wistfulness": {
+      "mana_cost": "{3}{G/U}{G/U}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "When this creature enters, if {G}{G} was spent to cast it, exile target artifact or enchantment an opponent controls.\nWhen this creature enters, if {U}{U} was spent to cast it, draw two cards, then discard a card.\nEvoke {G/U}{G/U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "6",
+      "toughness": "5"
+    }
+  }
 }

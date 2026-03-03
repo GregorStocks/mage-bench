@@ -103,7 +103,8 @@
     "Forge Anew": "https://api.scryfall.com/cards/ltr/17?format=image&version=small",
     "Mana Tithe": "https://api.scryfall.com/cards/tsr/26?format=image&version=small",
     "Pithing Needle": "https://api.scryfall.com/cards/2x2/312?format=image&version=small",
-    "Tormod's Crypt": "https://api.scryfall.com/cards/dmr/235?format=image&version=small"
+    "Tormod's Crypt": "https://api.scryfall.com/cards/dmr/235?format=image&version=small",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -62128,7 +62129,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -67174,5 +67175,148 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arena of Glory": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain.\n{T}: Add {R}.\n{R}, {T}, Exert this land: Add {R}{R}. If that mana is spent on a creature spell, it gains haste until end of turn. (An exerted permanent won't untap during your next untap step.)"
+    },
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Battlefield Improvisation": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +2/+2 until end of turn. If that creature is attacking, you may attach any number of Equipment you control to it."
+    },
+    "Blood Moon": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands are Mountains."
+    },
+    "Colossus Hammer": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +10/+10 and loses flying.\nEquip {8} ({8}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Cori-Steel Cutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and haste.\nFlurry — Whenever you cast your second spell each turn, create a 1/1 white Monk creature token with prowess. You may attach this Equipment to it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)\nEquip {1}{R}"
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Galvanic Discharge": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose target creature or planeswalker. You get {E}{E}{E} (three energy counters), then you may pay any amount of {E}. Galvanic Discharge deals that much damage to that permanent."
+    },
+    "Goblin Bombardment": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Sacrifice a creature: This enchantment deals 1 damage to any target."
+    },
+    "Guide of Souls": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "Whenever another creature you control enters, you gain 1 life and get {E} (an energy counter).\nWhenever you attack, you may pay {E}{E}{E}. When you do, put two +1/+1 counters and a flying counter on target attacking creature. It becomes an Angel in addition to its other types.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Leyline Axe": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nEquipped creature gets +1/+1 and has double strike and trample.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Ocelot Pride": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "First strike, lifelink\nAscend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nAt the beginning of your end step, if you gained life this turn, create a 1/1 white Cat creature token. Then if you have the city's blessing, for each token you control that entered this turn, create a token that's a copy of it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Ornithopter": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact Creature — Thopter",
+      "oracle_text": "Flying",
+      "power": "0",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Puresteel Paladin": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "Whenever an Equipment you control enters, you may draw a card.\nMetalcraft — Equipment you control have equip {0} as long as you control three or more artifacts.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Ragavan, Nimble Pilferer": {
+      "mana_cost": "{R}",
+      "type_line": "Legendary Creature — Monkey Pirate",
+      "oracle_text": "Whenever Ragavan deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Seasoned Pyromancer": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "When this creature enters, discard two cards, then draw two cards. For each nonland card discarded this way, create a 1/1 red Elemental creature token.\n{3}{R}{R}, Exile this card from your graveyard: Create two 1/1 red Elemental creature tokens.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Shadowspear": {
+      "mana_cost": "{1}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}"
+    },
+    "Stoneforge Mystic": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kor Artificer",
+      "oracle_text": "When this creature enters, you may search your library for an Equipment card, reveal it, put it into your hand, then shuffle.\n{1}{W}, {T}: You may put an Equipment card from your hand onto the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Sunbaked Canyon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {R} or {W}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Voice of Victory": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Bard",
+      "oracle_text": "Mobilize 2 (Whenever this creature attacks, create two tapped and attacking 1/1 red Warrior creature tokens. Sacrifice them at the beginning of the next end step.)\nYour opponents can't cast spells during your turn.",
+      "power": "1",
+      "toughness": "3"
+    }
+  }
 }

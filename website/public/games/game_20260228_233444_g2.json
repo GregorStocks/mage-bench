@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_233444_g2",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -106,7 +106,8 @@
     "Marit Lage's Slumber": "https://api.scryfall.com/cards/j22/319?format=image&version=small",
     "Winter's Rest": "https://api.scryfall.com/cards/j22/374?format=image&version=small",
     "Shimmerdrift Vale": "https://api.scryfall.com/cards/j22/821?format=image&version=small",
-    "Snow-Covered Island": "https://api.scryfall.com/cards/j22/833?format=image&version=small"
+    "Snow-Covered Island": "https://api.scryfall.com/cards/j22/833?format=image&version=small",
+    "Goblin Token": "https://cards.scryfall.io/small/front/6/1/6139a45d-ebc7-4bca-8c13-73c85ea5fe0d.jpg?1768367480"
   },
   "snapshots": [
     {
@@ -96593,5 +96594,133 @@
       "player": "GPT5 Teach"
     }
   ],
-  "blunderScriptVersion": 30
+  "blunderScriptVersion": 30,
+  "cardData": {
+    "Avalanche Caller": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Snow Creature — Human Wizard",
+      "oracle_text": "{2}: Target snow land you control becomes a 4/4 Elemental creature with hexproof and haste until end of turn. It's still a land. (A creature with hexproof can't be the target of spells or abilities your opponents control.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Berg Strider": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Snow Creature — Giant Wizard",
+      "oracle_text": "When this creature enters, tap target artifact or creature an opponent controls. If {S} was spent to cast this spell, that permanent doesn't untap during its controller's next untap step. ({S} is mana from a snow source.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Boggart Brute": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Frostpeak Yeti": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Snow Creature — Yeti",
+      "oracle_text": "{1}{S}: This creature can't be blocked this turn. ({S} can be paid with one mana from a snow source.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Goblin Instigator": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Rogue",
+      "oracle_text": "When this creature enters, create a 1/1 red Goblin creature token.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Goblin Shortcutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Scout",
+      "oracle_text": "When this creature enters, target creature can't block this turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Grave Bramble": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Plant",
+      "oracle_text": "Defender, protection from Zombies",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Icebind Pillar": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Snow Artifact",
+      "oracle_text": "{S}, {T}: Tap target artifact or creature. ({S} can be paid with one mana from a snow source.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Muxus, Goblin Grandee": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Legendary Creature — Goblin Noble",
+      "oracle_text": "When Muxus enters, reveal the top six cards of your library. Put all Goblin creature cards with mana value 5 or less from among them onto the battlefield and the rest on the bottom of your library in a random order.\nWhenever Muxus attacks, it gets +1/+1 until end of turn for each other Goblin you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Ornery Goblin": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Whenever this creature blocks or becomes blocked by a creature, this creature deals 1 damage to that creature.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Ossuary Rats": {
+      "mana_cost": "{5}{B}",
+      "type_line": "Creature — Rat",
+      "oracle_text": "When this creature enters, it deals X damage to target creature or planeswalker an opponent controls, where X is the number of creature cards in your graveyard.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Oversold Cemetery": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, if you have four or more creature cards in your graveyard, you may return target creature card from your graveyard to your hand."
+    },
+    "Portcullis Vine": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Plant Wall",
+      "oracle_text": "Defender (This creature can't attack.)\n{2}, {T}, Sacrifice a creature with defender: Draw a card.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Roving Keep": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact Creature — Wall",
+      "oracle_text": "Defender\n{7}: This creature gets +2/+0 and gains trample until end of turn. It can attack this turn as though it didn't have defender.",
+      "power": "5",
+      "toughness": "7"
+    },
+    "Snow-Covered Island": {
+      "mana_cost": "",
+      "type_line": "Basic Snow Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Spark Reaper": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{3}, Sacrifice a creature or planeswalker: You gain 1 life and draw a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    }
+  }
 }

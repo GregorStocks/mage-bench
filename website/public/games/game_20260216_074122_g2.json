@@ -92,7 +92,8 @@
     "Seam Rip": "https://api.scryfall.com/cards/eoe/34?format=image&version=small",
     "Sunken Citadel": "https://api.scryfall.com/cards/lci/285?format=image&version=small",
     "Pyrrhic Strike": "https://api.scryfall.com/cards/ecl/30?format=image&version=small",
-    "Torpor Orb": "https://api.scryfall.com/cards/big/27?format=image&version=small"
+    "Torpor Orb": "https://api.scryfall.com/cards/big/27?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041"
   },
   "snapshots": [
     {
@@ -136467,7 +136468,7 @@
     }
   ],
   "blunderScriptVersion": 22,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -156714,5 +156715,160 @@
         "untappedLands": 13
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Bitter Triumph": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card or pay 3 life.\nDestroy target creature or planeswalker."
+    },
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Deadly Cover-Up": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, you may collect evidence 6.\nDestroy all creatures. If evidence was collected, exile a card from an opponent's graveyard. Then search its owner's graveyard, hand, and library for any number of cards with that name and exile them. That player shuffles, then draws a card for each card exiled from their hand this way."
+    },
+    "Demolition Field": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Destroy target nonbasic land an opponent controls. That land's controller may search their library for a basic land card, put it onto the battlefield, then shuffle. You may search your library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Elspeth, Storm Slayer": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Legendary Planeswalker — Elspeth",
+      "oracle_text": "If one or more tokens would be created under your control, twice that many of those tokens are created instead.\n+1: Create a 1/1 white Soldier creature token.\n0: Put a +1/+1 counter on each creature you control. Those creatures gain flying until your next turn.\n−3: Destroy target creature an opponent controls with mana value 3 or greater.",
+      "loyalty": "5"
+    },
+    "Essence Scatter": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target creature spell."
+    },
+    "Feed the Cycle": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, forage or pay {B}. (To forage, exile three cards from your graveyard or sacrifice a Food.)\nDestroy target creature or planeswalker."
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Fountainport": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice a token: Draw a card.\n{3}, {T}, Pay 1 life: Create a 1/1 blue Fish creature token.\n{4}, {T}: Create a Treasure token."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Restless Reef": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U} or {B}.\n{2}{U}{B}: Until end of turn, this land becomes a 4/4 blue and black Shark creature with deathtouch. It's still a land.\nWhenever this land attacks, target player mills four cards."
+    },
+    "Seam Rip": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls with mana value 2 or less until this enchantment leaves the battlefield."
+    },
+    "Shoot the Sheriff": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target non-outlaw creature. (Assassins, Mercenaries, Pirates, Rogues, and Warlocks are outlaws. Everyone else is fair game.)"
+    },
+    "Spell Pierce": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell unless its controller pays {2}."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Stock Up": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Sunken Citadel": {
+      "mana_cost": "",
+      "type_line": "Land — Cave",
+      "oracle_text": "This land enters tapped. As it enters, choose a color.\n{T}: Add one mana of the chosen color.\n{T}: Add two mana of the chosen color. Spend this mana only to activate abilities of land sources."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Three Steps Ahead": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1}{U} — Counter target spell.\n+ {3} — Create a token that's a copy of target artifact or creature you control.\n+ {2} — Draw two cards, then discard a card."
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Wan Shi Tong, Librarian": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Legendary Creature — Bird Spirit",
+      "oracle_text": "Flash\nFlying, vigilance\nWhen Wan Shi Tong enters, put X +1/+1 counters on him. Then draw half X cards, rounded down.\nWhenever an opponent searches their library, put a +1/+1 counter on Wan Shi Tong and draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    }
+  }
 }

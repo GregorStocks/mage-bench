@@ -44234,7 +44234,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -49579,5 +49579,105 @@
         "untappedLands": 3
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aang's Iceberg": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, exile up to one other target nonland permanent until this enchantment leaves the battlefield.\nWaterbend {3}: Sacrifice this enchantment. If you do, scry 2. (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for {1}.)"
+    },
+    "Burnout Bashtronaut": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace\nStart your engines! (If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.)\n{2}: This creature gets +1/+0 until end of turn.\nMax speed — This creature has double strike.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Hired Claw": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Lizard Mercenary",
+      "oracle_text": "Whenever you attack with one or more Lizards, this creature deals 1 damage to target opponent.\n{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn and only once each turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Razorkin Needlehead": {
+      "mana_cost": "{R}{R}",
+      "type_line": "Creature — Human Assassin",
+      "oracle_text": "This creature has first strike during your turn.\nWhenever an opponent draws a card, this creature deals 1 damage to them.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Rest in Peace": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile all graveyards.\nIf a card or token would be put into a graveyard from anywhere, exile it instead."
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Seam Rip": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls with mana value 2 or less until this enchantment leaves the battlefield."
+    },
+    "Shock": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Shock deals 2 damage to any target."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "Tersa Lightshatter": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Legendary Creature — Orc Wizard",
+      "oracle_text": "Haste\nWhen Tersa Lightshatter enters, discard up to two cards, then draw that many cards.\nWhenever Tersa Lightshatter attacks, if there are seven or more cards in your graveyard, exile a card at random from your graveyard. You may play that card this turn.",
+      "power": "3",
+      "toughness": "3"
+    }
+  }
 }

@@ -27985,7 +27985,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -30071,5 +30071,119 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ashen Rider": {
+      "mana_cost": "{4}{W}{W}{B}{B}",
+      "type_line": "Creature — Archon",
+      "oracle_text": "Flying\nWhen this creature enters or dies, exile target permanent.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Cori-Steel Cutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and haste.\nFlurry — Whenever you cast your second spell each turn, create a 1/1 white Monk creature token with prowess. You may attach this Equipment to it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)\nEquip {1}{R}"
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Dragon's Rage Channeler": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast a noncreature spell, surveil 1. (Look at the top card of your library. You may put that card into your graveyard.)\nDelirium — As long as there are four or more card types among cards in your graveyard, this creature gets +2/+2, has flying, and attacks each combat if able.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Dread Return": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield.\nFlashback—Sacrifice three creatures. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Golgari Grave-Troll": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Troll Skeleton",
+      "oracle_text": "This creature enters with a +1/+1 counter on it for each creature card in your graveyard.\n{1}, Remove a +1/+1 counter from this creature: Regenerate this creature.\nDredge 6 (If you would draw a card, you may mill six cards instead. If you do, return this card from your graveyard to your hand.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Misty Rainforest": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Narcomoeba": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Illusion",
+      "oracle_text": "Flying\nWhen this card is put into your graveyard from your library, you may put it onto the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Poxwalkers": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "Deathtouch\nCurse of the Walking Pox — Whenever you cast a spell from anywhere other than your hand, return this card from your graveyard to the battlefield tapped.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Stinkweed Imp": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Imp",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a creature, destroy that creature.\nDredge 5 (If you would draw a card, you may mill five cards instead. If you do, return this card from your graveyard to your hand.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Volcanic Island": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    }
+  }
 }

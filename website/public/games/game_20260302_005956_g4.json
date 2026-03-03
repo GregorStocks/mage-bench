@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_005956_g4",
   "timestamp": "20260302_005956",
   "gameType": "Two Player Duel",
@@ -135525,5 +135525,197 @@
       "player": "Grok4F Valley"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Archfiend's Vessel": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\nWhen this creature enters, if it entered from your graveyard or you cast it from your graveyard, exile it. If you do, create a 5/5 black Demon creature token with flying.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Ashmouth Hound": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Elemental Dog",
+      "oracle_text": "Whenever this creature blocks or becomes blocked by a creature, this creature deals 1 damage to that creature.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Basri Ket": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Legendary Planeswalker — Basri",
+      "oracle_text": "+1: Put a +1/+1 counter on up to one target creature. It gains indestructible until end of turn.\n−2: Whenever one or more nontoken creatures attack this turn, create that many 1/1 white Soldier creature tokens that are tapped and attacking.\n−6: You get an emblem with \"At the beginning of combat on your turn, create a 1/1 white Soldier creature token, then put a +1/+1 counter on each creature you control.\"",
+      "loyalty": "3"
+    },
+    "Basri's Acolyte": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Cat Cleric",
+      "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\nWhen this creature enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Basri's Solidarity": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on each creature you control."
+    },
+    "Bloodrock Cyclops": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Cyclops",
+      "oracle_text": "This creature attacks each combat if able.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Chart a Course": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw two cards. Then discard a card unless you attacked this turn."
+    },
+    "Coastal Piracy": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control deals combat damage to an opponent, you may draw a card."
+    },
+    "Crypt Lurker": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Horror",
+      "oracle_text": "When this creature enters, you may sacrifice a creature or discard a creature card. If you do, draw a card.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Eliminate": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature or planeswalker with mana value 3 or less."
+    },
+    "Faith's Fetters": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant permanent\nWhen this Aura enters, you gain 4 life.\nEnchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
+    },
+    "Feat of Resistance": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn. (It can't be blocked, targeted, dealt damage, enchanted, or equipped by anything of that color.)"
+    },
+    "Funeral Rites": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You draw two cards, lose 2 life, then mill two cards."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kitesail Corsair": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Human Pirate",
+      "oracle_text": "This creature has flying as long as it's attacking.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Knight of the Tusk": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)",
+      "power": "3",
+      "toughness": "7"
+    },
+    "Legion's Judgment": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target creature with power 4 or greater."
+    },
+    "Magma Jet": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Magma Jet deals 2 damage to any target. Scry 2."
+    },
+    "Magmaquake": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Magmaquake deals X damage to each creature without flying and each planeswalker."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Reanimate": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put target creature card from a graveyard onto the battlefield under your control. You lose life equal to that card's mana value."
+    },
+    "Seismic Elemental": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "When this creature enters, creatures without flying can't block this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Siege Striker": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Double strike (This creature deals both first-strike and regular combat damage.)\nWhenever this creature attacks, you may tap any number of untapped creatures you control. This creature gets +1/+1 until end of turn for each creature tapped this way.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Spectral Sailor": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Spirit Pirate",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\n{3}{U}: Draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Staunch Shieldmate": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Dwarf Soldier",
+      "oracle_text": "",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Tempered Veteran": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "{W}, {T}: Put a +1/+1 counter on target creature with a +1/+1 counter on it.\n{4}{W}{W}, {T}: Put a +1/+1 counter on target creature.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Voyage's End": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Return target creature to its owner's hand. Scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Waterknot": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, tap enchanted creature.\nEnchanted creature doesn't untap during its controller's untap step."
+    }
+  }
 }

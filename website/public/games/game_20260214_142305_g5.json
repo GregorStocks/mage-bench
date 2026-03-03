@@ -102,7 +102,8 @@
     "Wistfulness": "https://api.scryfall.com/cards/ecl/252?format=image&version=small",
     "Avatar's Wrath": "https://api.scryfall.com/cards/tla/12?format=image&version=small",
     "Aven Interrupter": "https://api.scryfall.com/cards/otj/4?format=image&version=small",
-    "Surrak, Elusive Hunter": "https://api.scryfall.com/cards/tdm/161?format=image&version=small"
+    "Surrak, Elusive Hunter": "https://api.scryfall.com/cards/tdm/161?format=image&version=small",
+    "Ally Token": "https://cards.scryfall.io/small/front/0/1/01439983-8394-4a0c-9e9e-92a3f1927fe3.jpg?1764117686"
   },
   "snapshots": [
     {
@@ -47944,7 +47945,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -53678,5 +53679,164 @@
         "untappedLands": 2
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Appa, Steadfast Guardian": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Bison Ally",
+      "oracle_text": "Flash\nFlying\nWhen Appa enters, airbend any number of other target nonland permanents you control. (Exile them. While each one is exiled, its owner may cast it for {2} rather than its mana cost.)\nWhenever you cast a spell from exile, create a 1/1 white Ally creature token.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Cori Mountain Monastery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Plains or an Island.\n{T}: Add {R}.\n{3}{R}, {T}: Exile the top card of your library. Until the end of your next turn, you may play that card."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Doc Aurlock, Grizzled Genius": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Legendary Creature — Bear Druid",
+      "oracle_text": "Spells you cast from your graveyard or from exile cost {2} less to cast.\nPlotting cards from your hand costs {2} less.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Hushwood Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {G}.\n{T}: Add {W}. Activate only if you control a Forest or a Plains."
+    },
+    "Interdimensional Web Watch": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, exile the top two cards of your library. Until the end of your next turn, you may play those cards.\n{T}: Add two mana in any combination of colors. Spend this mana only to cast spells from exile."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jeskai Revelation": {
+      "mana_cost": "{4}{U}{R}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Return target spell or permanent to its owner's hand. Jeskai Revelation deals 4 damage to any target. Create two 1/1 white Monk creature tokens with prowess. Draw two cards. You gain 4 life."
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rest in Peace": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile all graveyards.\nIf a card or token would be put into a graveyard from anywhere, exile it instead."
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Seam Rip": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls with mana value 2 or less until this enchantment leaves the battlefield."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stock Up": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "The Unagi of Kyoshi Island": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Legendary Creature — Serpent",
+      "oracle_text": "Flash\nWard—Waterbend {4}. (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}. They can tap their artifacts and creatures to help. Each one pays for {1}.)\nWhenever an opponent draws their second card each turn, you draw two cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Tishana's Tidebinder": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Flash\nWhen this creature enters, counter up to one target activated or triggered ability. If an ability of an artifact, creature, or planeswalker is countered this way, that permanent loses all abilities for as long as this creature remains on the battlefield. (Mana abilities can't be targeted.)",
+      "power": "3",
+      "toughness": "2"
+    }
+  }
 }

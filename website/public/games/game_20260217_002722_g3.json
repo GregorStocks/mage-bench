@@ -91,7 +91,9 @@
     "Intimidation Tactics": "https://api.scryfall.com/cards/dft/92?format=image&version=small",
     "Requisition Raid": "https://api.scryfall.com/cards/otj/26?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
-    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small"
+    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -106463,7 +106465,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -113752,5 +113754,159 @@
         "combatPhase": "attackers"
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Airbender Ascension": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, airbend up to one target creature.\nWhenever a creature you control enters, put a quest counter on this enchantment.\nAt the beginning of your end step, if this enchantment has four or more quest counters on it, exile up to one target creature you control, then return it to the battlefield under its owner's control."
+    },
+    "Appa, Steadfast Guardian": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Bison Ally",
+      "oracle_text": "Flash\nFlying\nWhen Appa enters, airbend any number of other target nonland permanents you control. (Exile them. While each one is exiled, its owner may cast it for {2} rather than its mana cost.)\nWhenever you cast a spell from exile, create a 1/1 white Ally creature token.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Concealed Courtyard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {B}."
+    },
+    "Doc Aurlock, Grizzled Genius": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Legendary Creature — Bear Druid",
+      "oracle_text": "Spells you cast from your graveyard or from exile cost {2} less to cast.\nPlotting cards from your hand costs {2} less.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Godless Shrine": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Grim Bauble": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, target creature an opponent controls gets -2/-2 until end of turn.\n{2}{B}, {T}, Sacrifice this artifact: Surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Hushwood Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {G}.\n{T}: Add {W}. Activate only if you control a Forest or a Plains."
+    },
+    "Interdimensional Web Watch": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, exile the top two cards of your library. Until the end of your next turn, you may play those cards.\n{T}: Add two mana in any combination of colors. Spend this mana only to cast spells from exile."
+    },
+    "Kaito, Bane of Nightmares": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Planeswalker — Kaito",
+      "oracle_text": "Ninjutsu {1}{U}{B} ({1}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nDuring your turn, as long as Kaito has one or more loyalty counters on him, he's a 3/4 Ninja creature and has hexproof.\n+1: You get an emblem with \"Ninjas you control get +1/+1.\"\n0: Surveil 2. Then draw a card for each opponent who lost life this turn.\n−2: Tap target creature. Put two stun counters on it.",
+      "loyalty": "4"
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Nowhere to Run": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, target creature an opponent controls gets -3/-3 until end of turn.\nCreatures your opponents control can be the targets of spells and abilities as though they didn't have hexproof. Ward abilities of those creatures don't trigger."
+    },
+    "Nurturing Pixie": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, return up to one target non-Faerie, nonland permanent you control to its owner's hand. If a permanent was returned this way, put a +1/+1 counter on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Spyglass Siren": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Siren Pirate",
+      "oracle_text": "Flying\nWhen this creature enters, create a Map token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Sunpearl Kirin": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kirin",
+      "oracle_text": "Flash\nFlying\nWhen this creature enters, return up to one other target nonland permanent you control to its owner's hand. If it was a token, draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    }
+  }
 }

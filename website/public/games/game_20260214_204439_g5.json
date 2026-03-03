@@ -107,7 +107,11 @@
     "Null Rod": "https://api.scryfall.com/cards/vma/278?format=image&version=small",
     "Price of Progress": "https://api.scryfall.com/cards/ema/141?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
-    "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small"
+    "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small",
+    "Cat Token": "https://cards.scryfall.io/small/front/9/0/902fba98-92b7-461b-ac6e-29cb2c4e307f.jpg?1738355211",
+    "Sand Warrior Token": "https://cards.scryfall.io/small/front/1/2/124ea959-742a-4914-9bca-1075ccd0cb22.jpg?1675456322",
+    "Spirit Token": "https://cards.scryfall.io/small/front/f/5/f59eba51-458a-40e0-b754-999f91d5d839.jpg?1764117653",
+    "Warrior Token": "https://cards.scryfall.io/small/front/7/e/7edc0515-a130-45a7-aa09-0e23bba41587.jpg?1742506712"
   },
   "snapshots": [
     {
@@ -46220,7 +46224,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -53452,5 +53456,136 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Amped Raptor": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "First strike\nWhen this creature enters, you get {E}{E} (two energy counters). Then if you cast it from your hand, exile cards from the top of your library until you exile a nonland card. You may cast that card by paying an amount of {E} equal to its mana value rather than paying its mana cost.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Dragon's Rage Channeler": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast a noncreature spell, surveil 1. (Look at the top card of your library. You may put that card into your graveyard.)\nDelirium — As long as there are four or more card types among cards in your graveyard, this creature gets +2/+2, has flying, and attacks each combat if able.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Goblin Bombardment": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Sacrifice a creature: This enchantment deals 1 damage to any target."
+    },
+    "Hexing Squelcher": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Sorcerer",
+      "oracle_text": "This spell can't be countered.\nWard—Pay 2 life.\nSpells you control can't be countered.\nOther creatures you control have \"Ward—Pay 2 life.\"",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Misty Rainforest": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Murktide Regent": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Delve (Each card you exile from your graveyard while casting this spell pays for {1}.)\nFlying\nThis creature enters with a +1/+1 counter on it for each instant and sorcery card exiled with it.\nWhenever an instant or sorcery card leaves your graveyard, put a +1/+1 counter on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Ocelot Pride": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "First strike, lifelink\nAscend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nAt the beginning of your end step, if you gained life this turn, create a 1/1 white Cat creature token. Then if you have the city's blessing, for each token you control that entered this turn, create a token that's a copy of it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Plateau": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Sand Scout": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "When this creature enters, if an opponent controls more lands than you, search your library for a Desert card, put it onto the battlefield tapped, then shuffle.\nWhenever one or more land cards are put into your graveyard from anywhere, create a 1/1 red, green, and white Sand Warrior creature token. This ability triggers only once each turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Staff of the Storyteller": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, create a 1/1 white Spirit creature token with flying.\nWhenever you create one or more creature tokens, put a story counter on this artifact.\n{W}, {T}, Remove a story counter from this artifact: Draw a card."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Voice of Victory": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Bard",
+      "oracle_text": "Mobilize 2 (Whenever this creature attacks, create two tapped and attacking 1/1 red Warrior creature tokens. Sacrifice them at the beginning of the next end step.)\nYour opponents can't cast spells during your turn.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Volcanic Island": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    }
+  }
 }

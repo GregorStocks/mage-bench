@@ -106,7 +106,8 @@
     "Negate": "https://api.scryfall.com/cards/fdn/710?format=image&version=small",
     "Spell Snare": "https://api.scryfall.com/cards/ecl/71?format=image&version=small",
     "Strategic Betrayal": "https://api.scryfall.com/cards/tdm/94?format=image&version=small",
-    "The Unagi of Kyoshi Island": "https://api.scryfall.com/cards/tla/77?format=image&version=small"
+    "The Unagi of Kyoshi Island": "https://api.scryfall.com/cards/tla/77?format=image&version=small",
+    "Warrior Token": "https://cards.scryfall.io/small/front/7/e/7edc0515-a130-45a7-aa09-0e23bba41587.jpg?1742506712"
   },
   "snapshots": [
     {
@@ -24754,7 +24755,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -27649,5 +27650,123 @@
         "combatPhase": "declare_attackers"
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Bulk Up": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Double target creature's power until end of turn.\nFlashback {4}{R}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Deep-Cavern Bat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Bat",
+      "oracle_text": "Flying, lifelink\nWhen this creature enters, look at target opponent's hand. You may exile a nonland card from it until this creature leaves the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Dreadmaw's Ire": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target attacking creature gets +2/+2 and gains trample and \"Whenever this creature deals combat damage to a player, destroy target artifact that player controls.\""
+    },
+    "Enduring Curiosity": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment Creature — Cat Glimmer",
+      "oracle_text": "Flash\nWhenever a creature you control deals combat damage to a player, draw a card.\nWhen Enduring Curiosity dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Essence Scatter": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target creature spell."
+    },
+    "Fire Nation Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {R}.\n{1}{R}, {T}: Target creature you control gains firebending 4 until end of turn. (Whenever it attacks, add {R}{R}{R}{R}. This mana lasts until end of combat.)"
+    },
+    "Flitterwing Nuisance": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nThis creature enters with a -1/-1 counter on it.\n{2}{U}, Remove a counter from this creature: Whenever a creature you control deals combat damage to a player or planeswalker this turn, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Full Bore": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gets +3/+2 until end of turn. If that creature was cast for its warp cost, it also gains trample and haste until end of turn."
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kaito, Bane of Nightmares": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Planeswalker — Kaito",
+      "oracle_text": "Ninjutsu {1}{U}{B} ({1}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nDuring your turn, as long as Kaito has one or more loyalty counters on him, he's a 3/4 Ninja creature and has hexproof.\n+1: You get an emblem with \"Ninjas you control get +1/+1.\"\n0: Surveil 2. Then draw a card for each opponent who lost life this turn.\n−2: Tap target creature. Put two stun counters on it.",
+      "loyalty": "4"
+    },
+    "Leyline of Resonance": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nWhenever you cast an instant or sorcery spell that targets only a single creature you control, copy that spell. You may choose new targets for the copy."
+    },
+    "Might of the Meek": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gains trample until end of turn. It also gets +1/+0 until end of turn if you control a Mouse.\nDraw a card."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Redirect Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "As an additional cost to cast this spell, pay 5 life or pay {2}.\nChange the target of target spell or ability with a single target."
+    },
+    "Slickshot Show-Off": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Bird Wizard",
+      "oracle_text": "Flying, haste\nWhenever you cast a noncreature spell, this creature gets +2/+0 until end of turn.\nPlot {1}{R} (You may pay {1}{R} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Soulstone Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}: This land becomes a 3/3 creature with vigilance and all creature types. It's still a land."
+    },
+    "Stadium Headliner": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Mobilize 1 (Whenever this creature attacks, create a tapped and attacking 1/1 red Warrior creature token. Sacrifice it at the beginning of the next end step.)\n{1}{R}, Sacrifice this creature: It deals damage equal to the number of creatures you control to target creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Turn Inside Out": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+0 until end of turn. When it dies this turn, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    }
+  }
 }

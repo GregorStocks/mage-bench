@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_010846_g2",
   "timestamp": "20260228_010846",
   "gameType": "Two Player Duel",
@@ -123436,5 +123436,151 @@
     }
   ],
   "blunderScriptVersion": 28,
-  "errors": []
+  "errors": [],
+  "cardData": {
+    "Aether Spellbomb": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card."
+    },
+    "Ardoz, Cobbler of War": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Legendary Creature — Goblin Shaman",
+      "oracle_text": "Haste\nWhenever Ardoz or another creature you control enters, that creature gets +2/+0 until end of turn.\n{3}{R}: Create a 1/1 red Goblin creature token with haste. Activate only as a sorcery.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Basri's Solidarity": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on each creature you control."
+    },
+    "Bolt Hound": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Elemental Dog",
+      "oracle_text": "Haste (This creature can attack and {T} as soon as it comes under your control.)\nWhenever this creature attacks, other creatures you control get +1/+0 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bulwark Giant": {
+      "mana_cost": "{5}{W}",
+      "type_line": "Creature — Giant Soldier",
+      "oracle_text": "When this creature enters, you gain 5 life.",
+      "power": "3",
+      "toughness": "6"
+    },
+    "Buried Ruin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Return target artifact card from your graveyard to your hand."
+    },
+    "Chromatic Sphere": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}, Sacrifice this artifact: Add one mana of any color. Draw a card."
+    },
+    "Fanatical Firebrand": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "Haste (This creature can attack and {T} as soon as it comes under your control.)\n{T}, Sacrifice this creature: It deals 1 damage to any target.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Fiery Conclusion": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nFiery Conclusion deals 5 damage to target creature."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jousting Lance": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+0.\nDuring your turn, equipped creature has first strike.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Markov Warlord": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Vampire Warrior",
+      "oracle_text": "Haste (This creature can attack and {T} as soon as it comes under your control.)\nWhen this creature enters, up to two target creatures can't block this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Meteor Golem": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, destroy target nonland permanent an opponent controls.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mudbutton Torchrunner": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "When this creature dies, it deals 3 damage to any target.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Patron of the Valiant": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, put a +1/+1 counter on each creature you control with a +1/+1 counter on it.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Scholar of the Lost Trove": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, you may cast target instant, sorcery, or artifact card from your graveyard without paying its mana cost. If an instant or sorcery spell cast this way would be put into your graveyard, exile it instead.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Shining Armor": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Flash\nWhen this Equipment enters, attach it to target Knight you control.\nEquipped creature gets +0/+2 and has vigilance.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Skyhunter Prowler": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Cat Knight",
+      "oracle_text": "Flying, vigilance (This creature can't be blocked except by creatures with flying or reach, and attacking doesn't cause this creature to tap.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Tempered Veteran": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "{W}, {T}: Put a +1/+1 counter on target creature with a +1/+1 counter on it.\n{4}{W}{W}, {T}: Put a +1/+1 counter on target creature.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Thirst for Knowledge": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards. Then discard two cards unless you discard an artifact card."
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Trusty Retriever": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "When this creature enters, choose one —\n• Put a +1/+1 counter on this creature.\n• Return target artifact or enchantment card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "3"
+    }
+  }
 }

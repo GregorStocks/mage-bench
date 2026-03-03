@@ -91,7 +91,8 @@
     "Fire Magic": "https://api.scryfall.com/cards/fin/136?format=image&version=small",
     "High Noon": "https://api.scryfall.com/cards/otj/15?format=image&version=small",
     "Rest in Peace": "https://api.scryfall.com/cards/big/4?format=image&version=small",
-    "Sunspine Lynx": "https://api.scryfall.com/cards/blb/155?format=image&version=small"
+    "Sunspine Lynx": "https://api.scryfall.com/cards/blb/155?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041"
   },
   "snapshots": [
     {
@@ -60653,7 +60654,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -67738,5 +67739,125 @@
       },
       "castRolledBack": true
     }
-  ]
+  ],
+  "cardData": {
+    "Ba Sing Se": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {G}.\n{2}{G}, {T}: Earthbend 2. Activate only as a sorcery. (Target land you control becomes a 0/0 creature with haste that's still a land. Put two +1/+1 counters on it. When it dies or is exiled, return it to the battlefield tapped.)"
+    },
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Burst Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Charming Prince": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Noble",
+      "oracle_text": "When this creature enters, choose one —\n• Scry 2.\n• You gain 3 life.\n• Exile another target creature you own. Return it to the battlefield under your control at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Clarion Conqueror": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nActivated abilities of artifacts, creatures, and planeswalkers can't be activated.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Dragonhawk, Fate's Tempest": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Legendary Creature — Bird Dragon",
+      "oracle_text": "Flying\nWhenever Dragonhawk enters or attacks, exile the top X cards of your library, where X is the number of creatures you control with power 4 or greater. You may play those cards until your next end step. At the beginning of your next end step, Dragonhawk deals 2 damage to each opponent for each of those cards that are still exiled.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Earthbender Ascension": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, earthbend 2. Then search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nLandfall — Whenever a land you control enters, put a quest counter on this enchantment. When you do, if it has four or more quest counters on it, put a +1/+1 counter on target creature you control. It gains trample until end of turn."
+    },
+    "Escape Tunnel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\n{T}, Sacrifice this land: Target creature with power 2 or less can't be blocked this turn."
+    },
+    "Fabled Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. Then if you control four or more lands, untap that land."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Inspiring Vantage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {R} or {W}."
+    },
+    "Magmatic Hellkite": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhen this creature enters, destroy target nonbasic land an opponent controls. Its controller searches their library for a basic land card, puts it onto the battlefield tapped with a stun counter on it, then shuffles. (If a permanent with a stun counter would become untapped, remove one from it instead.)",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Mightform Harmonizer": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Insect Druid",
+      "oracle_text": "Landfall — Whenever a land you control enters, double the power of target creature you control until end of turn.\nWarp {2}{G} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Momo, Friendly Flier": {
+      "mana_cost": "{W}",
+      "type_line": "Legendary Creature — Lemur Bat Ally",
+      "oracle_text": "Flying\nThe first non-Lemur creature spell with flying you cast during each of your turns costs {1} less to cast.\nWhenever another creature you control with flying enters, Momo gets +1/+1 until end of turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Nova Hellkite": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\nWhen this creature enters, it deals 1 damage to target creature an opponent controls.\nWarp {2}{R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Sarkhan, Dragon Ascendant": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Legendary Creature — Human Druid",
+      "oracle_text": "When Sarkhan enters, you may behold a Dragon. If you do, create a Treasure token. (To behold a Dragon, choose a Dragon you control or reveal a Dragon card from your hand.)\nWhenever a Dragon you control enters, put a +1/+1 counter on Sarkhan. Until end of turn, Sarkhan becomes a Dragon in addition to its other types and gains flying.",
+      "power": "2",
+      "toughness": "2"
+    }
+  }
 }

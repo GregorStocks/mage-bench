@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_133328_g2",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -103,7 +103,8 @@
     "Trove of Temptation": "https://api.scryfall.com/cards/j22/616?format=image&version=small",
     "Goldvein Pick": "https://api.scryfall.com/cards/j22/769?format=image&version=small",
     "Thriving Bluff": "https://api.scryfall.com/cards/j22/822?format=image&version=small",
-    "Mountain": "https://api.scryfall.com/cards/j22/107?format=image&version=small"
+    "Mountain": "https://api.scryfall.com/cards/j22/107?format=image&version=small",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -108821,5 +108822,141 @@
       "player": "Grok4 Optim"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "cardData": {
+    "Brazen Freebooter": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Human Pirate",
+      "oracle_text": "When this creature enters, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Canopy Baloth": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Landfall — Whenever a land you control enters, this creature gets +2/+2 until end of turn.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Declare Dominance": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature gets +3/+3 until end of turn. All creatures able to block it this turn do so."
+    },
+    "Dutiful Replicator": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Assembly-Worker",
+      "oracle_text": "When this creature enters, you may pay {1}. When you do, create a token that's a copy of target token you control not named Dutiful Replicator.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Initiate's Companion": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Whenever this creature deals combat damage to a player, untap target creature or land.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Khalni Heart Expedition": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may put a quest counter on this enchantment.\nRemove three quest counters from this enchantment and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+    },
+    "Kibo, Uktabi Prince": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — Monkey Noble",
+      "oracle_text": "{T}: Each player creates a colorless artifact token named Banana with \"{T}, Sacrifice this token: Add {R} or {G}. You gain 2 life.\"\nWhenever an artifact an opponent controls is put into a graveyard from the battlefield, put a +1/+1 counter on each creature you control that's an Ape or a Monkey.\nWhenever Kibo attacks, defending player sacrifices an artifact of their choice.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Master's Rebuke": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Oashra Cultivator": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "{2}{G}, {T}, Sacrifice this creature: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Pouncing Cheetah": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Flash",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Pridemalkin": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "When this creature enters, put a +1/+1 counter on target creature you control.\nEach creature you control with a +1/+1 counter on it has trample. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Ram Through": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control deals damage equal to its power to target creature you don't control. If the creature you control has trample, excess damage is dealt to that creature's controller instead."
+    },
+    "Rampaging Growth": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Search your library for a basic land card, put it onto the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+    },
+    "Sabertooth Mauler": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "At the beginning of your end step, if a creature died this turn, put a +1/+1 counter on this creature and untap it.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Silverback Shaman": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Ape Shaman",
+      "oracle_text": "Trample\nWhen this creature dies, draw a card.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Simian Brawler": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Ape Warrior",
+      "oracle_text": "Discard a land card: This creature gets +1/+1 until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Towering Gibbon": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Ape",
+      "oracle_text": "Reach\nTowering Gibbon's power is equal to the greatest mana value among creatures you control.",
+      "power": "*",
+      "toughness": "4"
+    },
+    "Welding Sparks": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Welding Sparks deals X damage to target creature, where X is 3 plus the number of artifacts you control."
+    }
+  }
 }

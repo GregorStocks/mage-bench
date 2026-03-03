@@ -317,7 +317,8 @@
     "Wild Endeavor": "https://api.scryfall.com/cards/afc/312?format=image&version=small",
     "Wulfgar of Icewind Dale": "https://api.scryfall.com/cards/afc/329?format=image&version=small",
     "Shivan Hellkite": "https://api.scryfall.com/cards/10e/231?format=image&version=small",
-    "Vrondiss, Rage of Ancients": "https://api.scryfall.com/cards/afc/328?format=image&version=small"
+    "Vrondiss, Rage of Ancients": "https://api.scryfall.com/cards/afc/328?format=image&version=small",
+    "Thopter Token": "https://cards.scryfall.io/small/front/7/8/78e52380-13a1-44fe-b762-e71261cac3d0.jpg?1738355254"
   },
   "snapshots": [
     {
@@ -219232,7 +219233,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "gameType": "",
   "deckType": "",
   "decisions": [
@@ -233506,5 +233507,454 @@
         "untappedLands": 2
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Acorn Catapult": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: This artifact deals 1 damage to any target. That permanent's controller or that player creates a 1/1 green Squirrel creature token."
+    },
+    "Ambition's Cost": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You draw three cards and you lose 3 life."
+    },
+    "Angel of Serenity": {
+      "mana_cost": "{4}{W}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, you may exile up to three other target creatures from the battlefield and/or creature cards from graveyards.\nWhen this creature leaves the battlefield, return the exiled cards to their owners' hands.",
+      "power": "5",
+      "toughness": "6"
+    },
+    "Anowon, the Ruin Thief": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Vampire Rogue",
+      "oracle_text": "Other Rogues you control get +1/+1.\nWhenever one or more Rogues you control deal combat damage to a player, that player mills a card for each 1 damage dealt to them. If the player mills at least one creature card this way, you draw a card. (To mill a card, a player puts the top card of their library into their graveyard.)",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Aquastrand Spider": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Spider Mutant",
+      "oracle_text": "Graft 2 (This creature enters with two +1/+1 counters on it. Whenever another creature enters, you may move a +1/+1 counter from this creature onto it.)\n{G}: Target creature with a +1/+1 counter on it gains reach until end of turn. (It can block creatures with flying.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Aura Shards": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control enters, you may destroy target artifact or enchantment."
+    },
+    "Berserker's Frenzy": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Cast this spell only before combat or during combat before blockers are declared.\nRoll two d20 and ignore the lower roll.\n1—14 | Choose any number of creatures. They block this turn if able.\n15—20 | You choose which creatures block this turn and how those creatures block."
+    },
+    "Blackblade Reforged": {
+      "mana_cost": "{2}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 for each land you control.\nEquip legendary creature {3}\nEquip {7}"
+    },
+    "Bloodthirsty Blade": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+0 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\n{1}: Attach this Equipment to target creature an opponent controls. Activate only as a sorcery."
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Breena, the Demagogue": {
+      "mana_cost": "{1}{W}{B}",
+      "type_line": "Legendary Creature — Bird Warlock",
+      "oracle_text": "Flying\nWhenever a player attacks one of your opponents, if that opponent has more life than another of your opponents, that attacking player draws a card and you put two +1/+1 counters on a creature you control.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Caves of Koilos": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {B}. This land deals 1 damage to you."
+    },
+    "Chameleon Colossus": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nProtection from black\n{2}{G}{G}: This creature gets +X/+X until end of turn, where X is its power.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Cobra Trap": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Instant — Trap",
+      "oracle_text": "If a noncreature permanent under your control was destroyed this turn by a spell or ability an opponent controlled, you may pay {G} rather than pay this spell's mana cost.\nCreate four 1/1 green Snake creature tokens."
+    },
+    "Deathbringer Regent": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it from your hand and there are five or more other creatures on the battlefield, destroy all other creatures.",
+      "power": "5",
+      "toughness": "6"
+    },
+    "Decree of Savagery": {
+      "mana_cost": "{7}{G}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Put four +1/+1 counters on each creature you control.\nCycling {4}{G}{G} ({4}{G}{G}, Discard this card: Draw a card.)\nWhen you cycle this card, you may put four +1/+1 counters on target creature."
+    },
+    "Demanding Dragon": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhen this creature enters, it deals 5 damage to target opponent unless that player sacrifices a creature of their choice.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Dismal Backwater": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {B}."
+    },
+    "Distant Melody": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. Draw a card for each permanent you control of that type."
+    },
+    "Duelist's Heritage": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever one or more creatures attack, you may have target attacking creature gain double strike until end of turn."
+    },
+    "Elite Scaleguard": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "When this creature enters, bolster 2. (Choose a creature with the least toughness among creatures you control and put two +1/+1 counters on it.)\nWhenever a creature you control with a +1/+1 counter on it attacks, tap target creature defending player controls.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Enigma Thief": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Sphinx Rogue",
+      "oracle_text": "Prowl {3}{U} (You may cast this spell for its prowl cost if you dealt combat damage to a player this turn with a Sphinx or Rogue.)\nFlying\nWhen this creature enters, for each opponent, return up to one target nonland permanent that player controls to its owner's hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Fain, the Broker": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Legendary Creature — Human Warlock",
+      "oracle_text": "{T}, Sacrifice a creature: Put two +1/+1 counters on target creature.\n{T}, Remove a counter from a creature you control: Create a Treasure token.\n{T}, Sacrifice an artifact: Create a 2/1 white and black Inkling creature token with flying.\n{3}{B}: Untap Fain.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Footbottom Feast": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Put any number of target creature cards from your graveyard on top of your library.\nDraw a card."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Ghave, Guru of Spores": {
+      "mana_cost": "{2}{W}{B}{G}",
+      "type_line": "Legendary Creature — Fungus Shaman",
+      "oracle_text": "Ghave enters with five +1/+1 counters on it.\n{1}, Remove a +1/+1 counter from a creature you control: Create a 1/1 green Saproling creature token.\n{1}, Sacrifice a creature: Put a +1/+1 counter on target creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Gideon, Champion of Justice": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Planeswalker — Gideon",
+      "oracle_text": "+1: Put a loyalty counter on Gideon for each creature target opponent controls.\n0: Until end of turn, Gideon becomes a Human Soldier creature with power and toughness each equal to the number of loyalty counters on him and gains indestructible. He's still a planeswalker. Prevent all damage that would be dealt to him this turn.\n−15: Exile all other permanents.",
+      "loyalty": "4"
+    },
+    "Gruul Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {R}{G}."
+    },
+    "Harmonize": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw three cards."
+    },
+    "Hour of Reckoning": {
+      "mana_cost": "{4}{W}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Convoke (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.)\nDestroy all nontoken creatures."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Karador, Ghost Chieftain": {
+      "mana_cost": "{5}{W}{B}{G}",
+      "type_line": "Legendary Creature — Centaur Spirit",
+      "oracle_text": "This spell costs {1} less to cast for each creature card in your graveyard.\nOnce during each of your turns, you may cast a creature spell from your graveyard.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Lazav, Dimir Mastermind": {
+      "mana_cost": "{U}{U}{B}{B}",
+      "type_line": "Legendary Creature — Shapeshifter",
+      "oracle_text": "Hexproof\nWhenever a creature card is put into an opponent's graveyard from anywhere, you may have Lazav become a copy of that card, except its name is Lazav, Dimir Mastermind, it's legendary in addition to its other types, and it has hexproof and this ability.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Magmaquake": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Magmaquake deals X damage to each creature without flying and each planeswalker."
+    },
+    "Marsh Flitter": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, create two 1/1 black Goblin Rogue creature tokens.\nSacrifice a Goblin: This creature has base power and toughness 3/3 until end of turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Merfolk Windrobber": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Merfolk Rogue",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, that player mills a card. (They put the top card of their library into their graveyard.)\nSacrifice this creature: Draw a card. Activate only if an opponent has eight or more cards in their graveyard.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Military Intelligence": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever you attack with two or more creatures, draw a card."
+    },
+    "Monk Realist": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Monk Cleric",
+      "oracle_text": "When this creature enters, destroy target enchantment.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mossfire Valley": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {R}{G}."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Murder": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature."
+    },
+    "Myriad Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle."
+    },
+    "Necropolis Regent": {
+      "mana_cost": "{3}{B}{B}{B}",
+      "type_line": "Creature — Vampire",
+      "oracle_text": "Flying\nWhenever a creature you control deals combat damage to a player, put that many +1/+1 counters on it.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Neverwinter Hydra": {
+      "mana_cost": "{X}{X}{G}{G}",
+      "type_line": "Creature — Hydra",
+      "oracle_text": "As this creature enters, roll X d6. It enters with a number of +1/+1 counters on it equal to the total of those results.\nTrample\nWard {4} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Notorious Throng": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Kindred Sorcery — Rogue",
+      "oracle_text": "Prowl {5}{U} (You may cast this for its prowl cost if you dealt combat damage to a player this turn with a Rogue.)\nCreate X 1/1 black Faerie Rogue creature tokens with flying, where X is the damage dealt to your opponents this turn. If this spell's prowl cost was paid, take an extra turn after this one."
+    },
+    "Oblation": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "The owner of target nonland permanent shuffles it into their library, then draws two cards."
+    },
+    "Oblivion Ring": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile another target nonland permanent.\nWhen this enchantment leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+    },
+    "Opal Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color in your commander's color identity. If you spend this mana to cast your commander, it enters with a number of additional +1/+1 counters on it equal to the number of times it's been cast from the command zone this game."
+    },
+    "Orzhov Basilica": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{B}."
+    },
+    "Parasitic Impetus": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, its controller loses 2 life and you gain 2 life."
+    },
+    "Penumbra Spider": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Spider",
+      "oracle_text": "Reach\nWhen this creature dies, create a 2/4 black Spider creature token with reach.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Promise of Loyalty": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player puts a vow counter on a creature they control and sacrifices the rest. Each of those creatures can't attack you or planeswalkers you control for as long as it has a vow counter on it."
+    },
+    "Rise from the Grave": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put target creature card from a graveyard onto the battlefield under your control. That creature is a black Zombie in addition to its other colors and types."
+    },
+    "Rogue's Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn."
+    },
+    "Savage Ventmaw": {
+      "mana_cost": "{4}{R}{G}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever this creature attacks, add {R}{R}{R}{G}{G}{G}. Until end of turn, you don't lose this mana as steps and phases end.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Selesnya Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {G}{W}."
+    },
+    "Shamanic Revelation": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater."
+    },
+    "Silverquill Campus": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {B}.\n{4}, {T}: Scry 1."
+    },
+    "Soul Manipulation": {
+      "mana_cost": "{1}{U}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one or both —\n• Counter target creature spell.\n• Return target creature card from your graveyard to your hand."
+    },
+    "Soul Snare": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "{W}, Sacrifice this enchantment: Exile target creature that's attacking you or a planeswalker you control."
+    },
+    "Sunscorch Regent": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever an opponent casts a spell, put a +1/+1 counter on this creature and you gain 1 life.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Syphon Flesh": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each other player sacrifices a creature. You create a 2/2 black Zombie creature token for each creature sacrificed this way."
+    },
+    "Tainted Field": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {B}. Activate only if you control a Swamp."
+    },
+    "Teneb, the Harvester": {
+      "mana_cost": "{3}{W}{B}{G}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying\nWhenever Teneb deals combat damage to a player, you may pay {2}{B}. If you do, put target creature card from a graveyard onto the battlefield under your control.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Teysa, Envoy of Ghosts": {
+      "mana_cost": "{5}{W}{B}",
+      "type_line": "Legendary Creature — Human Advisor",
+      "oracle_text": "Vigilance, protection from creatures\nWhenever a creature deals combat damage to you, destroy that creature. Create a 1/1 white and black Spirit creature token with flying.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Tragic Arrogance": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each player, you choose from among the permanents that player controls an artifact, a creature, an enchantment, and a planeswalker. Then each player sacrifices all other nonland permanents they control."
+    },
+    "Triton Shorestalker": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Merfolk Rogue",
+      "oracle_text": "This creature can't be blocked.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Utter End": {
+      "mana_cost": "{2}{W}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target nonland permanent."
+    },
+    "Vengeful Ancestor": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Spirit Dragon",
+      "oracle_text": "Flying\nWhenever this creature enters or attacks, goad target creature. (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)\nWhenever a goaded creature attacks, it deals 1 damage to its controller.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Victory Chimes": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Untap this artifact during each other player's untap step.\n{T}: A player of your choice adds {C}."
+    },
+    "Vivid Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {B}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vow of Malice": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2, has intimidate, and can't attack you or planeswalkers you control. (A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.)"
+    },
+    "Vrondiss, Rage of Ancients": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Barbarian",
+      "oracle_text": "Enrage — Whenever Vrondiss is dealt damage, you may create a 5/4 red and green Dragon Spirit creature token with \"When this token deals damage, sacrifice it.\"\nWhenever you roll one or more dice, you may have Vrondiss deal 1 damage to itself.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Warstorm Surge": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control enters, it deals damage equal to its power to any target."
+    },
+    "Whirler Rogue": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Human Rogue Artificer",
+      "oracle_text": "When this creature enters, create two 1/1 colorless Thopter artifact creature tokens with flying.\nTap two untapped artifacts you control: Target creature can't be blocked this turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Windborn Muse": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Flying\nCreatures can't attack you unless their controller pays {2} for each creature they control that's attacking you.",
+      "power": "2",
+      "toughness": "3"
+    }
+  }
 }

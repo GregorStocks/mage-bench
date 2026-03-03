@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_212316_g1",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -101,7 +101,8 @@
     "Diabolic Edict": "https://api.scryfall.com/cards/j22/67?format=image&version=small",
     "Demon's Grasp": "https://api.scryfall.com/cards/j22/400?format=image&version=small",
     "Inner Demon": "https://api.scryfall.com/cards/j22/428?format=image&version=small",
-    "Infernal Idol": "https://api.scryfall.com/cards/j22/49?format=image&version=small"
+    "Infernal Idol": "https://api.scryfall.com/cards/j22/49?format=image&version=small",
+    "Minotaur Token": "https://cards.scryfall.io/small/front/f/e/fe6b9fbc-4060-4ca4-bccb-a631268b57d9.jpg?1681762410"
   },
   "snapshots": [
     {
@@ -71995,5 +71996,110 @@
       "player": "MiniMx Dreamer"
     }
   ],
-  "blunderScriptVersion": 29
+  "blunderScriptVersion": 29,
+  "cardData": {
+    "Burglar Rat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Rat",
+      "oracle_text": "When this creature enters, each opponent discards a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Flurry of Horns": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create two 2/3 red Minotaur creature tokens with haste."
+    },
+    "Herald's Horn": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\nCreature spells you cast of the chosen type cost {1} less to cast.\nAt the beginning of your upkeep, look at the top card of your library. If it's a creature card of the chosen type, you may reveal it and put it into your hand."
+    },
+    "Infernal Idol": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {B}.\n{1}{B}{B}, {T}, Sacrifice this artifact: You draw two cards and you lose 2 life."
+    },
+    "Kiki-Jiki, Mirror Breaker": {
+      "mana_cost": "{2}{R}{R}{R}",
+      "type_line": "Legendary Creature — Goblin Shaman",
+      "oracle_text": "Haste\n{T}: Create a token that's a copy of target nonlegendary creature you control, except it has haste. Sacrifice it at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Phyrexian Rager": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Phyrexian Horror",
+      "oracle_text": "When this creature enters, you draw a card and you lose 1 life.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Renegade Demon": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Demon",
+      "oracle_text": "",
+      "power": "5",
+      "toughness": "3"
+    },
+    "Rush of Adrenaline": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +2/+1 and gains trample until end of turn."
+    },
+    "Soul Sear": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Soul Sear deals 5 damage to target creature or planeswalker. That permanent loses indestructible until end of turn."
+    },
+    "Soulcage Fiend": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Demon",
+      "oracle_text": "When this creature dies, each player loses 3 life.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Takenuma Bleeder": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Ogre Shaman",
+      "oracle_text": "Whenever this creature attacks or blocks, you lose 1 life if you don't control a Demon.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Tinybones, Trinket Thief": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Legendary Creature — Skeleton Rogue",
+      "oracle_text": "At the beginning of each end step, if an opponent discarded a card this turn, you draw a card and you lose 1 life.\n{4}{B}{B}: Each opponent with no cards in hand loses 10 life.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Warfire Javelineer": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Minotaur Warrior",
+      "oracle_text": "When this creature enters, it deals X damage to target creature an opponent controls, where X is the number of instant and sorcery cards in your graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Wight of Precinct Six": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "This creature gets +1/+1 for each creature card in your opponents' graveyards.",
+      "power": "1",
+      "toughness": "1"
+    }
+  }
 }

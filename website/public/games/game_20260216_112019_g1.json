@@ -34414,7 +34414,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -39006,5 +39006,118 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Bitter Triumph": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card or pay 3 life.\nDestroy target creature or planeswalker."
+    },
+    "Blazemire Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {B}.\n{T}: Add {R}. Activate only if you control a Swamp or a Mountain."
+    },
+    "Bloodghast": {
+      "mana_cost": "{B}{B}",
+      "type_line": "Creature — Vampire Spirit",
+      "oracle_text": "This creature can't block.\nThis creature has haste as long as an opponent has 10 or less life.\nLandfall — Whenever a land you control enters, you may return this card from your graveyard to the battlefield.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Bloodthorn Flail": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+1.\nEquip—Pay {3} or discard a card."
+    },
+    "Burnout Bashtronaut": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace\nStart your engines! (If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.)\n{2}: This creature gets +1/+0 until end of turn.\nMax speed — This creature has double strike.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Burst Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+    },
+    "Flamewake Phoenix": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Phoenix",
+      "oracle_text": "Flying, haste\nThis creature attacks each combat if able.\nFerocious — At the beginning of combat on your turn, if you control a creature with power 4 or greater, you may pay {R}. If you do, return this card from your graveyard to the battlefield.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Hired Claw": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Lizard Mercenary",
+      "oracle_text": "Whenever you attack with one or more Lizards, this creature deals 1 damage to target opponent.\n{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn and only once each turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Iron-Shield Elf": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "Discard a card: This creature gains indestructible until end of turn. Tap it. (Damage and effects that say \"destroy\" don't destroy it. If its toughness is 0 or less, it still dies.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Marauding Mako": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Shark Pirate",
+      "oracle_text": "Whenever you discard one or more cards, put that many +1/+1 counters on this creature.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Monument to Endurance": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever you discard a card, choose one that hasn't been chosen this turn —\n• Draw a card.\n• Create a Treasure token.\n• Each opponent loses 3 life."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Nova Hellkite": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\nWhen this creature enters, it deals 1 damage to target creature an opponent controls.\nWarp {2}{R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Rockface Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {R}. Spend this mana only to cast a creature spell.\n{R}, {T}: Target Lizard, Mouse, Otter, or Raccoon you control gets +1/+0 and gains haste until end of turn. Activate only as a sorcery."
+    },
+    "Shock": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Shock deals 2 damage to any target."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Tersa Lightshatter": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Legendary Creature — Orc Wizard",
+      "oracle_text": "Haste\nWhen Tersa Lightshatter enters, discard up to two cards, then draw that many cards.\nWhenever Tersa Lightshatter attacks, if there are seven or more cards in your graveyard, exile a card at random from your graveyard. You may play that card this turn.",
+      "power": "3",
+      "toughness": "3"
+    }
+  }
 }

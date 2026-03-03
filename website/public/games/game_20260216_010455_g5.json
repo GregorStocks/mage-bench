@@ -104,7 +104,10 @@
     "Riverchurn Monument": "https://api.scryfall.com/cards/dft/57?format=image&version=small",
     "Torpor Orb": "https://api.scryfall.com/cards/big/27?format=image&version=small",
     "Voice of Victory": "https://api.scryfall.com/cards/tdm/33?format=image&version=small",
-    "Wan Shi Tong, Librarian": "https://api.scryfall.com/cards/tla/78?format=image&version=small"
+    "Wan Shi Tong, Librarian": "https://api.scryfall.com/cards/tla/78?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041",
+    "Monk Token": "https://cards.scryfall.io/small/front/e/4/e49c80ac-5c90-4fd2-ad40-cc77af160f64.jpg?1764117699",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -143766,7 +143769,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -153800,5 +153803,177 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Cori Mountain Monastery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Plains or an Island.\n{T}: Add {R}.\n{3}{R}, {T}: Exile the top card of your library. Until the end of your next turn, you may play that card."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Duelist of the Mind": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Human Advisor",
+      "oracle_text": "Flying, vigilance\nDuelist of the Mind's power is equal to the number of cards you've drawn this turn.\nWhenever you commit a crime, you may draw a card. If you do, discard a card. This ability triggers only once each turn.",
+      "power": "*",
+      "toughness": "3"
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Fear of Missing Out": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment Creature — Nightmare",
+      "oracle_text": "When this creature enters, discard a card, then draw a card.\nDelirium — Whenever this creature attacks for the first time each turn, if there are four or more card types among cards in your graveyard, untap target creature. After this phase, there is an additional combat phase.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Frostcliff Siege": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Jeskai or Temur.\n• Jeskai — Whenever one or more creatures you control deal combat damage to a player, draw a card.\n• Temur — Creatures you control get +1/+0 and have trample and haste."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Into the Flood Maw": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nReturn target creature an opponent controls to its owner's hand. If the gift was promised, instead return target nonland permanent an opponent controls to its owner's hand."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jeskai Revelation": {
+      "mana_cost": "{4}{U}{R}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Return target spell or permanent to its owner's hand. Jeskai Revelation deals 4 damage to any target. Create two 1/1 white Monk creature tokens with prowess. Draw two cards. You gain 4 life."
+    },
+    "Meticulous Archive": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Mistrise Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {U}.\n{U}, {T}: The next spell you cast this turn can't be countered."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Seam Rip": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls with mana value 2 or less until this enchantment leaves the battlefield."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stock Up": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "The Unagi of Kyoshi Island": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Legendary Creature — Serpent",
+      "oracle_text": "Flash\nWard—Waterbend {4}. (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}. They can tap their artifacts and creatures to help. Each one pays for {1}.)\nWhenever an opponent draws their second card each turn, you draw two cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Three Steps Ahead": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1}{U} — Counter target spell.\n+ {3} — Create a token that's a copy of target artifact or creature you control.\n+ {2} — Draw two cards, then discard a card."
+    },
+    "Tiger-Seal": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Cat Seal",
+      "oracle_text": "Vigilance\nAt the beginning of your upkeep, tap this creature.\nWhenever you draw your second card each turn, untap this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Torch the Tower": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nTorch the Tower deals 2 damage to target creature or planeswalker. If this spell was bargained, instead it deals 3 damage to that permanent and you scry 1.\nIf a permanent dealt damage by Torch the Tower would die this turn, exile it instead."
+    }
+  }
 }

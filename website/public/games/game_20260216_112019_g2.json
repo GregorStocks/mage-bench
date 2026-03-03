@@ -103,7 +103,10 @@
     "Sear": "https://api.scryfall.com/cards/ecl/154?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
     "Spell Pierce": "https://api.scryfall.com/cards/dft/64?format=image&version=small",
-    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small"
+    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small",
+    "Fish Token": "https://cards.scryfall.io/small/front/d/e/de0d6700-49f0-4233-97ba-cef7821c30ed.jpg?1721431109",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155",
+    "Warrior Token": "https://cards.scryfall.io/small/front/7/e/7edc0515-a130-45a7-aa09-0e23bba41587.jpg?1742506712"
   },
   "snapshots": [
     {
@@ -44225,7 +44228,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -46854,5 +46857,122 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Agna Qel'a": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {U}.\n{2}{U}, {T}: Draw a card, then discard a card."
+    },
+    "Enduring Curiosity": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment Creature — Cat Glimmer",
+      "oracle_text": "Flash\nWhenever a creature you control deals combat damage to a player, draw a card.\nWhen Enduring Curiosity dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Fear of Missing Out": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment Creature — Nightmare",
+      "oracle_text": "When this creature enters, discard a card, then draw a card.\nDelirium — Whenever this creature attacks for the first time each turn, if there are four or more card types among cards in your graveyard, untap target creature. After this phase, there is an additional combat phase.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Floodpits Drowner": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk",
+      "oracle_text": "Flash\nVigilance\nWhen this creature enters, tap target creature an opponent controls and put a stun counter on it.\n{1}{U}, {T}: Shuffle this creature and target creature with a stun counter on it into their owners' libraries.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Frostcliff Siege": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Jeskai or Temur.\n• Jeskai — Whenever one or more creatures you control deal combat damage to a player, draw a card.\n• Temur — Creatures you control get +1/+0 and have trample and haste."
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "High Noon": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Each player can't cast more than one spell each turn.\n{4}{R}, Sacrifice this enchantment: It deals 5 damage to any target."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Parting Gust": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nExile target nontoken creature. If the gift wasn't promised, return that card to the battlefield under its owner's control with a +1/+1 counter on it at the beginning of the next end step."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Restless Anchorage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {U}.\n{1}{W}{U}: Until end of turn, this land becomes a 2/3 white and blue Bird creature with flying. It's still a land.\nWhenever this land attacks, create a Map token."
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Torch the Tower": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nTorch the Tower deals 2 damage to target creature or planeswalker. If this spell was bargained, instead it deals 3 damage to that permanent and you scry 1.\nIf a permanent dealt damage by Torch the Tower would die this turn, exile it instead."
+    },
+    "Voice of Victory": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Bard",
+      "oracle_text": "Mobilize 2 (Whenever this creature attacks, create two tapped and attacking 1/1 red Warrior creature tokens. Sacrifice them at the beginning of the next end step.)\nYour opponents can't cast spells during your turn.",
+      "power": "1",
+      "toughness": "3"
+    }
+  }
 }

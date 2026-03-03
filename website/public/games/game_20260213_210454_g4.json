@@ -97,7 +97,8 @@
     "Razorkin Needlehead": "https://api.scryfall.com/cards/dsk/153?format=image&version=small",
     "Sunspine Lynx": "https://api.scryfall.com/cards/blb/155?format=image&version=small",
     "The Last Agni Kai": "https://api.scryfall.com/cards/tla/144?format=image&version=small",
-    "Untimely Malfunction": "https://api.scryfall.com/cards/dsk/161?format=image&version=small"
+    "Untimely Malfunction": "https://api.scryfall.com/cards/dsk/161?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041"
   },
   "snapshots": [
     {
@@ -31987,7 +31988,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -35378,5 +35379,107 @@
         "untappedLands": 2
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Consult the Star Charts": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nLook at the top X cards of your library, where X is the number of lands you control. Put one of those cards into your hand. If this spell was kicked, put two of those cards into your hand instead. Put the rest on the bottom of your library in a random order."
+    },
+    "Day of Judgment": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures."
+    },
+    "Dreadmaw's Ire": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target attacking creature gets +2/+2 and gains trample and \"Whenever this creature deals combat damage to a player, destroy target artifact that player controls.\""
+    },
+    "Emberheart Challenger": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Mouse Warrior",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nValiant — Whenever this creature becomes the target of a spell or ability you control for the first time each turn, exile the top card of your library. Until end of turn, you may play that card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Fire Nation Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {R}.\n{1}{R}, {T}: Target creature you control gains firebending 4 until end of turn. (Whenever it attacks, add {R}{R}{R}{R}. This mana lasts until end of combat.)"
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Full Bore": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gets +3/+2 until end of turn. If that creature was cast for its warp cost, it also gains trample and haste until end of turn."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Hired Claw": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Lizard Mercenary",
+      "oracle_text": "Whenever you attack with one or more Lizards, this creature deals 1 damage to target opponent.\n{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn and only once each turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Leyline of Resonance": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nWhenever you cast an instant or sorcery spell that targets only a single creature you control, copy that spell. You may choose new targets for the copy."
+    },
+    "Might of the Meek": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gains trample until end of turn. It also gets +1/+0 until end of turn if you control a Mouse.\nDraw a card."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "No More Lies": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell unless its controller pays {3}. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Slickshot Show-Off": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Bird Wizard",
+      "oracle_text": "Flying, haste\nWhenever you cast a noncreature spell, this creature gets +2/+0 until end of turn.\nPlot {1}{R} (You may pay {1}{R} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Stadium Headliner": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Mobilize 1 (Whenever this creature attacks, create a tapped and attacking 1/1 red Warrior creature token. Sacrifice it at the beginning of the next end step.)\n{1}{R}, Sacrifice this creature: It deals damage equal to the number of creatures you control to target creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Stock Up": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top five cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Turn Inside Out": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+0 until end of turn. When it dies this turn, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)"
+    },
+    "Wan Shi Tong, Librarian": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Legendary Creature — Bird Spirit",
+      "oracle_text": "Flash\nFlying, vigilance\nWhen Wan Shi Tong enters, put X +1/+1 counters on him. Then draw half X cards, rounded down.\nWhenever an opponent searches their library, put a +1/+1 counter on Wan Shi Tong and draw a card.",
+      "power": "1",
+      "toughness": "1"
+    }
+  }
 }

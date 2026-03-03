@@ -40265,7 +40265,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -45254,5 +45254,110 @@
         "untappedLands": 3
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Dreadmaw's Ire": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target attacking creature gets +2/+2 and gains trample and \"Whenever this creature deals combat damage to a player, destroy target artifact that player controls.\""
+    },
+    "Emberheart Challenger": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Mouse Warrior",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nValiant — Whenever this creature becomes the target of a spell or ability you control for the first time each turn, exile the top card of your library. Until end of turn, you may play that card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Fire Nation Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a basic land.\n{T}: Add {R}.\n{1}{R}, {T}: Target creature you control gains firebending 4 until end of turn. (Whenever it attacks, add {R}{R}{R}{R}. This mana lasts until end of combat.)"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Full Bore": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gets +3/+2 until end of turn. If that creature was cast for its warp cost, it also gains trample and haste until end of turn."
+    },
+    "Leyline of Resonance": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nWhenever you cast an instant or sorcery spell that targets only a single creature you control, copy that spell. You may choose new targets for the copy."
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Might of the Meek": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gains trample until end of turn. It also gets +1/+0 until end of turn if you control a Mouse.\nDraw a card."
+    },
+    "Mightform Harmonizer": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Insect Druid",
+      "oracle_text": "Landfall — Whenever a land you control enters, double the power of target creature you control until end of turn.\nWarp {2}{G} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Redirect Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "As an additional cost to cast this spell, pay 5 life or pay {2}.\nChange the target of target spell or ability with a single target."
+    },
+    "Royal // Virtuous": {
+      "mana_cost": "",
+      "type_line": "Token Enchantment — Aura Role // Token Enchantment — Aura Role"
+    },
+    "Royal Treatment": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gains hexproof until end of turn. Create a Royal Role token attached to that creature. (If you control another Role on it, put that one into the graveyard. Enchanted creature gets +1/+1 and has ward {1}.)"
+    },
+    "Sazh's Chocobo": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Landfall — Whenever a land you control enters, put a +1/+1 counter on this creature.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Stadium Headliner": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Mobilize 1 (Whenever this creature attacks, create a tapped and attacking 1/1 red Warrior creature token. Sacrifice it at the beginning of the next end step.)\n{1}{R}, Sacrifice this creature: It deals damage equal to the number of creatures you control to target creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Surrak, Elusive Hunter": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — Human Warrior",
+      "oracle_text": "This spell can't be countered.\nTrample\nWhenever a creature you control or a creature spell you control becomes the target of a spell or ability an opponent controls, draw a card.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Turn Inside Out": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+0 until end of turn. When it dies this turn, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)"
+    }
+  }
 }

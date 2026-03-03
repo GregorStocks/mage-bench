@@ -102,7 +102,8 @@
     "Consign to Memory": "https://api.scryfall.com/cards/mh3/54?format=image&version=small",
     "Murktide Regent": "https://api.scryfall.com/cards/mh2/52?format=image&version=small",
     "Mystical Dispute": "https://api.scryfall.com/cards/eld/58?format=image&version=small",
-    "Spell Snare": "https://api.scryfall.com/cards/ecl/71?format=image&version=small"
+    "Spell Snare": "https://api.scryfall.com/cards/ecl/71?format=image&version=small",
+    "Monk Token": "https://cards.scryfall.io/small/front/e/4/e49c80ac-5c90-4fd2-ad40-cc77af160f64.jpg?1764117699"
   },
   "snapshots": [
     {
@@ -61042,7 +61043,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -66566,5 +66567,147 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Castle Locthwain": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Swamp.\n{T}: Add {B}.\n{1}{B}{B}, {T}: Draw a card, then you lose life equal to the number of cards in your hand."
+    },
+    "Cori-Steel Cutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and haste.\nFlurry — Whenever you cast your second spell each turn, create a 1/1 white Monk creature token with prowess. You may attach this Equipment to it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)\nEquip {1}{R}"
+    },
+    "Dragon's Rage Channeler": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast a noncreature spell, surveil 1. (Look at the top card of your library. You may put that card into your graveyard.)\nDelirium — As long as there are four or more card types among cards in your graveyard, this creature gets +2/+2, has flying, and attacks each combat if able.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Expressive Iteration": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library. Put one of them into your hand, put one of them on the bottom of your library, and exile one of them. You may play the exiled card this turn."
+    },
+    "Fatal Push": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature if it has mana value 2 or less.\nRevolt — Destroy that creature if it has mana value 4 or less instead if a permanent left the battlefield under your control this turn."
+    },
+    "Inquisition of Kozilek": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it with mana value 3 or less. That player discards that card."
+    },
+    "Lava Dart": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lava Dart deals 1 damage to any target.\nFlashback—Sacrifice a Mountain. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "March of Wretched Sorrow": {
+      "mana_cost": "{X}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may exile any number of black cards from your hand. This spell costs {2} less to cast for each card exiled this way.\nMarch of Wretched Sorrow deals X damage to target creature or planeswalker and you gain X life."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Monastery Swiftspear": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Monk",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Necrodominance": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Legendary Enchantment",
+      "oracle_text": "Skip your draw step.\nAt the beginning of your end step, you may pay any amount of life. If you do, draw that many cards.\nYour maximum hand size is five.\nIf a card or token would be put into your graveyard from anywhere, exile it instead."
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Preordain": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Scry 2, then draw a card. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+    },
+    "Psychic Frog": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Whenever this creature deals combat damage to a player or planeswalker, draw a card.\nDiscard a card: Put a +1/+1 counter on this creature.\nExile three cards from your graveyard: This creature gains flying until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Sheoldred, the Apocalypse": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Legendary Creature — Phyrexian Praetor",
+      "oracle_text": "Deathtouch\nWhenever you draw a card, you gain 2 life.\nWhenever an opponent draws a card, they lose 2 life.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Slickshot Show-Off": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Bird Wizard",
+      "oracle_text": "Flying, haste\nWhenever you cast a noncreature spell, this creature gets +2/+0 until end of turn.\nPlot {1}{R} (You may pay {1}{R} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Soul Spike": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Instant",
+      "oracle_text": "You may exile two black cards from your hand rather than pay this spell's mana cost.\nSoul Spike deals 4 damage to any target and you gain 4 life."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thundering Falls": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Unholy Heat": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Unholy Heat deals 2 damage to target creature or planeswalker.\nDelirium — Unholy Heat deals 6 damage instead if there are four or more card types among cards in your graveyard."
+    }
+  }
 }

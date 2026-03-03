@@ -101,7 +101,8 @@
     "Meltdown": "https://api.scryfall.com/cards/mh3/282?format=image&version=small",
     "Price of Progress": "https://api.scryfall.com/cards/ema/141?format=image&version=small",
     "Pyroblast": "https://api.scryfall.com/cards/ema/142?format=image&version=small",
-    "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small"
+    "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -64467,7 +64468,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -72355,5 +72356,142 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Blood Moon": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands are Mountains."
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Broadside Bombardiers": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "Menace, haste\nBoast — Sacrifice another creature or artifact: This creature deals damage equal to 2 plus the sacrificed permanent's mana value to any target. (Activate only if this creature attacked this turn and only once each turn.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Chalice of the Void": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\nWhenever a player casts a spell with mana value equal to the number of charge counters on this artifact, counter that spell."
+    },
+    "Chrome Mox": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — When this artifact enters, you may exile a nonartifact, nonland card from your hand.\n{T}: Add one mana of any of the exiled card's colors."
+    },
+    "City of Traitors": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When you play another land, sacrifice this land.\n{T}: Add {C}{C}."
+    },
+    "Cori-Steel Cutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and haste.\nFlurry — Whenever you cast your second spell each turn, create a 1/1 white Monk creature token with prowess. You may attach this Equipment to it. (Whenever you cast a noncreature spell, the token gets +1/+1 until end of turn.)\nEquip {1}{R}"
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Dragon's Rage Channeler": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast a noncreature spell, surveil 1. (Look at the top card of your library. You may put that card into your graveyard.)\nDelirium — As long as there are four or more card types among cards in your graveyard, this creature gets +2/+2, has flying, and attacks each combat if able.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Fury": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Double strike\nWhen this creature enters, it deals 4 damage divided as you choose among any number of target creatures and/or planeswalkers.\nEvoke—Exile a red card from your hand.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Magus of the Moon": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Nonbasic lands are Mountains.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Misty Rainforest": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mystic Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land — Island",
+      "oracle_text": "({T}: Add {U}.)\nThis land enters tapped unless you control three or more other Islands.\nWhen this land enters untapped, you may put target instant or sorcery card from your graveyard on top of your library."
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "The One Ring": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Volcanic Island": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)"
+    }
+  }
 }

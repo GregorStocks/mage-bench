@@ -79,7 +79,12 @@
     "Grafdigger's Cage": "https://api.scryfall.com/cards/m20/227?format=image&version=small",
     "Pyroblast": "https://api.scryfall.com/cards/ema/142?format=image&version=small",
     "Stony Silence": "https://api.scryfall.com/cards/mm3/25?format=image&version=small",
-    "Suplex": "https://api.scryfall.com/cards/fin/164?format=image&version=small"
+    "Suplex": "https://api.scryfall.com/cards/fin/164?format=image&version=small",
+    "Cat Token": "https://cards.scryfall.io/small/front/9/0/902fba98-92b7-461b-ac6e-29cb2c4e307f.jpg?1738355211",
+    "Phyrexian Germ Token": "https://cards.scryfall.io/small/front/2/1/216e9c9c-e63e-451d-a340-ffa6206edcb6.jpg?1682210983",
+    "Sand Warrior Token": "https://cards.scryfall.io/small/front/1/2/124ea959-742a-4914-9bca-1075ccd0cb22.jpg?1675456322",
+    "Spirit Token": "https://cards.scryfall.io/small/front/f/5/f59eba51-458a-40e0-b754-999f91d5d839.jpg?1764117653",
+    "Warrior Token": "https://cards.scryfall.io/small/front/7/e/7edc0515-a130-45a7-aa09-0e23bba41587.jpg?1742506712"
   },
   "snapshots": [
     {
@@ -155618,7 +155623,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -169723,5 +169728,175 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Amped Raptor": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "First strike\nWhen this creature enters, you get {E}{E} (two energy counters). Then if you cast it from your hand, exile cards from the top of your library until you exile a nonland card. You may cast that card by paying an amount of {E} equal to its mana value rather than paying its mana cost.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Batterskull": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Living weapon (When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this to it.)\nEquipped creature gets +4/+4 and has vigilance and lifelink.\n{3}: Return this Equipment to its owner's hand.\nEquip {5}"
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Cryptic Coat": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "When this Equipment enters, cloak the top card of your library, then attach this Equipment to it. (To cloak a card, put it onto the battlefield face down as a 2/2 creature with ward {2}. Turn it face up any time for its mana cost if it's a creature card.)\nEquipped creature gets +1/+0 and can't be blocked.\n{1}{U}: Return this Equipment to its owner's hand."
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Guide of Souls": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "Whenever another creature you control enters, you gain 1 life and get {E} (an energy counter).\nWhenever you attack, you may pay {E}{E}{E}. When you do, put two +1/+1 counters and a flying counter on target attacking creature. It becomes an Angel in addition to its other types.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Karakas": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Return target legendary creature to its owner's hand."
+    },
+    "Kinscaer Sentry": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kithkin Soldier",
+      "oracle_text": "First strike, lifelink\nWhenever this creature attacks, you may put a creature card with mana value X or less from your hand onto the battlefield tapped and attacking, where X is the number of attacking creatures you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Marsh Flats": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Meteor Sword": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "When this Equipment enters, destroy target permanent.\nEquipped creature gets +3/+3.\nEquip {3} ({3}:Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Ocelot Pride": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "First strike, lifelink\nAscend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nAt the beginning of your end step, if you gained life this turn, create a 1/1 white Cat creature token. Then if you have the city's blessing, for each token you control that entered this turn, create a token that's a copy of it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Phelia, Exuberant Shepherd": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Legendary Creature — Dog",
+      "oracle_text": "Flash\nWhenever Phelia attacks, exile up to one other target nonland permanent. At the beginning of the next end step, return that card to the battlefield under its owner's control. If it entered under your control, put a +1/+1 counter on Phelia.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Plateau": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Pre-War Formalwear": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "When this Equipment enters, return target creature card with mana value 3 or less from your graveyard to the battlefield and attach this Equipment to it.\nEquipped creature gets +2/+2 and has vigilance.\nEquip {3}"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Sand Scout": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "When this creature enters, if an opponent controls more lands than you, search your library for a Desert card, put it onto the battlefield tapped, then shuffle.\nWhenever one or more land cards are put into your graveyard from anywhere, create a 1/1 red, green, and white Sand Warrior creature token. This ability triggers only once each turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Staff of the Storyteller": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, create a 1/1 white Spirit creature token with flying.\nWhenever you create one or more creature tokens, put a story counter on this artifact.\n{W}, {T}, Remove a story counter from this artifact: Draw a card."
+    },
+    "Static Prison": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield. You get {E}{E} (two energy counters).\nAt the beginning of your first main phase, sacrifice this enchantment unless you pay {E}."
+    },
+    "Stoneforge Mystic": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kor Artificer",
+      "oracle_text": "When this creature enters, you may search your library for an Equipment card, reveal it, put it into your hand, then shuffle.\n{1}{W}, {T}: You may put an Equipment card from your hand onto the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Sunbaked Canyon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {R} or {W}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Tundra": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)"
+    },
+    "Voice of Victory": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Bard",
+      "oracle_text": "Mobilize 2 (Whenever this creature attacks, create two tapped and attacking 1/1 red Warrior creature tokens. Sacrifice them at the beginning of the next end step.)\nYour opponents can't cast spells during your turn.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    }
+  }
 }

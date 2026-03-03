@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260227_004918",
   "timestamp": "20260227_004918",
   "gameType": "Two Player Duel",
@@ -94420,5 +94420,182 @@
     }
   ],
   "blunderScriptVersion": 28,
-  "errors": []
+  "errors": [],
+  "cardData": {
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Cabal Ritual": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Chalice of the Void": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\nWhenever a player casts a spell with mana value equal to the number of charge counters on this artifact, counter that spell."
+    },
+    "Consider": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\nDraw a card."
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Doomsday": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library and graveyard for five cards and exile the rest. Put the chosen cards on top of your library in any order. You lose half your life, rounded up."
+    },
+    "Edge of Autumn": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "If you control four or fewer lands, search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nCycling—Sacrifice a land. (Sacrifice a land, Discard this card: Draw a card.)"
+    },
+    "Eldrazi Linebreaker": {
+      "mana_cost": "{1}{C}{R}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "Devoid (This card has no color.)\nTrample\nAt the beginning of combat on your turn, target creature you control gains haste and gets +X/+0 until end of turn, where X is the number of Eldrazi you control.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Eldrazi Temple": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {C}{C}. Spend this mana only to cast colorless Eldrazi spells or activate abilities of colorless Eldrazi."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Gemstone Caverns": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "If this card is in your opening hand and you're not the starting player, you may begin the game with Gemstone Caverns on the battlefield with a luck counter on it. If you do, exile a card from your hand.\n{T}: Add {C}. If Gemstone Caverns has a luck counter on it, instead add one mana of any color."
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Personal Tutor": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a sorcery card, reveal it, then shuffle and put that card on top."
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Reality Smasher": {
+      "mana_cost": "{4}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "({C} represents colorless mana.)\nTrample, haste\nWhenever this creature becomes the target of a spell an opponent controls, counter that spell unless its controller discards a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Street Wraith": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Wraith",
+      "oracle_text": "Swampwalk (This creature can't be blocked as long as defending player controls a Swamp.)\nCycling—Pay 2 life. (Pay 2 life, Discard this card: Draw a card.)",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thought-Knot Seer": {
+      "mana_cost": "{3}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "({C} represents colorless mana.)\nWhen this creature enters, target opponent reveals their hand. You choose a nonland card from it and exile that card.\nWhen this creature leaves the battlefield, target opponent draws a card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Underground Sea": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)"
+    },
+    "Unearth": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card with mana value 3 or less from your graveyard to the battlefield.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    }
+  }
 }

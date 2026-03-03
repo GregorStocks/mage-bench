@@ -130015,7 +130015,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -131978,5 +131978,193 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ardyn, the Usurper": {
+      "mana_cost": "{5}{B}{B}{B}",
+      "type_line": "Legendary Creature — Elder Human Noble",
+      "oracle_text": "Demons you control have menace, lifelink, and haste.\nStarscourge — At the beginning of combat on your turn, exile up to one target creature card from a graveyard. If you exiled a card this way, create a token that's a copy of that card, except it's a 5/5 black Demon.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Bitter Triumph": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card or pay 3 life.\nDestroy target creature or planeswalker."
+    },
+    "Blooming Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {B} or {G}."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Bringer of the Last Gift": {
+      "mana_cost": "{6}{B}{B}",
+      "type_line": "Creature — Vampire Demon",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it, each player sacrifices all other creatures they control. Then each player returns all creature cards from their graveyard that weren't put there this way to the battlefield.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Deep-Cavern Bat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Bat",
+      "oracle_text": "Flying, lifelink\nWhen this creature enters, look at target opponent's hand. You may exile a nonland card from it until this creature leaves the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Enduring Curiosity": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment Creature — Cat Glimmer",
+      "oracle_text": "Flash\nWhenever a creature you control deals combat damage to a player, draw a card.\nWhen Enduring Curiosity dies, if it was a creature, return it to the battlefield under its owner's control. It's an enchantment. (It's not a creature.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Flitterwing Nuisance": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nThis creature enters with a -1/-1 counter on it.\n{2}{U}, Remove a counter from this creature: Whenever a creature you control deals combat damage to a player or planeswalker this turn, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Floodpits Drowner": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk",
+      "oracle_text": "Flash\nVigilance\nWhen this creature enters, tap target creature an opponent controls and put a stun counter on it.\n{1}{U}, {T}: Shuffle this creature and target creature with a stun counter on it into their owners' libraries.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Formidable Speaker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle.\n{1}, {T}: Untap another target permanent.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Fountainport": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice a token: Draw a card.\n{3}, {T}, Pay 1 life: Create a 1/1 blue Fish creature token.\n{4}, {T}: Create a Treasure token."
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Harvester of Misery": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Menace\nWhen this creature enters, other creatures get -2/-2 until end of turn.\n{1}{B}, Discard this card: Target creature gets -2/-2 until end of turn.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kaito, Bane of Nightmares": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Planeswalker — Kaito",
+      "oracle_text": "Ninjutsu {1}{U}{B} ({1}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nDuring your turn, as long as Kaito has one or more loyalty counters on him, he's a 3/4 Ninja creature and has hexproof.\n+1: You get an emblem with \"Ninjas you control get +1/+1.\"\n0: Surveil 2. Then draw a card for each opponent who lost life this turn.\n−2: Tap target creature. Put two stun counters on it.",
+      "loyalty": "4"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Oblivious Bookworm": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "At the beginning of your end step, you may draw a card. If you do, discard a card unless a permanent entered the battlefield face down under your control this turn or you turned a permanent face up this turn.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Overgrown Tomb": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Forest",
+      "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Shoot the Sheriff": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target non-outlaw creature. (Assassins, Mercenaries, Pirates, Rogues, and Warlocks are outlaws. Everyone else is fair game.)"
+    },
+    "Soulstone Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}: This land becomes a 3/3 creature with vigilance and all creature types. It's still a land."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Superior Spider-Man": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Spider Human Hero",
+      "oracle_text": "Mind Swap — You may have Superior Spider-Man enter as a copy of any creature card in a graveyard, except his name is Superior Spider-Man and he's a 4/4 Spider Human Hero in addition to his other types. When you do, exile that card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Terror of the Peaks": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nSpells your opponents cast that target this creature cost an additional 3 life to cast.\nWhenever another creature you control enters, this creature deals damage equal to that creature's power to any target.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Tishana's Tidebinder": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Flash\nWhen this creature enters, counter up to one target activated or triggered ability. If an ability of an artifact, creature, or planeswalker is countered this way, that permanent loses all abilities for as long as this creature remains on the battlefield. (Mana abilities can't be targeted.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Town Greeter": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Human Citizen",
+      "oracle_text": "When this creature enters, mill four cards. You may put a land card from among them into your hand. If you put a Town card into your hand this way, you gain 2 life. (To mill four cards, a player puts the top four cards of their library into their graveyard.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Wistfulness": {
+      "mana_cost": "{3}{G/U}{G/U}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "When this creature enters, if {G}{G} was spent to cast it, exile target artifact or enchantment an opponent controls.\nWhen this creature enters, if {U}{U} was spent to cast it, draw two cards, then discard a card.\nEvoke {G/U}{G/U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "6",
+      "toughness": "5"
+    }
+  }
 }

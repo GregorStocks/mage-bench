@@ -100,7 +100,8 @@
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
     "Surrak, Elusive Hunter": "https://api.scryfall.com/cards/tdm/161?format=image&version=small",
     "Unable to Scream": "https://api.scryfall.com/cards/dsk/78?format=image&version=small",
-    "Wistfulness": "https://api.scryfall.com/cards/ecl/252?format=image&version=small"
+    "Wistfulness": "https://api.scryfall.com/cards/ecl/252?format=image&version=small",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -104914,7 +104915,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -110952,5 +110953,123 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Botanical Sanctum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {G} or {U}."
+    },
+    "Burst Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gene Pollinator": {
+      "mana_cost": "{G}",
+      "type_line": "Artifact Creature — Robot Insect",
+      "oracle_text": "{T}, Tap an untapped permanent you control: Add one mana of any color.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Inspiring Vantage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {R} or {W}."
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Maelstrom of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a Dragon spell or an Omen spell.\n{4}, {T}, Sacrifice this land: Search your library for a Dragon card, reveal it, put it into your hand, then shuffle."
+    },
+    "Magmatic Hellkite": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhen this creature enters, destroy target nonbasic land an opponent controls. Its controller searches their library for a basic land card, puts it onto the battlefield tapped with a stun counter on it, then shuffles. (If a permanent with a stun counter would become untapped, remove one from it instead.)",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Nature's Rhythm": {
+      "mana_cost": "{X}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a creature card with mana value X or less, put it onto the battlefield, then shuffle.\nHarmonize {X}{G}{G}{G}{G} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by an amount of generic mana equal to its power. Then exile this spell.)"
+    },
+    "Ouroboroid": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Plant Wurm",
+      "oracle_text": "At the beginning of combat on your turn, put X +1/+1 counters on each creature you control, where X is this creature's power.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Reclamation Sage": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "When this creature enters, you may destroy target artifact or enchantment.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Sarkhan, Dragon Ascendant": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Legendary Creature — Human Druid",
+      "oracle_text": "When Sarkhan enters, you may behold a Dragon. If you do, create a Treasure token. (To behold a Dragon, choose a Dragon you control or reveal a Dragon card from your hand.)\nWhenever a Dragon you control enters, put a +1/+1 counter on Sarkhan. Until end of turn, Sarkhan becomes a Dragon in addition to its other types and gains flying.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "Willowrush Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
+    }
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_133328_g1",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -125082,5 +125082,191 @@
       "player": "Sonnet Hype"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "cardData": {
+    "Battleground Geist": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Flying\nOther Spirit creatures you control get +1/+0.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Befuddle": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -4/-0 until end of turn.\nDraw a card."
+    },
+    "Black Cat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie Cat",
+      "oracle_text": "When this creature dies, target opponent discards a card at random.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Chains of Custody": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature you control\nWhen this Aura enters, exile target nonland permanent an opponent controls until this Aura leaves the battlefield.\nEnchanted creature has ward {2}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+    },
+    "Colossal Majesty": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, if you control a creature with power 4 or greater, draw a card."
+    },
+    "Durable Coilbug": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "{4}{B}: Return this card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Eaten Alive": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a creature or pay {3}{B}.\nExile target creature or planeswalker."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Frost Breath": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Tap up to two target creatures. Those creatures don't untap during their controller's next untap step."
+    },
+    "Grotesque Mutation": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+1 and gains lifelink until end of turn. (Damage dealt by the creature also causes its controller to gain that much life.)"
+    },
+    "Ilysian Caryatid": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Plant",
+      "oracle_text": "{T}: Add one mana of any color. If you control a creature with power 4 or greater, add two mana of any one color instead.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Infernal Idol": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {B}.\n{1}{B}{B}, {T}, Sacrifice this artifact: You draw two cards and you lose 2 life."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Massacre Wurm": {
+      "mana_cost": "{3}{B}{B}{B}",
+      "type_line": "Creature — Phyrexian Wurm",
+      "oracle_text": "When this creature enters, creatures your opponents control get -2/-2 until end of turn.\nWhenever a creature an opponent controls dies, that player loses 2 life.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Nebelgast Herald": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Flash\nFlying\nWhenever this creature or another Spirit you control enters, tap target creature an opponent controls.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Pious Wayfarer": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "Constellation — Whenever an enchantment you control enters, target creature gets +1/+1 until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rampaging Growth": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Search your library for a basic land card, put it onto the battlefield, then shuffle. Until end of turn, that land becomes a 4/3 Insect creature with reach and haste. It's still a land."
+    },
+    "Rhonas the Indomitable": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — God",
+      "oracle_text": "Deathtouch, indestructible\nRhonas can't attack or block unless you control another creature with power 4 or greater.\n{2}{G}: Another target creature gets +2/+0 and gains trample until end of turn.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Sage's Reverie": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, draw a card for each Aura you control that's attached to a creature.\nEnchanted creature gets +1/+1 for each Aura you control that's attached to a creature."
+    },
+    "Savage Punch": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature you control fights target creature you don't control.\nFerocious — The creature you control gets +2/+2 until end of turn before it fights if you control a creature with power 4 or greater."
+    },
+    "Spectral Hunt-Caller": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Wolf Spirit",
+      "oracle_text": "{5}{G}: Creatures you control get +1/+1 and gain trample until end of turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Spectral Steel": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2.\n{1}{W}, Exile this card from your graveyard: Return another target Aura or Equipment card from your graveyard to your hand."
+    },
+    "Spirited Companion": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment Creature — Dog",
+      "oracle_text": "When this creature enters, draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Strangling Spores": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -3/-3 until end of turn."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Tome Anima": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "This creature can't be blocked as long as you've drawn two or more cards this turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Transcendent Envoy": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment Creature — Griffin",
+      "oracle_text": "Flying\nAura spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Winged Words": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {1} less to cast if you control a creature with flying.\nDraw two cards."
+    }
+  }
 }

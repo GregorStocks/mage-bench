@@ -103,7 +103,8 @@
     "Pyroclasm": "https://api.scryfall.com/cards/dsk/149?format=image&version=small",
     "Sear": "https://api.scryfall.com/cards/ecl/154?format=image&version=small",
     "Spell Pierce": "https://api.scryfall.com/cards/dft/64?format=image&version=small",
-    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small"
+    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -27675,7 +27676,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -30877,5 +30878,150 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Bringer of the Last Gift": {
+      "mana_cost": "{6}{B}{B}",
+      "type_line": "Creature — Vampire Demon",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it, each player sacrifices all other creatures they control. Then each player returns all creature cards from their graveyard that weren't put there this way to the battlefield.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Fear of Missing Out": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment Creature — Nightmare",
+      "oracle_text": "When this creature enters, discard a card, then draw a card.\nDelirium — Whenever this creature attacks for the first time each turn, if there are four or more card types among cards in your graveyard, untap target creature. After this phase, there is an additional combat phase.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Formidable Speaker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle.\n{1}, {T}: Untap another target permanent.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Frostcliff Siege": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Jeskai or Temur.\n• Jeskai — Whenever one or more creatures you control deal combat damage to a player, draw a card.\n• Temur — Creatures you control get +1/+0 and have trample and haste."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Oblivious Bookworm": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "At the beginning of your end step, you may draw a card. If you do, discard a card unless a permanent entered the battlefield face down under your control this turn or you turned a permanent face up this turn.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Overgrown Tomb": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Forest",
+      "oracle_text": "({T}: Add {B} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Quantum Riddler": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, draw a card.\nAs long as you have one or fewer cards in hand, if you would draw one or more cards, you draw that many cards plus one instead.\nWarp {1}{U}",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Requiting Hex": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may blight 1. (You may put a -1/-1 counter on a creature you control.)\nDestroy target creature with mana value 2 or less. If this spell's additional cost was paid, you gain 2 life."
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Superior Spider-Man": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Spider Human Hero",
+      "oracle_text": "Mind Swap — You may have Superior Spider-Man enter as a copy of any creature card in a graveyard, except his name is Superior Spider-Man and he's a 4/4 Spider Human Hero in addition to his other types. When you do, exile that card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Terror of the Peaks": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nSpells your opponents cast that target this creature cost an additional 3 life to cast.\nWhenever another creature you control enters, this creature deals damage equal to that creature's power to any target.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Tiger-Seal": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Cat Seal",
+      "oracle_text": "Vigilance\nAt the beginning of your upkeep, tap this creature.\nWhenever you draw your second card each turn, untap this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Torch the Tower": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nTorch the Tower deals 2 damage to target creature or planeswalker. If this spell was bargained, instead it deals 3 damage to that permanent and you scry 1.\nIf a permanent dealt damage by Torch the Tower would die this turn, exile it instead."
+    }
+  }
 }

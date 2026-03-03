@@ -38274,7 +38274,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -42317,5 +42317,101 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Burnout Bashtronaut": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace\nStart your engines! (If you have no speed, it starts at 1. It increases once on each of your turns when an opponent loses life. Max speed is 4.)\n{2}: This creature gets +1/+0 until end of turn.\nMax speed — This creature has double strike.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Burst Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+    },
+    "Dreadmaw's Ire": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Until end of turn, target attacking creature gets +2/+2 and gains trample and \"Whenever this creature deals combat damage to a player, destroy target artifact that player controls.\""
+    },
+    "Emberheart Challenger": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Mouse Warrior",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\nValiant — Whenever this creature becomes the target of a spell or ability you control for the first time each turn, exile the top card of your library. Until end of turn, you may play that card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Full Bore": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gets +3/+2 until end of turn. If that creature was cast for its warp cost, it also gains trample and haste until end of turn."
+    },
+    "Hired Claw": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Lizard Mercenary",
+      "oracle_text": "Whenever you attack with one or more Lizards, this creature deals 1 damage to target opponent.\n{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn and only once each turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Leyline of Resonance": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "If this card is in your opening hand, you may begin the game with it on the battlefield.\nWhenever you cast an instant or sorcery spell that targets only a single creature you control, copy that spell. You may choose new targets for the copy."
+    },
+    "Lightning Strike": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Strike deals 3 damage to any target."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Nova Hellkite": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\nWhen this creature enters, it deals 1 damage to target creature an opponent controls.\nWarp {2}{R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Razorkin Needlehead": {
+      "mana_cost": "{R}{R}",
+      "type_line": "Creature — Human Assassin",
+      "oracle_text": "This creature has first strike during your turn.\nWhenever an opponent draws a card, this creature deals 1 damage to them.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Rockface Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {R}. Spend this mana only to cast a creature spell.\n{R}, {T}: Target Lizard, Mouse, Otter, or Raccoon you control gets +1/+0 and gains haste until end of turn. Activate only as a sorcery."
+    },
+    "Slickshot Show-Off": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Bird Wizard",
+      "oracle_text": "Flying, haste\nWhenever you cast a noncreature spell, this creature gets +2/+0 until end of turn.\nPlot {1}{R} (You may pay {1}{R} and exile this card from your hand. Cast it as a sorcery on a later turn without paying its mana cost. Plot only as a sorcery.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Sunspine Lynx": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Elemental Cat",
+      "oracle_text": "Players can't gain life.\nDamage can't be prevented.\nWhen this creature enters, it deals damage to each player equal to the number of nonbasic lands that player controls.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Turn Inside Out": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+0 until end of turn. When it dies this turn, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)"
+    }
+  }
 }

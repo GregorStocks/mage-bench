@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_184350_g2",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -102,7 +102,8 @@
     "Living Lightning": "https://api.scryfall.com/cards/jmp/23?format=image&version=small",
     "Lightning Visionary": "https://api.scryfall.com/cards/jmp/22?format=image&version=small",
     "Lightning-Core Excavator": "https://api.scryfall.com/cards/jmp/32?format=image&version=small",
-    "Thriving Bluff": "https://api.scryfall.com/cards/jmp/33?format=image&version=small"
+    "Thriving Bluff": "https://api.scryfall.com/cards/jmp/33?format=image&version=small",
+    "Elf Warrior Token": "https://cards.scryfall.io/small/front/0/2/023f668a-a8e6-4fcb-98d1-30adf343f050.jpg?1768157666"
   },
   "snapshots": [
     {
@@ -64985,5 +64986,112 @@
       "player": "MstMed Sarge"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Basri's Solidarity": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on each creature you control."
+    },
+    "Bulwark Giant": {
+      "mana_cost": "{5}{W}",
+      "type_line": "Creature — Giant Soldier",
+      "oracle_text": "When this creature enters, you gain 5 life.",
+      "power": "3",
+      "toughness": "6"
+    },
+    "Craterhoof Behemoth": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Haste\nWhen this creature enters, creatures you control gain trample and get +X/+X until end of turn, where X is the number of creatures you control.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Danitha Capashen, Paragon": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Legendary Creature — Human Knight",
+      "oracle_text": "First strike, vigilance, lifelink\nAura and Equipment spells you cast cost {1} less to cast.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Dwynen's Elite": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "When this creature enters, if you control another Elf, create a 1/1 green Elf Warrior creature token.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Makeshift Battalion": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Battalion — Whenever this creature and at least two other creatures attack, put a +1/+1 counter on this creature.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Order of the Golden Cricket": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kithkin Knight",
+      "oracle_text": "Whenever this creature attacks, you may pay {W}. If you do, it gains flying until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Secure the Scene": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile target nonland permanent. Its controller creates a 1/1 white Soldier creature token."
+    },
+    "Siege Striker": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Double strike (This creature deals both first-strike and regular combat damage.)\nWhenever this creature attacks, you may tap any number of untapped creatures you control. This creature gets +1/+1 until end of turn for each creature tapped this way.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Skyhunter Prowler": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Cat Knight",
+      "oracle_text": "Flying, vigilance (This creature can't be blocked except by creatures with flying or reach, and attacking doesn't cause this creature to tap.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Tempered Veteran": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "{W}, {T}: Put a +1/+1 counter on target creature with a +1/+1 counter on it.\n{4}{W}{W}, {T}: Put a +1/+1 counter on target creature.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Wildheart Invoker": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "{8}: Target creature gets +5/+5 and gains trample until end of turn. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+      "power": "4",
+      "toughness": "3"
+    }
+  }
 }

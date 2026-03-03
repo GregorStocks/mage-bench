@@ -109507,7 +109507,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -122205,5 +122205,183 @@
         "combatPhase": "attackers"
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Blood Crypt": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Cling to Dust": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target card from a graveyard. If it was a creature card, you gain 3 life. Otherwise, you draw a card.\nEscape—{3}{B}, Exile five other cards from your graveyard. (You may cast this card from your graveyard for its escape cost.)"
+    },
+    "Counterspell": {
+      "mana_cost": "{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell."
+    },
+    "Death's Shadow": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Avatar",
+      "oracle_text": "This creature gets -X/-X, where X is your life total.",
+      "power": "13",
+      "toughness": "13"
+    },
+    "Disrupting Shoal": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Instant — Arcane",
+      "oracle_text": "You may exile a blue card with mana value X from your hand rather than pay this spell's mana cost.\nCounter target spell if its mana value is X."
+    },
+    "Expressive Iteration": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library. Put one of them into your hand, put one of them on the bottom of your library, and exile one of them. You may play the exiled card this turn."
+    },
+    "Fallaji Archaeologist": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "When this creature enters, mill three cards. You may put a noncreature, nonland card from among the cards milled this way into your hand. If you don't, put a +1/+1 counter on this creature. (To mill a card, put the top card of your library into your graveyard.)",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Flare of Denial": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may sacrifice a nontoken blue creature rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Force of Negation": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Goblin Charbelcher": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}, {T}: Reveal cards from the top of your library until you reveal a land card. This artifact deals damage equal to the number of nonland cards revealed this way to any target. If the revealed land card was a Mountain, this artifact deals double that damage instead. Put the revealed cards on the bottom of your library in any order."
+    },
+    "Into the Flood Maw": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nReturn target creature an opponent controls to its owner's hand. If the gift was promised, instead return target nonland permanent an opponent controls to its owner's hand."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lotus Bloom": {
+      "mana_cost": "",
+      "type_line": "Artifact",
+      "oracle_text": "Suspend 3—{0} (Rather than cast this card from your hand, pay {0} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\n{T}, Sacrifice this artifact: Add three mana of any one color."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Moonshadow": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Menace\nThis creature enters with six -1/-1 counters on it.\nWhenever one or more permanent cards are put into your graveyard from anywhere while this creature has a -1/-1 counter on it, remove a -1/-1 counter from this creature.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Nethergoyf": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Lhurgoyf",
+      "oracle_text": "Nethergoyf's power is equal to the number of card types among cards in your graveyard and its toughness is equal to that number plus 1.\nEscape—{2}{B}, Exile any number of other cards from your graveyard with four or more card types among them. (You may cast this card from your graveyard for its escape cost.)",
+      "power": "*",
+      "toughness": "1+*"
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Psychic Frog": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Whenever this creature deals combat damage to a player or planeswalker, draw a card.\nDiscard a card: Put a +1/+1 counter on this creature.\nExile three cards from your graveyard: This creature gains flying until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Snapback": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may exile a blue card from your hand rather than pay this spell's mana cost.\nReturn target creature to its owner's hand."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Stern Scolding": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target creature spell with power or toughness 2 or less."
+    },
+    "Street Wraith": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Wraith",
+      "oracle_text": "Swampwalk (This creature can't be blocked as long as defending player controls a Swamp.)\nCycling—Pay 2 life. (Pay 2 life, Discard this card: Draw a card.)",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Strix Serenade": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target artifact, creature, or planeswalker spell. Its controller creates a 2/2 blue Bird creature token with flying."
+    },
+    "Stubborn Denial": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell unless its controller pays {1}.\nFerocious — If you control a creature with power 4 or greater, counter that spell instead."
+    },
+    "Tameshi, Reality Architect": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Moonfolk Wizard",
+      "oracle_text": "Whenever one or more noncreature permanents are returned to hand, draw a card. This ability triggers only once each turn.\n{X}{W}, Return a land you control to its owner's hand: Return target artifact or enchantment card with mana value X or less from your graveyard to the battlefield. Activate only as a sorcery.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thundertrap Trainer": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Otter Wizard",
+      "oracle_text": "Offspring {4} (You may pay an additional {4} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nWhen this creature enters, look at the top four cards of your library. You may reveal a noncreature, nonland card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Whir of Invention": {
+      "mana_cost": "{X}{U}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nSearch your library for an artifact card with mana value X or less, put it onto the battlefield, then shuffle."
+    }
+  }
 }

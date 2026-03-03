@@ -55978,7 +55978,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -64251,5 +64251,143 @@
         "combatPhase": "declare_attackers"
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Blood Moon": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands are Mountains."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Cabal Ritual": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Chalice of the Void": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\nWhenever a player casts a spell with mana value equal to the number of charge counters on this artifact, counter that spell."
+    },
+    "Chrome Mox": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — When this artifact enters, you may exile a nonartifact, nonland card from your hand.\n{T}: Add one mana of any of the exiled card's colors."
+    },
+    "City of Traitors": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When you play another land, sacrifice this land.\n{T}: Add {C}{C}."
+    },
+    "Consider": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Surveil 1. (Look at the top card of your library. You may put it into your graveyard.)\nDraw a card."
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Doomsday": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library and graveyard for five cards and exile the rest. Put the chosen cards on top of your library in any order. You lose half your life, rounded up."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Fury": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Double strike\nWhen this creature enters, it deals 4 damage divided as you choose among any number of target creatures and/or planeswalkers.\nEvoke—Exile a red card from your hand.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lion's Eye Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Discard your hand, Sacrifice this artifact: Add three mana of any one color. Activate only as an instant."
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Pyrogoyf": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Lhurgoyf",
+      "oracle_text": "Pyrogoyf's power is equal to the number of card types among cards in all graveyards and its toughness is equal to that number plus 1.\nWhenever this creature or another Lhurgoyf creature you control enters, that creature deals damage equal to its power to any target.",
+      "power": "*",
+      "toughness": "1+*"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Soul-Guide Lantern": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, exile target card from a graveyard.\n{T}, Sacrifice this artifact: Exile each opponent's graveyard.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "The One Ring": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
+    },
+    "Underground Sea": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)"
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    }
+  }
 }

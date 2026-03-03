@@ -96,7 +96,9 @@
     "Duress": "https://api.scryfall.com/cards/fdn/606?format=image&version=small",
     "Intimidation Tactics": "https://api.scryfall.com/cards/dft/92?format=image&version=small",
     "Requisition Raid": "https://api.scryfall.com/cards/otj/26?format=image&version=small",
-    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small"
+    "Tishana's Tidebinder": "https://api.scryfall.com/cards/lci/81?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041",
+    "Otter Token": "https://cards.scryfall.io/small/front/e/6/e6b2c465-c446-4dee-9101-763105dcf813.jpg?1724438155"
   },
   "snapshots": [
     {
@@ -107646,7 +107648,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -113223,5 +113225,152 @@
         "untappedLands": 5
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Abandon Attachments": {
+      "mana_cost": "{1}{U/R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "You may discard a card. If you do, draw two cards."
+    },
+    "Accumulate Wisdom": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Look at the top three cards of your library. Put one of those cards into your hand and the rest on the bottom of your library in any order. Put each of those cards into your hand instead if there are three or more Lesson cards in your graveyard."
+    },
+    "Artist's Talent": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you cast a noncreature spell, you may discard a card. If you do, draw a card.\n{2}{R}: Level 2\nNoncreature spells you cast cost {1} less to cast.\n{2}{R}: Level 3\nIf a source you control would deal noncombat damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead."
+    },
+    "Boomerang Basics": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery — Lesson",
+      "oracle_text": "Return target nonland permanent to its owner's hand. If you controlled that permanent, draw a card."
+    },
+    "Combustion Technique": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Combustion Technique deals damage equal to 2 plus the number of Lesson cards in your graveyard to target creature. If that creature would die this turn, exile it instead."
+    },
+    "Concealed Courtyard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {B}."
+    },
+    "Firebending Lesson": {
+      "mana_cost": "{R}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nFirebending Lesson deals 2 damage to target creature. If this spell was kicked, it deals 5 damage to that creature instead."
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Gloomlake Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {B}. Activate only if you control an Island or a Swamp."
+    },
+    "Godless Shrine": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Gran-Gran": {
+      "mana_cost": "{U}",
+      "type_line": "Legendary Creature — Human Peasant Ally",
+      "oracle_text": "Whenever Gran-Gran becomes tapped, draw a card, then discard a card.\nNoncreature spells you cast cost {1} less to cast as long as there are three or more Lesson cards in your graveyard.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Grim Bauble": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, target creature an opponent controls gets -2/-2 until end of turn.\n{2}{B}, {T}, Sacrifice this artifact: Surveil 2. (Look at the top two cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.)"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "It'll Quench Ya!": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant — Lesson",
+      "oracle_text": "Counter target spell unless its controller pays {2}."
+    },
+    "Kaito, Bane of Nightmares": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Planeswalker — Kaito",
+      "oracle_text": "Ninjutsu {1}{U}{B} ({1}{U}{B}, Return an unblocked attacker you control to hand: Put this card onto the battlefield from your hand tapped and attacking.)\nDuring your turn, as long as Kaito has one or more loyalty counters on him, he's a 3/4 Ninja creature and has hexproof.\n+1: You get an emblem with \"Ninjas you control get +1/+1.\"\n0: Surveil 2. Then draw a card for each opponent who lost life this turn.\n−2: Tap target creature. Put two stun counters on it.",
+      "loyalty": "4"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Nowhere to Run": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, target creature an opponent controls gets -3/-3 until end of turn.\nCreatures your opponents control can be the targets of spells and abilities as though they didn't have hexproof. Ward abilities of those creatures don't trigger."
+    },
+    "Nurturing Pixie": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, return up to one target non-Faerie, nonland permanent you control to its owner's hand. If a permanent was returned this way, put a +1/+1 counter on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Ral, Crackling Wit": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Planeswalker — Ral",
+      "oracle_text": "Whenever you cast a noncreature spell, put a loyalty counter on Ral.\n+1: Create a 1/1 blue and red Otter creature token with prowess.\n−3: Draw three cards, then discard two cards.\n−10: Draw three cards. You get an emblem with \"Instant and sorcery spells you cast have storm.\" (Whenever you cast an instant or sorcery spell, copy it for each spell cast before it this turn.)",
+      "loyalty": "4"
+    },
+    "Riverpyre Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {R}.\n{T}: Add {U}. Activate only if you control an Island or a Mountain."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Spyglass Siren": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Siren Pirate",
+      "oracle_text": "Flying\nWhen this creature enters, create a Map token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stormchaser's Talent": {
+      "mana_cost": "{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhen this Class enters, create a 1/1 blue and red Otter creature token with prowess.\n{3}{U}: Level 2\nWhen this Class becomes level 2, return target instant or sorcery card from your graveyard to your hand.\n{5}{U}: Level 3\nWhenever you cast an instant or sorcery spell, create a 1/1 blue and red Otter creature token with prowess."
+    },
+    "Sunpearl Kirin": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kirin",
+      "oracle_text": "Flash\nFlying\nWhen this creature enters, return up to one other target nonland permanent you control to its owner's hand. If it was a token, draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Willowrush Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
+    }
+  }
 }

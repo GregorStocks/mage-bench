@@ -393,7 +393,12 @@
     "Vivid Marsh": "https://api.scryfall.com/cards/c17/292?format=image&version=small",
     "Vivid Meadow": "https://api.scryfall.com/cards/c17/293?format=image&version=small",
     "Wasitora, Nekoru Queen": "https://api.scryfall.com/cards/c17/49?format=image&version=small",
-    "The Ur-Dragon": "https://api.scryfall.com/cards/c17/48?format=image&version=small"
+    "The Ur-Dragon": "https://api.scryfall.com/cards/c17/48?format=image&version=small",
+    "Bird Token": "https://cards.scryfall.io/small/front/2/a/2a3d4bf9-2107-4686-8df5-cd7c934d0691.jpg?1752946401",
+    "Elephant Token": "https://cards.scryfall.io/small/front/2/4/243bcfa9-0310-4d68-9864-df46069906fa.jpg?1743176747",
+    "Rabbit Token": "https://cards.scryfall.io/small/front/8/1/81de52ef-7515-4958-abea-fb8ebdcef93c.jpg?1721431122",
+    "Saproling Token": "https://cards.scryfall.io/small/front/0/b/0bf3d41e-cd0a-46bd-8b89-8855906ea6b5.jpg?1702501311",
+    "Squid Token": "https://cards.scryfall.io/small/front/6/6/660d8e43-13e1-464b-b251-c7c2d77732ca.jpg?1749245683"
   },
   "snapshots": [
     {
@@ -361622,7 +361627,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -388475,5 +388480,729 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Abundance": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "If you would draw a card, you may instead choose land or nonland and reveal cards from the top of your library until you reveal a card of the chosen kind. Put that card into your hand and put all other cards revealed this way on the bottom of your library in any order."
+    },
+    "Acidic Slime": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Ooze",
+      "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nWhen this creature enters, destroy target artifact, enchantment, or land.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Adarkar Wastes": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {W} or {U}. This land deals 1 damage to you."
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Armillary Sphere": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle."
+    },
+    "Armorcraft Judge": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Artificer",
+      "oracle_text": "When this creature enters, draw a card for each creature you control with a +1/+1 counter on it.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Atarka, World Render": {
+      "mana_cost": "{5}{R}{G}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying, trample\nWhenever a Dragon you control attacks, it gains double strike until end of turn.",
+      "power": "6",
+      "toughness": "4"
+    },
+    "Baird, Steward of Argive": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Vigilance\nCreatures can't attack you or planeswalkers you control unless their controller pays {1} for each of those creatures.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Bitter Feud": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose two players.\nIf a source controlled by one of the chosen players would deal damage to the other chosen player or a permanent that player controls, that source deals double that damage to that player or permanent instead."
+    },
+    "Blighted Woodland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{3}{G}, {T}, Sacrifice this land: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+    },
+    "Boneyard Scourge": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Creature — Zombie Dragon",
+      "oracle_text": "Flying\nWhenever a Dragon you control dies while this card is in your graveyard, you may pay {1}{B}. If you do, return this card from your graveyard to the battlefield.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Boros Garrison": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {R}{W}."
+    },
+    "Broken Wings": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact, enchantment, or creature with flying."
+    },
+    "Caged Sun": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a color.\nCreatures you control of the chosen color get +1/+1.\nWhenever a land's ability causes you to add one or more mana of the chosen color, add an additional one mana of that color."
+    },
+    "Canopy Vista": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Chaos Warp": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "The owner of target permanent shuffles it into their library, then reveals the top card of their library. If it's a permanent card, they put it onto the battlefield."
+    },
+    "Chasm Skulker": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Squid Horror",
+      "oracle_text": "Whenever you draw a card, put a +1/+1 counter on this creature.\nWhen this creature dies, create X 1/1 blue Squid creature tokens with islandwalk, where X is the number of +1/+1 counters on this creature. (They can't be blocked as long as defending player controls an Island.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Circuitous Route": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards and/or Gate cards, put them onto the battlefield tapped, then shuffle."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Condemn": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Put target attacking creature on the bottom of its owner's library. Its controller gains life equal to its toughness."
+    },
+    "Crosis, the Purger": {
+      "mana_cost": "{3}{U}{B}{R}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying\nWhenever Crosis deals combat damage to a player, you may pay {2}{B}. If you do, choose a color, then that player reveals their hand and discards all cards of that color.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Crucible of Fire": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Dragon creatures you control get +3/+3."
+    },
+    "Crucible of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}: Put a storage counter on this land.\n{T}, Remove X storage counters from this land: Add X mana in any combination of colors. Spend this mana only to cast Dragon spells or activate abilities of Dragons."
+    },
+    "Crumbling Necropolis": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U}, {B}, or {R}."
+    },
+    "Curse of Bounty": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment — Aura Curse",
+      "oracle_text": "Enchant player\nWhenever enchanted player is attacked, untap all nonland permanents you control. Each opponent attacking that player untaps all nonland permanents they control."
+    },
+    "Curse of Verbosity": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment — Aura Curse",
+      "oracle_text": "Enchant player\nWhenever enchanted player is attacked, you draw a card. Each opponent attacking that player does the same."
+    },
+    "Daretti, Scrap Savant": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Legendary Planeswalker — Daretti",
+      "oracle_text": "+2: Discard up to two cards, then draw that many cards.\n−2: Sacrifice an artifact. If you do, return target artifact card from your graveyard to the battlefield.\n−10: You get an emblem with \"Whenever an artifact is put into your graveyard from the battlefield, return that card to the battlefield at the beginning of the next end step.\"\nDaretti, Scrap Savant can be your commander.",
+      "loyalty": "3"
+    },
+    "Deathbringer Regent": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it from your hand and there are five or more other creatures on the battlefield, destroy all other creatures.",
+      "power": "5",
+      "toughness": "6"
+    },
+    "Dragonlord's Servant": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "Dragon spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Dragonspeaker Shaman": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Barbarian Shaman",
+      "oracle_text": "Dragon spells you cast cost {2} less to cast.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Dromoka, the Eternal": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying\nWhenever a Dragon you control attacks, bolster 2. (Choose a creature with the least toughness among creatures you control and put two +1/+1 counters on it.)",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Dualcaster Mage": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Flash\nWhen this creature enters, copy target instant or sorcery spell. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Farseek": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a Plains, Island, Swamp, or Mountain card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Fist of Suns": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "You may pay {W}{U}{B}{R}{G} rather than pay the mana cost for spells you cast."
+    },
+    "Flamekin Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal an Elemental card from your hand. If you don't, this land enters tapped.\n{T}: Add {R}.\n{R}, {T}: Target creature gains haste until end of turn."
+    },
+    "Flooded Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Forgotten Cave": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}.\nCycling {R} ({R}, Discard this card: Draw a card.)"
+    },
+    "Fractured Identity": {
+      "mana_cost": "{3}{W}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile target nonland permanent. Each player other than its controller creates a token that's a copy of it."
+    },
+    "Frontier Siege": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of each of your main phases, add {G}{G}.\n• Dragons — Whenever a creature you control with flying enters, you may have it fight target creature you don't control."
+    },
+    "Generous Gift": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Elephant creature token."
+    },
+    "Geode Rager": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "First strike\nLandfall — Whenever a land you control enters, goad each creature target player controls. (Until your next turn, those creatures attack each combat if able and attack a player other than you if able.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Ghirapur Orrery": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Each player may play an additional land on each of their turns.\nAt the beginning of each player's upkeep, if that player has no cards in hand, that player draws three cards."
+    },
+    "Haven of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a Dragon creature spell.\n{2}, {T}, Sacrifice this land: Return target Dragon creature card or Ugin planeswalker card from your graveyard to your hand."
+    },
+    "Herald's Horn": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\nCreature spells you cast of the chosen type cost {1} less to cast.\nAt the beginning of your upkeep, look at the top card of your library. If it's a creature card of the chosen type, you may reveal it and put it into your hand."
+    },
+    "Illusionist's Gambit": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Cast this spell only during the declare blockers step on an opponent's turn.\nRemove all attacking creatures from combat and untap them. After this phase, there is an additional combat phase. Each of those creatures attacks that combat if able. They can't attack you or planeswalkers you control that combat."
+    },
+    "Impact Resonance": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Impact Resonance deals X damage divided as you choose among any number of target creatures, where X is the greatest amount of damage dealt by a source to a permanent or player this turn."
+    },
+    "Incite Rebellion": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each player, Incite Rebellion deals damage to that player and each creature that player controls equal to the number of creatures they control."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jalum Tome": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}: Draw a card, then discard a card."
+    },
+    "Jolly Gerbils": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Hamster Citizen",
+      "oracle_text": "Whenever you give a gift, draw a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Jungle Shrine": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}, {G}, or {W}."
+    },
+    "Keeper of Fables": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Whenever one or more non-Human creatures you control deal combat damage to a player, draw a card.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Kindred Discovery": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose a creature type.\nWhenever a creature you control of the chosen type enters or attacks, draw a card."
+    },
+    "Kodama's Reach": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery — Arcane",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Krosan Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for a Forest card and a Plains card, put them onto the battlefield tapped, then shuffle."
+    },
+    "Kwain, Itinerant Meddler": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Legendary Creature — Rabbit Wizard",
+      "oracle_text": "{T}: Each player may draw a card, then each player who drew a card this way gains 1 life.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Liquimetal Coating": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Target permanent becomes an artifact in addition to its other types until end of turn."
+    },
+    "Long River's Pull": {
+      "mana_cost": "{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nCounter target creature spell. If the gift was promised, instead counter target spell."
+    },
+    "Loreseeker's Stone": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}, {T}: Draw three cards. This ability costs {1} more to activate for each card in your hand."
+    },
+    "Mangara, the Diplomat": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "Lifelink\nWhenever an opponent attacks with creatures, if two or more of those creatures are attacking you and/or planeswalkers you control, draw a card.\nWhenever an opponent casts their second spell each turn, draw a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Martial Impetus": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, each other creature that's attacking one of your opponents gets +1/+1 until end of turn."
+    },
+    "Mind Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Mirror of the Forebears": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\n{1}: Until end of turn, this artifact becomes a copy of target creature you control of the chosen type, except it's an artifact in addition to its other types."
+    },
+    "Monastery Siege": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of your draw step, draw an additional card, then discard a card.\n• Dragons — Spells your opponents cast that target you or a permanent you control cost {2} more to cast."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Murasa Rootgrazer": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Vigilance\n{T}: You may put a basic land card from your hand onto the battlefield.\n{T}: Return target basic land you control to its owner's hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Myriad Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle."
+    },
+    "Mystic Monastery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U}, {R}, or {W}."
+    },
+    "Naya Charm": {
+      "mana_cost": "{R}{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Naya Charm deals 3 damage to target creature.\n• Return target card from a graveyard to its owner's hand.\n• Tap all creatures target player controls."
+    },
+    "Nissa's Renewal": {
+      "mana_cost": "{5}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to three basic land cards, put them onto the battlefield tapped, then shuffle. You gain 7 life."
+    },
+    "O-Kagachi, Vengeful Kami": {
+      "mana_cost": "{1}{W}{U}{B}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Spirit",
+      "oracle_text": "Flying, trample\nWhenever O-Kagachi deals combat damage to a player, if that player attacked you during their last turn, exile target nonland permanent that player controls.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Obuun, Mul Daya Ancestor": {
+      "mana_cost": "{1}{R}{G}{W}",
+      "type_line": "Legendary Creature — Elf Spirit",
+      "oracle_text": "At the beginning of combat on your turn, up to one target land you control becomes an X/X Elemental creature with trample and haste until end of turn, where X is Obuun's power. It's still a land.\nLandfall — Whenever a land you control enters, put a +1/+1 counter on target creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Orator of Ojutai": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Bird Monk",
+      "oracle_text": "As an additional cost to cast this spell, you may reveal a Dragon card from your hand.\nDefender, flying\nWhen this creature enters, if you revealed a Dragon card or controlled a Dragon as you cast this spell, draw a card.",
+      "power": "0",
+      "toughness": "4"
+    },
+    "Overflowing Basin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {G}{U}."
+    },
+    "Painful Truths": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Converge — You draw X cards and lose X life, where X is the number of colors of mana spent to cast this spell."
+    },
+    "Palladium Myr": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Myr",
+      "oracle_text": "{T}: Add {C}{C}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Perch Protection": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Gift an extra turn (You may promise an opponent a gift as you cast this spell. If you do, they take an extra turn after this one.)\nCreate four 2/2 blue Bird creature tokens with flying. If the gift was promised, all permanents you control phase out, and until your next turn, your life total can't change and you gain protection from everything.\nExile Perch Protection."
+    },
+    "Perplexing Test": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Return all creature tokens to their owners' hands.\n• Return all nontoken creatures to their owners' hands."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Prairie Stream": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Promise of Loyalty": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player puts a vow counter on a creature they control and sacrifices the rest. Each of those creatures can't attack you or planeswalkers you control for as long as it has a vow counter on it."
+    },
+    "Ramos, Dragon Engine": {
+      "mana_cost": "{6}",
+      "type_line": "Legendary Artifact Creature — Dragon",
+      "oracle_text": "Flying\nWhenever you cast a spell, put a +1/+1 counter on Ramos for each of that spell's colors.\nRemove five +1/+1 counters from Ramos: Add {W}{W}{U}{U}{B}{B}{R}{R}{G}{G}. Activate only once each turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Rishkar, Peema Renegade": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — Elf Druid",
+      "oracle_text": "When Rishkar enters, put a +1/+1 counter on each of up to two target creatures.\nEach creature you control with a counter on it has \"{T}: Add {G}.\"",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Rites of Flourishing": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of each player's draw step, that player draws an additional card.\nEach player may play an additional land on each of their turns."
+    },
+    "Ryusei, the Falling Star": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Legendary Creature — Dragon Spirit",
+      "oracle_text": "Flying\nWhen Ryusei dies, it deals 5 damage to each creature without flying.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Sandsteppe Citadel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}, {B}, or {G}."
+    },
+    "Savage Lands": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}, {R}, or {G}."
+    },
+    "Scaretiller": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Scarecrow",
+      "oracle_text": "Whenever this creature becomes tapped, choose one —\n• You may put a land card from your hand onto the battlefield tapped.\n• Return target land card from your graveyard to the battlefield tapped.",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Scion of the Ur-Dragon": {
+      "mana_cost": "{W}{U}{B}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Avatar",
+      "oracle_text": "Flying\n{2}: Search your library for a Dragon permanent card and put it into your graveyard. If you do, Scion of the Ur-Dragon becomes a copy of that card until end of turn. Then shuffle.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Scrap Mastery": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player exiles all artifact cards from their graveyard, then sacrifices all artifacts they control, then puts all cards they exiled this way onto the battlefield."
+    },
+    "Seaside Citadel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}, {W}, or {U}."
+    },
+    "Secret Rendezvous": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "You and target opponent each draw three cards."
+    },
+    "Seer's Sundial": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may pay {2}. If you do, draw a card."
+    },
+    "Selesnya Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {G}{W}."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Spine of Ish Sah": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, destroy target permanent.\nWhen this artifact is put into a graveyard from the battlefield, return it to its owner's hand."
+    },
+    "Spore Frog": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Sacrifice this creature: Prevent all combat damage that would be dealt this turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Sporemound": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Fungus",
+      "oracle_text": "Landfall — Whenever a land you control enters, create a 1/1 green Saproling creature token.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Springbloom Druid": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may sacrifice a land. If you do, search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Starstorm": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Starstorm deals X damage to each creature.\nCycling {3} ({3}, Discard this card: Draw a card.)"
+    },
+    "Sunpetal Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Forest or a Plains.\n{T}: Add {G} or {W}."
+    },
+    "Sunscorch Regent": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever an opponent casts a spell, put a +1/+1 counter on this creature and you gain 1 life.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swiftfoot Boots": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has hexproof and haste. (It can't be the target of spells or abilities your opponents control. It can attack and {T} no matter when it came under your control.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Sylvan Advocate": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Elf Druid Ally",
+      "oracle_text": "Vigilance\nAs long as you control six or more lands, this creature and land creatures you control get +2/+2.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Sylvan Reclamation": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile up to two target artifacts and/or enchantments.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Temple of Enlightenment": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {W} or {U}."
+    },
+    "Temple of Plenty": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {G} or {W}."
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "Tempt with Bunnies": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Tempting Offer — Draw a card and create a 1/1 white Rabbit creature token. Then each opponent may draw a card and create a 1/1 white Rabbit creature token. For each opponent who does, you draw a card and you create a 1/1 white Rabbit creature token."
+    },
+    "Teneb, the Harvester": {
+      "mana_cost": "{3}{W}{B}{G}",
+      "type_line": "Legendary Creature — Dragon",
+      "oracle_text": "Flying\nWhenever Teneb deals combat damage to a player, you may pay {2}{B}. If you do, put target creature card from a graveyard onto the battlefield under your control.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Tenuous Truce": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant opponent\nAt the beginning of enchanted opponent's end step, you and that player each draw a card.\nWhen you attack enchanted opponent or a planeswalker they control or when they attack you or a planeswalker you control, sacrifice this Aura."
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "The Mending of Dominaria": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Enchantment — Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI, II — Mill two cards, then you may return a creature card from your graveyard to your hand.\nIII — Return all land cards from your graveyard to the battlefield, then shuffle your graveyard into your library."
+    },
+    "The Ur-Dragon": {
+      "mana_cost": "{4}{W}{U}{B}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Avatar",
+      "oracle_text": "Eminence — As long as The Ur-Dragon is in the command zone or on the battlefield, other Dragon spells you cast cost {1} less to cast.\nFlying\nWhenever one or more Dragons you control attack, draw that many cards, then you may put a permanent card from your hand onto the battlefield.",
+      "power": "10",
+      "toughness": "10"
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Tuktuk the Explorer": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Legendary Creature — Goblin",
+      "oracle_text": "Haste\nWhen Tuktuk the Explorer dies, create Tuktuk the Returned, a legendary 5/5 colorless Goblin Golem artifact creature token.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Tuskguard Captain": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "Outlast {G} ({G}, {T}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)\nEach creature you control with a +1/+1 counter on it has trample.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Tyrant's Familiar": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\nLieutenant — As long as you control your commander, this creature gets +2/+2 and has \"Whenever this creature attacks, it deals 7 damage to target creature defending player controls.\"",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Vivid Creek": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {U}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vivid Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {G}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vivid Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {B}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Volcanic Offering": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target nonbasic land you don't control and target nonbasic land of an opponent's choice you don't control.\nVolcanic Offering deals 7 damage to target creature you don't control and 7 damage to target creature of an opponent's choice you don't control."
+    },
+    "Waker of the Wilds": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Merfolk Shaman",
+      "oracle_text": "{X}{G}{G}: Put X +1/+1 counters on target land you control. That land becomes a 0/0 Elemental creature with haste. It's still a land.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Wayfarer's Bauble": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    }
+  }
 }

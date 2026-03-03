@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_133328_g3",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -105,7 +105,9 @@
     "Settle Beyond Reality": "https://api.scryfall.com/cards/j22/242?format=image&version=small",
     "Faith's Fetters": "https://api.scryfall.com/cards/j22/181?format=image&version=small",
     "Thriving Heath": "https://api.scryfall.com/cards/j22/824?format=image&version=small",
-    "Plains": "https://api.scryfall.com/cards/j22/100?format=image&version=small"
+    "Plains": "https://api.scryfall.com/cards/j22/100?format=image&version=small",
+    "Knight Token": "https://cards.scryfall.io/small/front/a/7/a7758a0b-9e85-4b4a-bf1c-ffcc6761dbad.jpg?1748704059",
+    "Zombie Token": "https://cards.scryfall.io/small/front/4/c/4cecd5c6-d6c8-4cd5-97a3-cddaf051af15.jpg?1749245686"
   },
   "snapshots": [
     {
@@ -75104,5 +75106,192 @@
       "player": "MiniMx Minimal"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "cardData": {
+    "Black Cat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie Cat",
+      "oracle_text": "When this creature dies, target opponent discards a card at random.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Blight Keeper": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Bat Imp",
+      "oracle_text": "Flying\n{7}{B}, {T}, Sacrifice this creature: Target opponent loses 4 life and you gain 4 life.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Blighted Bat": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie Bat",
+      "oracle_text": "Flying\n{1}: This creature gains haste until end of turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Brightmare": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Unicorn",
+      "oracle_text": "When this creature enters, tap up to one target creature. You gain life equal to that creature's power.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Crawling Sensation": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, you may mill two cards. (You may put the top two cards of your library into your graveyard.)\nWhenever one or more land cards are put into your graveyard from anywhere for the first time each turn, create a 1/1 green Insect creature token."
+    },
+    "Devouring Swarm": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "Flying\nSacrifice a creature: This creature gets +1/+1 until end of turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Eaten Alive": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a creature or pay {3}{B}.\nExile target creature or planeswalker."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gallant Cavalry": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)\nWhen this creature enters, create a 2/2 white Knight creature token with vigilance.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Ghoulraiser": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "When this creature enters, return a Zombie card at random from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Grotesque Mutation": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +3/+1 and gains lifelink until end of turn. (Damage dealt by the creature also causes its controller to gain that much life.)"
+    },
+    "Infernal Idol": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {B}.\n{1}{B}{B}, {T}, Sacrifice this artifact: You draw two cards and you lose 2 life."
+    },
+    "Inspiring Overseer": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Angel Cleric",
+      "oracle_text": "Flying\nWhen this creature enters, you gain 1 life and draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Iridescent Hornbeetle": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "At the beginning of your end step, create a 1/1 green Insect creature token for each +1/+1 counter you've put on creatures under your control this turn.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Ironshell Beetle": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "When this creature enters, put a +1/+1 counter on target creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Liliana's Devotee": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Warlock",
+      "oracle_text": "Zombies you control get +1/+0.\nAt the beginning of your end step, if a creature died this turn, you may pay {1}{B}. If you do, create a 2/2 black Zombie creature token.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Liliana, Waker of the Dead": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Legendary Planeswalker — Liliana",
+      "oracle_text": "+1: Each player discards a card. Each opponent who can't loses 3 life.\n−3: Target creature gets -X/-X until end of turn, where X is the number of cards in your graveyard.\n−7: You get an emblem with \"At the beginning of combat on your turn, put target creature card from a graveyard onto the battlefield under your control. It gains haste.\"",
+      "loyalty": "4"
+    },
+    "Massacre Wurm": {
+      "mana_cost": "{3}{B}{B}{B}",
+      "type_line": "Creature — Phyrexian Wurm",
+      "oracle_text": "When this creature enters, creatures your opponents control get -2/-2 until end of turn.\nWhenever a creature an opponent controls dies, that player loses 2 life.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Moldgraf Millipede": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Insect Horror",
+      "oracle_text": "When this creature enters, mill three cards, then put a +1/+1 counter on this creature for each creature card in your graveyard. (To mill three cards, put the top three cards of your library into your graveyard.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Nantuko Cultivator": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Insect Druid",
+      "oracle_text": "When this creature enters, you may discard any number of land cards. Put that many +1/+1 counters on this creature and draw that many cards.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rise Again": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield."
+    },
+    "Skullslither Worm": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Worm",
+      "oracle_text": "When this creature enters, each opponent discards a card. For each opponent who can't, put two +1/+1 counters on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Strangling Spores": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -3/-3 until end of turn."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Wispweaver Angel": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Yargle, Glutton of Urborg": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Legendary Creature — Frog Spirit",
+      "oracle_text": "",
+      "power": "9",
+      "toughness": "3"
+    }
+  }
 }

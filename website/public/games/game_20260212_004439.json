@@ -14236,7 +14236,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -141757,5 +141757,98 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aether Spellbomb": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card."
+    },
+    "Kappa Cannoneer": {
+      "mana_cost": "{5}{U}",
+      "type_line": "Artifact Creature — Turtle Warrior",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nWard {4}\nWhenever this creature or another artifact you control enters, put a +1/+1 counter on this creature. It can't be blocked this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Monastery Swiftspear": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Monk",
+      "oracle_text": "Haste\nProwess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Mutagenic Growth": {
+      "mana_cost": "{G/P}",
+      "type_line": "Instant",
+      "oracle_text": "({G/P} can be paid with either {G} or 2 life.)\nTarget creature gets +2/+2 until end of turn."
+    },
+    "Pinnacle Emissary": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Artifact Creature — Robot",
+      "oracle_text": "Whenever you cast an artifact spell, create a 1/1 colorless Drone artifact creature token with flying and \"This token can block only creatures with flying.\"\nWarp {U/R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Pithing Needle": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a card name.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities."
+    },
+    "Preordain": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Scry 2, then draw a card. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Shivan Reef": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This land deals 1 damage to you."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Violent Urge": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +1/+0 and gains first strike until end of turn.\nDelirium — If there are four or more card types among cards in your graveyard, that creature gains double strike until end of turn."
+    },
+    "Welding Jar": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Sacrifice this artifact: Regenerate target artifact."
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

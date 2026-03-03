@@ -380,7 +380,13 @@
     "Herald of the Host": "https://api.scryfall.com/cards/c15/4?format=image&version=small",
     "Gisela, Blade of Goldnight": "https://api.scryfall.com/cards/c15/219?format=image&version=small",
     "Dawnbreak Reclaimer": "https://api.scryfall.com/cards/c15/2?format=image&version=small",
-    "Kalemne, Disciple of Iroas": "https://api.scryfall.com/cards/c15/45?format=image&version=small"
+    "Kalemne, Disciple of Iroas": "https://api.scryfall.com/cards/c15/45?format=image&version=small",
+    "Food Token": "https://cards.scryfall.io/small/front/e/2/e2b62092-57df-4d95-b2b9-961794e7c20b.jpg?1771590558",
+    "Human Soldier Token": "https://cards.scryfall.io/small/front/6/3/631c2c16-132d-4607-ab7e-207a6af188e5.jpg?1757686920",
+    "Knight Token": "https://cards.scryfall.io/small/front/a/7/a7758a0b-9e85-4b4a-bf1c-ffcc6761dbad.jpg?1748704059",
+    "Shapeshifter Token": "https://cards.scryfall.io/small/front/c/2/c2963ce1-f9d8-437a-9489-e0913a8b8d26.jpg?1767660071",
+    "Squirrel Token": "https://cards.scryfall.io/small/front/5/a/5a6ec62e-0e9b-4312-bfe8-cc85d76fd9e0.jpg?1721425294",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -267114,7 +267120,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -287503,5 +287509,516 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Amphitheater": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal a Giant card from your hand. If you don't, this land enters tapped.\n{T}: Add {R} or {W}."
+    },
+    "Anya, Merciless Angel": {
+      "mana_cost": "{3}{R}{W}",
+      "type_line": "Legendary Creature — Angel",
+      "oracle_text": "Flying\nAnya gets +3/+3 for each opponent whose life total is less than half their starting life total.\nAs long as an opponent's life total is less than half their starting life total, Anya has indestructible.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Armored Ascension": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1 for each Plains you control and has flying."
+    },
+    "Azorius Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {W}{U}."
+    },
+    "Bag of Tricks": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Artifact",
+      "oracle_text": "{4}{G}, {T}: Roll a d8. Reveal cards from the top of your library until you reveal a creature card with mana value equal to the result. Put that card onto the battlefield and the rest on the bottom of your library in a random order."
+    },
+    "Banishing Light": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+    },
+    "Barren Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}.\nCycling {B} ({B}, Discard this card: Draw a card.)"
+    },
+    "Bastion of Remembrance": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, create a 1/1 white Human Soldier creature token.\nWhenever a creature you control dies, each opponent loses 1 life and you gain 1 life."
+    },
+    "Blasted Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Bogardan Hellkite": {
+      "mana_cost": "{6}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flash\nFlying\nWhen this creature enters, it deals 5 damage divided as you choose among any number of targets.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Chameleon Colossus": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nProtection from black\n{2}{G}{G}: This creature gets +X/+X until end of turn, where X is its power.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Chatterfang, Squirrel General": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — Squirrel Warrior",
+      "oracle_text": "Forestwalk (This creature can't be blocked as long as defending player controls a Forest.)\nIf one or more tokens would be created under your control, those tokens plus that many 1/1 green Squirrel creature tokens are created instead.\n{B}, Sacrifice X Squirrels: Target creature gets +X/-X until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Colossal Majesty": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, if you control a creature with power 4 or greater, draw a card."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Component Pouch": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Remove a component counter from this artifact: Add two mana of different colors.\n{T}: Roll a d20.\n1—9 | Put a component counter on this artifact.\n10—20 | Put two component counters on this artifact."
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Darksteel Plate": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Indestructible\nEquipped creature has indestructible.\nEquip {2}"
+    },
+    "Daxos of Meletis": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Daxos can't be blocked by creatures with power 3 or greater.\nWhenever Daxos deals combat damage to a player, exile the top card of that player's library. You gain life equal to that card's mana value. Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Decree of Savagery": {
+      "mana_cost": "{7}{G}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Put four +1/+1 counters on each creature you control.\nCycling {4}{G}{G} ({4}{G}{G}, Discard this card: Draw a card.)\nWhen you cycle this card, you may put four +1/+1 counters on target creature."
+    },
+    "Deep Forest Hermit": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "Vanishing 3 (This creature enters with three time counters on it. At the beginning of your upkeep, remove a time counter from it. When the last is removed, sacrifice it.)\nWhen this creature enters, create four 1/1 green Squirrel creature tokens.\nSquirrels you control get +1/+1.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Desolation Giant": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Giant",
+      "oracle_text": "Kicker {W}{W} (You may pay an additional {W}{W} as you cast this spell.)\nWhen this creature enters, destroy all other creatures you control. If it was kicked, destroy all other creatures instead.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Disaster Radius": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, reveal a creature card from your hand.\nDisaster Radius deals X damage to each creature your opponents control, where X is the revealed card's mana value."
+    },
+    "Dragon's Hoard": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever a Dragon you control enters, put a gold counter on this artifact.\n{T}, Remove a gold counter from this artifact: Draw a card.\n{T}: Add one mana of any color."
+    },
+    "Dragonmaster Outcast": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "At the beginning of your upkeep, if you control six or more lands, create a 5/5 red Dragon creature token with flying.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Drifting Meadow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Earth-Cult Elemental": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Siege Monster — When this creature enters, roll a d20.\n1—9 | Each player sacrifices a permanent of their choice.\n10—19 | Each opponent sacrifices a permanent of their choice.\n20 | Each opponent sacrifices two permanents of their choice.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "End-Raze Forerunners": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Boar",
+      "oracle_text": "Vigilance, trample, haste\nWhen this creature enters, other creatures you control get +2/+2 and gain vigilance and trample until end of turn.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Ethercaste Knight": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Artifact Creature — Human Knight",
+      "oracle_text": "Exalted (Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Ethereal Armor": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1 for each enchantment you control and has first strike."
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Faith's Fetters": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant permanent\nWhen this Aura enters, you gain 4 life.\nEnchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
+    },
+    "Fellwar Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fiery Confluence": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose three. You may choose the same mode more than once.\n• Fiery Confluence deals 1 damage to each creature.\n• Fiery Confluence deals 2 damage to each opponent.\n• Destroy target artifact."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Garruk's Uprising": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, if you control a creature with power 4 or greater, draw a card.\nCreatures you control have trample. (Each of those creatures can deal excess combat damage to the player or planeswalker it's attacking.)\nWhenever a creature you control with power 4 or greater enters, draw a card."
+    },
+    "Gilded Goose": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Flying\nWhen this creature enters, create a Food token. (It's an artifact with \"{2}, {T}, Sacrifice this token: You gain 3 life.\")\n{1}{G}, {T}: Create a Food token.\n{T}, Sacrifice a Food: Add one mana of any color.",
+      "power": "0",
+      "toughness": "2"
+    },
+    "Gourmand's Talent": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nDuring your turn, artifacts you control are Foods in addition to their other types and have \"{2}, {T}, Sacrifice this artifact: You gain 3 life.\"\n{2}{G}: Level 2\nWhenever you gain life for the first time each turn, create a 3/3 green Raccoon creature token.\n{3}{G}: Level 3\nWhenever you gain life for the first time each turn, put a +1/+1 counter on each creature you control."
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Haven of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a Dragon creature spell.\n{2}, {T}, Sacrifice this land: Return target Dragon creature card or Ugin planeswalker card from your graveyard to your hand."
+    },
+    "Hoard-Smelter Dragon": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\n{3}{R}: Destroy target artifact. This creature gets +X/+0 until end of turn, where X is that artifact's mana value.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Holy Mantle": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and has protection from creatures."
+    },
+    "Honored Dreyleader": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Squirrel Warrior",
+      "oracle_text": "Trample\nWhen this creature enters, put a +1/+1 counter on it for each other Squirrel and/or Food you control.\nWhenever another Squirrel or Food you control enters, put a +1/+1 counter on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Hunted Dragon": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\nWhen this creature enters, target opponent creates three 2/2 white Knight creature tokens with first strike.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Insatiable Frugivore": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Rat Berserker",
+      "oracle_text": "When this creature enters, create a Food token, then you may exile three cards from your graveyard. If you do, repeat this process.\n{3}{B}, Sacrifice X Foods: Creatures you control get +X/+0 and gain menace until end of turn.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jungle Hollow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {G}."
+    },
+    "Kalemne, Disciple of Iroas": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Legendary Creature — Giant Soldier",
+      "oracle_text": "Double strike, vigilance\nWhenever you cast a creature spell with mana value 5 or greater, you get an experience counter.\nKalemne gets +1/+1 for each experience counter you have.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Klauth's Will": {
+      "mana_cost": "{X}{R}{R}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Breathe Flame — Klauth's Will deals X damage to each creature without flying.\n• Smash Relics — Destroy up to X target artifacts and/or enchantments."
+    },
+    "Lightning Greaves": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has haste and shroud. (It can't be the target of spells or abilities.)\nEquip {0}"
+    },
+    "Maddening Hex": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Enchantment — Aura Curse",
+      "oracle_text": "Enchant player\nWhenever enchanted player casts a noncreature spell, roll a d6. This Aura deals damage to that player equal to the result. Then attach this Aura to another one of your opponents chosen at random."
+    },
+    "Mammoth Umbra": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +3/+3 and has vigilance.\nUmbra armor (If enchanted creature would be destroyed, instead remove all damage from it and destroy this Aura.)"
+    },
+    "Mask of Avacyn": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+2 and has hexproof. (It can't be the target of spells or abilities your opponents control.)\nEquip {3}"
+    },
+    "Maskwood Nexus": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Creatures you control are every creature type. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 2/2 blue Shapeshifter creature token with changeling. (It is every creature type.)"
+    },
+    "Meteor Blast": {
+      "mana_cost": "{X}{R}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Meteor Blast deals 4 damage to each of X targets."
+    },
+    "Mosswort Bridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {G}.\n{G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Nadier's Nightblade": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "Whenever a token you control leaves the battlefield, each opponent loses 1 life and you gain 1 life.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Neverwinter Hydra": {
+      "mana_cost": "{X}{X}{G}{G}",
+      "type_line": "Creature — Hydra",
+      "oracle_text": "As this creature enters, roll X d6. It enters with a number of +1/+1 counters on it equal to the total of those results.\nTrample\nWard {4} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {4}.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Orim's Thunder": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {R} (You may pay an additional {R} as you cast this spell.)\nDestroy target artifact or enchantment. If this spell was kicked, it deals damage equal to that permanent's mana value to target creature."
+    },
+    "Outpost Siege": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose Khans or Dragons.\n• Khans — At the beginning of your upkeep, exile the top card of your library. Until end of turn, you may play that card.\n• Dragons — Whenever a creature you control leaves the battlefield, this enchantment deals 1 damage to any target."
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plaguecrafter": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "When this creature enters, each player sacrifices a creature or planeswalker of their choice. Each player who can't discards a card.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Prosperous Innkeeper": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Halfling Citizen",
+      "oracle_text": "When this creature enters, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")\nWhenever another creature you control enters, you gain 1 life.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Quietus Spike": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has deathtouch.\nWhenever equipped creature deals combat damage to a player, that player loses half their life, rounded up.\nEquip {3}"
+    },
+    "Return to Nature": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target artifact.\n• Destroy target enchantment.\n• Exile target card from a graveyard."
+    },
+    "Rishkar's Expertise": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw cards equal to the greatest power among creatures you control.\nYou may cast a spell with mana value 5 or less from your hand without paying its mana cost."
+    },
+    "Seachrome Coast": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {U}."
+    },
+    "Second Harvest": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Instant",
+      "oracle_text": "For each token you control, create a token that's a copy of that permanent."
+    },
+    "Seer's Sundial": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may pay {2}. If you do, draw a card."
+    },
+    "Shamanic Revelation": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Squirrel Nest": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant land\nEnchanted land has \"{T}: Create a 1/1 green Squirrel creature token.\""
+    },
+    "Squirrel Sovereign": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Squirrel Noble",
+      "oracle_text": "Other Squirrels you control get +1/+1.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sunrise Sovereign": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Giant Warrior",
+      "oracle_text": "Other Giant creatures you control get +2/+2 and have trample.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Sword of Hours": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Whenever equipped creature attacks, put a +1/+1 counter on it.\nWhenever equipped creature deals combat damage, roll a d12. If the result is greater than the damage dealt or the result is 12, double the number of +1/+1 counters on that creature.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Tainted Wood": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {G}. Activate only if you control a Swamp."
+    },
+    "Tear Asunder": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{B} (You may pay an additional {1}{B} as you cast this spell.)\nExile target artifact or enchantment. If this spell was kicked, exile target nonland permanent instead."
+    },
+    "Temple of Malady": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {B} or {G}."
+    },
+    "Terror of Mount Velus": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nDouble strike (This creature deals both first-strike and regular combat damage.)\nWhen this creature enters, creatures you control gain double strike until end of turn.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "The Odd Acorn Gang": {
+      "mana_cost": "{3}{B}{G}",
+      "type_line": "Legendary Creature — Squirrel Warrior",
+      "oracle_text": "Menace, trample, reach\nSquirrels you control have \"{T}: Target Squirrel gets +2/+2 and gains trample until end of turn. Activate only as a sorcery.\"\nWhenever one or more Squirrels you control deal combat damage to a player, draw a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Thunderbreak Regent": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever a Dragon you control becomes the target of a spell or ability an opponent controls, this creature deals 3 damage to that player.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Underdark Rift": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{5}, {T}, Exile this land: Roll a d10. Put target artifact, creature, or planeswalker into its owner's library just beneath the top X cards of that library, where X is the result. Activate only as a sorcery."
+    },
+    "Unquestioned Authority": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, draw a card.\nEnchanted creature has protection from creatures."
+    },
+    "Vrondiss, Rage of Ancients": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Dragon Barbarian",
+      "oracle_text": "Enrage — Whenever Vrondiss is dealt damage, you may create a 5/4 red and green Dragon Spirit creature token with \"When this token deals damage, sacrifice it.\"\nWhenever you roll one or more dice, you may have Vrondiss deal 1 damage to itself.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Warstorm Surge": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control enters, it deals damage equal to its power to any target."
+    },
+    "Wild Endeavor": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Roll two d4 and choose one result. Create a number of 3/3 green Beast creature tokens equal to that result. Then search your library for a number of basic land cards equal to the other result, put them onto the battlefield tapped, then shuffle."
+    }
+  }
 }

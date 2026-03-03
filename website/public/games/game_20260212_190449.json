@@ -99,7 +99,9 @@
     "Exorcise": "https://api.scryfall.com/cards/dsk/8?format=image&version=small",
     "Fire Magic": "https://api.scryfall.com/cards/fin/136?format=image&version=small",
     "High Noon": "https://api.scryfall.com/cards/otj/15?format=image&version=small",
-    "Rest in Peace": "https://api.scryfall.com/cards/big/4?format=image&version=small"
+    "Rest in Peace": "https://api.scryfall.com/cards/big/4?format=image&version=small",
+    "Map Token": "https://cards.scryfall.io/small/front/0/3/03516d49-0613-46f7-8d88-3bf26d2c8659.jpg?1712318041",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -55968,7 +55970,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -61330,5 +61332,119 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Burst Lightning": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {4} (You may pay an additional {4} as you cast this spell.)\nBurst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+    },
+    "Charming Prince": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Noble",
+      "oracle_text": "When this creature enters, choose one —\n• Scry 2.\n• You gain 3 life.\n• Exile another target creature you own. Return it to the battlefield under your control at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Dragonhawk, Fate's Tempest": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Legendary Creature — Bird Dragon",
+      "oracle_text": "Flying\nWhenever Dragonhawk enters or attacks, exile the top X cards of your library, where X is the number of creatures you control with power 4 or greater. You may play those cards until your next end step. At the beginning of your next end step, Dragonhawk deals 2 damage to each opponent for each of those cards that are still exiled.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Eddymurk Crab": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Elemental Crab",
+      "oracle_text": "Flash\nThis spell costs {1} less to cast for each instant and sorcery card in your graveyard.\nThis creature enters tapped if it's not your turn.\nWhen this creature enters, tap up to two target creatures.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Get Lost": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature, enchantment, or planeswalker. Its controller creates two Map tokens. (They're artifacts with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")"
+    },
+    "Glacial Dragonhunt": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw a card, then you may discard a card. When you discard a nonland card this way, Glacial Dragonhunt deals 3 damage to target creature.\nHarmonize {4}{U}{R} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by {X}, where X is its power. Then exile this spell.)"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Maelstrom of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a Dragon spell or an Omen spell.\n{4}, {T}, Sacrifice this land: Search your library for a Dragon card, reveal it, put it into your hand, then shuffle."
+    },
+    "Momo, Friendly Flier": {
+      "mana_cost": "{W}",
+      "type_line": "Legendary Creature — Lemur Bat Ally",
+      "oracle_text": "Flying\nThe first non-Lemur creature spell with flying you cast during each of your turns costs {1} less to cast.\nWhenever another creature you control with flying enters, Momo gets +1/+1 until end of turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Opt": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Scry 1. (Look at the top card of your library. You may put that card on the bottom.)\nDraw a card."
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Sarkhan, Dragon Ascendant": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Legendary Creature — Human Druid",
+      "oracle_text": "When Sarkhan enters, you may behold a Dragon. If you do, create a Treasure token. (To behold a Dragon, choose a Dragon you control or reveal a Dragon card from your hand.)\nWhenever a Dragon you control enters, put a +1/+1 counter on Sarkhan. Until end of turn, Sarkhan becomes a Dragon in addition to its other types and gains flying.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Spider-Sense": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Web-slinging {U} (You may cast this spell for {U} if you also return a tapped creature you control to its owner's hand.)\nCounter target instant spell, sorcery spell, or triggered ability."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Sunbillow Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
+    },
+    "Sunderflock": {
+      "mana_cost": "{7}{U}{U}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "This spell costs {X} less to cast, where X is the greatest mana value among Elementals you control.\nFlying\nWhen this creature enters, if you cast it, return all non-Elemental creatures to their owners' hands.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Winternight Stories": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw three cards. Then discard two cards unless you discard a creature card.\nHarmonize {4}{U} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by {X}, where X is its power. Then exile this spell.)"
+    }
+  }
 }

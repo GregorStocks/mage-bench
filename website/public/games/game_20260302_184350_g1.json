@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_184350_g1",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -96946,5 +96946,174 @@
       "player": "GLM47 Stoic"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Assassin's Strike": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target creature. Its controller discards a card."
+    },
+    "Avalanche Caller": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Snow Creature — Human Wizard",
+      "oracle_text": "{2}: Target snow land you control becomes a 4/4 Elemental creature with hexproof and haste until end of turn. It's still a land. (A creature with hexproof can't be the target of spells or abilities your opponents control.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Burglar Rat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Rat",
+      "oracle_text": "When this creature enters, each opponent discards a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Canopy Stalker": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "This creature must be blocked if able.\nWhen this creature dies, you gain 1 life for each creature that died this turn.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Enlarge": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature gets +7/+7 and gains trample until end of turn. It must be blocked this turn if able. (A creature with trample can deal excess combat damage to the player or planeswalker it's attacking.)"
+    },
+    "Entomber Exarch": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Creature — Phyrexian Cleric",
+      "oracle_text": "When this creature enters, choose one —\n• Return target creature card from your graveyard to your hand.\n• Target opponent reveals their hand. You choose a noncreature card from it. That player discards that card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Feral Prowler": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "When this creature dies, draw a card.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gorging Vulture": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Flying\nWhen this creature enters, mill four cards. You gain 1 life for each creature card milled this way. (To mill four cards, put the top four cards of your library into your graveyard.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Isu the Abominable": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Legendary Snow Creature — Yeti",
+      "oracle_text": "You may look at the top card of your library any time.\nYou may play snow lands and cast snow spells from the top of your library.\nWhenever another snow permanent you control enters, you may pay {G}, {W}, or {U}. If you do, put a +1/+1 counter on Isu.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Keeper of Fables": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Whenever one or more non-Human creatures you control deal combat damage to a player, draw a card.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Marit Lage's Slumber": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Legendary Snow Enchantment",
+      "oracle_text": "Whenever Marit Lage's Slumber or another snow permanent you control enters, scry 1.\nAt the beginning of your upkeep, if you control ten or more snow permanents, sacrifice Marit Lage's Slumber. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+    },
+    "Mind Rot": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player discards two cards."
+    },
+    "Moodmark Painter": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Undergrowth — When this creature enters, target creature gains menace and gets +X/+0 until end of turn, where X is the number of creature cards in your graveyard. (It can't be blocked except by two or more creatures.)",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Nature's Way": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature you control gains vigilance and trample until end of turn. It deals damage equal to its power to target creature you don't control."
+    },
+    "Pilfering Hawk": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Snow Creature — Bird",
+      "oracle_text": "Flying\n{S}, {T}: Draw a card, then discard a card. ({S} can be paid with one mana from a snow source.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Pit Keeper": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, if you have four or more creature cards in your graveyard, you may return target creature card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Ravenous Chupacabra": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Creature — Beast Horror",
+      "oracle_text": "When this creature enters, destroy target creature an opponent controls.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Shimmerdrift Vale": {
+      "mana_cost": "",
+      "type_line": "Snow Land",
+      "oracle_text": "This land enters tapped.\nAs this land enters, choose a color.\n{T}: Add one mana of the chosen color."
+    },
+    "Slate Street Ruffian": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "Whenever this creature becomes blocked, defending player discards a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Snow-Covered Island": {
+      "mana_cost": "",
+      "type_line": "Basic Snow Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Spark Reaper": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{3}, Sacrifice a creature or planeswalker: You gain 1 life and draw a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Suspicious Shambler": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{4}{B}{B}, Exile this card from your graveyard: Create two 2/2 black Zombie creature tokens. Activate only as a sorcery.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Wight of Precinct Six": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "This creature gets +1/+1 for each creature card in your opponents' graveyards.",
+      "power": "1",
+      "toughness": "1"
+    }
+  }
 }

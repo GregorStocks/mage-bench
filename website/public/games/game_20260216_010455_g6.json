@@ -90,7 +90,8 @@
     "Meltstrider's Resolve": "https://api.scryfall.com/cards/eoe/199?format=image&version=small",
     "Pawpatch Formation": "https://api.scryfall.com/cards/blb/186?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
-    "Unable to Scream": "https://api.scryfall.com/cards/dsk/78?format=image&version=small"
+    "Unable to Scream": "https://api.scryfall.com/cards/dsk/78?format=image&version=small",
+    "Ally Token": "https://cards.scryfall.io/small/front/0/1/01439983-8394-4a0c-9e9e-92a3f1927fe3.jpg?1764117686"
   },
   "snapshots": [
     {
@@ -33714,7 +33715,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -36516,5 +36517,128 @@
         "untappedLands": 4
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Airbender Ascension": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, airbend up to one target creature.\nWhenever a creature you control enters, put a quest counter on this enchantment.\nAt the beginning of your end step, if this enchantment has four or more quest counters on it, exile up to one target creature you control, then return it to the battlefield under its owner's control."
+    },
+    "Appa, Steadfast Guardian": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Bison Ally",
+      "oracle_text": "Flash\nFlying\nWhen Appa enters, airbend any number of other target nonland permanents you control. (Exile them. While each one is exiled, its owner may cast it for {2} rather than its mana cost.)\nWhenever you cast a spell from exile, create a 1/1 white Ally creature token.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Botanical Sanctum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {G} or {U}."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Doc Aurlock, Grizzled Genius": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Legendary Creature — Bear Druid",
+      "oracle_text": "Spells you cast from your graveyard or from exile cost {2} less to cast.\nPlotting cards from your hand costs {2} less.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Floodfarm Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Add {U}. Activate only if you control a Plains or an Island."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Formidable Speaker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle.\n{1}, {T}: Untap another target permanent.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Gene Pollinator": {
+      "mana_cost": "{G}",
+      "type_line": "Artifact Creature — Robot Insect",
+      "oracle_text": "{T}, Tap an untapped permanent you control: Add one mana of any color.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Hushwood Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {G}.\n{T}: Add {W}. Activate only if you control a Forest or a Plains."
+    },
+    "Interdimensional Web Watch": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, exile the top two cards of your library. Until the end of your next turn, you may play those cards.\n{T}: Add two mana in any combination of colors. Spend this mana only to cast spells from exile."
+    },
+    "Llanowar Elves": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Multiversal Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a basic land type. Then you may pay 2 life. If you don't, it enters tapped.\nThis land is the chosen type."
+    },
+    "Ouroboroid": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Plant Wurm",
+      "oracle_text": "At the beginning of combat on your turn, put X +1/+1 counters on each creature you control, where X is this creature's power.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Spider Manifestation": {
+      "mana_cost": "{1}{R/G}",
+      "type_line": "Creature — Spider Avatar",
+      "oracle_text": "Reach\n{T}: Add {R} or {G}.\nWhenever you cast a spell with mana value 4 or greater, untap this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Spider-Sense": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Web-slinging {U} (You may cast this spell for {U} if you also return a tapped creature you control to its owner's hand.)\nCounter target instant spell, sorcery spell, or triggered ability."
+    },
+    "Starting Town": {
+      "mana_cost": "",
+      "type_line": "Land — Town",
+      "oracle_text": "This land enters tapped unless it's your first, second, or third turn of the game.\n{T}: Add {C}.\n{T}, Pay 1 life: Add one mana of any color."
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Willowrush Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
+    }
+  }
 }

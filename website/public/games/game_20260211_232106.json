@@ -105,7 +105,8 @@
     "Harbinger of the Seas": "https://api.scryfall.com/cards/mh3/63?format=image&version=small",
     "Mystical Dispute": "https://api.scryfall.com/cards/eld/58?format=image&version=small",
     "Vexing Bauble": "https://api.scryfall.com/cards/mh3/212?format=image&version=small",
-    "Whipflare": "https://api.scryfall.com/cards/cm2/130?format=image&version=small"
+    "Whipflare": "https://api.scryfall.com/cards/cm2/130?format=image&version=small",
+    "Orc Army Token": "https://cards.scryfall.io/small/front/d/b/db598f33-2ff9-4e0b-a067-05fecc03435f.jpg?1713834708"
   },
   "snapshots": [
     {
@@ -73058,7 +73059,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -81178,5 +81179,176 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aether Spellbomb": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card."
+    },
+    "Arcbound Ravager": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Beast",
+      "oracle_text": "Sacrifice an artifact: Put a +1/+1 counter on this creature.\nModular 1 (This creature enters with a +1/+1 counter on it. When it dies, you may put its +1/+1 counters on target artifact creature.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Castle Locthwain": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Swamp.\n{T}: Add {B}.\n{1}{B}{B}, {T}: Draw a card, then you lose life equal to the number of cards in your hand."
+    },
+    "Claws of Gix": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, Sacrifice a permanent: You gain 1 life."
+    },
+    "Emperor of Bones": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Skeleton Noble",
+      "oracle_text": "At the beginning of combat on your turn, exile up to one target card from a graveyard.\n{1}{B}: Adapt 2.\nWhenever one or more +1/+1 counters are put on this creature, put a creature card exiled with this creature onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Fatal Push": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature if it has mana value 2 or less.\nRevolt — Destroy that creature if it has mana value 4 or less instead if a permanent left the battlefield under your control this turn."
+    },
+    "Fiery Islet": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {U} or {R}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Inquisition of Kozilek": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it with mana value 3 or less. That player discards that card."
+    },
+    "Kappa Cannoneer": {
+      "mana_cost": "{5}{U}",
+      "type_line": "Artifact Creature — Turtle Warrior",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nWard {4}\nWhenever this creature or another artifact you control enters, put a +1/+1 counter on this creature. It can't be blocked this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "March of Wretched Sorrow": {
+      "mana_cost": "{X}{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, you may exile any number of black cards from your hand. This spell costs {2} less to cast for each card exiled this way.\nMarch of Wretched Sorrow deals X damage to target creature or planeswalker and you gain X life."
+    },
+    "Metallic Rebuke": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nCounter target spell unless its controller pays {3}."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Munitions": {
+      "mana_cost": "",
+      "type_line": "Token Artifact",
+      "oracle_text": "When this token leaves the battlefield, it deals 2 damage to any target."
+    },
+    "Necrodominance": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Legendary Enchantment",
+      "oracle_text": "Skip your draw step.\nAt the beginning of your end step, you may pay any amount of life. If you do, draw that many cards.\nYour maximum hand size is five.\nIf a card or token would be put into your graveyard from anywhere, exile it instead."
+    },
+    "Orcish Bowmasters": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Orc Archer",
+      "oracle_text": "Flash\nWhen this creature enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, this creature deals 1 damage to any target. Then amass Orcs 1.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Pinnacle Emissary": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Artifact Creature — Robot",
+      "oracle_text": "Whenever you cast an artifact spell, create a 1/1 colorless Drone artifact creature token with flying and \"This token can block only creatures with flying.\"\nWarp {U/R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Psychic Frog": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Creature — Frog",
+      "oracle_text": "Whenever this creature deals combat damage to a player or planeswalker, draw a card.\nDiscard a card: Put a +1/+1 counter on this creature.\nExile three cards from your graveyard: This creature gains flying until end of turn.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Shadowspear": {
+      "mana_cost": "{1}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}"
+    },
+    "Sheoldred, the Apocalypse": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Legendary Creature — Phyrexian Praetor",
+      "oracle_text": "Deathtouch\nWhenever you draw a card, you gain 2 life.\nWhenever an opponent draws a card, they lose 2 life.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Soul Spike": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Instant",
+      "oracle_text": "You may exile two black cards from your hand rather than pay this spell's mana cost.\nSoul Spike deals 4 damage to any target and you gain 4 life."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Tormod's Crypt": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Exile target player's graveyard."
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Weapons Manufacturing": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a nontoken artifact you control enters, create a colorless artifact token named Munitions with \"When this token leaves the battlefield, it deals 2 damage to any target.\""
+    }
+  }
 }

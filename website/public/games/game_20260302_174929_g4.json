@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_174929_g4",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -52589,5 +52589,141 @@
       "player": "GptOSS Analyst"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Affa Guard Hound": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nWhen this creature enters, target creature gets +0/+3 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Cathar's Companion": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Whenever you cast a noncreature spell, this creature gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Crashing Tide": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell has flash as long as you control a Merfolk.\nReturn target creature to its owner's hand.\nDraw a card."
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Fa'adiyah Seer": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "{T}: Draw a card and reveal it. If it isn't a land card, discard it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "One With the Wind": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and has flying."
+    },
+    "Pack Leader": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Other Dogs you control get +1/+1.\nWhenever this creature attacks, prevent all combat damage that would be dealt this turn to Dogs you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Release the Dogs": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create four 1/1 white Dog creature tokens."
+    },
+    "River Sneak": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk Warrior",
+      "oracle_text": "This creature can't be blocked.\nWhenever another Merfolk you control enters, this creature gets +1/+1 until end of turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Rousing Read": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, draw two cards, then discard a card.\nEnchanted creature gets +1/+1 and has flying."
+    },
+    "Runed Servitor": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "When this creature dies, each player draws a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Selfless Savior": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Sacrifice this creature: Another target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Soul Read": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target spell unless its controller pays {4}.\n• Draw two cards."
+    },
+    "Supply Runners": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "When this creature enters, put a +1/+1 counter on each other creature you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Suspicious Bookcase": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Wall",
+      "oracle_text": "Defender\n{3}, {T}: Target creature can't be blocked this turn.",
+      "power": "0",
+      "toughness": "4"
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Tolarian Kraken": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Creature — Kraken",
+      "oracle_text": "Whenever you draw a card, you may pay {1}. When you do, you may tap or untap target creature.",
+      "power": "4",
+      "toughness": "6"
+    },
+    "Tome Anima": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "This creature can't be blocked as long as you've drawn two or more cards this turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Watertrap Weaver": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "When this creature enters, tap target creature an opponent controls. That creature doesn't untap during its controller's next untap step.",
+      "power": "2",
+      "toughness": "2"
+    }
+  }
 }

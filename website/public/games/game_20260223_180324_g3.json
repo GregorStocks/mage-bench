@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260223_180324_g3",
   "timestamp": "20260223_180324",
   "gameType": "Two Player Duel",
@@ -43510,5 +43510,106 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aether Vial": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n{T}: You may put a creature card with mana value equal to the number of charge counters on this artifact from your hand onto the battlefield."
+    },
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Atraxa, Grand Unifier": {
+      "mana_cost": "{3}{G}{W}{U}{B}",
+      "type_line": "Legendary Creature — Phyrexian Angel",
+      "oracle_text": "Flying, vigilance, deathtouch, lifelink\nWhen Atraxa enters, reveal the top ten cards of your library. For each card type, you may put a card of that type from among the revealed cards into your hand. Put the rest on the bottom of your library in a random order. (Artifact, battle, creature, enchantment, instant, land, planeswalker, and sorcery are card types.)",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Broadside Bombardiers": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "Menace, haste\nBoast — Sacrifice another creature or artifact: This creature deals damage equal to 2 plus the sacrificed permanent's mana value to any target. (Activate only if this creature attacked this turn and only once each turn.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Emrakul, the Aeons Torn": {
+      "mana_cost": "{15}",
+      "type_line": "Legendary Creature — Eldrazi",
+      "oracle_text": "This spell can't be countered.\nWhen you cast this spell, take an extra turn after this one.\nFlying, protection from spells that are one or more colors, annihilator 6\nWhen Emrakul is put into a graveyard from anywhere, its owner shuffles their graveyard into their library.",
+      "power": "15",
+      "toughness": "15"
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Goblin Matron": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "When this creature enters, you may search your library for a Goblin card, reveal that card, put it into your hand, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Mogg War Marshal": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Echo {1}{R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters or dies, create a 1/1 red Goblin creature token.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Munitions Expert": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Flash\nWhen this creature enters, you may have it deal damage to target creature or planeswalker equal to the number of Goblins you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Omniscience": {
+      "mana_cost": "{7}{U}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "You may cast spells from your hand without paying their mana costs."
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Show and Tell": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player may put an artifact, creature, enchantment, or land card from their hand onto the battlefield."
+    },
+    "Skirk Prospector": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Sacrifice a Goblin: Add {R}.",
+      "power": "1",
+      "toughness": "1"
+    }
+  }
 }

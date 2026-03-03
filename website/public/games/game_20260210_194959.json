@@ -324,7 +324,8 @@
     "Blossoming Sands": "https://api.scryfall.com/cards/iko/244?format=image&version=small",
     "Jungle Hollow": "https://api.scryfall.com/cards/iko/249?format=image&version=small",
     "Scoured Barrens": "https://api.scryfall.com/cards/iko/254?format=image&version=small",
-    "Kathril, Aspect Warper": "https://api.scryfall.com/cards/c20/10?format=image&version=small"
+    "Kathril, Aspect Warper": "https://api.scryfall.com/cards/c20/10?format=image&version=small",
+    "Saproling Token": "https://cards.scryfall.io/small/front/0/b/0bf3d41e-cd0a-46bd-8b89-8855906ea6b5.jpg?1702501311"
   },
   "snapshots": [
     {
@@ -133983,7 +133984,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "gameType": "",
   "deckType": "",
   "llmTrace": [],
@@ -155135,5 +155136,380 @@
         "untappedLands": 9
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Akroma, Angel of Wrath": {
+      "mana_cost": "{5}{W}{W}{W}",
+      "type_line": "Legendary Creature — Angel",
+      "oracle_text": "Flying, first strike, vigilance, trample, haste, protection from black and from red",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Arbiter of Knollridge": {
+      "mana_cost": "{6}{W}",
+      "type_line": "Creature — Giant Wizard",
+      "oracle_text": "Vigilance\nWhen this creature enters, each player's life total becomes the highest life total among all players.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Aura Mutation": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target enchantment. Create X 1/1 green Saproling creature tokens, where X is that enchantment's mana value."
+    },
+    "Avenging Huntbonder": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "Double strike\nWhenever this creature attacks, put a double strike counter on another target attacking creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Boros Charm": {
+      "mana_cost": "{R}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Boros Charm deals 4 damage to target player or planeswalker.\n• Permanents you control gain indestructible until end of turn.\n• Target creature gains double strike until end of turn."
+    },
+    "Boros Garrison": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {R}{W}."
+    },
+    "Boros Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {R}{W}."
+    },
+    "Comet Storm": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Multikicker {1} (You may pay an additional {1} any number of times as you cast this spell.)\nChoose any target, then choose another target for each time this spell was kicked. Comet Storm deals X damage to each of them."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Condemn": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Put target attacking creature on the bottom of its owner's library. Its controller gains life equal to its toughness."
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Dawnglare Invoker": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Kor Wizard",
+      "oracle_text": "Flying\n{8}: Tap all creatures target player controls.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Desolation Giant": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Giant",
+      "oracle_text": "Kicker {W}{W} (You may pay an additional {W}{W} as you cast this spell.)\nWhen this creature enters, destroy all other creatures you control. If it was kicked, destroy all other creatures instead.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Divergent Transformations": {
+      "mana_cost": "{6}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Undaunted (This spell costs {1} less to cast for each opponent.)\nExile two target creatures. For each of those creatures, its controller reveals cards from the top of their library until they reveal a creature card, puts that card onto the battlefield, then shuffles the rest into their library."
+    },
+    "Dreamstone Hedron": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}{C}.\n{3}, {T}, Sacrifice this artifact: Draw three cards."
+    },
+    "Drifting Meadow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Earthquake": {
+      "mana_cost": "{X}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Earthquake deals X damage to each creature without flying and each player."
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fellwar Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fireshrieker": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has double strike. (It deals both first-strike and regular combat damage.)\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Frenzied Fugue": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant permanent\nWhen this Aura enters and at the beginning of your upkeep, gain control of enchanted permanent until end of turn. Untap that permanent. It gains haste until end of turn."
+    },
+    "Gisela, Blade of Goldnight": {
+      "mana_cost": "{4}{R}{W}{W}",
+      "type_line": "Legendary Creature — Angel",
+      "oracle_text": "Flying, first strike\nIf a source would deal damage to an opponent or a permanent an opponent controls, that source deals double that damage to that player or permanent instead.\nIf a source would deal damage to you or a permanent you control, prevent half that damage, rounded up.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Grab the Reins": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Until end of turn, you gain control of target creature and it gains haste.\n• Sacrifice a creature. Grab the Reins deals damage equal to that creature's power to any target.\nEntwine {2}{R} (Choose both if you pay the entwine cost.)"
+    },
+    "Grand Coliseum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{T}: Add one mana of any color. This land deals 1 damage to you."
+    },
+    "Grisly Salvage": {
+      "mana_cost": "{B}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Reveal the top five cards of your library. You may put a creature or land card from among them into your hand. Put the rest into your graveyard."
+    },
+    "Harmonize": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw three cards."
+    },
+    "Hornet Queen": {
+      "mana_cost": "{4}{G}{G}{G}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "Flying, deathtouch\nWhen this creature enters, create four 1/1 green Insect creature tokens with flying and deathtouch.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Inferno Titan": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Giant",
+      "oracle_text": "{R}: This creature gets +1/+0 until end of turn.\nWhenever this creature enters or attacks, it deals 3 damage divided as you choose among one, two, or three targets.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Jungle Hollow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {G}."
+    },
+    "Kalemne's Captain": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Giant Soldier",
+      "oracle_text": "Vigilance\n{5}{W}{W}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, exile all artifacts and enchantments.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Kalemne, Disciple of Iroas": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Legendary Creature — Giant Soldier",
+      "oracle_text": "Double strike, vigilance\nWhenever you cast a creature spell with mana value 5 or greater, you get an experience counter.\nKalemne gets +1/+1 for each experience counter you have.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Kathril, Aspect Warper": {
+      "mana_cost": "{2}{W}{B}{G}",
+      "type_line": "Legendary Creature — Nightmare Insect",
+      "oracle_text": "When Kathril enters, put a flying counter on any creature you control if a creature card in your graveyard has flying. Repeat this process for first strike, double strike, deathtouch, hexproof, indestructible, lifelink, menace, reach, trample, and vigilance. Then put a +1/+1 counter on Kathril for each counter put on a creature this way.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Majestic Myriarch": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Chimera",
+      "oracle_text": "Majestic Myriarch's power and toughness are each equal to twice the number of creatures you control.\nAt the beginning of each combat, this creature gains flying until end of turn if you control a creature with flying. The same is true for first strike, double strike, deathtouch, haste, hexproof, indestructible, lifelink, menace, reach, trample, and vigilance.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Memorial to Folly": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}.\n{2}{B}, {T}, Sacrifice this land: Return target creature card from your graveyard to your hand."
+    },
+    "Mimic Vat": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — Whenever a nontoken creature dies, you may exile that card. If you do, return each other card exiled with this artifact to its owner's graveyard.\n{3}, {T}: Create a token that's a copy of a card exiled with this artifact. It gains haste. Exile it at the beginning of the next end step."
+    },
+    "Morph": {
+      "mana_cost": "",
+      "type_line": "Creature",
+      "oracle_text": "(You can cover a face-down creature with this reminder card.\nA card with morph can be turned face up any time for its morph cost.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Myriad Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle."
+    },
+    "Necrogenesis": {
+      "mana_cost": "{B}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "{2}: Exile target creature card from a graveyard. Create a 1/1 green Saproling creature token."
+    },
+    "Orzhov Basilica": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{B}."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Predatory Impetus": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +3/+3, must be blocked if able, and is goaded. (It attacks each combat if able and attacks a player other than you if able.)"
+    },
+    "Rogue's Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn."
+    },
+    "Rootbound Crag": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {R} or {G}."
+    },
+    "Sandstone Oracle": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, choose an opponent. If that player has more cards in hand than you, draw cards equal to the difference.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Saskia the Unyielding": {
+      "mana_cost": "{B}{R}{G}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Vigilance, haste\nAs Saskia enters, choose a player.\nWhenever a creature you control deals combat damage to a player, it deals that much damage to the chosen player.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Secluded Steppe": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {W} ({W}, Discard this card: Draw a card.)"
+    },
+    "Skullwinder": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Snake",
+      "oracle_text": "Deathtouch\nWhen this creature enters, return target card from your graveyard to your hand, then choose an opponent. That player returns a card from their graveyard to their hand.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Splinterfright": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Trample\nSplinterfright's power and toughness are each equal to the number of creature cards in your graveyard.\nAt the beginning of your upkeep, mill two cards. (Put the top two cards of your library into your graveyard.)",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Sram, Senior Edificer": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Legendary Creature — Dwarf Advisor",
+      "oracle_text": "Whenever you cast an Aura, Equipment, or Vehicle spell, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sunblast Angel": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, destroy all tapped creatures.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Sunpetal Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Forest or a Plains.\n{T}: Add {G} or {W}."
+    },
+    "Sunrise Sovereign": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Giant Warrior",
+      "oracle_text": "Other Giant creatures you control get +2/+2 and have trample.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Thelonite Hermit": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "All Saprolings get +1/+1.\nMorph {3}{G}{G} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, create four 1/1 green Saproling creature tokens.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Tiana, Ship's Caretaker": {
+      "mana_cost": "{3}{R}{W}",
+      "type_line": "Legendary Creature — Angel Artificer",
+      "oracle_text": "Flying, first strike\nWhenever an Aura or Equipment you control is put into a graveyard from the battlefield, you may return that card to its owner's hand at the beginning of the next end step.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Tymna the Weaver": {
+      "mana_cost": "{1}{W}{B}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "Lifelink\nAt the beginning of each of your postcombat main phases, you may pay X life, where X is the number of opponents that were dealt combat damage this turn. If you do, draw X cards.\nPartner (You can have two commanders if both have partner.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Wind-Scarred Crag": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {R} or {W}."
+    },
+    "Word of Seizing": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nUntap target permanent and gain control of it until end of turn. It gains haste until end of turn."
+    },
+    "Wyleth, Soul of Steel": {
+      "mana_cost": "{1}{R}{W}",
+      "type_line": "Legendary Creature — Human Warrior",
+      "oracle_text": "Trample\nWhenever Wyleth attacks, draw a card for each Aura and Equipment attached to it.",
+      "power": "2",
+      "toughness": "2"
+    }
+  }
 }

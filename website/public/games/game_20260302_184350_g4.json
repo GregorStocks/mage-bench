@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_184350_g4",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -100,7 +100,8 @@
     "Feline Sovereign": "https://api.scryfall.com/cards/m21/374?format=image&version=small",
     "Canopy Stalker": "https://api.scryfall.com/cards/m21/175?format=image&version=small",
     "Sabertooth Mauler": "https://api.scryfall.com/cards/m21/202?format=image&version=small",
-    "Pridemalkin": "https://api.scryfall.com/cards/m21/196?format=image&version=small"
+    "Pridemalkin": "https://api.scryfall.com/cards/m21/196?format=image&version=small",
+    "Goblin Token": "https://cards.scryfall.io/small/front/6/1/6139a45d-ebc7-4bca-8c13-73c85ea5fe0d.jpg?1768367480"
   },
   "snapshots": [
     {
@@ -56207,5 +56208,110 @@
       "player": "GptOSS Snark"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Affectionate Indrik": {
+      "mana_cost": "{5}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "When this creature enters, you may have it fight target creature you don't control. (Each deals damage equal to its power to the other.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Benevolent Hydra": {
+      "mana_cost": "{X}{G}{G}",
+      "type_line": "Creature — Hydra",
+      "oracle_text": "This creature enters with X +1/+1 counters on it.\nIf one or more +1/+1 counters would be put on another creature you control, that many plus one +1/+1 counters are put on it instead.\n{T}, Remove a +1/+1 counter from this creature: Put a +1/+1 counter on another target creature you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Canopy Stalker": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "This creature must be blocked if able.\nWhen this creature dies, you gain 1 life for each creature that died this turn.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Clockwork Hydra": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact Creature — Hydra",
+      "oracle_text": "This creature enters with four +1/+1 counters on it.\nWhenever this creature attacks or blocks, remove a +1/+1 counter from it. If you do, it deals 1 damage to any target.\n{T}: Put a +1/+1 counter on this creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Domesticated Hydra": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Hydra",
+      "oracle_text": "{X}{G}{G}{G}: Monstrosity X. (If this creature isn't monstrous, put X +1/+1 counters on it and it becomes monstrous.)\nAs long as this creature is monstrous, it has trample.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Dragon Fodder": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create two 1/1 red Goblin creature tokens."
+    },
+    "Enlarge": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature gets +7/+7 and gains trample until end of turn. It must be blocked this turn if able. (A creature with trample can deal excess combat damage to the player or planeswalker it's attacking.)"
+    },
+    "Feral Prowler": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "When this creature dies, draw a card.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Hellkite Punisher": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\n{R}: This creature gets +1/+0 until end of turn.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Hunter's Edge": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature you don't control."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Orazca Frillback": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Pouncing Cheetah": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Flash",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Scale the Heights": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on up to one target creature. You gain 2 life. You may play an additional land this turn.\nDraw a card."
+    },
+    "Soul's Might": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put X +1/+1 counters on target creature, where X is that creature's power."
+    }
+  }
 }

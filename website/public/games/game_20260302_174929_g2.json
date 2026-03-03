@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_174929_g2",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -108,7 +108,8 @@
     "Infernal Idol": "https://api.scryfall.com/cards/j22/49?format=image&version=small",
     "Leechridden Swamp": "https://api.scryfall.com/cards/j22/137?format=image&version=small",
     "Thriving Moor": "https://api.scryfall.com/cards/j22/826?format=image&version=small",
-    "Swamp": "https://api.scryfall.com/cards/j22/104?format=image&version=small"
+    "Swamp": "https://api.scryfall.com/cards/j22/104?format=image&version=small",
+    "Goblin Token": "https://cards.scryfall.io/small/front/6/1/6139a45d-ebc7-4bca-8c13-73c85ea5fe0d.jpg?1768367480"
   },
   "snapshots": [
     {
@@ -79527,5 +79528,171 @@
       "player": "GLM47 Pessim"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Angelic Protector": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhenever this creature becomes the target of a spell or ability, this creature gets +0/+3 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Black Cat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie Cat",
+      "oracle_text": "When this creature dies, target opponent discards a card at random.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Bloodline Pretender": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nAs this creature enters, choose a creature type.\nWhenever another creature you control of the chosen type enters, put a +1/+1 counter on this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Burn Bright": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Creatures you control get +2/+0 until end of turn."
+    },
+    "Cage of Hands": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature can't attack or block.\n{1}{W}: Return this Aura to its owner's hand."
+    },
+    "Cavalry Drillmaster": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "When this creature enters, target creature gets +2/+0 and gains first strike until end of turn. (It deals combat damage before creatures without first strike.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Chilling Trap": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -4/-0 until end of turn. If you control a Wizard, draw a card."
+    },
+    "Crashing Tide": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell has flash as long as you control a Merfolk.\nReturn target creature to its owner's hand.\nDraw a card."
+    },
+    "Durable Coilbug": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Insect",
+      "oracle_text": "{4}{B}: Return this card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Flame Lash": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Flame Lash deals 4 damage to any target."
+    },
+    "Heirloom Blade": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +3/+1.\nWhenever equipped creature dies, you may reveal cards from the top of your library until you reveal a creature card that shares a creature type with it. Put that card into your hand and the rest on the bottom of your library in a random order.\nEquip {1}"
+    },
+    "Hordeling Outburst": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create three 1/1 red Goblin creature tokens."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Massacre Wurm": {
+      "mana_cost": "{3}{B}{B}{B}",
+      "type_line": "Creature — Phyrexian Wurm",
+      "oracle_text": "When this creature enters, creatures your opponents control get -2/-2 until end of turn.\nWhenever a creature an opponent controls dies, that player loses 2 life.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Mirror Image": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "You may have this creature enter as a copy of a creature you control.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Plaguecrafter": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "When this creature enters, each player sacrifices a creature or planeswalker of their choice. Each player who can't discards a card.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rummaging Goblin": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Rogue",
+      "oracle_text": "{T}, Discard a card: Draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Sandstone Bridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, target creature gets +1/+1 and gains vigilance until end of turn.\n{T}: Add {W}."
+    },
+    "Skullslither Worm": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Worm",
+      "oracle_text": "When this creature enters, each opponent discards a card. For each opponent who can't, put two +1/+1 counters on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Taranika, Akroan Veteran": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Vigilance\nWhenever Taranika attacks, untap another target creature you control. Until end of turn, that creature has base power and toughness 4/4 and gains indestructible.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Universal Automaton": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Valorous Stance": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Target creature gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)\n• Destroy target creature with toughness 4 or greater."
+    }
+  }
 }

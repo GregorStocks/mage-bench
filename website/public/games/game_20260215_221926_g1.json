@@ -365,7 +365,13 @@
     "Temple of Deceit": "https://api.scryfall.com/cards/fdn/697?format=image&version=small",
     "Theoretical Duplication": "https://api.scryfall.com/cards/c21/34?format=image&version=small",
     "Thrilling Encore": "https://api.scryfall.com/cards/bbd/53?format=image&version=small",
-    "Wayfarer's Bauble": "https://api.scryfall.com/cards/tdc/335?format=image&version=small"
+    "Wayfarer's Bauble": "https://api.scryfall.com/cards/tdc/335?format=image&version=small",
+    "Human Monk Token": "https://cards.scryfall.io/small/front/8/6/86dd086e-c757-4a6a-8838-51860f2095f8.jpg?1674338555",
+    "Human Soldier Token": "https://cards.scryfall.io/small/front/6/3/631c2c16-132d-4607-ab7e-207a6af188e5.jpg?1757686920",
+    "Pirate Token": "https://cards.scryfall.io/small/front/d/5/d5f108e7-7454-4c11-b1de-97d0bcc3c470.jpg?1743775077",
+    "Saproling Token": "https://cards.scryfall.io/small/front/0/b/0bf3d41e-cd0a-46bd-8b89-8855906ea6b5.jpg?1702501311",
+    "Spirit Token": "https://cards.scryfall.io/small/front/f/5/f59eba51-458a-40e0-b754-999f91d5d839.jpg?1764117653",
+    "Thopter Token": "https://cards.scryfall.io/small/front/7/8/78e52380-13a1-44fe-b762-e71261cac3d0.jpg?1738355254"
   },
   "snapshots": [
     {
@@ -265793,7 +265799,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -279897,5 +279903,629 @@
         "untappedLands": 8
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Access Denied": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell. Create X 1/1 colorless Thopter artifact creature tokens with flying, where X is that spell's mana value."
+    },
+    "Aeronaut Admiral": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Pilot",
+      "oracle_text": "Flying\nVehicles you control have flying.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Ajani's Chosen": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Cat Soldier",
+      "oracle_text": "Whenever an enchantment you control enters, create a 2/2 white Cat creature token. If that enchantment is an Aura, you may attach it to the token.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Ancestral Mask": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 for each other enchantment on the battlefield."
+    },
+    "Arcane Sanctum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}, {U}, or {B}."
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Archmage of Echoes": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Creature — Faerie Wizard",
+      "oracle_text": "Flying, ward {2}\nWhenever you cast a Faerie or Wizard permanent spell, copy it. (The copy becomes a token.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Astral Cornucopia": {
+      "mana_cost": "{X}{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\n{T}: Choose a color. Add one mana of that color for each charge counter on this artifact."
+    },
+    "Atraxa, Praetors' Voice": {
+      "mana_cost": "{G}{W}{U}{B}",
+      "type_line": "Legendary Creature — Phyrexian Angel Horror",
+      "oracle_text": "Flying, vigilance, deathtouch, lifelink\nAt the beginning of your end step, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Austere Command": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose two —\n• Destroy all artifacts.\n• Destroy all enchantments.\n• Destroy all creatures with mana value 3 or less.\n• Destroy all creatures with mana value 4 or greater."
+    },
+    "Careful Cultivation": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant artifact or creature\nAs long as enchanted permanent is a creature, it gets +1/+3 and has reach and \"{T}: Add {G}{G}.\"\nChannel — {1}{G}, Discard this card: Create a 1/1 green Human Monk creature token with \"{T}: Add {G}.\""
+    },
+    "Castle Ardenvale": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Plains.\n{T}: Add {W}.\n{2}{W}{W}, {T}: Create a 1/1 white Human creature token."
+    },
+    "Champion of Lambholt": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "Creatures with power less than this creature's power can't block creatures you control.\nWhenever another creature you control enters, put a +1/+1 counter on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Choked Estuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal an Island or Swamp card from your hand. If you don't, this land enters tapped.\n{T}: Add {U} or {B}."
+    },
+    "Cloud of Faeries": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Faerie",
+      "oracle_text": "Flying\nWhen this creature enters, untap up to two lands.\nCycling {2} ({2}, Discard this card: Draw a card.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Custodi Soulbinders": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "This creature enters with X +1/+1 counters on it, where X is the number of other creatures on the battlefield.\n{2}{W}, Remove a +1/+1 counter from this creature: Create a 1/1 white Spirit creature token with flying.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Darkwater Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {U}{B}."
+    },
+    "Dig Through Time": {
+      "mana_cost": "{6}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Delve (Each card you exile from your graveyard while casting this spell pays for {1}.)\nLook at the top seven cards of your library. Put two of them into your hand and the rest on the bottom of your library in any order."
+    },
+    "Dimir Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{B}."
+    },
+    "Disdainful Stroke": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 4 or greater."
+    },
+    "Distant Melody": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. Draw a card for each permanent you control of that type."
+    },
+    "Duneblast": {
+      "mana_cost": "{4}{W}{B}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose up to one creature. Destroy the rest."
+    },
+    "Eidolon of Blossoms": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Enchantment Creature — Spirit",
+      "oracle_text": "Constellation — Whenever this creature or another enchantment you control enters, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Elite Scaleguard": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "When this creature enters, bolster 2. (Choose a creature with the least toughness among creatures you control and put two +1/+1 counters on it.)\nWhenever a creature you control with a +1/+1 counter on it attacks, tap target creature defending player controls.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Emry, Lurker of the Loch": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Emry enters, mill four cards.\n{T}: Choose target artifact card in your graveyard. You may cast that card this turn. (You still pay its costs. Timing rules still apply.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Enchantress's Presence": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever you cast an enchantment spell, draw a card."
+    },
+    "Etherium Sculptor": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Artifact Creature — Vedalken Artificer",
+      "oracle_text": "Artifact spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Faerie Seer": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Faerie Wizard",
+      "oracle_text": "Flying\nWhen this creature enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Fathom Mage": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\nWhenever a +1/+1 counter is put on this creature, you may draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Fellwar Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Festercreep": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "This creature enters with a +1/+1 counter on it.\n{1}{B}, Remove a +1/+1 counter from this creature: All other creatures get -1/-1 until end of turn.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Giant Inheritance": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +5/+5 and has \"Whenever this creature attacks, create a Monster Role token attached to up to one target attacking creature.\" (Enchanted creature gets +1/+1 and has trample.)\nWhen this Aura is put into a graveyard from the battlefield, return it to its owner's hand."
+    },
+    "Gold Myr": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Myr",
+      "oracle_text": "{T}: Add {W}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Golgari Rot Farm": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}."
+    },
+    "Grip of Phyresis": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target Equipment, then create a 0/0 black Phyrexian Germ creature token and attach that Equipment to it."
+    },
+    "Gylwain, Casting Director": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Legendary Creature — Human Bard",
+      "oracle_text": "Whenever Gylwain or another nontoken creature you control enters, choose one —\n• Create a Royal Role token attached to that creature.\n• Create a Sorcerer Role token attached to that creature.\n• Create a Monster Role token attached to that creature.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Hall of Heliod's Generosity": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {C}.\n{1}{W}, {T}: Put target enchantment card from your graveyard on top of your library."
+    },
+    "Illusionist's Gambit": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Cast this spell only during the declare blockers step on an opponent's turn.\nRemove all attacking creatures from combat and untap them. After this phase, there is an additional combat phase. Each of those creatures attacks that combat if able. They can't attack you or planeswalkers you control that combat."
+    },
+    "Inspiring Call": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy them.)"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jukai Naturalist": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Enchantment Creature — Human Monk",
+      "oracle_text": "Lifelink\nEnchantment spells you cast cost {1} less to cast.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Juniper Order Ranger": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Creature — Human Knight Ranger",
+      "oracle_text": "Whenever another creature you control enters, put a +1/+1 counter on that creature and a +1/+1 counter on this creature.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Kenrith's Transformation": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, draw a card.\nEnchanted creature loses all abilities and is a green Elk creature with base power and toughness 3/3. (It loses all other card types and creature types.)"
+    },
+    "Kotori, Pilot Prodigy": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Creature — Moonfolk Pilot",
+      "oracle_text": "Vehicles you control have crew 2.\nAt the beginning of combat on your turn, target artifact creature you control gains lifelink and vigilance until end of turn.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Krosan Verge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for a Forest card and a Plains card, put them onto the battlefield tapped, then shuffle."
+    },
+    "Mantle of the Ancients": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature you control\nWhen this Aura enters, return any number of target Aura and/or Equipment cards from your graveyard to the battlefield attached to enchanted creature.\nEnchanted creature gets +1/+1 for each Aura and Equipment attached to it."
+    },
+    "Master of Etherium": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact Creature — Vedalken Wizard",
+      "oracle_text": "Master of Etherium's power and toughness are each equal to the number of artifacts you control.\nOther artifact creatures you control get +1/+1.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Midnight Clock": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {U}.\n{2}{U}: Put an hour counter on this artifact.\nAt the beginning of each upkeep, put an hour counter on this artifact.\nWhen the twelfth hour counter is put on this artifact, shuffle your hand and graveyard into your library, then draw seven cards. Exile this artifact."
+    },
+    "Migratory Route": {
+      "mana_cost": "{3}{W}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create four 1/1 white Bird creature tokens with flying.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Mind Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Misleading Signpost": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact",
+      "oracle_text": "Flash\nWhen this artifact enters during the declare attackers step, you may reselect which player or permanent target attacking creature is attacking. (It can't attack its controller or their permanents.)\n{T}: Add {U}."
+    },
+    "Mobilizer Mech": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Artifact — Vehicle",
+      "oracle_text": "Flying\nWhenever this Vehicle becomes crewed, up to one other target Vehicle you control becomes an artifact creature until end of turn.\nCrew 3 (Tap any number of creatures you control with total power 3 or more: This Vehicle becomes an artifact creature until end of turn.)",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Mocking Sprite": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nInstant and sorcery spells you cast cost {1} less to cast.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Myriad Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle."
+    },
+    "Nettling Nuisance": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flying\nWhenever one or more Faeries you control deal combat damage to a player, that player creates a 4/2 red Pirate creature token with \"This token can't block.\" The token is goaded for the rest of the game. (It attacks each combat if able and attacks a player other than you if able.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Ondu Spiritdancer": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Kor Cleric",
+      "oracle_text": "Whenever an enchantment you control enters, you may create a token that's a copy of it. Do this only once each turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Oona, Queen of the Fae": {
+      "mana_cost": "{3}{U/B}{U/B}{U/B}",
+      "type_line": "Legendary Creature — Faerie Wizard",
+      "oracle_text": "Flying\n{X}{U/B}: Choose a color. Target opponent exiles the top X cards of their library. For each card of the chosen color exiled this way, create a 1/1 blue and black Faerie Rogue creature token with flying.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Opt": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Scry 1. (Look at the top card of your library. You may put that card on the bottom.)\nDraw a card."
+    },
+    "Opulent Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B}, {G}, or {U}."
+    },
+    "Perplexing Test": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Return all creature tokens to their owners' hands.\n• Return all nontoken creatures to their owners' hands."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Primal Vigor": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "If one or more tokens would be created, twice that many of those tokens are created instead.\nIf one or more +1/+1 counters would be put on a creature, twice that many +1/+1 counters are put on that creature instead."
+    },
+    "Prodigy's Prototype": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Artifact — Vehicle",
+      "oracle_text": "Whenever one or more Vehicles you control attack, create a 1/1 colorless Pilot creature token with \"This token crews Vehicles as though its power were 2 greater.\"\nCrew 2 (Tap any number of creatures you control with total power 2 or more: This Vehicle becomes an artifact creature until end of turn.)",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Puppeteer Clique": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Faerie Wizard",
+      "oracle_text": "Flying\nWhen this creature enters, put target creature card from an opponent's graveyard onto the battlefield under your control. It gains haste. At the beginning of your next end step, exile it.\nPersist (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Quickling": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Faerie Rogue",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\nWhen this creature enters, sacrifice it unless you return another creature you control to its owner's hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Rankle, Master of Pranks": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Legendary Creature — Faerie Rogue",
+      "oracle_text": "Flying, haste\nWhenever Rankle deals combat damage to a player, choose any number —\n• Each player discards a card.\n• Each player loses 1 life and draws a card.\n• Each player sacrifices a creature of their choice.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Reckless Spite": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy two target nonblack creatures. You lose 5 life."
+    },
+    "Reconnaissance Mission": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control deals combat damage to a player, you may draw a card.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Release to Memory": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target opponent's graveyard. For each creature card exiled this way, create a 1/1 colorless Spirit creature token."
+    },
+    "Retether": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return each Aura card from your graveyard to the battlefield. Only creatures can be enchanted this way. (Aura cards that can't enchant a creature on the battlefield remain in your graveyard.)"
+    },
+    "Reveillark": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Flying\nWhen this creature leaves the battlefield, return up to two target creature cards with power 2 or less from your graveyard to the battlefield.\nEvoke {5}{W} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Reyhan, Last of the Abzan": {
+      "mana_cost": "{1}{B}{G}",
+      "type_line": "Legendary Creature — Human Warrior",
+      "oracle_text": "Reyhan enters with three +1/+1 counters on it.\nWhenever a creature you control dies or is put into the command zone, if it had one or more +1/+1 counters on it, you may put that many +1/+1 counters on target creature.\nPartner (You can have two commanders if both have partner.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Riddlesmith": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Whenever you cast an artifact spell, you may draw a card. If you do, discard a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Rishkar's Expertise": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw cards equal to the greatest power among creatures you control.\nYou may cast a spell with mana value 5 or less from your hand without paying its mana cost."
+    },
+    "Sage's Reverie": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, draw a card for each Aura you control that's attached to a creature.\nEnchanted creature gets +1/+1 for each Aura you control that's attached to a creature."
+    },
+    "Sanctum Weaver": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment Creature — Dryad",
+      "oracle_text": "{T}: Add X mana of any one color, where X is the number of enchantments you control.",
+      "power": "0",
+      "toughness": "2"
+    },
+    "Seaside Citadel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}, {W}, or {U}."
+    },
+    "Siona, Captain of the Pyleas": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "When Siona enters, look at the top seven cards of your library. You may reveal an Aura card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.\nWhenever an Aura you control becomes attached to a creature you control, create a 1/1 white Human Soldier creature token.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Smuggler's Copter": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Vehicle",
+      "oracle_text": "Flying\nWhenever this Vehicle attacks or blocks, you may draw a card. If you do, discard a card.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solidarity of Heroes": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Strive — This spell costs {1}{G} more to cast for each target beyond the first.\nChoose any number of target creatures. Double the number of +1/+1 counters on each of them."
+    },
+    "Spectral Steel": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2.\n{1}{W}, Exile this card from your graveyard: Return another target Aura or Equipment card from your graveyard to your hand."
+    },
+    "Sram, Senior Edificer": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Legendary Creature — Dwarf Advisor",
+      "oracle_text": "Whenever you cast an Aura, Equipment, or Vehicle spell, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Starfield Mystic": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "Enchantment spells you cast cost {1} less to cast.\nWhenever an enchantment you control is put into a graveyard from the battlefield, put a +1/+1 counter on this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sunken Hollow": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swift Reconfiguration": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Flash\nEnchant creature or Vehicle\nEnchanted permanent is a Vehicle artifact with crew 5 and it loses all other card types. (It's not a creature unless it's crewed.)"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Sylvan Ranger": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Elf Scout Ranger",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Tainted Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {B}. Activate only if you control a Swamp."
+    },
+    "Temple of Plenty": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {G} or {W}."
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Tezzeret's Gambit": {
+      "mana_cost": "{3}{U/P}",
+      "type_line": "Sorcery",
+      "oracle_text": "({U/P} can be paid with either {U} or 2 life.)\nDraw two cards, then proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)"
+    },
+    "Theoretical Duplication": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Whenever a nontoken creature an opponent controls enters this turn, create a token that's a copy of that creature."
+    },
+    "Thrilling Encore": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Put onto the battlefield under your control all creature cards in all graveyards that were put there from the battlefield this turn."
+    },
+    "Timber Paladin": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Artifact Creature — Knight",
+      "oracle_text": "As long as this creature is enchanted by exactly one Aura, it has base power and toughness 3/3.\nAs long as this creature is enchanted by exactly two Auras, it has base power and toughness 5/5 and vigilance.\nAs long as this creature is enchanted by three or more Auras, it has base power and toughness 10/10, vigilance, and trample.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Treasure Cruise": {
+      "mana_cost": "{7}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Delve (Each card you exile from your graveyard while casting this spell pays for {1}.)\nDraw three cards."
+    },
+    "Umbra Mystic": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Auras attached to permanents you control have umbra armor. (If an enchanted permanent you control would be destroyed, instead remove all damage from it and destroy an Aura attached to it.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Unfinished Business": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield, then return up to two target Aura and/or Equipment cards from your graveyard to the battlefield attached to that creature. (If the Auras can't enchant that creature, they remain in your graveyard.)"
+    },
+    "Verdant Embrace": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +3/+3 and has \"At the beginning of each upkeep, create a 1/1 green Saproling creature token.\""
+    },
+    "Vulturous Zombie": {
+      "mana_cost": "{3}{B}{G}",
+      "type_line": "Creature — Plant Zombie",
+      "oracle_text": "Flying\nWhenever a card is put into an opponent's graveyard from anywhere, put a +1/+1 counter on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Wayfarer's Bauble": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    },
+    "Winds of Rath": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures that aren't enchanted. They can't be regenerated."
+    }
+  }
 }

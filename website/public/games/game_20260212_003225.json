@@ -154209,7 +154209,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -169983,5 +169983,241 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Badlands": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)"
+    },
+    "Beseech the Mirror": {
+      "mana_cost": "{1}{B}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nSearch your library for a card, exile it face down, then shuffle. If this spell was bargained, you may cast the exiled card without paying its mana cost if that spell's mana value is 4 or less. Put the exiled card into your hand if it wasn't cast this way."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Burning Wish": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may reveal a sorcery card you own from outside the game and put it into your hand. Exile Burning Wish."
+    },
+    "Chaos Defiler": {
+      "mana_cost": "{3}{B}{R}",
+      "type_line": "Artifact Creature — Demon Construct",
+      "oracle_text": "Trample\nBattle Cannon — When this creature enters or dies, for each opponent, choose a nonland permanent that player controls. Destroy one of them chosen at random.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Chrome Mox": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — When this artifact enters, you may exile a nonartifact, nonland card from your hand.\n{T}: Add one mana of any of the exiled card's colors."
+    },
+    "City of Traitors": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When you play another land, sacrifice this land.\n{T}: Add {C}{C}."
+    },
+    "Commercial District": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Echo of Eons": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player shuffles their hand and graveyard into their library, then draws seven cards.\nFlashback {2}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Gaea's Will": {
+      "mana_cost": "",
+      "type_line": "Sorcery",
+      "oracle_text": "Suspend 4—{G}\nUntil end of turn, you may play lands and cast spells from your graveyard.\nIf a card would be put into your graveyard from anywhere this turn, exile that card instead."
+    },
+    "Galvanic Relay": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top card of your library. During your next turn, you may play that card.\nStorm (When you cast this spell, copy it for each spell cast before it this turn.)"
+    },
+    "Gamble": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a card, put that card into your hand, discard a card at random, then shuffle."
+    },
+    "Goblin Engineer": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Artificer",
+      "oracle_text": "When this creature enters, you may search your library for an artifact card, put it into your graveyard, then shuffle.\n{R}, {T}, Sacrifice an artifact: Return target artifact card with mana value 3 or less from your graveyard to the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Goblin Welder": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Artificer",
+      "oracle_text": "{T}: Choose target artifact a player controls and target artifact card in that player's graveyard. If both targets are still legal as this ability resolves, that player simultaneously sacrifices the artifact and returns the artifact card to the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Great Furnace": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {R}."
+    },
+    "Grindstone": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}, {T}: Target player mills two cards. If two cards that share a color were milled this way, repeat this process."
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Lion's Eye Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Discard your hand, Sacrifice this artifact: Add three mana of any one color. Activate only as an instant."
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Mishra's Research Desk": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}, Sacrifice this artifact: Exile the top two cards of your library. Choose one of them. Until the end of your next turn, you may play that card.\nUnearth {1}{R} ({1}{R}: Return this card from your graveyard to the battlefield. Exile it at the beginning of the next end step or if it would leave the battlefield. Unearth only as a sorcery.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Painter's Servant": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Scarecrow",
+      "oracle_text": "As this creature enters, choose a color.\nAll cards that aren't on the battlefield, spells, and permanents are the chosen color in addition to their other colors.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Phyrexian Dragon Engine": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Phyrexian Dragon",
+      "oracle_text": "Double strike\nWhen this creature enters from your graveyard, you may discard your hand. If you do, draw three cards.\nUnearth {3}{R}{R}\n(Melds with Mishra, Claimed by Gix.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Pyroblast": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target spell if it's blue.\n• Destroy target permanent if it's blue."
+    },
+    "Raucous Theater": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Red Elemental Blast": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target blue spell.\n• Destroy target blue permanent."
+    },
+    "Runehorn Hellkite": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\n{5}{R}, Exile this card from your graveyard: Each player discards their hand, then draws seven cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Song of Creation": {
+      "mana_cost": "{1}{G}{U}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "You may play an additional land on each of your turns.\nWhenever you cast a spell, draw two cards.\nAt the beginning of your end step, discard your hand."
+    },
+    "Soul-Guide Lantern": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, exile target card from a graveyard.\n{T}, Sacrifice this artifact: Exile each opponent's graveyard.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Taiga": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Underground Sea": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)"
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Veil of Summer": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "Draw a card if an opponent has cast a blue or black spell this turn. Spells you control can't be countered this turn. You and permanents you control gain hexproof from blue and from black until end of turn. (You and they can't be the targets of blue or black spells or abilities your opponents control.)"
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

@@ -44602,7 +44602,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -50589,5 +50589,121 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Badgermole Cub": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Badger Mole",
+      "oracle_text": "When this creature enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)\nWhenever you tap a creature for mana, add an additional {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Birds of Paradise": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Flying\n{T}: Add one mana of any color.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Boseiju, Who Endures": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {G}.\nChannel — {1}{G}, Discard this card: Destroy target artifact, enchantment, or nonbasic land an opponent controls. That player may search their library for a land card with a basic land type, put it onto the battlefield, then shuffle. This ability costs {1} less to activate for each legendary creature you control."
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Chalice of the Void": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\nWhenever a player casts a spell with mana value equal to the number of charge counters on this artifact, counter that spell."
+    },
+    "Craterhoof Behemoth": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Haste\nWhen this creature enters, creatures you control gain trample and get +X/+X until end of turn, where X is the number of creatures you control.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Dryad Arbor": {
+      "mana_cost": "",
+      "type_line": "Land Creature — Forest Dryad",
+      "oracle_text": "(This land isn't a spell, it's affected by summoning sickness, and it has \"{T}: Add {G}.\")",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Eye of Ugin": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "Colorless Eldrazi spells you cast cost {2} less to cast.\n{7}, {T}: Search your library for a colorless creature card, reveal it, put it into your hand, then shuffle."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gaea's Cradle": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {G} for each creature you control."
+    },
+    "Green Sun's Zenith": {
+      "mana_cost": "{X}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a green creature card with mana value X or less, put it onto the battlefield, then shuffle. Shuffle Green Sun's Zenith into its owner's library."
+    },
+    "Ignoble Hierarch": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "Exalted (Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.)\n{T}: Add {B}, {R}, or {G}.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Once Upon a Time": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.\nLook at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order."
+    },
+    "Reality Smasher": {
+      "mana_cost": "{4}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "({C} represents colorless mana.)\nTrample, haste\nWhenever this creature becomes the target of a spell an opponent controls, counter that spell unless its controller discards a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "Wastescape Battlemage": {
+      "mana_cost": "{1}{C}",
+      "type_line": "Creature — Eldrazi Wizard",
+      "oracle_text": "Kicker {G} and/or {1}{U}\nWhen you cast this spell, if it was kicked with its {G} kicker, exile target artifact or enchantment an opponent controls.\nWhen you cast this spell, if it was kicked with its {1}{U} kicker, return target creature an opponent controls to its owner's hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Windswept Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Plains card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

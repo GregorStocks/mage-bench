@@ -104,7 +104,10 @@
     "High Noon": "https://api.scryfall.com/cards/otj/15?format=image&version=small",
     "Obsidian Charmaw": "https://api.scryfall.com/cards/mh2/137?format=image&version=small",
     "Surgical Extraction": "https://api.scryfall.com/cards/2x2/94?format=image&version=small",
-    "Wrath of the Skies": "https://api.scryfall.com/cards/mh3/49?format=image&version=small"
+    "Wrath of the Skies": "https://api.scryfall.com/cards/mh3/49?format=image&version=small",
+    "Eldrazi Spawn Token": "https://cards.scryfall.io/small/front/d/0/d0da4f8d-cce9-4d08-8d11-792e0b2af7d0.jpg?1561758122",
+    "Elemental Token": "https://cards.scryfall.io/small/front/f/e/fe592a5c-5e6e-40ed-8818-f4651bcf2fe8.jpg?1748704098",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -51576,7 +51579,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -56255,5 +56258,143 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Artist's Talent": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nWhenever you cast a noncreature spell, you may discard a card. If you do, draw a card.\n{2}{R}: Level 2\nNoncreature spells you cast cost {1} less to cast.\n{2}{R}: Level 3\nIf a source you control would deal noncombat damage to an opponent or a permanent an opponent controls, it deals that much damage plus 2 instead."
+    },
+    "Blood Moon": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands are Mountains."
+    },
+    "Commercial District": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Dalkovan Encampment": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Swamp or a Mountain.\n{T}: Add {W}.\n{2}{W}, {T}: Whenever you attack this turn, create two 1/1 red Warrior creature tokens that are tapped and attacking. Sacrifice them at the beginning of the next end step."
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Galvanic Discharge": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose target creature or planeswalker. You get {E}{E}{E} (three energy counters), then you may pay any amount of {E}. Galvanic Discharge deals that much damage to that permanent."
+    },
+    "Glimpse the Impossible": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top three cards of your library. You may play those cards this turn. At the beginning of the next end step, if any of those cards remain exiled, put them into your graveyard, then create a 0/1 colorless Eldrazi Spawn creature token for each card put into your graveyard this way. Those tokens have \"Sacrifice this token: Add {C}.\""
+    },
+    "Manamorphose": {
+      "mana_cost": "{1}{R/G}",
+      "type_line": "Instant",
+      "oracle_text": "Add two mana in any combination of colors.\nDraw a card."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Ocelot Pride": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "First strike, lifelink\nAscend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nAt the beginning of your end step, if you gained life this turn, create a 1/1 white Cat creature token. Then if you have the city's blessing, for each token you control that entered this turn, create a token that's a copy of it.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Past in Flames": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each instant and sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.\nFlashback {4}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Pyretic Ritual": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Add {R}{R}{R}."
+    },
+    "Ragavan, Nimble Pilferer": {
+      "mana_cost": "{R}",
+      "type_line": "Legendary Creature — Monkey Pirate",
+      "oracle_text": "Whenever Ragavan deals combat damage to a player, create a Treasure token and exile the top card of that player's library. Until end of turn, you may cast that card.\nDash {1}{R} (You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Reckless Impulse": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Ruby Medallion": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "Red spells you cast cost {1} less to cast."
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Seasoned Pyromancer": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "When this creature enters, discard two cards, then draw two cards. For each nonland card discarded this way, create a 1/1 red Elemental creature token.\n{3}{R}{R}, Exile this card from your graveyard: Create two 1/1 red Elemental creature tokens.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sunbaked Canyon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {R} or {W}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Thraben Charm": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Thraben Charm deals damage equal to twice the number of creatures you control to target creature.\n• Destroy target enchantment.\n• Exile any number of target players' graveyards."
+    },
+    "Wish": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may play a card you own from outside the game this turn."
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wrenn's Resolve": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    }
+  }
 }

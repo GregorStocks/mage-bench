@@ -168110,7 +168110,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -172211,5 +172211,584 @@
         "untappedLands": 6
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aetherize": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Return all attacking creatures to their owner's hand."
+    },
+    "Alela, Artful Provocateur": {
+      "mana_cost": "{1}{W}{U}{B}",
+      "type_line": "Legendary Creature — Faerie Warlock",
+      "oracle_text": "Flying, deathtouch, lifelink\nOther creatures you control with flying get +1/+0.\nWhenever you cast an artifact or enchantment spell, create a 1/1 blue Faerie creature token with flying.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Angel of the Ruins": {
+      "mana_cost": "{5}{W}{W}",
+      "type_line": "Artifact Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, exile up to two target artifacts and/or enchantments.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+      "power": "5",
+      "toughness": "7"
+    },
+    "Ankle Shanker": {
+      "mana_cost": "{2}{R}{W}{B}",
+      "type_line": "Creature — Goblin Berserker",
+      "oracle_text": "Haste\nWhenever this creature attacks, creatures you control gain first strike and deathtouch until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Armix, Filigree Thrasher": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Legendary Artifact Creature — Golem",
+      "oracle_text": "Whenever Armix attacks, you may discard a card. When you do, target creature defending player controls gets -X/-X until end of turn, where X is the number of artifacts you control plus the number of artifact cards in your graveyard.\nPartner (You can have two commanders if both have partner.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Aura Mutation": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target enchantment. Create X 1/1 green Saproling creature tokens, where X is that enchantment's mana value."
+    },
+    "Bronze Guardian": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "Double strike\nWard {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)\nOther artifacts you control have ward {2}.\nBronze Guardian's power is equal to the number of artifacts you control.",
+      "power": "*",
+      "toughness": "5"
+    },
+    "Chemister's Insight": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw two cards.\nJump-start (You may cast this card from your graveyard by discarding a card in addition to paying its other costs. Then exile this card.)"
+    },
+    "Chrome Courier": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Artifact Creature — Thopter",
+      "oracle_text": "Flying\nWhen this creature enters, reveal the top two cards of your library. Put one of them into your hand and the other into your graveyard. If you put an artifact card into your hand this way, you gain 3 life.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Cold-Eyed Selkie": {
+      "mana_cost": "{1}{G/U}{G/U}",
+      "type_line": "Creature — Merfolk Rogue",
+      "oracle_text": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\nWhenever this creature deals combat damage to a player, you may draw that many cards.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Commander's Sphere": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card."
+    },
+    "Commune with Lava": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Exile the top X cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Cranial Plating": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+0 for each artifact you control.\n{B}{B}: Attach this Equipment to target creature you control.\nEquip {1}"
+    },
+    "Curse of the Swine": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile X target creatures. For each creature exiled this way, its controller creates a 2/2 green Boar creature token."
+    },
+    "Darksteel Juggernaut": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact Creature — Juggernaut",
+      "oracle_text": "Indestructible\nDarksteel Juggernaut's power and toughness are each equal to the number of artifacts you control.\nThis creature attacks each combat if able.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Dauntless Escort": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Creature — Rhino Soldier",
+      "oracle_text": "Sacrifice this creature: Creatures you control gain indestructible until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Deeproot Elite": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Merfolk Warrior",
+      "oracle_text": "Whenever another Merfolk you control enters, put a +1/+1 counter on target Merfolk you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Desolate Lighthouse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}{U}{R}, {T}: Draw a card, then discard a card."
+    },
+    "Despark": {
+      "mana_cost": "{W}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target permanent with mana value 4 or greater."
+    },
+    "Dimir Aqueduct": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{B}."
+    },
+    "Dualcaster Mage": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Flash\nWhen this creature enters, copy target instant or sorcery spell. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Evolution Sage": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "Landfall — Whenever a land you control enters, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Explore": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may play an additional land this turn.\nDraw a card."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Frantic Search": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw two cards, then discard two cards. Untap up to three lands."
+    },
+    "Hardened Scales": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "If one or more +1/+1 counters would be put on a creature you control, that many plus one +1/+1 counters are put on it instead."
+    },
+    "Harrow": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for up to two basic land cards, put them onto the battlefield, then shuffle."
+    },
+    "Hexavus": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Flying\nThis creature enters with six +1/+1 counters on it.\n{1}, Remove a +1/+1 counter from this creature: Put a flying counter on another target creature.\n{1}, Remove a counter from another creature you control: Put a +1/+1 counter on this creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Hunting Pack": {
+      "mana_cost": "{5}{G}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Create a 4/4 green Beast creature token.\nStorm (When you cast this spell, copy it for each spell cast before it this turn.)"
+    },
+    "Indomitable Archangel": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nMetalcraft — Artifacts you control have shroud as long as you control three or more artifacts. (An artifact with shroud can't be the target of spells or abilities.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Inspiring Call": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Draw a card for each creature you control with a +1/+1 counter on it. Those creatures gain indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy them.)"
+    },
+    "Iroas, God of Victory": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Legendary Enchantment Creature — God",
+      "oracle_text": "Indestructible\nAs long as your devotion to red and white is less than seven, Iroas isn't a creature.\nCreatures you control have menace.\nPrevent all damage that would be dealt to attacking creatures you control.",
+      "power": "7",
+      "toughness": "4"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kalamax, the Stormsire": {
+      "mana_cost": "{1}{G}{U}{R}",
+      "type_line": "Legendary Creature — Elemental Dinosaur",
+      "oracle_text": "Whenever you cast your first instant spell each turn, if Kalamax is tapped, copy that spell. You may choose new targets for the copy.\nWhenever you copy an instant spell, put a +1/+1 counter on Kalamax.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Kessig Wolf Run": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{X}{R}{G}, {T}: Target creature gets +X/+0 and gains trample until end of turn."
+    },
+    "Kindred Discovery": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose a creature type.\nWhenever a creature you control of the chosen type enters or attacks, draw a card."
+    },
+    "Lavalanche": {
+      "mana_cost": "{X}{B}{R}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Lavalanche deals X damage to target player or planeswalker and each creature that player or that planeswalker's controller controls."
+    },
+    "Llanowar Reborn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}.\nGraft 1 (This land enters with a +1/+1 counter on it. Whenever a creature enters, you may move a +1/+1 counter from this land onto it.)"
+    },
+    "Master of Etherium": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact Creature — Vedalken Wizard",
+      "oracle_text": "Master of Etherium's power and toughness are each equal to the number of artifacts you control.\nOther artifact creatures you control get +1/+1.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Master of the Pearl Trident": {
+      "mana_cost": "{U}{U}",
+      "type_line": "Creature — Merfolk",
+      "oracle_text": "Other Merfolk creatures you control get +1/+1 and have islandwalk. (They can't be blocked as long as defending player controls an Island.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Melek, Izzet Paragon": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Weird Wizard",
+      "oracle_text": "Play with the top card of your library revealed.\nYou may cast instant and sorcery spells from the top of your library.\nWhenever you cast an instant or sorcery spell from your library, copy it. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Merfolk Cave-Diver": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Scout",
+      "oracle_text": "Whenever a creature you control explores, this creature gets +1/+0 until end of turn and can't be blocked this turn.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Merfolk Skydiver": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Merfolk Mutant",
+      "oracle_text": "Flying\nWhen this creature enters, put a +1/+1 counter on target creature you control.\n{3}{G}{U}: Proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Merfolk Sovereign": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Creature — Merfolk Noble",
+      "oracle_text": "Other Merfolk creatures you control get +1/+1.\n{T}: Target Merfolk creature can't be blocked this turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Merrow Reejerey": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Soldier",
+      "oracle_text": "Other Merfolk creatures you control get +1/+1.\nWhenever you cast a Merfolk spell, you may tap or untap target permanent.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Metallic Mimic": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Shapeshifter",
+      "oracle_text": "As this creature enters, choose a creature type.\nThis creature is the chosen type in addition to its other types.\nEach other creature you control of the chosen type enters with an additional +1/+1 counter on it.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Mirror Entity": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\n{X}: Until end of turn, creatures you control have base power and toughness X/X and gain all creature types.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mossfire Valley": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {R}{G}."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Natural Connection": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Pako, Arcane Retriever": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Elemental Dog",
+      "oracle_text": "Partner with Haldan, Avid Arcanist\nHaste\nWhenever Pako attacks, exile the top card of each player's library and put a fetch counter on each of them. Put a +1/+1 counter on Pako for each noncreature card exiled this way.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Primeval Protector": {
+      "mana_cost": "{10}{G}",
+      "type_line": "Creature — Avatar",
+      "oracle_text": "This spell costs {1} less to cast for each creature your opponents control.\nWhen this creature enters, put a +1/+1 counter on each other creature you control.",
+      "power": "10",
+      "toughness": "10"
+    },
+    "Prophetic Bolt": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Prophetic Bolt deals 4 damage to any target. Look at the top four cards of your library. Put one of those cards into your hand and the rest on the bottom of your library in any order."
+    },
+    "Psychic Impetus": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, you scry 2."
+    },
+    "Rapid Hybridization": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature. It can't be regenerated. That creature's controller creates a 3/3 green Frog Lizard creature token."
+    },
+    "Rashmi, Eternities Crafter": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Legendary Creature — Elf Druid",
+      "oracle_text": "Whenever you cast your first spell each turn, reveal the top card of your library. You may cast it without paying its mana cost if it's a spell with lesser mana value. If you don't cast it, put it into your hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Ravenform": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile target artifact or creature. Its controller creates a 1/1 blue Bird creature token with flying.\nForetell {U} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)"
+    },
+    "Ravenous Gigantotherium": {
+      "mana_cost": "{5}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Devour 3 (As this creature enters, you may sacrifice any number of creatures. It enters with three times that many +1/+1 counters on it.)\nWhen this creature enters, it deals X damage divided as you choose among up to X target creatures, where X is its power. Each of those creatures deals damage equal to its power to this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Reliquary Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "River of Tears": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}. If you played a land this turn, add {B} instead."
+    },
+    "Rogue's Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn."
+    },
+    "Rootbound Crag": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Mountain or a Forest.\n{T}: Add {R} or {G}."
+    },
+    "Ruinous Intrusion": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target artifact or enchantment. Put X +1/+1 counters on target creature you control, where X is the mana value of the permanent exiled this way."
+    },
+    "Saskia the Unyielding": {
+      "mana_cost": "{B}{R}{G}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Vigilance, haste\nAs Saskia enters, choose a player.\nWhenever a creature you control deals combat damage to a player, it deals that much damage to the chosen player.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Shamanic Revelation": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater."
+    },
+    "Sharuum the Hegemon": {
+      "mana_cost": "{3}{W}{U}{B}",
+      "type_line": "Legendary Artifact Creature — Sphinx",
+      "oracle_text": "Flying\nWhen Sharuum enters, you may return target artifact card from your graveyard to the battlefield.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Shiny Impetus": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, you create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")"
+    },
+    "Simic Growth Chamber": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {G}{U}."
+    },
+    "Simic Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {G}{U}."
+    },
+    "Skullclamp": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}"
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Stonybrook Banneret": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Islandwalk (This creature can't be blocked as long as defending player controls an Island.)\nMerfolk spells and Wizard spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Surgespanner": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Whenever this creature becomes tapped, you may pay {1}{U}. If you do, return target permanent to its owner's hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swarm Intelligence": {
+      "mana_cost": "{6}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever you cast an instant or sorcery spell, you may copy that spell. You may choose new targets for the copy."
+    },
+    "Sylvok Explorer": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Tatyova, Benthic Druid": {
+      "mana_cost": "{3}{G}{U}",
+      "type_line": "Legendary Creature — Merfolk Druid",
+      "oracle_text": "Landfall — Whenever a land you control enters, you gain 1 life and draw a card.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Tempered Steel": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Artifact creatures you control get +2/+2."
+    },
+    "Teshar, Ancestor's Apostle": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Legendary Creature — Bird Cleric",
+      "oracle_text": "Flying\nWhenever you cast a historic spell, return target creature card with mana value 3 or less from your graveyard to the battlefield. (Artifacts, legendaries, and Sagas are historic.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Tishana, Voice of Thunder": {
+      "mana_cost": "{5}{G}{U}",
+      "type_line": "Legendary Creature — Merfolk Shaman",
+      "oracle_text": "Tishana's power and toughness are each equal to the number of cards in your hand.\nYou have no maximum hand size.\nWhen Tishana enters, draw a card for each creature you control.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Topography Tracker": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Merfolk Scout",
+      "oracle_text": "When this creature enters, create a Map token. (It's an artifact with \"{1}, {T}, Sacrifice this token: Target creature you control explores. Activate only as a sorcery.\")\nIf a creature you control would explore, instead it explores, then it explores again.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Tributary Instructor": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Merfolk Shaman",
+      "oracle_text": "Mentor (Whenever this creature attacks, put a +1/+1 counter on target attacking creature with lesser power.)\nWhenever a creature you control with a +1/+1 counter on it dies, draw a card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Twinning Staff": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "If you would copy a spell one or more times, instead copy it that many times plus an additional time. You may choose new targets for the additional copy.\n{7}, {T}: Copy target instant or sorcery spell you control. You may choose new targets for the copy."
+    },
+    "Tymna the Weaver": {
+      "mana_cost": "{1}{W}{B}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "Lifelink\nAt the beginning of each of your postcombat main phases, you may pay X life, where X is the number of opponents that were dealt combat damage this turn. If you do, draw X cards.\nPartner (You can have two commanders if both have partner.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Unclaimed Territory": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type."
+    },
+    "Vault of Whispers": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {B}."
+    },
+    "Vedalken Humiliator": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Vedalken Wizard",
+      "oracle_text": "Metalcraft — Whenever this creature attacks, if you control three or more artifacts, creatures your opponents control lose all abilities and have base power and toughness 1/1 until end of turn.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Wave Goodbye": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return each creature without a +1/+1 counter on it to its owner's hand."
+    },
+    "Windbrisk Heights": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {W}.\n{W}, {T}: You may play the exiled card without paying its mana cost if you attacked with three or more creatures this turn."
+    },
+    "Wort, the Raidmother": {
+      "mana_cost": "{4}{R/G}{R/G}",
+      "type_line": "Legendary Creature — Goblin Shaman",
+      "oracle_text": "When Wort enters, create two 1/1 red and green Goblin Warrior creature tokens.\nEach red or green instant or sorcery spell you cast has conspire. (As you cast the spell, you may tap two untapped creatures you control that share a color with it. When you do, copy it and you may choose new targets for the copy.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Xyris, the Writhing Storm": {
+      "mana_cost": "{2}{G}{U}{R}",
+      "type_line": "Legendary Creature — Snake Leviathan",
+      "oracle_text": "Flying\nWhenever an opponent draws a card except the first one they draw in each of their draw steps, create a 1/1 green Snake creature token.\nWhenever Xyris deals combat damage to a player, you and that player each draw that many cards.",
+      "power": "3",
+      "toughness": "5"
+    },
+    "Zegana, Utopian Speaker": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "When Zegana enters, if you control another creature with a +1/+1 counter on it, draw a card.\n{4}{G}{U}: Adapt 4. (If this creature has no +1/+1 counters on it, put four +1/+1 counters on it.)\nEach creature you control with a +1/+1 counter on it has trample.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Zhur-Taa Druid": {
+      "mana_cost": "{R}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "{T}: Add {G}.\nWhenever you tap this creature for mana, it deals 1 damage to each opponent.",
+      "power": "1",
+      "toughness": "1"
+    }
+  }
 }

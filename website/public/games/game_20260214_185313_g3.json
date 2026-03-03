@@ -61299,7 +61299,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -193852,5 +193852,142 @@
         "untappedLands": 4
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Cabal Ritual": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}.\nThreshold — Add {B}{B}{B}{B}{B} instead if there are seven or more cards in your graveyard."
+    },
+    "Crop Rotation": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for a land card, put that card onto the battlefield, then shuffle."
+    },
+    "Dark Depths": {
+      "mana_cost": "",
+      "type_line": "Legendary Snow Land",
+      "oracle_text": "Dark Depths enters with ten ice counters on it.\n{3}: Remove an ice counter from Dark Depths.\nWhen Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Daze": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may return an Island you control to its owner's hand rather than pay this spell's mana cost.\nCounter target spell unless its controller pays {1}."
+    },
+    "Disruptor Flute": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "Flash\nAs this artifact enters, choose a card name.\nSpells with the chosen name cost {3} more to cast.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities."
+    },
+    "Doomsday": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library and graveyard for five cards and exile the rest. Put the chosen cards on top of your library in any order. You lose half your life, rounded up."
+    },
+    "Edge of Autumn": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "If you control four or fewer lands, search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nCycling—Sacrifice a land. (Sacrifice a land, Discard this card: Draw a card.)"
+    },
+    "Expedition Map": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle."
+    },
+    "Exploration": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "You may play an additional land on each of your turns."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Karakas": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Return target legendary creature to its owner's hand."
+    },
+    "Lion's Eye Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Discard your hand, Sacrifice this artifact: Add three mana of any one color. Activate only as an instant."
+    },
+    "Malevolent Rumble": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Reveal the top four cards of your library. You may put a permanent card from among them into your hand. Put the rest into your graveyard. Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\""
+    },
+    "Maze of Ith": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Untap target attacking creature. Prevent all combat damage that would be dealt to and dealt by that creature this turn."
+    },
+    "Personal Tutor": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a sorcery card, reveal it, then shuffle and put that card on top."
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thespian's Stage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability."
+    },
+    "Underground Sea": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)"
+    },
+    "Unearth": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card with mana value 3 or less from your graveyard to the battlefield.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "Yavimaya, Cradle of Growth": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "Each land is a Forest in addition to its other land types."
+    }
+  }
 }

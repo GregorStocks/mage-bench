@@ -103,7 +103,8 @@
     "Mycosynth Lattice": "https://api.scryfall.com/cards/bbd/241?format=image&version=small",
     "Paradox Engine": "https://api.scryfall.com/cards/aer/169?format=image&version=small",
     "Perilous Snare": "https://api.scryfall.com/cards/dft/23?format=image&version=small",
-    "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small"
+    "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
+    "Drone Token": "https://cards.scryfall.io/small/front/3/f/3fcf8950-117a-4587-8522-79001dffa500.jpg?1752946472"
   },
   "snapshots": [
     {
@@ -65596,7 +65597,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -71661,5 +71662,142 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Candelabra of Tawnos": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{X}, {T}: Untap X target lands."
+    },
+    "Emry, Lurker of the Loch": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Emry enters, mill four cards.\n{T}: Choose target artifact card in your graveyard. You may cast that card this turn. (You still pay its costs. Timing rules still apply.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Expedition Map": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Kappa Cannoneer": {
+      "mana_cost": "{5}{U}",
+      "type_line": "Artifact Creature — Turtle Warrior",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nWard {4}\nWhenever this creature or another artifact you control enters, put a +1/+1 counter on this creature. It can't be blocked this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Karn, the Great Creator": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Planeswalker — Karn",
+      "oracle_text": "Activated abilities of artifacts your opponents control can't be activated.\n+1: Until your next turn, up to one target noncreature artifact becomes an artifact creature with power and toughness each equal to its mana value.\n−2: You may reveal an artifact card you own from outside the game or choose a face-up artifact card you own in exile. Put that card into your hand.",
+      "loyalty": "5"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Lavaspur Boots": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+0 and has haste and ward {1}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)\nEquip {1}"
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Mystic Forge": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "You may look at the top card of your library any time.\nYou may cast artifact spells and colorless spells from the top of your library.\n{T}, Pay 1 life: Exile the top card of your library."
+    },
+    "Patchwork Automaton": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)\nWhenever you cast an artifact spell, put a +1/+1 counter on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Pinnacle Emissary": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Artifact Creature — Robot",
+      "oracle_text": "Whenever you cast an artifact spell, create a 1/1 colorless Drone artifact creature token with flying and \"This token can block only creatures with flying.\"\nWarp {U/R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Planar Nexus": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land is every nonbasic land type. (Nonbasic land types include Cave, Desert, Gate, Lair, Locus, Mine, Power-Plant, Sphere, Tower, and Urza's.)\n{T}: Add {C}.\n{1}, {T}: Add one mana of any color."
+    },
+    "Seat of the Synod": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {U}."
+    },
+    "Tezzeret, Cruel Captain": {
+      "mana_cost": "{3}",
+      "type_line": "Legendary Planeswalker — Tezzeret",
+      "oracle_text": "Whenever an artifact you control enters, put a loyalty counter on Tezzeret.\n0: Untap target artifact or creature. If it's an artifact creature, put a +1/+1 counter on it.\n−3: Search your library for an artifact card with mana value 1 or less, reveal it, put it into your hand, then shuffle.\n−7: You get an emblem with \"At the beginning of combat on your turn, put three +1/+1 counters on target artifact you control. If it's not a creature, it becomes a 0/0 Robot artifact creature.\"",
+      "loyalty": "4"
+    },
+    "The One Ring": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
+    },
+    "Urza's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at a card at random in target player's hand. You draw a card at the beginning of the next turn's upkeep."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Urza's Tower": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's Tower",
+      "oracle_text": "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
+    },
+    "Urza's Workshop": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's",
+      "oracle_text": "{T}: Add {C}.\nMetalcraft — {T}: Add {C} for each Urza's land you control. Activate only if you control three or more artifacts."
+    },
+    "Voltaic Key": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Untap target artifact."
+    }
+  }
 }

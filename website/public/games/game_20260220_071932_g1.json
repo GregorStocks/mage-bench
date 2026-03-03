@@ -365,7 +365,10 @@
     "Akrasan Squire": "https://api.scryfall.com/cards/ala/1?format=image&version=small",
     "Indestructibility": "https://api.scryfall.com/cards/m14/23?format=image&version=small",
     "Gilded Lotus": "https://api.scryfall.com/cards/m13/206?format=image&version=small",
-    "Daxos of Meletis": "https://api.scryfall.com/cards/ths/191?format=image&version=small"
+    "Daxos of Meletis": "https://api.scryfall.com/cards/ths/191?format=image&version=small",
+    "Beast Token": "https://cards.scryfall.io/small/front/e/b/eb243b20-85e6-4eba-9403-42272975e8a5.jpg?1752946415",
+    "Saproling Token": "https://cards.scryfall.io/small/front/0/b/0bf3d41e-cd0a-46bd-8b89-8855906ea6b5.jpg?1702501311",
+    "Zombie Token": "https://cards.scryfall.io/small/front/4/c/4cecd5c6-d6c8-4cd5-97a3-cddaf051af15.jpg?1749245686"
   },
   "snapshots": [
     {
@@ -257291,7 +257294,7 @@
     }
   ],
   "blunderScriptVersion": 18,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -276998,5 +277001,407 @@
         "landDropsUsed": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aquastrand Spider": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Spider Mutant",
+      "oracle_text": "Graft 2 (This creature enters with two +1/+1 counters on it. Whenever another creature enters, you may move a +1/+1 counter from this creature onto it.)\n{G}: Target creature with a +1/+1 counter on it gains reach until end of turn. (It can block creatures with flying.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Banshee's Blade": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 for each charge counter on this Equipment.\nWhenever equipped creature deals combat damage, put a charge counter on this Equipment.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Beast Within": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token."
+    },
+    "Blightbelly Rat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Phyrexian Rat",
+      "oracle_text": "Toxic 1 (Players dealt combat damage by this creature also get a poison counter.)\nWhen this creature dies, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bonds of Faith": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 as long as it's a Human. Otherwise, it can't attack or block."
+    },
+    "Caress of Phyrexia": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player draws three cards, loses 3 life, and gets three poison counters."
+    },
+    "Cobra Trap": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Instant — Trap",
+      "oracle_text": "If a noncreature permanent under your control was destroyed this turn by a spell or ability an opponent controlled, you may pay {G} rather than pay this spell's mana cost.\nCreate four 1/1 green Snake creature tokens."
+    },
+    "Darksteel Plate": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Indestructible\nEquipped creature has indestructible.\nEquip {2}"
+    },
+    "Daxos of Meletis": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "Daxos can't be blocked by creatures with power 3 or greater.\nWhenever Daxos deals combat damage to a player, exile the top card of that player's library. You gain life equal to that card's mana value. Until end of turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Death Mutation": {
+      "mana_cost": "{6}{B}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target nonblack creature. It can't be regenerated. Create X 1/1 green Saproling creature tokens, where X is that creature's mana value."
+    },
+    "Dreamborn Muse": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "At the beginning of each player's upkeep, that player mills X cards, where X is the number of cards in their hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Elgaud Shieldmate": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Soulbond (You may pair this creature with another unpaired creature when either enters. They remain paired for as long as you control both of them.)\nAs long as this creature is paired with another creature, both creatures have hexproof. (They can't be the targets of spells or abilities your opponents control.)",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Fumigate": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures. You gain 1 life for each creature destroyed this way."
+    },
+    "Ghave, Guru of Spores": {
+      "mana_cost": "{2}{W}{B}{G}",
+      "type_line": "Legendary Creature — Fungus Shaman",
+      "oracle_text": "Ghave enters with five +1/+1 counters on it.\n{1}, Remove a +1/+1 counter from a creature you control: Create a 1/1 green Saproling creature token.\n{1}, Sacrifice a creature: Put a +1/+1 counter on target creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Glissa's Retriever": {
+      "mana_cost": "{5}{G}",
+      "type_line": "Creature — Phyrexian Beast",
+      "oracle_text": "Haste, toxic 3 (Players dealt combat damage by this creature also get three poison counters.)\nThis creature can't be blocked by creatures with power 2 or less.\nCorrupted — When this creature dies, exile it. When you do, return up to X target cards from your graveyard to your hand, where X is the number of opponents who have three or more poison counters.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Golgari Rot Farm": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}."
+    },
+    "Grafted Exoskeleton": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+2 and has infect. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)\nWhenever this Equipment becomes unattached from a permanent, sacrifice that permanent.\nEquip {2}"
+    },
+    "Hallowed Fountain": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Ixhel, Scion of Atraxa": {
+      "mana_cost": "{1}{W}{B}{G}",
+      "type_line": "Legendary Creature — Phyrexian Angel",
+      "oracle_text": "Flying, vigilance, toxic 2\nCorrupted — At the beginning of your end step, each opponent who has three or more poison counters exiles the top card of their library face down. You may look at and play those cards for as long as they remain exiled, and you may spend mana as though it were mana of any color to cast those spells.",
+      "power": "2",
+      "toughness": "5"
+    },
+    "Jwar Isle Refuge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {B}."
+    },
+    "Living Death": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player exiles all creature cards from their graveyard, then sacrifices all creatures they control, then puts all cards they exiled this way onto the battlefield."
+    },
+    "Mammoth Umbra": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +3/+3 and has vigilance.\nUmbra armor (If enchanted creature would be destroyed, instead remove all damage from it and destroy this Aura.)"
+    },
+    "Minds Aglow": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Join forces — Starting with you, each player may pay any amount of mana. Each player draws X cards, where X is the total amount of mana paid this way."
+    },
+    "Mulldrifter": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Flying\nWhen this creature enters, draw two cards.\nEvoke {2}{U} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Nantuko Husk": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie Insect",
+      "oracle_text": "Sacrifice a creature: This creature gets +2/+2 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Necroblossom Snarl": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal a Swamp or Forest card from your hand. If you don't, this land enters tapped.\n{T}: Add {B} or {G}."
+    },
+    "Necrogenesis": {
+      "mana_cost": "{B}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "{2}: Exile target creature card from a graveyard. Create a 1/1 green Saproling creature token."
+    },
+    "Nemesis Trap": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Instant — Trap",
+      "oracle_text": "If a white creature is attacking, you may pay {B}{B} rather than pay this spell's mana cost.\nExile target attacking creature. Create a token that's a copy of that creature. Exile it at the beginning of the next end step."
+    },
+    "Night's Whisper": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You draw two cards and lose 2 life."
+    },
+    "Norn's Decree": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever one or more creatures an opponent controls deal combat damage to you, that opponent gets a poison counter.\nWhenever a player attacks, if one or more players being attacked are poisoned, the attacking player draws a card."
+    },
+    "Oblivion Stone": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{4}, {T}: Put a fate counter on target permanent.\n{5}, {T}, Sacrifice this artifact: Destroy each nonland permanent without a fate counter on it, then remove all fate counters from all permanents."
+    },
+    "Orzhov Basilica": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{B}."
+    },
+    "Path to Exile": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller may search their library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    },
+    "Phyrexian Rebirth": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures, then create an X/X colorless Phyrexian Horror artifact creature token, where X is the number of creatures destroyed this way."
+    },
+    "Plague Myr": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Phyrexian Myr",
+      "oracle_text": "Infect (This creature deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.)\n{T}: Add {C}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Relic Crush": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact or enchantment and up to one other target artifact or enchantment."
+    },
+    "Rhox Faithmender": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Rhino Monk",
+      "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\nIf you would gain life, you gain twice that much life instead.",
+      "power": "1",
+      "toughness": "5"
+    },
+    "Ring of Thune": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has vigilance. (Attacking doesn't cause it to tap.)\nAt the beginning of your upkeep, put a +1/+1 counter on equipped creature if it's white.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Sandsteppe Citadel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}, {B}, or {G}."
+    },
+    "Seachrome Coast": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {U}."
+    },
+    "Selesnya Evangel": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "{1}, {T}, Tap an untapped creature you control: Create a 1/1 green Saproling creature token.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Selesnya Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {G}{W}."
+    },
+    "Selesnya Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {G}{W}."
+    },
+    "Sigiled Paladin": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "First strike\nExalted (Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Skullclamp": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}"
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Soul Snare": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "{W}, Sacrifice this enchantment: Exile target creature that's attacking you or a planeswalker you control."
+    },
+    "Svogthos, the Restless Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{3}{B}{G}: Until end of turn, this land becomes a black and green Plant Zombie creature with \"This creature's power and toughness are each equal to the number of creature cards in your graveyard.\" It's still a land."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Symbiotic Wurm": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Wurm",
+      "oracle_text": "When this creature dies, create seven 1/1 green Insect creature tokens.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Syphon Flesh": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each other player sacrifices a creature. You create a 2/2 black Zombie creature token for each creature sacrificed this way."
+    },
+    "Syphon Mind": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each other player discards a card. You draw a card for each card discarded this way."
+    },
+    "Temple of Malady": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {B} or {G}."
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "The Mimeoplasm": {
+      "mana_cost": "{2}{B}{G}{U}",
+      "type_line": "Legendary Creature — Ooze",
+      "oracle_text": "As The Mimeoplasm enters, you may exile two creature cards from graveyards. If you do, it enters as a copy of one of those cards with a number of additional +1/+1 counters on it equal to the power of the other card.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Unnatural Restoration": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target permanent card from your graveyard to your hand. Proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)"
+    },
+    "Unnerve": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each opponent discards two cards."
+    },
+    "Vampire Nighthawk": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Vampire Shaman",
+      "oracle_text": "Flying\nDeathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nLifelink (Damage dealt by this creature also causes you to gain that much life.)",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Vivid Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {B}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vivid Meadow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {W}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vow of Duty": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2, has vigilance, and can't attack you or planeswalkers you control."
+    },
+    "Vow of Flight": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2, has flying, and can't attack you or planeswalkers you control."
+    },
+    "Vow of Malice": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2, has intimidate, and can't attack you or planeswalkers you control. (A creature with intimidate can't be blocked except by artifact creatures and/or creatures that share a color with it.)"
+    },
+    "Vow of Wildness": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +3/+3, has trample, and can't attack you or planeswalkers you control."
+    },
+    "Windborn Muse": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Flying\nCreatures can't attack you unless their controller pays {2} for each creature they control that's attacking you.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Windfall": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way."
+    },
+    "Yavimaya Elder": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "When this creature dies, you may search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.\n{2}, Sacrifice this creature: Draw a card.",
+      "power": "2",
+      "toughness": "1"
+    }
+  }
 }

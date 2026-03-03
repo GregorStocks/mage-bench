@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_172012_g2",
   "timestamp": "20260228_172012",
   "gameType": "Two Player Duel",
@@ -106,7 +106,8 @@
     "Volley Veteran": "https://api.scryfall.com/cards/jmp/369?format=image&version=small",
     "Outnumber": "https://api.scryfall.com/cards/jmp/354?format=image&version=small",
     "Shock": "https://api.scryfall.com/cards/m21/159?format=image&version=small",
-    "Makeshift Munitions": "https://api.scryfall.com/cards/jmp/348?format=image&version=small"
+    "Makeshift Munitions": "https://api.scryfall.com/cards/jmp/348?format=image&version=small",
+    "Drake Token": "https://cards.scryfall.io/small/front/1/6/1659d2ee-1831-4ba1-a08d-03af31c9a043.jpg?1604194756"
   },
   "snapshots": [
     {
@@ -128664,5 +128665,133 @@
       "player": "GPT52 Philo"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "cardData": {
+    "Befuddle": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -4/-0 until end of turn.\nDraw a card."
+    },
+    "Boggart Brute": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Chandra, Heart of Fire": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Legendary Planeswalker — Chandra",
+      "oracle_text": "+1: Discard your hand, then exile the top three cards of your library. Until end of turn, you may play cards exiled this way.\n+1: Chandra deals 2 damage to any target.\n−9: Search your graveyard and library for any number of red instant and/or sorcery cards, exile them, then shuffle. You may cast them this turn. Add six {R}.",
+      "loyalty": "5"
+    },
+    "Flames of the Firebrand": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Flames of the Firebrand deals 3 damage divided as you choose among one, two, or three targets."
+    },
+    "Goblin Arsonist": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "When this creature dies, you may have it deal 1 damage to any target.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Goblin Shortcutter": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Scout",
+      "oracle_text": "When this creature enters, target creature can't block this turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Ironroot Warlord": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Creature — Treefolk Soldier",
+      "oracle_text": "Ironroot Warlord's power is equal to the number of creatures you control.\n{3}{G}{W}: Create a 1/1 white Soldier creature token.",
+      "power": "*",
+      "toughness": "5"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Maelstrom Archangel": {
+      "mana_cost": "{W}{U}{B}{R}{G}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, you may cast a spell from your hand without paying its mana cost.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Ornery Goblin": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Whenever this creature blocks or becomes blocked by a creature, this creature deals 1 damage to that creature.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Outnumber": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Outnumber deals damage to target creature equal to the number of creatures you control."
+    },
+    "Pillar of Flame": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Pillar of Flame deals 2 damage to any target. If a creature dealt damage this way would die this turn, exile it instead."
+    },
+    "Prismite": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "{2}: Add one mana of any color.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Prophetic Prism": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, draw a card.\n{1}, {T}: Add one mana of any color."
+    },
+    "Rupture Spire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, sacrifice it unless you pay {1}.\n{T}: Add one mana of any color."
+    },
+    "Sage's Row Savant": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Vedalken Wizard",
+      "oracle_text": "When this creature enters, scry 2.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Talrand's Invocation": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create two 2/2 blue Drake creature tokens with flying."
+    },
+    "Talrand, Sky Summoner": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell, create a 2/2 blue Drake creature token with flying.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Young Pyromancer": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever you cast an instant or sorcery spell, create a 1/1 red Elemental creature token.",
+      "power": "2",
+      "toughness": "1"
+    }
+  }
 }

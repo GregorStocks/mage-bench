@@ -109,7 +109,8 @@
     "Paradox Engine": "https://api.scryfall.com/cards/aer/169?format=image&version=small",
     "Perilous Snare": "https://api.scryfall.com/cards/dft/23?format=image&version=small",
     "Soul-Guide Lantern": "https://api.scryfall.com/cards/eoc/143?format=image&version=small",
-    "Tormod's Crypt": "https://api.scryfall.com/cards/dmr/235?format=image&version=small"
+    "Tormod's Crypt": "https://api.scryfall.com/cards/dmr/235?format=image&version=small",
+    "Eldrazi Spawn Token": "https://cards.scryfall.io/small/front/d/0/d0da4f8d-cce9-4d08-8d11-792e0b2af7d0.jpg?1561758122"
   },
   "snapshots": [
     {
@@ -161116,7 +161117,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -305823,5 +305824,135 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Candelabra of Tawnos": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{X}, {T}: Untap X target lands."
+    },
+    "Dark Depths": {
+      "mana_cost": "",
+      "type_line": "Legendary Snow Land",
+      "oracle_text": "Dark Depths enters with ten ice counters on it.\n{3}: Remove an ice counter from Dark Depths.\nWhen Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+    },
+    "Expedition Map": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}, Sacrifice this artifact: Search your library for a land card, reveal it, put it into your hand, then shuffle."
+    },
+    "Exploration": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "You may play an additional land on each of your turns."
+    },
+    "Ghost Quarter": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target land. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Glaring Fleshraker": {
+      "mana_cost": "{2}{C}",
+      "type_line": "Creature — Eldrazi Drone",
+      "oracle_text": "Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"\nWhenever another colorless creature you control enters, this creature deals 1 damage to each opponent.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Karn, the Great Creator": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Planeswalker — Karn",
+      "oracle_text": "Activated abilities of artifacts your opponents control can't be activated.\n+1: Until your next turn, up to one target noncreature artifact becomes an artifact creature with power and toughness each equal to its mana value.\n−2: You may reveal an artifact card you own from outside the game or choose a face-up artifact card you own in exile. Put that card into your hand.",
+      "loyalty": "5"
+    },
+    "Kozilek's Command": {
+      "mana_cost": "{X}{C}{C}",
+      "type_line": "Kindred Instant — Eldrazi",
+      "oracle_text": "Choose two —\n• Target player creates X 0/1 colorless Eldrazi Spawn creature tokens with \"Sacrifice this token: Add {C}.\"\n• Target player scries X, then draws a card.\n• Exile target creature with mana value X or less.\n• Exile up to X target cards from graveyards."
+    },
+    "Lavaspur Boots": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+0 and has haste and ward {1}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)\nEquip {1}"
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Manifold Key": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Untap another target artifact.\n{3}, {T}: Target creature can't be blocked this turn."
+    },
+    "Mox Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "If this artifact would enter, you may discard a land card instead. If you do, put this artifact onto the battlefield. If you don't, put it into its owner's graveyard.\n{T}: Add one mana of any color."
+    },
+    "Once Upon a Time": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.\nLook at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order."
+    },
+    "Pithing Needle": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a card name.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities."
+    },
+    "Planar Nexus": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land is every nonbasic land type. (Nonbasic land types include Cave, Desert, Gate, Lair, Locus, Mine, Power-Plant, Sphere, Tower, and Urza's.)\n{T}: Add {C}.\n{1}, {T}: Add one mana of any color."
+    },
+    "The One Ring": {
+      "mana_cost": "{4}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Indestructible\nWhen The One Ring enters, if you cast it, you gain protection from everything until your next turn.\nAt the beginning of your upkeep, you lose 1 life for each burden counter on The One Ring.\n{T}: Put a burden counter on The One Ring, then draw a card for each burden counter on The One Ring."
+    },
+    "Thespian's Stage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Urza's Tower": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's Tower",
+      "oracle_text": "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
+    },
+    "Urza's Workshop": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's",
+      "oracle_text": "{T}: Add {C}.\nMetalcraft — {T}: Add {C} for each Urza's land you control. Activate only if you control three or more artifacts."
+    },
+    "Voltaic Key": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Untap target artifact."
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "Yavimaya, Cradle of Growth": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "Each land is a Forest in addition to its other land types."
+    }
+  }
 }

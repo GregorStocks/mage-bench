@@ -112,7 +112,8 @@
     "Lavinia, Azorius Renegade": "https://api.scryfall.com/cards/rvr/195?format=image&version=small",
     "Pyroblast": "https://api.scryfall.com/cards/ema/142?format=image&version=small",
     "Red Elemental Blast": "https://api.scryfall.com/cards/a25/147?format=image&version=small",
-    "Ruination": "https://api.scryfall.com/cards/cmd/134?format=image&version=small"
+    "Ruination": "https://api.scryfall.com/cards/cmd/134?format=image&version=small",
+    "Human Knight Token": "https://cards.scryfall.io/small/front/5/4/546bda77-e3a8-4f2a-ba9c-94fb0b9ff183.jpg?1708710090"
   },
   "snapshots": [
     {
@@ -149596,7 +149597,7 @@
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -163100,5 +163101,216 @@
         "untappedLands": 7
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Back to Basics": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands don't untap during their controllers' untap steps."
+    },
+    "Badlands": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)"
+    },
+    "Beseech the Mirror": {
+      "mana_cost": "{1}{B}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Bargain (You may sacrifice an artifact, enchantment, or token as you cast this spell.)\nSearch your library for a card, exile it face down, then shuffle. If this spell was bargained, you may cast the exiled card without paying its mana cost if that spell's mana value is 4 or less. Put the exiled card into your hand if it wasn't cast this way."
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Chrome Mox": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — When this artifact enters, you may exile a nonartifact, nonland card from your hand.\n{T}: Add one mana of any of the exiled card's colors."
+    },
+    "Commercial District": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Dress Down": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, draw a card.\nCreatures lose all abilities.\nAt the beginning of the end step, sacrifice this enchantment."
+    },
+    "Echo of Eons": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player shuffles their hand and graveyard into their library, then draws seven cards.\nFlashback {2}{U} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Flame of Anor": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one. If you control a Wizard as you cast this spell, you may choose two instead.\n• Target player draws two cards.\n• Destroy target artifact.\n• Flame of Anor deals 5 damage to target creature."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Negation": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Forth Eorlingas!": {
+      "mana_cost": "{X}{R}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create X 2/2 red Human Knight creature tokens with trample and haste.\nWhenever one or more creatures you control deal combat damage to one or more players this turn, you become the monarch."
+    },
+    "Gaea's Will": {
+      "mana_cost": "",
+      "type_line": "Sorcery",
+      "oracle_text": "Suspend 4—{G}\nUntil end of turn, you may play lands and cast spells from your graveyard.\nIf a card would be put into your graveyard from anywhere this turn, exile that card instead."
+    },
+    "Galvanic Relay": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top card of your library. During your next turn, you may play that card.\nStorm (When you cast this spell, copy it for each spell cast before it this turn.)"
+    },
+    "Gamble": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a card, put that card into your hand, discard a card at random, then shuffle."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lion's Eye Diamond": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Discard your hand, Sacrifice this artifact: Add three mana of any one color. Activate only as an instant."
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Prismatic Ending": {
+      "mana_cost": "{X}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Converge — Exile target nonland permanent if its mana value is less than or equal to the number of colors of mana spent to cast this spell."
+    },
+    "Prismatic Vista": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Runehorn Hellkite": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\n{5}{R}, Exile this card from your graveyard: Each player discards their hand, then draws seven cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Song of Creation": {
+      "mana_cost": "{1}{G}{U}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "You may play an additional land on each of your turns.\nWhenever you cast a spell, draw two cards.\nAt the beginning of your end step, discard your hand."
+    },
+    "Stern Scolding": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target creature spell with power or toughness 2 or less."
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Taiga": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)"
+    },
+    "Tendrils of Agony": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player loses 2 life and you gain 2 life.\nStorm (When you cast this spell, copy it for each spell cast before it this turn. You may choose new targets for the copies.)"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Thundertrap Trainer": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Otter Wizard",
+      "oracle_text": "Offspring {4} (You may pay an additional {4} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nWhen this creature enters, look at the top four cards of your library. You may reveal a noncreature, nonland card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Tundra": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)"
+    },
+    "Undercity Sewers": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Underground Sea": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)"
+    },
+    "Veil of Summer": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "Draw a card if an opponent has cast a blue or black spell this turn. Spells you control can't be countered this turn. You and permanents you control gain hexproof from blue and from black until end of turn. (You and they can't be the targets of blue or black spells or abilities your opponents control.)"
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Volcanic Island": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)"
+    }
+  }
 }

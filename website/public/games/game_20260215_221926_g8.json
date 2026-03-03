@@ -376,7 +376,10 @@
     "Epic Experiment": "https://api.scryfall.com/cards/c15/216?format=image&version=small",
     "Etherium-Horn Sorcerer": "https://api.scryfall.com/cards/c15/217?format=image&version=small",
     "Firemind's Foresight": "https://api.scryfall.com/cards/c15/218?format=image&version=small",
-    "Mizzix of the Izmagnus": "https://api.scryfall.com/cards/c15/50?format=image&version=small"
+    "Mizzix of the Izmagnus": "https://api.scryfall.com/cards/c15/50?format=image&version=small",
+    "Elf Warrior Token": "https://cards.scryfall.io/small/front/0/2/023f668a-a8e6-4fcb-98d1-30adf343f050.jpg?1768157666",
+    "Shapeshifter Token": "https://cards.scryfall.io/small/front/c/2/c2963ce1-f9d8-437a-9489-e0913a8b8d26.jpg?1767660071",
+    "Vampire Token": "https://cards.scryfall.io/small/front/0/4/0484390e-1167-4407-84de-7ddc726e8926.jpg?1698874036"
   },
   "snapshots": [
     {
@@ -202251,7 +202254,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -215812,5 +215815,510 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aethersnatch": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target spell. You may choose new targets for it. (If that spell becomes a permanent, it enters under your control.)"
+    },
+    "Anowon, the Ruin Sage": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Legendary Creature — Vampire Shaman",
+      "oracle_text": "At the beginning of your upkeep, each player sacrifices a non-Vampire creature of their choice.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Anya, Merciless Angel": {
+      "mana_cost": "{3}{R}{W}",
+      "type_line": "Legendary Creature — Angel",
+      "oracle_text": "Flying\nAnya gets +3/+3 for each opponent whose life total is less than half their starting life total.\nAs long as an opponent's life total is less than half their starting life total, Anya has indestructible.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Arbiter of Knollridge": {
+      "mana_cost": "{6}{W}",
+      "type_line": "Creature — Giant Wizard",
+      "oracle_text": "Vigilance\nWhen this creature enters, each player's life total becomes the highest life total among all players.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Blasted Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Blatant Thievery": {
+      "mana_cost": "{4}{U}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each opponent, gain control of target permanent that player controls."
+    },
+    "Blind Obedience": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nArtifacts and creatures your opponents control enter tapped."
+    },
+    "Blood Artist": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Vampire",
+      "oracle_text": "Whenever this creature or another creature dies, target player loses 1 life and you gain 1 life.",
+      "power": "0",
+      "toughness": "1"
+    },
+    "Blood Tribute": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Kicker—Tap an untapped Vampire you control. (You may tap a Vampire you control in addition to any other costs as you cast this spell.)\nTarget opponent loses half their life, rounded up. If this spell was kicked, you gain life equal to the life lost this way."
+    },
+    "Bloodfell Caves": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {R}."
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Borderland Behemoth": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Giant Warrior",
+      "oracle_text": "Trample\nThis creature gets +4/+4 for each other Giant you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Boros Garrison": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {R}{W}."
+    },
+    "Bounty of Skemfar": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Reveal the top six cards of your library. You may put up to one land card from among them onto the battlefield tapped and up to one Elf card from among them into your hand. Put the rest on the bottom of your library in a random order."
+    },
+    "Casualties of War": {
+      "mana_cost": "{2}{B}{B}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose one or more —\n• Destroy target artifact.\n• Destroy target creature.\n• Destroy target enchantment.\n• Destroy target land.\n• Destroy target planeswalker."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Consuming Vapors": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player sacrifices a creature of their choice. You gain life equal to that creature's toughness.\nRebound (If you cast this spell from your hand, exile it as it resolves. At the beginning of your next upkeep, you may cast this card from exile without paying its mana cost.)"
+    },
+    "Counterflux": {
+      "mana_cost": "{U}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "This spell can't be countered.\nCounter target spell you don't control.\nOverload {1}{U}{U}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Crib Swap": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Kindred Instant — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nExile target creature. Its controller creates a 1/1 colorless Shapeshifter creature token with changeling."
+    },
+    "Damnable Pact": {
+      "mana_cost": "{X}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player draws X cards and loses X life."
+    },
+    "Drana, Kalastria Bloodchief": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Legendary Creature — Vampire Shaman",
+      "oracle_text": "Flying\n{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana gets +X/+0 until end of turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Edgar Markov": {
+      "mana_cost": "{3}{R}{W}{B}",
+      "type_line": "Legendary Creature — Vampire Knight",
+      "oracle_text": "Eminence — Whenever you cast another Vampire spell, if Edgar is in the command zone or on the battlefield, create a 1/1 black Vampire creature token.\nFirst strike, haste\nWhenever Edgar attacks, put a +1/+1 counter on each Vampire you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Elven Ambush": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Create a 1/1 green Elf Warrior creature token for each Elf you control."
+    },
+    "Elvish Mystic": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add {G}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Fall of the Hammer": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control deals damage equal to its power to another target creature."
+    },
+    "Farhaven Elf": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Firemind's Foresight": {
+      "mana_cost": "{5}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Search your library for an instant card with mana value 3, reveal it, and put it into your hand. Then repeat this process for instant cards with mana values 2 and 1. Then shuffle."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Forsaken Sanctuary": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {B}."
+    },
+    "Goblin Electromancer": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Creature — Goblin Wizard",
+      "oracle_text": "Instant and sorcery spells you cast cost {1} less to cast.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Golgari Guildgate": {
+      "mana_cost": "",
+      "type_line": "Land — Gate",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B} or {G}."
+    },
+    "Golgari Rot Farm": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {B}{G}."
+    },
+    "Harvest Season": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to X basic land cards, where X is the number of tapped creatures you control, put those cards onto the battlefield tapped, then shuffle."
+    },
+    "Heirloom Blade": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +3/+1.\nWhenever equipped creature dies, you may reveal cards from the top of your library until you reveal a creature card that shares a creature type with it. Put that card into your hand and the rest on the bottom of your library in a random order.\nEquip {1}"
+    },
+    "Herald of the Host": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying, vigilance\nMyriad (Whenever this creature attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Izzet Boilerworks": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{R}."
+    },
+    "Jaspera Sentinel": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Rogue",
+      "oracle_text": "Reach\n{T}, Tap an untapped creature you control: Add one mana of any color.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Kabira Crossroads": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 2 life.\n{T}: Add {W}."
+    },
+    "Kalemne's Captain": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Giant Soldier",
+      "oracle_text": "Vigilance\n{5}{W}{W}: Monstrosity 3. (If this creature isn't monstrous, put three +1/+1 counters on it and it becomes monstrous.)\nWhen this creature becomes monstrous, exile all artifacts and enchantments.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Kalemne, Disciple of Iroas": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Legendary Creature — Giant Soldier",
+      "oracle_text": "Double strike, vigilance\nWhenever you cast a creature spell with mana value 5 or greater, you get an experience counter.\nKalemne gets +1/+1 for each experience counter you have.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Kindred Boon": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose a creature type.\n{1}{W}: Put a divinity counter on target creature you control of the chosen type.\nEach creature you control with a divinity counter on it has indestructible."
+    },
+    "Kindred Charge": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. For each creature you control of the chosen type, create a token that's a copy of that creature. Those tokens gain haste. Exile them at the beginning of the next end step."
+    },
+    "Lathril, Blade of the Elves": {
+      "mana_cost": "{2}{B}{G}",
+      "type_line": "Legendary Creature — Elf Noble",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)\nWhenever Lathril deals combat damage to a player, create that many 1/1 green Elf Warrior creature tokens.\n{T}, Tap ten untapped Elves you control: Each opponent loses 10 life and you gain 10 life.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Lightning Rager": {
+      "mana_cost": "",
+      "type_line": "Token Creature — Elemental",
+      "oracle_text": "Trample, haste\nAt the beginning of the end step, sacrifice this creature.",
+      "power": "5",
+      "toughness": "1"
+    },
+    "Malakir Bloodwitch": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Vampire Shaman",
+      "oracle_text": "Flying, protection from white\nWhen this creature enters, each opponent loses life equal to the number of Vampires you control. You gain life equal to the life lost this way.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Mathas, Fiend Seeker": {
+      "mana_cost": "{R}{W}{B}",
+      "type_line": "Legendary Creature — Vampire",
+      "oracle_text": "Menace\nAt the beginning of your end step, put a bounty counter on target creature an opponent controls. For as long as that creature has a bounty counter on it, it has \"When this creature dies, each opponent draws a card and gains 2 life.\"",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Meteor Blast": {
+      "mana_cost": "{X}{R}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Meteor Blast deals 4 damage to each of X targets."
+    },
+    "Mizzix of the Izmagnus": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Creature — Goblin Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell with mana value greater than the number of experience counters you have, you get an experience counter.\nInstant and sorcery spells you cast cost {1} less to cast for each experience counter you have.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Orim's Thunder": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {R} (You may pay an additional {R} as you cast this spell.)\nDestroy target artifact or enchantment. If this spell was kicked, it deals damage equal to that permanent's mana value to target creature."
+    },
+    "Pact of the Serpent": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. Target player draws X cards and loses X life, where X is the number of creatures they control of the chosen type."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Putrefy": {
+      "mana_cost": "{1}{B}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact or creature. It can't be regenerated."
+    },
+    "Rakdos Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {B}{R}."
+    },
+    "Reins of Power": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Untap all creatures you control and all creatures target opponent controls. You and that opponent each gain control of all creatures the other controls until end of turn. Those creatures gain haste until end of turn."
+    },
+    "Reliquary Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Return Upon the Tide": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield. If it's an Elf, create two 1/1 green Elf Warrior creature tokens.\nForetell {3}{B} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)"
+    },
+    "Rite of Replication": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Kicker {5} (You may pay an additional {5} as you cast this spell.)\nCreate a token that's a copy of target creature. If this spell was kicked, create five of those tokens instead."
+    },
+    "Rite of the Raging Storm": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Creatures named Lightning Rager can't attack you or planeswalkers you control.\nAt the beginning of each player's upkeep, that player creates a 5/1 red Elemental creature token named Lightning Rager. It has trample, haste, and \"At the beginning of the end step, sacrifice this token.\""
+    },
+    "Rogue's Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn."
+    },
+    "Sandstone Oracle": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, choose an opponent. If that player has more cards in hand than you, draw cards equal to the difference.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Scoured Barrens": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {W} or {B}."
+    },
+    "Seer's Sundial": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may pay {2}. If you do, draw a card."
+    },
+    "Shaman of the Pack": {
+      "mana_cost": "{1}{B}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "When this creature enters, target opponent loses life equal to the number of Elves you control.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Skemfar Shadowsage": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Elf Cleric",
+      "oracle_text": "When this creature enters, choose one —\n• Each opponent loses X life, where X is the greatest number of creatures you control that have a creature type in common.\n• You gain X life, where X is the greatest number of creatures you control that have a creature type in common.",
+      "power": "2",
+      "toughness": "5"
+    },
+    "Skullclamp": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}"
+    },
+    "Smoldering Crater": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Steam Augury": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Reveal the top five cards of your library and separate them into two piles. An opponent chooses one of those piles. Put that pile into your hand and the other into your graveyard."
+    },
+    "Sun Titan": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Creature — Giant",
+      "oracle_text": "Vigilance\nWhenever this creature enters or attacks, you may return target permanent card with mana value 3 or less from your graveyard to the battlefield.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Syphon Mind": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each other player discards a card. You draw a card for each card discarded this way."
+    },
+    "Teferi's Protection": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Until your next turn, your life total can't change and you gain protection from everything. All permanents you control phase out. (While they're phased out, they're treated as though they don't exist. They phase in before you untap during your untap step.)\nExile Teferi's Protection."
+    },
+    "Tergrid's Shadow": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Each player sacrifices two creatures.\nForetell {2}{B}{B} (During your turn, you may pay {2} and exile this card from your hand face down. Cast it on a later turn for its foretell cost.)"
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Thought Vessel": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Thundercloud Shaman": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Giant Shaman",
+      "oracle_text": "When this creature enters, it deals damage equal to the number of Giants you control to each non-Giant creature.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Timberwatch Elf": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf",
+      "oracle_text": "{T}: Target creature gets +X/+X until end of turn, where X is the number of Elves on the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Twinblade Assassins": {
+      "mana_cost": "{3}{B}{G}",
+      "type_line": "Creature — Elf Assassin",
+      "oracle_text": "At the beginning of your end step, if a creature died this turn, draw a card.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Urborg Volcano": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {B} or {R}."
+    },
+    "Urza's Rage": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {8}{R} (You may pay an additional {8}{R} as you cast this spell.)\nThis spell can't be countered.\nUrza's Rage deals 3 damage to any target. If this spell was kicked, instead it deals 10 damage to that permanent or player and the damage can't be prevented."
+    },
+    "Victory's Herald": {
+      "mana_cost": "{3}{W}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nWhenever this creature attacks, attacking creatures gain flying and lifelink until end of turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Vivid Crag": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {R}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Warchief Giant": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Creature — Giant Warrior",
+      "oracle_text": "Haste\nMyriad (Whenever this creature attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
+      "power": "5",
+      "toughness": "3"
+    },
+    "Windfall": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way."
+    },
+    "Wirewood Channeler": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "{T}: Add X mana of any one color, where X is the number of Elves on the battlefield.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Worn Powerstone": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}."
+    }
+  }
 }

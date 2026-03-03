@@ -374,7 +374,10 @@
     "Vow of Duty": "https://api.scryfall.com/cards/mkc/89?format=image&version=small",
     "Zetalpa, Primal Dawn": "https://api.scryfall.com/cards/rix/30?format=image&version=small",
     "Windborn Muse": "https://api.scryfall.com/cards/10e/60?format=image&version=small",
-    "Breena, the Demagogue": "https://api.scryfall.com/cards/otc/217?format=image&version=small"
+    "Breena, the Demagogue": "https://api.scryfall.com/cards/otc/217?format=image&version=small",
+    "Inkling Token": "https://cards.scryfall.io/small/front/c/9/c9deae5c-80d4-4701-b425-91853b7ee03b.jpg?1682693898",
+    "Phyrexian Germ Token": "https://cards.scryfall.io/small/front/2/1/216e9c9c-e63e-451d-a340-ffa6206edcb6.jpg?1682210983",
+    "Plant Token": "https://cards.scryfall.io/small/front/9/2/92091012-856c-4b42-9e22-405112c39edd.jpg?1706217227"
   },
   "snapshots": [
     {
@@ -191721,7 +191724,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -193403,5 +193406,452 @@
         "untappedLands": 5
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aesi, Tyrant of Gyre Strait": {
+      "mana_cost": "{4}{G}{U}",
+      "type_line": "Legendary Creature — Serpent",
+      "oracle_text": "You may play an additional land on each of your turns.\nLandfall — Whenever a land you control enters, you may draw a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Akki Battle Squad": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Goblin Samurai",
+      "oracle_text": "Whenever one or more modified creatures you control attack, untap all modified creatures you control. After this phase, there is an additional combat phase. This ability triggers only once each turn. (Equipment, Auras you control, and counters are modifications.)",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Ambition's Cost": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You draw three cards and you lose 3 life."
+    },
+    "Ascendant Acolyte": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Human Monk",
+      "oracle_text": "This creature enters with a +1/+1 counter on it for each +1/+1 counter among other creatures you control.\nAt the beginning of your upkeep, double the number of +1/+1 counters on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Avenger of Zendikar": {
+      "mana_cost": "{5}{G}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "When this creature enters, create a 0/1 green Plant creature token for each land you control.\nLandfall — Whenever a land you control enters, you may put a +1/+1 counter on each Plant creature you control.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Azorius Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {W}{U}."
+    },
+    "Bloodthirsty Blade": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+0 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\n{1}: Attach this Equipment to target creature an opponent controls. Activate only as a sorcery."
+    },
+    "Bonehoard": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Living weapon (When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this to it.)\nEquipped creature gets +X/+X, where X is the number of creature cards in all graveyards.\nEquip {2}"
+    },
+    "Breena, the Demagogue": {
+      "mana_cost": "{1}{W}{B}",
+      "type_line": "Legendary Creature — Bird Warlock",
+      "oracle_text": "Flying\nWhenever a player attacks one of your opponents, if that opponent has more life than another of your opponents, that attacking player draws a card and you put two +1/+1 counters on a creature you control.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Cephalid Facetaker": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Octopus Rogue",
+      "oracle_text": "This creature can't be blocked.\nAt the beginning of combat on your turn, you may have this creature become a copy of another target creature until end of turn, except it's 1/4 and has \"This creature can't be blocked.\"",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Champion of Wits": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Snake Wizard",
+      "oracle_text": "When this creature enters, you may draw cards equal to its power. If you do, discard two cards.\nEternalize {5}{U}{U} ({5}{U}{U}, Exile this card from your graveyard: Create a token that's a copy of it, except it's a 4/4 black Zombie Snake Wizard with no mana cost. Eternalize only as a sorcery.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Chishiro, the Shattered Blade": {
+      "mana_cost": "{2}{R}{G}",
+      "type_line": "Legendary Creature — Snake Samurai",
+      "oracle_text": "Whenever an Aura or Equipment you control enters, create a 2/2 red Spirit creature token with menace.\nAt the beginning of your end step, put a +1/+1 counter on each modified creature you control. (Equipment, Auras you control, and counters are modifications.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Coiling Oracle": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Creature — Snake Elf Druid",
+      "oracle_text": "When this creature enters, reveal the top card of your library. If it's a land card, put it onto the battlefield. Otherwise, put that card into your hand.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Combat Calligrapher": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Bird Cleric",
+      "oracle_text": "Flying\nInklings can't attack you or planeswalkers you control.\nWhenever a player attacks one of your opponents, that attacking player creates a tapped 2/1 white and black Inkling creature token with flying that's attacking that opponent.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Commander's Sphere": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card."
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Cunning Rhetoric": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever an opponent attacks you and/or one or more planeswalkers you control, exile the top card of that player's library. You may play that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast it."
+    },
+    "Darkwater Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {U}{B}."
+    },
+    "Debtors' Knell": {
+      "mana_cost": "{4}{W/B}{W/B}{W/B}",
+      "type_line": "Enchantment",
+      "oracle_text": "({W/B} can be paid with either {W} or {B}.)\nAt the beginning of your upkeep, put target creature card from a graveyard onto the battlefield under your control."
+    },
+    "Decimate": {
+      "mana_cost": "{2}{R}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target artifact, target creature, target enchantment, and target land. (You can't cast this spell unless you have legal choices for all its targets.)"
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fathom Mage": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\nWhenever a +1/+1 counter is put on this creature, you may draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Hunted Lammasu": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Lammasu",
+      "oracle_text": "Flying\nWhen this creature enters, target opponent creates a 4/4 black Horror creature token.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Identity Thief": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Whenever this creature attacks, you may exile another target nontoken creature. If you do, this creature becomes a copy of that creature until end of turn. Return the exiled card to the battlefield under its owner's control at the beginning of the next end step.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Inkfathom Witch": {
+      "mana_cost": "{1}{U/B}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\n{2}{U}{B}: Each unblocked creature has base power and toughness 4/1 until end of turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Into the Roil": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nReturn target nonland permanent to its owner's hand. If this spell was kicked, draw a card."
+    },
+    "Ior Ruin Expedition": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may put a quest counter on this enchantment.\nRemove three quest counters from this enchantment and sacrifice it: Draw two cards."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kaima, the Fractured Calm": {
+      "mana_cost": "{2}{R}{G}",
+      "type_line": "Legendary Creature — Spirit",
+      "oracle_text": "At the beginning of your end step, goad each creature your opponents control that's enchanted by an Aura you control. Put a +1/+1 counter on Kaima for each creature goaded this way. (Until your next turn, the goaded creatures attack each combat if able and attack a player other than you if able.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Kamiz, Obscura Oculus": {
+      "mana_cost": "{1}{W}{U}{B}",
+      "type_line": "Legendary Creature — Octopus Rogue",
+      "oracle_text": "Whenever you attack, target attacking creature can't be blocked this turn. It connives. Then choose another attacking creature with lesser power. That creature gains double strike until end of turn. (To have a creature connive, draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on that creature.)",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Kosei, Penitent Warlord": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Legendary Creature — Ogre Samurai",
+      "oracle_text": "As long as Kosei is enchanted, equipped, and has a counter on it, Kosei has \"Whenever Kosei deals combat damage to an opponent, you draw that many cards and Kosei deals that much damage to each other opponent.\"",
+      "power": "0",
+      "toughness": "5"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Murkfiend Liege": {
+      "mana_cost": "{2}{G/U}{G/U}{G/U}",
+      "type_line": "Creature — Horror",
+      "oracle_text": "Other green creatures you control get +1/+1.\nOther blue creatures you control get +1/+1.\nUntap all green and/or blue creatures you control during each other player's untap step.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Nadir Kraken": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Creature — Kraken",
+      "oracle_text": "Whenever you draw a card, you may pay {1}. If you do, put a +1/+1 counter on this creature and create a 1/1 blue Tentacle creature token.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Nils, Discipline Enforcer": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "At the beginning of your end step, for each player, put a +1/+1 counter on up to one target creature that player controls.\nEach creature with one or more counters on it can't attack you or planeswalkers you control unless its controller pays {X}, where X is the number of counters on that creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Obscura Storefront": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When this land enters, sacrifice it. When you do, search your library for a basic Plains, Island, or Swamp card, put it onto the battlefield tapped, then shuffle and you gain 1 life."
+    },
+    "Oran-Rief, the Vastwood": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{T}: Put a +1/+1 counter on each green creature that entered this turn."
+    },
+    "Oreskos Explorer": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Cat Scout",
+      "oracle_text": "When this creature enters, search your library for up to X Plains cards, where X is the number of players who control more lands than you. Reveal those cards, put them into your hand, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Orzhov Advokist": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Advisor",
+      "oracle_text": "At the beginning of your upkeep, each player may put two +1/+1 counters on a creature they control. If a player does, creatures that player controls can't attack you or planeswalkers you control until your next turn.",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Orzhov Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {W}{B}."
+    },
+    "Oskar, Rubbish Reclaimer": {
+      "mana_cost": "{3}{U}{B}",
+      "type_line": "Legendary Creature — Human Wizard",
+      "oracle_text": "This spell costs {1} less to cast for each different mana value among cards in your graveyard.\nWhenever you discard a nonland card, you may cast it from your graveyard.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Parasitic Impetus": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, its controller loses 2 life and you gain 2 life."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Profane Command": {
+      "mana_cost": "{X}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose two —\n• Target player loses X life.\n• Return target creature card with mana value X or less from your graveyard to the battlefield.\n• Target creature gets -X/-X until end of turn.\n• Up to X target creatures gain fear until end of turn. (They can't be blocked except by artifact creatures and/or black creatures.)"
+    },
+    "Raging Ravine": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R} or {G}.\n{2}{R}{G}: Until end of turn, this land becomes a 3/3 red and green Elemental creature with \"Whenever this creature attacks, put a +1/+1 counter on it.\" It's still a land."
+    },
+    "Rampant Growth": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    },
+    "Rhythm of the Wild": {
+      "mana_cost": "{1}{R}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Creature spells you control can't be countered.\nNontoken creatures you control have riot. (They enter with your choice of a +1/+1 counter or haste.)"
+    },
+    "Secluded Steppe": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W}.\nCycling {W} ({W}, Discard this card: Draw a card.)"
+    },
+    "Shadowmage Infiltrator": {
+      "mana_cost": "{1}{U}{B}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nWhenever this creature deals combat damage to a player, you may draw a card.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Shamanic Revelation": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw a card for each creature you control.\nFerocious — You gain 4 life for each creature you control with power 4 or greater."
+    },
+    "Silverquill Campus": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {W} or {B}.\n{4}, {T}: Scry 1."
+    },
+    "Skycloud Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {W}{U}."
+    },
+    "Slinn Voda, the Rising Deep": {
+      "mana_cost": "{6}{U}{U}",
+      "type_line": "Legendary Creature — Leviathan",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nWhen Slinn Voda enters, if it was kicked, return all creatures to their owners' hands except for Merfolk, Krakens, Leviathans, Octopuses, and Serpents.",
+      "power": "8",
+      "toughness": "8"
+    },
+    "Smoke Spirits' Aid": {
+      "mana_cost": "{X}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each of up to X target creatures, create a red Aura enchantment token named Smoke Blessing attached to that creature. Those tokens have enchant creature and \"When enchanted creature dies, it deals 1 damage to its controller and you create a Treasure token.\""
+    },
+    "Soul Snare": {
+      "mana_cost": "{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "{W}, Sacrifice this enchantment: Exile target creature that's attacking you or a planeswalker you control."
+    },
+    "Soul's Majesty": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw cards equal to the power of target creature you control."
+    },
+    "Spectral Searchlight": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Choose a player. That player adds one mana of any color they choose."
+    },
+    "Sphinx of Uthuun": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.",
+      "power": "5",
+      "toughness": "6"
+    },
+    "Sporemound": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Fungus",
+      "oracle_text": "Landfall — Whenever a land you control enters, create a 1/1 green Saproling creature token.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Starstorm": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Starstorm deals X damage to each creature.\nCycling {3} ({3}, Discard this card: Draw a card.)"
+    },
+    "Strionic Resonator": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}: Copy target triggered ability you control. You may choose new targets for the copy. (A triggered ability uses the words \"when,\" \"whenever,\" or \"at.\")"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swiftfoot Boots": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has hexproof and haste. (It can't be the target of spells or abilities your opponents control. It can attack and {T} no matter when it came under your control.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Temple of Abandon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {R} or {G}."
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "Tempting Contract": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "At the beginning of your upkeep, each opponent may create a Treasure token. For each opponent who does, you create a Treasure token."
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Tromokratis": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Legendary Creature — Kraken",
+      "oracle_text": "Tromokratis has hexproof unless it's attacking or blocking.\nTromokratis can't be blocked unless all creatures defending player controls block it. (If any creature that player controls doesn't block this creature, it can't be blocked.)",
+      "power": "8",
+      "toughness": "8"
+    },
+    "Ulasht, the Hate Seed": {
+      "mana_cost": "{2}{R}{G}",
+      "type_line": "Legendary Creature — Hellion Hydra",
+      "oracle_text": "Ulasht enters with a +1/+1 counter on it for each other red creature you control and a +1/+1 counter on it for each other green creature you control.\n{1}, Remove a +1/+1 counter from Ulasht: Choose one —\n• Ulasht deals 1 damage to target creature.\n• Create a 1/1 green Saproling creature token.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Vivid Creek": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {U}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vivid Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {G}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Whiptongue Hydra": {
+      "mana_cost": "{5}{G}",
+      "type_line": "Creature — Lizard Hydra",
+      "oracle_text": "Reach\nWhen this creature enters, destroy all creatures with flying. Put a +1/+1 counter on this creature for each creature destroyed this way.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Writ of Return": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield tapped.\nCipher (Then you may exile this spell card encoded on a creature you control. Whenever that creature deals combat damage to a player, its controller may cast a copy of the encoded card without paying its mana cost.)"
+    }
+  }
 }

@@ -38915,7 +38915,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -44324,5 +44324,179 @@
         "untappedLands": 1
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aether Spellbomb": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{U}, Sacrifice this artifact: Return target creature to its owner's hand.\n{1}, Sacrifice this artifact: Draw a card."
+    },
+    "Arcbound Ravager": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Beast",
+      "oracle_text": "Sacrifice an artifact: Put a +1/+1 counter on this creature.\nModular 1 (This creature enters with a +1/+1 counter on it. When it dies, you may put its +1/+1 counters on target artifact creature.)",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Archive Trap": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant — Trap",
+      "oracle_text": "If an opponent searched their library this turn, you may pay {0} rather than pay this spell's mana cost.\nTarget opponent mills thirteen cards."
+    },
+    "Cephalid Coliseum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}. This land deals 1 damage to you.\nThreshold — {U}, {T}, Sacrifice this land: Target player draws three cards, then discards three cards. Activate only if there are seven or more cards in your graveyard."
+    },
+    "Claws of Gix": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, Sacrifice a permanent: You gain 1 life."
+    },
+    "Emry, Lurker of the Loch": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nWhen Emry enters, mill four cards.\n{T}: Choose target artifact card in your graveyard. You may cast that card this turn. (You still pay its costs. Timing rules still apply.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Engineered Explosives": {
+      "mana_cost": "{X}",
+      "type_line": "Artifact",
+      "oracle_text": "Sunburst (This artifact enters with a charge counter on it for each color of mana spent to cast it.)\n{2}, Sacrifice this artifact: Destroy each nonland permanent with mana value equal to the number of charge counters on this artifact."
+    },
+    "Field of Ruin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Destroy target nonbasic land an opponent controls. Each player searches their library for a basic land card, puts it onto the battlefield, then shuffles."
+    },
+    "Fiery Islet": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life: Add {U} or {R}.\n{1}, {T}, Sacrifice this land: Draw a card."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Glimpse the Unthinkable": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player mills ten cards."
+    },
+    "Hedron Crab": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Crab",
+      "oracle_text": "Landfall — Whenever a land you control enters, target player mills three cards. (They put the top three cards of their library into their graveyard.)",
+      "power": "0",
+      "toughness": "2"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kappa Cannoneer": {
+      "mana_cost": "{5}{U}",
+      "type_line": "Artifact Creature — Turtle Warrior",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nWard {4}\nWhenever this creature or another artifact you control enters, put a +1/+1 counter on this creature. It can't be blocked this turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Lavaspur Boots": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+0 and has haste and ward {1}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {1}.)\nEquip {1}"
+    },
+    "Metallic Rebuke": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nCounter target spell unless its controller pays {3}."
+    },
+    "Mishra's Bauble": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Look at the top card of target player's library. Draw a card at the beginning of the next turn's upkeep."
+    },
+    "Mox Opal": {
+      "mana_cost": "{0}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "Metalcraft — {T}: Add one mana of any color. Activate only if you control three or more artifacts."
+    },
+    "Munitions": {
+      "mana_cost": "",
+      "type_line": "Token Artifact",
+      "oracle_text": "When this token leaves the battlefield, it deals 2 damage to any target."
+    },
+    "Pinnacle Emissary": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Artifact Creature — Robot",
+      "oracle_text": "Whenever you cast an artifact spell, create a 1/1 colorless Drone artifact creature token with flying and \"This token can block only creatures with flying.\"\nWarp {U/R} (You may cast this card from your hand for its warp cost. Exile this creature at the beginning of the next end step, then you may cast it from exile on a later turn.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Pithing Needle": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a card name.\nActivated abilities of sources with the chosen name can't be activated unless they're mana abilities."
+    },
+    "Polluted Delta": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Ruin Crab": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Crab",
+      "oracle_text": "Landfall — Whenever a land you control enters, each opponent mills three cards. (To mill a card, a player puts the top card of their library into their graveyard.)",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Shadowspear": {
+      "mana_cost": "{1}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}"
+    },
+    "Shivan Reef": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This land deals 1 damage to you."
+    },
+    "Spirebluff Canal": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {U} or {R}."
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Tormod's Crypt": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Exile target player's graveyard."
+    },
+    "Urza's Saga": {
+      "mana_cost": "",
+      "type_line": "Enchantment Land — Urza's Saga",
+      "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Weapons Manufacturing": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a nontoken artifact you control enters, create a colorless artifact token named Munitions with \"When this token leaves the battlefield, it deals 2 damage to any target.\""
+    },
+    "Welding Jar": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "Sacrifice this artifact: Regenerate target artifact."
+    }
+  }
 }

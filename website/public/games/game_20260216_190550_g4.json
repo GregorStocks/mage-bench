@@ -389,7 +389,12 @@
     "Two-Headed Sliver": "https://api.scryfall.com/cards/cmm/883?format=image&version=small",
     "Vanquisher's Banner": "https://api.scryfall.com/cards/lcc/316?format=image&version=small",
     "Venom Sliver": "https://api.scryfall.com/cards/cmm/914?format=image&version=small",
-    "Winged Sliver": "https://api.scryfall.com/cards/cmm/860?format=image&version=small"
+    "Winged Sliver": "https://api.scryfall.com/cards/cmm/860?format=image&version=small",
+    "Beast Token": "https://cards.scryfall.io/small/front/e/b/eb243b20-85e6-4eba-9403-42272975e8a5.jpg?1752946415",
+    "Centaur Token": "https://cards.scryfall.io/small/front/d/c/dcd41697-6fe6-423c-a04a-035a3d4f8fd2.jpg?1675456051",
+    "Knight Token": "https://cards.scryfall.io/small/front/a/7/a7758a0b-9e85-4b4a-bf1c-ffcc6761dbad.jpg?1748704059",
+    "Rhino Token": "https://cards.scryfall.io/small/front/2/1/214a48bc-4a1c-44e3-9415-a73af3d4fd95.jpg?1568003482",
+    "Wolf Token": "https://cards.scryfall.io/small/front/8/9/89b89a55-3ea2-4186-b946-06831bc16169.jpg?1736468521"
   },
   "snapshots": [
     {
@@ -206601,7 +206606,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -216925,5 +216930,666 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Aetherize": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Return all attacking creatures to their owner's hand."
+    },
+    "Aethersnatch": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target spell. You may choose new targets for it. (If that spell becomes a permanent, it enters under your control.)"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Arjun, the Shifting Flame": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Sphinx Wizard",
+      "oracle_text": "Flying\nWhenever you cast a spell, put the cards in your hand on the bottom of your library in any order, then draw that many cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Bastion Protector": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Commander creatures you control get +2/+2 and have indestructible.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Bestial Menace": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create a 1/1 green Snake creature token, a 2/2 green Wolf creature token, and a 3/3 green Elephant creature token."
+    },
+    "Bonesplitter Sliver": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "All Sliver creatures get +2/+0.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bronzebeak Foragers": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "When this creature enters, for each opponent, exile up to one target nonland permanent that player controls until this creature leaves the battlefield.\n{X}{W}: Put target card with mana value X exiled with this creature into its owner's graveyard. You gain X life.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Call the Skybreaker": {
+      "mana_cost": "{5}{U/R}{U/R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create a 5/5 blue and red Elemental creature token with flying.\nRetrace (You may cast this card from your graveyard by discarding a land card in addition to paying its other costs.)"
+    },
+    "Canopy Vista": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Capricious Sliver": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control have \"Whenever this creature deals combat damage to a player, exile the top card of your library. You may play that card this turn.\"",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Celestial Judgment": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each different power among creatures on the battlefield, choose a creature with that power. Destroy each creature not chosen this way."
+    },
+    "Chain Reaction": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Chain Reaction deals X damage to each creature, where X is the number of creatures on the battlefield."
+    },
+    "Cleaving Sliver": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control get +2/+0.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Cloudshredder Sliver": {
+      "mana_cost": "{R}{W}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control have flying and haste.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Crippling Fear": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. Creatures that aren't of the chosen type get -3/-3 until end of turn."
+    },
+    "Crypt Sliver": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "All Slivers have \"{T}: Regenerate target Sliver.\"",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Curse of Clinging Webs": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment — Aura Curse",
+      "oracle_text": "Enchant player\nWhenever a nontoken creature enchanted player controls dies, exile it and you create a 1/2 green Spider creature token with reach."
+    },
+    "Custodi Soulbinders": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "This creature enters with X +1/+1 counters on it, where X is the number of other creatures on the battlefield.\n{2}{W}, Remove a +1/+1 counter from this creature: Create a 1/1 white Spirit creature token with flying.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Deathgorge Scavenger": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Whenever this creature enters or attacks, you may exile target card from a graveyard. If a creature card is exiled this way, you gain 2 life. If a noncreature card is exiled this way, this creature gets +1/+1 until end of turn.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Decimate": {
+      "mana_cost": "{2}{R}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target artifact, target creature, target enchantment, and target land. (You can't cast this spell unless you have legal choices for all its targets.)"
+    },
+    "Descendants' Path": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, reveal the top card of your library. If it's a creature card that shares a creature type with a creature you control, you may cast it without paying its mana cost. If you don't cast it, put it on the bottom of your library."
+    },
+    "Dinosaur Egg": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Dinosaur Egg",
+      "oracle_text": "Evolve (Whenever a creature you control enters, if that creature has greater power or toughness than this creature, put a +1/+1 counter on this creature.)\nWhen this creature dies, you may discover X, where X is its toughness.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Dragon Mage": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon Wizard",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, each player discards their hand, then draws seven cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Drover of the Mighty": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "This creature gets +2/+2 as long as you control a Dinosaur.\n{T}: Add one mana of any color.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Epic Experiment": {
+      "mana_cost": "{X}{U}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile the top X cards of your library. You may cast instant and sorcery spells with mana value X or less from among them without paying their mana costs. Then put all cards exiled this way that weren't cast into your graveyard."
+    },
+    "Etali, Primal Storm": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Legendary Creature — Elder Dinosaur",
+      "oracle_text": "Whenever Etali attacks, exile the top card of each player's library, then you may cast any number of spells from among those cards without paying their mana costs.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Etherium-Horn Sorcerer": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Artifact Creature — Minotaur Wizard Sorcerer",
+      "oracle_text": "{1}{U}{R}: Return this creature to its owner's hand.\nCascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)",
+      "power": "3",
+      "toughness": "6"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Farseek": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a Plains, Island, Swamp, or Mountain card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Fiery Confluence": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose three. You may choose the same mode more than once.\n• Fiery Confluence deals 1 damage to each creature.\n• Fiery Confluence deals 2 damage to each opponent.\n• Destroy target artifact."
+    },
+    "Firemind's Foresight": {
+      "mana_cost": "{5}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Search your library for an instant card with mana value 3, reveal it, and put it into your hand. Then repeat this process for instant cards with mana values 2 and 1. Then shuffle."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Fortified Village": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal a Forest or Plains card from your hand. If you don't, this land enters tapped.\n{T}: Add {G} or {W}."
+    },
+    "Furycalm Snarl": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, you may reveal a Mountain or Plains card from your hand. If you don't, this land enters tapped.\n{T}: Add {R} or {W}."
+    },
+    "Ghalta, Primal Hunger": {
+      "mana_cost": "{10}{G}{G}",
+      "type_line": "Legendary Creature — Elder Dinosaur",
+      "oracle_text": "This spell costs {X} less to cast, where X is the total power of creatures you control.\nTrample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)",
+      "power": "12",
+      "toughness": "12"
+    },
+    "Gigantoplasm": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "You may have this creature enter as a copy of any creature on the battlefield, except it has \"{X}: This creature has base power and toughness X/X.\"",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Goblin Electromancer": {
+      "mana_cost": "{U}{R}",
+      "type_line": "Creature — Goblin Wizard",
+      "oracle_text": "Instant and sorcery spells you cast cost {1} less to cast.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Harmonic Sliver": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "All Slivers have \"When this permanent enters, destroy target artifact or enchantment.\"",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Harsh Mercy": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player chooses a creature type. Destroy all creatures that aren't of a type chosen this way. They can't be regenerated."
+    },
+    "Hatchery Sliver": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Replicate {1}{G} (When you cast this spell, copy it for each time you paid its replicate cost.)\nEach Sliver spell you cast has replicate. The replicate cost is equal to its mana cost. (A copy of a permanent spell becomes a token.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Herald's Horn": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\nCreature spells you cast of the chosen type cost {1} less to cast.\nAt the beginning of your upkeep, look at the top card of your library. If it's a creature card of the chosen type, you may reveal it and put it into your hand."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Izzet Guildgate": {
+      "mana_cost": "",
+      "type_line": "Land — Gate",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U} or {R}."
+    },
+    "Izzet Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{R}."
+    },
+    "Juniper Order Ranger": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Creature — Human Knight Ranger",
+      "oracle_text": "Whenever another creature you control enters, put a +1/+1 counter on that creature and a +1/+1 counter on this creature.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Leinore, Autumn Sovereign": {
+      "mana_cost": "{2}{G}{W}",
+      "type_line": "Legendary Creature — Human Noble",
+      "oracle_text": "Coven — At the beginning of combat on your turn, put a +1/+1 counter on up to one target creature you control. Then if you control three or more creatures with different powers, draw a card.",
+      "power": "0",
+      "toughness": "4"
+    },
+    "Lifecrafter's Bestiary": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "At the beginning of your upkeep, scry 1.\nWhenever you cast a creature spell, you may pay {G}. If you do, draw a card."
+    },
+    "Lone Revenant": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Hexproof (This creature can't be the target of spells or abilities your opponents control.)\nWhenever this creature deals combat damage to a player, if you control no other creatures, look at the top four cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Magmaquake": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Magmaquake deals X damage to each creature without flying and each planeswalker."
+    },
+    "Majestic Heliopterus": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Flying\nWhenever this creature attacks, another target Dinosaur you control gains flying until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Megantic Sliver": {
+      "mana_cost": "{5}{G}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control get +3/+3.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Melek, Izzet Paragon": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Weird Wizard",
+      "oracle_text": "Play with the top card of your library revealed.\nYou may cast instant and sorcery spells from the top of your library.\nWhenever you cast an instant or sorcery spell from your library, copy it. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Meteor Blast": {
+      "mana_cost": "{X}{R}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Meteor Blast deals 4 damage to each of X targets."
+    },
+    "Mikaeus, the Lunarch": {
+      "mana_cost": "{X}{W}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "Mikaeus enters with X +1/+1 counters on it.\n{T}: Put a +1/+1 counter on Mikaeus.\n{T}, Remove a +1/+1 counter from Mikaeus: Put a +1/+1 counter on each other creature you control.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Mizzium Mortars": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Mizzium Mortars deals 4 damage to target creature you don't control.\nOverload {3}{R}{R}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Mizzix of the Izmagnus": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Creature — Goblin Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell with mana value greater than the number of experience counters you have, you get an experience counter.\nInstant and sorcery spells you cast cost {1} less to cast for each experience counter you have.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Moonsilver Key": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}, Sacrifice this artifact: Search your library for an artifact card with a mana ability or a basic land card, reveal it, put it into your hand, then shuffle."
+    },
+    "Mosswort Bridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {G}.\n{G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Mystic Confluence": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose three. You may choose the same mode more than once.\n• Counter target spell unless its controller pays {3}.\n• Return target creature to its owner's hand.\n• Draw a card."
+    },
+    "Mystic Retrieval": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target instant or sorcery card from your graveyard to your hand.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Odric, Master Tactician": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "First strike (This creature deals combat damage before creatures without first strike.)\nWhenever Odric and at least three other creatures attack, you choose which creatures block this combat and how those creatures block.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Prairie Stream": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Progenitor's Icon": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\n{T}: Add one mana of any color.\n{T}: The next spell of the chosen type you cast this turn can be cast as though it had flash."
+    },
+    "Prophetic Bolt": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Prophetic Bolt deals 4 damage to any target. Look at the top four cards of your library. Put one of those cards into your hand and the rest on the bottom of your library in any order."
+    },
+    "Quick Sliver": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Flash\nAny player may cast Sliver spells as though they had flash.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Ranging Raptors": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Enrage — Whenever this creature is dealt damage, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Regal Behemoth": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Trample\nWhen this creature enters, you become the monarch.\nWhenever you tap a land for mana while you're the monarch, add an additional one mana of any color.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Regal Imperiosaur": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Other Dinosaurs you control get +1/+1.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Reins of Power": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Untap all creatures you control and all creatures target opponent controls. You and that opponent each gain control of all creatures the other controls until end of turn. Those creatures gain haste until end of turn."
+    },
+    "Return to Dust": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target artifact or enchantment. If you cast this spell during your main phase, you may exile up to one other target artifact or enchantment."
+    },
+    "Riders of Gavony": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "Vigilance\nAs this creature enters, choose a creature type.\nHuman creatures you control have protection from creatures of the chosen type.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Rocky Tar Pit": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Ruinous Intrusion": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target artifact or enchantment. Put X +1/+1 counters on target creature you control, where X is the mana value of the permanent exiled this way."
+    },
+    "Rukarumel, Biologist": {
+      "mana_cost": "{W}{U}{B}{R}{G}",
+      "type_line": "Legendary Creature — Human Wizard",
+      "oracle_text": "As Rukarumel enters, choose a creature type.\nSlivers you control and nontoken creatures you control are the chosen type in addition to their other creature types. The same is true for creature spells you control and creature cards you own that aren't on the battlefield.\n{3}, {T}: Create a 1/1 colorless Sliver creature token.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Runic Armasaur": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Whenever an opponent activates an ability of a creature or land that isn't a mana ability, you may draw a card.",
+      "power": "2",
+      "toughness": "5"
+    },
+    "Savage Stomp": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {2} less to cast if it targets a Dinosaur you control.\nPut a +1/+1 counter on target creature you control. Then that creature fights target creature you don't control. (Each deals damage equal to its power to the other.)"
+    },
+    "Scattered Groves": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nThis land enters tapped.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Seaside Citadel": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}, {W}, or {U}."
+    },
+    "Sentinel Sliver": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control have vigilance. (Attacking doesn't cause them to tap.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sheltered Thicket": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nThis land enters tapped.\nCycling {2} ({2}, Discard this card: Draw a card.)"
+    },
+    "Shifting Ceratops": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "This spell can't be countered.\nProtection from blue (This creature can't be blocked, targeted, dealt damage, enchanted, or equipped by anything blue.)\n{G}: This creature gains your choice of reach, trample, or haste until end of turn.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Shifting Sliver": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Slivers can't be blocked except by Slivers.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sigarda's Vanguard": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flash\nFlying\nWhenever this creature enters or attacks, choose any number of creatures with different powers. Those creatures gain double strike until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Sigarda, Heron's Grace": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Legendary Creature — Angel",
+      "oracle_text": "Flying\nYou and Humans you control have hexproof.\n{2}, Exile a card from your graveyard: Create a 1/1 white Human Soldier creature token.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Sigardian Zealot": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "At the beginning of combat on your turn, choose any number of creatures with different powers. Each of them gets +X/+X and gains vigilance until end of turn, where X is this creature's power.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Sliver Hivelord": {
+      "mana_cost": "{W}{U}{B}{R}{G}",
+      "type_line": "Legendary Creature — Sliver",
+      "oracle_text": "Sliver creatures you control have indestructible. (Damage and effects that say \"destroy\" don't destroy them.)",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Smoldering Marsh": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Somberwald Beastmaster": {
+      "mana_cost": "{6}{G}",
+      "type_line": "Creature — Human Ranger",
+      "oracle_text": "When this creature enters, create a 2/2 green Wolf creature token, a 3/3 green Beast creature token, and a 4/4 green Beast creature token.\nCreature tokens you control have deathtouch. (Any amount of damage they deal to a creature is enough to destroy it.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Spiteful Sliver": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "Sliver creatures you control have \"Whenever this creature is dealt damage, it deals that much damage to target player or planeswalker.\"",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Temple Altisaur": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "If a source would deal damage to another Dinosaur you control, prevent all but 1 of that damage.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Three Visits": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Thunderherd Migration": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "As an additional cost to cast this spell, reveal a Dinosaur card from your hand or pay {1}.\nSearch your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Topiary Stomper": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Plant Dinosaur",
+      "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)\nWhen this creature enters, search your library for a basic land card, put it onto the battlefield tapped, then shuffle.\nThis creature can't attack or block unless you control seven or more lands.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Trostani's Summoner": {
+      "mana_cost": "{5}{G}{W}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "When this creature enters, create a 2/2 white Knight creature token with vigilance, a 3/3 green Centaur creature token, and a 4/4 green Rhino creature token with trample.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Unclaimed Territory": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type."
+    },
+    "Vanquisher's Banner": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact",
+      "oracle_text": "As this artifact enters, choose a creature type.\nCreatures you control of the chosen type get +1/+1.\nWhenever you cast a creature spell of the chosen type, draw a card."
+    },
+    "Victory's Envoy": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "At the beginning of your upkeep, put a +1/+1 counter on each other creature you control.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Vivid Creek": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {U}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Wayward Swordtooth": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\nYou may play an additional land on each of your turns.\nThis creature can't attack or block unless you have the city's blessing.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Wild Beastmaster": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Whenever this creature attacks, each other creature you control gets +X/+X until end of turn, where X is this creature's power.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Windfall": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player discards their hand, then draws cards equal to the greatest number of cards a player discarded this way."
+    },
+    "Wrathful Raptors": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Trample\nWhenever a Dinosaur you control is dealt damage, it deals that much damage to any target that isn't a Dinosaur.",
+      "power": "5",
+      "toughness": "5"
+    }
+  }
 }

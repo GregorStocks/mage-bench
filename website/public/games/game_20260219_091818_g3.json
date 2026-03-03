@@ -110,7 +110,8 @@
     "Fire Magic": "https://api.scryfall.com/cards/fin/136?format=image&version=small",
     "Jace, the Mind Sculptor": "https://api.scryfall.com/cards/2xm/56?format=image&version=small",
     "Lavinia, Azorius Renegade": "https://api.scryfall.com/cards/rvr/195?format=image&version=small",
-    "Ruination": "https://api.scryfall.com/cards/cmd/134?format=image&version=small"
+    "Ruination": "https://api.scryfall.com/cards/cmd/134?format=image&version=small",
+    "Human Knight Token": "https://cards.scryfall.io/small/front/5/4/546bda77-e3a8-4f2a-ba9c-94fb0b9ff183.jpg?1708710090"
   },
   "snapshots": [
     {
@@ -63032,7 +63033,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -71336,5 +71337,152 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Back to Basics": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Nonbasic lands don't untap during their controllers' untap steps."
+    },
+    "Brainstorm": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards, then put two cards from your hand on top of your library in any order."
+    },
+    "Dress Down": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nWhen this enchantment enters, draw a card.\nCreatures lose all abilities.\nAt the beginning of the end step, sacrifice this enchantment."
+    },
+    "Flame of Anor": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one. If you control a Wizard as you cast this spell, you may choose two instead.\n• Target player draws two cards.\n• Destroy target artifact.\n• Flame of Anor deals 5 damage to target creature."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Will": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may pay 1 life and exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Forth Eorlingas!": {
+      "mana_cost": "{X}{R}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create X 2/2 red Human Knight creature tokens with trample and haste.\nWhenever one or more creatures you control deal combat damage to one or more players this turn, you become the monarch."
+    },
+    "Goblin Engineer": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Artificer",
+      "oracle_text": "When this creature enters, you may search your library for an artifact card, put it into your graveyard, then shuffle.\n{R}, {T}, Sacrifice an artifact: Return target artifact card with mana value 3 or less from your graveyard to the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Goblin Welder": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Artificer",
+      "oracle_text": "{T}: Choose target artifact a player controls and target artifact card in that player's graveyard. If both targets are still legal as this ability resolves, that player simultaneously sacrifices the artifact and returns the artifact card to the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Great Furnace": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {R}."
+    },
+    "Grindstone": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}, {T}: Target player mills two cards. If two cards that share a color were milled this way, repeat this process."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Painter's Servant": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Scarecrow",
+      "oracle_text": "As this creature enters, choose a color.\nAll cards that aren't on the battlefield, spells, and permanents are the chosen color in addition to their other colors.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Prismatic Vista": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Pyroblast": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target spell if it's blue.\n• Destroy target permanent if it's blue."
+    },
+    "Raucous Theater": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Scalding Tarn": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Thundertrap Trainer": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Otter Wizard",
+      "oracle_text": "Offspring {4} (You may pay an additional {4} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nWhen this creature enters, look at the top four cards of your library. You may reveal a noncreature, nonland card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Tundra": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)"
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_233444_g1",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -101,7 +101,8 @@
     "Pirate's Cutlass": "https://api.scryfall.com/cards/jmp/477?format=image&version=small",
     "Coastal Piracy": "https://api.scryfall.com/cards/jmp/144?format=image&version=small",
     "Waterknot": "https://api.scryfall.com/cards/jmp/192?format=image&version=small",
-    "Corsair Captain": "https://api.scryfall.com/cards/jmp/11?format=image&version=small"
+    "Corsair Captain": "https://api.scryfall.com/cards/jmp/11?format=image&version=small",
+    "Goblin Wizard Token": "https://cards.scryfall.io/small/front/f/d/fd7094d6-6e23-47f2-a9da-4dd680294ac8.jpg?1594733537"
   },
   "snapshots": [
     {
@@ -83878,5 +83879,127 @@
       "player": "Grok4F Libby"
     }
   ],
-  "blunderScriptVersion": 30
+  "blunderScriptVersion": 30,
+  "cardData": {
+    "Chart a Course": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw two cards. Then discard a card unless you attacked this turn."
+    },
+    "Dragon Mage": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon Wizard",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, each player discards their hand, then draws seven cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Goblin Wizardry": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Create two 1/1 red Goblin Wizard creature tokens with prowess. (Whenever you cast a noncreature spell, they get +1/+1 until end of turn.)"
+    },
+    "Heartfire Immolator": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Prowess (Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.)\n{R}, Sacrifice this creature: It deals damage equal to its power to target creature or planeswalker.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Hungry Flames": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Hungry Flames deals 3 damage to target creature and 2 damage to target player or planeswalker."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Kinetic Augur": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Trample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)\nKinetic Augur's power is equal to the number of instant and sorcery cards in your graveyard.\nWhen this creature enters, discard up to two cards, then draw that many cards.",
+      "power": "*",
+      "toughness": "4"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Pirate's Cutlass": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "When this Equipment enters, attach it to target Pirate you control.\nEquipped creature gets +2/+1.\nEquip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Reckless Scholar": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "{T}: Target player draws a card, then discards a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Rishadan Airship": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Pirate",
+      "oracle_text": "Flying\nThis creature can block only creatures with flying.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Sailor of Means": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Pirate",
+      "oracle_text": "When this creature enters, create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Sarkhan's Whelp": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhenever you activate an ability of a Sarkhan planeswalker, this creature deals 1 damage to any target.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Selhoff Occultist": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "Whenever this creature or another creature dies, target player mills a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Spectral Sailor": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Spirit Pirate",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\n{3}{U}: Draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Sweep Away": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Return target creature to its owner's hand. If that creature is attacking, you may put it on top of its owner's library instead."
+    },
+    "Thermo-Alchemist": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Defender\n{T}: This creature deals 1 damage to each opponent.\nWhenever you cast an instant or sorcery spell, untap this creature.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Waterknot": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nWhen this Aura enters, tap enchanted creature.\nEnchanted creature doesn't untap during its controller's untap step."
+    }
+  }
 }

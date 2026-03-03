@@ -108,7 +108,8 @@
     "Path to Exile": "https://api.scryfall.com/cards/ecc/65?format=image&version=small",
     "Split Up": "https://api.scryfall.com/cards/dsk/32?format=image&version=small",
     "Wrath of the Skies": "https://api.scryfall.com/cards/mh3/49?format=image&version=small",
-    "Yorion, Sky Nomad": "https://api.scryfall.com/cards/iko/232?format=image&version=small"
+    "Yorion, Sky Nomad": "https://api.scryfall.com/cards/iko/232?format=image&version=small",
+    "Orc Army Token": "https://cards.scryfall.io/small/front/d/b/db598f33-2ff9-4e0b-a067-05fecc03435f.jpg?1713834708"
   },
   "snapshots": [
     {
@@ -60479,7 +60480,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -63010,5 +63011,202 @@
         "untappedLands": 5
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Aether Vial": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n{T}: You may put a creature card with mana value equal to the number of charge counters on this artifact from your hand onto the battlefield."
+    },
+    "Balustrade Spy": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Vampire Rogue",
+      "oracle_text": "Flying\nWhen this creature enters, target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Bridge from Below": {
+      "mana_cost": "{B}{B}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a nontoken creature is put into your graveyard from the battlefield, if this card is in your graveyard, create a 2/2 black Zombie creature token.\nWhen a creature is put into an opponent's graveyard from the battlefield, if this card is in your graveyard, exile this card."
+    },
+    "Cabal Therapy": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a nonland card name. Target player reveals their hand and discards all cards with that name.\nFlashback—Sacrifice a creature. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Dark Ritual": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Add {B}{B}{B}."
+    },
+    "Dread Return": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to the battlefield.\nFlashback—Sacrifice three creatures. (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Elvish Spirit Guide": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Spirit",
+      "oracle_text": "Exile this creature from your hand: Add {G}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Flickerwisp": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Flying\nWhen this creature enters, exile another target permanent. Return that card to the battlefield under its owner's control at the beginning of the next end step.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Karakas": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "{T}: Add {W}.\n{T}: Return target legendary creature to its owner's hand."
+    },
+    "Lion Sash": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Artifact Creature — Equipment Cat",
+      "oracle_text": "{W}: Exile target card from a graveyard. If it was a permanent card, put a +1/+1 counter on this permanent.\nEquipped creature gets +1/+1 for each +1/+1 counter on this Equipment.\nReconfigure {2} ({2}: Attach to target creature you control; or unattach from a creature. Reconfigure only as a sorcery. While attached, this isn't a creature.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Lively Dirge": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1} — Search your library for a card, put it into your graveyard, then shuffle.\n+ {2} — Return up to two creature cards with total mana value 4 or less from your graveyard to the battlefield."
+    },
+    "Lotus Petal": {
+      "mana_cost": "{0}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Sacrifice this artifact: Add one mana of any color."
+    },
+    "Marsh Flats": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle."
+    },
+    "Narcomoeba": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Illusion",
+      "oracle_text": "Flying\nWhen this card is put into your graveyard from your library, you may put it onto the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Orcish Bowmasters": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Orc Archer",
+      "oracle_text": "Flash\nWhen this creature enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, this creature deals 1 damage to any target. Then amass Orcs 1.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Overlord of the Balemurk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Enchantment Creature — Avatar Horror",
+      "oracle_text": "Impending 5—{1}{B} (If you cast this spell for its impending cost, it enters with five time counters and isn't a creature until the last is removed. At the beginning of your end step, remove a time counter from it.)\nWhenever this permanent enters or attacks, mill four cards, then you may return a non-Avatar creature card or a planeswalker card from your graveyard to your hand.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Phelia, Exuberant Shepherd": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Legendary Creature — Dog",
+      "oracle_text": "Flash\nWhenever Phelia attacks, exile up to one other target nonland permanent. At the beginning of the next end step, return that card to the battlefield under its owner's control. If it entered under your control, put a +1/+1 counter on Phelia.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Recruiter of the Guard": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "When this creature enters, you may search your library for a creature card with toughness 2 or less, reveal it, put it into your hand, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Savannah": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)"
+    },
+    "Scrubland": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)"
+    },
+    "Shadowy Backstreet": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Swamp",
+      "oracle_text": "({T}: Add {W} or {B}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Simian Spirit Guide": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Ape Spirit",
+      "oracle_text": "Exile this card from your hand: Add {R}.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Solitude": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Flash\nLifelink\nWhen this creature enters, exile up to one other target creature. That creature's controller gains life equal to its power.\nEvoke—Exile a white card from your hand.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Stoneforge Mystic": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Kor Artificer",
+      "oracle_text": "When this creature enters, you may search your library for an Equipment card, reveal it, put it into your hand, then shuffle.\n{1}{W}, {T}: You may put an Equipment card from your hand onto the battlefield.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Swords to Plowshares": {
+      "mana_cost": "{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Its controller gains life equal to its power."
+    },
+    "Thassa's Oracle": {
+      "mana_cost": "{U}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "When this creature enters, look at the top X cards of your library, where X is your devotion to blue. Put up to one of them on top of your library and the rest on the bottom of your library in a random order. If X is greater than or equal to the number of cards in your library, you win the game. (Each {U} in the mana costs of permanents you control counts toward your devotion to blue.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Thoughtseize": {
+      "mana_cost": "{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target player reveals their hand. You choose a nonland card from it. That player discards that card. You lose 2 life."
+    },
+    "Undercity Informer": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "{1}, Sacrifice a creature: Target player reveals cards from the top of their library until they reveal a land card, then puts those cards into their graveyard.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Unmask": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "You may exile a black card from your hand rather than pay this spell's mana cost.\nTarget player reveals their hand. You choose a nonland card from it. That player discards that card."
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "White Orchid Phantom": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Creature — Spirit Knight",
+      "oracle_text": "Flying, first strike\nWhen this creature enters, destroy up to one target nonbasic land. Its controller may search their library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Windswept Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Plains card, put it onto the battlefield, then shuffle."
+    }
+  }
 }

@@ -361,7 +361,13 @@
     "Urge to Feed": "https://api.scryfall.com/cards/wwk/70?format=image&version=small",
     "Vampire Nighthawk": "https://api.scryfall.com/cards/m13/112?format=image&version=small",
     "Vampiric Dragon": "https://api.scryfall.com/cards/ody/296?format=image&version=small",
-    "Strefan, Maurer Progenitor": "https://api.scryfall.com/cards/voc/2?format=image&version=small"
+    "Strefan, Maurer Progenitor": "https://api.scryfall.com/cards/voc/2?format=image&version=small",
+    "Blood Token": "https://cards.scryfall.io/small/front/6/b/6b563165-b97f-42c6-82a8-65d8ee69e381.jpg?1762793559",
+    "Clue Token": "https://cards.scryfall.io/small/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1771590258",
+    "Rat Token": "https://cards.scryfall.io/small/front/3/b/3b69ac36-617d-4e55-a625-0e6f0d0dfbd3.jpg?1771590504",
+    "Servo Token": "https://cards.scryfall.io/small/front/1/0/10de413b-3307-4bc7-bb21-f177543d7e21.jpg?1738355244",
+    "Thopter Token": "https://cards.scryfall.io/small/front/7/8/78e52380-13a1-44fe-b762-e71261cac3d0.jpg?1738355254",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -428722,7 +428728,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -460262,5 +460268,817 @@
         "untappedLands": 8
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Anje's Ravager": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Vampire Berserker",
+      "oracle_text": "This creature attacks each combat if able.\nWhenever this creature attacks, discard your hand, then draw three cards.\nMadness {1}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Anowon, the Ruin Sage": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Legendary Creature — Vampire Shaman",
+      "oracle_text": "At the beginning of your upkeep, each player sacrifices a non-Vampire creature of their choice.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Avacyn's Judgment": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Madness {X}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)\nAvacyn's Judgment deals 2 damage divided as you choose among any number of targets. If this spell's madness cost was paid, it deals X damage divided as you choose among those permanents and/or players instead."
+    },
+    "Azorius Chancery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{U}."
+    },
+    "Azorius Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {W}{U}."
+    },
+    "Bag of Devouring": {
+      "mana_cost": "{B}",
+      "type_line": "Artifact",
+      "oracle_text": "Whenever you sacrifice another nontoken artifact or creature, exile it.\n{2}, {T}, Sacrifice another artifact or creature: Draw a card.\n{3}, {T}, Sacrifice this artifact: Roll a d10. Return up to X cards from among cards exiled with this artifact to their owners' hands, where X is the result."
+    },
+    "Blasphemous Act": {
+      "mana_cost": "{8}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {1} less to cast for each creature on the battlefield.\nBlasphemous Act deals 13 damage to each creature."
+    },
+    "Bloodlord of Vaasgoth": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Vampire Warrior",
+      "oracle_text": "Bloodthirst 3 (If an opponent was dealt damage this turn, this creature enters with three +1/+1 counters on it.)\nFlying\nWhenever you cast a Vampire creature spell, it gains bloodthirst 3.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Bloodsworn Steward": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Vampire Knight",
+      "oracle_text": "Flying\nCommander creatures you control get +2/+2 and have haste.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Bloodtithe Harvester": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Creature — Vampire",
+      "oracle_text": "When this creature enters, create a Blood token. (It's an artifact with \"{1}, {T}, Discard a card, Sacrifice this token: Draw a card.\")\n{T}, Sacrifice this creature: Target creature gets -X/-X until end of turn, where X is twice the number of Blood tokens you control. Activate only as a sorcery.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Bosh, Iron Golem": {
+      "mana_cost": "{8}",
+      "type_line": "Legendary Artifact Creature — Golem",
+      "oracle_text": "Trample\n{3}{R}, Sacrifice an artifact: Bosh deals damage equal to the sacrificed artifact's mana value to any target.",
+      "power": "6",
+      "toughness": "7"
+    },
+    "Bronze Guardian": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "Double strike\nWard {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)\nOther artifacts you control have ward {2}.\nBronze Guardian's power is equal to the number of artifacts you control.",
+      "power": "*",
+      "toughness": "5"
+    },
+    "Brudiclad, Telchor Engineer": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Artifact Creature — Phyrexian Artificer",
+      "oracle_text": "Creature tokens you control have haste.\nAt the beginning of combat on your turn, create a 2/1 blue Phyrexian Myr artifact creature token. Then you may choose a token you control. If you do, each other token you control becomes a copy of that token.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Buried Ruin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Return target artifact card from your graveyard to your hand."
+    },
+    "Champion of Dusk": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Vampire Knight",
+      "oracle_text": "When this creature enters, you draw X cards and you lose X life, where X is the number of Vampires you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Chaos Wand": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{4}, {T}: Target opponent exiles cards from the top of their library until they exile an instant or sorcery card. You may cast that card without paying its mana cost. Then put the exiled cards that weren't cast this way on the bottom of that library in a random order."
+    },
+    "Chief of the Foundry": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Other artifact creatures you control get +1/+1.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Chrome Courier": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Artifact Creature — Thopter",
+      "oracle_text": "Flying\nWhen this creature enters, reveal the top two cards of your library. Put one of them into your hand and the other into your graveyard. If you put an artifact card into your hand this way, you gain 3 life.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Commander's Sphere": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card."
+    },
+    "Coveted Jewel": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, draw three cards.\n{T}: Add three mana of any one color.\nWhenever one or more creatures an opponent controls attack you and aren't blocked, that player draws three cards and gains control of this artifact. Untap it."
+    },
+    "Dark Impostor": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Vampire Assassin",
+      "oracle_text": "{4}{B}{B}: Exile target creature and put a +1/+1 counter on this creature.\nThis creature has all activated abilities of all creature cards exiled with it.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Darksteel Juggernaut": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact Creature — Juggernaut",
+      "oracle_text": "Indestructible\nDarksteel Juggernaut's power and toughness are each equal to the number of artifacts you control.\nThis creature attacks each combat if able.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Despark": {
+      "mana_cost": "{W}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target permanent with mana value 4 or greater."
+    },
+    "Dimir Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{B}."
+    },
+    "Disrupt Decorum": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Goad all creatures you don't control. (Until your next turn, those creatures attack each combat if able and attack a player other than you if able.)"
+    },
+    "Dream Pillager": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying\nWhenever this creature deals combat damage to a player, exile that many cards from the top of your library. Until end of turn, you may cast spells from among those exiled cards.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Echo Storm": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "When you cast this spell, copy it for each time you've cast your commander from the command zone this game. You may choose new targets for the copies.\nCreate a token that's a copy of target artifact."
+    },
+    "Enchanter's Bane": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your end step, target enchantment deals damage equal to its mana value to its controller unless that player sacrifices it."
+    },
+    "Endless Atlas": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{2}, {T}: Draw a card. Activate only if you control three or more lands with the same name."
+    },
+    "Etali, Primal Storm": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Legendary Creature — Elder Dinosaur",
+      "oracle_text": "Whenever Etali attacks, exile the top card of each player's library, then you may cast any number of spells from among those cards without paying their mana costs.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Etched Champion": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Soldier",
+      "oracle_text": "Metalcraft — This creature has protection from each color as long as you control three or more artifacts.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Etherium Sculptor": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Artifact Creature — Vedalken Artificer",
+      "oracle_text": "Artifact spells you cast cost {1} less to cast.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Ethersworn Adjudicator": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Artifact Creature — Vedalken Knight",
+      "oracle_text": "Flying\n{1}{W}{B}, {T}: Destroy target creature or enchantment.\n{2}{U}: Untap this creature.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Exotic Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color that a land an opponent controls could produce."
+    },
+    "Fire Diamond": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {R}."
+    },
+    "Forge of Heroes": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Choose target commander that entered this turn. Put a +1/+1 counter on it if it's a creature and a loyalty counter on it if it's a planeswalker."
+    },
+    "Geode Golem": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "Trample\nWhenever this creature deals combat damage to a player, you may cast your commander from the command zone without paying its mana cost. (You still pay any additional costs.)",
+      "power": "5",
+      "toughness": "3"
+    },
+    "Hedron Archive": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}.\n{2}, {T}, Sacrifice this artifact: Draw two cards."
+    },
+    "Hellkite Igniter": {
+      "mana_cost": "{5}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, haste\n{1}{R}: This creature gets +X/+0 until end of turn, where X is the number of artifacts you control.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Highland Lake": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U} or {R}."
+    },
+    "Hurl Through Hell": {
+      "mana_cost": "{2}{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target creature. Until the end of your next turn, you may cast that card and you may spend mana as though it were mana of any color to cast that spell."
+    },
+    "Imposing Grandeur": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player may discard their hand and draw cards equal to the greatest mana value of a commander they own on the battlefield or in the command zone."
+    },
+    "Inkwell Leviathan": {
+      "mana_cost": "{7}{U}{U}",
+      "type_line": "Artifact Creature — Leviathan",
+      "oracle_text": "Trample\nIslandwalk (This creature can't be blocked as long as defending player controls an Island.)\nShroud (This creature can't be the target of spells or abilities.)",
+      "power": "7",
+      "toughness": "11"
+    },
+    "Into the Roil": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Kicker {1}{U} (You may pay an additional {1}{U} as you cast this spell.)\nReturn target nonland permanent to its owner's hand. If this spell was kicked, draw a card."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Izzet Boilerworks": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{R}."
+    },
+    "Kayla's Music Box": {
+      "mana_cost": "{2}",
+      "type_line": "Legendary Artifact",
+      "oracle_text": "{W}, {T}: Look at the top card of your library, then exile it face down. (You may look at it any time.)\n{T}: Until end of turn, you may play cards you own exiled with Kayla's Music Box."
+    },
+    "Light Up the Stage": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Spectacle {R} (You may cast this spell for its spectacle cost rather than its mana cost if an opponent lost life this turn.)\nExile the top two cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Lorcan, Warlock Collector": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Legendary Creature — Devil",
+      "oracle_text": "Flying\nWhenever a creature card is put into an opponent's graveyard from anywhere, you may pay life equal to its mana value. If you do, put it onto the battlefield under your control. It's a Warlock in addition to its other types.\nIf a Warlock you control would die, exile it instead.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Loyal Apprentice": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Haste\nLieutenant — At the beginning of combat on your turn, if you control your commander, create a 1/1 colorless Thopter artifact creature token with flying. That token gains haste until end of turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Magnifying Glass": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")"
+    },
+    "Malakir Bloodwitch": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Vampire Shaman",
+      "oracle_text": "Flying, protection from white\nWhen this creature enters, each opponent loses life equal to the number of Vampires you control. You gain life equal to the life lost this way.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "March of Progress": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose target artifact creature you control. For each creature chosen this way, create a token that's a copy of it.\nOverload {6}{U} (You may cast this spell for its overload cost. If you do, change its text by replacing all instances of \"target\" with \"each.\")"
+    },
+    "Marionette Master": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Fabricate 3 (When this creature enters, put three +1/+1 counters on it or create three 1/1 colorless Servo artifact creature tokens.)\nWhenever an artifact you control is put into a graveyard from the battlefield, target opponent loses life equal to this creature's power.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Master of Etherium": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Artifact Creature — Vedalken Wizard",
+      "oracle_text": "Master of Etherium's power and toughness are each equal to the number of artifacts you control.\nOther artifact creatures you control get +1/+1.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Maverick Thopterist": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nWhen this creature enters, create two 1/1 colorless Thopter artifact creature tokens with flying.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Midnight Arsonist": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Creature — Vampire",
+      "oracle_text": "When this creature enters, destroy up to X target artifacts without mana abilities, where X is the number of Vampires you control.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Mimic Vat": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — Whenever a nontoken creature dies, you may exile that card. If you do, return each other card exiled with this artifact to its owner's graveyard.\n{3}, {T}: Create a token that's a copy of a card exiled with this artifact. It gains haste. Exile it at the beginning of the next end step."
+    },
+    "Mind Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Mistvault Bridge": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "This land enters tapped.\nIndestructible\n{T}: Add {U} or {B}."
+    },
+    "Mob Rule": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose one —\n• Gain control of all creatures with power 4 or greater until end of turn. Untap those creatures. They gain haste until end of turn.\n• Gain control of all creatures with power 3 or less until end of turn. Untap those creatures. They gain haste until end of turn."
+    },
+    "Molten Echoes": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "As this enchantment enters, choose a creature type.\nWhenever a nontoken creature you control of the chosen type enters, create a token that's a copy of that creature. That token gains haste. Exile it at the beginning of the next end step."
+    },
+    "Mortuary Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you may put target creature card from your graveyard on top of your library.\n{T}: Add {B}."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Ogre Slumlord": {
+      "mana_cost": "{3}{B}{B}",
+      "type_line": "Creature — Ogre Rogue",
+      "oracle_text": "Whenever another nontoken creature dies, you may create a 1/1 black Rat creature token.\nRats you control have deathtouch.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Olivia's Wrath": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each non-Vampire creature gets -X/-X until end of turn, where X is the number of Vampires you control."
+    },
+    "One with the Machine": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw cards equal to the greatest mana value among artifacts you control."
+    },
+    "Orazca Relic": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\n{T}: Add {C}.\n{T}, Sacrifice this artifact: You gain 3 life and draw a card. Activate only if you have the city's blessing."
+    },
+    "Orzhov Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {W}{B}."
+    },
+    "Patron of the Vein": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Creature — Vampire Shaman",
+      "oracle_text": "Flying\nWhen this creature enters, destroy target creature an opponent controls.\nWhenever a creature an opponent controls dies, exile it and put a +1/+1 counter on each Vampire you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Phyrexian Rebirth": {
+      "mana_cost": "{4}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all creatures, then create an X/X colorless Phyrexian Horror artifact creature token, where X is the number of creatures destroyed this way."
+    },
+    "Pilgrim's Eye": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Thopter",
+      "oracle_text": "Flying\nWhen this creature enters, you may search your library for a basic land card, reveal it, put it into your hand, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Piper of the Swarm": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Human Warlock",
+      "oracle_text": "Rats you control have menace.\n{1}{B}, {T}: Create a 1/1 black Rat creature token.\n{2}{B}{B}, {T}, Sacrifice three Rats: Gain control of target creature.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Pontiff of Blight": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Creature — Zombie Cleric",
+      "oracle_text": "Extort (Whenever you cast a spell, you may pay {W/B}. If you do, each opponent loses 1 life and you gain that much life.)\nOther creatures you control have extort. (If a creature has multiple instances of extort, each triggers separately.)",
+      "power": "2",
+      "toughness": "7"
+    },
+    "Prairie Stream": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Predators' Hour": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Until end of turn, creatures you control gain menace and \"Whenever this creature deals combat damage to a player, exile the top card of that player's library face down. You may look at and play that card for as long as it remains exiled, and you may spend mana as though it were mana of any color to cast that spell.\""
+    },
+    "Prosper, Tome-Bound": {
+      "mana_cost": "{2}{B}{R}",
+      "type_line": "Legendary Creature — Tiefling Warlock",
+      "oracle_text": "Deathtouch\nMystic Arcanum — At the beginning of your end step, exile the top card of your library. Until the end of your next turn, you may play that card.\nPact Boon — Whenever you play a card from exile, create a Treasure token.",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Prototype Portal": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Imprint — When this artifact enters, you may exile an artifact card from your hand.\n{X}, {T}: Create a token that's a copy of the exiled card. X is the mana value of that card."
+    },
+    "Rakdos Charm": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Exile target player's graveyard.\n• Destroy target artifact.\n• Each creature deals 1 damage to its controller."
+    },
+    "Rakdos Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {B}{R}."
+    },
+    "Razortide Bridge": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "This land enters tapped.\nIndestructible\n{T}: Add {W} or {U}."
+    },
+    "Retrofitter Foundry": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}: Untap this artifact.\n{2}, {T}: Create a 1/1 colorless Servo artifact creature token.\n{1}, {T}, Sacrifice a Servo: Create a 1/1 colorless Thopter artifact creature token with flying.\n{T}, Sacrifice a Thopter: Create a 4/4 colorless Construct artifact creature token."
+    },
+    "Reverse Engineer": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nDraw three cards."
+    },
+    "River of Tears": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}. If you played a land this turn, add {B} instead."
+    },
+    "Saheeli's Directive": {
+      "mana_cost": "{X}{R}{R}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Improvise (Each artifact you tap after you're done activating mana abilities pays for {1}.)\nReveal the top X cards of your library. You may put any number of artifact cards with mana value X or less from among them onto the battlefield. Then put all cards revealed this way that weren't put onto the battlefield into your graveyard."
+    },
+    "Saheeli, the Gifted": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Planeswalker — Saheeli",
+      "oracle_text": "+1: Create a 1/1 colorless Servo artifact creature token.\n+1: The next spell you cast this turn has affinity for artifacts. (It costs {1} less to cast for each artifact you control as you cast it.)\n−7: For each artifact you control, create a token that's a copy of it. Those tokens gain haste. Exile those tokens at the beginning of the next end step.\nSaheeli, the Gifted can be your commander.",
+      "loyalty": "4"
+    },
+    "Sanwell, Avenger Ace": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Legendary Creature — Human Pilot",
+      "oracle_text": "As long as an artifact creature you control is attacking, prevent all damage that would be dealt to Sanwell.\nWhenever Sanwell becomes tapped, exile the top six cards of your library. You may cast a Vehicle or artifact creature spell from among them. Then put the rest on the bottom of your library in a random order.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Scholar of New Horizons": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "This creature enters with a +1/+1 counter on it.\n{T}, Remove a counter from a permanent you control: Search your library for a Plains card and reveal it. If an opponent controls more lands than you, you may put that card onto the battlefield tapped. If you don't put the card onto the battlefield, put it into your hand. Then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Scrabbling Claws": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Target player exiles a card from their graveyard.\n{1}, Sacrifice this artifact: Exile target card from a graveyard. Draw a card."
+    },
+    "Seat of the Synod": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {U}."
+    },
+    "Sharding Sphinx": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Artifact Creature — Sphinx",
+      "oracle_text": "Flying\nWhenever an artifact creature you control deals combat damage to a player, you may create a 1/1 blue Thopter artifact creature token with flying.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Sharuum the Hegemon": {
+      "mana_cost": "{3}{W}{U}{B}",
+      "type_line": "Legendary Artifact Creature — Sphinx",
+      "oracle_text": "Flying\nWhen Sharuum enters, you may return target artifact card from your graveyard to the battlefield.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Sinister Waltz": {
+      "mana_cost": "{3}{B}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose three target creature cards in your graveyard. Return two of them at random to the battlefield and put the other on the bottom of your library."
+    },
+    "Skullclamp": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}"
+    },
+    "Smoldering Marsh": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp Mountain",
+      "oracle_text": "({T}: Add {B} or {R}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Soul of New Phyrexia": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Phyrexian Avatar",
+      "oracle_text": "Trample\n{5}: Permanents you control gain indestructible until end of turn.\n{5}, Exile this card from your graveyard: Permanents you control gain indestructible until end of turn.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Sphinx's Revelation": {
+      "mana_cost": "{X}{W}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You gain X life and draw X cards."
+    },
+    "Spinerock Knoll": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {R}.\n{R}, {T}: You may play the exiled card without paying its mana cost if an opponent was dealt 7 or more damage this turn."
+    },
+    "Steel Overseer": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "{T}: Put a +1/+1 counter on each artifact creature you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Stensia Masquerade": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Attacking creatures you control have first strike.\nWhenever a Vampire you control deals combat damage to a player, put a +1/+1 counter on it.\nMadness {2}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)"
+    },
+    "Strefan, Maurer Progenitor": {
+      "mana_cost": "{2}{B}{R}",
+      "type_line": "Legendary Creature — Vampire Noble",
+      "oracle_text": "Flying\nAt the beginning of your end step, create a Blood token for each player who lost life this turn.\nWhenever Strefan attacks, you may sacrifice two Blood tokens. If you do, you may put a Vampire card from your hand onto the battlefield tapped and attacking. It gains indestructible until end of turn.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Stromkirk Occultist": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Vampire Horror",
+      "oracle_text": "Trample\nWhenever this creature deals combat damage to a player, exile the top card of your library. Until end of turn, you may play that card.\nMadness {1}{R} (If you discard this card, discard it into exile. When you do, cast it for its madness cost or put it into your graveyard.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Sunken Hollow": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swiftwater Cliffs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {R}."
+    },
+    "Tainted Peak": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. Activate only if you control a Swamp."
+    },
+    "Talisman of Indulgence": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {B} or {R}. This artifact deals 1 damage to you."
+    },
+    "Tawnos, Solemn Survivor": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Legendary Creature — Human Artificer",
+      "oracle_text": "{2}, {T}: Create a token that's a copy of up to one target artifact token you control. Mill two cards.\n{1}{W}{U}{B}, {T}, Sacrifice two artifact tokens, Exile an artifact or creature card from your graveyard: Create a token that's a copy of the exiled card, except it's an artifact in addition to its other types. Activate only as a sorcery.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Tectonic Giant": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Elemental Giant",
+      "oracle_text": "Whenever this creature attacks or becomes the target of a spell an opponent controls, choose one —\n• This creature deals 3 damage to each opponent.\n• Exile the top two cards of your library. Choose one of them. Until the end of your next turn, you may play that card.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Tempered Steel": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Artifact creatures you control get +2/+2."
+    },
+    "Temple of Enlightenment": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {W} or {U}."
+    },
+    "Temple of Silence": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {W} or {B}."
+    },
+    "Temple of the False God": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. Activate only if you control five or more lands."
+    },
+    "Terminate": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target creature. It can't be regenerated."
+    },
+    "Thirst for Knowledge": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw three cards. Then discard two cards unless you discard an artifact card."
+    },
+    "Thopter Assembly": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Thopter",
+      "oracle_text": "Flying\nAt the beginning of your upkeep, if you control no Thopters other than this creature, return this creature to its owner's hand and create five 1/1 colorless Thopter artifact creature tokens with flying.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Thopter Engineer": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "When this creature enters, create a 1/1 colorless Thopter artifact creature token with flying.\nArtifact creatures you control have haste. (They can attack and {T} as soon as they come under your control.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Thopter Spy Network": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, if you control an artifact, create a 1/1 colorless Thopter artifact creature token with flying.\nWhenever one or more artifact creatures you control deal combat damage to a player, draw a card."
+    },
+    "Thought Monitor": {
+      "mana_cost": "{6}{U}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\nFlying\nWhen this creature enters, draw two cards.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Throes of Chaos": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Cascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)\nRetrace (You may cast this card from your graveyard by discarding a land card in addition to paying its other costs.)"
+    },
+    "Treasure Nabber": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Rogue",
+      "oracle_text": "Whenever an opponent taps an artifact for mana, gain control of that artifact until the end of your next turn.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Unbreakable Formation": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Creatures you control gain indestructible until end of turn.\nAddendum — If you cast this spell during your main phase, put a +1/+1 counter on each of those creatures and they gain vigilance until end of turn."
+    },
+    "Underdark Rift": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{5}, {T}, Exile this land: Roll a d10. Put target artifact, creature, or planeswalker into its owner's library just beneath the top X cards of that library, where X is the result. Activate only as a sorcery."
+    },
+    "Unstable Obelisk": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{7}, {T}, Sacrifice this artifact: Destroy target permanent."
+    },
+    "Unwinding Clock": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Untap all artifacts you control during each other player's untap step."
+    },
+    "Vandalblast": {
+      "mana_cost": "{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target artifact you don't control.\nOverload {4}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Vedalken Humiliator": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Vedalken Wizard",
+      "oracle_text": "Metalcraft — Whenever this creature attacks, if you control three or more artifacts, creatures your opponents control lose all abilities and have base power and toughness 1/1 until end of turn.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Vessel of Endless Rest": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters, put target card from a graveyard on the bottom of its owner's library.\n{T}: Add one mana of any color."
+    },
+    "Vindicate": {
+      "mana_cost": "{1}{W}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target permanent."
+    },
+    "Warlock Class": {
+      "mana_cost": "{B}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nAt the beginning of your end step, if a creature died this turn, each opponent loses 1 life.\n{1}{B}: Level 2\nWhen this Class becomes level 2, look at the top three cards of your library. Put one of them into your hand and the rest into your graveyard.\n{6}{B}: Level 3\nAt the beginning of your end step, each opponent loses life equal to the life they lost this turn. (Damage causes loss of life.)"
+    },
+    "Whirler Rogue": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Human Rogue Artificer",
+      "oracle_text": "When this creature enters, create two 1/1 colorless Thopter artifact creature tokens with flying.\nTap two untapped artifacts you control: Target creature can't be blocked this turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Wire Surgeons": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nEach artifact creature card in your graveyard has encore. Its encore cost is equal to its mana cost. (Exile it and pay its mana cost: For each opponent, create a token copy that attacks that opponent this turn if able. They gain haste. Sacrifice them at the beginning of the next end step. Activate only as a sorcery.)",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Worn Powerstone": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}."
+    },
+    "You Find Some Prisoners": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Break Their Chains — Destroy target artifact.\n• Interrogate Them — Exile the top three cards of target opponent's library. Choose one of them. Until the end of your next turn, you may play that card, and you may spend mana as though it were mana of any color to cast it."
+    }
+  }
 }

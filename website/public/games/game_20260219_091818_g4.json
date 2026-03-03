@@ -114,7 +114,8 @@
     "Grafdigger's Cage": "https://api.scryfall.com/cards/m20/227?format=image&version=small",
     "Trinisphere": "https://api.scryfall.com/cards/2xm/303?format=image&version=small",
     "Unholy Heat": "https://api.scryfall.com/cards/otc/182?format=image&version=small",
-    "Vexing Bauble": "https://api.scryfall.com/cards/mh3/212?format=image&version=small"
+    "Vexing Bauble": "https://api.scryfall.com/cards/mh3/212?format=image&version=small",
+    "Eldrazi Spawn Token": "https://cards.scryfall.io/small/front/d/0/d0da4f8d-cce9-4d08-8d11-792e0b2af7d0.jpg?1561758122"
   },
   "snapshots": [
     {
@@ -113732,7 +113733,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -126133,5 +126134,213 @@
         "landDropsUsed": 0
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Arid Mesa": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle."
+    },
+    "Breeding Pool": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Island",
+      "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Delighted Halfling": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Halfling Citizen",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a legendary spell, and that spell can't be countered.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Eldrazi Temple": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {C}{C}. Spend this mana only to cast colorless Eldrazi spells or activate abilities of colorless Eldrazi."
+    },
+    "Elegant Parlor": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Elesh Norn, Mother of Machines": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Legendary Creature — Phyrexian Praetor",
+      "oracle_text": "Vigilance\nIf a permanent entering causes a triggered ability of a permanent you control to trigger, that ability triggers an additional time.\nPermanents entering don't cause abilities of permanents your opponents control to trigger.",
+      "power": "4",
+      "toughness": "7"
+    },
+    "Emrakul, the Promised End": {
+      "mana_cost": "{13}",
+      "type_line": "Legendary Creature — Eldrazi",
+      "oracle_text": "This spell costs {1} less to cast for each card type among cards in your graveyard.\nWhen you cast this spell, you gain control of target opponent during that player's next turn. After that turn, that player takes an extra turn.\nFlying, trample, protection from instants",
+      "power": "13",
+      "toughness": "13"
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Ghost Quarter": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target land. Its controller may search their library for a basic land card, put it onto the battlefield, then shuffle."
+    },
+    "Icetill Explorer": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Insect Scout",
+      "oracle_text": "You may play an additional land on each of your turns.\nYou may play lands from your graveyard.\nLandfall — Whenever a land you control enters, mill a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Kozilek's Return": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Devoid (This card has no color.)\nKozilek's Return deals 2 damage to each creature.\nWhenever you cast an Eldrazi creature spell with mana value 7 or greater, you may exile this card from your graveyard. If you do, this card deals 5 damage to each creature."
+    },
+    "Leyline Binding": {
+      "mana_cost": "{5}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Flash\nDomain — This spell costs {1} less to cast for each basic land type among lands you control.\nWhen this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+    },
+    "Lush Portico": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Malevolent Rumble": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Reveal the top four cards of your library. You may put a permanent card from among them into your hand. Put the rest into your graveyard. Create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\""
+    },
+    "Omnath, Locus of Creation": {
+      "mana_cost": "{R}{G}{W}{U}",
+      "type_line": "Legendary Creature — Elemental",
+      "oracle_text": "When Omnath enters, draw a card.\nLandfall — Whenever a land you control enters, you gain 4 life if this is the first time this ability has resolved this turn. If it's the second time, add {R}{G}{W}{U}. If it's the third time, Omnath deals 4 damage to each opponent and each planeswalker you don't control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Phlage, Titan of Fire's Fury": {
+      "mana_cost": "{1}{R}{W}",
+      "type_line": "Legendary Creature — Elder Giant",
+      "oracle_text": "When Phlage enters, sacrifice it unless it escaped.\nWhenever Phlage enters or attacks, it deals 3 damage to any target and you gain 3 life.\nEscape—{R}{R}{W}{W}, Exile five other cards from your graveyard. (You may cast this card from your graveyard for its escape cost.)",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Prismatic Ending": {
+      "mana_cost": "{X}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Converge — Exile target nonland permanent if its mana value is less than or equal to the number of colors of mana spent to cast this spell."
+    },
+    "Sacred Foundry": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Plains",
+      "oracle_text": "({T}: Add {R} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Shifting Woodland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Forest.\n{T}: Add {G}.\nDelirium — {2}{G}{G}: This land becomes a copy of target permanent card in your graveyard until end of turn. Activate only if there are four or more card types among cards in your graveyard."
+    },
+    "Sire of Seven Deaths": {
+      "mana_cost": "{7}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "First strike, vigilance\nMenace, trample\nReach, lifelink\nWard—Pay 7 life.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Solitude": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Elemental Incarnation",
+      "oracle_text": "Flash\nLifelink\nWhen this creature enters, exile up to one other target creature. That creature's controller gains life equal to its power.\nEvoke—Exile a white card from your hand.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Sowing Mycospawn": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Eldrazi Fungus",
+      "oracle_text": "Devoid (This card has no color.)\nKicker {1}{C} (You may pay an additional {1}{C} as you cast this spell.)\nWhen you cast this spell, search your library for a land card, put it onto the battlefield, then shuffle.\nWhen you cast this spell, if it was kicked, exile target land.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Steam Vents": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Stomping Ground": {
+      "mana_cost": "",
+      "type_line": "Land — Mountain Forest",
+      "oracle_text": "({T}: Add {R} or {G}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Talisman of Impulse": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {R} or {G}. This artifact deals 1 damage to you."
+    },
+    "Teferi, Time Raveler": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Planeswalker — Teferi",
+      "oracle_text": "Each opponent can cast spells only any time they could cast a sorcery.\n+1: Until your next turn, you may cast sorcery spells as though they had flash.\n−3: Return up to one target artifact, creature, or enchantment to its owner's hand. Draw a card.",
+      "loyalty": "4"
+    },
+    "Temple Garden": {
+      "mana_cost": "",
+      "type_line": "Land — Forest Plains",
+      "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Thundering Falls": {
+      "mana_cost": "",
+      "type_line": "Land — Island Mountain",
+      "oracle_text": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
+    },
+    "Ugin's Labyrinth": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Imprint — When this land enters, you may exile a colorless card with mana value 7 or greater from your hand.\n{T}: Add {C}. If a card is exiled with this land, add {C}{C} instead.\n{T}: Return the exiled card to its owner's hand."
+    },
+    "Ugin, Eye of the Storms": {
+      "mana_cost": "{7}",
+      "type_line": "Legendary Planeswalker — Ugin",
+      "oracle_text": "When you cast this spell, exile up to one target permanent that's one or more colors.\nWhenever you cast a colorless spell, exile up to one target permanent that's one or more colors.\n+2: You gain 3 life and draw a card.\n0: Add {C}{C}{C}.\n−11: Search your library for any number of colorless nonland cards, exile them, then shuffle. Until end of turn, you may cast those cards without paying their mana costs.",
+      "loyalty": "7"
+    },
+    "Utopia Sprawl": {
+      "mana_cost": "{G}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant Forest\nAs this Aura enters, choose a color.\nWhenever enchanted Forest is tapped for mana, its controller adds an additional one mana of the chosen color."
+    },
+    "Verdant Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Winternight Stories": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Draw three cards. Then discard two cards unless you discard a creature card.\nHarmonize {4}{U} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by {X}, where X is its power. Then exile this spell.)"
+    },
+    "Wooded Foothills": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+    },
+    "Wrenn and Six": {
+      "mana_cost": "{R}{G}",
+      "type_line": "Legendary Planeswalker — Wrenn",
+      "oracle_text": "+1: Return up to one target land card from your graveyard to your hand.\n−1: Wrenn and Six deals 1 damage to any target.\n−7: You get an emblem with \"Instant and sorcery cards in your graveyard have retrace.\" (You may cast instant and sorcery cards from your graveyard by discarding a land card in addition to paying their other costs.)",
+      "loyalty": "3"
+    }
+  }
 }

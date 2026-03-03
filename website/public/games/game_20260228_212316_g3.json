@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_212316_g3",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -104,7 +104,9 @@
     "Presence of Gond": "https://api.scryfall.com/cards/jmp/420?format=image&version=small",
     "Skyway Sniper": "https://api.scryfall.com/cards/m21/206?format=image&version=small",
     "Llanowar Visionary": "https://api.scryfall.com/cards/m21/193?format=image&version=small",
-    "Hunter's Edge": "https://api.scryfall.com/cards/m21/189?format=image&version=small"
+    "Hunter's Edge": "https://api.scryfall.com/cards/m21/189?format=image&version=small",
+    "Eldrazi Scion Token": "https://cards.scryfall.io/small/front/1/0/10e69ee5-ea72-4f0b-91fe-152b1459e318.jpg?1561929899",
+    "Goblin Token": "https://cards.scryfall.io/small/front/6/1/6139a45d-ebc7-4bca-8c13-73c85ea5fe0d.jpg?1768367480"
   },
   "snapshots": [
     {
@@ -124795,5 +124797,157 @@
       "player": "Gem3P Tactic"
     }
   ],
-  "blunderScriptVersion": 30
+  "blunderScriptVersion": 30,
+  "cardData": {
+    "Ash Barrens": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\nBasic landcycling {1} ({1}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Beetleback Chief": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "When this creature enters, create two 1/1 red Goblin creature tokens.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Blisterpod": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Eldrazi Drone",
+      "oracle_text": "Devoid (This card has no color.)\nWhen this creature dies, create a 1/1 colorless Eldrazi Scion creature token. It has \"Sacrifice this token: Add {C}.\"",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Boggart Brute": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Menace (This creature can't be blocked except by two or more creatures.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Brood Monitor": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Eldrazi Drone",
+      "oracle_text": "Devoid (This card has no color.)\nWhen this creature enters, create three 1/1 colorless Eldrazi Scion creature tokens. They have \"Sacrifice this token: Add {C}.\"",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Elvish Archdruid": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "Other Elf creatures you control get +1/+1.\n{T}: Add {G} for each Elf you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Feline Sovereign": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Other Cats you control get +1/+1 and have protection from Dogs.\nWhenever one or more Cats you control deal combat damage to a player, destroy up to one target artifact or enchantment that player controls.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Feral Prowler": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "When this creature dies, draw a card.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Goblin Arsonist": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Shaman",
+      "oracle_text": "When this creature dies, you may have it deal 1 damage to any target.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Keeper of Fables": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Whenever one or more non-Human creatures you control deal combat damage to a player, draw a card.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Makeshift Munitions": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "{1}, Sacrifice an artifact or creature: This enchantment deals 1 damage to any target."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Muxus, Goblin Grandee": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Legendary Creature — Goblin Noble",
+      "oracle_text": "When Muxus enters, reveal the top six cards of your library. Put all Goblin creature cards with mana value 5 or less from among them onto the battlefield and the rest on the bottom of your library in a random order.\nWhenever Muxus attacks, it gets +1/+1 until end of turn for each other Goblin you control.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Ornery Goblin": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Whenever this creature blocks or becomes blocked by a creature, this creature deals 1 damage to that creature.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Outnumber": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Outnumber deals damage to target creature equal to the number of creatures you control."
+    },
+    "Pouncing Cheetah": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "Flash",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Pridemalkin": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "When this creature enters, put a +1/+1 counter on target creature you control.\nEach creature you control with a +1/+1 counter on it has trample. (It can deal excess combat damage to the player or planeswalker it's attacking.)",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Sabertooth Mauler": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Cat",
+      "oracle_text": "At the beginning of your end step, if a creature died this turn, put a +1/+1 counter on this creature and untap it.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Shock": {
+      "mana_cost": "{R}",
+      "type_line": "Instant",
+      "oracle_text": "Shock deals 2 damage to any target."
+    },
+    "Skyway Sniper": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Elf Archer",
+      "oracle_text": "Reach (This creature can block creatures with flying.)\n{2}{G}: This creature deals 1 damage to target creature with flying.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Titanic Growth": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +4/+4 until end of turn."
+    }
+  }
 }

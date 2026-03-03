@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_233444_g3",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -102,7 +102,9 @@
     "Soul Read": "https://api.scryfall.com/cards/j22/17?format=image&version=small",
     "Crashing Tide": "https://api.scryfall.com/cards/j22/283?format=image&version=small",
     "Aquatic Incursion": "https://api.scryfall.com/cards/j22/271?format=image&version=small",
-    "One With the Wind": "https://api.scryfall.com/cards/j22/330?format=image&version=small"
+    "One With the Wind": "https://api.scryfall.com/cards/j22/330?format=image&version=small",
+    "Clue Token": "https://cards.scryfall.io/small/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1771590258",
+    "Merfolk Token": "https://cards.scryfall.io/small/front/4/c/4c5ad4e1-b489-4023-88ab-1200c5f26ffc.jpg?1767955704"
   },
   "snapshots": [
     {
@@ -114479,5 +114481,151 @@
       "player": "Qwen3 Valley"
     }
   ],
-  "blunderScriptVersion": 30
+  "blunderScriptVersion": 30,
+  "cardData": {
+    "Adventuring Gear": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Landfall — Whenever a land you control enters, equipped creature gets +2/+2 until end of turn.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Aquatic Incursion": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, create two 1/1 blue Merfolk creature tokens with hexproof. (They can't be the targets of spells or abilities your opponents control.)\n{3}{U}: Target Merfolk can't be blocked this turn."
+    },
+    "Drownyard Explorers": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Exclusion Mage": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, return target creature an opponent controls to its owner's hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gearseeker Serpent": {
+      "mana_cost": "{5}{U}{U}",
+      "type_line": "Creature — Serpent",
+      "oracle_text": "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)\n{5}{U}: This creature can't be blocked this turn.",
+      "power": "5",
+      "toughness": "6"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Master's Rebuke": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+    },
+    "Mechanized Production": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant artifact you control\nAt the beginning of your upkeep, create a token that's a copy of enchanted artifact. Then if you control eight or more artifacts with the same name as one another, you win the game."
+    },
+    "Merrow Reejerey": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Merfolk Soldier",
+      "oracle_text": "Other Merfolk creatures you control get +1/+1.\nWhenever you cast a Merfolk spell, you may tap or untap target permanent.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Oashra Cultivator": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "{2}{G}, {T}, Sacrifice this creature: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Opt": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Scry 1. (Look at the top card of your library. You may put that card on the bottom.)\nDraw a card."
+    },
+    "Sage's Row Savant": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Vedalken Wizard",
+      "oracle_text": "When this creature enters, scry 2.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Shaper Apprentice": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "This creature has flying as long as you control another Merfolk.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Snapping Gnarlid": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Landfall — Whenever a land you control enters, this creature gets +1/+1 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Soul Read": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target spell unless its controller pays {4}.\n• Draw two cards."
+    },
+    "Storm Sculptor": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "This creature can't be blocked.\nWhen this creature enters, return a creature you control to its owner's hand.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Triton Shorestalker": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Merfolk Rogue",
+      "oracle_text": "This creature can't be blocked.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Turntimber Basilisk": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Basilisk",
+      "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nLandfall — Whenever a land you control enters, you may have target creature block this creature this turn if able.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Vodalian Arcanist": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "{T}: Add {C}. Spend this mana only to cast an instant or sorcery spell.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Winged Words": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {1} less to cast if you control a creature with flying.\nDraw two cards."
+    },
+    "Zendikar's Roil": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
+    }
+  }
 }

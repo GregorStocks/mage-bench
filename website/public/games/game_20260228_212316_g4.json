@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_212316_g4",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -74421,5 +74421,137 @@
       "player": "GPT4om Coach"
     }
   ],
-  "blunderScriptVersion": 29
+  "blunderScriptVersion": 29,
+  "cardData": {
+    "Aerial Assault": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target tapped creature. You gain 1 life for each creature you control with flying."
+    },
+    "Basri's Acolyte": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Creature — Cat Cleric",
+      "oracle_text": "Lifelink (Damage dealt by this creature also causes you to gain that much life.)\nWhen this creature enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Cemetery Recruitment": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return target creature card from your graveyard to your hand. If it's a Zombie card, draw a card."
+    },
+    "Concordia Pegasus": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Pegasus",
+      "oracle_text": "Flying",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Enlarge": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Target creature gets +7/+7 and gains trample until end of turn. It must be blocked this turn if able. (A creature with trample can deal excess combat damage to the player or planeswalker it's attacking.)"
+    },
+    "Falconer Adept": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Whenever this creature attacks, create a 1/1 white Bird creature token with flying that's tapped and attacking.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Felidar Cub": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Cat Beast",
+      "oracle_text": "Sacrifice this creature: Destroy target enchantment.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Ghoulraiser": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "When this creature enters, return a Zombie card at random from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Impeccable Timing": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Impeccable Timing deals 3 damage to target attacking or blocking creature."
+    },
+    "Ingenious Leonin": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Creature — Cat Soldier",
+      "oracle_text": "{3}{W}: Put a +1/+1 counter on another target attacking creature you control. If that creature is a Cat, it gains first strike until end of turn. (It deals combat damage before creatures without first strike.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Liliana's Devotee": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Warlock",
+      "oracle_text": "Zombies you control get +1/+0.\nAt the beginning of your end step, if a creature died this turn, you may pay {1}{B}. If you do, create a 2/2 black Zombie creature token.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Liliana's Elite": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "This creature gets +1/+1 for each creature card in your graveyard.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Naga Vitalist": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Snake Druid",
+      "oracle_text": "{T}: Add one mana of any type that a land you control could produce.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Pounce": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control fights target creature you don't control. (Each deals damage equal to its power to the other.)"
+    },
+    "Settle the Score": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile target creature. Put two loyalty counters on a planeswalker you control."
+    },
+    "Steel-Plume Marshal": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Bird Soldier",
+      "oracle_text": "Flying\nWhenever this creature attacks, other attacking creatures you control with flying get +2/+2 until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Weight of Conscience": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature can't attack.\nTap two untapped creatures you control that share a creature type: Exile enchanted creature."
+    }
+  }
 }

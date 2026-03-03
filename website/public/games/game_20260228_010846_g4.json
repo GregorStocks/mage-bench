@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_010846_g4",
   "timestamp": "20260228_010846",
   "gameType": "Two Player Duel",
@@ -105,7 +105,8 @@
     "Zendikar's Roil": "https://api.scryfall.com/cards/j22/747?format=image&version=small",
     "Khalni Heart Expedition": "https://api.scryfall.com/cards/j22/90?format=image&version=small",
     "Adventuring Gear": "https://api.scryfall.com/cards/j22/751?format=image&version=small",
-    "Evolving Wilds": "https://api.scryfall.com/cards/j22/813?format=image&version=small"
+    "Evolving Wilds": "https://api.scryfall.com/cards/j22/813?format=image&version=small",
+    "Beast Token": "https://cards.scryfall.io/small/front/e/b/eb243b20-85e6-4eba-9403-42272975e8a5.jpg?1752946415"
   },
   "snapshots": [
     {
@@ -121468,5 +121469,154 @@
     }
   ],
   "blunderScriptVersion": 28,
-  "errors": []
+  "errors": [],
+  "cardData": {
+    "Adventuring Gear": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Landfall — Whenever a land you control enters, equipped creature gets +2/+2 until end of turn.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Brushstrider": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Chandra's Pyreling": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Elemental Lizard",
+      "oracle_text": "Whenever a source you control deals noncombat damage to an opponent, this creature gets +1/+0 and gains double strike until end of turn. (It deals both first-strike and regular combat damage.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Chandra's Pyrohelix": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Chandra's Pyrohelix deals 2 damage divided as you choose among one or two targets."
+    },
+    "Chilling Trap": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -4/-0 until end of turn. If you control a Wizard, draw a card."
+    },
+    "Crashing Tide": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell has flash as long as you control a Merfolk.\nReturn target creature to its owner's hand.\nDraw a card."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Garruk's Uprising": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, if you control a creature with power 4 or greater, draw a card.\nCreatures you control have trample. (Each of those creatures can deal excess combat damage to the player or planeswalker it's attacking.)\nWhenever a creature you control with power 4 or greater enters, draw a card."
+    },
+    "Garruk, Unleashed": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Legendary Planeswalker — Garruk",
+      "oracle_text": "+1: Up to one target creature gets +3/+3 and gains trample until end of turn.\n−2: Create a 3/3 green Beast creature token. Then if an opponent controls more creatures than you, put a loyalty counter on Garruk.\n−7: You get an emblem with \"At the beginning of your end step, you may search your library for a creature card, put it onto the battlefield, then shuffle.\"",
+      "loyalty": "4"
+    },
+    "Heirloom Blade": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +3/+1.\nWhenever equipped creature dies, you may reveal cards from the top of your library until you reveal a creature card that shares a creature type with it. Put that card into your hand and the rest on the bottom of your library in a random order.\nEquip {1}"
+    },
+    "Hunter's Edge": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature you don't control."
+    },
+    "Hunter's Insight": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Khalni Heart Expedition": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Landfall — Whenever a land you control enters, you may put a quest counter on this enchantment.\nRemove three quest counters from this enchantment and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
+    },
+    "Lookout's Dispersal": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "This spell costs {1} less to cast if you control a Pirate.\nCounter target spell unless its controller pays {4}."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Orazca Frillback": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Rampaging Baloths": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Trample\nLandfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Ranger's Guile": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature you control gets +1/+1 and gains hexproof until end of turn. (It can't be the target of spells or abilities your opponents control.)"
+    },
+    "Rumbling Baloth": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Snapping Gnarlid": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Landfall — Whenever a land you control enters, this creature gets +1/+1 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Spiteful Prankster": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Devil",
+      "oracle_text": "During your turn, this creature has first strike.\nWhenever another creature dies, this creature deals 1 damage to target player or planeswalker.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Thrill of Possibility": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, discard a card.\nDraw two cards."
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Wildfire Elemental": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Whenever an opponent is dealt noncombat damage, creatures you control get +1/+0 until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    }
+  }
 }

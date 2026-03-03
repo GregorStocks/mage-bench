@@ -23526,7 +23526,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -26438,5 +26438,142 @@
       ],
       "actionSeq": 0
     }
-  ]
+  ],
+  "cardData": {
+    "Archive Trap": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Instant — Trap",
+      "oracle_text": "If an opponent searched their library this turn, you may pay {0} rather than pay this spell's mana cost.\nTarget opponent mills thirteen cards."
+    },
+    "Cephalid Coliseum": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {U}. This land deals 1 damage to you.\nThreshold — {U}, {T}, Sacrifice this land: Target player draws three cards, then discards three cards. Activate only if there are seven or more cards in your graveyard."
+    },
+    "Disrupting Shoal": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Instant — Arcane",
+      "oracle_text": "You may exile a blue card with mana value X from your hand rather than pay this spell's mana cost.\nCounter target spell if its mana value is X."
+    },
+    "Drown in the Loch": {
+      "mana_cost": "{U}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Counter target spell with mana value less than or equal to the number of cards in its controller's graveyard.\n• Destroy target creature with mana value less than or equal to the number of cards in its controller's graveyard."
+    },
+    "Fallaji Archaeologist": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Human Scout",
+      "oracle_text": "When this creature enters, mill three cards. You may put a noncreature, nonland card from among the cards milled this way into your hand. If you don't, put a +1/+1 counter on this creature. (To mill a card, put the top card of your library into your graveyard.)",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Field of Ruin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Destroy target nonbasic land an opponent controls. Each player searches their library for a basic land card, puts it onto the battlefield, then shuffles."
+    },
+    "Flare of Denial": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may sacrifice a nontoken blue creature rather than pay this spell's mana cost.\nCounter target spell."
+    },
+    "Flooded Strand": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+    },
+    "Force of Negation": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "If it's not your turn, you may exile a blue card from your hand rather than pay this spell's mana cost.\nCounter target noncreature spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard."
+    },
+    "Goblin Charbelcher": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "{3}, {T}: Reveal cards from the top of your library until you reveal a land card. This artifact deals damage equal to the number of nonland cards revealed this way to any target. If the revealed land card was a Mountain, this artifact deals double that damage instead. Put the revealed cards on the bottom of your library in any order."
+    },
+    "Hedron Crab": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Crab",
+      "oracle_text": "Landfall — Whenever a land you control enters, target player mills three cards. (They put the top three cards of their library into their graveyard.)",
+      "power": "0",
+      "toughness": "2"
+    },
+    "Into the Flood Maw": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gift a tapped Fish (You may promise an opponent a gift as you cast this spell. If you do, they create a tapped 1/1 blue Fish creature token before its other effects.)\nReturn target creature an opponent controls to its owner's hand. If the gift was promised, instead return target nonland permanent an opponent controls to its owner's hand."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Lotus Bloom": {
+      "mana_cost": "",
+      "type_line": "Artifact",
+      "oracle_text": "Suspend 3—{0} (Rather than cast this card from your hand, pay {0} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\n{T}, Sacrifice this artifact: Add three mana of any one color."
+    },
+    "Ruin Crab": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Crab",
+      "oracle_text": "Landfall — Whenever a land you control enters, each opponent mills three cards. (To mill a card, a player puts the top card of their library into their graveyard.)",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Snapback": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "You may exile a blue card from your hand rather than pay this spell's mana cost.\nReturn target creature to its owner's hand."
+    },
+    "Spell Snare": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target spell with mana value 2."
+    },
+    "Stern Scolding": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target creature spell with power or toughness 2 or less."
+    },
+    "Strix Serenade": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target artifact, creature, or planeswalker spell. Its controller creates a 2/2 blue Bird creature token with flying."
+    },
+    "Surgical Extraction": {
+      "mana_cost": "{B/P}",
+      "type_line": "Instant",
+      "oracle_text": "({B/P} can be paid with either {B} or 2 life.)\nChoose target card in a graveyard other than a basic land card. Search its owner's graveyard, hand, and library for any number of cards with the same name as that card and exile them. Then that player shuffles."
+    },
+    "Tameshi, Reality Architect": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Moonfolk Wizard",
+      "oracle_text": "Whenever one or more noncreature permanents are returned to hand, draw a card. This ability triggers only once each turn.\n{X}{W}, Return a land you control to its owner's hand: Return target artifact or enchantment card with mana value X or less from your graveyard to the battlefield. Activate only as a sorcery.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Tasha's Hideous Laughter": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each opponent exiles cards from the top of their library until that player has exiled cards with total mana value 20 or greater."
+    },
+    "Thundertrap Trainer": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Otter Wizard",
+      "oracle_text": "Offspring {4} (You may pay an additional {4} as you cast this spell. If you do, when this creature enters, create a 1/1 token copy of it.)\nWhen this creature enters, look at the top four cards of your library. You may reveal a noncreature, nonland card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Watery Grave": {
+      "mana_cost": "",
+      "type_line": "Land — Island Swamp",
+      "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
+    },
+    "Whir of Invention": {
+      "mana_cost": "{X}{U}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nSearch your library for an artifact card with mana value X or less, put it onto the battlefield, then shuffle."
+    }
+  }
 }

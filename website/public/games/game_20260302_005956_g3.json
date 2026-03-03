@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_005956_g3",
   "timestamp": "20260302_005956",
   "gameType": "Two Player Duel",
@@ -100507,5 +100507,132 @@
       "player": "GPT52 Rules"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Aerial Assault": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy target tapped creature. You gain 1 life for each creature you control with flying."
+    },
+    "Celestial Enforcer": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "{1}{W}, {T}: Tap target creature. Activate only if you control a creature with flying.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Dauntless Onslaught": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Up to two target creatures each get +2/+2 until end of turn."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Ghalta, Primal Hunger": {
+      "mana_cost": "{10}{G}{G}",
+      "type_line": "Legendary Creature — Elder Dinosaur",
+      "oracle_text": "This spell costs {X} less to cast, where X is the total power of creatures you control.\nTrample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)",
+      "power": "12",
+      "toughness": "12"
+    },
+    "Goblin Oriflamme": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Attacking creatures you control get +1/+0."
+    },
+    "Gorging Vulture": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "Flying\nWhen this creature enters, mill four cards. You gain 1 life for each creature card milled this way. (To mill four cards, put the top four cards of your library into your graveyard.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Keldon Raider": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Human Warrior",
+      "oracle_text": "When this creature enters, you may discard a card. If you do, draw a card.",
+      "power": "4",
+      "toughness": "3"
+    },
+    "Moment of Heroism": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +2/+2 and gains lifelink until end of turn. (Damage dealt by the creature also causes its controller to gain that much life.)"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Ornery Dilophosaur": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nWhenever this creature attacks, if you control a creature with power 4 or greater, this creature gets +2/+2 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Ossuary Rats": {
+      "mana_cost": "{5}{B}",
+      "type_line": "Creature — Rat",
+      "oracle_text": "When this creature enters, it deals X damage to target creature or planeswalker an opponent controls, where X is the number of creature cards in your graveyard.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Pit Keeper": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, if you have four or more creature cards in your graveyard, you may return target creature card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rigging Runner": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "First strike\nRaid — This creature enters with a +1/+1 counter on it if you attacked this turn.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Savage Stomp": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell costs {2} less to cast if it targets a Dinosaur you control.\nPut a +1/+1 counter on target creature you control. Then that creature fights target creature you don't control. (Each deals damage equal to its power to the other.)"
+    },
+    "Suspicious Shambler": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{4}{B}{B}, Exile this card from your graveyard: Create two 2/2 black Zombie creature tokens. Activate only as a sorcery.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thrashing Brontodon": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Dinosaur",
+      "oracle_text": "{1}, Sacrifice this creature: Destroy target artifact or enchantment.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Thriving Bluff": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than red.\n{T}: Add {R} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    }
+  }
 }

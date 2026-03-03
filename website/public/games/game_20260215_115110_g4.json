@@ -396,7 +396,8 @@
     "Whispersilk Cloak": "https://api.scryfall.com/cards/m11/221?format=image&version=small",
     "Yusri, Fortune's Flame": "https://api.scryfall.com/cards/mh2/218?format=image&version=small",
     "Okaun, Eye of Chaos": "https://api.scryfall.com/cards/sld/380?format=image&version=small",
-    "Zndrsplt, Eye of Wisdom": "https://api.scryfall.com/cards/sld/379?format=image&version=small"
+    "Zndrsplt, Eye of Wisdom": "https://api.scryfall.com/cards/sld/379?format=image&version=small",
+    "Bird Token": "https://cards.scryfall.io/small/front/2/a/2a3d4bf9-2107-4686-8df5-cd7c934d0691.jpg?1752946401"
   },
   "snapshots": [
     {
@@ -198770,7 +198771,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -215933,5 +215934,580 @@
         ]
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Abzan Falconer": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Outlast {W} ({W}, {T}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)\nEach creature you control with a +1/+1 counter on it has flying.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Armorcraft Judge": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Artificer",
+      "oracle_text": "When this creature enters, draw a card for each creature you control with a +1/+1 counter on it.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Azorius Chancery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {W}{U}."
+    },
+    "Banishing Light": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+    },
+    "Beast Within": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target permanent. Its controller creates a 3/3 green Beast creature token."
+    },
+    "Beastmaster Ascension": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature you control attacks, you may put a quest counter on this enchantment.\nAs long as this enchantment has seven or more quest counters on it, creatures you control get +5/+5."
+    },
+    "Bloodsworn Steward": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Creature — Vampire Knight",
+      "oracle_text": "Flying\nCommander creatures you control get +2/+2 and have haste.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Boros Guildgate": {
+      "mana_cost": "",
+      "type_line": "Land — Gate",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R} or {W}."
+    },
+    "Caller of the Pack": {
+      "mana_cost": "{5}{G}{G}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Trample\nMyriad (Whenever this creature attacks, for each opponent other than defending player, you may create a token copy that's tapped and attacking that player or a planeswalker they control. Exile the tokens at end of combat.)",
+      "power": "8",
+      "toughness": "6"
+    },
+    "Chameleon Colossus": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\nProtection from black\n{2}{G}{G}: This creature gets +X/+X until end of turn, where X is its power.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Chance Encounter": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever you win a coin flip, put a luck counter on this enchantment.\nAt the beginning of your upkeep, if this enchantment has ten or more luck counters on it, you win the game."
+    },
+    "Command Beacon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Put your commander into your hand from the command zone."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Commander's Plate": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +3/+3 and has protection from each color that's not in your commander's color identity.\nEquip commander {3}\nEquip {5}"
+    },
+    "Cultivate": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Day of the Dragons": {
+      "mana_cost": "{4}{U}{U}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, exile all creatures you control. Then create that many 5/5 red Dragon creature tokens with flying.\nWhen this enchantment leaves the battlefield, sacrifice all Dragons you control. Then return the exiled cards to the battlefield under your control."
+    },
+    "Edric, Spymaster of Trest": {
+      "mana_cost": "{1}{G}{U}",
+      "type_line": "Legendary Creature — Elf Rogue",
+      "oracle_text": "Whenever a creature deals combat damage to one of your opponents, its controller may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Elvish Rejuvenator": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Druid",
+      "oracle_text": "When this creature enters, look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Elvish Visionary": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "When this creature enters, draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Emeria Shepherd": {
+      "mana_cost": "{5}{W}{W}",
+      "type_line": "Creature — Angel",
+      "oracle_text": "Flying\nLandfall — Whenever a land you control enters, you may return target nonland permanent card from your graveyard to your hand. If that land is a Plains, you may return that nonland permanent card to the battlefield instead.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Entrapment Maneuver": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Target player sacrifices an attacking creature of their choice. You create X 1/1 white Soldier creature tokens, where X is that creature's toughness."
+    },
+    "Evolutionary Escalation": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, put three +1/+1 counters on target creature you control and three +1/+1 counters on target creature an opponent controls."
+    },
+    "Ezuri, Claw of Progress": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Legendary Creature — Phyrexian Elf Warrior",
+      "oracle_text": "Whenever a creature you control with power 2 or less enters, you get an experience counter.\nAt the beginning of combat on your turn, put X +1/+1 counters on another target creature you control, where X is the number of experience counters you have.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Fabricate": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for an artifact card, reveal it, put it into your hand, then shuffle."
+    },
+    "Far Wanderings": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nThreshold — If there are seven or more cards in your graveyard, instead search your library for up to three basic land cards, put them onto the battlefield tapped, then shuffle."
+    },
+    "Fiery Gambit": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Flip a coin until you lose a flip or choose to stop flipping. If you lose a flip, Fiery Gambit has no effect. If you win one or more flips, Fiery Gambit deals 3 damage to target creature. If you win two or more flips, Fiery Gambit deals 6 damage to each opponent. If you win three or more flips, draw nine cards and untap all lands you control."
+    },
+    "Footfall Crater": {
+      "mana_cost": "{R}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant land\nEnchanted land has \"{T}: Target creature gains trample and haste until end of turn.\"\nCycling {1} ({1}, Discard this card: Draw a card.)"
+    },
+    "Forbidden Orchard": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color.\nWhenever you tap this land for mana, target opponent creates a 1/1 colorless Spirit creature token."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Forgotten Ancient": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Whenever a player casts a spell, you may put a +1/+1 counter on this creature.\nAt the beginning of your upkeep, you may move any number of +1/+1 counters from this creature onto other creatures.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Frenetic Sliver": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Creature — Sliver",
+      "oracle_text": "All Slivers have \"{0}: If this permanent is on the battlefield, flip a coin. If you win the flip, exile this permanent and return it to the battlefield under its owner's control at the beginning of the next end step. If you lose the flip, sacrifice it.\"",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Gwafa Hazid, Profiteer": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Creature — Human Rogue",
+      "oracle_text": "{W}{U}, {T}: Put a bribery counter on target creature you don't control. Its controller draws a card.\nCreatures with bribery counters on them can't attack or block.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Harrow": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a land.\nSearch your library for up to two basic land cards, put them onto the battlefield, then shuffle."
+    },
+    "High Market": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice a creature: You gain 1 life."
+    },
+    "Humble Defector": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "{T}: Draw two cards. Target opponent gains control of this creature. Activate only during your turn.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Impulsive Maneuvers": {
+      "mana_cost": "{2}{R}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever a creature attacks, flip a coin. If you win the flip, the next time that creature would deal combat damage this turn, it deals double that damage instead. If you lose the flip, the next time that creature would deal combat damage this turn, prevent that damage."
+    },
+    "Inventors' Fair": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "At the beginning of your upkeep, if you control three or more artifacts, you gain 1 life.\n{T}: Add {C}.\n{4}, {T}, Sacrifice Inventors' Fair: Search your library for an artifact card, reveal it, put it into your hand, then shuffle. Activate only if you control three or more artifacts."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Izzet Boilerworks": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, return a land you control to its owner's hand.\n{T}: Add {U}{R}."
+    },
+    "Izzet Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{R}."
+    },
+    "Jungle Shrine": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {R}, {G}, or {W}."
+    },
+    "Kodama's Reach": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery — Arcane",
+      "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+    },
+    "Kraum, Ludevic's Opus": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Legendary Creature — Zombie Horror",
+      "oracle_text": "Flying, haste\nWhenever an opponent casts their second spell each turn, draw a card.\nPartner (You can have two commanders if both have partner.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Kynaios and Tiro of Meletis": {
+      "mana_cost": "{R}{G}{W}{U}",
+      "type_line": "Legendary Creature — Human Soldier",
+      "oracle_text": "At the beginning of your end step, draw a card. Each player may put a land card from their hand onto the battlefield, then each opponent who didn't draws a card.",
+      "power": "2",
+      "toughness": "8"
+    },
+    "Loaming Shaman": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Centaur Shaman",
+      "oracle_text": "When this creature enters, target player shuffles any number of target cards from their graveyard into their library.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Migratory Route": {
+      "mana_cost": "{3}{W}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create four 1/1 white Bird creature tokens with flying.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Mosswort Bridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {G}.\n{G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Multani, Yavimaya's Avatar": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Legendary Creature — Elemental Avatar",
+      "oracle_text": "Reach, trample\nMultani gets +1/+1 for each land you control and each land card in your graveyard.\n{1}{G}, Return two lands you control to their owner's hand: Return this card from your graveyard to your hand.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Murasa Rootgrazer": {
+      "mana_cost": "{G}{W}",
+      "type_line": "Creature — Beast",
+      "oracle_text": "Vigilance\n{T}: You may put a basic land card from your hand onto the battlefield.\n{T}: Return target basic land you control to its owner's hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Naya Charm": {
+      "mana_cost": "{R}{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Naya Charm deals 3 damage to target creature.\n• Return target card from a graveyard to its owner's hand.\n• Tap all creatures target player controls."
+    },
+    "Negate": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell."
+    },
+    "Niv-Mizzet, Parun": {
+      "mana_cost": "{U}{U}{U}{R}{R}{R}",
+      "type_line": "Legendary Creature — Dragon Wizard",
+      "oracle_text": "This spell can't be countered.\nFlying\nWhenever you draw a card, Niv-Mizzet deals 1 damage to any target.\nWhenever a player casts an instant or sorcery spell, you draw a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Obuun, Mul Daya Ancestor": {
+      "mana_cost": "{1}{R}{G}{W}",
+      "type_line": "Legendary Creature — Elf Spirit",
+      "oracle_text": "At the beginning of combat on your turn, up to one target land you control becomes an X/X Elemental creature with trample and haste until end of turn, where X is Obuun's power. It's still a land.\nLandfall — Whenever a land you control enters, put a +1/+1 counter on target creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Ohran Viper": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Snow Creature — Snake",
+      "oracle_text": "Whenever this creature deals combat damage to a creature, destroy that creature at end of combat.\nWhenever this creature deals combat damage to a player, you may draw a card.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Okaun, Eye of Chaos": {
+      "mana_cost": "{4}{R}",
+      "type_line": "Legendary Creature — Cyclops Berserker",
+      "oracle_text": "Partner with Zndrsplt, Eye of Wisdom (When this creature enters, target player may put Zndrsplt into their hand from their library, then shuffle.)\nAt the beginning of combat on your turn, flip a coin until you lose a flip.\nWhenever a player wins a coin flip, double Okaun's power and toughness until end of turn.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Opal Palace": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color in your commander's color identity. If you spend this mana to cast your commander, it enters with a number of additional +1/+1 counters on it equal to the number of times it's been cast from the command zone this game."
+    },
+    "Oran-Rief, the Vastwood": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {G}.\n{T}: Put a +1/+1 counter on each green creature that entered this turn."
+    },
+    "Overrun": {
+      "mana_cost": "{2}{G}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Creatures you control get +3/+3 and gain trample until end of turn. (Each of those creatures can deal excess combat damage to the player or planeswalker it's attacking.)"
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Planar Chaos": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, flip a coin. If you lose the flip, sacrifice this enchantment.\nWhenever a player casts a spell, that player flips a coin. If they lose the flip, counter that spell."
+    },
+    "Planar Outburst": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Destroy all nonland creatures.\nAwaken 4—{5}{W}{W}{W} (If you cast this spell for {5}{W}{W}{W}, also put four +1/+1 counters on target land you control and it becomes a 0/0 Elemental creature with haste. It's still a land.)"
+    },
+    "Ponder": {
+      "mana_cost": "{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Look at the top three cards of your library, then put them back in any order. You may shuffle.\nDraw a card."
+    },
+    "Propaganda": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment",
+      "oracle_text": "Creatures can't attack you unless their controller pays {2} for each creature they control that's attacking you."
+    },
+    "Rampant Growth": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Search your library for a basic land card, put that card onto the battlefield tapped, then shuffle."
+    },
+    "Realm Seekers": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Elf Scout",
+      "oracle_text": "This creature enters with X +1/+1 counters on it, where X is the total number of cards in all players' hands.\n{2}{G}, Remove a +1/+1 counter from this creature: Search your library for a land card, reveal it, put it into your hand, then shuffle.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Reverse the Sands": {
+      "mana_cost": "{6}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Redistribute any number of players' life totals. (Each of those players gets one life total back.)"
+    },
+    "Rubblehulk": {
+      "mana_cost": "{4}{R}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Rubblehulk's power and toughness are each equal to the number of lands you control.\nBloodrush — {1}{R}{G}, Discard this card: Target attacking creature gets +X/+X until end of turn, where X is the number of lands you control.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Sakashima the Impostor": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Legendary Creature — Human Rogue",
+      "oracle_text": "You may have Sakashima the Impostor enter as a copy of any creature on the battlefield, except its name is Sakashima the Impostor, it's legendary in addition to its other types, and it has \"{2}{U}{U}: Return Sakashima the Impostor to its owner's hand at the beginning of the next end step.\"",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Satyr Wayfinder": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Satyr",
+      "oracle_text": "When this creature enters, reveal the top four cards of your library. You may put a land card from among them into your hand. Put the rest into your graveyard.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Scytheclaw": {
+      "mana_cost": "{5}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Living weapon (When this Equipment enters, create a 0/0 black Phyrexian Germ creature token, then attach this to it.)\nEquipped creature gets +1/+1.\nWhenever equipped creature deals combat damage to a player, that player loses half their life, rounded up.\nEquip {3}"
+    },
+    "Seeds of Renewal": {
+      "mana_cost": "{6}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Undaunted (This spell costs {1} less to cast for each opponent.)\nReturn up to two target cards from your graveyard to your hand. Exile Seeds of Renewal."
+    },
+    "Seize the Day": {
+      "mana_cost": "{3}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Untap target creature. After this main phase, there is an additional combat phase followed by an additional main phase.\nFlashback {2}{R} (You may cast this card from your graveyard for its flashback cost. Then exile it.)"
+    },
+    "Selfless Squire": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Human Soldier",
+      "oracle_text": "Flash\nWhen this creature enters, prevent all damage that would be dealt to you this turn.\nWhenever damage that would be dealt to you is prevented, put that many +1/+1 counters on this creature.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Selvala, Explorer Returned": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Legendary Creature — Elf Scout",
+      "oracle_text": "Parley — {T}: Each player reveals the top card of their library. For each nonland card revealed this way, add {G} and you gain 1 life. Then each player draws a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Shadowspear": {
+      "mana_cost": "{1}",
+      "type_line": "Legendary Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/+1 and has trample and lifelink.\n{1}: Permanents your opponents control lose hexproof and indestructible until end of turn.\nEquip {2}"
+    },
+    "Shivan Reef": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {U} or {R}. This land deals 1 damage to you."
+    },
+    "Skullwinder": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Snake",
+      "oracle_text": "Deathtouch\nWhen this creature enters, return target card from your graveyard to your hand, then choose an opponent. That player returns a card from their graveyard to their hand.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Sphere of Safety": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "Creatures can't attack you or planeswalkers you control unless their controller pays {X} for each of those creatures, where X is the number of enchantments you control."
+    },
+    "Stingerfling Spider": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Spider",
+      "oracle_text": "Reach\nWhen this creature enters, you may destroy target creature with flying.",
+      "power": "2",
+      "toughness": "5"
+    },
+    "Sylvan Reclamation": {
+      "mana_cost": "{3}{G}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile up to two target artifacts and/or enchantments.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Synthetic Destiny": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Exile all creatures you control. At the beginning of the next end step, reveal cards from the top of your library until you reveal that many creature cards, put all creature cards revealed this way onto the battlefield, then shuffle the rest of the revealed cards into your library."
+    },
+    "Tempt with Discovery": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Tempting offer — Search your library for a land card and put it onto the battlefield. Each opponent may search their library for a land card and put it onto the battlefield. For each opponent who searches a library this way, search your library for a land card and put it onto the battlefield. Then each player who searched a library this way shuffles."
+    },
+    "Thelonite Hermit": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Shaman",
+      "oracle_text": "All Saprolings get +1/+1.\nMorph {3}{G}{G} (You may cast this card face down as a 2/2 creature for {3}. Turn it face up any time for its morph cost.)\nWhen this creature is turned face up, create four 1/1 green Saproling creature tokens.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Thought Vessel": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Together Forever": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, support 2. (Put a +1/+1 counter on each of up to two target creatures.)\n{1}: Choose target creature with a counter on it. When that creature dies this turn, return that card to its owner's hand."
+    },
+    "Tolaria West": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {U}.\nTransmute {1}{U}{U} ({1}{U}{U}, Discard this card: Search your library for a card with mana value 0, reveal it, put it into your hand, then shuffle. Transmute only as a sorcery.)"
+    },
+    "Treacherous Terrain": {
+      "mana_cost": "{6}{R}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Treacherous Terrain deals damage to each opponent equal to the number of lands that player controls.\nBasic landcycling {2} ({2}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+    },
+    "Tribute Mage": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, you may search your library for an artifact card with mana value 2, reveal that card, put it into your hand, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Waker of the Wilds": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Merfolk Shaman",
+      "oracle_text": "{X}{G}{G}: Put X +1/+1 counters on target land you control. That land becomes a 0/0 Elemental creature with haste. It's still a land.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Whir of Invention": {
+      "mana_cost": "{X}{U}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nSearch your library for an artifact card with mana value X or less, put it onto the battlefield, then shuffle."
+    },
+    "Whispersilk Cloak": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature can't be blocked and has shroud. (It can't be the target of spells or abilities.)\nEquip {2}"
+    },
+    "Wistful Selkie": {
+      "mana_cost": "{G/U}{G/U}{G/U}",
+      "type_line": "Creature — Merfolk Wizard",
+      "oracle_text": "When this creature enters, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Yavimaya Elder": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Human Druid",
+      "oracle_text": "When this creature dies, you may search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.\n{2}, Sacrifice this creature: Draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Yusri, Fortune's Flame": {
+      "mana_cost": "{1}{U}{R}",
+      "type_line": "Legendary Creature — Efreet",
+      "oracle_text": "Flying\nWhenever Yusri attacks, choose a number between 1 and 5. Flip that many coins. For each flip you win, draw a card. For each flip you lose, Yusri deals 2 damage to you. If you won five flips this way, you may cast spells from your hand this turn without paying their mana costs.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Zedruu the Greathearted": {
+      "mana_cost": "{1}{U}{R}{W}",
+      "type_line": "Legendary Creature — Minotaur Monk",
+      "oracle_text": "At the beginning of your upkeep, you gain X life and draw X cards, where X is the number of permanents you own that your opponents control.\n{U}{R}{W}: Target opponent gains control of target permanent you control.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Zndrsplt, Eye of Wisdom": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Legendary Creature — Homunculus",
+      "oracle_text": "Partner with Okaun, Eye of Chaos (When this creature enters, target player may put Okaun into their hand from their library, then shuffle.)\nAt the beginning of combat on your turn, flip a coin until you lose a flip.\nWhenever a player wins a coin flip, draw a card.",
+      "power": "1",
+      "toughness": "4"
+    }
+  }
 }

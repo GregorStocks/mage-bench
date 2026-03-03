@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_212316_g2",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -102,7 +102,8 @@
     "Might of the Masses": "https://api.scryfall.com/cards/j22/690?format=image&version=small",
     "Band Together": "https://api.scryfall.com/cards/j22/631?format=image&version=small",
     "Roots of Wisdom": "https://api.scryfall.com/cards/j22/721?format=image&version=small",
-    "Elven Bow": "https://api.scryfall.com/cards/j22/653?format=image&version=small"
+    "Elven Bow": "https://api.scryfall.com/cards/j22/653?format=image&version=small",
+    "Elf Warrior Token": "https://cards.scryfall.io/small/front/0/2/023f668a-a8e6-4fcb-98d1-30adf343f050.jpg?1768157666"
   },
   "snapshots": [
     {
@@ -96882,5 +96883,160 @@
       "player": "Haiku Lucky"
     }
   ],
-  "blunderScriptVersion": 29
+  "blunderScriptVersion": 29,
+  "cardData": {
+    "Aggressive Urge": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +1/+1 until end of turn.\nDraw a card."
+    },
+    "Band Together": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Up to two target creatures you control each deal damage equal to their power to another target creature."
+    },
+    "Challenger Troll": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Troll",
+      "oracle_text": "Each creature you control with power 4 or greater can't be blocked by more than one creature.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Drownyard Explorers": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Dutiful Replicator": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Assembly-Worker",
+      "oracle_text": "When this creature enters, you may pay {1}. When you do, create a token that's a copy of target token you control not named Dutiful Replicator.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Elderleaf Mentor": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "When this creature enters, create a 1/1 green Elf Warrior creature token.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Elven Bow": {
+      "mana_cost": "{G}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "When this Equipment enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach this Equipment to it.\nEquipped creature gets +1/+2 and has reach.\nEquip {3}"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gnarled Sage": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Treefolk Druid",
+      "oracle_text": "Reach (This creature can block creatures with flying.)\nAs long as you've drawn two or more cards this turn, this creature gets +0/+2 and has vigilance. (Attacking doesn't cause it to tap.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Ilysian Caryatid": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Plant",
+      "oracle_text": "{T}: Add one mana of any color. If you control a creature with power 4 or greater, add two mana of any one color instead.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Ivy Lane Denizen": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Warrior",
+      "oracle_text": "Whenever another green creature you control enters, put a +1/+1 counter on target creature.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Magnifying Glass": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")"
+    },
+    "Might of the Masses": {
+      "mana_cost": "{G}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets +1/+1 until end of turn for each creature you control."
+    },
+    "Primeval Herald": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elf Scout",
+      "oracle_text": "Trample (This creature can deal excess combat damage to the player or planeswalker it's attacking.)\nWhenever this creature enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Primordial Sage": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Whenever you cast a creature spell, you may draw a card.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Rhonas the Indomitable": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Legendary Creature — God",
+      "oracle_text": "Deathtouch, indestructible\nRhonas can't attack or block unless you control another creature with power 4 or greater.\n{2}{G}: Another target creature gets +2/+0 and gains trample until end of turn.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Roar of Challenge": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "All creatures able to block target creature this turn do so.\nFerocious — That creature gains indestructible until end of turn if you control a creature with power 4 or greater."
+    },
+    "Shambling Suit": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "Shambling Suit's power is equal to the number of artifacts and/or enchantments you control.",
+      "power": "*",
+      "toughness": "3"
+    },
+    "Spectral Hunt-Caller": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Wolf Spirit",
+      "oracle_text": "{5}{G}: Creatures you control get +1/+1 and gain trample until end of turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Vedalken Engineer": {
+      "mana_cost": "{1}{U}",
+      "type_line": "Creature — Vedalken Artificer",
+      "oracle_text": "{T}: Add two mana of any one color. Spend this mana only to cast artifact spells or activate abilities of artifacts.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Warden of the Woods": {
+      "mana_cost": "{4}{G}{G}",
+      "type_line": "Creature — Treefolk",
+      "oracle_text": "Vigilance (Attacking doesn't cause this creature to tap.)\nWhenever this creature becomes the target of a spell or ability an opponent controls, you may draw two cards.",
+      "power": "5",
+      "toughness": "7"
+    }
+  }
 }

@@ -389,7 +389,10 @@
     "Swiftwater Cliffs": "https://api.scryfall.com/cards/iko/255?format=image&version=small",
     "Thornwood Falls": "https://api.scryfall.com/cards/iko/256?format=image&version=small",
     "Mountain": "https://api.scryfall.com/cards/iko/271?format=image&version=small",
-    "Kalamax, the Stormsire": "https://api.scryfall.com/cards/c20/9?format=image&version=small"
+    "Kalamax, the Stormsire": "https://api.scryfall.com/cards/c20/9?format=image&version=small",
+    "Clue Token": "https://cards.scryfall.io/small/front/c/3/c321b9e4-ab7e-4e8a-988f-5463c776d685.jpg?1771590258",
+    "Elephant Token": "https://cards.scryfall.io/small/front/2/4/243bcfa9-0310-4d68-9864-df46069906fa.jpg?1743176747",
+    "Treasure Token": "https://cards.scryfall.io/small/front/4/8/4837a3f1-ca7f-41e5-a5d1-729c8495b0e8.jpg?1771590279"
   },
   "snapshots": [
     {
@@ -142881,7 +142884,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -147077,5 +147080,628 @@
         "untappedLands": 5
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Acidic Slime": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Creature — Ooze",
+      "oracle_text": "Deathtouch (Any amount of damage this deals to a creature is enough to destroy it.)\nWhen this creature enters, destroy target artifact, enchantment, or land.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "An Offer You Can't Refuse": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Counter target noncreature spell. Its controller creates two Treasure tokens. (They're artifacts with \"{T}, Sacrifice this token: Add one mana of any color.\")"
+    },
+    "Arcane Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Barter in Blood": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player sacrifices two creatures of their choice."
+    },
+    "Blood Bairn": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Vampire",
+      "oracle_text": "Sacrifice another creature: This creature gets +2/+2 until end of turn.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bloodspore Thrinax": {
+      "mana_cost": "{2}{G}{G}",
+      "type_line": "Creature — Lizard",
+      "oracle_text": "Devour 1 (As this creature enters, you may sacrifice any number of creatures. It enters with that many +1/+1 counters on it.)\nEach other creature you control enters with an additional X +1/+1 counters on it, where X is the number of +1/+1 counters on this creature.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Body of Knowledge": {
+      "mana_cost": "{3}{U}{U}",
+      "type_line": "Creature — Avatar",
+      "oracle_text": "Body of Knowledge's power and toughness are each equal to the number of cards in your hand.\nYou have no maximum hand size.\nWhenever this creature is dealt damage, draw that many cards.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Bojuka Bog": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, exile target player's graveyard.\n{T}: Add {B}."
+    },
+    "Broken Wings": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target artifact, enchantment, or creature with flying."
+    },
+    "Butcher of Malakir": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Creature — Vampire Warrior",
+      "oracle_text": "Flying\nWhenever this creature or another creature you control dies, each opponent sacrifices a creature of their choice.",
+      "power": "5",
+      "toughness": "4"
+    },
+    "Centaur Vinecrasher": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Plant Centaur",
+      "oracle_text": "Trample\nThis creature enters with a number of +1/+1 counters on it equal to the number of land cards in all graveyards.\nWhenever a land card is put into a graveyard from anywhere, you may pay {G}{G}. If you do, return this card from your graveyard to your hand.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Charcoal Diamond": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {B}."
+    },
+    "Comet Storm": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Multikicker {1} (You may pay an additional {1} any number of times as you cast this spell.)\nChoose any target, then choose another target for each time this spell was kicked. Comet Storm deals X damage to each of them."
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Commander's Sphere": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity.\nSacrifice this artifact: Draw a card."
+    },
+    "Commune with Lava": {
+      "mana_cost": "{X}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Exile the top X cards of your library. Until the end of your next turn, you may play those cards."
+    },
+    "Darkwater Catacombs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {U}{B}."
+    },
+    "Decoy Gambit": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "For each opponent, choose up to one target creature that player controls, then return that creature to its owner's hand unless its controller has you draw a card."
+    },
+    "Deflecting Swat": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Instant",
+      "oracle_text": "If you control a commander, you may cast this spell without paying its mana cost.\nYou may choose new targets for target spell or ability."
+    },
+    "Desolate Lighthouse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}{U}{R}, {T}: Draw a card, then discard a card."
+    },
+    "Diabolic Servitude": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "When this enchantment enters, return target creature card from your graveyard to the battlefield.\nWhen the creature put onto the battlefield with this enchantment dies, exile it and return this enchantment to its owner's hand.\nWhen this enchantment leaves the battlefield, exile the creature put onto the battlefield with this enchantment."
+    },
+    "Djinn Illuminatus": {
+      "mana_cost": "{5}{U/R}{U/R}",
+      "type_line": "Creature — Djinn",
+      "oracle_text": "({U/R} can be paid with either {U} or {R}.)\nFlying\nEach instant and sorcery spell you cast has replicate. The replicate cost is equal to its mana cost. (When you cast it, copy it for each time you paid its replicate cost. You may choose new targets for the copies.)",
+      "power": "3",
+      "toughness": "5"
+    },
+    "Drown in Dreams": {
+      "mana_cost": "{X}{2}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one. If you control a commander as you cast this spell, you may choose both instead.\n• Target player draws X cards.\n• Target player mills twice X cards."
+    },
+    "Eloise, Nephalia Sleuth": {
+      "mana_cost": "{3}{U}{B}",
+      "type_line": "Legendary Creature — Human Rogue",
+      "oracle_text": "Whenever another creature you control dies, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")\nWhenever you sacrifice a token, surveil 1. (Look at the top card of your library. You may put that card into your graveyard.)",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Empty the Laboratory": {
+      "mana_cost": "{X}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Sacrifice X Zombies, then reveal cards from the top of your library until you reveal a number of Zombie creature cards equal to the number of Zombies sacrificed this way. Put those cards onto the battlefield and the rest on the bottom of your library in a random order."
+    },
+    "Endless Ranks of the Dead": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your upkeep, create X 2/2 black Zombie creature tokens, where X is half the number of Zombies you control, rounded down."
+    },
+    "Eon Frolicker": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Elemental Otter",
+      "oracle_text": "Flying\nWhen this creature enters, if you cast it, target opponent takes an extra turn after this one. Until your next turn, you and planeswalkers you control gain protection from that player. (You and planeswalkers you control can't be targeted, dealt damage, or enchanted by anything controlled by that player.)",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Evolution Charm": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Search your library for a basic land card, reveal it, put it into your hand, then shuffle.\n• Return target creature card from your graveyard to your hand.\n• Target creature gains flying until end of turn."
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Fisher's Talent": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Enchantment — Class",
+      "oracle_text": "(Gain the next level as a sorcery to add its ability.)\nAt the beginning of your upkeep, look at the top card of your library. You may reveal it if it's a land card. Create a 1/1 blue Fish creature token if you revealed it this way. Then draw a card.\n{G}{U}: Level 2\nIf you would create a Fish token, create a 3/3 blue Shark creature token instead.\n{2}{G}{U}: Level 3\nIf you would create a Shark token, create an 8/8 blue Octopus creature token instead."
+    },
+    "Flooded Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{G/U}, {T}: Add {G}{G}, {G}{U}, or {U}{U}."
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Forgotten Ancient": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Whenever a player casts a spell, you may put a +1/+1 counter on this creature.\nAt the beginning of your upkeep, you may move any number of +1/+1 counters from this creature onto other creatures.",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Go for the Throat": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Destroy target nonartifact creature."
+    },
+    "Gorex, the Tombshell": {
+      "mana_cost": "{6}{B}{B}",
+      "type_line": "Legendary Creature — Zombie Turtle",
+      "oracle_text": "As an additional cost to cast this spell, you may exile any number of creature cards from your graveyard. This spell costs {2} less to cast for each card exiled this way.\nDeathtouch\nWhenever Gorex attacks or dies, choose a card at random exiled with Gorex and put that card into its owner's hand.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Grim Backwoods": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}{B}{G}, {T}, Sacrifice a creature: Draw a card."
+    },
+    "Growth Spiral": {
+      "mana_cost": "{G}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Draw a card. You may put a land card from your hand onto the battlefield."
+    },
+    "Haldan, Avid Arcanist": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Legendary Creature — Human Wizard",
+      "oracle_text": "Partner with Pako, Arcane Retriever (When this creature enters, target player may put Pako into their hand from their library, then shuffle.)\nYou may play lands and cast noncreature spells from among cards you exiled that have fetch counters on them, and you may spend mana as though it were mana of any color to cast those spells.",
+      "power": "1",
+      "toughness": "4"
+    },
+    "Havengul Runebinder": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "{2}{U}, {T}, Exile a creature card from your graveyard: Create a 2/2 black Zombie creature token, then put a +1/+1 counter on each Zombie creature you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Hinterland Harbor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control a Forest or an Island.\n{T}: Add {G} or {U}."
+    },
+    "Hoofprints of the Stag": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Kindred Enchantment — Elemental",
+      "oracle_text": "Whenever you draw a card, you may put a hoofprint counter on this enchantment.\n{2}{W}, Remove four hoofprint counters from this enchantment: Create a 4/4 white Elemental creature token with flying. Activate only during your turn."
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "Jolly Gerbils": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Hamster Citizen",
+      "oracle_text": "Whenever you give a gift, draw a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Jungle Hollow": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {B} or {G}."
+    },
+    "Kalamax, the Stormsire": {
+      "mana_cost": "{1}{G}{U}{R}",
+      "type_line": "Legendary Creature — Elemental Dinosaur",
+      "oracle_text": "Whenever you cast your first instant spell each turn, if Kalamax is tapped, copy that spell. You may choose new targets for the copy.\nWhenever you copy an instant spell, put a +1/+1 counter on Kalamax.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Kessig Cagebreakers": {
+      "mana_cost": "{4}{G}",
+      "type_line": "Creature — Human Rogue",
+      "oracle_text": "Whenever this creature attacks, create a 2/2 green Wolf creature token that's tapped and attacking for each creature card in your graveyard.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Kwain, Itinerant Meddler": {
+      "mana_cost": "{W}{U}",
+      "type_line": "Legendary Creature — Rabbit Wizard",
+      "oracle_text": "{T}: Each player may draw a card, then each player who drew a card this way gains 1 life.",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Lightning Greaves": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has haste and shroud. (It can't be the target of spells or abilities.)\nEquip {0}"
+    },
+    "Liliana's Devotee": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Human Warlock",
+      "oracle_text": "Zombies you control get +1/+0.\nAt the beginning of your end step, if a creature died this turn, you may pay {1}{B}. If you do, create a 2/2 black Zombie creature token.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Loran of the Third Path": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Legendary Creature — Human Artificer",
+      "oracle_text": "Vigilance\nWhen Loran enters, destroy up to one target artifact or enchantment.\n{T}: You and target opponent each draw a card.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Lunar Mystic": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "Whenever you cast an instant spell, you may pay {1}. If you do, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mangara, the Diplomat": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Legendary Creature — Human Cleric",
+      "oracle_text": "Lifelink\nWhenever an opponent attacks with creatures, if two or more of those creatures are attacking you and/or planeswalkers you control, draw a card.\nWhenever an opponent casts their second spell each turn, draw a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Martial Impetus": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +1/+1 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, each other creature that's attacking one of your opponents gets +1/+1 until end of turn."
+    },
+    "Mazirek, Kraul Death Priest": {
+      "mana_cost": "{3}{B}{G}",
+      "type_line": "Legendary Creature — Insect Shaman",
+      "oracle_text": "Flying\nWhenever a player sacrifices another permanent, put a +1/+1 counter on each creature you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Melek, Izzet Paragon": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Legendary Creature — Weird Wizard",
+      "oracle_text": "Play with the top card of your library revealed.\nYou may cast instant and sorcery spells from the top of your library.\nWhenever you cast an instant or sorcery spell from your library, copy it. You may choose new targets for the copy.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Meren of Clan Nel Toth": {
+      "mana_cost": "{2}{B}{G}",
+      "type_line": "Legendary Creature — Human Shaman",
+      "oracle_text": "Whenever another creature you control dies, you get an experience counter.\nAt the beginning of your end step, choose target creature card in your graveyard. If that card's mana value is less than or equal to the number of experience counters you have, return it to the battlefield. Otherwise, put it into your hand.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Midnight Reaper": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie Knight",
+      "oracle_text": "Whenever a nontoken creature you control dies, this creature deals 1 damage to you and you draw a card.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Mortuary Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you may put target creature card from your graveyard on top of your library.\n{T}: Add {B}."
+    },
+    "Mosswort Bridge": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Hideaway 4 (When this land enters, look at the top four cards of your library, exile one face down, then put the rest on the bottom in a random order.)\nThis land enters tapped.\n{T}: Add {G}.\n{G}, {T}: You may play the exiled card without paying its mana cost if creatures you control have total power 10 or greater."
+    },
+    "Overflowing Basin": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {G}{U}."
+    },
+    "Overseer of the Damned": {
+      "mana_cost": "{5}{B}{B}",
+      "type_line": "Creature — Demon",
+      "oracle_text": "Flying\nWhen this creature enters, you may destroy target creature.\nWhenever a nontoken creature an opponent controls dies, create a tapped 2/2 black Zombie creature token.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Overwhelming Stampede": {
+      "mana_cost": "{3}{G}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Until end of turn, creatures you control gain trample and get +X/+X, where X is the greatest power among creatures you control."
+    },
+    "Pako, Arcane Retriever": {
+      "mana_cost": "{3}{R}{G}",
+      "type_line": "Legendary Creature — Elemental Dog",
+      "oracle_text": "Partner with Haldan, Avid Arcanist\nHaste\nWhenever Pako attacks, exile the top card of each player's library and put a fetch counter on each of them. Put a +1/+1 counter on Pako for each noncreature card exiled this way.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Prairie Stream": {
+      "mana_cost": "",
+      "type_line": "Land — Plains Island",
+      "oracle_text": "({T}: Add {W} or {U}.)\nThis land enters tapped unless you control two or more basic lands."
+    },
+    "Promise of Loyalty": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player puts a vow counter on a creature they control and sacrifices the rest. Each of those creatures can't attack you or planeswalkers you control for as long as it has a vow counter on it."
+    },
+    "Prophetic Bolt": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Prophetic Bolt deals 4 damage to any target. Look at the top four cards of your library. Put one of those cards into your hand and the rest on the bottom of your library in any order."
+    },
+    "Psychic Impetus": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature gets +2/+2 and is goaded. (It attacks each combat if able and attacks a player other than you if able.)\nWhenever enchanted creature attacks, you scry 2."
+    },
+    "Rashmi, Eternities Crafter": {
+      "mana_cost": "{2}{G}{U}",
+      "type_line": "Legendary Creature — Elf Druid",
+      "oracle_text": "Whenever you cast your first spell each turn, reveal the top card of your library. You may cast it without paying its mana cost if it's a spell with lesser mana value. If you don't cast it, put it into your hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Ravenous Rotbelly": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Creature — Zombie Horror",
+      "oracle_text": "When this creature enters, you may sacrifice up to three Zombies. When you sacrifice one or more Zombies this way, each opponent sacrifices that many creatures of their choice.",
+      "power": "4",
+      "toughness": "5"
+    },
+    "Riot Control": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Instant",
+      "oracle_text": "You gain 1 life for each creature your opponents control. Prevent all damage that would be dealt to you this turn."
+    },
+    "Seachrome Coast": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped unless you control two or fewer other lands.\n{T}: Add {W} or {U}."
+    },
+    "Selvala, Explorer Returned": {
+      "mana_cost": "{1}{G}{W}",
+      "type_line": "Legendary Creature — Elf Scout",
+      "oracle_text": "Parley — {T}: Each player reveals the top card of their library. For each nonland card revealed this way, add {G} and you gain 1 life. Then each player draws a card.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Shadow Kin": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Flash\nAt the beginning of your upkeep, each player mills three cards. You may exile a creature card from among the cards milled this way. If you do, this creature becomes a copy of that card, except it has this ability.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Shriekmaw": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "Fear (This creature can't be blocked except by artifact creatures and/or black creatures.)\nWhen this creature enters, destroy target nonartifact, nonblack creature.\nEvoke {1}{B} (You may cast this spell for its evoke cost. If you do, it's sacrificed when it enters.)",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Skullclamp": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +1/-1.\nWhenever equipped creature dies, draw two cards.\nEquip {1}"
+    },
+    "Sky Diamond": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {U}."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Sphinx of Enlightenment": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Creature — Sphinx",
+      "oracle_text": "Flying\nWhen this creature enters, target opponent draws a card and you draw three cards.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Sungrass Prairie": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{1}, {T}: Add {G}{W}."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Swiftfoot Boots": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has hexproof and haste. (It can't be the target of spells or abilities your opponents control. It can attack and {T} no matter when it came under your control.)\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Swiftwater Cliffs": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, you gain 1 life.\n{T}: Add {U} or {R}."
+    },
+    "Talrand, Sky Summoner": {
+      "mana_cost": "{2}{U}{U}",
+      "type_line": "Legendary Creature — Merfolk Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell, create a 2/2 blue Drake creature token with flying.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Temple of Deceit": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {U} or {B}."
+    },
+    "Temple of Mystery": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {G} or {U}."
+    },
+    "Temple of Plenty": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\nWhen this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {G} or {W}."
+    },
+    "Tempt with Discovery": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Tempting offer — Search your library for a land card and put it onto the battlefield. Each opponent may search their library for a land card and put it onto the battlefield. For each opponent who searches a library this way, search your library for a land card and put it onto the battlefield. Then each player who searched a library this way shuffles."
+    },
+    "Terastodon": {
+      "mana_cost": "{6}{G}{G}",
+      "type_line": "Creature — Elephant",
+      "oracle_text": "When this creature enters, you may destroy up to three target noncreature permanents. For each permanent put into a graveyard this way, its controller creates a 3/3 green Elephant creature token.",
+      "power": "9",
+      "toughness": "9"
+    },
+    "Terramorphic Expanse": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Thought Vessel": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Thriving Grove": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than green.\n{T}: Add {G} or one mana of the chosen color."
+    },
+    "Tribute to the Wild": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Each opponent sacrifices an artifact or enchantment of their choice."
+    },
+    "Undead Alchemist": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "If a Zombie you control would deal combat damage to a player, instead that player mills that many cards.\nWhenever a creature card is put into an opponent's graveyard from their library, exile that card and create a 2/2 black Zombie creature token.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Undead Augur": {
+      "mana_cost": "{B}{B}",
+      "type_line": "Creature — Zombie Wizard",
+      "oracle_text": "Whenever this creature or another Zombie you control dies, you draw a card and you lose 1 life.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Verdant Force": {
+      "mana_cost": "{5}{G}{G}{G}",
+      "type_line": "Creature — Elemental",
+      "oracle_text": "At the beginning of each upkeep, create a 1/1 green Saproling creature token.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Victimize": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose two target creature cards in your graveyard. Sacrifice a creature. If you do, return the chosen cards to the battlefield tapped."
+    },
+    "Viridian Emissary": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Creature — Phyrexian Elf Scout",
+      "oracle_text": "When this creature dies, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Vivid Marsh": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped with two charge counters on it.\n{T}: Add {B}.\n{T}, Remove a charge counter from this land: Add one mana of any color."
+    },
+    "Vulturous Zombie": {
+      "mana_cost": "{3}{B}{G}",
+      "type_line": "Creature — Plant Zombie",
+      "oracle_text": "Flying\nWhenever a card is put into an opponent's graveyard from anywhere, put a +1/+1 counter on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Wear Down": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Sorcery",
+      "oracle_text": "Gift a card (You may promise an opponent a gift as you cast this spell. If you do, they draw a card before its other effects.)\nDestroy target artifact or enchantment. If the gift was promised, instead destroy two target artifacts and/or enchantments."
+    },
+    "Wilderness Reclamation": {
+      "mana_cost": "{3}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "At the beginning of your end step, untap all lands you control."
+    },
+    "Wilhelt, the Rotcleaver": {
+      "mana_cost": "{2}{U}{B}",
+      "type_line": "Legendary Creature — Zombie Warrior",
+      "oracle_text": "Whenever another Zombie you control dies, if it didn't have decayed, create a 2/2 black Zombie creature token with decayed. (It can't block. When it attacks, sacrifice it at end of combat.)\nAt the beginning of your end step, you may sacrifice a Zombie. If you do, draw a card.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Wood Elves": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Creature — Elf Scout",
+      "oracle_text": "When this creature enters, search your library for a Forest card, put that card onto the battlefield, then shuffle.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Yavimaya Coast": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {G} or {U}. This land deals 1 damage to you."
+    }
+  }
 }

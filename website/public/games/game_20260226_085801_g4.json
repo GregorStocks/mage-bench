@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260226_085801_g4",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -67603,5 +67603,163 @@
       "actionSeq": 339
     }
   ],
-  "errors": []
+  "errors": [],
+  "cardData": {
+    "Abundant Countryside": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell.\n{6}, {T}: Create a 1/1 colorless Shapeshifter creature token with changeling. (It's every creature type.)"
+    },
+    "Aether Vial": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n{T}: You may put a creature card with mana value equal to the number of charge counters on this artifact from your hand onto the battlefield."
+    },
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you."
+    },
+    "Battle Cry Goblin": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "{1}{R}: Goblins you control get +1/+0 and gain haste until end of turn.\nPack tactics — Whenever this creature attacks, if you attacked with creatures with total power 6 or greater this combat, create a 1/1 red Goblin creature token that's tapped and attacking.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bloodstained Mire": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+    },
+    "Broadside Bombardiers": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Goblin Pirate",
+      "oracle_text": "Menace, haste\nBoast — Sacrifice another creature or artifact: This creature deals damage equal to 2 plus the sacrificed permanent's mana value to any target. (Activate only if this creature attacked this turn and only once each turn.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Cavern of Souls": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+    },
+    "Chalice of the Void": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters with X charge counters on it.\nWhenever a player casts a spell with mana value equal to the number of charge counters on this artifact, counter that spell."
+    },
+    "City of Traitors": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "When you play another land, sacrifice this land.\n{T}: Add {C}{C}."
+    },
+    "Eldrazi Linebreaker": {
+      "mana_cost": "{1}{C}{R}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "Devoid (This card has no color.)\nTrample\nAt the beginning of combat on your turn, target creature you control gains haste and gets +X/+0 until end of turn, where X is the number of Eldrazi you control.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Eldrazi Temple": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Add {C}{C}. Spend this mana only to cast colorless Eldrazi spells or activate abilities of colorless Eldrazi."
+    },
+    "Eye of Ugin": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "Colorless Eldrazi spells you cast cost {2} less to cast.\n{7}, {T}: Search your library for a colorless creature card, reveal it, put it into your hand, then shuffle."
+    },
+    "Gemstone Caverns": {
+      "mana_cost": "",
+      "type_line": "Legendary Land",
+      "oracle_text": "If this card is in your opening hand and you're not the starting player, you may begin the game with Gemstone Caverns on the battlefield with a luck counter on it. If you do, exile a card from your hand.\n{T}: Add {C}. If Gemstone Caverns has a luck counter on it, instead add one mana of any color."
+    },
+    "Glaring Fleshraker": {
+      "mana_cost": "{2}{C}",
+      "type_line": "Creature — Eldrazi Drone",
+      "oracle_text": "Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"\nWhenever another colorless creature you control enters, this creature deals 1 damage to each opponent.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Goblin Lackey": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Whenever this creature deals damage to a player, you may put a Goblin permanent card from your hand onto the battlefield.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Goblin Warchief": {
+      "mana_cost": "{1}{R}{R}",
+      "type_line": "Creature — Goblin Warrior",
+      "oracle_text": "Goblin spells you cast cost {1} less to cast.\nGoblins you control have haste.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Grim Monolith": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact doesn't untap during your untap step.\n{T}: Add {C}{C}{C}.\n{4}: Untap this artifact."
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Munitions Expert": {
+      "mana_cost": "{B}{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Flash\nWhen this creature enters, you may have it deal damage to target creature or planeswalker equal to the number of Goblins you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Pashalik Mons": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Legendary Creature — Goblin Warrior",
+      "oracle_text": "Whenever Pashalik Mons or another Goblin you control dies, Pashalik Mons deals 1 damage to any target.\n{3}{R}, Sacrifice a Goblin: Create two 1/1 red Goblin creature tokens.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Reality Smasher": {
+      "mana_cost": "{4}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "({C} represents colorless mana.)\nTrample, haste\nWhenever this creature becomes the target of a spell an opponent controls, counter that spell unless its controller discards a card.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Sire of Seven Deaths": {
+      "mana_cost": "{7}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "First strike, vigilance\nMenace, trample\nReach, lifelink\nWard—Pay 7 life.",
+      "power": "7",
+      "toughness": "7"
+    },
+    "Skirk Prospector": {
+      "mana_cost": "{R}",
+      "type_line": "Creature — Goblin",
+      "oracle_text": "Sacrifice a Goblin: Add {R}.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Thought-Knot Seer": {
+      "mana_cost": "{3}{C}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "({C} represents colorless mana.)\nWhen this creature enters, target opponent reveals their hand. You choose a nonland card from it and exile that card.\nWhen this creature leaves the battlefield, target opponent draws a card.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Wasteland": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
+    },
+    "Wastescape Battlemage": {
+      "mana_cost": "{1}{C}",
+      "type_line": "Creature — Eldrazi Wizard",
+      "oracle_text": "Kicker {G} and/or {1}{U}\nWhen you cast this spell, if it was kicked with its {G} kicker, exile target artifact or enchantment an opponent controls.\nWhen you cast this spell, if it was kicked with its {1}{U} kicker, return target creature an opponent controls to its owner's hand.",
+      "power": "2",
+      "toughness": "2"
+    }
+  }
 }

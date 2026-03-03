@@ -405672,7 +405672,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 2,
+  "version": 3,
   "decisions": [
     {
       "index": 0,
@@ -416372,5 +416372,502 @@
         "untappedLands": 14
       }
     }
-  ]
+  ],
+  "cardData": {
+    "Abstruse Archaic": {
+      "mana_cost": "{4}",
+      "type_line": "Creature — Avatar",
+      "oracle_text": "Vigilance\n{1}, {T}: Copy target activated or triggered ability you control from a colorless source. You may choose new targets for the copy. (Mana abilities can't be targeted.)",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Aetherize": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Return all attacking creatures to their owner's hand."
+    },
+    "Aethersnatch": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target spell. You may choose new targets for it. (If that spell becomes a permanent, it enters under your control.)"
+    },
+    "All Is Dust": {
+      "mana_cost": "{7}",
+      "type_line": "Kindred Sorcery — Eldrazi",
+      "oracle_text": "Each player sacrifices all permanents they control that are one or more colors."
+    },
+    "Ancient Den": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "{T}: Add {W}."
+    },
+    "Ancient Stone Idol": {
+      "mana_cost": "{10}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "Flash\nThis spell costs {1} less to cast for each attacking creature.\nTrample\nWhen this creature dies, create a 6/12 colorless Construct artifact creature token with trample.",
+      "power": "12",
+      "toughness": "12"
+    },
+    "Angel of the Ruins": {
+      "mana_cost": "{5}{W}{W}",
+      "type_line": "Artifact Creature — Angel",
+      "oracle_text": "Flying\nWhen this creature enters, exile up to two target artifacts and/or enchantments.\nPlainscycling {2} ({2}, Discard this card: Search your library for a Plains card, reveal it, put it into your hand, then shuffle.)",
+      "power": "5",
+      "toughness": "7"
+    },
+    "Arch of Orazca": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "Ascend (If you control ten or more permanents, you get the city's blessing for the rest of the game.)\n{T}: Add {C}.\n{5}, {T}: Draw a card. Activate only if you have the city's blessing."
+    },
+    "Azorius Locket": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {W} or {U}.\n{W/U}{W/U}{W/U}{W/U}, {T}, Sacrifice this artifact: Draw two cards."
+    },
+    "Battlemage's Bracers": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature has haste.\nWhenever an ability of equipped creature is activated, if it isn't a mana ability, you may pay {1}. If you do, copy that ability. You may choose new targets for the copy.\nEquip {2}"
+    },
+    "Blast Zone": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters with a charge counter on it.\n{T}: Add {C}.\n{X}{X}, {T}: Put X charge counters on this land.\n{3}, {T}, Sacrifice this land: Destroy each nonland permanent with mana value equal to the number of charge counters on this land."
+    },
+    "Blatant Thievery": {
+      "mana_cost": "{4}{U}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "For each opponent, gain control of target permanent that player controls."
+    },
+    "Blustersquall": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Tap target creature you don't control.\nOverload {3}{U} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Bonders' Enclave": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{3}, {T}: Draw a card. Activate only if you control a creature with power 4 or greater."
+    },
+    "Burnished Hart": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Elk",
+      "oracle_text": "{3}, Sacrifice this creature: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Bygone Bishop": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Spirit Cleric",
+      "oracle_text": "Flying\nWhenever you cast a creature spell with mana value 3 or less, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this token: Draw a card.\")",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Charmbreaker Devils": {
+      "mana_cost": "{5}{R}",
+      "type_line": "Creature — Devil",
+      "oracle_text": "At the beginning of your upkeep, return an instant or sorcery card at random from your graveyard to your hand.\nWhenever you cast an instant or sorcery spell, this creature gets +4/+0 until end of turn.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Command Tower": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add one mana of any color in your commander's color identity."
+    },
+    "Counterflux": {
+      "mana_cost": "{U}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "This spell can't be countered.\nCounter target spell you don't control.\nOverload {1}{U}{U}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Crush Contraband": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one or both —\n• Exile target artifact.\n• Exile target enchantment."
+    },
+    "Darksteel Citadel": {
+      "mana_cost": "",
+      "type_line": "Artifact Land",
+      "oracle_text": "Indestructible\n{T}: Add {C}."
+    },
+    "Darksteel Monolith": {
+      "mana_cost": "{8}",
+      "type_line": "Artifact",
+      "oracle_text": "Indestructible\nOnce each turn, you may pay {0} rather than pay the mana cost for a colorless spell you cast from your hand."
+    },
+    "Darksteel Mutation": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature is an Insect artifact creature with base power and toughness 0/1 and has indestructible, and it loses all other abilities, card types, and creature types."
+    },
+    "Distant Melody": {
+      "mana_cost": "{3}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose a creature type. Draw a card for each permanent you control of that type."
+    },
+    "Dominate": {
+      "mana_cost": "{X}{1}{U}{U}",
+      "type_line": "Instant",
+      "oracle_text": "Gain control of target creature with mana value X or less."
+    },
+    "Dreamstone Hedron": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}{C}.\n{3}, {T}, Sacrifice this artifact: Draw three cards."
+    },
+    "Duplicant": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Shapeshifter",
+      "oracle_text": "Imprint — When this creature enters, you may exile target nontoken creature.\nAs long as a card exiled with this creature is a creature card, this creature has the power, toughness, and creature types of the last creature card exiled with it. It's still a Shapeshifter.",
+      "power": "2",
+      "toughness": "4"
+    },
+    "Etherium-Horn Sorcerer": {
+      "mana_cost": "{4}{U}{R}",
+      "type_line": "Artifact Creature — Minotaur Wizard Sorcerer",
+      "oracle_text": "{1}{U}{R}: Return this creature to its owner's hand.\nCascade (When you cast this spell, exile cards from the top of your library until you exile a nonland card that costs less. You may cast it without paying its mana cost. Put the exiled cards on the bottom in a random order.)",
+      "power": "3",
+      "toughness": "6"
+    },
+    "Evolving Wilds": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}, Sacrifice this land: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+    },
+    "Flood of Tears": {
+      "mana_cost": "{4}{U}{U}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return all nonland permanents to their owners' hands. If you return four or more nontoken permanents you control this way, you may put a permanent card from your hand onto the battlefield."
+    },
+    "Forge of Heroes": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{T}: Choose target commander that entered this turn. Put a +1/+1 counter on it if it's a creature and a loyalty counter on it if it's a planeswalker."
+    },
+    "Geist of Saint Traft": {
+      "mana_cost": "{1}{W}{U}",
+      "type_line": "Legendary Creature — Spirit Cleric",
+      "oracle_text": "Hexproof (This creature can't be the target of spells or abilities your opponents control.)\nWhenever Geist of Saint Traft attacks, create a 4/4 white Angel creature token with flying that's tapped and attacking. Exile that token at end of combat.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Hangarback Walker": {
+      "mana_cost": "{X}{X}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "This creature enters with X +1/+1 counters on it.\nWhen this creature dies, create a 1/1 colorless Thopter artifact creature token with flying for each +1/+1 counter on this creature.\n{1}, {T}: Put a +1/+1 counter on this creature.",
+      "power": "0",
+      "toughness": "0"
+    },
+    "Hellkite Tyrant": {
+      "mana_cost": "{4}{R}{R}",
+      "type_line": "Creature — Dragon",
+      "oracle_text": "Flying, trample\nWhenever this creature deals combat damage to a player, gain control of all artifacts that player controls.\nAt the beginning of your upkeep, if you control twenty or more artifacts, you win the game.",
+      "power": "6",
+      "toughness": "5"
+    },
+    "Ichor Wellspring": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "When this artifact enters or is put into a graveyard from the battlefield, draw a card."
+    },
+    "Illusory Ambusher": {
+      "mana_cost": "{4}{U}",
+      "type_line": "Creature — Cat Illusion",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nWhenever this creature is dealt damage, draw that many cards.",
+      "power": "4",
+      "toughness": "1"
+    },
+    "Island": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Island",
+      "oracle_text": "({T}: Add {U}.)"
+    },
+    "It That Betrays": {
+      "mana_cost": "{12}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "Annihilator 2 (Whenever this creature attacks, defending player sacrifices two permanents of their choice.)\nWhenever an opponent sacrifices a nontoken permanent, put that card onto the battlefield under your control.",
+      "power": "11",
+      "toughness": "11"
+    },
+    "Izzet Signet": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{1}, {T}: Add {U}{R}."
+    },
+    "Karmic Guide": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Angel Spirit",
+      "oracle_text": "Flying, protection from black\nEcho {3}{W}{W} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)\nWhen this creature enters, return target creature card from your graveyard to the battlefield.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Key to the City": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Discard a card: Up to one target creature can't be blocked this turn.\nWhenever this artifact becomes untapped, you may pay {2}. If you do, draw a card."
+    },
+    "Knight of the White Orchid": {
+      "mana_cost": "{W}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "First strike\nWhen this creature enters, if an opponent controls more lands than you, you may search your library for a Plains card, put it onto the battlefield, then shuffle.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Manifest": {
+      "mana_cost": "",
+      "type_line": "Creature",
+      "oracle_text": "(You can cover a face-down manifested creature with this reminder card.\nA manifested creature card can be turned face up any time for its mana cost. A face-down card can also be turned face up for its morph cost.)",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Marble Diamond": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {W}."
+    },
+    "Mazemind Tome": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}, Put a page counter on this artifact: Scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{2}, {T}, Put a page counter on this artifact: Draw a card.\nWhen there are four or more page counters on this artifact, exile it. If you do, you gain 4 life."
+    },
+    "Meteor Golem": {
+      "mana_cost": "{7}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, destroy target nonland permanent an opponent controls.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Millicent, Restless Revenant": {
+      "mana_cost": "{5}{W}{U}",
+      "type_line": "Legendary Creature — Spirit Soldier",
+      "oracle_text": "Affinity for Spirits (This spell costs {1} less to cast for each Spirit you control.)\nFlying\nWhenever Millicent or another nontoken Spirit you control dies or deals combat damage to a player, create a 1/1 white Spirit creature token with flying.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Mind Stone": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}, Sacrifice this artifact: Draw a card."
+    },
+    "Mirror Entity": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Shapeshifter",
+      "oracle_text": "Changeling (This card is every creature type.)\n{X}: Until end of turn, creatures you control have base power and toughness X/X and gain all creature types.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Mizzium Mortars": {
+      "mana_cost": "{1}{R}",
+      "type_line": "Sorcery",
+      "oracle_text": "Mizzium Mortars deals 4 damage to target creature you don't control.\nOverload {3}{R}{R}{R} (You may cast this spell for its overload cost. If you do, change \"target\" in its text to \"each.\")"
+    },
+    "Mizzix of the Izmagnus": {
+      "mana_cost": "{2}{U}{R}",
+      "type_line": "Legendary Creature — Goblin Wizard",
+      "oracle_text": "Whenever you cast an instant or sorcery spell with mana value greater than the number of experience counters you have, you get an experience counter.\nInstant and sorcery spells you cast cost {1} less to cast for each experience counter you have.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Mountain",
+      "oracle_text": "({T}: Add {R}.)"
+    },
+    "Myriad Landscape": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}.\n{2}, {T}, Sacrifice this land: Search your library for up to two basic land cards that share a land type, put them onto the battlefield tapped, then shuffle."
+    },
+    "Mystic Forge": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "You may look at the top card of your library any time.\nYou may cast artifact spells and colorless spells from the top of your library.\n{T}, Pay 1 life: Exile the top card of your library."
+    },
+    "Oblivion Sower": {
+      "mana_cost": "{6}",
+      "type_line": "Creature — Eldrazi",
+      "oracle_text": "When you cast this spell, target opponent exiles the top four cards of their library, then you may put any number of land cards that player owns from exile onto the battlefield under your control.",
+      "power": "5",
+      "toughness": "8"
+    },
+    "Osgir, the Reconstructor": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Legendary Creature — Giant Artificer",
+      "oracle_text": "Vigilance\n{1}, Sacrifice an artifact: Target creature you control gets +2/+0 until end of turn.\n{X}, {T}, Exile an artifact card with mana value X from your graveyard: Create two tokens that are copies of the exiled card. Activate only as a sorcery.",
+      "power": "4",
+      "toughness": "4"
+    },
+    "Path of Ancestry": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add one mana of any color in your commander's color identity. When that mana is spent to cast a creature spell that shares a creature type with your commander, scry 1. (Look at the top card of your library. You may put that card on the bottom.)"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Priest of the Blessed Graf": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Human Cleric",
+      "oracle_text": "At the beginning of your end step, create X 1/1 white Spirit creature tokens with flying, where X is the number of opponents who control more lands than you.",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Prophetic Bolt": {
+      "mana_cost": "{3}{U}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Prophetic Bolt deals 4 damage to any target. Look at the top four cards of your library. Put one of those cards into your hand and the rest on the bottom of your library in any order."
+    },
+    "Reconstruct History": {
+      "mana_cost": "{2}{R}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Return up to one target artifact card, up to one target enchantment card, up to one target instant card, up to one target sorcery card, and up to one target planeswalker card from your graveyard to your hand.\nExile Reconstruct History."
+    },
+    "Return to Dust": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Exile target artifact or enchantment. If you cast this spell during your main phase, you may exile up to one other target artifact or enchantment."
+    },
+    "Rip Apart": {
+      "mana_cost": "{R}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Choose one —\n• Rip Apart deals 3 damage to target creature or planeswalker.\n• Destroy target artifact or enchantment."
+    },
+    "Rise of the Eldrazi": {
+      "mana_cost": "{9}{C}{C}{C}",
+      "type_line": "Sorcery",
+      "oracle_text": "This spell can't be countered.\nDestroy target permanent. Target player draws four cards. Take an extra turn after this one.\nExile Rise of the Eldrazi."
+    },
+    "Rogue's Passage": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{4}, {T}: Target creature can't be blocked this turn."
+    },
+    "Ruins of Oran-Rief": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped.\n{T}: Add {C}. ({C} represents colorless mana.)\n{T}: Put a +1/+1 counter on target colorless creature that entered this turn."
+    },
+    "Secret Rendezvous": {
+      "mana_cost": "{1}{W}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "You and target opponent each draw three cards."
+    },
+    "Sol Ring": {
+      "mana_cost": "{1}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}{C}."
+    },
+    "Solemn Simulacrum": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact Creature — Golem",
+      "oracle_text": "When this creature enters, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle.\nWhen this creature dies, you may draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Soul of New Phyrexia": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Phyrexian Avatar",
+      "oracle_text": "Trample\n{5}: Permanents you control gain indestructible until end of turn.\n{5}, Exile this card from your graveyard: Permanents you control gain indestructible until end of turn.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Spectral Sailor": {
+      "mana_cost": "{U}",
+      "type_line": "Creature — Spirit Pirate",
+      "oracle_text": "Flash (You may cast this spell any time you could cast an instant.)\nFlying\n{3}{U}: Draw a card.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Steel Hellkite": {
+      "mana_cost": "{6}",
+      "type_line": "Artifact Creature — Dragon",
+      "oracle_text": "Flying\n{2}: This creature gets +1/+0 until end of turn.\n{X}: Destroy each nonland permanent with mana value X whose controller was dealt combat damage by this creature this turn. Activate only once each turn.",
+      "power": "5",
+      "toughness": "5"
+    },
+    "Steel Overseer": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Construct",
+      "oracle_text": "{T}: Put a +1/+1 counter on each artifact creature you control.",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Study Hall": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{1}, {T}: Add one mana of any color. When you spend this mana to cast your commander, scry X, where X is the number of times it's been cast from the command zone this game."
+    },
+    "Sudden Salvation": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Choose up to three target permanent cards in graveyards that were put there from the battlefield this turn. Return them to the battlefield tapped under their owners' control. You draw a card for each opponent who controls one or more of those permanents."
+    },
+    "Suspicious Bookcase": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact Creature — Wall",
+      "oracle_text": "Defender\n{3}, {T}: Target creature can't be blocked this turn.",
+      "power": "0",
+      "toughness": "4"
+    },
+    "Thopter Engineer": {
+      "mana_cost": "{2}{R}",
+      "type_line": "Creature — Human Artificer",
+      "oracle_text": "When this creature enters, create a 1/1 colorless Thopter artifact creature token with flying.\nArtifact creatures you control have haste. (They can attack and {T} as soon as they come under your control.)",
+      "power": "1",
+      "toughness": "3"
+    },
+    "Thought Vessel": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact",
+      "oracle_text": "You have no maximum hand size.\n{T}: Add {C}."
+    },
+    "Titan's Presence": {
+      "mana_cost": "{3}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, reveal a colorless creature card from your hand.\nExile target creature if its power is less than or equal to the revealed card's power."
+    },
+    "Tomb of the Spirit Dragon": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "{T}: Add {C}.\n{2}, {T}: You gain 1 life for each colorless creature you control."
+    },
+    "Ugin's Mastery": {
+      "mana_cost": "{4}",
+      "type_line": "Enchantment",
+      "oracle_text": "Whenever you cast a colorless creature spell, manifest the top card of your library. (Put it onto the battlefield face down as a 2/2 creature. Turn it face up any time for its mana cost if it's a creature card.)\nWhenever you attack with creatures with total power 6 or greater, you may turn a face-down creature you control face up."
+    },
+    "Unclaimed Territory": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "As this land enters, choose a creature type.\n{T}: Add {C}.\n{T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type."
+    },
+    "Unstable Obelisk": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {C}.\n{7}, {T}, Sacrifice this artifact: Destroy target permanent."
+    },
+    "Urza's Mine": {
+      "mana_cost": "",
+      "type_line": "Land — Urza's Mine",
+      "oracle_text": "{T}: Add {C}. If you control an Urza's Power-Plant and an Urza's Tower, add {C}{C} instead."
+    },
+    "Wastes": {
+      "mana_cost": "",
+      "type_line": "Basic Land",
+      "oracle_text": "{T}: Add {C}."
+    },
+    "Word of Seizing": {
+      "mana_cost": "{3}{R}{R}",
+      "type_line": "Instant",
+      "oracle_text": "Split second (As long as this spell is on the stack, players can't cast spells or activate abilities that aren't mana abilities.)\nUntap target permanent and gain control of it until end of turn. It gains haste until end of turn."
+    },
+    "Worn Powerstone": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}."
+    }
+  }
 }

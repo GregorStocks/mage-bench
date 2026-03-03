@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260302_174929_g3",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -103,7 +103,9 @@
     "Moodmark Painter": "https://api.scryfall.com/cards/j22/445?format=image&version=small",
     "Necrotic Wound": "https://api.scryfall.com/cards/j22/447?format=image&version=small",
     "Corpse Churn": "https://api.scryfall.com/cards/j22/389?format=image&version=small",
-    "Oversold Cemetery": "https://api.scryfall.com/cards/j22/453?format=image&version=small"
+    "Oversold Cemetery": "https://api.scryfall.com/cards/j22/453?format=image&version=small",
+    "Dog Token": "https://cards.scryfall.io/small/front/8/a/8aaf03be-294a-4539-954c-79853f4351a9.jpg?1706216959",
+    "Soldier Token": "https://cards.scryfall.io/small/front/8/3/83313791-7d33-42bf-8ee7-05f17f88940a.jpg?1764117785"
   },
   "snapshots": [
     {
@@ -206497,5 +206499,232 @@
       "player": "MstLg Tinker"
     }
   ],
-  "blunderScriptVersion": 31
+  "blunderScriptVersion": 31,
+  "cardData": {
+    "Assault Formation": {
+      "mana_cost": "{1}{G}",
+      "type_line": "Enchantment",
+      "oracle_text": "Each creature you control assigns combat damage equal to its toughness rather than its power.\n{G}: Target creature with defender can attack this turn as though it didn't have defender.\n{2}{G}: Creatures you control get +0/+1 until end of turn."
+    },
+    "Barter in Blood": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Sorcery",
+      "oracle_text": "Each player sacrifices two creatures of their choice."
+    },
+    "Bone Picker": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Bird",
+      "oracle_text": "This spell costs {3} less to cast if a creature died this turn.\nFlying, deathtouch",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Caged Zombie": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{1}{B}, {T}: Each opponent loses 2 life. Activate only if a creature died this turn.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Carven Caryatid": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Defender (This creature can't attack.)\nWhen this creature enters, draw a card.",
+      "power": "2",
+      "toughness": "5"
+    },
+    "Cathar's Companion": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Whenever you cast a noncreature spell, this creature gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Corpse Churn": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Mill three cards, then you may return a creature card from your graveyard to your hand. (To mill three cards, put the top three cards of your library into your graveyard.)"
+    },
+    "Crushing Canopy": {
+      "mana_cost": "{2}{G}",
+      "type_line": "Instant",
+      "oracle_text": "Choose one —\n• Destroy target creature with flying.\n• Destroy target enchantment."
+    },
+    "Eternal Taskmaster": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "This creature enters tapped.\nWhenever this creature attacks, you may pay {2}{B}. If you do, return target creature card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Feat of Resistance": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Instant",
+      "oracle_text": "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn. (It can't be blocked, targeted, dealt damage, enchanted, or equipped by anything of that color.)"
+    },
+    "Fetid Imp": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Imp",
+      "oracle_text": "Flying\n{B}: This creature gains deathtouch until end of turn. (Any amount of damage it deals to a creature is enough to destroy it.)",
+      "power": "1",
+      "toughness": "2"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Forest",
+      "oracle_text": "({T}: Add {G}.)"
+    },
+    "Gargoyle Sentinel": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact Creature — Gargoyle",
+      "oracle_text": "Defender (This creature can't attack.)\n{3}: Until end of turn, this creature loses defender and gains flying.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Grave Bramble": {
+      "mana_cost": "{1}{G}{G}",
+      "type_line": "Creature — Plant",
+      "oracle_text": "Defender, protection from Zombies",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Liliana's Standard Bearer": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie Knight",
+      "oracle_text": "Flash\nWhen this creature enters, draw X cards, where X is the number of creatures that died under your control this turn.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Malefic Scythe": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "This Equipment enters with a soul counter on it.\nEquipped creature gets +1/+1 for each soul counter on this Equipment.\nWhenever equipped creature dies, put a soul counter on this Equipment.\nEquip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Moodmark Painter": {
+      "mana_cost": "{2}{B}{B}",
+      "type_line": "Creature — Human Shaman",
+      "oracle_text": "Undergrowth — When this creature enters, target creature gains menace and gets +X/+0 until end of turn, where X is the number of creature cards in your graveyard. (It can't be blocked except by two or more creatures.)",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Necrotic Wound": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "Undergrowth — Target creature gets -X/-X until end of turn, where X is the number of creature cards in your graveyard. If that creature would die this turn, exile it instead."
+    },
+    "Ossuary Rats": {
+      "mana_cost": "{5}{B}",
+      "type_line": "Creature — Rat",
+      "oracle_text": "When this creature enters, it deals X damage to target creature or planeswalker an opponent controls, where X is the number of creature cards in your graveyard.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Pacifism": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature\nEnchanted creature can't attack or block."
+    },
+    "Pit Keeper": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Creature — Human Wizard",
+      "oracle_text": "When this creature enters, if you have four or more creature cards in your graveyard, you may return target creature card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "1"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Rambunctious Mutt": {
+      "mana_cost": "{3}{W}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "When this creature enters, destroy target artifact or enchantment an opponent controls.",
+      "power": "3",
+      "toughness": "4"
+    },
+    "Release the Dogs": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Create four 1/1 white Dog creature tokens."
+    },
+    "Revenant": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Creature — Spirit",
+      "oracle_text": "Flying\nRevenant's power and toughness are each equal to the number of creature cards in your graveyard.",
+      "power": "*",
+      "toughness": "*"
+    },
+    "Secure the Scene": {
+      "mana_cost": "{4}{W}",
+      "type_line": "Sorcery",
+      "oracle_text": "Exile target nonland permanent. Its controller creates a 1/1 white Soldier creature token."
+    },
+    "Selfless Savior": {
+      "mana_cost": "{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "Sacrifice this creature: Another target creature you control gains indestructible until end of turn. (Damage and effects that say \"destroy\" don't destroy it.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Spark Reaper": {
+      "mana_cost": "{2}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{3}, Sacrifice a creature or planeswalker: You gain 1 life and draw a card.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Stitcher's Supplier": {
+      "mana_cost": "{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "When this creature enters or dies, mill three cards. (Put the top three cards of your library into your graveyard.)",
+      "power": "1",
+      "toughness": "1"
+    },
+    "Suspicious Shambler": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Zombie",
+      "oracle_text": "{4}{B}{B}, Exile this card from your graveyard: Create two 2/2 black Zombie creature tokens. Activate only as a sorcery.",
+      "power": "4",
+      "toughness": "2"
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Heath": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than white.\n{T}: Add {W} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Trusty Retriever": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Creature — Dog",
+      "oracle_text": "When this creature enters, choose one —\n• Put a +1/+1 counter on this creature.\n• Return target artifact or enchantment card from your graveyard to your hand.",
+      "power": "2",
+      "toughness": "3"
+    },
+    "Village Rites": {
+      "mana_cost": "{B}",
+      "type_line": "Instant",
+      "oracle_text": "As an additional cost to cast this spell, sacrifice a creature.\nDraw two cards."
+    },
+    "Wall of Vines": {
+      "mana_cost": "{G}",
+      "type_line": "Creature — Plant Wall",
+      "oracle_text": "Defender (This creature can't attack.)\nReach (This creature can block creatures with flying.)",
+      "power": "0",
+      "toughness": "3"
+    },
+    "Warmonger's Chariot": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +2/+2.\nAs long as equipped creature has defender, it can attack as though it didn't have defender.\nEquip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)"
+    }
+  }
 }

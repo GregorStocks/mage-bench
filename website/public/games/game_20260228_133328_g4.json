@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "id": "game_20260228_133328_g4",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -57021,5 +57021,130 @@
       "player": "MiMo Coach"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "cardData": {
+    "Balan, Wandering Knight": {
+      "mana_cost": "{2}{W}{W}",
+      "type_line": "Legendary Creature — Cat Knight",
+      "oracle_text": "First strike\nBalan has double strike as long as two or more Equipment are attached to it.\n{1}{W}: Attach all Equipment you control to Balan.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Benalish Honor Guard": {
+      "mana_cost": "{1}{W}",
+      "type_line": "Creature — Human Knight",
+      "oracle_text": "This creature gets +1/+0 for each legendary creature you control.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Chains of Custody": {
+      "mana_cost": "{2}{W}",
+      "type_line": "Enchantment — Aura",
+      "oracle_text": "Enchant creature you control\nWhen this Aura enters, exile target nonland permanent an opponent controls until this Aura leaves the battlefield.\nEnchanted creature has ward {2}. (Whenever it becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
+    },
+    "Diabolic Edict": {
+      "mana_cost": "{1}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target player sacrifices a creature of their choice."
+    },
+    "Fleeting Distraction": {
+      "mana_cost": "{U}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -1/-0 until end of turn.\nDraw a card."
+    },
+    "Hero's Blade": {
+      "mana_cost": "{2}",
+      "type_line": "Artifact — Equipment",
+      "oracle_text": "Equipped creature gets +3/+2.\nWhenever a legendary creature you control enters, you may attach this Equipment to it.\nEquip {4} ({4}: Attach to target creature you control. Equip only as a sorcery.)"
+    },
+    "Infernal Idol": {
+      "mana_cost": "{3}",
+      "type_line": "Artifact",
+      "oracle_text": "{T}: Add {B}.\n{1}{B}{B}, {T}, Sacrifice this artifact: You draw two cards and you lose 2 life."
+    },
+    "Instruments of War": {
+      "mana_cost": "{4}",
+      "type_line": "Artifact",
+      "oracle_text": "Flash\nAs this artifact enters, choose a creature type.\nCreatures you control of the chosen type get +1/+1."
+    },
+    "Kothophed, Soul Hoarder": {
+      "mana_cost": "{4}{B}{B}",
+      "type_line": "Legendary Creature — Demon",
+      "oracle_text": "Flying\nWhenever a permanent owned by another player is put into a graveyard from the battlefield, you draw a card and you lose 1 life.",
+      "power": "6",
+      "toughness": "6"
+    },
+    "Kwende, Pride of Femeref": {
+      "mana_cost": "{3}{W}",
+      "type_line": "Legendary Creature — Human Knight",
+      "oracle_text": "Double strike\nCreatures you control with first strike have double strike.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Leechridden Swamp": {
+      "mana_cost": "",
+      "type_line": "Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)\nThis land enters tapped.\n{B}, {T}: Each opponent loses 1 life. Activate only if you control two or more black permanents."
+    },
+    "Plains": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Plains",
+      "oracle_text": "({T}: Add {W}.)"
+    },
+    "Skullslither Worm": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Creature — Worm",
+      "oracle_text": "When this creature enters, each opponent discards a card. For each opponent who can't, put two +1/+1 counters on this creature.",
+      "power": "3",
+      "toughness": "3"
+    },
+    "Soulcage Fiend": {
+      "mana_cost": "{1}{B}{B}",
+      "type_line": "Creature — Demon",
+      "oracle_text": "When this creature dies, each player loses 3 life.",
+      "power": "3",
+      "toughness": "2"
+    },
+    "Strangling Spores": {
+      "mana_cost": "{3}{B}",
+      "type_line": "Instant",
+      "oracle_text": "Target creature gets -3/-3 until end of turn."
+    },
+    "Swamp": {
+      "mana_cost": "",
+      "type_line": "Basic Land — Swamp",
+      "oracle_text": "({T}: Add {B}.)"
+    },
+    "Thriving Isle": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than blue.\n{T}: Add {U} or one mana of the chosen color."
+    },
+    "Thriving Moor": {
+      "mana_cost": "",
+      "type_line": "Land",
+      "oracle_text": "This land enters tapped. As it enters, choose a color other than black.\n{T}: Add {B} or one mana of the chosen color."
+    },
+    "Vendilion Clique": {
+      "mana_cost": "{1}{U}{U}",
+      "type_line": "Legendary Creature — Faerie Wizard",
+      "oracle_text": "Flash\nFlying\nWhen Vendilion Clique enters, look at target player's hand. You may choose a nonland card from it. If you do, that player reveals the chosen card, puts it on the bottom of their library, then draws a card.",
+      "power": "3",
+      "toughness": "1"
+    },
+    "Wavebreak Hippocamp": {
+      "mana_cost": "{2}{U}",
+      "type_line": "Enchantment Creature — Horse Fish",
+      "oracle_text": "Whenever you cast your first spell during each opponent's turn, draw a card.",
+      "power": "2",
+      "toughness": "2"
+    },
+    "Yargle, Glutton of Urborg": {
+      "mana_cost": "{4}{B}",
+      "type_line": "Legendary Creature — Frog Spirit",
+      "oracle_text": "",
+      "power": "9",
+      "toughness": "3"
+    }
+  }
 }
