@@ -1,12 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getCollection } from 'astro:content';
 import benchmarkData from '../../data/benchmark-results.json';
 import fs from 'node:fs';
 import path from 'node:path';
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 
-export async function getStaticPaths() {
+export function getStaticPaths() {
   const gamesDir = path.join(process.cwd(), 'public', 'games');
   if (!fs.existsSync(gamesDir)) {
     return [];
@@ -19,16 +18,10 @@ export async function getStaticPaths() {
       slugs.add(f.replace('.json.gz', ''));
     }
   }
-  const reports = await getCollection('reports');
-  const reportGameIds = new Set(reports.map(r => r.data.gameId));
-  return [...slugs].map(s => ({
-    params: { slug: s },
-    props: { hasReport: reportGameIds.has(s) },
-  }));
+  return [...slugs].map(s => ({ params: { slug: s } }));
 }
 
 const { slug } = Astro.params;
-const { hasReport } = Astro.props;
 ---
 
 <Base title="Game Replay" wide>
@@ -148,21 +141,6 @@ const { hasReport } = Astro.props;
     margin-bottom: 0.75rem;
   }
 
-  #report-link {
-    color: #e94560;
-    text-decoration: none;
-    font-size: 0.85rem;
-    padding: 0.25rem 0.6rem;
-    border: 1px solid #e94560;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  #report-link:hover {
-    background: #e94560;
-    color: #fff;
-  }
-
   @media (max-width: 600px) {
     #game-header {
       flex-wrap: wrap;
@@ -172,7 +150,7 @@ const { hasReport } = Astro.props;
 
 <script is:inline src="/game-renderer.js"></script>
 <script is:inline src="/game-viewer.js"></script>
-<script is:inline define:vars={{ minBlunderVersion, hasReport }}>
+<script is:inline define:vars={{ minBlunderVersion }}>
   (function () {
     var slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
     if (!slug) {
@@ -278,15 +256,6 @@ const { hasReport } = Astro.props;
             " MCP tools and priority semantics have changed since this game was played," +
             " so its results are excluded from leaderboard ratings.";
           document.getElementById("game-header").after(epochBanner);
-        }
-
-        // After-action report link
-        if (hasReport) {
-          var reportLink = document.createElement("a");
-          reportLink.href = "/reports/" + slug;
-          reportLink.id = "report-link";
-          reportLink.textContent = "After-Action Report";
-          document.getElementById("game-header").appendChild(reportLink);
         }
 
         // Create the viewer — jump to ?s=N if specified
