@@ -61,6 +61,153 @@
     return span;
   }
 
+  // ── Decision display ──
+
+  /**
+   * Convert a canonical decision into human-readable text describing what
+   * the player chose.  Pure function — no DOM, no closure state.
+   *
+   * @param {object} decision  A Decision from game.decisions[]
+   * @returns {string}
+   */
+  function chosenDisplayText(decision) {
+    var chosen = decision.chosen;
+    var chosenArgs = decision.chosenArgs || {};
+    var choices = decision.choices || [];
+    var message = decision.message || "";
+    var pilotCtx = decision.pilotContext || {};
+
+    // Build ID → choice lookup from choices + incomingAttackers
+    var choiceById = {};
+    choices.forEach(function (c) {
+      if (c && typeof c === "object" && c.id) {
+        choiceById[c.id] = c;
+      }
+    });
+    (pilotCtx.incomingAttackers || []).forEach(function (a) {
+      if (a && a.id && !choiceById[a.id]) {
+        choiceById[a.id] = a;
+      }
+    });
+
+    function nameOf(id) {
+      var c = choiceById[id];
+      return c ? (c.name || c.description || id) : id;
+    }
+
+    function nameWithStats(id) {
+      var c = choiceById[id];
+      if (!c) return id;
+      var n = c.name || c.description || id;
+      if (c.power != null && c.toughness != null) {
+        n += " " + c.power + "/" + c.toughness;
+      }
+      return n;
+    }
+
+    // Batch attacks: chosen is null, chosenArgs.attackers exists
+    if (chosenArgs.attackers) {
+      var attackers = chosenArgs.attackers;
+      if (typeof attackers === "string") {
+        attackers = attackers.split(",").map(function (s) { return s.trim(); });
+      }
+      if (attackers.length === 1 && attackers[0] === "all") {
+        var allNames = choices.filter(function (c) {
+          return c && typeof c === "object" && c.id !== "all";
+        }).map(function (c) {
+          return nameWithStats(c.id);
+        });
+        return allNames.length > 0
+          ? "Attack with all (" + allNames.join(", ") + ")"
+          : "Attack with all creatures";
+      }
+      var atkNames = attackers.map(function (a) {
+        var id = (typeof a === "object" && a.id) ? a.id : String(a);
+        return nameWithStats(id);
+      });
+      return "Attack with " + atkNames.join(", ");
+    }
+
+    // Batch blocks: chosen is null, chosenArgs.blockers exists
+    if (chosenArgs.blockers) {
+      var blockers = chosenArgs.blockers;
+      if (typeof blockers === "string") {
+        try { blockers = JSON.parse(blockers); } catch (e) {
+          blockers = blockers.split(",").map(function (s) { return s.trim(); });
+        }
+      }
+      if (!blockers || blockers.length === 0) return "No blocks";
+      var blockParts = [];
+      blockers.forEach(function (entry) {
+        if (typeof entry === "object" && entry.id) {
+          blockParts.push(nameOf(entry.id) + " blocks " + nameOf(entry.blocks));
+        } else if (typeof entry === "string" && entry.indexOf(":") !== -1) {
+          var pair = entry.split(":", 2);
+          blockParts.push(nameOf(pair[0]) + " blocks " + nameOf(pair[1]));
+        } else {
+          blockParts.push(nameOf(String(entry)));
+        }
+      });
+      return blockParts.join(", ");
+    }
+
+    // Boolean response
+    if (typeof chosen === "boolean") {
+      var msgLower = message.toLowerCase();
+      if (msgLower.indexOf("mulligan") !== -1) {
+        return chosen ? "Mulligan" : "Keep hand";
+      }
+      if (!chosen) {
+        if (msgLower.indexOf("blocker") !== -1) return "No blocks";
+        return "Pass";
+      }
+      return String(chosen);
+    }
+
+    // Null chosen with a choice ID → resolve it
+    if (chosen == null && chosenArgs.choice && chosenArgs.choice !== "no") {
+      var resolved = choiceById[chosenArgs.choice];
+      if (resolved) {
+        var rName = resolved.name || resolved.description || chosenArgs.choice;
+        var rAction = resolved.action;
+        if (rAction === "cast") {
+          var lbl = "Cast " + rName;
+          if (resolved.mana_cost) lbl += " " + resolved.mana_cost;
+          return lbl;
+        }
+        if (rAction === "land") return "Play " + rName;
+        if (rAction === "activate") return "Activate " + rName;
+        return rName;
+      }
+      return chosenArgs.choice;
+    }
+
+    // Null chosen, empty args = pass
+    if (chosen == null) {
+      return "Pass";
+    }
+
+    // Index into choices
+    if (typeof chosen === "number" && chosen >= 0 && chosen < choices.length) {
+      var c = choices[chosen];
+      if (c && typeof c === "object") {
+        var choiceName = c.name || c.description || String(chosen);
+        var action = c.action;
+        if (action === "cast") {
+          var label = "Cast " + choiceName;
+          if (c.mana_cost) label += " " + c.mana_cost;
+          return label;
+        }
+        if (action === "land") return "Play " + choiceName;
+        if (action === "activate") return "Activate " + choiceName;
+        return choiceName;
+      }
+      return String(c);
+    }
+
+    return String(chosen);
+  }
+
   // ── LLM event processing ──
 
   function extractSystemMessages(toolCallEvent) {
@@ -89,9 +236,7 @@
         var toolResults = [];
         var j = i + 1;
         while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
-          if (events[j].tool !== "send_chat_message") {
-            toolResults.push(events[j]);
-          }
+          toolResults.push(events[j]);
           j++;
         }
         var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
@@ -108,10 +253,6 @@
         });
         i = j;
       } else if (e.type === "tool_call") {
-        if (e.tool === "send_chat_message") {
-          i++;
-          continue;
-        }
         merged.push({
           type: "llm_merged",
           ts: e.ts,
@@ -162,9 +303,6 @@
       '      <div class="action-log-header">',
       '        <span class="section-title">Game Log</span>',
       '        <div class="log-filters">',
-      '          <select id="player-filter" class="hidden" title="Filter by player">',
-      '            <option value="">All players</option>',
-      '          </select>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-llm" checked /> LLM</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-game" checked /> Game</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-chat" checked /> Chat</label>',
@@ -216,7 +354,6 @@
         rules: container.querySelector("#preview-rules"),
       },
       // Filters
-      playerFilter: container.querySelector("#player-filter"),
       filterLlmEl: container.querySelector("#filter-llm"),
       filterGameEl: container.querySelector("#filter-game"),
       filterChatEl: container.querySelector("#filter-chat"),
@@ -244,7 +381,6 @@
     var phaseTransitions = [];
     var playerTurnNumbers = [];
     var isCommander = false;
-    var filterPlayer = "";
     var filterLlm = true;
     var filterGame = true;
     var filterChat = true;
@@ -277,6 +413,92 @@
     }
 
     function renderToolResult(tc) {
+      // Look up whether this tool call maps to a canonical decision
+      var decision = (tc._origIdx != null) ? llmEventIndexToDecision[tc._origIdx] || null : null;
+
+      // choose_action mapped to a decision: show human-readable summary
+      if (decision && tc.tool === "choose_action") {
+        var displayText = chosenDisplayText(decision);
+
+        var container = document.createElement("span");
+        container.className = "llm-decision-display";
+
+        var badge = document.createElement("span");
+        badge.className = "log-badge badge-mcp";
+        badge.textContent = "mcp";
+        container.appendChild(badge);
+
+        var actionSpan = document.createElement("span");
+        actionSpan.className = "decision-action-text";
+        actionSpan.textContent = displayText;
+        container.appendChild(actionSpan);
+
+        // Raw MCP call hidden behind an inline disclosure triangle
+        var rawDetails = document.createElement("details");
+        rawDetails.className = "llm-tool-raw";
+        var rawSummary = document.createElement("summary");
+        rawSummary.textContent = "raw";
+        rawDetails.appendChild(rawSummary);
+        var rawInner = document.createElement("div");
+        var rawArgs = formatToolArgs(tc.args);
+        rawInner.innerHTML = '<div class="llm-tool-raw-call">' + escapeHtml(tc.tool) + "(" + escapeHtml(rawArgs) + ")</div>";
+        if (tc.result) {
+          var rawPre = document.createElement("pre");
+          rawPre.textContent = tryFormatJson(tc.result);
+          rawInner.appendChild(rawPre);
+        }
+        rawDetails.appendChild(rawInner);
+        container.appendChild(rawDetails);
+
+        return container;
+      }
+
+      // get_action_choices mapped to a decision: hide (choose_action shows the summary)
+      if (decision && tc.tool === "get_action_choices") {
+        return null;
+      }
+
+      // send_chat_message: show mcp badge + message text, raw call behind disclosure
+      if (tc.tool === "send_chat_message") {
+        var chatContainer = document.createElement("span");
+        chatContainer.className = "llm-decision-display";
+
+        var chatBadge = document.createElement("span");
+        chatBadge.className = "log-badge badge-mcp";
+        chatBadge.textContent = "mcp";
+        chatContainer.appendChild(chatBadge);
+
+        var chatText = document.createElement("span");
+        chatText.className = "decision-action-text";
+        chatText.textContent = "send_chat_message: " + ((tc.args && tc.args.message) || "");
+        chatContainer.appendChild(chatText);
+
+        var chatRaw = document.createElement("details");
+        chatRaw.className = "llm-tool-raw";
+        var chatRawSummary = document.createElement("summary");
+        chatRawSummary.textContent = "raw";
+        chatRaw.appendChild(chatRawSummary);
+        var chatRawInner = document.createElement("div");
+        var chatRawArgs = formatToolArgs(tc.args);
+        chatRawInner.innerHTML = '<div class="llm-tool-raw-call">' + escapeHtml(tc.tool) + "(" + escapeHtml(chatRawArgs) + ")</div>";
+        if (tc.result) {
+          var chatRawPre = document.createElement("pre");
+          chatRawPre.textContent = tryFormatJson(tc.result);
+          chatRawInner.appendChild(chatRawPre);
+        }
+        chatRaw.appendChild(chatRawInner);
+        chatContainer.appendChild(chatRaw);
+
+        return chatContainer;
+      }
+
+      // Default: original rendering for unmapped tool calls
+      var wrapper = document.createElement("span");
+      wrapper.className = "llm-tool-default";
+      var llmBadge = document.createElement("span");
+      llmBadge.className = "log-badge badge-llm";
+      llmBadge.textContent = "llm";
+      wrapper.appendChild(llmBadge);
       var details = document.createElement("details");
       details.className = "llm-tool-detail";
       var summary = document.createElement("summary");
@@ -288,7 +510,8 @@
         pre.textContent = tryFormatJson(tc.result);
         details.appendChild(pre);
       }
-      return details;
+      wrapper.appendChild(details);
+      return wrapper;
     }
 
     function renderLlmEvent(event) {
@@ -330,7 +553,7 @@
 
           if (hasToolResults) {
             event.toolResults.forEach(function (tc) {
-              div.appendChild(renderToolResult(tc));
+              var el = renderToolResult(tc); if (el) div.appendChild(el);
             });
           }
 
@@ -343,7 +566,7 @@
           headerEl.innerHTML = headerHtml;
           div.appendChild(headerEl);
           event.toolResults.forEach(function (tc) {
-            div.appendChild(renderToolResult(tc));
+            var el = renderToolResult(tc); if (el) div.appendChild(el);
           });
           return div;
         }
@@ -355,25 +578,27 @@
       if (type === "system_message") {
         var div = document.createElement("div");
         div.className = "llm-event llm-system-message";
-        div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+        div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
         return div;
       }
 
       var div = document.createElement("div");
       div.className = "llm-event llm-meta";
+      var metaText = "";
 
       if (type === "stall") {
-        div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+        metaText = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
       } else if (type === "llm_error") {
-        div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+        metaText = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
       } else if (type === "context_reset") {
-        div.textContent = event.player + " context reset: " + (event.reason || "");
+        metaText = event.player + " context reset: " + (event.reason || "");
       } else if (type === "auto_pilot_mode") {
-        div.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
+        metaText = event.player + " switched to auto-pilot: " + (event.reason || "");
       } else {
-        div.textContent = event.player + " " + type;
+        metaText = event.player + " " + type;
       }
 
+      div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + escapeHtml(metaText);
       return div;
     }
 
@@ -523,13 +748,6 @@
         if (a.seq > curSeq) return false;
         if (!a.message && a.type !== "chat") return false;
         if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
-        if (filterPlayer) {
-          if (a.type === "chat") {
-            if (a.from !== filterPlayer) return false;
-          } else {
-            if ((a.message || "").indexOf(filterPlayer) === -1) return false;
-          }
-        }
         return true;
       });
 
@@ -546,7 +764,6 @@
           } else {
             if (chatNextTs && e.ts >= chatNextTs) return;
           }
-          if (filterPlayer && e.player !== filterPlayer) return;
           chatFromLlm.push({
             ts: e.ts || "",
             from: e.player,
@@ -589,7 +806,6 @@
           } else {
             if (nextTs && e.ts >= nextTs) return false;
           }
-          if (filterPlayer && e.player !== filterPlayer) return false;
           return true;
         });
 
@@ -599,7 +815,6 @@
           } else {
             if (nextTs && sm.ts >= nextTs) return;
           }
-          if (filterPlayer && sm.player !== filterPlayer) return;
           relevantLlm.push(sm);
         });
       }
@@ -721,7 +936,7 @@
           if (a.seq > prevSeq) {
             el.style.color = "#e0e0f0";
           }
-          el.innerHTML = colorizePlayerNames(a.message);
+          el.innerHTML = '<span class="log-badge badge-game">game</span>' + colorizePlayerNames(a.message);
         } else if (item.kind === "llm") {
           el = renderLlmEvent(item.data);
         } else if (item.kind === "annotation") {
@@ -853,17 +1068,6 @@
       dom.filterAnnotationsEl.parentElement.classList.remove("hidden");
     }
 
-    // Populate player filter dropdown
-    if (game.players && game.players.length > 1) {
-      game.players.forEach(function (p) {
-        var opt = document.createElement("option");
-        opt.value = p.name;
-        opt.textContent = p.name;
-        dom.playerFilter.appendChild(opt);
-      });
-      dom.playerFilter.classList.remove("hidden");
-    }
-
     // Compute per-player turn numbers
     playerTurnNumbers = R.computePlayerTurnNumbers(game.snapshots);
 
@@ -905,17 +1109,23 @@
       snapshotDecisionMap[si].push(d);
     });
 
+    // Build llmEvent index -> decision reverse lookup.
+    // Stamp each llmEvent with its original index so renderToolResult can
+    // look up the decision for any tool_call it receives.
+    (game.llmEvents || []).forEach(function (e, i) { e._origIdx = i; });
+    var llmEventIndexToDecision = {};
+    (game.decisions || []).forEach(function (d) {
+      (d.llmEventIndices || []).forEach(function (ei) {
+        llmEventIndexToDecision[ei] = d;
+      });
+    });
+
 
     // Set up transport
     dom.slider.max = String(game.snapshots.length - 1);
     dom.snapshotJump.max = String(game.snapshots.length);
 
     // ── Event listeners ──
-
-    dom.playerFilter.addEventListener("change", function () {
-      filterPlayer = dom.playerFilter.value;
-      renderSnapshot(currentIndex);
-    });
 
     dom.filterLlmEl.addEventListener("change", function () {
       filterLlm = dom.filterLlmEl.checked;
@@ -1069,6 +1279,7 @@
     // Expose for testing
     mergeLlmEvents: mergeLlmEvents,
     extractSystemMessages: extractSystemMessages,
+    chosenDisplayText: chosenDisplayText,
   };
 
   if (typeof root !== "undefined" && root !== null) {

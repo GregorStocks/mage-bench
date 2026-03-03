@@ -223,29 +223,15 @@ public class BridgeCallbackHandler {
     }
     private volatile JoinHandler joinHandler = null;
 
-    // Lost response retry: track last response sent from chooseAction so we can
-    // re-send if the server discards it due to the waitResponseOpen race condition
-    // (see HumanPlayer.java:196). This happens when fireSelectTargetEvent blocks
-    // the game thread on a slow/disconnected player, and our response arrives before
-    // the game thread reaches waitForResponse().
-    private enum ResponseType { UUID, BOOLEAN, STRING, INTEGER, MANA_TYPE }
     private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
         ManaPlanEntry(String type, String value) { this(type, value, null); }
     }
     private record TargetChoice(UUID targetId, Map<String, Object> entry) {
     }
-    private volatile long lastResponseSentAt = 0;
-    private volatile UUID lastResponseGameId;
-    private volatile ResponseType lastResponseType;
-    private volatile Object lastResponseValue;      // UUID, Boolean, String, Integer, or ManaType
-    private volatile UUID lastResponseManaPlayerId; // only for MANA_TYPE
-    private volatile boolean lastResponseRetried = false;
-    private static final long LOST_RESPONSE_RETRY_MS = 25_000; // retry after 25s (server discards after 30s)
     private volatile long lastCallbackReceivedAt = 0;
     private volatile UUID lastCallbackGameId = null;
     // Track actionable callbacks (GAME_SELECT, GAME_ASK, etc.) separately from passive
-    // ones (CHATMESSAGE, GAME_UPDATE). retryLastResponseIfLost() needs this distinction:
-    // CHATMESSAGE callbacks were poisoning the "server moved on" check, preventing retries.
+    // ones (CHATMESSAGE, GAME_UPDATE). Used by zombie detection and progress logging.
     private static final EnumSet<ClientCallbackMethod> ACTIONABLE_CALLBACKS = EnumSet.of(
         ClientCallbackMethod.GAME_SELECT, ClientCallbackMethod.GAME_ASK,
         ClientCallbackMethod.GAME_TARGET, ClientCallbackMethod.GAME_CHOOSE_ABILITY,
@@ -253,11 +239,7 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod.GAME_PLAY_MANA, ClientCallbackMethod.GAME_PLAY_XMANA,
         ClientCallbackMethod.GAME_GET_AMOUNT, ClientCallbackMethod.GAME_GET_MULTI_AMOUNT);
     private volatile long lastActionableCallbackAt = 0;
-    // Lost callback recovery: if we're stuck with no pendingAction and no tracked response,
-    // the server may have sent a callback we never received. Send a speculative pass to nudge.
-    private volatile long lastStallNudgeAt = 0;
-    private static final long STALL_NUDGE_MS = 10_000; // speculative nudge interval (fresh pass, not subject to 30s server timeout)
-    private static final long STALL_NUDGE_FALLBACK_MS = 60_000; // nudge even without transport evidence after 60s
+    private static final long POST_ACTION_WAIT_MS = 10_000; // how long to optimistically wait for next callback after an action
     private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
@@ -481,7 +463,6 @@ public class BridgeCallbackHandler {
         lastChoices = null;
         actionsProcessed = 0;
         lastActionableCallbackAt = 0;
-        lastStallNudgeAt = 0;
         cachedBridgeEvents.clear();
         bridgeEventCursor = 0;
         synchronized (gameLog) {
@@ -501,60 +482,6 @@ public class BridgeCallbackHandler {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    // Lost response retry helpers
-
-    private void trackSentResponse(UUID gameId, ResponseType type, Object value, UUID manaPlayerId) {
-        lastResponseGameId = gameId;
-        lastResponseType = type;
-        lastResponseValue = value;
-        lastResponseManaPlayerId = manaPlayerId;
-        lastResponseRetried = false;
-        lastResponseSentAt = System.currentTimeMillis();
-    }
-
-    private void clearTrackedResponse() {
-        lastResponseSentAt = 0;
-    }
-
-    /**
-     * If we sent a response >25s ago and haven't received a new callback,
-     * the server may have discarded our response. Re-send it once.
-     * Returns true if a retry was attempted.
-     */
-    private boolean retryLastResponseIfLost() {
-        if (lastResponseSentAt == 0 || lastResponseRetried) return false;
-        long sentAt = lastResponseSentAt;
-        // Only consider actionable callbacks (GAME_SELECT, etc.) as evidence the server
-        // moved on. CHATMESSAGE/GAME_UPDATE callbacks were falsely clearing the retry,
-        // causing permanent desync in multiplayer games.
-        if (lastResponseGameId != null && lastResponseGameId.equals(lastCallbackGameId)
-                && lastActionableCallbackAt > sentAt) {
-            clearTrackedResponse();
-            return false;
-        }
-        long age = System.currentTimeMillis() - sentAt;
-        if (age < LOST_RESPONSE_RETRY_MS) return false;
-        if (lastResponseGameId != null && lastResponseGameId.equals(lastCallbackGameId)
-                && lastActionableCallbackAt > sentAt) {
-            clearTrackedResponse();
-            return false;
-        }
-
-        lastResponseRetried = true;
-        UUID gameId = lastResponseGameId;
-        logger.warn("[" + client.getUsername() + "] Retrying suspected lost response"
-            + " (age=" + age + "ms, type=" + lastResponseType + ")");
-
-        switch (lastResponseType) {
-            case UUID      -> session.sendPlayerUUID(gameId, (java.util.UUID) lastResponseValue);
-            case BOOLEAN   -> session.sendPlayerBoolean(gameId, (Boolean) lastResponseValue);
-            case STRING    -> session.sendPlayerString(gameId, (String) lastResponseValue);
-            case INTEGER   -> session.sendPlayerInteger(gameId, (Integer) lastResponseValue);
-            case MANA_TYPE -> session.sendPlayerManaType(gameId, lastResponseManaPlayerId, (ManaType) lastResponseValue);
-        }
-        return true;
     }
 
     // MCP mode methods
@@ -1218,7 +1145,6 @@ public class BridgeCallbackHandler {
                         }
                     }
                     session.sendPlayerBoolean(currentGameId, false);
-                    trackSentResponse(currentGameId, ResponseType.BOOLEAN, false, null);
                     result.put("action_pending", false);
                     result.put("action_taken", "auto_cancelled_no_targets");
                     result.put("message", stripHtml(msg.getMessage()));
@@ -1653,7 +1579,6 @@ public class BridgeCallbackHandler {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
                     }
                     session.sendPlayerBoolean(gameId, answer);
-                    trackSentResponse(gameId, ResponseType.BOOLEAN, answer, null);
                     result.put("action_taken", answer ? "yes" : "no");
                     break;
 
@@ -1709,12 +1634,10 @@ public class BridgeCallbackHandler {
                                     manaPlanAutoTapFallback = true;
                                 }
                                 session.sendPlayerUUID(gameId, (UUID) chosen);
-                                trackSentResponse(gameId, ResponseType.UUID, chosen, null);
                                 result.put("action_taken", "selected_" + index);
                                 usedIndex = true;
                             } else if (chosen instanceof String) {
                                 session.sendPlayerString(gameId, (String) chosen);
-                                trackSentResponse(gameId, ResponseType.STRING, chosen, null);
                                 result.put("action_taken", "special_" + chosen);
                                 usedIndex = true;
                             } else {
@@ -1759,7 +1682,6 @@ public class BridgeCallbackHandler {
                             Object manaChoice = choices.get(index);
                             if (manaChoice instanceof UUID) {
                                 session.sendPlayerUUID(gameId, (UUID) manaChoice);
-                                trackSentResponse(gameId, ResponseType.UUID, manaChoice, null);
                                 result.put("action_taken", "tapped_mana_" + index);
                                 usedManaIndex = true;
                             } else if (manaChoice instanceof ManaType) {
@@ -1770,7 +1692,6 @@ public class BridgeCallbackHandler {
                                 }
                                 ManaType manaType = (ManaType) manaChoice;
                                 session.sendPlayerManaType(gameId, manaPlayerId, manaType);
-                                trackSentResponse(gameId, ResponseType.MANA_TYPE, manaType, manaPlayerId);
                                 result.put("action_taken", "used_pool_" + manaType.toString());
                                 usedManaIndex = true;
                             } else {
@@ -1825,7 +1746,6 @@ public class BridgeCallbackHandler {
                         if (choices != null && index >= 0 && index < choices.size()) {
                             UUID targetUUID = (UUID) choices.get(index);
                             session.sendPlayerUUID(gameId, targetUUID);
-                            trackSentResponse(gameId, ResponseType.UUID, targetUUID, null);
                             result.put("action_taken", "selected_target_" + index);
                             break;
                         }
@@ -1847,7 +1767,6 @@ public class BridgeCallbackHandler {
                         // Explicit cancel via answer=false
                         if (!required) {
                             session.sendPlayerBoolean(gameId, false);
-                            trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                             result.put("action_taken", "cancelled");
                             break;
                         }
@@ -1866,13 +1785,11 @@ public class BridgeCallbackHandler {
                         UUID firstTarget = selectDeterministicTarget(autoTargets, lastChoices);
                         logger.warn("[" + client.getUsername() + "] choose_action: auto-selecting first target for required GAME_TARGET");
                         session.sendPlayerUUID(gameId, firstTarget);
-                        trackSentResponse(gameId, ResponseType.UUID, firstTarget, null);
                         result.put("action_taken", "auto_selected_required_target");
                         result.put("warning", "Required target auto-selected. Use get_action_choices first, then index=N.");
                     } else {
                         logger.error("[" + client.getUsername() + "] Required GAME_TARGET has no valid targets — cancelling to avoid infinite loop");
                         session.sendPlayerBoolean(gameId, false);
-                        trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                         result.put("action_taken", "cancelled_no_valid_targets");
                     }
                     break;
@@ -1895,7 +1812,6 @@ public class BridgeCallbackHandler {
                     }
                     UUID abilityUUID = (UUID) abilityChoices.get(index);
                     session.sendPlayerUUID(gameId, abilityUUID);
-                    trackSentResponse(gameId, ResponseType.UUID, abilityUUID, null);
                     result.put("action_taken", "selected_ability_" + index);
                     break;
                 }
@@ -1926,7 +1842,6 @@ public class BridgeCallbackHandler {
                                     "'" + text + "' is not a valid choice", true, action, true);
                             }
                             session.sendPlayerString(gameId, matchedKey);
-                            trackSentResponse(gameId, ResponseType.STRING, matchedKey, null);
                         } else {
                             // For plain choices, text must match a choice string
                             Set<String> choices = choiceObj.getChoices();
@@ -1944,7 +1859,6 @@ public class BridgeCallbackHandler {
                                     "'" + text + "' is not a valid choice", true, action, true);
                             }
                             session.sendPlayerString(gameId, matched);
-                            trackSentResponse(gameId, ResponseType.STRING, matched, null);
                         }
                         result.put("action_taken", "selected_choice_text_" + text);
                         break;
@@ -1963,7 +1877,6 @@ public class BridgeCallbackHandler {
                     }
                     String choiceStr = (String) choiceChoices.get(index);
                     session.sendPlayerString(gameId, choiceStr);
-                    trackSentResponse(gameId, ResponseType.STRING, choiceStr, null);
                     result.put("action_taken", "selected_choice_" + index);
                     break;
                 }
@@ -1975,7 +1888,6 @@ public class BridgeCallbackHandler {
                     }
                     boolean pileChoice = pile == 1;
                     session.sendPlayerBoolean(gameId, pileChoice);
-                    trackSentResponse(gameId, ResponseType.BOOLEAN, pileChoice, null);
                     result.put("action_taken", "selected_pile_" + pile);
                     break;
 
@@ -1987,7 +1899,6 @@ public class BridgeCallbackHandler {
                     GameClientMessage msg = (GameClientMessage) data;
                     int clamped = Math.max(msg.getMin(), Math.min(msg.getMax(), amount));
                     session.sendPlayerInteger(gameId, clamped);
-                    trackSentResponse(gameId, ResponseType.INTEGER, clamped, null);
                     result.put("action_taken", "amount_" + clamped);
                     break;
                 }
@@ -2004,7 +1915,6 @@ public class BridgeCallbackHandler {
                     }
                     String multiAmountStr = sb.toString();
                     session.sendPlayerString(gameId, multiAmountStr);
-                    trackSentResponse(gameId, ResponseType.STRING, multiAmountStr, null);
                     result.put("action_taken", "multi_amount");
                     break;
                 }
@@ -2023,12 +1933,12 @@ public class BridgeCallbackHandler {
         // This prevents the LLM from waking up to an empty state.
         if (Boolean.TRUE.equals(result.get("success"))) {
             long waitStart = System.currentTimeMillis();
-            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback (max " + STALL_NUDGE_MS + "ms)");
+            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback (max " + POST_ACTION_WAIT_MS + "ms)");
             while (pendingAction == null) {
                 if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                     break;
                 }
-                if (System.currentTimeMillis() - waitStart > STALL_NUDGE_MS) {
+                if (System.currentTimeMillis() - waitStart > POST_ACTION_WAIT_MS) {
                     break;
                 }
                 synchronized (actionLock) {
@@ -2039,15 +1949,13 @@ public class BridgeCallbackHandler {
                         break;
                     }
                 }
-                retryLastResponseIfLost();
             }
             PendingAction next = pendingAction;
             long waitElapsed = System.currentTimeMillis() - waitStart;
             if (next != null) {
                 logger.debug("[" + client.getUsername() + "] chooseAction: next callback arrived after " + waitElapsed + "ms");
             } else {
-                logger.info("[" + client.getUsername() + "] chooseAction: next callback NOT arrived after " + waitElapsed + "ms"
-                    + " (pendingAction=null, lastResponseSentAt=" + lastResponseSentAt + ")");
+                logger.info("[" + client.getUsername() + "] chooseAction: next callback NOT arrived after " + waitElapsed + "ms");
             }
             if (next != null) {
                 result.put("next_action_pending", true);
@@ -2114,7 +2022,6 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerString(gameId, "special");
-            trackSentResponse(gameId, ResponseType.STRING, "special", null);
             // Wait for next callback (server will send a new GAME_SELECT to confirm)
             PendingAction next = waitForNextCallback(gameId);
             if (next != null && next.method() == ClientCallbackMethod.GAME_SELECT) {
@@ -2124,7 +2031,6 @@ public class BridgeCallbackHandler {
                     }
                 }
                 session.sendPlayerBoolean(gameId, true);
-                trackSentResponse(gameId, ResponseType.BOOLEAN, true, null);
             }
             result.put("success", true);
             result.put("action_taken", "batch_attack");
@@ -2162,7 +2068,6 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerUUID(gameId, attackerUuid);
-            trackSentResponse(gameId, ResponseType.UUID, attackerUuid, null);
             declared.add(shortId);
 
             // Wait for next callback
@@ -2194,7 +2099,6 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerBoolean(gameId, true);
-            trackSentResponse(gameId, ResponseType.BOOLEAN, true, null);
         }
 
         result.put("success", true);
@@ -2260,7 +2164,6 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerUUID(gameId, blockerUuid);
-            trackSentResponse(gameId, ResponseType.UUID, blockerUuid, null);
 
             // Wait for next callback — could be GAME_TARGET (pick which attacker)
             // or GAME_SELECT (single attacker, auto-assigned)
@@ -2284,7 +2187,6 @@ public class BridgeCallbackHandler {
                         }
                     }
                     session.sendPlayerBoolean(gameId, false);
-                    trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                     next = waitForNextCallback(gameId);
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
                         result.put("interrupted", true);
@@ -2305,7 +2207,6 @@ public class BridgeCallbackHandler {
                         }
                     }
                     session.sendPlayerBoolean(gameId, false);
-                    trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                     next = waitForNextCallback(gameId);
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
                         result.put("interrupted", true);
@@ -2321,7 +2222,6 @@ public class BridgeCallbackHandler {
                     }
                 }
                 session.sendPlayerUUID(gameId, attackerUuid);
-                trackSentResponse(gameId, ResponseType.UUID, attackerUuid, null);
                 declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
 
                 // Wait for next GAME_SELECT (back to blocker selection)
@@ -2366,7 +2266,6 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerBoolean(gameId, true);
-            trackSentResponse(gameId, ResponseType.BOOLEAN, true, null);
         }
 
         result.put("success", true);
@@ -2411,7 +2310,7 @@ public class BridgeCallbackHandler {
             if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 break;
             }
-            if (System.currentTimeMillis() - waitStart > STALL_NUDGE_MS) {
+            if (System.currentTimeMillis() - waitStart > POST_ACTION_WAIT_MS) {
                 break;
             }
             synchronized (actionLock) {
@@ -2422,7 +2321,6 @@ public class BridgeCallbackHandler {
                     break;
                 }
             }
-            retryLastResponseIfLost();
         }
         PendingAction next = pendingAction;
         if (next != null) {
@@ -3092,7 +2990,6 @@ public class BridgeCallbackHandler {
                     pendingAction = null;
                 }
                 session.sendPlayerBoolean(gameId, false);
-                trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                 // The yield consumed the current priority — count it as a pass.
                 actionsPassed++;
                 yieldActive = true;
@@ -3113,8 +3010,7 @@ public class BridgeCallbackHandler {
             + " yieldActive=" + yieldActive
             + " pendingAction=" + (pendingAction != null)
             + " activeGames=" + activeGames.size()
-            + " lastActionableCallbackAt=" + lastActionableCallbackAt
-            + " lastResponseSentAt=" + lastResponseSentAt);
+            + " lastActionableCallbackAt=" + lastActionableCallbackAt);
 
         while (true) {
             PendingAction action = pendingAction;
@@ -3401,7 +3297,6 @@ public class BridgeCallbackHandler {
                         + " gameEverStarted=" + gameEverStarted
                         + " lastActionableCallbackAt=" + (lastActionableCallbackAt > 0 ? (now - lastActionableCallbackAt) + "ms ago" : "never")
                         + " lastCallbackReceivedAt=" + (lastCallbackReceivedAt > 0 ? (now - lastCallbackReceivedAt) + "ms ago" : "never")
-                        + " lastResponseSentAt=" + (lastResponseSentAt > 0 ? (now - lastResponseSentAt) + "ms ago" : "0")
                         + " currentGameId=" + currentGameId);
                 }
             }
@@ -3409,6 +3304,13 @@ public class BridgeCallbackHandler {
             // Game over bail-out: don't block forever if the game ended
             if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 long elapsed = System.currentTimeMillis() - startTime;
+                long idleSinceCallback = lastActionableCallbackAt > 0
+                    ? System.currentTimeMillis() - lastActionableCallbackAt : 0;
+                if (idleSinceCallback > 60_000) {
+                    // Abnormal: server idle timeout auto-conceded or zombie game
+                    logError("passPriority game_over after " + elapsed + "ms idle"
+                        + " (lastActionableCallback " + idleSinceCallback + "ms ago)");
+                }
                 logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
                     + " elapsed=" + elapsed + "ms"
                     + " playerDead=" + playerDead
@@ -3425,48 +3327,10 @@ public class BridgeCallbackHandler {
                 return result;
             }
 
-            // Stall recovery: lost response retry and lost callback nudge.
-            // Lost response retry — clear tracked response afterward so the
-            // stall recovery condition (lastResponseSentAt == 0) becomes
-            // satisfiable.  Without this, a single lost response permanently
-            // blocks stall recovery and the bridge hangs for 60s.
-            if (retryLastResponseIfLost()) {
-                startTime = System.currentTimeMillis();
-                clearTrackedResponse();
-                logger.info("[" + client.getUsername()
-                    + "] Cleared tracked response after lost-response retry — stall recovery now enabled");
-            }
-
-            // Lost callback recovery — only after we've received at least one
-            // actionable callback. Before that, the server hasn't asked us for
-            // input yet and a speculative pass would be a stale response that
-            // gets queued in the server's waitResponseOpen and delivered when
-            // the server eventually asks us (e.g. mulligan), causing auto-keep.
-            if (pendingAction == null && lastResponseSentAt == 0 && lastActionableCallbackAt > 0) {
-                long now = System.currentTimeMillis();
-                long idleTime = now - Math.max(lastActionableCallbackAt, startTime);
-                boolean transportAlive = lastCallbackReceivedAt > startTime;
-                UUID gameId = currentGameId;
-                if (gameId != null && activeGames.containsKey(gameId)
-                        && now - lastStallNudgeAt > STALL_NUDGE_MS) {
-                    if (idleTime > STALL_NUDGE_MS && transportAlive) {
-                        lastStallNudgeAt = now;
-                        logger.warn("[" + client.getUsername() + "] Lost callback recovery: "
-                                + "no actionable callback for " + idleTime + "ms, sending speculative pass");
-                        session.sendPlayerBoolean(gameId, false);
-                        startTime = System.currentTimeMillis();
-                    } else if (idleTime > STALL_NUDGE_FALLBACK_MS && !transportAlive) {
-                        lastStallNudgeAt = now;
-                        logger.warn("[" + client.getUsername() + "] Lost callback recovery (no transport): "
-                                + "absolute silence for " + idleTime + "ms, sending speculative pass");
-                        session.sendPlayerBoolean(gameId, false);
-                        startTime = System.currentTimeMillis();
-                    }
-                }
-
-                // Zombie game detection: no actionable callback for too long means the
-                // server game thread is dead. Declare the game over so the pilot exits.
-                long absoluteIdle = now - lastActionableCallbackAt;
+            // Zombie game detection: no actionable callback for too long means the
+            // server game thread is dead. Declare the game over so the pilot exits.
+            if (lastActionableCallbackAt > 0) {
+                long absoluteIdle = System.currentTimeMillis() - lastActionableCallbackAt;
                 if (absoluteIdle > ZOMBIE_GAME_TIMEOUT_MS) {
                     logger.error("[" + client.getUsername() + "] Zombie game detected: "
                             + "no actionable callback for " + absoluteIdle + "ms, declaring game dead");
@@ -4416,7 +4280,6 @@ public class BridgeCallbackHandler {
                                 GameView gv = targetCallbackMsg.getGameView();
                                 updateLastGameView(gv, "auto_target");
                                 session.sendPlayerUUID(objectId, onlyTarget);
-                                trackSentResponse(objectId, ResponseType.UUID, onlyTarget, null);
                                 break;
                             }
                         }
@@ -4462,7 +4325,6 @@ public class BridgeCallbackHandler {
                                 }
                             }
                             session.sendPlayerUUID(objectId, selected);
-                            trackSentResponse(objectId, ResponseType.UUID, selected, null);
                         } else {
                             // No mana plan: let the LLM choose the ability
                             storePendingAction(objectId, method, callback);
@@ -4470,7 +4332,6 @@ public class BridgeCallbackHandler {
                     } else if (mcpMode) {
                         logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
                         session.sendPlayerUUID(objectId, null);
-                        trackSentResponse(objectId, ResponseType.UUID, null, null);
                     } else {
                         handleGameChooseAbility(objectId, callback);
                     }
@@ -4570,7 +4431,6 @@ public class BridgeCallbackHandler {
             pendingAction = new PendingAction(gameId, method, data, message, gameSeq);
             actionLock.notifyAll();
         }
-        clearTrackedResponse(); // New callback arrived — server moved on, no retry needed
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
     }
 
@@ -5133,7 +4993,6 @@ public class BridgeCallbackHandler {
             logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         }
         session.sendPlayerBoolean(gameId, false);
-        trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
         return true;
     }
 
