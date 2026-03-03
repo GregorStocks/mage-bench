@@ -434,23 +434,31 @@
         var container = document.createElement("div");
         container.className = "llm-decision-display";
 
+        var badge = document.createElement("span");
+        badge.className = "mcp-badge";
+        badge.textContent = "game";
+        container.appendChild(badge);
+
         var actionSpan = document.createElement("span");
         actionSpan.className = "decision-action-text";
         actionSpan.textContent = displayText;
         container.appendChild(actionSpan);
 
-        // Raw MCP call in collapsible details underneath
+        // Raw MCP call hidden behind a disclosure triangle
         var rawDetails = document.createElement("details");
         rawDetails.className = "llm-tool-detail llm-tool-raw";
         var rawSummary = document.createElement("summary");
-        var rawArgs = formatToolArgs(tc.args);
-        rawSummary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(rawArgs) + ")";
+        rawSummary.textContent = "mcp";
         rawDetails.appendChild(rawSummary);
+        var rawInner = document.createElement("div");
+        var rawArgs = formatToolArgs(tc.args);
+        rawInner.innerHTML = '<div class="llm-tool-raw-call">' + escapeHtml(tc.tool) + "(" + escapeHtml(rawArgs) + ")</div>";
         if (tc.result) {
           var rawPre = document.createElement("pre");
           rawPre.textContent = tryFormatJson(tc.result);
-          rawDetails.appendChild(rawPre);
+          rawInner.appendChild(rawPre);
         }
+        rawDetails.appendChild(rawInner);
         container.appendChild(rawDetails);
 
         return container;

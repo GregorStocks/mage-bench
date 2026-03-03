@@ -1055,7 +1055,21 @@
 
 /* Human-readable decision display (replaces raw tool call for choose_action) */
 .llm-decision-display {
-  display: inline;
+  display: block;
+}
+
+.mcp-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+  margin-right: 0.3rem;
+  vertical-align: baseline;
+  background: rgba(59, 130, 246, 0.2);
+  color: #93bbfd;
 }
 
 .decision-action-text {
@@ -1067,12 +1081,30 @@
 
 /* Subdued raw MCP detail below the readable summary */
 .llm-tool-raw {
-  opacity: 0.6;
-  font-size: 0.68rem;
+  margin-top: 1px;
+  margin-left: 0.3rem;
+  opacity: 0.5;
+  font-size: 0.6rem;
 }
 
 .llm-tool-raw summary {
-  font-size: 0.65rem;
+  cursor: pointer;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  color: #7888a0;
+  list-style: disclosure-closed;
+  display: list-item;
+}
+
+.llm-tool-raw[open] summary {
+  list-style: disclosure-open;
+}
+
+.llm-tool-raw-call {
+  font-family: var(--font-mono, monospace);
+  padding: 2px 0;
+  color: #888;
+  word-break: break-all;
 }
 
 .llm-meta {
