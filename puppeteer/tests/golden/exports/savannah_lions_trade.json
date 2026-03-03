@@ -167,6 +167,20 @@
       "type": "phase_change"
     }
   ],
+  "cardData": {
+    "Plains": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {W}.)",
+      "type_line": "Basic Land — Plains"
+    },
+    "Savannah Lions": {
+      "mana_cost": "{W}",
+      "oracle_text": "",
+      "power": "2",
+      "toughness": "1",
+      "type_line": "Creature — Cat"
+    }
+  },
   "cardImages": {},
   "decisions": [
     {
@@ -6892,6 +6906,6 @@
     }
   ],
   "totalTurns": 3,
-  "version": 2,
+  "version": 3,
   "winner": null
 }

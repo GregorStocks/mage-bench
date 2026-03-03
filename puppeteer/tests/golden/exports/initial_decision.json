@@ -23,6 +23,23 @@
       "seq": 6
     }
   ],
+  "cardData": {
+    "Aether Vial": {
+      "mana_cost": "{1}",
+      "oracle_text": "At the beginning of your upkeep, you may put a charge counter on this artifact.\n{T}: You may put a creature card with mana value equal to the number of charge counters on this artifact from your hand onto the battlefield.",
+      "type_line": "Artifact"
+    },
+    "Ancient Tomb": {
+      "mana_cost": "",
+      "oracle_text": "{T}: Add {C}{C}. This land deals 2 damage to you.",
+      "type_line": "Land"
+    },
+    "Badlands": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {B} or {R}.)",
+      "type_line": "Land — Swamp Mountain"
+    }
+  },
   "cardImages": {},
   "decisions": [
     {
@@ -805,6 +822,6 @@
     }
   ],
   "totalTurns": 1,
-  "version": 2,
+  "version": 3,
   "winner": null
 }

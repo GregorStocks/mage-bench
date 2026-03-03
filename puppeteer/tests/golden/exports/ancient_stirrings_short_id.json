@@ -71,6 +71,28 @@
       "seq": 28
     }
   ],
+  "cardData": {
+    "Ancient Stirrings": {
+      "mana_cost": "{G}",
+      "oracle_text": "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Then put the rest on the bottom of your library in any order.",
+      "type_line": "Sorcery"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {G}.)",
+      "type_line": "Basic Land — Forest"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {R}.)",
+      "type_line": "Basic Land — Mountain"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {W}.)",
+      "type_line": "Basic Land — Plains"
+    }
+  },
   "cardImages": {},
   "decisions": [
     {
@@ -2674,6 +2696,6 @@
     }
   ],
   "totalTurns": 1,
-  "version": 2,
+  "version": 3,
   "winner": null
 }

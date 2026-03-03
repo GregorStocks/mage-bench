@@ -467,7 +467,34 @@
       "type": "phase_change"
     }
   ],
-  "cardImages": {},
+  "cardData": {
+    "Boggart Trawler // Boggart Bog": {
+      "type_line": "Creature — Goblin // Land"
+    },
+    "Crashing Footfalls": {
+      "mana_cost": "",
+      "oracle_text": "Suspend 4—{G} (Rather than cast this card from your hand, pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)\nCreate two 4/4 green Rhino creature tokens with trample.",
+      "type_line": "Sorcery"
+    },
+    "Forest": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {G}.)",
+      "type_line": "Basic Land — Forest"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {R}.)",
+      "type_line": "Basic Land — Mountain"
+    },
+    "Plains": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {W}.)",
+      "type_line": "Basic Land — Plains"
+    }
+  },
+  "cardImages": {
+    "Rhino Token": "https://cards.scryfall.io/small/front/2/1/214a48bc-4a1c-44e3-9415-a73af3d4fd95.jpg?1568003482"
+  },
   "decisions": [
     {
       "actionResult": {
@@ -17546,6 +17573,6 @@
     }
   ],
   "totalTurns": 11,
-  "version": 2,
+  "version": 3,
   "winner": null
 }

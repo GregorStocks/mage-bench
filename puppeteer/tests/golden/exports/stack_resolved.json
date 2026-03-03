@@ -85,6 +85,40 @@
       "seq": 33
     }
   ],
+  "cardData": {
+    "Badlands": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {B} or {R}.)",
+      "type_line": "Land — Swamp Mountain"
+    },
+    "Lightning Bolt": {
+      "mana_cost": "{R}",
+      "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+      "type_line": "Instant"
+    },
+    "Memnite": {
+      "mana_cost": "{0}",
+      "oracle_text": "",
+      "power": "1",
+      "toughness": "1",
+      "type_line": "Artifact Creature — Construct"
+    },
+    "Mountain": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {R}.)",
+      "type_line": "Basic Land — Mountain"
+    },
+    "Plateau": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {R} or {W}.)",
+      "type_line": "Land — Mountain Plains"
+    },
+    "Taiga": {
+      "mana_cost": "",
+      "oracle_text": "({T}: Add {R} or {G}.)",
+      "type_line": "Land — Mountain Forest"
+    }
+  },
   "cardImages": {},
   "decisions": [
     {
@@ -3411,6 +3445,6 @@
     }
   ],
   "totalTurns": 2,
-  "version": 2,
+  "version": 3,
   "winner": null
 }
