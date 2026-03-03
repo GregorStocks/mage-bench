@@ -19,8 +19,8 @@ public class SoftValuesLoadingCache<K, V> extends ForwardingLoadingCache<K, Opti
 
     public SoftValuesLoadingCache(CacheLoader<K, Optional<V>> loader) {
         cache = newBuilder()
-                .maximumSize(3000)
-                .expireAfterAccess(60, TimeUnit.MINUTES)
+                .maximumSize(500)
+                .expireAfterAccess(10, TimeUnit.MINUTES)
                 .softValues()
                 .build(loader);
     }

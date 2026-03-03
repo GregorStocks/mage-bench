@@ -791,6 +791,7 @@ def start_observer_client(
     jvm_args_list = [
         config.jvm_opens,
         config.jvm_rendering,
+        "-Xmx1536m",
         "-Dxmage.aiPuppeteer.autoConnect=true",
         "-Dxmage.aiPuppeteer.autoStart=true",
         "-Dxmage.aiPuppeteer.disableWhatsNew=true",
