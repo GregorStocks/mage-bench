@@ -27,8 +27,8 @@
   "additionalProperties": false,
   "properties": {
     "version": {
-      "const": 2,
-      "description": "Export format version. Always 2 for this schema."
+      "enum": [2, 3],
+      "description": "Export format version. 2 = original, 3 = with baked Scryfall cardData."
     },
     "id": {
       "type": "string",
@@ -73,6 +73,11 @@
       "type": "object",
       "additionalProperties": { "type": "string" },
       "description": "Map of card name to Scryfall small image URL."
+    },
+    "cardData": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/CardMetadata" },
+      "description": "Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.). Present in version 3+ exports."
     },
     "snapshots": {
       "type": "array",
@@ -579,6 +584,21 @@
           "minimum": 0,
           "description": "Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found."
         }
+      }
+    },
+
+    "CardMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Scryfall card metadata baked at export time for offline rendering.",
+      "properties": {
+        "mana_cost": { "type": "string" },
+        "type_line": { "type": "string" },
+        "oracle_text": { "type": "string" },
+        "power": { "type": "string" },
+        "toughness": { "type": "string" },
+        "loyalty": { "type": "string" },
+        "defense": { "type": "string" }
       }
     }
   }

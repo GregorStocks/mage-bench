@@ -137,6 +137,47 @@ def named(name: str) -> dict | None:
         return None
 
 
+def search_token(token_name: str) -> str | None:
+    """Search Scryfall for a token's image URL, with disk caching.
+
+    Strips " Token" suffix, searches for the base name as a token card.
+    Returns the small image URL, or None if not found.
+    """
+    base_name = token_name.removesuffix(" Token").removesuffix(" token").strip()
+    cache_key = f"token:{base_name}"
+    cache = _load_cache()
+    if cache_key in cache:
+        cached = cache[cache_key]
+        return cached if isinstance(cached, str) else None
+
+    _rate_limit()
+    query = f'!"{base_name}" t:token'
+    qs = urllib.parse.urlencode(
+        {"q": query, "unique": "art", "order": "released", "dir": "desc"}
+    )
+    req = urllib.request.Request(
+        f"https://api.scryfall.com/cards/search?{qs}",
+        headers=_HEADERS,
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+        cards = data.get("data", [])
+        if cards:
+            image_uris = cards[0].get("image_uris")
+            url = image_uris.get("small") if image_uris else None
+            cache[cache_key] = url
+            _save_cache()
+            return url
+        cache[cache_key] = None
+        _save_cache()
+        return None
+    except urllib.error.HTTPError:
+        cache[cache_key] = None
+        _save_cache()
+        return None
+
+
 def search(query: str) -> list[dict]:
     """Search Scryfall with a query string, no caching.
 

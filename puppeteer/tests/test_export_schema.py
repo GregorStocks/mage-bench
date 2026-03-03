@@ -46,7 +46,66 @@ class TestExportSchema:
             "blunderScriptVersion": 0,
         }
         errors = list(validator.iter_errors(bad))
-        assert any("version" in str(e.absolute_path) or "const" in e.message for e in errors)
+        assert any("version" in str(e.absolute_path) or "enum" in e.message for e in errors)
+
+    def test_schema_accepts_version_3(self) -> None:
+        schema = _load_schema()
+        validator = jsonschema.Draft7Validator(schema)
+        v3 = {
+            "version": 3,
+            "id": "test_v3",
+            "timestamp": "",
+            "gameType": "",
+            "deckType": "",
+            "totalTurns": 0,
+            "winner": None,
+            "harnessEpoch": 0,
+            "youtubeUrl": "",
+            "players": [],
+            "cardImages": {},
+            "cardData": {
+                "Lightning Bolt": {
+                    "mana_cost": "{R}",
+                    "type_line": "Instant",
+                    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+                }
+            },
+            "snapshots": [],
+            "actions": [],
+            "llmEvents": [],
+            "llmTrace": [],
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+        }
+        errors = list(validator.iter_errors(v3))
+        assert errors == [], f"v3 export should be valid, got: {errors}"
+
+    def test_schema_accepts_version_2_without_card_data(self) -> None:
+        schema = _load_schema()
+        validator = jsonschema.Draft7Validator(schema)
+        v2 = {
+            "version": 2,
+            "id": "test_v2",
+            "timestamp": "",
+            "gameType": "",
+            "deckType": "",
+            "totalTurns": 0,
+            "winner": None,
+            "harnessEpoch": 0,
+            "youtubeUrl": "",
+            "players": [],
+            "cardImages": {},
+            "snapshots": [],
+            "actions": [],
+            "llmEvents": [],
+            "llmTrace": [],
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+        }
+        errors = list(validator.iter_errors(v2))
+        assert errors == [], f"v2 export should still be valid, got: {errors}"
 
     def test_schema_rejects_missing_required_field(self) -> None:
         schema = _load_schema()

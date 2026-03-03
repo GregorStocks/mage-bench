@@ -811,6 +811,9 @@
     // v2 games have seq on everything but no ts on actions/snapshots
     useSeq = game.version != null;
 
+    // Preload baked Scryfall card data (v3 exports) into renderer cache
+    if (R.preloadCardData) R.preloadCardData(game.cardData);
+
     // Fill in missing gameSeq on llmEvents
     if (useSeq && game.llmEvents) {
       var lastSeq = 0;

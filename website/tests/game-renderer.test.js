@@ -628,6 +628,77 @@ describe("computeCardFontSize", () => {
   });
 });
 
+// ── preloadCardData ─────────────────────────────────────────────
+
+describe("preloadCardData", () => {
+  it("pre-populates the Scryfall card cache", () => {
+    const cardData = {
+      "Lightning Bolt": {
+        mana_cost: "{R}",
+        type_line: "Instant",
+        oracle_text: "Lightning Bolt deals 3 damage to any target.",
+      },
+    };
+    R.preloadCardData(cardData);
+    // Verify by calling showPreview — if the cache is populated,
+    // it will use the cached data instead of fetching
+    const previewEls = {
+      container: document.createElement("div"),
+      image: document.createElement("img"),
+      name: document.createElement("div"),
+      cost: document.createElement("div"),
+      type: document.createElement("div"),
+      stats: document.createElement("div"),
+      rules: document.createElement("pre"),
+    };
+    R.showPreview("Lightning Bolt", null, {}, previewEls);
+    // The type line should be populated from the cache
+    expect(previewEls.type.textContent).toBe("Instant");
+  });
+
+  it("handles null/undefined cardData gracefully", () => {
+    // Should not throw
+    R.preloadCardData(null);
+    R.preloadCardData(undefined);
+    R.preloadCardData({});
+  });
+
+  it("does not overwrite existing cache entries", () => {
+    // First preload
+    R.preloadCardData({
+      "Test Card": { type_line: "First" },
+    });
+    // Second preload with different data for same card
+    R.preloadCardData({
+      "Test Card": { type_line: "Second" },
+    });
+    const previewEls = {
+      container: document.createElement("div"),
+      image: document.createElement("img"),
+      name: document.createElement("div"),
+      cost: document.createElement("div"),
+      type: document.createElement("div"),
+      stats: document.createElement("div"),
+      rules: document.createElement("pre"),
+    };
+    R.showPreview("Test Card", null, {}, previewEls);
+    expect(previewEls.type.textContent).toBe("First");
+  });
+});
+
+// ── resolveCardImage with token in cardImages ────────────────────
+
+describe("resolveCardImage with token in cardImages", () => {
+  it("returns preloaded URL for a token in cardImages", () => {
+    const cardImages = {
+      "Goblin Token": "https://cards.scryfall.io/small/front/token/goblin.jpg",
+    };
+    const url = R.resolveCardImage("Goblin Token", null, cardImages, "small");
+    // Token is in cardImages, so resolveCardImage should find it at Priority 2
+    expect(url).toContain("goblin");
+  });
+});
+
 // ── normalizeCard ───────────────────────────────────────────────
 
 describe("normalizeCard", () => {

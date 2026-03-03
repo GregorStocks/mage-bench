@@ -303,6 +303,21 @@
     }
   }
 
+  /**
+   * Pre-populate the Scryfall card cache from baked cardData (v3 exports).
+   * Once populated, _fetchScryfallCard finds data in cache and skips runtime fetch.
+   */
+  function preloadCardData(cardData) {
+    if (!cardData || typeof cardData !== "object") return;
+    var names = Object.keys(cardData);
+    for (var i = 0; i < names.length; i++) {
+      var name = names[i];
+      if (_scryfallCardCache[name] === undefined) {
+        _scryfallCardCache[name] = cardData[name];
+      }
+    }
+  }
+
   function _fetchScryfallCard(cardName, cardImages, els) {
     if (_scryfallCardCache[cardName] !== undefined) {
       if (_scryfallCardCache[cardName]) {
@@ -1656,6 +1671,8 @@
     resolveCardImage: resolveCardImage,
     fetchTokenImage: fetchTokenImage,
     renderManaCost: renderManaCost,
+    // Card data preloading
+    preloadCardData: preloadCardData,
     // Preview
     showPreview: showPreview,
     hidePreview: hidePreview,

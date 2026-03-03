@@ -10,9 +10,9 @@
  */
 export interface GameExportV2 {
   /**
-   * Export format version. Always 2 for this schema.
+   * Export format version. 2 = original, 3 = with baked Scryfall cardData.
    */
-  version: 2;
+  version: 2 | 3;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -54,6 +54,12 @@ export interface GameExportV2 {
    */
   cardImages: {
     [k: string]: string;
+  };
+  /**
+   * Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.). Present in version 3+ exports.
+   */
+  cardData?: {
+    [k: string]: CardMetadata;
   };
   /**
    * Game state captured at each decision point (when onPlayerQuery fires).
@@ -146,6 +152,18 @@ export interface Player {
    * True if this player lost by running out of time on the game timer.
    */
   timedOut?: boolean;
+}
+/**
+ * Scryfall card metadata baked at export time for offline rendering.
+ */
+export interface CardMetadata {
+  mana_cost?: string;
+  type_line?: string;
+  oracle_text?: string;
+  power?: string;
+  toughness?: string;
+  loyalty?: string;
+  defense?: string;
 }
 export interface Snapshot {
   /**

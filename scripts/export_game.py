@@ -130,6 +130,116 @@ def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
     return images
 
 
+_CARD_DATA_FIELDS = (
+    "mana_cost",
+    "type_line",
+    "oracle_text",
+    "power",
+    "toughness",
+    "loyalty",
+    "defense",
+)
+
+
+def _trim_card(card: dict) -> dict:
+    """Extract only the fields the renderer needs from a Scryfall card object."""
+    trimmed: dict = {}
+    for field in _CARD_DATA_FIELDS:
+        val = card.get(field)
+        if val is not None:
+            trimmed[field] = val
+    return trimmed
+
+
+def _collect_card_names(snapshots: list[dict]) -> tuple[set[str], set[str]]:
+    """Scan all snapshot zones for card names.
+
+    Returns (real_card_names, token_names).
+    """
+    real_cards: set[str] = set()
+    tokens: set[str] = set()
+    zones = ("battlefield", "graveyard", "exile", "hand", "commanders")
+
+    for snap in snapshots:
+        # Stack items
+        for item in snap.get("stack", []):
+            if isinstance(item, dict):
+                name = item.get("name", "")
+                if name and "ability" not in name.lower():
+                    if " Token" in name or " token" in name:
+                        tokens.add(name)
+                    else:
+                        real_cards.add(name)
+            elif isinstance(item, str) and "ability" not in item.lower():
+                if " Token" in item or " token" in item:
+                    tokens.add(item)
+                else:
+                    real_cards.add(item)
+
+        for player in snap.get("players", []):
+            for zone_name in zones:
+                for card in player.get(zone_name, []):
+                    if isinstance(card, dict):
+                        name = card.get("name", "")
+                    elif isinstance(card, str):
+                        name = card
+                    else:
+                        continue
+                    if not name:
+                        continue
+                    if " Token" in name or " token" in name:
+                        tokens.add(name)
+                    else:
+                        real_cards.add(name)
+
+    return real_cards, tokens
+
+
+def _build_card_data(
+    card_images: dict[str, str], snapshots: list[dict]
+) -> tuple[dict[str, str], dict[str, dict]]:
+    """Build cardData metadata and add token images to cardImages.
+
+    Returns (updated_card_images, card_data).
+    """
+    import scryfall
+
+    real_cards, tokens = _collect_card_names(snapshots)
+
+    # Resolve token images
+    updated_images = dict(card_images)
+    for token_name in sorted(tokens):
+        if token_name in updated_images:
+            continue
+        url = scryfall.search_token(token_name)
+        if url:
+            updated_images[token_name] = url
+
+    # Fetch real card metadata via collection (75 per batch)
+    card_data: dict[str, dict] = {}
+    # Only fetch cards not already in cardImages (which means we already have
+    # their set/number and can derive the API URL) — but we need metadata for
+    # ALL real cards that appear in snapshots.
+    names_to_fetch = sorted(real_cards)
+
+    # Batch via collection endpoint
+    for i in range(0, len(names_to_fetch), 75):
+        batch = names_to_fetch[i : i + 75]
+        found, not_found = scryfall.collection(batch)
+        for card in found:
+            card_data[card["name"]] = _trim_card(card)
+
+    # Try named() for any that collection missed
+    fetched_names = set(card_data.keys())
+    for name in names_to_fetch:
+        if name not in fetched_names:
+            card = scryfall.named(name)
+            if card:
+                card_data[card["name"]] = _trim_card(card)
+
+    return updated_images, card_data
+
+
 _COMMANDER_DECK_TYPES = {
     "Variant Magic - Freeform Commander",
     "Variant Magic - Commander",
@@ -885,6 +995,9 @@ def build_export(game_dir: Path) -> dict:
     # Build card images map from decklists
     card_images = _build_card_images(meta.get("players", []))
 
+    # Build card data (Scryfall metadata) and add token images
+    card_images, card_data = _build_card_data(card_images, snapshots)
+
     # Extract game metadata
     game_id = game_dir.name
     total_turns = max((s.get("turn", 0) for s in snapshots), default=0)
@@ -966,7 +1079,7 @@ def build_export(game_dir: Path) -> dict:
 
     # Build output
     output: dict = {
-        "version": 2,
+        "version": 3,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -975,6 +1088,7 @@ def build_export(game_dir: Path) -> dict:
         "winner": winner,
         "players": players_summary,
         "cardImages": card_images,
+        "cardData": card_data,
         "snapshots": snapshots,
         "actions": actions,
         "llmEvents": llm_events,
@@ -1032,7 +1146,9 @@ def _validate_export(data: dict) -> None:
     required fields and wrong version. The full JSON Schema validation
     runs in tests (test_export_schema.py).
     """
-    assert data.get("version") == 2, f"Expected version 2, got {data.get('version')}"
+    assert data.get("version") in (2, 3), (
+        f"Expected version 2 or 3, got {data.get('version')}"
+    )
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
     assert isinstance(data["players"], list), "players must be a list"
