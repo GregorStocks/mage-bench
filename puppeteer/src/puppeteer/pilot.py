@@ -42,6 +42,7 @@ class PermanentLLMFailure(Exception):
 MAX_TOKENS = 20_000
 LLM_REQUEST_TIMEOUT_SECS = 120
 MAX_CONSECUTIVE_TIMEOUTS = 3
+MAX_CONSECUTIVE_EMPTY_CHOICES = 5
 MAX_GAME_DURATION_SECS = 3 * 3600  # 3 hours absolute maximum
 
 # Context window management.
@@ -635,6 +636,7 @@ async def run_pilot_loop(
     empty_responses = 0  # consecutive LLM responses with no reasoning text
     last_was_empty = False  # retry once on first empty response before counting
     consecutive_timeouts = 0
+    consecutive_empty_choices = 0  # consecutive LLM responses with empty/null choices
     turns_without_progress = 0  # LLM turns without a successful game action
     MAX_TURNS_WITHOUT_PROGRESS = 20
     consecutive_pass_errors = 0  # consecutive identical pass_priority errors
@@ -717,8 +719,30 @@ async def run_pilot_loop(
             )
             consecutive_timeouts = 0
             if not response.choices:
-                logger.warning("[pilot] LLM returned empty/null choices, retrying...")
+                consecutive_empty_choices += 1
+                logger.warning(
+                    "[pilot] LLM returned empty/null choices, retrying... [%d]",
+                    consecutive_empty_choices,
+                )
+                if consecutive_empty_choices >= MAX_CONSECUTIVE_EMPTY_CHOICES:
+                    logger.warning("[pilot] LLM returning empty choices repeatedly, switching to auto-pass mode")
+                    if game_log:
+                        game_log.emit(
+                            "auto_pilot_mode",
+                            reason=f"LLM degraded ({consecutive_empty_choices} consecutive empty choices)",
+                        )
+                    try:
+                        await execute_tool(
+                            session,
+                            "send_chat_message",
+                            {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
+                        )
+                    except Exception:
+                        pass
+                    await auto_pass_loop(session, game_dir, username, "pilot")
+                    return
                 continue
+            consecutive_empty_choices = 0
             choice = response.choices[0]
 
             # Warn loudly if the response was truncated due to max_tokens.

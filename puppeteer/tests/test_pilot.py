@@ -7,6 +7,7 @@ import pytest
 
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
+    MAX_CONSECUTIVE_EMPTY_CHOICES,
     PermanentLLMFailure,
     _build_pilot_decision,
     _build_pilot_snapshot,
@@ -739,3 +740,32 @@ class TestBuildPilotSnapshot:
         data = _sample_pass_priority_result()
         snapshot = _build_pilot_snapshot(data, None)
         assert snapshot["players"] == []
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_consecutive_empty_choices_triggers_auto_pass():
+    """After MAX_CONSECUTIVE_EMPTY_CHOICES empty responses, pilot should switch to auto-pass."""
+    session = _make_session()
+
+    # Mock LLM to always return empty choices
+    response = MagicMock()
+    response.choices = []
+    response.usage = MagicMock(prompt_tokens=10, completion_tokens=0)
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=response)
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=[],
+            prices={},
+            username="test-player",
+        )
+        mock_auto_pass.assert_called_once()
+
+    assert client.chat.completions.create.call_count == MAX_CONSECUTIVE_EMPTY_CHOICES
