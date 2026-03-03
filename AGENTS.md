@@ -12,6 +12,8 @@ When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tes
 
 Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hook. If you believe a failure is infrastructure-related (e.g. GitHub runner OOM, network timeout downloading dependencies), ask Gregor to re-run it.
 
+**Never bypass enforcement hooks.** Don't `touch tmp/.check-passed` to fake a passing check, don't write stamp files manually, and don't work around hook failures. If `make check` fails, fix the failures or ask Gregor. The hooks exist to catch real problems — circumventing them defeats the purpose.
+
 ## Pull Requests
 
 Before adding commits to an existing PR, verify it's still open:
@@ -41,6 +43,7 @@ make website          # Leaderboard + npm install + dev server
 make run              # Build + run a game
 make test             # Python tests
 make games-to-analyze # List games needing fast-analysis
+make games-to-report  # List games needing after-action reports
 ```
 
 ## Local Testing

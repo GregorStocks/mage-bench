@@ -1,0 +1,10 @@
+{
+  "title": "get_action_choices returns undeclared 'has_playable_cards' key, blinding pilot on critical turns",
+  "description": "When get_action_choices returns early because pass_priority detected playable cards (the `actionsPassed > 0 && hasPlayableCards` path in waitAndGetChoices), it includes `has_playable_cards: true` in the result map. But GetActionChoicesTool.java does not declare this field in its @Tool.Field annotations, triggering the MCP undeclared output key validation error.\n\nThis is a sibling bug to the `action_taken` undeclared key issue (get-action-choices-undeclared-action-taken), both caused by BridgeCallbackHandler putting keys into the result that GetActionChoicesTool doesn't declare.\n\nImpact: In game_20260302_174929_g4, this error hit GptOSS Analyst 3 times on consecutive critical turns (player turns 3 and 4). Each time, the MCP layer rejected the tool response, so the model never saw its available actions. It could not play lands or cast spells on those turns, contributing to a catastrophic mana-screw situation (1 land through turn 8).\n\nEvidence:\n- ~/.mage-bench/logs/game_20260302_174929_g4/GptOSS Analyst_mcp.log lines 43, 45, 56: 'Tool get_action_choices returned undeclared output key has_playable_cards'\n- BridgeCallbackHandler.java:3357 — result.put(\"has_playable_cards\", true)\n- GetActionChoicesTool.java — missing @Tool.Field annotation\n- PassPriorityTool.java line 21 correctly declares the same field\n\nFix: Add @Tool.Field(name = \"has_playable_cards\", type = \"boolean\", description = \"Whether you have playable cards\") to GetActionChoicesTool.java's output array. Same pattern as the action_taken fix.",
+  "status": "open",
+  "priority": 2,
+  "type": "bug",
+  "labels": ["bridge"],
+  "created_at": "2026-03-02T20:00:00.000000-08:00",
+  "updated_at": "2026-03-02T20:00:00.000000-08:00"
+}

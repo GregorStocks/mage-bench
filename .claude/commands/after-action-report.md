@@ -1,14 +1,14 @@
 # After-Action Report
 
-Generate a narrative after-action report for a game, saved as a markdown file in the website's content collection and rendered at `/reports/{game_id}`.
+Generate narrative after-action reports for games, saved as markdown files in the website's content collection and rendered at `/reports/{game_id}`.
 
 ## Workflow
 
-### Step 1: Select the game
+### Step 1: Select the games
 
-Determine which game to report on:
+Determine which game(s) to report on:
 
-- If the user specified a game ID, use that.
+- If the user specified game ID(s), use those.
 - If the user said "most recent" or similar:
   ```bash
   uv run python scripts/list-recent-games.py
@@ -17,21 +17,26 @@ Determine which game to report on:
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
-- If no game specified, use the most recent game:
+- **If no game specified at all**, find games that don't have reports yet:
   ```bash
-  uv run python scripts/list-recent-games.py | head -1
+  make games-to-report ARGS="--count 5"
   ```
+  This cross-references all game exports in `website/public/games/` against existing reports in `website/src/content/reports/` and prints unreported games newest-first. Default is 5 games. Use `ARGS="--count N"` to change the number. Use `ARGS="--max-staleness 0"` to disable the staleness filter.
 - **If `list-recent-games.py` fails** (e.g. logs directory missing in this worktree), fall back to listing exports directly:
   ```bash
   ls website/public/games/ | sort -r | head -5
   ```
 
-**Check if a report already exists:**
+**Check which games already have reports:**
 ```bash
-ls website/src/content/reports/${GAME_ID}.md 2>/dev/null
+for GAME_ID in $GAME_IDS; do
+  ls website/src/content/reports/${GAME_ID}.md 2>/dev/null && echo "  ^ already exists"
+done
 ```
 
-If it exists, ask the user whether to overwrite or skip.
+Skip games that already have reports (unless the user explicitly asks to overwrite).
+
+Run steps 2-5 for **each** selected game before moving to the next.
 
 ### Step 2: Resolve the game file path
 
@@ -45,7 +50,7 @@ b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If
    ```bash
    uv run python scripts/export_game.py ${GAME_ID}
    ```
-c. If neither exists, tell the user and stop.
+c. If neither exists, tell the user and skip to the next game.
 
 ### Step 3: Gather game data
 
@@ -173,9 +178,12 @@ Confirm the file was written and has valid frontmatter:
 head -30 website/src/content/reports/${GAME_ID}.md
 ```
 
+### Step 6: Present summary
+
+After all games are processed, summarize what was done: how many reports were written, which games, and any games that were skipped (already had reports, missing exports, etc.).
+
 ## What this skill does NOT do
 
 - File issues or log to `doc/claudes/analyses/`
 - Assess LLM tool call statistics or cost efficiency in detail
 - Replace fast-analysis or deep-analysis — those are developer-focused
-- Generate reports in batch — one game at a time

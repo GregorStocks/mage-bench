@@ -218,6 +218,10 @@ verify-mcp-tools:
 games-to-analyze:
 	uv run --project puppeteer python scripts/analysis/find_unanalyzed.py $(ARGS)
 
+.PHONY: games-to-report
+games-to-report:
+	uv run --project puppeteer python scripts/analysis/find_unanalyzed.py --type report $(ARGS)
+
 .PHONY: blunder-eval
 blunder-eval:
 	uv run --project puppeteer python scripts/analysis/blunder_eval.py $(ARGS)
