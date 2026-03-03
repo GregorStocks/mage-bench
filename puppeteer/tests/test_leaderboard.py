@@ -1,4 +1,4 @@
-"""Tests for leaderboard generation: OpenSkill ratings, placement, aggregation."""
+"""Tests for leaderboard generation: Elo ratings, placement, aggregation."""
 
 import gzip
 import json
@@ -12,7 +12,7 @@ from puppeteer.leaderboard import (
     _player_key,
     _split_key,
     capitalize_provider,
-    compute_openskill_ratings,
+    compute_elo_ratings,
     compute_thinking_time,
     derive_display_name,
     derive_format,
@@ -195,7 +195,7 @@ def test_extract_placements_from_game_file():
 
 
 def test_ratings_no_games():
-    ratings, per_game = compute_openskill_ratings([])
+    ratings, per_game = compute_elo_ratings([])
     assert ratings == {}
     assert per_game == []
 
@@ -209,16 +209,13 @@ def test_ratings_winner_gains():
             [
                 _pilot("Alice", "a/model-a", placement=1),
                 _pilot("Bob", "b/model-b", placement=2),
-                _pilot("Carol", "c/model-c", placement=3),
-                _pilot("Dave", "d/model-d", placement=4),
             ],
         )
     ]
-    ratings, _per_game = compute_openskill_ratings(games)
-    # Winner should have highest rating (winner-takes-all: all losers are tied)
-    assert ratings["a/model-a"] > ratings["b/model-b"]
-    assert ratings["b/model-b"] == ratings["c/model-c"]
-    assert ratings["c/model-c"] == ratings["d/model-d"]
+    ratings, _per_game = compute_elo_ratings(games)
+    # Winner should gain rating, loser should lose rating
+    assert ratings["a/model-a"] > 1600
+    assert ratings["b/model-b"] < 1600
 
 
 def test_ratings_no_placements_no_change():
@@ -231,7 +228,7 @@ def test_ratings_no_placements_no_change():
             [_pilot("Alice", "a/model-a"), _pilot("Bob", "b/model-b")],
         )
     ]
-    _ratings, per_game = compute_openskill_ratings(games)
+    _ratings, per_game = compute_elo_ratings(games)
     assert len(per_game) == 1
     # Ratings should be equal (both start the same, no update)
     assert per_game[0]["players"][0]["ratingBefore"] == per_game[0]["players"][0]["ratingAfter"]
@@ -253,7 +250,7 @@ def test_ratings_chronological_order():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         ),
     ]
-    _ratings, per_game = compute_openskill_ratings(games)
+    _ratings, per_game = compute_elo_ratings(games)
     # After 2 wins, Alice should be higher than after 1 win
     assert per_game[1]["players"][0]["ratingBefore"] > per_game[0]["players"][0]["ratingBefore"]
 
@@ -267,7 +264,7 @@ def test_ratings_per_game_snapshots():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
     ]
-    _, per_game = compute_openskill_ratings(games)
+    _, per_game = compute_elo_ratings(games)
     assert len(per_game) == 1
     assert per_game[0]["id"] == "g1"
     assert len(per_game[0]["players"]) == 2
@@ -288,13 +285,97 @@ def test_ratings_skips_non_pilots():
             [_cpu("CPU1"), _pilot("Alice", "a/x")],
         )
     ]
-    ratings, per_game = compute_openskill_ratings(games)
+    ratings, per_game = compute_elo_ratings(games)
     assert "a/x" in ratings
     assert len(per_game[0]["players"]) == 1
 
 
-def test_ratings_full_ordering():
-    """Winner-takes-all: winner is rated highest, all losers are tied."""
+def test_ratings_exact_elo_math():
+    """Two 1600-rated players: winner gets 1616, loser gets 1584."""
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/a", placement=1),
+                _pilot("Bob", "b/b", placement=2),
+            ],
+        )
+    ]
+    ratings, _ = compute_elo_ratings(games)
+    # K=32, expected=0.5 each, so winner += 32*(1-0.5)=16, loser -= 16
+    assert ratings["a/a"] == 1616
+    assert ratings["b/b"] == 1584
+
+
+# --- compute_elo_ratings (additional) ---
+
+
+def test_elo_ratings_no_games():
+    ratings, per_game = compute_elo_ratings([])
+    assert ratings == {}
+    assert per_game == []
+
+
+def test_elo_ratings_winner_gains_1v1():
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", placement=1),
+                _pilot("Bob", "b/model-b", placement=2),
+            ],
+        )
+    ]
+    ratings, _per_game = compute_elo_ratings(games)
+    # Winner gains rating
+    assert ratings["a/model-a"] > 1600
+    # Loser loses rating
+    assert ratings["b/model-b"] < 1600
+
+
+def test_elo_ratings_per_game_snapshots():
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/x", placement=1),
+                _pilot("Bob", "b/y", placement=2),
+            ],
+        )
+    ]
+    _, per_game = compute_elo_ratings(games)
+    assert len(per_game) == 1
+    assert per_game[0]["id"] == "g1"
+
+    alice = next(p for p in per_game[0]["players"] if p["key"] == "a/x")
+    assert alice["ratingAfter"] > alice["ratingBefore"]
+
+    bob = next(p for p in per_game[0]["players"] if p["key"] == "b/y")
+    assert bob["ratingAfter"] < bob["ratingBefore"]
+
+
+def test_elo_ratings_start_at_1600():
+    """Elo ratings should start at 1600."""
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            None,
+            [_pilot("Alice", "a/x"), _pilot("Bob", "b/y")],
+        )
+    ]
+    _, per_game = compute_elo_ratings(games)
+    assert per_game[0]["players"][0]["ratingBefore"] == 1600
+
+
+def test_elo_ignores_multiplayer_games():
+    """Games with more than 2 pilots should not update ratings."""
     games = [
         _make_game(
             "g1",
@@ -308,80 +389,11 @@ def test_ratings_full_ordering():
             ],
         )
     ]
-    ratings, _ = compute_openskill_ratings(games)
-    # Winner is rated highest
-    assert ratings["a/a"] > ratings["b/b"]
-    # All losers are tied (winner-takes-all scoring)
-    assert ratings["b/b"] == ratings["c/c"] == ratings["d/d"]
-
-
-# --- compute_openskill_ratings ---
-
-
-def test_openskill_ratings_no_games():
-    ratings, per_game = compute_openskill_ratings([])
-    assert ratings == {}
-    assert per_game == []
-
-
-def test_openskill_ratings_winner_gains():
-    games = [
-        _make_game(
-            "g1",
-            "20260101_000000",
-            "Alice",
-            [
-                _pilot("Alice", "a/model-a", placement=1),
-                _pilot("Bob", "b/model-b", placement=2),
-                _pilot("Carol", "c/model-c", placement=3),
-                _pilot("Dave", "d/model-d", placement=4),
-            ],
-        )
-    ]
-    ratings, _per_game = compute_openskill_ratings(games)
-    # Winner gains rating
-    assert ratings["a/model-a"] > 1600
-    # All losers get the same rating (winner-takes-all, no placement ordering)
-    assert ratings["b/model-b"] == ratings["c/model-c"] == ratings["d/model-d"]
-    # Losers lose rating
-    assert ratings["b/model-b"] < 1600
-
-
-def test_openskill_ratings_per_game_snapshots():
-    games = [
-        _make_game(
-            "g1",
-            "20260101_000000",
-            "Alice",
-            [
-                _pilot("Alice", "a/x", placement=1),
-                _pilot("Bob", "b/y", placement=2),
-            ],
-        )
-    ]
-    _, per_game = compute_openskill_ratings(games)
-    assert len(per_game) == 1
-    assert per_game[0]["id"] == "g1"
-
-    alice = next(p for p in per_game[0]["players"] if p["key"] == "a/x")
-    assert alice["ratingAfter"] > alice["ratingBefore"]
-
-    bob = next(p for p in per_game[0]["players"] if p["key"] == "b/y")
-    assert bob["ratingAfter"] < bob["ratingBefore"]
-
-
-def test_openskill_ratings_start_at_1600():
-    """OpenSkill display ratings should start at 1600."""
-    games = [
-        _make_game(
-            "g1",
-            "20260101_000000",
-            None,
-            [_pilot("Alice", "a/x"), _pilot("Bob", "b/y")],
-        )
-    ]
-    _, per_game = compute_openskill_ratings(games)
-    assert per_game[0]["players"][0]["ratingBefore"] == 1600
+    ratings, per_game = compute_elo_ratings(games)
+    # All players should stay at 1600 since Elo only updates 1v1 games
+    assert ratings["a/a"] == 1600
+    assert ratings["b/b"] == 1600
+    assert per_game[0]["players"][0]["ratingBefore"] == per_game[0]["players"][0]["ratingAfter"]
 
 
 # --- generate_leaderboard ---
@@ -715,17 +727,16 @@ def test_generate_leaderboard_file_with_game_fallback():
         games_dir.mkdir()
         data_dir = root / "data"
 
-        # Game without placement fields, but with elimination actions
+        # 1v1 game without placement fields, but with elimination actions
         game = _make_game(
             "game_20260101_000000",
             "20260101_000000",
             "Alice",
-            [_pilot("Alice", "a/x"), _pilot("Bob", "b/y"), _pilot("Carol", "c/z")],
+            [_pilot("Alice", "a/x"), _pilot("Bob", "b/y")],
         )
         game["deckType"] = "Constructed - Standard"
         game["harnessEpoch"] = HARNESS_EPOCH
         game["actions"] = [
-            {"seq": 100, "message": "Carol has lost the game."},
             {"seq": 200, "message": "Bob has lost the game."},
         ]
         (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
@@ -740,11 +751,10 @@ def test_generate_leaderboard_file_with_game_fallback():
         )
         result = json.loads(output_path.read_text())
 
-        # Alice won (1st), Bob and Carol are losers (winner-takes-all: tied)
+        # Alice won (1st), Bob lost — Elo should differentiate
         standard_models = result["formats"]["standard"]["models"]
         models_by_name = {m["modelName"]: m for m in standard_models}
         assert models_by_name["X"]["rating"] > models_by_name["Y"]["rating"]
-        assert models_by_name["Y"]["rating"] == models_by_name["Z"]["rating"]
 
 
 # --- derive_format ---
@@ -813,7 +823,10 @@ def test_generate_all_leaderboards_legacy_and_commander():
 
     assert format_results["legacy"]["totalGames"] == 1
     assert format_results["commander"]["totalGames"] == 1
-    assert format_results["combined"]["totalGames"] == 2
+    # Combined excludes commander (exhibition)
+    assert format_results["combined"]["totalGames"] == 1
+    # Commander is exhibition
+    assert format_results["commander"]["exhibition"] is True
 
 
 def test_generate_all_leaderboards_separate_format_pools():
@@ -839,8 +852,8 @@ def test_generate_all_leaderboards_separate_format_pools():
     assert format_results["combined"]["totalGames"] == 3
 
 
-def test_generate_all_leaderboards_commander_winner_rated_highest():
-    """Commander ratings should produce differentiated ratings."""
+def test_generate_all_leaderboards_commander_is_exhibition():
+    """Commander games are exhibition: stats only, no rating."""
     games = [
         _make_game(
             "g1",
@@ -857,14 +870,19 @@ def test_generate_all_leaderboards_commander_winner_rated_highest():
     games[0]["deckType"] = "Variant Magic - Freeform Commander"
 
     format_results, ratings_by_game = generate_all_leaderboards(games, {})
-    models = format_results["commander"]["models"]
-    # Winner should be rated highest
-    sorted_models = sorted(models, key=lambda m: -m["rating"])
-    assert sorted_models[0]["modelId"] == "a/a"
+    commander = format_results["commander"]
+    assert commander["exhibition"] is True
+    models = commander["models"]
     # All 4 should appear
     assert len(models) == 4
-    # Ratings in ratings.json
-    assert "g1" in ratings_by_game
+    # No rating computed for exhibition
+    for m in models:
+        assert m["rating"] is None
+    # Winner should have highest win rate (sorted by win rate desc)
+    assert models[0]["modelId"] == "a/a"
+    assert models[0]["winRate"] == 1.0
+    # Commander games should NOT appear in ratings_by_game
+    assert "g1" not in ratings_by_game
 
 
 def test_generate_leaderboard_file_has_formats_key():
@@ -1101,7 +1119,7 @@ def test_ratings_separate_by_effort():
             ],
         ),
     ]
-    ratings, _ = compute_openskill_ratings(games)
+    ratings, _ = compute_elo_ratings(games)
     assert "a/x::medium" in ratings
     assert "a/x::low" in ratings
     assert ratings["a/x::medium"] > ratings["a/x::low"]

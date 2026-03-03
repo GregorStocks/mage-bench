@@ -7,11 +7,11 @@ const FORMAT_LABELS: Record<string, string> = {
   standard: 'Standard',
   modern: 'Modern',
   legacy: 'Legacy',
-  commander: 'Commander',
+  commander: 'Commander (Exhibition)',
   combined: 'Combined',
 };
 
-const FORMAT_ORDER = ['jumpstart', 'standard', 'modern', 'legacy', 'commander', 'combined'];
+const FORMAT_ORDER = ['combined', 'jumpstart', 'standard', 'modern', 'legacy', 'commander'];
 
 // Build per-format data from the formats key (or fall back to single leaderboard)
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {
@@ -63,21 +63,23 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
             <th class="rank-col">#</th>
             <th data-sort="modelName" data-type="string">Model Name</th>
             <th data-sort="provider" data-type="string">Provider</th>
-            <th data-sort="rating" data-type="number" class="sorted desc">Rating <span class="sort-arrow">&#9660;</span></th>
+            <th data-sort="rating" data-type="number" data-col="rating" class="sorted desc">Rating <span class="sort-arrow">&#9660;</span></th>
             <th data-sort="blunderScore" data-type="number">Blunder Index</th>
             <th data-sort="gamesPlayed" data-type="number">Games Played</th>
             <th data-sort="winRate" data-type="number" class="col-winrate">Win Rate</th>
             <th data-sort="avgApiCost" data-type="number">Avg Cost</th>
           </tr>
         </thead>
-        {activeFormats.map((fmt: string) => (
-          <tbody data-format={fmt} style={fmt !== 'combined' ? 'display: none;' : ''}>
+        {activeFormats.map((fmt: string) => {
+          const isExhibition = !!formats[fmt]?.exhibition;
+          return (
+          <tbody data-format={fmt} data-exhibition={isExhibition ? 'true' : undefined} style={fmt !== 'combined' ? 'display: none;' : ''}>
             {(formats[fmt]?.models || []).map((m: any, i: number) => (
               <tr
                 data-model-id={m.modelId}
                 data-reasoning-effort={m.reasoningEffort || ''}
                 data-provider={m.provider}
-                data-rating={m.rating}
+                data-rating={m.rating ?? ''}
                 data-games-played={m.gamesPlayed}
                 data-win-rate={m.winRate}
                 data-blunder-score={m.blunderScore}
@@ -88,7 +90,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 <td class="rank-cell">{i + 1}</td>
                 <td class="model-name">{m.modelName}{m.inactive && <span class="inactive-label"> ({m.inactive})</span>}</td>
                 <td>{m.provider}</td>
-                <td class="num">{m.rating}</td>
+                <td class="num" data-col="rating">{m.rating != null ? m.rating : '\u2014'}</td>
                 <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
                 <td class="num"><a class="games-link" href={`/games?model=${encodeURIComponent(m.modelId)}${m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : ''}`}>{m.gamesPlayed}</a></td>
                 <td class="num col-winrate">{(m.winRate * 100).toFixed(1)}%</td>
@@ -96,7 +98,8 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
               </tr>
             ))}
           </tbody>
-        ))}
+          );
+        })}
       </table>
     </div>
 
@@ -159,6 +162,20 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
       activeFormat = fmt;
       table!.classList.toggle('format-combined', fmt === 'combined');
+
+      // Hide rating column for exhibition formats
+      const isExhibition = newTbody?.dataset.exhibition === 'true';
+      table!.classList.toggle('hide-rating-col', isExhibition);
+
+      // If sorted by rating and switching to exhibition, switch to winRate
+      if (isExhibition) {
+        const ratingTh = table!.querySelector('th[data-sort="rating"]');
+        if (ratingTh?.classList.contains('sorted')) {
+          const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
+          if (winRateTh) winRateTh.click();
+        }
+      }
+
       updateGamesLinks();
       applyFilters();
     });
@@ -510,6 +527,10 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   th[data-sort="blunderScore"],
   th[data-sort="avgApiCost"] {
     text-align: right;
+  }
+
+  table.hide-rating-col [data-col="rating"] {
+    display: none;
   }
 
   /* Medal treatment for top 3 */
