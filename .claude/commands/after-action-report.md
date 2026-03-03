@@ -21,6 +21,10 @@ Determine which game to report on:
   ```bash
   uv run python scripts/list-recent-games.py | head -1
   ```
+- **If `list-recent-games.py` fails** (e.g. logs directory missing in this worktree), fall back to listing exports directly:
+  ```bash
+  ls website/public/games/ | sort -r | head -5
+  ```
 
 **Check if a report already exists:**
 ```bash
@@ -51,10 +55,35 @@ Run the analysis scripts to collect raw material for the narrative:
 uv run python scripts/analysis/game_overview.py $GAME_PATH
 uv run python scripts/analysis/game_narrative.py $GAME_PATH
 uv run python scripts/analysis/llm_reasoning.py $GAME_PATH
-uv run python scripts/analysis/extract_decisions.py $GAME_PATH | head -200
 ```
 
-Also check for existing blunder annotations — if the export has an `annotations` array, note the blunders to weave into the narrative.
+**Blunder annotations** — extract them directly from the game export. These are high-value narrative material:
+
+```bash
+uv run python -c "
+from scripts.analysis.blunder_eval_common import load_game
+d = load_game('$GAME_PATH')
+for a in d.get('annotations', []):
+    print(f'[{a[\"severity\"]}] {a[\"player\"]}: {a[\"description\"][:150]}')
+"
+```
+
+**Snapshot indices per turn** — needed for linking to specific replay moments with `?s=N`:
+
+```bash
+uv run python -c "
+from scripts.analysis.blunder_eval_common import load_game
+d = load_game('$GAME_PATH')
+seen = set()
+for i, s in enumerate(d['snapshots']):
+    t = s.get('turn', 0)
+    if t not in seen:
+        seen.add(t)
+        print(f'Turn {t} starts at snapshot {i}')
+"
+```
+
+**Note on `extract_decisions.py`**: The output can be extremely verbose (hundreds of lines) due to repeated mulligan decisions and forced choices. Only use it if the core scripts and annotations don't give you enough detail on specific decision points. When you do use it, pipe through `head -200`.
 
 ### Step 4: Write the report
 
@@ -131,9 +160,9 @@ in reasoning quality.
 **Guidelines for narrative quality:**
 - Write for someone who understands Magic but hasn't seen the game.
 - Reference specific card names and plays — don't just say "played a creature."
-- Include reasoning excerpts when they reveal interesting decision-making (quote them in blockquotes).
+- Include reasoning excerpts when they reveal interesting decision-making (quote them in blockquotes). Note: some models (e.g. MiniMax) don't expose reasoning — just skip reasoning excerpts for those players.
 - Mention blunders naturally as part of the story, don't just list them.
-- Link to replay snapshots for key moments using `?s=N` parameter.
+- Link to replay snapshots for key moments using `?s=N` parameter (use the snapshot indices from step 3).
 - Keep it concise — aim for 500-1000 words, not a novel.
 
 ### Step 5: Verify
