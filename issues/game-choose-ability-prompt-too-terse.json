@@ -1,0 +1,10 @@
+{
+  "title": "GAME_CHOOSE_ABILITY system prompt instruction too terse for weak models",
+  "description": "MiniMx M2.5 tried `choice=\"no\"` on GAME_CHOOSE_ABILITY prompts twice (lines 101 and 340 of MiniMx Proud_pilot.log), getting: 'GAME_CHOOSE_ABILITY requires index=N.' The model did not learn from the first failure.\n\nThe system prompt (puppeteer/prompts/default.md line 43) says only:\n  `- **GAME_CHOOSE_ABILITY (index):** Pick an ability with choice=\"0\".`\n\nThis is ambiguous because:\n1. Other action types accept choice=\"yes\"/\"no\" — the model confuses the formats\n2. It doesn't mention calling get_action_choices first\n3. The contrast between index-based and boolean-based choices is not explicit\n\nSuggested fix: Expand the instruction to:\n  `- **GAME_CHOOSE_ABILITY (index):** You must provide a numeric index. Use choice=\"0\", choice=\"1\", etc. Do NOT use yes/no — those won't work here.`\n\nThis is a toolset mismatch issue — minimax-m2.5 is consistently confused by this tool interface. If the expanded prompt doesn't help, consider adding GAME_CHOOSE_ABILITY to the auto-handled list for weak models.\n\nEvidence:\n- ~/.mage-bench/logs/game_20260302_005956_g4/MiniMx Proud_pilot.log lines 101, 340\n- puppeteer/prompts/default.md line 43\n- Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java lines 1881-1901",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["pilot"],
+  "created_at": "2026-03-02T18:00:00.000000-08:00",
+  "updated_at": "2026-03-02T18:00:00.000000-08:00"
+}

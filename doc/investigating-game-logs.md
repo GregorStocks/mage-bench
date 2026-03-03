@@ -258,6 +258,29 @@ jq -r 'select(.method=="GAME_PLAY_MANA") | .ts' "$GAME_DIR"/*_bridge.jsonl
 grep -n "GAME_PLAY_MANA\|pass_priority\|no auto source" "$GAME_DIR"/*_pilot.log
 ```
 
+## Personality infection and chat spam
+
+Expressive personalities (valley-girl, dramatist, villain) can cause models to spend
+enormous reasoning tokens on in-character chat narration instead of game analysis.
+Symptoms: timer timeout despite winning board position, context overflow, cascading
+LLM empty responses after context trim.
+
+```bash
+# Count chat messages per player (>20 is suspicious, >50 is severe)
+jq -r 'select(.type=="player_chat") | .player' "$GAME_DIR/game_events.jsonl" | sort | uniq -c | sort -rn
+
+# Count send_chat_message calls in pilot logs
+grep -c "send_chat_message" "$GAME_DIR"/*_pilot.log
+
+# Check if chat messages narrate failed plays (personality running ahead of game state)
+# Look for send_chat_message immediately after "Action failed" warnings
+grep -A2 "Action failed" "$GAME_DIR"/*_pilot.log | grep "send_chat_message"
+```
+
+Cross-reference with LLM timeout/empty-response patterns — chat spam often precedes
+context exhaustion. Check the personality in game_meta.json to identify infection-prone
+personalities vs clean ones (analyst, spike, stoic are generally safe).
+
 ## Detecting client-side yield spell cancellation loops
 
 When a model casts a targeted spell (e.g. Flames of the Firebrand) and then calls
