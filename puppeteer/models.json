@@ -411,7 +411,8 @@
       "_context_k": 131,
       "_thinking": true,
       "_tier": "dirt-cheap",
-      "_notes": "OpenAI open-weight model (Apache 2.0). 117B total, 5.1B active (MoE). Matches o4-mini on TauBench tool-use benchmark. Configurable reasoning effort."
+      "provider_order": ["Fireworks"],
+      "_notes": "OpenAI open-weight model (Apache 2.0). 117B total, 5.1B active (MoE). Matches o4-mini on TauBench tool-use benchmark. Configurable reasoning effort. Pinned to Fireworks — they explicitly support Harmony format and agentic tool calling. DeepInfra (default) had tool call failures in game_20260302_174929_g4 and game_20260302_184350_g4."
     },
     {
       "id": "mistralai/mistral-medium-3.1",
