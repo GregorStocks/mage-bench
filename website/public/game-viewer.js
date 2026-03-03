@@ -236,9 +236,7 @@
         var toolResults = [];
         var j = i + 1;
         while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
-          if (events[j].tool !== "send_chat_message") {
-            toolResults.push(events[j]);
-          }
+          toolResults.push(events[j]);
           j++;
         }
         var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
@@ -255,10 +253,6 @@
         });
         i = j;
       } else if (e.type === "tool_call") {
-        if (e.tool === "send_chat_message") {
-          i++;
-          continue;
-        }
         merged.push({
           type: "llm_merged",
           ts: e.ts,
