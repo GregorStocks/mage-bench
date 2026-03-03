@@ -309,9 +309,6 @@
       '      <div class="action-log-header">',
       '        <span class="section-title">Game Log</span>',
       '        <div class="log-filters">',
-      '          <select id="player-filter" class="hidden" title="Filter by player">',
-      '            <option value="">All players</option>',
-      '          </select>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-llm" checked /> LLM</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-game" checked /> Game</label>',
       '          <label class="filter-checkbox hidden"><input type="checkbox" id="filter-chat" checked /> Chat</label>',
@@ -363,7 +360,6 @@
         rules: container.querySelector("#preview-rules"),
       },
       // Filters
-      playerFilter: container.querySelector("#player-filter"),
       filterLlmEl: container.querySelector("#filter-llm"),
       filterGameEl: container.querySelector("#filter-game"),
       filterChatEl: container.querySelector("#filter-chat"),
@@ -391,7 +387,6 @@
     var phaseTransitions = [];
     var playerTurnNumbers = [];
     var isCommander = false;
-    var filterPlayer = "";
     var filterLlm = true;
     var filterGame = true;
     var filterChat = true;
@@ -431,12 +426,12 @@
       if (decision && tc.tool === "choose_action") {
         var displayText = chosenDisplayText(decision);
 
-        var container = document.createElement("div");
+        var container = document.createElement("span");
         container.className = "llm-decision-display";
 
         var badge = document.createElement("span");
-        badge.className = "mcp-badge";
-        badge.textContent = "game";
+        badge.className = "log-badge badge-mcp";
+        badge.textContent = "mcp";
         container.appendChild(badge);
 
         var actionSpan = document.createElement("span");
@@ -444,11 +439,11 @@
         actionSpan.textContent = displayText;
         container.appendChild(actionSpan);
 
-        // Raw MCP call hidden behind a disclosure triangle
+        // Raw MCP call hidden behind an inline disclosure triangle
         var rawDetails = document.createElement("details");
-        rawDetails.className = "llm-tool-detail llm-tool-raw";
+        rawDetails.className = "llm-tool-raw";
         var rawSummary = document.createElement("summary");
-        rawSummary.textContent = "mcp";
+        rawSummary.textContent = "raw";
         rawDetails.appendChild(rawSummary);
         var rawInner = document.createElement("div");
         var rawArgs = formatToolArgs(tc.args);
@@ -470,6 +465,12 @@
       }
 
       // Default: original rendering for unmapped tool calls
+      var wrapper = document.createElement("span");
+      wrapper.className = "llm-tool-default";
+      var llmBadge = document.createElement("span");
+      llmBadge.className = "log-badge badge-llm";
+      llmBadge.textContent = "llm";
+      wrapper.appendChild(llmBadge);
       var details = document.createElement("details");
       details.className = "llm-tool-detail";
       var summary = document.createElement("summary");
@@ -481,7 +482,8 @@
         pre.textContent = tryFormatJson(tc.result);
         details.appendChild(pre);
       }
-      return details;
+      wrapper.appendChild(details);
+      return wrapper;
     }
 
     function renderLlmEvent(event) {
@@ -548,25 +550,27 @@
       if (type === "system_message") {
         var div = document.createElement("div");
         div.className = "llm-event llm-system-message";
-        div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+        div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
         return div;
       }
 
       var div = document.createElement("div");
       div.className = "llm-event llm-meta";
+      var metaText = "";
 
       if (type === "stall") {
-        div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+        metaText = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
       } else if (type === "llm_error") {
-        div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+        metaText = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
       } else if (type === "context_reset") {
-        div.textContent = event.player + " context reset: " + (event.reason || "");
+        metaText = event.player + " context reset: " + (event.reason || "");
       } else if (type === "auto_pilot_mode") {
-        div.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
+        metaText = event.player + " switched to auto-pilot: " + (event.reason || "");
       } else {
-        div.textContent = event.player + " " + type;
+        metaText = event.player + " " + type;
       }
 
+      div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + escapeHtml(metaText);
       return div;
     }
 
@@ -716,13 +720,6 @@
         if (a.seq > curSeq) return false;
         if (!a.message && a.type !== "chat") return false;
         if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
-        if (filterPlayer) {
-          if (a.type === "chat") {
-            if (a.from !== filterPlayer) return false;
-          } else {
-            if ((a.message || "").indexOf(filterPlayer) === -1) return false;
-          }
-        }
         return true;
       });
 
@@ -739,7 +736,6 @@
           } else {
             if (chatNextTs && e.ts >= chatNextTs) return;
           }
-          if (filterPlayer && e.player !== filterPlayer) return;
           chatFromLlm.push({
             ts: e.ts || "",
             from: e.player,
@@ -782,7 +778,6 @@
           } else {
             if (nextTs && e.ts >= nextTs) return false;
           }
-          if (filterPlayer && e.player !== filterPlayer) return false;
           return true;
         });
 
@@ -792,7 +787,6 @@
           } else {
             if (nextTs && sm.ts >= nextTs) return;
           }
-          if (filterPlayer && sm.player !== filterPlayer) return;
           relevantLlm.push(sm);
         });
       }
@@ -914,7 +908,7 @@
           if (a.seq > prevSeq) {
             el.style.color = "#e0e0f0";
           }
-          el.innerHTML = colorizePlayerNames(a.message);
+          el.innerHTML = '<span class="log-badge badge-game">game</span>' + colorizePlayerNames(a.message);
         } else if (item.kind === "llm") {
           el = renderLlmEvent(item.data);
         } else if (item.kind === "annotation") {
@@ -1043,17 +1037,6 @@
       dom.filterAnnotationsEl.parentElement.classList.remove("hidden");
     }
 
-    // Populate player filter dropdown
-    if (game.players && game.players.length > 1) {
-      game.players.forEach(function (p) {
-        var opt = document.createElement("option");
-        opt.value = p.name;
-        opt.textContent = p.name;
-        dom.playerFilter.appendChild(opt);
-      });
-      dom.playerFilter.classList.remove("hidden");
-    }
-
     // Compute per-player turn numbers
     playerTurnNumbers = R.computePlayerTurnNumbers(game.snapshots);
 
@@ -1112,11 +1095,6 @@
     dom.snapshotJump.max = String(game.snapshots.length);
 
     // ── Event listeners ──
-
-    dom.playerFilter.addEventListener("change", function () {
-      filterPlayer = dom.playerFilter.value;
-      renderSnapshot(currentIndex);
-    });
 
     dom.filterLlmEl.addEventListener("change", function () {
       filterLlm = dom.filterLlmEl.checked;
