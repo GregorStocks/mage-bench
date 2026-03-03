@@ -281,6 +281,24 @@ Cross-reference with LLM timeout/empty-response patterns — chat spam often pre
 context exhaustion. Check the personality in game_meta.json to identify infection-prone
 personalities vs clean ones (analyst, spike, stoic are generally safe).
 
+## Detecting hallucinated action batching
+
+Some models (observed with gpt-oss-120b) send multi-tool-call LLM responses where
+they plan an entire turn sequence from imagined game state rather than reading actual
+choices after each action. When any action fails (stale ID, state changed), the
+entire batch breaks. Symptoms: many `invalid_choice` errors, thinking traces that
+describe plays that never happened, pass_priority calls after "completing" imaginary
+actions.
+
+```bash
+# Count tool calls per LLM response (>5 in a single response = likely batching)
+jq -r 'select(.type=="llm_response") | [.tool_calls[]?.name] | length' "$GAME_DIR"/*_llm.jsonl | sort -rn | head -5
+
+# Cross-reference: check thinking traces for hallucinated plays
+# Look for "I've played" / "I've cast" / "deployed" in thinking that precedes failed actions
+grep -B2 "Action failed" "$GAME_DIR"/*_pilot.log | grep -i "played\|cast\|deployed"
+```
+
 ## Detecting client-side yield spell cancellation loops
 
 When a model casts a targeted spell (e.g. Flames of the Firebrand) and then calls
