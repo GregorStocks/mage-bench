@@ -43,7 +43,6 @@ make website          # Leaderboard + npm install + dev server
 make run              # Build + run a game
 make test             # Python tests
 make games-to-analyze # List games needing fast-analysis
-make games-to-report  # List games needing after-action reports
 ```
 
 ## Local Testing
