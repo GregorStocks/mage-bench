@@ -428,7 +428,6 @@
     var img = document.createElement("img");
     img.src = resolveCardImage(cardName, cardObj, cardImages, "small");
     img.alt = cardName;
-    img.loading = "lazy";
     img.draggable = false;
 
     img.addEventListener("error", function () {
@@ -501,7 +500,6 @@
       var img = document.createElement("img");
       img.src = resolveCardImage(abilityInfo.sourceCard, null, cardImages, "small");
       img.alt = abilityInfo.sourceCard;
-      img.loading = "lazy";
       img.draggable = false;
       img.className = "ability-bg-img";
       img.addEventListener("error", function () {
