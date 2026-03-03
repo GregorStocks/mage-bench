@@ -1022,6 +1022,10 @@
   display: inline;
 }
 
+.llm-compact .llm-tool-detail summary {
+  display: inline list-item;
+}
+
 .llm-tool-detail summary {
   cursor: pointer;
   font-family: var(--font-mono, monospace);
