@@ -388,6 +388,19 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     margin-left: 0.4rem;
   }
 
+  .timeout-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-warning);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 0.4rem;
+  }
+
   .yt-link {
     color: var(--accent-primary);
     text-decoration: none;
@@ -815,6 +828,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         badge.className = "winner-badge";
         badge.textContent = "WINNER";
         nameRow.appendChild(badge);
+      }
+
+      if (p.timedOut) {
+        var toBadge = document.createElement("span");
+        toBadge.className = "timeout-badge";
+        toBadge.textContent = "TIMEOUT";
+        nameRow.appendChild(toBadge);
       }
 
       if (p.model) {

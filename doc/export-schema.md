@@ -76,6 +76,16 @@ Code that reads the export format and would need updating if the schema changes:
 | `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
 | `puppeteer/src/puppeteer/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |
 
+## Evolving the Schema
+
+**Never re-export games from raw logs** to pick up schema changes. Raw logs are the pre-export format and may not be available for older games. Instead:
+
+1. **Additive optional fields** (derivable from existing export data): Add the field to the schema, update `export_game.py` for new exports, and write a backfill script in `scripts/` to patch existing exports in-place (see `backfill_decisions.py` for the pattern).
+
+2. **Breaking changes**: Bump the export version and write a bidirectional migration in `schemas/migrations/` (see below). Land the schema first, then migrate games incrementally.
+
+3. **Manual backfill**: As a last resort when data can't be derived from the export and raw logs must be consulted. Avoid this — it's fragile and doesn't scale.
+
 ## Migration Framework
 
 Migration modules live in `schemas/migrations/`. See `schemas/migrations/README.md` for the pattern.

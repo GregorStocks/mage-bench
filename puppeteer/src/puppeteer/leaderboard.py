@@ -384,6 +384,7 @@ def generate_leaderboard(
                 stats[key] = {
                     "games_played": 0,
                     "wins": 0,
+                    "timeout_losses": 0,
                     "total_cost": 0.0,
                     "total_tool_calls_ok": 0,
                     "total_tool_calls_failed": 0,
@@ -394,6 +395,8 @@ def generate_leaderboard(
             stats[key]["games_played"] += 1
             if game.get("winner") == p["name"]:
                 stats[key]["wins"] += 1
+            if p.get("timedOut"):
+                stats[key]["timeout_losses"] += 1
             stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
             stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
             stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
@@ -424,6 +427,8 @@ def generate_leaderboard(
         total_annotated_turns = int(s["total_annotated_turns"])
         assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
         blunder_score = s["total_weighted_blunders"] / total_annotated_turns
+        timeout_losses = int(s["timeout_losses"])
+        timeout_loss_rate = timeout_losses / games_played
         entry: dict[str, str | int | float | None] = {
             "modelId": model_id,
             "modelName": display_name,
@@ -431,6 +436,8 @@ def generate_leaderboard(
             "rating": rating,
             "gamesPlayed": games_played,
             "winRate": round(win_rate, 4),
+            "timeoutLosses": timeout_losses,
+            "timeoutLossRate": round(timeout_loss_rate, 4),
             "avgApiCost": round(avg_cost, 2),
             "avgToolCallsOk": round(avg_tool_calls_ok, 1),
             "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
@@ -681,6 +688,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 buckets[bucket_key] = {
                     "gamesPlayed": 0,
                     "wins": 0,
+                    "timerTimeoutLosses": 0,
                     "totalCostUsd": 0.0,
                     "totalToolCallsOk": 0,
                     "totalToolCallsFailed": 0,
@@ -698,6 +706,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             b["gamesPlayed"] += 1
             if winner == p["name"]:
                 b["wins"] += 1
+            if p.get("timedOut"):
+                b["timerTimeoutLosses"] += 1
             b["totalCostUsd"] += p.get("totalCostUsd", 0.0)
             b["totalToolCallsOk"] += p.get("toolCallsOk", 0)
             b["totalToolCallsFailed"] += p.get("toolCallsFailed", 0)
@@ -893,6 +903,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     "key": key,
                     "modelName": display_name,
                     "won": winner == name,
+                    "timedOut": bool(p.get("timedOut")),
                     "costUsd": round(p.get("totalCostUsd", 0.0), 4),
                     "promptTokens": player_prompt_tokens.get(name, 0),
                     "completionTokens": player_completion_tokens.get(name, 0),

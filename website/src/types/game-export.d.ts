@@ -142,6 +142,10 @@ export interface Player {
    * Total time in seconds this player held priority (chess-clock style).
    */
   thinkingTimeSecs?: number;
+  /**
+   * True if this player lost by running out of time on the game timer.
+   */
+  timedOut?: boolean;
 }
 export interface Snapshot {
   /**

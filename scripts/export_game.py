@@ -18,6 +18,7 @@ OBJECT_ID_RE = re.compile(r"\s*\[[0-9a-f]{3,}\]")
 DECKLIST_RE = re.compile(r"(?:SB:\s*)?(\d+)\s+\[([^:]+):([^\]]+)\]\s+(.+)")
 LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 WON_GAME_RE = re.compile(r"^(.+?) has won the game$")
+TIMED_OUT_RE = re.compile(r"^(.+?) has run out of time, losing the match\.$")
 _ERROR_LINE_RE = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]\s+\[(\w+)\]\s+(.+)$")
 _ERROR_LINE_ISO_RE = re.compile(
     r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"
@@ -926,6 +927,13 @@ def build_export(game_dir: Path) -> dict:
         if len(first_place) == 1:
             winner = first_place[0]
 
+    # Detect timer timeout losses
+    timed_out_players: set[str] = set()
+    for a in actions:
+        m = TIMED_OUT_RE.match(a.get("message", ""))
+        if m:
+            timed_out_players.add(m.group(1))
+
     players_summary = []
     for p in meta.get("players", []):
         name = p.get("name", "?")
@@ -952,6 +960,8 @@ def build_export(game_dir: Path) -> dict:
             entry["toolCallsFailed"] = failed
         if name in player_thinking:
             entry["thinkingTimeSecs"] = round(player_thinking[name], 1)
+        if name in timed_out_players:
+            entry["timedOut"] = True
         players_summary.append(entry)
 
     # Build output

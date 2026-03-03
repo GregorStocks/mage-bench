@@ -750,6 +750,19 @@
         dom.actionList.appendChild(winLine);
       }
 
+      // Show timeout losses at end of game
+      if (index === game.snapshots.length - 1) {
+        (game.players || []).forEach(function (p) {
+          if (!p.timedOut) return;
+          var toLine = document.createElement("div");
+          toLine.className = "game-result-line game-result-timeout";
+          var pIdx = playerColorMap[p.name];
+          var pCls = pIdx != null ? "action-" + R.PLAYER_COLORS[pIdx] : "";
+          toLine.innerHTML = '<span class="' + pCls + '">' + escapeHtml(p.name) + '</span> ran out of time';
+          dom.actionList.appendChild(toLine);
+        });
+      }
+
       // Sync game log height with left column, then auto-scroll to bottom
       setTimeout(function () {
         var leftHeight = dom.gameLeft.offsetHeight;

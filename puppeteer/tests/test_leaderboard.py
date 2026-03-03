@@ -50,6 +50,7 @@ def _pilot(
     tool_calls_ok: int | None = None,
     tool_calls_failed: int | None = None,
     reasoning_effort: str | None = None,
+    timed_out: bool = False,
 ) -> dict:
     d: dict = {"name": name, "type": "pilot", "model": model, "totalCostUsd": cost}
     if placement is not None:
@@ -60,6 +61,8 @@ def _pilot(
         d["toolCallsFailed"] = tool_calls_failed
     if reasoning_effort is not None:
         d["reasoningEffort"] = reasoning_effort
+    if timed_out:
+        d["timedOut"] = True
     return d
 
 
@@ -1754,3 +1757,106 @@ def test_generate_internals_data_no_games():
         result = json.loads(output_path.read_text())
 
         assert result["games"] == []
+
+
+# --- Timeout loss tracking ---
+
+
+def test_generate_leaderboard_timeout_losses():
+    """Timeout losses are counted and reported in leaderboard output."""
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, placement=1),
+                _pilot("Bob", "b/model-b", cost=1.0, placement=2, timed_out=True),
+            ],
+        ),
+        _make_game(
+            "g2",
+            "20260102_000000",
+            "Bob",
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, placement=2),
+                _pilot("Bob", "b/model-b", cost=1.0, placement=1),
+            ],
+        ),
+    ]
+    result, _ = generate_leaderboard(games, {})
+    alice = next(m for m in result["models"] if m["modelId"] == "a/model-a")
+    bob = next(m for m in result["models"] if m["modelId"] == "b/model-b")
+
+    assert alice["timeoutLosses"] == 0
+    assert alice["timeoutLossRate"] == 0.0
+    assert bob["timeoutLosses"] == 1
+    assert bob["timeoutLossRate"] == 0.5
+
+
+def test_generate_internals_data_timed_out():
+    """Per-player timedOut flag is included in internals data."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260115_120000",
+            "20260115_120000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, placement=1),
+                _pilot("Bob", "b/model-b", cost=1.0, placement=2, timed_out=True),
+            ],
+            [],
+        )
+        (games_dir / "game_20260115_120000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_internals_data(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        g = result["games"][0]
+        alice = next(p for p in g["players"] if p["key"] == "a/model-a")
+        bob = next(p for p in g["players"] if p["key"] == "b/model-b")
+
+        assert alice["timedOut"] is False
+        assert bob["timedOut"] is True
+
+
+def test_generate_model_stats_timeout_losses():
+    """Timer timeout losses are counted in model stats buckets."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260115_120000",
+            "20260115_120000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, placement=1),
+                _pilot("Bob", "b/model-b", cost=1.0, placement=2, timed_out=True),
+            ],
+            [],
+        )
+        (games_dir / "game_20260115_120000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        epoch = str(HARNESS_EPOCH)
+        alice_stats = result["models"]["a/model-a"]["epochs"][epoch]
+        bob_stats = result["models"]["b/model-b"]["epochs"][epoch]
+
+        assert alice_stats["timerTimeoutLosses"] == 0
+        assert bob_stats["timerTimeoutLosses"] == 1

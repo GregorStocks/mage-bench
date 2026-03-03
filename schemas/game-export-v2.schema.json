@@ -181,6 +181,10 @@
         "thinkingTimeSecs": {
           "type": "number",
           "description": "Total time in seconds this player held priority (chess-clock style)."
+        },
+        "timedOut": {
+          "type": "boolean",
+          "description": "True if this player lost by running out of time on the game timer."
         }
       }
     },
