@@ -322,8 +322,8 @@
           "type": "array",
           "items": { "type": "string" }
         },
-        "reasoning": { "type": "string" },
-        "thinking": { "type": "string" },
+        "reasoning": { "type": ["string", "null"] },
+        "thinking": { "type": ["string", "null"] },
         "toolCalls": {},
         "usage": { "$ref": "#/$defs/LlmUsage" },
         "costUsd": { "type": "number" },

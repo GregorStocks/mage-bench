@@ -252,8 +252,8 @@ export interface LlmEvent {
   gameSeq?: number;
   model?: string;
   availableTools?: string[];
-  reasoning?: string;
-  thinking?: string;
+  reasoning?: string | null;
+  thinking?: string | null;
   toolCalls?: unknown;
   usage?: LlmUsage;
   costUsd?: number;
