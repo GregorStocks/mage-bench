@@ -61,6 +61,153 @@
     return span;
   }
 
+  // ── Decision display ──
+
+  /**
+   * Convert a canonical decision into human-readable text describing what
+   * the player chose.  Pure function — no DOM, no closure state.
+   *
+   * @param {object} decision  A Decision from game.decisions[]
+   * @returns {string}
+   */
+  function chosenDisplayText(decision) {
+    var chosen = decision.chosen;
+    var chosenArgs = decision.chosenArgs || {};
+    var choices = decision.choices || [];
+    var message = decision.message || "";
+    var pilotCtx = decision.pilotContext || {};
+
+    // Build ID → choice lookup from choices + incomingAttackers
+    var choiceById = {};
+    choices.forEach(function (c) {
+      if (c && typeof c === "object" && c.id) {
+        choiceById[c.id] = c;
+      }
+    });
+    (pilotCtx.incomingAttackers || []).forEach(function (a) {
+      if (a && a.id && !choiceById[a.id]) {
+        choiceById[a.id] = a;
+      }
+    });
+
+    function nameOf(id) {
+      var c = choiceById[id];
+      return c ? (c.name || c.description || id) : id;
+    }
+
+    function nameWithStats(id) {
+      var c = choiceById[id];
+      if (!c) return id;
+      var n = c.name || c.description || id;
+      if (c.power != null && c.toughness != null) {
+        n += " " + c.power + "/" + c.toughness;
+      }
+      return n;
+    }
+
+    // Batch attacks: chosen is null, chosenArgs.attackers exists
+    if (chosenArgs.attackers) {
+      var attackers = chosenArgs.attackers;
+      if (typeof attackers === "string") {
+        attackers = attackers.split(",").map(function (s) { return s.trim(); });
+      }
+      if (attackers.length === 1 && attackers[0] === "all") {
+        var allNames = choices.filter(function (c) {
+          return c && typeof c === "object" && c.id !== "all";
+        }).map(function (c) {
+          return nameWithStats(c.id);
+        });
+        return allNames.length > 0
+          ? "Attack with all (" + allNames.join(", ") + ")"
+          : "Attack with all creatures";
+      }
+      var atkNames = attackers.map(function (a) {
+        var id = (typeof a === "object" && a.id) ? a.id : String(a);
+        return nameWithStats(id);
+      });
+      return "Attack with " + atkNames.join(", ");
+    }
+
+    // Batch blocks: chosen is null, chosenArgs.blockers exists
+    if (chosenArgs.blockers) {
+      var blockers = chosenArgs.blockers;
+      if (typeof blockers === "string") {
+        try { blockers = JSON.parse(blockers); } catch (e) {
+          blockers = blockers.split(",").map(function (s) { return s.trim(); });
+        }
+      }
+      if (!blockers || blockers.length === 0) return "No blocks";
+      var blockParts = [];
+      blockers.forEach(function (entry) {
+        if (typeof entry === "object" && entry.id) {
+          blockParts.push(nameOf(entry.id) + " blocks " + nameOf(entry.blocks));
+        } else if (typeof entry === "string" && entry.indexOf(":") !== -1) {
+          var pair = entry.split(":", 2);
+          blockParts.push(nameOf(pair[0]) + " blocks " + nameOf(pair[1]));
+        } else {
+          blockParts.push(nameOf(String(entry)));
+        }
+      });
+      return blockParts.join(", ");
+    }
+
+    // Boolean response
+    if (typeof chosen === "boolean") {
+      var msgLower = message.toLowerCase();
+      if (msgLower.indexOf("mulligan") !== -1) {
+        return chosen ? "Mulligan" : "Keep hand";
+      }
+      if (!chosen) {
+        if (msgLower.indexOf("blocker") !== -1) return "No blocks";
+        return "Pass";
+      }
+      return String(chosen);
+    }
+
+    // Null chosen with a choice ID → resolve it
+    if (chosen == null && chosenArgs.choice && chosenArgs.choice !== "no") {
+      var resolved = choiceById[chosenArgs.choice];
+      if (resolved) {
+        var rName = resolved.name || resolved.description || chosenArgs.choice;
+        var rAction = resolved.action;
+        if (rAction === "cast") {
+          var lbl = "Cast " + rName;
+          if (resolved.mana_cost) lbl += " " + resolved.mana_cost;
+          return lbl;
+        }
+        if (rAction === "land") return "Play " + rName;
+        if (rAction === "activate") return "Activate " + rName;
+        return rName;
+      }
+      return chosenArgs.choice;
+    }
+
+    // Null chosen, empty args = pass
+    if (chosen == null) {
+      return "Pass";
+    }
+
+    // Index into choices
+    if (typeof chosen === "number" && chosen >= 0 && chosen < choices.length) {
+      var c = choices[chosen];
+      if (c && typeof c === "object") {
+        var choiceName = c.name || c.description || String(chosen);
+        var action = c.action;
+        if (action === "cast") {
+          var label = "Cast " + choiceName;
+          if (c.mana_cost) label += " " + c.mana_cost;
+          return label;
+        }
+        if (action === "land") return "Play " + choiceName;
+        if (action === "activate") return "Activate " + choiceName;
+        return choiceName;
+      }
+      return String(c);
+    }
+
+    return String(chosen);
+  }
+
   // ── LLM event processing ──
 
   function extractSystemMessages(toolCallEvent) {
@@ -277,6 +424,44 @@
     }
 
     function renderToolResult(tc) {
+      // Look up whether this tool call maps to a canonical decision
+      var decision = (tc._origIdx != null) ? llmEventIndexToDecision[tc._origIdx] || null : null;
+
+      // choose_action mapped to a decision: show human-readable summary
+      if (decision && tc.tool === "choose_action") {
+        var displayText = chosenDisplayText(decision);
+
+        var container = document.createElement("div");
+        container.className = "llm-decision-display";
+
+        var actionSpan = document.createElement("span");
+        actionSpan.className = "decision-action-text";
+        actionSpan.textContent = displayText;
+        container.appendChild(actionSpan);
+
+        // Raw MCP call in collapsible details underneath
+        var rawDetails = document.createElement("details");
+        rawDetails.className = "llm-tool-detail llm-tool-raw";
+        var rawSummary = document.createElement("summary");
+        var rawArgs = formatToolArgs(tc.args);
+        rawSummary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(rawArgs) + ")";
+        rawDetails.appendChild(rawSummary);
+        if (tc.result) {
+          var rawPre = document.createElement("pre");
+          rawPre.textContent = tryFormatJson(tc.result);
+          rawDetails.appendChild(rawPre);
+        }
+        container.appendChild(rawDetails);
+
+        return container;
+      }
+
+      // get_action_choices mapped to a decision: hide (choose_action shows the summary)
+      if (decision && tc.tool === "get_action_choices") {
+        return null;
+      }
+
+      // Default: original rendering for unmapped tool calls
       var details = document.createElement("details");
       details.className = "llm-tool-detail";
       var summary = document.createElement("summary");
@@ -330,7 +515,7 @@
 
           if (hasToolResults) {
             event.toolResults.forEach(function (tc) {
-              div.appendChild(renderToolResult(tc));
+              var el = renderToolResult(tc); if (el) div.appendChild(el);
             });
           }
 
@@ -343,7 +528,7 @@
           headerEl.innerHTML = headerHtml;
           div.appendChild(headerEl);
           event.toolResults.forEach(function (tc) {
-            div.appendChild(renderToolResult(tc));
+            var el = renderToolResult(tc); if (el) div.appendChild(el);
           });
           return div;
         }
@@ -902,6 +1087,17 @@
       snapshotDecisionMap[si].push(d);
     });
 
+    // Build llmEvent index -> decision reverse lookup.
+    // Stamp each llmEvent with its original index so renderToolResult can
+    // look up the decision for any tool_call it receives.
+    (game.llmEvents || []).forEach(function (e, i) { e._origIdx = i; });
+    var llmEventIndexToDecision = {};
+    (game.decisions || []).forEach(function (d) {
+      (d.llmEventIndices || []).forEach(function (ei) {
+        llmEventIndexToDecision[ei] = d;
+      });
+    });
+
 
     // Set up transport
     dom.slider.max = String(game.snapshots.length - 1);
@@ -1066,6 +1262,7 @@
     // Expose for testing
     mergeLlmEvents: mergeLlmEvents,
     extractSystemMessages: extractSystemMessages,
+    chosenDisplayText: chosenDisplayText,
   };
 
   if (typeof root !== "undefined" && root !== null) {

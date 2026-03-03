@@ -1053,6 +1053,28 @@
   word-break: break-word;
 }
 
+/* Human-readable decision display (replaces raw tool call for choose_action) */
+.llm-decision-display {
+  display: inline;
+}
+
+.decision-action-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: #d0d0e0;
+  font-weight: 500;
+}
+
+/* Subdued raw MCP detail below the readable summary */
+.llm-tool-raw {
+  opacity: 0.6;
+  font-size: 0.68rem;
+}
+
+.llm-tool-raw summary {
+  font-size: 0.65rem;
+}
+
 .llm-meta {
   color: #666;
   font-size: 0.7rem;
