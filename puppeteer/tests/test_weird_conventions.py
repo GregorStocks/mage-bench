@@ -506,6 +506,8 @@ class TestConfigDeckTypes:
         "Constructed - Modern",
         "Constructed - Legacy",
         "Limited",
+        "Variant Magic - Freeform Commander",
+        "Variant Magic - Commander",
     }
 
     def test_deck_types_recognized(self) -> None:
