@@ -22,6 +22,14 @@ Identify from the logs:
 3. **What phase failed** — prompt comparison (`assert_golden_prompt`) or export comparison (`assert_golden_export`)
 4. **The RPC trace** — the `[RPC #N] -> tools/call(...)` lines show the exact sequence of MCP tool calls
 
+## Key invariant: priority serialization
+
+**The XMage server serializes priority — only one player has it at a time.** A bridge/LLM only becomes active when its player has priority. Both bridges can NEVER be active simultaneously. This means:
+
+- **Game replay MUST be deterministic.** Given the same deck and the same sequence of player decisions, the game state progression is fully determined. If a golden test produces different results across runs, that's a **bug in the Java bridge code**, not an inherent property of the system.
+- **Never modify test scripts to work around nondeterminism.** Changing `pass_priority()` to `pass_priority(until="precombat_main")` or adding `my_turn` yields to "make it deterministic" is papering over a bug. The plain `pass_priority()` should already be deterministic because only one bridge processes callbacks at a time.
+- **The fix is always in the Java bridge.** If the `firstPass` logic, `actionsPassed` counter, or auto-pass loop produces different results across runs, something is violating the priority serialization invariant. Find where and fix it.
+
 ## Step 2: Classify the failure
 
 Golden flakes fall into a few known categories. Match the diff against these patterns:
@@ -30,7 +38,7 @@ Golden flakes fall into a few known categories. Match the diff against these pat
 - **`game_seq` drift**: Same payload, different `game_seq` values. Caused by `lastGameView` being updated from asynchronous `gameUpdate` callbacks instead of the authoritative callback. Look at `updateLastGameView()` call sites in `BridgeCallbackHandler.java`.
 - **Empty `get_game_history`**: `cursor: N -> 0`, `event_count: N -> 0`, history becomes `"No game events recorded yet."`. Race between `handleGameOver()` cache population and Python's post-script `get_game_history` call.
 - **`bridge_join` timeout**: Timeout waiting for bridge/potato to join the table. Usually a `keepAlive` loop issue where the previous game's cleanup races with the next game's setup. Check `gameFinishedLatch`, `handleGameOver`, and `client.stop()` ordering.
-- **Missing or extra callbacks**: `pass_priority` or `choose_action` returns different results. The bridge auto-pass loop (`actionsPassed` counter, `firstPass` logic) saw a different number of server callbacks, indicating a timing-dependent priority pass.
+- **Missing or extra callbacks**: `pass_priority` or `choose_action` returns different results. The bridge auto-pass loop (`actionsPassed` counter, `firstPass` logic) saw a different number of server callbacks. This violates the priority serialization invariant — find where the bridge is seeing callbacks out of order or dropping/duplicating them.
 
 ### Nondeterministic ordering
 - **`llmEvents` / `llmTrace` order**: Events at the same `seq` for different players interleave differently. Check if `_strip_volatile` sorts by `(seq, player)`.
@@ -89,7 +97,9 @@ Follow the execution path to understand what happened:
 Common fix patterns:
 - **Reorder operations**: Move state population before the signal that makes it visible to other threads (e.g., populate cache before removing from activeGames).
 - **Use the authoritative callback**: The XMage server sends specific callbacks (game-over, game-update) with authoritative state. Use that state instead of racing with asynchronous pushes.
-- **Client-side yields instead of server-side**: Replace `sendPlayerAction(PASS_PRIORITY_UNTIL_*)` with client-side auto-pass loops to avoid stale response races.
+- **Fix the bridge's callback handling**: If the auto-pass loop sees different numbers of callbacks across runs, the bridge is violating the priority serialization invariant. Look for places where callbacks are dropped, duplicated, or processed out of order (e.g., `pendingAction` being overwritten, `actionLock` contention, `GAME_UPDATE` callbacks interfering with priority callbacks).
+
+**Never work around nondeterminism by modifying test scripts.** If `pass_priority()` is nondeterministic, the fix is in the Java bridge, not in switching to `pass_priority(until="precombat_main")`. See "Key invariant: priority serialization" above.
 
 ## Step 6: Verify the fix
 

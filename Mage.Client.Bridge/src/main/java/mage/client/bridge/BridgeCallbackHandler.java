@@ -1726,6 +1726,7 @@ public class BridgeCallbackHandler {
                     if (!usedIndex) {
                         if (answer != null) {
                             session.sendPlayerBoolean(gameId, answer);
+                            trackSentResponse(gameId, ResponseType.BOOLEAN, answer, null);
                             result.put("action_taken", answer ? "confirmed" : "passed_priority");
                         } else {
                             return buildError(result, "missing_param",
@@ -3370,6 +3371,7 @@ public class BridgeCallbackHandler {
                     }
                 }
                 session.sendPlayerBoolean(action.gameId(), false);
+                trackSentResponse(action.gameId(), ResponseType.BOOLEAN, false, null);
                 actionsPassed++;
 
                 // Continue waiting for the server to send us the next callback
