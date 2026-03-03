@@ -967,12 +967,33 @@
     // Set up mouse-following card preview
     R.setupMousePreview(dom.previewEls.container);
 
-    // Preload all card images into browser cache
+    // Preload card images into browser cache at low priority.
+    // Load in small batches during idle time so we don't saturate the
+    // browser's connection pool and starve the actually-visible images.
     if (game.cardImages) {
-      Object.keys(game.cardImages).forEach(function (name) {
-        var img = new Image();
-        img.src = game.cardImages[name];
-      });
+      var _precacheUrls = Object.values(game.cardImages);
+      var _precacheIdx = 0;
+      var _precacheBatch = 4;
+      function _precacheNext() {
+        if (_precacheIdx >= _precacheUrls.length) return;
+        var end = Math.min(_precacheIdx + _precacheBatch, _precacheUrls.length);
+        for (var i = _precacheIdx; i < end; i++) {
+          var img = new Image();
+          img.src = _precacheUrls[i];
+        }
+        _precacheIdx = end;
+        if (typeof requestIdleCallback !== "undefined") {
+          requestIdleCallback(_precacheNext);
+        } else {
+          setTimeout(_precacheNext, 100);
+        }
+      }
+      // Delay start so the initial render's images get first crack at connections
+      if (typeof requestIdleCallback !== "undefined") {
+        requestIdleCallback(_precacheNext);
+      } else {
+        setTimeout(_precacheNext, 200);
+      }
     }
 
     // Render turn boundary markers and annotation markers on slider
