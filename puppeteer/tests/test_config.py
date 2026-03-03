@@ -1093,7 +1093,7 @@ def test_deck_type_empty_string():
 # --- models.json schema validation ---
 
 # Fields that code actually reads from model entries.
-_MODELS_JSON_FUNCTIONAL_KEYS = {"id", "name", "name_part", "ignore_providers", "cache_control"}
+_MODELS_JSON_FUNCTIONAL_KEYS = {"id", "name", "name_part", "ignore_providers", "provider_order", "cache_control"}
 # Top-level keys that code actually reads.
 _MODELS_JSON_FUNCTIONAL_TOP_KEYS = {"models"}
 

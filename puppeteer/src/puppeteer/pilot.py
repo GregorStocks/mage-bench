@@ -618,6 +618,7 @@ async def run_pilot_loop(
     trace_log: GameLogWriter | None = None,
     reasoning_effort: str = "",
     ignore_providers: list[str] | None = None,
+    provider_order: list[str] | None = None,
     cache_control: dict | None = None,
 ) -> None:
     """Run the LLM-driven game-playing loop."""
@@ -700,8 +701,13 @@ async def run_pilot_loop(
             extra_body: dict = {}
             if reasoning_effort:
                 extra_body["reasoning"] = {"effort": reasoning_effort}
-            if ignore_providers:
-                extra_body["provider"] = {"ignore": ignore_providers}
+            if ignore_providers or provider_order:
+                provider_cfg: dict = {}
+                if ignore_providers:
+                    provider_cfg["ignore"] = ignore_providers
+                if provider_order:
+                    provider_cfg["order"] = provider_order
+                extra_body["provider"] = provider_cfg
             if extra_body:
                 create_kwargs["extra_body"] = extra_body
             response = await asyncio.wait_for(
@@ -1207,6 +1213,7 @@ async def run_pilot(
     reasoning_effort: str = "",
     tools: set[str] | None = None,
     ignore_providers: list[str] | None = None,
+    provider_order: list[str] | None = None,
     cache_control: dict | None = None,
 ) -> None:
     """Run the pilot client."""
@@ -1219,6 +1226,8 @@ async def run_pilot(
         logger.info("[pilot] Custom toolset: %s", sorted(tools))
     if ignore_providers:
         logger.info("[pilot] Ignoring providers: %s", ignore_providers)
+    if provider_order:
+        logger.info("[pilot] Provider order: %s", provider_order)
     if cache_control:
         logger.debug("[pilot] Prompt cache_control: %s", cache_control)
 
@@ -1312,6 +1321,7 @@ async def run_pilot(
                     trace_log=trace_log,
                     reasoning_effort=reasoning_effort,
                     ignore_providers=ignore_providers,
+                    provider_order=provider_order,
                     cache_control=cache_control,
                 )
         finally:
@@ -1337,6 +1347,7 @@ def main() -> int:
     parser.add_argument("--reasoning-effort", default="", help="OpenRouter reasoning effort: low, medium, high")
     parser.add_argument("--tools", default="", help="Comma-separated MCP tool names (default: all)")
     parser.add_argument("--ignore-providers", default="", help="Comma-separated OpenRouter providers to exclude")
+    parser.add_argument("--provider-order", default="", help="Comma-separated OpenRouter providers to prefer, in order")
     parser.add_argument("--cache-control", default="", help="JSON cache_control config for prompt caching")
     args = parser.parse_args()
 
@@ -1367,6 +1378,7 @@ def main() -> int:
     # Parse tool names: CLI arg > default
     pilot_tools = set(args.tools.split(",")) if args.tools else None
     ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
+    provider_order = args.provider_order.split(",") if args.provider_order else None
     cache_control = json.loads(args.cache_control) if args.cache_control else None
 
     try:
@@ -1387,6 +1399,7 @@ def main() -> int:
                 reasoning_effort=args.reasoning_effort,
                 tools=pilot_tools,
                 ignore_providers=ignore_providers,
+                provider_order=provider_order,
                 cache_control=cache_control,
             )
         )

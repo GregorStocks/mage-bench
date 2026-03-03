@@ -69,6 +69,7 @@ class PilotPlayer:
     prompt_suffix: str | None = None  # Extra prompt text (set by personality resolution)
     tools: list[str] | None = None  # MCP tool names (resolved from preset -> toolsets.json)
     ignore_providers: list[str] | None = None  # OpenRouter providers to exclude (from models.json)
+    provider_order: list[str] | None = None  # OpenRouter providers to prefer, in order (from models.json)
     cache_control: dict | None = None  # Prompt cache_control config (from models.json)
 
 
@@ -335,6 +336,8 @@ def _resolve_randoms(
             model_entry = models_by_id.get(player.model, {})
             if player.ignore_providers is None and "ignore_providers" in model_entry:
                 player.ignore_providers = model_entry["ignore_providers"]
+            if player.provider_order is None and "provider_order" in model_entry:
+                player.provider_order = model_entry["provider_order"]
             if player.cache_control is None and "cache_control" in model_entry:
                 player.cache_control = model_entry["cache_control"]
 
