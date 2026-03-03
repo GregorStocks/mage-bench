@@ -52,6 +52,7 @@ CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_RESULT_MAX_CHARS = 200  # max chars for a summarised tool result
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
+MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
 
 def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
@@ -825,6 +826,7 @@ async def run_pilot_loop(
                 turn_had_successful_action = False
                 turn_had_actionable_opportunity = False
                 turn_tools_called = set()
+                chat_messages_this_turn = 0
 
                 # Tool calls present = LLM is functioning, reset degradation counter.
                 # Gemini often omits reasoning text for obvious actions (like passing) -
@@ -859,9 +861,17 @@ async def run_pilot_loop(
                     board_tracker.inject(fn.name, args)
                     logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
 
-                    tool_start = time.monotonic()
-                    result_text = await execute_tool(session, fn.name, args)
-                    tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
+                    # Rate-limit chat messages to prevent expressive models
+                    # from wasting entire LLM iterations on chat.
+                    if fn.name == "send_chat_message" and chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
+                        result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
+                        tool_latency_ms = 0
+                    else:
+                        if fn.name == "send_chat_message":
+                            chat_messages_this_turn += 1
+                        tool_start = time.monotonic()
+                        result_text = await execute_tool(session, fn.name, args)
+                        tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
                     # Extract game_seq from tool result for event ordering
                     try:
@@ -1002,7 +1012,8 @@ async def run_pilot_loop(
                         display_text, last_board = _render_for_pilot(result_text, last_board)
                         # Chat nudge: remind LLM to chat if it's been silent too long
                         turns_since_chat = current_game_turn - last_chat_turn
-                        if turns_since_chat >= 2 and display_text != result_text:
+                        chat_budget_left = chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
+                        if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
                             display_text += (
                                 f"\n\n[It's been {turns_since_chat} turns since you last "
                                 f"chatted — send a message to your opponent!]"

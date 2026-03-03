@@ -6,6 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 
 from puppeteer.pilot import (
+    MAX_CHAT_MESSAGES_PER_TURN,
     PermanentLLMFailure,
     _build_pilot_decision,
     _build_pilot_snapshot,
@@ -515,6 +516,80 @@ async def test_successful_pass_resets_error_counter():
 
     # No forced plain pass should have been made (never hit 3 consecutive)
     assert forced_pass_count == 0
+
+
+# --- Chat rate limiting tests ---
+
+
+def _make_multi_tool_response(tool_calls_spec: list[tuple[str, str]]) -> MagicMock:
+    """Create a mock LLM response with multiple tool calls.
+
+    *tool_calls_spec* is a list of (tool_name, arguments_json) tuples.
+    """
+    tool_calls = []
+    for i, (name, arguments) in enumerate(tool_calls_spec):
+        tc = MagicMock()
+        tc.id = f"call_{i}"
+        tc.function.name = name
+        tc.function.arguments = arguments
+        tool_calls.append(tc)
+
+    choice = MagicMock()
+    choice.finish_reason = "tool_calls"
+    choice.message.tool_calls = tool_calls
+    choice.message.content = None
+
+    response = MagicMock()
+    response.choices = [choice]
+    response.usage = MagicMock(prompt_tokens=10, completion_tokens=5)
+    return response
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_chat_messages_rate_limited_per_turn():
+    """send_chat_message calls beyond MAX_CHAT_MESSAGES_PER_TURN should be blocked."""
+    session = MagicMock()
+    chat_calls_forwarded = 0
+
+    async def fake_call_tool(name, args):
+        nonlocal chat_calls_forwarded
+        if name == "send_chat_message":
+            chat_calls_forwarded += 1
+            return _mock_tool_result('{"success": true}')
+        if name == "pass_priority":
+            return _mock_tool_result('{"game_over": true}')
+        return _mock_tool_result('{"ok": true}')
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+
+    # LLM sends 4 chat messages + pass_priority in one turn
+    chat_count = MAX_CHAT_MESSAGES_PER_TURN + 2
+    tool_calls = [("send_chat_message", json.dumps({"message": f"msg {i}"})) for i in range(chat_count)]
+    tool_calls.append(("pass_priority", '{"timeout_ms": 10000}'))
+    llm_response = _make_multi_tool_response(tool_calls)
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=llm_response)
+
+    tools = [
+        {"type": "function", "function": {"name": "send_chat_message", "parameters": {}}},
+        {"type": "function", "function": {"name": "pass_priority", "parameters": {}}},
+    ]
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=tools,
+            prices={},
+            username="test-player",
+        )
+
+    # Only MAX_CHAT_MESSAGES_PER_TURN should have been forwarded to the bridge
+    assert chat_calls_forwarded == MAX_CHAT_MESSAGES_PER_TURN
 
 
 # --- Pilot rendering tests ---
