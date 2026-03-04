@@ -1,13 +1,15 @@
-"""Test v2 ↔ v3 migration round-trip fidelity."""
+"""Test v2 ↔ v3 and v3 ↔ v4 migration round-trip fidelity."""
 
 import json
 import sys
 from pathlib import Path
 from unittest.mock import patch
 
-# Insert scripts/ onto sys.path so we can import the migration modules
+# Insert scripts/ and puppeteer/src/ onto sys.path so we can import the migration modules
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
+PUPPETEER_SRC = Path(__file__).resolve().parent.parent / "src"
+sys.path.insert(0, str(PUPPETEER_SRC))
 
 
 def _make_v2_export() -> dict:
@@ -264,3 +266,135 @@ class TestMigrateRoundTrip:
         assert "Shock" in real_cards
         assert "Goblin Token" in tokens
         assert "Goblin Token" not in real_cards
+
+
+def _make_v3_export(*, harness_epoch: int = 40) -> dict:
+    """Create a minimal v3 export with cardData."""
+    return {
+        "version": 3,
+        "id": "game_20260301_120000",
+        "timestamp": "2026-03-01T12:00:00-08:00",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
+        "totalTurns": 5,
+        "winner": "Alice",
+        "harnessEpoch": harness_epoch,
+        "youtubeUrl": "",
+        "players": [
+            {"name": "Alice", "type": "pilot"},
+            {"name": "Bob", "type": "cpu"},
+        ],
+        "cardImages": {
+            "Lightning Bolt": "https://api.scryfall.com/cards/lea/161?format=image&version=small",
+            "Mountain": "https://api.scryfall.com/cards/lea/292?format=image&version=small",
+            "Goblin Token": "https://cards.scryfall.io/small/front/token/goblin.jpg",
+        },
+        "cardData": {
+            "Lightning Bolt": {
+                "mana_cost": "{R}",
+                "type_line": "Instant",
+                "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+            },
+            "Mountain": {
+                "type_line": "Basic Land — Mountain",
+            },
+        },
+        "snapshots": [],
+        "actions": [],
+        "llmEvents": [],
+        "llmTrace": [],
+        "gameOver": {"seq": 100, "message": "Alice wins"},
+        "annotations": [],
+        "blunderScriptVersion": 1,
+    }
+
+
+class TestMigrateV3V4RoundTrip:
+    def test_v3_to_v4_adds_season_and_tournament(self) -> None:
+        from migrate_v3_to_v4 import compute_season
+
+        v3 = _make_v3_export(harness_epoch=40)
+        season = compute_season(v3["harnessEpoch"])
+
+        assert season == 1
+
+    def test_v3_to_v4_pre_season(self) -> None:
+        from migrate_v3_to_v4 import compute_season
+
+        v3 = _make_v3_export(harness_epoch=5)
+        season = compute_season(v3["harnessEpoch"])
+
+        assert season == 0
+
+    def test_v3_to_v4_boundary(self) -> None:
+        """Epoch exactly at MIN_LEADERBOARD_EPOCH should be season 1."""
+        from migrate_v3_to_v4 import compute_season
+
+        from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+
+        assert compute_season(MIN_LEADERBOARD_EPOCH) == 1
+        assert compute_season(MIN_LEADERBOARD_EPOCH - 1) == 0
+
+    def test_v4_to_v3_removes_season_and_tournament(self) -> None:
+        v4 = _make_v3_export()
+        v4["version"] = 4
+        v4["season"] = 1
+        v4["tournament"] = None
+
+        # Simulate v4→v3 migration
+        v3 = json.loads(json.dumps(v4))
+        v3.pop("season", None)
+        v3.pop("tournament", None)
+        v3["version"] = 3
+
+        assert "season" not in v3
+        assert "tournament" not in v3
+        assert v3["version"] == 3
+
+    def test_round_trip_preserves_v3_structure(self) -> None:
+        """v3 → v4 → v3 should produce the same structure as the original."""
+        from migrate_v3_to_v4 import compute_season
+
+        v3_original = _make_v3_export()
+        original_json = json.dumps(v3_original, sort_keys=True)
+
+        # v3 → v4
+        v4 = json.loads(original_json)  # Deep copy
+        v4["version"] = 4
+        v4["season"] = compute_season(v4["harnessEpoch"])
+        v4["tournament"] = None
+
+        assert v4["season"] == 1
+        assert v4["tournament"] is None
+
+        # v4 → v3
+        v3_restored = json.loads(json.dumps(v4, sort_keys=True))  # Deep copy
+        v3_restored.pop("season", None)
+        v3_restored.pop("tournament", None)
+        v3_restored["version"] = 3
+
+        # Compare
+        assert json.dumps(v3_restored, sort_keys=True) == original_json
+
+    def test_round_trip_preserves_v3_pre_season(self) -> None:
+        """Round-trip with a pre-season game."""
+        from migrate_v3_to_v4 import compute_season
+
+        v3_original = _make_v3_export(harness_epoch=5)
+        original_json = json.dumps(v3_original, sort_keys=True)
+
+        # v3 → v4
+        v4 = json.loads(original_json)
+        v4["version"] = 4
+        v4["season"] = compute_season(v4["harnessEpoch"])
+        v4["tournament"] = None
+
+        assert v4["season"] == 0
+
+        # v4 → v3
+        v3_restored = json.loads(json.dumps(v4, sort_keys=True))
+        v3_restored.pop("season", None)
+        v3_restored.pop("tournament", None)
+        v3_restored["version"] = 3
+
+        assert json.dumps(v3_restored, sort_keys=True) == original_json

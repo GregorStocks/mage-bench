@@ -78569,7 +78569,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -216006,5 +216006,7 @@
       "type_line": "Enchantment",
       "oracle_text": "Whenever a nontoken artifact you control enters, create a colorless artifact token named Munitions with \"When this token leaves the battlefield, it deals 2 damage to any target.\""
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

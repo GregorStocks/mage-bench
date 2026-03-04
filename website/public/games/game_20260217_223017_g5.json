@@ -56484,7 +56484,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -60830,5 +60830,7 @@
       "type_line": "Land — Urza's",
       "oracle_text": "{T}: Add {C}.\nMetalcraft — {T}: Add {C} for each Urza's land you control. Activate only if you control three or more artifacts."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

@@ -405672,7 +405672,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -416869,5 +416869,7 @@
       "type_line": "Artifact",
       "oracle_text": "This artifact enters tapped.\n{T}: Add {C}{C}."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

@@ -27985,7 +27985,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -30185,5 +30185,7 @@
       "type_line": "Land",
       "oracle_text": "{T}: Add {C}.\n{T}, Sacrifice this land: Destroy target nonbasic land."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

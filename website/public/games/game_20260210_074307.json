@@ -329149,7 +329149,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 12,
-  "version": 3,
+  "version": 4,
   "gameType": "",
   "deckType": "",
   "llmTrace": [],
@@ -348230,5 +348230,7 @@
       "type_line": "Instant",
       "oracle_text": "Choose three. You may choose the same mode more than once.\n• Target player draws a card and loses 1 life.\n• Target creature gets -2/-2 until end of turn.\n• Return target creature card from your graveyard to your hand."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

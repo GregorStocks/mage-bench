@@ -1079,7 +1079,7 @@ def build_export(game_dir: Path) -> dict:
 
     # Build output
     output: dict = {
-        "version": 3,
+        "version": 4,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -1099,6 +1099,13 @@ def build_export(game_dir: Path) -> dict:
         output["harnessEpoch"] = meta["harness_epoch"]
     if meta.get("youtube_url"):
         output["youtubeUrl"] = meta["youtube_url"]
+
+    # Season/tournament (v4)
+    from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+
+    harness_epoch_val = meta.get("harness_epoch", 0)
+    output["season"] = 0 if harness_epoch_val < MIN_LEADERBOARD_EPOCH else 1
+    output["tournament"] = None
 
     # Build canonical decisions
     harness_epoch = meta.get("harness_epoch", 0)
@@ -1146,8 +1153,8 @@ def _validate_export(data: dict) -> None:
     required fields and wrong version. The full JSON Schema validation
     runs in tests (test_export_schema.py).
     """
-    assert data.get("version") in (2, 3), (
-        f"Expected version 2 or 3, got {data.get('version')}"
+    assert data.get("version") in (2, 3, 4), (
+        f"Expected version 2, 3, or 4, got {data.get('version')}"
     )
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"

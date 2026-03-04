@@ -27,5 +27,6 @@ def down(data: dict) -> dict:
 
 ## Current state
 
-- v2: Active schema (`schemas/game-export-v2.schema.json`)
-- No migrations yet — this directory is infrastructure for the next version bump.
+- v4: Active export version (v2 schema file, accepts versions 2/3/4)
+- v3 → v4: `scripts/migrate_v3_to_v4.py` (adds `season`, `tournament`)
+- v4 → v3: `scripts/migrate_v4_to_v3.py` (removes `season`, `tournament`)

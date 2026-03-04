@@ -46095,7 +46095,7 @@
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -49523,5 +49523,7 @@
       "type_line": "Land",
       "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Forest or Plains card, put it onto the battlefield, then shuffle."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }
