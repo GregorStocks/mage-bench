@@ -231,9 +231,8 @@ public class GameView implements Serializable {
     private void assignShortIds(Game game) {
         mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
         this.shortIdRegistry = registry;
-        boolean tracing = LOGGER.isDebugEnabled();
-        int idAtStart = tracing ? registry.peekNextId() : 0;
-        StringBuilder traceLog = tracing ? new StringBuilder() : null;
+        int idAtStart = registry.peekNextId();
+        StringBuilder traceLog = new StringBuilder();
 
         // Assign IDs in deterministic order: name, then shortId sequence.
         // See ShortIdRegistry for the deterministic ordering invariant.
@@ -248,7 +247,7 @@ public class GameView implements Serializable {
             List<CardView> sorted = new ArrayList<>(cards.values());
             sorted.sort(byName);
             for (CardView cv : sorted) {
-                boolean isNew = tracing && registry.getSequence(cv.getId()) == Integer.MAX_VALUE;
+                boolean isNew = registry.getSequence(cv.getId()) == Integer.MAX_VALUE;
                 cv.setShortId(registry.getOrAssign(cv.getId()));
                 if (isNew) {
                     traceLog.append("  ").append(section).append(": ")
@@ -267,7 +266,7 @@ public class GameView implements Serializable {
             List<PermanentView> sortedBf = new ArrayList<>(pv.getBattlefield().values());
             sortedBf.sort(byName);
             for (PermanentView permView : sortedBf) {
-                boolean isNew = tracing && registry.getSequence(permView.getId()) == Integer.MAX_VALUE;
+                boolean isNew = registry.getSequence(permView.getId()) == Integer.MAX_VALUE;
                 permView.setShortId(registry.getOrAssign(permView.getId()));
                 if (isNew) {
                     traceLog.append("  ").append(playerPrefix).append("battlefield: ")
@@ -280,7 +279,7 @@ public class GameView implements Serializable {
             // Top card of library (when revealed)
             CardView topCard = pv.getTopCard();
             if (topCard != null) {
-                boolean isNew = tracing && registry.getSequence(topCard.getId()) == Integer.MAX_VALUE;
+                boolean isNew = registry.getSequence(topCard.getId()) == Integer.MAX_VALUE;
                 topCard.setShortId(registry.getOrAssign(topCard.getId()));
                 if (isNew) {
                     traceLog.append("  ").append(playerPrefix).append("topCard: ")
@@ -293,7 +292,7 @@ public class GameView implements Serializable {
                 for (CommandObjectView cmd : pv.getCommandObjectList()) {
                     if (cmd instanceof CommanderView) {
                         CommanderView cv = (CommanderView) cmd;
-                        boolean isNew = tracing && registry.getSequence(cv.getId()) == Integer.MAX_VALUE;
+                        boolean isNew = registry.getSequence(cv.getId()) == Integer.MAX_VALUE;
                         cv.setShortId(registry.getOrAssign(cv.getId()));
                         if (isNew) {
                             traceLog.append("  ").append(playerPrefix).append("commander: ")
@@ -317,7 +316,7 @@ public class GameView implements Serializable {
                 List<Card> handCards = new ArrayList<>(gamePlayer.getHand().getCards(game));
                 handCards.sort(Comparator.comparing(Card::getName));
                 for (Card card : handCards) {
-                    boolean isNew = tracing && registry.getSequence(card.getId()) == Integer.MAX_VALUE;
+                    boolean isNew = registry.getSequence(card.getId()) == Integer.MAX_VALUE;
                     registry.getOrAssign(card.getId());
                     if (isNew) {
                         traceLog.append("  ").append(pv.getName()).append("/hand-preassign: ")
@@ -356,7 +355,7 @@ public class GameView implements Serializable {
         }
         for (LookedAtView lv : lookedAt) {
             for (SimpleCardView sv : lv.getCards().values()) {
-                boolean isNew = tracing && registry.getSequence(sv.getId()) == Integer.MAX_VALUE;
+                boolean isNew = registry.getSequence(sv.getId()) == Integer.MAX_VALUE;
                 sv.setShortId(registry.getOrAssign(sv.getId()));
                 if (isNew) {
                     traceLog.append("  lookedAt/").append(lv.getName()).append(": ")
@@ -372,7 +371,7 @@ public class GameView implements Serializable {
         // Assign short IDs to players themselves (for targeting).
         // Placed after all card/permanent assignments to avoid shifting existing card IDs.
         for (PlayerView pv : sortedPlayers) {
-            boolean isNew = tracing && registry.getSequence(pv.getPlayerId()) == Integer.MAX_VALUE;
+            boolean isNew = registry.getSequence(pv.getPlayerId()) == Integer.MAX_VALUE;
             pv.setShortId(registry.getOrAssign(pv.getPlayerId()));
             if (isNew) {
                 traceLog.append("  player: ").append(pv.getShortId()).append("=").append(pv.getName())
@@ -380,13 +379,11 @@ public class GameView implements Serializable {
             }
         }
 
-        if (tracing) {
-            int newCount = registry.peekNextId() - idAtStart;
-            if (newCount > 0) {
-                String forLabel = myPlayerId != null ? String.valueOf(myPlayerId).substring(0, 8) : "watcher";
-                LOGGER.debug("assignShortIds[for=" + forLabel
-                        + ", nextId=" + idAtStart + "->" + registry.peekNextId() + "] " + newCount + " new:\n" + traceLog);
-            }
+        int newCount = registry.peekNextId() - idAtStart;
+        if (newCount > 0) {
+            String forLabel = myPlayerId != null ? String.valueOf(myPlayerId).substring(0, 8) : "watcher";
+            LOGGER.info("assignShortIds[for=" + forLabel
+                    + ", nextId=" + idAtStart + "->" + registry.peekNextId() + "] " + newCount + " new:\n" + traceLog);
         }
     }
 
