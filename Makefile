@@ -188,9 +188,14 @@ blunder-seed:
 blunder-audit:
 	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
 
+AUDIT_API_PORT ?= $(shell expr $(WEBSITE_PORT) + 100)
+
 .PHONY: blunder-audit-web
-blunder-audit-web:
-	uv run --project puppeteer python scripts/analysis/blunder_audit_web.py $(ARGS)
+blunder-audit-web: leaderboard
+	@echo "Starting audit API on port $(AUDIT_API_PORT)..."
+	@uv run --project puppeteer python scripts/analysis/blunder_audit_web.py --port $(AUDIT_API_PORT) $(ARGS) &
+	@sleep 1
+	AUDIT_API_PORT=$(AUDIT_API_PORT) $(MAKE) website
 
 .PHONY: blunder-baseline
 blunder-baseline:
