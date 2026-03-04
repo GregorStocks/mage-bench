@@ -2923,8 +2923,8 @@ public class BridgeCallbackHandler {
         boolean yieldActive = false;
         PhaseStep targetStep = null;
         boolean yieldUntilMyTurn = false;
+        boolean yieldUntilEndOfTurn = false;
         boolean yieldUntilStackResolved = false;
-        // end_of_turn needs no flag — falls through to the playable-cards check
         int yieldStartTurn = lastTurnNumber;
         if (until != null) {
             targetStep = STEP_PHASES.get(until);
@@ -2981,6 +2981,8 @@ public class BridgeCallbackHandler {
                     yieldUntilStackResolved = true;
                 } else if ("my_turn".equals(until)) {
                     yieldUntilMyTurn = true;
+                } else if ("end_of_turn".equals(until)) {
+                    yieldUntilEndOfTurn = true;
                 }
                 // Auto-pass the current priority locally via sendPlayerBoolean
                 // instead of sendPlayerAction+skip().  This avoids the race where
@@ -3146,6 +3148,29 @@ public class BridgeCallbackHandler {
                         // Fall through to playable-cards check below
                     } else {
                         // Not our turn — auto-pass
+                        synchronized (actionLock) {
+                            if (pendingAction == action) {
+                                pendingAction = null;
+                            }
+                        }
+                        session.sendPlayerBoolean(action.gameId(), false);
+                        actionsPassed++;
+                        continue;
+                    }
+                }
+
+                // Client-side yield: end_of_turn
+                // Auto-pass all callbacks until the end of turn step is reached.
+                if (yieldUntilEndOfTurn) {
+                    GameView gv = (action.data() instanceof GameClientMessage)
+                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    PhaseStep step = gv != null ? gv.getStep() : null;
+                    if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP) {
+                        // Reached end of turn — stop yielding, fall through to
+                        // playable-cards check so LLM can respond to end-step triggers
+                        yieldUntilEndOfTurn = false;
+                    } else {
+                        // Not end of turn yet — auto-pass
                         synchronized (actionLock) {
                             if (pendingAction == action) {
                                 pendingAction = null;
