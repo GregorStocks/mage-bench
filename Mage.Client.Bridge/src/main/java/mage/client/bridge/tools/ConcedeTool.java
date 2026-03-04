@@ -9,16 +9,21 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class ConcedeTool {
+
+    public static class Result {
+        @ResultField(description = "Whether the concession was sent")
+        public Boolean success;
+    }
+
     @Tool(
         name = "concede",
-        description = "Concede the current game.",
-        output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether the concession was sent")
-        }
+        description = "Concede the current game."
     )
-    public static Map<String, Object> execute(BridgeCallbackHandler handler) {
+    public static Result execute(BridgeCallbackHandler handler) {
         boolean success = handler.concede();
-        return Map.of("success", success);
+        var result = new Result();
+        result.success = success;
+        return result;
     }
 
     public static List<Map<String, Object>> examples() {

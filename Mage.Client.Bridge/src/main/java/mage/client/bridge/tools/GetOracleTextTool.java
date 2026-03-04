@@ -9,26 +9,51 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class GetOracleTextTool {
+
+    public static class Result {
+        @ResultField(description = "Whether lookup succeeded")
+        public Boolean success;
+
+        @ResultField(description = "Card name")
+        public String name;
+
+        @ResultField(description = "Mana cost")
+        public String mana_cost;
+
+        @ResultField(description = "Type line")
+        public String type;
+
+        @ResultField(description = "Oracle text lines")
+        public List<String> rules;
+
+        @ResultField(description = "Power")
+        public String power;
+
+        @ResultField(description = "Toughness")
+        public String toughness;
+
+        @ResultField(description = "Starting loyalty")
+        public String starting_loyalty;
+
+        @ResultField(description = "Starting defense")
+        public String starting_defense;
+
+        @ResultField(description = "Back face (transform/MDFC)")
+        public Map<String, Object> second_face;
+
+        @ResultField(description = "Card objects (batch mode)")
+        public List<Map<String, Object>> cards;
+
+        @ResultField(description = "Error message")
+        public String error;
+    }
+
     @Tool(
         name = "get_oracle_text",
         description = "Get oracle text for cards. Use card_name/card_names for lookup by name, "
-            + "or object_id/object_ids for in-game objects.",
-        output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether lookup succeeded"),
-            @Tool.Field(name = "name", type = "string", description = "Card name"),
-            @Tool.Field(name = "mana_cost", type = "string", description = "Mana cost"),
-            @Tool.Field(name = "type", type = "string", description = "Type line"),
-            @Tool.Field(name = "rules", type = "array[string]", description = "Oracle text lines"),
-            @Tool.Field(name = "power", type = "string", description = "Power"),
-            @Tool.Field(name = "toughness", type = "string", description = "Toughness"),
-            @Tool.Field(name = "starting_loyalty", type = "string", description = "Starting loyalty"),
-            @Tool.Field(name = "starting_defense", type = "string", description = "Starting defense"),
-            @Tool.Field(name = "second_face", type = "object", description = "Back face (transform/MDFC)"),
-            @Tool.Field(name = "cards", type = "array[object]", description = "Card objects (batch mode)"),
-            @Tool.Field(name = "error", type = "string", description = "Error message")
-        }
+            + "or object_id/object_ids for in-game objects."
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "Card name") String card_name,
             @Param(description = "Card names (batch)") String[] card_names,

@@ -9,17 +9,24 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class GetGameHistoryTool {
+
+    public static class Result {
+        @ResultField(description = "History text grouped by turn/phase")
+        public String history;
+
+        @ResultField(description = "Cursor for next call")
+        public Integer cursor;
+
+        @ResultField(description = "Events in this response")
+        public Integer event_count;
+    }
+
     @Tool(
         name = "get_game_history",
         description = "Get structured game history (casts, attacks, life changes) grouped by turn/phase. "
-            + "Use cursor for incremental updates.",
-        output = {
-            @Tool.Field(name = "history", type = "string", description = "History text grouped by turn/phase"),
-            @Tool.Field(name = "cursor", type = "integer", description = "Cursor for next call"),
-            @Tool.Field(name = "event_count", type = "integer", description = "Events in this response")
-        }
+            + "Use cursor for incremental updates."
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "Events from this turn onward") Integer since_turn,
             @Param(description = "Cursor for incremental updates. Mutually exclusive with since_turn.") Integer cursor) {

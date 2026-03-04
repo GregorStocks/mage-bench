@@ -10,26 +10,53 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class GetGameStateTool {
+
+    public static class Result {
+        @ResultField(description = "Whether state is available")
+        public Boolean available;
+
+        @ResultField(description = "Error message")
+        public String error;
+
+        @ResultField(description = "State cursor")
+        public Long cursor;
+
+        @ResultField(description = "Cursor matched (no changes)")
+        public Boolean unchanged;
+
+        @ResultField(description = "Turn number")
+        public Integer turn;
+
+        @ResultField(description = "Current phase")
+        public String phase;
+
+        @ResultField(description = "Current step")
+        public String step;
+
+        @ResultField(description = "Whose turn it is")
+        public String active_player;
+
+        @ResultField(description = "Who has priority")
+        public String priority_player;
+
+        @ResultField(description = "Player objects with life, hand, battlefield, graveyard, exile, mana_pool")
+        public List<Map<String, Object>> players;
+
+        @ResultField(description = "Stack: name, rules, targets")
+        public List<Map<String, Object>> stack;
+
+        @ResultField(description = "Combat groups")
+        public List<Map<String, Object>> combat;
+
+        @ResultField(description = "Sequence number")
+        public Integer game_seq;
+    }
+
     @Tool(
         name = "get_game_state",
-        description = "Get full game state: turn, phase, players (life, hand, battlefield, graveyard, exile), stack, combat.",
-        output = {
-            @Tool.Field(name = "available", type = "boolean", description = "Whether state is available"),
-            @Tool.Field(name = "error", type = "string", description = "Error message"),
-            @Tool.Field(name = "cursor", type = "integer", description = "State cursor"),
-            @Tool.Field(name = "unchanged", type = "boolean", description = "Cursor matched (no changes)"),
-            @Tool.Field(name = "turn", type = "integer", description = "Turn number"),
-            @Tool.Field(name = "phase", type = "string", description = "Current phase"),
-            @Tool.Field(name = "step", type = "string", description = "Current step"),
-            @Tool.Field(name = "active_player", type = "string", description = "Whose turn it is"),
-            @Tool.Field(name = "priority_player", type = "string", description = "Who has priority"),
-            @Tool.Field(name = "players", type = "array[object]", description = "Player objects with life, hand, battlefield, graveyard, exile, mana_pool"),
-            @Tool.Field(name = "stack", type = "array[object]", description = "Stack: name, rules, targets"),
-            @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups"),
-            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number")
-        }
+        description = "Get full game state: turn, phase, players (life, hand, battlefield, graveyard, exile), stack, combat."
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "Cursor from previous call. Returns compact payload if unchanged.") Long cursor) {
         return handler.getGameState(cursor);

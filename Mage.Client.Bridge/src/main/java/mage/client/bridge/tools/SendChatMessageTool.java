@@ -1,6 +1,5 @@
 package mage.client.bridge.tools;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,27 +9,32 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class SendChatMessageTool {
+
+    public static class Result {
+        @ResultField(description = "Whether the message was sent")
+        public Boolean success;
+
+        @ResultField(description = "Error message when success is false")
+        public String error;
+    }
+
     @Tool(
         name = "send_chat_message",
-        description = "Send a chat message to the game",
-        output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether the message was sent"),
-            @Tool.Field(name = "error", type = "string", description = "Error message when success is false")
-        }
+        description = "Send a chat message to the game"
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "Message to send", required = true) String message) {
         if (message == null) {
             throw new RuntimeException("Missing required 'message' parameter");
         }
         String error = handler.sendChatMessage(message);
-        Map<String, Object> result = new HashMap<>();
+        var result = new Result();
         if (error != null) {
-            result.put("success", false);
-            result.put("error", error);
+            result.success = false;
+            result.error = error;
         } else {
-            result.put("success", true);
+            result.success = true;
         }
         return result;
     }

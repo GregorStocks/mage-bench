@@ -9,27 +9,39 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class GetGameLogTool {
+
+    public static class Result {
+        @ResultField(description = "Game log text")
+        public String log;
+
+        @ResultField(description = "Full log length in chars")
+        public Integer total_length;
+
+        @ResultField(description = "Older content was omitted")
+        public Boolean truncated;
+
+        @ResultField(description = "Cursor for next call")
+        public Integer cursor;
+
+        @ResultField(description = "Cursor was too old and was reset",
+            conditional = "when cursor parameter was used")
+        public Boolean cursor_reset;
+
+        @ResultField(description = "Turn number the log starts from",
+            conditional = "when since_turn parameter was used")
+        public Integer since_turn;
+
+        @ResultField(description = "Player whose turn the log starts from",
+            conditional = "when since_turn parameter was used")
+        public String since_player;
+    }
+
     @Tool(
         name = "get_game_log",
         description = "Get game log text. Use since_turn for turn-based recap, "
-            + "cursor for incremental updates, or max_chars for recent text.",
-        output = {
-            @Tool.Field(name = "log", type = "string", description = "Game log text"),
-            @Tool.Field(name = "total_length", type = "integer", description = "Full log length in chars"),
-            @Tool.Field(name = "truncated", type = "boolean", description = "Older content was omitted"),
-            @Tool.Field(name = "cursor", type = "integer", description = "Cursor for next call"),
-            @Tool.Field(name = "cursor_reset", type = "boolean",
-                description = "Cursor was too old and was reset",
-                conditional = "when cursor parameter was used"),
-            @Tool.Field(name = "since_turn", type = "integer",
-                description = "Turn number the log starts from",
-                conditional = "when since_turn parameter was used"),
-            @Tool.Field(name = "since_player", type = "string",
-                description = "Player whose turn the log starts from",
-                conditional = "when since_turn parameter was used")
-        }
+            + "cursor for incremental updates, or max_chars for recent text."
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "Max chars to return (0 or omit for all)") Integer max_chars,
             @Param(description = "Cursor from previous call for incremental updates. Mutually exclusive with since_turn.") Integer cursor,
