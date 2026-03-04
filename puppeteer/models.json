@@ -195,12 +195,13 @@
       "id": "mistralai/mistral-large-2512",
       "name": "Mistral Large",
       "name_part": "MstLg",
+      "skip_expressive_personalities": true,
       "_input_per_m": 0.50,
       "_output_per_m": 1.50,
       "_context_k": 262,
       "_thinking": false,
       "_tier": "cheap",
-      "_notes": "No reasoning mode. 675B total, 41B active (MoE). Apache 2.0. Devstral (smaller model) was tested and produced 0/255 reasoning text."
+      "_notes": "No reasoning mode. 675B total, 41B active (MoE). Apache 2.0. Devstral (smaller model) was tested and produced 0/255 reasoning text. Severe personality infection with expressive personas (villain, dramatist, valley-girl) — reasoning becomes pure roleplay with zero strategic analysis."
     },
     {
       "id": "x-ai/grok-4",

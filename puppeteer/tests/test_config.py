@@ -1093,7 +1093,15 @@ def test_deck_type_empty_string():
 # --- models.json schema validation ---
 
 # Fields that code actually reads from model entries.
-_MODELS_JSON_FUNCTIONAL_KEYS = {"id", "name", "name_part", "ignore_providers", "provider_order", "cache_control"}
+_MODELS_JSON_FUNCTIONAL_KEYS = {
+    "id",
+    "name",
+    "name_part",
+    "ignore_providers",
+    "provider_order",
+    "cache_control",
+    "skip_expressive_personalities",
+}
 # Top-level keys that code actually reads.
 _MODELS_JSON_FUNCTIONAL_TOP_KEYS = {"models"}
 
@@ -1129,3 +1137,64 @@ def test_models_json_no_uncommented_fields():
                     f"Field {key!r} on model {model_id!r} in models.json is not functional "
                     f"and must start with '_'. Functional keys: {sorted(_MODELS_JSON_FUNCTIONAL_KEYS)}"
                 )
+
+
+# --- Expressive personality filtering tests ---
+
+EXPRESSIVE_PERSONALITIES = {
+    "villain": {"name_part": "Villain", "prompt_suffix": "You are evil.", "expressive": True},
+    "drama": {"name_part": "Drama", "prompt_suffix": "So dramatic.", "expressive": True},
+    "chill": {"name_part": "Chill", "prompt_suffix": "You are chill."},
+    "stoic": {"name_part": "Stoic", "prompt_suffix": "You are stoic."},
+}
+
+EXPRESSIVE_MODELS = {
+    "models": [
+        {"id": "test/restricted", "name": "Restricted", "name_part": "Rstrct", "skip_expressive_personalities": True},
+        {"id": "test/normal", "name": "Normal", "name_part": "Normal"},
+    ],
+}
+
+EXPRESSIVE_PRESETS = {
+    "presets": {
+        "restricted-preset": {"model": "test/restricted", "status": "active", "system_prompt": "default"},
+        "normal-preset": {"model": "test/normal", "status": "active", "system_prompt": "default"},
+    },
+}
+
+
+def test_random_personality_skips_expressive_for_restricted_model():
+    """Random personality on a skip_expressive_personalities model should never pick expressive."""
+    player = PilotPlayer(name="player-0", personality="random", preset="restricted-preset")
+    players = [(player, False)]
+
+    # First choice is "villain" (expressive, should be re-rolled), second is "chill" (ok)
+    choices = ["villain", "chill"]
+    with patch("puppeteer.config.random.choice", side_effect=choices):
+        _resolve_randoms(players, EXPRESSIVE_PERSONALITIES, EXPRESSIVE_PRESETS, SAMPLE_PROMPTS, EXPRESSIVE_MODELS)
+
+    assert player.personality == "chill"
+    assert player.prompt_suffix == "You are chill."
+
+
+def test_explicit_expressive_personality_allowed_on_restricted_model():
+    """Explicit (non-random) expressive personality should work on restricted models."""
+    player = PilotPlayer(name="player-0", personality="villain", preset="restricted-preset")
+    players = [(player, False)]
+
+    _resolve_randoms(players, EXPRESSIVE_PERSONALITIES, EXPRESSIVE_PRESETS, SAMPLE_PROMPTS, EXPRESSIVE_MODELS)
+
+    assert player.personality == "villain"
+    assert player.prompt_suffix == "You are evil."
+
+
+def test_random_expressive_personality_allowed_on_normal_model():
+    """Random personality on a normal model should allow expressive personalities."""
+    player = PilotPlayer(name="player-0", personality="random", preset="normal-preset")
+    players = [(player, False)]
+
+    with patch("puppeteer.config.random.choice", return_value="villain"):
+        _resolve_randoms(players, EXPRESSIVE_PERSONALITIES, EXPRESSIVE_PRESETS, SAMPLE_PROMPTS, EXPRESSIVE_MODELS)
+
+    assert player.personality == "villain"
+    assert player.prompt_suffix == "You are evil."
