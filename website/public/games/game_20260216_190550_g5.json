@@ -136381,7 +136381,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -143867,5 +143867,7 @@
       "type_line": "Sorcery",
       "oracle_text": "For each player, choose friend or foe. Each friend creates a token that's a copy of a creature they control. Each foe returns a creature they control to its owner's hand."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

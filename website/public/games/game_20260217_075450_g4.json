@@ -17317,7 +17317,7 @@
   "youtubeUrl": "https://youtu.be/F0huOlJm86s",
   "annotations": [],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -18699,5 +18699,7 @@
       "type_line": "Land",
       "oracle_text": "{T}: Add {U}.\n{T}: Add {G}. Activate only if you control a Forest or an Island."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

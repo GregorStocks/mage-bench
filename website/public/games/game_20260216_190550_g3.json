@@ -142884,7 +142884,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -147703,5 +147703,7 @@
       "type_line": "Land",
       "oracle_text": "{T}: Add {C}.\n{T}: Add {G} or {U}. This land deals 1 damage to you."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

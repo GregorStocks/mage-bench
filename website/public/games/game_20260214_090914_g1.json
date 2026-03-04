@@ -167369,7 +167369,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -187531,5 +187531,7 @@
       "type_line": "Sorcery",
       "oracle_text": "Draw three cards. Then discard two cards unless you discard a creature card.\nHarmonize {4}{U} (You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by {X}, where X is its power. Then exile this spell.)"
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

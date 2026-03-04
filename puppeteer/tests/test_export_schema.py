@@ -107,6 +107,69 @@ class TestExportSchema:
         errors = list(validator.iter_errors(v2))
         assert errors == [], f"v2 export should still be valid, got: {errors}"
 
+    def test_schema_accepts_version_4_with_season_tournament(self) -> None:
+        schema = _load_schema()
+        validator = jsonschema.Draft7Validator(schema)
+        v4 = {
+            "version": 4,
+            "id": "test_v4",
+            "timestamp": "",
+            "gameType": "",
+            "deckType": "",
+            "totalTurns": 0,
+            "winner": None,
+            "harnessEpoch": 40,
+            "youtubeUrl": "",
+            "players": [],
+            "cardImages": {},
+            "cardData": {
+                "Lightning Bolt": {
+                    "mana_cost": "{R}",
+                    "type_line": "Instant",
+                    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+                }
+            },
+            "season": 1,
+            "tournament": None,
+            "snapshots": [],
+            "actions": [],
+            "llmEvents": [],
+            "llmTrace": [],
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+        }
+        errors = list(validator.iter_errors(v4))
+        assert errors == [], f"v4 export should be valid, got: {errors}"
+
+    def test_schema_accepts_version_4_with_tournament_string(self) -> None:
+        schema = _load_schema()
+        validator = jsonschema.Draft7Validator(schema)
+        v4 = {
+            "version": 4,
+            "id": "test_v4_tourney",
+            "timestamp": "",
+            "gameType": "",
+            "deckType": "",
+            "totalTurns": 0,
+            "winner": None,
+            "harnessEpoch": 40,
+            "youtubeUrl": "",
+            "players": [],
+            "cardImages": {},
+            "season": 1,
+            "tournament": "season-1-championship",
+            "snapshots": [],
+            "actions": [],
+            "llmEvents": [],
+            "llmTrace": [],
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+        }
+        errors = list(validator.iter_errors(v4))
+        assert errors == [], f"v4 with tournament string should be valid, got: {errors}"
+
     def test_schema_rejects_missing_required_field(self) -> None:
         schema = _load_schema()
         validator = jsonschema.Draft7Validator(schema)

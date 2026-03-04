@@ -240549,7 +240549,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -270172,5 +270172,7 @@
       "type_line": "Land",
       "oracle_text": "This land enters tapped.\n{T}: Add {G} or {U}."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

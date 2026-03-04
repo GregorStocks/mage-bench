@@ -38346,7 +38346,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -43924,5 +43924,7 @@
       "type_line": "Sorcery",
       "oracle_text": "You get X {E} (energy counters), then you may pay any amount of {E}. Destroy each artifact, creature, and enchantment with mana value less than or equal to the amount of {E} paid this way."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

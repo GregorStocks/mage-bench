@@ -113733,7 +113733,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -126342,5 +126342,7 @@
       "oracle_text": "+1: Return up to one target land card from your graveyard to your hand.\n−1: Wrenn and Six deals 1 damage to any target.\n−7: You get an emblem with \"Instant and sorcery cards in your graveyard have retrace.\" (You may cast instant and sorcery cards from your graveyard by discarding a land card in addition to paying their other costs.)",
       "loyalty": "3"
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

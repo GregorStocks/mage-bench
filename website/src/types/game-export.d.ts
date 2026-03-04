@@ -10,9 +10,9 @@
  */
 export interface GameExportV2 {
   /**
-   * Export format version. 2 = original, 3 = with baked Scryfall cardData.
+   * Export format version. 2 = original, 3 = with baked Scryfall cardData, 4 = with season/tournament.
    */
-  version: 2 | 3;
+  version: 2 | 3 | 4;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -89,6 +89,14 @@ export interface GameExportV2 {
    * Version of the blunder analysis script that produced the annotations.
    */
   blunderScriptVersion: number;
+  /**
+   * Season number. 0 = pre-season (harnessEpoch < MIN_LEADERBOARD_EPOCH), 1 = season 1. Present in version 4+ exports.
+   */
+  season?: number;
+  /**
+   * Tournament identifier, or null for non-tournament games. Present in version 4+ exports.
+   */
+  tournament?: string | null;
   /**
    * Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md.
    */

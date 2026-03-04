@@ -64718,7 +64718,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -69925,5 +69925,7 @@
       "type_line": "Land",
       "oracle_text": "{T}, Pay 1 life, Sacrifice this land: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }
