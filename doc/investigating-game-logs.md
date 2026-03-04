@@ -319,6 +319,25 @@ jq -r 'select(.type=="llm_response") | [.tool_calls[]?.name] | length' "$GAME_DI
 grep -B2 "Action failed" "$GAME_DIR"/*_pilot.log | grep -i "played\|cast\|deployed"
 ```
 
+## Batch combat race conditions
+
+When batch_block or batch_attack returns success but the game shows different results
+(e.g., all attackers "unblocked" despite a block being declared), check for rapid
+GAME_SELECT pairs in the bridge log — two GAME_SELECTs within ~200ms can indicate
+the game state changed between prompt and response.
+
+```bash
+# Find rapid GAME_SELECT pairs in bridge logs (potential race conditions)
+# Look for pairs within 500ms of each other
+jq -r 'select(.method=="GAME_SELECT") | .ts' "$GAME_DIR"/*_bridge.jsonl | \
+  awk -F'[T.]' '{print $2"."$3}' | \
+  awk 'NR>1 {split(prev,a,":"); split($0,b,":"); diff=(b[1]-a[1])*3600+(b[2]-a[2])*60+(b[3]-a[3]); if(diff<0.5 && diff>0) print "Rapid pair: "prev" -> "$0" ("diff"s)"} {prev=$0}'
+
+# Cross-reference: check if batch_block response time matches waitForNextCallback timeout (10s)
+# A 10-second gap between choose_action and Action: batch_block in pilot logs = likely timeout
+grep -A1 "choose_action.*blockers" "$GAME_DIR"/*_pilot.log
+```
+
 ## Detecting client-side yield spell cancellation loops
 
 When a model casts a targeted spell (e.g. Flames of the Firebrand) and then calls
