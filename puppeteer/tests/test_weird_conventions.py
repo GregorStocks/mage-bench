@@ -203,9 +203,7 @@ class TestToolsetsReferenceValidTools:
 
         missing = []
         for toolset_name, tools in toolsets.items():
-            for tool in tools:
-                if tool not in real_tool_names:
-                    missing.append(f"{toolset_name!r} -> {tool!r}")
+            missing.extend(f"{toolset_name!r} -> {tool!r}" for tool in tools if tool not in real_tool_names)
 
         assert not missing, "Toolsets reference nonexistent MCP tools:\n  " + "\n  ".join(missing)
 
@@ -549,9 +547,7 @@ class TestConfigDeckTypes:
                 continue
             # deckType can be a string or a list of strings
             types = deck_type if isinstance(deck_type, list) else [deck_type]
-            for dt in types:
-                if dt not in self._VALID_DECK_TYPES:
-                    bad.append(f"{config_path.name}: {dt!r}")
+            bad.extend(f"{config_path.name}: {dt!r}" for dt in types if dt not in self._VALID_DECK_TYPES)
 
         assert not bad, (
             "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  " + "\n  ".join(bad)

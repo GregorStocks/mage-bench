@@ -224,9 +224,9 @@ def permanent_display(c: object) -> str:
     if c.get("counters"):
         counters = c["counters"]
         if isinstance(counters, list):
-            for ctr in counters:
-                if isinstance(ctr, dict):
-                    extras.append(f"{ctr.get('name', '?')}={ctr.get('count', '?')}")
+            extras.extend(
+                f"{ctr.get('name', '?')}={ctr.get('count', '?')}" for ctr in counters if isinstance(ctr, dict)
+            )
         elif isinstance(counters, dict):
             for k, v in counters.items():
                 extras.append(f"{k}={v}")
@@ -251,9 +251,9 @@ def _format_counters(counters: object) -> str:
     """Format player-level counters."""
     parts: list[str] = []
     if isinstance(counters, list):
-        for ctr in counters:
-            if isinstance(ctr, dict) and ctr.get("name"):
-                parts.append(f" {ctr['name']}={ctr.get('count', '?')}")
+        parts.extend(
+            f" {ctr['name']}={ctr.get('count', '?')}" for ctr in counters if isinstance(ctr, dict) and ctr.get("name")
+        )
     elif isinstance(counters, dict):
         for name, val in counters.items():
             parts.append(f" {name}={val}")

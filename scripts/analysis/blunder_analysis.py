@@ -337,10 +337,7 @@ def _collect_card_names(data: dict) -> set[str]:
 def _format_card_ref(card: dict) -> str:
     """Format a single card for the reference section (compact one-liner)."""
     if card.get("card_faces"):
-        parts = []
-        for face in card["card_faces"]:
-            # Strip leading "- " for faces since we join with " // "
-            parts.append(_format_card_ref(face).lstrip("- "))
+        parts = [_format_card_ref(face).lstrip("- ") for face in card["card_faces"]]
         return "- " + " // ".join(parts)
     name = card["name"]
     mana = card.get("mana_cost", "")
@@ -515,9 +512,7 @@ def _format_prior_context(
     # Add action deltas for turns ref_turn through current_turn - 1
     lines.append("")
     for t in range(ref_turn, current_turn):
-        turn_actions = actions_by_turn.get(t, [])
-        for msg in turn_actions:
-            lines.append(msg)
+        lines.extend(actions_by_turn.get(t, []))
 
     return "\n".join(lines)
 
@@ -817,6 +812,9 @@ def _call_llm(
                 time.sleep(2 ** (attempt + 1))
             else:
                 raise
+    raise AssertionError(
+        f"unreachable: loop over {retries + 1} attempts completed without return or raise"
+    )
 
 
 _LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
@@ -1318,8 +1316,11 @@ def main(gz_path: str) -> None:
                     continue
                 prev_msg = decisions[j].get("message", "")
                 if prev_msg.startswith(
-                    "Play spells and abilities"
-                ) or prev_msg.startswith("Play instants and activated abilities"):
+                    (
+                        "Play spells and abilities",
+                        "Play instants and activated abilities",
+                    )
+                ):
                     skip_indices.add(j)
                 break
 

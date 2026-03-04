@@ -978,9 +978,9 @@ def _normalize_embedded_json(obj: object) -> object:
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
+    if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
-    elif isinstance(obj, str) and obj.startswith(("{", "[")):
+    if isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
             return _normalize_embedded_json(parsed)

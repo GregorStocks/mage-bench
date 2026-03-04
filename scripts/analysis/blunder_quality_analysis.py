@@ -173,10 +173,9 @@ def analyze_consensus_blunders(
                 )
 
             # Check severity agreement
-            all_sevs = []
-            for approach, anns in found.items():
-                for ann in anns:
-                    all_sevs.append(ann.get("severity", "?"))
+            all_sevs = [
+                ann.get("severity", "?") for anns in found.values() for ann in anns
+            ]
             sev_set = set(all_sevs)
             if len(sev_set) > 1:
                 sev_counts: dict[str, int] = defaultdict(int)
@@ -305,14 +304,16 @@ def analyze_snapshot_accuracy(
                 s2 = consensus_snaps[j]
                 if s2 - s1 <= MERGE_WINDOW and s2 not in used:
                     # Check description similarity
-                    descs1: list[str] = []
-                    for anns in game_data[s1]["approaches_that_found"].values():
-                        for a in anns:
-                            descs1.append(a.get("description", "").lower())
-                    descs2: list[str] = []
-                    for anns in game_data[s2]["approaches_that_found"].values():
-                        for a in anns:
-                            descs2.append(a.get("description", "").lower())
+                    descs1 = [
+                        a.get("description", "").lower()
+                        for anns in game_data[s1]["approaches_that_found"].values()
+                        for a in anns
+                    ]
+                    descs2 = [
+                        a.get("description", "").lower()
+                        for anns in game_data[s2]["approaches_that_found"].values()
+                        for a in anns
+                    ]
 
                     # Check if there's meaningful keyword overlap
                     words1 = set()
@@ -606,7 +607,7 @@ def analyze_severity_consistency(
 
     for game_id in sorted(consensus.keys()):
         game_data = consensus[game_id]
-        for snap, info in game_data.items():
+        for info in game_data.values():
             if not info["is_consensus"]:
                 continue
             found = info["approaches_that_found"]
@@ -614,10 +615,11 @@ def analyze_severity_consistency(
                 continue
 
             # Get all severities
-            all_sevs: list[tuple[str, str]] = []
-            for approach, anns in found.items():
-                for ann in anns:
-                    all_sevs.append((approach, ann.get("severity", "?")))
+            all_sevs: list[tuple[str, str]] = [
+                (approach, ann.get("severity", "?"))
+                for approach, anns in found.items()
+                for ann in anns
+            ]
 
             if not all_sevs:
                 continue

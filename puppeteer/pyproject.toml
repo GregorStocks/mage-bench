@@ -41,11 +41,18 @@ select = [
     "SIM",  # flake8-simplify
     "RUF",  # ruff-specific rules
     "PLC0415",  # import-outside-toplevel
+    "T10",  # flake8-debugger: catch leftover pdb/breakpoint() calls
+    "ISC",  # flake8-implicit-str-concat: catch accidental string concatenation
+    "PIE",  # flake8-pie: unnecessary pass, startswith tuple, etc.
+    "LOG",  # flake8-logging: proper logging patterns
+    "TID",  # flake8-tidy-imports: import clarity
+    "RET",  # flake8-return: consistent return patterns
+    "PERF", # perflint: catch inefficient patterns
 ]
 ignore = [
-    "SIM102",  # nested ifs - often clearer with comments between branches
     "SIM105",  # contextlib.suppress - try/except/pass is fine
     "SIM115",  # context manager for open - not always appropriate
+    "PERF203", # try-except in loop - intentional for fault tolerance
 ]
 external = [
     "MBF001",  # lint_no_fallback.py: or [] / or {} / or "" silent fallbacks

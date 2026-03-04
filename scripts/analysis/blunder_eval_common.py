@@ -68,7 +68,7 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     if msg.startswith("Choose which mana to produce from"):
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
-    if msg.startswith("Choose spell or ability") or msg.startswith("Choose ability"):
+    if msg.startswith(("Choose spell or ability", "Choose ability")):
         choices = d.get("choices", [])
         if choices and all(
             isinstance(c, dict)

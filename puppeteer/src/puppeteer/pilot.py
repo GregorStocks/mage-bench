@@ -581,13 +581,12 @@ def build_initial_message(pass_priority_result: dict) -> str:
             f"The game is starting. Your first decision: {message}\n"
             f"Call get_action_choices to see your hand, then choose_action to decide."
         )
-    elif action_type:
+    if action_type:
         return (
             f"The game is starting. Your first decision ({action_type}): {message}\n"
             f"Call get_action_choices to see your options, then choose_action to decide."
         )
-    else:
-        return "The game is starting. Call pass_priority to get your first decision."
+    return "The game is starting. Call pass_priority to get your first decision."
 
 
 async def _prefetch_first_action(session: ClientSession) -> str:
@@ -1051,7 +1050,7 @@ async def run_pilot_loop(
                     )
 
                 # Stall counter: only count turns where LLM had a real chance to act
-                if not turn_had_successful_action:
+                if not turn_had_successful_action:  # noqa: SIM102
                     if turn_had_actionable_opportunity or not turn_tools_called or turn_tools_called <= INFO_ONLY_TOOLS:
                         turns_without_progress += 1
                     # else: passive wait (pass_priority timeout) — don't penalize

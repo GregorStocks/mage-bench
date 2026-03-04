@@ -213,9 +213,9 @@ def _write_error_log(game_dir: Path) -> None:
     error_lines: list[str] = []
     for log_file in sorted(game_dir.glob("*_errors.log")):
         try:
-            for line in log_file.read_text().splitlines():
-                if line.strip():
-                    error_lines.append(f"[{log_file.stem}] {line}")
+            error_lines.extend(
+                f"[{log_file.stem}] {line}" for line in log_file.read_text().splitlines() if line.strip()
+            )
         except OSError:
             pass
 
@@ -430,7 +430,7 @@ def parse_args() -> Config:
     if args.record and args.record is not True:
         record_output = Path(args.record)
 
-    config = Config(
+    return Config(
         config_file=args.config,
         observer=args.observer,
         record=bool(args.record),
@@ -438,7 +438,6 @@ def parse_args() -> Config:
         num_games=args.games,
         debug=args.debug,
     )
-    return config
 
 
 def compile_project(project_root: Path, observer: bool = False) -> bool:
@@ -955,13 +954,13 @@ def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_roo
                     break
                 failure.error = err
                 continue  # re-prompt
-            elif action == "emit":
+            if action == "emit":
                 _finalize_export(failure.tmp_path, failure.final_path)
                 break
-            else:  # skip
-                failure.tmp_path.unlink(missing_ok=True)
-                logger.info("  Skipped %s", failure.game_id)
-                break
+            # skip
+            failure.tmp_path.unlink(missing_ok=True)
+            logger.info("  Skipped %s", failure.game_id)
+            break
 
 
 def _maybe_upload_and_export(
@@ -1065,13 +1064,13 @@ def _maybe_upload_and_export(
                 _finalize_export(tmp_path, final_path)
                 return auto_yes
             continue  # re-prompt
-        elif action == "emit":
+        if action == "emit":
             _finalize_export(tmp_path, final_path)
             return auto_yes
-        else:  # skip
-            tmp_path.unlink(missing_ok=True)
-            logger.info("  Skipped %s", game_id)
-            return auto_yes
+        # skip
+        tmp_path.unlink(missing_ok=True)
+        logger.info("  Skipped %s", game_id)
+        return auto_yes
 
 
 @dataclass
