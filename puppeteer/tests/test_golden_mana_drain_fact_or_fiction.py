@@ -51,8 +51,8 @@ def test_mana_drain_into_fact_or_fiction(
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # End turn, wait for opponent to cast Savannah Lions.
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            # Pass until opponent casts Savannah Lions (Mana Drain becomes playable).
+            {"name": "pass_priority", "arguments": {}},
             # Counter Savannah Lions with Mana Drain.
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # Skip to our next precombat main (Mana Drain mana available).
@@ -72,7 +72,7 @@ def test_mana_drain_into_fact_or_fiction(
             # Turn 1: play Plains.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            {"name": "pass_priority", "arguments": {}},
             # Turn 2: cast Savannah Lions (only playable card).
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
