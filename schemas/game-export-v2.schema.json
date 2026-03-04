@@ -27,8 +27,8 @@
   "additionalProperties": false,
   "properties": {
     "version": {
-      "enum": [2, 3],
-      "description": "Export format version. 2 = original, 3 = with baked Scryfall cardData."
+      "enum": [2, 3, 4],
+      "description": "Export format version. 2 = original, 3 = with baked Scryfall cardData, 4 = with season/tournament."
     },
     "id": {
       "type": "string",
@@ -115,6 +115,15 @@
       "type": "integer",
       "minimum": 0,
       "description": "Version of the blunder analysis script that produced the annotations."
+    },
+    "season": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Season number. 0 = pre-season (harnessEpoch < MIN_LEADERBOARD_EPOCH), 1 = season 1. Present in version 4+ exports."
+    },
+    "tournament": {
+      "type": ["string", "null"],
+      "description": "Tournament identifier, or null for non-tournament games. Present in version 4+ exports."
     },
     "decisions": {
       "type": "array",
