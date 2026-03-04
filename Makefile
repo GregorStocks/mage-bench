@@ -142,7 +142,7 @@ website: leaderboard
 # Usage: make export-game GAME=game_20260208_220934
 .PHONY: export-game
 export-game:
-	python3 scripts/export_game.py $(GAME)
+	uv run python scripts/export_game.py $(GAME)
 
 # Upload a game recording to YouTube
 # Usage: make upload-youtube GAME=game_20260208_220934

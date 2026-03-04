@@ -15,8 +15,8 @@ import json
 import os
 import sys
 
-from blunder_eval_common import GAMES_DIR
-from blunder_eval_common import load_game as _load_game_common
+from scripts.analysis.blunder_eval_common import GAMES_DIR
+from scripts.analysis.blunder_eval_common import load_game as _load_game_common
 
 MANA_KEYWORDS = {
     "mana_plan",

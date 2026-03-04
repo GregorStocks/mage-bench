@@ -20,13 +20,12 @@ import sys
 from pathlib import Path
 from types import ModuleType
 
-# Set up import paths
+# Set up import paths for schemas (not yet a proper package)
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
 sys.path.insert(0, str(REPO_ROOT / "puppeteer" / "src"))
 
-from export_game import _GZ_THRESHOLD  # noqa: E402
+from scripts.export_game import _GZ_THRESHOLD  # noqa: E402
 from schemas.migrations import MIGRATIONS  # noqa: E402
 
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"

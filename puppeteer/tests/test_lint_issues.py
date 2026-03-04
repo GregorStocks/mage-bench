@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from checks.lint_issues import lint_issues
+from scripts.checks.lint_issues import lint_issues
 
 
 def _make_valid_issue() -> dict:

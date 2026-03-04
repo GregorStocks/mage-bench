@@ -6,7 +6,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from blunder_analysis import (
+
+from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
     _card_names_in_decision,
@@ -722,11 +723,11 @@ class TestMainIntegration:
         return game
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_full_flow_with_blunders(
         self,
         mock_openai_cls: MagicMock,
@@ -778,11 +779,11 @@ class TestMainIntegration:
         assert "extra_body" not in call_kwargs.kwargs
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_no_blunders_found(
         self,
         mock_openai_cls: MagicMock,
@@ -810,7 +811,7 @@ class TestMainIntegration:
         assert result["annotations"] == []
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_skips_current_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = [{"existing": True}]
@@ -824,11 +825,11 @@ class TestMainIntegration:
         mock_openai_cls.assert_not_called()
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_injects_metadata_fields(
         self,
         mock_openai_cls: MagicMock,
@@ -865,11 +866,11 @@ class TestMainIntegration:
         assert "snapshotIndex" in ann
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_majority_parse_failure_raises(
         self,
         mock_openai_cls: MagicMock,
@@ -894,11 +895,11 @@ class TestMainIntegration:
             main(str(gz_path))
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_reanalyzes_old_version(
         self,
         mock_openai_cls: MagicMock,
@@ -924,11 +925,11 @@ class TestMainIntegration:
         assert mock_client.chat.completions.create.call_count == 1
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis._append_blunder_stats")
-    @patch("blunder_analysis._auto_ingest_ground_truth")
-    @patch("blunder_analysis._get_oracle_texts", return_value={})
-    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
-    @patch("blunder_analysis.OpenAI")
+    @patch("scripts.analysis.blunder_analysis._append_blunder_stats")
+    @patch("scripts.analysis.blunder_analysis._auto_ingest_ground_truth")
+    @patch("scripts.analysis.blunder_analysis._get_oracle_texts", return_value={})
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_skips_noop_decisions(
         self,
         mock_openai_cls: MagicMock,
