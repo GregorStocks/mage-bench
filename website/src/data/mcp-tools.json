@@ -728,6 +728,10 @@
             "type": "object"
           }
         },
+        "current_step": {
+          "description": "Current step (for reached_step/step_not_reached)",
+          "type": "string"
+        },
         "pile1": {
           "description": "Pile 1 contents",
           "type": "array",
