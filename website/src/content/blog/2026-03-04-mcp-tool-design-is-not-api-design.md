@@ -1,5 +1,5 @@
 ---
-title: "MCP Tool Design Is Not API Design Part I"
+title: "MCP Tool Design Is Not API Design"
 description: "It's more like CLI design"
 pubDate: 2026-03-04T08:00:00
 author: Gregor
