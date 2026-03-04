@@ -17,13 +17,14 @@ import os
 from pathlib import Path
 
 import pytest
-from blunder_analysis import (
+
+from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _game_overview,
     build_decision_prompt,
 )
-from blunder_eval_common import decision_index as get_decision_index
-from extract_decisions import extract_decisions
+from scripts.analysis.blunder_eval_common import decision_index as get_decision_index
+from scripts.analysis.extract_decisions import extract_decisions
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
 _GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"

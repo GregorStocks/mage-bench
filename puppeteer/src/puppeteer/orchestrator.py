@@ -13,27 +13,19 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
-# scripts/ and scripts/analysis/ are not proper Python packages yet (see
-# issues/make-scripts-installable-package.json).  Add them to sys.path so
-# that the script modules can be imported at the top level.
-_PROJECT_ROOT = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(_PROJECT_ROOT / "scripts"))
-sys.path.insert(0, str(_PROJECT_ROOT / "scripts" / "analysis"))
-
-from blunder_analysis import main as _analyze_blunders  # noqa: E402
-from export_game import export_game as _export_game  # noqa: E402
-from upload_youtube import upload_to_youtube as _upload_to_youtube  # noqa: E402
-
-from puppeteer.config import Config, PilotPlayer  # noqa: E402
-from puppeteer.deck_choice import resolve_choice_decks  # noqa: E402
-from puppeteer.game_log import merge_game_log, read_decklist  # noqa: E402
-from puppeteer.harness_epoch import HARNESS_EPOCH  # noqa: E402
-from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL  # noqa: E402
-from puppeteer.llm_cost import required_api_key_env  # noqa: E402
-from puppeteer.log import get_logger, setup_logging  # noqa: E402
-from puppeteer.port import find_available_port, wait_for_port  # noqa: E402
-from puppeteer.process_manager import ProcessManager, kill_tree  # noqa: E402
-from puppeteer.xml_config import modify_server_config  # noqa: E402
+from puppeteer.config import Config, PilotPlayer
+from puppeteer.deck_choice import resolve_choice_decks
+from puppeteer.game_log import merge_game_log, read_decklist
+from puppeteer.harness_epoch import HARNESS_EPOCH
+from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
+from puppeteer.llm_cost import required_api_key_env
+from puppeteer.log import get_logger, setup_logging
+from puppeteer.port import find_available_port, wait_for_port
+from puppeteer.process_manager import ProcessManager, kill_tree
+from puppeteer.xml_config import modify_server_config
+from scripts.analysis.blunder_analysis import main as _analyze_blunders
+from scripts.export_game import export_game as _export_game
+from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 
 logger = get_logger(__name__)
 

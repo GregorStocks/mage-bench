@@ -202,7 +202,7 @@ def _build_card_data(
 
     Returns (updated_card_images, card_data).
     """
-    import scryfall
+    from scripts import scryfall
 
     real_cards, tokens = _collect_card_names(snapshots)
 

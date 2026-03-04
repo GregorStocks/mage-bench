@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from checks.lint_scripts_are_python import lint_scripts
+from scripts.checks.lint_scripts_are_python import lint_scripts
 
 
 def _make_scripts_dir(tmp_path: Path) -> Path:

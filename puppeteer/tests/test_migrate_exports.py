@@ -4,11 +4,11 @@ import json
 from unittest.mock import patch
 
 import pytest
-from export_game import _collect_card_names, _trim_card
-from migrate_exports import find_migration_path
 from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+from scripts.export_game import _collect_card_names, _trim_card
+from scripts.migrate_exports import find_migration_path
 
 
 def _make_v2_export() -> dict:
@@ -156,9 +156,9 @@ class TestMigrateV2V3:
         original_card_images = dict(v2["cardImages"])
 
         with (
-            patch("scryfall.collection", side_effect=_mock_collection),
-            patch("scryfall.named", side_effect=_mock_named),
-            patch("scryfall.search_token", side_effect=_mock_search_token),
+            patch("scripts.scryfall.collection", side_effect=_mock_collection),
+            patch("scripts.scryfall.named", side_effect=_mock_named),
+            patch("scripts.scryfall.search_token", side_effect=_mock_search_token),
         ):
             v3 = v2_to_v3.up(v2)
 
@@ -196,9 +196,9 @@ class TestMigrateV2V3:
         original_images = dict(v2_original["cardImages"])
 
         with (
-            patch("scryfall.collection", side_effect=_mock_collection),
-            patch("scryfall.named", side_effect=_mock_named),
-            patch("scryfall.search_token", side_effect=_mock_search_token),
+            patch("scripts.scryfall.collection", side_effect=_mock_collection),
+            patch("scripts.scryfall.named", side_effect=_mock_named),
+            patch("scripts.scryfall.search_token", side_effect=_mock_search_token),
         ):
             v3 = v2_to_v3.up(json.loads(json.dumps(v2_original)))
 
@@ -462,9 +462,9 @@ class TestMigrationRunner:
         # v2 → v4
         data = json.loads(json.dumps(v2_original))
         with (
-            patch("scryfall.collection", side_effect=_mock_collection),
-            patch("scryfall.named", side_effect=_mock_named),
-            patch("scryfall.search_token", side_effect=_mock_search_token),
+            patch("scripts.scryfall.collection", side_effect=_mock_collection),
+            patch("scripts.scryfall.named", side_effect=_mock_named),
+            patch("scripts.scryfall.search_token", side_effect=_mock_search_token),
         ):
             for module, direction in find_migration_path(2, 4, MIGRATIONS):
                 func = module.up if direction == "up" else module.down

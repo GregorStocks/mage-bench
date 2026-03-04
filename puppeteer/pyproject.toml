@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "XMage AI Puppeteer orchestration tool"
 requires-python = ">=3.10"
 dependencies = [
+    "mage-scripts",
     "psutil>=5.9.0",
     "mcp>=1.0.0",
     "openai>=1.0.0",
@@ -11,6 +12,9 @@ dependencies = [
     "google-auth-oauthlib>=1.0.0",
     "google-auth-httplib2>=0.2.0",
 ]
+
+[tool.uv.sources]
+mage-scripts = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]
@@ -59,7 +63,7 @@ external = [
 ]
 
 [tool.ruff.lint.isort]
-known-first-party = ["puppeteer"]
+known-first-party = ["puppeteer", "scripts"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -86,5 +90,4 @@ disable_error_code = ["assignment"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-pythonpath = ["../scripts", "../scripts/analysis"]
 markers = ["golden: Golden prompt integration tests (require XMage server)"]
