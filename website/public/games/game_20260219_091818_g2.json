@@ -10880,7 +10880,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -12402,5 +12402,7 @@
       "type_line": "Land — Island Mountain",
       "oracle_text": "({T}: Add {U} or {R}.)\nThis land enters tapped.\nWhen this land enters, surveil 1. (Look at the top card of your library. You may put it into your graveyard.)"
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

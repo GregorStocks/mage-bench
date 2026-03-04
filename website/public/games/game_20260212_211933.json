@@ -53936,7 +53936,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -59636,5 +59636,7 @@
       "type_line": "Instant",
       "oracle_text": "Spree (Choose one or more additional costs.)\n+ {1}{U} — Counter target spell.\n+ {3} — Create a token that's a copy of target artifact or creature you control.\n+ {2} — Draw two cards, then discard a card."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

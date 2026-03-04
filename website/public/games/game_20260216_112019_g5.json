@@ -56904,7 +56904,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -64740,5 +64740,7 @@
       "type_line": "Land",
       "oracle_text": "{T}: Add {W}.\n{T}: Add {R}. Activate only if you control a Mountain or a Plains."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

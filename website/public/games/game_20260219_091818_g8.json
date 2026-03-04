@@ -109507,7 +109507,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -122383,5 +122383,7 @@
       "type_line": "Instant",
       "oracle_text": "Improvise (Your artifacts can help cast this spell. Each artifact you tap after you're done activating mana abilities pays for {1}.)\nSearch your library for an artifact card with mana value X or less, put it onto the battlefield, then shuffle."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

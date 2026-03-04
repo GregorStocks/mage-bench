@@ -174188,7 +174188,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -319190,5 +319190,7 @@
       "type_line": "Enchantment Land — Urza's Saga",
       "oracle_text": "(As this Saga enters and after your draw step, add a lore counter. Sacrifice after III.)\nI — This Saga gains \"{T}: Add {C}.\"\nII — This Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This token gets +1/+1 for each artifact you control.'\"\nIII — Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

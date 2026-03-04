@@ -109040,7 +109040,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -109762,5 +109762,7 @@
       "type_line": "Land — Island Swamp",
       "oracle_text": "({T}: Add {U} or {B}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

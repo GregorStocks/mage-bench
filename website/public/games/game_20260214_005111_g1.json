@@ -55819,7 +55819,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -64566,5 +64566,7 @@
       "type_line": "Basic Land",
       "oracle_text": "{T}: Add {C}."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

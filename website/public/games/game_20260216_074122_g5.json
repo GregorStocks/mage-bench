@@ -54809,7 +54809,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -59527,5 +59527,7 @@
       "type_line": "Instant",
       "oracle_text": "Target creature gets +3/+0 until end of turn. When it dies this turn, manifest dread. (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it's a creature card.)"
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }

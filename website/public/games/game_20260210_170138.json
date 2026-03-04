@@ -151170,7 +151170,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "gameType": "",
   "deckType": "",
   "llmTrace": [],
@@ -180508,5 +180508,7 @@
       "type_line": "Land",
       "oracle_text": "When this land enters, scry 1. (Look at the top card of your library. You may put that card on the bottom.)\n{T}: Add {C}."
     }
-  }
+  },
+  "season": 0,
+  "tournament": null
 }

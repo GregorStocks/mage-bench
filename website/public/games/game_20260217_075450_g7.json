@@ -37914,7 +37914,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 3,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -40792,5 +40792,7 @@
       "type_line": "Land — Forest Plains",
       "oracle_text": "({T}: Add {G} or {W}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped."
     }
-  }
+  },
+  "season": 1,
+  "tournament": null
 }
