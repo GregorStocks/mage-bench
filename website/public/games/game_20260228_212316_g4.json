@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260228_212316_g4",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -72064,9 +72064,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -72366,9 +72364,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p11"
-        ]
+        "attackers": "p11"
       },
       "actionResult": {
         "declared": [
@@ -72419,9 +72415,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p7:p1"
-        ]
+        "blockers": "p7:p1"
       },
       "actionResult": {
         "declared": [
@@ -72639,9 +72633,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -72899,9 +72891,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26"
-        ]
+        "attackers": "p26"
       },
       "actionResult": {
         "declared": [
@@ -73159,9 +73149,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26"
-        ]
+        "attackers": "p26"
       },
       "actionResult": {
         "declared": [
@@ -73212,9 +73200,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p5:p2"
-        ]
+        "blockers": "p5:p2"
       },
       "actionResult": {
         "declared": [
@@ -73470,10 +73456,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26",
-          "p12"
-        ]
+        "attackers": "p26,p12"
       },
       "actionResult": {
         "declared": [
@@ -73734,11 +73717,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26",
-          "p12",
-          "p13"
-        ]
+        "attackers": "p26,p12,p13"
       },
       "actionResult": {
         "declared": [
@@ -73792,11 +73771,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p9:p3",
-          "p9:p20",
-          "p9:p21"
-        ]
+        "blockers": "p9:p3,p9:p20,p9:p21"
       },
       "actionResult": {
         "declared": [],
@@ -74090,9 +74065,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9"
-        ]
+        "attackers": "p9"
       },
       "actionResult": {
         "declared": [
@@ -74145,9 +74118,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p30:p42"
-        ]
+        "blockers": "p30:p42"
       },
       "actionResult": {
         "declared": [],

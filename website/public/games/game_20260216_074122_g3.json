@@ -88705,7 +88705,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -89152,9 +89152,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": [
-          "p9"
-        ]
+        "mana_plan": "p9"
       },
       "actionResult": {
         "retryable": true,
@@ -89936,9 +89934,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": [
-          "p9"
-        ]
+        "mana_plan": "p9"
       },
       "actionResult": {
         "retryable": true,
@@ -90011,9 +90007,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": [
-          "p9"
-        ]
+        "mana_plan": "p9"
       },
       "actionResult": {
         "retryable": true,
@@ -94187,12 +94181,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p4",
-          "p60",
-          "p8",
-          "p46"
-        ]
+        "mana_plan": "p4,p60,p8,p46"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -94739,10 +94728,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": [
-          "p8:1",
-          "p4:0"
-        ]
+        "mana_plan": "p8:1,p4:0"
       },
       "actionResult": {
         "retryable": true,
@@ -94807,9 +94793,7 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": [
-          "p46:0"
-        ],
+        "mana_plan": "p46:0",
         "index": 1
       },
       "actionResult": {
@@ -95162,9 +95146,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p11"
-        ]
+        "attackers": "p11"
       },
       "actionResult": {
         "declared": [
@@ -95534,13 +95516,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": [
-          "p8:1",
-          "p46:1",
-          "p4:0",
-          "p60:0",
-          "p15:1"
-        ]
+        "mana_plan": "p8:1,p46:1,p4:0,p60:0,p15:1"
       },
       "actionResult": {
         "retryable": true,
@@ -95698,10 +95674,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p24",
-          "p11"
-        ]
+        "attackers": "p24,p11"
       },
       "actionResult": {
         "declared": [
@@ -95831,12 +95804,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": [
-          "p8:0",
-          "p46:0",
-          "p4",
-          "p60"
-        ]
+        "mana_plan": "p8:0,p46:0,p4,p60"
       },
       "actionResult": {
         "retryable": true,
@@ -96378,11 +96346,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p24",
-          "p11",
-          "p28"
-        ]
+        "attackers": "p24,p11,p28"
       },
       "actionResult": {
         "declared": [

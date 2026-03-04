@@ -79284,7 +79284,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -79632,9 +79632,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "[{\"tap\": \"p2\"}]",
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "blockers": "[{\"blocks\": \"p1\", \"id\": \"p2\"}]",
         "id": "p2",
         "text": "pass"
@@ -85015,9 +85013,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -85871,9 +85867,7 @@
         "pile": 1,
         "index": 1,
         "mana_plan": "[{\"tap\": \"p6\"}, {\"pool\": \"RED\"}]",
-        "attackers": [
-          "p6"
-        ],
+        "attackers": "p6",
         "blockers": "[{\"id\": \"p6\", \"blocks\": \"p1\"}]",
         "id": "p18",
         "text": "text"
@@ -86754,9 +86748,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -88698,9 +88690,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -89555,9 +89545,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -90287,9 +90275,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

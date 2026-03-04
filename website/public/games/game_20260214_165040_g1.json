@@ -57084,7 +57084,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -57601,11 +57601,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          {
-            "tap": "p4"
-          }
-        ],
+        "mana_plan": "{'tap': 'p4'}",
         "id": "p8"
       },
       "actionResult": {
@@ -57780,9 +57776,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p2"
-        ]
+        "attackers": "p2"
       },
       "actionResult": {
         "declared": [
@@ -58210,10 +58204,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p2",
-          "p12"
-        ]
+        "attackers": "p2,p12"
       },
       "actionResult": {
         "declared": [
@@ -59357,10 +59348,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p2",
-          "p12"
-        ]
+        "attackers": "p2,p12"
       },
       "actionResult": {
         "declared": [
@@ -60069,9 +60057,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p2"
-        ]
+        "attackers": "p2"
       },
       "actionResult": {
         "declared": [
@@ -60854,10 +60840,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p2",
-          "p9"
-        ]
+        "attackers": "p2,p9"
       },
       "actionResult": {
         "retryable": false,

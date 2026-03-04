@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260227_004918",
   "timestamp": "20260227_004918",
   "gameType": "Two Player Duel",
@@ -89309,9 +89309,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -89523,9 +89521,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p30"
-        ]
+        "mana_plan": "p30"
       },
       "actionResult": {
         "game_seq": 124,
@@ -89572,9 +89568,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -89619,9 +89613,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p30"
-        ]
+        "mana_plan": "p30"
       },
       "actionResult": {
         "game_seq": 128,
@@ -89665,9 +89657,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p30"
-        ]
+        "mana_plan": "p30"
       },
       "actionResult": {
         "game_seq": 130,
@@ -89758,9 +89748,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9"
-        ]
+        "attackers": "p9"
       },
       "actionResult": {
         "declared": [
@@ -89810,9 +89798,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -89859,9 +89845,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -89906,9 +89890,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p30"
-        ]
+        "mana_plan": "p30"
       },
       "actionResult": {
         "game_seq": 144,
@@ -89951,9 +89933,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -90001,9 +89981,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -90047,9 +90025,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -90093,9 +90069,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p30"
-        ],
+        "mana_plan": "p30",
         "id": "p11"
       },
       "actionResult": {
@@ -91147,9 +91121,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "retryable": true,
@@ -91813,10 +91785,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9",
-          "p8"
-        ]
+        "attackers": "p9,p8"
       },
       "actionResult": {
         "declared": [
@@ -92726,9 +92695,7 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": [
-          "p42"
-        ],
+        "mana_plan": "p42",
         "id": "p52"
       },
       "actionResult": {
@@ -94134,9 +94101,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p8"
-        ]
+        "attackers": "p8"
       },
       "actionResult": {
         "declared": [

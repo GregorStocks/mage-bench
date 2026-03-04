@@ -17317,7 +17317,7 @@
   "youtubeUrl": "https://youtu.be/F0huOlJm86s",
   "annotations": [],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -18271,9 +18271,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5"
-        ]
+        "attackers": "p5"
       },
       "actionResult": {
         "declared": [

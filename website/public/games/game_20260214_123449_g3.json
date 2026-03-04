@@ -67136,7 +67136,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -68192,9 +68192,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -69592,11 +69590,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p4",
-          "p10"
-        ]
+        "attackers": "p3,p4,p10"
       },
       "actionResult": {
         "declared": [
@@ -69650,12 +69644,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p9",
-            "blocks": "p13"
-          }
-        ]
+        "blockers": "{'id': 'p9', 'blocks': 'p13'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -70294,9 +70283,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9"
-        ]
+        "attackers": "p9"
       },
       "actionResult": {
         "declared": [
@@ -70434,11 +70421,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p4",
-          "p13"
-        ]
+        "attackers": "p3,p4,p13"
       },
       "actionResult": {
         "declared": [
@@ -70493,20 +70476,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p10",
-            "blocks": "p13"
-          },
-          {
-            "id": "p10",
-            "blocks": "p15"
-          },
-          {
-            "id": "p10",
-            "blocks": "p18"
-          }
-        ]
+        "blockers": "{'id': 'p10', 'blocks': 'p13'},{'id': 'p10', 'blocks': 'p15'},{'id': 'p10', 'blocks': 'p18'}"
       },
       "actionResult": {
         "error": "Array must have size 1, but has size 3"
@@ -71850,11 +71820,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p1",
-          "p4",
-          "p31"
-        ]
+        "attackers": "p1,p4,p31"
       },
       "actionResult": {
         "declared": [
@@ -71909,12 +71875,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p11",
-            "blocks": "p12"
-          }
-        ]
+        "blockers": "{'id': 'p11', 'blocks': 'p12'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -72411,9 +72372,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p11"
-        ]
+        "attackers": "p11"
       },
       "actionResult": {
         "declared": [
@@ -72592,9 +72551,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -72741,10 +72698,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p10",
-          "p11"
-        ]
+        "attackers": "p10,p11"
       },
       "actionResult": {
         "declared": [
@@ -73527,10 +73481,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p10",
-          "p11"
-        ]
+        "attackers": "p10,p11"
       },
       "actionResult": {
         "declared": [
@@ -75146,9 +75097,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -75260,16 +75209,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p36",
-            "blocks": "p14"
-          },
-          {
-            "id": "p36",
-            "blocks": "p17"
-          }
-        ]
+        "blockers": "{'id': 'p36', 'blocks': 'p14'},{'id': 'p36', 'blocks': 'p17'}"
       },
       "actionResult": {
         "error": "Array must have size 1, but has size 2"

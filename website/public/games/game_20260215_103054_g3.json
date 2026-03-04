@@ -20289,7 +20289,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -20731,7 +20731,7 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -21065,9 +21065,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -21430,9 +21428,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -21652,7 +21648,7 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
         "blockers": "",
         "id": "p19",
@@ -21904,10 +21900,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p23"
-        ]
+        "attackers": "p3,p23"
       },
       "actionResult": {
         "declared": [
@@ -22139,11 +22132,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p23",
-          "p19"
-        ]
+        "attackers": "p3,p23,p19"
       },
       "actionResult": {
         "declared": [
@@ -22520,9 +22509,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

@@ -82104,7 +82104,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -82257,11 +82257,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 6,
-        "mana_plan": [
-          "WHITE"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE",
+        "attackers": "",
+        "blockers": "",
         "id": "p7",
         "text": ""
       },
@@ -82308,11 +82306,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [
-          "WHITE"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -82461,11 +82457,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [
-          "WHITE"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE",
+        "attackers": "",
+        "blockers": "",
         "id": "p1",
         "text": ""
       },
@@ -82526,11 +82520,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": [
-          "WHITE"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -82743,12 +82735,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": [
-          "WHITE",
-          "GREEN"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE,GREEN",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -82850,9 +82839,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "p3",
         "text": ""
       },
@@ -83952,12 +83941,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [
-          "WHITE",
-          "GREEN"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "WHITE,GREEN",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -85385,9 +85371,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -85642,9 +85626,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "p24",
         "text": ""
       },
@@ -85708,9 +85692,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -88110,11 +88092,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [
-          "GREEN"
-        ],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "GREEN",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -88649,10 +88629,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p47",
-          "p7"
-        ]
+        "attackers": "p47,p7"
       },
       "actionResult": {
         "declared": [
@@ -88869,9 +88846,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -88959,9 +88936,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -89059,9 +89036,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -89680,9 +89657,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -89832,9 +89809,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },
@@ -89931,9 +89908,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [],
-        "blockers": [],
+        "mana_plan": "",
+        "attackers": "",
+        "blockers": "",
         "id": "",
         "text": ""
       },

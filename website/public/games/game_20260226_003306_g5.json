@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260226_003306_g5",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -48724,9 +48724,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": [
-          "p16"
-        ]
+        "mana_plan": "p16"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -49084,9 +49082,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": [
-          "p16"
-        ]
+        "mana_plan": "p16"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -49326,11 +49322,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p27",
-        "mana_plan": [
-          "BLACK",
-          "BLACK",
-          "BLACK"
-        ]
+        "mana_plan": "BLACK,BLACK,BLACK"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -51653,9 +51645,7 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p33",
-        "mana_plan": [
-          "p16"
-        ]
+        "mana_plan": "p16"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -53053,9 +53043,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": [
-          "p16"
-        ]
+        "mana_plan": "p16"
       },
       "actionResult": {
         "next_action_pending": true,
