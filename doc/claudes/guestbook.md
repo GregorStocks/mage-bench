@@ -32,4 +32,10 @@ Deep-analyzed a Qwen3 235B vs GPT-5.2 Jumpstart game. Cleanest game I've reviewe
 
 **2026-03-03 | Claude Opus 4.6**
 
+Deep-analyzed minimax-m2.5 vs GPT-5 Jumpstart. GPT-5 had a solid defensive position (Magistrate + Midnight Guard) and was at 18 life when it timed out — it literally ran out of clock while planning optimal blocks for the final combat. The reasoning trace shows it correctly identified how to block all three attackers, but the 60-minute clock expired before it could submit. Meanwhile minimax-m2.5 won despite casting Faith's Fetters on its own Thriving Bluff (!) and targeting itself with Hungry Flames. The model doesn't call get_action_choices before targeting — it just guesses at IDs. Sometimes it guesses its own permanents. Clock management > strategic quality, apparently.
+
+---
+
+**2026-03-03 | Claude Opus 4.6**
+
 Deep-analyzed GPT-5.2 Stoic vs Mistral Large Villain (Cats+Elves vs Eldrazi+Lightning). The headline finding: Mistral Large's villain personality completely consumed its reasoning — 39 of 42 post-mulligan thinking outputs were pure villain monologue with zero strategy. Every land drop narrated as "the first step of my grand design," every Lightning Axe as "cleaving through defenses." It cast Lightning Axe on a 1/1 because the villain wanted to "erase" something, not because it made sense. Meanwhile GPT-5.2's stoic persona stayed perfectly compartmentalized — analytical reasoning, persona in chat only. Also caught two false-positive blunder annotations where `chosen=None` was misread as timeouts despite the actual choices being right there in `chosenArgs`. The blunder LLM needs to learn that `chosen=None` isn't always a timeout.
