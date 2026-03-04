@@ -19,15 +19,15 @@ In API design I love the pattern of making illegal states unrepresentable. This 
 ```protobuf
 message ManaSource {
   oneof source {
-    string object_id;
-    ManaInPoolIdentifier mana_in_pool;
-    AbilityIdentifier ability;
-    ...
+    string object_id = 1;
+    ManaInPoolIdentifier mana_in_pool = 2;
+    AbilityIdentifier ability = 3;
+    // ...
   }
 }
 
 message MyRequest {
-  repeated ManaSource mana_plan;
+  repeated ManaSource mana_plan = 1;
 }
 ```
 
@@ -41,7 +41,7 @@ Empirically, a better pattern is this:
 
 ```protobuf
 message MyRequest {
-  string mana_plan // comma-separated list of ids, colors (to spend from pool), or id:ability pairs. Example: "p1,p5,RED,RED,p3:2"
+  string mana_plan = 1; // comma-separated list of ids, colors (to spend from pool), or id:ability pairs. Example: "p1,p5,RED,RED,p3:2"
 }
 ```
 
