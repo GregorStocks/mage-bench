@@ -4,6 +4,7 @@ import benchmarkData from '../../data/benchmark-results.json';
 import fs from 'node:fs';
 import path from 'node:path';
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
+const auditMode = !!process.env.AUDIT_API_PORT;
 
 export function getStaticPaths() {
   const gamesDir = path.join(process.cwd(), 'public', 'games');
@@ -27,6 +28,7 @@ const { slug } = Astro.params;
 <Base title="Game Replay" wide>
   <link rel="stylesheet" href="/game-renderer.css" />
   <link rel="stylesheet" href="/game-viewer.css" />
+  {auditMode && <link rel="stylesheet" href="/audit-panel.css" />}
   <div id="visualizer">
     <div id="loading">Loading game data...</div>
     <div id="error" class="hidden"></div>
@@ -42,6 +44,8 @@ const { slug } = Astro.params;
 
       <!-- Viewer module populates this container -->
       <div id="viewer-container"></div>
+      <!-- Audit panel mounts here (populated by audit-panel.js) -->
+      {auditMode && <div id="audit-container"></div>}
     </div>
   </div>
 </Base>
@@ -150,7 +154,8 @@ const { slug } = Astro.params;
 
 <script is:inline src="/game-renderer.js"></script>
 <script is:inline src="/game-viewer.js"></script>
-<script is:inline define:vars={{ minBlunderVersion }}>
+{auditMode && <script is:inline src="/audit-panel.js"></script>}
+<script is:inline define:vars={{ minBlunderVersion, auditMode }}>
   (function () {
     var slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
     if (!slug) {
@@ -269,6 +274,16 @@ const { slug } = Astro.params;
           }
         }
 
+        // Read ?d=N for audit mode initial decision
+        var initialDecision = null;
+        if (auditMode) {
+          var startDec = params.get("d");
+          if (startDec !== null) {
+            initialDecision = parseInt(startDec, 10);
+            if (isNaN(initialDecision)) initialDecision = null;
+          }
+        }
+
         viewer = GameViewer.create(viewerContainer, game, {
           initialSnapshot: initialSnapshot,
           onSnapshotChange: function (index) {
@@ -281,6 +296,23 @@ const { slug } = Astro.params;
             history.replaceState(null, "", url);
           },
         });
+
+        // Audit panel (when running with AUDIT_API_PORT)
+        if (auditMode && typeof AuditPanel !== "undefined") {
+          var auditContainer = document.getElementById("audit-container");
+          AuditPanel.create(auditContainer, viewer, slug, {
+            initialDecision: initialDecision,
+            onDecisionChange: function (di) {
+              var url = new URL(window.location);
+              if (di != null) {
+                url.searchParams.set("d", di);
+              } else {
+                url.searchParams.delete("d");
+              }
+              history.replaceState(null, "", url);
+            },
+          });
+        }
 
         // Auto-focus the viewer for keyboard navigation
         viewerContainer.focus();
