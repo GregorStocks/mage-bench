@@ -3,7 +3,7 @@
 package mage.game;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,7 +15,7 @@ import mage.util.Copyable;
 /**
  * @author BetaSteward_at_googlemail.com
  */
-public class Revealed extends HashMap<String, Cards> implements Serializable, Copyable<Revealed> {
+public class Revealed extends LinkedHashMap<String, Cards> implements Serializable, Copyable<Revealed> {
 
     public Revealed() {
     }

@@ -17,7 +17,7 @@ public class Exile implements Serializable, Copyable<Exile> {
 
     private static final UUID PERMANENT = UUID.randomUUID();
 
-    private final Map<UUID, ExileZone> exileZones = new HashMap<>();
+    private final Map<UUID, ExileZone> exileZones = new LinkedHashMap<>();
 
     public Exile() {
         createZone(PERMANENT, "Permanent");

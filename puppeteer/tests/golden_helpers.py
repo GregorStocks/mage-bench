@@ -221,7 +221,7 @@ class BridgeSession:
         self._url = url
         self._id = 0
 
-    def _rpc(self, method: str, params: dict | None = None, timeout: int = 60) -> dict:
+    def _rpc(self, method: str, params: dict | None = None, timeout: int = 120) -> dict:
         self._id += 1
         req: dict = {"jsonrpc": "2.0", "method": method, "id": self._id}
         if params is not None:
