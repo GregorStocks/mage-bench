@@ -922,3 +922,73 @@ class TestMainIntegration:
 
         # API was called despite existing annotations (old version)
         assert mock_client.chat.completions.create.call_count == 1
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._append_blunder_stats")
+    @patch("blunder_analysis._auto_ingest_ground_truth")
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
+    @patch("blunder_analysis.OpenAI")
+    def test_skips_noop_decisions(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
+        _mock_ingest: MagicMock,
+        _mock_stats: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        """No-op decisions (chosen=None, empty actionResult/chosenArgs) are skipped."""
+        game = _make_game()
+        # Use canonical decisions field (modern export format)
+        game["decisions"] = [
+            # No-op: pass_priority that was ignored by the game
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "COMBAT",
+                "step": "DECLARE_BLOCKERS",
+                "message": "Select blockers",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "choices": [{"name": "Bear", "index": 0, "id": "p1"}],
+                "choiceCount": 1,
+                "chosen": None,
+                "chosenArgs": {},
+                "actionResult": {},
+                "isForced": False,
+                "llmEventIndices": [],
+            },
+            # Real decision: actual blocker assignment
+            {
+                "index": 1,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "COMBAT",
+                "step": "DECLARE_BLOCKERS",
+                "message": "Select blockers",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "choices": [{"name": "Bear", "index": 0, "id": "p1"}],
+                "choiceCount": 1,
+                "chosen": None,
+                "chosenArgs": {"blockers": "p1:p5"},
+                "actionResult": {"success": True},
+                "isForced": False,
+                "llmEventIndices": [],
+            },
+        ]
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
+
+        main(str(gz_path))
+
+        # Only 1 API call — the no-op decision was skipped
+        assert mock_client.chat.completions.create.call_count == 1

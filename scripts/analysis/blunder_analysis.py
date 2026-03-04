@@ -1291,6 +1291,8 @@ def main(gz_path: str) -> None:
     # 4. The cast decision that preceded a cancel (tried to cast, then undid it)
     # 5. Rolled-back decisions (intermediate mana/cost choices for a cast that
     #    failed mana payment — the initiating decision is kept with context)
+    # 6. No-op decisions (pass_priority that the game ignored — no actionResult,
+    #    no chosenArgs, chosen=None)
     skip_indices: set[int] = set()
     for i, d in enumerate(decisions):
         if is_forced(d):
@@ -1298,6 +1300,10 @@ def main(gz_path: str) -> None:
             continue
         ar = action_result(d)
         if ar.get("success") is False:
+            skip_indices.add(i)
+            continue
+        chosen_args = d.get("chosenArgs") or d.get("chosen_args") or {}  # noqa: MBF001
+        if d.get("chosen") is None and not ar and not chosen_args:
             skip_indices.add(i)
             continue
         if is_rolled_back(d):
@@ -1326,7 +1332,7 @@ def main(gz_path: str) -> None:
     non_forced = [d for i, d in enumerate(decisions) if i not in skip_indices]
     print(
         f"Extracted {len(decisions)} decisions, "
-        f"skipped {len(skip_indices)} (forced/failed/cancelled/mana), "
+        f"skipped {len(skip_indices)} (forced/failed/cancelled/mana/noop), "
         f"{len(non_forced)} to analyze"
     )
 
