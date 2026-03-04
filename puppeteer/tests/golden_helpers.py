@@ -522,17 +522,19 @@ def _is_game_over(data: dict) -> bool:
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
-    Uses ``pass_priority`` to batch-handle callbacks inside Java without
-    per-callback HTTP round-trips.  ``pass_priority`` auto-passes
-    GAME_SELECT, auto-cancels GAME_PLAY_MANA, and auto-cancels optional
-    GAME_TARGET internally — only returning for non-priority actions
-    (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE, combat) or game over.
+    Uses ``pass_priority(until=my_turn)`` to batch-handle callbacks inside
+    Java without per-callback HTTP round-trips.  During the scripted
+    player's turn the ``my_turn`` yield auto-passes all GAME_SELECT
+    callbacks (skipping the playable-cards check entirely).  On the
+    opponent's own turn it falls back to the normal playable-cards logic
+    which also auto-passes when there's nothing to play.
 
     Falls back to ``choose_action`` only for the callbacks that
-    ``pass_priority`` cannot handle automatically.
+    ``pass_priority`` cannot handle automatically (combat declarations,
+    GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE).
     """
     while True:
-        result = bridge.call_tool("pass_priority", {})
+        result = bridge.call_tool("pass_priority", {"until": "my_turn"})
         data = json.loads(result)
         if _is_game_over(data):
             break
