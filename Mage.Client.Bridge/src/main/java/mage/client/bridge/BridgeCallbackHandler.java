@@ -3017,12 +3017,21 @@ public class BridgeCallbackHandler {
                 // instead of sendPlayerAction+skip().  This avoids the race where
                 // skip() bypasses waitResponseOpen() and stale responses answer
                 // the wrong waitForResponse().
-                synchronized (actionLock) {
-                    pendingAction = null;
+                //
+                // Only auto-pass if there IS a pending GAME_SELECT action.
+                // Without this guard, calling pass_priority when no callback has
+                // arrived yet sends a stale sendPlayerBoolean(false) that the
+                // XMage server consumes for the NEXT query — creating a one-response
+                // offset between bridge and server.  On slow CI machines this race
+                // causes golden test flakes (missing snapshots, timeouts).
+                if (currentAction != null) {
+                    synchronized (actionLock) {
+                        pendingAction = null;
+                    }
+                    session.sendPlayerBoolean(gameId, false);
+                    // The yield consumed the current priority — count it as a pass.
+                    actionsPassed++;
                 }
-                session.sendPlayerBoolean(gameId, false);
-                // The yield consumed the current priority — count it as a pass.
-                actionsPassed++;
                 yieldActive = true;
             } else {
                 var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
