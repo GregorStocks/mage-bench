@@ -1,11 +1,13 @@
 package mage.util;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Bidirectional mapping between XMage UUIDs and short, token-efficient IDs.
@@ -158,6 +160,29 @@ public class ShortIdRegistry {
      */
     public static int parseSequence(String shortId) {
         return Integer.parseInt(shortId.substring(1));
+    }
+
+    /** Current value of the next-ID counter (for diagnostics). */
+    public int peekNextId() {
+        return nextId.get();
+    }
+
+    /**
+     * Return a snapshot of all assignments sorted by sequence, formatted as
+     * {@code "p1=abcd1234, p2=ef567890, ..."} (UUID truncated to 8 chars).
+     * Useful for logging when diagnosing nondeterministic ID assignment.
+     */
+    public String dumpAssignments() {
+        return uuidToShort.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> {
+                    try {
+                        return Integer.parseInt(e.getValue().substring(1));
+                    } catch (NumberFormatException ex) {
+                        return Integer.MAX_VALUE;
+                    }
+                }))
+                .map(e -> e.getValue() + "=" + e.getKey().toString().substring(0, 8))
+                .collect(Collectors.joining(", ", "[", "]"));
     }
 
     /** Reset all mappings (call on game start). */
