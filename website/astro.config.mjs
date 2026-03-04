@@ -34,6 +34,18 @@ const allowedHosts = fs.existsSync(configPath)
   ? [JSON.parse(fs.readFileSync(configPath, 'utf-8')).hostname]
   : [];
 
+// Proxy audit API to the Python backend when running in audit mode.
+// AUDIT_API_PORT is set by `make blunder-audit-web`.
+const auditApiPort = process.env.AUDIT_API_PORT;
+const auditProxy = auditApiPort
+  ? {
+      '/api/audit': {
+        target: `http://localhost:${auditApiPort}`,
+        rewrite: (/** @type {string} */ p) => p.replace(/^\/api\/audit/, '/api'),
+      },
+    }
+  : {};
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://mage-bench.com',
@@ -41,6 +53,7 @@ export default defineConfig({
     plugins: [serveGzPlugin()],
     server: {
       allowedHosts,
+      proxy: auditProxy,
     },
   },
 });
