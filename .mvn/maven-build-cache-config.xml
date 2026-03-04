@@ -12,6 +12,13 @@
             </dirNames>
         </attachedOutputs>
     </configuration>
+    <executionControl>
+        <runAlways>
+            <plugins>
+                <plugin artifactId="maven-install-plugin"/>
+            </plugins>
+        </runAlways>
+    </executionControl>
     <input>
         <global>
             <glob>{*.java,pom.xml}</glob>
