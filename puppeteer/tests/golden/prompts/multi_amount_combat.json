@@ -22,7 +22,53 @@
     ]
   },
   {
-    "content": "action_pending(GAME_TARGET, non_priority_action); index; 2 choices: TestPlayer, Opponent",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "board_cursor": 1,
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Select a starting player",
+      "required": true,
+      "respond_with": "choice=pN",
+      "response_type": "index",
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -43,7 +89,15 @@
     ]
   },
   {
-    "content": "OK: selected_target_0",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Mulligan down to 6 cards?",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -64,7 +118,142 @@
     ]
   },
   {
-    "content": "action_pending(GAME_ASK, non_priority_action); boolean; Mulligan down to 6 cards?",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "board_cursor": 2,
+      "context": "T1 ()",
+      "game_seq": 5,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "choice=yes or choice=no",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        }
+      ]
+    },
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -85,13 +274,17 @@
     ]
   },
   {
-    "content": "OK: no",
+    "content": {
+      "action_taken": "no",
+      "game_seq": 5,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Play spells and abilities",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_4"
-  },
-  {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
   },
   {
     "content": null,
@@ -118,66 +311,64 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{0}",
-              "name": "Black Lotus",
-              "playable": true,
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}",
-              "name": "Clone",
-              "power": 0,
-              "rules": [
-                "You may have {this} enter as a copy of any creature on the battlefield."
-              ],
-              "toughness": 0
-            },
-            {
-              "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
+              "is_land": true,
+              "name": "Forest",
               "playable": true,
-              "power": 1,
-              "toughness": 1
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
             }
           ],
           "hand_size": 7,
@@ -199,44 +390,40 @@
       "board_cursor": 3,
       "choices": [
         {
-          "action": "cast",
+          "action": "land",
           "id": "_",
           "index": 0,
-          "mana_cost": "{0}",
-          "name": "Black Lotus"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 1,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 2,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 3,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 4,
-          "name": "Island"
+          "name": "Forest"
         },
         {
-          "action": "cast",
+          "action": "land",
           "id": "_",
           "index": 5,
-          "mana_cost": "{0}",
-          "name": "Memnite",
-          "power": 1,
-          "toughness": 1
+          "name": "Forest"
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
@@ -258,7 +445,7 @@
       {
         "function": {
           "arguments": {
-            "choice": 1
+            "choice": 0
           },
           "name": "choose_action"
         },
@@ -269,7 +456,7 @@
   },
   {
     "content": {
-      "action_taken": "selected_1",
+      "action_taken": "selected_0",
       "game_seq": 15,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_message": "Play spells and abilities",
@@ -305,9 +492,9 @@
           "battlefield": [
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
               "tapped": false
             }
@@ -315,66 +502,64 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{0}",
-              "name": "Black Lotus",
-              "playable": true,
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}",
-              "name": "Clone",
-              "power": 0,
-              "rules": [
-                "You may have {this} enter as a copy of any creature on the battlefield."
-              ],
-              "toughness": 0
-            },
-            {
-              "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
+              "is_land": true,
+              "name": "Forest",
               "playable": true,
-              "power": 1,
-              "toughness": 1
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
             }
           ],
           "hand_size": 7,
@@ -385,16 +570,25 @@
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
+          "battlefield": [
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 7,
+          "hand_size": 6,
           "is_active": false,
           "is_you": false,
           "library_size": 52,
@@ -405,48 +599,44 @@
       "board_cursor": 4,
       "choices": [
         {
-          "action": "cast",
+          "action": "land",
           "id": "_",
           "index": 0,
-          "mana_cost": "{0}",
-          "name": "Black Lotus"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 1,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 2,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 3,
-          "name": "Island"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 4,
-          "name": "Island"
+          "name": "Forest"
         },
         {
-          "action": "cast",
+          "action": "land",
           "id": "_",
           "index": 5,
-          "mana_cost": "{0}",
-          "name": "Memnite",
-          "power": 1,
-          "toughness": 1
+          "name": "Forest"
         }
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 33,
+      "game_seq": 38,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -477,11 +667,11 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 33,
+      "game_seq": 38,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Choose spell or ability to play: Black Lotus",
+      "next_action_message": "Play spells and abilities",
       "next_action_pending": true,
-      "next_action_type": "GAME_CHOOSE_ABILITY",
+      "next_action_type": "GAME_SELECT",
       "success": true
     },
     "role": "tool",
@@ -494,9 +684,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 4
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_9",
         "type": "function"
@@ -505,24 +695,13 @@
   },
   {
     "content": {
-      "action_pending": true,
-      "action_type": "GAME_CHOOSE_ABILITY",
-      "board_cursor": 4,
-      "board_unchanged": true,
-      "choices": [
-        {
-          "description": "1. Cast Black Lotus",
-          "index": 0
-        }
-      ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 34,
-      "land_drops_used": 0,
-      "message": "Choose spell or ability to play: Black Lotus",
-      "respond_with": "choice=N",
-      "response_type": "index",
-      "stop_reason": "non_priority_action",
-      "untapped_lands": 1
+      "action_taken": "selected_0",
+      "game_seq": 42,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Play instants and activated abilities",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
     },
     "role": "tool",
     "tool_call_id": "call_9"
@@ -534,9 +713,9 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "board_cursor": 4
           },
-          "name": "choose_action"
+          "name": "pass_priority"
         },
         "id": "call_10",
         "type": "function"
@@ -545,13 +724,168 @@
   },
   {
     "content": {
-      "action_taken": "selected_ability_0",
-      "game_seq": 34,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 2
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "board_cursor": 6,
+      "choices": [
+        {
+          "choice_type": "blocker",
+          "id": "_",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        }
+      ],
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "blocked": false,
+          "defending": "TestPlayer"
+        }
+      ],
+      "combat_phase": "blockers",
+      "context": "T2 Combat/Declare Blockers (Opponent)",
+      "game_seq": 75,
+      "incoming_attackers": [
+        {
+          "id": "_",
+          "name": "Savannah Lions",
+          "power": 2,
+          "toughness": 1
+        }
+      ],
+      "message": "Select blockers",
+      "respond_with": "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)",
+      "response_type": "select",
+      "stop_reason": "combat"
     },
     "role": "tool",
     "tool_call_id": "call_10"
@@ -563,9 +897,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 4
+            "choice": "no"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_11",
         "type": "function"
@@ -574,465 +908,16 @@
   },
   {
     "content": {
-      "action_pending": true,
-      "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}",
-              "name": "Clone",
-              "playable": true,
-              "power": 0,
-              "rules": [
-                "You may have {this} enter as a copy of any creature on the battlefield."
-              ],
-              "toughness": 0
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
-              "playable": true,
-              "power": 1,
-              "toughness": 1
-            }
-          ],
-          "hand_size": 6,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 5,
-      "choices": [
-        {
-          "action": "cast",
-          "id": "_",
-          "index": 0,
-          "mana_cost": "{3}{U}",
-          "name": "Clone",
-          "power": 0,
-          "toughness": 0
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Island"
-        },
-        {
-          "action": "cast",
-          "id": "_",
-          "index": 5,
-          "mana_cost": "{0}",
-          "name": "Memnite",
-          "power": 1,
-          "toughness": 1
-        }
-      ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 41,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
-      "response_type": "select",
-      "stop_reason": "playable_cards",
-      "untapped_lands": 1
+      "action_taken": "passed_priority",
+      "game_seq": 75,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Play instants and activated abilities",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
     },
     "role": "tool",
     "tool_call_id": "call_11"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": 5
-          },
-          "name": "choose_action"
-        },
-        "id": "call_12",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_5",
-      "game_seq": 41,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Choose spell or ability to play: Memnite",
-      "next_action_pending": true,
-      "next_action_type": "GAME_CHOOSE_ABILITY",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_12"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 5
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_13",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_CHOOSE_ABILITY",
-      "board_cursor": 5,
-      "board_unchanged": true,
-      "choices": [
-        {
-          "description": "1. Cast Memnite",
-          "index": 0
-        }
-      ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 42,
-      "land_drops_used": 0,
-      "message": "Choose spell or ability to play: Memnite",
-      "respond_with": "choice=N",
-      "response_type": "index",
-      "stop_reason": "non_priority_action",
-      "untapped_lands": 1
-    },
-    "role": "tool",
-    "tool_call_id": "call_13"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
-        },
-        "id": "call_14",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_ability_0",
-      "game_seq": 42,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_14"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 5
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_15",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": true,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}",
-              "name": "Clone",
-              "playable": true,
-              "power": 0,
-              "rules": [
-                "You may have {this} enter as a copy of any creature on the battlefield."
-              ],
-              "toughness": 0
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 5,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 6,
-      "choices": [
-        {
-          "action": "cast",
-          "id": "_",
-          "index": 0,
-          "mana_cost": "{3}{U}",
-          "name": "Clone",
-          "power": 0,
-          "toughness": 0
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Island"
-        }
-      ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 47,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
-      "response_type": "select",
-      "stop_reason": "playable_cards",
-      "untapped_lands": 1
-    },
-    "role": "tool",
-    "tool_call_id": "call_15"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
-        },
-        "id": "call_16",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_0",
-      "game_seq": 47,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_16"
   },
   {
     "content": null,
@@ -1045,7 +930,7 @@
           },
           "name": "pass_priority"
         },
-        "id": "call_17",
+        "id": "call_12",
         "type": "function"
       }
     ]
@@ -1053,111 +938,192 @@
   {
     "content": {
       "action_pending": true,
-      "action_type": "GAME_ASK",
+      "action_type": "GAME_SELECT",
       "board": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
-              "tapped": true
+              "tapped": false
             },
             {
               "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": true,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
             {
               "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
+              "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
+              "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
+              "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
+              "name": "Forest",
+              "playable": true,
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}."
               ]
             }
           ],
-          "hand_size": 4,
+          "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 52,
-          "life": 20,
+          "library_size": 51,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
+          "battlefield": [
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 7,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
       ],
       "board_cursor": 7,
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 54,
-      "land_drops_used": 0,
-      "message": "Use effect of Clone?",
-      "respond_with": "choice=yes or choice=no",
-      "response_type": "boolean",
-      "stack": [
+      "choices": [
         {
-          "name": "Clone"
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Forest"
         }
       ],
-      "stop_reason": "non_priority_action"
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 86,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
     },
     "role": "tool",
-    "tool_call_id": "call_17"
+    "tool_call_id": "call_12"
   },
   {
     "content": null,
@@ -1166,27 +1132,64 @@
       {
         "function": {
           "arguments": {
-            "choice": "yes"
+            "attackers": "all"
           },
           "name": "choose_action"
         },
-        "id": "call_18",
+        "id": "call_13",
         "type": "function"
       }
     ]
   },
   {
     "content": {
-      "action_taken": "yes",
-      "game_seq": 54,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Select a creature",
-      "next_action_pending": true,
-      "next_action_type": "GAME_TARGET",
-      "success": true
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Forest"
+        }
+      ],
+      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+      "error_code": "missing_param",
+      "game_seq": 86,
+      "retryable": true,
+      "success": false,
+      "warning": "Ignored attackers parameter (not in declare_attackers phase)"
     },
     "role": "tool",
-    "tool_call_id": "call_18"
+    "tool_call_id": "call_13"
   },
   {
     "content": null,
@@ -1199,7 +1202,7 @@
           },
           "name": "pass_priority"
         },
-        "id": "call_19",
+        "id": "call_14",
         "type": "function"
       }
     ]
@@ -1213,100 +1216,125 @@
           "battlefield": [
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
-              "tapped": true
-            },
-            {
-              "copy": true,
-              "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
-              "summoning_sick": true,
-              "tapped": false,
-              "toughness": 1
+              "tapped": false
             },
             {
               "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": true,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
+              "name": "Forest",
               "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
               ]
             }
           ],
-          "hand_size": 4,
+          "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 52,
-          "life": 20,
+          "library_size": 51,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
+          "battlefield": [
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 7,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
@@ -1314,41 +1342,31 @@
       "board_cursor": 8,
       "choices": [
         {
-          "action": "land",
+          "choice_type": "attacker",
           "id": "_",
           "index": 0,
-          "name": "Island"
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
         },
         {
-          "action": "land",
-          "id": "_",
+          "choice_type": "special",
+          "id": "all",
           "index": 1,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Island"
+          "name": "All attack"
         }
       ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 57,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
+      "combat_phase": "attackers",
+      "context": "T3 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 88,
+      "message": "Select attackers",
+      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
       "response_type": "select",
-      "stop_reason": "playable_cards"
+      "stop_reason": "combat",
+      "untapped_lands": 2
     },
     "role": "tool",
-    "tool_call_id": "call_19"
+    "tool_call_id": "call_14"
   },
   {
     "content": null,
@@ -1357,27 +1375,44 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "amounts": [
+              1,
+              1
+            ]
           },
           "name": "choose_action"
         },
-        "id": "call_20",
+        "id": "call_15",
         "type": "function"
       }
     ]
   },
   {
     "content": {
-      "action_taken": "selected_0",
-      "game_seq": 57,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play spells and abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+      "error_code": "missing_param",
+      "game_seq": 88,
+      "retryable": true,
+      "success": false
     },
     "role": "tool",
-    "tool_call_id": "call_20"
+    "tool_call_id": "call_15"
   },
   {
     "content": null,
@@ -1386,11 +1421,12 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 8
+            "board_cursor": 8,
+            "until": "postcombat_main"
           },
           "name": "pass_priority"
         },
-        "id": "call_21",
+        "id": "call_16",
         "type": "function"
       }
     ]
@@ -1399,163 +1435,35 @@
     "content": {
       "action_pending": true,
       "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "copy": true,
-              "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 4,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 9,
+      "board_cursor": 8,
+      "board_unchanged": true,
       "choices": [
         {
-          "action": "land",
+          "choice_type": "attacker",
           "id": "_",
           "index": 0,
-          "name": "Island"
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
         },
         {
-          "action": "land",
-          "id": "_",
+          "choice_type": "special",
+          "id": "all",
           "index": 1,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Island"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Island"
+          "name": "All attack"
         }
       ],
-      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 80,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
+      "combat_phase": "attackers",
+      "context": "T3 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 88,
+      "message": "Select attackers",
+      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
       "response_type": "select",
-      "stop_reason": "playable_cards",
+      "stop_reason": "combat",
       "untapped_lands": 2
     },
     "role": "tool",
-    "tool_call_id": "call_21"
+    "tool_call_id": "call_16"
   },
   {
     "content": null,
@@ -1566,7 +1474,7 @@
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_22",
+        "id": "call_17",
         "type": "function"
       }
     ]
@@ -1576,119 +1484,129 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 80,
-      "phase": "Precombat Main",
+      "game_seq": 88,
+      "phase": "Combat",
       "players": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
               "tapped": false
             },
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
               "tapped": false
             },
             {
-              "copy": true,
               "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
+              "name": "Grizzly Bears",
+              "power": 2,
               "summoning_sick": false,
               "tapped": false,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
               ]
             }
           ],
-          "hand_size": 4,
+          "hand_size": 6,
           "is_active": true,
           "is_you": true,
           "library_size": 51,
-          "life": 20,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
+          "battlefield": [
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": true
             },
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 7,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
           "library_size": 51,
@@ -1698,11 +1616,11 @@
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Precombat Main",
+      "step": "Declare Attackers",
       "turn": 3
     },
     "role": "tool",
-    "tool_call_id": "call_22"
+    "tool_call_id": "call_17"
   },
   {
     "content": null,
@@ -1713,7 +1631,7 @@
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_23",
+        "id": "call_18",
         "type": "function"
       }
     ]
@@ -1723,119 +1641,129 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 80,
-      "phase": "Precombat Main",
+      "game_seq": 88,
+      "phase": "Combat",
       "players": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
               "tapped": false
             },
             {
               "id": "_",
-              "name": "Island",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ],
               "tapped": false
             },
             {
-              "copy": true,
               "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
+              "name": "Grizzly Bears",
+              "power": 2,
               "summoning_sick": false,
               "tapped": false,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Island",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {U}."
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
               ]
             }
           ],
-          "hand_size": 4,
+          "hand_size": 6,
           "is_active": true,
           "is_you": true,
           "library_size": 51,
-          "life": 20,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
+          "battlefield": [
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": true
             },
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Plains",
               "rules": [
-                "{T}: Add {R}."
-              ]
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 7,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
           "library_size": 51,
@@ -1845,11 +1773,11 @@
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Precombat Main",
+      "step": "Declare Attackers",
       "turn": 3
     },
     "role": "tool",
-    "tool_call_id": "call_23"
+    "tool_call_id": "call_18"
   },
   {
     "content": null,
@@ -1860,18 +1788,18 @@
           "arguments": {},
           "name": "get_game_history"
         },
-        "id": "call_24",
+        "id": "call_19",
         "type": "function"
       }
     ]
   },
   {
     "content": {
-      "cursor": 29,
-      "event_count": 29,
-      "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
+      "cursor": 31,
+      "event_count": 31,
+      "history": "Turn 1:\n    - TestPlayer drew Grizzly Bears\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Forest\n  Precombat Main:\n    - TestPlayer played Forest\n    - TestPlayer cast Grizzly Bears\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n  Combat Damage:\n    - TestPlayer lost 2 life\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Forest\n"
     },
     "role": "tool",
-    "tool_call_id": "call_24"
+    "tool_call_id": "call_19"
   }
 ]
