@@ -45,6 +45,11 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /*
+            !website/public/games
+          sparse-checkout-cone-mode: false
 
       - uses: actions/setup-java@v4
         with:
