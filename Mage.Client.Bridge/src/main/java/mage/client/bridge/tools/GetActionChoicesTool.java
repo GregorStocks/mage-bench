@@ -54,6 +54,7 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
             @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages"),
             @Tool.Field(name = "stop_reason", type = "string", description = "Why returned (when until is set)"),
+            @Tool.Field(name = "current_step", type = "string", description = "Current step (for reached_step/step_not_reached)"),
             @Tool.Field(name = "action_taken", type = "string", description = "What was done when an action was auto-resolved"),
             @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards")
         }
