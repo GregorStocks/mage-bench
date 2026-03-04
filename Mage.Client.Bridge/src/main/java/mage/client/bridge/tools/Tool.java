@@ -9,6 +9,8 @@ import java.lang.annotation.Target;
  * Marks a static method as an MCP tool.
  * The method's parameters (excluding BridgeCallbackHandler) become the tool's input schema,
  * derived automatically from Java types and @Param annotations.
+ * The method's return type must be a class with @ResultField-annotated public fields,
+ * from which the output schema is derived automatically.
  *
  * Examples are defined via a separate static examples() method on the tool class
  * using McpToolRegistry.example() and McpToolRegistry.json() helpers.
@@ -18,14 +20,4 @@ import java.lang.annotation.Target;
 public @interface Tool {
     String name();
     String description();
-    Field[] output();
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target({})
-    @interface Field {
-        String name();
-        String type();
-        String description();
-        String conditional() default "";
-    }
 }

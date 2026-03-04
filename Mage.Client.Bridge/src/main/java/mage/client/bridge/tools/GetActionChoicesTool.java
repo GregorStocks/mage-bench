@@ -13,53 +13,9 @@ public class GetActionChoicesTool {
         name = "get_action_choices",
         description = "Get choices for the current pending action. "
             + "With until: blocks like pass_priority until a decision is needed. "
-            + "Without until: returns immediately (action_pending=false if nothing to do).",
-        output = {
-            @Tool.Field(name = "action_pending", type = "boolean", description = "Whether an action is pending"),
-            @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
-            @Tool.Field(name = "message", type = "string", description = "Prompt from XMage"),
-            @Tool.Field(name = "response_type", type = "string", description = "select, boolean, index, amount, pile, or multi_amount"),
-            @Tool.Field(name = "respond_with", type = "string", description = "choose_action parameter(s) to use"),
-            @Tool.Field(name = "context", type = "string", description = "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN"),
-            @Tool.Field(name = "board", type = "array[object]",
-                description = "Board state (players array). Omitted when board_unchanged=true."),
-            @Tool.Field(name = "board_cursor", type = "integer",
-                description = "Pass back to skip unchanged board."),
-            @Tool.Field(name = "board_unchanged", type = "boolean",
-                description = "Board omitted (cursor matched)."),
-            @Tool.Field(name = "choices", type = "array[object]", description = "Available choices with index and name"),
-            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards (during mulligan)"),
-            @Tool.Field(name = "combat_phase", type = "string", description = "declare_attackers or declare_blockers"),
-            @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups"),
-            @Tool.Field(name = "stack", type = "array[object]", description = "Stack (when non-empty)"),
-            @Tool.Field(name = "untapped_lands", type = "integer", description = "Untapped land count"),
-            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number"),
-            @Tool.Field(name = "land_drops_used", type = "integer", description = "Lands played this turn"),
-            @Tool.Field(name = "already_attacking", type = "array[object]",
-                description = "Pre-declared attackers"),
-            @Tool.Field(name = "incoming_attackers", type = "array[object]",
-                description = "Attackers (during declare_blockers)"),
-            @Tool.Field(name = "required", type = "boolean", description = "Targeting is required"),
-            @Tool.Field(name = "can_cancel", type = "boolean", description = "Targeting can be cancelled"),
-            @Tool.Field(name = "note", type = "string", description = "Informational note"),
-            @Tool.Field(name = "pile1", type = "array[object]", description = "Pile 1 contents"),
-            @Tool.Field(name = "pile2", type = "array[object]", description = "Pile 2 contents"),
-            @Tool.Field(name = "min", type = "integer", description = "Min allowed value"),
-            @Tool.Field(name = "max", type = "integer", description = "Max allowed value"),
-            @Tool.Field(name = "total_min", type = "integer", description = "Total min (multi_amount)"),
-            @Tool.Field(name = "total_max", type = "integer", description = "Total max (multi_amount)"),
-            @Tool.Field(name = "items", type = "array[object]", description = "Per-item details for multi_amount"),
-            @Tool.Field(name = "error", type = "string", description = "Error message"),
-            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
-            @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
-            @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages"),
-            @Tool.Field(name = "stop_reason", type = "string", description = "Why returned (when until is set)"),
-            @Tool.Field(name = "current_step", type = "string", description = "Current step (for reached_step/step_not_reached)"),
-            @Tool.Field(name = "action_taken", type = "string", description = "What was done when an action was auto-resolved"),
-            @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards")
-        }
+            + "Without until: returns immediately (action_pending=false if nothing to do)."
     )
-    public static Map<String, Object> execute(
+    public static ActionResult execute(
             BridgeCallbackHandler handler,
             @Param(
                 description = "Skip to a target step/phase, then return choices. Omit to return immediately.",

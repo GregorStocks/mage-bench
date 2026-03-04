@@ -8,20 +8,22 @@ import com.google.gson.JsonObject;
 
 import mage.client.bridge.BridgeCallbackHandler;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Reflection-based MCP tool registry.
  * Scans tool classes for @Tool-annotated methods and auto-generates
- * input schemas from Java parameter types + @Param annotations.
+ * input schemas from Java parameter types + @Param annotations,
+ * output schemas from @ResultField-annotated fields on the return type.
  */
 public class McpToolRegistry {
 
@@ -73,7 +75,8 @@ public class McpToolRegistry {
         if (toolMethod == null) {
             throw new RuntimeException("No @Tool method found in " + cls.getName());
         }
-        return new ToolEntry(toolMethod.getAnnotation(Tool.class), toolMethod, examplesMethod);
+        Class<?> resultClass = toolMethod.getReturnType();
+        return new ToolEntry(toolMethod.getAnnotation(Tool.class), toolMethod, examplesMethod, resultClass);
     }
 
     /** Build the full tool definition list (for tools/list and JSON export). */
@@ -105,9 +108,9 @@ public class McpToolRegistry {
                 args[i] = extractArg(arguments, paramName, type);
             }
         }
-        Map<String, Object> result;
+        Object rawResult;
         try {
-            result = (Map<String, Object>) entry.method().invoke(null, args);
+            rawResult = entry.method().invoke(null, args);
         } catch (java.lang.reflect.InvocationTargetException e) {
             Throwable cause = e.getCause();
             if (cause instanceof RuntimeException re) throw re;
@@ -115,40 +118,51 @@ public class McpToolRegistry {
         } catch (Exception e) {
             throw new RuntimeException("Failed to invoke tool " + name, e);
         }
-        validateOutputKeys(name, entry, result);
-        return result;
+        return resultToMap(rawResult);
     }
 
-    // -- Output validation --
+    // -- Result conversion --
 
-    /** Cache of declared output field names per tool (built lazily). */
-    private final Map<String, Set<String>> declaredOutputFields = new HashMap<>();
-
-    private Set<String> getDeclaredOutputFields(ToolEntry entry) {
-        return declaredOutputFields.computeIfAbsent(entry.annotation().name(), k -> {
-            var fields = new HashSet<String>();
-            for (Tool.Field f : entry.annotation().output()) {
-                fields.add(f.name());
+    /**
+     * Convert a typed result object to a Map by reading @ResultField-annotated public fields.
+     * Null fields are omitted from the output.
+     */
+    public static Map<String, Object> resultToMap(Object result) {
+        if (result == null) return new LinkedHashMap<>();
+        var map = new LinkedHashMap<String, Object>();
+        for (Field f : getResultFields(result.getClass())) {
+            try {
+                Object value = f.get(result);
+                if (value != null) {
+                    map.put(f.getName(), value);
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Cannot read field " + f.getName(), e);
             }
-            return fields;
-        });
+        }
+        return map;
     }
 
     /**
-     * Fail fast: crash if a tool returns output keys not declared in @Tool.Field.
-     * This prevents tool schema and runtime code from drifting out of sync.
+     * Collect all @ResultField-annotated public fields from a class and its superclasses,
+     * in declaration order (superclass fields first).
      */
-    private void validateOutputKeys(String toolName, ToolEntry entry, Map<String, Object> result) {
-        if (result == null) return;
-        Set<String> declared = getDeclaredOutputFields(entry);
-        for (String key : result.keySet()) {
-            if (!declared.contains(key)) {
-                throw new IllegalStateException(
-                    "Tool '" + toolName + "' returned undeclared output key '" + key
-                    + "'. Add a @Tool.Field(name = \"" + key + "\", ...) annotation to "
-                    + entry.method().getDeclaringClass().getSimpleName() + ".");
+    private static List<Field> getResultFields(Class<?> cls) {
+        var fields = new ArrayList<Field>();
+        // Walk superclass chain (superclass fields come first)
+        var hierarchy = new ArrayList<Class<?>>();
+        for (Class<?> c = cls; c != null && c != Object.class; c = c.getSuperclass()) {
+            hierarchy.add(c);
+        }
+        // Reverse to process superclass first
+        for (int i = hierarchy.size() - 1; i >= 0; i--) {
+            for (Field f : hierarchy.get(i).getDeclaredFields()) {
+                if (f.isAnnotationPresent(ResultField.class)) {
+                    fields.add(f);
+                }
             }
         }
+        return fields;
     }
 
     // -- Schema generation --
@@ -159,7 +173,7 @@ public class McpToolRegistry {
         def.put("name", entry.annotation().name());
         def.put("description", entry.annotation().description());
         def.put("inputSchema", buildInputSchema(entry));
-        def.put("outputSchema", buildOutputSchema(entry.annotation().output()));
+        def.put("outputSchema", buildOutputSchema(entry.resultClass()));
         if (entry.examplesMethod() != null) {
             try {
                 def.put("examples", (List<Map<String, Object>>) entry.examplesMethod().invoke(null));
@@ -183,7 +197,7 @@ public class McpToolRegistry {
 
             String name = p.getName();
             var prop = new HashMap<String, Object>();
-            addJsonType(prop, p.getType());
+            addJsonTypeForParam(prop, p.getType());
             prop.put("description", param.description());
             if (param.allowed_values().length > 0) {
                 prop.put("enum", List.of(param.allowed_values()));
@@ -203,7 +217,7 @@ public class McpToolRegistry {
         return schema;
     }
 
-    private static void addJsonType(Map<String, Object> prop, Class<?> type) {
+    private static void addJsonTypeForParam(Map<String, Object> prop, Class<?> type) {
         if (type == String.class) {
             prop.put("type", "string");
         } else if (type == Integer.class || type == int.class) {
@@ -227,29 +241,66 @@ public class McpToolRegistry {
         }
     }
 
-    private static Map<String, Object> buildOutputSchema(Tool.Field[] fields) {
+    /**
+     * Build the output schema from a result class's @ResultField-annotated fields.
+     */
+    private static Map<String, Object> buildOutputSchema(Class<?> resultClass) {
         var schema = new HashMap<String, Object>();
         schema.put("type", "object");
         var properties = new HashMap<String, Object>();
-        for (Tool.Field f : fields) {
+        for (Field f : getResultFields(resultClass)) {
+            ResultField rf = f.getAnnotation(ResultField.class);
             var prop = new HashMap<String, Object>();
-            String type = f.type();
-            if (type.startsWith("array[") && type.endsWith("]")) {
-                prop.put("type", "array");
-                var items = new HashMap<String, Object>();
-                items.put("type", type.substring(6, type.length() - 1));
-                prop.put("items", items);
-            } else {
-                prop.put("type", type);
+            addJsonTypeForField(prop, f);
+            prop.put("description", rf.description());
+            if (!rf.conditional().isEmpty()) {
+                prop.put("conditional", rf.conditional());
             }
-            prop.put("description", f.description());
-            if (!f.conditional().isEmpty()) {
-                prop.put("conditional", f.conditional());
-            }
-            properties.put(f.name(), prop);
+            properties.put(f.getName(), prop);
         }
         schema.put("properties", properties);
         return schema;
+    }
+
+    /**
+     * Derive JSON schema type from a result field's Java type, including generic type parameters.
+     */
+    private static void addJsonTypeForField(Map<String, Object> prop, Field f) {
+        Class<?> type = f.getType();
+        if (type == String.class) {
+            prop.put("type", "string");
+        } else if (type == Integer.class || type == int.class) {
+            prop.put("type", "integer");
+        } else if (type == Long.class || type == long.class) {
+            prop.put("type", "integer");
+        } else if (type == Boolean.class || type == boolean.class) {
+            prop.put("type", "boolean");
+        } else if (List.class.isAssignableFrom(type)) {
+            prop.put("type", "array");
+            var items = new HashMap<String, Object>();
+            items.put("type", getListItemType(f));
+            prop.put("items", items);
+        } else if (Map.class.isAssignableFrom(type)) {
+            prop.put("type", "object");
+        } else {
+            throw new RuntimeException("Unsupported result field type: " + type.getName()
+                + " on field " + f.getName());
+        }
+    }
+
+    /**
+     * Determine the JSON type of a List field's element type via generic type parameters.
+     * Returns "string" for List&lt;String&gt;, "object" for everything else.
+     */
+    private static String getListItemType(Field f) {
+        Type genericType = f.getGenericType();
+        if (genericType instanceof ParameterizedType pt) {
+            Type[] typeArgs = pt.getActualTypeArguments();
+            if (typeArgs.length == 1 && typeArgs[0] == String.class) {
+                return "string";
+            }
+        }
+        return "object";
     }
 
     // -- Arg extraction --
@@ -306,5 +357,5 @@ public class McpToolRegistry {
         return s.length() <= max ? s : s.substring(0, max) + "...";
     }
 
-    private record ToolEntry(Tool annotation, Method method, Method examplesMethod) {}
+    private record ToolEntry(Tool annotation, Method method, Method examplesMethod, Class<?> resultClass) {}
 }

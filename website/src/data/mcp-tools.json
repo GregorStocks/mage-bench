@@ -201,10 +201,6 @@
             "type": "object"
           }
         },
-        "stop_reason": {
-          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
-          "type": "string"
-        },
         "response_type": {
           "conditional": "action_pending",
           "description": "select, boolean, index, amount, pile, or multi_amount",
@@ -214,6 +210,10 @@
           "conditional": "action_pending",
           "description": "Targeting can be cancelled",
           "type": "boolean"
+        },
+        "stop_reason": {
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
+          "type": "string"
         },
         "combat": {
           "conditional": "action_pending",
@@ -260,13 +260,6 @@
           "description": "Warning message",
           "type": "string"
         },
-        "recent_chat": {
-          "description": "New chat messages",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "respond_with": {
           "conditional": "action_pending",
           "description": "choose_action parameter(s) to use",
@@ -280,17 +273,20 @@
             "type": "object"
           }
         },
+        "recent_chat": {
+          "description": "New chat messages",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "your_hand": {
           "conditional": "action_pending",
-          "description": "Hand cards",
+          "description": "Hand cards (during mulligan)",
           "type": "array",
           "items": {
             "type": "object"
           }
-        },
-        "current_step": {
-          "description": "Current step (for reached_step/step_not_reached)",
-          "type": "string"
         },
         "incoming_attackers": {
           "conditional": "action_pending",
@@ -299,6 +295,10 @@
           "items": {
             "type": "object"
           }
+        },
+        "current_step": {
+          "description": "Current step (for reached_step/step_not_reached)",
+          "type": "string"
         },
         "pile1": {
           "conditional": "action_pending",
@@ -313,6 +313,10 @@
           "description": "Max allowed value",
           "type": "integer"
         },
+        "action_taken": {
+          "description": "What was done when an action was auto-resolved",
+          "type": "string"
+        },
         "untapped_lands": {
           "conditional": "action_pending",
           "description": "Untapped land count",
@@ -323,12 +327,11 @@
           "type": "boolean"
         },
         "message": {
-          "conditional": "action_pending",
           "description": "Prompt from XMage",
           "type": "string"
         },
         "action_pending": {
-          "description": "Whether a decision is needed",
+          "description": "Whether an action is pending",
           "type": "boolean"
         },
         "player_dead": {
@@ -624,10 +627,12 @@
           "type": "string"
         },
         "note": {
+          "conditional": "action_pending",
           "description": "Informational note",
           "type": "string"
         },
         "stack": {
+          "conditional": "action_pending",
           "description": "Stack (when non-empty)",
           "type": "array",
           "items": {
@@ -643,6 +648,7 @@
           "type": "string"
         },
         "already_attacking": {
+          "conditional": "action_pending",
           "description": "Pre-declared attackers",
           "type": "array",
           "items": {
@@ -650,18 +656,21 @@
           }
         },
         "response_type": {
+          "conditional": "action_pending",
           "description": "select, boolean, index, amount, pile, or multi_amount",
           "type": "string"
         },
         "can_cancel": {
+          "conditional": "action_pending",
           "description": "Targeting can be cancelled",
           "type": "boolean"
         },
         "stop_reason": {
-          "description": "Why returned (when until is set)",
+          "description": "Why returned: playable_cards, combat, non_priority_action, game_over, reached_step, step_not_reached",
           "type": "string"
         },
         "combat": {
+          "conditional": "action_pending",
           "description": "Combat groups",
           "type": "array",
           "items": {
@@ -669,6 +678,7 @@
           }
         },
         "total_min": {
+          "conditional": "action_pending",
           "description": "Total min (multi_amount)",
           "type": "integer"
         },
@@ -677,14 +687,17 @@
           "type": "string"
         },
         "required": {
+          "conditional": "action_pending",
           "description": "Targeting is required",
           "type": "boolean"
         },
         "land_drops_used": {
+          "conditional": "action_pending",
           "description": "Lands played this turn",
           "type": "integer"
         },
         "min": {
+          "conditional": "action_pending",
           "description": "Min allowed value",
           "type": "integer"
         },
@@ -693,14 +706,21 @@
           "type": "boolean"
         },
         "context": {
+          "conditional": "action_pending",
           "description": "Turn/phase context, e.g. T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
           "type": "string"
         },
+        "warning": {
+          "description": "Warning message",
+          "type": "string"
+        },
         "respond_with": {
+          "conditional": "action_pending",
           "description": "choose_action parameter(s) to use",
           "type": "string"
         },
         "pile2": {
+          "conditional": "action_pending",
           "description": "Pile 2 contents",
           "type": "array",
           "items": {
@@ -715,6 +735,7 @@
           }
         },
         "your_hand": {
+          "conditional": "action_pending",
           "description": "Hand cards (during mulligan)",
           "type": "array",
           "items": {
@@ -722,6 +743,7 @@
           }
         },
         "incoming_attackers": {
+          "conditional": "action_pending",
           "description": "Attackers (during declare_blockers)",
           "type": "array",
           "items": {
@@ -733,6 +755,7 @@
           "type": "string"
         },
         "pile1": {
+          "conditional": "action_pending",
           "description": "Pile 1 contents",
           "type": "array",
           "items": {
@@ -740,6 +763,7 @@
           }
         },
         "max": {
+          "conditional": "action_pending",
           "description": "Max allowed value",
           "type": "integer"
         },
@@ -748,6 +772,7 @@
           "type": "string"
         },
         "untapped_lands": {
+          "conditional": "action_pending",
           "description": "Untapped land count",
           "type": "integer"
         },
@@ -768,18 +793,22 @@
           "type": "boolean"
         },
         "total_max": {
+          "conditional": "action_pending",
           "description": "Total max (multi_amount)",
           "type": "integer"
         },
         "board_unchanged": {
+          "conditional": "action_pending",
           "description": "Board omitted (cursor matched).",
           "type": "boolean"
         },
         "board_cursor": {
+          "conditional": "action_pending",
           "description": "Pass back to skip unchanged board.",
           "type": "integer"
         },
         "choices": {
+          "conditional": "action_pending",
           "description": "Available choices with index and name",
           "type": "array",
           "items": {
@@ -787,6 +816,7 @@
           }
         },
         "items": {
+          "conditional": "action_pending",
           "description": "Per-item details for multi_amount",
           "type": "array",
           "items": {
@@ -794,6 +824,7 @@
           }
         },
         "board": {
+          "conditional": "action_pending",
           "description": "Board state (players array). Omitted when board_unchanged=true.",
           "type": "array",
           "items": {
@@ -856,7 +887,10 @@
         },
         "declared": {
           "description": "Declared attacker/blocker IDs",
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         },
         "game_seq": {
           "description": "Sequence number",
@@ -872,7 +906,10 @@
         },
         "failed": {
           "description": "Failed batch entries: {id, reason}",
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         },
         "interrupted": {
           "description": "Batch combat interrupted by trigger",

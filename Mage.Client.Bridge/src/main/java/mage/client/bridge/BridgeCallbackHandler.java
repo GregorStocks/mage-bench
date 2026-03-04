@@ -39,6 +39,14 @@ import mage.players.PlayableObjectStats;
 import mage.util.MultiAmountMessage;
 import mage.util.ShortIdRegistry;
 
+import mage.client.bridge.tools.ActionResult;
+import mage.client.bridge.tools.ChooseActionTool;
+import mage.client.bridge.tools.GetGameHistoryTool;
+import mage.client.bridge.tools.GetGameLogTool;
+import mage.client.bridge.tools.GetGameStateTool;
+import mage.client.bridge.tools.GetOracleTextTool;
+import mage.client.bridge.tools.McpToolRegistry;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -620,8 +628,8 @@ public class BridgeCallbackHandler {
      * Returns indexed choices so external clients can pick by index via chooseAction().
      */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> getActionChoices(Long boardCursorParam) {
-        var result = new HashMap<String, Object>();
+    public ActionResult getActionChoices(Long boardCursorParam) {
+        var result = new ActionResult();
         PendingAction action = pendingAction;
         // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
         // can overwrite lastGameView with a view from a different phase (race condition).
@@ -635,19 +643,19 @@ public class BridgeCallbackHandler {
         // Capture for use in lambdas (must be effectively final).
         final GameView gv = gameView;
         if (action != null) {
-            result.put("game_seq", action.gameSeq());
+            result.game_seq = action.gameSeq();
         }
 
         if (action == null) {
-            result.put("action_pending", false);
+            result.action_pending = false;
             clearChoiceSnapshot();
             attachUnseenChat(result);
             return result;
         }
 
-        result.put("action_pending", true);
-        result.put("action_type", action.method().name());
-        result.put("message", stripHtml(action.message()));
+        result.action_pending = true;
+        result.action_type = action.method().name();
+        result.message = stripHtml(action.message());
 
         // Add compact phase context and player summary
         if (gameView != null) {
@@ -667,17 +675,17 @@ public class BridgeCallbackHandler {
             if (isMyTurn && isMainPhase) {
                 ctx.append(" YOUR_MAIN");
             }
-            result.put("context", ctx.toString());
+            result.context = ctx.toString();
 
             // Full board state: players with battlefield, graveyard, exile, hand, etc.
             // Board cursor dedup: skip the board payload when caller already has it.
             List<Map<String, Object>> players = buildPlayersArray(gameView);
             long currentBoardCursor = updateBoardCursor(players);
-            result.put("board_cursor", currentBoardCursor);
+            result.board_cursor = currentBoardCursor;
             if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
-                result.put("board_unchanged", true);
+                result.board_unchanged = true;
             } else {
-                result.put("board", players);
+                result.board = players;
             }
 
             // Convenience top-level fields (also available per-player in board)
@@ -690,14 +698,14 @@ public class BridgeCallbackHandler {
                     }
                 }
                 if (untappedLands > 0) {
-                    result.put("untapped_lands", untappedLands);
+                    result.untapped_lands = untappedLands;
                 }
             }
             // Analogous to Arena highlighting your lands when you have a land drop left.
             // Helps LLMs remember they can play a land this turn.
             // Uses the authoritative server value from PlayerView, not chat-message counting.
             if (isMyTurn && isMainPhase && myPlayer != null) {
-                result.put("land_drops_used", myPlayer.getLandsPlayed());
+                result.land_drops_used = myPlayer.getLandsPlayed();
             }
 
             // Stack summary — helps LLMs see what's pending before casting instants/counters
@@ -724,14 +732,14 @@ public class BridgeCallbackHandler {
                     }
                     stackSummary.add(item);
                 }
-                result.put("stack", stackSummary);
+                result.stack = stackSummary;
             }
 
             // Combat context — show attackers/blockers during any combat step
             // so LLMs see the combat state when casting instants or activating abilities
             List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
             if (combatGroups != null) {
-                result.put("combat", combatGroups);
+                result.combat = combatGroups;
             }
         }
 
@@ -740,8 +748,8 @@ public class BridgeCallbackHandler {
 
         switch (method) {
             case GAME_ASK: {
-                result.put("response_type", "boolean");
-                result.put("respond_with", "choice=yes or choice=no");
+                result.response_type = "boolean";
+                result.respond_with = "choice=yes or choice=no";
                 lastChoices = null;
 
                 // For mulligan decisions, include hand contents so LLM can evaluate
@@ -757,7 +765,7 @@ public class BridgeCallbackHandler {
                         for (CardView card : sortedHand) {
                             handCards.add(buildCardInfoMap(card));
                         }
-                        result.put("your_hand", handCards);
+                        result.your_hand = handCards;
                     }
                 }
                 break;
@@ -876,7 +884,7 @@ public class BridgeCallbackHandler {
                         List<UUID> possibleBlockerIds = (List<UUID>) options.get("possibleBlockers");
 
                         if (possibleAttackerIds != null && !possibleAttackerIds.isEmpty()) {
-                            result.put("combat_phase", "declare_attackers");
+                            result.combat_phase = "declare_attackers";
 
                             // Show which creatures are already attacking
                             var alreadyAttacking = new ArrayList<Map<String, Object>>();
@@ -897,7 +905,7 @@ public class BridgeCallbackHandler {
                                 }
                             }
                             if (!alreadyAttacking.isEmpty()) {
-                                result.put("already_attacking", alreadyAttacking);
+                                result.already_attacking = alreadyAttacking;
                             }
 
                             int idx = choiceList.size();
@@ -933,7 +941,7 @@ public class BridgeCallbackHandler {
                         }
 
                         if (possibleBlockerIds != null && !possibleBlockerIds.isEmpty()) {
-                            result.put("combat_phase", "declare_blockers");
+                            result.combat_phase = "declare_blockers";
 
                             // Show attacking creatures for context
                             var incomingAttackers = new ArrayList<Map<String, Object>>();
@@ -954,7 +962,7 @@ public class BridgeCallbackHandler {
                                 }
                             }
                             if (!incomingAttackers.isEmpty()) {
-                                result.put("incoming_attackers", incomingAttackers);
+                                result.incoming_attackers = incomingAttackers;
                             }
 
                             int idx = choiceList.size();
@@ -980,20 +988,20 @@ public class BridgeCallbackHandler {
                 }
 
                 if (!choiceList.isEmpty()) {
-                    result.put("response_type", "select");
-                    result.put("choices", choiceList);
+                    result.response_type = "select";
+                    result.choices = choiceList;
                     lastChoices = indexToUuid;
-                    String combatPhase = (String) result.get("combat_phase");
+                    String combatPhase = result.combat_phase;
                     if ("declare_attackers".equals(combatPhase)) {
-                        result.put("respond_with", "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)");
+                        result.respond_with = "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)";
                     } else if ("declare_blockers".equals(combatPhase)) {
-                        result.put("respond_with", "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)");
+                        result.respond_with = "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)";
                     } else {
-                        result.put("respond_with", "choice=pN to play, or choice=no to pass");
+                        result.respond_with = "choice=pN to play, or choice=no to pass";
                     }
                 } else {
-                    result.put("response_type", "boolean");
-                    result.put("respond_with", "choice=yes (confirm) or choice=no (pass)");
+                    result.response_type = "boolean";
+                    result.respond_with = "choice=yes (confirm) or choice=no (pass)";
                     lastChoices = null;
                 }
                 break;
@@ -1068,13 +1076,13 @@ public class BridgeCallbackHandler {
                 }
 
                 if (!manaChoiceList.isEmpty()) {
-                    result.put("response_type", "select");
-                    result.put("respond_with", "choice=pN to tap, or choice=no to cancel");
-                    result.put("choices", manaChoiceList);
+                    result.response_type = "select";
+                    result.respond_with = "choice=pN to tap, or choice=no to cancel";
+                    result.choices = manaChoiceList;
                     lastChoices = manaIndexToChoice;
                 } else {
-                    result.put("response_type", "boolean");
-                    result.put("respond_with", "choice=no to cancel");
+                    result.response_type = "boolean";
+                    result.respond_with = "choice=no to cancel";
                     lastChoices = null;
                 }
                 break;
@@ -1082,13 +1090,13 @@ public class BridgeCallbackHandler {
 
             case GAME_TARGET: {
                 GameClientMessage msg = (GameClientMessage) data;
-                result.put("response_type", "index");
+                result.response_type = "index";
                 boolean required = msg.isFlag();
-                result.put("required", required);
-                result.put("can_cancel", !required);
-                result.put("respond_with", required
+                result.required = required;
+                result.can_cancel = !required;
+                result.respond_with = required
                     ? "choice=pN — must pick a target"
-                    : "choice=pN, or choice=no to cancel");
+                    : "choice=pN, or choice=no to cancel";
 
                 Set<UUID> targets = findValidTargets(msg);
                 var choiceList = new ArrayList<Map<String, Object>>();
@@ -1146,14 +1154,14 @@ public class BridgeCallbackHandler {
                         }
                     }
                     session.sendPlayerBoolean(currentGameId, false);
-                    result.put("action_pending", false);
-                    result.put("action_taken", "auto_cancelled_no_targets");
-                    result.put("message", stripHtml(msg.getMessage()));
+                    result.action_pending = false;
+                    result.action_taken = "auto_cancelled_no_targets";
+                    result.message = stripHtml(msg.getMessage());
                     lastChoices = null;
                     break;
                 }
 
-                result.put("choices", choiceList);
+                result.choices = choiceList;
                 lastChoices = indexToUuid;
                 break;
             }
@@ -1161,8 +1169,8 @@ public class BridgeCallbackHandler {
             case GAME_CHOOSE_ABILITY: {
                 AbilityPickerView picker = (AbilityPickerView) data;
                 Map<UUID, String> choices = picker.getChoices();
-                result.put("response_type", "index");
-                result.put("respond_with", "choice=0, choice=1, etc. (not yes/no)");
+                result.response_type = "index";
+                result.respond_with = "choice=0, choice=1, etc. (not yes/no)";
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToUuid = new ArrayList<Object>();
@@ -1189,19 +1197,19 @@ public class BridgeCallbackHandler {
                 // this is a mana payment step, not a game action choice. Models often
                 // get confused when they see "Choose spell or ability" during mana payment.
                 if (allManaAbilities) {
-                    String msg = (String) result.get("message");
+                    String msg = result.message;
                     if (msg != null && msg.startsWith("Choose spell or ability")) {
                         // Extract the card name after ": " (from stripHtml's <br> replacement)
                         int colonIdx = msg.indexOf(": ");
                         String cardName = colonIdx >= 0 ? msg.substring(colonIdx + 2).trim() : "";
                         if (!cardName.isEmpty()) {
-                            result.put("message", "Choose which mana to produce from " + cardName
-                                    + " (tapping to pay for a spell)");
+                            result.message = "Choose which mana to produce from " + cardName
+                                    + " (tapping to pay for a spell)";
                         }
                     }
                 }
 
-                result.put("choices", choiceList);
+                result.choices = choiceList;
                 lastChoices = indexToUuid;
                 break;
             }
@@ -1209,8 +1217,8 @@ public class BridgeCallbackHandler {
             case GAME_CHOOSE_CHOICE: {
                 GameClientMessage msg = (GameClientMessage) data;
                 Choice choice = msg.getChoice();
-                result.put("response_type", "index");
-                result.put("respond_with", "choice=0, choice=1, etc. or text=Name (not yes/no)");
+                result.response_type = "index";
+                result.respond_with = "choice=0, choice=1, etc. or text=Name (not yes/no)";
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToKey = new ArrayList<Object>();
@@ -1267,22 +1275,22 @@ public class BridgeCallbackHandler {
                         if (!filtered.isEmpty()) {
                             choiceList = filtered;
                             indexToKey = filteredKeys;
-                            result.put("note", "Showing " + filtered.size()
+                            result.note = "Showing " + filtered.size()
                                 + " types from your deck (" + totalChoices
-                                + " total available). Use choose_action(text='TypeName') for any other type.");
+                                + " total available). Use choose_action(text='TypeName') for any other type.";
                         }
                     }
                 }
 
-                result.put("choices", choiceList);
+                result.choices = choiceList;
                 lastChoices = indexToKey;
                 break;
             }
 
             case GAME_CHOOSE_PILE: {
                 GameClientMessage msg = (GameClientMessage) data;
-                result.put("response_type", "pile");
-                result.put("respond_with", "pile=1 or pile=2");
+                result.response_type = "pile";
+                result.respond_with = "pile=1 or pile=2";
 
                 var pile1 = new ArrayList<Map<String, Object>>();
                 var pile2 = new ArrayList<Map<String, Object>>();
@@ -1296,28 +1304,28 @@ public class BridgeCallbackHandler {
                         pile2.add(buildCardInfoMap(card));
                     }
                 }
-                result.put("pile1", pile1);
-                result.put("pile2", pile2);
+                result.pile1 = pile1;
+                result.pile2 = pile2;
                 lastChoices = null;
                 break;
             }
 
             case GAME_GET_AMOUNT: {
                 GameClientMessage msg = (GameClientMessage) data;
-                result.put("response_type", "amount");
-                result.put("respond_with", "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")");
-                result.put("min", msg.getMin());
-                result.put("max", msg.getMax());
+                result.response_type = "amount";
+                result.respond_with = "amount=N (min=" + msg.getMin() + ", max=" + msg.getMax() + ")";
+                result.min = msg.getMin();
+                result.max = msg.getMax();
                 lastChoices = null;
                 break;
             }
 
             case GAME_GET_MULTI_AMOUNT: {
                 GameClientMessage msg = (GameClientMessage) data;
-                result.put("response_type", "multi_amount");
-                result.put("respond_with", "amounts=[N,N,...] — one per item, sum between total_min and total_max");
-                result.put("total_min", msg.getMin());
-                result.put("total_max", msg.getMax());
+                result.response_type = "multi_amount";
+                result.respond_with = "amounts=[N,N,...] — one per item, sum between total_min and total_max";
+                result.total_min = msg.getMin();
+                result.total_max = msg.getMax();
 
                 var items = new ArrayList<Map<String, Object>>();
                 if (msg.getMessages() != null) {
@@ -1330,22 +1338,22 @@ public class BridgeCallbackHandler {
                         items.add(item);
                     }
                 }
-                result.put("items", items);
+                result.items = items;
                 lastChoices = null;
                 break;
             }
 
             default:
-                result.put("response_type", "unknown");
-                result.put("error", "Unhandled action type: " + method);
+                result.response_type = "unknown";
+                result.error = "Unhandled action type: " + method;
                 lastChoices = null;
         }
 
-        String responseType = (String) result.get("response_type");
+        String responseType = result.response_type;
         if (responseType != null) {
             int choiceCount = -1;
-            if (result.get("choices") instanceof List<?>) {
-                choiceCount = ((List<?>) result.get("choices")).size();
+            if (result.choices != null) {
+                choiceCount = result.choices.size();
             }
             recordChoiceSnapshot(method.name(), responseType, choiceCount);
         } else {
@@ -1388,10 +1396,10 @@ public class BridgeCallbackHandler {
      * When choose_action fails validation, attach the available choices to the error response
      * so the model can self-correct without a separate get_action_choices round trip.
      */
-    private void attachChoicesToError(Map<String, Object> errorResult) {
-        Map<String, Object> choicesResult = getActionChoices(null);
-        if (choicesResult.containsKey("choices")) {
-            errorResult.put("choices", choicesResult.get("choices"));
+    private void attachChoicesToError(ChooseActionTool.Result errorResult) {
+        ActionResult choicesResult = getActionChoices(null);
+        if (choicesResult.choices != null) {
+            errorResult.choices = choicesResult.choices;
         }
     }
 
@@ -1399,12 +1407,12 @@ public class BridgeCallbackHandler {
      * Build a standardized error response for choose_action failures.
      * Must reuse the caller's result map so the finally block can read success=false.
      */
-    private Map<String, Object> buildError(Map<String, Object> result, String errorCode,
+    private ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
             String message, boolean retryable, PendingAction action, boolean attachChoices) {
-        result.put("success", false);
-        result.put("error", message);
-        result.put("error_code", errorCode);
-        result.put("retryable", retryable);
+        result.success = false;
+        result.error = message;
+        result.error_code = errorCode;
+        result.retryable = retryable;
         pendingAction = action;
         if (attachChoices) {
             attachChoicesToError(result);
@@ -1413,7 +1421,7 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    private Map<String, Object> buildError(Map<String, Object> result, String errorCode,
+    private ChooseActionTool.Result buildError(ChooseActionTool.Result result, String errorCode,
             String message, boolean retryable, PendingAction action) {
         return buildError(result, errorCode, message, retryable, action, false);
     }
@@ -1422,12 +1430,12 @@ public class BridgeCallbackHandler {
      * Respond to the current pending action with a specific choice.
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
-    public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
+    public ChooseActionTool.Result chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         interactionsThisTurn++;
-        var result = new HashMap<String, Object>();
+        var result = new ChooseActionTool.Result();
         PendingAction action = pendingAction;
         if (action != null) {
-            result.put("game_seq", action.gameSeq());
+            result.game_seq = action.gameSeq();
         }
 
         // Block-wait for a pending action (like pass_priority does).
@@ -1457,7 +1465,7 @@ public class BridgeCallbackHandler {
             }
             logger.info("[" + client.getUsername() + "] choose_action: waited "
                 + (System.currentTimeMillis() - waitStart) + "ms for pending action");
-            result.put("game_seq", action.gameSeq());
+            result.game_seq = action.gameSeq();
         }
 
         // Loop detection: model has made too many interactions this turn — auto-handle
@@ -1466,9 +1474,9 @@ public class BridgeCallbackHandler {
                 + " interactions this turn), auto-handling " + action.method().name());
             // Not a critical error — LLM is stuck in a loop, not a code bug
             executeDefaultAction();
-            result.put("success", true);
-            result.put("action_taken", "auto_passed_loop_detected");
-            result.put("warning", "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.");
+            result.success = true;
+            result.action_taken = "auto_passed_loop_detected";
+            result.warning = "Too many interactions this turn (" + interactionsThisTurn + "). Auto-passing until next turn.";
             return result;
         }
 
@@ -1480,7 +1488,7 @@ public class BridgeCallbackHandler {
             }
             // Not in declare_attackers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring attackers param (not in declare_attackers)");
-            result.put("warning", "Ignored attackers parameter (not in declare_attackers phase)");
+            result.warning = "Ignored attackers parameter (not in declare_attackers phase)";
             attackers = null;
         }
 
@@ -1492,7 +1500,7 @@ public class BridgeCallbackHandler {
             }
             // Not in declare_blockers — ignore the param and fall through
             logger.warn("[" + client.getUsername() + "] choose_action: ignoring blockers param (not in declare_blockers)");
-            result.put("warning", "Ignored blockers parameter (not in declare_blockers phase)");
+            result.warning = "Ignored blockers parameter (not in declare_blockers phase)";
             blockersArray = null;
         }
 
@@ -1501,7 +1509,7 @@ public class BridgeCallbackHandler {
             if (index != null) {
                 // Both provided — prefer id (it's more specific; index is usually a default value)
                 logger.warn("[" + client.getUsername() + "] choose_action: both id=" + id + " and index=" + index + " provided, preferring id");
-                result.put("warning", "Both id and index provided; used id=" + id + ", ignored index=" + index);
+                result.warning = "Both id and index provided; used id=" + id + ", ignored index=" + index;
                 index = null;
             }
             List<Object> choices = lastChoices;
@@ -1564,7 +1572,7 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod method = action.method();
         Object data = action.data();
 
-        result.put("success", true);
+        result.success = true;
 
         try {
             switch (method) {
@@ -1580,7 +1588,7 @@ public class BridgeCallbackHandler {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
                     }
                     session.sendPlayerBoolean(gameId, answer);
-                    result.put("action_taken", answer ? "yes" : "no");
+                    result.action_taken = answer ? "yes" : "no";
                     break;
 
                 case GAME_SELECT: {
@@ -1627,19 +1635,19 @@ public class BridgeCallbackHandler {
                                     // auto_tap controls fallback when plan runs out:
                                     // false = cancel spell, true/null = fall through to auto-tap
                                     manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
-                                    result.put("mana_plan_set", true);
-                                    result.put("mana_plan_size", manaPlan.size());
+                                    result.mana_plan_set = true;
+                                    result.mana_plan_size = manaPlan.size();
                                 } else if (autoTap != null && autoTap) {
                                     manaPlan = null;  // Explicit auto-tap mode
                                     manaPlanAbilityIndex = null;
                                     manaPlanAutoTapFallback = true;
                                 }
                                 session.sendPlayerUUID(gameId, (UUID) chosen);
-                                result.put("action_taken", "selected_" + index);
+                                result.action_taken = "selected_" + index;
                                 usedIndex = true;
                             } else if (chosen instanceof String) {
                                 session.sendPlayerString(gameId, (String) chosen);
-                                result.put("action_taken", "special_" + chosen);
+                                result.action_taken = "special_" + chosen;
                                 usedIndex = true;
                             } else {
                                 return buildError(result, "internal_error",
@@ -1650,7 +1658,7 @@ public class BridgeCallbackHandler {
                     if (!usedIndex) {
                         if (answer != null) {
                             session.sendPlayerBoolean(gameId, answer);
-                            result.put("action_taken", answer ? "confirmed" : "passed_priority");
+                            result.action_taken = answer ? "confirmed" : "passed_priority";
                         } else {
                             return buildError(result, "missing_param",
                                 "GAME_SELECT requires choice=pN to play a card, "
@@ -1683,7 +1691,7 @@ public class BridgeCallbackHandler {
                             Object manaChoice = choices.get(index);
                             if (manaChoice instanceof UUID) {
                                 session.sendPlayerUUID(gameId, (UUID) manaChoice);
-                                result.put("action_taken", "tapped_mana_" + index);
+                                result.action_taken = "tapped_mana_" + index;
                                 usedManaIndex = true;
                             } else if (manaChoice instanceof ManaType) {
                                 UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
@@ -1693,7 +1701,7 @@ public class BridgeCallbackHandler {
                                 }
                                 ManaType manaType = (ManaType) manaChoice;
                                 session.sendPlayerManaType(gameId, manaPlayerId, manaType);
-                                result.put("action_taken", "used_pool_" + manaType.toString());
+                                result.action_taken = "used_pool_" + manaType.toString();
                                 usedManaIndex = true;
                             } else {
                                 return buildError(result, "internal_error",
@@ -1724,7 +1732,7 @@ public class BridgeCallbackHandler {
                             manaPlan = null;
                             manaPlanAbilityIndex = null;
                             session.sendPlayerBoolean(gameId, false);
-                            result.put("action_taken", "cancelled_spell");
+                            result.action_taken = "cancelled_spell";
                         } else {
                             return buildError(result, "missing_param",
                                 "GAME_PLAY_MANA requires choice=pN to choose a mana source, or choice=\"no\" to cancel the spell. "
@@ -1747,7 +1755,7 @@ public class BridgeCallbackHandler {
                         if (choices != null && index >= 0 && index < choices.size()) {
                             UUID targetUUID = (UUID) choices.get(index);
                             session.sendPlayerUUID(gameId, targetUUID);
-                            result.put("action_taken", "selected_target_" + index);
+                            result.action_taken = "selected_target_" + index;
                             break;
                         }
                         logChoiceOutOfRangeDiagnostic(method, index, choices);
@@ -1768,7 +1776,7 @@ public class BridgeCallbackHandler {
                         // Explicit cancel via answer=false
                         if (!required) {
                             session.sendPlayerBoolean(gameId, false);
-                            result.put("action_taken", "cancelled");
+                            result.action_taken = "cancelled";
                             break;
                         }
                         // Required target — can't cancel, fall through to auto-select
@@ -1786,12 +1794,12 @@ public class BridgeCallbackHandler {
                         UUID firstTarget = selectDeterministicTarget(autoTargets, lastChoices);
                         logger.warn("[" + client.getUsername() + "] choose_action: auto-selecting first target for required GAME_TARGET");
                         session.sendPlayerUUID(gameId, firstTarget);
-                        result.put("action_taken", "auto_selected_required_target");
-                        result.put("warning", "Required target auto-selected. Use get_action_choices first, then index=N.");
+                        result.action_taken = "auto_selected_required_target";
+                        result.warning = "Required target auto-selected. Use get_action_choices first, then index=N.";
                     } else {
                         logger.error("[" + client.getUsername() + "] Required GAME_TARGET has no valid targets — cancelling to avoid infinite loop");
                         session.sendPlayerBoolean(gameId, false);
-                        result.put("action_taken", "cancelled_no_valid_targets");
+                        result.action_taken = "cancelled_no_valid_targets";
                     }
                     break;
                 }
@@ -1813,7 +1821,7 @@ public class BridgeCallbackHandler {
                     }
                     UUID abilityUUID = (UUID) abilityChoices.get(index);
                     session.sendPlayerUUID(gameId, abilityUUID);
-                    result.put("action_taken", "selected_ability_" + index);
+                    result.action_taken = "selected_ability_" + index;
                     break;
                 }
 
@@ -1861,7 +1869,7 @@ public class BridgeCallbackHandler {
                             }
                             session.sendPlayerString(gameId, matched);
                         }
-                        result.put("action_taken", "selected_choice_text_" + text);
+                        result.action_taken = "selected_choice_text_" + text;
                         break;
                     }
                     if (index == null) {
@@ -1878,7 +1886,7 @@ public class BridgeCallbackHandler {
                     }
                     String choiceStr = (String) choiceChoices.get(index);
                     session.sendPlayerString(gameId, choiceStr);
-                    result.put("action_taken", "selected_choice_" + index);
+                    result.action_taken = "selected_choice_" + index;
                     break;
                 }
 
@@ -1889,7 +1897,7 @@ public class BridgeCallbackHandler {
                     }
                     boolean pileChoice = pile == 1;
                     session.sendPlayerBoolean(gameId, pileChoice);
-                    result.put("action_taken", "selected_pile_" + pile);
+                    result.action_taken = "selected_pile_" + pile;
                     break;
 
                 case GAME_GET_AMOUNT: {
@@ -1900,7 +1908,7 @@ public class BridgeCallbackHandler {
                     GameClientMessage msg = (GameClientMessage) data;
                     int clamped = Math.max(msg.getMin(), Math.min(msg.getMax(), amount));
                     session.sendPlayerInteger(gameId, clamped);
-                    result.put("action_taken", "amount_" + clamped);
+                    result.action_taken = "amount_" + clamped;
                     break;
                 }
 
@@ -1916,7 +1924,7 @@ public class BridgeCallbackHandler {
                     }
                     String multiAmountStr = sb.toString();
                     session.sendPlayerString(gameId, multiAmountStr);
-                    result.put("action_taken", "multi_amount");
+                    result.action_taken = "multi_amount";
                     break;
                 }
 
@@ -1925,14 +1933,14 @@ public class BridgeCallbackHandler {
             }
         } finally {
             lastChoices = null;
-            if (Boolean.FALSE.equals(result.get("success"))) {
-                logger.warn("[" + client.getUsername() + "] choose_action failed: " + result.get("error"));
+            if (Boolean.FALSE.equals(result.success)) {
+                logger.warn("[" + client.getUsername() + "] choose_action failed: " + result.error);
             }
         }
 
         // After successful action, wait for next pending action before returning.
         // This prevents the LLM from waking up to an empty state.
-        if (Boolean.TRUE.equals(result.get("success"))) {
+        if (Boolean.TRUE.equals(result.success)) {
             long waitStart = System.currentTimeMillis();
             logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback (max " + POST_ACTION_WAIT_MS + "ms)");
             while (pendingAction == null) {
@@ -1959,13 +1967,13 @@ public class BridgeCallbackHandler {
                 logger.info("[" + client.getUsername() + "] chooseAction: next callback NOT arrived after " + waitElapsed + "ms");
             }
             if (next != null) {
-                result.put("next_action_pending", true);
-                result.put("next_action_type", next.method().name());
+                result.next_action_pending = true;
+                result.next_action_type = next.method().name();
                 String nextMsg = stripHtml(next.message());
                 if (nextMsg != null && !nextMsg.isEmpty()) {
-                    result.put("next_action_message", nextMsg);
+                    result.next_action_message = nextMsg;
                 }
-                result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
+                result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
             }
         }
 
@@ -2010,7 +2018,7 @@ public class BridgeCallbackHandler {
      * Special case: attackers=["all"] sends the "special" all-attack button.
      */
     @SuppressWarnings("unchecked")
-    private Map<String, Object> handleBatchAttackers(String[] attackerIds, PendingAction action, Map<String, Object> result) {
+    private ChooseActionTool.Result handleBatchAttackers(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
         UUID gameId = action.gameId();
         var declared = new ArrayList<String>();
         var failed = new ArrayList<Map<String, Object>>();
@@ -2033,10 +2041,10 @@ public class BridgeCallbackHandler {
                 }
                 session.sendPlayerBoolean(gameId, true);
             }
-            result.put("success", true);
-            result.put("action_taken", "batch_attack");
+            result.success = true;
+            result.action_taken = "batch_attack";
             declared.add("all");
-            result.put("declared", declared);
+            result.declared = new ArrayList<>(declared);
             lastChoices = null;
             waitForNextActionAfterBatch(result);
             return result;
@@ -2074,12 +2082,12 @@ public class BridgeCallbackHandler {
             // Wait for next callback
             PendingAction next = waitForNextCallback(gameId);
             if (next == null) {
-                result.put("interrupted", true);
+                result.interrupted = true;
                 break;
             }
             if (next.method() != ClientCallbackMethod.GAME_SELECT) {
                 // Interrupted by a trigger or other callback
-                result.put("interrupted", true);
+                result.interrupted = true;
                 break;
             }
             // Update possibleAttackers from the new callback for validation
@@ -2093,7 +2101,7 @@ public class BridgeCallbackHandler {
         }
 
         // Confirm attackers (send true)
-        if (!Boolean.TRUE.equals(result.get("interrupted"))) {
+        if (!Boolean.TRUE.equals(result.interrupted)) {
             synchronized (actionLock) {
                 if (pendingAction != null) {
                     pendingAction = null;
@@ -2102,11 +2110,11 @@ public class BridgeCallbackHandler {
             session.sendPlayerBoolean(gameId, true);
         }
 
-        result.put("success", true);
-        result.put("action_taken", "batch_attack");
-        result.put("declared", declared);
+        result.success = true;
+        result.action_taken = "batch_attack";
+        result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
-            result.put("failed", failed);
+            result.failed = new ArrayList<>(failed);
         }
         lastChoices = null;
         waitForNextActionAfterBatch(result);
@@ -2119,7 +2127,7 @@ public class BridgeCallbackHandler {
      * Sends each blocker UUID, then the attacker UUID when prompted, then confirms.
      */
     @SuppressWarnings("unchecked")
-    private Map<String, Object> handleBatchBlockers(String[] blockersArray, PendingAction action, Map<String, Object> result) {
+    private ChooseActionTool.Result handleBatchBlockers(String[] blockersArray, PendingAction action, ChooseActionTool.Result result) {
         UUID gameId = action.gameId();
         var declared = new ArrayList<Map<String, Object>>();
         var failed = new ArrayList<Map<String, Object>>();
@@ -2170,7 +2178,7 @@ public class BridgeCallbackHandler {
             // or GAME_SELECT (single attacker, auto-assigned)
             PendingAction next = waitForNextCallback(gameId);
             if (next == null) {
-                result.put("interrupted", true);
+                result.interrupted = true;
                 break;
             }
 
@@ -2190,7 +2198,7 @@ public class BridgeCallbackHandler {
                     session.sendPlayerBoolean(gameId, false);
                     next = waitForNextCallback(gameId);
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.put("interrupted", true);
+                        result.interrupted = true;
                         break;
                     }
                     continue;
@@ -2210,7 +2218,7 @@ public class BridgeCallbackHandler {
                     session.sendPlayerBoolean(gameId, false);
                     next = waitForNextCallback(gameId);
                     if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                        result.put("interrupted", true);
+                        result.interrupted = true;
                         break;
                     }
                     continue;
@@ -2228,7 +2236,7 @@ public class BridgeCallbackHandler {
                 // Wait for next GAME_SELECT (back to blocker selection)
                 next = waitForNextCallback(gameId);
                 if (next == null || next.method() != ClientCallbackMethod.GAME_SELECT) {
-                    result.put("interrupted", true);
+                    result.interrupted = true;
                     break;
                 }
 
@@ -2254,13 +2262,13 @@ public class BridgeCallbackHandler {
                 }
             } else {
                 // Interrupted by unexpected callback
-                result.put("interrupted", true);
+                result.interrupted = true;
                 break;
             }
         }
 
         // Confirm blockers (send true)
-        if (!Boolean.TRUE.equals(result.get("interrupted"))) {
+        if (!Boolean.TRUE.equals(result.interrupted)) {
             synchronized (actionLock) {
                 if (pendingAction != null) {
                     pendingAction = null;
@@ -2269,11 +2277,11 @@ public class BridgeCallbackHandler {
             session.sendPlayerBoolean(gameId, true);
         }
 
-        result.put("success", true);
-        result.put("action_taken", "batch_block");
-        result.put("declared", declared);
+        result.success = true;
+        result.action_taken = "batch_block";
+        result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
-            result.put("failed", failed);
+            result.failed = new ArrayList<>(failed);
         }
         lastChoices = null;
         waitForNextActionAfterBatch(result);
@@ -2305,7 +2313,7 @@ public class BridgeCallbackHandler {
      * After batch combat, wait for the next pending action before returning.
      * Similar to the post-chooseAction wait, but factored out for reuse.
      */
-    private void waitForNextActionAfterBatch(Map<String, Object> result) {
+    private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
         long waitStart = System.currentTimeMillis();
         while (pendingAction == null) {
             if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
@@ -2325,13 +2333,13 @@ public class BridgeCallbackHandler {
         }
         PendingAction next = pendingAction;
         if (next != null) {
-            result.put("next_action_pending", true);
-            result.put("next_action_type", next.method().name());
+            result.next_action_pending = true;
+            result.next_action_type = next.method().name();
             String nextMsg = stripHtml(next.message());
             if (nextMsg != null && !nextMsg.isEmpty()) {
-                result.put("next_action_message", nextMsg);
+                result.next_action_message = nextMsg;
             }
-            result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
+            result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
         }
     }
 
@@ -2523,29 +2531,29 @@ public class BridgeCallbackHandler {
         }
     }
 
-    public Map<String, Object> getGameLogChunk(int maxChars, Integer cursor) {
-        var result = new HashMap<String, Object>();
+    public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
+        var result = new GetGameLogTool.Result();
         int totalLength = getGameLogLength();
         if (cursor != null) {
             int oldestOffset = getGameLogOldestOffset();
             int requestedOffset = cursor;
             int effectiveOffset = Math.max(requestedOffset, oldestOffset);
             effectiveOffset = Math.min(effectiveOffset, totalLength);
-            result.put("log", stripHtml(getGameLogSince(effectiveOffset)));
-            result.put("total_length", totalLength);
-            result.put("truncated", requestedOffset < oldestOffset);
-            result.put("cursor", totalLength);
+            result.log = stripHtml(getGameLogSince(effectiveOffset));
+            result.total_length = totalLength;
+            result.truncated = requestedOffset < oldestOffset;
+            result.cursor = totalLength;
             if (requestedOffset < oldestOffset) {
-                result.put("cursor_reset", true);
+                result.cursor_reset = true;
             }
             return result;
         }
 
         String rawLog = getGameLog(maxChars);
-        result.put("log", stripHtml(rawLog));
-        result.put("total_length", totalLength);
-        result.put("truncated", rawLog.length() < totalLength);
-        result.put("cursor", totalLength);
+        result.log = stripHtml(rawLog);
+        result.total_length = totalLength;
+        result.truncated = rawLog.length() < totalLength;
+        result.cursor = totalLength;
         return result;
     }
 
@@ -2554,11 +2562,11 @@ public class BridgeCallbackHandler {
      * Scans for "{player} turn {sinceTurn}" marker in the log.
      * If player is null, defaults to this client's player name.
      */
-    public Map<String, Object> getGameLogSinceTurn(String player, int sinceTurn) {
+    public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
         if (player == null) {
             player = client.getUsername();
         }
-        var result = new HashMap<String, Object>();
+        var result = new GetGameLogTool.Result();
         int totalLength = getGameLogLength();
         String marker = player + " turn " + sinceTurn;
 
@@ -2576,27 +2584,27 @@ public class BridgeCallbackHandler {
             }
 
             if (startPos >= 0) {
-                result.put("log", stripHtml(logStr.substring(startPos)));
-                result.put("truncated", false);
-                result.put("since_turn", sinceTurn);
-                result.put("since_player", player);
+                result.log = stripHtml(logStr.substring(startPos));
+                result.truncated = false;
+                result.since_turn = sinceTurn;
+                result.since_player = player;
             } else {
                 // Marker not found: either trimmed (too old) or hasn't happened yet
                 Integer currentTurn = playerTurnCounts.get(player);
                 if (currentTurn != null && sinceTurn <= currentTurn && !logStr.isEmpty()) {
                     // Turn existed but was trimmed from the buffer
-                    result.put("log", stripHtml(logStr));
-                    result.put("truncated", true);
-                    result.put("since_player", player);
+                    result.log = stripHtml(logStr);
+                    result.truncated = true;
+                    result.since_player = player;
                 } else {
                     // Turn hasn't happened yet or player not found
-                    result.put("log", "");
-                    result.put("truncated", false);
+                    result.log = "";
+                    result.truncated = false;
                 }
             }
 
-            result.put("total_length", totalLength);
-            result.put("cursor", totalLength);
+            result.total_length = totalLength;
+            result.cursor = totalLength;
         }
         return result;
     }
@@ -2633,7 +2641,7 @@ public class BridgeCallbackHandler {
      * @return map with "history" (formatted text), "cursor" (for next incremental call),
      *         "event_count" (number of events included)
      */
-    public Map<String, Object> getGameHistory(Integer sinceTurn, Integer sinceCursor) {
+    public GetGameHistoryTool.Result getGameHistory(Integer sinceTurn, Integer sinceCursor) {
         // Try pulling fresh events from the server
         int savedCursor = bridgeEventCursor;
         if (sinceCursor != null) {
@@ -2670,10 +2678,10 @@ public class BridgeCallbackHandler {
         }
 
         if (events.isEmpty()) {
-            var result = new HashMap<String, Object>();
-            result.put("history", "No game events recorded yet.");
-            result.put("cursor", newCursor);
-            result.put("event_count", 0);
+            var result = new GetGameHistoryTool.Result();
+            result.history = "No game events recorded yet.";
+            result.cursor = newCursor;
+            result.event_count = 0;
             return result;
         }
 
@@ -2709,10 +2717,10 @@ public class BridgeCallbackHandler {
             }
         }
 
-        var result = new HashMap<String, Object>();
-        result.put("history", sb.toString());
-        result.put("cursor", newCursor);
-        result.put("event_count", events.size());
+        var result = new GetGameHistoryTool.Result();
+        result.history = sb.toString();
+        result.cursor = newCursor;
+        result.event_count = events.size();
         return result;
     }
 
@@ -2856,6 +2864,28 @@ public class BridgeCallbackHandler {
         }
     }
 
+    private void attachUnseenChat(ActionResult result) {
+        if (playerDead) result.player_dead = true;
+        if (activeGames.isEmpty() && gameEverStarted) result.game_over = true;
+        synchronized (unseenChat) {
+            if (!unseenChat.isEmpty()) {
+                result.recent_chat = new ArrayList<>(unseenChat);
+                unseenChat.clear();
+            }
+        }
+    }
+
+    private void attachUnseenChat(ChooseActionTool.Result result) {
+        if (playerDead) result.player_dead = true;
+        if (activeGames.isEmpty() && gameEverStarted) result.game_over = true;
+        synchronized (unseenChat) {
+            if (!unseenChat.isEmpty()) {
+                result.recent_chat = new ArrayList<>(unseenChat);
+                unseenChat.clear();
+            }
+        }
+    }
+
     // Cross-turn yield values handled client-side.  These used to be server-side
     // yields (sendPlayerAction → skip()), but skip() bypasses waitResponseOpen()
     // which causes stale responses to answer the wrong waitForResponse(), producing
@@ -2881,20 +2911,18 @@ public class BridgeCallbackHandler {
      * Merge action choices into a pass_priority result so the LLM gets choices
      * without a separate get_action_choices round-trip.
      */
-    private void mergeActionChoices(Map<String, Object> result, Long boardCursorParam) {
-        Map<String, Object> choices = getActionChoices(boardCursorParam);
-        if (!Boolean.TRUE.equals(choices.get("action_pending"))) {
+    private void mergeActionChoices(ActionResult result, Long boardCursorParam) {
+        ActionResult choices = getActionChoices(boardCursorParam);
+        if (!Boolean.TRUE.equals(choices.action_pending)) {
             // Rare race: action disappeared between pass_priority detecting it
             // and getActionChoices() fetching it.
-            result.put("warning", "Action changed before choices were fetched");
+            result.warning = "Action changed before choices were fetched";
             return;
         }
         // Merge all choice fields into the result.  pass_priority fields
         // (action_pending, stop_reason, etc.) are already set
         // and take precedence — only copy fields the result doesn't have yet.
-        for (Map.Entry<String, Object> entry : choices.entrySet()) {
-            result.putIfAbsent(entry.getKey(), entry.getValue());
-        }
+        result.mergeFrom(choices);
     }
 
     /**
@@ -2915,7 +2943,7 @@ public class BridgeCallbackHandler {
      * action choices (same data as get_action_choices) so the LLM can respond
      * immediately without a separate round-trip.
      */
-    public Map<String, Object> passPriority(String until, Long boardCursorParam) {
+    public ActionResult passPriority(String until, Long boardCursorParam) {
         interactionsThisTurn++;
 
         int actionsPassed = 0;
@@ -2935,8 +2963,8 @@ public class BridgeCallbackHandler {
             } else if (CLIENT_SIDE_YIELDS.contains(until)) {
                 UUID gameId = currentGameId;
                 if (gameId == null) {
-                    var result = new HashMap<String, Object>();
-                    result.put("error", "No active game for yield");
+                    var result = new ActionResult();
+                    result.error = "No active game for yield";
                     return result;
                 }
                 // If the pending action is non-priority (e.g. GAME_TARGET for
@@ -2957,10 +2985,10 @@ public class BridgeCallbackHandler {
                         + "] passPriority: until=" + until
                         + " blocked by pending " + currentAction.method()
                         + " — returning choices instead of auto-passing");
-                    var result = new HashMap<String, Object>();
-                    result.put("action_pending", true);
-                    result.put("action_type", currentAction.method().name());
-                    result.put("stop_reason", "non_priority_action");
+                    var result = new ActionResult();
+                    result.action_pending = true;
+                    result.action_type = currentAction.method().name();
+                    result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam);
                     return result;
@@ -2970,9 +2998,9 @@ public class BridgeCallbackHandler {
                 if ("stack_resolved".equals(until)) {
                     GameView gv = lastGameView;
                     if (gv != null && gv.getStack().isEmpty()) {
-                        var result = new HashMap<String, Object>();
-                        result.put("action_pending", currentAction != null);
-                        result.put("stop_reason", "stack_resolved");
+                        var result = new ActionResult();
+                        result.action_pending = currentAction != null;
+                        result.stop_reason = "stack_resolved";
                         attachUnseenChat(result);
                         if (currentAction != null) {
                             mergeActionChoices(result, boardCursorParam);
@@ -2999,9 +3027,9 @@ public class BridgeCallbackHandler {
             } else {
                 var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
                 allValues.addAll(CLIENT_SIDE_YIELDS);
-                var result = new HashMap<String, Object>();
-                result.put("error", "Invalid until value: " + until
-                    + ". Valid values: " + String.join(", ", allValues));
+                var result = new ActionResult();
+                result.error = "Invalid until value: " + until
+                    + ". Valid values: " + String.join(", ", allValues);
                 return result;
             }
         }
@@ -3045,18 +3073,18 @@ public class BridgeCallbackHandler {
 
                 // Step-specific yield: turn boundary — target step wasn't reached this turn
                 if (targetStep != null && lastTurnNumber != yieldStartTurn) {
-                    Map<String, Object> result = new HashMap<>();
-                    result.put("action_pending", true);
-                    result.put("action_type", method.name());
+                    var result = new ActionResult();
+                    result.action_pending = true;
+                    result.action_type = method.name();
 
-                    result.put("game_seq", action.gameSeq());
+                    result.game_seq = action.gameSeq();
                     GameView gvSnap = lastGameView;
                     if (gvSnap != null) {
                         if (gvSnap.getStep() != null) {
-                            result.put("current_step", gvSnap.getStep().toString());
+                            result.current_step = gvSnap.getStep().toString();
                         }
                     }
-                    result.put("stop_reason", "step_not_reached");
+                    result.stop_reason = "step_not_reached";
                     attachUnseenChat(result);
                     return result;
                 }
@@ -3112,11 +3140,11 @@ public class BridgeCallbackHandler {
 
                 // Non-GAME_SELECT always needs LLM input — return immediately
                 if (method != ClientCallbackMethod.GAME_SELECT) {
-                    var result = new HashMap<String, Object>();
-                    result.put("action_pending", true);
-                    result.put("action_type", method.name());
+                    var result = new ActionResult();
+                    result.action_pending = true;
+                    result.action_type = method.name();
 
-                    result.put("stop_reason", "non_priority_action");
+                    result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam);
                     return result;
@@ -3125,12 +3153,12 @@ public class BridgeCallbackHandler {
                 // Combat selections (declare attackers/blockers) always need LLM input
                 String combatType = detectCombatSelect(action);
                 if (combatType != null) {
-                    var result = new HashMap<String, Object>();
-                    result.put("action_pending", true);
-                    result.put("action_type", method.name());
+                    var result = new ActionResult();
+                    result.action_pending = true;
+                    result.action_type = method.name();
 
-                    result.put("combat_phase", combatType);
-                    result.put("stop_reason", "combat");
+                    result.combat_phase = combatType;
+                    result.stop_reason = "combat";
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam);
                     return result;
@@ -3192,10 +3220,10 @@ public class BridgeCallbackHandler {
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     if (gv != null && gv.getStack().isEmpty()) {
                         // Stack resolved — return to LLM
-                        Map<String, Object> result = new HashMap<>();
-                        result.put("action_pending", true);
-                        result.put("action_type", method.name());
-                        result.put("stop_reason", "stack_resolved");
+                        var result = new ActionResult();
+                        result.action_pending = true;
+                        result.action_type = method.name();
+                        result.stop_reason = "stack_resolved";
                         attachUnseenChat(result);
                         mergeActionChoices(result, boardCursorParam);
                         return result;
@@ -3210,12 +3238,12 @@ public class BridgeCallbackHandler {
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     if (gv != null && gv.getStep() == targetStep) {
                         // Reached the target step — return to LLM
-                        Map<String, Object> result = new HashMap<>();
-                        result.put("action_pending", true);
-                        result.put("action_type", method.name());
-    
-                        result.put("current_step", gv.getStep().toString());
-                        result.put("stop_reason", "reached_step");
+                        var result = new ActionResult();
+                        result.action_pending = true;
+                        result.action_type = method.name();
+
+                        result.current_step = gv.getStep().toString();
+                        result.stop_reason = "reached_step";
                         attachUnseenChat(result);
                         mergeActionChoices(result, boardCursorParam);
                         return result;
@@ -3272,12 +3300,12 @@ public class BridgeCallbackHandler {
                 if (hasPlayableCards) {
                     if (actionsPassed > 0) {
                         // Already passed at least once — return so LLM can decide
-                        var result = new HashMap<String, Object>();
-                        result.put("action_pending", true);
-                        result.put("action_type", method.name());
-    
-                        result.put("has_playable_cards", true);
-                        result.put("stop_reason", "playable_cards");
+                        var result = new ActionResult();
+                        result.action_pending = true;
+                        result.action_type = method.name();
+
+                        result.has_playable_cards = true;
+                        result.stop_reason = "playable_cards";
                         attachUnseenChat(result);
                         mergeActionChoices(result, boardCursorParam);
                         return result;
@@ -3342,12 +3370,12 @@ public class BridgeCallbackHandler {
                     + " playerDead=" + playerDead
                     + " activeGames=" + activeGames.size()
                     + " actionsPassed=" + actionsPassed);
-                var result = new HashMap<String, Object>();
-                result.put("action_pending", false);
-                result.put("stop_reason", "game_over");
+                var result = new ActionResult();
+                result.action_pending = false;
+                result.stop_reason = "game_over";
                 GameView gvSnap = lastGameView;
                 if (gvSnap != null) {
-                    result.put("game_seq", gvSnap.getGameSeq());
+                    result.game_seq = gvSnap.getGameSeq();
                 }
                 attachUnseenChat(result);
                 return result;
@@ -3367,12 +3395,12 @@ public class BridgeCallbackHandler {
         }
 
         // InterruptedException break
-        var result = new HashMap<String, Object>();
-        result.put("action_pending", false);
-        result.put("stop_reason", "interrupted");
+        var result = new ActionResult();
+        result.action_pending = false;
+        result.stop_reason = "interrupted";
         GameView gvSnap = lastGameView;
         if (gvSnap != null) {
-            result.put("game_seq", gvSnap.getGameSeq());
+            result.game_seq = gvSnap.getGameSeq();
         }
         attachUnseenChat(result);
         return result;
@@ -3382,7 +3410,7 @@ public class BridgeCallbackHandler {
      * Combined helper for models: wait using pass_priority, then return full choices.
      * pass_priority already merges action choices, so this is just a pass-through.
      */
-    public Map<String, Object> waitAndGetChoices(String until, Long boardCursorParam) {
+    public ActionResult waitAndGetChoices(String until, Long boardCursorParam) {
         return passPriority(until, boardCursorParam);
     }
 
@@ -3397,34 +3425,34 @@ public class BridgeCallbackHandler {
         }
     }
 
-    public Map<String, Object> getGameState(Long cursor) {
-        Map<String, Object> fullState = getGameState();
-        if (!Boolean.TRUE.equals(fullState.get("available"))) {
+    public GetGameStateTool.Result getGameState(Long cursor) {
+        GetGameStateTool.Result fullState = getGameState();
+        if (!Boolean.TRUE.equals(fullState.available)) {
             return fullState;
         }
-        long currentCursor = updateGameStateCursor(fullState);
+        long currentCursor = updateGameStateCursor(McpToolRegistry.resultToMap(fullState));
         if (cursor != null && cursor.longValue() == currentCursor) {
-            var unchanged = new HashMap<String, Object>();
-            unchanged.put("available", true);
-            unchanged.put("unchanged", true);
-            unchanged.put("cursor", currentCursor);
+            var unchanged = new GetGameStateTool.Result();
+            unchanged.available = true;
+            unchanged.unchanged = true;
+            unchanged.cursor = currentCursor;
             return unchanged;
         }
-        fullState.put("cursor", currentCursor);
+        fullState.cursor = currentCursor;
         return fullState;
     }
 
-    public Map<String, Object> getGameState() {
-        var state = new HashMap<String, Object>();
+    public GetGameStateTool.Result getGameState() {
+        var state = new GetGameStateTool.Result();
         GameView gameView = lastGameView;
         if (gameView == null) {
-            state.put("available", false);
-            state.put("error", "No game state available yet");
+            state.available = false;
+            state.error = "No game state available yet";
             return state;
         }
 
-        state.put("available", true);
-        state.put("game_seq", gameView.getGameSeq());
+        state.available = true;
+        state.game_seq = gameView.getGameSeq();
         // Determinism debugging: log what game_seq getGameState returns
         {
             String step = gameView.getStep() != null ? gameView.getStep().toString() : "null";
@@ -3432,21 +3460,21 @@ public class BridgeCallbackHandler {
                 + gameView.getGameSeq() + " step=" + step
                 + " thread=" + Thread.currentThread().getName());
         }
-        state.put("turn", roundTracker.update(gameView));
+        state.turn = roundTracker.update(gameView);
 
         // Phase info
         if (gameView.getPhase() != null) {
-            state.put("phase", gameView.getPhase().toString());
+            state.phase = gameView.getPhase().toString();
         }
         if (gameView.getStep() != null) {
-            state.put("step", gameView.getStep().toString());
+            state.step = gameView.getStep().toString();
         }
 
-        state.put("active_player", gameView.getActivePlayerName());
-        state.put("priority_player", gameView.getPriorityPlayerName());
+        state.active_player = gameView.getActivePlayerName();
+        state.priority_player = gameView.getPriorityPlayerName();
 
         // Players
-        state.put("players", buildPlayersArray(gameView));
+        state.players = buildPlayersArray(gameView);
 
         // Stack
         var stack = new ArrayList<Map<String, Object>>();
@@ -3477,12 +3505,12 @@ public class BridgeCallbackHandler {
                 stack.add(stackItem);
             }
         }
-        state.put("stack", stack);
+        state.stack = stack;
 
         // Combat
         List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
         if (combatGroups != null) {
-            state.put("combat", combatGroups);
+            state.combat = combatGroups;
         }
 
         return state;
@@ -3873,8 +3901,8 @@ public class BridgeCallbackHandler {
         return types;
     }
 
-    public Map<String, Object> getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
-        var result = new HashMap<String, Object>();
+    public GetOracleTextTool.Result getOracleText(String cardName, String objectId, String[] cardNames, String[] objectIds) {
+        var result = new GetOracleTextTool.Result();
 
         boolean hasCardName = cardName != null && !cardName.isEmpty();
         boolean hasObjectId = objectId != null && !objectId.isEmpty();
@@ -3884,8 +3912,8 @@ public class BridgeCallbackHandler {
         // Validate: exactly one parameter type should be provided
         int providedCount = (hasCardName ? 1 : 0) + (hasObjectId ? 1 : 0) + (hasCardNames ? 1 : 0) + (hasObjectIds ? 1 : 0);
         if (providedCount != 1) {
-            result.put("success", false);
-            result.put("error", "Provide exactly one of: card_name, object_id, card_names, or object_ids");
+            result.success = false;
+            result.error = "Provide exactly one of: card_name, object_id, card_names, or object_ids";
             return result;
         }
 
@@ -3913,8 +3941,8 @@ public class BridgeCallbackHandler {
                 }
                 results.add(entry);
             }
-            result.put("success", true);
-            result.put("cards", results);
+            result.success = true;
+            result.cards = results;
             return result;
         }
 
@@ -3932,8 +3960,8 @@ public class BridgeCallbackHandler {
                 }
                 results.add(entry);
             }
-            result.put("success", true);
-            result.put("cards", results);
+            result.success = true;
+            result.cards = results;
             return result;
         }
 
@@ -3943,17 +3971,17 @@ public class BridgeCallbackHandler {
                 UUID uuid = shortIds.resolve(objectId);
                 CardView cardView = findCardViewById(uuid);
                 if (cardView != null) {
-                    result.put("success", true);
+                    result.success = true;
                     populateCardFields(result, cardView);
                     return result;
                 } else {
-                    result.put("success", false);
-                    result.put("error", "Object not found in current game state: " + objectId);
+                    result.success = false;
+                    result.error = "Object not found in current game state: " + objectId;
                     return result;
                 }
             } catch (IllegalArgumentException e) {
-                result.put("success", false);
-                result.put("error", "Unknown short ID: " + objectId);
+                result.success = false;
+                result.error = "Unknown short ID: " + objectId;
                 return result;
             }
         }
@@ -3961,12 +3989,12 @@ public class BridgeCallbackHandler {
         // Card name lookup (database)
         CardInfo cardInfo = CardRepository.instance.findCard(cardName);
         if (cardInfo != null) {
-            result.put("success", true);
+            result.success = true;
             populateCardFields(result, cardInfo);
             return result;
         } else {
-            result.put("success", false);
-            result.put("error", "Card not found in database: " + cardName);
+            result.success = false;
+            result.error = "Card not found in database: " + cardName;
             return result;
         }
     }
@@ -4076,6 +4104,89 @@ public class BridgeCallbackHandler {
                     }
                 }
                 entry.put("second_face", face);
+            }
+        }
+    }
+
+    private void populateCardFields(GetOracleTextTool.Result result, CardView cv) {
+        result.name = cv.getDisplayName();
+        String manaCost = cv.getManaCostStr();
+        if (manaCost != null && !manaCost.isEmpty()) {
+            result.mana_cost = manaCost;
+        }
+        String typeText = cv.getTypeText();
+        if (typeText != null && !typeText.trim().isEmpty()) {
+            result.type = typeText.trim();
+        }
+        result.rules = stripHtmlList(cv.getRules());
+        if (cv.isCreature() && cv.getPower() != null) {
+            result.power = cv.getPower();
+            result.toughness = cv.getToughness();
+        }
+        if (cv.isPlaneswalker()) {
+            String loyalty = cv.getStartingLoyalty();
+            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
+                result.starting_loyalty = loyalty;
+            }
+        }
+        if (cv.isBattle()) {
+            String defense = cv.getStartingDefense();
+            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
+                result.starting_defense = defense;
+            }
+        }
+        CardView secondFace = cv.getSecondCardFace();
+        if (secondFace != null) {
+            var face = new HashMap<String, Object>();
+            populateCardFields(face, secondFace);
+            result.second_face = face;
+        }
+    }
+
+    private void populateCardFields(GetOracleTextTool.Result result, CardInfo ci) {
+        result.name = ci.getName();
+        List<String> manaCosts = ci.getManaCosts(CardInfo.ManaCostSide.ALL);
+        if (manaCosts != null && !manaCosts.isEmpty()) {
+            result.mana_cost = String.join("", manaCosts);
+        }
+        String typeText = buildTypeLine(ci);
+        if (!typeText.isEmpty()) {
+            result.type = typeText;
+        }
+        result.rules = stripHtmlList(ci.getRules());
+        if (ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null) {
+            result.power = ci.getPower();
+            result.toughness = ci.getToughness();
+        }
+        if (ci.getTypes().contains(CardType.PLANESWALKER)) {
+            String loyalty = ci.getStartingLoyalty();
+            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
+                result.starting_loyalty = loyalty;
+            }
+        }
+        if (ci.getTypes().contains(CardType.BATTLE)) {
+            String defense = ci.getStartingDefense();
+            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
+                result.starting_defense = defense;
+            }
+        }
+        // Check for second face (transform, MDFC, flip, adventure)
+        String secondName = ci.getSecondSideName();
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getDoubleFacedSecondSideName();
+        }
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getFlipCardName();
+        }
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getSpellOptionCardName();
+        }
+        if (secondName != null && !secondName.isEmpty()) {
+            CardInfo secondCard = CardRepository.instance.findCard(secondName);
+            if (secondCard != null) {
+                var face = new HashMap<String, Object>();
+                populateCardFields(face, secondCard);
+                result.second_face = face;
             }
         }
     }

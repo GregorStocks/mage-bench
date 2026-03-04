@@ -1,0 +1,10 @@
+{
+  "title": "Golden tests flake due to nondeterministic snapshot capture at priority transitions",
+  "description": "Multiple golden tests (stack_resolved, mdfc_land_and_suspend, etc.) intermittently fail in CI with snapshot count differences (e.g. 17 vs 16 items) and shifted snapshot indices. The divergence consistently occurs at snapshot[9] where priority_player flips between Opponent and TestPlayer at seq 20-21.\n\nThe pattern suggests a race condition in snapshot capture timing at priority transitions. When the opponent auto-passes quickly, the snapshot at the priority handoff may or may not be captured depending on thread scheduling. This manifests as one fewer snapshot and shifted indices for all subsequent snapshots.\n\nPossible fixes:\n- Investigate why snapshot capture at priority transitions is nondeterministic\n- Add deterministic synchronization between auto-pass and snapshot capture\n- Strip volatile snapshot fields that change with timing",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": ["golden-tests", "ci"],
+  "created_at": "2026-03-04T01:00:00.000000-08:00",
+  "updated_at": "2026-03-04T01:00:00.000000-08:00"
+}

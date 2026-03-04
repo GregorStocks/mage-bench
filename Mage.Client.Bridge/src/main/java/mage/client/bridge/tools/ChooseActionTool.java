@@ -9,41 +9,75 @@ import static mage.client.bridge.tools.McpToolRegistry.example;
 import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class ChooseActionTool {
+
+    public static class Result {
+        @ResultField(description = "Whether accepted")
+        public Boolean success;
+
+        @ResultField(description = "What was done, e.g. selected_0, yes, batch_attack")
+        public String action_taken;
+
+        @ResultField(description = "Error message")
+        public String error;
+
+        @ResultField(description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type")
+        public String error_code;
+
+        @ResultField(description = "Can retry with different parameters")
+        public Boolean retryable;
+
+        @ResultField(description = "Warning message")
+        public String warning;
+
+        @ResultField(description = "Mana plan was stored")
+        public Boolean mana_plan_set;
+
+        @ResultField(description = "Entries in stored mana plan")
+        public Integer mana_plan_size;
+
+        @ResultField(description = "Declared attacker/blocker IDs")
+        public List<Object> declared;
+
+        @ResultField(description = "Failed batch entries: {id, reason}")
+        public List<Object> failed;
+
+        @ResultField(description = "Batch combat interrupted by trigger")
+        public Boolean interrupted;
+
+        @ResultField(description = "Sequence number")
+        public Integer game_seq;
+
+        @ResultField(description = "Follow-up action arrived (call get_action_choices/choose_action, not pass_priority)")
+        public Boolean next_action_pending;
+
+        @ResultField(description = "Follow-up action callback name")
+        public String next_action_type;
+
+        @ResultField(description = "Follow-up action message")
+        public String next_action_message;
+
+        @ResultField(description = "How to handle the follow-up action")
+        public String next_action_hint;
+
+        @ResultField(description = "Choices (on errors, for self-correction)")
+        public List<Map<String, Object>> choices;
+
+        @ResultField(description = "Whether you died")
+        public Boolean player_dead;
+
+        @ResultField(description = "Whether the game ended")
+        public Boolean game_over;
+
+        @ResultField(description = "New chat messages")
+        public List<String> recent_chat;
+    }
+
     @Tool(
         name = "choose_action",
         description = "Respond to pending action. Blocks until an action is pending. "
-            + "Use choice for ID/index/yes/no, attackers/blockers for batch combat.",
-        output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether accepted"),
-            @Tool.Field(name = "action_taken", type = "string", description = "What was done, e.g. selected_0, yes, batch_attack"),
-            @Tool.Field(name = "error", type = "string", description = "Error message"),
-            @Tool.Field(name = "error_code", type = "string",
-                description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type"),
-            @Tool.Field(name = "retryable", type = "boolean",
-                description = "Can retry with different parameters"),
-            @Tool.Field(name = "warning", type = "string", description = "Warning message"),
-            @Tool.Field(name = "mana_plan_set", type = "boolean", description = "Mana plan was stored"),
-            @Tool.Field(name = "mana_plan_size", type = "integer", description = "Entries in stored mana plan"),
-            @Tool.Field(name = "declared", type = "array", description = "Declared attacker/blocker IDs"),
-            @Tool.Field(name = "failed", type = "array", description = "Failed batch entries: {id, reason}"),
-            @Tool.Field(name = "interrupted", type = "boolean", description = "Batch combat interrupted by trigger"),
-            @Tool.Field(name = "game_seq", type = "integer", description = "Sequence number"),
-            @Tool.Field(name = "next_action_pending", type = "boolean",
-                description = "Follow-up action arrived (call get_action_choices/choose_action, not pass_priority)"),
-            @Tool.Field(name = "next_action_type", type = "string",
-                description = "Follow-up action callback name"),
-            @Tool.Field(name = "next_action_message", type = "string",
-                description = "Follow-up action message"),
-            @Tool.Field(name = "next_action_hint", type = "string",
-                description = "How to handle the follow-up action"),
-            @Tool.Field(name = "choices", type = "array[object]",
-                description = "Choices (on errors, for self-correction)"),
-            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
-            @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
-            @Tool.Field(name = "recent_chat", type = "array[string]", description = "New chat messages")
-        }
+            + "Use choice for ID/index/yes/no, attackers/blockers for batch combat."
     )
-    public static Map<String, Object> execute(
+    public static Result execute(
             BridgeCallbackHandler handler,
             @Param(description = "ID (\"p3\"), index (\"0\"), or yes/no. "
                 + "yes=mulligan/confirm, no=keep/pass.") String choice,
