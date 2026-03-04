@@ -207,12 +207,12 @@ blunder-baseline:
 # Generate TypeScript types from the JSON Schema
 .PHONY: schema-types
 schema-types:
-	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v5.schema.json > src/types/game-export.d.ts
+	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v6.schema.json > src/types/game-export.d.ts
 
 # Verify generated TypeScript types are up to date
 .PHONY: verify-schema-types
 verify-schema-types:
-	@cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v5.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
+	@cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v6.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make schema-types' to regenerate." && exit 1)
 
 # Verify mcp-tools.json is up to date with McpServer.java

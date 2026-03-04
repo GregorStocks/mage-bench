@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 5). Normalizes chosenArgs.mana_plan/attackers/blockers to CSV strings.
+ * Schema for the .json.gz game export format (version 6). Removes llmTrace (redundant with llmEvents).
  */
-export interface GameExportV5 {
+export interface GameExportV6 {
   /**
-   * Export format version 4: with baked Scryfall cardData, season, and tournament.
+   * Export format version 6: removed llmTrace (redundant with llmEvents).
    */
-  version: 5;
+  version: 6;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -73,10 +73,6 @@ export interface GameExportV5 {
    * LLM tool calls, responses, errors, and lifecycle events.
    */
   llmEvents: LlmEvent[];
-  /**
-   * Full LLM request/response traces (stripped of system prompts and tool definitions).
-   */
-  llmTrace: LlmTrace[];
   /**
    * Final game result, or null if the game didn't end normally.
    */
@@ -303,18 +299,6 @@ export interface LlmUsage {
   completionTokens?: number;
   cachedTokens?: number;
   reasoningTokens?: number;
-}
-export interface LlmTrace {
-  ts: string;
-  seq?: number;
-  player: string;
-  request?: {
-    [k: string]: unknown;
-  };
-  response?: {
-    [k: string]: unknown;
-  };
-  [k: string]: unknown;
 }
 export interface GameOver {
   seq: number;

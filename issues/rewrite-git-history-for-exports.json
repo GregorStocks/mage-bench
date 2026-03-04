@@ -1,0 +1,11 @@
+{
+  "title": "Remove game export history from git to reduce clone size",
+  "description": "Game exports in website/public/games/ have been committed and re-exported many times, so git history contains hundreds of MB of old versions of these JSON files. Even after the v6 migration drops llmTrace (~420 MB from the working tree), the old versions remain in git objects.\n\nUse BFG Repo-Cleaner or git filter-repo to rewrite history for website/public/games/*.json and *.json.gz, keeping only the current versions. This is a one-time destructive operation that requires force-pushing and all contributors to re-clone.\n\nPrerequisites:\n- v6 migration should be completed first (so we don't rewrite history twice)\n- Coordinate timing with Gregor since all clones become stale\n- Consider doing this alongside or after the move-game-exports-out-of-git effort",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["infrastructure"],
+  "not_autoclaimable": true,
+  "created_at": "2026-03-04T18:00:00.000000-08:00",
+  "updated_at": "2026-03-04T18:00:00.000000-08:00"
+}

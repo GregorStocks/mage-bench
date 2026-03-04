@@ -447,42 +447,6 @@ def _read_llm_events(
     return events, player_costs, player_tools, player_tool_calls, player_thinking
 
 
-def _read_llm_trace(game_dir: Path) -> list[dict]:
-    """Read full LLM request/response traces from *_llm_trace.jsonl files.
-
-    Returns trace events sorted by timestamp.
-    """
-    events = []
-    for path in sorted(game_dir.glob("*_llm_trace.jsonl")):
-        for line in path.read_text().splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                raw = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if raw.get("type") != "llm_call":
-                continue
-            request = raw.get("request", {})
-            # Strip bulky repeated fields (system prompt, conversation history,
-            # tool definitions) — they bloat the export by 100x+.
-            request = {
-                k: v for k, v in request.items() if k not in ("messages", "tools")
-            }
-            events.append(
-                {
-                    "ts": raw.get("ts", ""),
-                    "seq": raw.get("seq"),
-                    "player": raw.get("player", ""),
-                    "request": request,
-                    "response": raw.get("response", {}),
-                }
-            )
-    events.sort(key=lambda e: e.get("ts", ""))
-    return events
-
-
 def _read_server_events(
     game_dir: Path,
 ) -> tuple[list[dict], list[dict], dict | None, str | None]:
@@ -990,8 +954,6 @@ def build_export(game_dir: Path) -> dict:
     llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
         _read_llm_events(game_dir)
     )
-    llm_trace = _read_llm_trace(game_dir)
-
     # Build card images map from decklists
     card_images = _build_card_images(meta.get("players", []))
 
@@ -1079,7 +1041,7 @@ def build_export(game_dir: Path) -> dict:
 
     # Build output
     output: dict = {
-        "version": 5,
+        "version": 6,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -1092,7 +1054,6 @@ def build_export(game_dir: Path) -> dict:
         "snapshots": snapshots,
         "actions": actions,
         "llmEvents": llm_events,
-        "llmTrace": llm_trace,
         "gameOver": game_over,
     }
     if meta.get("harness_epoch") is not None:
@@ -1141,7 +1102,6 @@ _BUILD_EXPORT_REQUIRED = {
     "snapshots",
     "actions",
     "llmEvents",
-    "llmTrace",
     "gameOver",
 }
 
@@ -1153,7 +1113,7 @@ def _validate_export(data: dict) -> None:
     required fields and wrong version. The full JSON Schema validation
     runs in tests (test_export_schema.py).
     """
-    assert data.get("version") == 5, f"Expected version 5, got {data.get('version')}"
+    assert data.get("version") == 6, f"Expected version 6, got {data.get('version')}"
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
     assert isinstance(data["players"], list), "players must be a list"

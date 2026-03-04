@@ -4,7 +4,7 @@ import json
 from unittest.mock import patch
 
 import pytest
-from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5
+from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5, v5_to_v6
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 from scripts.export_game import _collect_card_names, _trim_card
@@ -409,6 +409,47 @@ class TestExportGameHelpers:
         assert "Shock" in real_cards
         assert "Goblin Token" in tokens
         assert "Goblin Token" not in real_cards
+
+
+def _make_v5_export() -> dict:
+    """Create a minimal v5 export with llmTrace."""
+    v5 = _make_v4_export()
+    # Apply v4->v5 migration (normalises chosenArgs)
+    v5 = v4_to_v5.up(v5)
+    v5["llmTrace"] = [
+        {
+            "ts": "2026-03-01T12:00:00-08:00",
+            "player": "Alice",
+            "request": {"model": "test-model", "max_tokens": 1000},
+            "response": {"id": "resp_1", "choices": [], "usage": {}},
+        }
+    ]
+    return v5
+
+
+class TestMigrateV5V6:
+    def test_v5_to_v6_up_removes_llm_trace(self) -> None:
+        v6 = v5_to_v6.up(_make_v5_export())
+        assert v6["version"] == 6
+        assert "llmTrace" not in v6
+
+    def test_v6_to_v5_down_restores_empty_llm_trace(self) -> None:
+        v5 = _make_v5_export()
+        v6 = v5_to_v6.up(json.loads(json.dumps(v5)))
+        v5_restored = v5_to_v6.down(v6)
+        assert v5_restored["version"] == 5
+        assert v5_restored["llmTrace"] == []
+
+    def test_round_trip_preserves_v5_structure(self) -> None:
+        """v5 -> v6 -> v5 should preserve all fields except llmTrace content."""
+        v5_original = _make_v5_export()
+        v5_without_trace = json.loads(json.dumps(v5_original))
+        v5_without_trace["llmTrace"] = []  # down() restores empty
+
+        v6 = v5_to_v6.up(json.loads(json.dumps(v5_original)))
+        v5_restored = v5_to_v6.down(v6)
+
+        assert json.dumps(v5_restored, sort_keys=True) == json.dumps(v5_without_trace, sort_keys=True)
 
 
 class TestMigrationRunner:

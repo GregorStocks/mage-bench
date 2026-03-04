@@ -34,11 +34,13 @@ def _minimal_export(version: int, **overrides) -> dict:
         "snapshots": [],
         "actions": [],
         "llmEvents": [],
-        "llmTrace": [],
         "gameOver": None,
         "annotations": [],
         "blunderScriptVersion": 0,
     }
+    # v5 and earlier require llmTrace
+    if version <= 5:
+        base["llmTrace"] = []
     base.update(overrides)
     return base
 
@@ -129,6 +131,27 @@ class TestExportSchema:
         validator = jsonschema.Draft7Validator(_load_schema(5))
         errors = list(validator.iter_errors(_minimal_export(4)))
         assert errors, "v5 schema should reject version 4"
+
+    def test_v6_schema_is_valid(self) -> None:
+        schema = _load_schema(6)
+        jsonschema.Draft7Validator.check_schema(schema)
+
+    def test_v6_schema_accepts_v6(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(6))
+        v6 = _minimal_export(6, season=1, tournament=None)
+        errors = list(validator.iter_errors(v6))
+        assert errors == [], f"v6 should be valid: {errors}"
+
+    def test_v6_schema_rejects_v5(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(6))
+        errors = list(validator.iter_errors(_minimal_export(5)))
+        assert errors, "v6 schema should reject version 5"
+
+    def test_v6_schema_rejects_llmTrace(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(6))
+        v6_with_trace = _minimal_export(6, season=1, tournament=None, llmTrace=[])
+        errors = list(validator.iter_errors(v6_with_trace))
+        assert errors, "v6 schema should reject exports with llmTrace"
 
     def test_schema_rejects_missing_required_field(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(5))
