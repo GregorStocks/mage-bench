@@ -4,6 +4,7 @@ import time
 
 from tests.golden_helpers import (
     PhaseTiming,
+    _all_timings,
     clear_timings,
     get_all_timings,
     print_timing_summary,
@@ -74,8 +75,6 @@ class TestPrintTimingSummary:
 
     def test_summary_includes_session_and_tests(self, capsys):
         # Inject mock timings directly
-        from tests.golden_helpers import _all_timings
-
         _all_timings.extend(
             [
                 PhaseTiming("session", "compilation", 30.0),

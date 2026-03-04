@@ -9,6 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import jsonschema
 import pytest
 
 from puppeteer.orchestrator import compile_project
@@ -287,17 +288,40 @@ def _load_game(path: Path) -> dict:
         return json.load(f)
 
 
+class _LazyGameData(dict):
+    """Dict that loads game JSON lazily on first access per key.
+
+    Keys are populated eagerly (all game file paths), but values are only
+    parsed from disk when first accessed.  This avoids the ~11s upfront cost
+    of loading all 298 exports when only a few are actually needed.
+    """
+
+    def __init__(self, paths: list[Path]):
+        super().__init__({p: None for p in paths})
+        self._loaded: set[Path] = set()
+
+    def __getitem__(self, key: Path) -> dict:
+        if key not in self._loaded:
+            super().__setitem__(key, _load_game(key))
+            self._loaded.add(key)
+        return super().__getitem__(key)
+
+    def values(self):  # type: ignore[override]
+        return [self[k] for k in self]
+
+    def items(self):  # type: ignore[override]
+        return [(k, self[k]) for k in self]
+
+
 @pytest.fixture(scope="session")
 def all_games_data() -> dict[Path, dict]:
-    """Load and parse all game export files once for the entire test session."""
-    return {path: _load_game(path) for path in _glob_game_files()}
+    """Lazy-loading map of game export files, parsed on first access."""
+    return _LazyGameData(_glob_game_files())
 
 
 @pytest.fixture(scope="session")
 def game_export_validator():
     """Per-version game-export JSON Schema validators keyed by version number."""
-    import jsonschema
-
     schema_dir = Path(__file__).resolve().parent.parent.parent / "schemas"
     validators = {}
     for path in sorted(schema_dir.glob("game-export-v*.schema.json")):

@@ -1,6 +1,7 @@
 """Unit tests for BridgeSession wrapper."""
 
 import json
+import urllib.error
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -92,8 +93,6 @@ class TestBridgeSession:
     @patch("urllib.request.urlopen")
     def test_http_error_raises(self, mock_urlopen):
         """Bridge detects when the HTTP request fails."""
-        import urllib.error
-
         mock_urlopen.side_effect = urllib.error.URLError("Connection refused")
 
         bridge = BridgeSession("http://localhost:9999/mcp")

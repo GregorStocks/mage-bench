@@ -341,6 +341,24 @@ def _resolve_randoms(
             if player.cache_control is None and "cache_control" in model_entry:
                 player.cache_control = model_entry["cache_control"]
 
+            # Re-roll expressive personality if model skips them (personality infection prevention)
+            if was_random_personality and model_entry.get("skip_expressive_personalities"):
+                p_data = personalities.get(player.personality, {})
+                if p_data.get("expressive"):
+                    non_expressive = [
+                        k
+                        for k in available_personalities
+                        if k not in used_personalities and not personalities.get(k, {}).get("expressive")
+                    ]
+                    assert non_expressive, (
+                        f"No non-expressive personalities available for model {player.model!r} "
+                        f"(has skip_expressive_personalities). Add more non-expressive "
+                        f"personalities or remove the restriction."
+                    )
+                    chosen_p = random.choice(non_expressive)
+                    used_personalities.add(chosen_p)
+                    player.personality = chosen_p
+
         # Generate name if needed (personality was random and no explicit name)
         if was_random_personality and not had_explicit_name:
             assert player.model is not None, "Model must be set before name generation"
@@ -660,8 +678,8 @@ class Config:
             )
 
             # Format rotation: pick the best format for the resolved players
-            if len(self.deck_type_candidates) > 1:
-                resolved_presets = [p.preset for p in self.pilot_players if p.preset]
+            resolved_presets = [p.preset for p in self.pilot_players if p.preset]
+            if len(self.deck_type_candidates) > 1 and resolved_presets:
                 chosen_format = pick_round_robin_format(
                     self.deck_type_candidates,
                     resolved_presets,
@@ -744,7 +762,7 @@ class Config:
 
         # Jumpstart: combine two random half-decks at runtime
         if self.deck_type == "Limited":
-            from puppeteer.jumpstart import create_random_jumpstart_deck
+            from puppeteer.jumpstart import create_random_jumpstart_deck  # noqa: PLC0415
 
             used_themes: set[str] = set()
             for player in all_players:

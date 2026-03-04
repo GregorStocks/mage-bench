@@ -6,6 +6,8 @@ import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
+
 from puppeteer.config import Config, PilotPlayer
 from puppeteer.orchestrator import (
     GameSession,
@@ -427,8 +429,6 @@ def test_wait_for_game_start_timeout(mock_sleep):
         log_path.write_text("Some other log line\n")
         proc = _mock_proc([None] * 100)  # Never exits
 
-        import pytest
-
         with patch("puppeteer.orchestrator.time.monotonic", side_effect=[0, 0, 100]), pytest.raises(TimeoutError):
             _wait_for_game_start(log_path, proc, timeout=5)
 
@@ -528,8 +528,6 @@ def test_setup_game_cleans_up_on_spectator_crash(
     mock_sleep,
 ):
     """When the spectator crashes before table creation, _setup_game should terminate it and re-raise."""
-    import pytest
-
     with tempfile.TemporaryDirectory() as tmpdir:
         log_dir = Path(tmpdir)
 
@@ -571,8 +569,6 @@ def test_setup_game_cleans_up_pilots_on_timeout(
     mock_sleep,
 ):
     """When _wait_for_spectator_table times out after pilots started, should terminate all."""
-    import pytest
-
     with tempfile.TemporaryDirectory() as tmpdir:
         log_dir = Path(tmpdir)
 
@@ -635,8 +631,6 @@ def test_start_observer_no_xvfb_when_display_set():
 @patch("puppeteer.orchestrator.sys.platform", "linux")
 def test_start_observer_fails_without_xvfb(mock_which):
     """On headless Linux without xvfb-run, should raise AssertionError."""
-    import pytest
-
     with patch.dict("os.environ", {}, clear=True):
         pm = MagicMock()
         config = Config()

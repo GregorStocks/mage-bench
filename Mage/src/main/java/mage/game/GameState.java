@@ -68,7 +68,7 @@ public class GameState implements Serializable, Copyable<GameState> {
 
     // revealed cards <Name, <Cards>>, will be reset if all players pass priority
     private final Revealed revealed;
-    private final Map<UUID, LookedAt> lookedAt = new HashMap<>();
+    private final Map<UUID, LookedAt> lookedAt = new LinkedHashMap<>();
     private final Revealed companion;
 
     private SpecialActions specialActions;

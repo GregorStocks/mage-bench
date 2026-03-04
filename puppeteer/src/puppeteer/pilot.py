@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import json
 import os
+import re
 import sys
 import time
 from contextlib import ExitStack
@@ -142,8 +143,6 @@ def _build_pilot_decision(data: dict) -> dict:
     # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
     context = data.get("context", "")
     if context:
-        import re
-
         m = re.match(r"T(\d+)\s+(.+?)(?:\s+\(|$)", context)
         if m:
             decision["turn"] = int(m.group(1))
@@ -1308,7 +1307,7 @@ async def run_pilot(
             trace_log = log_stack.enter_context(GameLogWriter(game_dir, username, suffix="llm_trace"))
 
         try:
-            from puppeteer.bridge_transport import spawn_bridge_http
+            from puppeteer.bridge_transport import spawn_bridge_http  # noqa: PLC0415
 
             async with spawn_bridge_http(
                 mvn_args=mvn_args,

@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -325,8 +326,6 @@ def _print_game_summary(game_dir: Path) -> None:
     events_file = game_dir / "game_events.jsonl"
     if events_file.exists():
         try:
-            import re
-
             turn_pattern = re.compile(r"TURN (\d+) for ")
             for line in events_file.read_text().splitlines():
                 line = line.strip()
@@ -611,8 +610,6 @@ def start_sleepwalker_client(
 
     This spawns the sleepwalker.py script which in turn spawns the bridge.
     """
-    import sys
-
     env = {
         "PYTHONUNBUFFERED": "1",
     }
@@ -656,8 +653,6 @@ def start_replay_client(
 
     This spawns the replay.py script which in turn spawns the bridge.
     """
-    import sys
-
     env = {
         "PYTHONUNBUFFERED": "1",
     }
@@ -703,9 +698,6 @@ def start_pilot_client(
 
     This spawns the pilot.py script which in turn spawns the bridge.
     """
-    import os
-    import sys
-
     env = {
         "PYTHONUNBUFFERED": "1",
     }
@@ -903,7 +895,7 @@ def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2)
     Returns None on success, or the error message on failure.
     """
     sys.path.insert(0, str(project_root / "scripts" / "analysis"))
-    from blunder_analysis import main as analyze_blunders
+    from blunder_analysis import main as analyze_blunders  # noqa: PLC0415
 
     last_error = ""
     for attempt in range(1 + max_retries):
@@ -1010,7 +1002,7 @@ def _maybe_upload_and_export(
     if has_recording:
         try:
             sys.path.insert(0, str(project_root / "scripts"))
-            from upload_youtube import upload_to_youtube
+            from upload_youtube import upload_to_youtube  # noqa: PLC0415
 
             url = upload_to_youtube(game_dir)
             if url:
@@ -1029,7 +1021,7 @@ def _maybe_upload_and_export(
     tmp_path = None
     final_path = None
     try:
-        from export_game import export_game
+        from export_game import export_game  # noqa: PLC0415
 
         # Export to a temp dir so the final location stays clean until we're ready
         website_games_dir.mkdir(parents=True, exist_ok=True)

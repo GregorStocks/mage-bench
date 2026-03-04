@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from upload_youtube import _build_description, _build_title
 
-from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url
+from puppeteer.orchestrator import _maybe_upload_and_export, _save_youtube_url, _update_website_youtube_url
 
 
 def _make_meta(players=None):
@@ -163,8 +163,6 @@ def test_update_website_youtube_url_no_files():
 
 def test_maybe_upload_and_export_defaults_to_no(capsys):
     """Empty input should NOT trigger upload or export (default is N)."""
-    from puppeteer.orchestrator import _maybe_upload_and_export
-
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
@@ -179,8 +177,6 @@ def test_maybe_upload_and_export_defaults_to_no(capsys):
 
 def test_maybe_upload_and_export_skips_without_recording():
     """Without recording.mov, should prompt for export only (not YouTube)."""
-    from puppeteer.orchestrator import _maybe_upload_and_export
-
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
@@ -192,8 +188,6 @@ def test_maybe_upload_and_export_skips_without_recording():
 
 def test_maybe_upload_and_export_reprompts_on_bad_input(caplog):
     """Unrecognized input should re-ask, not silently skip."""
-    from puppeteer.orchestrator import _maybe_upload_and_export
-
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
@@ -206,8 +200,6 @@ def test_maybe_upload_and_export_reprompts_on_bad_input(caplog):
 
 def test_maybe_upload_and_export_all_returns_true():
     """Answering 'all' should return True to auto-yes remaining games."""
-    from puppeteer.orchestrator import _maybe_upload_and_export
-
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
@@ -219,8 +211,6 @@ def test_maybe_upload_and_export_all_returns_true():
 
 def test_maybe_upload_and_export_auto_yes_skips_prompt():
     """auto_yes=True should skip the prompt entirely."""
-    from puppeteer.orchestrator import _maybe_upload_and_export
-
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
