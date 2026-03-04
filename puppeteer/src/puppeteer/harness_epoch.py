@@ -49,7 +49,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  37 - Shorten MCP tool/param/output descriptions for token efficiency (Mar 1)
 #  38 - Remove bridge-side stall recovery (lost response retry + speculative pass) (Mar 2)
 #  39 - Add retry limit for empty LLM choices; auto-pass after 5 consecutive (Mar 3)
-HARNESS_EPOCH = 39
+#  40 - Move action-type docs from system prompt into respond_with strings (Mar 3)
+HARNESS_EPOCH = 40
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
