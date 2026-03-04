@@ -1,0 +1,5 @@
+{
+  "title": "stack_resolved golden test flakes due to game_end snapshot race",
+  "body": "The stack_resolved golden test intermittently fails in CI with snapshot count differences (17 vs 16 items) and zeroed-out player state at the last snapshot (library_size=0, hand=0, graveyard=0).\n\nRoot cause: race condition between onPlayerResponse() and onGameEnd() in ServerGameEventLogCollector. The game_end event emits a final state snapshot (line ~261), but the game state may be partially cleared by the time it's captured. Thread scheduling differences between local and CI environments make this nondeterministic.\n\nThe export pipeline (export_game.py:508-548) collects snapshots from both decision events and game_end events into the same snapshots array. When the game_end snapshot captures a cleared/invalid state, the golden comparison fails.\n\nPossible fixes:\n- Skip game_end snapshots where player zones are zeroed (heuristic)\n- Ensure onGameEnd captures the last valid game state before cleanup\n- Add snapshot deduplication by seq number in the export pipeline",
+  "priority": "low"
+}
