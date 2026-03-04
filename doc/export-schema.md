@@ -2,9 +2,9 @@
 
 Game exports live in `website/public/games/` as either `.json` or `.json.gz` files — the format is identical, we just gzip when the file is large enough to annoy GitHub. Both extensions should be treated the same by all consumers.
 
-The format is formally defined by `schemas/game-export-v2.schema.json` (JSON Schema, Draft 7). This is the single source of truth.
+Each export version has its own JSON Schema (Draft 7) in `schemas/game-export-v*.schema.json`. The latest version (`game-export-v4.schema.json`) is the source of truth for new exports. See `schemas/migrations/README.md` for the migration framework.
 
-TypeScript types are generated from the schema: `website/src/types/game-export.d.ts`. Regenerate with `make schema-types`.
+TypeScript types are generated from the latest schema: `website/src/types/game-export.d.ts`. Regenerate with `make schema-types`.
 
 ## Validation
 

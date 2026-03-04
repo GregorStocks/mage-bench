@@ -91,7 +91,8 @@ def _changed_game_filenames() -> set[str] | None:
         changed.update(untracked_result.stdout.strip().splitlines())
 
         # If export script or schema changed, validate everything
-        if changed & {"scripts/export_game.py", "schemas/game-export-v2.schema.json"}:
+        schema_files = {f for f in changed if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
+        if schema_files or "scripts/export_game.py" in changed:
             return None
 
         prefix = "website/public/games/"
@@ -254,7 +255,10 @@ class TestAllExportsValid:
     )
     def test_game_conforms_to_schema(self, game_file: Path, all_games_data: dict, game_export_validator) -> None:
         data = all_games_data[game_file]
-        errors = sorted(game_export_validator.iter_errors(data), key=lambda e: list(e.absolute_path))
+        version = data["version"]
+        assert version in game_export_validator, f"No schema for version {version}"
+        validator = game_export_validator[version]
+        errors = sorted(validator.iter_errors(data), key=lambda e: list(e.absolute_path))
         assert not errors, f"{errors[0].message} (at {'/'.join(str(p) for p in errors[0].absolute_path)})"
 
 

@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 2). See doc/export-schema.md for seq semantics and design notes.
+ * Schema for the .json.gz game export format (version 4). See doc/export-schema.md for seq semantics and design notes.
  */
-export interface GameExportV2 {
+export interface GameExportV4 {
   /**
-   * Export format version. 2 = original, 3 = with baked Scryfall cardData, 4 = with season/tournament.
+   * Export format version 4: with baked Scryfall cardData, season, and tournament.
    */
-  version: 2 | 3 | 4;
+  version: 4;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */

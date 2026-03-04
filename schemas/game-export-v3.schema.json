@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "game-export-v2.schema.json",
-  "title": "Game Export v2",
-  "description": "Schema for the .json.gz game export format (version 2). See doc/export-schema.md for seq semantics and design notes.",
+  "$id": "game-export-v3.schema.json",
+  "title": "Game Export v3",
+  "description": "Schema for the .json.gz game export format (version 3). See doc/export-schema.md for seq semantics and design notes.",
   "type": "object",
   "required": [
     "version",
@@ -27,8 +27,8 @@
   "additionalProperties": false,
   "properties": {
     "version": {
-      "const": 2,
-      "description": "Export format version 2: original format."
+      "const": 3,
+      "description": "Export format version 3: with baked Scryfall cardData."
     },
     "id": {
       "type": "string",
@@ -80,6 +80,13 @@
         "type": "string"
       },
       "description": "Map of card name to Scryfall small image URL."
+    },
+    "cardData": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/CardMetadata"
+      },
+      "description": "Map of card name to Scryfall metadata (oracle text, type line, mana cost, etc.). Present in version 3+ exports."
     },
     "snapshots": {
       "type": "array",
@@ -814,6 +821,34 @@
           "type": "integer",
           "minimum": 0,
           "description": "Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found."
+        }
+      }
+    },
+    "CardMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Scryfall card metadata baked at export time for offline rendering.",
+      "properties": {
+        "mana_cost": {
+          "type": "string"
+        },
+        "type_line": {
+          "type": "string"
+        },
+        "oracle_text": {
+          "type": "string"
+        },
+        "power": {
+          "type": "string"
+        },
+        "toughness": {
+          "type": "string"
+        },
+        "loyalty": {
+          "type": "string"
+        },
+        "defense": {
+          "type": "string"
         }
       }
     }

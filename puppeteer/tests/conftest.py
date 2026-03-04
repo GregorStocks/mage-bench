@@ -295,12 +295,17 @@ def all_games_data() -> dict[Path, dict]:
 
 @pytest.fixture(scope="session")
 def game_export_validator():
-    """Compile the game-export JSON Schema validator once for the session."""
+    """Per-version game-export JSON Schema validators keyed by version number."""
     import jsonschema
 
-    schema_path = Path(__file__).resolve().parent.parent.parent / "schemas" / "game-export-v2.schema.json"
-    schema = json.loads(schema_path.read_text())
-    return jsonschema.Draft7Validator(schema)
+    schema_dir = Path(__file__).resolve().parent.parent.parent / "schemas"
+    validators = {}
+    for path in sorted(schema_dir.glob("game-export-v*.schema.json")):
+        schema = json.loads(path.read_text())
+        version = schema["properties"]["version"]["const"]
+        validators[version] = jsonschema.Draft7Validator(schema)
+    assert validators, "No game-export schemas found"
+    return validators
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

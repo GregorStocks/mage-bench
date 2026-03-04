@@ -54,12 +54,13 @@ def check_generated_files(command: str) -> None:
             "Run: make mcp-tools && git add website/src/data/mcp-tools.json"
         )
 
-    # game-export-v2.schema.json -> game-export.d.ts
-    schema_source = "schemas/game-export-v2.schema.json"
+    # game-export-v*.schema.json -> game-export.d.ts
+    # TypeScript types are generated from the latest schema version.
+    schema_sources = {f for f in staged if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
     schema_output = "website/src/types/game-export.d.ts"
-    if schema_source in staged and schema_output not in staged and schema_output in dirty:
+    if schema_sources and schema_output not in staged and schema_output in dirty:
         block(
-            "Blocked: game-export-v2.schema.json is staged but game-export.d.ts has unstaged changes.\n"
+            "Blocked: game-export schema is staged but game-export.d.ts has unstaged changes.\n"
             "Run: make schema-types && git add website/src/types/game-export.d.ts"
         )
 
