@@ -17,7 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from blunder_eval_common import (
+from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
@@ -35,7 +35,7 @@ from blunder_eval_common import (
     save_game_ground_truth,
     snapshot_index as get_snapshot_index,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 WEBSITE_PUBLIC = REPO_ROOT / "website" / "public"
@@ -191,7 +191,7 @@ def _build_play_detail(game_id: str, di: int) -> dict:
 
 def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     """Process a verdict submission."""
-    from blunder_audit import _get_current_annotation
+    from scripts.analysis.blunder_audit import _get_current_annotation
 
     verdict = body["verdict"]
     assert verdict in ("blunder", "not_blunder", "questionable"), (

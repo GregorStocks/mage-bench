@@ -17,8 +17,16 @@ Requires OPENROUTER_API_KEY environment variable.
 import argparse
 from pathlib import Path
 
-from blunder_analysis import BLUNDER_SCRIPT_VERSION, main as analyze_game
-from blunder_eval_common import GAMES_DIR, game_path_for_id, glob_game_files, load_game
+from scripts.analysis.blunder_analysis import (
+    BLUNDER_SCRIPT_VERSION,
+    main as analyze_game,
+)
+from scripts.analysis.blunder_eval_common import (
+    GAMES_DIR,
+    game_path_for_id,
+    glob_game_files,
+    load_game,
+)
 
 
 def find_outdated_games(limit: int) -> list[str]:

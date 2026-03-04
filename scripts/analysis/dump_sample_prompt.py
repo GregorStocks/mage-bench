@@ -5,14 +5,14 @@ import gzip
 import json
 from pathlib import Path
 
-from blunder_analysis import (
+from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
     _game_overview,
     _get_oracle_texts,
     build_decision_prompt,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"

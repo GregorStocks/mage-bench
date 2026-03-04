@@ -18,6 +18,7 @@ import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.view.AbilityPickerView;
 import mage.view.CommandObjectView;
+import mage.view.CommanderView;
 import mage.view.CounterView;
 import mage.view.CardsView;
 import mage.view.CardView;
@@ -4148,6 +4149,13 @@ public class BridgeCallbackHandler {
             found = player.getExile().get(objectId);
             if (found != null) {
                 return found;
+            }
+
+            // Check command zone (commanders castable from command zone)
+            for (CommandObjectView cmd : player.getCommandObjectList()) {
+                if (cmd instanceof CommanderView && cmd.getId().equals(objectId)) {
+                    return (CommanderView) cmd;
+                }
             }
         }
 

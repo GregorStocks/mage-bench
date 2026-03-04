@@ -3,7 +3,8 @@
 from pathlib import Path
 
 import pytest
-from blunder_eval_common import (
+
+from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
     load_game_ground_truth,
@@ -285,7 +286,7 @@ class TestLookupAnnotationForDecision:
 
 class TestMergeIntoGroundTruth:
     def test_merge_new_entries(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
+        monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         entries = [
             {"decision_index": 0},
@@ -298,7 +299,7 @@ class TestMergeIntoGroundTruth:
         assert len(loaded) == 2
 
     def test_merge_preserves_existing(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
+        monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         # Create existing audited entry
         existing = [
@@ -328,7 +329,7 @@ class TestMergeIntoGroundTruth:
         assert existing_entry["verdict"] == "blunder"
 
     def test_merge_deduplicates_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
+        monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         # Two new entries for same decision_index — keeps first
         entries = [
@@ -342,7 +343,7 @@ class TestMergeIntoGroundTruth:
         assert len(loaded) == 1
 
     def test_merge_empty_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
+        monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         existing = [{"decision_index": 0}]
         save_game_ground_truth("game_test", existing)

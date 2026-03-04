@@ -28,11 +28,10 @@ from openai import OpenAI
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-import scryfall  # noqa: E402
-from annotate_game import annotate_game  # noqa: E402
-from blunder_eval_common import (  # noqa: E402
+from scripts import scryfall  # noqa: E402
+from scripts.analysis.annotate_game import annotate_game  # noqa: E402
+from scripts.analysis.blunder_eval_common import (  # noqa: E402
     action_result,
     decision_index,
     is_canonical_decision,
@@ -43,7 +42,7 @@ from blunder_eval_common import (  # noqa: E402
     load_game,
     snapshot_index,
 )
-from extract_decisions import extract_decisions  # noqa: E402
+from scripts.analysis.extract_decisions import extract_decisions  # noqa: E402
 from puppeteer.decision_renderer import (  # noqa: E402
     card_display,
     permanent_display,
@@ -1232,7 +1231,7 @@ def _auto_ingest_ground_truth(
     snapshots: list[dict],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""
-    from blunder_eval_common import (
+    from scripts.analysis.blunder_eval_common import (
         make_seed_entry,
         merge_into_ground_truth,
         reverse_map_annotations,
@@ -1458,7 +1457,7 @@ def resolve_game_path(arg: str) -> str:
       - A file path (e.g. website/public/games/game_xxx.json.gz)
       - A bare game ID (e.g. game_20260225_174042_g2)
     """
-    from blunder_eval_common import game_path_for_id
+    from scripts.analysis.blunder_eval_common import game_path_for_id
 
     p = Path(arg)
     if p.exists():

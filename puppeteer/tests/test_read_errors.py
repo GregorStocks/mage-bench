@@ -3,7 +3,7 @@
 import tempfile
 from pathlib import Path
 
-from export_game import _read_errors
+from scripts.export_game import _read_errors
 
 
 def test_read_errors_parses_code_bugs():

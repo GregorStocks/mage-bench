@@ -1,15 +1,7 @@
 """Migration: v2 -> v3 (add cardData and token images)."""
 
-import sys
-from pathlib import Path
-
 SOURCE_VERSION = 2
 TARGET_VERSION = 3
-
-# Ensure scripts/ is importable for export_game helpers
-_SCRIPTS_DIR = str(Path(__file__).resolve().parent.parent.parent / "scripts")
-if _SCRIPTS_DIR not in sys.path:
-    sys.path.insert(0, _SCRIPTS_DIR)
 
 
 def _is_token_key(name: str) -> bool:
@@ -21,7 +13,7 @@ def up(data: dict) -> dict:
     """Migrate from v2 to v3: add cardData and token images via Scryfall."""
     assert data["version"] == 2, f"Expected v2, got v{data['version']}"
 
-    from export_game import _build_card_data
+    from scripts.export_game import _build_card_data
 
     card_images, card_data = _build_card_data(
         data.get("cardImages", {}),

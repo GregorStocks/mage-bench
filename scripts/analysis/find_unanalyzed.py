@@ -19,7 +19,7 @@ Usage:
 import argparse
 from pathlib import Path
 
-from blunder_eval_common import GAMES_DIR, REPO_ROOT, glob_game_files
+from scripts.analysis.blunder_eval_common import GAMES_DIR, REPO_ROOT, glob_game_files
 
 ANALYSES_DIR = REPO_ROOT / "doc" / "claudes" / "analyses"
 

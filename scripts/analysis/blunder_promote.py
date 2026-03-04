@@ -11,7 +11,7 @@ Usage:
 import json
 from pathlib import Path
 
-from blunder_eval_common import BASELINE_PATH, TMP_DIR, save_baseline
+from scripts.analysis.blunder_eval_common import BASELINE_PATH, TMP_DIR, save_baseline
 
 
 def find_latest_eval() -> Path:

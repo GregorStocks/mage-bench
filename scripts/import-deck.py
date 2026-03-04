@@ -15,7 +15,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-import scryfall
+from scripts import scryfall
 
 
 def download_deck_text(url: str) -> str:
