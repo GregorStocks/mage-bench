@@ -41,6 +41,7 @@ Every game object (cards in hand, permanents, stack items, graveyard/exile cards
 - **Boolean choices with no playable cards:** Pass with `choose_action(choice="no")`.
 - **GAME_ASK (boolean):** Answer with `choice="yes"` or `choice="no"` based on what's being asked.
 - **GAME_CHOOSE_ABILITY (index):** Pick an ability by numeric index: `choice="0"`, `choice="1"`, etc. (not yes/no)
+- **GAME_CHOOSE_CHOICE (index or text):** Pick a choice by numeric index: `choice="0"`, `choice="1"`, etc. Or by name: `text="Green"`. (not yes/no)
 - **GAME_TARGET (id or index):** Pick a target with `choice="p3"`. If `required=true`, you must pick one.
 
 ## Combat — Attacking
