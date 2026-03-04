@@ -4,8 +4,8 @@ title: "MCP Tool Design Is Not API Design Part I"
 pubDate: 2026-03-04T08:00:00
 author: Gregor
 tags:
-	- mage-bench
-	- mcp-design
+  - mage-bench
+  - mcp-design
 ---
 
 I've been working on [mage-bench](https://mage-bench.com) for over a month now, which I believe makes me an expert on MCP and agents.
