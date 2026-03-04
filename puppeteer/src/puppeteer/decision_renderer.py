@@ -97,8 +97,12 @@ def _render_decision_block(
     deciding_player: str | None,
 ) -> str:
     """Render the core decision: board state, stack, choices."""
-    turn = decision.get("turn", "?")
-    phase = decision.get("phase") or ("PREGAME" if turn == 0 else "?")
+    turn = decision.get("turn")
+    if turn is None:
+        turn = 0
+    if not decision.get("phase"):
+        assert turn in (0, 1), f"decision has empty phase on turn {turn}: {decision.get('message', '')}"
+    phase = decision.get("phase") or "PREGAME"
     player = decision.get("player", "?")
     message = decision.get("message", "")
 

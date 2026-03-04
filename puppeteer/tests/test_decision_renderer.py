@@ -1,5 +1,7 @@
 """Tests for the shared decision renderer."""
 
+import pytest
+
 from puppeteer.decision_renderer import (
     _batch_attack_display,
     _batch_block_display,
@@ -241,6 +243,27 @@ class TestRenderDecision:
         decision = _make_decision(turn=0, phase=None)
         text = render_decision(decision, snap)
         assert "Turn 0 PREGAME" in text
+
+    def test_mulligan_phase_turn_1_empty_string(self) -> None:
+        """Mulligan decisions have turn=1 and phase=''. Should render as PREGAME."""
+        snap = _make_snapshot(turn=1, phase="")
+        decision = _make_decision(turn=1, phase="")
+        text = render_decision(decision, snap)
+        assert "Turn 1 PREGAME" in text
+
+    def test_turn_none_renders_as_pregame(self) -> None:
+        """When turn is None (no snapshot), should render as turn 0 PREGAME."""
+        snap = _make_snapshot(turn=0, phase="")
+        decision = _make_decision(turn=None, phase=None)
+        text = render_decision(decision, snap)
+        assert "Turn 0 PREGAME" in text
+
+    def test_empty_phase_after_turn_1_crashes(self) -> None:
+        """Empty phase on turn > 1 indicates data corruption and should crash."""
+        snap = _make_snapshot(turn=5, phase="")
+        decision = _make_decision(turn=5, phase="")
+        with pytest.raises(AssertionError, match="empty phase on turn 5"):
+            render_decision(decision, snap)
 
 
 class TestFormatChoice:

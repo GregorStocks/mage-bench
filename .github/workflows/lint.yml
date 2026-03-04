@@ -45,6 +45,11 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /*
+            !website/public/games
+          sparse-checkout-cone-mode: false
 
       - uses: actions/setup-java@v4
         with:
@@ -63,6 +68,13 @@ jobs:
       - run: sudo apt-get install -y xvfb
 
       - run: xvfb-run make test-golden
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: golden-test-logs
+          path: tmp/golden-*/
+          retention-days: 7
 
   website:
     runs-on: ubuntu-latest
