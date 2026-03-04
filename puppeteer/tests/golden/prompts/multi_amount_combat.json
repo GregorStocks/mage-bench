@@ -127,57 +127,57 @@
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
               "power": 2,
-              "toughness": 1
+              "toughness": 2
             }
           ],
           "hand_size": 7,
@@ -206,51 +206,51 @@
       "your_hand": [
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
           "is_land": true,
-          "name": "Plains",
+          "name": "Forest",
           "rules": [
-            "{T}: Add {W}."
+            "{T}: Add {G}."
           ]
         },
         {
-          "mana_cost": "{W}",
-          "name": "Savannah Lions",
+          "mana_cost": "{1}{G}",
+          "name": "Grizzly Bears",
           "power": 2,
-          "toughness": 1
+          "toughness": 2
         }
       ]
     },
@@ -312,63 +312,63 @@
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
               "power": 2,
-              "toughness": 1
+              "toughness": 2
             }
           ],
           "hand_size": 7,
@@ -393,37 +393,37 @@
           "action": "land",
           "id": "_",
           "index": 0,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 1,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 2,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 3,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 4,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 5,
-          "name": "Plains"
+          "name": "Forest"
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
@@ -474,40 +474,11 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
-        },
-        "id": "call_7",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_0",
-      "game_seq": 18,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_7"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
             "board_cursor": 3
           },
           "name": "pass_priority"
         },
-        "id": "call_8",
+        "id": "call_7",
         "type": "function"
       }
     ]
@@ -521,78 +492,77 @@
           "battlefield": [
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ],
               "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}{G}",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
             }
           ],
-          "hand_size": 6,
+          "hand_size": 7,
           "is_active": true,
           "is_you": true,
           "library_size": 52,
@@ -626,47 +596,47 @@
           "name": "Opponent"
         }
       ],
-      "board_cursor": 5,
+      "board_cursor": 4,
       "choices": [
         {
           "action": "land",
           "id": "_",
           "index": 0,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 1,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 2,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 3,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 4,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 5,
-          "name": "Plains"
+          "name": "Forest"
         }
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 44,
+      "game_seq": 38,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -674,6 +644,35 @@
       "response_type": "select",
       "stop_reason": "playable_cards",
       "untapped_lands": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_7"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "choice": 0
+          },
+          "name": "choose_action"
+        },
+        "id": "call_8",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 38,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_message": "Play spells and abilities",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
     },
     "role": "tool",
     "tool_call_id": "call_8"
@@ -685,7 +684,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "no"
+            "choice": 0
           },
           "name": "choose_action"
         },
@@ -696,10 +695,10 @@
   },
   {
     "content": {
-      "action_taken": "passed_priority",
-      "game_seq": 44,
+      "action_taken": "selected_0",
+      "game_seq": 42,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Select attackers",
+      "next_action_message": "Play instants and activated abilities",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
       "success": true
@@ -714,7 +713,7 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 5
+            "board_cursor": 4
           },
           "name": "pass_priority"
         },
@@ -732,73 +731,73 @@
           "battlefield": [
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ],
-              "tapped": false
+              "tapped": true
             },
             {
               "id": "_",
-              "name": "Savannah Lions",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
               "power": 2,
-              "summoning_sick": false,
+              "summoning_sick": true,
               "tapped": false,
-              "toughness": 1
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             }
           ],
-          "hand_size": 6,
-          "is_active": true,
+          "hand_size": 5,
+          "is_active": false,
           "is_you": true,
           "library_size": 52,
           "life": 20,
@@ -816,6 +815,22 @@
             },
             {
               "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -823,10 +838,10 @@
               "toughness": 1
             }
           ],
-          "hand_size": 6,
-          "is_active": false,
+          "hand_size": 5,
+          "is_active": true,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
@@ -834,28 +849,43 @@
       "board_cursor": 6,
       "choices": [
         {
-          "choice_type": "attacker",
+          "choice_type": "blocker",
           "id": "_",
           "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        }
+      ],
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "blocked": false,
+          "defending": "TestPlayer"
+        }
+      ],
+      "combat_phase": "blockers",
+      "context": "T2 Combat/Declare Blockers (Opponent)",
+      "game_seq": 75,
+      "incoming_attackers": [
+        {
+          "id": "_",
           "name": "Savannah Lions",
           "power": 2,
           "toughness": 1
-        },
-        {
-          "choice_type": "special",
-          "id": "all",
-          "index": 1,
-          "name": "All attack"
         }
       ],
-      "combat_phase": "attackers",
-      "context": "T2 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 46,
-      "message": "Select attackers",
-      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+      "message": "Select blockers",
+      "respond_with": "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)",
       "response_type": "select",
-      "stop_reason": "combat",
-      "untapped_lands": 1
+      "stop_reason": "combat"
     },
     "role": "tool",
     "tool_call_id": "call_10"
@@ -867,7 +897,7 @@
       {
         "function": {
           "arguments": {
-            "attackers": "all"
+            "choice": "no"
           },
           "name": "choose_action"
         },
@@ -878,11 +908,8 @@
   },
   {
     "content": {
-      "action_taken": "batch_attack",
-      "declared": [
-        "all"
-      ],
-      "game_seq": 46,
+      "action_taken": "passed_priority",
+      "game_seq": 75,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_message": "Play instants and activated abilities",
       "next_action_pending": true,
@@ -898,36 +925,12 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "get_game_history"
-        },
-        "id": "call_12",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "cursor": 23,
-      "event_count": 23,
-      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
-    },
-    "role": "tool",
-    "tool_call_id": "call_12"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
           "arguments": {
-            "board_cursor": 6,
-            "until": "postcombat_main"
+            "board_cursor": 6
           },
           "name": "pass_priority"
         },
-        "id": "call_13",
+        "id": "call_12",
         "type": "function"
       }
     ]
@@ -941,80 +944,90 @@
           "battlefield": [
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ],
               "tapped": false
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Forest",
               "playable": true,
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             }
           ],
           "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 52,
-          "life": 20,
+          "library_size": 51,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
@@ -1026,18 +1039,36 @@
                 "{T}: Add {W}."
               ],
               "tapped": true
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 6,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
@@ -1048,48 +1079,114 @@
           "action": "land",
           "id": "_",
           "index": 0,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 1,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 2,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 3,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 4,
-          "name": "Plains"
+          "name": "Forest"
         },
         {
           "action": "land",
           "id": "_",
           "index": 5,
-          "name": "Plains"
+          "name": "Forest"
         }
       ],
-      "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "current_step": "Postcombat Main",
-      "game_seq": 66,
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 86,
+      "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
       "respond_with": "choice=pN to play, or choice=no to pass",
       "response_type": "select",
-      "stop_reason": "reached_step",
-      "untapped_lands": 1
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_12"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "attackers": "all"
+          },
+          "name": "choose_action"
+        },
+        "id": "call_13",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Forest"
+        }
+      ],
+      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+      "error_code": "missing_param",
+      "game_seq": 86,
+      "retryable": true,
+      "success": false,
+      "warning": "Ignored attackers parameter (not in declare_attackers phase)"
     },
     "role": "tool",
     "tool_call_id": "call_13"
@@ -1100,8 +1197,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "get_game_state"
+          "arguments": {
+            "board_cursor": 7
+          },
+          "name": "pass_priority"
         },
         "id": "call_14",
         "type": "function"
@@ -1110,90 +1209,91 @@
   },
   {
     "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 66,
-      "phase": "Postcombat Main",
-      "players": [
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ],
               "tapped": false
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             }
           ],
           "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 52,
-          "life": 20,
+          "library_size": 51,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
@@ -1205,26 +1305,65 @@
                 "{T}: Add {W}."
               ],
               "tapped": true
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 6,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
       ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Postcombat Main",
-      "turn": 2
+      "board_cursor": 8,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "combat_phase": "attackers",
+      "context": "T3 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 88,
+      "message": "Select attackers",
+      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+      "response_type": "select",
+      "stop_reason": "combat",
+      "untapped_lands": 2
     },
     "role": "tool",
     "tool_call_id": "call_14"
@@ -1235,10 +1374,107 @@
     "tool_calls": [
       {
         "function": {
+          "arguments": {
+            "amounts": [
+              1,
+              1
+            ]
+          },
+          "name": "choose_action"
+        },
+        "id": "call_15",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+      "error_code": "missing_param",
+      "game_seq": 88,
+      "retryable": true,
+      "success": false
+    },
+    "role": "tool",
+    "tool_call_id": "call_15"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 8,
+            "until": "postcombat_main"
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_16",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board_cursor": 8,
+      "board_unchanged": true,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": 2,
+          "toughness": 2
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "combat_phase": "attackers",
+      "context": "T3 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 88,
+      "message": "Select attackers",
+      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+      "response_type": "select",
+      "stop_reason": "combat",
+      "untapped_lands": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_16"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_15",
+        "id": "call_17",
         "type": "function"
       }
     ]
@@ -1248,87 +1484,91 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 66,
-      "phase": "Postcombat Main",
+      "game_seq": 88,
+      "phase": "Combat",
       "players": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ],
               "tapped": false
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             },
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "playable": true,
+              "name": "Forest",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {G}."
               ]
             }
           ],
           "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 52,
-          "life": 20,
+          "library_size": 51,
+          "life": 18,
           "name": "TestPlayer"
         },
         {
@@ -1340,29 +1580,204 @@
                 "{T}: Add {W}."
               ],
               "tapped": true
-            }
-          ],
-          "graveyard": [
+            },
             {
               "id": "_",
-              "name": "Savannah Lions"
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
             }
           ],
-          "hand_size": 6,
+          "hand_size": 5,
           "is_active": false,
           "is_you": false,
-          "library_size": 52,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Postcombat Main",
-      "turn": 2
+      "step": "Declare Attackers",
+      "turn": 3
     },
     "role": "tool",
-    "tool_call_id": "call_15"
+    "tool_call_id": "call_17"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_state"
+        },
+        "id": "call_18",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 88,
+      "phase": "Combat",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 2
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 18,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 5,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Declare Attackers",
+      "turn": 3
+    },
+    "role": "tool",
+    "tool_call_id": "call_18"
   },
   {
     "content": null,
@@ -1373,18 +1788,18 @@
           "arguments": {},
           "name": "get_game_history"
         },
-        "id": "call_16",
+        "id": "call_19",
         "type": "function"
       }
     ]
   },
   {
     "content": {
-      "cursor": 26,
-      "event_count": 26,
-      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+      "cursor": 31,
+      "event_count": 31,
+      "history": "Turn 1:\n    - TestPlayer drew Grizzly Bears\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - TestPlayer drew Forest\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Forest\n  Precombat Main:\n    - TestPlayer played Forest\n    - TestPlayer cast Grizzly Bears\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n  Combat Damage:\n    - TestPlayer lost 2 life\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Forest\n"
     },
     "role": "tool",
-    "tool_call_id": "call_16"
+    "tool_call_id": "call_19"
   }
 ]

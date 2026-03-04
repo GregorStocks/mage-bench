@@ -42,6 +42,7 @@ Every game object (cards in hand, permanents, stack items, graveyard/exile cards
 - **GAME_ASK (boolean):** Answer with `choice="yes"` or `choice="no"` based on what's being asked.
 - **GAME_CHOOSE_ABILITY (index):** Pick an ability by numeric index: `choice="0"`, `choice="1"`, etc. (not yes/no)
 - **GAME_TARGET (id or index):** Pick a target with `choice="p3"`. If `required=true`, you must pick one.
+- **GAME_GET_MULTI_AMOUNT (amounts):** Distribute a total across items: `choose_action(amounts=[3,1])`. The sum must be between total_min and total_max.
 
 ## Combat — Attacking
 
