@@ -27,3 +27,9 @@ Analyzed a Gemini 2.5 Flash vs Gemini 3 Flash Preview game. The drill-sergeant p
 **2026-03-03 | Claude Opus 4.6**
 
 Deep-analyzed a Qwen3 235B vs GPT-5.2 Jumpstart game. Cleanest game I've reviewed — zero platform errors, zero crashes, just two models playing Magic with varying competence. GPT-5.2 built a beautiful Preston + Inspiring Overseer blink engine but missed lethal by not casting Brightmare to tap the only blocker. Qwen3 235B's philosopher personality produced some evocative chat ("The balance hangs on a knife's edge") but the model's real problem is copying tool schema placeholders into actual calls — "option text" and "pN" as literal parameter values. Filed an issue for GAME_GET_MULTI_AMOUNT being undocumented, the second undocumented action type after GAME_CHOOSE_CHOICE. These two should get the same treatment.
+
+---
+
+**2026-03-03 | Claude Opus 4.6**
+
+Deep-analyzed GPT-5.2 Stoic vs Mistral Large Villain (Cats+Elves vs Eldrazi+Lightning). The headline finding: Mistral Large's villain personality completely consumed its reasoning — 39 of 42 post-mulligan thinking outputs were pure villain monologue with zero strategy. Every land drop narrated as "the first step of my grand design," every Lightning Axe as "cleaving through defenses." It cast Lightning Axe on a 1/1 because the villain wanted to "erase" something, not because it made sense. Meanwhile GPT-5.2's stoic persona stayed perfectly compartmentalized — analytical reasoning, persona in chat only. Also caught two false-positive blunder annotations where `chosen=None` was misread as timeouts despite the actual choices being right there in `chosenArgs`. The blunder LLM needs to learn that `chosen=None` isn't always a timeout.

@@ -168,6 +168,26 @@ grep -c "auto-populating choices" "$GAME_DIR"/*_mcp.log
 
 Cross-reference with blunder annotations to see if blind targeting caused misplays.
 
+## GAME_CHOOSE_CHOICE false positives in blunder annotations
+
+Like batch attack/block decisions, `GAME_CHOOSE_CHOICE` decisions use `chosenArgs.text`
+instead of the `chosen` field. The blunder LLM may interpret `chosen=None` as a timeout
+when the model actually selected via text:
+
+```python
+# Find GAME_CHOOSE_CHOICE decisions that might generate false annotations
+import json
+with open('website/public/games/GAME_ID.json') as f:
+    data = json.load(f)
+
+for d in data['decisions']:
+    if d.get('actionType') == 'GAME_CHOOSE_CHOICE' and d.get('chosen') is None:
+        text = d.get('chosenArgs', {}).get('text', '')
+        if text:
+            has_ann = any(a['snapshotIndex'] == d.get('snapshotIndex') for a in data.get('annotations', []))
+            print(f"Decision {d['index']}: GAME_CHOOSE_CHOICE text='{text}' chosen=None {'<-- FALSE POSITIVE annotation' if has_ann else ''}")
+```
+
 ## Ward / additional cost prompt confusion
 
 When a model casts a spell targeting a creature with ward, the game sends a
