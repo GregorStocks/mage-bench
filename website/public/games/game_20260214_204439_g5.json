@@ -46224,7 +46224,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -50419,9 +50419,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -52077,15 +52075,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p17",
-          "p21",
-          "p30",
-          "p46",
-          "p47",
-          "p48",
-          "p49"
-        ]
+        "attackers": "p17,p21,p30,p46,p47,p48,p49"
       },
       "actionResult": {
         "declared": [

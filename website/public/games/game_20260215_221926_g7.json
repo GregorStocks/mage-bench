@@ -303952,7 +303952,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -305334,10 +305334,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": [
-          "p2",
-          "p8"
-        ]
+        "mana_plan": "p2,p8"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -307662,10 +307659,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": [
-          "p5",
-          "p4"
-        ]
+        "mana_plan": "p5,p4"
       },
       "actionResult": {
         "retryable": true,
@@ -308535,9 +308529,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p45"
-        ]
+        "attackers": "p45"
       },
       "actionResult": {
         "declared": [
@@ -309490,9 +309482,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p1"
-        ]
+        "attackers": "p1"
       },
       "actionResult": {
         "declared": [
@@ -309780,9 +309770,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p45"
-        ]
+        "attackers": "p45"
       },
       "actionResult": {
         "declared": [
@@ -319210,9 +319198,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p74"
-        ]
+        "attackers": "p74"
       },
       "actionResult": {
         "declared": [
@@ -319722,9 +319708,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p86"
-        ]
+        "attackers": "p86"
       },
       "actionResult": {
         "retryable": true,
@@ -321064,9 +321048,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p86"
-        ]
+        "attackers": "p86"
       },
       "actionResult": {
         "declared": [

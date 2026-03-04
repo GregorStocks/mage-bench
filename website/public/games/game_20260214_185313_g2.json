@@ -57272,7 +57272,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -61831,9 +61831,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p61"
-        ]
+        "attackers": "p61"
       },
       "actionResult": {
         "declared": [
@@ -62249,9 +62247,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -62723,10 +62719,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9",
-          "p61"
-        ]
+        "attackers": "p9,p61"
       },
       "actionResult": {
         "declared": [
@@ -63129,9 +63122,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -63292,12 +63283,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p11",
-            "blocks": "p17"
-          }
-        ]
+        "blockers": "{'id': 'p11', 'blocks': 'p17'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -63361,12 +63347,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p11",
-            "blocks": "p17"
-          }
-        ]
+        "blockers": "{'id': 'p11', 'blocks': 'p17'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -63933,11 +63914,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          {
-            "id": "p9"
-          }
-        ]
+        "attackers": "{'id': 'p9'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -63998,11 +63975,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          {
-            "id": "p9"
-          }
-        ]
+        "attackers": "{'id': 'p9'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -64565,10 +64538,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p61",
-          "p9"
-        ]
+        "attackers": "p61,p9"
       },
       "actionResult": {
         "declared": [

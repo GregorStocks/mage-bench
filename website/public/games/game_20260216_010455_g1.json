@@ -83089,7 +83089,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -83276,14 +83276,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p4",
         "index": 3,
-        "mana_plan": [
-          "p1"
-        ],
+        "mana_plan": "p1",
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -83324,14 +83322,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p8",
         "index": 3,
-        "mana_plan": [
-          "p2"
-        ],
+        "mana_plan": "p2",
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -83377,12 +83373,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p2",
         "index": 1,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Island"
       },
@@ -83441,12 +83437,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": -1,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": ""
       },
@@ -83602,12 +83598,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p3",
         "index": 2,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Swamp"
       },
@@ -83736,10 +83732,7 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": [
-          "p5",
-          "p3:0"
-        ],
+        "mana_plan": "p5,p3:0",
         "id": "p7"
       },
       "actionResult": {
@@ -83915,15 +83908,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p5",
         "index": 1,
-        "mana_plan": [
-          "p2",
-          "p3"
-        ],
+        "mana_plan": "p2,p3",
         "pile": 1,
         "text": "Consult the Star Charts"
       },
@@ -84268,11 +84258,7 @@
       "chosenArgs": {
         "index": 2,
         "id": "p7",
-        "mana_plan": [
-          "p3:0",
-          "p5:0",
-          "p4:1"
-        ]
+        "mana_plan": "p3:0,p5:0,p4:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -84459,12 +84445,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p14",
         "index": 1,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Gloomlake Verge"
       },
@@ -84532,10 +84518,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": [
-          "p14",
-          "p3"
-        ]
+        "mana_plan": "p14,p3"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -84910,11 +84893,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p5:0",
-          "p4:1",
-          "p6:1"
-        ],
+        "mana_plan": "p5:0,p4:1,p6:1",
         "id": "p13"
       },
       "actionResult": {
@@ -85459,9 +85438,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": [
-          "p4:0"
-        ]
+        "mana_plan": "p4:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -85629,16 +85606,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p5",
         "index": 0,
-        "mana_plan": [
-          "p2",
-          "p14",
-          "p9"
-        ],
+        "mana_plan": "p2,p14,p9",
         "pile": 1,
         "text": "Consult the Star Charts"
       },
@@ -85853,12 +85826,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": ""
       },
@@ -86000,14 +85973,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p8",
         "index": 2,
-        "mana_plan": [
-          "p9"
-        ],
+        "mana_plan": "p9",
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -86336,9 +86307,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p5"
-        ],
+        "mana_plan": "p5",
         "id": "p21"
       },
       "actionResult": {
@@ -87046,11 +87015,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": [
-          "p19",
-          "p3:0",
-          "p4:1"
-        ]
+        "mana_plan": "p19,p3:0,p4:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -87180,9 +87145,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p6:1"
-        ],
+        "mana_plan": "p6:1",
         "id": "p9"
       },
       "actionResult": {
@@ -87433,12 +87396,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": ""
       },
@@ -87599,9 +87562,7 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p25",
-        "mana_plan": [
-          "p2"
-        ]
+        "mana_plan": "p2"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -87717,12 +87678,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": ""
       },
@@ -88030,12 +87991,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p19:0",
-          "p3:0",
-          "p4:0",
-          "p5:0"
-        ],
+        "mana_plan": "p19:0,p3:0,p4:0,p5:0",
         "id": "p36"
       },
       "actionResult": {
@@ -88176,10 +88132,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p28",
-          "p34"
-        ]
+        "attackers": "p28,p34"
       },
       "actionResult": {
         "declared": [
@@ -88627,12 +88580,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p40",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Undercity Sewers"
       },
@@ -88742,12 +88695,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": ""
       },
@@ -88808,9 +88761,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -89472,12 +89423,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p19",
-          "p33",
-          "p3:1",
-          "p44"
-        ],
+        "mana_plan": "p19,p33,p3:1,p44",
         "id": "p36"
       },
       "actionResult": {
@@ -90273,9 +90219,7 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": [
-          "p5:0"
-        ],
+        "mana_plan": "p5:0",
         "id": "p49"
       },
       "actionResult": {
@@ -91445,11 +91389,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p34",
-          "p39",
-          "p36"
-        ]
+        "attackers": "p34,p39,p36"
       },
       "actionResult": {
         "declared": [
@@ -91935,22 +91875,12 @@
           0
         ],
         "answer": true,
-        "attackers": [
-          "p1",
-          "p2"
-        ],
+        "attackers": "p1,p2",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p8",
         "index": 0,
-        "mana_plan": [
-          "p1",
-          "p5:1",
-          "RED"
-        ],
+        "mana_plan": "p1,p5:1,RED",
         "pile": 1,
         "text": "Draw two cards, then discard a card."
       },
@@ -92021,20 +91951,12 @@
           4
         ],
         "answer": true,
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p3",
         "index": 0,
-        "mana_plan": [
-          "p1",
-          "p2"
-        ],
+        "mana_plan": "p1,p2",
         "pile": 2,
         "text": "example text"
       },
@@ -92103,19 +92025,12 @@
           3
         ],
         "answer": true,
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p42",
         "index": 0,
-        "mana_plan": [
-          "p1"
-        ],
+        "mana_plan": "p1",
         "pile": 1,
         "text": "Tap for blue"
       },
@@ -92250,19 +92165,12 @@
           3
         ],
         "answer": false,
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p4",
         "index": 0,
-        "mana_plan": [
-          "p1"
-        ],
+        "mana_plan": "p1",
         "pile": 1,
         "text": "Pass to let Three Steps Ahead resolves"
       },
@@ -92472,21 +92380,12 @@
           3
         ],
         "answer": true,
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p4",
         "index": 0,
-        "mana_plan": [
-          "p1",
-          "p14",
-          "RED"
-        ],
+        "mana_plan": "p1,p14,RED",
         "pile": 1,
         "text": "Kill Toph now!"
       },
@@ -92654,19 +92553,12 @@
           3
         ],
         "answer": true,
-        "attackers": [
-          "all"
-        ],
+        "attackers": "all",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p8",
         "index": 0,
-        "mana_plan": [
-          "p2"
-        ],
+        "mana_plan": "p2",
         "pile": 1,
         "text": "Draw more cards!"
       },
@@ -92783,12 +92675,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "p8",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "3. Draw two cards, then discard a card."
       },
@@ -92855,12 +92747,12 @@
           1
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Done"
       },
@@ -93025,12 +92917,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": -1,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "Cancel"
       },
@@ -93146,12 +93038,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "No"
       },
@@ -93198,12 +93090,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "No"
       },
@@ -93311,12 +93203,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "No"
       },
@@ -93421,12 +93313,12 @@
           1
         ],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 1,
         "text": "No"
       },

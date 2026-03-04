@@ -56904,7 +56904,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -61582,18 +61582,9 @@
         "auto_tap": true,
         "pile": 1,
         "index": 0,
-        "mana_plan": [
-          "p1",
-          "p5",
-          "p13",
-          "RED"
-        ],
-        "attackers": [
-          "all"
-        ],
-        "blockers": [
-          ">>>>>>"
-        ],
+        "mana_plan": "p1,p5,p13,RED",
+        "attackers": "all",
+        "blockers": ">>>>>>",
         "id": "p6",
         "text": "No"
       },
@@ -62205,11 +62196,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p6",
-          "p7"
-        ]
+        "attackers": "p5,p6,p7"
       },
       "actionResult": {
         "declared": [
@@ -64543,9 +64530,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

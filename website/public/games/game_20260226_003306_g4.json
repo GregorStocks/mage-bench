@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260226_003306_g4",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -63249,9 +63249,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4"
-        ]
+        "attackers": "p4"
       },
       "actionResult": {
         "declared": [
@@ -64093,11 +64091,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4",
-          "p8",
-          "p42"
-        ]
+        "attackers": "p4,p8,p42"
       },
       "actionResult": {
         "declared": [
@@ -66092,12 +66086,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4",
-          "p8",
-          "p42",
-          "p21"
-        ]
+        "attackers": "p4,p8,p42,p21"
       },
       "actionResult": {
         "declared": [

@@ -191724,7 +191724,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -192732,18 +192732,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 3,
-        "mana_plan": [
-          "p3",
-          "p1",
-          "p4"
-        ],
-        "attackers": [
-          "all"
-        ],
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "mana_plan": "p3,p1,p4",
+        "attackers": "all",
+        "blockers": "p5:p1,p6:p2",
         "id": "p45",
         "text": "Champion of Wits"
       },

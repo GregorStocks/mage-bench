@@ -47945,7 +47945,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -51829,9 +51829,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p31"
-        ]
+        "attackers": "p31"
       },
       "actionResult": {
         "declared": [
@@ -52387,10 +52385,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p10",
-          "p23"
-        ]
+        "attackers": "p10,p23"
       },
       "actionResult": {
         "declared": [
@@ -53423,16 +53418,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p4",
-            "blocks": "p34"
-          },
-          {
-            "id": "p31",
-            "blocks": "p24"
-          }
-        ]
+        "blockers": "{'id': 'p4', 'blocks': 'p34'},{'id': 'p31', 'blocks': 'p24'}"
       },
       "actionResult": {
         "error": "Array must have size 1, but has size 2"

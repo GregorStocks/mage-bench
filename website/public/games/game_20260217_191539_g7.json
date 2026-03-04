@@ -149597,7 +149597,7 @@
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -149766,9 +149766,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": [
-          "p3"
-        ]
+        "mana_plan": "p3"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -150722,9 +150720,7 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": [
-          "p1:0"
-        ],
+        "mana_plan": "p1:0",
         "id": "p18"
       },
       "actionResult": {
@@ -155825,10 +155821,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p3:0",
-          "p48:0"
-        ],
+        "mana_plan": "p3:0,p48:0",
         "id": "p40"
       },
       "actionResult": {
@@ -156834,10 +156827,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p40",
-        "mana_plan": [
-          "p3:0",
-          "p48:0"
-        ]
+        "mana_plan": "p3:0,p48:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -158582,12 +158572,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p75:1",
-          "p3:0",
-          "BLUE",
-          "p46:0"
-        ],
+        "mana_plan": "p75:1,p3:0,BLUE,p46:0",
         "id": "p49"
       },
       "actionResult": {
@@ -158707,11 +158692,7 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p76",
-        "mana_plan": [
-          "p75:1",
-          "p46:0",
-          "p54:0"
-        ]
+        "mana_plan": "p75:1,p46:0,p54:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -159048,9 +159029,7 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p42",
-        "mana_plan": [
-          "p54:0"
-        ]
+        "mana_plan": "p54:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -160310,9 +160289,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -161344,9 +161321,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p54:0"
-        ]
+        "mana_plan": "p54:0"
       },
       "actionResult": {
         "next_action_pending": true,

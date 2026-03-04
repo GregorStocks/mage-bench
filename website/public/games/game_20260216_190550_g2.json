@@ -273899,7 +273899,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -274367,9 +274367,7 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p14",
-        "mana_plan": [
-          "p10"
-        ]
+        "mana_plan": "p10"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -275841,10 +275839,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p70",
-          "p71"
-        ]
+        "attackers": "p70,p71"
       },
       "actionResult": {
         "declared": [
@@ -277198,9 +277193,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p38"
-        ]
+        "attackers": "p38"
       },
       "actionResult": {
         "declared": [
@@ -277460,10 +277453,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p32",
-          "p38"
-        ]
+        "attackers": "p32,p38"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -277605,9 +277595,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -278072,9 +278060,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p38"
-        ]
+        "attackers": "p38"
       },
       "actionResult": {
         "declared": [
@@ -278357,10 +278343,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p21",
-          "p96"
-        ]
+        "attackers": "p21,p96"
       },
       "actionResult": {
         "declared": [
@@ -278490,9 +278473,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p96"
-        ]
+        "attackers": "p96"
       },
       "actionResult": {
         "declared": [
@@ -279417,9 +279398,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p38"
-        ]
+        "attackers": "p38"
       },
       "actionResult": {
         "declared": [
@@ -280011,10 +279990,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p110",
-        "mana_plan": [
-          "p12",
-          "p1"
-        ]
+        "mana_plan": "p12,p1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -280150,9 +280126,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -280595,16 +280569,9 @@
         "auto_tap": true,
         "pile": 1,
         "index": 6,
-        "mana_plan": [
-          "p52"
-        ],
-        "attackers": [
-          "all"
-        ],
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "mana_plan": "p52",
+        "attackers": "all",
+        "blockers": "p5:p1,p6:p2",
         "id": "p52",
         "text": "Island"
       },
@@ -281230,10 +281197,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p64:p79",
-          "p11:p133"
-        ]
+        "blockers": "p64:p79,p11:p133"
       },
       "actionResult": {
         "declared": [
@@ -283008,9 +282972,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -283331,9 +283293,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p120:p79"
-        ]
+        "blockers": "p120:p79"
       },
       "actionResult": {
         "declared": [
@@ -283592,12 +283552,7 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p140",
-        "mana_plan": [
-          "p149:0",
-          "p31",
-          "p38",
-          "p32"
-        ]
+        "mana_plan": "p149:0,p31,p38,p32"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -283672,12 +283627,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p120:p79",
-          "p64:p78",
-          "p11:p49",
-          "p152:p125"
-        ]
+        "blockers": "p120:p79,p64:p78,p11:p49,p152:p125"
       },
       "actionResult": {
         "retryable": true,
@@ -284456,12 +284406,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p140",
-        "mana_plan": [
-          "p15",
-          "p2:0",
-          "p37",
-          "p25"
-        ]
+        "mana_plan": "p15,p2:0,p37,p25"
       },
       "actionResult": {
         "retryable": true,
@@ -284882,13 +284827,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": [],
-        "attackers": [
-          "all"
-        ],
-        "blockers": [
-          "p5:p1"
-        ],
+        "mana_plan": "",
+        "attackers": "all",
+        "blockers": "p5:p1",
         "id": "p136",
         "text": "Sram, Senior Edificer"
       },

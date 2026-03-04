@@ -56484,7 +56484,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -57853,12 +57853,12 @@
           8
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": true,
-        "blockers": [],
+        "blockers": "",
         "id": "p16",
         "index": 8,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -58020,12 +58020,12 @@
           0
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": true,
-        "blockers": [],
+        "blockers": "",
         "id": "p19",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -59963,10 +59963,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p20",
-          "p21"
-        ]
+        "attackers": "p20,p21"
       },
       "actionResult": {
         "declared": [
@@ -60069,12 +60066,12 @@
           3
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": true,
-        "blockers": [],
+        "blockers": "",
         "id": "p7",
         "index": 1,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -60176,12 +60173,12 @@
           3
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": true,
-        "blockers": [],
+        "blockers": "",
         "id": "p4",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -60288,12 +60285,12 @@
           3
         ],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": true,
-        "blockers": [],
+        "blockers": "",
         "id": "p43",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },

@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260228_010846_g2",
   "timestamp": "20260228_010846",
   "gameType": "Two Player Duel",
@@ -117060,9 +117060,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26"
-        ]
+        "attackers": "p26"
       },
       "actionResult": {
         "declared": [
@@ -117448,11 +117446,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p16",
-        "mana_plan": [
-          "p12",
-          "p15",
-          "p23"
-        ]
+        "mana_plan": "p12,p15,p23"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -117633,9 +117627,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p26"
-        ]
+        "attackers": "p26"
       },
       "actionResult": {
         "declared": [
@@ -117685,9 +117677,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p9:p26"
-        ]
+        "blockers": "p9:p26"
       },
       "actionResult": {
         "declared": [
@@ -117858,9 +117848,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9"
-        ]
+        "attackers": "p9"
       },
       "actionResult": {
         "declared": [
@@ -118604,9 +118592,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9"
-        ]
+        "attackers": "p9"
       },
       "actionResult": {
         "declared": [
@@ -119973,9 +119959,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p13"
-        ]
+        "attackers": "p13"
       },
       "actionResult": {
         "declared": [
@@ -120522,15 +120506,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p42",
-        "mana_plan": [
-          "p20",
-          "p21",
-          "p55",
-          "p32",
-          "p17",
-          "p18",
-          "p19"
-        ]
+        "mana_plan": "p20,p21,p55,p32,p17,p18,p19"
       },
       "actionResult": {
         "game_seq": 345,
@@ -121288,10 +121264,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p44"
-        ]
+        "attackers": "p5,p44"
       },
       "actionResult": {
         "declared": [
@@ -122217,9 +122190,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p13"
-        ]
+        "attackers": "p13"
       },
       "actionResult": {
         "declared": [
@@ -123031,12 +123002,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p13",
-          "p42",
-          "p14",
-          "p48"
-        ]
+        "attackers": "p13,p42,p14,p48"
       },
       "actionResult": {
         "declared": [
@@ -123092,12 +123058,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          " id ",
-          " p44 ",
-          "blocks",
-          "p13"
-        ]
+        "blockers": " id , p44 ,blocks,p13"
       },
       "actionResult": {
         "retryable": false,

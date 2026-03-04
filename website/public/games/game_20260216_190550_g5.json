@@ -136381,7 +136381,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -137705,9 +137705,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3"
-        ]
+        "attackers": "p3"
       },
       "actionResult": {
         "declared": [
@@ -139176,11 +139174,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": [
-          "BLACK",
-          "COLORLESS",
-          "COLORLESS"
-        ]
+        "mana_plan": "BLACK,COLORLESS,COLORLESS"
       },
       "actionResult": {
         "retryable": true,
@@ -139395,9 +139389,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p13"
-        ]
+        "attackers": "p13"
       },
       "actionResult": {
         "declared": [
@@ -139910,9 +139902,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p18"
-        ]
+        "attackers": "p18"
       },
       "actionResult": {
         "declared": [
@@ -140725,10 +140715,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p13"
-        ]
+        "attackers": "p3,p13"
       },
       "actionResult": {
         "declared": [
@@ -141069,22 +141056,12 @@
           4
         ],
         "answer": true,
-        "attackers": [
-          "p1",
-          "p2"
-        ],
+        "attackers": "p1,p2",
         "auto_tap": false,
-        "blockers": [
-          "p5:p1",
-          "p6:p2"
-        ],
+        "blockers": "p5:p1,p6:p2",
         "id": "p3",
         "index": 2,
-        "mana_plan": [
-          "p1",
-          "p5:1",
-          "RED"
-        ],
+        "mana_plan": "p1,p5:1,RED",
         "pile": 1,
         "text": "example"
       },
@@ -142101,10 +142078,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p3",
-          "p8"
-        ]
+        "attackers": "p3,p8"
       },
       "actionResult": {
         "declared": [
@@ -142173,9 +142147,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p8"
-        ]
+        "attackers": "p8"
       },
       "actionResult": {
         "declared": [
@@ -143345,9 +143317,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

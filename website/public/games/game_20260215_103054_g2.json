@@ -24755,7 +24755,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -24865,7 +24865,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -24947,7 +24947,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -25007,7 +25007,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "p1",
         "text": ""
@@ -25325,7 +25325,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -25480,7 +25480,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -25780,7 +25780,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -26143,7 +26143,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -26352,10 +26352,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p15"
-        ]
+        "attackers": "p5,p15"
       },
       "actionResult": {
         "declared": [
@@ -26594,7 +26591,7 @@
         "pile": 0,
         "index": 4,
         "mana_plan": "",
-        "attackers": [],
+        "attackers": "",
         "blockers": "",
         "id": "",
         "text": ""
@@ -27616,11 +27613,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p15",
-          "p6"
-        ]
+        "attackers": "p5,p15,p6"
       },
       "actionResult": {
         "declared": [
