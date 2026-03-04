@@ -12,14 +12,14 @@ Usage:
 
 import sys
 
-from blunder_eval_common import (
+from scripts.analysis.blunder_eval_common import (
     GAMES_DIR,
     load_game,
     make_seed_entry,
     merge_into_ground_truth,
     reverse_map_annotations,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 
 def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
@@ -64,7 +64,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
 
 
 def main() -> None:
-    from blunder_eval_common import glob_game_files
+    from scripts.analysis.blunder_eval_common import glob_game_files
 
     game_files = glob_game_files(GAMES_DIR)
     assert game_files, f"No game files found in {GAMES_DIR}"

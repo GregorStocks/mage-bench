@@ -28,23 +28,22 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
-from blunder_analysis import (
-    _actions_by_turn,
-    _collect_card_names,
-    _game_overview,
-    _get_oracle_texts,
-    build_decision_prompt,
-)
-from blunder_eval_common import decision_index
-from export_game import build_export
-from extract_decisions import extract_decisions
-
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
 from puppeteer.replay import execute_replay_script
+from scripts.analysis.blunder_analysis import (
+    _actions_by_turn,
+    _collect_card_names,
+    _game_overview,
+    _get_oracle_texts,
+    build_decision_prompt,
+)
+from scripts.analysis.blunder_eval_common import decision_index
+from scripts.analysis.extract_decisions import extract_decisions
+from scripts.export_game import build_export
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation

@@ -17,8 +17,7 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from export_game import _GZ_THRESHOLD
+from scripts.export_game import _GZ_THRESHOLD
 
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 TIMED_OUT_RE = re.compile(r"^(.+?) has run out of time, losing the match\.$")

@@ -7,8 +7,9 @@ from http.server import HTTPServer
 from pathlib import Path
 from urllib.request import Request, urlopen
 
-import blunder_audit_web
 import pytest
+
+import scripts.analysis.blunder_audit_web as blunder_audit_web
 
 
 @pytest.fixture()
@@ -16,7 +17,7 @@ def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp ground truth directory with sample data."""
     gt_dir = tmp_path / "ground_truth"
     gt_dir.mkdir()
-    monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", gt_dir)
+    monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", gt_dir)
 
     # Write a sample ground truth file
     data = [
@@ -32,7 +33,7 @@ def _temp_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     """Set up temp config with custom hostname."""
     config_path = tmp_path / "config.json"
     config_path.write_text(json.dumps({"hostname": "my-server.local"}))
-    monkeypatch.setattr("blunder_audit_web.CONFIG_PATH", config_path)
+    monkeypatch.setattr("scripts.analysis.blunder_audit_web.CONFIG_PATH", config_path)
     return config_path
 
 

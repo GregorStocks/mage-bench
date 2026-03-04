@@ -13,8 +13,8 @@ Usage:
 import sys
 from datetime import datetime, timezone
 
-from blunder_analysis import BLUNDER_SCRIPT_VERSION
-from blunder_eval_common import (
+from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
+from scripts.analysis.blunder_eval_common import (
     game_path_for_id,
     load_game,
     load_ground_truth,
@@ -22,7 +22,7 @@ from blunder_eval_common import (
     play_key,
     save_baseline,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 
 def derive_baseline() -> dict:

@@ -16,7 +16,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from blunder_eval_common import load_game
+from scripts.analysis.blunder_eval_common import load_game
 
 
 @dataclass

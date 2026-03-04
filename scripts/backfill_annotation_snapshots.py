@@ -19,8 +19,7 @@ import json
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from export_game import _build_decisions, _GZ_THRESHOLD
+from scripts.export_game import _build_decisions, _GZ_THRESHOLD
 
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 

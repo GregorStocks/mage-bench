@@ -11,7 +11,7 @@ Usage:
 
 from __future__ import annotations
 
-import scryfall
+from scripts import scryfall
 
 # fmt: off
 # Missing themes with card names and quantities.

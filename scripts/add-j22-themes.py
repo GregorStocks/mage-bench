@@ -12,11 +12,9 @@ Usage:
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
-import scryfall  # noqa: E402
+from scripts import scryfall
 
 # Output files
 JUMPSTART_TXT = Path("Mage/src/main/resources/jumpstart/jumpstart.txt")
