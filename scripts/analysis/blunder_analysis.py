@@ -498,7 +498,7 @@ def _format_prior_context(
     players_parts: list[str] = []
     for p in ref_snap.get("players", []):
         bf = p.get("battlefield", [])
-        s = f"{p.get('name', '?')}: {p.get('life', '?')}hp"
+        s = f"{p['name']}: {p['life']}hp"
         if bf:
             s += f" bf=[{', '.join(permanent_display(x) for x in bf)}]"
         gy = p.get("graveyard", [])
@@ -670,9 +670,17 @@ def _format_decisions(decisions: list[dict]) -> str:
                     stack_descs.append(str(s))
             stack_line = f"  Stack: [{', '.join(stack_descs)}]"
 
+        turn = d.get("turn")
+        if turn is None:
+            turn = 0
+        if not d.get("phase"):
+            assert turn in (0, 1), (
+                f"decision has empty phase on turn {turn}: {d.get('message', '')}"
+            )
+        phase = d.get("phase") or "PREGAME"
         lines = [
-            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {d.get('turn', '?')} "
-            f"{d.get('phase', '?')} - {d['player']}",
+            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {turn} "
+            f"{phase} - {d['player']}",
             f"  Board: {' | '.join(players)}",
         ]
         if stack_line:
@@ -725,25 +733,17 @@ def _format_decisions(decisions: list[dict]) -> str:
 
 
 def _chosen_display(d: dict) -> str:
-    """Human-readable name of what was chosen in a decision."""
+    """Human-readable name of what was chosen in a decision.
+
+    Delegates to the canonical renderer's _chosen_display, extracting
+    the relevant fields from the decision dict.
+    """
+    from puppeteer.decision_renderer import _chosen_display as _renderer_chosen_display  # noqa: PLC0415
+
     chosen = d.get("chosen")
-    choices = d.get("choices", [])
-    if isinstance(chosen, bool):
-        return str(chosen)
-    if isinstance(chosen, int) and 0 <= chosen < len(choices):
-        c = choices[chosen]
-        return c.get("name", c.get("description", f"option_{chosen}"))
-    if chosen is not None:
-        return str(chosen)
-    # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen
     chosen_args = d.get("chosenArgs") or d.get("chosen_args") or {}  # noqa: MBF001
-    if chosen_args.get("attackers"):
-        return f"Attack with: {chosen_args['attackers']}"
-    if chosen_args.get("blockers"):
-        return f"Block with: {chosen_args['blockers']}"
-    if chosen_args.get("text"):
-        return f"Text: {chosen_args['text']}"
-    return "?"
+    choices = d.get("choices", [])
+    return _renderer_chosen_display(chosen, chosen_args, choices)
 
 
 def _compute_cost(
