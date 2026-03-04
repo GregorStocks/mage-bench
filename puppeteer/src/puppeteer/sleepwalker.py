@@ -8,6 +8,7 @@ import sys
 import time
 from pathlib import Path
 
+from puppeteer.bridge_transport import spawn_bridge_http
 from puppeteer.log import get_logger, setup_logging
 
 logger = get_logger(__name__)
@@ -65,8 +66,6 @@ async def run_sleepwalker(
     mvn_args.append("exec:java")
 
     logger.info("[sleepwalker] Spawning bridge client...")
-
-    from puppeteer.bridge_transport import spawn_bridge_http  # noqa: PLC0415
 
     async with spawn_bridge_http(
         mvn_args=mvn_args,

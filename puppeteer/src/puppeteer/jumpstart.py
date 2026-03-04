@@ -87,10 +87,8 @@ def generate_dck(half1: HalfDeck, half2: HalfDeck) -> str:
     assert combined_count == 40, f"Combined deck {half1.theme} + {half2.theme} has {combined_count} cards, expected 40"
 
     lines = [f"NAME:{half1.theme} + {half2.theme}"]
-    for card in half1.cards:
-        lines.append(card.to_dck_line())
-    for card in half2.cards:
-        lines.append(card.to_dck_line())
+    lines.extend(card.to_dck_line() for card in half1.cards)
+    lines.extend(card.to_dck_line() for card in half2.cards)
     return "\n".join(lines) + "\n"
 
 

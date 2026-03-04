@@ -257,21 +257,20 @@ def _find_decisions_at_snapshot(game_id: str, snap_idx: int) -> list[dict]:
         s_idx = get_snapshot_index(d)
         a_idx = compute_aftermath_index(d, snapshots)
 
-        if s_idx == snap_idx or a_idx == snap_idx:
-            if di not in seen_di:
-                seen_di.add(di)
-                results.append(
-                    {
-                        "decision_index": di,
-                        "player": d.get("player", "?"),
-                        "turn": d.get("turn", "?"),
-                        "phase": d.get("phase", "?"),
-                        "message": d.get("message", "?"),
-                        "chosen": chosen_display(d),
-                        "snapshot_index": s_idx,
-                        "aftermath_index": a_idx,
-                    }
-                )
+        if (s_idx == snap_idx or a_idx == snap_idx) and di not in seen_di:
+            seen_di.add(di)
+            results.append(
+                {
+                    "decision_index": di,
+                    "player": d.get("player", "?"),
+                    "turn": d.get("turn", "?"),
+                    "phase": d.get("phase", "?"),
+                    "message": d.get("message", "?"),
+                    "chosen": chosen_display(d),
+                    "snapshot_index": s_idx,
+                    "aftermath_index": a_idx,
+                }
+            )
 
     return results
 
@@ -364,8 +363,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             for gid, entries in sorted(all_gt.items(), reverse=True):
                 if game_filter and game_filter != gid:
                     continue
-                for entry in entries:
-                    plays.append(_build_play_summary(gid, entry))
+                plays.extend(_build_play_summary(gid, entry) for entry in entries)
             self._send_json(plays)
             return
 

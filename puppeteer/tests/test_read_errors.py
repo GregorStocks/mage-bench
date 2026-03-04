@@ -1,23 +1,13 @@
 """Tests for _read_errors() in export_game.py."""
 
-import sys
 import tempfile
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-
-
-def _get_read_errors():
-    """Import _read_errors from scripts/export_game.py."""
-    sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from export_game import _read_errors  # noqa: PLC0415
-
-    return _read_errors
+from export_game import _read_errors
 
 
 def test_read_errors_parses_code_bugs():
     """Only infrastructure errors (code bugs) are returned."""
-    _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Alice_errors.log").write_text(
@@ -42,7 +32,7 @@ def test_read_errors_parses_code_bugs():
 
 def test_read_errors_filters_llm_errors():
     """LLM mistakes (bad tool calls, loops, timeouts) are filtered out."""
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Alice_errors.log").write_text(
@@ -61,7 +51,7 @@ def test_read_errors_filters_llm_errors():
 
 
 def test_read_errors_multiple_players():
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Alice_errors.log").write_text(
@@ -77,14 +67,14 @@ def test_read_errors_multiple_players():
 
 
 def test_read_errors_empty_dir():
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         errors = _read_errors(Path(tmpdir))
         assert errors == []
 
 
 def test_read_errors_blank_lines_skipped():
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Alice_errors.log").write_text("\n[10:30:45] [mcp] Error handling callback GAME_SELECT: NPE\n\n")
@@ -93,7 +83,7 @@ def test_read_errors_blank_lines_skipped():
 
 
 def test_read_errors_malformed_line():
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Bob_errors.log").write_text("no timestamp here\n")
@@ -105,7 +95,7 @@ def test_read_errors_malformed_line():
 
 
 def test_read_errors_player_name_with_spaces():
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Gem3F Libby_errors.log").write_text(
@@ -118,7 +108,7 @@ def test_read_errors_player_name_with_spaces():
 
 def test_read_errors_iso_timestamp():
     """Java bridge writes ISO 8601 timestamps — should parse to HH:MM:SS."""
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         line = "[2026-02-28T14:33:38.795711643-08:00] [mcp] Zombie game detected: no actionable callback for 20000ms\n"
@@ -135,7 +125,7 @@ def test_read_errors_iso_timestamp():
 
 def test_read_errors_mixed_formats():
     """Python pilot (HH:MM:SS) and Java bridge (ISO) in same file."""
-    _read_errors = _get_read_errors()
+
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Bot_errors.log").write_text(

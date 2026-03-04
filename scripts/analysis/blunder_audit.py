@@ -259,8 +259,7 @@ def format_play_context(
         recent = _recent_actions_before(game_actions, snapshots, snap_idx)
         if recent:
             lines.append("Recent log:")
-            for msg in recent:
-                lines.append(f"  {msg}")
+            lines.extend(f"  {msg}" for msg in recent)
 
     if annotation:
         sev = annotation.get("severity")
@@ -337,9 +336,9 @@ def audit_plays(game_filter: str | None = None) -> None:
     for game_id, entries in sorted(all_gt.items(), reverse=True):
         if game_filter and game_filter != game_id:
             continue
-        for entry in entries:
-            if entry.get("verdict") is None:
-                unaudited.append((game_id, entry))
+        unaudited.extend(
+            (game_id, entry) for entry in entries if entry.get("verdict") is None
+        )
 
     if not unaudited:
         total = sum(len(entries) for entries in all_gt.values())

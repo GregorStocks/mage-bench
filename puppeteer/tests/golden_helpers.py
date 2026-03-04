@@ -28,6 +28,17 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
+from blunder_analysis import (
+    _actions_by_turn,
+    _collect_card_names,
+    _game_overview,
+    _get_oracle_texts,
+    build_decision_prompt,
+)
+from blunder_eval_common import decision_index
+from export_game import build_export
+from extract_decisions import extract_decisions
+
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
@@ -522,35 +533,36 @@ def _is_game_over(data: dict) -> bool:
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
-    Uses ``choose_action`` to respond to each game callback individually,
-    matching the old potato's behaviour of calling
-    ``sendPlayerBoolean(false)`` once per callback.
+    Uses ``pass_priority(until=my_turn)`` to batch-handle callbacks inside
+    Java without per-callback HTTP round-trips.  During the scripted
+    player's turn the ``my_turn`` yield auto-passes all GAME_SELECT
+    callbacks (skipping the playable-cards check entirely).  On the
+    opponent's own turn it falls back to the normal playable-cards logic
+    which also auto-passes when there's nothing to play.
 
-    When ``choose_action`` returns ``no_pending_action`` (no callback within
-    10 s), falls back to ``pass_priority`` which has built-in stall recovery
-    and will wait properly for the next callback.
+    Falls back to ``choose_action`` only for the callbacks that
+    ``pass_priority`` cannot handle automatically (combat declarations,
+    GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE).
     """
     while True:
-        result = bridge.call_tool("choose_action", {"choice": "no"})
+        result = bridge.call_tool("pass_priority", {"until": "my_turn"})
         data = json.loads(result)
         if _is_game_over(data):
             break
-        if data.get("error_code") == "no_pending_action":
-            # No callback in 10 s — game may still be active (e.g. waiting
-            # for the scripted player).  Use pass_priority to wait with
-            # proper stall recovery instead of polling choose_action.
-            result = bridge.call_tool("pass_priority", {})
+        stop_reason = data.get("stop_reason")
+        if stop_reason in ("non_priority_action", "combat"):
+            # pass_priority can't auto-handle these; use choose_action.
+            result = bridge.call_tool("choose_action", {"choice": "no"})
             data = json.loads(result)
             if _is_game_over(data):
                 break
-            continue
-        # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE)
-        # need an index — select the first option, matching the potato.
-        if not data.get("success") and data.get("retryable"):
-            result = bridge.call_tool("choose_action", {"choice": "0"})
-            data = json.loads(result)
-            if _is_game_over(data):
-                break
+            # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY,
+            # GAME_CHOOSE_CHOICE) need an index — select the first option.
+            if not data.get("success") and data.get("retryable"):
+                result = bridge.call_tool("choose_action", {"choice": "0"})
+                data = json.loads(result)
+                if _is_game_over(data):
+                    break
 
 
 # ---------------------------------------------------------------------------
@@ -978,9 +990,9 @@ def _normalize_embedded_json(obj: object) -> object:
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
+    if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
-    elif isinstance(obj, str) and obj.startswith(("{", "[")):
+    if isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
             return _normalize_embedded_json(parsed)
@@ -1020,9 +1032,6 @@ def _strip_volatile(data: dict) -> None:
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
     """Run export pipeline on game dir, compare against golden file."""
-    sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from export_game import build_export  # noqa: PLC0415
-
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
     export_data = _normalize_embedded_json(export_data)
@@ -1098,14 +1107,6 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     if not annotated:
         return
 
-    # Late imports — same pattern as assert_golden_export
-    sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
-    from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt  # noqa: PLC0415
-    from blunder_eval_common import decision_index  # noqa: PLC0415
-    from export_game import build_export  # noqa: PLC0415
-    from extract_decisions import extract_decisions  # noqa: PLC0415
-
     # Build full (unstripped) export and extract decisions
     export_data = build_export(game_dir)
     tmp_export = game_dir / "_blunder_export.json"
@@ -1127,8 +1128,6 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     oracle_cache_path = golden_dir / "oracle_cache.json"
 
     if UPDATE_MODE:
-        from blunder_analysis import _collect_card_names, _get_oracle_texts  # noqa: PLC0415
-
         all_names = _collect_card_names(export_data)
         oracle_texts = _get_oracle_texts(sorted(all_names))
         golden_dir.mkdir(parents=True, exist_ok=True)

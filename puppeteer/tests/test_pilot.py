@@ -428,9 +428,8 @@ async def test_different_pass_errors_dont_trigger_forced_pass():
         if name == "pass_priority":
             pass_call_count += 1
             # Detect forced passes: they come with empty args after an error sequence
-            if not args or args == {}:
-                if pass_call_count > 1:  # not prefetch
-                    forced_pass_count += 1
+            if (not args or args == {}) and pass_call_count > 1:  # not prefetch
+                forced_pass_count += 1
             if pass_call_count == 1:  # prefetch
                 return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
             if pass_call_count > 5:
@@ -478,9 +477,8 @@ async def test_successful_pass_resets_error_counter():
         nonlocal pass_call_count, forced_pass_count
         if name == "pass_priority":
             pass_call_count += 1
-            if not args or args == {}:
-                if pass_call_count > 1:  # not prefetch
-                    forced_pass_count += 1
+            if (not args or args == {}) and pass_call_count > 1:  # not prefetch
+                forced_pass_count += 1
             if pass_call_count == 1:  # prefetch
                 return _mock_tool_result('{"action_pending": true, "action_type": "GAME_SELECT"}')
             if pass_call_count in (2, 3):  # 2 errors

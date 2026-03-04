@@ -1,21 +1,14 @@
 """Test migration round-trip fidelity and runner path-finding."""
 
 import json
-import sys
-from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+from export_game import _collect_card_names, _trim_card
+from migrate_exports import find_migration_path
+from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
-
-# Insert repo root, scripts/, and puppeteer/src/ onto sys.path
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-SCRIPTS_DIR = REPO_ROOT / "scripts"
-PUPPETEER_SRC = Path(__file__).resolve().parent.parent / "src"
-sys.path.insert(0, str(REPO_ROOT))
-sys.path.insert(0, str(SCRIPTS_DIR))
-sys.path.insert(0, str(PUPPETEER_SRC))
 
 
 def _make_v2_export() -> dict:
@@ -159,8 +152,6 @@ def _mock_search_token(token_name):
 
 class TestMigrateV2V3:
     def test_v2_to_v3_up_adds_card_data_and_token_images(self) -> None:
-        from schemas.migrations.v2_to_v3 import up  # noqa: PLC0415
-
         v2 = _make_v2_export()
         original_card_images = dict(v2["cardImages"])
 
@@ -169,7 +160,7 @@ class TestMigrateV2V3:
             patch("scryfall.named", side_effect=_mock_named),
             patch("scryfall.search_token", side_effect=_mock_search_token),
         ):
-            v3 = up(v2)
+            v3 = v2_to_v3.up(v2)
 
         assert v3["version"] == 3
 
@@ -190,10 +181,8 @@ class TestMigrateV2V3:
         assert "Goblin Token" not in v3["cardData"]
 
     def test_v3_to_v2_down_removes_card_data_and_tokens(self) -> None:
-        from schemas.migrations.v2_to_v3 import down  # noqa: PLC0415
-
         v3 = _make_v3_export()
-        v2 = down(v3)
+        v2 = v2_to_v3.down(v3)
 
         assert v2["version"] == 2
         assert "cardData" not in v2
@@ -203,8 +192,6 @@ class TestMigrateV2V3:
 
     def test_round_trip_preserves_v2_card_images(self) -> None:
         """v2 → v3 → v2 should produce the same cardImages as the original."""
-        from schemas.migrations.v2_to_v3 import down, up  # noqa: PLC0415
-
         v2_original = _make_v2_export()
         original_images = dict(v2_original["cardImages"])
 
@@ -213,9 +200,9 @@ class TestMigrateV2V3:
             patch("scryfall.named", side_effect=_mock_named),
             patch("scryfall.search_token", side_effect=_mock_search_token),
         ):
-            v3 = up(json.loads(json.dumps(v2_original)))
+            v3 = v2_to_v3.up(json.loads(json.dumps(v2_original)))
 
-        v2_restored = down(v3)
+        v2_restored = v2_to_v3.down(v3)
 
         assert v2_restored["version"] == 2
         assert v2_restored["cardImages"] == original_images
@@ -224,62 +211,50 @@ class TestMigrateV2V3:
 
 class TestMigrateV3V4:
     def test_v3_to_v4_up_adds_season_and_tournament(self) -> None:
-        from schemas.migrations.v3_to_v4 import up  # noqa: PLC0415
-
-        v4 = up(_make_v3_export(harness_epoch=40))
+        v4 = v3_to_v4.up(_make_v3_export(harness_epoch=40))
         assert v4["version"] == 4
         assert v4["season"] == 1
         assert v4["tournament"] is None
 
     def test_v3_to_v4_up_pre_season(self) -> None:
-        from schemas.migrations.v3_to_v4 import up  # noqa: PLC0415
-
-        v4 = up(_make_v3_export(harness_epoch=5))
+        v4 = v3_to_v4.up(_make_v3_export(harness_epoch=5))
         assert v4["season"] == 0
 
     def test_v3_to_v4_boundary(self) -> None:
         """Epoch exactly at MIN_LEADERBOARD_EPOCH should be season 1."""
-        from schemas.migrations.v3_to_v4 import compute_season  # noqa: PLC0415
-
-        assert compute_season(MIN_LEADERBOARD_EPOCH) == 1
-        assert compute_season(MIN_LEADERBOARD_EPOCH - 1) == 0
+        assert v3_to_v4.compute_season(MIN_LEADERBOARD_EPOCH) == 1
+        assert v3_to_v4.compute_season(MIN_LEADERBOARD_EPOCH - 1) == 0
 
     def test_v4_to_v3_down_removes_season_and_tournament(self) -> None:
-        from schemas.migrations.v3_to_v4 import down  # noqa: PLC0415
-
         v4 = _make_v3_export()
         v4["version"] = 4
         v4["season"] = 1
         v4["tournament"] = None
 
-        v3 = down(v4)
+        v3 = v3_to_v4.down(v4)
         assert v3["version"] == 3
         assert "season" not in v3
         assert "tournament" not in v3
 
     def test_round_trip_preserves_v3_structure(self) -> None:
         """v3 → v4 → v3 should produce identical JSON."""
-        from schemas.migrations.v3_to_v4 import down, up  # noqa: PLC0415
-
         v3_original = _make_v3_export()
         original_json = json.dumps(v3_original, sort_keys=True)
 
-        v4 = up(json.loads(original_json))
-        v3_restored = down(v4)
+        v4 = v3_to_v4.up(json.loads(original_json))
+        v3_restored = v3_to_v4.down(v4)
 
         assert json.dumps(v3_restored, sort_keys=True) == original_json
 
     def test_round_trip_preserves_v3_pre_season(self) -> None:
         """Round-trip with a pre-season game."""
-        from schemas.migrations.v3_to_v4 import down, up  # noqa: PLC0415
-
         v3_original = _make_v3_export(harness_epoch=5)
         original_json = json.dumps(v3_original, sort_keys=True)
 
-        v4 = up(json.loads(original_json))
+        v4 = v3_to_v4.up(json.loads(original_json))
         assert v4["season"] == 0
 
-        v3_restored = down(v4)
+        v3_restored = v3_to_v4.down(v4)
         assert json.dumps(v3_restored, sort_keys=True) == original_json
 
 
@@ -314,9 +289,7 @@ def _make_v4_export() -> dict:
 
 class TestMigrateV4V5:
     def test_v4_to_v5_up_converts_lists_to_csv(self) -> None:
-        from schemas.migrations.v4_to_v5 import up  # noqa: PLC0415
-
-        v5 = up(_make_v4_export())
+        v5 = v4_to_v5.up(_make_v4_export())
         assert v5["version"] == 5
 
         args0 = v5["decisions"][0]["chosenArgs"]
@@ -333,17 +306,13 @@ class TestMigrateV4V5:
         assert args1["blockers"] == ""
 
     def test_v4_to_v5_up_preserves_already_string(self) -> None:
-        from schemas.migrations.v4_to_v5 import up  # noqa: PLC0415
-
         v4 = _make_v4_export()
         # Simulate a game that already has string format
         v4["decisions"][0]["chosenArgs"]["mana_plan"] = "WHITE,GREEN"
-        v5 = up(v4)
+        v5 = v4_to_v5.up(v4)
         assert v5["decisions"][0]["chosenArgs"]["mana_plan"] == "WHITE,GREEN"
 
     def test_v5_to_v4_down_converts_csv_to_lists(self) -> None:
-        from schemas.migrations.v4_to_v5 import down  # noqa: PLC0415
-
         v5 = _make_v4_export()
         v5["version"] = 5
         # Set string format as v5 would have
@@ -354,7 +323,7 @@ class TestMigrateV4V5:
         v5["decisions"][1]["chosenArgs"]["attackers"] = ""
         v5["decisions"][1]["chosenArgs"]["blockers"] = ""
 
-        v4 = down(v5)
+        v4 = v4_to_v5.down(v5)
         assert v4["version"] == 4
         assert v4["decisions"][0]["chosenArgs"]["mana_plan"] == ["WHITE", "GREEN"]
         assert v4["decisions"][0]["chosenArgs"]["attackers"] == ["p1", "p5"]
@@ -362,13 +331,11 @@ class TestMigrateV4V5:
 
     def test_round_trip_preserves_v4_structure(self) -> None:
         """v4 → v5 → v4 should produce identical JSON."""
-        from schemas.migrations.v4_to_v5 import down, up  # noqa: PLC0415
-
         v4_original = _make_v4_export()
         original_json = json.dumps(v4_original, sort_keys=True)
 
-        v5 = up(json.loads(original_json))
-        v4_restored = down(v5)
+        v5 = v4_to_v5.up(json.loads(original_json))
+        v4_restored = v4_to_v5.down(v5)
 
         assert json.dumps(v4_restored, sort_keys=True) == original_json
 
@@ -377,8 +344,6 @@ class TestExportGameHelpers:
     """Tests for export_game.py helper functions (unchanged by refactor)."""
 
     def test_trim_card_extracts_correct_fields(self) -> None:
-        from export_game import _trim_card  # noqa: PLC0415
-
         full_card = {
             "name": "Lightning Bolt",
             "mana_cost": "{R}",
@@ -400,8 +365,6 @@ class TestExportGameHelpers:
         assert "toughness" not in trimmed
 
     def test_trim_card_includes_creature_stats(self) -> None:
-        from export_game import _trim_card  # noqa: PLC0415
-
         creature = {
             "name": "Grizzly Bears",
             "mana_cost": "{1}{G}",
@@ -415,8 +378,6 @@ class TestExportGameHelpers:
         assert trimmed["toughness"] == "2"
 
     def test_collect_card_names_separates_tokens_and_cards(self) -> None:
-        from export_game import _collect_card_names  # noqa: PLC0415
-
         snapshots = [
             {
                 "seq": 1,
@@ -454,14 +415,10 @@ class TestMigrationRunner:
     """Tests for the migration runner's path-finding logic."""
 
     def test_find_path_same_version(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         assert find_migration_path(4, 4, MIGRATIONS) == []
 
     def test_find_path_up_one_step(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         path = find_migration_path(3, 4, MIGRATIONS)
         assert len(path) == 1
@@ -470,16 +427,12 @@ class TestMigrationRunner:
         assert path[0][0].TARGET_VERSION == 4
 
     def test_find_path_down_one_step(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         path = find_migration_path(4, 3, MIGRATIONS)
         assert len(path) == 1
         assert path[0][1] == "down"
 
     def test_find_path_up_multiple_steps(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         path = find_migration_path(2, 4, MIGRATIONS)
         assert len(path) == 2
@@ -489,8 +442,6 @@ class TestMigrationRunner:
         assert path[1][0].SOURCE_VERSION == 3
 
     def test_find_path_down_multiple_steps(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         path = find_migration_path(4, 2, MIGRATIONS)
         assert len(path) == 2
@@ -498,16 +449,12 @@ class TestMigrationRunner:
         assert path[1][1] == "down"
 
     def test_find_path_invalid_raises(self) -> None:
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         with pytest.raises(AssertionError, match="No migration path"):
             find_migration_path(1, 4, MIGRATIONS)
 
     def test_chain_v2_to_v4_round_trip(self) -> None:
         """v2 → v4 → v2 through the runner's chain should roundtrip."""
-        from migrate_exports import find_migration_path  # noqa: PLC0415
-        from schemas.migrations import MIGRATIONS  # noqa: PLC0415
 
         v2_original = _make_v2_export()
         original_images = dict(v2_original["cardImages"])

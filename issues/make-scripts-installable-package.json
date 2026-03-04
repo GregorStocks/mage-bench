@@ -1,0 +1,10 @@
+{
+  "title": "Make scripts/ a proper installable Python package",
+  "description": "The `scripts/` and `scripts/analysis/` directories are not proper Python packages — they have no `__init__.py` and aren't installable. This forces sys.path manipulation in orchestrator.py and pythonpath configuration in pyproject.toml for tests.\n\nTo fix:\n1. Add `__init__.py` files to `scripts/` and `scripts/analysis/`\n2. Add a pyproject.toml (or extend the existing one) to make scripts installable as a package\n3. Remove sys.path hacks from orchestrator.py\n4. Remove `pythonpath` from pytest config in puppeteer/pyproject.toml\n5. Update all `from export_game import ...` to use the new package path",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer", "code-quality"],
+  "created_at": "2026-03-03T12:00:00.000000-08:00",
+  "updated_at": "2026-03-03T12:00:00.000000-08:00"
+}

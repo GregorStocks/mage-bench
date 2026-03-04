@@ -74,8 +74,7 @@ def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
         for card in found:
             orig = norm_to_orig.get(card["name"], card["name"])
             resolved[orig] = (card["set"].upper(), card["collector_number"])
-        for nf in not_found:
-            not_found_norms.append(nf["name"])
+        not_found_norms.extend(nf["name"] for nf in not_found)
 
     # Fallback: for unresolved split cards, try the first half individually
     for nf_norm in not_found_norms:

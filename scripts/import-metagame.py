@@ -39,8 +39,7 @@ def clean_archetype_name(name: str) -> str:
     # e.g. "4c-reanimator-70c5fc5f-0149-4242-8b1c-dd0b72eeb297" -> "4c-reanimator"
     name = re.sub(r"-[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", "", name)
     # e.g. "death-s-shadow-472" -> "death-s-shadow"
-    name = re.sub(r"-\d+$", "", name)
-    return name
+    return re.sub(r"-\d+$", "", name)
 
 
 def fetch_archetype_urls(fmt: str, count: int) -> list[str]:

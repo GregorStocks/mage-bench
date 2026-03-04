@@ -17,6 +17,7 @@ from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from pathlib import Path
 
+from puppeteer.bridge_transport import spawn_bridge_http
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.log import get_logger, setup_logging
@@ -221,8 +222,6 @@ async def run_replay(
     with ExitStack() as log_stack:
         if game_dir:
             game_log = log_stack.enter_context(GameLogWriter(game_dir, username))
-
-        from puppeteer.bridge_transport import spawn_bridge_http  # noqa: PLC0415
 
         async with spawn_bridge_http(
             mvn_args=mvn_args,
