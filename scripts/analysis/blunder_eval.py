@@ -17,7 +17,7 @@ import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
-from blunder_analysis import (
+from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     MAX_WORKERS,
     OPUS_MODEL,
@@ -25,7 +25,7 @@ from blunder_analysis import (
     init_api,
     load_game_context,
 )
-from blunder_eval_common import (
+from scripts.analysis.blunder_eval_common import (
     BASELINE_PATH,
     TMP_DIR,
     decision_index,

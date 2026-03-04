@@ -18,7 +18,7 @@ import textwrap
 import time
 from urllib.parse import parse_qs, urlparse
 
-from blunder_eval_common import (
+from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
@@ -31,7 +31,7 @@ from blunder_eval_common import (
     save_game_ground_truth,
     snapshot_index as get_snapshot_index,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 _dev_server_port: int | None = None
 _dev_server_proc: subprocess.Popen | None = None
@@ -114,7 +114,7 @@ def viewer_url(game_id: str, aftermath_index: int) -> str:
 
 def _load_game_data(gz_path: str) -> dict:
     """Load a game's JSON data from a .json or .json.gz file."""
-    from blunder_eval_common import load_game
+    from scripts.analysis.blunder_eval_common import load_game
 
     return load_game(gz_path)
 
@@ -154,7 +154,7 @@ def _get_current_annotation(
 
     Returns (annotation_dict_or_None, annotation_version).
     """
-    from blunder_analysis import BLUNDER_SCRIPT_VERSION
+    from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 
     game_version = game_data.get("blunderScriptVersion", 1)
     if game_version >= BLUNDER_SCRIPT_VERSION:
@@ -164,7 +164,7 @@ def _get_current_annotation(
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
-    from blunder_analysis import (
+    from scripts.analysis.blunder_analysis import (
         OPUS_MODEL,
         _eval_one_decision,
         init_api,

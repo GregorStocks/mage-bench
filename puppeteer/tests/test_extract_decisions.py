@@ -2,7 +2,7 @@
 
 import json
 
-from extract_decisions import (
+from scripts.analysis.extract_decisions import (
     _extract_decisions_v1,
     _extract_decisions_v2,
     _find_spell_cancelled_events,

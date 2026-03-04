@@ -35,12 +35,12 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from blunder_analysis import (
+from scripts.analysis.blunder_analysis import (
     _format_decisions,
     _game_overview,
     _load_game,
 )
-from extract_decisions import extract_decisions
+from scripts.analysis.extract_decisions import extract_decisions
 
 
 def _parse_json_array(text: str) -> list:

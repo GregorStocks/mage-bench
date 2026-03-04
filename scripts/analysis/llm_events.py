@@ -8,7 +8,7 @@ import json
 import sys
 from collections import Counter
 
-from blunder_eval_common import load_game
+from scripts.analysis.blunder_eval_common import load_game
 
 
 def main(gz_path: str) -> None:

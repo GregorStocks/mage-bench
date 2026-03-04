@@ -8,10 +8,8 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 
 import json
 import sys
-from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from blunder_eval_common import load_game  # noqa: E402
+from scripts.analysis.blunder_eval_common import load_game
 
 
 def _summarize_permanent(c: dict) -> str | dict:

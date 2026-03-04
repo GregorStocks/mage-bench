@@ -5,9 +5,8 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from upload_youtube import _build_description, _build_title
-
 from puppeteer.orchestrator import _maybe_upload_and_export, _save_youtube_url, _update_website_youtube_url
+from scripts.upload_youtube import _build_description, _build_title
 
 
 def _make_meta(players=None):
