@@ -1,0 +1,10 @@
+{
+  "title": "GAME_GET_MULTI_AMOUNT not documented in pilot prompt",
+  "description": "The pilot prompt documents GAME_ASK, GAME_CHOOSE_ABILITY, and GAME_TARGET but not GAME_GET_MULTI_AMOUNT. When models encounter multi_amount prompts (e.g. distributing combat damage across multiple blockers), they don't know the expected format and struggle badly.\n\nThis is a recurring cross-model problem — at least 5 games show models failing on GAME_GET_MULTI_AMOUNT:\n- game_20260303_000030_g4: GPT-5.2 took 5 attempts and 80 seconds to assign damage, submitting amounts=[4], amounts=[4] (repeat), amounts=[4,1], amounts=[4,1] (repeat), then finally amounts=[1,3]\n- game_20260228_212316_g2: Haiku sent answer=false then amounts=[] — got 'Array amounts required' error\n- game_20260228_010846_g4: Kimi missed amounts parameter entirely\n- game_20260220_071932_g2: Gem3F sent answer=false instead of amounts=[...]\n- game_20260226_085801_g3: GPT5m sent kitchen-sink params including amounts=[]\n\nThe bridge code (BridgeCallbackHandler.java:1314-1320) renders GAME_GET_MULTI_AMOUNT with respond_with='amounts=N,N,... (one per item)' and shows total_min/total_max, but models have no prior context for what this means.\n\nSuggested fix: Add a GAME_GET_MULTI_AMOUNT line to the pilot prompt, similar to the GAME_CHOOSE_CHOICE fix in issue game-choose-choice-undocumented-in-prompt. Something like:\n`- **GAME_GET_MULTI_AMOUNT (amounts):** Distribute a total across items: `choose_action(amounts=[3,1])`. The sum must be between total_min and total_max.`\n\nWe need a golden test exercising this codepath — a scenario where a creature with enough power blocks multiple attackers (or vice versa) and the pilot must distribute damage via GAME_GET_MULTI_AMOUNT.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer", "pilot"],
+  "created_at": "2026-03-03T12:00:00.000000-08:00",
+  "updated_at": "2026-03-03T12:00:00.000000-08:00"
+}

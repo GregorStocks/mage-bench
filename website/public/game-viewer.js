@@ -470,7 +470,7 @@
 
         var chatText = document.createElement("span");
         chatText.className = "decision-action-text";
-        chatText.textContent = "send_chat_message: " + ((tc.args && tc.args.message) || "");
+        chatText.textContent = "send_chat_message";
         chatContainer.appendChild(chatText);
 
         var chatRaw = document.createElement("details");
@@ -565,9 +565,11 @@
           var headerEl = document.createElement("span");
           headerEl.innerHTML = headerHtml;
           div.appendChild(headerEl);
+          var hasVisible = false;
           event.toolResults.forEach(function (tc) {
-            var el = renderToolResult(tc); if (el) div.appendChild(el);
+            var el = renderToolResult(tc); if (el) { div.appendChild(el); hasVisible = true; }
           });
+          if (!hasVisible) return null;
           return div;
         }
         return null;
