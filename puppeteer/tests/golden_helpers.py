@@ -522,35 +522,34 @@ def _is_game_over(data: dict) -> bool:
 def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
-    Uses ``choose_action`` to respond to each game callback individually,
-    matching the old potato's behaviour of calling
-    ``sendPlayerBoolean(false)`` once per callback.
+    Uses ``pass_priority`` to batch-handle callbacks inside Java without
+    per-callback HTTP round-trips.  ``pass_priority`` auto-passes
+    GAME_SELECT, auto-cancels GAME_PLAY_MANA, and auto-cancels optional
+    GAME_TARGET internally — only returning for non-priority actions
+    (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE, combat) or game over.
 
-    When ``choose_action`` returns ``no_pending_action`` (no callback within
-    10 s), falls back to ``pass_priority`` which has built-in stall recovery
-    and will wait properly for the next callback.
+    Falls back to ``choose_action`` only for the callbacks that
+    ``pass_priority`` cannot handle automatically.
     """
     while True:
-        result = bridge.call_tool("choose_action", {"choice": "no"})
+        result = bridge.call_tool("pass_priority", {})
         data = json.loads(result)
         if _is_game_over(data):
             break
-        if data.get("error_code") == "no_pending_action":
-            # No callback in 10 s — game may still be active (e.g. waiting
-            # for the scripted player).  Use pass_priority to wait with
-            # proper stall recovery instead of polling choose_action.
-            result = bridge.call_tool("pass_priority", {})
+        stop_reason = data.get("stop_reason")
+        if stop_reason in ("non_priority_action", "combat"):
+            # pass_priority can't auto-handle these; use choose_action.
+            result = bridge.call_tool("choose_action", {"choice": "no"})
             data = json.loads(result)
             if _is_game_over(data):
                 break
-            continue
-        # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE)
-        # need an index — select the first option, matching the potato.
-        if not data.get("success") and data.get("retryable"):
-            result = bridge.call_tool("choose_action", {"choice": "0"})
-            data = json.loads(result)
-            if _is_game_over(data):
-                break
+            # Prompts that don't accept "no" (GAME_CHOOSE_ABILITY,
+            # GAME_CHOOSE_CHOICE) need an index — select the first option.
+            if not data.get("success") and data.get("retryable"):
+                result = bridge.call_tool("choose_action", {"choice": "0"})
+                data = json.loads(result)
+                if _is_game_over(data):
+                    break
 
 
 # ---------------------------------------------------------------------------
