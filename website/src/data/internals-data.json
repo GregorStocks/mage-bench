@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-04T07:09:04.722389+00:00",
+  "generatedAt": "2026-03-04T08:49:04.900245+00:00",
   "minLeaderboardEpoch": 11,
   "games": [
     {
@@ -14765,6 +14765,182 @@
           "thinkingTimeSecs": 189.2,
           "responses": 77,
           "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260303_234006_g1",
+      "ts": "2026-03-03T23:40:06",
+      "epoch": 40,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "mistralai/mistral-large-2512",
+          "modelName": "Mistral Large",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.6288,
+          "promptTokens": 1228627,
+          "completionTokens": 9652,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 99,
+          "toolCallsFailed": 13,
+          "thinkingTimeSecs": 513.4,
+          "responses": 112,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5::medium",
+          "modelName": "GPT-5 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 1.9809,
+          "promptTokens": 1039198,
+          "completionTokens": 68195,
+          "cachedTokens": 843520,
+          "reasoningTokens": 63680,
+          "toolCallsOk": 91,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 1629.6,
+          "responses": 94,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260303_234006_g2",
+      "ts": "2026-03-03T23:40:06",
+      "epoch": 40,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "minimax/minimax-m2.5::medium",
+          "modelName": "MiniMax M2.5 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.2039,
+          "promptTokens": 637166,
+          "completionTokens": 13311,
+          "cachedTokens": 331582,
+          "reasoningTokens": 11269,
+          "toolCallsOk": 73,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 541.9,
+          "responses": 76,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-oss-120b::medium",
+          "modelName": "GPT-OSS 120B (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.0724,
+          "promptTokens": 1359049,
+          "completionTokens": 102029,
+          "cachedTokens": 815401,
+          "reasoningTokens": 99730,
+          "toolCallsOk": 118,
+          "toolCallsFailed": 11,
+          "thinkingTimeSecs": 2558.9,
+          "responses": 144,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260303_234006_g3",
+      "ts": "2026-03-03T23:40:06",
+      "epoch": 40,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.2::medium",
+          "modelName": "GPT-5.2 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 1.8409,
+          "promptTokens": 800407,
+          "completionTokens": 31440,
+          "cachedTokens": 561792,
+          "reasoningTokens": 28408,
+          "toolCallsOk": 83,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 694.6,
+          "responses": 83,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-pro-preview::medium",
+          "modelName": "Gemini 3.1 Pro (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 1.3294,
+          "promptTokens": 656934,
+          "completionTokens": 1293,
+          "cachedTokens": 305240,
+          "reasoningTokens": 311,
+          "toolCallsOk": 80,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 516.7,
+          "responses": 80,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260303_234006_g4",
+      "ts": "2026-03-03T23:40:06",
+      "epoch": 40,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-oss-120b::medium",
+          "modelName": "GPT-OSS 120B (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.0558,
+          "promptTokens": 944032,
+          "completionTokens": 99995,
+          "cachedTokens": 608921,
+          "reasoningTokens": 96606,
+          "toolCallsOk": 92,
+          "toolCallsFailed": 9,
+          "thinkingTimeSecs": 2129.4,
+          "responses": 103,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "mistralai/mistral-large-2512",
+          "modelName": "Mistral Large",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.3451,
+          "promptTokens": 680626,
+          "completionTokens": 3179,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 82,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 476.5,
+          "responses": 80,
+          "timeouts": 1,
           "otherErrors": 0,
           "contextResets": 0
         }
