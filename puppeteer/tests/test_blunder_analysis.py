@@ -275,15 +275,15 @@ class TestChosenDisplay:
 
     def test_none_choice_no_args(self) -> None:
         d = _make_decision(chosen=None, chosen_args={})
-        assert _chosen_display(d) == "?"
+        assert _chosen_display(d) == "(no response)"
 
     def test_none_choice_with_attackers(self) -> None:
         d = _make_decision(chosen=None, chosen_args={"attackers": "p5,p12"})
-        assert _chosen_display(d) == "Attack with: p5,p12"
+        assert _chosen_display(d) == "Attack with p5, p12"
 
     def test_none_choice_with_blockers(self) -> None:
         d = _make_decision(chosen=None, chosen_args={"blockers": "p3:p64"})
-        assert _chosen_display(d) == "Block with: p3:p64"
+        assert _chosen_display(d) == "p3 blocks p64"
 
     def test_none_choice_with_text(self) -> None:
         d = _make_decision(chosen=None, chosen_args={"text": "Green"})
