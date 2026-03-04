@@ -10,7 +10,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 def _get_read_errors():
     """Import _read_errors from scripts/export_game.py."""
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from export_game import _read_errors
+    from export_game import _read_errors  # noqa: PLC0415
 
     return _read_errors
 

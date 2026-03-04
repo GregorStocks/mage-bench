@@ -1,0 +1,10 @@
+{
+  "title": "Remove PLC0415 noqa annotations by restructuring imports",
+  "description": "We added ruff rule PLC0415 (import-outside-toplevel) and fixed most violations by moving imports to the top of their files. However, ~25 violations needed `# noqa: PLC0415` because they depend on sys.path manipulation or have name collisions.\n\nRemaining noqa sites:\n\n**Source files (sys.path / circular import):**\n- orchestrator.py: blunder_analysis, upload_youtube, export_game (sys.path dependent)\n- config.py: puppeteer.jumpstart (circular import avoidance)\n- pilot.py, sleepwalker.py, replay.py: puppeteer.bridge_transport (circular import avoidance)\n\n**Test files (sys.path dependent):**\n- golden_helpers.py: export_game, blunder_analysis, extract_decisions, blunder_eval_common (5 sites)\n- test_read_errors.py: export_game (1 site)\n- test_migrate_exports.py: schemas.migrations.*, migrate_exports, export_game (~28 sites with name collisions between up/down from different migration modules)\n\nTo fix these properly:\n1. For circular imports: consider restructuring the module dependency graph, or using a shared interface module\n2. For sys.path manipulation: consider making scripts/ a proper installable package, or using pytest plugins to handle path setup\n3. For test_migrate_exports.py name collisions: import modules instead of functions (e.g., `from schemas.migrations import v2_to_v3` then `v2_to_v3.up(...)`) or consolidate repeated imports",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["puppeteer", "code-quality"],
+  "created_at": "2026-03-03T12:00:00.000000-08:00",
+  "updated_at": "2026-03-03T12:00:00.000000-08:00"
+}

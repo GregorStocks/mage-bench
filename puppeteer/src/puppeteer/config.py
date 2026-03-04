@@ -744,7 +744,7 @@ class Config:
 
         # Jumpstart: combine two random half-decks at runtime
         if self.deck_type == "Limited":
-            from puppeteer.jumpstart import create_random_jumpstart_deck
+            from puppeteer.jumpstart import create_random_jumpstart_deck  # noqa: PLC0415
 
             used_themes: set[str] = set()
             for player in all_players:

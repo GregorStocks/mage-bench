@@ -28,8 +28,12 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
+from puppeteer.config import load_prompts
+from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
+from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
+from puppeteer.replay import execute_replay_script
 
 # ---------------------------------------------------------------------------
 # Timing instrumentation
@@ -313,8 +317,6 @@ class BridgeManager:
 
     def start(self) -> None:
         """Start the bridge JVM and initialize MCP session."""
-        from puppeteer.port import find_available_port, wait_for_port
-
         tmp_dir = self._project_root / "tmp" / f"golden-{self._label}"
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
@@ -470,9 +472,6 @@ def _run_replay_on_bridge(
     Player B must not concede — it would end the game while player A is still
     executing.  The defensive concede in ``run_golden_scenario`` handles cleanup.
     """
-    from puppeteer.config import load_prompts
-    from puppeteer.replay import execute_replay_script
-
     # Use a config path anchored to the repo root so prompts.json resolves
     # regardless of the pytest working directory.
     config_anchor = REPO_ROOT / "puppeteer" / "prompts.json"
@@ -482,8 +481,6 @@ def _run_replay_on_bridge(
 
     game_log = None
     if write_log:
-        from puppeteer.game_log import GameLogWriter
-
         # Filter out keepAlive-only tools (join_table) so the available_tools
         # list matches what a non-keepAlive bridge would report.
         tool_names = [t for t in bridge.list_tools() if t != "join_table"]
@@ -1023,9 +1020,8 @@ def _strip_volatile(data: dict) -> None:
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
     """Run export pipeline on game dir, compare against golden file."""
-    # Import here to avoid circular imports at module level
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from export_game import build_export
+    from export_game import build_export  # noqa: PLC0415
 
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
@@ -1105,10 +1101,10 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     # Late imports — same pattern as assert_golden_export
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
-    from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt
-    from blunder_eval_common import decision_index
-    from export_game import build_export
-    from extract_decisions import extract_decisions
+    from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt  # noqa: PLC0415
+    from blunder_eval_common import decision_index  # noqa: PLC0415
+    from export_game import build_export  # noqa: PLC0415
+    from extract_decisions import extract_decisions  # noqa: PLC0415
 
     # Build full (unstripped) export and extract decisions
     export_data = build_export(game_dir)
@@ -1131,7 +1127,7 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     oracle_cache_path = golden_dir / "oracle_cache.json"
 
     if UPDATE_MODE:
-        from blunder_analysis import _collect_card_names, _get_oracle_texts
+        from blunder_analysis import _collect_card_names, _get_oracle_texts  # noqa: PLC0415
 
         all_names = _collect_card_names(export_data)
         oracle_texts = _get_oracle_texts(sorted(all_names))

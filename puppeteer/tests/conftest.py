@@ -9,6 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import jsonschema
 import pytest
 
 from puppeteer.orchestrator import compile_project
@@ -296,8 +297,6 @@ def all_games_data() -> dict[Path, dict]:
 @pytest.fixture(scope="session")
 def game_export_validator():
     """Per-version game-export JSON Schema validators keyed by version number."""
-    import jsonschema
-
     schema_dir = Path(__file__).resolve().parent.parent.parent / "schemas"
     validators = {}
     for path in sorted(schema_dir.glob("game-export-v*.schema.json")):

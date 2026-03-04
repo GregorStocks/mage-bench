@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
+import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
 
@@ -381,8 +382,6 @@ class TestImportDeck:
 
     def test_resolve_cards_normalizes_split_names(self) -> None:
         """resolve_cards normalizes slash names and keys result by original."""
-        import scryfall
-
         scryfall_response = {
             "data": [
                 {"name": "Wear // Tear", "set": "dgm", "collector_number": "135"},
@@ -409,8 +408,6 @@ class TestImportDeck:
 
     def test_resolve_cards_fallback_first_half(self) -> None:
         """Fallback queries first half of split name when collection fails."""
-        import scryfall
-
         collection_response = {
             "data": [],
             "not_found": [{"name": "Wear // Tear"}],
