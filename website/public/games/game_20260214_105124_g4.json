@@ -87941,7 +87941,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -89233,7 +89233,11 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p5'}",
+        "mana_plan": [
+          {
+            "tap": "p5"
+          }
+        ],
         "id": "p14"
       },
       "actionResult": {
@@ -90489,7 +90493,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -91155,7 +91161,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -91876,7 +91884,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p23'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p23"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -92053,7 +92066,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p23'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p23"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -96191,7 +96209,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -97080,7 +97100,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p46'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p46"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -98650,7 +98675,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p13', 'blocks': 'p44'}"
+        "blockers": [
+          {
+            "id": "p13",
+            "blocks": "p44"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -100094,7 +100124,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p13', 'blocks': 'p44'}"
+        "blockers": [
+          {
+            "id": "p13",
+            "blocks": "p44"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"

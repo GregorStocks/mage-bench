@@ -60654,7 +60654,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -61850,7 +61850,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -61904,7 +61906,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p3:p12"
+        "blockers": [
+          "p3:p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -62668,7 +62672,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -64033,7 +64039,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p7', 'blocks': 'p21'}"
+        "blockers": [
+          {
+            "id": "p7",
+            "blocks": "p21"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p7\",\"blocks\":\"p21\"}]). Check the tool schema for correct parameter types."
@@ -64684,7 +64695,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -65329,7 +65342,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p14"
+        "attackers": [
+          "p7",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -65383,7 +65399,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p6:p42"
+        "blockers": [
+          "p6:p42"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -65559,7 +65577,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -67397,7 +67417,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p14,p25"
+        "attackers": [
+          "p7",
+          "p14",
+          "p25"
+        ]
       },
       "actionResult": {
         "declared": [

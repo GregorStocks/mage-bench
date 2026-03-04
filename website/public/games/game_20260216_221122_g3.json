@@ -43478,7 +43478,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -43631,9 +43631,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p3",
         "text": ""
       },
@@ -43680,9 +43680,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -43920,9 +43920,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p6",
         "text": ""
       },
@@ -43980,9 +43980,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p1",
         "text": ""
       },
@@ -44033,9 +44033,12 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p6,p7",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p6",
+          "p7"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p1",
         "text": ""
       },
@@ -44085,9 +44088,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -44151,9 +44154,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p9",
         "text": ""
       },
@@ -44204,9 +44207,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -44923,7 +44926,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45549,9 +45554,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 7,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p7",
         "text": ""
       },
@@ -45610,7 +45615,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -46726,9 +46733,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p31",
         "text": ""
       },
@@ -46809,9 +46816,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p9",
         "text": ""
       },
@@ -46861,9 +46868,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -46940,9 +46947,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -47079,7 +47086,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p9"
+        "attackers": [
+          "p10",
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47298,9 +47308,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -47781,9 +47791,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },

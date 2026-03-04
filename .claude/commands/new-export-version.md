@@ -113,7 +113,20 @@ make check
 
 All lint, typecheck, and tests must pass before proceeding.
 
-## Step 10: Migrate existing games
+## Step 10: Create the PR (code only — no data migration)
+
+Do NOT migrate existing games in this PR. Game migrations touch hundreds of JSON files and GitHub cannot render large diffs. Instead:
+
+1. Create the PR with only the code changes (schema, migration module, export_game.py, tests, docs, TypeScript types).
+2. In the PR description, note that a follow-up data-only PR will migrate existing games.
+
+## Step 11: Update documentation
+
+- `schemas/migrations/README.md` — update the "Current state" section
+
+## Step 12: Follow-up PR — migrate existing games
+
+After the code PR merges, create a second data-only PR:
 
 ```bash
 # Preview first
@@ -126,6 +139,4 @@ uv run python scripts/migrate_exports.py --to {N+1}
 make check
 ```
 
-## Step 11: Update documentation
-
-- `schemas/migrations/README.md` — update the "Current state" section
+Commit and PR the migrated game files separately. This keeps the code review clean and avoids GitHub choking on large diffs.

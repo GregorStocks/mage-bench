@@ -157297,7 +157297,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -160126,7 +160126,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -160636,7 +160638,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -161092,7 +161096,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p34,p26"
+        "attackers": [
+          "p10",
+          "p34",
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -161216,7 +161224,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p26"
+        "attackers": [
+          "p34",
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -161339,7 +161350,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26"
+        "attackers": [
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -161941,7 +161954,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -162923,7 +162938,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p44', 'blocks': 'p40'}"
+        "blockers": [
+          {
+            "id": "p44",
+            "blocks": "p40"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p44\",\"blocks\":\"p40\"}]). Check the tool schema for correct parameter types."
@@ -163290,7 +163310,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p34,p26,p23"
+        "attackers": [
+          "p10",
+          "p34",
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -163417,7 +163442,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p26,p23"
+        "attackers": [
+          "p34",
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -163544,7 +163573,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26,p23"
+        "attackers": [
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -163669,7 +163701,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23"
+        "attackers": [
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -166898,7 +166932,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34"
+        "attackers": [
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -167773,7 +167809,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 4,
   "id": "game_20260223_175632_g1",
   "timestamp": "20260223_175632",
   "gameType": "Two Player Duel",
@@ -59493,7 +59493,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p23",
-        "mana_plan": ""
+        "mana_plan": []
       },
       "actionResult": {
         "next_action_pending": true,
@@ -60021,7 +60021,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p36",
-        "mana_plan": "p39:1,p34"
+        "mana_plan": [
+          "p39:1",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -60091,7 +60094,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p25",
-        "mana_plan": "p39:1,p34"
+        "mana_plan": [
+          "p39:1",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61099,7 +61105,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p56"
+        "attackers": [
+          "p56"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -61294,7 +61302,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p27",
-        "mana_plan": "p34,p63"
+        "mana_plan": [
+          "p34",
+          "p63"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61605,7 +61616,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p56,p68,p69"
+        "attackers": [
+          "p56",
+          "p68",
+          "p69"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -62036,7 +62051,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p26",
-        "mana_plan": "p14,p34,p39"
+        "mana_plan": [
+          "p14",
+          "p34",
+          "p39"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -62357,7 +62376,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p56,p68,p69,p79"
+        "attackers": [
+          "p56",
+          "p68",
+          "p69",
+          "p79"
+        ]
       },
       "actionResult": {
         "declared": [

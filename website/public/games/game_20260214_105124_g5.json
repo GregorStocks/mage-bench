@@ -39084,7 +39084,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -40259,7 +40259,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p19"
+        "attackers": [
+          "p19"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43743,7 +43745,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43868,7 +43872,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p38', 'blocks': 'p40'}"
+        "blockers": [
+          {
+            "id": "p38",
+            "blocks": "p40"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"

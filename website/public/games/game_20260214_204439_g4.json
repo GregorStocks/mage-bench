@@ -107800,7 +107800,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -108437,7 +108437,7 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "p15",
@@ -108536,7 +108536,7 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "p15",
@@ -109104,7 +109104,7 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "p5",
@@ -109238,7 +109238,7 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "p5",
@@ -109366,7 +109366,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -109442,7 +109444,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -112024,7 +112028,7 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "p32",
@@ -114474,7 +114478,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p22"
+        "attackers": [
+          "p11",
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -116533,7 +116540,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -116735,7 +116744,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p47'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p47"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -116944,7 +116958,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p47'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p47"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -117354,7 +117373,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p39,p45",
+        "attackers": [
+          "p39",
+          "p45"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p2",
@@ -117480,7 +117502,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p39,p45",
+        "attackers": [
+          "p39",
+          "p45"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p36",
@@ -117609,7 +117634,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p10",
@@ -117765,7 +117792,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p4",
@@ -117941,7 +117970,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p22,p16",
+        "attackers": [
+          "p22",
+          "p16"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p47",
@@ -118031,7 +118063,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "cjson_string",
         "id": "p4",
@@ -118502,7 +118536,11 @@
           1
         ],
         "answer": true,
-        "attackers": "p22,p16,p2",
+        "attackers": [
+          "p22",
+          "p16",
+          "p2"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p3",
@@ -118572,7 +118610,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12,p11"
+        "attackers": [
+          "p12",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -118855,7 +118896,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p3",
@@ -118935,7 +118978,9 @@
           6
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p16",
@@ -119017,7 +119062,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p16",
@@ -119097,7 +119144,9 @@
           4
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p2",
@@ -120066,7 +120115,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p22"
+        "attackers": [
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -121260,7 +121311,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -121818,7 +121871,9 @@
           1
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -122378,7 +122433,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p22"
+        "attackers": [
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -124157,7 +124214,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": false,
         "blockers": "",
         "id": "",
