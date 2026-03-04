@@ -35,7 +35,7 @@ typecheck:
 
 .PHONY: test
 test:
-	uv run --project puppeteer pytest puppeteer/
+	uv run --project puppeteer pytest puppeteer/ -n auto --dist=load
 
 .PHONY: test-js
 test-js:

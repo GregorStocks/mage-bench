@@ -6,6 +6,7 @@ convention that's easy to violate and tedious to police manually.
 """
 
 import ast
+import gzip
 import json
 import os
 import re
@@ -44,6 +45,14 @@ def _load_json(path: Path) -> Any:
     return json.loads(path.read_text())
 
 
+def _load_game_file(path: Path) -> dict:
+    """Load a game export file (plain JSON or gzipped)."""
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt") as f:
+            return json.load(f)
+    return _load_json(path)
+
+
 def _all_game_files() -> list[Path]:
     gz_files = set(GAMES_DIR.glob("game_*.json.gz"))
     gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
@@ -51,12 +60,8 @@ def _all_game_files() -> list[Path]:
     return sorted(gz_files | set(json_files))
 
 
-def _changed_game_filenames() -> set[str] | None:
-    """Return filenames of game exports changed since master, or None for all.
-
-    Returns None (= validate everything) when on master, when the export
-    script or schema changed, or when git commands fail.
-    """
+def _changed_files_since_master() -> set[str] | None:
+    """Return repo-relative paths changed since master, or None if on master / git fails."""
     try:
         branch = subprocess.run(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
@@ -89,16 +94,28 @@ def _changed_game_filenames() -> set[str] | None:
 
         changed = set(diff_result.stdout.strip().splitlines())
         changed.update(untracked_result.stdout.strip().splitlines())
-
-        # If export script or schema changed, validate everything
-        schema_files = {f for f in changed if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
-        if schema_files or "scripts/export_game.py" in changed:
-            return None
-
-        prefix = "website/public/games/"
-        return {f.removeprefix(prefix) for f in changed if f.startswith(prefix)}
+        return changed
     except subprocess.CalledProcessError:
         return None
+
+
+def _changed_game_filenames() -> set[str] | None:
+    """Return filenames of game exports changed since master, or None for all.
+
+    Returns None (= validate everything) when on master, when the export
+    script or schema changed, or when git commands fail.
+    """
+    changed = _changed_files_since_master()
+    if changed is None:
+        return None
+
+    # If export script or schema changed, validate everything
+    schema_files = {f for f in changed if f.startswith("schemas/game-export-v") and f.endswith(".schema.json")}
+    if schema_files or "scripts/export_game.py" in changed:
+        return None
+
+    prefix = "website/public/games/"
+    return {f.removeprefix(prefix) for f in changed if f.startswith(prefix)}
 
 
 def _glob_game_files() -> list[Path]:
@@ -438,8 +455,16 @@ class TestExportedGameModelsKnown:
         model_ids = {m["id"] for m in models_data["models"]}
         allowed = model_ids | _RETIRED_MODELS
 
+        # On feature branches, only check changed games — unless models.json changed
+        changed = _changed_files_since_master()
+        if changed is not None and "puppeteer/models.json" not in changed:
+            game_files = _glob_game_files()
+        else:
+            game_files = list(all_games_data.keys())
+
         unknown: list[str] = []
-        for game_file, data in all_games_data.items():
+        for game_file in game_files:
+            data = all_games_data[game_file]
             for player in data.get("players", []):
                 model = player.get("model")
                 if model and model not in allowed:

@@ -660,8 +660,8 @@ class Config:
             )
 
             # Format rotation: pick the best format for the resolved players
-            if len(self.deck_type_candidates) > 1:
-                resolved_presets = [p.preset for p in self.pilot_players if p.preset]
+            resolved_presets = [p.preset for p in self.pilot_players if p.preset]
+            if len(self.deck_type_candidates) > 1 and resolved_presets:
                 chosen_format = pick_round_robin_format(
                     self.deck_type_candidates,
                     resolved_presets,
