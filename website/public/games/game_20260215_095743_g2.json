@@ -51618,7 +51618,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -54683,7 +54683,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55722,7 +55724,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -56279,7 +56283,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -57701,7 +57707,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -58282,7 +58290,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

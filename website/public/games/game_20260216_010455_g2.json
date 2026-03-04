@@ -118759,7 +118759,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -119527,7 +119527,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p4",
-        "mana_plan": "p2,p3"
+        "mana_plan": [
+          "p2",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -119720,7 +119723,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -120143,7 +120148,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p22",
-        "mana_plan": "p10"
+        "mana_plan": [
+          "p10"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -120235,7 +120242,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p1:0,p3"
+        "mana_plan": [
+          "p1:0",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -120715,7 +120725,13 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": "p3,p15,p1:0,p2,p9"
+        "mana_plan": [
+          "p3",
+          "p15",
+          "p1:0",
+          "p2",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -120906,7 +120922,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p29",
-        "mana_plan": "p10:0,p32:0,p25:1"
+        "mana_plan": [
+          "p10:0",
+          "p32:0",
+          "p25:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -120951,7 +120971,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p15",
-        "mana_plan": "p10:0,p25:0,p32:0"
+        "mana_plan": [
+          "p10:0",
+          "p25:0",
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121047,7 +121071,10 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p15:1,p3",
+        "mana_plan": [
+          "p15:1",
+          "p3"
+        ],
         "id": "p6"
       },
       "actionResult": {
@@ -121303,7 +121330,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": "p36:0,p32:0"
+        "mana_plan": [
+          "p36:0",
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121541,7 +121571,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p36:0"
+        "mana_plan": [
+          "p36:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121594,7 +121626,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p36:0,p25:0,p9:0"
+        "mana_plan": [
+          "p36:0",
+          "p25:0",
+          "p9:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121992,7 +122028,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p27",
-        "mana_plan": "p32:0"
+        "mana_plan": [
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -122096,7 +122134,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p10:0"
+        "mana_plan": [
+          "p10:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -122215,7 +122255,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -122535,7 +122577,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p10:0"
+        "mana_plan": [
+          "p10:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -123078,7 +123122,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p25:0,p9"
+        "mana_plan": [
+          "p25:0",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -123278,7 +123325,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p63",
-        "mana_plan": "p32:0,p36:0"
+        "mana_plan": [
+          "p32:0",
+          "p36:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -123912,7 +123962,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p73",
-        "mana_plan": "p9,p25:1"
+        "mana_plan": [
+          "p9",
+          "p25:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -124711,7 +124764,9 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": "p9"
+        "mana_plan": [
+          "p9"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -124780,7 +124835,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p36,p9"
+        "mana_plan": [
+          "p36",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -125020,7 +125078,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p88"
+        "mana_plan": [
+          "p88"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -125740,7 +125800,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [

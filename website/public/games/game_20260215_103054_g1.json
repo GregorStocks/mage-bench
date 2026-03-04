@@ -80868,7 +80868,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -81967,7 +81967,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -82333,7 +82335,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -83368,7 +83372,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p11"
+        "attackers": [
+          "p9",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -84054,7 +84061,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p9', 'blocks': 'p25'}"
+        "blockers": [
+          {
+            "id": "p9",
+            "blocks": "p25"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -84781,7 +84793,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -85136,7 +85150,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -85315,7 +85331,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -86537,7 +86555,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -87707,7 +87727,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p32"
+        "attackers": [
+          "p23",
+          "p32"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -88461,7 +88484,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p9,p32"
+        "attackers": [
+          "p11",
+          "p9",
+          "p32"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -88772,7 +88799,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -89025,7 +89054,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -89731,7 +89762,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -89881,7 +89914,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -90563,7 +90598,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

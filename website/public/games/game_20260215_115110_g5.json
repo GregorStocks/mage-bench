@@ -259869,7 +259869,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -259949,7 +259949,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -260274,7 +260274,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p3",
         "text": ""
@@ -260718,7 +260718,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -261193,7 +261193,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -261788,7 +261788,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -262679,7 +262679,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -262758,7 +262758,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -262906,7 +262906,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -264210,7 +264210,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -264436,7 +264438,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -265641,7 +265643,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -266100,7 +266104,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -266831,7 +266835,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p9",
         "text": ""
@@ -269102,7 +269106,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -269286,7 +269292,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "[{\"id\":\"p9\",\"blocks\":\"p26\"}]",
         "id": "",
         "text": ""
@@ -269707,7 +269713,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -271605,7 +271611,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -271718,7 +271727,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -272395,7 +272406,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -272494,7 +272505,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -272973,7 +272984,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -274362,7 +274375,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -274476,7 +274492,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -275033,7 +275051,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -275132,7 +275150,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -276128,7 +276146,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276400,7 +276420,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276513,7 +276536,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -277691,7 +277716,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -278544,7 +278569,14 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p64",
-        "mana_plan": "{'tap': 'p3'},{'tap': 'p7'}"
+        "mana_plan": [
+          {
+            "tap": "p3"
+          },
+          {
+            "tap": "p7"
+          }
+        ]
       },
       "actionResult": {
         "error": "Array must have size 1, but has size 2"
@@ -278703,7 +278735,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -278829,7 +278863,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -278910,7 +278944,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -278985,7 +279019,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -279054,7 +279088,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -279117,7 +279151,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -280833,7 +280867,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -283180,7 +283217,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -286835,7 +286874,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

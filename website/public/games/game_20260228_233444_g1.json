@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 4,
   "id": "game_20260228_233444_g1",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -78764,7 +78764,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -79243,7 +79245,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -79747,7 +79751,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -79832,7 +79838,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p7:p3"
+        "blockers": [
+          "p7:p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -80194,7 +80202,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p7"
+        "attackers": [
+          "p4",
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81775,7 +81786,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -83353,7 +83366,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p45,p46"
+        "attackers": [
+          "p7",
+          "p45",
+          "p46"
+        ]
       },
       "actionResult": {
         "declared": [

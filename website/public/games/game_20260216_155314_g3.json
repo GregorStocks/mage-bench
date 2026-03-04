@@ -39507,7 +39507,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -39761,7 +39761,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p3",
+        "mana_plan": [
+          "p3"
+        ],
         "id": "p6"
       },
       "actionResult": {
@@ -40266,7 +40268,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -40524,7 +40528,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -40719,7 +40725,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "mana_plan": "p5:1,p4:0"
+        "mana_plan": [
+          "p5:1",
+          "p4:0"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -41746,7 +41755,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43139,7 +43150,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p13"
+        "attackers": [
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [

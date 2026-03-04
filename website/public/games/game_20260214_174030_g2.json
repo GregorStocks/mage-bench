@@ -90273,7 +90273,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -93342,7 +93342,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23"
+        "attackers": [
+          "p23"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -95933,7 +95935,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -96027,7 +96031,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -96078,7 +96084,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -96129,7 +96137,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -97782,7 +97792,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p56"
+        "attackers": [
+          "p56"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -97853,7 +97865,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p56"
+        "attackers": [
+          "p56"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -98588,7 +98602,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p61"
+        "attackers": [
+          "p61"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -100309,7 +100325,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p83"
+        "attackers": [
+          "p83"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -101321,7 +101339,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p89"
+        "attackers": [
+          "p89"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -101670,7 +101690,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p83"
+        "attackers": [
+          "p83"
+        ]
       },
       "actionResult": {
         "declared": [

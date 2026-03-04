@@ -222201,7 +222201,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 5,
+  "version": 4,
   "decisions": [
     {
       "index": 0,
@@ -222880,7 +222880,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p5:1,p3"
+        "mana_plan": [
+          "p5:1",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -223553,7 +223556,10 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p1:1,p3",
+        "mana_plan": [
+          "p1:1",
+          "p3"
+        ],
         "id": "p7"
       },
       "actionResult": {
@@ -224601,7 +224607,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p17",
-        "mana_plan": "p21,p3,p9,p1"
+        "mana_plan": [
+          "p21",
+          "p3",
+          "p9",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -225806,7 +225817,10 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p21:0,p1:0",
+        "mana_plan": [
+          "p21:0",
+          "p1:0"
+        ],
         "id": "p32"
       },
       "actionResult": {
@@ -225932,7 +225946,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p3:0,p9:0"
+        "mana_plan": [
+          "p3:0",
+          "p9:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -226100,7 +226117,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -226643,7 +226662,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29"
+        "attackers": [
+          "p29"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -227076,7 +227097,12 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p6,p7,p30,p3:1",
+        "mana_plan": [
+          "p6",
+          "p7",
+          "p30",
+          "p3:1"
+        ],
         "id": "p23"
       },
       "actionResult": {
@@ -227126,7 +227152,12 @@
       "chosen": 3,
       "chosenArgs": {
         "amount": 3,
-        "mana_plan": "p6,p7,p30,p3:1"
+        "mana_plan": [
+          "p6",
+          "p7",
+          "p30",
+          "p3:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -227655,7 +227686,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p4"
+        "mana_plan": [
+          "p4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -227806,7 +227839,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p15"
+        "attackers": [
+          "p29",
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -227924,7 +227960,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -228276,7 +228314,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p45', 'id': 'p15'}"
+        "blockers": [
+          {
+            "blocks": "p45",
+            "id": "p15"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p45\",\"id\":\"p15\"}]). Check the tool schema for correct parameter types."
@@ -228739,7 +228782,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -229559,7 +229604,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p16"
+        "attackers": [
+          "p29",
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -229675,7 +229723,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16"
+        "attackers": [
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -230582,7 +230632,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -231550,7 +231602,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p16,p17"
+        "attackers": [
+          "p29",
+          "p16",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -231673,7 +231729,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16,p17"
+        "attackers": [
+          "p16",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -231796,7 +231855,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -232223,7 +232284,17 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p2,p1,p4,p25,p33,p44,p55,p69,p34"
+        "mana_plan": [
+          "p2",
+          "p1",
+          "p4",
+          "p25",
+          "p33",
+          "p44",
+          "p55",
+          "p69",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -232922,7 +232993,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -233362,7 +233435,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -233631,7 +233706,14 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p50",
-        "mana_plan": "p4,p44,p55,p33,p25,p34"
+        "mana_plan": [
+          "p4",
+          "p44",
+          "p55",
+          "p33",
+          "p25",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -234469,7 +234551,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86,p87,p88,p17"
+        "attackers": [
+          "p86",
+          "p87",
+          "p88",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -235498,7 +235585,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -236585,7 +236674,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86"
+        "attackers": [
+          "p86"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -236740,7 +236831,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -237205,7 +237298,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -237452,7 +237547,20 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p29', 'id': 'p17'},{'blocks': 'p68', 'id': 'p97'},{'blocks': 'p50', 'id': 'p102'}"
+        "blockers": [
+          {
+            "blocks": "p29",
+            "id": "p17"
+          },
+          {
+            "blocks": "p68",
+            "id": "p97"
+          },
+          {
+            "blocks": "p50",
+            "id": "p102"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p29\",\"id\":\"p17\"},{\"blocks\":\"p68\",\"id\":\"p97\"},{\"blocks\":\"p50\",\"id\":\"p...). Check the tool schema for correct parameter types."
@@ -237648,7 +237756,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -238036,7 +238146,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p29",
-        "mana_plan": "p46,p4,p82"
+        "mana_plan": [
+          "p46",
+          "p4",
+          "p82"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -238203,7 +238317,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p68",
-        "mana_plan": "p21,p3"
+        "mana_plan": [
+          "p21",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -238980,7 +239097,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -239124,7 +239243,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p16', 'blocks': 'p25'}"
+        "blockers": [
+          {
+            "id": "p16",
+            "blocks": "p25"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p16\",\"blocks\":\"p25\"}]). Check the tool schema for correct parameter types."
@@ -240266,7 +240390,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -241462,7 +241588,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -241640,7 +241768,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p120', 'blocks': 'p25'}"
+        "blockers": [
+          {
+            "id": "p120",
+            "blocks": "p25"
+          }
+        ]
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p120\",\"blocks\":\"p25\"}]). Check the tool schema for correct parameter types."

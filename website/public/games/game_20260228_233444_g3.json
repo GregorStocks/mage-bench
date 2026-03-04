@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 4,
   "id": "game_20260228_233444_g3",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -109010,7 +109010,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -109062,7 +109064,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p8:p15"
+        "blockers": [
+          "p8:p15"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -109501,7 +109505,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p15:p5"
+        "blockers": [
+          "p15:p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -109694,7 +109700,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -109955,7 +109963,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p14:p5"
+        "blockers": [
+          "p14:p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -110508,7 +110518,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p14"
+        "attackers": [
+          "p24",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -110570,7 +110583,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p8:p14"
+        "blockers": [
+          "p8:p14"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -111204,7 +111219,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -111256,7 +111273,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p29:p9"
+        "blockers": [
+          "p29:p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -111495,7 +111514,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p14"
+        "attackers": [
+          "p24",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -112367,7 +112389,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p14"
+        "attackers": [
+          "p24",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -113103,7 +113128,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p14"
+        "attackers": [
+          "p24",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -113164,7 +113192,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p65:p14"
+        "blockers": [
+          "p65:p14"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -113893,7 +113923,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p64"
+        "attackers": [
+          "p34",
+          "p64"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -114117,7 +114150,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -114177,7 +114212,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p8:p14"
+        "blockers": [
+          "p8:p14"
+        ]
       },
       "actionResult": {
         "declared": [
