@@ -1209,6 +1209,22 @@ def main():
     size_kb = output_path.stat().st_size // 1024
     print(f"Exported {game_id} -> {output_path} ({size_kb} KB)")
 
+    # Regenerate leaderboard data so committed files stay in sync
+    from puppeteer.leaderboard import (
+        generate_blunder_stats,
+        generate_internals_data,
+        generate_leaderboard_file,
+        generate_model_stats,
+    )
+
+    data_dir = WEBSITE_GAMES_DIR.parent.parent / "src" / "data"
+    models_json = Path(__file__).resolve().parent.parent / "puppeteer" / "models.json"
+    generate_leaderboard_file(games_dir, data_dir, models_json)
+    generate_model_stats(games_dir, data_dir, models_json)
+    generate_internals_data(games_dir, data_dir, models_json)
+    generate_blunder_stats(data_dir)
+    print("Leaderboard data regenerated")
+
 
 if __name__ == "__main__":
     main()
