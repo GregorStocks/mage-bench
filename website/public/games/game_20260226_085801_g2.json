@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260226_085801_g2",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -60400,12 +60400,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -60541,12 +60541,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": [],
+        "attackers": "",
         "auto_tap": false,
-        "blockers": [],
+        "blockers": "",
         "id": "",
         "index": 0,
-        "mana_plan": [],
+        "mana_plan": "",
         "pile": 0,
         "text": ""
       },
@@ -61965,9 +61965,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p24"
-        ]
+        "attackers": "p24"
       },
       "actionResult": {
         "declared": [
@@ -62423,9 +62421,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p24"
-        ]
+        "attackers": "p24"
       },
       "actionResult": {
         "declared": [
@@ -63613,9 +63609,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -64592,11 +64586,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9",
-          "p24",
-          "p40"
-        ]
+        "attackers": "p9,p24,p40"
       },
       "actionResult": {
         "declared": [
@@ -65602,11 +65592,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p9",
-          "p40",
-          "p24"
-        ]
+        "attackers": "p9,p40,p24"
       },
       "actionResult": {
         "declared": [

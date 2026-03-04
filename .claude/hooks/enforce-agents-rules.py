@@ -195,6 +195,13 @@ def check(command: str) -> None:
             "  make update-blunder-golden    # regenerate blunder prompt golden files"
         )
 
+    # --- Expensive make targets ---
+    if re.search(r"(?:^|\s|[;&|])\s*make\s+blunder-eval\b", stripped):
+        block(
+            "Blocked: 'make blunder-eval' costs money (LLM calls).\n"
+            "Ask Gregor before running it."
+        )
+
     # --- CI re-runs — never re-run CI, fix the root cause ---
     if re.search(r"\bgh\s+run\s+(?:rerun|retry)\b", stripped):
         block(

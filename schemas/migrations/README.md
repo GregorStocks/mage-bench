@@ -48,6 +48,7 @@ Use the `/new-export-version` skill for step-by-step guidance.
 
 ## Current state
 
-- v4: Active export version (`schemas/game-export-v4.schema.json`)
+- v5: Active export version (`schemas/game-export-v5.schema.json`)
 - v2 → v3: `schemas/migrations/v2_to_v3.py` (adds cardData, token images)
 - v3 → v4: `schemas/migrations/v3_to_v4.py` (adds season, tournament)
+- v4 → v5: `schemas/migrations/v4_to_v5.py` (normalize chosenArgs arrays to CSV strings)

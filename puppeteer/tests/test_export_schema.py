@@ -115,8 +115,23 @@ class TestExportSchema:
         errors = list(validator.iter_errors(_minimal_export(2)))
         assert errors, "v4 schema should reject version 2"
 
+    def test_v5_schema_is_valid(self) -> None:
+        schema = _load_schema(5)
+        jsonschema.Draft7Validator.check_schema(schema)
+
+    def test_v5_schema_accepts_v5(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(5))
+        v5 = _minimal_export(5, season=1, tournament=None)
+        errors = list(validator.iter_errors(v5))
+        assert errors == [], f"v5 should be valid: {errors}"
+
+    def test_v5_schema_rejects_v4(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(5))
+        errors = list(validator.iter_errors(_minimal_export(4)))
+        assert errors, "v5 schema should reject version 4"
+
     def test_schema_rejects_missing_required_field(self) -> None:
-        validator = jsonschema.Draft7Validator(_load_schema(4))
-        bad = {"version": 4}
+        validator = jsonschema.Draft7Validator(_load_schema(5))
+        bad = {"version": 5}
         errors = list(validator.iter_errors(bad))
         assert len(errors) > 0

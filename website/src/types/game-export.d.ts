@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 4). See doc/export-schema.md for seq semantics and design notes.
+ * Schema for the .json.gz game export format (version 5). Normalizes chosenArgs.mana_plan/attackers/blockers to CSV strings.
  */
-export interface GameExportV4 {
+export interface GameExportV5 {
   /**
    * Export format version 4: with baked Scryfall cardData, season, and tournament.
    */
-  version: 4;
+  version: 5;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */

@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260223_180324_g1",
   "timestamp": "20260223_180324",
   "gameType": "Two Player Duel",
@@ -65850,9 +65850,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -66144,9 +66142,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -66309,12 +66305,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": [
-          "p51",
-          "p51:1",
-          "p47",
-          "p47"
-        ]
+        "mana_plan": "p51,p51:1,p47,p47"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -66552,9 +66543,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -66716,11 +66705,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": [
-          "p51",
-          "p51:1",
-          "p47"
-        ]
+        "mana_plan": "p51,p51:1,p47"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -67033,9 +67018,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": [
-          "p51"
-        ]
+        "mana_plan": "p51"
       },
       "actionResult": {
         "next_action_pending": true,

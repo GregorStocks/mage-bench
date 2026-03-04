@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "id": "game_20260228_172012_g1",
   "timestamp": "20260228_172012",
   "gameType": "Two Player Duel",
@@ -61315,9 +61315,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p29"
-        ]
+        "attackers": "p29"
       },
       "actionResult": {
         "declared": [
@@ -61381,11 +61379,7 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": [
-          "p34",
-          "p35",
-          "p21"
-        ],
+        "mana_plan": "p34,p35,p21",
         "id": "p18"
       },
       "actionResult": {
@@ -62201,9 +62195,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p31"
-        ]
+        "attackers": "p31"
       },
       "actionResult": {
         "declared": [
@@ -62333,11 +62325,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": [
-          "p43",
-          "p38",
-          "p47"
-        ]
+        "mana_plan": "p43,p38,p47"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -62736,10 +62724,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p31",
-          "p22"
-        ]
+        "attackers": "p31,p22"
       },
       "actionResult": {
         "declared": [
@@ -63115,10 +63100,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p22",
-          "p12"
-        ]
+        "attackers": "p22,p12"
       },
       "actionResult": {
         "declared": [
@@ -63412,9 +63394,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

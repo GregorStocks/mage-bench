@@ -38274,7 +38274,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -38352,7 +38352,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "[]",
         "id": "p1",
         "text": ""
@@ -38437,7 +38437,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "[]",
         "id": "p1",
         "text": ""
@@ -38863,9 +38863,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5"
-        ]
+        "attackers": "p5"
       },
       "actionResult": {
         "declared": [
@@ -38928,7 +38926,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "[]",
         "id": "p4",
         "text": ""
@@ -39377,9 +39375,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5"
-        ]
+        "attackers": "p5"
       },
       "actionResult": {
         "declared": [
@@ -39440,12 +39436,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p4",
-            "blocks": "p12"
-          }
-        ]
+        "blockers": "{'id': 'p4', 'blocks': 'p12'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -39742,7 +39733,7 @@
         "pile": 1,
         "index": 1,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "[]",
         "id": "p6",
         "text": ""
@@ -40049,9 +40040,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -40229,10 +40218,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4",
-          "p5"
-        ]
+        "attackers": "p4,p5"
       },
       "actionResult": {
         "declared": [
@@ -40577,9 +40563,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -40920,10 +40904,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4",
-          "p5"
-        ]
+        "attackers": "p4,p5"
       },
       "actionResult": {
         "declared": [
@@ -41032,9 +41013,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -41293,7 +41272,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "{}",
         "id": "",
         "text": ""
@@ -41536,9 +41515,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -41679,12 +41656,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p7",
-            "blocks": "p3"
-          }
-        ]
+        "blockers": "{'id': 'p7', 'blocks': 'p3'}"
       },
       "actionResult": {
         "error": "JsonObject"
@@ -41743,7 +41715,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "{}",
         "id": "p29",
         "text": ""
@@ -42103,7 +42075,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "{}",
         "id": "p7",
         "text": ""
@@ -42150,7 +42122,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": [],
+        "attackers": "",
         "blockers": "{}",
         "id": "p7",
         "text": ""
@@ -42250,10 +42222,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p4",
-          "p7"
-        ]
+        "attackers": "p4,p7"
       },
       "actionResult": {
         "declared": [

@@ -283,6 +283,96 @@ class TestMigrateV3V4:
         assert json.dumps(v3_restored, sort_keys=True) == original_json
 
 
+def _make_v4_export() -> dict:
+    """Create a minimal v4 export with legacy list-format chosenArgs."""
+    v4 = _make_v3_export()
+    v4["version"] = 4
+    v4["season"] = 1
+    v4["tournament"] = None
+    v4["decisions"] = [
+        {
+            "chosenArgs": {
+                "mana_plan": ["WHITE", "GREEN"],
+                "attackers": ["p1", "p5"],
+                "blockers": ["p3:p10", "p7:p12"],
+                "choice": "1",
+            },
+        },
+        {
+            "chosenArgs": {
+                "mana_plan": [],
+                "attackers": [],
+                "blockers": [],
+            },
+        },
+        {
+            "chosenArgs": {},
+        },
+    ]
+    return v4
+
+
+class TestMigrateV4V5:
+    def test_v4_to_v5_up_converts_lists_to_csv(self) -> None:
+        from schemas.migrations.v4_to_v5 import up
+
+        v5 = up(_make_v4_export())
+        assert v5["version"] == 5
+
+        args0 = v5["decisions"][0]["chosenArgs"]
+        assert args0["mana_plan"] == "WHITE,GREEN"
+        assert args0["attackers"] == "p1,p5"
+        assert args0["blockers"] == "p3:p10,p7:p12"
+        # Non-CSV fields are untouched
+        assert args0["choice"] == "1"
+
+        # Empty lists become empty strings
+        args1 = v5["decisions"][1]["chosenArgs"]
+        assert args1["mana_plan"] == ""
+        assert args1["attackers"] == ""
+        assert args1["blockers"] == ""
+
+    def test_v4_to_v5_up_preserves_already_string(self) -> None:
+        from schemas.migrations.v4_to_v5 import up
+
+        v4 = _make_v4_export()
+        # Simulate a game that already has string format
+        v4["decisions"][0]["chosenArgs"]["mana_plan"] = "WHITE,GREEN"
+        v5 = up(v4)
+        assert v5["decisions"][0]["chosenArgs"]["mana_plan"] == "WHITE,GREEN"
+
+    def test_v5_to_v4_down_converts_csv_to_lists(self) -> None:
+        from schemas.migrations.v4_to_v5 import down
+
+        v5 = _make_v4_export()
+        v5["version"] = 5
+        # Set string format as v5 would have
+        v5["decisions"][0]["chosenArgs"]["mana_plan"] = "WHITE,GREEN"
+        v5["decisions"][0]["chosenArgs"]["attackers"] = "p1,p5"
+        v5["decisions"][0]["chosenArgs"]["blockers"] = "p3:p10,p7:p12"
+        v5["decisions"][1]["chosenArgs"]["mana_plan"] = ""
+        v5["decisions"][1]["chosenArgs"]["attackers"] = ""
+        v5["decisions"][1]["chosenArgs"]["blockers"] = ""
+
+        v4 = down(v5)
+        assert v4["version"] == 4
+        assert v4["decisions"][0]["chosenArgs"]["mana_plan"] == ["WHITE", "GREEN"]
+        assert v4["decisions"][0]["chosenArgs"]["attackers"] == ["p1", "p5"]
+        assert v4["decisions"][1]["chosenArgs"]["mana_plan"] == []
+
+    def test_round_trip_preserves_v4_structure(self) -> None:
+        """v4 → v5 → v4 should produce identical JSON."""
+        from schemas.migrations.v4_to_v5 import down, up
+
+        v4_original = _make_v4_export()
+        original_json = json.dumps(v4_original, sort_keys=True)
+
+        v5 = up(json.loads(original_json))
+        v4_restored = down(v5)
+
+        assert json.dumps(v4_restored, sort_keys=True) == original_json
+
+
 class TestExportGameHelpers:
     """Tests for export_game.py helper functions (unchanged by refactor)."""
 

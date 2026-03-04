@@ -59316,7 +59316,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -60463,11 +60463,7 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": [
-          {
-            "tap": "p4"
-          }
-        ],
+        "mana_plan": "{'tap': 'p4'}",
         "id": "p7"
       },
       "actionResult": {
@@ -60818,9 +60814,7 @@
         "pile": 1,
         "index": 3,
         "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"toughness\":1,\"tapped\":false}]}\n\nWe haven't take any mulligans. We started with 7 cards and we are now on turn 2.",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p4",
         "text": "Plains"
@@ -61502,9 +61496,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"toughness\":1,\"tapped\":false}]}\n\nThis is our second turn. We are playing a land and activating Marsh Flats.",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p3",
         "text": "Plains"
@@ -62362,9 +62354,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p17"
-        ]
+        "attackers": "p17"
       },
       "actionResult": {
         "declared": [
@@ -65018,9 +65008,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -66566,9 +66554,7 @@
         "pile": 1,
         "index": 7,
         "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"tough游戏副本\":\"1\",\"tapped\":false}]}\n\nThis is turn 3, we need to play a land.",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p28",
         "text": "Urborg, Tomb of Yawgmoth"
@@ -67411,10 +67397,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p23",
-          "p25"
-        ]
+        "attackers": "p23,p25"
       },
       "actionResult": {
         "declared": [
@@ -68588,9 +68571,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p2",
         "text": "Kozilek's Command"
@@ -68868,9 +68849,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p2",
         "text": "Kozilek's Command"
@@ -69048,9 +69027,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p2",
         "text": "Kozilek's Command"
@@ -69164,11 +69141,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p23",
-          "p25",
-          "p2"
-        ]
+        "attackers": "p23,p25,p2"
       },
       "actionResult": {
         "declared": [
@@ -69427,9 +69400,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": [
-          "p1"
-        ],
+        "attackers": "p1",
         "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
         "id": "p2",
         "text": "Kozilek's Command"

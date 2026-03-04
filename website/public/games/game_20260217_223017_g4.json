@@ -70311,7 +70311,7 @@
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -71878,9 +71878,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -72766,15 +72764,9 @@
         "auto_tap": true,
         "pile": 1,
         "index": 0,
-        "mana_plan": [
-          "p9",
-          "p39",
-          "BLACK"
-        ],
-        "attackers": [
-          "all"
-        ],
-        "blockers": [],
+        "mana_plan": "p9,p39,BLACK",
+        "attackers": "all",
+        "blockers": "",
         "id": "p54",
         "text": "Orcish Bowmasters"
       },
@@ -73109,9 +73101,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -73781,9 +73771,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

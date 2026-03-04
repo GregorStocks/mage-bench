@@ -109507,7 +109507,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -112040,9 +112040,7 @@
       "chosen": 0,
       "chosenArgs": {
         "index": 0,
-        "mana_plan": [
-          "p15:0"
-        ]
+        "mana_plan": "p15:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -112095,9 +112093,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": [
-          "p8:0"
-        ],
+        "mana_plan": "p8:0",
         "auto_tap": false
       },
       "actionResult": {
@@ -112885,9 +112881,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": [
-          "p30:4"
-        ]
+        "mana_plan": "p30:4"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -113669,9 +113663,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5"
-        ]
+        "attackers": "p5"
       },
       "actionResult": {
         "declared": [
@@ -113815,12 +113807,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "blocks": "p32",
-            "id": "p10"
-          }
-        ]
+        "blockers": "{'blocks': 'p32', 'id': 'p10'}"
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p32\",\"id\":\"p10\"}]). Check the tool schema for correct parameter types."
@@ -114343,10 +114330,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p18"
-        ]
+        "attackers": "p5,p18"
       },
       "actionResult": {
         "declared": [
@@ -114491,9 +114475,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p10:p44"
-        ]
+        "blockers": "p10:p44"
       },
       "actionResult": {
         "declared": [
@@ -115155,10 +115137,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p18"
-        ]
+        "attackers": "p5,p18"
       },
       "actionResult": {
         "declared": [
@@ -116313,10 +116292,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p18"
-        ]
+        "attackers": "p5,p18"
       },
       "actionResult": {
         "declared": [
@@ -116430,12 +116406,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "blocks": "p32",
-            "id": "p10"
-          }
-        ]
+        "blockers": "{'blocks': 'p32', 'id': 'p10'}"
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p32\",\"id\":\"p10\"}]). Check the tool schema for correct parameter types."
@@ -117626,9 +117597,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p7:1",
-        "mana_plan": [
-          "p7:1"
-        ]
+        "mana_plan": "p7:1"
       },
       "actionResult": {
         "error": "Unknown short ID: p7:1"
@@ -117696,9 +117665,7 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": [
-          "p7:0"
-        ],
+        "mana_plan": "p7:0",
         "id": "p15"
       },
       "actionResult": {
@@ -118284,10 +118251,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p10:p32",
-          "p15:p44"
-        ]
+        "blockers": "p10:p32,p15:p44"
       },
       "actionResult": {
         "declared": [
@@ -118569,9 +118533,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p15"
-        ]
+        "attackers": "p15"
       },
       "actionResult": {
         "declared": [
@@ -119008,9 +118970,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p5:p48"
-        ]
+        "blockers": "p5:p48"
       },
       "actionResult": {
         "retryable": true,
@@ -119535,10 +119495,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p10:p32",
-          "p15:p44"
-        ]
+        "blockers": "p10:p32,p15:p44"
       },
       "actionResult": {
         "declared": [
@@ -120529,11 +120486,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p5",
-          "p18",
-          "p51"
-        ]
+        "attackers": "p5,p18,p51"
       },
       "actionResult": {
         "declared": [
@@ -120604,16 +120557,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p10",
-            "blocks": "p32"
-          },
-          {
-            "id": "p15",
-            "blocks": "p44"
-          }
-        ]
+        "blockers": "{'id': 'p10', 'blocks': 'p32'},{'id': 'p15', 'blocks': 'p44'}"
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p10\",\"blocks\":\"p32\"},{\"id\":\"p15\",\"blocks\":\"p44\"}]). Check the tool schema for correct parameter types."
@@ -120869,9 +120813,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -120991,10 +120933,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p10:p32",
-          "p15:p44"
-        ]
+        "blockers": "p10:p32,p15:p44"
       },
       "actionResult": {
         "declared": [
@@ -121621,9 +121560,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [
@@ -121793,10 +121730,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p10:p57",
-          "p15:p60"
-        ]
+        "blockers": "p10:p57,p15:p60"
       },
       "actionResult": {
         "declared": [
@@ -122173,9 +122107,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "all"
-        ]
+        "attackers": "all"
       },
       "actionResult": {
         "declared": [

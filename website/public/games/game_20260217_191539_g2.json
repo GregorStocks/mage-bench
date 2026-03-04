@@ -46095,7 +46095,7 @@
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -48180,10 +48180,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p8",
-          "p6"
-        ]
+        "attackers": "p8,p6"
       },
       "actionResult": {
         "declared": [

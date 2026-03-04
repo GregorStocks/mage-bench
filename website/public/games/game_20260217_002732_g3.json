@@ -322133,7 +322133,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -324878,10 +324878,7 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p102",
-        "mana_plan": [
-          "p6",
-          "p20"
-        ]
+        "mana_plan": "p6,p20"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -324988,12 +324985,7 @@
       "chosen": 7,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": [
-          "p21",
-          "p33",
-          "p40",
-          "p43"
-        ]
+        "mana_plan": "p21,p33,p40,p43"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -325349,16 +325341,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p74",
-        "mana_plan": [
-          "p2",
-          "p4",
-          "p20",
-          "p21",
-          "p32",
-          "p33",
-          "p40",
-          "p43"
-        ]
+        "mana_plan": "p2,p4,p20,p21,p32,p33,p40,p43"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -325732,16 +325715,7 @@
       "chosen": 6,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": [
-          "p4",
-          "p6",
-          "p20",
-          "p21",
-          "p32",
-          "p33",
-          "p40",
-          "p43"
-        ]
+        "mana_plan": "p4,p6,p20,p21,p32,p33,p40,p43"
       },
       "actionResult": {
         "next_action_pending": true,

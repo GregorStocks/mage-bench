@@ -113733,7 +113733,7 @@
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 4,
+  "version": 5,
   "decisions": [
     {
       "index": 0,
@@ -117655,10 +117655,7 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": [
-          "p11",
-          "p3:0"
-        ]
+        "mana_plan": "p11,p3:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -118515,11 +118512,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": [
-          "p11",
-          "p16",
-          "p3:0"
-        ]
+        "mana_plan": "p11,p16,p3:0"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -119475,10 +119468,7 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": [
-          "p11",
-          "p16"
-        ]
+        "mana_plan": "p11,p16"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -119803,9 +119793,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p20",
-        "mana_plan": [
-          "p54:1"
-        ]
+        "mana_plan": "p54:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -119889,9 +119877,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p48",
-        "mana_plan": [
-          "p20:1"
-        ]
+        "mana_plan": "p20:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -120478,9 +120464,7 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p48",
-        "mana_plan": [
-          "p20:1"
-        ]
+        "mana_plan": "p20:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121035,9 +121019,7 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p48",
-        "mana_plan": [
-          "p20:1"
-        ]
+        "mana_plan": "p20:1"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121199,9 +121181,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p65",
-        "mana_plan": [
-          "p16:2"
-        ]
+        "mana_plan": "p16:2"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -121362,9 +121342,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p34"
-        ]
+        "attackers": "p34"
       },
       "actionResult": {
         "declared": [
@@ -121420,9 +121398,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          "p8:p61"
-        ]
+        "blockers": "p8:p61"
       },
       "actionResult": {
         "declared": [
@@ -122654,13 +122630,7 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": [
-          "p3",
-          "p54",
-          "p16",
-          "p20",
-          "p7"
-        ]
+        "mana_plan": "p3,p54,p16,p20,p7"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -122914,9 +122884,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p65",
-        "mana_plan": [
-          "p11"
-        ]
+        "mana_plan": "p11"
       },
       "actionResult": {
         "retryable": true,
@@ -124120,14 +124088,7 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p86",
-        "mana_plan": [
-          "p11",
-          "p13",
-          "p20",
-          "p4",
-          "p3",
-          "p54"
-        ]
+        "mana_plan": "p11,p13,p20,p4,p3,p54"
       },
       "actionResult": {
         "next_action_pending": true,
@@ -125268,11 +125229,7 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": [
-          "p3",
-          "p54",
-          "p4"
-        ]
+        "mana_plan": "p3,p54,p4"
       },
       "actionResult": {
         "retryable": true,
@@ -125633,9 +125590,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": [
-          "p28"
-        ]
+        "attackers": "p28"
       },
       "actionResult": {
         "declared": [
@@ -125926,12 +125881,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": [
-          {
-            "id": "p86",
-            "blocks": "p47"
-          }
-        ]
+        "blockers": "{'id': 'p86', 'blocks': 'p47'}"
       },
       "actionResult": {
         "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p86\",\"blocks\":\"p47\"}]). Check the tool schema for correct parameter types."

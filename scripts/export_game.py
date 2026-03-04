@@ -1079,7 +1079,7 @@ def build_export(game_dir: Path) -> dict:
 
     # Build output
     output: dict = {
-        "version": 4,
+        "version": 5,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -1153,7 +1153,7 @@ def _validate_export(data: dict) -> None:
     required fields and wrong version. The full JSON Schema validation
     runs in tests (test_export_schema.py).
     """
-    assert data.get("version") == 4, f"Expected version 4, got {data.get('version')}"
+    assert data.get("version") == 5, f"Expected version 5, got {data.get('version')}"
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
     assert isinstance(data["players"], list), "players must be a list"
