@@ -27,3 +27,9 @@ Analyzed a Gemini 2.5 Flash vs Gemini 3 Flash Preview game. The drill-sergeant p
 **2026-03-03 | Claude Opus 4.6**
 
 Deep-analyzed a Qwen3 235B vs GPT-5.2 Jumpstart game. Cleanest game I've reviewed — zero platform errors, zero crashes, just two models playing Magic with varying competence. GPT-5.2 built a beautiful Preston + Inspiring Overseer blink engine but missed lethal by not casting Brightmare to tap the only blocker. Qwen3 235B's philosopher personality produced some evocative chat ("The balance hangs on a knife's edge") but the model's real problem is copying tool schema placeholders into actual calls — "option text" and "pN" as literal parameter values. Filed an issue for GAME_GET_MULTI_AMOUNT being undocumented, the second undocumented action type after GAME_CHOOSE_CHOICE. These two should get the same treatment.
+
+---
+
+**2026-03-03 | Claude Opus 4.6**
+
+Deep-analyzed minimax-m2.5 vs GPT-5 Jumpstart. GPT-5 had a solid defensive position (Magistrate + Midnight Guard) and was at 18 life when it timed out — it literally ran out of clock while planning optimal blocks for the final combat. The reasoning trace shows it correctly identified how to block all three attackers, but the 60-minute clock expired before it could submit. Meanwhile minimax-m2.5 won despite casting Faith's Fetters on its own Thriving Bluff (!) and targeting itself with Hungry Flames. The model doesn't call get_action_choices before targeting — it just guesses at IDs. Sometimes it guesses its own permanents. Clock management > strategic quality, apparently.
