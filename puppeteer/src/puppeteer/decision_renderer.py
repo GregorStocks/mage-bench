@@ -386,14 +386,17 @@ def _chosen_display(
 ) -> str:
     """Format what was chosen for display."""
     if chosen is None:
-        # Batch attack/block declarations store the response in chosen_args,
-        # not in chosen.  Render them instead of "(no response)".
+        # Batch attack/block declarations and text choices store the response
+        # in chosen_args, not in chosen.  Render them instead of "(no response)".
         attackers = chosen_args.get("attackers")
         if attackers:
             return _batch_attack_display(attackers, choices)
         blockers = chosen_args.get("blockers")
         if blockers:
             return _batch_block_display(blockers, choices)
+        text = chosen_args.get("text")
+        if text:
+            return f"Text: {text}"
         return "(no response)"
     if isinstance(chosen, bool):
         return str(chosen)

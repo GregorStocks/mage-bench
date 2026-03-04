@@ -389,6 +389,16 @@ class TestChosenDisplay:
         choices = [{"name": "Lightning Bolt"}, {"name": "Mountain"}]
         assert _chosen_display(0, {}, choices) == "Lightning Bolt"
 
+    def test_text_chosen(self) -> None:
+        """Text-based choices (e.g. color picking) show the text value."""
+        result = _chosen_display(None, {"text": "Green"}, [])
+        assert result == "Text: Green"
+
+    def test_no_response(self) -> None:
+        """chosen=None with empty chosen_args returns (no response)."""
+        result = _chosen_display(None, {}, [])
+        assert result == "(no response)"
+
 
 class TestResolveManaplan:
     def test_resolves_ids_to_names(self) -> None:

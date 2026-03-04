@@ -302,6 +302,14 @@ def chosen_display(decision: dict) -> str:
         return c.get("name", c.get("description", f"option_{chosen}"))
     if chosen is not None:
         return str(chosen)
+    # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen
+    chosen_args = decision.get("chosenArgs") or decision.get("chosen_args") or {}  # noqa: MBF001
+    if chosen_args.get("attackers"):
+        return f"Attack with: {chosen_args['attackers']}"
+    if chosen_args.get("blockers"):
+        return f"Block with: {chosen_args['blockers']}"
+    if chosen_args.get("text"):
+        return f"Text: {chosen_args['text']}"
     return "?"
 
 

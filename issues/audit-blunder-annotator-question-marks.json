@@ -1,0 +1,10 @@
+{
+  "title": "Audit blunder annotator for remaining '?' placeholder values",
+  "description": "After fixing the chosen=None false positives for batch/text decisions, audit the blunder annotator prompt for any other places where '?' placeholder values are sent to the LLM. The '?' string is ambiguous and can mislead the annotator into thinking data is missing when it's actually available elsewhere.\n\nPlaces to check:\n- _format_decisions() in blunder_analysis.py: turn, phase, player name, and other fields that fall back to '?'\n- render_decision() in decision_renderer.py: similar fallbacks\n- Any other fields in the decision prompt where '?' appears as a default\n\nFor each '?', determine: (a) can the data actually be found elsewhere, (b) is the '?' misleading the LLM, and (c) should it be replaced with a more descriptive placeholder or removed entirely.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["puppeteer"],
+  "created_at": "2026-03-03T22:00:00.000000-08:00",
+  "updated_at": "2026-03-03T22:00:00.000000-08:00"
+}

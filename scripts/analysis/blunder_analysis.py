@@ -113,7 +113,9 @@ MAX_WORKERS = 50
 # v30: validate that all required fields are non-null strings (fixes null betterLine)
 # v31: include choose_action tool spec in system prompt so annotator understands
 #      mana_plan, batch combat, and other tool parameters; show mana_plan in chosen block
-BLUNDER_SCRIPT_VERSION = 31
+# v32: fix chosen=None false positives — show actual attackers/blockers/text from
+#      chosenArgs instead of "?" for batch and text decisions
+BLUNDER_SCRIPT_VERSION = 32
 
 # --- Prompt components ---
 
@@ -172,7 +174,14 @@ items, passing lets those items resolve without responding.
 or their client did not send a valid action. The game engine chose a default \
 for them — typically passing or skipping. Treat this like "Chosen: False" \
 for blunder evaluation: if skipping was wrong given the available choices, \
-flag it."""
+flag it.
+
+## Understanding batch/text decisions
+
+Some decisions (attack/block declarations, color choices) use batch or text \
+parameters instead of selecting from a numbered list. These show as \
+"Chosen: Attack with: ...", "Chosen: Block with: ...", or "Chosen: Text: ..." \
+instead of a choice name. These are valid responses — the player DID act."""
 
 
 def _build_tool_reference() -> str:
@@ -731,6 +740,14 @@ def _chosen_display(d: dict) -> str:
         return c.get("name", c.get("description", f"option_{chosen}"))
     if chosen is not None:
         return str(chosen)
+    # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen
+    chosen_args = d.get("chosenArgs") or d.get("chosen_args") or {}  # noqa: MBF001
+    if chosen_args.get("attackers"):
+        return f"Attack with: {chosen_args['attackers']}"
+    if chosen_args.get("blockers"):
+        return f"Block with: {chosen_args['blockers']}"
+    if chosen_args.get("text"):
+        return f"Text: {chosen_args['text']}"
     return "?"
 
 

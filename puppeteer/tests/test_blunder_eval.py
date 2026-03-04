@@ -155,9 +155,21 @@ class TestChosenDisplay:
         d = {"chosen": False, "choices": []}
         assert chosen_display(d) == "False"
 
-    def test_none_choice(self) -> None:
+    def test_none_choice_no_args(self) -> None:
         d = {"chosen": None, "choices": []}
         assert chosen_display(d) == "?"
+
+    def test_none_choice_with_attackers_camel(self) -> None:
+        d = {"chosen": None, "choices": [], "chosenArgs": {"attackers": "p5,p12"}}
+        assert chosen_display(d) == "Attack with: p5,p12"
+
+    def test_none_choice_with_blockers_snake(self) -> None:
+        d = {"chosen": None, "choices": [], "chosen_args": {"blockers": "p3:p64"}}
+        assert chosen_display(d) == "Block with: p3:p64"
+
+    def test_none_choice_with_text(self) -> None:
+        d = {"chosen": None, "choices": [], "chosenArgs": {"text": "Green"}}
+        assert chosen_display(d) == "Text: Green"
 
     def test_out_of_range(self) -> None:
         d = {"chosen": 99, "choices": [{"name": "A"}]}
