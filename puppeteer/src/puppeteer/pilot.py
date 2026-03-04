@@ -14,6 +14,7 @@ from mcp import ClientSession
 from openai import AsyncOpenAI
 
 from puppeteer.auto_pass import auto_pass_loop
+from puppeteer.bridge_transport import spawn_bridge_http
 from puppeteer.config import load_prompts
 from puppeteer.decision_renderer import BASIC_LAND_NAMES, render_decision
 from puppeteer.game_log import GameLogWriter
@@ -1307,8 +1308,6 @@ async def run_pilot(
             trace_log = log_stack.enter_context(GameLogWriter(game_dir, username, suffix="llm_trace"))
 
         try:
-            from puppeteer.bridge_transport import spawn_bridge_http  # noqa: PLC0415
-
             async with spawn_bridge_http(
                 mvn_args=mvn_args,
                 project_root=project_root,

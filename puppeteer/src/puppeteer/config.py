@@ -6,6 +6,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from puppeteer.jumpstart import create_random_jumpstart_deck
 from puppeteer.log import get_logger
 from puppeteer.matchmaker import get_active_presets, get_round_robin_matchup, pick_round_robin_format
 
@@ -762,8 +763,6 @@ class Config:
 
         # Jumpstart: combine two random half-decks at runtime
         if self.deck_type == "Limited":
-            from puppeteer.jumpstart import create_random_jumpstart_deck  # noqa: PLC0415
-
             used_themes: set[str] = set()
             for player in all_players:
                 if player.deck == "random":

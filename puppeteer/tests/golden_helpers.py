@@ -28,6 +28,17 @@ from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
 
+from blunder_analysis import (
+    _actions_by_turn,
+    _collect_card_names,
+    _game_overview,
+    _get_oracle_texts,
+    build_decision_prompt,
+)
+from blunder_eval_common import decision_index
+from export_game import build_export
+from extract_decisions import extract_decisions
+
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
@@ -1020,9 +1031,6 @@ def _strip_volatile(data: dict) -> None:
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
     """Run export pipeline on game dir, compare against golden file."""
-    sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from export_game import build_export  # noqa: PLC0415
-
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
     export_data = _normalize_embedded_json(export_data)
@@ -1098,14 +1106,6 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     if not annotated:
         return
 
-    # Late imports — same pattern as assert_golden_export
-    sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
-    from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt  # noqa: PLC0415
-    from blunder_eval_common import decision_index  # noqa: PLC0415
-    from export_game import build_export  # noqa: PLC0415
-    from extract_decisions import extract_decisions  # noqa: PLC0415
-
     # Build full (unstripped) export and extract decisions
     export_data = build_export(game_dir)
     tmp_export = game_dir / "_blunder_export.json"
@@ -1127,8 +1127,6 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     oracle_cache_path = golden_dir / "oracle_cache.json"
 
     if UPDATE_MODE:
-        from blunder_analysis import _collect_card_names, _get_oracle_texts  # noqa: PLC0415
-
         all_names = _collect_card_names(export_data)
         oracle_texts = _get_oracle_texts(sorted(all_names))
         golden_dir.mkdir(parents=True, exist_ok=True)

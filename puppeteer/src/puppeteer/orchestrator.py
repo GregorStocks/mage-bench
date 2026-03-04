@@ -13,16 +13,27 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
-from puppeteer.config import Config, PilotPlayer
-from puppeteer.deck_choice import resolve_choice_decks
-from puppeteer.game_log import merge_game_log, read_decklist
-from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
-from puppeteer.llm_cost import required_api_key_env
-from puppeteer.log import get_logger, setup_logging
-from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import ProcessManager, kill_tree
-from puppeteer.xml_config import modify_server_config
+# scripts/ and scripts/analysis/ are not proper Python packages yet (see
+# issues/make-scripts-installable-package.json).  Add them to sys.path so
+# that the script modules can be imported at the top level.
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(_PROJECT_ROOT / "scripts"))
+sys.path.insert(0, str(_PROJECT_ROOT / "scripts" / "analysis"))
+
+from blunder_analysis import main as _analyze_blunders  # noqa: E402
+from export_game import export_game as _export_game  # noqa: E402
+from upload_youtube import upload_to_youtube as _upload_to_youtube  # noqa: E402
+
+from puppeteer.config import Config, PilotPlayer  # noqa: E402
+from puppeteer.deck_choice import resolve_choice_decks  # noqa: E402
+from puppeteer.game_log import merge_game_log, read_decklist  # noqa: E402
+from puppeteer.harness_epoch import HARNESS_EPOCH  # noqa: E402
+from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL  # noqa: E402
+from puppeteer.llm_cost import required_api_key_env  # noqa: E402
+from puppeteer.log import get_logger, setup_logging  # noqa: E402
+from puppeteer.port import find_available_port, wait_for_port  # noqa: E402
+from puppeteer.process_manager import ProcessManager, kill_tree  # noqa: E402
+from puppeteer.xml_config import modify_server_config  # noqa: E402
 
 logger = get_logger(__name__)
 
@@ -894,13 +905,10 @@ def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2)
 
     Returns None on success, or the error message on failure.
     """
-    sys.path.insert(0, str(project_root / "scripts" / "analysis"))
-    from blunder_analysis import main as analyze_blunders  # noqa: PLC0415
-
     last_error = ""
     for attempt in range(1 + max_retries):
         try:
-            analyze_blunders(str(gz_path))
+            _analyze_blunders(str(gz_path))
             return None  # success
         except Exception as e:
             last_error = str(e)
@@ -1001,17 +1009,11 @@ def _maybe_upload_and_export(
     # Upload to YouTube (only if we have a recording)
     if has_recording:
         try:
-            sys.path.insert(0, str(project_root / "scripts"))
-            from upload_youtube import upload_to_youtube  # noqa: PLC0415
-
-            url = upload_to_youtube(game_dir)
+            url = _upload_to_youtube(game_dir)
             if url:
                 logger.info("  YouTube: %s", url)
                 _save_youtube_url(game_dir, url)
                 _update_website_youtube_url(game_dir, url, project_root)
-        except ImportError:
-            logger.warning("  YouTube upload requires google-api-python-client and google-auth-oauthlib")
-            logger.warning("  Run: cd puppeteer && uv sync")
         except Exception as e:
             logger.warning("  YouTube upload failed: %s", e)
 
@@ -1021,12 +1023,10 @@ def _maybe_upload_and_export(
     tmp_path = None
     final_path = None
     try:
-        from export_game import export_game  # noqa: PLC0415
-
         # Export to a temp dir so the final location stays clean until we're ready
         website_games_dir.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(dir=website_games_dir) as tmp_dir:
-            tmp_export_path = export_game(game_dir, Path(tmp_dir))
+            tmp_export_path = _export_game(game_dir, Path(tmp_dir))
             # Move to a temp name in the real dir (for atomic rename later)
             final_path = website_games_dir / tmp_export_path.name
             tmp_path = website_games_dir / f".tmp_{tmp_export_path.name}"
