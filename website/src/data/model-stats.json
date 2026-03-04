@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-04T07:08:45.900210+00:00",
+  "generatedAt": "2026-03-04T08:48:54.608720+00:00",
   "minLeaderboardEpoch": 11,
   "models": {
     "google/gemini-3-flash-preview::medium": {
@@ -5583,6 +5583,25 @@
           "latencyP50": 1.0,
           "latencyP95": 74.7,
           "latencySamples": 421
+        },
+        "40": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 1.9809,
+          "totalToolCallsOk": 91,
+          "totalToolCallsFailed": 3,
+          "totalThinkingTimeSecs": 1629.6,
+          "totalPromptTokens": 1039198,
+          "totalCompletionTokens": 68195,
+          "totalCachedTokens": 843520,
+          "totalReasoningTokens": 63680,
+          "successfulResponses": 94,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.0,
+          "latencyP95": 62.6,
+          "latencySamples": 189
         }
       }
     },
@@ -5633,6 +5652,25 @@
           "latencyP50": 1.6,
           "latencyP95": 21.9,
           "latencySamples": 474
+        },
+        "40": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.2039,
+          "totalToolCallsOk": 73,
+          "totalToolCallsFailed": 3,
+          "totalThinkingTimeSecs": 541.9,
+          "totalPromptTokens": 637166,
+          "totalCompletionTokens": 13311,
+          "totalCachedTokens": 331582,
+          "totalReasoningTokens": 11269,
+          "successfulResponses": 76,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.6,
+          "latencyP95": 17.8,
+          "latencySamples": 153
         }
       }
     },
@@ -5765,6 +5803,25 @@
           "latencyP50": 1.0,
           "latencyP95": 16.5,
           "latencySamples": 305
+        },
+        "40": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 1.8409,
+          "totalToolCallsOk": 83,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 694.6,
+          "totalPromptTokens": 800407,
+          "totalCompletionTokens": 31440,
+          "totalCachedTokens": 561792,
+          "totalReasoningTokens": 28408,
+          "successfulResponses": 83,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.1,
+          "latencyP95": 22.0,
+          "latencySamples": 167
         }
       }
     },
@@ -5899,6 +5956,25 @@
           "latencyP50": 1.4,
           "latencyP95": 5.8,
           "latencySamples": 397
+        },
+        "40": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 1.3294,
+          "totalToolCallsOk": 80,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 516.7,
+          "totalPromptTokens": 656934,
+          "totalCompletionTokens": 1293,
+          "totalCachedTokens": 305240,
+          "totalReasoningTokens": 311,
+          "successfulResponses": 80,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 2.4,
+          "latencyP95": 10.9,
+          "latencySamples": 162
         }
       }
     },
@@ -5946,6 +6022,27 @@
           "latencyP50": 0.7,
           "latencyP95": 6.3,
           "latencySamples": 349
+        },
+        "40": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.9739,
+          "totalToolCallsOk": 181,
+          "totalToolCallsFailed": 16,
+          "totalThinkingTimeSecs": 989.9,
+          "totalPromptTokens": 1909253,
+          "totalCompletionTokens": 12831,
+          "totalCachedTokens": 0,
+          "totalReasoningTokens": 0,
+          "successfulResponses": 192,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 10.0,
+          "latencySamples": 393
         }
       }
     },
@@ -5994,6 +6091,25 @@
           "latencyP50": 1.4,
           "latencyP95": 20.8,
           "latencySamples": 545
+        },
+        "40": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "timerTimeoutLosses": 0,
+          "totalCostUsd": 0.1282,
+          "totalToolCallsOk": 210,
+          "totalToolCallsFailed": 20,
+          "totalThinkingTimeSecs": 4688.3,
+          "totalPromptTokens": 2303081,
+          "totalCompletionTokens": 202024,
+          "totalCachedTokens": 1424322,
+          "totalReasoningTokens": 196336,
+          "successfulResponses": 247,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.7,
+          "latencyP95": 44.9,
+          "latencySamples": 481
         }
       }
     },
