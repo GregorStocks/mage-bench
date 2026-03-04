@@ -8,14 +8,14 @@ import mage.cards.CardsImpl;
 import mage.util.Copyable;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
  * @author nantuko
  */
-public class LookedAt extends HashMap<String, Cards> implements Serializable, Copyable<LookedAt> {
+public class LookedAt extends LinkedHashMap<String, Cards> implements Serializable, Copyable<LookedAt> {
 
     public LookedAt() {
     }

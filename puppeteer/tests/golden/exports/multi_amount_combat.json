@@ -793,7 +793,7 @@
     "seq": 92
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 39,
+  "harnessEpoch": 40,
   "llmEvents": [
     {
       "availableTools": [
@@ -859,7 +859,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "choice=pN",
+        "respond_with": "choice=pN — must pick a target",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },

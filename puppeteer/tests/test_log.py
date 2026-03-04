@@ -5,13 +5,12 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import puppeteer.log
 from puppeteer.log import _PuppeteerFormatter, get_logger, log_error, setup_logging
 
 
 def _reset_logging():
     """Reset the module-level setup guard so setup_logging can be called again."""
-    import puppeteer.log
-
     puppeteer.log._setup_done = False
     # Remove any handlers added by previous setup_logging calls
     root = logging.getLogger()

@@ -7,6 +7,7 @@ from http.server import HTTPServer
 from pathlib import Path
 from urllib.request import Request, urlopen
 
+import blunder_audit_web
 import pytest
 
 
@@ -38,8 +39,6 @@ def _temp_config(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 @pytest.fixture()
 def server_port(_temp_ground_truth: Path) -> int:
     """Start the audit web server on a free port and return the port."""
-    import blunder_audit_web
-
     handler = blunder_audit_web.AuditHandler
     httpd = HTTPServer(("127.0.0.1", 0), handler)
     port = httpd.server_address[1]
@@ -120,13 +119,9 @@ class TestStaticFiles:
 
 class TestHostnameConfig:
     def test_reads_hostname(self, _temp_config: Path, _temp_ground_truth: Path) -> None:
-        import blunder_audit_web
-
         assert blunder_audit_web._get_hostname() == "my-server.local"
 
     def test_defaults_to_localhost(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-        import blunder_audit_web
-
         monkeypatch.setattr(blunder_audit_web, "CONFIG_PATH", Path("/nonexistent/config.json"))
         assert blunder_audit_web._get_hostname() == "localhost"
 

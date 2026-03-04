@@ -929,7 +929,7 @@
     "seq": 84
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 39,
+  "harnessEpoch": 40,
   "llmEvents": [
     {
       "availableTools": [
@@ -995,7 +995,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "choice=pN",
+        "respond_with": "choice=pN — must pick a target",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
@@ -1566,7 +1566,7 @@
         "game_seq": 34,
         "land_drops_used": 0,
         "message": "Choose spell or ability to play: Black Lotus",
-        "respond_with": "choice=N",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
         "response_type": "index",
         "stop_reason": "non_priority_action",
         "untapped_lands": 1
@@ -1804,7 +1804,7 @@
         "game_seq": 42,
         "land_drops_used": 0,
         "message": "Choose spell or ability to play: Memnite",
-        "respond_with": "choice=N",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
         "response_type": "index",
         "stop_reason": "non_priority_action",
         "untapped_lands": 1

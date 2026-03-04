@@ -1035,9 +1035,6 @@ def _eval_one_decision(
             print(f"  WARNING: Failed to parse response for {label}: {e}")
             print(f"    Raw response: {text[:200]!r}")
             if attempt < max_attempts - 1:
-                import time
-
-                time.sleep(2)
                 continue
             parsed_ok = False
             ann = None
@@ -1057,9 +1054,6 @@ def _eval_one_decision(
         print(f"  WARNING: {label} bad fields {bad}, retrying...")
         print(f"    Got: {json.dumps(ann)[:300]}")
         if attempt < max_attempts - 1:
-            import time
-
-            time.sleep(2)
             ann = None
         else:
             print(

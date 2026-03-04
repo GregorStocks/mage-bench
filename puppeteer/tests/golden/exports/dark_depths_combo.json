@@ -1213,7 +1213,7 @@
     "seq": 139
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 39,
+  "harnessEpoch": 40,
   "llmEvents": [
     {
       "availableTools": [
@@ -1279,7 +1279,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "choice=pN",
+        "respond_with": "choice=pN — must pick a target",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
@@ -2492,7 +2492,7 @@
         "context": "T4 Combat/Declare Attackers (TestPlayer)",
         "game_seq": 92,
         "message": "Choose spell or ability to play: Thespian's Stage",
-        "respond_with": "choice=N",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
         "response_type": "index",
         "stop_reason": "non_priority_action",
         "untapped_lands": 4
@@ -2761,7 +2761,7 @@
         "game_seq": 99,
         "message": "Select a Dark Depths to keep (Legendary Rule)?",
         "required": true,
-        "respond_with": "choice=pN",
+        "respond_with": "choice=pN — must pick a target",
         "response_type": "index",
         "stop_reason": "non_priority_action",
         "untapped_lands": 1

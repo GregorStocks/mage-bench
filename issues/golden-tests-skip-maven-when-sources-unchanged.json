@@ -1,0 +1,10 @@
+{
+  "title": "Skip Maven compilation in golden tests when Java sources are unchanged",
+  "description": "compile_project() in orchestrator.py always runs `mvn -q -DskipTests -pl <modules> -am install`, which takes ~30s even when no Java sources have changed. This dominates golden test startup time.\n\nMaven already supports incremental compilation, but the packaging and installation phases still run every time. There should be a Maven-native way to skip the build entirely when nothing changed — reimplementing timestamp checks in Python feels wrong. Worth investigating Maven profiles, the maven-build-cache-extension, or the `maven.build.cache` features available in Maven 4+.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer", "golden-tests"],
+  "created_at": "2026-03-03T12:00:00.000000-08:00",
+  "updated_at": "2026-03-03T12:00:00.000000-08:00"
+}

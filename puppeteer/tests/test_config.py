@@ -957,8 +957,6 @@ def test_load_config_choice_on_non_pilot_crashes():
         (tmpdir_path / "presets.json").write_text('{"presets": {}, "gauntlet": []}')
         (tmpdir_path / "prompts.json").write_text("{}")
 
-        import json
-
         config_path = tmpdir_path / "config.json"
         config_path.write_text(json.dumps(config_data))
 

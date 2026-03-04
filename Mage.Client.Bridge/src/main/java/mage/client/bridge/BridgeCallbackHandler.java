@@ -1086,7 +1086,7 @@ public class BridgeCallbackHandler {
                 result.put("required", required);
                 result.put("can_cancel", !required);
                 result.put("respond_with", required
-                    ? "choice=pN"
+                    ? "choice=pN — must pick a target"
                     : "choice=pN, or choice=no to cancel");
 
                 Set<UUID> targets = findValidTargets(msg);
@@ -1161,7 +1161,7 @@ public class BridgeCallbackHandler {
                 AbilityPickerView picker = (AbilityPickerView) data;
                 Map<UUID, String> choices = picker.getChoices();
                 result.put("response_type", "index");
-                result.put("respond_with", "choice=N");
+                result.put("respond_with", "choice=0, choice=1, etc. (not yes/no)");
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToUuid = new ArrayList<Object>();
@@ -1209,7 +1209,7 @@ public class BridgeCallbackHandler {
                 GameClientMessage msg = (GameClientMessage) data;
                 Choice choice = msg.getChoice();
                 result.put("response_type", "index");
-                result.put("respond_with", "choice=N or text=TypeName");
+                result.put("respond_with", "choice=0, choice=1, etc. or text=Name (not yes/no)");
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToKey = new ArrayList<Object>();
@@ -1314,7 +1314,7 @@ public class BridgeCallbackHandler {
             case GAME_GET_MULTI_AMOUNT: {
                 GameClientMessage msg = (GameClientMessage) data;
                 result.put("response_type", "multi_amount");
-                result.put("respond_with", "amounts=N,N,... (one per item)");
+                result.put("respond_with", "amounts=[N,N,...] — one per item, sum between total_min and total_max");
                 result.put("total_min", msg.getMin());
                 result.put("total_max", msg.getMax());
 

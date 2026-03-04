@@ -66,7 +66,7 @@ async def run_sleepwalker(
 
     logger.info("[sleepwalker] Spawning bridge client...")
 
-    from puppeteer.bridge_transport import spawn_bridge_http
+    from puppeteer.bridge_transport import spawn_bridge_http  # noqa: PLC0415
 
     async with spawn_bridge_http(
         mvn_args=mvn_args,
