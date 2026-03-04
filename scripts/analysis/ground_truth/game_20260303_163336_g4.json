@@ -3,7 +3,12 @@
     "decision_index": 1
   },
   {
-    "decision_index": 17
+    "decision_index": 17,
+    "annotation_version": 31,
+    "annotation_severity": "moderate",
+    "annotation_description": "Thriving Bluff's color choice timed out, likely defaulting to White instead of Green. MstLg Villain is playing a R/G deck with Unnatural Aggression and Forest in hand, and needs green mana. White is completely useless for this deck. Having Thriving Bluff produce green would provide valuable color fixing, especially important since they only have 2 Mountains and 1 Forest for lands so far.",
+    "verdict": "not_blunder",
+    "human_notes": "chose green"
   },
   {
     "decision_index": 25
@@ -15,6 +20,11 @@
     "decision_index": 56
   },
   {
-    "decision_index": 78
+    "decision_index": 78,
+    "annotation_version": 31,
+    "annotation_severity": "minor",
+    "annotation_description": "Failed to block Stalking Drone 2/2 with Basri's Acolyte 2/3 (lifelink). Blocking would kill the Drone, gain 2 life, and the Acolyte survives as a 2/1. Instead, took 2 damage unnecessarily and left the Drone alive. The opponent had no colorless mana to pump the Drone, and only 2 mana open making combat tricks unlikely to change the outcome significantly.",
+    "verdict": "not_blunder",
+    "human_notes": "blocked"
   }
 ]
