@@ -133,6 +133,9 @@ run-client:
 WEBSITE_PORT ?= 4321
 .PHONY: website
 website: leaderboard
+	@HOSTNAME=$$(python3 -c "import json; print(json.load(open('$(HOME)/.mage-bench/config.json'))['hostname'])"); \
+	echo "  http://$$HOSTNAME:$(WEBSITE_PORT)/"; \
+	echo ""
 	cd website && npm install && npx astro dev --host --port $(WEBSITE_PORT)
 
 # Export a game log for the website visualizer
