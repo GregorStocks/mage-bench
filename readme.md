@@ -36,11 +36,8 @@ This runs 4 LLM pilots against each other in a Commander game with coverage-opti
 Other configs:
 
 ```bash
-# Default: no API keys needed (2 CPU Standard duel)
+# Default: no API keys needed (2 CPU Jumpstart duel)
 make run
-
-# 1 LLM pilot + 3 CPU opponents
-make run CONFIG=commander-1v3
 
 # Long-lived test server (stays running between games)
 make run CONFIG=modern-staller

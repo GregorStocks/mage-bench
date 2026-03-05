@@ -1394,11 +1394,15 @@ def main() -> int:
         os.environ["PUPPETEER_LOG_LEVEL"] = "DEBUG"
     project_root = Path.cwd().resolve()
 
-    # Block free-play games during tournament phase
-    tournament_block = _check_season_tournament_block(project_root)
-    if tournament_block:
-        logger.error(tournament_block)
-        return 2
+    # Load player config early so we can check flags before heavy setup.
+    config.load_config()
+
+    # Block free-play games during tournament phase (test configs are exempt)
+    if not config.skip_post_game_prompts:
+        tournament_block = _check_season_tournament_block(project_root)
+        if tournament_block:
+            logger.error(tournament_block)
+            return 2
     pm = ProcessManager()
     port_reservation = None
     sessions: list[GameSession] = []
@@ -1409,9 +1413,6 @@ def main() -> int:
         if batch and config.record_output:
             logger.error("--record=PATH cannot be used with --games (use --record without a path instead)")
             return 2
-
-        # Load player config as early as possible so invalid LLM setup fails fast.
-        config.load_config()
         missing_llm_keys = _missing_llm_api_keys(config)
         if missing_llm_keys:
             logger.error("LLM players configured without required API keys:")

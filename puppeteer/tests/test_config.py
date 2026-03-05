@@ -178,9 +178,9 @@ def test_run_tag_no_config_file_raises():
         _ = config.run_tag
 
 
-def test_run_tag_commander_dumb():
-    config = Config(config_file=Path("configs/commander-dumb.json"))
-    assert config.run_tag == "commander-dumb"
+def test_run_tag_jumpstart_dumb():
+    config = Config(config_file=Path("configs/jumpstart-dumb.json"))
+    assert config.run_tag == "jumpstart-dumb"
 
 
 def test_run_tag_round_robin_1v1():
@@ -188,14 +188,9 @@ def test_run_tag_round_robin_1v1():
     assert config.run_tag == "round-robin-1v1"
 
 
-def test_run_tag_commander_1v3():
-    config = Config(config_file=Path("configs/commander-1v3.json"))
-    assert config.run_tag == "commander-1v3"
-
-
-def test_run_tag_legacy_dumb():
-    config = Config(config_file=Path("configs/legacy-dumb.json"))
-    assert config.run_tag == "legacy-dumb"
+def test_run_tag_round_robin_commander():
+    config = Config(config_file=Path("configs/round-robin-commander.json"))
+    assert config.run_tag == "round-robin-commander"
 
 
 def test_run_tag_custom():

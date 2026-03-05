@@ -168,14 +168,13 @@ def check(command: str) -> None:
     # --- Expensive configs ---
 
     paid_configs = (
-        "commander-1v3",
         "round-robin-1v1", "round-robin-commander", "round-robin-jumpstart",
     )
     paid_pattern = "|".join(re.escape(c) for c in paid_configs)
     if re.search(rf"make\s+run\b.*CONFIG\s*=\s*({paid_pattern})\b", stripped):
         block(
             "Blocked: this config consumes real API tokens and costs money.\n"
-            "For testing, use free configs: 'make run' (standard-dumb) or 'make run CONFIG=modern-staller'."
+            "For testing, use free configs: 'make run' (jumpstart-dumb) or 'make run CONFIG=modern-staller'."
         )
 
     # --- Golden tests — use make targets ---

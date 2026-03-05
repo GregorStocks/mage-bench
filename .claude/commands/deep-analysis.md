@@ -15,13 +15,13 @@ Determine which game to analyze:
   uv run python scripts/list-recent-games.py
   ```
 
-- If the user mentioned a config name (e.g. "round-robin-commander", "standard-dumb", "modern-staller"), use the corresponding symlink:
+- If the user mentioned a config name (e.g. "round-robin-commander", "jumpstart-dumb", "modern-staller"), use the corresponding symlink:
 
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
 
-  where `{config}` might be `round-robin-commander`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
+  where `{config}` might be `round-robin-commander`, `jumpstart-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
 - **If no game specified at all**, find the most recent unanalyzed game:
 
   ```bash

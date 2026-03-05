@@ -99,13 +99,13 @@ website-build: leaderboard
 	@if [ ! -d website/dist ]; then echo "Building website..."; cd website && npm install --prefer-offline --no-audit --no-fund && npx astro build; fi
 
 # Run a game. CONFIG selects a config from configs/ (or a path to a custom file).
-# Default: 4 CPU players, no API keys needed.
-#   make run                              # free, no API keys (2 CPU Standard duel)
+# Default: 2 CPU Jumpstart duel, no API keys needed.
+#   make run                              # free, no API keys (2 CPU Jumpstart duel)
 #   make run CONFIG=round-robin-commander  # 4 LLM pilots (needs OPENROUTER_API_KEY)
 #   make run CONFIG=path/to/x.json  # custom config file
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
 # Parallel games: make run CONFIG=round-robin-commander GAMES=3
-CONFIG ?= standard-dumb
+CONFIG ?= jumpstart-dumb
 .PHONY: run
 run:
 	@CONFIG_PATH="$(CONFIG)"; \

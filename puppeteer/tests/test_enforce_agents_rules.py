@@ -146,7 +146,6 @@ class TestBlockedCommands:
     @pytest.mark.parametrize(
         "command",
         [
-            "make run CONFIG=commander-1v3",
             "make run CONFIG=round-robin-1v1",
             "make run CONFIG=round-robin-commander",
             "make run CONFIG=round-robin-jumpstart",
@@ -181,7 +180,7 @@ class TestAllowedCommands:
             "make build",
             "make check",
             "make run",
-            "make run CONFIG=standard-dumb",
+            "make run CONFIG=jumpstart-dumb",
             "make run CONFIG=modern-staller",
             "make website",
             "make mcp-tools",
