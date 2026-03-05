@@ -2110,7 +2110,7 @@ public class BridgeCallbackHandler {
             session.sendPlayerBoolean(gameId, true);
         }
 
-        result.success = true;
+        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
         result.action_taken = "batch_attack";
         result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
@@ -2277,7 +2277,7 @@ public class BridgeCallbackHandler {
             session.sendPlayerBoolean(gameId, true);
         }
 
-        result.success = true;
+        result.success = !Boolean.TRUE.equals(result.interrupted) && failed.isEmpty();
         result.action_taken = "batch_block";
         result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
