@@ -93,7 +93,7 @@ public class HumanPlayer extends PlayerImpl {
     // * - CALL thread: on closed response - waiting open status of player's response object (if it's too long then cancel the answer)
     // * - CALL thread: on opened response - save answer to player's response object and notify GAME thread about it by response.notifyAll
     // * - GAME thread: on notify from response - check new answer value and process it (if it bad then repeat and wait the next one);
-    private transient Boolean responseOpenedForAnswer = false; // GAME thread waiting new answer
+    private transient volatile boolean responseOpenedForAnswer = false; // GAME thread waiting new answer
     private transient long responseLastWaitingThreadId = 0;
     private final transient PlayerResponse response; // data receiver from a client side (must be shared for one player between multiple clients)
     private final int RESPONSE_WAITING_TIME_SECS = 30; // waiting time before cancel current response
@@ -329,10 +329,16 @@ public class HumanPlayer extends PlayerImpl {
             response.clear();
             response.setActiveAction(game, DebugUtil.getMethodNameWithSource(1, "method"));
             game.resumeTimer(getTurnControlledBy());
-            responseOpenedForAnswer = true;
 
             loop = false;
             synchronized (response) { // TODO: synchronized response smells bad here, possible deadlocks? Need research
+                // Set responseOpenedForAnswer INSIDE the synchronized block so that
+                // setResponseBoolean/waitResponseOpen cannot see the flag, acquire
+                // the monitor, and call notifyAll() before we enter wait().
+                // Previously this was set outside the synchronized block, creating a
+                // race window where the notification was lost and the game thread
+                // blocked forever — especially on slow CI machines with fast auto-pass.
+                responseOpenedForAnswer = true;
                 try {
                     // Check async signals before waiting to avoid lost-wakeup:
                     // signalPlayerConcede/signalPlayerCheat can fire between
