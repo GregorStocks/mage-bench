@@ -212,18 +212,12 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         Map<String, Object> response = buildResponse(game, responseType, data, pending);
         event.put("response", response);
 
-        // State snapshot (deduped by hash)
-        if (pending.stateSnapshot != null) {
-            String hash = String.valueOf(pending.stateSnapshot.hashCode());
-            if (!hash.equals(gel.getLastStateHash())) {
-                event.put("state", pending.stateSnapshot);
-                gel.setLastStateHash(hash);
-            } else {
-                event.put("state_hash", hash);
-            }
-        }
-
-        gel.writeLine(toJson(event));
+        // State snapshot dedup + write must be atomic — onPlayerResponse can be
+        // called from multiple network threads concurrently (one per player).
+        // Without synchronization the lastStateHash check races and can produce
+        // duplicate "state" entries, causing nondeterministic snapshot counts in
+        // golden test exports.
+        gel.writeEventWithDedup(event, pending.stateSnapshot);
     }
 
     @Override
@@ -942,20 +936,38 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             }
         }
 
+        /**
+         * Dedup state snapshot against previous hash and write event atomically.
+         * Must be synchronized because onPlayerResponse runs on per-player
+         * network threads that can race on lastStateHash.
+         */
+        synchronized void writeEventWithDedup(Map<String, Object> event,
+                                              Map<String, Object> stateSnapshot) {
+            if (stateSnapshot != null) {
+                String hash = String.valueOf(stateSnapshot.hashCode());
+                if (!hash.equals(lastStateHash)) {
+                    event.put("state", stateSnapshot);
+                    lastStateHash = hash;
+                } else {
+                    event.put("state_hash", hash);
+                }
+            }
+            if (writer == null) return;
+            try {
+                writer.write(toJson(event));
+                writer.newLine();
+                writer.flush();
+            } catch (IOException e) {
+                logger.error("Failed to write to server game event log: " + filePath, e);
+            }
+        }
+
         void setPendingQuery(UUID playerId, PendingQuery query) {
             pendingQueries.put(playerId, query);
         }
 
         PendingQuery consumePendingQuery(UUID playerId) {
             return pendingQueries.remove(playerId);
-        }
-
-        String getLastStateHash() {
-            return lastStateHash;
-        }
-
-        void setLastStateHash(String hash) {
-            this.lastStateHash = hash;
         }
 
         synchronized void close() {
