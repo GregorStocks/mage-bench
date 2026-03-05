@@ -274,8 +274,11 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
     (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
 
-def _print_game_summary(game_dir: Path) -> None:
-    """Print a summary of game results and costs after the game ends."""
+def _print_game_summary(game_dir: Path) -> float:
+    """Print a summary of game results and costs after the game ends.
+
+    Returns total pilot cost in USD.
+    """
     logger.info("=" * 60)
     logger.info("GAME SUMMARY")
     logger.info("=" * 60)
@@ -371,9 +374,9 @@ def _print_game_summary(game_dir: Path) -> None:
 
     # Print per-player costs and actions
     cost_files = sorted(game_dir.glob("*_cost.json"))
+    total_cost = 0.0
     if cost_files or player_actions:
         logger.info("")
-        total_cost = 0.0
         for cost_file in cost_files:
             try:
                 data = json.loads(cost_file.read_text())
@@ -392,21 +395,14 @@ def _print_game_summary(game_dir: Path) -> None:
         logger.info("  Total: $%.4f", total_cost)
 
     logger.info("=" * 60)
+    return total_cost
 
 
-def _read_pilot_cost(game_dir: Path) -> float:
-    """Sum pilot costs from *_cost.json files in a game directory."""
-    total = 0.0
-    for cost_file in game_dir.glob("*_cost.json"):
-        try:
-            data = json.loads(cost_file.read_text())
-            total += data.get("cost_usd", 0.0)
-        except (OSError, json.JSONDecodeError):
-            pass
-    return total
-
-
-def _print_run_cost_summary(sessions: list["GameSession"], blunder_costs: dict[int, float]) -> None:
+def _print_run_cost_summary(
+    sessions: list["GameSession"],
+    pilot_costs: dict[int, float],
+    blunder_costs: dict[int, float],
+) -> None:
     """Print aggregate cost summary across all games."""
     logger.info("")
     logger.info("=" * 60)
@@ -417,7 +413,7 @@ def _print_run_cost_summary(sessions: list["GameSession"], blunder_costs: dict[i
     grand_blunder = 0.0
 
     for session in sessions:
-        pilot = _read_pilot_cost(session.game_dir)
+        pilot = pilot_costs.get(session.index, 0.0)
         blunder = blunder_costs.get(session.index, 0.0)
         grand_pilot += pilot
         grand_blunder += blunder
@@ -1351,10 +1347,10 @@ def _finalize_game(
     spectator_rc: int,
     *,
     deferred_failures: list[_AnnotationFailure] | None = None,
-) -> float:
+) -> tuple[float, float]:
     """Post-game processing for a single game session.
 
-    Returns blunder analysis cost in USD.
+    Returns (pilot_cost, blunder_cost) in USD.
     """
     game_label = f"Game {session.index + 1}: " if session.config.num_games > 1 else ""
     _ensure_game_over_event(session.game_dir, spectator_rc)
@@ -1364,14 +1360,15 @@ def _finalize_game(
         logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
     except Exception as e:
         logger.warning("  %sFailed to merge game log: %s", game_label, e)
-    _print_game_summary(session.game_dir)
+    pilot_cost = _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
-        return _upload_and_export(
+        blunder_cost = _upload_and_export(
             session.game_dir,
             project_root,
             deferred_failures=deferred_failures,
         )
-    return 0.0
+        return pilot_cost, blunder_cost
+    return pilot_cost, 0.0
 
 
 def _check_season_tournament_block(project_root: Path) -> str | None:
@@ -1544,13 +1541,14 @@ def main() -> int:
             branch_link.symlink_to(last_game_dir.name)
 
         # --- Wait for all games to complete ---
+        pilot_costs: dict[int, float] = {}
         blunder_costs: dict[int, float] = {}
         if batch:
             results = _wait_for_all_games(sessions, pm)
             deferred: list[_AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                blunder_costs[session.index] = _finalize_game(
+                pilot_costs[session.index], blunder_costs[session.index] = _finalize_game(
                     session,
                     project_root,
                     spectator_rc,
@@ -1565,9 +1563,11 @@ def main() -> int:
                 spectator_rc = _wait_with_pilot_monitoring(session.spectator_proc, session.pilot_procs, pm)
             else:
                 spectator_rc = session.spectator_proc.wait()
-            blunder_costs[session.index] = _finalize_game(session, project_root, spectator_rc)
+            pilot_costs[session.index], blunder_costs[session.index] = _finalize_game(
+                session, project_root, spectator_rc
+            )
 
-        _print_run_cost_summary(sessions, blunder_costs)
+        _print_run_cost_summary(sessions, pilot_costs, blunder_costs)
 
         return 0
     finally:
