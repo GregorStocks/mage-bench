@@ -1,0 +1,10 @@
+{
+  "title": "Make the website season-aware",
+  "description": "The website currently shows a single flat leaderboard and games list with no concept of seasons or tournaments. Now that we have season state (data/season.json) and tournament files (data/tournaments/), the website needs to be updated:\n\n- The leaderboard page should prominently show the *current* season's standings, with the ability to view previous seasons and their tournaments.\n- The games list should be filterable by season and by tournament vs free-play.\n- Previous season tournaments should be viewable with bracket results.\n- Copy throughout the site needs rewriting to reference seasons (e.g., 'Season 1 Leaderboard' instead of just 'Leaderboard').\n- The home page should call out the current season phase (free-play or tournament).\n- The leaderboard generation (generate_leaderboard.py / leaderboard.py) may need to partition by season so each season has independent Elo pools.\n\nThe season file is at data/season.json with format: {current_season, phase, tournament?}. Tournament files live at data/tournaments/season-N.json.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["website", "seasons"],
+  "created_at": "2026-03-05T12:00:00.000000-08:00",
+  "updated_at": "2026-03-05T12:00:00.000000-08:00"
+}

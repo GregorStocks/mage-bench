@@ -1,0 +1,10 @@
+{
+  "title": "Add makefile targets for running tournament games",
+  "description": "Add `make tournament-game` (and possibly `make tournament-games GAMES=N`) for running individual matches in the current end-of-season tournament.\n\nRequirements:\n- Read the current tournament from data/season.json -> data/tournaments/season-N.json\n- Determine the next match to play based on the bracket (single elimination; seedings determine matchups: 1v8, 2v7, 3v6, 4v5 for an 8-player bracket, etc.)\n- Create a game config on the fly using the locked-in preset, personality, and effort for each player\n- Run the game using the orchestrator (similar to `make run` but with a tournament-specific config)\n- After the game completes, update the tournament JSON with the result (winner advances)\n- The format of each tournament game should be determined by the season's tournament config (e.g., all Standard, or best-of-3 across formats)\n\nThe tournament file already has `entrants` with locked preset/personality/effort and an empty `rounds` array to fill in. The format field is currently 'single-elimination'.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["puppeteer", "seasons", "tournaments"],
+  "created_at": "2026-03-05T12:00:00.000000-08:00",
+  "updated_at": "2026-03-05T12:00:00.000000-08:00"
+}
