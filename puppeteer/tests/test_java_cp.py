@@ -3,7 +3,14 @@
 import sys
 from unittest.mock import patch
 
-from tests.golden_helpers import _build_java_cmd, _classpath_cache, compute_module_classpath
+from tests.golden_helpers import (
+    _build_java_cmd,
+    _classpath_cache,
+    _find_reactor_modules,
+    _reactor_module_cache,
+    _replace_reactor_jars,
+    compute_module_classpath,
+)
 
 
 def test_build_java_cmd_basic():
@@ -44,3 +51,109 @@ def test_compute_module_classpath_caching(tmp_path):
         assert result == "/cached/classpath"
     finally:
         del _classpath_cache["TestModule"]
+
+
+def _write_pom(directory, artifact_id, modules=None):
+    """Write a minimal pom.xml with the given artifactId and optional child modules."""
+    directory.mkdir(parents=True, exist_ok=True)
+    module_xml = ""
+    if modules:
+        entries = "\n".join(f"        <module>{m}</module>" for m in modules)
+        module_xml = f"\n    <modules>\n{entries}\n    </modules>"
+    (directory / "pom.xml").write_text(
+        f"""<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <parent><artifactId>parent</artifactId></parent>
+    <artifactId>{artifact_id}</artifactId>{module_xml}
+</project>
+"""
+    )
+
+
+def test_find_reactor_modules(tmp_path):
+    """Verify _find_reactor_modules walks the reactor and maps artifactId to target/classes."""
+    # Root pom with two child modules
+    _write_pom(tmp_path, "root", modules=["ModA", "ModB"])
+
+    # ModA: has target/classes → should appear in map
+    _write_pom(tmp_path / "ModA", "mod-a")
+    (tmp_path / "ModA" / "target" / "classes").mkdir(parents=True)
+
+    # ModB: no target/classes → should NOT appear
+    _write_pom(tmp_path / "ModB", "mod-b")
+
+    try:
+        result = _find_reactor_modules(tmp_path)
+        assert "mod-a" in result
+        assert result["mod-a"] == tmp_path / "ModA" / "target" / "classes"
+        assert "mod-b" not in result
+        # Root itself has no target/classes, should not appear
+        assert "root" not in result
+    finally:
+        _reactor_module_cache.pop(tmp_path, None)
+
+
+def test_find_reactor_modules_nested(tmp_path):
+    """Verify _find_reactor_modules handles nested submodules."""
+    _write_pom(tmp_path, "root", modules=["Parent"])
+    _write_pom(tmp_path / "Parent", "parent-mod", modules=["Child"])
+    _write_pom(tmp_path / "Parent" / "Child", "child-mod")
+    (tmp_path / "Parent" / "Child" / "target" / "classes").mkdir(parents=True)
+
+    try:
+        result = _find_reactor_modules(tmp_path)
+        assert "child-mod" in result
+        assert result["child-mod"] == tmp_path / "Parent" / "Child" / "target" / "classes"
+    finally:
+        _reactor_module_cache.pop(tmp_path, None)
+
+
+def test_find_reactor_modules_cached(tmp_path):
+    """Verify _find_reactor_modules returns cached result on second call."""
+    _write_pom(tmp_path, "root", modules=["Mod"])
+    _write_pom(tmp_path / "Mod", "mod-x")
+    (tmp_path / "Mod" / "target" / "classes").mkdir(parents=True)
+
+    try:
+        first = _find_reactor_modules(tmp_path)
+        second = _find_reactor_modules(tmp_path)
+        assert first is second
+    finally:
+        _reactor_module_cache.pop(tmp_path, None)
+
+
+def test_replace_reactor_jars(tmp_path):
+    """Verify _replace_reactor_jars swaps ~/.m2/repository JARs for target/classes."""
+    _write_pom(tmp_path, "root", modules=["Mage", "Mage.Common"])
+    _write_pom(tmp_path / "Mage", "mage")
+    (tmp_path / "Mage" / "target" / "classes").mkdir(parents=True)
+    _write_pom(tmp_path / "Mage.Common", "mage-common")
+    (tmp_path / "Mage.Common" / "target" / "classes").mkdir(parents=True)
+
+    m2_mage = "/home/user/.m2/repository/org/mage/mage/1.4.58/mage-1.4.58.jar"
+    m2_common = "/home/user/.m2/repository/org/mage/mage-common/1.4.58/mage-common-1.4.58.jar"
+    external = "/home/user/.m2/repository/com/google/guava/guava-31.1.jar"
+
+    classpath = f"{m2_mage}:{m2_common}:{external}"
+
+    try:
+        result = _replace_reactor_jars(classpath, tmp_path)
+        entries = result.split(":")
+        assert entries[0] == str(tmp_path / "Mage" / "target" / "classes")
+        assert entries[1] == str(tmp_path / "Mage.Common" / "target" / "classes")
+        assert entries[2] == external
+    finally:
+        _reactor_module_cache.pop(tmp_path, None)
+
+
+def test_replace_reactor_jars_no_modules(tmp_path):
+    """Verify _replace_reactor_jars is a no-op when no reactor modules exist."""
+    _write_pom(tmp_path, "root")
+
+    external = "/home/user/.m2/repository/com/google/guava/guava-31.1.jar"
+
+    try:
+        result = _replace_reactor_jars(external, tmp_path)
+        assert result == external
+    finally:
+        _reactor_module_cache.pop(tmp_path, None)

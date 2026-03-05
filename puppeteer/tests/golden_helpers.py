@@ -17,6 +17,7 @@ import dataclasses
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -175,6 +176,69 @@ MAIN_CLASS_SERVER = "mage.server.Main"
 # ---------------------------------------------------------------------------
 
 _classpath_cache: dict[str, str] = {}
+_reactor_module_cache: dict[Path, dict[str, Path]] = {}
+
+
+def _find_reactor_modules(project_root: Path) -> dict[str, Path]:
+    """Map artifactId -> target/classes Path for all reactor modules.
+
+    Walks the Maven reactor structure by following ``<module>`` declarations
+    in pom.xml files.  Only includes modules that have a compiled
+    ``target/classes`` directory.  Results are cached per *project_root*.
+    """
+    if project_root in _reactor_module_cache:
+        return _reactor_module_cache[project_root]
+
+    modules: dict[str, Path] = {}
+
+    def _scan(parent_dir: Path) -> None:
+        pom = parent_dir / "pom.xml"
+        if not pom.exists():
+            return
+        content = pom.read_text()
+
+        # Extract this module's artifactId (first <artifactId> after </parent>).
+        parent_end = content.find("</parent>")
+        search_text = content[parent_end:] if parent_end >= 0 else content
+        m = re.search(r"<artifactId>([^<]+)</artifactId>", search_text)
+        if m:
+            classes_dir = parent_dir / "target" / "classes"
+            if classes_dir.is_dir():
+                modules[m.group(1)] = classes_dir
+
+        # Recurse into child modules.
+        for child in re.findall(r"<module>([^<]+)</module>", content):
+            _scan(parent_dir / child)
+
+    _scan(project_root)
+    _reactor_module_cache[project_root] = modules
+    return modules
+
+
+def _replace_reactor_jars(dep_classpath: str, project_root: Path) -> str:
+    """Replace ``~/.m2/repository`` JARs for reactor modules with ``target/classes``.
+
+    Scans each colon-separated classpath entry for JARs under
+    ``org/mage/<artifactId>/`` and swaps them for the module's compiled
+    classes directory when available.
+    """
+    reactor = _find_reactor_modules(project_root)
+    if not reactor:
+        return dep_classpath
+
+    entries = dep_classpath.split(":")
+    resolved: list[str] = []
+    for entry in entries:
+        replaced = False
+        for artifact_id, classes_dir in reactor.items():
+            # Match ~/.m2/repository/org/mage/<artifactId>/<version>/<file>.jar
+            if entry.endswith(".jar") and f"/org/mage/{artifact_id}/" in entry:
+                resolved.append(str(classes_dir))
+                replaced = True
+                break
+        if not replaced:
+            resolved.append(entry)
+    return ":".join(resolved)
 
 
 def compute_module_classpath(project_root: Path, module: str) -> str:
@@ -183,7 +247,8 @@ def compute_module_classpath(project_root: Path, module: str) -> str:
     Runs ``mvn dependency:build-classpath`` on first call per module, then
     returns the cached result on subsequent calls. The classpath includes
     the module's own ``target/classes`` directory prepended to the dependency
-    classpath.
+    classpath.  Reactor module JARs from ``~/.m2/repository`` are replaced
+    with their ``target/classes`` directories to avoid stale-JAR issues.
     """
     if module in _classpath_cache:
         return _classpath_cache[module]
@@ -197,6 +262,7 @@ def compute_module_classpath(project_root: Path, module: str) -> str:
     )
     assert result.returncode == 0, f"Failed to compute classpath for {module}: {result.stderr}"
     dep_classpath = cp_file.read_text().strip()
+    dep_classpath = _replace_reactor_jars(dep_classpath, project_root)
     classpath = f"{module_dir / 'target' / 'classes'}:{dep_classpath}"
     _classpath_cache[module] = classpath
     return classpath
