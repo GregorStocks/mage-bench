@@ -246,3 +246,9 @@ SIZE ?= 8
 .PHONY: conclude-season
 conclude-season: leaderboard
 	uv run python scripts/conclude_season.py $(SIZE)
+
+# Run a Jumpstart snake draft for the current tournament.
+# Each entrant's LLM picks two half-deck packs to form their tournament deck.
+.PHONY: tournament-draft
+tournament-draft:
+	uv run python scripts/tournament_draft.py
