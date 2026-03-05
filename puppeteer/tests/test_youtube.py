@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from puppeteer.orchestrator import _maybe_upload_and_export, _save_youtube_url, _update_website_youtube_url
+from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url, _upload_and_export
 from scripts.upload_youtube import _build_description, _build_title
 
 
@@ -160,60 +160,46 @@ def test_update_website_youtube_url_no_files():
         _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
 
-def test_maybe_upload_and_export_defaults_to_no(capsys):
-    """Empty input should NOT trigger upload or export (default is N)."""
+def test_upload_and_export_returns_zero_without_api_key():
+    """Without OPENROUTER_API_KEY, should export without annotation and return 0.0."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        game_dir = Path(tmpdir)
+        game_dir = Path(tmpdir) / "game_20260210_120000"
+        game_dir.mkdir()
         project_root = Path(tmpdir)
-        (game_dir / "recording.mov").write_bytes(b"fake")
-        with patch("builtins.input", return_value=""):
-            result = _maybe_upload_and_export(game_dir, project_root)
-    output = capsys.readouterr().out
-    assert "Exported" not in output
-    assert "YouTube" not in output
-    assert result is False
+        (project_root / "website" / "public" / "games").mkdir(parents=True)
+        (game_dir / "game_meta.json").write_text(json.dumps(_make_meta()))
+        (game_dir / "game_events.jsonl").write_text("")
+        with (
+            patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
+            patch("puppeteer.orchestrator._export_game") as mock_export,
+            patch("puppeteer.orchestrator._upload_to_youtube"),
+        ):
+            # _export_game returns a path to the temp export file
+            export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
+            export_path.parent.mkdir(parents=True)
+            export_path.write_text("{}")
+            mock_export.return_value = export_path
+            result = _upload_and_export(game_dir, project_root)
+    assert result == 0.0
 
 
-def test_maybe_upload_and_export_skips_without_recording():
-    """Without recording.mov, should prompt for export only (not YouTube)."""
+def test_upload_and_export_skips_youtube_without_recording():
+    """Without recording.mov, should skip YouTube upload but still export."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        game_dir = Path(tmpdir)
+        game_dir = Path(tmpdir) / "game_20260210_120000"
+        game_dir.mkdir()
         project_root = Path(tmpdir)
-        with patch("builtins.input", return_value="n") as mock_input:
-            result = _maybe_upload_and_export(game_dir, project_root)
-        mock_input.assert_called_once()
-        assert result is False
-
-
-def test_maybe_upload_and_export_reprompts_on_bad_input(caplog):
-    """Unrecognized input should re-ask, not silently skip."""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        game_dir = Path(tmpdir)
-        project_root = Path(tmpdir)
-        (game_dir / "recording.mov").write_bytes(b"fake")
-        with caplog.at_level("INFO", logger="puppeteer.orchestrator"), patch("builtins.input", side_effect=["yy", "n"]):
-            _maybe_upload_and_export(game_dir, project_root)
-    output = caplog.text
-    assert "Unrecognized answer" in output
-
-
-def test_maybe_upload_and_export_all_returns_true():
-    """Answering 'all' should return True to auto-yes remaining games."""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        game_dir = Path(tmpdir)
-        project_root = Path(tmpdir)
-        with patch("builtins.input", return_value="all"), patch("puppeteer.orchestrator.sys") as mock_sys:
-            mock_sys.path = []
-            result = _maybe_upload_and_export(game_dir, project_root)
-    assert result is True
-
-
-def test_maybe_upload_and_export_auto_yes_skips_prompt():
-    """auto_yes=True should skip the prompt entirely."""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        game_dir = Path(tmpdir)
-        project_root = Path(tmpdir)
-        with patch("builtins.input") as mock_input:
-            result = _maybe_upload_and_export(game_dir, project_root, auto_yes=True)
-        mock_input.assert_not_called()
-        assert result is True
+        (project_root / "website" / "public" / "games").mkdir(parents=True)
+        (game_dir / "game_meta.json").write_text(json.dumps(_make_meta()))
+        (game_dir / "game_events.jsonl").write_text("")
+        with (
+            patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
+            patch("puppeteer.orchestrator._upload_to_youtube") as mock_yt,
+            patch("puppeteer.orchestrator._export_game") as mock_export,
+        ):
+            export_path = Path(tmpdir) / "export" / "game_20260210_120000.json"
+            export_path.parent.mkdir(parents=True)
+            export_path.write_text("{}")
+            mock_export.return_value = export_path
+            _upload_and_export(game_dir, project_root)
+        mock_yt.assert_not_called()

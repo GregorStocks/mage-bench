@@ -1250,7 +1250,7 @@ def _auto_ingest_ground_truth(
             print(f"Ground truth: +{added} entries for {game_id}")
 
 
-def main(gz_path: str) -> None:
+def main(gz_path: str) -> float:
     # Skip if already analyzed with the current script version.
     # Missing blunderScriptVersion with existing annotations → v1.
     data = _load_game(gz_path)
@@ -1261,7 +1261,7 @@ def main(gz_path: str) -> None:
                 f"Already analyzed (v{existing_version}): {gz_path} "
                 f"({len(data['annotations'])} annotations)"
             )
-            return
+            return 0.0
         print(
             f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})"
         )
@@ -1332,7 +1332,7 @@ def main(gz_path: str) -> None:
 
     if not non_forced:
         print("No non-forced decisions to analyze.")
-        return
+        return 0.0
 
     # Load game context and run parallel evaluation
     game_ctx = load_game_context(gz_path)
@@ -1417,7 +1417,7 @@ def main(gz_path: str) -> None:
             total_cost=total_cost,
         )
         print(f"\nTotal cost: ${total_cost:.3f}")
-        return
+        return total_cost
 
     # Display blunders
     snapshots = data.get("snapshots", [])
@@ -1448,6 +1448,7 @@ def main(gz_path: str) -> None:
     )
 
     print(f"\nTotal cost: ${total_cost:.3f}")
+    return total_cost
 
 
 def resolve_game_path(arg: str) -> str:

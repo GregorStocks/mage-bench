@@ -394,6 +394,52 @@ def _print_game_summary(game_dir: Path) -> None:
     logger.info("=" * 60)
 
 
+def _read_pilot_cost(game_dir: Path) -> float:
+    """Sum pilot costs from *_cost.json files in a game directory."""
+    total = 0.0
+    for cost_file in game_dir.glob("*_cost.json"):
+        try:
+            data = json.loads(cost_file.read_text())
+            total += data.get("cost_usd", 0.0)
+        except (OSError, json.JSONDecodeError):
+            pass
+    return total
+
+
+def _print_run_cost_summary(sessions: list["GameSession"], blunder_costs: dict[int, float]) -> None:
+    """Print aggregate cost summary across all games."""
+    logger.info("")
+    logger.info("=" * 60)
+    logger.info("COST SUMMARY")
+    logger.info("=" * 60)
+
+    grand_pilot = 0.0
+    grand_blunder = 0.0
+
+    for session in sessions:
+        pilot = _read_pilot_cost(session.game_dir)
+        blunder = blunder_costs.get(session.index, 0.0)
+        grand_pilot += pilot
+        grand_blunder += blunder
+
+        if len(sessions) > 1:
+            logger.info("  %s:", session.game_dir.name)
+            logger.info("    Game:     $%.4f", pilot)
+            logger.info("    Blunders: $%.4f", blunder)
+            logger.info("    Subtotal: $%.4f", pilot + blunder)
+
+    if len(sessions) == 1:
+        logger.info("  Game:     $%.4f", grand_pilot)
+        logger.info("  Blunders: $%.4f", grand_blunder)
+    else:
+        logger.info("")
+        logger.info("  All games:    $%.4f", grand_pilot)
+        logger.info("  All blunders: $%.4f", grand_blunder)
+
+    logger.info("  Total:        $%.4f", grand_pilot + grand_blunder)
+    logger.info("=" * 60)
+
+
 def parse_args() -> Config:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="XMage AI Puppeteer")
@@ -891,16 +937,16 @@ class _AnnotationFailure:
     game_id: str
 
 
-def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> str | None:
+def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> tuple[str | None, float]:
     """Try to annotate a game file, with automatic retries.
 
-    Returns None on success, or the error message on failure.
+    Returns (None, cost) on success, or (error_message, 0.0) on failure.
     """
     last_error = ""
     for attempt in range(1 + max_retries):
         try:
-            _analyze_blunders(str(gz_path))
-            return None  # success
+            cost = _analyze_blunders(str(gz_path))
+            return None, cost  # success
         except Exception as e:
             last_error = str(e)
             if attempt < max_retries:
@@ -908,7 +954,7 @@ def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2)
                 logger.warning("  Retrying (%d/%d)...", attempt + 2, 1 + max_retries)
             else:
                 logger.warning("  Annotation attempt %d failed: %s", attempt + 1, e)
-    return last_error
+    return last_error, 0.0
 
 
 def _prompt_annotation_failure(game_id: str, error: str) -> str:
@@ -948,7 +994,7 @@ def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_roo
         while True:
             action = _prompt_annotation_failure(failure.game_id, failure.error)
             if action == "retry":
-                err = _attempt_annotation(failure.tmp_path, project_root, max_retries=0)
+                err, _cost = _attempt_annotation(failure.tmp_path, project_root, max_retries=0)
                 if err is None:
                     _finalize_export(failure.tmp_path, failure.final_path)
                     break
@@ -963,42 +1009,23 @@ def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_roo
             break
 
 
-def _maybe_upload_and_export(
+def _upload_and_export(
     game_dir: Path,
     project_root: Path,
     *,
-    auto_yes: bool = False,
     deferred_failures: list[_AnnotationFailure] | None = None,
-) -> bool:
-    """Prompt user to upload recording to YouTube and export for website.
+) -> float:
+    """Upload recording to YouTube and export for website.
 
-    Returns True if the user answered "all" (auto-yes for remaining games).
+    Returns blunder analysis cost in USD.
 
-    When deferred_failures is provided (auto_yes/batch mode), annotation failures
+    When deferred_failures is provided (batch mode), annotation failures
     are appended to it for resolution later instead of prompting immediately.
     """
     recording = game_dir / "recording.mov"
-    has_recording = recording.exists()
-
-    if not auto_yes:
-        prompt = "Upload to YouTube and export?" if has_recording else "Export for website?"
-        while True:
-            try:
-                answer = input(f"{prompt} [y/N/all]: ").strip().lower()
-            except (EOFError, KeyboardInterrupt):
-                logger.info("")
-                return False
-            if answer in ("y", "yes"):
-                break
-            if answer in ("all", "a"):
-                auto_yes = True
-                break
-            if answer in ("n", "no", ""):
-                return False
-            logger.info("  Unrecognized answer: %r — please enter y, n, or all", answer)
 
     # Upload to YouTube (only if we have a recording)
-    if has_recording:
+    if recording.exists():
         try:
             url = _upload_to_youtube(game_dir)
             if url:
@@ -1024,7 +1051,7 @@ def _maybe_upload_and_export(
             shutil.move(str(tmp_export_path), str(tmp_path))
     except Exception as e:
         logger.warning("  Website export failed: %s", e)
-        return auto_yes
+        return 0.0
 
     game_id = game_dir.name
 
@@ -1032,37 +1059,37 @@ def _maybe_upload_and_export(
     if not os.environ.get("OPENROUTER_API_KEY"):
         # No API key — emit without annotation
         _finalize_export(tmp_path, final_path)
-        return auto_yes
+        return 0.0
 
-    err = _attempt_annotation(tmp_path, project_root)
+    err, cost = _attempt_annotation(tmp_path, project_root)
     if err is None:
         # Annotation succeeded
         _finalize_export(tmp_path, final_path)
-        return auto_yes
+        return cost
 
     # Annotation failed after retries
     if deferred_failures is not None:
-        # Batch/auto_yes mode: defer to end
+        # Batch mode: defer to end
         deferred_failures.append(_AnnotationFailure(tmp_path, final_path, err, game_id))
         logger.info("  Deferred annotation failure for %s (will ask at end)", game_id)
-        return auto_yes
+        return 0.0
 
     # Interactive mode: prompt immediately
     while True:
         action = _prompt_annotation_failure(game_id, err)
         if action == "retry":
-            err = _attempt_annotation(tmp_path, project_root, max_retries=0)
+            err, cost = _attempt_annotation(tmp_path, project_root, max_retries=0)
             if err is None:
                 _finalize_export(tmp_path, final_path)
-                return auto_yes
+                return cost
             continue  # re-prompt
         if action == "emit":
             _finalize_export(tmp_path, final_path)
-            return auto_yes
+            return 0.0
         # skip
         tmp_path.unlink(missing_ok=True)
         logger.info("  Skipped %s", game_id)
-        return auto_yes
+        return 0.0
 
 
 @dataclass
@@ -1323,12 +1350,11 @@ def _finalize_game(
     project_root: Path,
     spectator_rc: int,
     *,
-    auto_yes: bool = False,
     deferred_failures: list[_AnnotationFailure] | None = None,
-) -> bool:
+) -> float:
     """Post-game processing for a single game session.
 
-    Returns True if the user chose "all" (auto-yes for remaining games).
+    Returns blunder analysis cost in USD.
     """
     game_label = f"Game {session.index + 1}: " if session.config.num_games > 1 else ""
     _ensure_game_over_event(session.game_dir, spectator_rc)
@@ -1340,13 +1366,12 @@ def _finalize_game(
         logger.warning("  %sFailed to merge game log: %s", game_label, e)
     _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
-        auto_yes = _maybe_upload_and_export(
+        return _upload_and_export(
             session.game_dir,
             project_root,
-            auto_yes=auto_yes,
             deferred_failures=deferred_failures,
         )
-    return auto_yes
+    return 0.0
 
 
 def main() -> int:
@@ -1500,17 +1525,16 @@ def main() -> int:
             branch_link.symlink_to(last_game_dir.name)
 
         # --- Wait for all games to complete ---
+        blunder_costs: dict[int, float] = {}
         if batch:
             results = _wait_for_all_games(sessions, pm)
-            upload_all = False
             deferred: list[_AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                upload_all = _finalize_game(
+                blunder_costs[session.index] = _finalize_game(
                     session,
                     project_root,
                     spectator_rc,
-                    auto_yes=upload_all,
                     deferred_failures=deferred,
                 )
             _resolve_annotation_failures(deferred, project_root)
@@ -1522,7 +1546,9 @@ def main() -> int:
                 spectator_rc = _wait_with_pilot_monitoring(session.spectator_proc, session.pilot_procs, pm)
             else:
                 spectator_rc = session.spectator_proc.wait()
-            _finalize_game(session, project_root, spectator_rc)
+            blunder_costs[session.index] = _finalize_game(session, project_root, spectator_rc)
+
+        _print_run_cost_summary(sessions, blunder_costs)
 
         return 0
     finally:
