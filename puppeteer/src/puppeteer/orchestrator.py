@@ -1349,6 +1349,18 @@ def _finalize_game(
     return auto_yes
 
 
+def _check_season_tournament_block(project_root: Path) -> str | None:
+    """Return an error message if the season is in tournament phase, else None."""
+    season_file = project_root / "data" / "season.json"
+    if not season_file.exists():
+        return None
+    season_data = json.loads(season_file.read_text())
+    if season_data.get("phase") != "tournament":
+        return None
+    season_num = season_data.get("current_season", "?")
+    return f"Season {season_num} is in the tournament phase! Free-play games are not allowed during tournaments."
+
+
 def main() -> int:
     """Main orchestrator for game lifecycle management."""
     config = parse_args()
@@ -1356,6 +1368,12 @@ def main() -> int:
     if config.debug:
         os.environ["PUPPETEER_LOG_LEVEL"] = "DEBUG"
     project_root = Path.cwd().resolve()
+
+    # Block free-play games during tournament phase
+    tournament_block = _check_season_tournament_block(project_root)
+    if tournament_block:
+        logger.error(tournament_block)
+        return 2
     pm = ProcessManager()
     port_reservation = None
     sessions: list[GameSession] = []

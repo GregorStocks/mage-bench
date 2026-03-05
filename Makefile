@@ -237,3 +237,12 @@ blunder-eval:
 .PHONY: blunder-promote
 blunder-promote:
 	uv run --project puppeteer python scripts/analysis/blunder_promote.py $(ARGS)
+
+# Conclude the current season and create an end-of-season tournament.
+# SIZE selects how many top players qualify (typically 8 or 16).
+#   make conclude-season             # top 8 (default)
+#   make conclude-season SIZE=16     # top 16
+SIZE ?= 8
+.PHONY: conclude-season
+conclude-season: leaderboard
+	uv run python scripts/conclude_season.py $(SIZE)

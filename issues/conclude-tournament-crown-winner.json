@@ -1,0 +1,10 @@
+{
+  "title": "Add makefile target to conclude the tournament and crown a season winner",
+  "description": "Add `make conclude-tournament` that:\n\n1. Reads the current tournament from data/season.json -> data/tournaments/season-N.json\n2. Verifies all rounds are complete (the bracket has a final winner)\n3. Records the season champion in the tournament JSON\n4. Transitions the season: bumps current_season in data/season.json to N+1, resets phase to 'free-play', clears the tournament pointer\n5. Prints a summary of the tournament results\n\nThis unblocks `make run` for the next season's free-play games. The completed tournament file stays in data/tournaments/ as a historical record.\n\nConsider also:\n- Whether Elo ratings should carry over or reset between seasons\n- Whether the active preset pool should be reviewed at season boundaries\n- Archiving the season's leaderboard snapshot",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["puppeteer", "seasons", "tournaments"],
+  "created_at": "2026-03-05T12:00:00.000000-08:00",
+  "updated_at": "2026-03-05T12:00:00.000000-08:00"
+}
