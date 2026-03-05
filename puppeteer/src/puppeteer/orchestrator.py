@@ -25,6 +25,7 @@ from puppeteer.process_manager import ProcessManager, kill_tree
 from puppeteer.xml_config import modify_server_config
 from scripts.analysis.blunder_analysis import main as _analyze_blunders
 from scripts.export_game import export_game as _export_game
+from scripts.generate_leaderboard import generate_all_website_data
 from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
 
 logger = get_logger(__name__)
@@ -1541,6 +1542,9 @@ def main() -> int:
             else:
                 spectator_rc = session.spectator_proc.wait()
             _finalize_game(session, project_root, spectator_rc)
+
+        generate_all_website_data()
+        logger.info("Website data regenerated")
 
         return 0
     finally:
