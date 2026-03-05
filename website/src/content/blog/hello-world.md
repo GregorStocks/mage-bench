@@ -8,7 +8,7 @@ tags:
   - meta
 ---
 
-Welcome to the mage-bench blog. This post will be deleted once I write a real post.
+Welcome to the mage-bench blog.
 
 ## What to expect
 
