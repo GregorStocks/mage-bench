@@ -1010,6 +1010,7 @@ def _upload_and_export(
     project_root: Path,
     *,
     deferred_failures: list[_AnnotationFailure] | None = None,
+    post_game_failures: list[str] | None = None,
 ) -> float:
     """Upload recording to YouTube and export for website.
 
@@ -1017,8 +1018,12 @@ def _upload_and_export(
 
     When deferred_failures is provided (batch mode), annotation failures
     are appended to it for resolution later instead of prompting immediately.
+
+    When post_game_failures is provided, failure messages are appended
+    for display in the final summary.
     """
     recording = game_dir / "recording.mov"
+    game_id = game_dir.name
 
     # Upload to YouTube (only if we have a recording)
     if recording.exists():
@@ -1030,6 +1035,8 @@ def _upload_and_export(
                 _update_website_youtube_url(game_dir, url, project_root)
         except Exception as e:
             logger.warning("  YouTube upload failed: %s", e)
+            if post_game_failures is not None:
+                post_game_failures.append(f"{game_id}: YouTube upload failed: {e}")
 
     # Export for website — write to a temp file first, only move to final
     # location after annotation succeeds (or user explicitly chooses to emit).
@@ -1047,9 +1054,9 @@ def _upload_and_export(
             shutil.move(str(tmp_export_path), str(tmp_path))
     except Exception as e:
         logger.warning("  Website export failed: %s", e)
+        if post_game_failures is not None:
+            post_game_failures.append(f"{game_id}: Website export failed: {e}")
         return 0.0
-
-    game_id = game_dir.name
 
     # Blunder analysis (requires OPENROUTER_API_KEY; skips already-analyzed games)
     if not os.environ.get("OPENROUTER_API_KEY"):
@@ -1080,9 +1087,13 @@ def _upload_and_export(
                 return cost
             continue  # re-prompt
         if action == "emit":
+            if post_game_failures is not None:
+                post_game_failures.append(f"{game_id}: Blunder analysis failed: {err}")
             _finalize_export(tmp_path, final_path)
             return 0.0
         # skip
+        if post_game_failures is not None:
+            post_game_failures.append(f"{game_id}: Blunder analysis failed (skipped): {err}")
         tmp_path.unlink(missing_ok=True)
         logger.info("  Skipped %s", game_id)
         return 0.0
@@ -1347,6 +1358,7 @@ def _finalize_game(
     spectator_rc: int,
     *,
     deferred_failures: list[_AnnotationFailure] | None = None,
+    post_game_failures: list[str] | None = None,
 ) -> tuple[float, float]:
     """Post-game processing for a single game session.
 
@@ -1366,6 +1378,7 @@ def _finalize_game(
             session.game_dir,
             project_root,
             deferred_failures=deferred_failures,
+            post_game_failures=post_game_failures,
         )
         return pilot_cost, blunder_cost
     return pilot_cost, 0.0
@@ -1543,6 +1556,7 @@ def main() -> int:
         # --- Wait for all games to complete ---
         pilot_costs: dict[int, float] = {}
         blunder_costs: dict[int, float] = {}
+        post_game_failures: list[str] = []
         if batch:
             results = _wait_for_all_games(sessions, pm)
             deferred: list[_AnnotationFailure] = []
@@ -1553,6 +1567,7 @@ def main() -> int:
                     project_root,
                     spectator_rc,
                     deferred_failures=deferred,
+                    post_game_failures=post_game_failures,
                 )
             _resolve_annotation_failures(deferred, project_root)
         else:
@@ -1564,10 +1579,19 @@ def main() -> int:
             else:
                 spectator_rc = session.spectator_proc.wait()
             pilot_costs[session.index], blunder_costs[session.index] = _finalize_game(
-                session, project_root, spectator_rc
+                session, project_root, spectator_rc, post_game_failures=post_game_failures
             )
 
         _print_run_cost_summary(sessions, pilot_costs, blunder_costs)
+
+        if post_game_failures:
+            logger.error("")
+            logger.error("!" * 60)
+            logger.error("FAILURES")
+            logger.error("!" * 60)
+            for msg in post_game_failures:
+                logger.error("  %s", msg)
+            logger.error("!" * 60)
 
         return 0
     finally:
