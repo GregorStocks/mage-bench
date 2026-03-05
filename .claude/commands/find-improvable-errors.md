@@ -17,6 +17,7 @@ uv run python scripts/analysis/mcp_errors.py website/public/games/
 Focus on the "Least helpful error messages" section — these are messages where models retry with the same error, meaning the message didn't help them understand what to do differently.
 
 Key metrics:
+
 - **Stuck rate** = same_error retries / total occurrences. Above 20% is bad.
 - **Recovery rate** = successful retries / total occurrences. Below 30% is concerning.
 - **Volume** matters — a 50% stuck rate on 2 occurrences is noise; on 60 occurrences it's a real problem.
@@ -29,6 +30,7 @@ For the top 3-5 worst messages, investigate:
 2. **Check the action_type breakdown.** Is the error specific to one action type or spread across many?
 3. **Check the model breakdown.** Is it one model struggling or all of them?
 4. **Look at example failures.** Sample a few stuck cases from a game export to see what args the model sent and what it tried on retry:
+
    ```bash
    uv run python -c "
    import gzip, json, glob
@@ -52,6 +54,7 @@ For the top 3-5 worst messages, investigate:
                print()
    "
    ```
+
 5. **Read the Java error site.** Find where `buildError` is called for this message in `BridgeCallbackHandler.java` and understand the context.
 
 ### Step 4: Fix the messages
@@ -65,6 +68,7 @@ For each improvable message, edit the error string in `BridgeCallbackHandler.jav
 - **Stay concise** — don't dump full tool docs, just the relevant hint for this specific error
 
 After editing, regenerate the tools JSON:
+
 ```bash
 mvn -pl Mage.Client.Bridge -am compile -q
 make mcp-tools
@@ -83,6 +87,7 @@ make check
 ### Step 7: Re-run analysis to confirm
 
 Run the analysis again to verify the old bad messages are gone (they'll still appear in historical data but new games should use the improved messages):
+
 ```bash
 uv run python scripts/analysis/mcp_errors.py website/public/games/
 ```

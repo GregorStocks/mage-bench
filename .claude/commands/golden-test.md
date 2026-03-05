@@ -7,11 +7,13 @@ Create a new golden prompt test that captures a specific game scenario.
 Golden tests run real XMage games with scripted replay pilots, capture the exact messages array that would be sent to the LLM, and compare against golden files. They verify that the wire-format prompt the LLM receives is correct for a given game state.
 
 Each golden test has three components:
+
 1. **Deck file** (`puppeteer/tests/decks/<name>.dck`) — deterministic card draw order (skip-shuffling is enabled)
 2. **Test file** (`puppeteer/tests/test_golden_<name>.py`) — defines the scripted MCP tool call sequence
 3. **Golden file** (`puppeteer/tests/golden/prompts/<name>.json`) — the captured prompt (auto-generated)
 
 Key files to understand:
+
 - `puppeteer/tests/golden_helpers.py` — shared test infrastructure (`run_golden_scenario`, `assert_golden_prompt`, deck constants)
 - `puppeteer/tests/test_golden_bolt_on_stack.py` — example: two Lightning Bolts on the stack targeting different things
 - `puppeteer/tests/test_golden_clone_copies_memnite.py` — example: Clone copying a creature
@@ -34,6 +36,7 @@ Design a 60-card deck where the first 7 cards (the opening hand with skip-shuffl
 **Deck format:** `<count> [<SET>:<NUM>] <Card Name>` — one line per card/printing.
 
 **Constraints:**
+
 - Exactly 60 cards total
 - All cards needed for the scenario must be in the first 7 positions (the opening hand)
 - Use real set codes and collector numbers (check existing decks for examples)
@@ -42,6 +45,7 @@ Design a 60-card deck where the first 7 cards (the opening hand with skip-shuffl
 **ID assignment:** IDs are assigned alphabetically by card name starting at p3 (p1=TestPlayer, p2=Opponent). Cards with the same name get consecutive IDs. Predict the IDs and note them in script comments.
 
 **Mana planning:** Count how many turns you need based on available mana sources. Remember:
+
 - T1 (on the play): no draw, one main phase, no combat
 - T2+: untap, draw, precombat main, combat, postcombat main
 - You need one untapped land producing the right color per spell
@@ -51,6 +55,7 @@ Design a 60-card deck where the first 7 cards (the opening hand with skip-shuffl
 The script is a list of MCP tool calls: `pass_priority`, `choose_action`, and `get_game_state`.
 
 **Standard preamble (every test starts with this):**
+
 ```python
 # Choose TestPlayer as starting player, keep hand.
 {"name": "pass_priority", "arguments": {}},
@@ -83,6 +88,7 @@ If you used `pass_priority` between steps 3 and 4, the auto-pass loop would pass
 When you have creatures, `pass_priority` after a land play will hit the Declare Attackers combat selection (which always returns, even at actionsPassed=0). Handle it with `choose_action(answer=false)` to skip attacking, then `pass_priority` again to reach postcombat main.
 
 **Common patterns:**
+
 - Play a land: `choose_action(id="pN")` where pN is the land's ID
 - Cast a spell: `choose_action(index=N)` or `choose_action(id="pN")`
 - Target a player: `choose_action(id="p1")` (you) or `choose_action(id="p2")` (opponent)
@@ -98,6 +104,7 @@ When you have creatures, `pass_priority` after a land play will hit the Declare 
 1. **Create or update the deck file** in `puppeteer/tests/decks/`. If an existing deck works, use it. Add a constant in `golden_helpers.py` if creating a new deck.
 
 2. **Create the test file** at `puppeteer/tests/test_golden_<name>.py`:
+
    ```python
    """Golden prompt test: <description>."""
 
@@ -129,6 +136,7 @@ When you have creatures, `pass_priority` after a land play will hit the Declare 
    ```
 
 3. **Add the deck constant** to `puppeteer/tests/golden_helpers.py` if it's a new deck:
+
    ```python
    DECK_MY_NEW_DECK = "puppeteer/tests/decks/my_new_deck.dck"
    ```
@@ -138,9 +146,11 @@ When you have creatures, `pass_priority` after a land play will hit the Declare 
 1. Run `make check` to verify lint/typecheck/unit tests pass.
 
 2. Run `make update-golden` to generate the golden prompt JSON:
+
    ```bash
    make update-golden
    ```
+
    This starts an XMage server, runs all golden tests, and writes the golden files. If the script has errors (wrong IDs, wrong indices), the test will fail with details about what went wrong. Fix the script and re-run.
 
 3. **Read the generated golden file** to verify the scenario played out correctly. Check:

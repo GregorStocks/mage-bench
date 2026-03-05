@@ -17,7 +17,7 @@ Game recordings can be uploaded to YouTube after each game.
 
 Save the downloaded JSON file to:
 
-```
+```text
 ~/.mage-bench/youtube-client-secrets.json
 ```
 
@@ -31,7 +31,7 @@ The first time you upload, a browser window will open for Google OAuth consent. 
 
 When a game finishes with a recording, the puppeteer prompts:
 
-```
+```text
 Upload recording to YouTube? [y/N]:
 ```
 

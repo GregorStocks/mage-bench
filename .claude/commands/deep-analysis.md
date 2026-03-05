@@ -10,15 +10,20 @@ Determine which game to analyze:
 
 - If the user specified a game ID (e.g. `game_20260211_080409`), use that.
 - If the user said "most recent" or similar, find the latest:
+
   ```bash
   uv run python scripts/list-recent-games.py
   ```
+
 - If the user mentioned a config name (e.g. "round-robin-commander", "standard-dumb", "modern-staller"), use the corresponding symlink:
+
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
+
   where `{config}` might be `round-robin-commander`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
 - **If no game specified at all**, find the most recent unanalyzed game:
+
   ```bash
   uv run python scripts/analysis/find_unanalyzed.py --type deep --count 1
   ```
@@ -86,6 +91,7 @@ A single bug often shows up across multiple log files. For example, an NPE in er
 ### Step 8: Trace bugs to source code
 
 For each code bug, read the relevant Java/Python files to identify the exact line and root cause. Include in the issue:
+
 - The game log path: `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`
 - Specific log files and approximate line numbers where the bug manifests
 - The source code file and line where the fix should go (e.g., `BridgeCallbackHandler.java:1407`)
@@ -102,6 +108,7 @@ git log --oneline --since="YYYY-MM-DD" origin/master  # date of the game
 If a commit clearly fixes the bug, skip filing the issue. If unsure, file it and note the possibly-relevant commit in the description.
 
 Create issue files in `issues/`:
+
 ```json
 {
   "title": "Short summary",
@@ -116,6 +123,7 @@ Create issue files in `issues/`:
 ```
 
 Priority guide:
+
 - **P1**: Crashes or bugs that break core game actions (NPEs during targeting, spells fizzling due to code bugs)
 - **P2**: Bugs causing major waste (infinite loops, stalling, repeated errors that block a player)
 - **P3**: Suboptimal tool behavior or missing features (bad descriptions, missing info in prompts)

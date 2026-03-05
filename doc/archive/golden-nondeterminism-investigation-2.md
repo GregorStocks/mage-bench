@@ -26,6 +26,7 @@ sends a GAME_SELECT callback. The game then STOPS and waits for the player's res
 
 The GAME_UPDATE callbacks from the resolution were queued BEFORE the GAME_SELECT but
 can be DELIVERED AFTER it due to the callback delivery mechanism:
+
 - The `ClientCallbackType.UPDATE` has `canComeInAnyOrder=true` — the framework
   explicitly does not guarantee ordering for these
 - The callback lock has a 50ms timeout for UPDATE types — they can be dropped or delayed
@@ -44,7 +45,7 @@ No new callbacks with higher seq should arrive until the player responds.
 
 Captured in `mana_drain_fact_or_fiction` test, reproduced 3/3 failing runs:
 
-```
+```text
 lastGameView game_seq 68 -> 76 (source=GAME_UPDATE, thread=ThreadPool(1)-4)
 lastGameView game_seq 76 -> 77 (source=storePendingAction:GAME_SELECT, thread=ThreadPool(1)-3)
 lastGameView game_seq 77 -> 76 (source=GAME_UPDATE, thread=ThreadPool(1)-1)   ← BACKWARD OVERWRITE
@@ -66,6 +67,7 @@ if (old != null && gv.getGameSeq() < old.getGameSeq()) return;
 ```
 
 This is safe because:
+
 1. Decision callbacks always have the highest seq (server creates them last)
 2. Forward-moving GAME_UPDATEs are harmless (they carry newer state)
 3. The only harmful case is backward overwrites, which this prevents

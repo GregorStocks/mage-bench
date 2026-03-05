@@ -47,7 +47,7 @@ gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'strict'
 
 Add a `no_focus` rule for Java windows in your WM config. For example in i3:
 
-```
+```text
 no_focus [class="sun-awt-X11-XFramePeer"]
 ```
 

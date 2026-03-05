@@ -49,6 +49,7 @@ The `decisions` array contains canonical decision records built at export time. 
 Decisions are the shared data format consumed by both the pilot (at game time, via the shared renderer) and the blunder annotator (at analysis time). See `doc/unified-decisions-plan.md` for the full design.
 
 Key fields:
+
 - `snapshotIndex` — points into `snapshots[]` for the board state
 - `choices` — available choices from the MCP tool result
 - `pilotContext` — overlay data (untapped lands, land drops, playable cards, combat info)
@@ -91,6 +92,7 @@ Code that reads the export format and would need updating if the schema changes:
 Migration modules live in `schemas/migrations/`. See `schemas/migrations/README.md` for the pattern.
 
 Goals:
+
 - Bidirectional transforms (v2<->v3) so roundtrip tests can prove no data loss.
 - Incremental migration: land schema definition first, migrate games across multiple PRs.
 - At most two versions coexist at any time (briefly, during migration).

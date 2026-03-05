@@ -7,17 +7,21 @@ Create a pull request for the current branch's changes.
 1. **Commit any uncommitted work.** Check `git status` — if there are staged or unstaged changes, commit them before proceeding. Everything that's part of this PR should be in a commit.
 
 2. **Understand the full scope of changes.** Run these in parallel:
+
    ```bash
    git fetch origin
    git log --oneline origin/master..HEAD
    git diff origin/master..HEAD --stat
    ```
+
    Read through the actual diffs and changed files — don't just look at filenames. You need to understand what changed and why to write a good PR.
 
 3. **Merge in master** so you're testing against the latest code:
+
    ```bash
    git merge origin/master
    ```
+
    Fix any merge conflicts before proceeding.
 
 4. **Run `make check`** (lint, typecheck, tests). Fix any failures before proceeding. Do not create a PR with failing checks.
@@ -37,6 +41,7 @@ Create a pull request for the current branch's changes.
    The summary bullets should be a mix of what and why — lead with the motivation, then mention key implementation details only when they're non-obvious.
 
 6. **Push and create the PR:**
+
    ```bash
    git push -u origin HEAD
    gh pr create --title "<concise title>" --body "$(cat <<'EOF'

@@ -9,6 +9,7 @@ uv run --project puppeteer python scripts/analysis/backfill_annotations.py [N]
 ```
 
 The script:
+
 - Finds games with `blunderScriptVersion` older than current (or missing annotations)
 - Processes them most-recent-first
 - Runs full per-decision Sonnet 4.5 analysis on each

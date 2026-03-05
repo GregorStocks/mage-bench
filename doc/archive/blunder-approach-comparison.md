@@ -90,11 +90,13 @@ The reverse is not true — L finds 7-18 additional consensus blunders per game 
 ### L's "false positives" are mostly real
 
 Of 23 non-consensus annotations from L across all games:
+
 - 12 are corroborated by 1 other approach (usually B_flash or D_opus)
 - 4 are corroborated by 2 other approaches (just under consensus threshold)
 - 7 are unique to L
 
 The descriptions read as genuine observations, not hallucinations. Examples:
+
 - "Cast Preordain before deploying Monastery Swiftspear, wasting a prowess trigger"
 - "Played basic Swamp instead of Watery Grave, limiting counterspell options"
 - "Activated Fiery Islet to draw before casting spells, leaving no mana for Preordain"
@@ -178,10 +180,12 @@ reduce cost without losing much accuracy by isolating two factors:
 ### Key findings
 
 **Batching is the accuracy killer.** Comparing matched pairs:
+
 - L (pd+high, 91%) vs N (batch+high, 50%): **-41pp** from batching
 - O (pd+medium, 87%) vs M (batch+medium, 48%): **-39pp** from batching
 
 **Thinking level has modest impact.** Comparing per-decision approaches:
+
 - High → Medium (L→O): -4pp coverage, saves $0.32/game (10%)
 - Medium → Low (O→P): -4pp coverage, saves $1.47/game (49%)
 - High → Low (L→P): -8pp coverage, saves $1.79/game (54%)
@@ -215,6 +219,7 @@ Hellkite. On a 3-consensus-blunder game this is a large fraction.
 #### O misses major blunders in g3
 
 O misses two *major* severity consensus blunders:
+
 - **snap 31**: Planning to cast Force of Will with no spell to counter
 - **snap 79**: Failed to activate Thespian's Stage to create 20/20 Marit Lage
 
@@ -224,6 +229,7 @@ These are game-defining mistakes that any good analysis should catch.
 #### g1: O has the biggest gap
 
 O misses 10 consensus blunders that L finds, including:
+
 - **snap 18** [major]: Failed to cast Reality Smasher with sufficient mana
 - **snap 133** [moderate]: Cast a 2/2 for 2 when exactly enough mana for Eldrazi Displacer
 - **snap 181** [moderate]: Cast creature without haste instead of Reality Smasher (haste) with opponent at 11 life
@@ -236,6 +242,7 @@ thinking effort.
 
 P misses 16 consensus blunders vs L (compared to O missing 7). The gap widens on
 longer games with more complex interactions. Notably, P misses:
+
 - **snap 172** [major]: Failed to use Yawgmoth to shrink attackers at 3 life, dying
 - **snap 136** [moderate]: Missed Yawgmoth + Young Wolf undying combo kill
 - **snap 153** [moderate]: Drew with Fiery Islet before casting, leaving no mana for Preordain
@@ -243,6 +250,7 @@ longer games with more complex interactions. Notably, P misses:
 #### Bidirectional misses
 
 All three approaches find some things the others don't. Across all 5 games:
+
 - O finds 12 consensus blunders that L misses
 - P finds 9 consensus blunders that L misses
 

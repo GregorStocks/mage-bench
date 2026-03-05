@@ -3,6 +3,7 @@
 ## Context
 
 The pilot and blunder annotator see different representations of the same game state:
+
 - **Pilot**: raw JSON from MCP tools (`pass_priority`, `get_action_choices`) — includes board state with `rules` on all cards, `playable` flags, `untapped_lands`, `land_drops_used`
 - **Annotator**: reconstructs state post-hoc from server snapshots (rules only on tokens/modified cards, both hands visible) + choices parsed from persisted tool result strings + oracle text from Scryfall API
 
@@ -56,6 +57,7 @@ Add a top-level `decisions` array to the game export. Each entry references a sn
 ```
 
 **Key design decisions:**
+
 - **Board from snapshot reference**: `snapshotIndex` points into `snapshots[]`. No board duplication. The renderer applies hand redaction (opponent hands → `hand_size` only) at render time.
 - **Pilot overlay**: `pilotContext` has data the server snapshot doesn't capture: untapped lands, land drops used, which cards are playable, combat phase info. Extracted from the persisted MCP tool result JSON in `llmEvents`.
 - **LLM event references, not copies**: `llmEventIndices` is a list of indices into the export's `llmEvents` array, covering all LLM events for this decision (the decision source tool call, any LLM response with reasoning, and the choose_action call). Reasoning, thinking, and full tool results live in `llmEvents` — not duplicated on the decision.
@@ -73,6 +75,7 @@ Add a top-level `decisions` array to the game export. Each entry references a sn
 - **Stack abilities**: Source card name used for Scryfall lookup. Ability text comes from the stack item's `ability_text` field.
 
 The renderer takes an `oracle_texts` parameter. Callers pass whatever's available:
+
 - Pilot: extracted from the bridge board payload (rules on each card object)
 - Annotator: fetched from Scryfall cache
 
@@ -95,6 +98,7 @@ def render_decision(
 ```
 
 **Inputs:**
+
 - `decision`: Canonical decision dict (from export or built live from MCP tool result)
 - `snapshot`: The referenced snapshot (from export `snapshots[]` or from MCP tool result's `board`)
 - `oracle_texts`: Card name → oracle fields dict. Optional. Source varies by caller.
@@ -103,7 +107,8 @@ def render_decision(
 - `include_chosen`: Append chosen action, reasoning (from llmEvents), and subsequent actions — for annotator
 
 **Output format** (structured text):
-```
+
+```text
 Turn 3 PRECOMBAT_MAIN - You (Alice, 20 life)
   Board:
     Alice: 20hp hand=[Lightning Bolt {R}, Mountain] bf=[Mountain, Goblin Guide 2/2 (tapped)]
@@ -117,14 +122,16 @@ Turn 3 PRECOMBAT_MAIN - You (Alice, 20 life)
 ```
 
 With `include_card_reference=True`:
-```
+
+```text
 Card Reference:
 - Lightning Bolt {R} -- Instant: Lightning Bolt deals 3 damage to any target.
 - Goblin Guide {R} -- Creature — Goblin Scout 2/2: Haste / Whenever Goblin Guide attacks, ...
 ```
 
 With `include_chosen=True` (annotator):
-```
+
+```text
   Chosen: Lightning Bolt [p1]
   Reasoning: I should bolt their face.
   After: Alice casts Lightning Bolt
@@ -151,6 +158,7 @@ history.append({"role": "tool", "tool_call_id": tool_call.id, "content": display
 ```
 
 **`_render_for_pilot(result_text, board_tracker)`**:
+
 1. Parses JSON
 2. Splits into snapshot-like dict (`board`/`players`/`stack`/`combat`) and decision-like dict (`choices`, `message`, `pilotContext` fields)
 3. Extracts oracle texts from the board payload's `rules` fields on each card
@@ -170,6 +178,7 @@ This changes pilot behavior → **harness epoch bump** required.
 ### 5. Annotator integration
 
 **`blunder_analysis.py`:**
+
 - Read `decisions` from export directly when present (no more `extract_decisions()` call for new exports)
 - Fetch oracle texts from Scryfall cache (same as today, no change)
 - Replace `_format_decisions()` / `build_decision_prompt()` with call to `render_decision()` from the shared renderer
@@ -177,12 +186,14 @@ This changes pilot behavior → **harness epoch bump** required.
 - For `include_chosen=True`, look up reasoning from `llmEvents[decision["llmEventIndices"]]`
 
 **`extract_decisions.py`:**
+
 - `extract_decisions()` reads pre-built `decisions` from export when present
 - Legacy path (reconstruct from llmEvents + snapshots) preserved for old exports without `decisions`
 
 ### 6. Scryfall considerations
 
 Scryfall handles all standard card types:
+
 - **Split cards**: `card_faces` array, normalized to `" // "` naming
 - **MDFCs, transforms, adventures**: `card_faces` array, recursive `_extract_oracle_fields()`
 - **Tokens**: Filtered out before lookup (`"Token" not in name`). Rules from snapshot.
@@ -194,12 +205,14 @@ No changes needed to Scryfall handling.
 ## Files to Modify
 
 ### New files
+
 | File | Purpose |
 |------|---------|
 | `puppeteer/src/puppeteer/decision_renderer.py` | Shared `render_decision()` function |
 | `puppeteer/tests/test_decision_renderer.py` | Tests for renderer |
 
 ### Export pipeline
+
 | File | Change |
 |------|--------|
 | `schemas/game-export-v2.schema.json` | Add `decisions` array + `Decision` $def (optional field for compat) |
@@ -207,23 +220,27 @@ No changes needed to Scryfall handling.
 | `doc/export-schema.md` | Update consumers table, describe `decisions` |
 
 ### Annotator
+
 | File | Change |
 |------|--------|
 | `scripts/analysis/extract_decisions.py` | Read pre-built `decisions` when present; keep legacy path |
 | `scripts/analysis/blunder_analysis.py` | Use `render_decision()`, read reasoning from llmEvents via indices |
 
 ### Pilot
+
 | File | Change |
 |------|--------|
 | `puppeteer/src/puppeteer/pilot.py` | Render pass_priority/get_action_choices results; track last board for board_unchanged |
 | `puppeteer/prompts.json` | Update system prompt for text format |
 
 ### Infrastructure
+
 | File | Change |
 |------|--------|
 | `puppeteer/src/puppeteer/harness_epoch.py` | Bump epoch |
 
 ### Tests
+
 | File | Change |
 |------|--------|
 | `puppeteer/tests/test_blunder_annotator.py` | Update for new code paths |
@@ -231,6 +248,7 @@ No changes needed to Scryfall handling.
 | `puppeteer/tests/test_export_schema.py` | Auto-validates against updated schema |
 
 ### No Java changes
+
 - MCP tools (BridgeCallbackHandler, McpServer, tool classes) — untouched
 - Observer client — untouched
 - ServerGameEventLogCollector — untouched

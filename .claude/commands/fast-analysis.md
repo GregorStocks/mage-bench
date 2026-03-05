@@ -10,18 +10,24 @@ Determine which game(s) to analyze:
 
 - If the user specified game ID(s), use those.
 - If the user said "most recent" or similar, find the latest:
+
   ```bash
   uv run python scripts/list-recent-games.py
   ```
+
 - If the user mentioned a config name (e.g. "round-robin-commander", "standard-dumb", "modern-staller"), use the corresponding symlink:
+
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
+
   where `{config}` might be `round-robin-commander`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
 - **If no game specified at all**, find the most recent unanalyzed games:
+
   ```bash
   make games-to-analyze
   ```
+
   This cross-references all game exports in `website/public/games/` (both `.json` and `.json.gz`) against existing analysis files in `doc/claudes/analyses/fast/` and prints the unanalyzed ones newest-first. Use `ARGS="--count N"` to change the number. Games are automatically skipped if 30+ fast-analysis runs have been done on newer games — at that point, any bugs from the old game have almost certainly already been identified. Use `ARGS="--max-staleness 0"` to disable this filter.
 
 Run steps 2-5 for **each** selected game before moving to the next.
@@ -35,9 +41,11 @@ GAME_PATH=website/public/games/${GAME_ID}.json  # or .json.gz
 
 a. Check if `website/public/games/${GAME_ID}.json` or `.json.gz` exists on the current branch. (If using `find_unanalyzed.py`, it already outputs the full path — use that directly.)
 b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If so, generate the export:
+
    ```bash
    uv run python scripts/export_game.py ${GAME_ID}
    ```
+
 c. If neither exists, tell the user and stop.
 
 ### Step 3: Use reusable analysis scripts
@@ -91,9 +99,11 @@ For every potential bug you identify:
 
 1. **Check if there's already an open issue** for the same bug (from the list above).
 2. **Check if it was fixed since the game was played.** Compare the game date against recent commits:
+
    ```bash
    git log --oneline --since="YYYY-MM-DD" origin/master  # date of the game
    ```
+
    Look for commits that mention the same area (bridge, MCP tools, mana, combat, etc.). If a commit clearly fixes the bug, **skip it** — note in your analysis that the bug existed but has since been fixed, and move on.
 3. **If unsure whether a fix applies**, file the issue but note the possibly-relevant commit in the description so the next person can verify quickly.
 

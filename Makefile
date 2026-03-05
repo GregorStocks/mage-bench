@@ -25,6 +25,10 @@ lint-fix:
 format:
 	uv run --project puppeteer ruff format puppeteer/ scripts/
 
+.PHONY: lint-md
+lint-md:
+	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && cd .. && website/node_modules/.bin/markdownlint-cli2
+
 .PHONY: format-check
 format-check:
 	uv run --project puppeteer ruff format --check puppeteer/ scripts/

@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TARGETS = [
     "lint",
+    "lint-md",
     "format-check",
     "typecheck",
     "test",

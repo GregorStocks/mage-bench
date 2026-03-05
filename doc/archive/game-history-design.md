@@ -103,7 +103,7 @@ Everything else is additive (new files, new methods, new implementations).
 
 ### Output format
 
-```
+```text
 Turn 3 (Alice):
   Precombat Main:
     - Alice played Mountain

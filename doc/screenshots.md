@@ -12,7 +12,7 @@ make screenshot
 
 This saves `screenshot.png` inside the game's log directory from the most recent game recording (~0.5s before the end). Then view it:
 
-```
+```text
 Read ~/.mage-bench/logs/game_.../screenshot.png
 ```
 
@@ -62,7 +62,7 @@ make website
 
 Navigate Chrome to:
 
-```
+```text
 http://localhost:4321/games/live?mock=1
 ```
 
@@ -78,7 +78,7 @@ make export-game GAME=game_20260208_220934
 
 Then navigate Chrome to:
 
-```
+```text
 http://localhost:4321/games/game_20260208_220934
 ```
 
@@ -92,11 +92,13 @@ http://localhost:4321/games/game_20260208_220934
 ## When to Use Which
 
 **Swing recording screenshot** — shows the actual Java UI that gets recorded to video. Use when:
+
 - Verifying Java UI rendering, card images, or layout changes
 - Checking what the recording looks like
 - Debugging `ObserverGamePanel` issues
 
 **Website visualizer** — shows the web-based game renderer. Use when:
+
 - Verifying CSS/JS changes to `game-renderer.js` or `game-renderer.css`
 - Testing with mock data (no game needed)
 - Interactive debugging with hover/click

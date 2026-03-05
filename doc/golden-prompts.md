@@ -98,7 +98,7 @@ A golden test has three inputs:
 
 ### Execution flow
 
-```
+```text
 1. Session-scoped fixtures start (once per test run):
    - Compile Java project
    - Start XMage server on a random port
@@ -154,12 +154,14 @@ comparison:
 ### Volatile fields (`_strip_volatile`)
 
 Removed entirely from export comparisons:
+
 - `timestamp`, `id` — wall-clock time and instance IDs
 - `errors` — error log entries contain timestamps in their text
 - `ts` on actions and events — wall-clock timestamps
 - `thinkingTimeSecs` — LLM latency (irrelevant in replay mode)
 
 Sorting applied:
+
 - `llmEvents` and `llmTrace` sorted by `(seq, player)` — both players
   act at the same seq during mulligans, and thread interleaving order
   is nondeterministic

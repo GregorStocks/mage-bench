@@ -78,6 +78,7 @@ assert self.config_file is not None, "run_tag requires config_file to be set"
 `puppeteer/src/puppeteer/harness_epoch.py` defines `HARNESS_EPOCH` — a monotonic integer that tracks breaking changes to the evaluation harness. Bump it when MCP tools, pilot logic, or priority semantics change enough to make game results non-comparable.
 
 When you bump `HARNESS_EPOCH`:
+
 1. Add a comment to the history in `harness_epoch.py`
 2. Update `MIN_LEADERBOARD_EPOCH` if the old epoch should be excluded from ratings
 3. Re-export affected games and regenerate the leaderboard
@@ -95,6 +96,7 @@ Game logs go to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`. See `doc/logging.md`
 Use `make website` for all website development — it handles leaderboard generation, npm dependencies, and the Astro dev server.
 
 Each worktree gets a unique port assigned by `worktree-setup.py` (written to `.env` as `WEBSITE_PORT`). Check your `.env` to find your port. Key pages (substitute your port):
+
 - Home: `http://localhost:$WEBSITE_PORT/`
 - Leaderboard: `http://localhost:$WEBSITE_PORT/leaderboard`
 - Games list: `http://localhost:$WEBSITE_PORT/games`

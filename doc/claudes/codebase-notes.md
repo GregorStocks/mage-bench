@@ -9,12 +9,14 @@ An AI benchmark for Magic: The Gathering, built on top of XMage (an open-source 
 ## Architecture (the short version)
 
 **Java bridge** (`Mage.Client.Bridge`): A bridge XMage client that exposes game actions as MCP tools. The key file is `BridgeCallbackHandler.java` (~2400 lines). It handles:
+
 - Auto-tapping lands for mana (so the LLM doesn't have to micromanage tapping)
 - Filtering unplayable actions
 - Auto-passing when there's nothing to do
 - Translating XMage's callback system into clean MCP tool calls
 
 **Puppeteer** (`puppeteer/`): Connects LLMs to the MCP server via OpenAI-compatible API (through OpenRouter). Key files:
+
 - `pilot.py` — the LLM game loop. System prompt tells the LLM to follow: pass_priority → get_action_choices → choose_action → repeat
 - `orchestrator.py` — orchestrates the full game lifecycle (server, clients, spectator, recording)
 

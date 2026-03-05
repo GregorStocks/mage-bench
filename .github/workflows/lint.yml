@@ -95,6 +95,8 @@ jobs:
 
       - run: make test-js
 
+      - run: make lint-md
+
       - run: npm run build
         working-directory: website
 

@@ -7,6 +7,7 @@ Cut a new game export format version. This creates a standalone schema, migratio
 Each export version has its own schema file (`schemas/game-export-vN.schema.json`). Migrations live in `schemas/migrations/` as modules with `up(data)` and `down(data)` functions. The shared runner at `scripts/migrate_exports.py` handles file I/O, chaining, and CLI.
 
 Key files:
+
 - `schemas/game-export-v*.schema.json` — per-version JSON Schemas
 - `schemas/migrations/` — migration modules and registry (`__init__.py`)
 - `scripts/migrate_exports.py` — unified migration runner
@@ -17,6 +18,7 @@ Key files:
 ## Step 1: Determine what's changing
 
 Ask the user what fields are being added, removed, or modified. Determine:
+
 - The current version number N (check the `"version"` line in `scripts/export_game.py`)
 - What new fields to add and their JSON Schema types
 - Whether the `up()` migration needs external data or is purely derived from existing fields
@@ -25,6 +27,7 @@ Ask the user what fields are being added, removed, or modified. Determine:
 ## Step 2: Create the new schema file
 
 Copy `schemas/game-export-vN.schema.json` to `schemas/game-export-v{N+1}.schema.json`:
+
 - Change `"const": N` to `"const": N+1` in the `version` property
 - Update `$id`, `title`, `description` to reference v{N+1}
 - Add new fields to `properties`
@@ -96,11 +99,13 @@ Verify the generated types look correct in `website/src/types/game-export.d.ts`.
 ## Step 8: Add tests
 
 In `puppeteer/tests/test_export_schema.py`, add:
+
 - `test_v{N+1}_schema_is_valid` — validates the new schema structure
 - `test_v{N+1}_schema_accepts_v{N+1}` — minimal valid export passes
 - `test_v{N+1}_schema_rejects_vN` — old version is rejected
 
 In `puppeteer/tests/test_migrate_exports.py`, add a new test class:
+
 - `test_vN_to_v{N+1}_up_adds_fields` — verify up() adds the right fields
 - `test_v{N+1}_to_vN_down_removes_fields` — verify down() strips them
 - `test_round_trip_preserves_vN_structure` — `down(up(game)) == game`

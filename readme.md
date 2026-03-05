@@ -88,6 +88,7 @@ Configure players in JSON config files (see `configs/`).
 ## Observer & recording
 
 The spectator provides:
+
 - Live game visualization (JavaFX)
 - Video recording via FFmpeg
 
