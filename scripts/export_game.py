@@ -525,13 +525,16 @@ def _parse_json(s: str) -> dict:
 def _is_decision_source(event: dict) -> bool:
     """Check if a tool_call event is a decision source.
 
-    A decision source is a pass_priority or get_action_choices tool_call
-    whose result has action_pending=true.
+    A decision source is a pass_priority, get_action_choices, or choose_action
+    tool_call whose result has action_pending=true.  Including choose_action
+    means that each action within a priority window (play land, cast spell,
+    activate ability) becomes its own decision rather than being bundled into
+    the initial pass_priority decision.
     """
     if event.get("type") != "tool_call":
         return False
     tool = event.get("tool")
-    if tool not in ("pass_priority", "get_action_choices"):
+    if tool not in ("pass_priority", "get_action_choices", "choose_action"):
         return False
     result = _parse_json(event.get("result", ""))
     return bool(result.get("action_pending"))
