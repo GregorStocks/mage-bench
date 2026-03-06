@@ -3,6 +3,9 @@
 Unit tests for draft order generation, pack selection, response parsing,
 and golden prompt tests that verify the exact prompt format sent to LLMs.
 
+Golden tests use real Jumpstart packs from data/decks/jumpstart/ and
+oracle text cached from Scryfall in golden/draft_prompts/oracle_cache.json.
+
 To update golden files after intentional changes:
     UPDATE_DRAFT_GOLDEN=1 make test
 """
@@ -18,8 +21,9 @@ _ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(_ROOT / "puppeteer" / "src"))
 sys.path.insert(0, str(_ROOT / "scripts"))
 
-from puppeteer.jumpstart import Card, HalfDeck  # noqa: E402
+from puppeteer.jumpstart import load_jumpstart_themes  # noqa: E402
 from scripts.tournament_draft import (  # noqa: E402
+    _fetch_oracle_texts,
     build_draft_system_prompt,
     build_draft_user_prompt,
     parse_pick,
@@ -29,72 +33,46 @@ from scripts.tournament_draft import (  # noqa: E402
 GOLDEN_DIR = Path(__file__).parent / "golden" / "draft_prompts"
 UPDATE_MODE = bool(os.environ.get("UPDATE_DRAFT_GOLDEN"))
 
-
-# -- Test fixtures --
-
-
-def _make_half_deck(theme: str, cards: list[tuple[int, str]] | None = None) -> HalfDeck:
-    """Create a HalfDeck for testing."""
-    if cards is None:
-        cards = [
-            (1, "Card A"),
-            (1, "Card B"),
-            (1, "Card C"),
-            (8, "Mountain"),
-        ]
-    return HalfDeck(
-        theme=theme,
-        variant=0,
-        cards=[Card(count=count, set_code="TST", collector_number="1", name=name) for count, name in cards],
-    )
+# Two specific packs used for golden tests (alphabetically first and second
+# among packs that won't change — these are core JMP set packs).
+GOLDEN_PACK_THEMES = ["Angels", "Cats"]
 
 
-SAMPLE_ORACLE: dict[str, dict] = {
-    "Dragonloft Idol": {
-        "mana_cost": "{2}",
-        "type_line": "Artifact Creature — Cleric",
-        "oracle_text": "As long as you control a Dragon, Dragonloft Idol gets +1/+1 and has flying.",
-        "power": "2",
-        "toughness": "2",
-    },
-    "Dragonspeaker Shaman": {
-        "mana_cost": "{1}{R}{R}",
-        "type_line": "Creature — Human Barbarian Shaman",
-        "oracle_text": "Dragon spells you cast cost {2} less to cast.",
-        "power": "2",
-        "toughness": "2",
-    },
-    "Feline Sovereign": {
-        "mana_cost": "{2}{G}",
-        "type_line": "Creature — Cat",
-        "oracle_text": (
-            "Other Cats you control get +1/+1 and have protection from Dogs.\n"
-            "Whenever one or more Cats you control deal combat damage to a player, "
-            "destroy up to one target artifact or enchantment that player controls."
-        ),
-        "power": "3",
-        "toughness": "3",
-    },
-    "Card A": {
-        "mana_cost": "{1}{R}",
-        "type_line": "Creature — Goblin",
-        "oracle_text": "Haste",
-        "power": "2",
-        "toughness": "1",
-    },
-    "Card B": {
-        "mana_cost": "{2}{R}",
-        "type_line": "Sorcery",
-        "oracle_text": "Deal 3 damage to any target.",
-    },
-    "Card C": {
-        "mana_cost": "{3}{R}{R}",
-        "type_line": "Creature — Dragon",
-        "oracle_text": "Flying",
-        "power": "4",
-        "toughness": "4",
-    },
-}
+# -- Fixtures --
+
+
+@pytest.fixture(scope="module")
+def all_packs():
+    """Load all real Jumpstart half-deck packs from the repo."""
+    return load_jumpstart_themes(_ROOT)
+
+
+@pytest.fixture(scope="module")
+def golden_packs(all_packs):
+    """Return the two specific packs used for golden tests."""
+    by_theme = {hd.theme: hd for hd in all_packs}
+    for theme in GOLDEN_PACK_THEMES:
+        assert theme in by_theme, f"Golden test pack {theme!r} not found in jumpstart themes"
+    return [by_theme[t] for t in GOLDEN_PACK_THEMES]
+
+
+@pytest.fixture(scope="module")
+def oracle_cache(golden_packs):
+    """Load or build oracle text cache for golden test packs.
+
+    On first run (or UPDATE_DRAFT_GOLDEN=1), fetches from Scryfall and caches.
+    Subsequent runs use the cached file for deterministic, offline tests.
+    """
+    cache_path = GOLDEN_DIR / "oracle_cache.json"
+
+    if UPDATE_MODE or not cache_path.exists():
+        # Fetch real oracle text for the golden packs
+        oracle = _fetch_oracle_texts(golden_packs)
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        cache_path.write_text(json.dumps(oracle, indent=2, sort_keys=True) + "\n")
+        return oracle
+
+    return json.loads(cache_path.read_text())
 
 
 # -- Snake draft order tests --
@@ -133,11 +111,9 @@ class TestParsePick:
         assert parse_pick("Option 1", 4) == 1
 
     def test_out_of_range_ignored(self):
-        # "5" is out of range for 4 options, "2" should be picked
         assert parse_pick("I'd pick 5 but I'll go with 2", 4) == 2
 
     def test_first_valid_wins(self):
-        # Multiple valid numbers — first one wins
         assert parse_pick("Between 1 and 3, I'll go with 1", 4) == 1
 
     def test_invalid_raises(self):
@@ -152,7 +128,7 @@ class TestParsePick:
         assert parse_pick("  2  \n", 4) == 2
 
 
-# -- Prompt building tests --
+# -- Prompt building tests (using real packs) --
 
 
 class TestBuildDraftPrompts:
@@ -166,88 +142,58 @@ class TestBuildDraftPrompts:
         assert "drafting a Jumpstart deck" in prompt
         assert "villain" in prompt
 
-    def test_user_prompt_round_1(self):
-        options = [
-            _make_half_deck("Dragons"),
-            _make_half_deck("Cats"),
-            _make_half_deck("Elves"),
-            _make_half_deck("Angels"),
-        ]
-        prompt = build_draft_user_prompt(1, options, SAMPLE_ORACLE)
+    def test_user_prompt_round_1(self, all_packs, oracle_cache):
+        options = all_packs[:4]
+        prompt = build_draft_user_prompt(1, options, oracle_cache)
         assert "Pick 1 of 2" in prompt
-        assert "Option 1: Dragons" in prompt
-        assert "Option 4: Angels" in prompt
+        assert f"Option 1: {options[0].theme}" in prompt
+        assert f"Option 4: {options[3].theme}" in prompt
         assert "1-4" in prompt
-        # Should not mention previous picks
         assert "already picked" not in prompt
 
-    def test_user_prompt_round_2(self):
-        picked = _make_half_deck("Dragons")
-        options = [
-            _make_half_deck("Cats"),
-            _make_half_deck("Elves"),
-            _make_half_deck("Angels"),
-            _make_half_deck("Goblins"),
-        ]
-        prompt = build_draft_user_prompt(2, options, SAMPLE_ORACLE, already_picked=picked)
+    def test_user_prompt_round_2(self, all_packs, oracle_cache):
+        picked = all_packs[0]
+        options = all_packs[1:5]
+        prompt = build_draft_user_prompt(2, options, oracle_cache, already_picked=picked)
         assert "Pick 2 of 2" in prompt
-        assert "already picked: Dragons" in prompt
-        assert "Option 1: Cats" in prompt
+        assert f"already picked: {picked.theme}" in prompt
+        assert f"Option 1: {options[0].theme}" in prompt
 
-    def test_oracle_text_included(self):
-        options = [_make_half_deck("Test", cards=[(1, "Card A"), (8, "Mountain")])]
-        prompt = build_draft_user_prompt(1, options, SAMPLE_ORACLE)
-        assert "{1}{R}" in prompt  # mana cost
-        assert "Creature — Goblin" in prompt  # type line
-        assert "Haste" in prompt  # oracle text
-        assert "2/1" in prompt  # P/T
+    def test_oracle_text_included(self, golden_packs, oracle_cache):
+        # Use real packs — verify oracle text appears for non-land cards
+        prompt = build_draft_user_prompt(1, golden_packs, oracle_cache)
+        # All non-land cards should have type lines from Scryfall
+        for pack in golden_packs:
+            for card in pack.cards:
+                if card.name not in {"Plains", "Island", "Swamp", "Mountain", "Forest"}:
+                    oracle = oracle_cache.get(card.name, {})
+                    if oracle.get("type_line"):
+                        assert oracle["type_line"] in prompt, f"Type line for {card.name} not in prompt"
 
-    def test_basic_lands_simplified(self):
-        options = [_make_half_deck("Test", cards=[(1, "Card A"), (8, "Mountain")])]
-        prompt = build_draft_user_prompt(1, options, SAMPLE_ORACLE)
-        assert "8x Mountain — Basic Land" in prompt
+    def test_basic_lands_simplified(self, golden_packs, oracle_cache):
+        prompt = build_draft_user_prompt(1, golden_packs, oracle_cache)
+        # Real packs have basic lands — they should show as "Nx Land — Basic Land"
+        assert "Basic Land" in prompt
 
 
-# -- Golden prompt tests --
-
-
-def _make_golden_packs() -> list[HalfDeck]:
-    """Create deterministic packs for golden testing."""
-    dragons = HalfDeck(
-        theme="Dragons",
-        variant=0,
-        cards=[
-            Card(count=1, set_code="JMP", collector_number="463", name="Dragonloft Idol"),
-            Card(count=1, set_code="JMP", collector_number="312", name="Dragonspeaker Shaman"),
-            Card(count=8, set_code="JMP", collector_number="64", name="Mountain"),
-        ],
-    )
-    cats = HalfDeck(
-        theme="Cats",
-        variant=0,
-        cards=[
-            Card(count=1, set_code="M21", collector_number="374", name="Feline Sovereign"),
-            Card(count=8, set_code="JMP", collector_number="74", name="Forest"),
-        ],
-    )
-    return [dragons, cats]
+# -- Golden prompt tests (real packs, cached oracle text) --
 
 
 class TestGoldenDraftPrompts:
-    """Verify exact prompt format against golden reference files."""
+    """Verify exact prompt format against golden reference files.
 
-    def test_round_1_prompt(self):
+    Uses real Jumpstart packs (Angels, Cats) loaded from data/decks/jumpstart/
+    and real Scryfall oracle text cached in golden/draft_prompts/oracle_cache.json.
+    """
+
+    def test_round_1_prompt(self, golden_packs, oracle_cache):
         """Golden test for round 1 draft prompt (no prior pick)."""
         golden_path = GOLDEN_DIR / "round_1_pick.json"
-        packs = _make_golden_packs()
 
         system = build_draft_system_prompt("You play to win. Evaluate every option by expected win rate.")
-        user = build_draft_user_prompt(1, packs, SAMPLE_ORACLE)
+        user = build_draft_user_prompt(1, golden_packs, oracle_cache)
 
-        actual = {
-            "system": system,
-            "user": user,
-        }
+        actual = {"system": system, "user": user}
 
         if UPDATE_MODE:
             golden_path.parent.mkdir(parents=True, exist_ok=True)
@@ -261,19 +207,15 @@ class TestGoldenDraftPrompts:
         assert actual["system"] == expected["system"], "System prompt changed"
         assert actual["user"] == expected["user"], "User message changed"
 
-    def test_round_2_prompt(self):
+    def test_round_2_prompt(self, golden_packs, oracle_cache):
         """Golden test for round 2 draft prompt (has prior pick)."""
         golden_path = GOLDEN_DIR / "round_2_pick.json"
-        packs = _make_golden_packs()
-        already_picked = packs[0]  # Dragons
+        already_picked = golden_packs[0]  # Angels
 
         system = build_draft_system_prompt("You play to win. Evaluate every option by expected win rate.")
-        user = build_draft_user_prompt(2, [packs[1]], SAMPLE_ORACLE, already_picked=already_picked)
+        user = build_draft_user_prompt(2, [golden_packs[1]], oracle_cache, already_picked=already_picked)
 
-        actual = {
-            "system": system,
-            "user": user,
-        }
+        actual = {"system": system, "user": user}
 
         if UPDATE_MODE:
             golden_path.parent.mkdir(parents=True, exist_ok=True)
