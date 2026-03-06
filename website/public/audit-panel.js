@@ -173,7 +173,7 @@
     function renderContext(d) {
       // Decision identity header
       var phase = d.phase || "";
-      dom.header.textContent = escapeHtml(d.player || "?") +
+      dom.header.textContent = (d.player || "?") +
         " \u2014 T" + (d.turn || "?") + " " + phase +
         " \u2014 decision #" + (d.decision_index != null ? d.decision_index : "?");
 
