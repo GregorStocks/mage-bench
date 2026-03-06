@@ -1092,7 +1092,7 @@
           "type": "boolean"
         },
         "error_code": {
-          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type",
+          "description": "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, internal_error, unknown_action_type",
           "type": "string"
         },
         "board_cursor": {
