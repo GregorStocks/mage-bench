@@ -251,10 +251,17 @@ class TestClaimIssue:
 
 
 class TestWorktreeSetup:
+    @staticmethod
+    def _create_config(tmp_path: Path) -> None:
+        mage_bench = tmp_path / ".mage-bench"
+        mage_bench.mkdir(exist_ok=True)
+        (mage_bench / "config.json").write_text('{"hostname": "localhost"}')
+
     def test_creates_symlinks(self, tmp_path: Path) -> None:
         project_root = tmp_path / "project"
         project_root.mkdir()
         shared_images = tmp_path / "shared-images"
+        self._create_config(tmp_path)
 
         with (
             patch.object(worktree_setup, "PROJECT_ROOT", project_root),
@@ -277,6 +284,7 @@ class TestWorktreeSetup:
         project_root = tmp_path / "project"
         project_root.mkdir()
         shared_images = tmp_path / "shared-images"
+        self._create_config(tmp_path)
 
         # Pre-existing images directory with a file
         mod_dir = project_root / "Mod-A" / "plugins" / "images"
@@ -302,6 +310,7 @@ class TestWorktreeSetup:
         project_root.mkdir()
         shared_images = tmp_path / "shared-images"
         shared_images.mkdir(parents=True)
+        self._create_config(tmp_path)
 
         # Pre-existing symlink
         plugins_dir = project_root / "Mod-A" / "plugins"
