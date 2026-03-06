@@ -248,7 +248,9 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod.GAME_PLAY_MANA, ClientCallbackMethod.GAME_PLAY_XMANA,
         ClientCallbackMethod.GAME_GET_AMOUNT, ClientCallbackMethod.GAME_GET_MULTI_AMOUNT);
     private volatile long lastActionableCallbackAt = 0;
-    private static final long POST_ACTION_WAIT_MS = 10_000; // how long to optimistically wait for next callback after an action
+    // choose_action blocks indefinitely (like pass_priority) after taking an
+    // action, waiting for the next callback so the LLM always wakes up to a
+    // pending decision.  Terminated by game-over / zombie detection.
     private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
@@ -1441,15 +1443,12 @@ public class BridgeCallbackHandler {
         // Block-wait for a pending action (like pass_priority does).
         // The LLM may call choose_action before the next callback arrives
         // (e.g. double choose_action in one response, or calling it before
-        // pass_priority). Wait instead of failing immediately.
+        // pass_priority). Block indefinitely instead of failing.
         if (action == null) {
             long waitStart = System.currentTimeMillis();
             synchronized (actionLock) {
                 while ((action = pendingAction) == null) {
                     if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                        break;
-                    }
-                    if (System.currentTimeMillis() - waitStart > 10_000) {
                         break;
                     }
                     try {
@@ -1461,7 +1460,9 @@ public class BridgeCallbackHandler {
                 }
             }
             if (action == null) {
-                return buildError(result, "no_pending_action", "No pending action after 10s wait", false, null);
+                result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
+                result.player_dead = playerDead;
+                return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
             }
             logger.info("[" + client.getUsername() + "] choose_action: waited "
                 + (System.currentTimeMillis() - waitStart) + "ms for pending action");
@@ -1938,16 +1939,14 @@ public class BridgeCallbackHandler {
             }
         }
 
-        // After successful action, wait for next pending action before returning.
-        // This prevents the LLM from waking up to an empty state.
+        // After successful action, block until the next pending action arrives.
+        // This ensures the LLM always wakes up to a decision, matching
+        // pass_priority's blocking semantics.
         if (Boolean.TRUE.equals(result.success)) {
             long waitStart = System.currentTimeMillis();
-            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback (max " + POST_ACTION_WAIT_MS + "ms)");
+            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback");
             while (pendingAction == null) {
                 if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                    break;
-                }
-                if (System.currentTimeMillis() - waitStart > POST_ACTION_WAIT_MS) {
                     break;
                 }
                 synchronized (actionLock) {
@@ -1963,10 +1962,6 @@ public class BridgeCallbackHandler {
             long waitElapsed = System.currentTimeMillis() - waitStart;
             if (next != null) {
                 logger.debug("[" + client.getUsername() + "] chooseAction: next callback arrived after " + waitElapsed + "ms");
-            } else {
-                logger.info("[" + client.getUsername() + "] chooseAction: next callback NOT arrived after " + waitElapsed + "ms");
-            }
-            if (next != null) {
                 result.next_action_pending = true;
                 result.next_action_type = next.method().name();
                 String nextMsg = stripHtml(next.message());
@@ -1974,6 +1969,10 @@ public class BridgeCallbackHandler {
                     result.next_action_message = nextMsg;
                 }
                 result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
+            } else {
+                logger.info("[" + client.getUsername() + "] chooseAction: no next callback (game over or shutting down)");
+                result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
+                result.player_dead = playerDead;
             }
         }
 
@@ -2310,16 +2309,12 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * After batch combat, wait for the next pending action before returning.
-     * Similar to the post-chooseAction wait, but factored out for reuse.
+     * After batch combat, block until the next pending action arrives.
+     * Same indefinite-blocking semantics as the post-chooseAction wait.
      */
     private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
-        long waitStart = System.currentTimeMillis();
         while (pendingAction == null) {
             if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                break;
-            }
-            if (System.currentTimeMillis() - waitStart > POST_ACTION_WAIT_MS) {
                 break;
             }
             synchronized (actionLock) {
@@ -2340,6 +2335,9 @@ public class BridgeCallbackHandler {
                 result.next_action_message = nextMsg;
             }
             result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
+        } else {
+            result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
+            result.player_dead = playerDead;
         }
     }
 
