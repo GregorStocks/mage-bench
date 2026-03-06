@@ -123,6 +123,7 @@ public class BridgeCallbackHandler {
     private final StringBuilder gameLog = new StringBuilder();
     private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
+    private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
 
@@ -456,6 +457,7 @@ public class BridgeCallbackHandler {
         fresh.setDeckList(deck);
         UUID tableId = jh.joinTable(deckPath, targetTableId);
         assert tableId != null : "Failed to join any table within timeout";
+        fresh.expectedStartTableId = tableId;
         logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
         boolean started = fresh.awaitGameStart(60_000);
         assert started : "Game did not start within 60s after joining table";
@@ -4767,6 +4769,15 @@ public class BridgeCallbackHandler {
 
     private void handleStartGame(UUID gameId, ClientCallback callback) {
         TableClientMessage message = (TableClientMessage) callback.getData();
+        UUID startTableId = message.getCurrentTableId();
+        UUID expectedTableId = expectedStartTableId;
+        if (expectedTableId != null && !expectedTableId.equals(startTableId)) {
+            logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
+                    + startTableId + " while waiting for table " + expectedTableId
+                    + " (gameId=" + gameId + ")");
+            return;
+        }
+        expectedStartTableId = null;
         UUID playerId = message.getPlayerId();
         activeGames.put(gameId, playerId);
         currentGameId = gameId;
