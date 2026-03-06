@@ -30,7 +30,7 @@ Determine which game(s) to analyze:
 
   This cross-references all game exports in `website/public/games/` (both `.json` and `.json.gz`) against existing analysis files in `doc/claudes/analyses/fast/` and prints the unanalyzed ones newest-first. Use `ARGS="--count N"` to change the number. Games are automatically skipped if 30+ fast-analysis runs have been done on newer games — at that point, any bugs from the old game have almost certainly already been identified. Use `ARGS="--max-staleness 0"` to disable this filter.
 
-Run steps 2-5 for **each** selected game before moving to the next.
+When analyzing multiple games, **parallelize aggressively**: run `game_overview.py`, `llm_events.py`, `game_narrative.py`, and `llm_reasoning.py` across 4+ games simultaneously rather than finishing one game before starting the next. Check errors/annotations arrays in bulk too. Write all analysis files at the end. Only drill into individual games (with `mcp_errors.py`, `extract_decisions.py`, etc.) when the initial parallel pass reveals something interesting.
 
 ### Step 2: Resolve the game file path
 
@@ -72,7 +72,7 @@ The scripts should cover:
 
 **Additional scripts** for targeted investigation when the core scripts reveal something interesting:
 
-- **game_timeline.py**: Chronological event viewer with filtering by `--turns`, `--player`, `--mana`, and `-v` for verbose output. More powerful than `game_narrative.py` for drilling into specific turns or mana behavior.
+- **game_timeline.py**: Chronological event viewer with filtering by `--turns`, `--player`, `--mana`, and `-v` for verbose output. More powerful than `game_narrative.py` for drilling into specific turns or mana behavior. **Known issue**: the `--turns` filter has a bug where `find_turn_at_ts` assigns all events to the last turn, making turn-range filtering useless. Use without `--turns` or use `extract_decisions.py` with turn filtering instead.
 - **mcp_errors.py**: MCP tool error analysis — error frequencies by error_code, retry outcomes, per-model breakdowns, and "least helpful error messages" (where models retry with the same error). Run this when `llm_events.py` shows many failed tool calls.
 - **mana_tapping.py**: Mana behavior analysis — mana_plan usage/success, auto-tap effectiveness, GAME_CHOOSE_ABILITY handling, spell cancellations. Run this when you see mana-related errors or spell cancellations.
 - **extract_decisions.py**: Structured decision extraction — outputs each decision point with board state, available choices, what was chosen, reasoning, and what happened next. Useful for evaluating specific decisions in depth.
@@ -85,7 +85,22 @@ The scripts should cover:
 
 **Decisions array**: The export may contain a `decisions` array with structured decision records — each one has the board state snapshot, available choices, what was chosen, `pilotContext` (untapped lands, playable cards, combat state), `subsequentActions` (what actually happened next), and `castRolledBack` (whether a spell was cancelled during mana payment). Use `extract_decisions.py` to view these in a readable format. This is the best data for evaluating decision quality — much more structured than reading raw reasoning.
 
-**Existing annotations**: Check whether the export already has an `annotations` array (added by `annotate_game.py`). If blunder annotations already exist, you can reference them directly rather than re-evaluating decisions from scratch.
+**Existing annotations**: Check whether the export already has an `annotations` array (added by `annotate_game.py`). If blunder annotations already exist, you can reference them directly rather than re-evaluating decisions from scratch. **Check annotations early** — they're free structured data with severity levels (major/moderate/minor/questionable) and are more reliable than re-evaluating decisions yourself.
+
+**Models with no reasoning**: Some models (Gemini Flash Lite, some GPT variants) produce no reasoning/thinking traces. `llm_reasoning.py` will return "(no reasoning samples)" — this is expected, not a bug. Don't waste time investigating empty reasoning output; just note it in the analysis and move on.
+
+### Known model error patterns (not platform bugs)
+
+These are **recurring model behavior issues** seen across many games and models. Don't file issues for these — they're expected LLM limitations, not platform bugs. Note them in analysis files for tracking but don't investigate further unless the error rate is exceptional:
+
+- **Thriving land color text**: Models pass `text="White"` or the full oracle text instead of `index=N` for Thriving land color choices. Recovery rate ~67%. Seen across G31FL, GPT5, Llama4, MstLg, MiniMx, MstMed.
+- **GAME_CHOOSE_ABILITY forced choice**: Models send `choice="no"` or empty args `{}` trying to decline a forced ability choice that requires `index=N`. Especially common with single-option abilities. Weaker models (G31FL, GptOSS, MiniMx) get stuck; stronger models recover quickly.
+- **Stale pN IDs**: All models send permanent IDs that are no longer valid (creature died, returned to hand, etc.). Some models (Grok, MstLg) are especially persistent, retrying the same stale ID 3-4 times.
+- **"attackers" in wrong phase**: Models send `attackers=` parameter during GAME_SELECT (priority) phases instead of `choice=pN`. Universal across models.
+- **"choice=all"**: Models try `choice="all"` or `attackers="all"` — neither is valid. Must list specific IDs or use the declared attack phase.
+- **Hallucinated engine bugs**: GptOSS-120b specifically hallucinates that the game engine is broken ("tool is broken", "bug in simulation", "server glitch") rather than recognizing its own errors.
+
+**When IS it a platform bug?** If the error message is actively misleading (telling the model to do something that doesn't work), if the game state is demonstrably wrong (life totals, card positions), or if the `errors` array has entries — those are platform bugs worth investigating.
 
 ### Step 4: Check existing issues and verify bugs still exist
 
@@ -135,6 +150,15 @@ Create a file in `doc/claudes/analyses/fast/` for each game analyzed (see `doc/c
 ### Step 6: Present summary
 
 Summarize findings: game outcome, key plays, LLM quality assessment, bugs found (with issue filenames), and any model-only issues noted.
+
+### Step 7: Update this skill
+
+If you discovered new recurring patterns, useful analysis techniques, broken scripts, or better workflows during this run, **update this file** before finishing. This skill improves over time as more games are analyzed. Examples of things to add:
+
+- New model error patterns that are clearly not platform bugs (add to "Known model error patterns")
+- Scripts that are broken or have known limitations (add caveats)
+- Workflow improvements (e.g. better parallelization strategies)
+- New analysis scripts you created in `scripts/analysis/`
 
 ## What this skill does NOT do
 
