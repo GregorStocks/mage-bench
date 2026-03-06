@@ -24,7 +24,7 @@ When asked "Mulligan down to N cards?", the board shows your current hand.
 
 - The output shows the board state (life totals, hands, battlefields, graveyards), followed by choices.
 - Your hand is shown in full. Opponent hands show only a count.
-- A Card Reference section lists oracle text for non-basic cards in play.
+- A Card Reference section lists oracle text for non-basic cards when they first appear. It won't repeat oracle text for cards you've already seen — use `get_oracle_text` if you need a reminder.
 - All cards listed in the Choices are confirmed castable with your current mana. The server pre-filters to only show cards you can legally play right now.
 - Each choice shows its ID in brackets, e.g. `Lightning Bolt [id=p3, cast, {R}]`. Use the id to select it.
 - The "Respond" line tells you the expected format for `choose_action`.

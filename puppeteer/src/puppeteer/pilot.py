@@ -177,7 +177,11 @@ def _build_pilot_decision(data: dict) -> dict:
     return decision
 
 
-def _render_for_pilot(result_text: str, last_board: list[dict] | None) -> tuple[str, list[dict] | None]:
+def _render_for_pilot(
+    result_text: str,
+    last_board: list[dict] | None,
+    seen_oracle_cards: set[str] | None = None,
+) -> tuple[str, list[dict] | None]:
     """Render an action result for LLM consumption.
 
     Handles pass_priority, get_action_choices, and choose_action results.
@@ -206,8 +210,12 @@ def _render_for_pilot(result_text: str, last_board: list[dict] | None) -> tuple[
     snapshot = _build_pilot_snapshot(data, board)
     decision = _build_pilot_decision(data)
 
-    # Extract oracle texts from board's rules fields
+    # Extract oracle texts from board's rules fields, filtering out
+    # cards whose oracle text was already shown in a previous message.
     oracle_texts = _extract_oracle_texts_from_board(board) if board else {}
+    if seen_oracle_cards is not None:
+        oracle_texts = {k: v for k, v in oracle_texts.items() if k not in seen_oracle_cards}
+        seen_oracle_cards.update(oracle_texts)
 
     deciding_player = decision["player"]
 
@@ -654,6 +662,9 @@ async def run_pilot_loop(
     # Chat nudge tracking: encourage LLMs to chat regularly
     current_game_turn: int = 0  # parsed from pass_priority context "T3 ..."
     last_chat_turn: int = 0  # game turn when LLM last sent a chat message
+    # Oracle dedup: track which cards have had their oracle text included
+    # in a rendered tool result, so we don't repeat it on every message.
+    seen_oracle_cards: set[str] = set()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
     cached_render: list[dict] | None = None
@@ -780,6 +791,7 @@ async def run_pilot_loop(
                     consecutive_truncations = 0
                     board_tracker.reset()
                     last_board = None
+                    seen_oracle_cards.clear()
                     continue
             else:
                 consecutive_truncations = 0
@@ -1035,7 +1047,7 @@ async def run_pilot_loop(
                     # the same ActionResult fields when a decision is pending)
                     display_text = result_text
                     if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
-                        display_text, last_board = _render_for_pilot(result_text, last_board)
+                        display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
                         # Chat nudge: remind LLM to chat if it's been silent too long
                         turns_since_chat = current_game_turn - last_chat_turn
                         chat_budget_left = chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
@@ -1143,6 +1155,7 @@ async def run_pilot_loop(
                 cached_render = None
                 cached_history_len = 0
                 render_counter = 0
+                seen_oracle_cards.clear()
                 continue
 
         except asyncio.TimeoutError:
@@ -1184,6 +1197,7 @@ async def run_pilot_loop(
                 consecutive_timeouts = 0
                 board_tracker.reset()
                 last_board = None
+                seen_oracle_cards.clear()
 
         except Exception as e:
             consecutive_timeouts = 0
@@ -1232,6 +1246,7 @@ async def run_pilot_loop(
             cached_render = None
             cached_history_len = 0
             render_counter = 0
+            seen_oracle_cards.clear()
 
 
 async def run_pilot(

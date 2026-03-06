@@ -690,6 +690,23 @@ class TestRenderForPilot:
         assert text == "not json"
         assert board is None
 
+    def test_seen_oracle_cards_filters_repeat(self) -> None:
+        result = json.dumps(_sample_pass_priority_result())
+        seen: set[str] = set()
+        text1, board = _render_for_pilot(result, None, seen)
+        assert "3 damage" in text1
+        assert "Lightning Bolt" in seen
+        # Second render: oracle text should not repeat
+        text2, _ = _render_for_pilot(result, board, seen)
+        assert "3 damage" not in text2
+
+    def test_seen_oracle_cards_none_always_shows(self) -> None:
+        result = json.dumps(_sample_pass_priority_result())
+        text1, board = _render_for_pilot(result, None, None)
+        assert "3 damage" in text1
+        text2, _ = _render_for_pilot(result, board, None)
+        assert "3 damage" in text2
+
 
 class TestExtractOracleTexts:
     def test_extracts_rules(self) -> None:
