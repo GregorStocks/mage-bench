@@ -32,6 +32,7 @@ from puppeteer.config import (  # noqa: E402
     load_personalities,
     load_prompts,
 )
+from puppeteer.decision_renderer import BASIC_LAND_NAMES  # noqa: E402
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes  # noqa: E402
 from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env  # noqa: E402
 
@@ -43,8 +44,7 @@ PACKS_PER_PICK = 4
 LLM_TIMEOUT_SECS = 60
 MAX_TOKENS = 2000
 
-# Basic land names to skip in oracle text display
-BASIC_LANDS = {"Plains", "Island", "Swamp", "Mountain", "Forest"}
+BASIC_LANDS = BASIC_LAND_NAMES
 
 
 def snake_draft_order(num_entrants: int) -> list[int]:
@@ -252,8 +252,11 @@ def _resolve_entrant_config(
     )
 
     # Get personality prompt_suffix
-    p_data = personalities.get(entrant["personality"], {})
-    prompt_suffix = p_data.get("prompt_suffix")
+    personality_name = entrant["personality"]
+    assert personality_name in personalities, (
+        f"Personality {personality_name!r} not found in personalities"
+    )
+    prompt_suffix = personalities[personality_name].get("prompt_suffix")
 
     return (
         player.model,
@@ -293,13 +296,12 @@ async def _llm_pick(
     assert response.choices, f"LLM returned empty choices for model {model}"
     content = response.choices[0].message.content
     assert content is not None, f"LLM returned None content for model {model}"
-    response_text = content
 
     try:
-        pick = parse_pick(response_text, num_options)
+        pick = parse_pick(content, num_options)
     except ValueError:
         # Retry once with a clearer prompt
-        messages.append({"role": "assistant", "content": response_text})
+        messages.append({"role": "assistant", "content": content})
         messages.append(
             {
                 "role": "user",
@@ -319,7 +321,7 @@ async def _llm_pick(
         )
         pick = parse_pick(retry_content, num_options)
 
-    return pick, response_text
+    return pick, content
 
 
 async def run_draft(tournament: dict, tournament_path: Path) -> None:
@@ -349,6 +351,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     order = snake_draft_order(num_entrants)
     picks: list[dict] = []
     entrant_picks: dict[int, list[HalfDeck]] = {seed: [] for seed in entrants_by_seed}
+    client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
 
     for pick_idx, seed in enumerate(order):
         round_num = 1 if pick_idx < num_entrants else 2
@@ -379,13 +382,16 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
         api_key = os.environ.get(key_env, "")
         assert api_key, f"Missing API key: set {key_env} environment variable"
 
-        # Make LLM call
-        client = AsyncOpenAI(
-            api_key=api_key,
-            base_url=base_url,
-            timeout=LLM_TIMEOUT_SECS + 5,
-            max_retries=1,
-        )
+        # Get or create cached client
+        cache_key = (api_key, base_url)
+        if cache_key not in client_cache:
+            client_cache[cache_key] = AsyncOpenAI(
+                api_key=api_key,
+                base_url=base_url,
+                timeout=LLM_TIMEOUT_SECS + 5,
+                max_retries=1,
+            )
+        client = client_cache[cache_key]
 
         print(
             f"Pick {pick_idx + 1}/{len(order)}: "
