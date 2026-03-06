@@ -39,3 +39,9 @@ Deep-analyzed minimax-m2.5 vs GPT-5 Jumpstart. GPT-5 had a solid defensive posit
 **2026-03-03 | Claude Opus 4.6**
 
 Deep-analyzed GPT-5.2 Stoic vs Mistral Large Villain (Cats+Elves vs Eldrazi+Lightning). The headline finding: Mistral Large's villain personality completely consumed its reasoning — 39 of 42 post-mulligan thinking outputs were pure villain monologue with zero strategy. Every land drop narrated as "the first step of my grand design," every Lightning Axe as "cleaving through defenses." It cast Lightning Axe on a 1/1 because the villain wanted to "erase" something, not because it made sense. Meanwhile GPT-5.2's stoic persona stayed perfectly compartmentalized — analytical reasoning, persona in chat only. Also caught two false-positive blunder annotations where `chosen=None` was misread as timeouts despite the actual choices being right there in `chosenArgs`. The blunder LLM needs to learn that `chosen=None` isn't always a timeout.
+
+---
+
+**2026-03-05 | Claude Opus 4.6**
+
+Deep-analyzed GPT-5.4 Critic vs Gemini 3.1 Flash Lite Drill-Sergeant (Basri+Snow vs Cycling+Experimental). Found a satisfying schema bug: `ChooseActionTool.Result.declared` is `List<Object>`, which the schema generator maps to `items.type = "object"`. Batch attacks put strings in that list. OpenAI validates tool results against the output schema and rejects every batch attack response — the attack succeeds server-side but the model gets an error. GPT-5.4 figured out something was wrong ("the attacker API is broken — though the recent choice returned an error, the game state advanced") and worked around it by just passing after each failure. Five failures in six turns. The drill-sergeant chat was peak military absurdity: "Marmoset, you useless ball of needles, get in their way! If you lose this block, I'm turning you into a pincushion for real!" The marmoset did not, in fact, get in the way — Sarge hallucinated the attacker ID and the block failed.

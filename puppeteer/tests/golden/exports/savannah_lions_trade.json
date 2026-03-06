@@ -1025,7 +1025,9 @@
         ],
         "context": "T2 Combat/Declare Attackers (TestPlayer)",
         "declared": [
-          "all"
+          {
+            "id": "all"
+          }
         ],
         "game_seq": 46,
         "message": "Play instants and activated abilities",
@@ -2357,7 +2359,9 @@
         ],
         "context": "T2 Combat/Declare Attackers (TestPlayer)",
         "declared": [
-          "all"
+          {
+            "id": "all"
+          }
         ],
         "game_seq": 46,
         "message": "Play instants and activated abilities",

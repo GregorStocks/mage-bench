@@ -2829,7 +2829,9 @@
         ],
         "context": "T5 Combat/Declare Attackers (TestPlayer)",
         "declared": [
-          "all"
+          {
+            "id": "all"
+          }
         ],
         "game_seq": 125,
         "message": "Play instants and activated abilities",
@@ -6162,7 +6164,9 @@
         ],
         "context": "T5 Combat/Declare Attackers (TestPlayer)",
         "declared": [
-          "all"
+          {
+            "id": "all"
+          }
         ],
         "game_seq": 125,
         "message": "Play instants and activated abilities",
