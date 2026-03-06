@@ -756,6 +756,16 @@
   height: 13px;
 }
 
+.card-state-annotation {
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 0.8em;
+  color: #7db8f0;
+  background: rgba(100, 160, 230, 0.1);
+  border-radius: 3px;
+  white-space: normal;
+}
+
 /* Diff highlight animations */
 @keyframes card-enter-glow {
   0% {

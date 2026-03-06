@@ -27,8 +27,12 @@ jobs:
         working-directory: website
 
       - name: Deploy to Cloudflare Pages
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy website/dist/ --project-name=mage-bench
+
+      - name: Print deployment URL
+        run: echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}"
