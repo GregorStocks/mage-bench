@@ -4396,71 +4396,97 @@ public class BridgeCallbackHandler {
 
                 case GAME_TARGET:
                     if (mcpMode) {
-                        // Auto-select when required and only one legal target
-                        GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
-                        if (targetCallbackMsg.isFlag()) { // required
-                            Set<UUID> autoTargets = findValidTargets(targetCallbackMsg);
-                            if (autoTargets != null && autoTargets.size() == 1) {
-                                UUID onlyTarget = autoTargets.iterator().next();
-                                logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
-                                // Update game view if available
-                                GameView gv = targetCallbackMsg.getGameView();
-                                updateLastGameView(gv, "auto_target");
-                                session.sendPlayerUUID(objectId, onlyTarget);
-                                break;
+                        // Auto-select when required and only one legal target.
+                        // Wrap in try-catch: if auto-select throws, fall through
+                        // to storePendingAction instead of dropping the callback.
+                        boolean targetAutoHandled = false;
+                        try {
+                            GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
+                            if (targetCallbackMsg.isFlag()) { // required
+                                Set<UUID> autoTargets = findValidTargets(targetCallbackMsg);
+                                if (autoTargets != null && autoTargets.size() == 1) {
+                                    UUID onlyTarget = autoTargets.iterator().next();
+                                    logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
+                                    // Update game view if available
+                                    GameView gv = targetCallbackMsg.getGameView();
+                                    updateLastGameView(gv, "auto_target");
+                                    session.sendPlayerUUID(objectId, onlyTarget);
+                                    targetAutoHandled = true;
+                                }
                             }
+                        } catch (Exception e) {
+                            logger.error("[" + client.getUsername() + "] Target auto-select threw, falling through to pending action", e);
+                            logError("Target auto-select exception: " + e.getMessage());
                         }
-                        storePendingAction(objectId, method, callback);
+                        if (!targetAutoHandled) {
+                            storePendingAction(objectId, method, callback);
+                        }
                     } else {
                         handleGameTarget(objectId, callback);
                     }
                     break;
 
                 case GAME_CHOOSE_ABILITY: {
-                    AbilityPickerView picker = (AbilityPickerView) callback.getData();
-                    Map<UUID, String> choices = picker.getChoices();
-                    GameView gv = picker.getGameView();
-                    updateLastGameView(gv, "GAME_CHOOSE_ABILITY");
+                    // Wrap auto-handling in try-catch: if mana plan logic throws,
+                    // fall through to storePendingAction instead of dropping the callback.
+                    boolean abilityAutoHandled = false;
+                    try {
+                        AbilityPickerView picker = (AbilityPickerView) callback.getData();
+                        Map<UUID, String> choices = picker.getChoices();
+                        GameView gv = picker.getGameView();
+                        updateLastGameView(gv, "GAME_CHOOSE_ABILITY");
 
-                    if (mcpMode && choices != null && !choices.isEmpty()) {
-                        if (manaPlan != null) {
-                            // Mana plan mode: use ability index if specified, otherwise pick first.
-                            Integer abilityIdx = manaPlanAbilityIndex;
-                            manaPlanAbilityIndex = null;  // consume
-                            UUID selected;
-                            if (abilityIdx != null) {
-                                List<UUID> abilityIds = new ArrayList<>(choices.keySet());
-                                if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
-                                    selected = abilityIds.get(abilityIdx);
-                                    logger.info("[" + client.getUsername() + "] Mana plan: selecting ability " + abilityIdx + ": \""
-                                            + picker.getMessage() + "\" -> " + choices.get(selected));
+                        if (mcpMode && choices != null && !choices.isEmpty()) {
+                            if (manaPlan != null) {
+                                // Mana plan mode: use ability index if specified, otherwise pick first.
+                                Integer abilityIdx = manaPlanAbilityIndex;
+                                manaPlanAbilityIndex = null;  // consume
+                                UUID selected;
+                                if (abilityIdx != null) {
+                                    List<UUID> abilityIds = new ArrayList<>(choices.keySet());
+                                    if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
+                                        selected = abilityIds.get(abilityIdx);
+                                        logger.info("[" + client.getUsername() + "] Mana plan: selecting ability " + abilityIdx + ": \""
+                                                + picker.getMessage() + "\" -> " + choices.get(selected));
+                                    } else {
+                                        logger.warn("[" + client.getUsername() + "] Mana plan: ability index " + abilityIdx
+                                                + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
+                                                + picker.getMessage() + "\", cancelling spell");
+                                        cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
+                                        abilityAutoHandled = true;
+                                        break;
+                                    }
                                 } else {
-                                    logger.warn("[" + client.getUsername() + "] Mana plan: ability index " + abilityIdx
-                                            + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
-                                            + picker.getMessage() + "\", cancelling spell");
-                                    cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
-                                    break;
+                                    selected = choices.keySet().iterator().next();
+                                    if (choices.size() == 1) {
+                                        logger.info("[" + client.getUsername() + "] Mana plan: auto-selecting sole ability: \""
+                                                + picker.getMessage() + "\" -> " + choices.get(selected));
+                                    } else {
+                                        logger.info("[" + client.getUsername() + "] Mana plan: no ability index, picking first of "
+                                                + choices.size() + ": \"" + picker.getMessage() + "\" -> " + choices.get(selected));
+                                    }
                                 }
+                                session.sendPlayerUUID(objectId, selected);
+                                abilityAutoHandled = true;
                             } else {
-                                selected = choices.keySet().iterator().next();
-                                if (choices.size() == 1) {
-                                    logger.info("[" + client.getUsername() + "] Mana plan: auto-selecting sole ability: \""
-                                            + picker.getMessage() + "\" -> " + choices.get(selected));
-                                } else {
-                                    logger.info("[" + client.getUsername() + "] Mana plan: no ability index, picking first of "
-                                            + choices.size() + ": \"" + picker.getMessage() + "\" -> " + choices.get(selected));
-                                }
+                                // No mana plan: let the LLM choose the ability
+                                storePendingAction(objectId, method, callback);
+                                abilityAutoHandled = true;
                             }
-                            session.sendPlayerUUID(objectId, selected);
+                        } else if (mcpMode) {
+                            logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
+                            session.sendPlayerUUID(objectId, null);
+                            abilityAutoHandled = true;
                         } else {
-                            // No mana plan: let the LLM choose the ability
-                            storePendingAction(objectId, method, callback);
+                            handleGameChooseAbility(objectId, callback);
+                            abilityAutoHandled = true;
                         }
-                    } else if (mcpMode) {
-                        logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
-                        session.sendPlayerUUID(objectId, null);
-                    } else {
-                        handleGameChooseAbility(objectId, callback);
+                    } catch (Exception e) {
+                        logger.error("[" + client.getUsername() + "] Ability auto-handler threw, falling through to pending action", e);
+                        logError("Ability auto-handler exception: " + e.getMessage());
+                    }
+                    if (!abilityAutoHandled && mcpMode) {
+                        storePendingAction(objectId, method, callback);
                     }
                     break;
                 }
@@ -4482,9 +4508,18 @@ public class BridgeCallbackHandler {
                     break;
 
                 case GAME_PLAY_MANA:
-                case GAME_PLAY_XMANA:
-                    // Try auto-tap first; if it fails, let the LLM choose
-                    if (!handleGamePlayManaAuto(objectId, callback)) {
+                case GAME_PLAY_XMANA: {
+                    // Try auto-tap first; if it fails or throws, let the LLM choose.
+                    // An uncaught exception here would be swallowed by the outer catch
+                    // block, silently dropping the callback and hanging the game thread.
+                    boolean manaHandled = false;
+                    try {
+                        manaHandled = handleGamePlayManaAuto(objectId, callback);
+                    } catch (Exception e) {
+                        logger.error("[" + client.getUsername() + "] Mana auto-handler threw, falling through to pending action", e);
+                        logError("Mana auto-handler exception: " + e.getMessage());
+                    }
+                    if (!manaHandled) {
                         if (mcpMode) {
                             storePendingAction(objectId, method, callback);
                         } else {
@@ -4493,6 +4528,7 @@ public class BridgeCallbackHandler {
                         }
                     }
                     break;
+                }
 
                 case GAME_GET_AMOUNT:
                     if (mcpMode) {
@@ -4539,6 +4575,18 @@ public class BridgeCallbackHandler {
         } catch (Exception e) {
             logger.error("[" + client.getUsername() + "] Error handling callback: " + callback.getMethod(), e);
             logError("Error handling callback " + callback.getMethod() + ": " + e.getMessage());
+            // If this was an actionable callback (one that requires a player response),
+            // the server's game thread is now stuck in waitForResponse() forever because
+            // no response was sent.  Signal playerDead so passPriority/chooseAction exit
+            // immediately instead of hanging until the Python HTTP timeout (120s).
+            if (ACTIONABLE_CALLBACKS.contains(callback.getMethod())) {
+                logger.error("[" + client.getUsername() + "] CRITICAL: Actionable callback " + callback.getMethod()
+                        + " dropped due to exception — declaring player dead to prevent hang");
+                playerDead = true;
+                synchronized (actionLock) {
+                    actionLock.notifyAll();
+                }
+            }
         }
     }
 
