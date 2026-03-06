@@ -89,8 +89,9 @@
   transition: all 0.15s;
   text-align: center;
 }
-.audit-verdict-btn:hover { filter: brightness(1.2); }
-.audit-verdict-btn:active { transform: scale(0.97); }
+.audit-verdict-btn:hover:not(:disabled) { filter: brightness(1.2); }
+.audit-verdict-btn:active:not(:disabled) { transform: scale(0.97); }
+.audit-verdict-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .audit-verdict-btn.selected { box-shadow: 0 0 0 2px white; }
 #audit-btn-blunder { background: #e74c3c; color: white; }
 #audit-btn-not-blunder { background: #2ecc71; color: white; }
@@ -107,6 +108,7 @@
   resize: none;
   height: 2.2rem;
 }
+#audit-notes-input:disabled { opacity: 0.3; cursor: not-allowed; }
 
 #audit-submit-btn {
   padding: 0.45rem;
