@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T04:40:32.055622+00:00",
+  "generatedAt": "2026-03-06T05:09:25.365593+00:00",
   "totalGames": 117,
   "models": [
     {
@@ -357,12 +357,12 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-06T04:40:32.052008+00:00",
+      "generatedAt": "2026-03-06T05:09:25.360036+00:00",
       "totalGames": 0,
       "models": []
     },
     "standard": {
-      "generatedAt": "2026-03-06T04:40:32.052704+00:00",
+      "generatedAt": "2026-03-06T05:09:25.362209+00:00",
       "totalGames": 41,
       "models": [
         {
@@ -556,22 +556,6 @@
           "blunderScore": 3.2
         },
         {
-          "modelId": "openai/gpt-4.1-mini",
-          "modelName": "GPT-4.1 Mini",
-          "provider": "OpenAI",
-          "rating": 1583,
-          "gamesPlayed": 1,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 4.39,
-          "avgToolCallsOk": 3190.0,
-          "avgToolCallsFailed": 0.0,
-          "avgThinkingTimeSecs": 3343.4,
-          "blunderScore": 0.0,
-          "inactive": "retired"
-        },
-        {
           "modelId": "minimax/minimax-m2.1",
           "modelName": "MiniMax M2.1 (medium)",
           "provider": "Minimax",
@@ -586,6 +570,22 @@
           "avgThinkingTimeSecs": 728.9,
           "blunderScore": 1.0,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "openai/gpt-4.1-mini",
+          "modelName": "GPT-4.1 Mini",
+          "provider": "OpenAI",
+          "rating": 1583,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 4.39,
+          "avgToolCallsOk": 3190.0,
+          "avgToolCallsFailed": 0.0,
+          "avgThinkingTimeSecs": 3343.4,
+          "blunderScore": 0.0,
+          "inactive": "retired"
         },
         {
           "modelId": "openai/gpt-5-nano",
@@ -635,22 +635,6 @@
           "blunderScore": 2.65
         },
         {
-          "modelId": "qwen/qwen3-max-thinking",
-          "modelName": "Qwen3 Max Thinking (medium)",
-          "provider": "Qwen",
-          "rating": 1569,
-          "gamesPlayed": 2,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 1.19,
-          "avgToolCallsOk": 156.5,
-          "avgToolCallsFailed": 0.5,
-          "avgThinkingTimeSecs": 568.1,
-          "blunderScore": 3.8,
-          "reasoningEffort": "medium"
-        },
-        {
           "modelId": "openai/gpt-5-mini",
           "modelName": "GPT-5 Mini (medium)",
           "provider": "OpenAI",
@@ -666,6 +650,22 @@
           "blunderScore": 1.35,
           "reasoningEffort": "medium",
           "inactive": "retired"
+        },
+        {
+          "modelId": "qwen/qwen3-max-thinking",
+          "modelName": "Qwen3 Max Thinking (medium)",
+          "provider": "Qwen",
+          "rating": 1569,
+          "gamesPlayed": 2,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 1.19,
+          "avgToolCallsOk": 156.5,
+          "avgToolCallsFailed": 0.5,
+          "avgThinkingTimeSecs": 568.1,
+          "blunderScore": 3.8,
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "google/gemini-2.5-flash",
@@ -703,7 +703,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-06T04:40:32.053296+00:00",
+      "generatedAt": "2026-03-06T05:09:25.363197+00:00",
       "totalGames": 38,
       "models": [
         {
@@ -983,7 +983,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-06T04:40:32.053784+00:00",
+      "generatedAt": "2026-03-06T05:09:25.363762+00:00",
       "totalGames": 29,
       "models": [
         {
@@ -1294,7 +1294,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-06T04:40:32.054074+00:00",
+      "generatedAt": "2026-03-06T05:09:25.364098+00:00",
       "totalGames": 9,
       "exhibition": true,
       "models": [
@@ -1331,22 +1331,6 @@
           "inactive": "retired"
         },
         {
-          "modelId": "google/gemini-3-flash-preview",
-          "modelName": "Gemini 3 Flash (medium)",
-          "provider": "Google",
-          "rating": null,
-          "gamesPlayed": 5,
-          "winRate": 0.4,
-          "timeoutLosses": 1,
-          "timeoutLossRate": 0.2,
-          "avgApiCost": 4.75,
-          "avgToolCallsOk": 1082.0,
-          "avgToolCallsFailed": 18.6,
-          "avgThinkingTimeSecs": 1963.4,
-          "blunderScore": 2.84,
-          "reasoningEffort": "medium"
-        },
-        {
           "modelId": "google/gemini-2.5-flash",
           "modelName": "Gemini 2.5 Flash (medium)",
           "provider": "Google",
@@ -1362,6 +1346,22 @@
           "blunderScore": 0.91,
           "reasoningEffort": "medium",
           "inactive": "retired"
+        },
+        {
+          "modelId": "google/gemini-3-flash-preview",
+          "modelName": "Gemini 3 Flash (medium)",
+          "provider": "Google",
+          "rating": null,
+          "gamesPlayed": 5,
+          "winRate": 0.4,
+          "timeoutLosses": 1,
+          "timeoutLossRate": 0.2,
+          "avgApiCost": 4.75,
+          "avgToolCallsOk": 1082.0,
+          "avgToolCallsFailed": 18.6,
+          "avgThinkingTimeSecs": 1963.4,
+          "blunderScore": 2.84,
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "anthropic/claude-sonnet-4.5",
@@ -1429,22 +1429,6 @@
           "reasoningEffort": "medium"
         },
         {
-          "modelId": "z-ai/glm-4.7",
-          "modelName": "GLM 4.7 (medium)",
-          "provider": "Z-Ai",
-          "rating": null,
-          "gamesPlayed": 2,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.35,
-          "avgToolCallsOk": 111.5,
-          "avgToolCallsFailed": 5.0,
-          "avgThinkingTimeSecs": 540.8,
-          "blunderScore": 0.93,
-          "reasoningEffort": "medium"
-        },
-        {
           "modelId": "qwen/qwen3-235b-a22b-2507",
           "modelName": "Qwen3 235B",
           "provider": "Qwen",
@@ -1460,35 +1444,20 @@
           "blunderScore": 1.37
         },
         {
-          "modelId": "openai/gpt-4.1-mini",
-          "modelName": "GPT-4.1 Mini",
-          "provider": "OpenAI",
+          "modelId": "z-ai/glm-4.7",
+          "modelName": "GLM 4.7 (medium)",
+          "provider": "Z-Ai",
           "rating": null,
-          "gamesPlayed": 1,
+          "gamesPlayed": 2,
           "winRate": 0.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 0.82,
-          "avgToolCallsOk": 276.0,
-          "avgToolCallsFailed": 18.0,
-          "avgThinkingTimeSecs": 478.7,
-          "blunderScore": 0.38,
-          "inactive": "retired"
-        },
-        {
-          "modelId": "mistralai/devstral-small",
-          "modelName": "Devstral Small",
-          "provider": "Mistral AI",
-          "rating": null,
-          "gamesPlayed": 1,
-          "winRate": 0.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.09,
-          "avgToolCallsOk": 148.0,
-          "avgToolCallsFailed": 0.0,
-          "avgThinkingTimeSecs": 276.1,
-          "blunderScore": 0.07
+          "avgApiCost": 0.35,
+          "avgToolCallsOk": 111.5,
+          "avgToolCallsFailed": 5.0,
+          "avgThinkingTimeSecs": 540.8,
+          "blunderScore": 0.93,
+          "reasoningEffort": "medium"
         },
         {
           "modelId": "meta-llama/llama-4-maverick",
@@ -1506,20 +1475,19 @@
           "blunderScore": 2.06
         },
         {
-          "modelId": "xiaomi/mimo-v2-flash",
-          "modelName": "MiMo V2 Flash (medium)",
-          "provider": "Xiaomi",
+          "modelId": "mistralai/devstral-small",
+          "modelName": "Devstral Small",
+          "provider": "Mistral AI",
           "rating": null,
           "gamesPlayed": 1,
           "winRate": 0.0,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 0.28,
-          "avgToolCallsOk": 225.0,
-          "avgToolCallsFailed": 4.0,
-          "avgThinkingTimeSecs": 730.9,
-          "blunderScore": 0.39,
-          "reasoningEffort": "medium"
+          "avgApiCost": 0.09,
+          "avgToolCallsOk": 148.0,
+          "avgToolCallsFailed": 0.0,
+          "avgThinkingTimeSecs": 276.1,
+          "blunderScore": 0.07
         },
         {
           "modelId": "moonshotai/kimi-k2-0905",
@@ -1536,6 +1504,22 @@
           "avgThinkingTimeSecs": 1050.3,
           "blunderScore": 0.85,
           "reasoningEffort": "medium",
+          "inactive": "retired"
+        },
+        {
+          "modelId": "openai/gpt-4.1-mini",
+          "modelName": "GPT-4.1 Mini",
+          "provider": "OpenAI",
+          "rating": null,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.82,
+          "avgToolCallsOk": 276.0,
+          "avgToolCallsFailed": 18.0,
+          "avgThinkingTimeSecs": 478.7,
+          "blunderScore": 0.38,
           "inactive": "retired"
         },
         {
@@ -1569,11 +1553,27 @@
           "avgThinkingTimeSecs": 1735.3,
           "blunderScore": 1.14,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "xiaomi/mimo-v2-flash",
+          "modelName": "MiMo V2 Flash (medium)",
+          "provider": "Xiaomi",
+          "rating": null,
+          "gamesPlayed": 1,
+          "winRate": 0.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.28,
+          "avgToolCallsOk": 225.0,
+          "avgToolCallsFailed": 4.0,
+          "avgThinkingTimeSecs": 730.9,
+          "blunderScore": 0.39,
+          "reasoningEffort": "medium"
         }
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-06T04:40:32.055622+00:00",
+      "generatedAt": "2026-03-06T05:09:25.365593+00:00",
       "totalGames": 108,
       "models": [
         {

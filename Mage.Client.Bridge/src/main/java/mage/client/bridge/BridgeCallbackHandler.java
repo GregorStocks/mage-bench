@@ -123,6 +123,7 @@ public class BridgeCallbackHandler {
     private final StringBuilder gameLog = new StringBuilder();
     private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
+    private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
 
@@ -458,6 +459,7 @@ public class BridgeCallbackHandler {
         fresh.setDeckList(deck);
         UUID tableId = jh.joinTable(deckPath, targetTableId);
         assert tableId != null : "Failed to join any table within timeout";
+        fresh.expectedStartTableId = tableId;
         logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
         boolean started = fresh.awaitGameStart(60_000);
         assert started : "Game did not start within 60s after joining table";
@@ -3151,9 +3153,12 @@ public class BridgeCallbackHandler {
                     GameView gv = (action.data() instanceof GameClientMessage)
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     PhaseStep step = gv != null ? gv.getStep() : null;
-                    if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP) {
-                        // Reached end of turn — stop yielding, fall through to
-                        // playable-cards check so LLM can respond to end-step triggers
+                    int turnNum = gv != null ? gv.getTurn() : yieldStartTurn;
+                    if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
+                            || turnNum > yieldStartTurn) {
+                        // Reached end of turn (or the turn advanced without us seeing
+                        // END_TURN/CLEANUP because server-side skip settings auto-passed
+                        // those steps) — stop yielding, fall through to playable-cards check.
                         yieldUntilEndOfTurn = false;
                     } else {
                         // Not end of turn yet — auto-pass
@@ -4715,6 +4720,15 @@ public class BridgeCallbackHandler {
 
     private void handleStartGame(UUID gameId, ClientCallback callback) {
         TableClientMessage message = (TableClientMessage) callback.getData();
+        UUID startTableId = message.getCurrentTableId();
+        UUID expectedTableId = expectedStartTableId;
+        if (expectedTableId != null && !expectedTableId.equals(startTableId)) {
+            logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
+                    + startTableId + " while waiting for table " + expectedTableId
+                    + " (gameId=" + gameId + ")");
+            return;
+        }
+        expectedStartTableId = null;
         UUID playerId = message.getPlayerId();
         activeGames.put(gameId, playerId);
         currentGameId = gameId;
