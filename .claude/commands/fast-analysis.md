@@ -99,6 +99,7 @@ These are **recurring model behavior issues** seen across many games and models.
 - **"attackers" in wrong phase**: Models send `attackers=` parameter during GAME_SELECT (priority) phases instead of `choice=pN`. Universal across models.
 - **"choice=all"**: Models try `choice="all"` or `attackers="all"` — neither is valid. Must list specific IDs or use the declared attack phase.
 - **Hallucinated engine bugs**: GptOSS-120b specifically hallucinates that the game engine is broken ("tool is broken", "bug in simulation", "server glitch") rather than recognizing its own errors.
+- **GptOSS echoing tool results as args**: GptOSS-120b sometimes sends the full JSON tool result object back as its next tool call args (e.g. `{"success": true, "action_taken": "selected_0", "game_seq": 460, ...}`). The model confuses tool outputs with tool inputs. This creates a cascade of failures since the bridge rejects the malformed args. Seen in game_20260304_191003_g1 (7+ occurrences in late game).
 
 **When IS it a platform bug?** If the error message is actively misleading (telling the model to do something that doesn't work), if the game state is demonstrably wrong (life totals, card positions), or if the `errors` array has entries — those are platform bugs worth investigating.
 
