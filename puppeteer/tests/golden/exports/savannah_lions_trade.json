@@ -185,13 +185,141 @@
   "decisions": [
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "selected_target_0",
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 2,
+        "context": "T1 ()",
         "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "success": true,
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "mana_cost": "{W}",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ]
       },
       "actionSeq": 1,
       "actionType": "GAME_TARGET",
@@ -234,12 +362,135 @@
     },
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "no",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 3,
+        "choices": [
+          {
+            "action": "land",
+            "id": "p10",
+            "index": 0,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p11",
+            "index": 1,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 5,
+            "name": "Plains"
+          }
+        ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
         "success": true
       },
       "actionSeq": 5,
@@ -270,13 +521,107 @@
     },
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "playable": true,
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p16",
+            "index": 0,
+            "mana_cost": "{W}",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
       },
       "actionSeq": 15,
       "actionType": "GAME_SELECT",
@@ -332,15 +677,7 @@
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
       "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p10",
-          "p11",
-          "p12",
-          "p13",
-          "p14",
-          "p15"
-        ]
+        "landDropsUsed": 0
       },
       "player": "TestPlayer",
       "responseType": "select",
@@ -357,13 +694,138 @@
     },
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "passed_priority",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p16",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p26",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 7,
+        "choices": [
+          {
+            "choice_type": "attacker",
+            "id": "p16",
+            "index": 0,
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          },
+          {
+            "choice_type": "special",
+            "id": "all",
+            "index": 1,
+            "name": "All attack"
+          }
+        ],
+        "combat_phase": "declare_attackers",
+        "context": "T2 Combat/Declare Attackers (TestPlayer)",
         "game_seq": 44,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select attackers",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "message": "Select attackers",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
       },
       "actionSeq": 44,
       "actionType": "GAME_SELECT",
@@ -439,16 +901,138 @@
     },
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "batch_attack",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p16",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": "1"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p26",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 8,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p16",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "blocked": false,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T2 Combat/Declare Attackers (TestPlayer)",
         "declared": [
           "all"
         ],
         "game_seq": 46,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 1
       },
       "actionSeq": 46,
       "actionType": "GAME_SELECT",
@@ -578,7 +1162,7 @@
     "seq": 69
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 41,
+  "harnessEpoch": 42,
   "llmEvents": [
     {
       "availableTools": [
@@ -659,26 +1243,8 @@
       "gameSeq": 1,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "seq": 3,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 1
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
+        "action_taken": "selected_target_0",
         "action_type": "GAME_ASK",
         "board": [
           {
@@ -757,6 +1323,78 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "success": true,
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "mana_cost": "{W}",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ]
+      },
+      "seq": 3,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 2
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board_cursor": 2,
+        "board_unchanged": true,
+        "context": "T1 ()",
         "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
@@ -824,26 +1462,8 @@
       "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "no",
-        "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 5,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 2
-      },
-      "gameSeq": 15,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
+        "action_taken": "no",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -965,6 +1585,67 @@
             "name": "Plains"
           }
         ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 5,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "seq": 5,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 3
+      },
+      "gameSeq": 15,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board_cursor": 3,
+        "board_unchanged": true,
+        "choices": [
+          {
+            "action": "land",
+            "id": "p10",
+            "index": 0,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p11",
+            "index": 1,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 5,
+            "name": "Plains"
+          }
+        ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
         "has_playable_cards": true,
@@ -985,13 +1666,107 @@
       "gameSeq": 15,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "playable": true,
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p16",
+            "index": 0,
+            "mana_cost": "{W}",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
       },
       "seq": 7,
       "tool": "choose_action",
@@ -1004,12 +1779,91 @@
       "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 5,
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 18,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
+        "land_drops_used": 1,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Savannah Lions"
+          }
+        ],
         "success": true
       },
       "seq": 8,
@@ -1018,7 +1872,7 @@
     },
     {
       "args": {
-        "board_cursor": 3
+        "board_cursor": 5
       },
       "gameSeq": 44,
       "player": "TestPlayer",
@@ -1135,7 +1989,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
         "choices": [
           {
             "action": "land",
@@ -1195,26 +2049,8 @@
       "gameSeq": 44,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "passed_priority",
-        "game_seq": 44,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select attackers",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 10,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 5
-      },
-      "gameSeq": 46,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
+        "action_taken": "passed_priority",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -1320,7 +2156,47 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 7,
+        "choices": [
+          {
+            "choice_type": "attacker",
+            "id": "p16",
+            "index": 0,
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          },
+          {
+            "choice_type": "special",
+            "id": "all",
+            "index": 1,
+            "name": "All attack"
+          }
+        ],
+        "combat_phase": "declare_attackers",
+        "context": "T2 Combat/Declare Attackers (TestPlayer)",
+        "game_seq": 44,
+        "message": "Select attackers",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
+      },
+      "seq": 10,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 7
+      },
+      "gameSeq": 46,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board_cursor": 7,
+        "board_unchanged": true,
         "choices": [
           {
             "choice_type": "attacker",
@@ -1357,16 +2233,138 @@
       "gameSeq": 46,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "batch_attack",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p16",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": "1"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p26",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 8,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p16",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "blocked": false,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T2 Combat/Declare Attackers (TestPlayer)",
         "declared": [
           "all"
         ],
         "game_seq": 46,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 1
       },
       "seq": 12,
       "tool": "choose_action",
@@ -1386,7 +2384,7 @@
     },
     {
       "args": {
-        "board_cursor": 6,
+        "board_cursor": 8,
         "until": "postcombat_main"
       },
       "gameSeq": 66,
@@ -1500,7 +2498,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 9,
         "choices": [
           {
             "action": "land",

@@ -1941,7 +1941,9 @@ public class BridgeCallbackHandler {
 
         // After successful action, block until the next pending action arrives.
         // This ensures the LLM always wakes up to a decision, matching
-        // pass_priority's blocking semantics.
+        // pass_priority's blocking semantics.  Populate the full ActionResult
+        // fields (board, choices, hand) via mergeActionChoices so the LLM can
+        // act immediately without a separate pass_priority round-trip.
         if (Boolean.TRUE.equals(result.success)) {
             long waitStart = System.currentTimeMillis();
             logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback");
@@ -1962,13 +1964,8 @@ public class BridgeCallbackHandler {
             long waitElapsed = System.currentTimeMillis() - waitStart;
             if (next != null) {
                 logger.debug("[" + client.getUsername() + "] chooseAction: next callback arrived after " + waitElapsed + "ms");
-                result.next_action_pending = true;
-                result.next_action_type = next.method().name();
-                String nextMsg = stripHtml(next.message());
-                if (nextMsg != null && !nextMsg.isEmpty()) {
-                    result.next_action_message = nextMsg;
-                }
-                result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
+                attachUnseenChat(result);
+                mergeActionChoices(result, null);
             } else {
                 logger.info("[" + client.getUsername() + "] chooseAction: no next callback (game over or shutting down)");
                 result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
@@ -2311,6 +2308,7 @@ public class BridgeCallbackHandler {
     /**
      * After batch combat, block until the next pending action arrives.
      * Same indefinite-blocking semantics as the post-chooseAction wait.
+     * Populates full ActionResult fields via mergeActionChoices.
      */
     private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
         while (pendingAction == null) {
@@ -2328,13 +2326,8 @@ public class BridgeCallbackHandler {
         }
         PendingAction next = pendingAction;
         if (next != null) {
-            result.next_action_pending = true;
-            result.next_action_type = next.method().name();
-            String nextMsg = stripHtml(next.message());
-            if (nextMsg != null && !nextMsg.isEmpty()) {
-                result.next_action_message = nextMsg;
-            }
-            result.next_action_hint = "Call get_action_choices or choose_action to see details, or pass_priority to continue.";
+            attachUnseenChat(result);
+            mergeActionChoices(result, null);
         } else {
             result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
             result.player_dead = playerDead;
@@ -2863,17 +2856,6 @@ public class BridgeCallbackHandler {
     }
 
     private void attachUnseenChat(ActionResult result) {
-        if (playerDead) result.player_dead = true;
-        if (activeGames.isEmpty() && gameEverStarted) result.game_over = true;
-        synchronized (unseenChat) {
-            if (!unseenChat.isEmpty()) {
-                result.recent_chat = new ArrayList<>(unseenChat);
-                unseenChat.clear();
-            }
-        }
-    }
-
-    private void attachUnseenChat(ChooseActionTool.Result result) {
         if (playerDead) result.player_dead = true;
         if (activeGames.isEmpty() && gameEverStarted) result.game_over = true;
         synchronized (unseenChat) {

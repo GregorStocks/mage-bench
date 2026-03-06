@@ -44,14 +44,144 @@
   "decisions": [
     {
       "actionResult": {
+        "action_pending": true,
         "action_taken": "auto_selected_required_target",
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Ancient Tomb",
+                "rules": [
+                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Ancient Tomb",
+                "rules": [
+                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Ancient Tomb",
+                "rules": [
+                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Ancient Tomb",
+                "rules": [
+                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
+                ]
+              },
+              {
+                "id": "p14",
+                "mana_cost": "{2}{R}",
+                "name": "Blood Moon",
+                "rules": [
+                  "Nonbasic lands are Mountains."
+                ]
+              },
+              {
+                "id": "p15",
+                "mana_cost": "{2}{R}",
+                "name": "Blood Moon",
+                "rules": [
+                  "Nonbasic lands are Mountains."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{2}{R}",
+                "name": "Blood Moon",
+                "rules": [
+                  "Nonbasic lands are Mountains."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 43,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 2,
+        "context": "T1 ()",
         "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
         "success": true,
-        "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          }
+        ]
       },
       "actionSeq": 1,
       "actionType": "GAME_TARGET",
@@ -154,7 +284,7 @@
     "seq": 7
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 41,
+  "harnessEpoch": 42,
   "llmEvents": [
     {
       "availableTools": [
@@ -235,27 +365,8 @@
       "gameSeq": 1,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "auto_selected_required_target",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true,
-        "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
-      },
-      "seq": 3,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 1
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
+        "action_taken": "auto_selected_required_target",
         "action_type": "GAME_ASK",
         "board": [
           {
@@ -334,6 +445,80 @@
           }
         ],
         "board_cursor": 2,
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "success": true,
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Ancient Tomb",
+            "rules": [
+              "{T}: Add {C}{C}. {this} deals 2 damage to you."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          },
+          {
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "rules": [
+              "Nonbasic lands are Mountains."
+            ]
+          }
+        ]
+      },
+      "seq": 3,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 2
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board_cursor": 2,
+        "board_unchanged": true,
         "context": "T1 ()",
         "game_seq": 5,
         "message": "Mulligan down to 6 cards?",

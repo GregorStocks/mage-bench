@@ -90,37 +90,8 @@
   },
   {
     "content": {
-      "action_taken": "auto_selected_required_target",
-      "game_seq": 1,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Mulligan down to 6 cards?",
-      "next_action_pending": true,
-      "next_action_type": "GAME_ASK",
-      "success": true,
-      "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
-    },
-    "role": "tool",
-    "tool_call_id": "call_2"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 1
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_3",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
       "action_pending": true,
+      "action_taken": "auto_selected_required_target",
       "action_type": "GAME_ASK",
       "board": [
         {
@@ -199,6 +170,90 @@
         }
       ],
       "board_cursor": 2,
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "choice=yes or choice=no",
+      "response_type": "boolean",
+      "success": true,
+      "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Ancient Tomb",
+          "rules": [
+            "{T}: Add {C}{C}. {this} deals 2 damage to you."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Blood Moon",
+          "rules": [
+            "Nonbasic lands are Mountains."
+          ]
+        }
+      ]
+    },
+    "role": "tool",
+    "tool_call_id": "call_2"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 2
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_3",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board_cursor": 2,
+      "board_unchanged": true,
       "context": "T1 ()",
       "game_seq": 5,
       "message": "Mulligan down to 6 cards?",

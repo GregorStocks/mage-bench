@@ -1029,9 +1029,10 @@ async def run_pilot_loop(
                     except (json.JSONDecodeError, TypeError):
                         pass
 
-                    # Render pass_priority/get_action_choices for LLM display
+                    # Render action results for LLM display (all three return
+                    # the same ActionResult fields when a decision is pending)
                     display_text = result_text
-                    if fn.name in ("pass_priority", "get_action_choices"):
+                    if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
                         display_text, last_board = _render_for_pilot(result_text, last_board)
                         # Chat nudge: remind LLM to chat if it's been silent too long
                         turns_since_chat = current_game_turn - last_chat_turn

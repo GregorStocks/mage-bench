@@ -498,878 +498,8 @@
   "decisions": [
     {
       "actionResult": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "actionSeq": 1,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "id": "p2",
-          "index": 0,
-          "is_you": true,
-          "name": "TestPlayer",
-          "target_type": "player"
-        },
-        {
-          "id": "p1",
-          "index": 1,
-          "name": "Opponent",
-          "target_type": "player"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
-        1,
-        2
-      ],
-      "message": "Select a starting player",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "index",
-      "snapshotIndex": 0,
-      "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "no",
-        "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
-      },
-      "index": 1,
-      "isForced": false,
-      "llmEventIndices": [
-        3,
-        4
-      ],
-      "message": "Mulligan down to 6 cards?",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
-      "step": null,
-      "subsequentActions": [
-        "TestPlayer skips Draw step",
-        "TestPlayer skip attack"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_2",
-        "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 15,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
-      "choices": [
-        {
-          "action": "activate",
-          "id": "l17",
-          "index": 0,
-          "name": "Boggart Bog",
-          "playable_abilities": [
-            "Play Boggart Bog"
-          ]
-        },
-        {
-          "action": "cast",
-          "id": "p10",
-          "index": 1,
-          "mana_cost": "{2}{B}",
-          "name": "Boggart Trawler",
-          "power": "3",
-          "toughness": "1"
-        },
-        {
-          "action": "land",
-          "id": "p12",
-          "index": 2,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "p13",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 6,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 2,
-      "chosenArgs": {
-        "choice": "p12"
-      },
-      "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
-        5,
-        6
-      ],
-      "message": "Play spells and abilities",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p10",
-          "p12",
-          "p13",
-          "p14",
-          "p15",
-          "p16"
-        ]
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 6,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Forest from hand onto the Battlefield",
-        "Opponent skip attack",
-        "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_2",
-        "game_seq": 33,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 33,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 8,
-      "choices": [
-        {
-          "action": "activate",
-          "id": "l17",
-          "index": 0,
-          "name": "Boggart Bog",
-          "playable_abilities": [
-            "Play Boggart Bog"
-          ]
-        },
-        {
-          "action": "cast",
-          "id": "p10",
-          "index": 1,
-          "mana_cost": "{2}{B}",
-          "name": "Boggart Trawler",
-          "power": "3",
-          "toughness": "1"
-        },
-        {
-          "action": "cast",
-          "id": "p11",
-          "index": 2,
-          "name": "Crashing Footfalls"
-        },
-        {
-          "action": "land",
-          "id": "p13",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 6,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 7,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 2,
-      "chosenArgs": {
-        "choice": "p11"
-      },
-      "index": 3,
-      "isForced": false,
-      "llmEventIndices": [
-        7,
-        8
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p10",
-          "p11",
-          "p13",
-          "p14",
-          "p15",
-          "p16",
-          "p24"
-        ],
-        "untappedLands": 1
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 16,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer activates: Suspend 4. from Crashing Footfalls",
-        "TestPlayer moves Crashing Footfalls from hand to the exile zone",
-        "TestPlayer suspends (4) Crashing Footfalls",
-        "TestPlayer skip attack"
-      ],
-      "turn": 3
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_1",
-        "game_seq": 46,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Choose spell or ability to play: Boggart Trawler",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
-        "success": true
-      },
-      "actionSeq": 46,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 7,
-      "choices": [
-        {
-          "action": "activate",
-          "id": "l17",
-          "index": 0,
-          "name": "Boggart Bog",
-          "playable_abilities": [
-            "Play Boggart Bog"
-          ]
-        },
-        {
-          "action": "cast",
-          "id": "p10",
-          "index": 1,
-          "mana_cost": "{2}{B}",
-          "name": "Boggart Trawler",
-          "power": "3",
-          "toughness": "1"
-        },
-        {
-          "action": "land",
-          "id": "p13",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 6,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 1,
-      "chosenArgs": {
-        "choice": "p10"
-      },
-      "index": 4,
-      "isForced": false,
-      "llmEventIndices": [
-        9,
-        10
-      ],
-      "message": "Play spells and abilities",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p10",
-          "p13",
-          "p14",
-          "p15",
-          "p16",
-          "p24"
-        ]
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 21,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Boggart Bog from hand onto the Battlefield",
-        "Opponent skip attack",
-        "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain",
-        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
-      ],
-      "turn": 3
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 72,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 72,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p13",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p29",
-          "index": 5,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 5,
-      "isForced": false,
-      "llmEventIndices": [
-        13,
-        14
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p13",
-          "p14",
-          "p15",
-          "p16",
-          "p24",
-          "p29"
-        ],
-        "untappedLands": 2
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 33,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
-        "TestPlayer skip attack",
-        "Opponent skip attack",
-        "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
-      ],
-      "turn": 5
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 102,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 102,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p29",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p32",
-          "index": 5,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 6,
-      "isForced": false,
-      "llmEventIndices": [
-        15,
-        16
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p14",
-          "p15",
-          "p16",
-          "p24",
-          "p29",
-          "p32"
-        ],
-        "untappedLands": 3
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 49,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
-        "TestPlayer skip attack",
-        "Opponent skip attack",
-        "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
-      ],
-      "turn": 7
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 132,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 132,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p29",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p32",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p35",
-          "index": 5,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 7,
-      "isForced": false,
-      "llmEventIndices": [
-        17,
-        18
-      ],
-      "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p15",
-          "p16",
-          "p24",
-          "p29",
-          "p32",
-          "p35"
-        ],
-        "untappedLands": 4
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 65,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
-        "TestPlayer skip attack",
-        "Opponent skip attack",
-        "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
-      ],
-      "turn": 9
-    },
-    {
-      "actionResult": {
-        "action_taken": "yes",
-        "game_seq": 165,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 165,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": true,
-      "chosenArgs": {
-        "choice": "yes"
-      },
-      "index": 8,
-      "isForced": false,
-      "llmEventIndices": [
-        19,
-        20
-      ],
-      "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
-      "phase": "BEGINNING",
-      "pilotContext": {
-        "untappedLands": 5
-      },
-      "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 83,
-      "step": "UPKEEP",
-      "subsequentActions": [
-        "TestPlayer casts Crashing Footfalls from exile zone",
-        "TestPlayer creates a Rhino Token token",
-        "TestPlayer creates a Rhino Token token",
-        "TestPlayer puts Crashing Footfalls from stack into their graveyard"
-      ],
-      "turn": 11
-    },
-    {
-      "actionResult": {},
-      "actionSeq": 172,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p24",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p29",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p32",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p35",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p42",
-          "index": 5,
-          "name": "Plains"
-        }
-      ],
-      "chosen": null,
-      "chosenArgs": {},
-      "index": 9,
-      "isForced": false,
-      "llmEventIndices": [
-        21
-      ],
-      "message": "Play spells and abilities",
-      "phase": "BEGINNING",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p16",
-          "p24",
-          "p29",
-          "p32",
-          "p35",
-          "p42"
-        ],
-        "untappedLands": 5
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 85,
-      "step": "UPKEEP",
-      "subsequentActions": [
-        "TestPlayer wants to concede"
-      ],
-      "turn": 11
-    }
-  ],
-  "deckType": "Constructed - Legacy",
-  "gameOver": {
-    "message": "Game ended",
-    "seq": 175
-  },
-  "gameType": "Two Player Duel",
-  "harnessEpoch": 41,
-  "llmEvents": [
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "seq": 1,
-      "type": "game_start"
-    },
-    {
-      "args": {},
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "hand": [],
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 60,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 60,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 1,
-        "can_cancel": false,
-        "choices": [
-          {
-            "id": "p2",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p1",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Select a starting player",
-        "required": true,
-        "respond_with": "choice=pN — must pick a target",
-        "response_type": "index",
-        "stop_reason": "non_priority_action"
-      },
-      "seq": 2,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "choice": "0"
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
         "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "seq": 3,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 1
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
         "action_type": "GAME_ASK",
         "board": [
           {
@@ -1451,11 +581,11 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 5,
+        "game_seq": 1,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
-        "stop_reason": "non_priority_action",
+        "success": true,
         "your_hand": [
           {
             "mana_cost": "{2}{B}",
@@ -1510,37 +640,49 @@
           }
         ]
       },
-      "seq": 4,
-      "tool": "pass_priority",
-      "type": "tool_call"
+      "actionSeq": 1,
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p2",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p1",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 0,
+      "isForced": false,
+      "llmEventIndices": [
+        1,
+        2
+      ],
+      "message": "Select a starting player",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 0,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer chooses that they take the first turn"
+      ],
+      "turn": 1
     },
     {
-      "args": {
-        "choice": "no"
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 5,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 2
-      },
-      "gameSeq": 15,
-      "player": "TestPlayer",
-      "result": {
+      "actionResult": {
         "action_pending": true,
+        "action_taken": "no",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -1677,6 +819,2152 @@
             "name": "Plains"
           }
         ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 5,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "actionSeq": 5,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": false,
+      "chosenArgs": {
+        "choice": "no"
+      },
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        3,
+        4
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer skips Draw step",
+        "TestPlayer skip attack"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_2",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "playable": true,
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p11",
+            "index": 0,
+            "name": "Crashing Footfalls"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 15,
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
+      },
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 7,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "l17",
+          "index": 0,
+          "name": "Boggart Bog",
+          "playable_abilities": [
+            "Play Boggart Bog"
+          ]
+        },
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 1,
+          "mana_cost": "{2}{B}",
+          "name": "Boggart Trawler",
+          "power": "3",
+          "toughness": "1"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 6,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 2,
+      "chosenArgs": {
+        "choice": "p12"
+      },
+      "index": 2,
+      "isForced": false,
+      "llmEventIndices": [
+        5,
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Forest from hand onto the Battlefield",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_2",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 6,
+        "choices": [
+          {
+            "action": "activate",
+            "id": "l17",
+            "index": 0,
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
+          },
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 1,
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "toughness": "1"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 5,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 6,
+            "name": "Plains"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 33,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "actionSeq": 33,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 8,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "l17",
+          "index": 0,
+          "name": "Boggart Bog",
+          "playable_abilities": [
+            "Play Boggart Bog"
+          ]
+        },
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 1,
+          "mana_cost": "{2}{B}",
+          "name": "Boggart Trawler",
+          "power": "3",
+          "toughness": "1"
+        },
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 2,
+          "name": "Crashing Footfalls"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 6,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 7,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 2,
+      "chosenArgs": {
+        "choice": "p11"
+      },
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        7,
+        8
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+          "p24"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer activates: Suspend 4. from Crashing Footfalls",
+        "TestPlayer moves Crashing Footfalls from hand to the exile zone",
+        "TestPlayer suspends (4) Crashing Footfalls",
+        "TestPlayer skip attack"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_1",
+        "action_type": "GAME_CHOOSE_ABILITY",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 6,
+        "choices": [
+          {
+            "description": "1. Play Boggart Bog",
+            "index": 0
+          }
+        ],
+        "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 46,
+        "land_drops_used": 0,
+        "message": "Choose spell or ability to play: Boggart Trawler",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
+        "response_type": "index",
+        "success": true
+      },
+      "actionSeq": 46,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 7,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "l17",
+          "index": 0,
+          "name": "Boggart Bog",
+          "playable_abilities": [
+            "Play Boggart Bog"
+          ]
+        },
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 1,
+          "mana_cost": "{2}{B}",
+          "name": "Boggart Trawler",
+          "power": "3",
+          "toughness": "1"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 6,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 1,
+      "chosenArgs": {
+        "choice": "p10"
+      },
+      "index": 4,
+      "isForced": false,
+      "llmEventIndices": [
+        9,
+        10
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 21,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Boggart Bog from hand onto the Battlefield",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain",
+        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 9,
+        "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 72,
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 3
+      },
+      "actionSeq": 72,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        13,
+        14
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p13",
+          "p14",
+          "p15",
+          "p16",
+          "p24",
+          "p29"
+        ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 33,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Plains from hand onto the Battlefield",
+        "TestPlayer skip attack",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 5
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 50,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 50,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 11,
+        "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 102,
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 4
+      },
+      "actionSeq": 102,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p32",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 6,
+      "isForced": false,
+      "llmEventIndices": [
+        15,
+        16
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p16",
+          "p24",
+          "p29",
+          "p32"
+        ],
+        "untappedLands": 3
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 49,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Plains from hand onto the Battlefield",
+        "TestPlayer skip attack",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 7
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p15",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p35",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 49,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 49,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 13,
+        "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 132,
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 5
+      },
+      "actionSeq": 132,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p32",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p35",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 7,
+      "isForced": false,
+      "llmEventIndices": [
+        17,
+        18
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p15",
+          "p16",
+          "p24",
+          "p29",
+          "p32",
+          "p35"
+        ],
+        "untappedLands": 4
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 65,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Plains from hand onto the Battlefield",
+        "TestPlayer skip attack",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 9
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "yes",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p15",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p35",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 49,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p7",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 48,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 15,
+        "context": "T6 Beginning/Upkeep (TestPlayer)",
+        "game_seq": 165,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Crashing Footfalls"
+          }
+        ],
+        "success": true,
+        "untapped_lands": 5
+      },
+      "actionSeq": 165,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": true,
+      "chosenArgs": {
+        "choice": "yes"
+      },
+      "index": 8,
+      "isForced": false,
+      "llmEventIndices": [
+        19,
+        20
+      ],
+      "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
+      "phase": "BEGINNING",
+      "pilotContext": {
+        "untappedLands": 5
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 83,
+      "step": "UPKEEP",
+      "subsequentActions": [
+        "TestPlayer casts Crashing Footfalls from exile zone",
+        "TestPlayer creates a Rhino Token token",
+        "TestPlayer creates a Rhino Token token",
+        "TestPlayer puts Crashing Footfalls from stack into their graveyard"
+      ],
+      "turn": 11
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 172,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p32",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p35",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p42",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 9,
+      "isForced": false,
+      "llmEventIndices": [
+        21
+      ],
+      "message": "Play spells and abilities",
+      "phase": "BEGINNING",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p16",
+          "p24",
+          "p29",
+          "p32",
+          "p35",
+          "p42"
+        ],
+        "untappedLands": 5
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 85,
+      "step": "UPKEEP",
+      "subsequentActions": [
+        "TestPlayer wants to concede"
+      ],
+      "turn": 11
+    }
+  ],
+  "deckType": "Constructed - Legacy",
+  "gameOver": {
+    "message": "Game ended",
+    "seq": 175
+  },
+  "gameType": "Two Player Duel",
+  "harnessEpoch": 42,
+  "llmEvents": [
+    {
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
+      "player": "TestPlayer",
+      "seq": 1,
+      "type": "game_start"
+    },
+    {
+      "args": {},
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 60,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 1,
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p2",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p1",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Select a starting player",
+        "required": true,
+        "respond_with": "choice=pN — must pick a target",
+        "response_type": "index",
+        "stop_reason": "non_priority_action"
+      },
+      "seq": 2,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "choice": "0"
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_taken": "selected_target_0",
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 2,
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "success": true,
+        "your_hand": [
+          {
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "rules": [
+              "When {this} enters, exile target player's graveyard."
+            ],
+            "toughness": "1"
+          },
+          {
+            "name": "Crashing Footfalls",
+            "rules": [
+              "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+              "Create two 4/4 green Rhino creature tokens with trample."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Forest",
+            "rules": [
+              "{T}: Add {G}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          }
+        ]
+      },
+      "seq": 3,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 2
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board_cursor": 2,
+        "board_unchanged": true,
+        "context": "T1 ()",
+        "game_seq": 5,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "rules": [
+              "When {this} enters, exile target player's graveyard."
+            ],
+            "toughness": "1"
+          },
+          {
+            "name": "Crashing Footfalls",
+            "rules": [
+              "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+              "Create two 4/4 green Rhino creature tokens with trample."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Forest",
+            "rules": [
+              "{T}: Add {G}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "choice": "no"
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_taken": "no",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 3,
+        "choices": [
+          {
+            "action": "activate",
+            "id": "l17",
+            "index": 0,
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
+          },
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 1,
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "toughness": "1"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 2,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 5,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 6,
+            "name": "Plains"
+          }
+        ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 5,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "seq": 5,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 3
+      },
+      "gameSeq": 15,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board_cursor": 3,
+        "board_unchanged": true,
+        "choices": [
+          {
+            "action": "activate",
+            "id": "l17",
+            "index": 0,
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
+          },
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 1,
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "toughness": "1"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 2,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 5,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 6,
+            "name": "Plains"
+          }
+        ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
         "has_playable_cards": true,
@@ -1697,13 +2985,107 @@
       "gameSeq": 15,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_2",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "playable": true,
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p11",
+            "index": 0,
+            "name": "Crashing Footfalls"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
       },
       "seq": 7,
       "tool": "choose_action",
@@ -1711,7 +3093,7 @@
     },
     {
       "args": {
-        "board_cursor": 3
+        "board_cursor": 4
       },
       "gameSeq": 33,
       "player": "TestPlayer",
@@ -1822,7 +3204,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 4,
+        "board_cursor": 5,
         "choices": [
           {
             "action": "activate",
@@ -1900,26 +3282,8 @@
       "gameSeq": 33,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "selected_2",
-        "game_seq": 33,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 9,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 4
-      },
-      "gameSeq": 46,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
+        "action_taken": "selected_2",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -2026,7 +3390,80 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 5,
+        "board_cursor": 6,
+        "choices": [
+          {
+            "action": "activate",
+            "id": "l17",
+            "index": 0,
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
+          },
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 1,
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "toughness": "1"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 5,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 6,
+            "name": "Plains"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 33,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "seq": 9,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 6
+      },
+      "gameSeq": 46,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board_cursor": 6,
+        "board_unchanged": true,
         "choices": [
           {
             "action": "activate",
@@ -2097,12 +3534,127 @@
       "gameSeq": 46,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_1",
+        "action_type": "GAME_CHOOSE_ABILITY",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 6,
+        "choices": [
+          {
+            "description": "1. Play Boggart Bog",
+            "index": 0
+          }
+        ],
+        "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 46,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Choose spell or ability to play: Boggart Trawler",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "land_drops_used": 0,
+        "message": "Choose spell or ability to play: Boggart Trawler",
+        "respond_with": "choice=0, choice=1, etc. (not yes/no)",
+        "response_type": "index",
         "success": true
       },
       "seq": 11,
@@ -2116,12 +3668,121 @@
       "gameSeq": 47,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_ability_0",
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "playable": true,
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 6,
+        "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 47,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "pay 3 life? (otherwise Boggart Bog becomes tapped)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
+        "land_drops_used": 0,
+        "message": "pay 3 life? (otherwise Boggart Bog becomes tapped)",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
         "success": true
       },
       "seq": 12,
@@ -2135,12 +3796,115 @@
       "gameSeq": 48,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "no",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 7,
+        "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 48,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
         "success": true
       },
       "seq": 13,
@@ -2149,7 +3913,7 @@
     },
     {
       "args": {
-        "board_cursor": 5
+        "board_cursor": 7
       },
       "gameSeq": 72,
       "player": "TestPlayer",
@@ -2276,7 +4040,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 6,
+        "board_cursor": 8,
         "choices": [
           {
             "action": "land",
@@ -2336,13 +4100,132 @@
       "gameSeq": 72,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 9,
+        "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 72,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 3
       },
       "seq": 15,
       "tool": "choose_action",
@@ -2350,7 +4233,7 @@
     },
     {
       "args": {
-        "board_cursor": 6
+        "board_cursor": 9
       },
       "gameSeq": 102,
       "player": "TestPlayer",
@@ -2492,7 +4375,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 7,
+        "board_cursor": 10,
         "choices": [
           {
             "action": "land",
@@ -2552,13 +4435,147 @@
       "gameSeq": 102,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 50,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 50,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 11,
+        "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 102,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 4
       },
       "seq": 17,
       "tool": "choose_action",
@@ -2566,7 +4583,7 @@
     },
     {
       "args": {
-        "board_cursor": 7
+        "board_cursor": 11
       },
       "gameSeq": 132,
       "player": "TestPlayer",
@@ -2723,7 +4740,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 8,
+        "board_cursor": 12,
         "choices": [
           {
             "action": "land",
@@ -2783,13 +4800,162 @@
       "gameSeq": 132,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p15",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "exile": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p35",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 49,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 49,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 13,
+        "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 132,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 5
       },
       "seq": 19,
       "tool": "choose_action",
@@ -2797,7 +4963,7 @@
     },
     {
       "args": {
-        "board_cursor": 8
+        "board_cursor": 13
       },
       "gameSeq": 165,
       "player": "TestPlayer",
@@ -2955,7 +5121,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 14,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 165,
         "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
@@ -2980,13 +5146,163 @@
       "gameSeq": 165,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "yes",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p15",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p35",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 49,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p7",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 48,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 15,
+        "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 165,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Crashing Footfalls"
+          }
+        ],
+        "success": true,
+        "untapped_lands": 5
       },
       "seq": 21,
       "tool": "choose_action",
@@ -2994,7 +5310,7 @@
     },
     {
       "args": {
-        "board_cursor": 9
+        "board_cursor": 15
       },
       "gameSeq": 172,
       "player": "TestPlayer",
@@ -3190,7 +5506,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 16,
         "choices": [
           {
             "action": "land",
