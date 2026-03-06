@@ -12,6 +12,27 @@ from typing import Any
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 
+
+_GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
+
+
+def _write_if_changed(path: Path, content: str) -> bool:
+    """Write content to path only if something besides generatedAt changed.
+
+    Compares the new content against the existing file, stripping the
+    top-level "generatedAt" value from both before comparing.  Returns
+    True if the file was written, False if skipped.
+    """
+    try:
+        existing = path.read_text()
+    except FileNotFoundError:
+        path.write_text(content)
+        return True
+    if _GENERATED_AT_RE.sub('', existing) == _GENERATED_AT_RE.sub('', content):
+        return False
+    path.write_text(content)
+    return True
+
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
 
@@ -437,8 +458,8 @@ def generate_leaderboard(
             entry["reasoningEffort"] = effort
         models.append(entry)
 
-    # Sort by rating desc, then games_played desc
-    models.sort(key=lambda m: (-m["rating"], -m["gamesPlayed"]))  # type: ignore[operator]
+    # Sort by rating desc, then games_played desc, then modelId for determinism
+    models.sort(key=lambda m: (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))  # type: ignore[operator]
 
     benchmark_results = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -545,8 +566,8 @@ def generate_exhibition_leaderboard(
             entry["reasoningEffort"] = effort
         models.append(entry)
 
-    # Sort by win rate desc, then games played desc (no rating to sort by)
-    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"]))  # type: ignore[operator]
+    # Sort by win rate desc, then games played desc, then modelId for determinism
+    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))  # type: ignore[operator]
 
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -720,7 +741,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
         season_output, season_ratings = _build_output(games_by_season[season_num])
         season_output["availableSeasons"] = available_seasons
         season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
-        season_path.write_text(json.dumps(season_output, indent=2) + "\n")
+        _write_if_changed(season_path, json.dumps(season_output, indent=2) + "\n")
         all_ratings.update(season_ratings)
 
     # Primary benchmark-results.json = all rated games (season >= 1)
@@ -734,11 +755,11 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     all_ratings.update(ratings_by_game)
     output["availableSeasons"] = available_seasons
     output_path = data_dir / "benchmark-results.json"
-    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
 
     # Write ratings.json to public/data/
     ratings_path = public_data_dir / "ratings.json"
-    ratings_path.write_text(json.dumps(all_ratings, indent=2) + "\n")
+    _write_if_changed(ratings_path, json.dumps(all_ratings, indent=2) + "\n")
 
     return output_path
 
@@ -905,14 +926,17 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
         bucket["totalThinkingTimeSecs"] = round(bucket["totalThinkingTimeSecs"], 1)
         models_out[key]["epochs"][str(epoch)] = bucket
 
+    # Sort models by key for deterministic output
+    sorted_models = dict(sorted(models_out.items()))
+
     output: dict[str, Any] = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "models": models_out,
+        "models": sorted_models,
     }
 
     data_dir.mkdir(parents=True, exist_ok=True)
     output_path = data_dir / "model-stats.json"
-    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
     return output_path
 
 
@@ -1051,7 +1075,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     data_dir.mkdir(parents=True, exist_ok=True)
     output_path = data_dir / "internals-data.json"
-    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
     return output_path
 
 
@@ -1079,5 +1103,5 @@ def generate_blunder_stats(data_dir: Path) -> Path:
 
     data_dir.mkdir(parents=True, exist_ok=True)
     output_path = data_dir / "blunder-internals.json"
-    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
     return output_path

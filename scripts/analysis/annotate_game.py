@@ -99,3 +99,7 @@ if __name__ == "__main__":
         )
         sys.exit(1)
     annotate_game(sys.argv[1], sys.argv[2])
+    from scripts.generate_leaderboard import generate_all_website_data
+
+    generate_all_website_data()
+    print("Website data regenerated", file=sys.stderr)

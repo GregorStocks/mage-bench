@@ -1445,3 +1445,7 @@ if __name__ == "__main__":
         )
         sys.exit(1)
     main(resolve_game_path(sys.argv[1]))
+    from scripts.generate_leaderboard import generate_all_website_data
+
+    generate_all_website_data()
+    print("Website data regenerated", file=sys.stderr)
