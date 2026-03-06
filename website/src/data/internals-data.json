@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T07:00:49.176733+00:00",
+  "generatedAt": "2026-03-06T08:27:36.240575+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -16171,6 +16171,138 @@
           "toolCallsFailed": 1,
           "thinkingTimeSecs": 40.0,
           "responses": 31,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_234946_g1",
+      "ts": "2026-03-05T23:49:46",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "xiaomi/mimo-v2-flash::medium",
+          "modelName": "MiMo V2 Flash (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.1035,
+          "promptTokens": 1066428,
+          "completionTokens": 25822,
+          "cachedTokens": 660238,
+          "reasoningTokens": 22884,
+          "toolCallsOk": 113,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 468.7,
+          "responses": 127,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 3.1348,
+          "promptTokens": 1050464,
+          "completionTokens": 33908,
+          "cachedTokens": 734464,
+          "reasoningTokens": 28858,
+          "toolCallsOk": 110,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 938.6,
+          "responses": 111,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_234946_g2",
+      "ts": "2026-03-05T23:49:46",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "qwen/qwen3-coder",
+          "modelName": "Qwen3 Coder 480B",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.2345,
+          "promptTokens": 1053978,
+          "completionTokens": 2644,
+          "cachedTokens": 620645,
+          "reasoningTokens": 0,
+          "toolCallsOk": 113,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 317.9,
+          "responses": 116,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 2.905,
+          "promptTokens": 859175,
+          "completionTokens": 50468,
+          "cachedTokens": 590848,
+          "reasoningTokens": 46175,
+          "toolCallsOk": 101,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 1307.3,
+          "responses": 100,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_234946_g3",
+      "ts": "2026-03-05T23:49:46",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.1554,
+          "promptTokens": 613788,
+          "completionTokens": 1303,
+          "cachedTokens": 154688,
+          "reasoningTokens": 0,
+          "toolCallsOk": 69,
+          "toolCallsFailed": 7,
+          "thinkingTimeSecs": 256.8,
+          "responses": 76,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "mistralai/mistral-large-2512",
+          "modelName": "Mistral Large",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.6831,
+          "promptTokens": 1346897,
+          "completionTokens": 6418,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 131,
+          "toolCallsFailed": 6,
+          "thinkingTimeSecs": 304.3,
+          "responses": 137,
           "timeouts": 0,
           "otherErrors": 0,
           "contextResets": 0
