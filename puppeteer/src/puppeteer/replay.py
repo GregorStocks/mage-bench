@@ -21,7 +21,7 @@ from puppeteer.bridge_transport import spawn_bridge_http
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.log import get_logger, setup_logging
-from puppeteer.pilot import BoardCursorTracker, _render_context, build_initial_message, execute_tool
+from puppeteer.pilot import BoardCursorTracker, _render_context, _render_for_pilot, build_initial_message, execute_tool
 
 logger = get_logger(__name__)
 
@@ -51,6 +51,10 @@ async def execute_replay_script(
     """
     history: list[dict] = []
     board_tracker = BoardCursorTracker()
+    last_board: list[dict] | None = None
+    seen_oracle_cards: set[str] = set()
+
+    _RENDERED_TOOLS = frozenset({"pass_priority", "get_action_choices", "choose_action"})
 
     for i, call in enumerate(script):
         name = call["name"]
@@ -70,6 +74,12 @@ async def execute_replay_script(
             except (json.JSONDecodeError, TypeError):
                 initial_message = "The game is starting. Call pass_priority to get your first decision."
             history.append({"role": "user", "content": initial_message})
+
+        # Render action results the same way the real pilot does,
+        # so golden prompts match what the LLM actually sees.
+        display_text = result_text
+        if name in _RENDERED_TOOLS:
+            display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
 
         # Add assistant tool call + tool result to history
         tool_call_id = f"call_{i + 1}"
@@ -93,7 +103,7 @@ async def execute_replay_script(
             {
                 "role": "tool",
                 "tool_call_id": tool_call_id,
-                "content": result_text,
+                "content": display_text,
             }
         )
 
