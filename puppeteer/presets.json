@@ -37,6 +37,8 @@
     "gptoss-medium": { "model": "openai/gpt-oss-120b", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
     "mistmed31":     { "model": "mistralai/mistral-medium-3.1", "status": "active", "system_prompt": "default", "toolset": "default" },
     "qwen3c":        { "model": "qwen/qwen3-coder", "status": "active", "system_prompt": "default", "toolset": "default" },
-    "mistlg":        { "model": "mistralai/mistral-large-2512", "status": "active", "system_prompt": "default", "toolset": "default" }
+    "mistlg":        { "model": "mistralai/mistral-large-2512", "status": "active", "system_prompt": "default", "toolset": "default" },
+    "gpt54-medium":  { "model": "openai/gpt-5.4", "status": "active", "reasoning_effort": "medium", "system_prompt": "default", "toolset": "default" },
+    "gem31fl":       { "model": "google/gemini-3.1-flash-lite-preview", "status": "active", "system_prompt": "default", "toolset": "default" }
   }
 }
