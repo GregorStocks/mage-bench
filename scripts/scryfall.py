@@ -178,6 +178,40 @@ def search_token(token_name: str) -> str | None:
         return None
 
 
+def extract_oracle_fields(card: dict) -> dict:
+    """Extract the fields we need from a Scryfall card object."""
+    fields: dict = {
+        "name": card["name"],
+        "mana_cost": card.get("mana_cost", ""),
+        "type_line": card.get("type_line", ""),
+        "oracle_text": card.get("oracle_text", ""),
+    }
+    if card.get("power") is not None:
+        fields["power"] = card["power"]
+        fields["toughness"] = card["toughness"]
+    if card.get("loyalty") is not None:
+        fields["loyalty"] = card["loyalty"]
+    if card.get("card_faces"):
+        fields["card_faces"] = [
+            extract_oracle_fields(face) for face in card["card_faces"]
+        ]
+    return fields
+
+
+def get_oracle_texts(names: list[str]) -> dict[str, dict]:
+    """Get oracle texts for cards via Scryfall (cached on disk).
+
+    Returns {card_name: oracle_fields} for all names that resolved.
+    """
+    result: dict[str, dict] = {}
+    for i in range(0, len(names), 75):
+        batch = names[i : i + 75]
+        found, _not_found = collection(batch)
+        for card in found:
+            result[card["name"]] = extract_oracle_fields(card)
+    return result
+
+
 def search(query: str) -> list[dict]:
     """Search Scryfall with a query string, no caching.
 

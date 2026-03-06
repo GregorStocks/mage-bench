@@ -236,38 +236,8 @@ _load_game = load_game
 # --- Oracle text via Scryfall with disk cache ---
 
 
-def _extract_oracle_fields(card: dict) -> dict:
-    """Extract the fields we need from a Scryfall card object."""
-    fields: dict = {
-        "name": card["name"],
-        "mana_cost": card.get("mana_cost", ""),
-        "type_line": card.get("type_line", ""),
-        "oracle_text": card.get("oracle_text", ""),
-    }
-    if card.get("power") is not None:
-        fields["power"] = card["power"]
-        fields["toughness"] = card["toughness"]
-    if card.get("loyalty") is not None:
-        fields["loyalty"] = card["loyalty"]
-    if card.get("card_faces"):
-        fields["card_faces"] = [
-            _extract_oracle_fields(face) for face in card["card_faces"]
-        ]
-    return fields
-
-
-def _get_oracle_texts(names: list[str]) -> dict[str, dict]:
-    """Get oracle texts for cards via Scryfall (cached on disk by scryfall module).
-
-    Returns {card_name: oracle_fields} for all names that resolved.
-    """
-    result: dict[str, dict] = {}
-    for i in range(0, len(names), 75):
-        batch = names[i : i + 75]
-        found, _not_found = scryfall.collection(batch)
-        for card in found:
-            result[card["name"]] = _extract_oracle_fields(card)
-    return result
+_extract_oracle_fields = scryfall.extract_oracle_fields
+_get_oracle_texts = scryfall.get_oracle_texts
 
 
 def _collect_card_names(data: dict) -> set[str]:

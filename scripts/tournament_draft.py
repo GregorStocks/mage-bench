@@ -75,9 +75,8 @@ def _load_tournament() -> tuple[dict, Path]:
 def _fetch_oracle_texts(half_decks: list[HalfDeck]) -> dict[str, dict]:
     """Fetch oracle text for all non-land cards across all packs via Scryfall.
 
-    Returns {card_name: {mana_cost, type_line, oracle_text, power, toughness}}.
+    Returns {card_name: oracle_fields} for all non-basic-land cards.
     """
-    # Collect unique non-land card names
     card_names: set[str] = set()
     for hd in half_decks:
         for card in hd.cards:
@@ -87,26 +86,7 @@ def _fetch_oracle_texts(half_decks: list[HalfDeck]) -> dict[str, dict]:
     if not card_names:
         return {}
 
-    # Batch fetch from Scryfall (75 per batch, cached on disk)
-    oracle: dict[str, dict] = {}
-    names_list = sorted(card_names)
-    for i in range(0, len(names_list), 75):
-        batch = names_list[i : i + 75]
-        found, _not_found = scryfall.collection(batch)
-        for card_data in found:
-            name = card_data["name"]
-            entry: dict[str, str] = {}
-            if card_data.get("mana_cost"):
-                entry["mana_cost"] = card_data["mana_cost"]
-            if card_data.get("type_line"):
-                entry["type_line"] = card_data["type_line"]
-            if card_data.get("oracle_text"):
-                entry["oracle_text"] = card_data["oracle_text"]
-            if card_data.get("power") is not None:
-                entry["power"] = card_data["power"]
-                entry["toughness"] = card_data["toughness"]
-            oracle[name] = entry
-
+    oracle = scryfall.get_oracle_texts(sorted(card_names))
     print(f"Fetched oracle text for {len(oracle)} cards")
     return oracle
 
