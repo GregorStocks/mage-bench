@@ -313,7 +313,7 @@ const { slug } = Astro.params;
         }
 
         // Auto-focus the viewer for keyboard navigation
-        viewerContainer.focus();
+        viewerContainer.focus({ preventScroll: true });
       })
       .catch(function (err) {
         loadingEl.classList.add("hidden");
