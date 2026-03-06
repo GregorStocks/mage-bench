@@ -12,8 +12,8 @@ from typing import Any
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 
-
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
+_LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
 
 def _write_if_changed(path: Path, content: str) -> bool:
@@ -28,12 +28,10 @@ def _write_if_changed(path: Path, content: str) -> bool:
     except FileNotFoundError:
         path.write_text(content)
         return True
-    if _GENERATED_AT_RE.sub('', existing) == _GENERATED_AT_RE.sub('', content):
+    if _GENERATED_AT_RE.sub("", existing) == _GENERATED_AT_RE.sub("", content):
         return False
     path.write_text(content)
     return True
-
-_LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
 
 def _load_game_file(path: Path) -> dict:
