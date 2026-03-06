@@ -170,7 +170,7 @@ def load_toolsets(config_file: Path | None) -> dict[str, list[str]]:
     return _load_json_file("toolsets.json", config_file)
 
 
-def _resolve_preset(
+def resolve_preset(
     player: PilotPlayer,
     presets_data: dict,
     prompts: dict[str, str],
@@ -329,7 +329,7 @@ def _resolve_randoms(
             player.preset = chosen_preset
 
         # Apply preset (sets model, reasoning_effort, system_prompt, tools)
-        _resolve_preset(player, presets_data, prompts, toolsets)
+        resolve_preset(player, presets_data, prompts, toolsets)
 
         # Apply model-level settings from models.json
         if player.model:

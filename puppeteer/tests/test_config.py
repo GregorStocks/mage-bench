@@ -14,7 +14,6 @@ from puppeteer.config import (
     PotatoPlayer,
     _generate_player_name,
     _resolve_personality,
-    _resolve_preset,
     _resolve_randoms,
     _validate_name_parts,
     load_models,
@@ -22,6 +21,7 @@ from puppeteer.config import (
     load_presets,
     load_prompts,
     load_toolsets,
+    resolve_preset,
 )
 
 
@@ -222,7 +222,7 @@ SAMPLE_PROMPTS: dict[str, str] = {
 def test_preset_resolves_model_and_effort():
     """Preset should set model and reasoning_effort on player."""
     player = PilotPlayer(name="test", preset="fast-medium")
-    _resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
+    resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
     assert player.model == "test/model-a"
     assert player.reasoning_effort == "medium"
     assert player.system_prompt == "You are a test player."
@@ -231,7 +231,7 @@ def test_preset_resolves_model_and_effort():
 def test_preset_without_reasoning_effort():
     """Preset without reasoning_effort should leave it None."""
     player = PilotPlayer(name="test", preset="bare")
-    _resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
+    resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
     assert player.model == "test/model-c"
     assert player.reasoning_effort is None
 
@@ -240,7 +240,7 @@ def test_preset_unknown_raises():
     """Unknown preset name should raise ValueError."""
     player = PilotPlayer(name="test", preset="nonexistent")
     with pytest.raises(ValueError, match="Unknown preset"):
-        _resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
+        resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
 
 
 def test_preset_unknown_prompt_raises():
@@ -248,13 +248,13 @@ def test_preset_unknown_prompt_raises():
     presets = {"presets": {"bad": {"model": "test/m", "system_prompt": "missing"}}, "gauntlet": []}
     player = PilotPlayer(name="test", preset="bad")
     with pytest.raises(ValueError, match="unknown prompt"):
-        _resolve_preset(player, presets, SAMPLE_PROMPTS)
+        resolve_preset(player, presets, SAMPLE_PROMPTS)
 
 
 def test_preset_no_preset_is_noop():
     """Player without preset should not be modified."""
     player = PilotPlayer(name="test")
-    _resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
+    resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS)
     assert player.model is None
     assert player.reasoning_effort is None
 
@@ -824,14 +824,14 @@ def test_preset_resolves_toolset():
         "gauntlet": [],
     }
     player = PilotPlayer(name="test", preset="with-tools")
-    _resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
+    resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
     assert player.tools == ["pass_priority", "choose_action"]
 
 
 def test_preset_without_toolset_leaves_none():
     """Preset without toolset key should leave tools as None."""
     player = PilotPlayer(name="test", preset="fast-medium")
-    _resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
+    resolve_preset(player, SAMPLE_PRESETS, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
     assert player.tools is None
 
 
@@ -852,7 +852,7 @@ def test_player_tools_override_preset_toolset():
         preset="with-tools",
         tools=["pass_priority", "get_game_state"],
     )
-    _resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
+    resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
     # Player-level tools should win
     assert player.tools == ["pass_priority", "get_game_state"]
 
@@ -865,7 +865,7 @@ def test_preset_unknown_toolset_raises():
     }
     player = PilotPlayer(name="test", preset="bad")
     with pytest.raises(ValueError, match="unknown toolset"):
-        _resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
+        resolve_preset(player, presets, SAMPLE_PROMPTS, SAMPLE_TOOLSETS)
 
 
 def test_tools_loaded_from_config_json():

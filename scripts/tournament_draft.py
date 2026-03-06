@@ -28,7 +28,7 @@ sys.path.insert(0, str(_ROOT / "scripts"))
 import scryfall  # noqa: E402
 from puppeteer.config import (  # noqa: E402
     PilotPlayer,
-    _resolve_preset,
+    resolve_preset,
     load_personalities,
     load_prompts,
 )
@@ -37,14 +37,11 @@ from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes  #
 from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env  # noqa: E402
 
 _SEASON_FILE = _ROOT / "data" / "season.json"
-_TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
 _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 
 PACKS_PER_PICK = 4
 LLM_TIMEOUT_SECS = 60
 MAX_TOKENS = 2000
-
-BASIC_LANDS = BASIC_LAND_NAMES
 
 
 def snake_draft_order(num_entrants: int) -> list[int]:
@@ -80,7 +77,7 @@ def _fetch_oracle_texts(half_decks: list[HalfDeck]) -> dict[str, dict]:
     card_names: set[str] = set()
     for hd in half_decks:
         for card in hd.cards:
-            if card.name not in BASIC_LANDS:
+            if card.name not in BASIC_LAND_NAMES:
                 card_names.add(card.name)
 
     if not card_names:
@@ -93,7 +90,7 @@ def _fetch_oracle_texts(half_decks: list[HalfDeck]) -> dict[str, dict]:
 
 def _format_card_line(card_name: str, count: int, oracle: dict[str, dict]) -> str:
     """Format a single card line for the draft prompt."""
-    if card_name in BASIC_LANDS:
+    if card_name in BASIC_LAND_NAMES:
         return f"  {count}x {card_name} — Basic Land"
 
     info = oracle.get(card_name, {})
@@ -128,7 +125,7 @@ def _format_pack_option(
     non_lands = []
     lands = []
     for card in half_deck.cards:
-        if card.name in BASIC_LANDS:
+        if card.name in BASIC_LAND_NAMES:
             lands.append(card)
         else:
             non_lands.append(card)
@@ -225,7 +222,7 @@ def _resolve_entrant_config(
         preset=entrant["preset"],
         personality=entrant["personality"],
     )
-    _resolve_preset(player, presets_data, prompts)
+    resolve_preset(player, presets_data, prompts)
 
     assert player.model is not None, (
         f"Preset {entrant['preset']!r} did not resolve a model"
