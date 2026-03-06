@@ -1431,6 +1431,18 @@ public class BridgeCallbackHandler {
     }
 
     /**
+     * Build a human-readable error message from batch combat failed entries.
+     */
+    private String batchFailedMessage(List<Map<String, Object>> failed) {
+        var sb = new StringBuilder();
+        for (var entry : failed) {
+            if (sb.length() > 0) sb.append("; ");
+            sb.append(entry.get("id")).append(": ").append(entry.get("reason"));
+        }
+        return sb.toString();
+    }
+
+    /**
      * Respond to the current pending action with a specific choice.
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
@@ -2097,6 +2109,9 @@ public class BridgeCallbackHandler {
         result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
             result.failed = new ArrayList<>(failed);
+            result.error = batchFailedMessage(failed);
+            result.error_code = "batch_failed";
+            result.retryable = true;
         }
         lastChoices = null;
         waitForNextActionAfterBatch(result);
@@ -2264,6 +2279,9 @@ public class BridgeCallbackHandler {
         result.declared = new ArrayList<>(declared);
         if (!failed.isEmpty()) {
             result.failed = new ArrayList<>(failed);
+            result.error = batchFailedMessage(failed);
+            result.error_code = "batch_failed";
+            result.retryable = true;
         }
         lastChoices = null;
         waitForNextActionAfterBatch(result);

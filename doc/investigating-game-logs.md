@@ -342,6 +342,20 @@ Previously seen schema mismatches (now fixed):
 - `choose_action` `declared` field: was `List<Object>` which mapped to `items.type = "object"`,
   but batch attacks returned bare strings. Fixed by wrapping in `{"id": shortId}` objects.
 
+## Batch combat empty error messages
+
+When `handleBatchBlockers` or `handleBatchAttackers` partially fails (e.g. invalid blocker/attacker
+ID), `result.failed` contains the reasons but `result.error` is null. The pilot logs
+"Action failed: " (empty string) and the LLM can't understand what went wrong.
+
+```bash
+# Find batch combat failures with empty errors in LLM logs
+jq -c 'select(.type=="tool_call") | select(.result | contains("batch_block") or contains("batch_attack")) | select(.result | fromjson | .success == false)' "$GAME_DIR"/*_llm.jsonl
+
+# Check the failed array for actual reasons
+jq -c 'select(.type=="tool_call") | select(.result | contains("batch_block") or contains("batch_attack")) | (.result | fromjson | {success, error, failed, declared})' "$GAME_DIR"/*_llm.jsonl
+```
+
 ## Batch combat race conditions
 
 When batch_block or batch_attack returns success but the game shows different results
