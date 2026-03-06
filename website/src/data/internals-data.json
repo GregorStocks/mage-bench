@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-05T15:46:41.471984+00:00",
+  "generatedAt": "2026-03-06T02:25:11.683340+00:00",
   "minLeaderboardEpoch": 11,
   "games": [
     {
@@ -15909,6 +15909,94 @@
           "thinkingTimeSecs": 731.6,
           "responses": 87,
           "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_174250_g1",
+      "ts": "2026-03-05T17:42:50",
+      "epoch": 41,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.1072,
+          "promptTokens": 422046,
+          "completionTokens": 1138,
+          "cachedTokens": 59544,
+          "reasoningTokens": 0,
+          "toolCallsOk": 50,
+          "toolCallsFailed": 5,
+          "thinkingTimeSecs": 79.6,
+          "responses": 55,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "mistralai/mistral-medium-3.1",
+          "modelName": "Mistral Medium 3.1",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.2091,
+          "promptTokens": 508626,
+          "completionTokens": 2803,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 56,
+          "toolCallsFailed": 4,
+          "thinkingTimeSecs": 97.6,
+          "responses": 60,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_174250_g2",
+      "ts": "2026-03-05T17:42:50",
+      "epoch": 41,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 3.8107,
+          "promptTokens": 1343184,
+          "completionTokens": 30183,
+          "cachedTokens": 1048576,
+          "reasoningTokens": 25184,
+          "toolCallsOk": 124,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 733.1,
+          "responses": 128,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "x-ai/grok-4-fast::medium",
+          "modelName": "Grok 4 Fast (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.3942,
+          "promptTokens": 1709952,
+          "completionTokens": 104410,
+          "cachedTokens": 1131575,
+          "reasoningTokens": 99300,
+          "toolCallsOk": 176,
+          "toolCallsFailed": 13,
+          "thinkingTimeSecs": 1205.8,
+          "responses": 160,
+          "timeouts": 1,
           "otherErrors": 0,
           "contextResets": 0
         }
