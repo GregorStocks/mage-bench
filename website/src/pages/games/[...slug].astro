@@ -250,13 +250,13 @@ const { slug } = Astro.params;
         var gameSeason = game.season != null ? game.season : 0;
         var seasonEl = document.createElement("div");
         seasonEl.id = "epoch-info";
-        seasonEl.textContent = gameSeason === 0 ? "Pre-season" : "Season " + gameSeason;
+        seasonEl.textContent = "Season " + gameSeason;
         document.getElementById("game-header").appendChild(seasonEl);
         if (gameSeason === 0) {
           var seasonBanner = document.createElement("div");
           seasonBanner.id = "epoch-banner";
           seasonBanner.textContent =
-            "This is a pre-season game. MCP tools and priority semantics have changed" +
+            "This is a Season 0 game. MCP tools and priority semantics have changed" +
             " since this game was played, so its results are excluded from Season 1 ratings.";
           document.getElementById("game-header").after(seasonBanner);
         }

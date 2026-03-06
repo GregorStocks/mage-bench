@@ -735,7 +735,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     if (filters.season) {
       var chip = document.createElement("span");
       chip.className = "filter-chip";
-      chip.textContent = filters.season === "0" ? "Pre-season" : "Season " + filters.season;
+      chip.textContent = "Season " + filters.season;
       var btn = document.createElement("button");
       btn.className = "filter-chip-remove";
       btn.innerHTML = "&times;";
@@ -854,13 +854,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     header.appendChild(turnsEl);
 
 
-    // Pre-season badge
+    // Season 0 badge
     var gameSeason = game.season != null ? game.season : 0;
     if (gameSeason === 0) {
       var seasonBadge = document.createElement("span");
       seasonBadge.className = "epoch-badge epoch-old";
-      seasonBadge.title = "Pre-season game — not included in Season 1 ratings";
-      seasonBadge.textContent = "Pre-season";
+      seasonBadge.title = "Season 0 game — not included in Season 1 ratings";
+      seasonBadge.textContent = "Season 0";
       header.appendChild(seasonBadge);
     }
 
@@ -1046,7 +1046,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     seasons.forEach(function (s) {
       var btn = document.createElement("button");
       btn.className = "season-filter-btn" + (filters.season === String(s) ? " active" : "");
-      var seasonLabel = s === 0 ? "Pre-season" : "Season " + s;
+      var seasonLabel = "Season " + s;
       btn.innerHTML = seasonLabel + ' <span class="tab-count">(' + counts[s] + ")</span>";
       btn.dataset.season = String(s);
       btn.onclick = function () {
