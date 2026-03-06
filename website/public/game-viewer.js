@@ -701,6 +701,27 @@
       dom.sliderContainer.appendChild(container);
     }
 
+    function renderDecisionMarkers(decisionSnapIndices, totalSnapshots) {
+      var existing = dom.sliderContainer.querySelector(".decision-markers");
+      if (existing) existing.remove();
+
+      if (!decisionSnapIndices || decisionSnapIndices.length === 0 || totalSnapshots <= 1) return;
+
+      var container = document.createElement("div");
+      container.className = "decision-markers";
+      for (var i = 0; i < decisionSnapIndices.length; i++) {
+        var dot = document.createElement("div");
+        dot.className = "decision-marker";
+        var pct = (decisionSnapIndices[i] / (totalSnapshots - 1)) * 100;
+        dot.style.left = pct + "%";
+        dot.addEventListener("click", (function (idx) {
+          return function () { goTo(idx); };
+        })(decisionSnapIndices[i]));
+        container.appendChild(dot);
+      }
+      dom.sliderContainer.appendChild(container);
+    }
+
     // ── Core rendering ──
 
     function renderSnapshot(index) {
@@ -1133,6 +1154,11 @@
       snapshotDecisionMap[si].push(d);
     });
 
+    // Build sorted list of unique decision snapshot indices for {/} navigation
+    var decisionSnapshotIndices = Object.keys(snapshotDecisionMap)
+      .map(Number)
+      .sort(function (a, b) { return a - b; });
+
     // Build llmEvent index -> decision reverse lookup.
     // Stamp each llmEvent with its original index so renderToolResult can
     // look up the decision for any tool_call it receives.
@@ -1241,6 +1267,18 @@
           if (turnStartIndices[i].index > currentIndex) { goTo(turnStartIndices[i].index); break; }
         }
       }
+      if (e.key === "{") {
+        e.preventDefault();
+        for (var i = decisionSnapshotIndices.length - 1; i >= 0; i--) {
+          if (decisionSnapshotIndices[i] < currentIndex) { goTo(decisionSnapshotIndices[i]); break; }
+        }
+      }
+      if (e.key === "}") {
+        e.preventDefault();
+        for (var i = 0; i < decisionSnapshotIndices.length; i++) {
+          if (decisionSnapshotIndices[i] > currentIndex) { goTo(decisionSnapshotIndices[i]); break; }
+        }
+      }
     });
 
     // Set up mouse-following card preview
@@ -1275,8 +1313,9 @@
       }
     }
 
-    // Render turn boundary markers and annotation markers on slider
+    // Render turn boundary markers, decision markers, and annotation markers on slider
     renderTurnMarkers(turnStartIndices, game.snapshots.length);
+    renderDecisionMarkers(decisionSnapshotIndices, game.snapshots.length);
     if (hasAnnotations) {
       renderAnnotationMarkers(game.annotations, game.snapshots.length);
     }
@@ -1305,6 +1344,7 @@
       getCurrentIndex: function () { return currentIndex; },
       getSnapshotCount: function () { return game.snapshots.length; },
       getPlayerColorMap: function () { return playerColorMap; },
+      getDecisionSnapshotIndices: function () { return decisionSnapshotIndices; },
       destroy: destroy,
     };
   }

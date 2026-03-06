@@ -338,6 +338,25 @@
       fetchJson(API_PREFIX + "/decisions-at-snapshot/" + slug + "/" + snapIdx)
         .then(function (decisions) {
           if (decisions.length === 0) {
+            // No exact match — find the most recent decision before this snapshot
+            var indices = viewer.getDecisionSnapshotIndices ? viewer.getDecisionSnapshotIndices() : [];
+            var prevSnap = null;
+            for (var i = indices.length - 1; i >= 0; i--) {
+              if (indices[i] <= snapIdx) { prevSnap = indices[i]; break; }
+            }
+            if (prevSnap != null && prevSnap !== snapIdx) {
+              dom.verdictStatus.textContent = "No decision at snapshot " + snapIdx + ", trying " + prevSnap + "...";
+              return fetchJson(API_PREFIX + "/decisions-at-snapshot/" + slug + "/" + prevSnap)
+                .then(function (fallbackDecisions) {
+                  if (fallbackDecisions.length === 0) {
+                    dom.verdictStatus.textContent = "No decision at snapshot " + snapIdx;
+                  } else if (fallbackDecisions.length === 1) {
+                    loadDetail(fallbackDecisions[0].decision_index);
+                  } else {
+                    showDisambiguation(fallbackDecisions);
+                  }
+                });
+            }
             dom.verdictStatus.textContent = "No decision at snapshot " + snapIdx;
             return;
           }
