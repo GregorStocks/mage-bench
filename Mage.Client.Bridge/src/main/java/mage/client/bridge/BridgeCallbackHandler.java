@@ -4628,8 +4628,11 @@ public class BridgeCallbackHandler {
             return false;
         }
 
+        // START_GAME is intentionally excluded: it's the callback that
+        // *establishes* currentGameId, so filtering it would be circular.
         boolean gameScoped = ACTIONABLE_CALLBACKS.contains(method)
                 || method == ClientCallbackMethod.GAME_INIT
+                || method == ClientCallbackMethod.GAME_OVER
                 || method == ClientCallbackMethod.GAME_UPDATE
                 || method == ClientCallbackMethod.GAME_UPDATE_AND_INFORM;
         if (!gameScoped) {
@@ -4638,6 +4641,10 @@ public class BridgeCallbackHandler {
 
         UUID gameId = currentGameId;
         if (gameId == null) {
+            // Expected window: after createFreshForNextGame() routes callbacks
+            // to this handler but before START_GAME fires to set currentGameId.
+            // GAME_UPDATE callbacks can arrive during this window and should be
+            // dropped — they're for the game that hasn't been established yet.
             logger.warn("[" + client.getUsername() + "] Ignoring " + method
                     + " for game " + callbackGameId + " (no currentGameId)");
             return true;
