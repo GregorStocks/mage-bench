@@ -651,9 +651,7 @@
       annotations.forEach(function (ann, annIdx) {
         var dot = document.createElement("div");
         dot.className = "annotation-marker severity-" + ann.severity;
-        var decisionSnapIdx = annotationDecisionSnap[annIdx] != null
-          ? annotationDecisionSnap[annIdx]
-          : Math.max(0, ann.snapshotIndex - 1);
+        var decisionSnapIdx = annotationDecisionSnap[annIdx];
         var pct = totalSnapshots > 1 ? (decisionSnapIdx / (totalSnapshots - 1)) * 100 : 50;
         dot.style.left = pct + "%";
         dot.title = ann.player + " (" + ann.severity + "): " + ann.description.substring(0, 80);
@@ -897,9 +895,7 @@
         game.annotations.forEach(function (ann, annIdx) {
           // Show annotation at the pre-decision snapshot so it appears
           // alongside the decision and the board state the player saw.
-          var decisionSnapIdx = annotationDecisionSnap[annIdx] != null
-            ? annotationDecisionSnap[annIdx]
-            : Math.max(0, ann.snapshotIndex - 1);
+          var decisionSnapIdx = annotationDecisionSnap[annIdx];
           if (decisionSnapIdx <= index) {
             var decSnap = game.snapshots[decisionSnapIdx] || {};
             if (useSeq) {
