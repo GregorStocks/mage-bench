@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T02:25:11.683340+00:00",
+  "generatedAt": "2026-03-06T03:09:26.255601+00:00",
   "minLeaderboardEpoch": 11,
   "games": [
     {
@@ -15997,6 +15997,94 @@
           "thinkingTimeSecs": 1205.8,
           "responses": 160,
           "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_183202_g1",
+      "ts": "2026-03-05T18:32:02",
+      "epoch": 41,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "meta-llama/llama-4-maverick",
+          "modelName": "Llama 4 Maverick",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.1947,
+          "promptTokens": 1261250,
+          "completionTokens": 9179,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 93,
+          "toolCallsFailed": 17,
+          "thinkingTimeSecs": 217.7,
+          "responses": 128,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.2374,
+          "promptTokens": 938109,
+          "completionTokens": 1920,
+          "cachedTokens": 233669,
+          "reasoningTokens": 0,
+          "toolCallsOk": 71,
+          "toolCallsFailed": 9,
+          "thinkingTimeSecs": 109.7,
+          "responses": 81,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_183202_g2",
+      "ts": "2026-03-05T18:32:02",
+      "epoch": 41,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5::medium",
+          "modelName": "GPT-5 (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.7337,
+          "promptTokens": 279652,
+          "completionTokens": 38414,
+          "cachedTokens": 188416,
+          "reasoningTokens": 36016,
+          "toolCallsOk": 38,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 1147.8,
+          "responses": 40,
+          "timeouts": 2,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 2.6549,
+          "promptTokens": 882323,
+          "completionTokens": 29942,
+          "cachedTokens": 649728,
+          "reasoningTokens": 26033,
+          "toolCallsOk": 93,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 794.7,
+          "responses": 95,
+          "timeouts": 0,
           "otherErrors": 0,
           "contextResets": 0
         }
