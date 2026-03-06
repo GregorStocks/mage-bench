@@ -54,7 +54,8 @@ and matchmaker filter by the season field, not by epoch directly.
 #  40 - Move action-type docs from system prompt into respond_with strings (Mar 3)
 #  41 - Replace Map<String, Object> tool results with typed Result classes (Mar 4)
 #  42 - Rewrite system prompt game flow: startup/mulligan/main loop phases; get_action_choices first (Mar 5)
-HARNESS_EPOCH = 42
+#  43 - Fix end_of_turn yield persisting across turns when server skips END_TURN callbacks (Mar 5)
+HARNESS_EPOCH = 43
 
 # Minimum epoch for season assignment at export time. Games below this
 # are assigned season 0 (pre-season). Used only by export_game.py and
