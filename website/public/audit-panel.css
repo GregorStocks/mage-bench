@@ -28,6 +28,11 @@
 }
 #audit-decision-context .label { color: #a0a0b8; font-size: 0.75rem; }
 #audit-decision-context .value { color: #e0e0e0; }
+#audit-decision-header {
+  font-size: 0.75rem;
+  color: #a0a0b8;
+  margin-bottom: 0.15rem;
+}
 #audit-decision-message {
   font-weight: 600;
   color: #e94560;

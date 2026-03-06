@@ -38,6 +38,7 @@
       '<div id="audit-panel" class="audit-hidden">',
       '  <div id="audit-decision-context">',
       '    <div id="audit-stats"></div>',
+      '    <div id="audit-decision-header"></div>',
       '    <div id="audit-decision-message"></div>',
       '    <div id="audit-decision-chosen"></div>',
       '    <div id="audit-annotation-box" class="hidden">',
@@ -78,6 +79,7 @@
     return {
       panel: container.querySelector("#audit-panel"),
       stats: container.querySelector("#audit-stats"),
+      header: container.querySelector("#audit-decision-header"),
       message: container.querySelector("#audit-decision-message"),
       chosen: container.querySelector("#audit-decision-chosen"),
       annotationBox: container.querySelector("#audit-annotation-box"),
@@ -169,6 +171,12 @@
     // ── Context rendering ──
 
     function renderContext(d) {
+      // Decision identity header
+      var phase = d.phase || "";
+      dom.header.textContent = escapeHtml(d.player || "?") +
+        " \u2014 T" + (d.turn || "?") + " " + phase +
+        " \u2014 decision #" + (d.decision_index != null ? d.decision_index : "?");
+
       dom.message.textContent = d.message || "";
       dom.chosen.innerHTML = '<span class="label">Chosen: </span><span class="value">' +
         escapeHtml(d.chosen || "?") + '</span>' +
