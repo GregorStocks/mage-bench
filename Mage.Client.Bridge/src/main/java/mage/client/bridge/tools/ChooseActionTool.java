@@ -10,24 +10,21 @@ import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class ChooseActionTool {
 
-    public static class Result {
+    /**
+     * Result extends ActionResult so choose_action returns the same board/choices/hand
+     * fields as pass_priority and get_action_choices when a next action is pending.
+     * The choose_action-specific fields (success, error_code, mana_plan_*, etc.) are
+     * added here; shared fields (game_seq, error, player_dead, etc.) come from ActionResult.
+     */
+    public static class Result extends ActionResult {
         @ResultField(description = "Whether accepted")
         public Boolean success;
-
-        @ResultField(description = "What was done, e.g. selected_0, yes, batch_attack")
-        public String action_taken;
-
-        @ResultField(description = "Error message")
-        public String error;
 
         @ResultField(description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type")
         public String error_code;
 
         @ResultField(description = "Can retry with different parameters")
         public Boolean retryable;
-
-        @ResultField(description = "Warning message")
-        public String warning;
 
         @ResultField(description = "Mana plan was stored")
         public Boolean mana_plan_set;
@@ -43,33 +40,6 @@ public class ChooseActionTool {
 
         @ResultField(description = "Batch combat interrupted by trigger")
         public Boolean interrupted;
-
-        @ResultField(description = "Sequence number")
-        public Integer game_seq;
-
-        @ResultField(description = "Follow-up action arrived (call get_action_choices/choose_action, not pass_priority)")
-        public Boolean next_action_pending;
-
-        @ResultField(description = "Follow-up action callback name")
-        public String next_action_type;
-
-        @ResultField(description = "Follow-up action message")
-        public String next_action_message;
-
-        @ResultField(description = "How to handle the follow-up action")
-        public String next_action_hint;
-
-        @ResultField(description = "Choices (on errors, for self-correction)")
-        public List<Map<String, Object>> choices;
-
-        @ResultField(description = "Whether you died")
-        public Boolean player_dead;
-
-        @ResultField(description = "Whether the game ended")
-        public Boolean game_over;
-
-        @ResultField(description = "New chat messages")
-        public List<String> recent_chat;
     }
 
     @Tool(

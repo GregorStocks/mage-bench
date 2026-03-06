@@ -53,7 +53,8 @@ and matchmaker filter by the season field, not by epoch directly.
 #  39 - Add retry limit for empty LLM choices; auto-pass after 5 consecutive (Mar 3)
 #  40 - Move action-type docs from system prompt into respond_with strings (Mar 3)
 #  41 - Replace Map<String, Object> tool results with typed Result classes (Mar 4)
-HARNESS_EPOCH = 41
+#  42 - Rewrite system prompt game flow: startup/mulligan/main loop phases; get_action_choices first (Mar 5)
+HARNESS_EPOCH = 42
 
 # Minimum epoch for season assignment at export time. Games below this
 # are assigned season 0 (pre-season). Used only by export_game.py and

@@ -178,10 +178,12 @@ def _build_pilot_decision(data: dict) -> dict:
 
 
 def _render_for_pilot(result_text: str, last_board: list[dict] | None) -> tuple[str, list[dict] | None]:
-    """Render a pass_priority/get_action_choices result for LLM consumption.
+    """Render an action result for LLM consumption.
 
+    Handles pass_priority, get_action_choices, and choose_action results.
     Returns (rendered_text, updated_board). The board is tracked so that
-    board_unchanged results can use the last-known board.
+    board_unchanged results can use the last-known board. Results without
+    action_pending are passed through as raw JSON.
     """
     try:
         data = json.loads(result_text)
@@ -1029,9 +1031,10 @@ async def run_pilot_loop(
                     except (json.JSONDecodeError, TypeError):
                         pass
 
-                    # Render pass_priority/get_action_choices for LLM display
+                    # Render action results for LLM display (all three return
+                    # the same ActionResult fields when a decision is pending)
                     display_text = result_text
-                    if fn.name in ("pass_priority", "get_action_choices"):
+                    if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
                         display_text, last_board = _render_for_pilot(result_text, last_board)
                         # Chat nudge: remind LLM to chat if it's been silent too long
                         turns_since_chat = current_game_turn - last_chat_turn

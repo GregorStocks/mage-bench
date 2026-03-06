@@ -97,321 +97,8 @@
   "decisions": [
     {
       "actionResult": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "actionSeq": 1,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "id": "p2",
-          "index": 0,
-          "is_you": true,
-          "name": "TestPlayer",
-          "target_type": "player"
-        },
-        {
-          "id": "p1",
-          "index": 1,
-          "name": "Opponent",
-          "target_type": "player"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
-        1,
-        2
-      ],
-      "message": "Select a starting player",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "index",
-      "snapshotIndex": 0,
-      "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "no",
-        "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 5,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": false,
-      "chosenArgs": {
-        "choice": "no"
-      },
-      "index": 1,
-      "isForced": false,
-      "llmEventIndices": [
-        3,
-        4
-      ],
-      "message": "Mulligan down to 6 cards?",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 1,
-      "step": null,
-      "subsequentActions": [
-        "TestPlayer skips Draw step",
-        "TestPlayer skip attack"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "selected_0",
-        "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "actionSeq": 15,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "p11",
-          "index": 0,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "p12",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p13",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p14",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p15",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "p16",
-          "index": 5,
-          "name": "Plains"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "p11"
-      },
-      "index": 2,
-      "isForced": false,
-      "llmEventIndices": [
-        5,
-        6
-      ],
-      "message": "Play spells and abilities",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 0,
-        "playableCards": [
-          "p11",
-          "p12",
-          "p13",
-          "p14",
-          "p15",
-          "p16"
-        ]
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 6,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Forest from hand onto the Battlefield",
-        "TestPlayer casts Ancient Stirrings from hand"
-      ],
-      "turn": 1
-    },
-    {
-      "actionResult": {
-        "action_taken": "yes",
-        "game_seq": 23,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select a colorless card (to put into your hand)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "actionSeq": 23,
-      "actionType": "GAME_ASK",
-      "choiceCount": 0,
-      "choices": [],
-      "chosen": true,
-      "chosenArgs": {
-        "choice": "yes"
-      },
-      "index": 3,
-      "isForced": false,
-      "llmEventIndices": [
-        8,
-        9
-      ],
-      "message": "Reveal a colorless card and put it into your hand?",
-      "phase": "POSTCOMBAT_MAIN",
-      "pilotContext": {
-        "landDropsUsed": 1
-      },
-      "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 11,
-      "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
-        "TestPlayer puts a card from library into their hand",
-        "TestPlayer wants to concede"
-      ],
-      "turn": 1
-    }
-  ],
-  "deckType": "Constructed - Legacy",
-  "gameOver": {
-    "message": "Game ended",
-    "seq": 29
-  },
-  "gameType": "Two Player Duel",
-  "harnessEpoch": 41,
-  "llmEvents": [
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "seq": 1,
-      "type": "game_start"
-    },
-    {
-      "args": {},
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "hand": [],
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 60,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 60,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 1,
-        "can_cancel": false,
-        "choices": [
-          {
-            "id": "p2",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p1",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Select a starting player",
-        "required": true,
-        "respond_with": "choice=pN — must pick a target",
-        "response_type": "index",
-        "stop_reason": "non_priority_action"
-      },
-      "seq": 2,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "choice": "0"
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
         "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Mulligan down to 6 cards?",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "seq": 3,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 1
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
         "action_type": "GAME_ASK",
         "board": [
           {
@@ -491,11 +178,11 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 5,
+        "game_seq": 1,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
-        "stop_reason": "non_priority_action",
+        "success": true,
         "your_hand": [
           {
             "mana_cost": "{G}",
@@ -548,37 +235,49 @@
           }
         ]
       },
-      "seq": 4,
-      "tool": "pass_priority",
-      "type": "tool_call"
+      "actionSeq": 1,
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p2",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p1",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 0,
+      "isForced": false,
+      "llmEventIndices": [
+        1,
+        2
+      ],
+      "message": "Select a starting player",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 0,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer chooses that they take the first turn"
+      ],
+      "turn": 1
     },
     {
-      "args": {
-        "choice": "no"
-      },
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 5,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 5,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 2
-      },
-      "gameSeq": 15,
-      "player": "TestPlayer",
-      "result": {
+      "actionResult": {
         "action_pending": true,
+        "action_taken": "no",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -701,6 +400,857 @@
             "name": "Plains"
           }
         ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 5,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "actionSeq": 5,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": false,
+      "chosenArgs": {
+        "choice": "no"
+      },
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        3,
+        4
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer skips Draw step",
+        "TestPlayer skip attack"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{G}",
+                "name": "Ancient Stirrings",
+                "playable": true,
+                "rules": [
+                  "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 0,
+            "mana_cost": "{G}",
+            "name": "Ancient Stirrings"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 15,
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
+      },
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "p11"
+      },
+      "index": 2,
+      "isForced": false,
+      "llmEventIndices": [
+        5,
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Forest from hand onto the Battlefield",
+        "TestPlayer casts Ancient Stirrings from hand"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "yes",
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 5,
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p24",
+            "index": 0,
+            "name": "Ornithopter",
+            "target_type": "card"
+          },
+          {
+            "id": "p25",
+            "index": 1,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p26",
+            "index": 2,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p27",
+            "index": 3,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p28",
+            "index": 4,
+            "name": "Plains",
+            "target_type": "card"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 23,
+        "land_drops_used": 1,
+        "message": "Select a colorless card (to put into your hand)",
+        "required": true,
+        "respond_with": "choice=pN — must pick a target",
+        "response_type": "index",
+        "stack": [
+          {
+            "name": "Ancient Stirrings"
+          }
+        ],
+        "success": true
+      },
+      "actionSeq": 23,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": true,
+      "chosenArgs": {
+        "choice": "yes"
+      },
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        8,
+        9
+      ],
+      "message": "Reveal a colorless card and put it into your hand?",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 11,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
+        "TestPlayer puts a card from library into their hand",
+        "TestPlayer wants to concede"
+      ],
+      "turn": 1
+    }
+  ],
+  "deckType": "Constructed - Legacy",
+  "gameOver": {
+    "message": "Game ended",
+    "seq": 29
+  },
+  "gameType": "Two Player Duel",
+  "harnessEpoch": 42,
+  "llmEvents": [
+    {
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
+      "player": "TestPlayer",
+      "seq": 1,
+      "type": "game_start"
+    },
+    {
+      "args": {},
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 60,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 1,
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p2",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p1",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Select a starting player",
+        "required": true,
+        "respond_with": "choice=pN — must pick a target",
+        "response_type": "index",
+        "stop_reason": "non_priority_action"
+      },
+      "seq": 2,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "choice": "0"
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_taken": "selected_target_0",
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{G}",
+                "name": "Ancient Stirrings",
+                "rules": [
+                  "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 2,
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "success": true,
+        "your_hand": [
+          {
+            "mana_cost": "{G}",
+            "name": "Ancient Stirrings",
+            "rules": [
+              "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Forest",
+            "rules": [
+              "{T}: Add {G}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          }
+        ]
+      },
+      "seq": 3,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 2
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board_cursor": 2,
+        "board_unchanged": true,
+        "context": "T1 ()",
+        "game_seq": 5,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "choice=yes or choice=no",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "mana_cost": "{G}",
+            "name": "Ancient Stirrings",
+            "rules": [
+              "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Forest",
+            "rules": [
+              "{T}: Add {G}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "choice": "no"
+      },
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_taken": "no",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{G}",
+                "name": "Ancient Stirrings",
+                "rules": [
+                  "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 3,
+        "choices": [
+          {
+            "action": "land",
+            "id": "p11",
+            "index": 0,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 1,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 5,
+            "name": "Plains"
+          }
+        ],
+        "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 5,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true
+      },
+      "seq": 5,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 3
+      },
+      "gameSeq": 15,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board_cursor": 3,
+        "board_unchanged": true,
+        "choices": [
+          {
+            "action": "land",
+            "id": "p11",
+            "index": 0,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 1,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 2,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 3,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 4,
+            "name": "Plains"
+          },
+          {
+            "action": "land",
+            "id": "p16",
+            "index": 5,
+            "name": "Plains"
+          }
+        ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
         "has_playable_cards": true,
@@ -721,13 +1271,106 @@
       "gameSeq": 15,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{G}",
+                "name": "Ancient Stirrings",
+                "playable": true,
+                "rules": [
+                  "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 4,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 0,
+            "mana_cost": "{G}",
+            "name": "Ancient Stirrings"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 15,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play spells and abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "land_drops_used": 1,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 1
       },
       "seq": 7,
       "tool": "choose_action",
@@ -740,27 +1383,9 @@
       "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "selected_0",
-        "game_seq": 18,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 8,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "board_cursor": 3
-      },
-      "gameSeq": 23,
-      "player": "TestPlayer",
-      "result": {
         "action_pending": true,
-        "action_type": "GAME_ASK",
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
         "board": [
           {
             "battlefield": [
@@ -833,6 +1458,34 @@
         ],
         "board_cursor": 5,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 18,
+        "land_drops_used": 1,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Ancient Stirrings"
+          }
+        ],
+        "success": true
+      },
+      "seq": 8,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "board_cursor": 5
+      },
+      "gameSeq": 23,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board_cursor": 5,
+        "board_unchanged": true,
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 23,
         "land_drops_used": 1,
         "message": "Reveal a colorless card and put it into your hand?",
@@ -856,12 +1509,125 @@
       "gameSeq": 23,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "yes",
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 5,
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p24",
+            "index": 0,
+            "name": "Ornithopter",
+            "target_type": "card"
+          },
+          {
+            "id": "p25",
+            "index": 1,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p26",
+            "index": 2,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p27",
+            "index": 3,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p28",
+            "index": 4,
+            "name": "Plains",
+            "target_type": "card"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 23,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select a colorless card (to put into your hand)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
+        "land_drops_used": 1,
+        "message": "Select a colorless card (to put into your hand)",
+        "required": true,
+        "respond_with": "choice=pN — must pick a target",
+        "response_type": "index",
+        "stack": [
+          {
+            "name": "Ancient Stirrings"
+          }
+        ],
         "success": true
       },
       "seq": 10,
@@ -875,12 +1641,129 @@
       "gameSeq": 24,
       "player": "TestPlayer",
       "result": {
+        "action_pending": true,
         "action_taken": "selected_target_0",
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p24",
+                "mana_cost": "{0}",
+                "name": "Ornithopter",
+                "power": "0",
+                "rules": [
+                  "Flying"
+                ],
+                "toughness": "2"
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 6,
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p25",
+            "index": 0,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p26",
+            "index": 1,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p27",
+            "index": 2,
+            "name": "Plains",
+            "target_type": "card"
+          },
+          {
+            "id": "p28",
+            "index": 3,
+            "name": "Plains",
+            "target_type": "card"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
         "game_seq": 24,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_message": "Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
+        "land_drops_used": 1,
+        "message": "Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)",
+        "required": true,
+        "respond_with": "choice=pN — must pick a target",
+        "response_type": "index",
+        "stack": [
+          {
+            "name": "Ancient Stirrings"
+          }
+        ],
         "success": true
       },
       "seq": 11,
