@@ -616,10 +616,31 @@
       header.appendChild(badge);
       div.appendChild(header);
 
-      var desc = document.createElement("div");
-      desc.className = "annotation-description";
-      desc.textContent = ann.description;
-      div.appendChild(desc);
+      var descText = ann.description || "";
+      var COLLAPSE_THRESHOLD = 120;
+      if (descText.length <= COLLAPSE_THRESHOLD) {
+        var desc = document.createElement("div");
+        desc.className = "annotation-description";
+        desc.textContent = descText;
+        div.appendChild(desc);
+      } else {
+        // Long description: put under a zippy with first sentence as summary
+        var firstSentEnd = descText.indexOf(". ");
+        var summaryText = firstSentEnd > 0 && firstSentEnd < COLLAPSE_THRESHOLD
+          ? descText.slice(0, firstSentEnd + 1)
+          : descText.slice(0, COLLAPSE_THRESHOLD) + "…";
+        var descDetails = document.createElement("details");
+        descDetails.className = "annotation-description-details";
+        var descSummary = document.createElement("summary");
+        descSummary.className = "annotation-description";
+        descSummary.textContent = summaryText;
+        descDetails.appendChild(descSummary);
+        var descFull = document.createElement("div");
+        descFull.className = "annotation-description";
+        descFull.textContent = descText;
+        descDetails.appendChild(descFull);
+        div.appendChild(descDetails);
+      }
 
       var details = document.createElement("details");
       details.className = "annotation-details";

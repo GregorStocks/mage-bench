@@ -20,7 +20,7 @@ public class ChooseActionTool {
         @ResultField(description = "Whether accepted")
         public Boolean success;
 
-        @ResultField(description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type")
+        @ResultField(description = "no_pending_action, missing_param, index_out_of_range, invalid_choice, batch_failed, internal_error, unknown_action_type")
         public String error_code;
 
         @ResultField(description = "Can retry with different parameters")

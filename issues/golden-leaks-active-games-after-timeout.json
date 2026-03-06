@@ -1,0 +1,10 @@
+{
+  "title": "Golden bridge reconnect can inherit leaked active games after a timed-out scenario",
+  "description": "GitHub Actions run 22755315869 / job 65998449826 failed first in mdfc_land_and_suspend, then cascaded into later replay hangs. The artifact logs show the first MDFC game (136f8bf8-6657-4d7a-9dee-cc3b0c021ae4) reached Crashing Footfalls resolving into Rhino tokens server-side, but there is no corresponding server endGame for that game before the next scenario starts. After the harness restarts the bridge JVMs, the reconnecting clients receive START_GAME / GAME_INIT callbacks for multiple old and new game IDs at once. The opponent bridge logs activeGames=3 across gameIds 136f8bf8..., 28638f07..., and 869eae4d..., and then passPriority STILL WAITING with activeGames=2 for 120s. The TestPlayer bridge simultaneously logs stale callbacks for non-current game 28638f07... while running a later game. This indicates cleanup is still incomplete after a replay timeout: old games remain active on reconnect and contaminate subsequent scenarios. Repro evidence is in the golden-test-logs artifact from run 22755315869. Related logs also show spectator IllegalComponentStateException spam around the same period, but the strongest direct symptom is leaked activeGames across reconnect.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["golden", "bridge", "puppeteer"],
+  "created_at": "2026-03-06T01:17:14-08:00",
+  "updated_at": "2026-03-06T01:17:14-08:00"
+}
