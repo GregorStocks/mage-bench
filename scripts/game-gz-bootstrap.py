@@ -4,42 +4,55 @@
 Usage:
     game-gz-bootstrap.py <game_id>
 
-Looks for website/public/games/<game_id>.json.gz. If it doesn't exist but
-raw logs are available at ~/mage-bench-logs/<game_id>/game_events.jsonl,
-runs export_game.py to generate the gz first.
+Looks for website/public/games/<game_id>.json.gz or .json. If neither exists
+but raw logs are available at ~/mage-bench-logs/<game_id>/game_events.jsonl,
+runs export_game.py to generate the export first.
 """
 
-import gzip
-import json
 import subprocess
 import sys
 from pathlib import Path
 
+from analysis.blunder_eval_common import GAMES_DIR, load_game
+
 LOGS_DIR = Path.home() / "mage-bench-logs"
+
+_EXTENSIONS = (".json.gz", ".json")
+
+
+def _find_export(game_id: str) -> Path | None:
+    """Return the export path (.json.gz or .json), or None."""
+    for ext in _EXTENSIONS:
+        p = GAMES_DIR / f"{game_id}{ext}"
+        if p.exists():
+            return p
+    return None
 
 
 def main(game_id: str) -> None:
-    gz_path = Path(f"website/public/games/{game_id}.json.gz")
     game_dir = LOGS_DIR / game_id
     events_path = game_dir / "game_events.jsonl"
 
-    if not gz_path.exists() and events_path.exists():
+    export_path = _find_export(game_id)
+    if export_path is None and events_path.exists():
         subprocess.run(
             ["uv", "run", "python", "scripts/export_game.py", game_id],
             check=True,
         )
+        # Export may create .json.gz or .json depending on file size
+        export_path = _find_export(game_id)
 
-    if not gz_path.exists():
-        print(f"No gz file found for {game_id}", file=sys.stderr)
-        print(f"  Checked: {gz_path}", file=sys.stderr)
+    if export_path is None:
+        print(f"No export found for {game_id}", file=sys.stderr)
+        for ext in _EXTENSIONS:
+            print(f"  Checked: {GAMES_DIR / f'{game_id}{ext}'}", file=sys.stderr)
         print(
             f"  Raw logs: {'exist' if events_path.exists() else 'not found'}",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    with gzip.open(gz_path, "rt") as f:
-        d = json.load(f)
+    d = load_game(export_path)
 
     print(
         f"Game: {d['id']} | {d.get('deckType', '?')} | {d['totalTurns']} turns | Winner: {d['winner']}"

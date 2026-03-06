@@ -2002,7 +2002,7 @@ public class BridgeCallbackHandler {
     @SuppressWarnings("unchecked")
     private ChooseActionTool.Result handleBatchAttackers(String[] attackerIds, PendingAction action, ChooseActionTool.Result result) {
         UUID gameId = action.gameId();
-        var declared = new ArrayList<String>();
+        var declared = new ArrayList<Map<String, Object>>();
         var failed = new ArrayList<Map<String, Object>>();
 
         // Special case: "all" attack
@@ -2025,7 +2025,7 @@ public class BridgeCallbackHandler {
             }
             result.success = true;
             result.action_taken = "batch_attack";
-            declared.add("all");
+            declared.add(Map.of("id", "all"));
             result.declared = new ArrayList<>(declared);
             lastChoices = null;
             waitForNextActionAfterBatch(result);
@@ -2059,7 +2059,7 @@ public class BridgeCallbackHandler {
                 }
             }
             session.sendPlayerUUID(gameId, attackerUuid);
-            declared.add(shortId);
+            declared.add(Map.of("id", shortId));
 
             // Wait for next callback
             PendingAction next = waitForNextCallback(gameId);

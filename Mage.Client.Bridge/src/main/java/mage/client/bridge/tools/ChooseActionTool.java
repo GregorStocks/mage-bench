@@ -33,10 +33,10 @@ public class ChooseActionTool {
         public Integer mana_plan_size;
 
         @ResultField(description = "Declared attacker/blocker IDs")
-        public List<Object> declared;
+        public List<Map<String, Object>> declared;
 
         @ResultField(description = "Failed batch entries: {id, reason}")
-        public List<Object> failed;
+        public List<Map<String, Object>> failed;
 
         @ResultField(description = "Batch combat interrupted by trigger")
         public Boolean interrupted;
@@ -118,7 +118,10 @@ public class ChooseActionTool {
             example("Batch attack", json(
                 "success", true,
                 "action_taken", "batch_attack",
-                "declared", List.of("p1", "p2", "p3"))),
+                "declared", List.of(
+                    json("id", "p1"),
+                    json("id", "p2"),
+                    json("id", "p3")))),
             example("Batch block", json(
                 "success", true,
                 "action_taken", "batch_block",

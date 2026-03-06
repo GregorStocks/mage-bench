@@ -319,6 +319,29 @@ jq -r 'select(.type=="llm_response") | [.tool_calls[]?.name] | length' "$GAME_DI
 grep -B2 "Action failed" "$GAME_DIR"/*_pilot.log | grep -i "played\|cast\|deployed"
 ```
 
+## Output schema validation errors (OpenAI structured outputs)
+
+When OpenAI models use structured outputs, tool results are validated against the output
+schema. Schema mismatches cause the model to receive an error even though the action
+succeeded on the game server.
+
+```bash
+# Find output schema validation errors in pilot logs
+grep "Invalid structured content returned by tool" "$GAME_DIR"/*_pilot.log
+
+# Count per tool (identify which tools have schema mismatches)
+grep -o "Invalid structured content returned by tool [a-z_]*" "$GAME_DIR"/*_pilot.log | sort | uniq -c
+
+# Check if the action actually succeeded despite the error
+# Look for game state changes between the failed call and the next pass_priority
+grep -A3 "Invalid structured content" "$GAME_DIR"/*_pilot.log | grep "Action:"
+```
+
+Previously seen schema mismatches (now fixed):
+
+- `choose_action` `declared` field: was `List<Object>` which mapped to `items.type = "object"`,
+  but batch attacks returned bare strings. Fixed by wrapping in `{"id": shortId}` objects.
+
 ## Batch combat race conditions
 
 When batch_block or batch_attack returns success but the game shows different results

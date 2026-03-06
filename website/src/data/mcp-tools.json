@@ -1145,7 +1145,7 @@
       },
       {
         "label": "Batch attack",
-        "value": "{\n  \"success\": true,\n  \"action_taken\": \"batch_attack\",\n  \"declared\": [\n    \"p1\",\n    \"p2\",\n    \"p3\"\n  ]\n}"
+        "value": "{\n  \"success\": true,\n  \"action_taken\": \"batch_attack\",\n  \"declared\": [\n    {\n      \"id\": \"p1\"\n    },\n    {\n      \"id\": \"p2\"\n    },\n    {\n      \"id\": \"p3\"\n    }\n  ]\n}"
       },
       {
         "label": "Batch block",

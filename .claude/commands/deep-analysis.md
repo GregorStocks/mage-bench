@@ -74,6 +74,7 @@ uv run python scripts/list-issues.py
   - Use the Grep tool (not bash `rg`) for searching log files:
     - `choose_action out-of-range diagnostic` in `$GAME_DIR` with glob `*_mcp.log`
     - `Index .* out of range` in `$GAME_DIR` with glob `*_errors.log` or `*_pilot.log`
+  - For output schema validation errors (OpenAI structured outputs), grep for `Invalid structured content returned by tool` in `*_pilot.log`. These mean the bridge returned data that doesn't match the tool's output schema — the action succeeds server-side but the model gets an error. See `doc/investigating-game-logs.md` for details.
 - **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior.
 
 ### Step 6: Cross-reference findings
@@ -150,3 +151,13 @@ If you discovered any useful jq queries, grep patterns, cross-referencing techni
 ### Step 14: Log the analysis
 
 Create a file in `doc/claudes/analyses/deep/` for the game analyzed (see `doc/claudes/analyses/README.md` for the template). This marks the game as deep-analyzed so future runs skip it.
+
+### Step 15: Update this skill
+
+If you discovered new recurring patterns, useful analysis techniques, broken scripts, or better workflows during this run, **update this file** before finishing. This skill improves over time as more games are analyzed. Examples of things to add:
+
+- New bug classes or error patterns to search for (add to Step 5 log analysis guidance)
+- New model error patterns that are clearly not platform bugs
+- Scripts that are broken or have known limitations
+- Workflow improvements (e.g. better parallelization, useful cross-referencing techniques)
+- New analysis scripts you created in `scripts/analysis/`
