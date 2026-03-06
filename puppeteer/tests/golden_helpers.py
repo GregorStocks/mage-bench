@@ -390,10 +390,68 @@ class BridgeManager:
         self.session: BridgeSession | None = None
         self._proc: subprocess.Popen | None = None
         self._log_fh: object | None = None
+        self._current_log_path: Path | None = None
+        self._needs_reconnect_validation = False
+
+    def _log_dir(self) -> Path:
+        return self._project_root / "tmp" / f"golden-{self._label}"
+
+    def _prepare_live_log_path(self) -> Path:
+        """Rotate the previous live log so restarts preserve earlier bridge output."""
+        log_dir = self._log_dir()
+        log_dir.mkdir(parents=True, exist_ok=True)
+        live_log = log_dir / "bridge.log"
+        if live_log.exists():
+            archive_index = 1
+            while True:
+                archived_log = log_dir / f"bridge.{archive_index}.log"
+                if not archived_log.exists():
+                    live_log.rename(archived_log)
+                    break
+                archive_index += 1
+        self._current_log_path = live_log
+        return live_log
+
+    def assert_clean_reconnect(self, context: str) -> None:
+        """Fail fast if a restarted bridge inherited callbacks from old games."""
+        if not self._needs_reconnect_validation:
+            return
+        self._needs_reconnect_validation = False
+        assert self._current_log_path is not None, "Bridge log path must be set before reconnect validation"
+        log_text = self._current_log_path.read_text(encoding="utf-8", errors="replace")
+
+        started_game_ids: list[str] = []
+        for match in re.finditer(r"Game started: gameId=([0-9a-f-]+)", log_text):
+            game_id = match.group(1)
+            if game_id not in started_game_ids:
+                started_game_ids.append(game_id)
+
+        stale_callback_lines = [
+            line.strip()
+            for line in log_text.splitlines()
+            if "Ignoring " in line and ("for non-current game " in line or "for inactive game " in line)
+        ]
+
+        if len(started_game_ids) <= 1 and not stale_callback_lines:
+            return
+
+        details: list[str] = []
+        if len(started_game_ids) > 1:
+            details.append("gameIds=" + ", ".join(started_game_ids))
+        if stale_callback_lines:
+            preview = "; ".join(stale_callback_lines[:3])
+            if len(stale_callback_lines) > 3:
+                preview += "; ..."
+            details.append("staleCallbacks=" + preview)
+
+        raise RuntimeError(
+            f"{context}: {self._label.title()} restarted into leaked game state "
+            f"({'; '.join(details)}). Inspect {self._current_log_path}"
+        )
 
     def start(self) -> None:
         """Start the bridge JVM and initialize MCP session."""
-        tmp_dir = self._project_root / "tmp" / f"golden-{self._label}"
+        tmp_dir = self._log_dir()
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
         mcp_port_res = find_available_port("localhost", 19000)
@@ -414,7 +472,7 @@ class BridgeManager:
             },
         )
 
-        bridge_log = tmp_dir / "bridge.log"
+        bridge_log = self._prepare_live_log_path()
         self._log_fh = open(bridge_log, "w")
 
         self._proc = subprocess.Popen(
@@ -471,6 +529,7 @@ class BridgeManager:
         time.sleep(self._SERVER_CLEANUP_DELAY)
         with timed_phase("session", f"{self._label}_jvm_restart"):
             self.start()
+        self._needs_reconnect_validation = True
 
 
 class SpectatorProcess:
@@ -787,6 +846,8 @@ def run_golden_scenario(
             if join_errors:
                 labels = ", ".join(f"{lbl}: {exc}" for lbl, exc in join_errors)
                 raise RuntimeError(f"Bridge join failed: {labels}")
+        bridge_a.assert_clean_reconnect(f"{golden_name}/bridge_join")
+        bridge_b.assert_clean_reconnect(f"{golden_name}/bridge_join")
 
         # Run both replay scripts concurrently
         prompt_a: list[dict] | None = None
