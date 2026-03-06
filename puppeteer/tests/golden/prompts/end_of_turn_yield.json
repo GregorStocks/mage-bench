@@ -149,7 +149,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 END - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Plains, Plains, Plateau, Taiga] lib=51 bf=[Mountain] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 1\n  Message: Select a card to discard\n  Choices (8): Badlands [id=p10], Lightning Bolt [id=p11], Lightning Bolt [id=p12], Memnite [id=p13], Plains [id=p24], Plains [id=p26], Plateau [id=p15], Taiga [id=p16]\n  Respond: choice=pN — must pick a target",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain] | Opponent: 20hp hand=8 lib=52\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (2): Lightning Bolt [id=p11, cast, {R}], Lightning Bolt [id=p12, cast, {R}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -169,11 +169,11 @@
   },
   {
     "content": {
-      "active_player": "TestPlayer",
+      "active_player": "Opponent",
       "available": true,
       "cursor": 1,
-      "game_seq": 66,
-      "phase": "End",
+      "game_seq": 21,
+      "phase": "Precombat Main",
       "players": [
         {
           "battlefield": [
@@ -224,22 +224,6 @@
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
               "name": "Plateau",
               "rules": [
                 "{T}: Add {R}.",
@@ -256,42 +240,26 @@
               ]
             }
           ],
-          "hand_size": 8,
-          "is_active": true,
+          "hand_size": 6,
+          "is_active": false,
           "is_you": true,
-          "library_size": 51,
+          "library_size": 53,
           "life": 20,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
+          "hand_size": 8,
+          "is_active": true,
           "is_you": false,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         }
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Cleanup",
-      "turn": 3
+      "step": "Precombat Main",
+      "turn": 1
     },
     "role": "tool",
     "tool_call_id": "call_8"
@@ -312,11 +280,11 @@
   },
   {
     "content": {
-      "active_player": "TestPlayer",
+      "active_player": "Opponent",
       "available": true,
       "cursor": 1,
-      "game_seq": 66,
-      "phase": "End",
+      "game_seq": 21,
+      "phase": "Precombat Main",
       "players": [
         {
           "battlefield": [
@@ -367,22 +335,6 @@
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
               "name": "Plateau",
               "rules": [
                 "{T}: Add {R}.",
@@ -399,42 +351,26 @@
               ]
             }
           ],
-          "hand_size": 8,
-          "is_active": true,
+          "hand_size": 6,
+          "is_active": false,
           "is_you": true,
-          "library_size": 51,
+          "library_size": 53,
           "life": 20,
           "name": "TestPlayer"
         },
         {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
+          "hand_size": 8,
+          "is_active": true,
           "is_you": false,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         }
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Cleanup",
-      "turn": 3
+      "step": "Precombat Main",
+      "turn": 1
     },
     "role": "tool",
     "tool_call_id": "call_9"
@@ -455,9 +391,9 @@
   },
   {
     "content": {
-      "cursor": 24,
-      "event_count": 24,
-      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
+      "cursor": 18,
+      "event_count": 18,
+      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n"
     },
     "role": "tool",
     "tool_call_id": "call_10"
