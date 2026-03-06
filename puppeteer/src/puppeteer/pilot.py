@@ -178,10 +178,12 @@ def _build_pilot_decision(data: dict) -> dict:
 
 
 def _render_for_pilot(result_text: str, last_board: list[dict] | None) -> tuple[str, list[dict] | None]:
-    """Render a pass_priority/get_action_choices result for LLM consumption.
+    """Render an action result for LLM consumption.
 
+    Handles pass_priority, get_action_choices, and choose_action results.
     Returns (rendered_text, updated_board). The board is tracked so that
-    board_unchanged results can use the last-known board.
+    board_unchanged results can use the last-known board. Results without
+    action_pending are passed through as raw JSON.
     """
     try:
         data = json.loads(result_text)

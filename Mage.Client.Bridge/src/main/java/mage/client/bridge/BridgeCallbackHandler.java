@@ -1440,32 +1440,16 @@ public class BridgeCallbackHandler {
             result.game_seq = action.gameSeq();
         }
 
-        // Block-wait for a pending action (like pass_priority does).
+        // Block until a pending action arrives (like pass_priority does).
         // The LLM may call choose_action before the next callback arrives
         // (e.g. double choose_action in one response, or calling it before
-        // pass_priority). Block indefinitely instead of failing.
+        // pass_priority).
         if (action == null) {
-            long waitStart = System.currentTimeMillis();
-            synchronized (actionLock) {
-                while ((action = pendingAction) == null) {
-                    if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                        break;
-                    }
-                    try {
-                        actionLock.wait(200);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        break;
-                    }
-                }
-            }
+            action = awaitPendingAction();
             if (action == null) {
-                result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
-                result.player_dead = playerDead;
+                attachUnseenChat(result);
                 return buildError(result, "no_pending_action", "No pending action (game over or shutting down)", false, null);
             }
-            logger.info("[" + client.getUsername() + "] choose_action: waited "
-                + (System.currentTimeMillis() - waitStart) + "ms for pending action");
             result.game_seq = action.gameSeq();
         }
 
@@ -1940,36 +1924,15 @@ public class BridgeCallbackHandler {
         }
 
         // After successful action, block until the next pending action arrives.
-        // This ensures the LLM always wakes up to a decision, matching
-        // pass_priority's blocking semantics.  Populate the full ActionResult
-        // fields (board, choices, hand) via mergeActionChoices so the LLM can
-        // act immediately without a separate pass_priority round-trip.
+        // Populate the full ActionResult fields (board, choices, hand) via
+        // mergeActionChoices so the LLM can act immediately without a
+        // separate pass_priority round-trip.
         if (Boolean.TRUE.equals(result.success)) {
-            long waitStart = System.currentTimeMillis();
-            logger.debug("[" + client.getUsername() + "] chooseAction: waiting for next callback");
-            while (pendingAction == null) {
-                if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                    break;
-                }
-                synchronized (actionLock) {
-                    try {
-                        actionLock.wait(200);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        break;
-                    }
-                }
-            }
-            PendingAction next = pendingAction;
-            long waitElapsed = System.currentTimeMillis() - waitStart;
+            PendingAction next = awaitPendingAction();
             if (next != null) {
-                logger.debug("[" + client.getUsername() + "] chooseAction: next callback arrived after " + waitElapsed + "ms");
-                attachUnseenChat(result);
                 mergeActionChoices(result, null);
             } else {
-                logger.info("[" + client.getUsername() + "] chooseAction: no next callback (game over or shutting down)");
-                result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
-                result.player_dead = playerDead;
+                attachUnseenChat(result);
             }
         }
 
@@ -1977,6 +1940,27 @@ public class BridgeCallbackHandler {
     }
 
     // ── Batch combat ──────────────────────────────────────────────────────
+
+    /**
+     * Block indefinitely until a pending action arrives or the game ends.
+     * Shared by choose_action (initial + post-action waits) and batch combat.
+     */
+    private PendingAction awaitPendingAction() {
+        while (pendingAction == null) {
+            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
+                break;
+            }
+            synchronized (actionLock) {
+                try {
+                    actionLock.wait(200);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+            }
+        }
+        return pendingAction;
+    }
 
     /**
      * Wait for the next pending action callback from the server.
@@ -2307,30 +2291,14 @@ public class BridgeCallbackHandler {
 
     /**
      * After batch combat, block until the next pending action arrives.
-     * Same indefinite-blocking semantics as the post-chooseAction wait.
      * Populates full ActionResult fields via mergeActionChoices.
      */
     private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
-        while (pendingAction == null) {
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                break;
-            }
-            synchronized (actionLock) {
-                try {
-                    actionLock.wait(200);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
-            }
-        }
-        PendingAction next = pendingAction;
+        PendingAction next = awaitPendingAction();
         if (next != null) {
-            attachUnseenChat(result);
             mergeActionChoices(result, null);
         } else {
-            result.game_over = playerDead || (activeGames.isEmpty() && gameEverStarted);
-            result.player_dead = playerDead;
+            attachUnseenChat(result);
         }
     }
 
