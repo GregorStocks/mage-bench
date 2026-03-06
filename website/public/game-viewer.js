@@ -1344,7 +1344,12 @@
       getCurrentIndex: function () { return currentIndex; },
       getSnapshotCount: function () { return game.snapshots.length; },
       getPlayerColorMap: function () { return playerColorMap; },
-      getDecisionSnapshotIndices: function () { return decisionSnapshotIndices; },
+      getNearestDecisionSnapshot: function (snapIdx) {
+        for (var i = decisionSnapshotIndices.length - 1; i >= 0; i--) {
+          if (decisionSnapshotIndices[i] < snapIdx) return decisionSnapshotIndices[i];
+        }
+        return null;
+      },
       destroy: destroy,
     };
   }

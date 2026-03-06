@@ -360,6 +360,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -505,7 +527,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -515,6 +537,72 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 5,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 5,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p10",
+          "index": 0,
+          "name": "Badlands"
+        },
+        {
+          "action": "cast",
+          "id": "p13",
+          "index": 1,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 2,
+          "name": "Mountain"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 3,
+          "name": "Plateau"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 4,
+          "name": "Taiga"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        4
+      ],
+      "message": "Play spells and abilities",
+      "phase": null,
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p16"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
       "snapshotIndex": 1,
       "step": null,
       "subsequentActions": [
@@ -688,7 +776,7 @@
       "chosenArgs": {
         "choice": "p14"
       },
-      "index": 2,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
         5,
@@ -698,6 +786,61 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 3,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p12",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p13",
+          "index": 2,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p13"
+        ],
+        "untappedLands": 1
       },
       "player": "TestPlayer",
       "responseType": "select",
@@ -755,7 +898,7 @@
       "chosenArgs": {
         "choice": "p13"
       },
-      "index": 3,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
         7,
@@ -914,7 +1057,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 4,
+      "index": 7,
       "isForced": false,
       "llmEventIndices": [
         9,
@@ -923,6 +1066,50 @@
       "message": "Play instants and activated abilities",
       "phase": "COMBAT",
       "pilotContext": {
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 12,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 2
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 26,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p12",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 8,
+      "isForced": false,
+      "llmEventIndices": [
+        10
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "playableCards": [
+          "p11",
+          "p12"
+        ],
         "untappedLands": 1
       },
       "player": "TestPlayer",
@@ -1131,7 +1318,7 @@
       "chosenArgs": {
         "choice": "p10"
       },
-      "index": 5,
+      "index": 9,
       "isForced": false,
       "llmEventIndices": [
         11,
@@ -1151,6 +1338,61 @@
           "p16"
         ],
         "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 33,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 3,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p12",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p13",
+          "index": 2,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 10,
+      "isForced": false,
+      "llmEventIndices": [
+        12
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p13"
+        ],
+        "untappedLands": 2
       },
       "player": "TestPlayer",
       "responseType": "select",
@@ -1325,7 +1567,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 6,
+      "index": 11,
       "isForced": false,
       "llmEventIndices": [
         13,
@@ -1337,6 +1579,61 @@
         "playableCards": [
           "p11",
           "p12"
+        ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 19,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 41,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 3,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p12",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "p13",
+          "index": 2,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 12,
+      "isForced": false,
+      "llmEventIndices": [
+        14
+      ],
+      "message": "Play spells and abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p13"
         ],
         "untappedLands": 2
       },
@@ -1496,7 +1793,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 7,
+      "index": 13,
       "isForced": false,
       "llmEventIndices": [
         15,
@@ -1515,8 +1812,402 @@
       "responseType": "select",
       "snapshotIndex": 24,
       "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 4
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_target_1",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "playable": true,
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 8,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 12,
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p12",
+            "index": 0,
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (Opponent)",
+        "game_seq": 47,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "stack": [
+          {
+            "name": "Lightning Bolt",
+            "targets": [
+              {
+                "id": "p1",
+                "name": "Opponent"
+              }
+            ]
+          }
+        ],
+        "success": true,
+        "untapped_lands": 1
+      },
+      "actionSeq": 46,
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p2",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p1",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": 1,
+      "chosenArgs": {
+        "choice": "1"
+      },
+      "index": 14,
+      "isForced": false,
+      "llmEventIndices": [
+        16,
+        17
+      ],
+      "message": "Select any target",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "playableCards": [
+          "p12"
+        ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 24,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 4
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 8,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 13,
+        "can_cancel": true,
+        "choices": [
+          {
+            "id": "p2",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p1",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (Opponent)",
+        "game_seq": 52,
+        "message": "Select any target",
+        "required": false,
+        "respond_with": "choice=pN, or choice=no to cancel",
+        "response_type": "index",
+        "stack": [
+          {
+            "name": "Lightning Bolt"
+          },
+          {
+            "name": "Lightning Bolt",
+            "targets": [
+              {
+                "id": "p1",
+                "name": "Opponent"
+              }
+            ]
+          }
+        ],
+        "success": true,
+        "untapped_lands": 1
+      },
+      "actionSeq": 47,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p12",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 15,
+      "isForced": false,
+      "llmEventIndices": [
+        17,
+        18
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "playableCards": [
+          "p12"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 25,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer casts Lightning Bolt targeting Opponent from hand",
+        "TestPlayer casts Lightning Bolt targeting Opponent from hand"
+      ],
+      "turn": 4
+    },
+    {
+      "actionResult": {
+        "choices": [
+          {
+            "id": "p2",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p1",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "error": "Object p13 not found in current choices",
+        "error_code": "invalid_choice",
+        "game_seq": 53,
+        "retryable": true,
+        "success": false
+      },
+      "actionSeq": 52,
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p2",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p1",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {
+        "choice": "p13"
+      },
+      "index": 16,
+      "isForced": false,
+      "llmEventIndices": [
+        18,
+        19
+      ],
+      "message": "Select any target",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 27,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
         "TestPlayer wants to concede"
       ],
       "turn": 4

@@ -487,6 +487,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -627,7 +649,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -637,6 +659,69 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 5,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 5,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p10",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Island"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        4
+      ],
+      "message": "Play spells and abilities",
+      "phase": null,
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
       "snapshotIndex": 1,
       "step": null,
       "subsequentActions": [
@@ -787,7 +872,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 2,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
         5,
@@ -802,8 +887,161 @@
       "responseType": "select",
       "snapshotIndex": 6,
       "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "mana_cost": "{U}{U}",
+                "name": "Mana Drain",
+                "rules": [
+                  "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 5,
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 18,
+        "land_drops_used": 1,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Sol Ring"
+          }
+        ],
+        "success": true
+      },
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 0,
+          "mana_cost": "{1}",
+          "name": "Sol Ring"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        6,
+        7
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p16"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Island from hand onto the Battlefield",
+        "TestPlayer puts Island from hand onto the Battlefield"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 18,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 6,
+      "isForced": false,
+      "llmEventIndices": [
+        7
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 7,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
         "TestPlayer casts Sol Ring from hand",
         "TestPlayer puts Sol Ring from stack onto the Battlefield",
         "Opponent puts Plains from hand onto the Battlefield",
@@ -850,7 +1088,7 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 3,
+      "index": 7,
       "isForced": false,
       "llmEventIndices": [
         8
@@ -1025,7 +1263,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 4,
+      "index": 8,
       "isForced": false,
       "llmEventIndices": [
         9,
@@ -1039,6 +1277,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 20,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 38,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 9,
+      "isForced": false,
+      "llmEventIndices": [
+        10
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 20,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1192,7 +1456,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 5,
+      "index": 10,
       "isForced": false,
       "llmEventIndices": [
         11,
@@ -1208,6 +1472,28 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 35,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 4
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 66,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 11,
+      "isForced": false,
+      "llmEventIndices": [
+        12
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 35,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
@@ -1235,7 +1521,7 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 6,
+      "index": 12,
       "isForced": false,
       "llmEventIndices": [
         13
@@ -1414,7 +1700,7 @@
         "choice": "0",
         "mana_plan": "COLORLESS"
       },
-      "index": 7,
+      "index": 13,
       "isForced": false,
       "llmEventIndices": [
         14,
@@ -1428,6 +1714,31 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 43,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 81,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 14,
+      "isForced": false,
+      "llmEventIndices": [
+        15
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 43,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1630,7 +1941,7 @@
       "chosenArgs": {
         "pile": 1
       },
-      "index": 8,
+      "index": 15,
       "isForced": true,
       "llmEventIndices": [
         16,
@@ -1643,6 +1954,31 @@
       },
       "player": "TestPlayer",
       "responseType": "pile",
+      "snapshotIndex": 49,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 92,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 16,
+      "isForced": false,
+      "llmEventIndices": [
+        17
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 49,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [

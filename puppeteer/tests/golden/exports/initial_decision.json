@@ -217,6 +217,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -238,7 +260,7 @@
       "chosenArgs": {
         "answer": false
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -261,7 +283,7 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 2,
+      "index": 3,
       "isForced": false,
       "llmEventIndices": [
         5

@@ -558,6 +558,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -715,7 +737,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -725,6 +747,83 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 5,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 7,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p10",
+          "index": 0,
+          "name": "Dark Depths"
+        },
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p16",
+          "index": 6,
+          "name": "Thespian's Stage"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        4
+      ],
+      "message": "Play spells and abilities",
+      "phase": null,
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
       "snapshotIndex": 1,
       "step": null,
       "subsequentActions": [
@@ -880,7 +979,7 @@
       "chosenArgs": {
         "choice": "p11"
       },
-      "index": 2,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
         5,
@@ -893,6 +992,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 6,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
@@ -1067,7 +1192,7 @@
       "chosenArgs": {
         "choice": "p12"
       },
-      "index": 3,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
         7,
@@ -1090,6 +1215,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 33,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 7,
+      "isForced": false,
+      "llmEventIndices": [
+        8
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 16,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1283,7 +1434,7 @@
       "chosenArgs": {
         "choice": "p10"
       },
-      "index": 4,
+      "index": 8,
       "isForced": false,
       "llmEventIndices": [
         9,
@@ -1306,6 +1457,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 30,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 58,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 9,
+      "isForced": false,
+      "llmEventIndices": [
+        10
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 3
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 30,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1534,7 +1711,7 @@
       "chosenArgs": {
         "choice": "p16"
       },
-      "index": 5,
+      "index": 10,
       "isForced": false,
       "llmEventIndices": [
         11,
@@ -1554,6 +1731,51 @@
           "p16"
         ],
         "untappedLands": 3
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 44,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 7
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 83,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "p10",
+          "index": 0,
+          "name": "Dark Depths",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ]
+        },
+        {
+          "action": "activate",
+          "id": "p16",
+          "index": 1,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 11,
+      "isForced": false,
+      "llmEventIndices": [
+        12
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 4
       },
       "player": "TestPlayer",
       "responseType": "select",
@@ -1747,7 +1969,7 @@
       "chosenArgs": {
         "choice": "p16"
       },
-      "index": 6,
+      "index": 12,
       "isForced": false,
       "llmEventIndices": [
         13,
@@ -1760,6 +1982,40 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 47,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 7
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 91,
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "description": "1. {T}: Add {C}.",
+          "index": 0
+        },
+        {
+          "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+          "index": 1
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 13,
+      "isForced": false,
+      "llmEventIndices": [
+        14
+      ],
+      "message": "Choose spell or ability to play: Thespian's Stage",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 4
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
       "snapshotIndex": 47,
       "step": "DECLARE_ATTACKERS",
       "subsequentActions": [],
@@ -1960,13 +2216,63 @@
       "chosenArgs": {
         "choice": "1"
       },
-      "index": 7,
+      "index": 14,
       "isForced": false,
       "llmEventIndices": [
         15,
         16
       ],
       "message": "Choose spell or ability to play: Thespian's Stage",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 4
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 47,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 7
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 92,
+      "actionType": "GAME_TARGET",
+      "choiceCount": 4,
+      "choices": [
+        {
+          "id": "p10",
+          "index": 0,
+          "name": "Dark Depths",
+          "target_type": "permanent"
+        },
+        {
+          "id": "p11",
+          "index": 1,
+          "name": "Plains",
+          "target_type": "permanent"
+        },
+        {
+          "id": "p12",
+          "index": 2,
+          "name": "Plains",
+          "target_type": "permanent"
+        },
+        {
+          "id": "p16",
+          "index": 3,
+          "name": "Thespian's Stage",
+          "target_type": "permanent"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 15,
+      "isForced": false,
+      "llmEventIndices": [
+        16
+      ],
+      "message": "Select a land",
       "phase": "COMBAT",
       "pilotContext": {
         "untappedLands": 4
@@ -2167,7 +2473,7 @@
       "chosenArgs": {
         "choice": "p10"
       },
-      "index": 8,
+      "index": 16,
       "isForced": false,
       "llmEventIndices": [
         17,
@@ -2180,6 +2486,31 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
+      "snapshotIndex": 48,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 7
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 93,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 17,
+      "isForced": false,
+      "llmEventIndices": [
+        18
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 48,
       "step": "DECLARE_ATTACKERS",
       "subsequentActions": [
@@ -2361,7 +2692,7 @@
       "chosenArgs": {
         "choice": "1"
       },
-      "index": 9,
+      "index": 18,
       "isForced": false,
       "llmEventIndices": [
         19,
@@ -2374,6 +2705,28 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
+      "snapshotIndex": 53,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 7
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 99,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 19,
+      "isForced": false,
+      "llmEventIndices": [
+        20
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 53,
       "step": "DECLARE_ATTACKERS",
       "subsequentActions": [
@@ -2623,7 +2976,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 10,
+      "index": 20,
       "isForced": false,
       "llmEventIndices": [
         21,
@@ -2642,6 +2995,47 @@
           "p28",
           "p34"
         ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 67,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 9
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 123,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "p32",
+          "index": 0,
+          "name": "Marit Lage",
+          "power": "20",
+          "toughness": "20"
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 21,
+      "isForced": false,
+      "llmEventIndices": [
+        22
+      ],
+      "message": "Select attackers",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "combatPhase": "declare_attackers",
         "untappedLands": 2
       },
       "player": "TestPlayer",
@@ -2863,7 +3257,7 @@
       "chosenArgs": {
         "attackers": "all"
       },
-      "index": 11,
+      "index": 22,
       "isForced": false,
       "llmEventIndices": [
         23,
@@ -2877,6 +3271,31 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 69,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 9
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 125,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 23,
+      "isForced": false,
+      "llmEventIndices": [
+        24
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 69,
       "step": "DECLARE_ATTACKERS",
       "subsequentActions": [

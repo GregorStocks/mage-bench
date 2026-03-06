@@ -416,6 +416,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -568,7 +590,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -578,6 +600,80 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 5,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 0,
+          "mana_cost": "{0}",
+          "name": "Black Lotus"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Island"
+        },
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 5,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        4
+      ],
+      "message": "Play spells and abilities",
+      "phase": null,
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
       "snapshotIndex": 1,
       "step": null,
       "subsequentActions": [
@@ -749,7 +845,7 @@
       "chosenArgs": {
         "choice": "1"
       },
-      "index": 2,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
         5,
@@ -759,6 +855,53 @@
       "phase": "POSTCOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 0,
+          "mana_cost": "{0}",
+          "name": "Black Lotus"
+        },
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 1,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p10",
+          "p16"
+        ],
+        "untappedLands": 1
       },
       "player": "TestPlayer",
       "responseType": "select",
@@ -944,7 +1087,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 3,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
         7,
@@ -966,6 +1109,45 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 33,
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "description": "1. Cast Black Lotus",
+          "index": 0
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 7,
+      "isForced": false,
+      "llmEventIndices": [
+        8
+      ],
+      "message": "Choose spell or ability to play: Black Lotus",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p24",
+          "p16"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
       "snapshotIndex": 16,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
@@ -1092,7 +1274,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 4,
+      "index": 8,
       "isForced": false,
       "llmEventIndices": [
         9,
@@ -1106,6 +1288,32 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 34,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 9,
+      "isForced": false,
+      "llmEventIndices": [
+        10
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 16,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1288,7 +1496,7 @@
       "chosenArgs": {
         "choice": "5"
       },
-      "index": 5,
+      "index": 10,
       "isForced": false,
       "llmEventIndices": [
         11,
@@ -1310,6 +1518,45 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 19,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 41,
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "description": "1. Cast Memnite",
+          "index": 0
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 11,
+      "isForced": false,
+      "llmEventIndices": [
+        12
+      ],
+      "message": "Choose spell or ability to play: Memnite",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p13",
+          "p14",
+          "p15",
+          "p24",
+          "p16"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
       "snapshotIndex": 19,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
@@ -1437,7 +1684,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 6,
+      "index": 12,
       "isForced": false,
       "llmEventIndices": [
         13,
@@ -1451,6 +1698,32 @@
       },
       "player": "TestPlayer",
       "responseType": "index",
+      "snapshotIndex": 19,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 42,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 13,
+      "isForced": false,
+      "llmEventIndices": [
+        14
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 19,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1608,7 +1881,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 7,
+      "index": 14,
       "isForced": false,
       "llmEventIndices": [
         15,
@@ -1629,6 +1902,31 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 22,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 47,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 15,
+      "isForced": false,
+      "llmEventIndices": [
+        16
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 22,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
@@ -1652,7 +1950,7 @@
       "chosenArgs": {
         "choice": "yes"
       },
-      "index": 8,
+      "index": 16,
       "isForced": false,
       "llmEventIndices": [
         17,
@@ -1820,7 +2118,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 9,
+      "index": 17,
       "isForced": false,
       "llmEventIndices": [
         19,
@@ -1839,6 +2137,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 32,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 63,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 18,
+      "isForced": false,
+      "llmEventIndices": [
+        20
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 32,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
@@ -1882,7 +2206,7 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 10,
+      "index": 19,
       "isForced": false,
       "llmEventIndices": [
         21

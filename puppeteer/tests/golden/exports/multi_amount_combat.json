@@ -411,6 +411,28 @@
       "responseType": "index",
       "snapshotIndex": 0,
       "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 1,
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 1,
+      "isForced": false,
+      "llmEventIndices": [
+        2
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 0,
+      "step": null,
       "subsequentActions": [
         "TestPlayer chooses that they take the first turn"
       ],
@@ -557,7 +579,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 1,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
         3,
@@ -567,6 +589,76 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 5,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p10",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 1,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 5,
+          "name": "Forest"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        4
+      ],
+      "message": "Play spells and abilities",
+      "phase": null,
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
       "snapshotIndex": 1,
       "step": null,
       "subsequentActions": [
@@ -712,7 +804,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 2,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
         5,
@@ -725,6 +817,32 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 15,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 6,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
@@ -911,7 +1029,7 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 3,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
         7,
@@ -935,12 +1053,194 @@
       "responseType": "select",
       "snapshotIndex": 20,
       "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "selected_0",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p8",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 7,
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 42,
+        "land_drops_used": 1,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Grizzly Bears"
+          }
+        ],
+        "success": true
+      },
+      "actionSeq": 38,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 0,
+          "mana_cost": "{1}{G}",
+          "name": "Grizzly Bears",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "choice": "0"
+      },
+      "index": 7,
+      "isForced": false,
+      "llmEventIndices": [
+        8,
+        9
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p16"
+        ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 20,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Forest from hand onto the Battlefield",
+        "TestPlayer puts Forest from hand onto the Battlefield"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 42,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 8,
+      "isForced": false,
+      "llmEventIndices": [
+        9
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 21,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
         "TestPlayer casts Grizzly Bears from hand",
         "TestPlayer puts Grizzly Bears from stack onto the Battlefield",
         "TestPlayer skip attack",
-        "Opponent puts Plains from hand onto the Battlefield"
+        "Opponent puts Plains from hand onto the Battlefield",
+        "Opponent casts Savannah Lions from hand"
       ],
       "turn": 3
     },
@@ -1108,7 +1408,7 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 4,
+      "index": 9,
       "isForced": false,
       "llmEventIndices": [
         10,
@@ -1129,6 +1429,28 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
+      "snapshotIndex": 42,
+      "step": "DECLARE_BLOCKERS",
+      "subsequentActions": [],
+      "turn": 4
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 75,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 10,
+      "isForced": false,
+      "llmEventIndices": [
+        11
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "player": "TestPlayer",
+      "responseType": "boolean",
       "snapshotIndex": 42,
       "step": "DECLARE_BLOCKERS",
       "subsequentActions": [
@@ -1229,7 +1551,7 @@
       "chosenArgs": {
         "attackers": "all"
       },
-      "index": 5,
+      "index": 11,
       "isForced": false,
       "llmEventIndices": [
         12,
@@ -1306,7 +1628,7 @@
           1
         ]
       },
-      "index": 6,
+      "index": 12,
       "isForced": false,
       "llmEventIndices": [
         14,
@@ -1348,7 +1670,7 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 7,
+      "index": 13,
       "isForced": false,
       "llmEventIndices": [
         16
