@@ -44,12 +44,6 @@ def _make_game(
     }
 
 
-def _write_season_json(data_dir: Path, season: int = 1, phase: str = "free-play") -> None:
-    """Write a season.json to data_dir for generate_leaderboard_file tests."""
-    data_dir.mkdir(parents=True, exist_ok=True)
-    (data_dir / "season.json").write_text(json.dumps({"current_season": season, "phase": phase}))
-
-
 def _pilot(
     name: str,
     model: str,
@@ -679,7 +673,6 @@ def test_generate_leaderboard_file_integration():
                 }
             )
         )
-        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -716,7 +709,6 @@ def test_generate_leaderboard_file_no_games():
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
-        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -753,7 +745,6 @@ def test_generate_leaderboard_file_with_game_fallback():
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
-        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -916,7 +907,6 @@ def test_generate_leaderboard_file_has_formats_key():
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
-        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -1147,7 +1137,6 @@ def test_generate_leaderboard_file_excludes_preseason():
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
-        _write_season_json(data_dir)
 
         # Pre-season game (should be excluded)
         old_game = _make_game(
@@ -1185,8 +1174,6 @@ def test_generate_leaderboard_file_excludes_preseason():
 
         # Only the season 1 game should be in ratings
         assert result["totalGames"] == 1
-        assert result["season"] == 1
-        assert result["phase"] == "free-play"
 
         # Only season 1 models should appear in the standard pool
         standard_models = result["formats"]["standard"]["models"]
@@ -1202,7 +1189,6 @@ def test_generate_leaderboard_file_season_1_included():
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
-        _write_season_json(data_dir)
 
         game = _make_game(
             "game_20260101_000000",

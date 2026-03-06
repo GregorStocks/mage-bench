@@ -697,18 +697,12 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     pool_combined = format_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
     # Sum games across real pools (not combined, which double-counts)
     total_games = sum(format_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in format_results)
-    # Load season state from data_dir (copied there by generate_all_website_data)
-    season_file = data_dir / "season.json"
-    assert season_file.exists(), f"Season file not found: {season_file}"
-    season_data = json.loads(season_file.read_text())
 
     output = {
         "generatedAt": pool_combined.get("generatedAt", ""),
         "totalGames": total_games,
         "models": pool_combined.get("models", []),
         "formats": format_results,
-        "season": season_data["current_season"],
-        "phase": season_data["phase"],
         "minBlunderVersion": MIN_BLUNDER_VERSION,
     }
 
