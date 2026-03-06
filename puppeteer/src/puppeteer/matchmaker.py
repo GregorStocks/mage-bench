@@ -33,6 +33,7 @@ def get_active_presets(presets_data: dict) -> list[str]:
 def _load_games_index(games_dir: Path) -> list[dict]:
     """Load minimal game index for rating computation."""
     fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch", "season")
+    defaults = {"players": [], "season": 0}
     games = []
     # Collect both .json and .json.gz game files, deduplicating by stem
     seen_stems: set[str] = set()
@@ -51,9 +52,13 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             game = json.loads(gzip.decompress(path.read_bytes()))
         else:
             game = json.loads(path.read_text())
-        defaults = {"players": [], "season": 0}
         games.append({f: game.get(f, defaults.get(f, "")) for f in fields})
     return games
+
+
+def _load_rated_games(games_dir: Path) -> list[dict]:
+    """Load game index filtered to the current season (season >= 1)."""
+    return [g for g in _load_games_index(games_dir) if g["season"] >= 1]
 
 
 def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
@@ -170,9 +175,7 @@ def get_round_robin_matchup(
     """
     is_commander = "Commander" in deck_type or not deck_type
 
-    # Load game data for the current season (season >= 1)
-    all_games = _load_games_index(games_dir)
-    season_games = [g for g in all_games if g.get("season", 0) >= 1]
+    season_games = _load_rated_games(games_dir)
 
     # Filter by format
     if is_commander:
@@ -266,9 +269,7 @@ def pick_round_robin_format(
     """
     assert len(candidates) > 1, "pick_round_robin_format requires multiple candidates"
 
-    # Load game data for the current season (season >= 1)
-    all_games = _load_games_index(games_dir)
-    season_games = [g for g in all_games if g.get("season", 0) >= 1]
+    season_games = _load_rated_games(games_dir)
 
     # Build key -> preset mapping
     key_to_preset = _build_key_to_preset(presets_path)

@@ -551,7 +551,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     color: var(--accent-primary);
   }
 
-  .epoch-badge {
+  .season-badge {
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -611,7 +611,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     opacity: 1;
   }
 
-  .epoch-old {
+  .season-old {
     background: rgba(239, 68, 68, 0.15);
     color: #ef4444;
   }
@@ -668,6 +668,10 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   var MIN_BLUNDER_VERSION = minBlunderVersion;
 
+  function gameSeason(game) {
+    return game.season != null ? game.season : 0;
+  }
+
   function getGameFormat(deckType) {
     return DECK_TYPE_FORMATS[deckType] || "commander";
   }
@@ -696,8 +700,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   function filterGames(games, filters) {
     return games.filter(function (game) {
       if (filters.season !== "") {
-        var gameSeason = game.season != null ? game.season : 0;
-        if (String(gameSeason) !== filters.season) return false;
+        if (String(gameSeason(game)) !== filters.season) return false;
       }
       if (filters.format) {
         var fmt = getGameFormat(game.deckType);
@@ -855,10 +858,9 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
 
     // Season 0 badge
-    var gameSeason = game.season != null ? game.season : 0;
-    if (gameSeason === 0) {
+    if (gameSeason(game) === 0) {
       var seasonBadge = document.createElement("span");
-      seasonBadge.className = "epoch-badge epoch-old";
+      seasonBadge.className = "season-badge season-old";
       seasonBadge.title = "Season 0 game — not included in Season 1 ratings";
       seasonBadge.textContent = "Season 0";
       header.appendChild(seasonBadge);
@@ -1019,7 +1021,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     if (!el) return;
     var counts = {};
     games.forEach(function (game) {
-      var s = game.season != null ? game.season : 0;
+      var s = gameSeason(game);
       counts[s] = (counts[s] || 0) + 1;
     });
     var seasons = Object.keys(counts).map(Number).sort().reverse();
