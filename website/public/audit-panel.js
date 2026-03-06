@@ -118,6 +118,11 @@
     function show() { dom.panel.classList.remove("audit-hidden"); }
     function hide() { dom.panel.classList.add("audit-hidden"); }
 
+    function setVerdictEnabled(enabled) {
+      dom.verdictButtons.forEach(function (b) { b.disabled = !enabled; });
+      dom.notesInput.disabled = !enabled;
+    }
+
     // ── Data loading ──
 
     function loadPlays() {
@@ -207,7 +212,8 @@
         dom.existingNotes.classList.add("hidden");
       }
 
-      // Reset verdict selection
+      // Reset verdict selection and enable controls
+      setVerdictEnabled(true);
       selectedVerdict = null;
       dom.verdictButtons.forEach(function (b) { b.classList.remove("selected"); });
       dom.notesInput.value = d.human_notes || "";
@@ -433,6 +439,7 @@
 
     show();
     dom.markBtn.disabled = false;
+    setVerdictEnabled(false);
 
     loadStats();
     loadPlays().then(function () {
