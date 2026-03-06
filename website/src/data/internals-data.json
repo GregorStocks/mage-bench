@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T04:40:52.608933+00:00",
+  "generatedAt": "2026-03-06T07:00:49.176733+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -16083,6 +16083,94 @@
           "toolCallsFailed": 1,
           "thinkingTimeSecs": 794.7,
           "responses": 95,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_223703_g1",
+      "ts": "2026-03-05T22:37:03",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "qwen/qwen3-235b-a22b-2507",
+          "modelName": "Qwen3 235B",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.1254,
+          "promptTokens": 1745340,
+          "completionTokens": 15011,
+          "cachedTokens": 102706,
+          "reasoningTokens": 0,
+          "toolCallsOk": 140,
+          "toolCallsFailed": 14,
+          "thinkingTimeSecs": 912.3,
+          "responses": 154,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.3355,
+          "promptTokens": 1325552,
+          "completionTokens": 2726,
+          "cachedTokens": 379359,
+          "reasoningTokens": 0,
+          "toolCallsOk": 137,
+          "toolCallsFailed": 16,
+          "thinkingTimeSecs": 326.8,
+          "responses": 153,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260305_223703_g2",
+      "ts": "2026-03-05T22:37:03",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 1.292,
+          "promptTokens": 431746,
+          "completionTokens": 14176,
+          "cachedTokens": 296448,
+          "reasoningTokens": 11345,
+          "toolCallsOk": 63,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 439.3,
+          "responses": 63,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.0443,
+          "promptTokens": 172693,
+          "completionTokens": 733,
+          "cachedTokens": 10882,
+          "reasoningTokens": 0,
+          "toolCallsOk": 30,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 40.0,
+          "responses": 31,
           "timeouts": 0,
           "otherErrors": 0,
           "contextResets": 0

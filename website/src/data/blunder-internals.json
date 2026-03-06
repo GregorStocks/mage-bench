@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T04:40:52.617209+00:00",
+  "generatedAt": "2026-03-06T07:00:49.182671+00:00",
   "runs": [
     {
       "gameId": "game_20260302_005956_g1",
@@ -660,6 +660,28 @@
       "completionTokens": 9208,
       "cachedTokens": 0,
       "costUsd": 0.8357
+    },
+    {
+      "gameId": "game_20260305_223703_g1",
+      "ts": "2026-03-06T07:00:14.415959+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 20,
+      "promptTokens": 53073,
+      "completionTokens": 6072,
+      "cachedTokens": 0,
+      "costUsd": 0.4172
+    },
+    {
+      "gameId": "game_20260305_223703_g2",
+      "ts": "2026-03-06T07:00:29.275944+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 17,
+      "promptTokens": 40094,
+      "completionTokens": 1134,
+      "cachedTokens": 0,
+      "costUsd": 0.2288
     }
   ]
 }
