@@ -38,6 +38,7 @@
       '<div id="audit-panel" class="audit-hidden">',
       '  <div id="audit-decision-context">',
       '    <div id="audit-stats"></div>',
+      '    <div id="audit-decision-header"></div>',
       '    <div id="audit-decision-message"></div>',
       '    <div id="audit-decision-chosen"></div>',
       '    <div id="audit-annotation-box" class="hidden">',
@@ -78,6 +79,7 @@
     return {
       panel: container.querySelector("#audit-panel"),
       stats: container.querySelector("#audit-stats"),
+      header: container.querySelector("#audit-decision-header"),
       message: container.querySelector("#audit-decision-message"),
       chosen: container.querySelector("#audit-decision-chosen"),
       annotationBox: container.querySelector("#audit-annotation-box"),
@@ -117,6 +119,11 @@
 
     function show() { dom.panel.classList.remove("audit-hidden"); }
     function hide() { dom.panel.classList.add("audit-hidden"); }
+
+    function setVerdictEnabled(enabled) {
+      dom.verdictButtons.forEach(function (b) { b.disabled = !enabled; });
+      dom.notesInput.disabled = !enabled;
+    }
 
     // ── Data loading ──
 
@@ -164,6 +171,12 @@
     // ── Context rendering ──
 
     function renderContext(d) {
+      // Decision identity header
+      var phase = d.phase || "";
+      dom.header.textContent = (d.player || "?") +
+        " \u2014 T" + (d.turn || "?") + " " + phase +
+        " \u2014 decision #" + (d.decision_index != null ? d.decision_index : "?");
+
       dom.message.textContent = d.message || "";
       dom.chosen.innerHTML = '<span class="label">Chosen: </span><span class="value">' +
         escapeHtml(d.chosen || "?") + '</span>' +
@@ -207,7 +220,8 @@
         dom.existingNotes.classList.add("hidden");
       }
 
-      // Reset verdict selection
+      // Reset verdict selection and enable controls
+      setVerdictEnabled(true);
       selectedVerdict = null;
       dom.verdictButtons.forEach(function (b) { b.classList.remove("selected"); });
       dom.notesInput.value = d.human_notes || "";
@@ -252,9 +266,14 @@
           }
         });
         currentDetail.verdict = selectedVerdict;
-        renderContext(currentDetail);
         loadStats();
         submitting = false;
+        // Reset controls before auto-advancing
+        selectedVerdict = null;
+        dom.verdictButtons.forEach(function (b) { b.classList.remove("selected"); });
+        dom.submitBtn.disabled = true;
+        setVerdictEnabled(false);
+        dom.notesInput.value = "";
         // Auto-advance to next unaudited
         advanceNext();
       })
@@ -433,6 +452,7 @@
 
     show();
     dom.markBtn.disabled = false;
+    setVerdictEnabled(false);
 
     loadStats();
     loadPlays().then(function () {

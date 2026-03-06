@@ -3,12 +3,27 @@
     "decision_index": 1
   },
   {
-    "decision_index": 8
+    "decision_index": 8,
+    "annotation_version": 32,
+    "annotation_severity": "minor",
+    "annotation_description": "GPT54 Villain declined to cast Elemental Uprising during combat when the opponent had no creatures on the battlefield. This would have dealt 4 damage for free \u2014 animating the sick Forest (which gains haste from Uprising) into a 4/4 attacker, using Thriving Grove + Forest to pay the {1}{G} cost. They can still play a land postcombat and Cultivate next turn on 3 mana. At 20 life, 4 damage isn't game-changing, but it's essentially free value.",
+    "verdict": "not_blunder",
+    "human_notes": "the forest would be tapped by casting the spell."
   },
   {
-    "decision_index": 17
+    "decision_index": 17,
+    "annotation_version": 32,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Thriving Heath (enters tapped) instead of Mountain means GPT5 Valley can't cast anything this turn. Playing Mountain would give Plains + Mountain = 2 untapped mana, allowing Daybreak Charger (1W) to be cast immediately as a 3/1 body. The ETB +2/+0 has no great target, but deploying a creature is much better than doing nothing.",
+    "verdict": "blunder",
+    "human_notes": "different land would allow playing a two drop"
   },
   {
-    "decision_index": 33
+    "decision_index": 33,
+    "annotation_version": 32,
+    "annotation_severity": "minor",
+    "annotation_description": "GPT54 Villain declined to attack when the opponent had no untapped creatures to block with (Brightmare is summoning sick). The Elemental Token 2/2 could have attacked for 2 unblocked damage for free, and even Blood Artist could have swung for 0.",
+    "verdict": "blunder",
+    "human_notes": "not playing land is a blunder"
   }
 ]
