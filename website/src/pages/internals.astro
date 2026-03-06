@@ -67,7 +67,7 @@ if (fs.existsSync(exportsDir)) {
         <div class="filter-group">
           <label class="control-label">
             Min Epoch
-            <input type="number" id="trend-min-epoch" value={internalsData.minLeaderboardEpoch} min="1" />
+            <input type="number" id="trend-min-epoch" value={11} min="1" />
           </label>
         </div>
         <div class="filter-group">
@@ -98,7 +98,7 @@ if (fs.existsSync(exportsDir)) {
     <div class="filters">
       <label class="epoch-label">
         Min Epoch
-        <input type="number" id="min-epoch" value={modelStats.minLeaderboardEpoch} min="1" />
+        <input type="number" id="min-epoch" value={11} min="1" />
       </label>
       <input type="text" id="search-input" placeholder="Search model name..." autocomplete="off" />
     </div>
@@ -273,7 +273,6 @@ if (fs.existsSync(exportsDir)) {
 
     const trendData = JSON.parse(document.getElementById('internals-data')!.textContent!) as {
       games: GameRecord[];
-      minLeaderboardEpoch: number;
     };
 
     // Build unique model list sorted by name
