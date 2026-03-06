@@ -648,13 +648,16 @@
 
       var markers = document.createElement("div");
       markers.className = "annotation-markers";
-      annotations.forEach(function (ann) {
+      annotations.forEach(function (ann, annIdx) {
         var dot = document.createElement("div");
         dot.className = "annotation-marker severity-" + ann.severity;
-        var pct = totalSnapshots > 1 ? (ann.snapshotIndex / (totalSnapshots - 1)) * 100 : 50;
+        var decisionSnapIdx = annotationDecisionSnap[annIdx] != null
+          ? annotationDecisionSnap[annIdx]
+          : Math.max(0, ann.snapshotIndex - 1);
+        var pct = totalSnapshots > 1 ? (decisionSnapIdx / (totalSnapshots - 1)) * 100 : 50;
         dot.style.left = pct + "%";
         dot.title = ann.player + " (" + ann.severity + "): " + ann.description.substring(0, 80);
-        dot.addEventListener("click", function () { goTo(ann.snapshotIndex); });
+        dot.addEventListener("click", function () { goTo(decisionSnapIdx); });
         markers.appendChild(dot);
       });
       dom.sliderContainer.appendChild(markers);
@@ -891,16 +894,18 @@
       // Add annotations
       var showAnnotationsFlag = filterAnnotations;
       if (showAnnotationsFlag && game.annotations) {
-        game.annotations.forEach(function (ann) {
-          if (ann.snapshotIndex <= index) {
-            var annSnap = game.snapshots[ann.snapshotIndex] || {};
-            var nextAnnSnap = game.snapshots[ann.snapshotIndex + 1];
+        game.annotations.forEach(function (ann, annIdx) {
+          // Show annotation at the pre-decision snapshot so it appears
+          // alongside the decision and the board state the player saw.
+          var decisionSnapIdx = annotationDecisionSnap[annIdx] != null
+            ? annotationDecisionSnap[annIdx]
+            : Math.max(0, ann.snapshotIndex - 1);
+          if (decisionSnapIdx <= index) {
+            var decSnap = game.snapshots[decisionSnapIdx] || {};
             if (useSeq) {
-              var annSeq = nextAnnSnap ? (nextAnnSnap.seq || 0) : (annSnap.seq || 0);
-              timeline.push({ kind: "annotation", seq: annSeq, data: ann });
+              timeline.push({ kind: "annotation", seq: decSnap.seq || 0, data: ann });
             } else {
-              var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (annSnap.ts || "");
-              timeline.push({ kind: "annotation", ts: annTs, data: ann });
+              timeline.push({ kind: "annotation", ts: decSnap.ts || "", data: ann });
             }
           }
         });
@@ -1121,6 +1126,35 @@
         llmEventIndexToDecision[ei] = d;
       });
     });
+
+    // Map each annotation to its decision's snapshot index so we can show
+    // the annotation alongside the decision (pre-decision board state).
+    // annotation.snapshotIndex is post-decision; the matching decision is
+    // the latest one by the same player with snapshotIndex < ann.snapshotIndex.
+    var annotationDecisionSnap = [];
+    if (game.annotations) {
+      // Build per-player sorted decision snapshot indices
+      var playerDecSnaps = {};
+      (game.decisions || []).forEach(function (d) {
+        if (!playerDecSnaps[d.player]) playerDecSnaps[d.player] = [];
+        playerDecSnaps[d.player].push(d.snapshotIndex);
+      });
+      Object.keys(playerDecSnaps).forEach(function (p) {
+        playerDecSnaps[p].sort(function (a, b) { return a - b; });
+      });
+
+      game.annotations.forEach(function (ann) {
+        var candidates = playerDecSnaps[ann.player] || [];
+        var best = Math.max(0, ann.snapshotIndex - 1); // fallback
+        for (var i = candidates.length - 1; i >= 0; i--) {
+          if (candidates[i] < ann.snapshotIndex) {
+            best = candidates[i];
+            break;
+          }
+        }
+        annotationDecisionSnap.push(best);
+      });
+    }
 
 
     // Set up transport
