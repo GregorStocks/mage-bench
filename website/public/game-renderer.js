@@ -223,6 +223,61 @@
    * Render text with inline mana symbols and italic reminder text.
    * {2}{U} → mana icons, (reminder text) → <i>
    */
+
+  /**
+   * Extract state annotations from game-engine rules text.
+   * These are lines like '<font color = "blue">Chosen type: Shapeshifter</font>'
+   * that represent live game state not present in Scryfall oracle text.
+   */
+  function extractStateAnnotations(rules) {
+    if (!rules) return [];
+    var lines = Array.isArray(rules) ? rules : rules.split("\n");
+    var annotations = [];
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (typeof line !== "string") continue;
+      // Match <font color=...>...</font> lines (state annotations from the engine)
+      var m = line.match(/^<font\b[^>]*>(.+?)<\/font>$/);
+      if (m) annotations.push(m[1]);
+    }
+    return annotations;
+  }
+
+  function renderStateAnnotations(annotations) {
+    var frag = document.createDocumentFragment();
+    if (!annotations || annotations.length === 0) return frag;
+    for (var i = 0; i < annotations.length; i++) {
+      var div = document.createElement("div");
+      div.className = "card-state-annotation";
+      div.textContent = annotations[i];
+      frag.appendChild(div);
+    }
+    return frag;
+  }
+
+  /**
+   * Clean game-engine markup from rules/ability text for display.
+   * Replaces {this} with cardName, strips HTML tags, and decodes entities.
+   */
+  function cleanEngineText(text, cardName) {
+    if (!text) return "";
+    var s = cardName ? text.replace(/\{this\}/gi, cardName) : text;
+    // Strip <hintstart/> markers and <br/> / <br> (we use pre-wrap)
+    s = s.replace(/<hintstart\s*\/?>/gi, "");
+    s = s.replace(/<br\s*\/?>/gi, "\n");
+    // Strip HTML tags but keep their text content
+    s = s.replace(/<[^>]+>/g, "");
+    // Decode common HTML entities
+    s = s.replace(/&mdash;/g, "\u2014");
+    s = s.replace(/&ndash;/g, "\u2013");
+    s = s.replace(/&amp;/g, "&");
+    s = s.replace(/&lt;/g, "<");
+    s = s.replace(/&gt;/g, ">");
+    // Remove ICON_REQUIRE and similar engine markers
+    s = s.replace(/ICON_REQUIRE/g, "");
+    return s.trim();
+  }
+
   function renderTextWithMana(text) {
     var frag = document.createDocumentFragment();
     if (!text) return frag;
@@ -288,9 +343,11 @@
     if (data.type_line && !els.type.textContent) {
       els.type.textContent = data.type_line;
     }
-    if (data.oracle_text && !els.rules.textContent) {
-      els.rules.textContent = "";
-      els.rules.appendChild(renderTextWithMana(data.oracle_text));
+    if (data.oracle_text && !els.rules.dataset.hasOracle) {
+      els.rules.dataset.hasOracle = "1";
+      // Insert oracle text before any state annotations
+      var oracleFrag = renderTextWithMana(data.oracle_text);
+      els.rules.insertBefore(oracleFrag, els.rules.firstChild);
     }
     if (!els.stats.textContent) {
       var parts = [];
@@ -352,6 +409,7 @@
     els.type.textContent = "";
     els.stats.textContent = "";
     els.rules.textContent = "";
+    delete els.rules.dataset.hasOracle;
 
     if (cardObj && cardObj.original_card) {
       els.type.textContent = "(copy of " + cardObj.original_card + ")";
@@ -377,14 +435,18 @@
       if (typeLine) {
         els.type.textContent = typeLine;
       }
-      if (cardObj.rules) {
-        var rulesText = Array.isArray(cardObj.rules) ? cardObj.rules.join("\n") : cardObj.rules;
-        els.rules.appendChild(renderTextWithMana(rulesText));
-      }
     }
 
-    // Fetch card details from Scryfall (oracle text, type line, mana cost)
+    // Use Scryfall oracle text as primary rules source
     _fetchScryfallCard(cardName, cardImages, els);
+
+    // Append live state annotations from game engine (chosen types/colors, etc.)
+    if (cardObj && cardObj.rules) {
+      var annotations = extractStateAnnotations(cardObj.rules);
+      if (annotations.length > 0) {
+        els.rules.appendChild(renderStateAnnotations(annotations));
+      }
+    }
 
     var imgUrl = resolveCardImage(cardName, cardObj, cardImages, "normal");
     els.image.src = imgUrl;
@@ -535,7 +597,7 @@
 
     var textEl = document.createElement("div");
     textEl.className = "ability-text";
-    textEl.appendChild(renderTextWithMana(abilityInfo.abilityText));
+    textEl.appendChild(renderTextWithMana(cleanEngineText(abilityInfo.abilityText, abilityInfo.sourceCard)));
     overlay.appendChild(textEl);
 
     wrapper.appendChild(overlay);
@@ -557,6 +619,7 @@
     els.type.textContent = "";
     els.stats.textContent = "";
     els.rules.textContent = "";
+    delete els.rules.dataset.hasOracle;
 
     if (cardObj && cardObj.controller) {
       els.type.textContent = "Ability \u2014 " + cardObj.controller;
@@ -565,7 +628,8 @@
     }
 
     if (abilityInfo.abilityText) {
-      els.rules.appendChild(renderTextWithMana(abilityInfo.abilityText));
+      els.rules.appendChild(renderTextWithMana(cleanEngineText(abilityInfo.abilityText, abilityInfo.sourceCard)));
+      els.rules.dataset.hasOracle = "1"; // prevent Scryfall from overwriting ability text
     }
 
     if (abilityInfo.sourceCard) {
