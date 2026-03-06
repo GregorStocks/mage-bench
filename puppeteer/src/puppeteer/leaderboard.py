@@ -28,6 +28,8 @@ def _write_if_changed(path: Path, content: str) -> bool:
     except FileNotFoundError:
         path.write_text(content)
         return True
+    if existing == content:
+        return False
     if _GENERATED_AT_RE.sub("", existing) == _GENERATED_AT_RE.sub("", content):
         return False
     path.write_text(content)
