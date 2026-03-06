@@ -1,9 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
 import benchmarkData from '../data/benchmark-results.json';
+import seasonData from '../data/season.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+
+const currentSeason = (seasonData as any).current_season;
+const seasonPhase = (seasonData as any).phase;
+const phaseLabel = seasonPhase === 'tournament' ? 'Tournament' : 'Free Play';
 
 const DECK_TYPE_FORMATS: Record<string, string> = {
   "Constructed - Standard": "standard",
@@ -90,6 +95,11 @@ if (fs.existsSync(gamesDir)) {
   <section class="hero">
     <h1>mage-bench</h1>
     <p class="tagline">LLMs play Magic: The Gathering.</p>
+    <div class="season-status" data-phase={seasonPhase}>
+      <span class="season-status-label">Season {currentSeason}</span>
+      <span class="season-status-separator"></span>
+      <span class="season-status-phase">{phaseLabel}</span>
+    </div>
   </section>
 
   <section class="intro">
@@ -213,6 +223,51 @@ if (fs.existsSync(gamesDir)) {
     color: var(--text-secondary);
     margin-bottom: 0;
     font-weight: 400;
+  }
+
+  .season-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+    padding: 0.3rem 0.9rem;
+    background: rgba(20, 184, 166, 0.08);
+    border: 1px solid rgba(20, 184, 166, 0.25);
+    border-radius: 100px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .season-status[data-phase="tournament"] {
+    background: rgba(233, 69, 96, 0.08);
+    border-color: rgba(233, 69, 96, 0.25);
+  }
+
+  .season-status-label {
+    color: var(--accent-secondary);
+  }
+
+  .season-status[data-phase="tournament"] .season-status-label {
+    color: var(--accent-primary);
+  }
+
+  .season-status-separator {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.5;
+  }
+
+  .season-status-phase {
+    color: var(--text-secondary);
+  }
+
+  .season-status[data-phase="tournament"] .season-status-phase {
+    color: var(--accent-primary);
   }
 
   .intro {

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate leaderboard JSON from game data for the website."""
 
+import shutil
 import sys
 from pathlib import Path
 
@@ -15,6 +16,7 @@ _ROOT = Path(__file__).resolve().parent.parent
 WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 WEBSITE_DATA_DIR = _ROOT / "website" / "src" / "data"
 MODELS_JSON = _ROOT / "puppeteer" / "models.json"
+SEASON_JSON = _ROOT / "data" / "season.json"
 
 
 def generate_all_website_data(
@@ -23,6 +25,9 @@ def generate_all_website_data(
     models_json: Path = MODELS_JSON,
 ) -> None:
     """Regenerate all website data: leaderboard, model stats, internals, blunder stats."""
+    # Copy season.json first so leaderboard generation and Astro pages can use it
+    data_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(SEASON_JSON, data_dir / "season.json")
     generate_leaderboard_file(games_dir, data_dir, models_json)
     generate_model_stats(games_dir, data_dir, models_json)
     generate_internals_data(games_dir, data_dir, models_json)

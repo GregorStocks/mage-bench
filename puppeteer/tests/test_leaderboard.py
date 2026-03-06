@@ -31,6 +31,7 @@ def _make_game(
     timestamp: str,
     winner: str | None,
     players: list[dict],
+    season: int = 1,
 ) -> dict:
     return {
         "id": game_id,
@@ -39,7 +40,14 @@ def _make_game(
         "winner": winner,
         "players": players,
         "annotations": [],
+        "season": season,
     }
+
+
+def _write_season_json(data_dir: Path, season: int = 1, phase: str = "free-play") -> None:
+    """Write a season.json to data_dir for generate_leaderboard_file tests."""
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / "season.json").write_text(json.dumps({"current_season": season, "phase": phase}))
 
 
 def _pilot(
@@ -671,6 +679,7 @@ def test_generate_leaderboard_file_integration():
                 }
             )
         )
+        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -707,6 +716,7 @@ def test_generate_leaderboard_file_no_games():
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
+        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -743,6 +753,7 @@ def test_generate_leaderboard_file_with_game_fallback():
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
+        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -905,6 +916,7 @@ def test_generate_leaderboard_file_has_formats_key():
 
         models_json = root / "models.json"
         models_json.write_text(json.dumps({"models": []}))
+        _write_season_json(data_dir)
 
         output_path = generate_leaderboard_file(
             games_dir,
@@ -1128,31 +1140,34 @@ def test_ratings_separate_by_effort():
 # --- epoch filtering ---
 
 
-def test_generate_leaderboard_file_excludes_old_epochs():
-    """Games from old epochs should be excluded from ratings."""
+def test_generate_leaderboard_file_excludes_preseason():
+    """Pre-season games (season 0) should be excluded from ratings."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
+        _write_season_json(data_dir)
 
-        # Epoch 1 game (old, should be excluded)
+        # Pre-season game (should be excluded)
         old_game = _make_game(
             "game_20260210_090000",
             "20260210_090000",
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
+            season=0,
         )
         old_game["harnessEpoch"] = 2
         old_game["deckType"] = "Constructed - Standard"
         (games_dir / "game_20260210_090000.json.gz").write_bytes(gzip.compress(json.dumps(old_game).encode()))
 
-        # Current epoch game (should be included)
+        # Season 1 game (should be included)
         new_game = _make_game(
             "game_20260215_090000",
             "20260215_090000",
             "Carol",
             [_pilot("Carol", "c/z", placement=1), _pilot("Dave", "d/w", placement=2)],
+            season=1,
         )
         new_game["harnessEpoch"] = HARNESS_EPOCH
         new_game["deckType"] = "Constructed - Standard"
@@ -1168,33 +1183,33 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         )
         result = json.loads(output_path.read_text())
 
-        # Only the current-epoch game should be in ratings (epoch 2 excluded, min is 3)
+        # Only the season 1 game should be in ratings
         assert result["totalGames"] == 1
-        assert result["excludedGames"] == 1
-        assert result["minEpoch"] == 11
-        assert result["epochCounts"] == {"2": 1, str(HARNESS_EPOCH): 1}
+        assert result["season"] == 1
+        assert result["phase"] == "free-play"
 
-        # Only current-epoch models should appear in the standard pool
+        # Only season 1 models should appear in the standard pool
         standard_models = result["formats"]["standard"]["models"]
         model_ids = {m["modelId"] for m in standard_models}
         assert "c/z" in model_ids
         assert "a/x" not in model_ids
 
 
-def test_generate_leaderboard_file_explicit_epoch():
-    """Game with explicit harnessEpoch should be included when above minimum."""
+def test_generate_leaderboard_file_season_1_included():
+    """Season 1 game should be included in ratings."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"
         games_dir.mkdir()
         data_dir = root / "data"
+        _write_season_json(data_dir)
 
-        # Old timestamp but explicit current epoch — should be included
         game = _make_game(
             "game_20260101_000000",
             "20260101_000000",
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
+            season=1,
         )
         game["deckType"] = "Constructed - Standard"
         game["harnessEpoch"] = HARNESS_EPOCH
@@ -1211,7 +1226,6 @@ def test_generate_leaderboard_file_explicit_epoch():
         result = json.loads(output_path.read_text())
 
         assert result["totalGames"] == 1
-        assert result["excludedGames"] == 0
 
 
 # --- compute_thinking_time ---
@@ -1694,7 +1708,6 @@ def test_generate_internals_data_basic():
         result = json.loads(output_path.read_text())
 
         assert result["generatedAt"]
-        assert result["minLeaderboardEpoch"]
         assert len(result["games"]) == 1
 
         g = result["games"][0]

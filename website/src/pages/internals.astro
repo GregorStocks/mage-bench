@@ -302,7 +302,7 @@ if (fs.existsSync(exportsDir)) {
     let currentMetric = 'timeoutRate';
     let currentFormat = 'all';
     let selectedModels = new Set(allModels.map(m => m[0]));
-    let minEpochTrend = trendData.minLeaderboardEpoch;
+    let minEpochTrend = 11;
     let smoothingWindow = 5;
 
     // Build model checkboxes

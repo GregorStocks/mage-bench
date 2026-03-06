@@ -76,6 +76,7 @@ if (fs.existsSync(gamesDir)) {
       players: players,
       deckType: data.deckType || '',
       harnessEpoch: data.harnessEpoch ?? null,
+      season: data.season ?? 0,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     const annotations = data.annotations;
@@ -114,6 +115,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 <Base title="Games">
   <h1>Games</h1>
   <p class="subtitle">Replay past mage-bench games.</p>
+  <div id="season-filter" class="season-filter"></div>
   <div id="format-tabs" class="format-tabs"></div>
   <div id="model-tabs" class="model-tabs"></div>
   <div id="filter-bar" style="display:none"></div>
@@ -558,6 +560,57 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     letter-spacing: 0.03em;
   }
 
+  .season-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .season-filter:empty {
+    display: none;
+  }
+
+  .season-filter-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-right: 0.2rem;
+  }
+
+  .season-filter-btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.7rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .season-filter-btn:hover {
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+  }
+
+  .season-filter-btn.active {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+  }
+
+  .season-filter-btn[data-season="0"] {
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  .season-filter-btn[data-season="0"]:hover,
+  .season-filter-btn[data-season="0"].active {
+    opacity: 1;
+  }
+
   .epoch-old {
     background: rgba(239, 68, 68, 0.15);
     color: #ef4444;
@@ -613,7 +666,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     "jumpstart": "Jumpstart",
   };
 
-  var MIN_LEADERBOARD_EPOCH = 2;
   var MIN_BLUNDER_VERSION = minBlunderVersion;
 
   function getGameFormat(deckType) {
@@ -626,6 +678,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       model: params.get("model") || "",
       format: params.get("format") || "",
       effort: params.get("effort") || "",
+      season: params.get("season") || "",
     };
   }
 
@@ -634,6 +687,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     if (filters.model) params.set("model", filters.model);
     if (filters.format) params.set("format", filters.format);
     if (filters.effort) params.set("effort", filters.effort);
+    if (filters.season) params.set("season", filters.season);
     var qs = params.toString();
     var url = window.location.pathname + (qs ? "?" + qs : "");
     history.replaceState(null, "", url);
@@ -641,6 +695,10 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   function filterGames(games, filters) {
     return games.filter(function (game) {
+      if (filters.season !== "") {
+        var gameSeason = game.season != null ? game.season : 0;
+        if (String(gameSeason) !== filters.season) return false;
+      }
       if (filters.format) {
         var fmt = getGameFormat(game.deckType);
         if (fmt !== filters.format) return false;
@@ -659,7 +717,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   function renderFilterBar(filters, totalCount, filteredCount) {
     var bar = document.getElementById("filter-bar");
-    var hasFilters = filters.model || filters.format || filters.effort;
+    var hasFilters = filters.model || filters.format || filters.effort || filters.season;
     if (!hasFilters) {
       bar.style.display = "none";
       bar.innerHTML = "";
@@ -673,6 +731,23 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     label.className = "filter-label";
     label.textContent = "Filtered:";
     bar.appendChild(label);
+
+    if (filters.season) {
+      var chip = document.createElement("span");
+      chip.className = "filter-chip";
+      chip.textContent = filters.season === "0" ? "Pre-season" : "Season " + filters.season;
+      var btn = document.createElement("button");
+      btn.className = "filter-chip-remove";
+      btn.innerHTML = "&times;";
+      btn.onclick = function () {
+        var f = getFilters();
+        f.season = "";
+        setFilters(f);
+        renderAll();
+      };
+      chip.appendChild(btn);
+      bar.appendChild(chip);
+    }
 
     if (filters.format) {
       var chip = document.createElement("span");
@@ -713,12 +788,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       bar.appendChild(chip);
     }
 
-    if (filters.model && filters.format) {
+    var activeFilterCount = (filters.model ? 1 : 0) + (filters.format ? 1 : 0) + (filters.season ? 1 : 0);
+    if (activeFilterCount > 1) {
       var clear = document.createElement("button");
       clear.className = "filter-clear";
       clear.textContent = "Clear all";
       clear.onclick = function () {
-        setFilters({ model: "", format: "", effort: "" });
+        setFilters({ model: "", format: "", effort: "", season: "" });
         renderAll();
       };
       bar.appendChild(clear);
@@ -778,14 +854,14 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     header.appendChild(turnsEl);
 
 
-    // Old harness badge
-    var epoch = game.harnessEpoch || 1;
-    if (epoch < MIN_LEADERBOARD_EPOCH) {
-      var epochBadge = document.createElement("span");
-      epochBadge.className = "epoch-badge epoch-old";
-      epochBadge.title = "Harness epoch " + epoch + " — excluded from ratings (min epoch " + MIN_LEADERBOARD_EPOCH + ")";
-      epochBadge.textContent = "Old harness";
-      header.appendChild(epochBadge);
+    // Pre-season badge
+    var gameSeason = game.season != null ? game.season : 0;
+    if (gameSeason === 0) {
+      var seasonBadge = document.createElement("span");
+      seasonBadge.className = "epoch-badge epoch-old";
+      seasonBadge.title = "Pre-season game — not included in Season 1 ratings";
+      seasonBadge.textContent = "Pre-season";
+      header.appendChild(seasonBadge);
     }
 
     a.appendChild(header);
@@ -938,6 +1014,48 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   var ratingsData = {};
 
+  function renderSeasonFilter(games) {
+    var el = document.getElementById("season-filter");
+    if (!el) return;
+    var counts = {};
+    games.forEach(function (game) {
+      var s = game.season != null ? game.season : 0;
+      counts[s] = (counts[s] || 0) + 1;
+    });
+    var seasons = Object.keys(counts).map(Number).sort().reverse();
+    if (seasons.length <= 1) {
+      el.style.display = "none";
+      return;
+    }
+    el.innerHTML = "";
+    var filters = getFilters();
+
+    var label = document.createElement("span");
+    label.className = "season-filter-label";
+    label.textContent = "Season:";
+    el.appendChild(label);
+
+    var allBtn = document.createElement("button");
+    allBtn.className = "season-filter-btn" + (!filters.season ? " active" : "");
+    allBtn.textContent = "All";
+    allBtn.onclick = function () {
+      var f = getFilters(); f.season = ""; setFilters(f); renderAll();
+    };
+    el.appendChild(allBtn);
+
+    seasons.forEach(function (s) {
+      var btn = document.createElement("button");
+      btn.className = "season-filter-btn" + (filters.season === String(s) ? " active" : "");
+      var seasonLabel = s === 0 ? "Pre-season" : "Season " + s;
+      btn.innerHTML = seasonLabel + ' <span class="tab-count">(' + counts[s] + ")</span>";
+      btn.dataset.season = String(s);
+      btn.onclick = function () {
+        var f = getFilters(); f.season = String(s); setFilters(f); renderAll();
+      };
+      el.appendChild(btn);
+    });
+  }
+
   function renderFormatTabs(games) {
     var tabsEl = document.getElementById("format-tabs");
     if (!tabsEl) return;
@@ -1053,6 +1171,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       return;
     }
 
+    renderSeasonFilter(games);
     renderFormatTabs(games);
     renderModelTabs(games);
     var filters = getFilters();

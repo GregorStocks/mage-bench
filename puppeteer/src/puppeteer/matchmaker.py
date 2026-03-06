@@ -12,7 +12,6 @@ from collections import defaultdict
 from itertools import combinations
 from pathlib import Path
 
-from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
 
@@ -33,7 +32,7 @@ def get_active_presets(presets_data: dict) -> list[str]:
 
 def _load_games_index(games_dir: Path) -> list[dict]:
     """Load minimal game index for rating computation."""
-    fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch")
+    fields = ("id", "timestamp", "gameType", "deckType", "winner", "players", "harnessEpoch", "season")
     games = []
     # Collect both .json and .json.gz game files, deduplicating by stem
     seen_stems: set[str] = set()
@@ -52,7 +51,8 @@ def _load_games_index(games_dir: Path) -> list[dict]:
             game = json.loads(gzip.decompress(path.read_bytes()))
         else:
             game = json.loads(path.read_text())
-        games.append({f: game.get(f, [] if f == "players" else "") for f in fields})
+        defaults = {"players": [], "season": 0}
+        games.append({f: game.get(f, defaults.get(f, "")) for f in fields})
     return games
 
 
@@ -170,16 +170,16 @@ def get_round_robin_matchup(
     """
     is_commander = "Commander" in deck_type or not deck_type
 
-    # Load game data at current epoch
+    # Load game data for the current season (season >= 1)
     all_games = _load_games_index(games_dir)
-    epoch_games = [g for g in all_games if (g.get("harnessEpoch") or 0) >= MIN_LEADERBOARD_EPOCH]
+    season_games = [g for g in all_games if g.get("season", 0) >= 1]
 
     # Filter by format
     if is_commander:
-        pool_games = [g for g in epoch_games if derive_format(g) == "commander"]
+        pool_games = [g for g in season_games if derive_format(g) == "commander"]
         mode_label = "commander"
     else:
-        pool_games = [g for g in epoch_games if derive_format(g) != "commander"]
+        pool_games = [g for g in season_games if derive_format(g) != "commander"]
         mode_label = "2-player"
 
     # Build mappings
@@ -266,9 +266,9 @@ def pick_round_robin_format(
     """
     assert len(candidates) > 1, "pick_round_robin_format requires multiple candidates"
 
-    # Load game data at current epoch
+    # Load game data for the current season (season >= 1)
     all_games = _load_games_index(games_dir)
-    epoch_games = [g for g in all_games if (g.get("harnessEpoch") or 0) >= MIN_LEADERBOARD_EPOCH]
+    season_games = [g for g in all_games if g.get("season", 0) >= 1]
 
     # Build key -> preset mapping
     key_to_preset = _build_key_to_preset(presets_path)
@@ -277,7 +277,7 @@ def pick_round_robin_format(
     candidate_set = set(candidates)
     format_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
 
-    for game in epoch_games:
+    for game in season_games:
         dt = game.get("deckType", "")
         if dt not in candidate_set:
             continue

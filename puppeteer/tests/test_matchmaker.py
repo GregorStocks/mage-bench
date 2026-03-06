@@ -49,6 +49,7 @@ def _make_1v1_game(
     p2_effort: str | None = "medium",
     harness_epoch: int = 11,
     deck_type: str = "Constructed - Standard",
+    season: int = 1,
 ) -> dict:
     p1: dict = {"name": "P1", "type": "pilot", "model": p1_model}
     p2: dict = {"name": "P2", "type": "pilot", "model": p2_model}
@@ -64,6 +65,7 @@ def _make_1v1_game(
         "winner": winner,
         "players": [p1, p2],
         "harnessEpoch": harness_epoch,
+        "season": season,
     }
 
 
@@ -73,6 +75,7 @@ def _make_commander_game(
     winner: str,
     models: list[tuple[str, str | None]],
     harness_epoch: int = 11,
+    season: int = 1,
 ) -> dict:
     players = []
     for i, (model, effort) in enumerate(models):
@@ -89,6 +92,7 @@ def _make_commander_game(
         "winner": winner,
         "players": players,
         "harnessEpoch": harness_epoch,
+        "season": season,
     }
 
 
@@ -346,15 +350,15 @@ class TestGetRoundRobinMatchup:
         # delta has 0 games total, so it should appear
         assert "delta-medium" in picked
 
-    def test_filters_by_epoch(self, tmp_path: Path) -> None:
-        """Games below MIN_LEADERBOARD_EPOCH should be ignored."""
+    def test_filters_by_season(self, tmp_path: Path) -> None:
+        """Pre-season games (season=0) should be ignored."""
         games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
 
-        # Write game with old epoch — should be ignored
+        # Write pre-season game — should be ignored
         _write_game(
             games_dir,
             "game_old",
-            _make_1v1_game("game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", harness_epoch=1),
+            _make_1v1_game("game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", season=0),
         )
         # Write game with current epoch — alpha-gamma is played
         _write_game(
@@ -697,11 +701,11 @@ class TestPickRoundRobinFormat:
         )
         assert chosen == "Constructed - Modern"
 
-    def test_ignores_old_epoch_games(self, tmp_path: Path) -> None:
-        """Games below MIN_LEADERBOARD_EPOCH should not affect format selection."""
+    def test_ignores_preseason_games(self, tmp_path: Path) -> None:
+        """Pre-season games (season=0) should not affect format selection."""
         games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
 
-        # Old epoch game in Modern (should be ignored)
+        # Pre-season game in Modern (should be ignored)
         _write_game(
             games_dir,
             "game_old",
@@ -711,7 +715,7 @@ class TestPickRoundRobinFormat:
                 "P1",
                 "v/alpha",
                 "v/beta",
-                harness_epoch=1,
+                season=0,
                 deck_type="Constructed - Modern",
             ),
         )

@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from puppeteer.harness_epoch import MIN_BLUNDER_VERSION, MIN_LEADERBOARD_EPOCH
+from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
@@ -670,20 +670,14 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
             "winner": game.get("winner"),
             "players": players,
             "harnessEpoch": game.get("harnessEpoch"),
+            "season": game["season"],
         }
         if "annotations" in game:
             game_entry["annotations"] = game["annotations"]
         games_index.append(game_entry)
 
-    # Count games per epoch (all games, before filtering)
-    epoch_counts: dict[int, int] = {}
-    for g in games_index:
-        e = g["harnessEpoch"]
-        epoch_counts[e] = epoch_counts.get(e, 0) + 1
-
-    # Filter to current epoch for leaderboard ratings
-    rated_games = [g for g in games_index if g["harnessEpoch"] >= MIN_LEADERBOARD_EPOCH]
-    excluded_count = len(games_index) - len(rated_games)
+    # Filter to current season for leaderboard ratings (season 0 = pre-season)
+    rated_games = [g for g in games_index if g["season"] >= 1]
 
     model_registry = load_model_registry(models_json)
     format_results, ratings_by_game = generate_all_leaderboards(rated_games, model_registry, games_dir)
@@ -703,15 +697,19 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     pool_combined = format_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
     # Sum games across real pools (not combined, which double-counts)
     total_games = sum(format_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in format_results)
+    # Load season state from data_dir (copied there by generate_all_website_data)
+    season_file = data_dir / "season.json"
+    assert season_file.exists(), f"Season file not found: {season_file}"
+    season_data = json.loads(season_file.read_text())
+
     output = {
         "generatedAt": pool_combined.get("generatedAt", ""),
         "totalGames": total_games,
         "models": pool_combined.get("models", []),
         "formats": format_results,
-        "minEpoch": MIN_LEADERBOARD_EPOCH,
+        "season": season_data["current_season"],
+        "phase": season_data["phase"],
         "minBlunderVersion": MIN_BLUNDER_VERSION,
-        "excludedGames": excluded_count,
-        "epochCounts": {str(e): c for e, c in sorted(epoch_counts.items())},
     }
 
     # Write benchmark-results.json
@@ -892,7 +890,6 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     output: dict[str, Any] = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "minLeaderboardEpoch": MIN_LEADERBOARD_EPOCH,
         "models": models_out,
     }
 
@@ -1032,7 +1029,6 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     output: dict[str, Any] = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
-        "minLeaderboardEpoch": MIN_LEADERBOARD_EPOCH,
         "games": games_out,
     }
 

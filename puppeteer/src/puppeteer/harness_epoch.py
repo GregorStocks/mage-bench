@@ -1,9 +1,11 @@
 """Harness epoch tracking for game result comparability.
 
 The harness epoch is a monotonic integer that marks breaking changes to the
-evaluation harness (MCP tools, pilot logic, priority semantics). Games from
-different epochs aren't directly comparable, so the leaderboard filters to
-games at or above MIN_LEADERBOARD_EPOCH.
+evaluation harness (MCP tools, pilot logic, priority semantics).
+
+MIN_LEADERBOARD_EPOCH is used only at game export time to assign the season
+field (season 0 = pre-season for epochs below this threshold). The leaderboard
+and matchmaker filter by the season field, not by epoch directly.
 """
 
 # Current harness epoch. Bump when MCP tools, pilot logic, or priority
@@ -53,11 +55,9 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  41 - Replace Map<String, Object> tool results with typed Result classes (Mar 4)
 HARNESS_EPOCH = 41
 
-# Minimum epoch for leaderboard inclusion. Games below this are shown
-# in the games list but excluded from ELO ratings.
-# Bumped from 3 to 11: epochs 3-10 had rapid API churn (priority blocking,
-# batch combat, ability presentation, mana plan format, JsonArray removal).
-# Epoch 11 is where the tool type system stabilized.
+# Minimum epoch for season assignment at export time. Games below this
+# are assigned season 0 (pre-season). Used only by export_game.py and
+# schema migrations — the leaderboard and matchmaker filter by season.
 MIN_LEADERBOARD_EPOCH = 11
 
 # Minimum blunder analysis version for "acceptable" annotations. Games

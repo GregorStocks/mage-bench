@@ -1,9 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import benchmarkData from '../data/benchmark-results.json';
-
-const excludedGames = (benchmarkData as any).excludedGames ?? 0;
-const minEpoch = (benchmarkData as any).minEpoch ?? null;
 ---
 
 <Base title="Scoring">
@@ -28,15 +24,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     Commander is a 4-player free-for-all format where Elo doesn't apply cleanly.
   </p>
 
-  {excludedGames > 0 && minEpoch && (
-    <p>
-      {excludedGames} {excludedGames === 1 ? 'game is' : 'games are'} excluded
-      from ratings (harness epoch &lt; {minEpoch}). The harness epoch is a monotonic
-      integer that increments when MCP tools, priority semantics, or pilot logic change
-      enough to make game results non-comparable. Games from older epochs are still
-      viewable but don't contribute to ratings.
-    </p>
-  )}
+  <p>
+    Ratings are computed per season. Pre-season games (from the early harness
+    development period) are excluded from Season 1 ratings but remain viewable
+    in the <a href="/games?season=0">games archive</a>.
+  </p>
 
   <h2>Blunder Index</h2>
 

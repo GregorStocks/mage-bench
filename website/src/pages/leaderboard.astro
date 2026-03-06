@@ -1,6 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import benchmarkData from '../data/benchmark-results.json';
+import seasonData from '../data/season.json';
+
+const currentSeason = (seasonData as any).current_season;
 
 const FORMAT_LABELS: Record<string, string> = {
   jumpstart: 'Jumpstart',
@@ -24,19 +27,27 @@ const activeFormats = FORMAT_ORDER.filter(
 );
 
 const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length > 1;
-const excludedGames = (benchmarkData as any).excludedGames ?? 0;
-const minEpoch = (benchmarkData as any).minEpoch ?? null;
 ---
 
-<Base title="Leaderboard" wide>
-  <h1>Leaderboard</h1>
+<Base title={`Season ${currentSeason} Leaderboard`} wide>
+  <div class="leaderboard-header">
+    <h1>Season {currentSeason} Leaderboard</h1>
+    {currentSeason > 0 && (
+      <div class="season-tabs">
+        <button class="season-tab active" data-season={currentSeason}>
+          Season {currentSeason}
+          <span class="season-tab-badge">Current</span>
+        </button>
+        <a class="season-tab" href="/games?season=0">
+          Pre-season
+        </a>
+      </div>
+    )}
+  </div>
 
   {hasData ? (
     <p class="subtitle" id="subtitle">
       Model ratings based on {benchmarkData.totalGames.toLocaleString()} rated games.
-      {excludedGames > 0 && (
-        <span class="excluded-note">({excludedGames} pre-epoch-{minEpoch} {excludedGames === 1 ? 'game' : 'games'} excluded)</span>
-      )}
       Last updated: <time>{new Date(benchmarkData.generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>.
     </p>
 
@@ -289,6 +300,58 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     margin-bottom: 0.5rem;
   }
 
+  .leaderboard-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+  }
+
+  .season-tabs {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .season-tab {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+  }
+
+  .season-tab:hover {
+    border-color: var(--accent-secondary);
+    color: var(--text-primary);
+  }
+
+  .season-tab.active {
+    background: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+    color: #fff;
+  }
+
+  .season-tab-badge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    line-height: 1;
+  }
+
   .subtitle {
     color: var(--text-secondary);
     font-size: 0.95rem;
@@ -298,11 +361,6 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   .subtitle time {
     color: var(--text-primary);
-  }
-
-  .excluded-note {
-    color: var(--color-warning);
-    font-size: 0.85rem;
   }
 
   .format-tabs {
