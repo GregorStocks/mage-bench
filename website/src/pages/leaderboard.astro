@@ -4,6 +4,7 @@ import benchmarkData from '../data/benchmark-results.json';
 import seasonData from '../data/season.json';
 
 const currentSeason = (seasonData as any).current_season;
+const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [currentSeason];
 
 const FORMAT_LABELS: Record<string, string> = {
   jumpstart: 'Jumpstart',
@@ -31,16 +32,18 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
 
 <Base title={`Season ${currentSeason} Leaderboard`} wide>
   <div class="leaderboard-header">
-    <h1>Season {currentSeason} Leaderboard</h1>
-    {currentSeason > 0 && (
-      <div class="season-tabs">
-        <button class="season-tab active" data-season={currentSeason}>
-          Season {currentSeason}
-          <span class="season-tab-badge">Current</span>
-        </button>
-        <a class="season-tab" href="/games?season=0">
-          Season 0
-        </a>
+    <h1 id="leaderboard-title">Season {currentSeason} Leaderboard</h1>
+    {availableSeasons.length > 1 && (
+      <div class="season-tabs" id="season-tabs">
+        {[...availableSeasons].reverse().map((s: number) => (
+          <button
+            class:list={['season-tab', { active: s === currentSeason }]}
+            data-season={s}
+          >
+            Season {s}
+            {s === currentSeason && <span class="season-tab-badge">Current</span>}
+          </button>
+        ))}
       </div>
     )}
   </div>
@@ -290,6 +293,134 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   showInactiveCheckbox.addEventListener('change', applyFilters);
   updateGamesLinks();
   applyFilters();
+
+  // --- Season switching ---
+  const FORMAT_LABELS: Record<string, string> = {
+    jumpstart: 'Jumpstart', standard: 'Standard', modern: 'Modern',
+    legacy: 'Legacy', commander: 'Commander (Exhibition)', combined: 'Combined',
+  };
+  const FORMAT_ORDER = ['combined', 'jumpstart', 'standard', 'modern', 'legacy', 'commander'];
+
+  function escapeHtml(s: string): string {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function blunderClass(score: number): string {
+    if (score < 0.3) return 'blunder-good';
+    if (score < 0.8) return 'blunder-ok';
+    return 'blunder-bad';
+  }
+
+  function rebuildFromData(data: any) {
+    const formats = data.formats ?? { combined: { totalGames: data.totalGames, models: data.models } };
+    const activeFmts = FORMAT_ORDER.filter(f => f === 'combined' || (formats[f] && formats[f].totalGames > 0));
+
+    // Update subtitle
+    const subtitle = document.getElementById('subtitle');
+    if (subtitle) {
+      const dateStr = data.generatedAt ? new Date(data.generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '';
+      subtitle.innerHTML = `Model ratings based on ${data.totalGames.toLocaleString()} rated games. Last updated: <time>${dateStr}</time>.`;
+    }
+
+    // Rebuild format tabs
+    if (formatTabs) {
+      // Remove all format-tab buttons but keep the inactive toggle
+      const toggle = formatTabs.querySelector('.inactive-toggle');
+      formatTabs.innerHTML = '';
+      activeFmts.forEach(fmt => {
+        const btn = document.createElement('button');
+        btn.className = 'format-tab' + (fmt === 'combined' ? ' active' : '');
+        btn.dataset.format = fmt;
+        btn.innerHTML = `${FORMAT_LABELS[fmt] || fmt} <span class="tab-count">(${formats[fmt]?.totalGames ?? 0})</span>`;
+        formatTabs.appendChild(btn);
+      });
+      if (toggle) formatTabs.appendChild(toggle);
+      formatTabs.style.display = activeFmts.length <= 1 ? 'none' : '';
+    }
+
+    // Remove old tbodies, add new ones
+    table!.querySelectorAll('tbody').forEach(tb => tb.remove());
+    activeFmts.forEach(fmt => {
+      const tbody = document.createElement('tbody');
+      tbody.dataset.format = fmt;
+      const isExhibition = !!formats[fmt]?.exhibition;
+      if (isExhibition) tbody.dataset.exhibition = 'true';
+      if (fmt !== 'combined') tbody.style.display = 'none';
+
+      (formats[fmt]?.models || []).forEach((m: any, i: number) => {
+        const tr = document.createElement('tr');
+        tr.dataset.modelId = m.modelId;
+        tr.dataset.reasoningEffort = m.reasoningEffort || '';
+        tr.dataset.provider = m.provider;
+        tr.dataset.rating = m.rating != null ? String(m.rating) : '';
+        tr.dataset.gamesPlayed = String(m.gamesPlayed);
+        tr.dataset.winRate = String(m.winRate);
+        tr.dataset.blunderScore = String(m.blunderScore);
+        tr.dataset.avgApiCost = String(m.avgApiCost);
+        tr.dataset.inactive = m.inactive || '';
+        if (m.inactive) tr.classList.add('inactive');
+
+        const effortParam = m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : '';
+        tr.innerHTML = `
+          <td class="rank-cell">${i + 1}</td>
+          <td class="model-name">${escapeHtml(m.modelName)}${m.inactive ? ' <span class="inactive-label">(' + escapeHtml(m.inactive) + ')</span>' : ''}</td>
+          <td>${escapeHtml(m.provider)}</td>
+          <td class="num" data-col="rating">${m.rating != null ? m.rating : '\u2014'}</td>
+          <td class="num"><span class="blunder-val ${blunderClass(m.blunderScore)}">${m.blunderScore.toFixed(2)}</span></td>
+          <td class="num"><a class="games-link" href="/games?model=${encodeURIComponent(m.modelId)}${effortParam}">${m.gamesPlayed}</a></td>
+          <td class="num col-winrate">${(m.winRate * 100).toFixed(1)}%</td>
+          <td class="num">$${m.avgApiCost.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      table!.appendChild(tbody);
+    });
+
+    activeFormat = 'combined';
+    table!.className = 'format-combined';
+    table!.classList.remove('hide-rating-col');
+    updateGamesLinks();
+    applyFilters();
+  }
+
+  const seasonTabs = document.getElementById('season-tabs');
+  if (seasonTabs) {
+    seasonTabs.addEventListener('click', async (e) => {
+      const btn = (e.target as HTMLElement).closest('.season-tab') as HTMLElement | null;
+      if (!btn || btn.classList.contains('active')) return;
+      const season = btn.dataset.season!;
+
+      seasonTabs.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const title = document.getElementById('leaderboard-title');
+      if (title) title.textContent = `Season ${season} Leaderboard`;
+
+      // Update URL
+      const url = new URL(window.location.href);
+      url.searchParams.set('season', season);
+      history.replaceState(null, '', url.toString());
+
+      try {
+        const resp = await fetch(`/data/benchmark-results-season-${season}.json`);
+        const data = await resp.json();
+        rebuildFromData(data);
+      } catch (err) {
+        console.error('Failed to load season data:', err);
+      }
+    });
+
+    // On page load, check for ?season= param
+    const params = new URLSearchParams(window.location.search);
+    const seasonParam = params.get('season');
+    if (seasonParam) {
+      const btn = seasonTabs.querySelector(`.season-tab[data-season="${seasonParam}"]`) as HTMLElement | null;
+      if (btn && !btn.classList.contains('active')) {
+        btn.click();
+      }
+    }
+  }
+
   }
 </script>
 

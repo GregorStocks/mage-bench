@@ -676,16 +676,13 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
             game_entry["annotations"] = game["annotations"]
         games_index.append(game_entry)
 
-    # Filter to current season for leaderboard ratings (season 0 = pre-season)
-    rated_games = [g for g in games_index if g["season"] >= 1]
-
     model_registry = load_model_registry(models_json)
-    format_results, ratings_by_game = generate_all_leaderboards(rated_games, model_registry, games_dir)
-
-    # Mark inactive models (not in the active pool)
     inactive_statuses = _load_inactive_statuses(models_json.parent / "presets.json")
-    if inactive_statuses is not None:
-        for fmt_data in format_results.values():
+
+    def _mark_inactive(fmt_results: dict[str, Any]) -> None:
+        if inactive_statuses is None:
+            return
+        for fmt_data in fmt_results.values():
             for model in fmt_data.get("models", []):
                 model_id = model["modelId"]
                 effort = model.get("reasoningEffort")
@@ -693,21 +690,44 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
                 if key in inactive_statuses:
                     model["inactive"] = inactive_statuses[key]
 
-    # Build output with backward-compatible top-level fields from combined (primary rating)
-    pool_combined = format_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
-    # Sum games across real pools (not combined, which double-counts)
-    total_games = sum(format_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in format_results)
+    def _build_output(season_games: list[dict]) -> tuple[dict[str, Any], dict[str, Any]]:
+        fmt_results, ratings = generate_all_leaderboards(season_games, model_registry, games_dir)
+        _mark_inactive(fmt_results)
+        pool = fmt_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
+        total = sum(fmt_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in fmt_results)
+        return {
+            "generatedAt": pool.get("generatedAt", ""),
+            "totalGames": total,
+            "models": pool.get("models", []),
+            "formats": fmt_results,
+            "minBlunderVersion": MIN_BLUNDER_VERSION,
+        }, ratings
 
-    output = {
-        "generatedAt": pool_combined.get("generatedAt", ""),
-        "totalGames": total_games,
-        "models": pool_combined.get("models", []),
-        "formats": format_results,
-        "minBlunderVersion": MIN_BLUNDER_VERSION,
-    }
+    # Group games by season and generate per-season leaderboard files
+    games_by_season: dict[int, list[dict]] = {}
+    for g in games_index:
+        games_by_season.setdefault(g["season"], []).append(g)
 
-    # Write benchmark-results.json
     data_dir.mkdir(parents=True, exist_ok=True)
+    all_ratings: dict[str, Any] = {}
+    available_seasons: list[int] = sorted(games_by_season.keys())
+
+    # Per-season files go to public/data/ for client-side fetch
+    public_data_dir = games_dir.parent / "data"
+    public_data_dir.mkdir(parents=True, exist_ok=True)
+
+    for season_num in available_seasons:
+        season_output, season_ratings = _build_output(games_by_season[season_num])
+        season_output["availableSeasons"] = available_seasons
+        season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
+        season_path.write_text(json.dumps(season_output, indent=2) + "\n")
+        all_ratings.update(season_ratings)
+
+    # Primary benchmark-results.json = current season (season >= 1) for backward compat
+    rated_games = [g for g in games_index if g["season"] >= 1]
+    output, ratings_by_game = _build_output(rated_games)
+    all_ratings.update(ratings_by_game)
+    output["availableSeasons"] = available_seasons
     output_path = data_dir / "benchmark-results.json"
     output_path.write_text(json.dumps(output, indent=2) + "\n")
 
@@ -715,7 +735,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     ratings_dir = games_dir.parent / "data"
     ratings_dir.mkdir(parents=True, exist_ok=True)
     ratings_path = ratings_dir / "ratings.json"
-    ratings_path.write_text(json.dumps(ratings_by_game, indent=2) + "\n")
+    ratings_path.write_text(json.dumps(all_ratings, indent=2) + "\n")
 
     return output_path
 
