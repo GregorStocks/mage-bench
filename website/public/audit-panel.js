@@ -258,9 +258,14 @@
           }
         });
         currentDetail.verdict = selectedVerdict;
-        renderContext(currentDetail);
         loadStats();
         submitting = false;
+        // Reset controls before auto-advancing
+        selectedVerdict = null;
+        dom.verdictButtons.forEach(function (b) { b.classList.remove("selected"); });
+        dom.submitBtn.disabled = true;
+        setVerdictEnabled(false);
+        dom.notesInput.value = "";
         // Auto-advance to next unaudited
         advanceNext();
       })
