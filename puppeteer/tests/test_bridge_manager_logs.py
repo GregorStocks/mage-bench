@@ -9,14 +9,8 @@ import pytest
 from tests import golden_helpers
 from tests.golden_helpers import BridgeManager
 
-GAME_START_1 = (
-    "[08:00:00] INFO [TestPlayer] "
-    "Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1"
-)
-GAME_START_2 = (
-    "[08:00:01] INFO [TestPlayer] "
-    "Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2"
-)
+GAME_START_1 = "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1"
+GAME_START_2 = "[08:00:01] INFO [TestPlayer] Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2"
 STALE_GAME_INIT = (
     "[08:00:01] WARN [TestPlayer] Ignoring GAME_INIT for non-current game "
     "22222222-2222-2222-2222-222222222222 "
@@ -105,9 +99,7 @@ class TestReconnectValidation:
         with pytest.raises(RuntimeError, match="staleCallbacks="):
             manager.assert_clean_reconnect("multi_amount_combat/bridge_join")
 
-    def test_ensure_healthy_marks_restart_for_validation(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
+    def test_ensure_healthy_marks_restart_for_validation(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         manager = _make_manager(tmp_path)
         monkeypatch.setattr(manager, "is_healthy", lambda: False)
         monkeypatch.setattr(manager, "stop", lambda: None)
