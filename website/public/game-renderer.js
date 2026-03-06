@@ -267,12 +267,12 @@
     s = s.replace(/<br\s*\/?>/gi, "\n");
     // Strip HTML tags but keep their text content
     s = s.replace(/<[^>]+>/g, "");
-    // Decode common HTML entities
+    // Decode common HTML entities (&amp; last to avoid double-decoding e.g. &amp;lt;)
     s = s.replace(/&mdash;/g, "\u2014");
     s = s.replace(/&ndash;/g, "\u2013");
-    s = s.replace(/&amp;/g, "&");
     s = s.replace(/&lt;/g, "<");
     s = s.replace(/&gt;/g, ">");
+    s = s.replace(/&amp;/g, "&");
     // Remove ICON_REQUIRE and similar engine markers
     s = s.replace(/ICON_REQUIRE/g, "");
     return s.trim();
