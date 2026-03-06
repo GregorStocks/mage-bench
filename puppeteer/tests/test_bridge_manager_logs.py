@@ -9,6 +9,20 @@ import pytest
 from tests import golden_helpers
 from tests.golden_helpers import BridgeManager
 
+GAME_START_1 = (
+    "[08:00:00] INFO [TestPlayer] "
+    "Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1"
+)
+GAME_START_2 = (
+    "[08:00:01] INFO [TestPlayer] "
+    "Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2"
+)
+STALE_GAME_INIT = (
+    "[08:00:01] WARN [TestPlayer] Ignoring GAME_INIT for non-current game "
+    "22222222-2222-2222-2222-222222222222 "
+    "(currentGameId=11111111-1111-1111-1111-111111111111)"
+)
+
 
 def _make_manager(tmp_path: Path, label: str = "bridge") -> BridgeManager:
     return BridgeManager(
@@ -45,10 +59,7 @@ class TestReconnectValidation:
     def test_noop_without_restart(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_path = tmp_path / "bridge.log"
-        log_path.write_text(
-            "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1\n",
-            encoding="utf-8",
-        )
+        log_path.write_text(GAME_START_1 + "\n", encoding="utf-8")
         manager._current_log_path = log_path
 
         manager.assert_clean_reconnect("golden")
@@ -56,10 +67,7 @@ class TestReconnectValidation:
     def test_accepts_single_started_game_after_restart(self, tmp_path: Path) -> None:
         manager = _make_manager(tmp_path)
         log_path = tmp_path / "bridge.log"
-        log_path.write_text(
-            "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1\n",
-            encoding="utf-8",
-        )
+        log_path.write_text(GAME_START_1 + "\n", encoding="utf-8")
         manager._current_log_path = log_path
         manager._needs_reconnect_validation = True
 
@@ -71,13 +79,7 @@ class TestReconnectValidation:
         manager = _make_manager(tmp_path)
         log_path = tmp_path / "bridge.log"
         log_path.write_text(
-            "\n".join(
-                [
-                    "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1",
-                    "[08:00:01] INFO [TestPlayer] Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2",
-                ]
-            )
-            + "\n",
+            "\n".join([GAME_START_1, GAME_START_2]) + "\n",
             encoding="utf-8",
         )
         manager._current_log_path = log_path
@@ -94,13 +96,7 @@ class TestReconnectValidation:
         manager = _make_manager(tmp_path)
         log_path = tmp_path / "bridge.log"
         log_path.write_text(
-            "\n".join(
-                [
-                    "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1",
-                    "[08:00:01] WARN [TestPlayer] Ignoring GAME_INIT for non-current game 22222222-2222-2222-2222-222222222222 (currentGameId=11111111-1111-1111-1111-111111111111)",
-                ]
-            )
-            + "\n",
+            "\n".join([GAME_START_1, STALE_GAME_INIT]) + "\n",
             encoding="utf-8",
         )
         manager._current_log_path = log_path
