@@ -723,18 +723,21 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
         season_path.write_text(json.dumps(season_output, indent=2) + "\n")
         all_ratings.update(season_ratings)
 
-    # Primary benchmark-results.json = current season (season >= 1) for backward compat
-    rated_games = [g for g in games_index if g["season"] >= 1]
-    output, ratings_by_game = _build_output(rated_games)
+    # Primary benchmark-results.json = all rated games (season >= 1)
+    rated_seasons = [s for s in available_seasons if s >= 1]
+    if len(rated_seasons) == 1 and rated_seasons[0] in games_by_season:
+        # Reuse already-computed result for the single rated season
+        output, ratings_by_game = _build_output(games_by_season[rated_seasons[0]])
+    else:
+        rated_games = [g for g in games_index if g["season"] >= 1]
+        output, ratings_by_game = _build_output(rated_games)
     all_ratings.update(ratings_by_game)
     output["availableSeasons"] = available_seasons
     output_path = data_dir / "benchmark-results.json"
     output_path.write_text(json.dumps(output, indent=2) + "\n")
 
     # Write ratings.json to public/data/
-    ratings_dir = games_dir.parent / "data"
-    ratings_dir.mkdir(parents=True, exist_ok=True)
-    ratings_path = ratings_dir / "ratings.json"
+    ratings_path = public_data_dir / "ratings.json"
     ratings_path.write_text(json.dumps(all_ratings, indent=2) + "\n")
 
     return output_path

@@ -402,7 +402,8 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
       history.replaceState(null, '', url.toString());
 
       try {
-        const resp = await fetch(`/data/benchmark-results-season-${season}.json`);
+        const resp = await fetch(`/data/benchmark-results-season-${parseInt(season, 10)}.json`);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.json();
         rebuildFromData(data);
       } catch (err) {
@@ -413,7 +414,7 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     // On page load, check for ?season= param
     const params = new URLSearchParams(window.location.search);
     const seasonParam = params.get('season');
-    if (seasonParam) {
+    if (seasonParam && /^\d+$/.test(seasonParam)) {
       const btn = seasonTabs.querySelector(`.season-tab[data-season="${seasonParam}"]`) as HTMLElement | null;
       if (btn && !btn.classList.contains('active')) {
         btn.click();
