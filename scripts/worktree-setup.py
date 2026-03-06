@@ -8,6 +8,7 @@ Usage:
 """
 
 import hashlib
+import json
 import shutil
 from pathlib import Path
 
@@ -81,8 +82,11 @@ def main() -> None:
         env_lines.append(port_line)
         env_file.write_text("\n".join(env_lines) + "\n")
 
+    config_file = Path.home() / ".mage-bench" / "config.json"
+    hostname = json.loads(config_file.read_text())["hostname"]
+
     print("mage-bench workspace ready.")
-    print(f"  Website port: {port} (for worktree '{worktree_name}')")
+    print(f"  Website: http://{hostname}:{port}/")
     print("  Build cache: ~/.m2/build-cache")
     print("  Images: ~/.mage-bench/images (symlinked from */plugins/images)")
 
