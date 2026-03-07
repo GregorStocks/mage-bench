@@ -268,7 +268,7 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         "game_type": config.game_type,
         "deck_type": config.deck_type,
         "harness_epoch": HARNESS_EPOCH,
-        "season": 1,
+        "season": json.loads((project_root / "data" / "season.json").read_text())["current_season"],
         "players": players,
         "git_branch": _git("rev-parse --abbrev-ref HEAD", project_root),
         "git_commit": _git("rev-parse --short HEAD", project_root),
