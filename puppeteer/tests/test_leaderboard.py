@@ -1131,7 +1131,7 @@ def test_ratings_separate_by_effort():
 
 
 def test_generate_leaderboard_file_excludes_preseason():
-    """Pre-season games (season 0) should be excluded from ratings."""
+    """Pre-season games (season 0) should not appear on the current-season leaderboard."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"

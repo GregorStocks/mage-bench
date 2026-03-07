@@ -80,8 +80,7 @@ assert self.config_file is not None, "run_tag requires config_file to be set"
 When you bump `HARNESS_EPOCH`:
 
 1. Add a comment to the history in `harness_epoch.py`
-2. Update `SEASON_1_START_EPOCH` if the old epoch should be excluded from ratings
-3. Re-export affected games and regenerate the leaderboard
+2. Re-export affected games and regenerate the leaderboard
 
 ## Game Exports
 
