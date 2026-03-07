@@ -41,20 +41,20 @@ if (fs.existsSync(exportsDir)) {
       <div class="metric-row">
         <span class="control-label">Metric</span>
         <div class="metric-buttons" id="metric-buttons">
-          <button class="metric-btn active" data-metric="costPerGame">Cost/Game</button>
-          <button class="metric-btn" data-metric="winRate">Win Rate</button>
-          <button class="metric-btn" data-metric="toolFailRate">Tool Fail%</button>
-          <button class="metric-btn" data-metric="errorRate">Error Rate</button>
-          <button class="metric-btn" data-metric="latencyP50">Latency p50</button>
-          <button class="metric-btn" data-metric="timerTimeoutRate">Timer TO%</button>
-          <button class="metric-btn" data-metric="timeoutRate">TO Rate</button>
-          <button class="metric-btn" data-metric="cacheRate">Cache%</button>
-          <button class="metric-btn" data-metric="toolCallsPerGame">Tools/Game</button>
-          <button class="metric-btn" data-metric="avgPromptTokens">Prompt Tok</button>
-          <button class="metric-btn" data-metric="avgCompletionTokens">Compl Tok</button>
-          <button class="metric-btn" data-metric="resetsPerGame">Resets/Game</button>
-          <button class="metric-btn" data-metric="thinkingTimePerGame">Think Time</button>
-          <button class="metric-btn" data-metric="reasoningPct">Reasoning%</button>
+          <button class="metric-btn active" data-metric="costPerGame" title="Total API cost in USD per game">Cost/Game</button>
+          <button class="metric-btn" data-metric="winRate" title="Percentage of games won">Win Rate</button>
+          <button class="metric-btn" data-metric="toolFailRate" title="Percentage of tool calls that failed (failed / total tool calls)">Tool Fail%</button>
+          <button class="metric-btn" data-metric="errorRate" title="Percentage of responses that were errors (errors / total responses+timeouts+errors)">Error Rate</button>
+          <button class="metric-btn" data-metric="latencyP50" title="Median (p50) response latency in seconds">Latency p50</button>
+          <button class="metric-btn" data-metric="timerTimeoutRate" title="Percentage of games where the player timed out on the game clock">Timer TO%</button>
+          <button class="metric-btn" data-metric="timeoutRate" title="Percentage of individual API calls that timed out (timeouts / total responses+timeouts)">TO Rate</button>
+          <button class="metric-btn" data-metric="cacheRate" title="Percentage of prompt tokens served from cache (cached / total prompt tokens)">Cache%</button>
+          <button class="metric-btn" data-metric="toolCallsPerGame" title="Total tool calls (successful + failed) per game">Tools/Game</button>
+          <button class="metric-btn" data-metric="avgPromptTokens" title="Average prompt tokens per API response">Prompt Tok</button>
+          <button class="metric-btn" data-metric="avgCompletionTokens" title="Average completion tokens per API response">Compl Tok</button>
+          <button class="metric-btn" data-metric="resetsPerGame" title="Number of context window resets per game (when conversation exceeds token limit)">Resets/Game</button>
+          <button class="metric-btn" data-metric="thinkingTimePerGame" title="Total time spent in model thinking/reasoning per game, in seconds">Think Time</button>
+          <button class="metric-btn" data-metric="reasoningPct" title="Percentage of completion tokens that were reasoning/thinking tokens">Reasoning%</button>
         </div>
       </div>
       <div class="filter-row">
@@ -130,18 +130,18 @@ if (fs.existsSync(exportsDir)) {
           <tr>
             <th data-sort="modelName" data-type="string">Model</th>
             <th data-sort="provider" data-type="string">Provider</th>
-            <th data-sort="gamesPlayed" data-type="number">Games</th>
-            <th data-sort="timeoutRate" data-type="number" class="sorted desc">TO Rate <span class="sort-arrow">&#9660;</span></th>
-            <th data-sort="totalTimeouts" data-type="number">Timeouts</th>
-            <th data-sort="totalOtherErrors" data-type="number">Errors</th>
-            <th data-sort="contextResets" data-type="number">Resets</th>
-            <th data-sort="avgPromptTokens" data-type="number">Avg Prompt</th>
-            <th data-sort="avgCompletionTokens" data-type="number">Avg Compl</th>
-            <th data-sort="avgCost" data-type="number">Avg Cost</th>
-            <th data-sort="cacheRate" data-type="number">Cache%</th>
-            <th data-sort="reasoningPct" data-type="number">Reasoning%</th>
-            <th data-sort="latencyP50" data-type="number">p50 (s)</th>
-            <th data-sort="latencyP95" data-type="number">p95 (s)</th>
+            <th data-sort="gamesPlayed" data-type="number" title="Total games played">Games</th>
+            <th data-sort="timeoutRate" data-type="number" class="sorted desc" title="Percentage of API calls that timed out">TO Rate <span class="sort-arrow">&#9660;</span></th>
+            <th data-sort="totalTimeouts" data-type="number" title="Total number of API call timeouts across all games">Timeouts</th>
+            <th data-sort="totalOtherErrors" data-type="number" title="Total non-timeout errors across all games">Errors</th>
+            <th data-sort="contextResets" data-type="number" title="Total context window resets across all games">Resets</th>
+            <th data-sort="avgPromptTokens" data-type="number" title="Average prompt tokens per API response">Avg Prompt</th>
+            <th data-sort="avgCompletionTokens" data-type="number" title="Average completion tokens per API response">Avg Compl</th>
+            <th data-sort="avgCost" data-type="number" title="Average API cost per game in USD">Avg Cost</th>
+            <th data-sort="cacheRate" data-type="number" title="Percentage of prompt tokens served from cache">Cache%</th>
+            <th data-sort="reasoningPct" data-type="number" title="Percentage of completion tokens that were reasoning/thinking tokens">Reasoning%</th>
+            <th data-sort="latencyP50" data-type="number" title="Median response latency in seconds">p50 (s)</th>
+            <th data-sort="latencyP95" data-type="number" title="95th percentile response latency in seconds">p95 (s)</th>
           </tr>
         </thead>
         <tbody id="stats-body"></tbody>
@@ -175,10 +175,10 @@ if (fs.existsSync(exportsDir)) {
       <div class="metric-row">
         <span class="control-label">Metric</span>
         <div class="metric-buttons" id="blunder-metric-buttons">
-          <button class="metric-btn active" data-metric="cacheRate">Cache%</button>
-          <button class="metric-btn" data-metric="cost">Cost</button>
-          <button class="metric-btn" data-metric="promptTokens">Prompt Tok</button>
-          <button class="metric-btn" data-metric="decisions">Decisions</button>
+          <button class="metric-btn active" data-metric="cacheRate" title="Percentage of prompt tokens served from cache">Cache%</button>
+          <button class="metric-btn" data-metric="cost" title="Total API cost in USD">Cost</button>
+          <button class="metric-btn" data-metric="promptTokens" title="Total prompt tokens used">Prompt Tok</button>
+          <button class="metric-btn" data-metric="decisions" title="Number of decisions (action points) in the game">Decisions</button>
         </div>
       </div>
       <div class="filter-row">
