@@ -299,10 +299,13 @@ class _LazyGameData(Mapping[Path, dict]):
 
     def __init__(self, paths: list[Path]):
         self._paths = paths
+        self._path_set = frozenset(paths)
         self._data: dict[Path, dict] = {}
 
     def __getitem__(self, key: Path) -> dict:
         if key not in self._data:
+            if key not in self._path_set:
+                raise KeyError(key)
             self._data[key] = _load_game(key)
         return self._data[key]
 
