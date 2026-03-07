@@ -262,8 +262,8 @@ async def _llm_pick(
     user_prompt: str,
     reasoning_effort: str | None,
     num_options: int,
-) -> tuple[int, str, dict]:
-    """Call the LLM to make a draft pick. Returns (1-based pick, response text, usage dict)."""
+) -> tuple[int, str, str | None, dict]:
+    """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict)."""
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
@@ -284,7 +284,14 @@ async def _llm_pick(
 
     assert response.choices, f"LLM returned empty choices for model {model}"
     content = response.choices[0].message.content
-    assert content is not None, f"LLM returned None content for model {model}"
+    # OpenRouter returns extended thinking as `reasoning_content` for models
+    # that support it (Claude, Gemini thinking, etc.).
+    thinking: str | None = getattr(response.choices[0].message, "reasoning_content", None)
+    # When the model puts its answer only in the thinking block, `content`
+    # can be empty/"".  Fall back to thinking for parse_pick.
+    if not content:
+        content = thinking
+    assert content, f"LLM returned empty content for model {model}"
 
     usage: dict = {}
     if response.usage:
@@ -312,8 +319,13 @@ async def _llm_pick(
             f"LLM returned empty choices on retry for model {model}"
         )
         retry_content = retry_response.choices[0].message.content
-        assert retry_content is not None, (
-            f"LLM returned None content on retry for model {model}"
+        retry_thinking = getattr(retry_response.choices[0].message, "reasoning_content", None)
+        if retry_thinking:
+            thinking = retry_thinking
+        if not retry_content:
+            retry_content = retry_thinking
+        assert retry_content, (
+            f"LLM returned empty content on retry for model {model}"
         )
         if retry_response.usage:
             usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (
@@ -324,7 +336,7 @@ async def _llm_pick(
             )
         pick = parse_pick(retry_content, num_options)
 
-    return pick, content, usage
+    return pick, content, thinking, usage
 
 
 async def run_draft(tournament: dict, tournament_path: Path) -> None:
@@ -430,7 +442,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 f"Round {round_num}, {len(option_themes)} packs available"
             )
 
-            pick_num, reasoning, usage = await _llm_pick(
+            pick_num, reasoning, thinking, usage = await _llm_pick(
                 client,
                 model,
                 system_prompt,
@@ -463,7 +475,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 f"${pick_cost:.4f}, total ${cumulative_cost:.4f})"
             )
 
-            pick_record = {
+            pick_record: dict = {
                 "seed": seed,
                 "round": round_num,
                 "options": option_themes,
@@ -472,6 +484,8 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 "usage": usage,
                 "cost_usd": pick_cost,
             }
+            if thinking:
+                pick_record["thinking"] = thinking
             picks.append(pick_record)
 
             # Write incremental JSONL log entry (full LLM input/output)
