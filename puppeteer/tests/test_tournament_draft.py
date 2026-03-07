@@ -136,14 +136,22 @@ class TestParsePick:
 
 class TestBuildDraftPrompts:
     def test_system_prompt_without_personality(self):
-        prompt = build_draft_system_prompt(None)
+        prompt = build_draft_system_prompt(None, seed=3, num_entrants=8)
         assert "drafting a Jumpstart deck" in prompt
         assert "tournament" in prompt
+        assert "straight (linear) draft with 8 players" in prompt
+        assert "seed #3" in prompt
 
     def test_system_prompt_with_personality(self):
-        prompt = build_draft_system_prompt("You are a villain who monologues about everything.")
+        prompt = build_draft_system_prompt(
+            "You are a villain who monologues about everything.",
+            seed=1,
+            num_entrants=16,
+        )
         assert "drafting a Jumpstart deck" in prompt
         assert "villain" in prompt
+        assert "16 players" in prompt
+        assert "seed #1" in prompt
 
     def test_user_prompt_round_1(self, all_packs, oracle_cache):
         options = all_packs[:4]
@@ -193,7 +201,11 @@ class TestGoldenDraftPrompts:
         """Golden test for round 1 draft prompt (no prior pick)."""
         golden_path = GOLDEN_DIR / "round_1_pick.json"
 
-        system = build_draft_system_prompt("You play to win. Evaluate every option by expected win rate.")
+        system = build_draft_system_prompt(
+            "You play to win. Evaluate every option by expected win rate.",
+            seed=3,
+            num_entrants=8,
+        )
         user = build_draft_user_prompt(1, golden_packs, oracle_cache)
 
         actual = {"system": system, "user": user}
@@ -215,7 +227,11 @@ class TestGoldenDraftPrompts:
         golden_path = GOLDEN_DIR / "round_2_pick.json"
         already_picked = golden_packs[0]  # Angels
 
-        system = build_draft_system_prompt("You play to win. Evaluate every option by expected win rate.")
+        system = build_draft_system_prompt(
+            "You play to win. Evaluate every option by expected win rate.",
+            seed=3,
+            num_entrants=8,
+        )
         user = build_draft_user_prompt(2, [golden_packs[1]], oracle_cache, already_picked=already_picked)
 
         actual = {"system": system, "user": user}
