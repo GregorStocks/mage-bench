@@ -18,8 +18,8 @@ import re
 import subprocess
 
 
-def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)  # type: ignore[call-overload]
+def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(cmd, capture_output=True, text=True)
 
 
 def main() -> None:

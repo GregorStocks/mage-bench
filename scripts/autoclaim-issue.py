@@ -24,8 +24,8 @@ ISSUES_DIR = Path("issues")
 MAX_RETRIES = 5
 
 
-def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)  # type: ignore[call-overload]
+def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(cmd, capture_output=True, text=True)
 
 
 def merge_master() -> None:

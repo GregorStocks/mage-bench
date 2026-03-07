@@ -22,7 +22,10 @@ import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from typing import cast
+
 from openai import OpenAI
+from openai.types.chat import ChatCompletionMessageParam
 
 from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
@@ -742,16 +745,19 @@ def _call_llm(
             response = client.chat.completions.create(
                 model=model,
                 messages=[
-                    {  # type: ignore[list-item,misc]
-                        "role": "system",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": system,
-                                "cache_control": {"type": "ephemeral"},
-                            }
-                        ],
-                    },
+                    cast(
+                        ChatCompletionMessageParam,
+                        {
+                            "role": "system",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": system,
+                                    "cache_control": {"type": "ephemeral"},
+                                }
+                            ],
+                        },
+                    ),
                     {"role": "user", "content": user},
                 ],
                 max_tokens=16384,
@@ -762,8 +768,8 @@ def _call_llm(
             assert usage is not None, "API response missing usage data"
             cached = 0
             ptd = usage.prompt_tokens_details
-            if ptd and getattr(ptd, "cached_tokens", None):
-                cached = ptd.cached_tokens  # type: ignore[assignment]
+            if ptd is not None and ptd.cached_tokens is not None:
+                cached = ptd.cached_tokens
             return text, usage.prompt_tokens, usage.completion_tokens, cached
         except Exception as e:
             err_str = str(e)

@@ -22,8 +22,8 @@ ISSUES_DIR = Path("issues")
 RACE_SETTLE_SECONDS = 5
 
 
-def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)  # type: ignore[call-overload]
+def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(cmd, capture_output=True, text=True)
 
 
 def list_claimed() -> list[str]:
