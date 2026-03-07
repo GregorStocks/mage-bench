@@ -51,7 +51,7 @@ _LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 
 PACKS_PER_PLAYER = 4
 LLM_TIMEOUT_SECS = 60
-MAX_TOKENS = 2000
+MAX_TOKENS = 20_000
 
 
 def draft_order(num_entrants: int) -> list[int]:
@@ -301,7 +301,9 @@ def _extract_content(message: object) -> tuple[str | None, str | None]:
     content: str | None = getattr(message, "content", None)
     if content is not None:
         content = content.strip()
-    thinking: str | None = getattr(message, "reasoning_content", None)
+    thinking: str | None = getattr(message, "reasoning_content", None) or getattr(
+        message, "reasoning", None
+    )
     if not content and thinking:
         content = thinking.strip()
     return content, thinking
