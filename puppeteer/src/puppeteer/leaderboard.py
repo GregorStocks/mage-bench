@@ -1020,15 +1020,13 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             if ev_ts_str:
                 try:
                     ev_ts = datetime.fromisoformat(ev_ts_str)
-                    if player_name in last_ts:
-                        gap = (ev_ts - last_ts[player_name]).total_seconds()
-                        if gap > 0:
-                            if player_name not in player_latencies:
-                                player_latencies[player_name] = []
-                            player_latencies[player_name].append(gap)
-                    last_ts[player_name] = ev_ts
                 except ValueError:
-                    pass
+                    continue
+                if player_name in last_ts:
+                    gap = (ev_ts - last_ts[player_name]).total_seconds()
+                    if gap > 0:
+                        player_latencies.setdefault(player_name, []).append(gap)
+                last_ts[player_name] = ev_ts
 
         # Parse the game timestamp into ISO format for date-based charting
         raw_ts = game.get("timestamp", "")
