@@ -22,10 +22,9 @@ import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from typing import cast
+from typing import Any
 
 from openai import OpenAI
-from openai.types.chat import ChatCompletionMessageParam
 
 from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
@@ -742,22 +741,22 @@ def _call_llm(
 
     for attempt in range(retries + 1):
         try:
+            # cache_control is an OpenRouter/Anthropic vendor extension
+            # not in OpenAI's type stubs — typed as Any to bypass
+            system_msg: Any = {
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": system,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+            }
             response = client.chat.completions.create(
                 model=model,
                 messages=[
-                    cast(
-                        ChatCompletionMessageParam,
-                        {
-                            "role": "system",
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "text": system,
-                                    "cache_control": {"type": "ephemeral"},
-                                }
-                            ],
-                        },
-                    ),
+                    system_msg,
                     {"role": "user", "content": user},
                 ],
                 max_tokens=16384,
