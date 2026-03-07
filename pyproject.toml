@@ -3,7 +3,9 @@ name = "mage-scripts"
 version = "0.1.0"
 description = "Mage-bench scripts package"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "puppeteer",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -11,6 +13,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["scripts", "schemas"]
+
+[tool.uv.sources]
+puppeteer = { workspace = true }
 
 [tool.uv.workspace]
 members = ["puppeteer"]

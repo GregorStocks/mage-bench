@@ -717,6 +717,12 @@ wheels = [
 name = "mage-scripts"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "puppeteer" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "puppeteer", editable = "puppeteer" }]
 
 [[package]]
 name = "mcp"
