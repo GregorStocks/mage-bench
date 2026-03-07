@@ -50,7 +50,7 @@ _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 _LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 
 PACKS_PER_PLAYER = 4
-LLM_TIMEOUT_SECS = 60
+LLM_TIMEOUT_SECS = 900
 MAX_TOKENS = 20_000
 
 
