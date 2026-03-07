@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
-"""Run a Jumpstart snake draft for the current tournament.
+"""Run a Jumpstart straight draft for the current tournament.
 
 Reads the tournament entrants from data/tournaments/season-N.json, presents
-each entrant's LLM with Jumpstart half-deck options (in snake-draft order),
+each entrant's LLM with Jumpstart half-deck options (in straight-draft order),
 and records picks + final decklists back to the tournament JSON.
 
-Snake draft order for 8 players (2 rounds): 1,2,3,4,5,6,7,8,8,7,6,5,4,3,2,1
+Straight draft order for 8 players (2 rounds): 1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8
+Higher seeds always pick first — no snake compensation.
+
+Each pick shows all remaining packs in the pool, not a random subset.
+A draft log (JSONL) with full LLM input/output is written incrementally
+so partial results survive ctrl-c.
 
 Usage:
     python scripts/tournament_draft.py
 """
 
 import asyncio
+import datetime
 import json
 import os
 import random
@@ -29,27 +35,34 @@ from puppeteer.config import (
 )
 from puppeteer.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
-from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
+from puppeteer.llm_cost import (
+    DEFAULT_BASE_URL,
+    get_model_price,
+    load_prices,
+    required_api_key_env,
+)
 from scripts import scryfall
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
 _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
+_LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 
-PACKS_PER_PICK = 4
+PACKS_PER_PLAYER = 4
 LLM_TIMEOUT_SECS = 60
 MAX_TOKENS = 2000
 
 
-def snake_draft_order(num_entrants: int) -> list[int]:
-    """Generate snake draft order (seeds) for 2 rounds.
+def draft_order(num_entrants: int) -> list[int]:
+    """Generate straight draft order (seeds) for 2 rounds.
 
     Round 1: 1, 2, ..., N
-    Round 2: N, ..., 2, 1
+    Round 2: 1, 2, ..., N
+
+    Higher seeds always pick first — no snake compensation.
     """
     forward = list(range(1, num_entrants + 1))
-    backward = list(range(num_entrants, 0, -1))
-    return forward + backward
+    return forward + forward
 
 
 def _load_tournament() -> tuple[dict, Path]:
@@ -177,15 +190,22 @@ def parse_pick(response_text: str, num_options: int) -> int:
     """
     text = response_text.strip()
 
-    # Try to find a single digit that's a valid option
-    # First, check if the response is just a number
+    # Check if the response is just a number
     if text.isdigit():
         n = int(text)
         if 1 <= n <= num_options:
             return n
 
-    # Look for patterns like "1", "Option 1", "I choose 1", "pick #1"
-    matches = re.findall(r"\b([1-9])\b", text)
+    # Look for explicit patterns: "Option 12", "pick #3", "choose 7"
+    explicit = re.findall(
+        r"(?:option|pick|choose|choice)\s*#?\s*(\d+)", text, re.IGNORECASE
+    )
+    valid_explicit = [int(m) for m in explicit if 1 <= int(m) <= num_options]
+    if valid_explicit:
+        return valid_explicit[0]
+
+    # Fall back to first standalone number in valid range
+    matches = re.findall(r"\b(\d{1,2})\b", text)
     valid = [int(m) for m in matches if 1 <= int(m) <= num_options]
     if len(valid) == 1:
         return valid[0]
@@ -242,8 +262,8 @@ async def _llm_pick(
     user_prompt: str,
     reasoning_effort: str | None,
     num_options: int,
-) -> tuple[int, str]:
-    """Call the LLM to make a draft pick. Returns (1-based pick, reasoning text)."""
+) -> tuple[int, str, dict]:
+    """Call the LLM to make a draft pick. Returns (1-based pick, response text, usage dict)."""
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
@@ -265,6 +285,13 @@ async def _llm_pick(
     assert response.choices, f"LLM returned empty choices for model {model}"
     content = response.choices[0].message.content
     assert content is not None, f"LLM returned None content for model {model}"
+
+    usage: dict = {}
+    if response.usage:
+        usage = {
+            "prompt_tokens": response.usage.prompt_tokens or 0,
+            "completion_tokens": response.usage.completion_tokens or 0,
+        }
 
     try:
         pick = parse_pick(content, num_options)
@@ -288,13 +315,16 @@ async def _llm_pick(
         assert retry_content is not None, (
             f"LLM returned None content on retry for model {model}"
         )
+        if retry_response.usage:
+            usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (retry_response.usage.prompt_tokens or 0)
+            usage["completion_tokens"] = usage.get("completion_tokens", 0) + (retry_response.usage.completion_tokens or 0)
         pick = parse_pick(retry_content, num_options)
 
-    return pick, content
+    return pick, content, usage
 
 
 async def run_draft(tournament: dict, tournament_path: Path) -> None:
-    """Run the full snake draft."""
+    """Run the full straight draft."""
     assert "draft" not in tournament, (
         "Tournament already has draft results. Delete the 'draft' key to re-run."
     )
@@ -303,13 +333,21 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     num_entrants = len(entrants)
     entrants_by_seed = {e["seed"]: e for e in entrants}
 
-    # Load Jumpstart packs and oracle text
+    # Load Jumpstart packs and open a fixed pool for the draft
     half_decks = load_jumpstart_themes(_ROOT)
-    oracle = _fetch_oracle_texts(half_decks)
+    pool_size = PACKS_PER_PLAYER * num_entrants
+    assert len(half_decks) >= pool_size, (
+        f"Need {pool_size} packs for draft but only {len(half_decks)} available"
+    )
+    pool = random.sample(half_decks, pool_size)
+    available_packs = {hd.theme: hd for hd in pool}
+    print(f"Opened {pool_size} packs for draft (from {len(half_decks)} total)")
 
-    # Build seed-indexed pack pool
-    available_packs = {hd.theme: hd for hd in half_decks}
-    print(f"Loaded {len(available_packs)} Jumpstart packs")
+    # Fetch oracle text only for the pool (not all 93 packs)
+    oracle = _fetch_oracle_texts(pool)
+
+    # Fetch prices for cost tracking
+    prices = load_prices()
 
     # Resolve configs
     presets_data = json.loads(_PRESETS_JSON.read_text())
@@ -317,42 +355,26 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     prompts = load_prompts(None)
     toolsets = load_toolsets(None)
 
-    # Snake draft
-    order = snake_draft_order(num_entrants)
-    picks: list[dict] = []
-    entrant_picks: dict[int, list[HalfDeck]] = {seed: [] for seed in entrants_by_seed}
-    client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
+    # Set up incremental draft log
+    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_dir = _LOGS_DIR / f"draft_{ts}"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_path = log_dir / "draft.jsonl"
+    print(f"Draft log: {log_path}")
 
-    for pick_idx, seed in enumerate(order):
-        round_num = 1 if pick_idx < num_entrants else 2
-        entrant = entrants_by_seed[seed]
-
-        # Select random options from available packs
-        available_themes = list(available_packs.keys())
-        assert len(available_themes) >= PACKS_PER_PICK, (
-            f"Only {len(available_themes)} packs left, need {PACKS_PER_PICK}"
-        )
-        option_themes = random.sample(available_themes, PACKS_PER_PICK)
-        options = [available_packs[t] for t in option_themes]
-
-        # Resolve entrant config
-        model, base_url, reasoning_effort, prompt_suffix = _resolve_entrant_config(
+    # Resolve all entrant configs upfront (each seed appears twice in draft)
+    entrant_configs: dict[int, tuple[str, str, str | None, str | None]] = {}
+    for entrant in entrants:
+        entrant_configs[entrant["seed"]] = _resolve_entrant_config(
             entrant, presets_data, personalities, prompts, toolsets
         )
 
-        # Build prompts
-        already_picked = entrant_picks[seed][0] if entrant_picks[seed] else None
-        system_prompt = build_draft_system_prompt(prompt_suffix)
-        user_prompt = build_draft_user_prompt(
-            round_num, options, oracle, already_picked
-        )
-
-        # Get API key
+    # Set up API clients (one per unique key+base_url)
+    client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
+    for model, base_url, _, _ in entrant_configs.values():
         key_env = required_api_key_env(base_url)
         api_key = os.environ.get(key_env, "")
         assert api_key, f"Missing API key: set {key_env} environment variable"
-
-        # Get or create cached client
         cache_key = (api_key, base_url)
         if cache_key not in client_cache:
             client_cache[cache_key] = AsyncOpenAI(
@@ -361,36 +383,104 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 timeout=LLM_TIMEOUT_SECS + 5,
                 max_retries=1,
             )
-        client = client_cache[cache_key]
 
-        print(
-            f"Pick {pick_idx + 1}/{len(order)}: "
-            f"Seed #{seed} ({entrant['display_name']}) — "
-            f"Round {round_num}, options: {option_themes}"
-        )
+    # Straight draft
+    order = draft_order(num_entrants)
+    picks: list[dict] = []
+    entrant_picks: dict[int, list[HalfDeck]] = {seed: [] for seed in entrants_by_seed}
+    cumulative_cost = 0.0
 
-        pick_num, reasoning = await _llm_pick(
-            client, model, system_prompt, user_prompt, reasoning_effort, PACKS_PER_PICK
-        )
+    # Initialize draft data so partial results survive ctrl-c
+    tournament["draft"] = {
+        "packs_per_player": PACKS_PER_PLAYER,
+        "pool": sorted(available_packs.keys()),
+        "picks": picks,
+        "decklists": {},
+    }
 
-        picked_theme = option_themes[pick_num - 1]
-        picked_pack = available_packs[picked_theme]
-        entrant_picks[seed].append(picked_pack)
+    with open(log_path, "a") as log_file:
+        for pick_idx, seed in enumerate(order):
+            round_num = 1 if pick_idx < num_entrants else 2
+            entrant = entrants_by_seed[seed]
 
-        # Remove picked pack from pool
-        del available_packs[picked_theme]
+            # All remaining packs are options (sorted for stable ordering)
+            option_themes = sorted(available_packs.keys())
+            options = [available_packs[t] for t in option_themes]
 
-        print(f"  -> Picked: {picked_theme}")
+            model, base_url, reasoning_effort, prompt_suffix = entrant_configs[seed]
 
-        picks.append(
-            {
+            # Build prompts
+            already_picked = entrant_picks[seed][0] if entrant_picks[seed] else None
+            system_prompt = build_draft_system_prompt(prompt_suffix)
+            user_prompt = build_draft_user_prompt(
+                round_num, options, oracle, already_picked
+            )
+
+            key_env = required_api_key_env(base_url)
+            api_key = os.environ.get(key_env, "")
+            client = client_cache[(api_key, base_url)]
+
+            print(
+                f"\nPick {pick_idx + 1}/{len(order)}: "
+                f"Seed #{seed} ({entrant['display_name']}) — "
+                f"Round {round_num}, {len(option_themes)} packs available"
+            )
+
+            pick_num, reasoning, usage = await _llm_pick(
+                client, model, system_prompt, user_prompt, reasoning_effort, len(options)
+            )
+
+            picked_theme = option_themes[pick_num - 1]
+            picked_pack = available_packs[picked_theme]
+            entrant_picks[seed].append(picked_pack)
+
+            # Remove picked pack from pool
+            del available_packs[picked_theme]
+
+            # Compute cost
+            pick_cost = 0.0
+            price = get_model_price(model, prices)
+            if price and usage:
+                input_price, output_price = price
+                pick_cost = (
+                    usage.get("prompt_tokens", 0) * input_price / 1_000_000
+                    + usage.get("completion_tokens", 0) * output_price / 1_000_000
+                )
+            cumulative_cost += pick_cost
+
+            print(
+                f"  -> Picked: {picked_theme} "
+                f"({usage.get('prompt_tokens', '?')}+{usage.get('completion_tokens', '?')} tok, "
+                f"${pick_cost:.4f}, total ${cumulative_cost:.4f})"
+            )
+
+            pick_record = {
                 "seed": seed,
                 "round": round_num,
                 "options": option_themes,
                 "picked": picked_theme,
                 "reasoning": reasoning,
+                "usage": usage,
+                "cost_usd": pick_cost,
             }
-        )
+            picks.append(pick_record)
+
+            # Write incremental JSONL log entry (full LLM input/output)
+            log_entry = {
+                **pick_record,
+                "ts": datetime.datetime.now().isoformat(),
+                "pick_idx": pick_idx,
+                "display_name": entrant["display_name"],
+                "model": model,
+                "system_prompt": system_prompt,
+                "user_prompt": user_prompt,
+                "cumulative_cost_usd": cumulative_cost,
+            }
+            log_file.write(json.dumps(log_entry) + "\n")
+            log_file.flush()
+
+            # Flush tournament JSON after each pick
+            tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
 
     # Build decklists
     decklists: dict[str, dict] = {}
@@ -410,15 +500,13 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             "cards": card_lines,
         }
 
-    # Save draft results
-    tournament["draft"] = {
-        "packs_per_pick": PACKS_PER_PICK,
-        "picks": picks,
-        "decklists": decklists,
-    }
-
+    # Save final draft results with decklists
+    tournament["draft"]["decklists"] = decklists
+    tournament["draft"]["total_cost_usd"] = cumulative_cost
     tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
-    print(f"\nDraft complete! Results saved to {tournament_path}")
+    print(f"\nDraft complete! Total cost: ${cumulative_cost:.4f}")
+    print(f"Results saved to {tournament_path}")
+    print(f"Full log: {log_path}")
 
     # Print summary
     print("\nDecklists:")

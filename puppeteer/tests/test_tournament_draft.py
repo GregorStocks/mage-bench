@@ -21,8 +21,8 @@ from scripts.tournament_draft import (
     _fetch_oracle_texts,
     build_draft_system_prompt,
     build_draft_user_prompt,
+    draft_order,
     parse_pick,
-    snake_draft_order,
 )
 
 _ROOT = Path(__file__).resolve().parent.parent.parent
@@ -71,26 +71,33 @@ def oracle_cache(golden_packs):
     return json.loads(cache_path.read_text())
 
 
-# -- Snake draft order tests --
+# -- Straight draft order tests --
 
 
-class TestSnakeDraftOrder:
+class TestDraftOrder:
     def test_size_8(self):
-        order = snake_draft_order(8)
-        assert order == [1, 2, 3, 4, 5, 6, 7, 8, 8, 7, 6, 5, 4, 3, 2, 1]
+        order = draft_order(8)
+        assert order == [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8]
         assert len(order) == 16
 
     def test_size_16(self):
-        order = snake_draft_order(16)
+        order = draft_order(16)
         assert len(order) == 32
         assert order[:16] == list(range(1, 17))
-        assert order[16:] == list(range(16, 0, -1))
+        assert order[16:] == list(range(1, 17))
 
     def test_each_seed_appears_twice(self):
         for size in (4, 8, 16):
-            order = snake_draft_order(size)
+            order = draft_order(size)
             for seed in range(1, size + 1):
                 assert order.count(seed) == 2, f"Seed {seed} doesn't appear exactly twice in size {size}"
+
+    def test_higher_seed_always_picks_first(self):
+        order = draft_order(8)
+        # In each round, seed 1 picks before seed 2, etc.
+        for round_start in (0, 8):
+            round_order = order[round_start:round_start + 8]
+            assert round_order == list(range(1, 9))
 
 
 # -- Parse pick tests --
