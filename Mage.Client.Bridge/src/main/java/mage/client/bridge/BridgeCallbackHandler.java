@@ -124,6 +124,7 @@ public class BridgeCallbackHandler {
     private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
+    private volatile boolean superseded = false; // set when createFreshForNextGame() replaces this handler
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
 
@@ -416,6 +417,14 @@ public class BridgeCallbackHandler {
      * Installs the new handler on the client (so callbacks route to it) and returns it.
      */
     public BridgeCallbackHandler createFreshForNextGame() {
+        // Mark this handler as superseded so threads stuck in
+        // awaitPendingAction / passPriority bail out immediately
+        // instead of blocking for 120+ seconds on an abandoned handler.
+        this.superseded = true;
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
+
         BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
         fresh.session = this.session;
         fresh.mcpMode = this.mcpMode;
@@ -457,6 +466,12 @@ public class BridgeCallbackHandler {
         BridgeCallbackHandler fresh = createFreshForNextGame();
         mage.cards.decks.DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
+        // Set expectedStartTableId BEFORE joining so stale START_GAME callbacks
+        // (from server reconnection replaying old games) are rejected during the
+        // window between createFreshForNextGame() and jh.joinTable().
+        if (targetTableId != null) {
+            fresh.expectedStartTableId = targetTableId;
+        }
         UUID tableId = jh.joinTable(deckPath, targetTableId);
         assert tableId != null : "Failed to join any table within timeout";
         fresh.expectedStartTableId = tableId;
@@ -1961,7 +1976,7 @@ public class BridgeCallbackHandler {
      */
     private PendingAction awaitPendingAction() {
         while (pendingAction == null) {
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
+            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 break;
             }
             synchronized (actionLock) {
@@ -1988,7 +2003,7 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 return next;
             }
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
+            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 return null;
             }
             if (System.currentTimeMillis() - waitStart > 10_000) {
@@ -3336,7 +3351,7 @@ public class BridgeCallbackHandler {
             }
 
             // Game over bail-out: don't block forever if the game ended
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
+            if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 long elapsed = System.currentTimeMillis() - startTime;
                 long idleSinceCallback = lastActionableCallbackAt > 0
                     ? System.currentTimeMillis() - lastActionableCallbackAt : 0;
