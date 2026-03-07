@@ -696,12 +696,17 @@ async def run_pilot_loop(
                 cached_render = None
                 render_counter = 0
 
-            # Tail cache breakpoint: mark the boundary between the stable
-            # cached_render prefix and the dynamic tail so Anthropic can cache
-            # the entire prefix (~50-80k tokens).  Uses a copy to avoid
-            # mutating the cached_render template.
-            if cache_control and cached_render is not None and len(cached_render) > 0:
-                tail_idx = len(cached_render) - 1
+            # Tail cache breakpoint: mark the end of the stable prefix so
+            # Anthropic can cache it.  For long history, this is the boundary
+            # between cached_render and the dynamic tail (~50-80k tokens).
+            # For short history, this marks the last message so the entire
+            # growing prefix gets cached across iterations.  Uses a copy to
+            # avoid mutating the cached_render template or history dicts.
+            if cache_control and len(messages) > 1:
+                if cached_render is not None and len(cached_render) > 0:
+                    tail_idx = len(cached_render) - 1
+                else:
+                    tail_idx = len(messages) - 1
                 marked = _with_cache_control(messages[tail_idx], cache_control)
                 if marked is not messages[tail_idx]:
                     messages[tail_idx] = marked

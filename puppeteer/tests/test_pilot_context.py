@@ -774,3 +774,28 @@ def test_tail_breakpoint_does_not_mutate_cached_render():
 
     # cached_render's message should be unchanged
     assert cached_render[tail_idx].get("content") == original_content
+
+
+def test_short_history_tail_breakpoint():
+    """Short-history path marks the last message with cache_control."""
+    history = _make_history(6)  # Well under CONTEXT_RECENT_COUNT
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+
+    # Simulate the short-history tail breakpoint logic from run_pilot_loop
+    # (cached_render is None, so tail_idx = len(messages) - 1)
+    assert len(messages) > 1
+    tail_idx = len(messages) - 1
+    original_history_content = history[-1].get("content")
+
+    marked = _with_cache_control(messages[tail_idx], cc)
+    if marked is not messages[tail_idx]:
+        messages[tail_idx] = marked
+
+    # Last message should now have cache_control
+    last_content = messages[tail_idx]["content"]
+    assert isinstance(last_content, list)
+    assert any(block.get("cache_control") == cc for block in last_content)
+
+    # Original history dict must not be mutated
+    assert history[-1].get("content") == original_history_content
