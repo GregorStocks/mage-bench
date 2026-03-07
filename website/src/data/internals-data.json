@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T17:08:37.750765+00:00",
+  "generatedAt": "2026-03-07T01:56:30.132206+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -16436,6 +16436,138 @@
           "thinkingTimeSecs": 80.3,
           "responses": 45,
           "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_170455_g1",
+      "ts": "2026-03-06T17:04:55",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "google/gemini-3-pro-preview::medium",
+          "modelName": "Gemini 3 Pro (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 2.4609,
+          "promptTokens": 980831,
+          "completionTokens": 41607,
+          "cachedTokens": 401777,
+          "reasoningTokens": 39381,
+          "toolCallsOk": 131,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 1101.2,
+          "responses": 125,
+          "timeouts": 0,
+          "otherErrors": 2,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.0,
+          "promptTokens": 1349429,
+          "completionTokens": 51556,
+          "cachedTokens": 946560,
+          "reasoningTokens": 44453,
+          "toolCallsOk": 156,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 1320.0,
+          "responses": 153,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_170455_g2",
+      "ts": "2026-03-06T17:04:55",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "meta-llama/llama-4-maverick",
+          "modelName": "Llama 4 Maverick",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.1065,
+          "promptTokens": 701425,
+          "completionTokens": 2214,
+          "cachedTokens": 0,
+          "reasoningTokens": 0,
+          "toolCallsOk": 71,
+          "toolCallsFailed": 4,
+          "thinkingTimeSecs": 126.9,
+          "responses": 68,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 2.3899,
+          "promptTokens": 748176,
+          "completionTokens": 34634,
+          "cachedTokens": 536320,
+          "reasoningTokens": 30103,
+          "toolCallsOk": 98,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 861.6,
+          "responses": 95,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_170455_g3",
+      "ts": "2026-03-06T17:04:55",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "google/gemini-3.1-pro-preview::medium",
+          "modelName": "Gemini 3.1 Pro (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 3.3898,
+          "promptTokens": 1658978,
+          "completionTokens": 5983,
+          "cachedTokens": 799858,
+          "reasoningTokens": 385,
+          "toolCallsOk": 159,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 691.2,
+          "responses": 159,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.1948,
+          "promptTokens": 769081,
+          "completionTokens": 1710,
+          "cachedTokens": 89748,
+          "reasoningTokens": 0,
+          "toolCallsOk": 83,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 242.7,
+          "responses": 86,
+          "timeouts": 1,
           "otherErrors": 0,
           "contextResets": 0
         }
