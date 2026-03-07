@@ -1,15 +1,7 @@
 """Migration: v3 -> v4 (add season and tournament)."""
 
-import sys
-from pathlib import Path
-
 SOURCE_VERSION = 3
 TARGET_VERSION = 4
-
-# Ensure puppeteer/src is importable for harness_epoch
-_PUPPETEER_SRC = str(Path(__file__).resolve().parent.parent.parent / "puppeteer" / "src")
-if _PUPPETEER_SRC not in sys.path:
-    sys.path.insert(0, _PUPPETEER_SRC)
 
 
 def compute_season(harness_epoch: int) -> int:

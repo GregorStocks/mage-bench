@@ -24,14 +24,16 @@ from pathlib import Path
 
 from openai import OpenAI
 
-# Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
-logging.getLogger("httpx").setLevel(logging.WARNING)
-
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-
-from scripts import scryfall  # noqa: E402
-from scripts.analysis.annotate_game import annotate_game  # noqa: E402
-from scripts.analysis.blunder_eval_common import (  # noqa: E402
+from puppeteer.decision_renderer import (
+    _chosen_display as _renderer_chosen_display,
+    card_display,
+    permanent_display,
+    render_decision,
+)
+from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
+from scripts import scryfall
+from scripts.analysis.annotate_game import annotate_game
+from scripts.analysis.blunder_eval_common import (
     action_result,
     decision_index,
     is_canonical_decision,
@@ -42,15 +44,12 @@ from scripts.analysis.blunder_eval_common import (  # noqa: E402
     load_game,
     snapshot_index,
 )
-from scripts.analysis.extract_decisions import extract_decisions  # noqa: E402
-from puppeteer.decision_renderer import (  # noqa: E402
-    card_display,
-    permanent_display,
-    render_decision,
-)
-from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401, E402
-from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price  # noqa: E402
+from scripts.analysis.extract_decisions import extract_decisions
 
+# Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
+logging.getLogger("httpx").setLevel(logging.WARNING)
+
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
 # Model (OpenRouter ID)
@@ -707,10 +706,8 @@ def _chosen_display(d: dict) -> str:
     Delegates to the canonical renderer's _chosen_display, extracting
     the relevant fields from the decision dict.
     """
-    from puppeteer.decision_renderer import _chosen_display as _renderer_chosen_display  # noqa: PLC0415
-
     chosen = d.get("chosen")
-    chosen_args = d.get("chosenArgs") or d.get("chosen_args") or {}  # noqa: MBF001
+    chosen_args = d.get("chosenArgs") or d.get("chosen_args")
     choices = d.get("choices", [])
     return _renderer_chosen_display(chosen, chosen_args, choices)
 
@@ -1263,7 +1260,7 @@ def main(gz_path: str) -> float:
         if ar.get("success") is False:
             skip_indices.add(i)
             continue
-        chosen_args = d.get("chosenArgs") or d.get("chosen_args") or {}  # noqa: MBF001
+        chosen_args = d.get("chosenArgs") or d.get("chosen_args")
         if d.get("chosen") is None and not ar and not chosen_args:
             skip_indices.add(i)
             continue

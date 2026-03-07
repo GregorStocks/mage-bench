@@ -12,17 +12,12 @@ To update golden files after intentional changes:
 
 import json
 import os
-import sys
 from pathlib import Path
 
 import pytest
 
-_ROOT = Path(__file__).resolve().parent.parent.parent
-sys.path.insert(0, str(_ROOT / "puppeteer" / "src"))
-sys.path.insert(0, str(_ROOT / "scripts"))
-
-from puppeteer.jumpstart import load_jumpstart_themes  # noqa: E402
-from scripts.tournament_draft import (  # noqa: E402
+from puppeteer.jumpstart import load_jumpstart_themes
+from scripts.tournament_draft import (
     _fetch_oracle_texts,
     build_draft_system_prompt,
     build_draft_user_prompt,
@@ -30,6 +25,7 @@ from scripts.tournament_draft import (  # noqa: E402
     snake_draft_order,
 )
 
+_ROOT = Path(__file__).resolve().parent.parent.parent
 GOLDEN_DIR = Path(__file__).parent / "golden" / "draft_prompts"
 UPDATE_MODE = bool(os.environ.get("UPDATE_DRAFT_GOLDEN"))
 

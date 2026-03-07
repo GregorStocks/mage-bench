@@ -16,26 +16,22 @@ import json
 import os
 import random
 import re
-import sys
 from pathlib import Path
 
 from openai import AsyncOpenAI
 
-_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(_ROOT / "puppeteer" / "src"))
-sys.path.insert(0, str(_ROOT / "scripts"))
-
-import scryfall  # noqa: E402
-from puppeteer.config import (  # noqa: E402
+from puppeteer.config import (
     PilotPlayer,
     resolve_preset,
     load_personalities,
     load_prompts,
 )
-from puppeteer.decision_renderer import BASIC_LAND_NAMES  # noqa: E402
-from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes  # noqa: E402
-from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env  # noqa: E402
+from puppeteer.decision_renderer import BASIC_LAND_NAMES
+from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
+from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
+from scripts import scryfall
 
+_ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
 _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 

@@ -1065,11 +1065,13 @@ async def run_pilot_loop(
                         }
                     )
 
-                # Stall counter: only count turns where LLM had a real chance to act
-                if not turn_had_successful_action:  # noqa: SIM102
-                    if turn_had_actionable_opportunity or not turn_tools_called or turn_tools_called <= INFO_ONLY_TOOLS:
-                        turns_without_progress += 1
-                    # else: passive wait (pass_priority timeout) — don't penalize
+                # Stall counter: only count turns where LLM had a real chance to act.
+                # When not turn_had_successful_action but the LLM is in a passive
+                # wait (pass_priority timeout), don't penalize.
+                if not turn_had_successful_action and (
+                    turn_had_actionable_opportunity or not turn_tools_called or turn_tools_called <= INFO_ONLY_TOOLS
+                ):
+                    turns_without_progress += 1
             else:
                 # LLM stopped calling tools — always counts as stalling
                 turns_without_progress += 1

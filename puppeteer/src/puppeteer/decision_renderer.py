@@ -385,11 +385,13 @@ def _resolve_mana_plan(mana_plan: str, snapshot: dict | None) -> str:
 
 def _chosen_display(
     chosen: object,
-    chosen_args: dict,
+    chosen_args: dict | None,
     choices: list,
 ) -> str:
     """Format what was chosen for display."""
     if chosen is None:
+        if not chosen_args:
+            return "(no response)"
         # Batch attack/block declarations and text choices store the response
         # in chosen_args, not in chosen.  Render them instead of "(no response)".
         attackers = chosen_args.get("attackers")

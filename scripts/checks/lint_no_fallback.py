@@ -3,7 +3,7 @@
 AGENTS.md says "never add graceful fallbacks, silent defaults, or
 backwards-compatibility shims."  This script enforces a subset of that
 rule by catching `or []`, `or {}`, and `or ""` patterns using AST
-analysis.  Suppress individual occurrences with `# noqa: MBF001`.
+analysis.  There is no suppression mechanism — restructure the code instead.
 
 Patterns NOT checked (and why):
   - `or 0` / `or 0.0`: too many legitimate uses (nullable API token counts)
@@ -21,8 +21,6 @@ SCAN_DIRS = [
     REPO_ROOT / "puppeteer" / "src",
     REPO_ROOT / "scripts",
 ]
-
-NOQA_TAG = "noqa: MBF001"
 
 
 def _is_empty_literal(node: ast.expr) -> str | None:
@@ -58,12 +56,9 @@ def _check_file(path: Path, source_lines: list[str]) -> list[str]:
             if desc is None:
                 continue
             lineno = value.lineno
-            line_text = source_lines[lineno - 1] if lineno <= len(source_lines) else ""
-            if NOQA_TAG in line_text:
-                continue
             rel = path.relative_to(REPO_ROOT)
             errors.append(
-                f"{rel}:{lineno}: {desc} (silent fallback; suppress with # {NOQA_TAG})"
+                f"{rel}:{lineno}: {desc} (silent fallback — restructure the code)"
             )
 
     return errors

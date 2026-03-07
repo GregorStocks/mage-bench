@@ -303,7 +303,9 @@ def chosen_display(decision: dict) -> str:
     if chosen is not None:
         return str(chosen)
     # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen
-    chosen_args = decision.get("chosenArgs") or decision.get("chosen_args") or {}  # noqa: MBF001
+    chosen_args = decision.get("chosenArgs") or decision.get("chosen_args")
+    if not chosen_args:
+        return "?"
     if chosen_args.get("attackers"):
         return f"Attack with: {chosen_args['attackers']}"
     if chosen_args.get("blockers"):

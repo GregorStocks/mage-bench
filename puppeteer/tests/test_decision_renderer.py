@@ -419,8 +419,8 @@ class TestChosenDisplay:
 
     def test_no_response(self) -> None:
         """chosen=None with empty chosen_args returns (no response)."""
-        result = _chosen_display(None, {}, [])
-        assert result == "(no response)"
+        assert _chosen_display(None, {}, []) == "(no response)"
+        assert _chosen_display(None, None, []) == "(no response)"
 
 
 class TestResolveManaplan:
