@@ -151,14 +151,55 @@ if (tournament) {
   }
 }
 
-// Build bracket rounds with connector data
+// Standard single-elimination seeding order for 16 players
+const BRACKET_16_R1: [number, number][] = [
+  [1, 16], [8, 9], [5, 12], [4, 13],
+  [6, 11], [3, 14], [7, 10], [2, 15],
+];
+
+const ROUND_NAMES: Record<number, string> = {
+  1: 'Round of 16',
+  2: 'Quarterfinals',
+  3: 'Semifinals',
+  4: 'Finals',
+};
+
+// Build bracket rounds — use real data if available, otherwise generate empty bracket from seeds
 function buildBracketData(tournament: any) {
-  if (!tournament || !tournament.rounds || tournament.rounds.length === 0) return null;
-  return tournament.rounds.map((round: any) => ({
-    name: round.name,
-    round: round.round,
-    matches: round.matches,
-  }));
+  if (!tournament) return null;
+
+  if (tournament.rounds && tournament.rounds.length > 0) {
+    return tournament.rounds.map((round: any) => ({
+      name: round.name,
+      round: round.round,
+      matches: round.matches,
+    }));
+  }
+
+  // Generate empty bracket structure from seeds
+  if (tournament.size !== 16) return null;
+
+  const rounds: any[] = [];
+
+  // Round 1
+  rounds.push({
+    name: ROUND_NAMES[1],
+    round: 1,
+    matches: BRACKET_16_R1.map(([a, b]) => ({ seed_a: a, seed_b: b, winner_seed: null, game_id: null })),
+  });
+
+  // Subsequent rounds — empty TBD slots
+  let matchCount = 4;
+  for (let r = 2; r <= 4; r++) {
+    rounds.push({
+      name: ROUND_NAMES[r],
+      round: r,
+      matches: Array.from({ length: matchCount }, () => ({ seed_a: null, seed_b: null, winner_seed: null, game_id: null })),
+    });
+    matchCount = Math.max(1, matchCount / 2);
+  }
+
+  return rounds;
 }
 const bracketRounds = buildBracketData(tournament);
 ---
@@ -196,7 +237,6 @@ const bracketRounds = buildBracketData(tournament);
                 <div class="entrant-info">
                   <div class="entrant-name">
                     {e.display_name}
-                    {e.reasoning_effort && <span class="entrant-effort">({e.reasoning_effort})</span>}
                   </div>
                   <div class="entrant-personality">
                     <span class="personality-name">{e.personality}</span>
@@ -245,15 +285,17 @@ const bracketRounds = buildBracketData(tournament);
         </details>
       )}
 
-      {/* Bracket */}
-      {tournament && (!bracketRounds || bracketRounds.length === 0) && (
+      {/* Draft pending */}
+      {tournament && !tournament.draft && (
         <div class="bracket-section">
-          <h3>Bracket</h3>
+          <h3>Draft</h3>
           <div class="bracket-pending">
-            <p>The tournament bracket will appear here once the draft is complete and matches begin.</p>
+            <p>Draft results will appear here once the Jumpstart draft is complete.</p>
           </div>
         </div>
       )}
+
+      {/* Bracket */}
       {bracketRounds && bracketRounds.length > 0 && (
         <div class="bracket-section">
           <h3>Bracket</h3>
@@ -272,22 +314,35 @@ const bracketRounds = buildBracketData(tournament);
                     <div class="round-label">{round.name}</div>
                     <div class="round-matches">
                       {round.matches.map((match: any) => {
-                        const ea = entrantsBySeed[match.seed_a];
-                        const eb = entrantsBySeed[match.seed_b];
+                        const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
+                        const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
                         const isComplete = match.winner_seed != null;
+                        const isTBD = match.seed_a == null || match.seed_b == null;
                         const gameUrl = match.game_id ? `/games/${match.game_id}` : null;
                         return (
                           <div class="bracket-match-wrap">
-                            <a class:list={['bracket-match', { 'has-link': !!gameUrl }]} href={gameUrl || undefined}>
+                            <a class:list={['bracket-match', { 'has-link': !!gameUrl, 'tbd': isTBD }]} href={gameUrl || undefined}>
                               <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
-                                <span class="bracket-seed-num">#{match.seed_a}</span>
-                                <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
-                                {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                {match.seed_a != null ? (
+                                  <>
+                                    <span class="bracket-seed-num">#{match.seed_a}</span>
+                                    <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                    {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                  </>
+                                ) : (
+                                  <span class="bracket-player-name tbd-text">TBD</span>
+                                )}
                               </div>
                               <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_b }]}>
-                                <span class="bracket-seed-num">#{match.seed_b}</span>
-                                <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
-                                {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                {match.seed_b != null ? (
+                                  <>
+                                    <span class="bracket-seed-num">#{match.seed_b}</span>
+                                    <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                    {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                  </>
+                                ) : (
+                                  <span class="bracket-player-name tbd-text">TBD</span>
+                                )}
                               </div>
                             </a>
                           </div>
@@ -702,6 +757,15 @@ const bracketRounds = buildBracketData(tournament);
     white-space: nowrap;
   }
 
+  .bracket-match.tbd {
+    opacity: 0.5;
+  }
+
+  .tbd-text {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
   .bracket-win-mark {
     font-size: 0.6rem;
     font-weight: 700;
@@ -800,6 +864,7 @@ const bracketRounds = buildBracketData(tournament);
   /* --- Games Section --- */
   .games-section {
     max-width: 52rem;
+    margin: 0 auto;
   }
 
   .games-section h2 {
