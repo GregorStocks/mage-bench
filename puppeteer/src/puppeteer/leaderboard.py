@@ -8,7 +8,7 @@ import math
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, TypedDict, cast
+from typing import Any, TypedDict
 
 from typing_extensions import NotRequired
 
@@ -480,7 +480,11 @@ def generate_leaderboard(
         models.append(entry)
 
     # Sort by rating desc, then games_played desc, then modelId for determinism
-    models.sort(key=lambda m: (-cast(int, m["rating"]), -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))
+    def rated_sort_key(m: _ModelEntry) -> tuple[int, int, str, str]:
+        assert m["rating"] is not None
+        return (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", ""))
+
+    models.sort(key=rated_sort_key)
 
     benchmark_results = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
