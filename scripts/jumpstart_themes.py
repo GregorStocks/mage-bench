@@ -53,14 +53,7 @@ def validate_themes(
     expected_count: int = 20,
 ) -> None:
     """Assert all cards resolved and each variant has the expected card count."""
-    all_names: set[str] = set()
-    for variants in themes.values():
-        for cards in variants:
-            for _qty, name in cards:
-                if name not in basic_lands:
-                    all_names.add(name)
-
-    missing = all_names - set(resolved.keys())
+    missing = set(collect_card_names(themes, basic_lands)) - set(resolved.keys())
     assert not missing, f"Unresolved cards: {missing}"
 
     for theme, variants in themes.items():
@@ -91,7 +84,8 @@ def generate_and_append(
 
     for path in output_paths:
         p = Path(path)
-        p.write_text(p.read_text() + text_to_append)
+        with p.open("a") as f:
+            f.write(text_to_append)
         print(f"Appended {len(entries)} theme variants to {p}")
 
     print(f"\nDone! Added {len(themes)} themes ({len(entries)} variants total)")
