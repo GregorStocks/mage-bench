@@ -11,7 +11,7 @@ Usage:
 
 from __future__ import annotations
 
-from scripts import scryfall
+from scripts import jumpstart_themes, scryfall
 
 # fmt: off
 # Missing themes with card names and quantities.
@@ -454,7 +454,6 @@ MISSING_THEMES: dict[str, list[list[tuple[int, str]]]] = {
 }
 # fmt: on
 
-# Basic land names -> preferred JMP collector numbers (use first available)
 _BASIC_LAND_DEFAULTS: dict[str, tuple[str, str]] = {
     "Plains": ("JMP", "45"),
     "Island": ("JMP", "50"),
@@ -463,140 +462,21 @@ _BASIC_LAND_DEFAULTS: dict[str, tuple[str, str]] = {
     "Forest": ("JMP", "74"),
 }
 
-# Cards that appear in M21 rather than JMP, or need specific set preference
-_SET_PREFERENCE = {"JMP", "M21"}
+_PREFERRED_SETS = {"JMP", "M21"}
 
-
-def resolve_all_cards(
-    themes: dict[str, list[list[tuple[int, str]]]],
-) -> dict[str, tuple[str, str]]:
-    """Resolve all unique non-land card names to (set_code, collector_number)."""
-    # Collect unique names
-    all_names: set[str] = set()
-    for variants in themes.values():
-        for cards in variants:
-            for _qty, name in cards:
-                if name not in _BASIC_LAND_DEFAULTS:
-                    all_names.add(name)
-
-    print(f"Resolving {len(all_names)} unique card names via Scryfall...")
-
-    # Use Scryfall collection API
-    name_list = sorted(all_names)
-    resolved: dict[str, tuple[str, str]] = {}
-
-    for i in range(0, len(name_list), 75):
-        batch = name_list[i : i + 75]
-        found, not_found = scryfall.collection(batch)
-        for card in found:
-            name = card["name"]
-            set_code = card["set"].upper()
-            collector = card["collector_number"]
-            resolved[name] = (set_code, collector)
-        for nf in not_found:
-            print(f"  WARNING: not found in collection: {nf['name']}")
-
-    # For cards not found via collection, try individual lookup preferring JMP/M21
-    missing = all_names - set(resolved.keys())
-    for name in sorted(missing):
-        lookup = scryfall.named(name)
-        if lookup is None and " // " in name:
-            # Split cards: try front half name (Scryfall resolves to full card)
-            lookup = scryfall.named(name.split(" // ")[0])
-        if lookup is not None:
-            resolved[name] = (lookup["set"].upper(), lookup["collector_number"])
-        else:
-            print(f"  ERROR: card not found at all: {name}")
-
-    # Now try to find JMP/M21 printings for cards resolved to other sets
-    recheck: list[str] = []
-    for name, (set_code, _) in resolved.items():
-        if set_code not in _SET_PREFERENCE:
-            recheck.append(name)
-
-    if recheck:
-        print(f"Re-resolving {len(recheck)} cards to find JMP/M21 printings...")
-        for name in recheck:
-            # For split cards, search by front half name
-            search_name = name.split(" // ")[0] if " // " in name else name
-            # Search for JMP printing first, then M21
-            for preferred_set in ["jmp", "m21"]:
-                results = scryfall.search(f'!"{search_name}" set:{preferred_set}')
-                if results:
-                    card = results[0]
-                    resolved[name] = (card["set"].upper(), card["collector_number"])
-                    break
-
-    return resolved
-
-
-def format_theme_entry(
-    theme: str,
-    variant_idx: int,
-    num_variants: int,
-    cards: list[tuple[int, str]],
-    resolved: dict[str, tuple[str, str]],
-) -> str:
-    """Format a single theme variant in jumpstart.txt format."""
-    if num_variants == 1:
-        header = f"# {theme}"
-    else:
-        header = f"# {theme} ({variant_idx + 1})"
-
-    lines = [header]
-    for qty, name in cards:
-        if name in _BASIC_LAND_DEFAULTS:
-            set_code, num = _BASIC_LAND_DEFAULTS[name]
-        else:
-            assert name in resolved, f"Card not resolved: {name}"
-            set_code, num = resolved[name]
-        lines.append(f"{qty} {set_code} {num} {name}")
-
-    return "\n".join(lines)
+_OUTPUT_PATHS = [
+    "Mage/src/main/resources/jumpstart/jumpstart.txt",
+    "Mage.Client/release/sample-decks/Jumpstart/jumpstart_custom.txt",
+]
 
 
 def main() -> None:
-    resolved = resolve_all_cards(MISSING_THEMES)
-
-    # Validate all cards resolved
-    all_names: set[str] = set()
-    for variants in MISSING_THEMES.values():
-        for cards in variants:
-            for _qty, name in cards:
-                if name not in _BASIC_LAND_DEFAULTS:
-                    all_names.add(name)
-
-    missing = all_names - set(resolved.keys())
-    assert not missing, f"Unresolved cards: {missing}"
-
-    # Validate card counts
-    for theme, variants in MISSING_THEMES.items():
-        for i, cards in enumerate(variants):
-            total = sum(qty for qty, _ in cards)
-            assert total == 20, (
-                f"{theme} variant {i + 1} has {total} cards, expected 20"
-            )
-
-    # Generate jumpstart.txt entries
-    entries: list[str] = []
-    for theme in sorted(MISSING_THEMES.keys()):
-        variants = MISSING_THEMES[theme]
-        for i, cards in enumerate(variants):
-            entry = format_theme_entry(theme, i, len(variants), cards, resolved)
-            entries.append(entry)
-
-    new_content = "\n\n".join(entries) + "\n"
-
-    # Append to both jumpstart.txt files
-    for path in [
-        "Mage/src/main/resources/jumpstart/jumpstart.txt",
-        "Mage.Client/release/sample-decks/Jumpstart/jumpstart_custom.txt",
-    ]:
-        with open(path, "a") as f:
-            f.write("\n" + new_content)
-        print(f"Appended {len(entries)} theme variants to {path}")
-
-    print(f"\nDone! Added {len(MISSING_THEMES)} themes ({len(entries)} variants total)")
+    names = jumpstart_themes.collect_card_names(MISSING_THEMES, _BASIC_LAND_DEFAULTS)
+    resolved = scryfall.resolve_cards(names, preferred_sets=_PREFERRED_SETS)
+    jumpstart_themes.validate_themes(MISSING_THEMES, resolved, _BASIC_LAND_DEFAULTS)
+    jumpstart_themes.generate_and_append(
+        MISSING_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS
+    )
 
 
 if __name__ == "__main__":

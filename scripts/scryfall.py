@@ -212,6 +212,77 @@ def get_oracle_texts(names: list[str]) -> dict[str, dict]:
     return result
 
 
+def resolve_cards(
+    names: list[str],
+    pre_resolved: dict[str, tuple[str, str]] | None = None,
+    preferred_sets: set[str] | None = None,
+) -> dict[str, tuple[str, str]]:
+    """Resolve card names to (set_code, collector_number) via Scryfall.
+
+    Args:
+        names: Card names to resolve.
+        pre_resolved: Already-resolved cards to skip (e.g. from XMage set file).
+        preferred_sets: If provided, re-resolve cards not in these sets by
+            searching for a printing in a preferred set.
+
+    Returns dict mapping card name to (set_code, collector_number).
+    """
+    resolved: dict[str, tuple[str, str]] = {}
+    remaining: set[str] = set(names)
+
+    # Step 1: Use pre-resolved cards
+    if pre_resolved:
+        for name in list(remaining):
+            if name in pre_resolved:
+                resolved[name] = pre_resolved[name]
+                remaining.discard(name)
+
+    if not remaining:
+        return resolved
+
+    # Step 2: Batch collection lookup
+    name_list = sorted(remaining)
+    print(f"Resolving {len(name_list)} cards via Scryfall...")
+    for i in range(0, len(name_list), 75):
+        batch = name_list[i : i + 75]
+        found, not_found = collection(batch)
+        for card in found:
+            resolved[card["name"]] = (card["set"].upper(), card["collector_number"])
+        for nf in not_found:
+            print(f"  WARNING: not found in collection: {nf['name']}")
+
+    # Step 3: Individual fallback for missing cards (split card handling)
+    missing = remaining - set(resolved.keys())
+    for name in sorted(missing):
+        lookup = named(name)
+        if lookup is None and " // " in name:
+            lookup = named(name.split(" // ")[0])
+        if lookup is not None:
+            resolved[name] = (lookup["set"].upper(), lookup["collector_number"])
+        else:
+            print(f"  ERROR: card not found at all: {name}")
+
+    # Step 4: Re-resolve cards not in preferred sets
+    if preferred_sets:
+        recheck = [n for n in resolved if resolved[n][0] not in preferred_sets]
+        if recheck:
+            print(
+                f"Re-resolving {len(recheck)} cards to find preferred set printings..."
+            )
+            for name in recheck:
+                search_name = name.split(" // ")[0] if " // " in name else name
+                for pref_set in sorted(preferred_sets):
+                    results = search(f'!"{search_name}" set:{pref_set.lower()}')
+                    if results:
+                        resolved[name] = (
+                            results[0]["set"].upper(),
+                            results[0]["collector_number"],
+                        )
+                        break
+
+    return resolved
+
+
 def search(query: str) -> list[dict]:
     """Search Scryfall with a query string, no caching.
 

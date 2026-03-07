@@ -56,8 +56,6 @@ def _normalize_split_name(name: str) -> str:
 
 def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
     """Resolve card names to (set_code, collector_number) via Scryfall."""
-    resolved: dict[str, tuple[str, str]] = {}
-
     # Normalize split card names and track original -> normalized mapping
     norm_to_orig: dict[str, str] = {}
     normalized: list[str] = []
@@ -66,26 +64,16 @@ def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
         norm_to_orig[norm] = n
         normalized.append(norm)
 
-    # Primary resolution via /cards/collection
-    not_found_norms: list[str] = []
-    for i in range(0, len(normalized), 75):
-        batch = normalized[i : i + 75]
-        found, not_found = scryfall.collection(batch)
-        for card in found:
-            orig = norm_to_orig.get(card["name"], card["name"])
-            resolved[orig] = (card["set"].upper(), card["collector_number"])
-        not_found_norms.extend(nf["name"] for nf in not_found)
+    norm_resolved = scryfall.resolve_cards(normalized)
 
-    # Fallback: for unresolved split cards, try the first half individually
-    for nf_norm in not_found_norms:
-        orig = norm_to_orig.get(nf_norm, nf_norm)
-        if " // " in nf_norm:
-            first_half = nf_norm.split(" // ")[0]
-            lookup = scryfall.named(first_half)
-            if lookup is not None:
-                resolved[orig] = (lookup["set"].upper(), lookup["collector_number"])
-                continue
-        print(f"WARNING: card not found: {orig}", file=sys.stderr)
+    # Map back to original names
+    resolved: dict[str, tuple[str, str]] = {}
+    for norm, val in norm_resolved.items():
+        resolved[norm_to_orig.get(norm, norm)] = val
+
+    missing = set(names) - set(resolved.keys())
+    for name in sorted(missing):
+        print(f"WARNING: card not found: {name}", file=sys.stderr)
 
     return resolved
 

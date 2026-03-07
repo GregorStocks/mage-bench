@@ -14,15 +14,8 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from scripts import scryfall
+from scripts import jumpstart_themes, scryfall
 
-# Output files
-JUMPSTART_TXT = Path("Mage/src/main/resources/jumpstart/jumpstart.txt")
-JUMPSTART_CUSTOM = Path(
-    "Mage.Client/release/sample-decks/Jumpstart/jumpstart_custom.txt"
-)
-
-# Basic lands have fixed set/collector numbers — no Scryfall lookup needed
 _BASIC_LAND_DEFAULTS: dict[str, tuple[str, str]] = {
     "Plains": ("J22", "100"),
     "Island": ("J22", "101"),
@@ -33,8 +26,12 @@ _BASIC_LAND_DEFAULTS: dict[str, tuple[str, str]] = {
     "Wastes": ("J22", "834"),
 }
 
-# Preferred sets for card resolution (J22 first, then fallbacks)
-_SET_PREFERENCE = {"J22", "JMP", "M21", "M20", "M19"}
+_PREFERRED_SETS = {"J22", "JMP", "M21", "M20", "M19"}
+
+_OUTPUT_PATHS = [
+    Path("Mage/src/main/resources/jumpstart/jumpstart.txt"),
+    Path("Mage.Client/release/sample-decks/Jumpstart/jumpstart_custom.txt"),
+]
 
 # fmt: off
 J22_THEMES: dict[str, list[list[tuple[int, str]]]] = {
@@ -1235,142 +1232,31 @@ J22_THEMES: dict[str, list[list[tuple[int, str]]]] = {
 XMAGE_J22_JAVA = Path("Mage.Sets/src/mage/sets/Jumpstart2022.java")
 
 
-def _parse_xmage_j22() -> dict[str, str]:
-    """Parse XMage's Jumpstart2022.java to get card name -> collector number.
+def _parse_xmage_j22() -> dict[str, tuple[str, str]]:
+    """Parse XMage's Jumpstart2022.java to get card name -> (set, collector_number).
 
     XMage's collector numbers differ from Scryfall's, so we use XMage's
     own data as the source of truth for J22 cards.
     """
     text = XMAGE_J22_JAVA.read_text()
-    card_map: dict[str, str] = {}
+    card_map: dict[str, tuple[str, str]] = {}
     for m in re.finditer(r'new SetCardInfo\("(.+?)",\s*"?(\d+)"?', text):
         name, num = m.group(1), m.group(2)
         if name not in card_map:  # keep first occurrence
-            card_map[name] = num
+            card_map[name] = ("J22", num)
     return card_map
 
 
-def resolve_all_cards(
-    themes: dict[str, list[list[tuple[int, str]]]],
-) -> dict[str, tuple[str, str]]:
-    """Resolve all unique non-land card names to (set_code, collector_number).
-
-    First checks XMage's own J22 set file for collector numbers (since XMage's
-    numbering differs from Scryfall). Falls back to Scryfall for cards not in J22.
-    """
-    all_names: set[str] = set()
-    for variants in themes.values():
-        for cards in variants:
-            for _qty, name in cards:
-                if name not in _BASIC_LAND_DEFAULTS:
-                    all_names.add(name)
-
-    # Step 1: Check XMage's J22 set file first (authoritative for J22 collector numbers)
-    xmage_j22 = _parse_xmage_j22()
-    resolved: dict[str, tuple[str, str]] = {}
-    remaining: set[str] = set()
-    for name in all_names:
-        if name in xmage_j22:
-            resolved[name] = ("J22", xmage_j22[name])
-        else:
-            remaining.add(name)
-
-    print(f"Resolved {len(resolved)} cards from XMage J22 set file")
-
-    if not remaining:
-        return resolved
-
-    # Step 2: Use Scryfall for cards not in J22
-    print(f"Resolving {len(remaining)} remaining cards via Scryfall...")
-    name_list = sorted(remaining)
-
-    for i in range(0, len(name_list), 75):
-        batch = name_list[i : i + 75]
-        found, not_found = scryfall.collection(batch)
-        for card in found:
-            name = card["name"]
-            set_code = card["set"].upper()
-            collector = card["collector_number"]
-            resolved[name] = (set_code, collector)
-        for nf in not_found:
-            print(f"  WARNING: not found in collection: {nf['name']}")
-
-    # For cards not found via collection, try individual lookup
-    missing = remaining - set(resolved.keys())
-    for name in sorted(missing):
-        lookup = scryfall.named(name)
-        if lookup is None and " // " in name:
-            lookup = scryfall.named(name.split(" // ")[0])
-        if lookup is not None:
-            resolved[name] = (lookup["set"].upper(), lookup["collector_number"])
-        else:
-            print(f"  ERROR: card not found at all: {name}")
-
-    return resolved
-
-
-def format_theme_entry(
-    theme: str,
-    variant_idx: int,
-    num_variants: int,
-    cards: list[tuple[int, str]],
-    resolved: dict[str, tuple[str, str]],
-) -> str:
-    """Format a single theme variant in jumpstart.txt format."""
-    if num_variants == 1:
-        header = f"# {theme}"
-    else:
-        header = f"# {theme} ({variant_idx + 1})"
-
-    lines = [header]
-    for qty, name in cards:
-        if name in _BASIC_LAND_DEFAULTS:
-            set_code, num = _BASIC_LAND_DEFAULTS[name]
-        else:
-            assert name in resolved, f"Card not resolved: {name}"
-            set_code, num = resolved[name]
-        lines.append(f"{qty} {set_code} {num} {name}")
-
-    return "\n".join(lines)
-
-
 def main() -> None:
-    resolved = resolve_all_cards(J22_THEMES)
-
-    # Validate all cards resolved
-    all_names: set[str] = set()
-    for variants in J22_THEMES.values():
-        for cards in variants:
-            for _qty, name in cards:
-                if name not in _BASIC_LAND_DEFAULTS:
-                    all_names.add(name)
-
-    missing = all_names - set(resolved.keys())
-    assert not missing, f"Unresolved cards: {missing}"
-
-    # Validate card counts
-    for theme, variants in J22_THEMES.items():
-        for i, cards in enumerate(variants):
-            total = sum(qty for qty, _ in cards)
-            assert total == 20, (
-                f"{theme} variant {i + 1} has {total} cards, expected 20"
-            )
-
-    # Generate jumpstart.txt entries
-    entries: list[str] = []
-    for theme in sorted(J22_THEMES.keys()):
-        variants = J22_THEMES[theme]
-        for i, cards in enumerate(variants):
-            entry = format_theme_entry(theme, i, len(variants), cards, resolved)
-            entries.append(entry)
-
-    text_to_append = "\n\n" + "\n\n".join(entries) + "\n"
-
-    for path in [JUMPSTART_TXT, JUMPSTART_CUSTOM]:
-        path.write_text(path.read_text() + text_to_append)
-        print(f"Appended {len(entries)} theme variants to {path}")
-
-    print(f"\nDone! Added {len(J22_THEMES)} themes ({len(entries)} variants total)")
+    names = jumpstart_themes.collect_card_names(J22_THEMES, _BASIC_LAND_DEFAULTS)
+    xmage_j22 = _parse_xmage_j22()
+    resolved = scryfall.resolve_cards(
+        names, pre_resolved=xmage_j22, preferred_sets=_PREFERRED_SETS
+    )
+    jumpstart_themes.validate_themes(J22_THEMES, resolved, _BASIC_LAND_DEFAULTS)
+    jumpstart_themes.generate_and_append(
+        J22_THEMES, resolved, _BASIC_LAND_DEFAULTS, _OUTPUT_PATHS
+    )
 
 
 if __name__ == "__main__":
