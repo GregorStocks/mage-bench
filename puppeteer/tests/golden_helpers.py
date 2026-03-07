@@ -396,20 +396,23 @@ class BridgeManager:
     def _log_dir(self) -> Path:
         return self._project_root / "tmp" / f"golden-{self._label}"
 
-    def _prepare_live_log_path(self) -> Path:
-        """Rotate the previous live log so restarts preserve earlier bridge output."""
+    def _prepare_live_log_path(self, filename: str = "bridge.log") -> Path:
+        """Rotate a live log so restarts preserve earlier bridge output."""
         log_dir = self._log_dir()
         log_dir.mkdir(parents=True, exist_ok=True)
-        live_log = log_dir / "bridge.log"
+        live_log = log_dir / filename
+        suffix = "".join(live_log.suffixes)
+        stem = live_log.name[: -len(suffix)] if suffix else live_log.name
         if live_log.exists():
             archive_index = 1
             while True:
-                archived_log = log_dir / f"bridge.{archive_index}.log"
+                archived_log = log_dir / f"{stem}.{archive_index}{suffix}"
                 if not archived_log.exists():
                     live_log.rename(archived_log)
                     break
                 archive_index += 1
-        self._current_log_path = live_log
+        if filename == "bridge.log":
+            self._current_log_path = live_log
         return live_log
 
     def assert_clean_reconnect(self, context: str) -> None:
@@ -456,6 +459,8 @@ class BridgeManager:
 
         mcp_port_res = find_available_port("localhost", 19000)
         mcp_port = mcp_port_res.port
+        bridge_log = self._prepare_live_log_path()
+        bridge_event_log = self._prepare_live_log_path("bridge-events.jsonl")
 
         bridge_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
         bridge_cmd = _build_java_cmd(
@@ -468,11 +473,10 @@ class BridgeManager:
                 "xmage.bridge.keepAlive": "true",
                 "xmage.bridge.mcpPort": str(mcp_port),
                 "xmage.bridge.username": self._username,
+                "xmage.bridge.bridgelog": str(bridge_event_log),
                 "xmage.sets.allowed": self._allowed_sets,
             },
         )
-
-        bridge_log = self._prepare_live_log_path()
         self._log_fh = open(bridge_log, "w")
 
         self._proc = subprocess.Popen(
