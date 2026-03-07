@@ -286,7 +286,9 @@ async def _llm_pick(
     content = response.choices[0].message.content
     # OpenRouter returns extended thinking as `reasoning_content` for models
     # that support it (Claude, Gemini thinking, etc.).
-    thinking: str | None = getattr(response.choices[0].message, "reasoning_content", None)
+    thinking: str | None = getattr(
+        response.choices[0].message, "reasoning_content", None
+    )
     # When the model puts its answer only in the thinking block, `content`
     # can be empty/"".  Fall back to thinking for parse_pick.
     if not content:
@@ -319,14 +321,14 @@ async def _llm_pick(
             f"LLM returned empty choices on retry for model {model}"
         )
         retry_content = retry_response.choices[0].message.content
-        retry_thinking = getattr(retry_response.choices[0].message, "reasoning_content", None)
+        retry_thinking = getattr(
+            retry_response.choices[0].message, "reasoning_content", None
+        )
         if retry_thinking:
             thinking = retry_thinking
         if not retry_content:
             retry_content = retry_thinking
-        assert retry_content, (
-            f"LLM returned empty content on retry for model {model}"
-        )
+        assert retry_content, f"LLM returned empty content on retry for model {model}"
         if retry_response.usage:
             usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (
                 retry_response.usage.prompt_tokens or 0
