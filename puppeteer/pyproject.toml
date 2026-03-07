@@ -29,6 +29,8 @@ dev = [
     "pytest-asyncio>=0.24.0",
     "pytest-xdist>=3.5.0",
     "jsonschema>=4.26.0",
+    "google-api-python-client-stubs>=1.32.0",
+    "google-auth-stubs>=0.3.0",
 ]
 
 [tool.ruff]
@@ -86,8 +88,11 @@ disable_error_code = ["assignment", "attr-defined", "union-attr", "call-overload
 module = ["puppeteer.process_manager"]
 disable_error_code = ["assignment"]
 
+# No working type stubs exist for google_auth_oauthlib (the PyPI package
+# google-auth-oauthlib-stubs is broken). Keep this narrow override until
+# upstream ships py.typed or a working stubs package appears.
 [[tool.mypy.overrides]]
-module = ["google_auth_oauthlib.*", "googleapiclient.*"]
+module = ["google_auth_oauthlib.*"]
 ignore_missing_imports = true
 disable_error_code = ["import-untyped"]
 
