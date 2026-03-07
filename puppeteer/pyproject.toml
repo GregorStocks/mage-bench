@@ -61,7 +61,7 @@ ignore = [
 external = []
 
 [tool.ruff.lint.isort]
-known-first-party = ["puppeteer", "scripts"]
+known-first-party = ["puppeteer", "scripts", "schemas"]
 
 [tool.mypy]
 python_version = "3.10"
