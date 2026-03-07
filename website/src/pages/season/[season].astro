@@ -230,8 +230,8 @@ const bracket = buildTwoSidedBracket(tournament);
           <span class="meta-chip">{tournament.format.replace('-', ' ')}</span>
           <span class="meta-chip">{tournament.size} players</span>
           <span class="meta-chip">Jumpstart draft</span>
-          <a href="/scoring" class="meta-link">How it works</a>
         </div>
+        <p class="tournament-how"><a href="/scoring">How scoring and seeding work &rarr;</a></p>
       </div>
 
       {/* Bracket */}
@@ -565,6 +565,7 @@ const bracket = buildTwoSidedBracket(tournament);
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .meta-chip {
@@ -578,15 +579,17 @@ const bracket = buildTwoSidedBracket(tournament);
     text-transform: capitalize;
   }
 
-  .meta-link {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-decoration: none;
-    margin-left: 0.25rem;
+  .tournament-how {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
   }
 
-  .meta-link:hover {
+  .tournament-how a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  .tournament-how a:hover {
     color: var(--accent-primary);
   }
 
