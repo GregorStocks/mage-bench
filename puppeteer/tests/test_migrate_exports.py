@@ -4,9 +4,9 @@ import json
 from unittest.mock import patch
 
 import pytest
-from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5, v5_to_v6
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5, v5_to_v6
 from scripts.export_game import _collect_card_names, _trim_card
 from scripts.migrate_exports import find_migration_path
 
