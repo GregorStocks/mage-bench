@@ -3,9 +3,10 @@
 The harness epoch is a monotonic integer that marks breaking changes to the
 evaluation harness (MCP tools, pilot logic, priority semantics).
 
-MIN_LEADERBOARD_EPOCH is used only at game export time to assign the season
-field (season 0 = pre-season for epochs below this threshold). The leaderboard
-and matchmaker filter by the season field, not by epoch directly.
+SEASON_1_START_EPOCH is the first epoch that counts as season 1. Used at
+export time to assign the season field for games that predate run-time season
+tracking. The leaderboard and matchmaker filter by the season field, not by
+epoch directly.
 """
 
 # Current harness epoch. Bump when MCP tools, pilot logic, or priority
@@ -56,12 +57,13 @@ and matchmaker filter by the season field, not by epoch directly.
 #  42 - Rewrite system prompt game flow: startup/mulligan/main loop phases; get_action_choices first (Mar 5)
 #  43 - Fix end_of_turn yield persisting across turns when server skips END_TURN callbacks (Mar 5)
 #  44 - Oracle text dedup: Card Reference only shows each card's oracle text once per conversation (Mar 5)
-HARNESS_EPOCH = 44
+#  45 - Write season to game_meta.json at run time (Mar 6)
+HARNESS_EPOCH = 45
 
-# Minimum epoch for season assignment at export time. Games below this
-# are assigned season 0 (pre-season). Used only by export_game.py and
-# schema migrations — the leaderboard and matchmaker filter by season.
-MIN_LEADERBOARD_EPOCH = 11
+# First epoch that counts as season 1. Used only for games that predate
+# run-time season tracking (no "season" in game_meta.json). Export and
+# schema migrations use this to assign season 0 vs 1 for old games.
+SEASON_1_START_EPOCH = 11
 
 # Minimum blunder analysis version for "acceptable" annotations. Games
 # analyzed below this show an "(older analysis)" tag on the website.

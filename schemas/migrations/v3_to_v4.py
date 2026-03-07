@@ -7,12 +7,12 @@ TARGET_VERSION = 4
 def compute_season(harness_epoch: int) -> int:
     """Compute season from harness epoch.
 
-    Season 0: pre-season (harnessEpoch < MIN_LEADERBOARD_EPOCH)
+    Season 0: pre-season (harnessEpoch < SEASON_1_START_EPOCH)
     Season 1: everything else
     """
-    from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+    from puppeteer.harness_epoch import SEASON_1_START_EPOCH
 
-    if harness_epoch < MIN_LEADERBOARD_EPOCH:
+    if harness_epoch < SEASON_1_START_EPOCH:
         return 0
     return 1
 

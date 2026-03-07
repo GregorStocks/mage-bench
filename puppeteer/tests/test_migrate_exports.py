@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5, v5_to_v6
 
-from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+from puppeteer.harness_epoch import SEASON_1_START_EPOCH
 from scripts.export_game import _collect_card_names, _trim_card
 from scripts.migrate_exports import find_migration_path
 
@@ -221,9 +221,9 @@ class TestMigrateV3V4:
         assert v4["season"] == 0
 
     def test_v3_to_v4_boundary(self) -> None:
-        """Epoch exactly at MIN_LEADERBOARD_EPOCH should be season 1."""
-        assert v3_to_v4.compute_season(MIN_LEADERBOARD_EPOCH) == 1
-        assert v3_to_v4.compute_season(MIN_LEADERBOARD_EPOCH - 1) == 0
+        """Epoch exactly at SEASON_1_START_EPOCH should be season 1."""
+        assert v3_to_v4.compute_season(SEASON_1_START_EPOCH) == 1
+        assert v3_to_v4.compute_season(SEASON_1_START_EPOCH - 1) == 0
 
     def test_v4_to_v3_down_removes_season_and_tournament(self) -> None:
         v4 = _make_v3_export()

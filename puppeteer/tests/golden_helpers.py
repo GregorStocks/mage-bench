@@ -936,6 +936,7 @@ def _write_game_meta(
     """Write game_meta.json so build_export finds harness_epoch and player info."""
     meta = {
         "harness_epoch": HARNESS_EPOCH,
+        "season": 1,
         "game_type": game_type,
         "deck_type": deck_type,
         "players": [

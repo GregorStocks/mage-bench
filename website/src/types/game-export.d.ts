@@ -86,7 +86,7 @@ export interface GameExportV6 {
    */
   blunderScriptVersion: number;
   /**
-   * Season number. 0 = pre-season (harnessEpoch < MIN_LEADERBOARD_EPOCH), 1 = season 1. Present in version 4+ exports.
+   * Season number. 0 = pre-season (harnessEpoch < SEASON_1_START_EPOCH), 1 = season 1. Present in version 4+ exports.
    */
   season?: number;
   /**

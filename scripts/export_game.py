@@ -1065,10 +1065,12 @@ def build_export(game_dir: Path) -> dict:
         output["youtubeUrl"] = meta["youtube_url"]
 
     # Season/tournament (v4)
-    from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+    if "season" in meta:
+        output["season"] = meta["season"]
+    else:
+        from schemas.migrations.v3_to_v4 import compute_season
 
-    harness_epoch_val = meta.get("harness_epoch", 0)
-    output["season"] = 0 if harness_epoch_val < MIN_LEADERBOARD_EPOCH else 1
+        output["season"] = compute_season(meta.get("harness_epoch", 0))
     output["tournament"] = None
 
     # Build canonical decisions

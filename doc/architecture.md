@@ -100,7 +100,7 @@ Each annotation includes the severity, a description of what went wrong, what th
 
 `HARNESS_EPOCH` (currently 37) is a monotonic integer in `puppeteer/src/puppeteer/harness_epoch.py` that tracks breaking changes to the evaluation harness. It gets bumped when MCP tools, pilot logic, or priority semantics change enough to make game results non-comparable across versions.
 
-The leaderboard filters by season — only games with `season >= 1` contribute to Elo ratings. `MIN_LEADERBOARD_EPOCH` (currently 11) is used at export time to assign `season: 0` (older epochs) or `season: 1` to each game. Season 0 games are still viewable but excluded from ratings.
+The leaderboard filters by season — only games with `season >= 1` contribute to Elo ratings. New games write `season` directly to `game_meta.json` at run time. For older games that predate this, `SEASON_1_START_EPOCH` (= 11) in `harness_epoch.py` is used at export time to assign `season: 0` or `season: 1`. Season 0 games are still viewable but excluded from ratings.
 
 ## Testing
 
