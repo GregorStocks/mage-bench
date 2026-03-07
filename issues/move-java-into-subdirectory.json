@@ -1,0 +1,10 @@
+{
+  "title": "Move all Java directories into a subdirectory",
+  "description": "There are ~20 Java-related directories cluttering the top level of the repo (src/, target/, .mvn/, etc.). Move them all into a single subdirectory (e.g. java/) so the repo root is cleaner and easier to navigate.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["repo-structure"],
+  "created_at": "2026-03-06T12:00:00.000000-08:00",
+  "updated_at": "2026-03-06T12:00:00.000000-08:00"
+}
