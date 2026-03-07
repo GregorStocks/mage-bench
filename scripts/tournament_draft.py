@@ -293,6 +293,20 @@ def _log_llm_call(
     log_file.flush()
 
 
+def _extract_content(message: object) -> tuple[str | None, str | None]:
+    """Extract (content, thinking) from an OpenAI chat completion message.
+
+    Strips whitespace and falls back to reasoning_content if content is empty.
+    """
+    content: str | None = getattr(message, "content", None)
+    if content is not None:
+        content = content.strip()
+    thinking: str | None = getattr(message, "reasoning_content", None)
+    if not content and thinking:
+        content = thinking.strip()
+    return content, thinking
+
+
 async def _llm_pick(
     client: AsyncOpenAI,
     model: str,
@@ -333,18 +347,7 @@ async def _llm_pick(
     )
 
     assert response.choices, f"LLM returned empty choices for model {model}"
-    content = response.choices[0].message.content
-    if content is not None:
-        content = content.strip()
-    # OpenRouter returns extended thinking as `reasoning_content` for models
-    # that support it (Claude, Gemini thinking, etc.).
-    thinking: str | None = getattr(
-        response.choices[0].message, "reasoning_content", None
-    )
-    # When the model puts its answer only in the thinking block, `content`
-    # can be empty/"".  Fall back to thinking for parse_pick.
-    if not content and thinking:
-        content = thinking.strip()
+    content, thinking = _extract_content(response.choices[0].message)
     assert content, f"LLM returned empty content for model {model}"
 
     usage: dict = {}
@@ -383,16 +386,11 @@ async def _llm_pick(
         assert retry_response.choices, (
             f"LLM returned empty choices on retry for model {model}"
         )
-        retry_content = retry_response.choices[0].message.content
-        if retry_content is not None:
-            retry_content = retry_content.strip()
-        retry_thinking = getattr(
-            retry_response.choices[0].message, "reasoning_content", None
+        retry_content, retry_thinking = _extract_content(
+            retry_response.choices[0].message
         )
         if retry_thinking:
             thinking = retry_thinking
-        if not retry_content and retry_thinking:
-            retry_content = retry_thinking.strip()
         assert retry_content, f"LLM returned empty content on retry for model {model}"
         if retry_response.usage:
             usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (
@@ -411,31 +409,32 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     entrants = tournament["entrants"]
     num_entrants = len(entrants)
     entrants_by_seed = {e["seed"]: e for e in entrants}
+    order = draft_order(num_entrants)
+
+    # Early exit if draft is already complete
+    if "draft" in tournament:
+        existing_picks = tournament["draft"]["picks"]
+        if len(existing_picks) >= len(order) and tournament["draft"].get("decklists"):
+            print("Draft already complete. Nothing to do.")
+            return
 
     # Load Jumpstart packs
     half_decks = load_jumpstart_themes(_ROOT)
     half_decks_by_theme = {hd.theme: hd for hd in half_decks}
 
-    order = draft_order(num_entrants)
     picks: list[dict]
-    entrant_picks: dict[int, list[HalfDeck]]
-    cumulative_cost: float
     start_idx: int
+    entrant_picks: dict[int, list[HalfDeck]] = {seed: [] for seed in entrants_by_seed}
+    cumulative_cost = 0.0
 
     # Resume support: detect partial draft and reconstruct state
     if "draft" in tournament:
         picks = tournament["draft"]["picks"]
 
-        if len(picks) >= len(order) and tournament["draft"].get("decklists"):
-            print("Draft already complete. Nothing to do.")
-            return
-
         # Reconstruct pool from saved theme list
         pool_themes = tournament["draft"]["pool"]
         available_packs = {t: half_decks_by_theme[t] for t in pool_themes}
 
-        entrant_picks = {seed: [] for seed in entrants_by_seed}
-        cumulative_cost = 0.0
         for pick in picks:
             entrant_picks[pick["seed"]].append(available_packs[pick["picked"]])
             del available_packs[pick["picked"]]
@@ -455,9 +454,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
         pool = random.sample(half_decks, pool_size)
         available_packs = {hd.theme: hd for hd in pool}
 
-        entrant_picks = {seed: [] for seed in entrants_by_seed}
         picks = []
-        cumulative_cost = 0.0
         start_idx = 0
 
         tournament["draft"] = {

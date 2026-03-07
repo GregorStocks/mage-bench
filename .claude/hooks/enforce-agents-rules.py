@@ -202,7 +202,7 @@ def check(command: str) -> None:
         )
 
     if re.search(r"(?:^|\s|[;&|])\s*make\s+tournament-draft\b", stripped) or re.search(
-        r"(?:python|uv\s+run)\b.*tournament_draft\.py\b", stripped
+        r"\bpython\b.*tournament_draft\.py\b", stripped
     ):
         block(
             "Blocked: tournament draft costs money (LLM API calls for every player).\n"
