@@ -1,5 +1,6 @@
 ---
 import seasonData from '../data/season.json';
+import benchmarkData from '../data/benchmark-results.json';
 
 interface Props {
   title: string;
@@ -9,11 +10,15 @@ interface Props {
 const { title, wide } = Astro.props;
 const currentPath = Astro.url.pathname;
 const currentSeason = (seasonData as any).current_season;
+const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [currentSeason];
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/leaderboard', label: 'Leaderboard' },
-  { href: '/games', label: 'Games' },
+  ...[...availableSeasons].reverse().map(s => ({
+    href: `/season/${s}`,
+    label: `Season ${s}`,
+  })),
   { href: '/scoring', label: 'Scoring' },
   { href: '/internals', label: 'Internals' },
   { href: '/blog', label: 'Blog' },

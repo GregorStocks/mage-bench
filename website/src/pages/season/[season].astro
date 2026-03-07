@@ -1,0 +1,1719 @@
+---
+import Base from '../../layouts/Base.astro';
+import benchmarkData from '../../data/benchmark-results.json';
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+
+const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
+const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [];
+
+export function getStaticPaths() {
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
+  );
+  const seasons: number[] = data.availableSeasons ?? [];
+  return seasons.map(s => ({ params: { season: String(s) } }));
+}
+
+const { season } = Astro.params;
+const seasonNum = parseInt(season!, 10);
+
+// Load tournament data if it exists
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
+let tournament: any = null;
+if (fs.existsSync(tournamentPath)) {
+  tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+}
+
+// Load personalities for display
+const personalitiesPath = path.join(process.cwd(), '..', 'puppeteer', 'personalities.json');
+let personalities: Record<string, any> = {};
+if (fs.existsSync(personalitiesPath)) {
+  personalities = JSON.parse(fs.readFileSync(personalitiesPath, 'utf-8'));
+}
+
+// Load games for this season (same logic as games/index.astro, filtered by season)
+const gamesDir = path.join(process.cwd(), 'public', 'games');
+const games: Array<Record<string, unknown>> = [];
+if (fs.existsSync(gamesDir)) {
+  for (const file of fs.readdirSync(gamesDir)) {
+    if (!file.startsWith('game_')) continue;
+    let data;
+    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
+      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
+    } else if (file.endsWith('.json.gz')) {
+      const jsonPath = path.join(gamesDir, file.replace('.json.gz', '.json'));
+      if (fs.existsSync(jsonPath)) continue;
+      const compressed = fs.readFileSync(path.join(gamesDir, file));
+      data = JSON.parse(zlib.gunzipSync(compressed).toString());
+    } else {
+      continue;
+    }
+    const gameSeason = data.season ?? 0;
+    if (gameSeason !== seasonNum) continue;
+
+    const players = data.players || [];
+    if (players.length > 0 && !players.some((p: any) => p.toolCallsOk != null)) {
+      const toolOk: Record<string, number> = {};
+      const toolFailed: Record<string, number> = {};
+      for (const ev of (data.llmEvents || [])) {
+        if (ev.type !== 'tool_call' || !ev.player) continue;
+        let isFail = false;
+        if (ev.result) {
+          try {
+            const r = JSON.parse(ev.result);
+            if (r && typeof r === 'object' && r.success === false) isFail = true;
+          } catch {}
+        }
+        if (isFail) toolFailed[ev.player] = (toolFailed[ev.player] || 0) + 1;
+        else toolOk[ev.player] = (toolOk[ev.player] || 0) + 1;
+      }
+      for (const p of players) {
+        if (toolOk[p.name] != null || toolFailed[p.name] != null) {
+          p.toolCallsOk = toolOk[p.name] || 0;
+          p.toolCallsFailed = toolFailed[p.name] || 0;
+        }
+      }
+    }
+    if (players.length > 0 && !players.some((p: any) => p.thinkingTimeSecs != null)) {
+      const llmEvents: any[] = data.llmEvents || [];
+      if (llmEvents.length > 1) {
+        const thinking: Record<string, number> = {};
+        for (let i = 0; i < llmEvents.length - 1; i++) {
+          const player = llmEvents[i].player;
+          if (!player) continue;
+          const tsA = llmEvents[i].ts;
+          const tsB = llmEvents[i + 1].ts;
+          if (!tsA || !tsB) continue;
+          const gap = (new Date(tsB).getTime() - new Date(tsA).getTime()) / 1000;
+          if (gap > 0) thinking[player] = (thinking[player] || 0) + gap;
+        }
+        for (const p of players) {
+          if (thinking[p.name] != null) {
+            p.thinkingTimeSecs = Math.round(thinking[p.name] * 10) / 10;
+          }
+        }
+      }
+    }
+    const entry: Record<string, unknown> = {
+      id: data.id,
+      timestamp: data.timestamp,
+      totalTurns: data.totalTurns,
+      winner: data.winner,
+      players: players,
+      deckType: data.deckType || '',
+      harnessEpoch: data.harnessEpoch ?? null,
+      season: data.season ?? 0,
+      tournament: data.tournament ?? null,
+    };
+    if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
+    const annotations = data.annotations;
+    if (annotations == null) {
+      throw new Error(`Game ${data.id} has no annotations`);
+    }
+    const totalTurns = data.totalTurns as number;
+    if (!totalTurns || totalTurns <= 0) {
+      throw new Error(`Game ${data.id} has no turns`);
+    }
+    const WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
+    const weightedByPlayer: Record<string, number> = {};
+    for (const p of players) {
+      weightedByPlayer[(p as any).name] = 0;
+    }
+    for (const a of annotations) {
+      const ann = a as Record<string, unknown>;
+      if (ann.type !== "blunder") continue;
+      const sev = ann.severity as string;
+      const player = (ann.player as string) || "Unknown";
+      weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (WEIGHTS[sev] || 0);
+    }
+    const scoreByPlayer: Record<string, number> = {};
+    for (const [player, weight] of Object.entries(weightedByPlayer)) {
+      scoreByPlayer[player] = Math.round((weight / totalTurns) * 100) / 100;
+    }
+    entry.blunderScoreByPlayer = scoreByPlayer;
+    entry.blunderScriptVersion = data.blunderScriptVersion ?? null;
+    games.push(entry);
+  }
+}
+games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
+
+// Split tournament games from free-play games
+const tournamentGames = games.filter(g => g.tournament != null);
+const freePlayGames = games.filter(g => g.tournament == null);
+
+// Build entrants lookup for bracket rendering
+const entrantsBySeed: Record<number, any> = {};
+if (tournament) {
+  for (const e of tournament.entrants) {
+    entrantsBySeed[e.seed] = e;
+  }
+}
+
+// Build bracket rounds with connector data
+function buildBracketData(tournament: any) {
+  if (!tournament || !tournament.rounds || tournament.rounds.length === 0) return null;
+  return tournament.rounds.map((round: any) => ({
+    name: round.name,
+    round: round.round,
+    matches: round.matches,
+  }));
+}
+const bracketRounds = buildBracketData(tournament);
+---
+
+<Base title={`Season ${seasonNum}`} wide={!!tournament}>
+  <h1>Season {seasonNum}</h1>
+
+  {tournament && (
+    <section class="tournament-section">
+      <div class="tournament-header">
+        <h2>Season {seasonNum} Championship</h2>
+        <div class="tournament-meta">
+          <span class="meta-chip">{tournament.format.replace('-', ' ')}</span>
+          <span class="meta-chip">{tournament.size} players</span>
+          {tournament.draft && <span class="meta-chip">Jumpstart draft</span>}
+        </div>
+      </div>
+
+      {/* Entrants */}
+      <div class="entrants-section">
+        <h3>Entrants</h3>
+        <div class="entrants-grid">
+          {tournament.entrants.map((e: any) => {
+            const p = personalities[e.personality];
+            const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
+            return (
+              <div class="entrant-card">
+                <div class="entrant-seed">#{e.seed}</div>
+                <div class="entrant-info">
+                  <div class="entrant-name">
+                    {e.display_name}
+                    {e.reasoning_effort && <span class="entrant-effort">({e.reasoning_effort})</span>}
+                  </div>
+                  <div class="entrant-personality">
+                    <span class="personality-name">{e.personality}</span>
+                    {p?.prompt_suffix && (
+                      <span class="personality-desc" title={p.prompt_suffix}>
+                        {p.prompt_suffix.length > 60 ? p.prompt_suffix.slice(0, 60) + '...' : p.prompt_suffix}
+                      </span>
+                    )}
+                  </div>
+                  <div class="entrant-stats">
+                    <span class="entrant-elo">Elo {e.combined_elo}</span>
+                    <span class="entrant-games">{e.games_played} games</span>
+                  </div>
+                  {deckInfo && (
+                    <div class="entrant-deck">
+                      {deckInfo.half_decks.join(' + ')}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Draft */}
+      {tournament.draft && (
+        <details class="draft-section">
+          <summary><h3>Draft Picks</h3></summary>
+          <div class="draft-picks">
+            {tournament.draft.picks.map((pick: any, i: number) => {
+              const entrant = entrantsBySeed[pick.seed];
+              return (
+                <div class="draft-pick">
+                  <span class="pick-num">Pick {i + 1}</span>
+                  <span class="pick-player">#{pick.seed} {entrant?.display_name}</span>
+                  <span class="pick-round">Round {pick.round}</span>
+                  <span class="pick-choice">
+                    chose <strong>{pick.picked}</strong>
+                    <span class="pick-options"> from [{pick.options.join(', ')}]</span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </details>
+      )}
+
+      {/* Bracket */}
+      {bracketRounds && bracketRounds.length > 0 && (
+        <div class="bracket-section">
+          <h3>Bracket</h3>
+          <div class="bracket-scroll">
+            <div class="bracket" style={`--bracket-height: ${tournament.size * 56}px`}>
+              {bracketRounds.map((round: any, ri: number) => (
+                <>
+                  {ri > 0 && (
+                    <div class="bracket-conn-col">
+                      {Array.from({ length: round.matches.length }).map((_: any) => (
+                        <div class="bracket-conn-item" />
+                      ))}
+                    </div>
+                  )}
+                  <div class="bracket-round">
+                    <div class="round-label">{round.name}</div>
+                    <div class="round-matches">
+                      {round.matches.map((match: any) => {
+                        const ea = entrantsBySeed[match.seed_a];
+                        const eb = entrantsBySeed[match.seed_b];
+                        const isComplete = match.winner_seed != null;
+                        const gameUrl = match.game_id ? `/games/${match.game_id}` : null;
+                        return (
+                          <div class="bracket-match-wrap">
+                            <a class:list={['bracket-match', { 'has-link': !!gameUrl }]} href={gameUrl || undefined}>
+                              <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
+                                <span class="bracket-seed-num">#{match.seed_a}</span>
+                                <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                              </div>
+                              <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_b }]}>
+                                <span class="bracket-seed-num">#{match.seed_b}</span>
+                                <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                              </div>
+                            </a>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              ))}
+
+              {/* Champion column — only show when the last round is the finals (1 match) and it has a winner */}
+              {(() => {
+                const finalRound = bracketRounds[bracketRounds.length - 1];
+                const isFinals = finalRound?.matches?.length === 1;
+                const finalMatch = isFinals ? finalRound.matches[0] : null;
+                const champion = finalMatch?.winner_seed ? entrantsBySeed[finalMatch.winner_seed] : null;
+                return champion ? (
+                  <>
+                    <div class="bracket-conn-col">
+                      <div class="bracket-conn-final" />
+                    </div>
+                    <div class="bracket-round bracket-champion">
+                      <div class="round-label">Champion</div>
+                      <div class="round-matches">
+                        <div class="bracket-match-wrap">
+                          <div class="champion-card">
+                            <span class="champion-trophy">&#127942;</span>
+                            <span class="champion-name">{champion.display_name}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : null;
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tournament games */}
+      {tournamentGames.length > 0 && (
+        <div class="tournament-games-section">
+          <h3>Tournament Games</h3>
+          <div id="tournament-games-list"></div>
+        </div>
+      )}
+    </section>
+  )}
+
+  {/* Free-play games */}
+  <section class="games-section">
+    {tournament && freePlayGames.length > 0 && <h2>Free Play Games</h2>}
+    {!tournament && games.length > 0 && <p class="subtitle">Replay past mage-bench games from Season {seasonNum}.</p>}
+    {!tournament && games.length === 0 && <p class="subtitle empty">No games in Season {seasonNum} yet.</p>}
+    <div id="format-tabs" class="format-tabs"></div>
+    <div id="model-tabs" class="model-tabs"></div>
+    <div id="filter-bar" style="display:none"></div>
+    <div id="games-list">
+      {(tournament ? freePlayGames : games).length > 0 && <p class="loading">Loading games...</p>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .subtitle.empty {
+    font-style: italic;
+  }
+
+  .loading {
+    color: var(--text-secondary);
+  }
+
+  /* --- Tournament Section --- */
+  .tournament-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .tournament-header {
+    margin-bottom: 2rem;
+  }
+
+  .tournament-header h2 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tournament-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-chip {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    background: rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    border-radius: 20px;
+    color: var(--accent-secondary);
+    text-transform: capitalize;
+  }
+
+  /* --- Entrants --- */
+  .entrants-section {
+    margin-bottom: 2rem;
+  }
+
+  .entrants-section h3,
+  .bracket-section h3,
+  .draft-section h3,
+  .tournament-games-section h3 {
+    font-family: var(--font-heading);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .entrants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .entrant-card {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .entrant-card:hover {
+    border-color: var(--accent-secondary);
+  }
+
+  .entrant-seed {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    min-width: 2rem;
+    text-align: center;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .entrant-info {
+    min-width: 0;
+  }
+
+  .entrant-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .entrant-effort {
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+
+  .entrant-personality {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
+  .personality-name {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: capitalize;
+    flex-shrink: 0;
+  }
+
+  .personality-desc {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .entrant-stats {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+  }
+
+  .entrant-elo {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entrant-deck {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent-secondary);
+    margin-top: 0.15rem;
+  }
+
+  /* --- Draft --- */
+  .draft-section {
+    margin-bottom: 2rem;
+  }
+
+  .draft-section summary {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .draft-section summary h3 {
+    display: inline;
+  }
+
+  .draft-picks {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .draft-pick {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .draft-pick:nth-child(odd) {
+    background: rgba(22, 33, 62, 0.4);
+  }
+
+  .pick-num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 4rem;
+    flex-shrink: 0;
+  }
+
+  .pick-player {
+    font-weight: 600;
+    min-width: 10rem;
+    flex-shrink: 0;
+  }
+
+  .pick-round {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 4rem;
+    flex-shrink: 0;
+  }
+
+  .pick-choice strong {
+    color: var(--accent-secondary);
+  }
+
+  .pick-options {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  /* --- Bracket --- */
+  .bracket-section {
+    margin-bottom: 2rem;
+  }
+
+  .bracket-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 1rem;
+  }
+
+  .bracket {
+    display: flex;
+    align-items: stretch;
+    min-height: var(--bracket-height, 440px);
+  }
+
+  .bracket-round {
+    flex-shrink: 0;
+    min-width: 180px;
+  }
+
+  .round-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0 0.5rem 0.5rem;
+    text-align: center;
+  }
+
+  .round-matches {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: calc(100% - 1.5rem);
+  }
+
+  .bracket-match-wrap {
+    padding: 0 0.5rem;
+  }
+
+  .bracket-match {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-surface);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+  }
+
+  a.bracket-match.has-link:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .bracket-slot {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .bracket-slot + .bracket-slot {
+    border-top: 1px solid var(--border-default);
+  }
+
+  .bracket-slot.winner {
+    background: rgba(168, 217, 165, 0.08);
+  }
+
+  .bracket-seed-num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 1.5rem;
+  }
+
+  .bracket-slot.winner .bracket-seed-num {
+    color: var(--color-success);
+  }
+
+  .bracket-player-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bracket-win-mark {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.25rem;
+    border-radius: 2px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  /* --- Bracket Connectors --- */
+  .bracket-conn-col {
+    display: flex;
+    flex-direction: column;
+    width: 2rem;
+    flex-shrink: 0;
+    padding-top: 1.5rem;
+  }
+
+  .bracket-conn-item {
+    flex: 1;
+    position: relative;
+  }
+
+  /* Top arm: border-top + border-right forming top bracket */
+  .bracket-conn-item::before {
+    content: '';
+    position: absolute;
+    top: 25%;
+    bottom: 50%;
+    left: 0;
+    right: 50%;
+    border-top: 2px solid var(--border-default);
+    border-right: 2px solid var(--border-default);
+    border-top-right-radius: 3px;
+  }
+
+  /* Bottom arm: border-bottom + border-right forming bottom bracket */
+  .bracket-conn-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    bottom: 25%;
+    left: 0;
+    right: 50%;
+    border-bottom: 2px solid var(--border-default);
+    border-right: 2px solid var(--border-default);
+    border-bottom-right-radius: 3px;
+  }
+
+  /* Horizontal line going right from junction */
+  .bracket-conn-item {
+    background: linear-gradient(var(--border-default), var(--border-default)) right center / 50% 2px no-repeat;
+  }
+
+  /* Champion connector: just a horizontal line */
+  .bracket-conn-final {
+    flex: 1;
+    position: relative;
+  }
+
+  .bracket-conn-final::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-top: 2px solid var(--border-default);
+  }
+
+  .bracket-champion .round-matches {
+    justify-content: center;
+  }
+
+  .champion-card {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 6px;
+  }
+
+  .champion-trophy {
+    font-size: 1.2rem;
+  }
+
+  .champion-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #ffd700;
+  }
+
+  /* --- Games Section --- */
+  .games-section {
+    max-width: 52rem;
+  }
+
+  .games-section h2 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .tournament-games-section {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .entrants-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .draft-pick {
+      flex-wrap: wrap;
+    }
+
+    .pick-player {
+      min-width: unset;
+    }
+  }
+</style>
+
+{/* Reuse game card styles from games page */}
+<style is:global>
+  .format-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .format-tab {
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .format-tab:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  .format-tab.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: #fff;
+  }
+
+  .format-tab.active[data-format="standard"] {
+    background: var(--format-standard);
+    border-color: var(--format-standard);
+  }
+
+  .format-tab.active[data-format="modern"] {
+    background: var(--format-modern);
+    border-color: var(--format-modern);
+  }
+
+  .format-tab.active[data-format="legacy"] {
+    background: var(--format-legacy);
+    border-color: var(--format-legacy);
+  }
+
+  .format-tab.active[data-format="commander"] {
+    background: var(--format-commander);
+    border-color: var(--format-commander);
+  }
+
+  .tab-count {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-left: 0.2rem;
+  }
+
+  .model-tabs {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .model-tabs:empty {
+    display: none;
+  }
+
+  .model-tabs-label {
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    align-self: center;
+    margin-right: 0.2rem;
+  }
+
+  .model-tab {
+    font-family: inherit;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .model-tab:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+  }
+
+  .model-tab.active {
+    background: rgba(var(--accent-primary-rgb), 0.15);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    color: #a0a0b8;
+    font-size: 0.85rem;
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(233, 69, 96, 0.15);
+    border: 1px solid #e94560;
+    border-radius: 20px;
+    color: #e94560;
+  }
+
+  .filter-chip-remove {
+    background: none;
+    border: none;
+    color: #e94560;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    opacity: 0.7;
+  }
+
+  .filter-chip-remove:hover {
+    opacity: 1;
+  }
+
+  .filter-clear {
+    background: none;
+    border: none;
+    color: #a0a0b8;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .filter-clear:hover {
+    color: #e0e0e0;
+  }
+
+  .filter-count {
+    color: #a0a0b8;
+    font-size: 0.85rem;
+    margin-left: auto;
+  }
+</style>
+
+<style is:global>
+  .no-games {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .game-card {
+    display: block;
+    margin-bottom: 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+  }
+
+  .game-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-1px);
+  }
+
+  .game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
+  .game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
+  .game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
+  .game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
+  .game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    background: rgba(15, 52, 96, 0.3);
+    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    font-size: 0.85rem;
+  }
+
+  .game-date {
+    color: var(--text-secondary);
+  }
+
+  .format-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+
+  .format-standard {
+    background: rgba(76, 175, 80, 0.15);
+    color: #66bb6a;
+  }
+
+  .format-modern {
+    background: rgba(33, 150, 243, 0.15);
+    color: #42a5f5;
+  }
+
+  .format-legacy {
+    background: rgba(156, 39, 176, 0.15);
+    color: #ab47bc;
+  }
+
+  .format-commander {
+    background: rgba(255, 152, 0, 0.15);
+    color: #ffa726;
+  }
+
+  .game-turns {
+    color: var(--text-secondary);
+  }
+
+  .winner-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-success);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 0.4rem;
+  }
+
+  .timeout-badge {
+    display: inline-block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bg-base);
+    background: var(--color-warning);
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 0.4rem;
+  }
+
+  .yt-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+  }
+
+  .yt-link:hover {
+    text-decoration: underline;
+  }
+
+  .game-players {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .player-cell {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid rgba(15, 52, 96, 0.3);
+    border-right: 1px solid rgba(15, 52, 96, 0.3);
+  }
+
+  .player-cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .player-cell:nth-child(n+3) {
+    border-bottom: none;
+  }
+
+  .player-cell.is-winner {
+    box-shadow: inset 3px 0 0 var(--color-success);
+    background: rgba(168, 217, 165, 0.04);
+  }
+
+  .player-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .player-model-inline {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .player-placement {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.05rem 0.3rem;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .player-placement.placement-1 {
+    background: rgba(168, 217, 165, 0.2);
+    color: #a8d9a5;
+  }
+
+  .player-placement.placement-2 {
+    background: rgba(126, 184, 218, 0.2);
+    color: #7eb8da;
+  }
+
+  .player-placement.placement-3 {
+    background: rgba(212, 160, 74, 0.2);
+    color: #d4a04a;
+  }
+
+  .player-placement.placement-4 {
+    background: rgba(160, 160, 184, 0.2);
+    color: #a0a0b8;
+  }
+
+  .player-cell.placement-1 {
+    box-shadow: inset 3px 0 0 #a8d9a5;
+  }
+
+  .player-cell.placement-2 {
+    box-shadow: inset 3px 0 0 #7eb8da;
+  }
+
+  .player-cell.placement-3 {
+    box-shadow: inset 3px 0 0 #d4a04a;
+  }
+
+  .player-cell.placement-4 {
+    box-shadow: inset 3px 0 0 #a0a0b8;
+  }
+
+  .player-commander {
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .player-cost {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .player-rating {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .player-rating.rating-up {
+    color: #a8d9a5;
+  }
+
+  .player-rating.rating-down {
+    color: #e94560;
+  }
+
+  .game-footer {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    text-align: right;
+    border-top: 1px solid rgba(15, 52, 96, 0.5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .player-blunder-score {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .player-blunder-score.blunder-low {
+    color: var(--color-success);
+  }
+
+  .player-blunder-score.blunder-med {
+    color: var(--color-warning);
+  }
+
+  .player-blunder-score.blunder-high {
+    color: var(--accent-primary);
+  }
+
+  .old-analysis-tag {
+    color: #a0a0b8;
+    font-size: 0.7rem;
+    font-style: italic;
+  }
+
+  .tournament-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--accent-secondary);
+  }
+
+  @media (max-width: 500px) {
+    .game-players {
+      grid-template-columns: 1fr;
+    }
+
+    .player-cell:nth-child(2n) {
+      border-right: none;
+    }
+
+    .player-cell {
+      border-bottom: 1px solid rgba(15, 52, 96, 0.3);
+    }
+
+    .player-cell:last-child {
+      border-bottom: none;
+    }
+
+    .game-header {
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ games: tournament ? freePlayGames : games, tournamentGames, minBlunderVersion }}>
+  var __games = games;
+  var __tournamentGames = tournamentGames;
+
+  var DECK_TYPE_FORMATS = {
+    "Constructed - Standard": "standard",
+    "Constructed - Modern": "modern",
+    "Constructed - Legacy": "legacy",
+    "Variant Magic - Freeform Commander": "commander",
+    "Variant Magic - Commander": "commander",
+    "Limited": "jumpstart",
+  };
+
+  var FORMAT_DISPLAY = {
+    "standard": "Standard",
+    "modern": "Modern",
+    "legacy": "Legacy",
+    "commander": "Commander (Exhibition)",
+    "jumpstart": "Jumpstart",
+  };
+
+  var MIN_BLUNDER_VERSION = minBlunderVersion;
+
+  function getGameFormat(deckType) {
+    return DECK_TYPE_FORMATS[deckType] || "commander";
+  }
+
+  function getFilters() {
+    var params = new URLSearchParams(window.location.search);
+    return {
+      model: params.get("model") || "",
+      format: params.get("format") || "",
+      effort: params.get("effort") || "",
+    };
+  }
+
+  function setFilters(filters) {
+    var params = new URLSearchParams();
+    if (filters.model) params.set("model", filters.model);
+    if (filters.format) params.set("format", filters.format);
+    if (filters.effort) params.set("effort", filters.effort);
+    var qs = params.toString();
+    var url = window.location.pathname + (qs ? "?" + qs : "");
+    history.replaceState(null, "", url);
+  }
+
+  function filterGames(games, filters) {
+    return games.filter(function (game) {
+      if (filters.format) {
+        var fmt = getGameFormat(game.deckType);
+        if (fmt !== filters.format) return false;
+      }
+      if (filters.model) {
+        var hasModel = (game.players || []).some(function (p) {
+          if (p.model !== filters.model) return false;
+          if (filters.effort && (p.reasoningEffort || "") !== filters.effort) return false;
+          return true;
+        });
+        if (!hasModel) return false;
+      }
+      return true;
+    });
+  }
+
+  function renderFilterBar(filters, totalCount, filteredCount) {
+    var bar = document.getElementById("filter-bar");
+    var hasFilters = filters.model || filters.format || filters.effort;
+    if (!hasFilters) {
+      bar.style.display = "none";
+      bar.innerHTML = "";
+      return;
+    }
+    bar.style.display = "";
+    bar.className = "filter-bar";
+    bar.innerHTML = "";
+
+    var label = document.createElement("span");
+    label.className = "filter-label";
+    label.textContent = "Filtered:";
+    bar.appendChild(label);
+
+    if (filters.format) {
+      var chip = document.createElement("span");
+      chip.className = "filter-chip";
+      chip.textContent = FORMAT_DISPLAY[filters.format] || filters.format;
+      var btn = document.createElement("button");
+      btn.className = "filter-chip-remove";
+      btn.innerHTML = "&times;";
+      btn.onclick = function () {
+        var f = getFilters();
+        f.format = "";
+        setFilters(f);
+        renderAll();
+      };
+      chip.appendChild(btn);
+      bar.appendChild(chip);
+    }
+
+    if (filters.model) {
+      var chip = document.createElement("span");
+      chip.className = "filter-chip";
+      var modelDisplay = filters.model;
+      var slash = modelDisplay.indexOf("/");
+      if (slash !== -1) modelDisplay = modelDisplay.substring(slash + 1);
+      if (filters.effort) modelDisplay += " (" + filters.effort + ")";
+      chip.textContent = modelDisplay;
+      var btn = document.createElement("button");
+      btn.className = "filter-chip-remove";
+      btn.innerHTML = "&times;";
+      btn.onclick = function () {
+        var f = getFilters();
+        f.model = "";
+        f.effort = "";
+        setFilters(f);
+        renderAll();
+      };
+      chip.appendChild(btn);
+      bar.appendChild(chip);
+    }
+
+    var activeFilterCount = (filters.model ? 1 : 0) + (filters.format ? 1 : 0);
+    if (activeFilterCount > 1) {
+      var clear = document.createElement("button");
+      clear.className = "filter-clear";
+      clear.textContent = "Clear all";
+      clear.onclick = function () {
+        setFilters({ model: "", format: "", effort: "" });
+        renderAll();
+      };
+      bar.appendChild(clear);
+    }
+
+    var count = document.createElement("span");
+    count.className = "filter-count";
+    count.textContent = filteredCount + " of " + totalCount + " games";
+    bar.appendChild(count);
+  }
+
+  function renderGameCard(game, ratingsData) {
+    var a = document.createElement("a");
+    a.href = "/games/" + game.id;
+    a.className = "game-card";
+
+    var ts = game.timestamp || "";
+    var dateStr = "";
+    if (ts.length >= 15) {
+      var year = ts.substring(0, 4);
+      var month = ts.substring(4, 6);
+      var day = ts.substring(6, 8);
+      var hour = ts.substring(9, 11);
+      var min = ts.substring(11, 13);
+      var d = new Date(year + "-" + month + "-" + day + "T" + hour + ":" + min);
+      if (!isNaN(d.getTime())) {
+        dateStr = d.toLocaleDateString("en-US", {
+          year: "numeric", month: "short", day: "numeric"
+        }) + " " + d.toLocaleTimeString("en-US", {
+          hour: "numeric", minute: "2-digit"
+        });
+      }
+    }
+
+    var header = document.createElement("div");
+    header.className = "game-header";
+
+    var dateEl = document.createElement("span");
+    dateEl.className = "game-date";
+    dateEl.textContent = dateStr || game.id;
+    header.appendChild(dateEl);
+
+    var formatKey = getGameFormat(game.deckType);
+    var formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
+    a.dataset.format = formatKey;
+    var fmtBadge = document.createElement("span");
+    fmtBadge.className = "format-badge format-" + formatLabel.toLowerCase();
+    fmtBadge.textContent = formatLabel;
+    header.appendChild(fmtBadge);
+
+    var turnsEl = document.createElement("span");
+    turnsEl.className = "game-turns";
+    turnsEl.textContent = game.totalTurns + " turns";
+    header.appendChild(turnsEl);
+
+    if (game.tournament) {
+      var tBadge = document.createElement("span");
+      tBadge.className = "tournament-badge";
+      tBadge.textContent = "Tournament";
+      header.appendChild(tBadge);
+    }
+
+    a.appendChild(header);
+
+    var grid = document.createElement("div");
+    grid.className = "game-players";
+
+    var totalCost = 0;
+    var hasCost = false;
+    var isCommander = getGameFormat(game.deckType) === "commander";
+
+    (game.players || []).forEach(function (p) {
+      var cell = document.createElement("div");
+      cell.className = "player-cell";
+      if (isCommander && p.placement != null) {
+        cell.classList.add("placement-" + p.placement);
+      } else if (game.winner && p.name === game.winner) {
+        cell.classList.add("is-winner");
+      }
+
+      var nameRow = document.createElement("div");
+      nameRow.className = "player-name";
+
+      if (isCommander && p.placement != null) {
+        var placeEl = document.createElement("span");
+        placeEl.className = "player-placement placement-" + p.placement;
+        var ordinals = ["", "1st", "2nd", "3rd", "4th"];
+        placeEl.textContent = ordinals[p.placement] || p.placement + "th";
+        nameRow.appendChild(placeEl);
+      }
+
+      var nameText = document.createTextNode(p.name);
+      nameRow.appendChild(nameText);
+
+      if (game.winner && p.name === game.winner) {
+        var badge = document.createElement("span");
+        badge.className = "winner-badge";
+        badge.textContent = "WINNER";
+        nameRow.appendChild(badge);
+      }
+
+      if (p.timedOut) {
+        var toBadge = document.createElement("span");
+        toBadge.className = "timeout-badge";
+        toBadge.textContent = "TIMEOUT";
+        nameRow.appendChild(toBadge);
+      }
+
+      if (p.model) {
+        var modelName = p.model;
+        var slash = modelName.indexOf("/");
+        if (slash !== -1) modelName = modelName.substring(slash + 1);
+        var modelSpan = document.createElement("span");
+        modelSpan.className = "player-model-inline";
+        modelSpan.textContent = "(" + modelName + ")";
+        nameRow.appendChild(modelSpan);
+      }
+
+      cell.appendChild(nameRow);
+
+      var cmdEl = document.createElement("div");
+      cmdEl.className = "player-commander";
+      cmdEl.textContent = p.deckName || p.commander || "";
+      cell.appendChild(cmdEl);
+
+      if (p.totalCostUsd != null) {
+        var costEl = document.createElement("div");
+        costEl.className = "player-cost";
+        costEl.textContent = "$" + p.totalCostUsd.toFixed(2);
+        cell.appendChild(costEl);
+        totalCost += p.totalCostUsd;
+        hasCost = true;
+      }
+
+      var playerScore = (game.blunderScoreByPlayer || {})[p.name];
+      if (playerScore != null) {
+        var scoreEl = document.createElement("div");
+        scoreEl.className = "player-blunder-score";
+        if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
+        else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
+        else scoreEl.classList.add("blunder-low");
+        var isOldAnalysis = !game.blunderScriptVersion || game.blunderScriptVersion < MIN_BLUNDER_VERSION;
+        scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2);
+        if (isOldAnalysis) {
+          var oldTag = document.createElement("span");
+          oldTag.className = "old-analysis-tag";
+          oldTag.textContent = "(older analysis)";
+          oldTag.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (min: v" + MIN_BLUNDER_VERSION + ")";
+          scoreEl.appendChild(document.createTextNode(" "));
+          scoreEl.appendChild(oldTag);
+        }
+        cell.appendChild(scoreEl);
+      }
+
+      var gameRatings = ratingsData[game.id];
+      var ratingKey = p.model;
+      if (ratingKey && p.reasoningEffort) ratingKey += "::" + p.reasoningEffort;
+      var playerRating = gameRatings && ratingKey ? gameRatings[ratingKey] : null;
+      if (playerRating) {
+        var ratingEl = document.createElement("div");
+        ratingEl.className = "player-rating";
+        var delta = playerRating.after - playerRating.before;
+        if (delta > 0) ratingEl.classList.add("rating-up");
+        else if (delta < 0) ratingEl.classList.add("rating-down");
+        ratingEl.textContent = playerRating.before + " \u2192 " + playerRating.after;
+        cell.appendChild(ratingEl);
+      }
+
+      grid.appendChild(cell);
+    });
+
+    a.appendChild(grid);
+
+    if (hasCost) {
+      var footer = document.createElement("div");
+      footer.className = "game-footer";
+      footer.textContent = "Total cost: $" + totalCost.toFixed(2);
+      a.appendChild(footer);
+    }
+    if (game.youtubeUrl) {
+      var ytLink = document.createElement("a");
+      ytLink.href = game.youtubeUrl;
+      ytLink.target = "_blank";
+      ytLink.rel = "noopener";
+      ytLink.className = "yt-link";
+      ytLink.textContent = "YouTube";
+      ytLink.onclick = function (e) { e.stopPropagation(); };
+      var footerEl = a.querySelector(".game-footer");
+      if (footerEl) {
+        footerEl.appendChild(ytLink);
+      } else {
+        var ytFooter = document.createElement("div");
+        ytFooter.className = "game-footer";
+        ytFooter.appendChild(ytLink);
+        a.appendChild(ytFooter);
+      }
+    }
+
+    return a;
+  }
+
+  var ratingsData = {};
+
+  function renderFormatTabs(games) {
+    var tabsEl = document.getElementById("format-tabs");
+    if (!tabsEl) return;
+    var counts = {};
+    games.forEach(function (game) {
+      var fmt = getGameFormat(game.deckType);
+      counts[fmt] = (counts[fmt] || 0) + 1;
+    });
+    var formats = ["standard", "modern", "legacy", "commander", "jumpstart"];
+    var activeFormats = formats.filter(function (f) { return counts[f] > 0; });
+    if (activeFormats.length <= 1) {
+      tabsEl.style.display = "none";
+      return;
+    }
+    tabsEl.innerHTML = "";
+    var filters = getFilters();
+
+    var allBtn = document.createElement("button");
+    allBtn.className = "format-tab" + (!filters.format ? " active" : "");
+    allBtn.textContent = "All";
+    allBtn.onclick = function () {
+      var f = getFilters(); f.format = ""; setFilters(f); renderAll();
+    };
+    tabsEl.appendChild(allBtn);
+
+    activeFormats.forEach(function (fmt) {
+      var btn = document.createElement("button");
+      btn.className = "format-tab" + (filters.format === fmt ? " active" : "");
+      btn.innerHTML = (FORMAT_DISPLAY[fmt] || fmt) + ' <span class="tab-count">(' + counts[fmt] + ")</span>";
+      btn.onclick = function () {
+        var f = getFilters(); f.format = fmt; setFilters(f); renderAll();
+      };
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function renderModelTabs(games) {
+    var tabsEl = document.getElementById("model-tabs");
+    if (!tabsEl) return;
+    var filters = getFilters();
+
+    var counts = {};
+    var tabMeta = {};
+    games.forEach(function (game) {
+      if (filters.format) {
+        var fmt = getGameFormat(game.deckType);
+        if (fmt !== filters.format) return;
+      }
+      var seen = {};
+      (game.players || []).forEach(function (p) {
+        if (!p.model) return;
+        var key = p.model;
+        var effort = p.reasoningEffort || "";
+        if (effort) key += "::" + effort;
+        if (!seen[key]) {
+          seen[key] = true;
+          counts[key] = (counts[key] || 0) + 1;
+          if (!tabMeta[key]) tabMeta[key] = { model: p.model, effort: effort };
+        }
+      });
+    });
+
+    var keys = Object.keys(counts).sort(function (a, b) {
+      return counts[b] - counts[a] || a.localeCompare(b);
+    });
+
+    if (keys.length === 0) {
+      tabsEl.innerHTML = "";
+      return;
+    }
+
+    tabsEl.innerHTML = "";
+    var label = document.createElement("span");
+    label.className = "model-tabs-label";
+    label.textContent = "Model:";
+    tabsEl.appendChild(label);
+
+    keys.forEach(function (key) {
+      var meta = tabMeta[key];
+      var isActive = filters.model === meta.model && (filters.effort || "") === meta.effort;
+      var btn = document.createElement("button");
+      btn.className = "model-tab" + (isActive ? " active" : "");
+      var displayName = meta.model;
+      var slash = displayName.indexOf("/");
+      if (slash !== -1) displayName = displayName.substring(slash + 1);
+      if (meta.effort) displayName += " (" + meta.effort + ")";
+      btn.innerHTML = displayName + ' <span class="tab-count">(' + counts[key] + ")</span>";
+      btn.onclick = function () {
+        var f = getFilters();
+        if (f.model === meta.model && (f.effort || "") === meta.effort) {
+          f.model = "";
+          f.effort = "";
+        } else {
+          f.model = meta.model;
+          f.effort = meta.effort;
+        }
+        setFilters(f);
+        renderAll();
+      };
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  function renderAll() {
+    var games = __games;
+    var list = document.getElementById("games-list");
+    list.innerHTML = "";
+
+    if (!games || games.length === 0) {
+      renderFilterBar({ model: "", format: "" }, 0, 0);
+      return;
+    }
+
+    renderFormatTabs(games);
+    renderModelTabs(games);
+    var filters = getFilters();
+    var filtered = filterGames(games, filters);
+    renderFilterBar(filters, games.length, filtered.length);
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<p class="no-games">No games match the current filters.</p>';
+      return;
+    }
+
+    filtered.forEach(function (game) {
+      list.appendChild(renderGameCard(game, ratingsData));
+    });
+  }
+
+  // Render tournament games
+  function renderTournamentGames() {
+    var list = document.getElementById("tournament-games-list");
+    if (!list || !__tournamentGames || __tournamentGames.length === 0) return;
+    __tournamentGames.forEach(function (game) {
+      list.appendChild(renderGameCard(game, ratingsData));
+    });
+  }
+
+  fetch("/data/ratings.json").then(function (r) {
+    return r.ok ? r.json() : {};
+  }).catch(function () { return {}; })
+    .then(function (data) {
+      ratingsData = data;
+      renderAll();
+      renderTournamentGames();
+    })
+    .catch(function () {
+      renderAll();
+      renderTournamentGames();
+    });
+</script>
