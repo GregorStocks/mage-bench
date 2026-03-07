@@ -253,3 +253,10 @@ conclude-season: leaderboard
 .PHONY: tournament-draft
 tournament-draft:
 	uv run python scripts/tournament_draft.py
+
+# Run tournament match(es). GAMES=N plays N sequential matches (default: 1).
+#   make tournament-game             # play the next match
+#   make tournament-game GAMES=3     # play the next 3 matches
+.PHONY: tournament-game
+tournament-game:
+	uv run python scripts/tournament_game.py $(if $(GAMES),--games $(GAMES))

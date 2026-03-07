@@ -531,6 +531,7 @@ class Config:
 
     # Post-game behavior
     skip_post_game_prompts: bool = False  # Skip YouTube/export prompts
+    tournament_game: bool = False  # Tournament match (bypasses tournament-phase block)
 
     # Deterministic game options
     skip_init_shuffling: bool = False  # Don't shuffle libraries at game start
@@ -600,6 +601,7 @@ class Config:
                     self.deck_type_candidates = [raw_deck_type]
             self.custom_start_life = data.get("customStartLife", 0)
             self.skip_post_game_prompts = data.get("skipPostGamePrompts", False)
+            self.tournament_game = data.get("tournamentGame", False)
             self.skip_init_shuffling = data.get("skipInitShuffling", False)
             personalities = load_personalities(self.config_file)
             models_data = load_models(self.config_file)

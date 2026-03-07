@@ -50,6 +50,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - [ ] Add/update tests
    - [ ] Run `make check` (lint, typecheck, tests)
    - [ ] Delete the issue file and include deletion in the commit
+   - [ ] Run `/simplify` to review changed code
    - [ ] Push final changes: `git push origin HEAD`
    - [ ] Finalize PR: `uv run python scripts/finalize-issue-pr.py --title "..." --body "..."`
    ```
@@ -66,7 +67,8 @@ Pick and solve exactly **one** issue, then create a PR.
 7. Run `make check` to verify lint, typecheck, and tests pass
 8. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
 9. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
-10. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
+10. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found.
+11. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
 
     ```bash
     uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"

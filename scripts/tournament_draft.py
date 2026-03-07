@@ -53,16 +53,10 @@ def snake_draft_order(num_entrants: int) -> list[int]:
 
 def _load_tournament() -> tuple[dict, Path]:
     """Load the current tournament JSON. Returns (tournament_data, file_path)."""
-    assert _SEASON_FILE.exists(), f"Season file not found: {_SEASON_FILE}"
-    season_data = json.loads(_SEASON_FILE.read_text())
-    assert season_data["phase"] == "tournament", (
-        f"Season {season_data['current_season']} is in phase "
-        f"'{season_data['phase']}', expected 'tournament'"
-    )
-    tournament_path = _ROOT / season_data["tournament"]
-    assert tournament_path.exists(), f"Tournament file not found: {tournament_path}"
-    tournament = json.loads(tournament_path.read_text())
-    return tournament, tournament_path
+    # Delegate to shared implementation in tournament_game.py
+    from scripts.tournament_game import load_tournament
+
+    return load_tournament()
 
 
 def _fetch_oracle_texts(half_decks: list[HalfDeck]) -> dict[str, dict]:

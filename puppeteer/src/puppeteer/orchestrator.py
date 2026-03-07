@@ -1408,8 +1408,8 @@ def main() -> int:
     # Load player config early so we can check flags before heavy setup.
     config.load_config()
 
-    # Block free-play games during tournament phase (test configs are exempt)
-    if not config.skip_post_game_prompts:
+    # Block free-play games during tournament phase (test configs and tournament games are exempt)
+    if not config.skip_post_game_prompts and not config.tournament_game:
         tournament_block = _check_season_tournament_block(project_root)
         if tournament_block:
             logger.error(tournament_block)
