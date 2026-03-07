@@ -1,0 +1,167 @@
+{
+  "season": 1,
+  "size": 16,
+  "format": "single-elimination",
+  "created_at": "2026-03-07T06:57:45.165649+00:00",
+  "entrants": [
+    {
+      "seed": 1,
+      "preset": "opus-medium",
+      "model": "anthropic/claude-opus-4.6",
+      "display_name": "Claude Opus 4.6 (medium)",
+      "personality": "brewer",
+      "combined_elo": 1747,
+      "games_played": 16,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 2,
+      "preset": "gpt52-medium",
+      "model": "openai/gpt-5.2",
+      "display_name": "GPT-5.2 (medium)",
+      "personality": "naturalist",
+      "combined_elo": 1737,
+      "games_played": 11,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 3,
+      "preset": "gem3p-medium",
+      "model": "google/gemini-3-pro-preview",
+      "display_name": "Gemini 3 Pro (medium)",
+      "personality": "coach",
+      "combined_elo": 1722,
+      "games_played": 11,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 4,
+      "preset": "gpt53c-medium",
+      "model": "openai/gpt-5.3-codex",
+      "display_name": "GPT-5.3 Codex (medium)",
+      "personality": "teacher",
+      "combined_elo": 1717,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 5,
+      "preset": "dsv3",
+      "model": "deepseek/deepseek-v3.2",
+      "display_name": "DeepSeek V3.2",
+      "personality": "stoic",
+      "combined_elo": 1682,
+      "games_played": 10
+    },
+    {
+      "seed": 6,
+      "preset": "glm47-medium",
+      "model": "z-ai/glm-4.7",
+      "display_name": "GLM 4.7 (medium)",
+      "personality": "humble",
+      "combined_elo": 1675,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 7,
+      "preset": "gpt54-medium",
+      "model": "openai/gpt-5.4",
+      "display_name": "GPT-5.4 (medium)",
+      "personality": "sportsman",
+      "combined_elo": 1658,
+      "games_played": 8,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 8,
+      "preset": "kimik25-medium",
+      "model": "moonshotai/kimi-k2.5",
+      "display_name": "Kimi K2.5 (medium)",
+      "personality": "tactician",
+      "combined_elo": 1652,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 9,
+      "preset": "grok41f-medium",
+      "model": "x-ai/grok-4.1-fast",
+      "display_name": "Grok 4.1 Fast (medium)",
+      "personality": "timmy",
+      "combined_elo": 1637,
+      "games_played": 11,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 10,
+      "preset": "haiku-low",
+      "model": "anthropic/claude-haiku-4.5",
+      "display_name": "Claude Haiku 4.5 (low)",
+      "personality": "villain",
+      "combined_elo": 1637,
+      "games_played": 10,
+      "reasoning_effort": "low"
+    },
+    {
+      "seed": 11,
+      "preset": "gem3f-medium",
+      "model": "google/gemini-3-flash-preview",
+      "display_name": "Gemini 3 Flash (medium)",
+      "personality": "tinkerer",
+      "combined_elo": 1622,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 12,
+      "preset": "grok4f-medium",
+      "model": "x-ai/grok-4-fast",
+      "display_name": "Grok 4 Fast (medium)",
+      "personality": "commentator",
+      "combined_elo": 1620,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 13,
+      "preset": "o3-medium",
+      "model": "openai/o3",
+      "display_name": "o3 (medium)",
+      "personality": "memoir",
+      "combined_elo": 1609,
+      "games_played": 13,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 14,
+      "preset": "minimax-medium",
+      "model": "minimax/minimax-m2.5",
+      "display_name": "MiniMax M2.5 (medium)",
+      "personality": "grudge-holder",
+      "combined_elo": 1606,
+      "games_played": 8,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 15,
+      "preset": "gem31p-medium",
+      "model": "google/gemini-3.1-pro-preview",
+      "display_name": "Gemini 3.1 Pro (medium)",
+      "personality": "hype-man",
+      "combined_elo": 1602,
+      "games_played": 10,
+      "reasoning_effort": "medium"
+    },
+    {
+      "seed": 16,
+      "preset": "qwen3c",
+      "model": "qwen/qwen3-coder",
+      "display_name": "Qwen3 Coder 480B",
+      "personality": "diplomat",
+      "combined_elo": 1601,
+      "games_played": 11
+    }
+  ],
+  "rounds": []
+}
