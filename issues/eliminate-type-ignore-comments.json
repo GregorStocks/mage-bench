@@ -1,0 +1,10 @@
+{
+  "title": "Eliminate all type: ignore comments",
+  "description": "There are 8 type: ignore comments across the codebase that suppress real type errors instead of fixing them:\n\n- leaderboard.py (2): sort key lambdas on dicts — would be fixed by using TypedDicts or dataclasses for model data\n- blunder_analysis.py (2): Anthropic cache_control extension in OpenAI message format, and cached_tokens being int|None — could be fixed with proper casting or a typed wrapper\n- scryfall.py (1): cache dict value type mismatch — would be fixed by tightening the cache type\n- autoclaim-issue.py, claim-issue.py, finalize-issue-pr.py (3): identical subprocess.run wrapper using **kwargs: object — would be fixed by using proper keyword arguments instead of **kwargs\n\nEach suppression hides a real type mismatch. Fix the underlying types so mypy can check these code paths.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["typing"],
+  "created_at": "2026-03-07T00:20:00.000000-08:00",
+  "updated_at": "2026-03-07T00:20:00.000000-08:00"
+}
