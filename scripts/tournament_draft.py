@@ -23,6 +23,7 @@ import os
 import random
 import re
 from pathlib import Path
+from typing import IO
 
 from openai import AsyncOpenAI
 
@@ -255,6 +256,31 @@ def _resolve_entrant_config(
     )
 
 
+def _log_llm_call(
+    log_file: IO[str],
+    *,
+    model: str,
+    system_prompt: str,
+    user_prompt: str,
+    response_json: dict,
+    attempt: str,
+    pick_meta: dict,
+) -> None:
+    """Write a raw LLM call record to the draft log, before any asserts."""
+    entry = {
+        "type": "llm_call",
+        "ts": datetime.datetime.now().isoformat(),
+        "attempt": attempt,
+        "model": model,
+        "system_prompt": system_prompt,
+        "user_prompt": user_prompt,
+        "response": response_json,
+        **pick_meta,
+    }
+    log_file.write(json.dumps(entry) + "\n")
+    log_file.flush()
+
+
 async def _llm_pick(
     client: AsyncOpenAI,
     model: str,
@@ -262,6 +288,8 @@ async def _llm_pick(
     user_prompt: str,
     reasoning_effort: str | None,
     num_options: int,
+    log_file: IO[str],
+    pick_meta: dict,
 ) -> tuple[int, str, str | None, dict]:
     """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict)."""
     messages = [
@@ -280,6 +308,16 @@ async def _llm_pick(
     response = await asyncio.wait_for(
         client.chat.completions.create(**create_kwargs),
         timeout=LLM_TIMEOUT_SECS,
+    )
+
+    _log_llm_call(
+        log_file,
+        model=model,
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        response_json=response.model_dump(),
+        attempt="initial",
+        pick_meta=pick_meta,
     )
 
     assert response.choices, f"LLM returned empty choices for model {model}"
@@ -317,6 +355,17 @@ async def _llm_pick(
             client.chat.completions.create(**create_kwargs | {"messages": messages}),
             timeout=LLM_TIMEOUT_SECS,
         )
+
+        _log_llm_call(
+            log_file,
+            model=model,
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            response_json=retry_response.model_dump(),
+            attempt="retry",
+            pick_meta=pick_meta,
+        )
+
         assert retry_response.choices, (
             f"LLM returned empty choices on retry for model {model}"
         )
@@ -444,6 +493,12 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 f"Round {round_num}, {len(option_themes)} packs available"
             )
 
+            pick_meta = {
+                "pick_idx": pick_idx,
+                "seed": seed,
+                "display_name": entrant["display_name"],
+                "round": round_num,
+            }
             pick_num, reasoning, thinking, usage = await _llm_pick(
                 client,
                 model,
@@ -451,6 +506,8 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 user_prompt,
                 reasoning_effort,
                 len(options),
+                log_file,
+                pick_meta,
             )
 
             picked_theme = option_themes[pick_num - 1]
@@ -490,15 +547,14 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 pick_record["thinking"] = thinking
             picks.append(pick_record)
 
-            # Write incremental JSONL log entry (full LLM input/output)
+            # Write incremental JSONL log entry (parsed result)
             log_entry = {
+                "type": "pick_result",
                 **pick_record,
                 "ts": datetime.datetime.now().isoformat(),
                 "pick_idx": pick_idx,
                 "display_name": entrant["display_name"],
                 "model": model,
-                "system_prompt": system_prompt,
-                "user_prompt": user_prompt,
                 "cumulative_cost_usd": cumulative_cost,
             }
             log_file.write(json.dumps(log_entry) + "\n")
