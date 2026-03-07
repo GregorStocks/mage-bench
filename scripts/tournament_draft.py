@@ -25,6 +25,7 @@ from puppeteer.config import (
     resolve_preset,
     load_personalities,
     load_prompts,
+    load_toolsets,
 )
 from puppeteer.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
@@ -202,6 +203,7 @@ def _resolve_entrant_config(
     presets_data: dict,
     personalities: dict[str, dict],
     prompts: dict[str, str],
+    toolsets: dict[str, list[str]],
 ) -> tuple[str, str, str | None, str | None]:
     """Resolve an entrant's locked config to (model, base_url, reasoning_effort, personality_suffix).
 
@@ -212,7 +214,7 @@ def _resolve_entrant_config(
         preset=entrant["preset"],
         personality=entrant["personality"],
     )
-    resolve_preset(player, presets_data, prompts)
+    resolve_preset(player, presets_data, prompts, toolsets)
 
     assert player.model is not None, (
         f"Preset {entrant['preset']!r} did not resolve a model"
@@ -313,6 +315,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     presets_data = json.loads(_PRESETS_JSON.read_text())
     personalities = load_personalities(None)
     prompts = load_prompts(None)
+    toolsets = load_toolsets(None)
 
     # Snake draft
     order = snake_draft_order(num_entrants)
@@ -334,7 +337,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
 
         # Resolve entrant config
         model, base_url, reasoning_effort, prompt_suffix = _resolve_entrant_config(
-            entrant, presets_data, personalities, prompts
+            entrant, presets_data, personalities, prompts, toolsets
         )
 
         # Build prompts
