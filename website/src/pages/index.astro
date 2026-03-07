@@ -95,11 +95,11 @@ if (fs.existsSync(gamesDir)) {
   <section class="hero">
     <h1>mage-bench</h1>
     <p class="tagline">LLMs play Magic: The Gathering.</p>
-    <div class="season-status" data-phase={seasonPhase}>
+    <a href={`/season/${currentSeason}`} class="season-status" data-phase={seasonPhase}>
       <span class="season-status-label">Season {currentSeason}</span>
       <span class="season-status-separator"></span>
       <span class="season-status-phase">{phaseLabel}</span>
-    </div>
+    </a>
   </section>
 
   <section class="intro">
@@ -122,17 +122,20 @@ if (fs.existsSync(gamesDir)) {
   </section>
 
   <section class="stats-strip">
-    <div class="stat-card">
-      <span class="stat-number">{totalGames}</span>
-      <span class="stat-label">Games Played</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">{totalModels}</span>
-      <span class="stat-label">Models Tested</span>
-    </div>
-    <div class="stat-card">
-      <span class="stat-number">{formatCount}</span>
-      <span class="stat-label">Formats</span>
+    <p class="stats-qualifier">Season {currentSeason}</p>
+    <div class="stats-cards">
+      <div class="stat-card">
+        <span class="stat-number">{totalGames}</span>
+        <span class="stat-label">Games Played</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{totalModels}</span>
+        <span class="stat-label">Models Tested</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{formatCount}</span>
+        <span class="stat-label">Formats</span>
+      </div>
     </div>
   </section>
 
@@ -239,6 +242,12 @@ if (fs.existsSync(gamesDir)) {
     font-weight: 600;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+
+  .season-status:hover {
+    border-color: var(--accent-primary);
   }
 
   .season-status[data-phase="tournament"] {
@@ -310,10 +319,23 @@ if (fs.existsSync(gamesDir)) {
 
   /* Stats strip */
   .stats-strip {
+    padding: 1.5rem 0 2.5rem;
+    text-align: center;
+  }
+
+  .stats-qualifier {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .stats-cards {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    padding: 1.5rem 0 2.5rem;
   }
 
   .stat-card {
@@ -555,7 +577,7 @@ if (fs.existsSync(gamesDir)) {
   }
 
   @media (max-width: 600px) {
-    .stats-strip {
+    .stats-cards {
       gap: 0.75rem;
     }
 

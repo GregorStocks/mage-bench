@@ -4,6 +4,7 @@ import benchmarkData from '../data/benchmark-results.json';
 import seasonData from '../data/season.json';
 
 const currentSeason = (seasonData as any).current_season;
+const seasonPhase = (seasonData as any).phase;
 const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [currentSeason];
 
 const FORMAT_LABELS: Record<string, string> = {
@@ -41,7 +42,7 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
             data-season={s}
           >
             Season {s}
-            {s === currentSeason && <span class="season-tab-badge">Current</span>}
+            {s === currentSeason && <span class="season-tab-badge">{seasonPhase === 'tournament' ? 'Concluded' : 'Current'}</span>}
           </button>
         ))}
       </div>

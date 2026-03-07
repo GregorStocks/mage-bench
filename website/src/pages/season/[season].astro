@@ -179,7 +179,7 @@ const bracketRounds = buildBracketData(tournament);
         <div class="tournament-meta">
           <span class="meta-chip">{tournament.format.replace('-', ' ')}</span>
           <span class="meta-chip">{tournament.size} players</span>
-          {tournament.draft && <span class="meta-chip">Jumpstart draft</span>}
+          <span class="meta-chip">Jumpstart draft</span>
         </div>
       </div>
 
@@ -246,6 +246,14 @@ const bracketRounds = buildBracketData(tournament);
       )}
 
       {/* Bracket */}
+      {tournament && (!bracketRounds || bracketRounds.length === 0) && (
+        <div class="bracket-section">
+          <h3>Bracket</h3>
+          <div class="bracket-pending">
+            <p>The tournament bracket will appear here once the draft is complete and matches begin.</p>
+          </div>
+        </div>
+      )}
       {bracketRounds && bracketRounds.length > 0 && (
         <div class="bracket-section">
           <h3>Bracket</h3>
@@ -336,7 +344,10 @@ const bracketRounds = buildBracketData(tournament);
     {!tournament && games.length > 0 && <p class="subtitle">Replay past mage-bench games from Season {seasonNum}.</p>}
     {!tournament && games.length === 0 && <p class="subtitle empty">No games in Season {seasonNum} yet.</p>}
     <div id="format-tabs" class="format-tabs"></div>
-    <div id="model-tabs" class="model-tabs"></div>
+    <details class="model-filter-details" id="model-filter-details">
+      <summary class="model-filter-summary">Filter by model</summary>
+      <div id="model-tabs" class="model-tabs"></div>
+    </details>
     <div id="filter-bar" style="display:none"></div>
     <div id="games-list">
       {(tournament ? freePlayGames : games).length > 0 && <p class="loading">Loading games...</p>}
@@ -428,7 +439,7 @@ const bracketRounds = buildBracketData(tournament);
 
   .entrants-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
   }
 
@@ -440,6 +451,7 @@ const bracketRounds = buildBracketData(tournament);
     border: 1px solid var(--border-default);
     border-radius: 8px;
     transition: border-color 0.2s;
+    overflow: hidden;
   }
 
   .entrant-card:hover {
@@ -465,6 +477,9 @@ const bracketRounds = buildBracketData(tournament);
     font-weight: 600;
     font-size: 0.95rem;
     margin-bottom: 0.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .entrant-effort {
@@ -514,6 +529,19 @@ const bracketRounds = buildBracketData(tournament);
     font-size: 0.75rem;
     color: var(--accent-secondary);
     margin-top: 0.15rem;
+  }
+
+  .bracket-pending {
+    padding: 2rem;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-default);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .bracket-pending p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
   }
 
   /* --- Draft --- */
@@ -785,6 +813,12 @@ const bracketRounds = buildBracketData(tournament);
     margin-top: 1.5rem;
   }
 
+  @media (max-width: 900px) {
+    .entrants-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 600px) {
     .entrants-grid {
       grid-template-columns: 1fr;
@@ -867,6 +901,28 @@ const bracketRounds = buildBracketData(tournament);
 
   .model-tabs:empty {
     display: none;
+  }
+
+  .model-filter-details {
+    margin-bottom: 1.5rem;
+  }
+
+  .model-filter-details:has(.model-tabs:empty) {
+    display: none;
+  }
+
+  .model-filter-summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 0.3rem 0;
+    user-select: none;
+    margin-bottom: 0.75rem;
+  }
+
+  .model-filter-summary:hover {
+    color: var(--accent-primary);
   }
 
   .model-tabs-label {
@@ -1658,6 +1714,11 @@ const bracketRounds = buildBracketData(tournament);
     label.className = "model-tabs-label";
     label.textContent = "Model:";
     tabsEl.appendChild(label);
+
+    var detailsEl = document.getElementById("model-filter-details");
+    if (detailsEl && filters.model) {
+      detailsEl.open = true;
+    }
 
     keys.forEach(function (key) {
       var meta = tabMeta[key];

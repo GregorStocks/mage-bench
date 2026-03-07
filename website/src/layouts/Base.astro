@@ -40,7 +40,6 @@ const navLinks = [
   <body>
     <nav>
       <a class="site-title" href="/">mage-bench</a>
-      <span class="nav-season-badge">S{currentSeason}</span>
       <ul>
         {navLinks.map(link => (
           <li>
@@ -141,20 +140,6 @@ const navLinks = [
     color: var(--accent-primary);
     text-decoration: none;
     letter-spacing: 0.02em;
-  }
-
-  .nav-season-badge {
-    font-family: var(--font-heading);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--accent-secondary);
-    background: rgba(20, 184, 166, 0.12);
-    border: 1px solid rgba(20, 184, 166, 0.3);
-    padding: 0.15rem 0.4rem;
-    border-radius: 4px;
-    line-height: 1;
-    align-self: center;
   }
 
   nav ul {
