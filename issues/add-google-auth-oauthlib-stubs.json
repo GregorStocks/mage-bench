@@ -2,7 +2,7 @@
   "title": "Add type stubs for google_auth_oauthlib when a working package becomes available",
   "description": "The only stubs package on PyPI for google_auth_oauthlib (google-auth-oauthlib-stubs) is broken — it installs files to a wrong directory (tool/__init__.pyi instead of google_auth_oauthlib/*.pyi). A mypy override in puppeteer/pyproject.toml suppresses import-untyped errors for google_auth_oauthlib.* as a workaround. When upstream ships py.typed or a working stubs package appears, remove the override and add the stubs dependency.",
   "status": "open",
-  "priority": 5,
+  "priority": 4,
   "type": "task",
   "labels": ["typing"],
   "not_autoclaimable": true,
