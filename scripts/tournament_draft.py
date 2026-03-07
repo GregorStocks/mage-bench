@@ -316,8 +316,12 @@ async def _llm_pick(
             f"LLM returned None content on retry for model {model}"
         )
         if retry_response.usage:
-            usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (retry_response.usage.prompt_tokens or 0)
-            usage["completion_tokens"] = usage.get("completion_tokens", 0) + (retry_response.usage.completion_tokens or 0)
+            usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (
+                retry_response.usage.prompt_tokens or 0
+            )
+            usage["completion_tokens"] = usage.get("completion_tokens", 0) + (
+                retry_response.usage.completion_tokens or 0
+            )
         pick = parse_pick(retry_content, num_options)
 
     return pick, content, usage
@@ -427,7 +431,12 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             )
 
             pick_num, reasoning, usage = await _llm_pick(
-                client, model, system_prompt, user_prompt, reasoning_effort, len(options)
+                client,
+                model,
+                system_prompt,
+                user_prompt,
+                reasoning_effort,
+                len(options),
             )
 
             picked_theme = option_themes[pick_num - 1]

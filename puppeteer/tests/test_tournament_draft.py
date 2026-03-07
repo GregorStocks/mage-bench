@@ -96,7 +96,7 @@ class TestDraftOrder:
         order = draft_order(8)
         # In each round, seed 1 picks before seed 2, etc.
         for round_start in (0, 8):
-            round_order = order[round_start:round_start + 8]
+            round_order = order[round_start : round_start + 8]
             assert round_order == list(range(1, 9))
 
 
