@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-06T08:27:36.240575+00:00",
+  "generatedAt": "2026-03-06T17:08:37.750765+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -16303,6 +16303,138 @@
           "toolCallsFailed": 6,
           "thinkingTimeSecs": 304.3,
           "responses": 137,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_073107_g1",
+      "ts": "2026-03-06T07:31:07",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.4::medium",
+          "modelName": "GPT-5.4 (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 11.3184,
+          "promptTokens": 3657098,
+          "completionTokens": 145042,
+          "cachedTokens": 2147456,
+          "reasoningTokens": 129528,
+          "toolCallsOk": 323,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 3622.7,
+          "responses": 320,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "openai/gpt-5.3-codex::medium",
+          "modelName": "GPT-5.3 Codex (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 5.74,
+          "promptTokens": 2696276,
+          "completionTokens": 72967,
+          "cachedTokens": 2048512,
+          "reasoningTokens": 60960,
+          "toolCallsOk": 251,
+          "toolCallsFailed": 5,
+          "thinkingTimeSecs": 1905.9,
+          "responses": 256,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_073107_g2",
+      "ts": "2026-03-06T07:31:07",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-haiku-4.5::low",
+          "modelName": "Claude Haiku 4.5 (low)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 1.8538,
+          "promptTokens": 1760594,
+          "completionTokens": 18642,
+          "cachedTokens": 1210620,
+          "reasoningTokens": 80,
+          "toolCallsOk": 117,
+          "toolCallsFailed": 9,
+          "thinkingTimeSecs": 496.4,
+          "responses": 124,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.281,
+          "promptTokens": 1109726,
+          "completionTokens": 2376,
+          "cachedTokens": 328252,
+          "reasoningTokens": 0,
+          "toolCallsOk": 107,
+          "toolCallsFailed": 5,
+          "thinkingTimeSecs": 169.0,
+          "responses": 112,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        }
+      ]
+    },
+    {
+      "id": "game_20260306_073107_g3",
+      "ts": "2026-03-06T07:31:07",
+      "epoch": 44,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "openai/gpt-5.2::medium",
+          "modelName": "GPT-5.2 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 1.5666,
+          "promptTokens": 600124,
+          "completionTokens": 36885,
+          "cachedTokens": 391808,
+          "reasoningTokens": 33157,
+          "toolCallsOk": 81,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 940.3,
+          "responses": 84,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0
+        },
+        {
+          "key": "google/gemini-3.1-flash-lite-preview",
+          "modelName": "Gemini 3.1 Flash Lite",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.083,
+          "promptTokens": 326086,
+          "completionTokens": 955,
+          "cachedTokens": 32026,
+          "reasoningTokens": 0,
+          "toolCallsOk": 42,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 80.3,
+          "responses": 45,
           "timeouts": 0,
           "otherErrors": 0,
           "contextResets": 0
