@@ -8,11 +8,32 @@ import math
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict
+
+from typing_extensions import NotRequired
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
+
+
+class _ModelEntry(TypedDict):
+    modelId: str
+    modelName: str
+    provider: str
+    rating: int | None
+    gamesPlayed: int
+    winRate: float
+    timeoutLosses: int
+    timeoutLossRate: float
+    avgApiCost: float
+    avgToolCallsOk: float
+    avgToolCallsFailed: float
+    avgThinkingTimeSecs: float
+    blunderScore: float
+    reasoningEffort: NotRequired[str]
+
+
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
 
@@ -417,7 +438,7 @@ def generate_leaderboard(
             stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
 
     # Build models list
-    models: list[dict[str, str | int | float | None]] = []
+    models: list[_ModelEntry] = []
     for key, s in stats.items():
         model_id, effort = _split_key(key)
         games_played = int(s["games_played"])
@@ -439,7 +460,7 @@ def generate_leaderboard(
         blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         timeout_losses = int(s["timeout_losses"])
         timeout_loss_rate = timeout_losses / games_played
-        entry: dict[str, str | int | float | None] = {
+        entry: _ModelEntry = {
             "modelId": model_id,
             "modelName": display_name,
             "provider": capitalize_provider(provider_slug),
@@ -459,7 +480,11 @@ def generate_leaderboard(
         models.append(entry)
 
     # Sort by rating desc, then games_played desc, then modelId for determinism
-    models.sort(key=lambda m: (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))  # type: ignore[operator]
+    def rated_sort_key(m: _ModelEntry) -> tuple[int, int, str, str]:
+        assert m["rating"] is not None
+        return (-m["rating"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", ""))
+
+    models.sort(key=rated_sort_key)
 
     benchmark_results = {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
@@ -526,7 +551,7 @@ def generate_exhibition_leaderboard(
             stats[key]["total_annotated_turns"] += total_turns
             stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
 
-    models: list[dict[str, str | int | float | None]] = []
+    models: list[_ModelEntry] = []
     for key, s in stats.items():
         model_id, effort = _split_key(key)
         games_played = int(s["games_played"])
@@ -547,7 +572,7 @@ def generate_exhibition_leaderboard(
         blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         timeout_losses = int(s["timeout_losses"])
         timeout_loss_rate = timeout_losses / games_played
-        entry: dict[str, str | int | float | None] = {
+        entry: _ModelEntry = {
             "modelId": model_id,
             "modelName": display_name,
             "provider": capitalize_provider(provider_slug),
@@ -567,7 +592,7 @@ def generate_exhibition_leaderboard(
         models.append(entry)
 
     # Sort by win rate desc, then games played desc, then modelId for determinism
-    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))  # type: ignore[operator]
+    models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))
 
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(),

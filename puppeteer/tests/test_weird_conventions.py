@@ -11,6 +11,7 @@ import json
 import os
 import re
 import subprocess
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, ClassVar
 
@@ -268,7 +269,9 @@ class TestAllExportsValid:
         _glob_game_files(),
         ids=lambda p: p.name,
     )
-    def test_game_conforms_to_schema(self, game_file: Path, all_games_data: dict, game_export_validator) -> None:
+    def test_game_conforms_to_schema(
+        self, game_file: Path, all_games_data: Mapping[Path, dict], game_export_validator
+    ) -> None:
         data = all_games_data[game_file]
         version = data["version"]
         assert version in game_export_validator, f"No schema for version {version}"
@@ -447,7 +450,7 @@ class TestConfigReferencesValid:
 
 
 class TestExportedGameModelsKnown:
-    def test_game_models_exist(self, all_games_data: dict) -> None:
+    def test_game_models_exist(self, all_games_data: Mapping[Path, dict]) -> None:
         """Every player.model in exported games must be in models.json or the retired allowlist."""
         models_data = _load_json(PUPPETEER_DIR / "models.json")
         model_ids = {m["id"] for m in models_data["models"]}

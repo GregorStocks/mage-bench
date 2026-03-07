@@ -85,8 +85,9 @@ def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     uncached: list[str] = []
     for name in names:
         if name in cache:
-            if cache[name] is not None:
-                found.append(cache[name])  # type: ignore[arg-type]
+            val = cache[name]
+            if val is not None:
+                found.append(val)
             else:
                 not_found.append({"name": name})
         else:

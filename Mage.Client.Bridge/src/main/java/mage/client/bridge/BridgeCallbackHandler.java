@@ -261,6 +261,42 @@ public class BridgeCallbackHandler {
         this.client = client;
     }
 
+    private final class ActionableCallbackOutcome {
+        private final ClientCallbackMethod method;
+        private String outcome = null;
+
+        private ActionableCallbackOutcome(ClientCallbackMethod method) {
+            this.method = method;
+        }
+
+        void storedPendingAction(String detail) {
+            record("stored_pending_action:" + detail);
+        }
+
+        void sentResponse(String detail) {
+            record("sent_response:" + detail);
+        }
+
+        void verifyRecorded() {
+            if (outcome == null) {
+                throw new IllegalStateException(
+                        "Actionable callback " + method
+                        + " returned without storing a pending action or sending a response");
+            }
+        }
+
+        private void record(String nextOutcome) {
+            if (outcome != null) {
+                throw new IllegalStateException(
+                        "Actionable callback " + method
+                        + " recorded multiple outcomes: " + outcome + " then " + nextOutcome);
+            }
+            outcome = nextOutcome;
+            logger.debug("[" + client.getUsername() + "] Callback outcome " + method + ": " + nextOutcome);
+            logBridgeEvent("CALLBACK_OUTCOME", method.name() + ": " + nextOutcome);
+        }
+    }
+
     public void setErrorLogPath(String path) {
         this.errorLogPath = path;
     }
@@ -4360,6 +4396,9 @@ public class BridgeCallbackHandler {
             if (ACTIONABLE_CALLBACKS.contains(method)) {
                 lastActionableCallbackAt = System.currentTimeMillis();
             }
+            ActionableCallbackOutcome actionableOutcome = ACTIONABLE_CALLBACKS.contains(method)
+                    ? new ActionableCallbackOutcome(method)
+                    : null;
             logger.debug("[" + client.getUsername() + "] Callback received: " + method);
 
             // Bridge JSONL dump: log every callback
@@ -4396,16 +4435,20 @@ public class BridgeCallbackHandler {
                 case GAME_ASK:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_ASK");
                     } else {
                         handleGameAsk(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_ASK");
                     }
                     break;
 
                 case GAME_SELECT:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_SELECT");
                     } else {
                         handleGameSelect(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_SELECT");
                     }
                     break;
 
@@ -4427,6 +4470,7 @@ public class BridgeCallbackHandler {
                                     updateLastGameView(gv, "auto_target");
                                     session.sendPlayerUUID(objectId, onlyTarget);
                                     targetAutoHandled = true;
+                                    actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
                                 }
                             }
                         } catch (Exception e) {
@@ -4435,9 +4479,11 @@ public class BridgeCallbackHandler {
                         }
                         if (!targetAutoHandled) {
                             storePendingAction(objectId, method, callback);
+                            actionableOutcome.storedPendingAction("mcp GAME_TARGET");
                         }
                     } else {
                         handleGameTarget(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_TARGET");
                     }
                     break;
 
@@ -4469,6 +4515,7 @@ public class BridgeCallbackHandler {
                                                 + picker.getMessage() + "\", cancelling spell");
                                         cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
                                         abilityAutoHandled = true;
+                                        actionableOutcome.sentResponse("cancel GAME_CHOOSE_ABILITY bad_mana_plan");
                                         break;
                                     }
                                 } else {
@@ -4482,15 +4529,19 @@ public class BridgeCallbackHandler {
                                     }
                                 }
                                 session.sendPlayerUUID(objectId, selected);
+                                actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY mana_plan");
                             } else {
                                 // No mana plan: let the LLM choose the ability
                                 storePendingAction(objectId, method, callback);
+                                actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_ABILITY");
                             }
                         } else if (mcpMode) {
                             logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
                             session.sendPlayerUUID(objectId, null);
+                            actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY null_choice");
                         } else {
                             handleGameChooseAbility(objectId, callback);
+                            actionableOutcome.sentResponse("auto GAME_CHOOSE_ABILITY");
                         }
                         abilityAutoHandled = true;
                     } catch (Exception e) {
@@ -4499,6 +4550,7 @@ public class BridgeCallbackHandler {
                     }
                     if (!abilityAutoHandled && mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("fallback GAME_CHOOSE_ABILITY");
                     }
                     break;
                 }
@@ -4506,16 +4558,20 @@ public class BridgeCallbackHandler {
                 case GAME_CHOOSE_CHOICE:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_CHOICE");
                     } else {
                         handleGameChooseChoice(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_CHOOSE_CHOICE");
                     }
                     break;
 
                 case GAME_CHOOSE_PILE:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_CHOOSE_PILE");
                     } else {
                         handleGameChoosePile(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_CHOOSE_PILE");
                     }
                     break;
 
@@ -4534,10 +4590,14 @@ public class BridgeCallbackHandler {
                     if (!manaHandled) {
                         if (mcpMode) {
                             storePendingAction(objectId, method, callback);
+                            actionableOutcome.storedPendingAction("mcp " + method.name());
                         } else {
                             // Non-MCP mode: cancel the payment
                             session.sendPlayerBoolean(objectId, false);
+                            actionableOutcome.sentResponse("cancel " + method.name());
                         }
+                    } else {
+                        actionableOutcome.sentResponse("auto " + method.name());
                     }
                     break;
                 }
@@ -4545,16 +4605,20 @@ public class BridgeCallbackHandler {
                 case GAME_GET_AMOUNT:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_GET_AMOUNT");
                     } else {
                         handleGameGetAmount(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_GET_AMOUNT");
                     }
                     break;
 
                 case GAME_GET_MULTI_AMOUNT:
                     if (mcpMode) {
                         storePendingAction(objectId, method, callback);
+                        actionableOutcome.storedPendingAction("mcp GAME_GET_MULTI_AMOUNT");
                     } else {
                         handleGameGetMultiAmount(objectId, callback);
+                        actionableOutcome.sentResponse("auto GAME_GET_MULTI_AMOUNT");
                     }
                     break;
 
@@ -4583,6 +4647,9 @@ public class BridgeCallbackHandler {
 
                 default:
                     logger.debug("[" + client.getUsername() + "] Unhandled callback: " + method);
+            }
+            if (actionableOutcome != null) {
+                actionableOutcome.verifyRecorded();
             }
         } catch (Exception e) {
             logError("Error handling callback " + callback.getMethod() + ": " + e.getMessage());

@@ -7,6 +7,7 @@ import re
 import shutil
 import subprocess
 import sys
+from collections.abc import Iterator, Mapping
 from pathlib import Path
 
 import jsonschema
@@ -288,8 +289,8 @@ def _load_game(path: Path) -> dict:
         return json.load(f)
 
 
-class _LazyGameData(dict):
-    """Dict that loads game JSON lazily on first access per key.
+class _LazyGameData(Mapping[Path, dict]):
+    """Mapping that loads game JSON lazily on first access per key.
 
     Keys are populated eagerly (all game file paths), but values are only
     parsed from disk when first accessed.  This avoids the ~11s upfront cost
@@ -297,24 +298,26 @@ class _LazyGameData(dict):
     """
 
     def __init__(self, paths: list[Path]):
-        super().__init__({p: None for p in paths})
-        self._loaded: set[Path] = set()
+        self._paths = paths
+        self._path_set = frozenset(paths)
+        self._data: dict[Path, dict] = {}
 
     def __getitem__(self, key: Path) -> dict:
-        if key not in self._loaded:
-            super().__setitem__(key, _load_game(key))
-            self._loaded.add(key)
-        return super().__getitem__(key)
+        if key not in self._data:
+            if key not in self._path_set:
+                raise KeyError(key)
+            self._data[key] = _load_game(key)
+        return self._data[key]
 
-    def values(self):  # type: ignore[override]
-        return [self[k] for k in self]
+    def __iter__(self) -> Iterator[Path]:
+        return iter(self._paths)
 
-    def items(self):  # type: ignore[override]
-        return [(k, self[k]) for k in self]
+    def __len__(self) -> int:
+        return len(self._paths)
 
 
 @pytest.fixture(scope="session")
-def all_games_data() -> dict[Path, dict]:
+def all_games_data() -> Mapping[Path, dict]:
     """Lazy-loading map of game export files, parsed on first access."""
     return _LazyGameData(_glob_game_files())
 

@@ -63,6 +63,9 @@ ignore = [
 ]
 external = []
 
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
+
 [tool.ruff.lint.isort]
 known-first-party = ["puppeteer", "scripts", "schemas"]
 

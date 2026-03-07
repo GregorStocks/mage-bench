@@ -22,6 +22,8 @@ import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
+from typing import Any
+
 from openai import OpenAI
 
 from puppeteer.decision_renderer import (
@@ -739,19 +741,22 @@ def _call_llm(
 
     for attempt in range(retries + 1):
         try:
+            # cache_control is an OpenRouter/Anthropic vendor extension
+            # not in OpenAI's type stubs — typed as Any to bypass
+            system_msg: Any = {
+                "role": "system",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": system,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+            }
             response = client.chat.completions.create(
                 model=model,
                 messages=[
-                    {  # type: ignore[list-item,misc]
-                        "role": "system",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": system,
-                                "cache_control": {"type": "ephemeral"},
-                            }
-                        ],
-                    },
+                    system_msg,
                     {"role": "user", "content": user},
                 ],
                 max_tokens=16384,
@@ -762,8 +767,8 @@ def _call_llm(
             assert usage is not None, "API response missing usage data"
             cached = 0
             ptd = usage.prompt_tokens_details
-            if ptd and getattr(ptd, "cached_tokens", None):
-                cached = ptd.cached_tokens  # type: ignore[assignment]
+            if ptd is not None and ptd.cached_tokens is not None:
+                cached = ptd.cached_tokens
             return text, usage.prompt_tokens, usage.completion_tokens, cached
         except Exception as e:
             err_str = str(e)
