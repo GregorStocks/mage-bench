@@ -24,6 +24,7 @@ build-backend = "hatchling.build"
 dev = [
     "ruff>=0.8.0",
     "mypy>=1.13.0",
+    "types-psutil>=5.9.0",
     "pytest>=8.0.0",
     "pytest-asyncio>=0.24.0",
     "pytest-xdist>=3.5.0",
@@ -69,7 +70,7 @@ warn_return_any = false
 warn_unused_configs = true
 disallow_untyped_defs = false
 check_untyped_defs = true
-ignore_missing_imports = true
+ignore_missing_imports = false
 
 # Existing code uses dynamic player type patterns that mypy can't follow.
 # These per-module overrides prevent noise while still checking new code.
@@ -84,6 +85,11 @@ disable_error_code = ["assignment", "attr-defined", "union-attr", "call-overload
 [[tool.mypy.overrides]]
 module = ["puppeteer.process_manager"]
 disable_error_code = ["assignment"]
+
+[[tool.mypy.overrides]]
+module = ["google_auth_oauthlib.*", "googleapiclient.*"]
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

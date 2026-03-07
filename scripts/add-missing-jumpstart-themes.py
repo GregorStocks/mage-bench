@@ -499,12 +499,12 @@ def resolve_all_cards(
     # For cards not found via collection, try individual lookup preferring JMP/M21
     missing = all_names - set(resolved.keys())
     for name in sorted(missing):
-        card = scryfall.named(name)
-        if card is None and " // " in name:
+        lookup = scryfall.named(name)
+        if lookup is None and " // " in name:
             # Split cards: try front half name (Scryfall resolves to full card)
-            card = scryfall.named(name.split(" // ")[0])
-        if card is not None:
-            resolved[name] = (card["set"].upper(), card["collector_number"])
+            lookup = scryfall.named(name.split(" // ")[0])
+        if lookup is not None:
+            resolved[name] = (lookup["set"].upper(), lookup["collector_number"])
         else:
             print(f"  ERROR: card not found at all: {name}")
 

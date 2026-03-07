@@ -15,15 +15,15 @@ lint:
 	uv run python scripts/checks/lint_issues.py
 	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run python scripts/checks/lint_no_fallback.py
-	uv run --project puppeteer ruff check puppeteer/ scripts/
+	uv run --project puppeteer ruff check puppeteer/ scripts/ schemas/
 
 .PHONY: lint-fix
 lint-fix:
-	uv run --project puppeteer ruff check --fix puppeteer/ scripts/
+	uv run --project puppeteer ruff check --fix puppeteer/ scripts/ schemas/
 
 .PHONY: format
 format:
-	uv run --project puppeteer ruff format puppeteer/ scripts/
+	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/
 
 .PHONY: lint-md
 lint-md:
@@ -31,11 +31,11 @@ lint-md:
 
 .PHONY: format-check
 format-check:
-	uv run --project puppeteer ruff format --check puppeteer/ scripts/
+	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/
 
 .PHONY: typecheck
 typecheck:
-	uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml puppeteer/src/puppeteer/
+	uv run --project puppeteer mypy --config-file puppeteer/pyproject.toml puppeteer/src/puppeteer/ scripts/ schemas/
 
 .PHONY: test
 test:

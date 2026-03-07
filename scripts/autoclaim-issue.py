@@ -25,7 +25,7 @@ MAX_RETRIES = 5
 
 
 def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)  # type: ignore[arg-type]
+    return subprocess.run(cmd, capture_output=True, text=True, **kwargs)  # type: ignore[call-overload]
 
 
 def merge_master() -> None:

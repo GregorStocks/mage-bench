@@ -29,7 +29,7 @@ import argparse
 import json
 import os
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -692,38 +692,38 @@ def _approach_flash_opus(
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futs = {pool.submit(screen_one, d): d for d in non_forced}
         for fut in as_completed(futs):
-            idx, trace, flagged = fut.result()
-            screen_results[idx] = (trace, flagged)
+            idx, trace, was_flagged = fut.result()
+            screen_results[idx] = (trace, was_flagged)
 
-    flagged: list[dict] = []
+    flagged_decisions: list[dict] = []
     for d in non_forced:
         trace, was_flagged = screen_results[d["decision_index"]]
         result.calls.append(trace)
         if was_flagged:
-            flagged.append(d)
+            flagged_decisions.append(d)
 
     print(
-        f"    Flash flagged {len(flagged)}/{len(non_forced)} decisions for Opus review"
+        f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Opus review"
     )
 
     # Phase 2: Opus analyzes flagged decisions (parallel)
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {}
-        for d in flagged:
+        eval_futures: dict[Future[tuple[CallTrace, list[dict]]], int] = {}
+        for d in flagged_decisions:
             formatted = _format_decisions([d])
             user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
             label = f"opus_{d['decision_index']}"
-            fut = pool.submit(
+            eval_fut = pool.submit(
                 _eval_one_decision, client, OPUS, PER_DECISION_SYSTEM, user_msg, label
             )
-            futures[fut] = d["decision_index"]
+            eval_futures[eval_fut] = d["decision_index"]
 
         opus_results: dict[int, tuple[CallTrace, list[dict]]] = {}
-        for fut in as_completed(futures):
-            idx = futures[fut]
-            opus_results[idx] = fut.result()
+        for eval_fut in as_completed(eval_futures):
+            idx = eval_futures[eval_fut]
+            opus_results[idx] = eval_fut.result()
 
-    for d in flagged:
+    for d in flagged_decisions:
         trace, anns = opus_results[d["decision_index"]]
         result.calls.append(trace)
         result.annotations.extend(anns)
@@ -761,28 +761,28 @@ def _approach_flash_sonnet(
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futs = {pool.submit(screen_one, d): d for d in non_forced}
         for fut in as_completed(futs):
-            idx, trace, flagged = fut.result()
-            screen_results[idx] = (trace, flagged)
+            idx, trace, was_flagged = fut.result()
+            screen_results[idx] = (trace, was_flagged)
 
-    flagged: list[dict] = []
+    flagged_decisions: list[dict] = []
     for d in non_forced:
         trace, was_flagged = screen_results[d["decision_index"]]
         result.calls.append(trace)
         if was_flagged:
-            flagged.append(d)
+            flagged_decisions.append(d)
 
     print(
-        f"    Flash flagged {len(flagged)}/{len(non_forced)} decisions for Sonnet review"
+        f"    Flash flagged {len(flagged_decisions)}/{len(non_forced)} decisions for Sonnet review"
     )
 
     # Phase 2: Sonnet+low analyzes flagged decisions (parallel)
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {}
-        for d in flagged:
+        eval_futures: dict[Future[tuple[CallTrace, list[dict]]], int] = {}
+        for d in flagged_decisions:
             formatted = _format_decisions([d])
             user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
             label = f"sonnet_{d['decision_index']}"
-            fut = pool.submit(
+            eval_fut = pool.submit(
                 _eval_one_decision,
                 client,
                 SONNET,
@@ -791,14 +791,14 @@ def _approach_flash_sonnet(
                 label,
                 "low",
             )
-            futures[fut] = d["decision_index"]
+            eval_futures[eval_fut] = d["decision_index"]
 
         sonnet_results: dict[int, tuple[CallTrace, list[dict]]] = {}
-        for fut in as_completed(futures):
-            idx = futures[fut]
-            sonnet_results[idx] = fut.result()
+        for eval_fut in as_completed(eval_futures):
+            idx = eval_futures[eval_fut]
+            sonnet_results[idx] = eval_fut.result()
 
-    for d in flagged:
+    for d in flagged_decisions:
         trace, anns = sonnet_results[d["decision_index"]]
         result.calls.append(trace)
         result.annotations.extend(anns)
@@ -1155,7 +1155,7 @@ def _save_result(result: ExperimentResult) -> Path:
 
 def _load_results(game_id: str) -> list[dict]:
     """Load all experiment results for a game."""
-    results = []
+    results: list[dict] = []
     if not RESULTS_DIR.exists():
         return results
     for p in sorted(RESULTS_DIR.glob(f"{game_id}_*.json")):

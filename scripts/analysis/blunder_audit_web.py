@@ -359,7 +359,7 @@ class AuditHandler(BaseHTTPRequestHandler):
         if path == "/api/plays":
             game_filter = qs.get("game", [None])[0]
             all_gt = load_ground_truth()
-            plays = []
+            plays: list[dict] = []
             for gid, entries in sorted(all_gt.items(), reverse=True):
                 if game_filter and game_filter != gid:
                     continue

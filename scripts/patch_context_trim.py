@@ -15,7 +15,7 @@ GAMES_DIR = Path("website/public/games")
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 
 
-def load_raw_trims(log_dir: Path) -> dict[str, list[dict]]:
+def load_raw_trims(log_dir: Path) -> dict[tuple[str, str], dict]:
     """Load context_trim events from raw *_llm.jsonl files, keyed by (player, ts)."""
     trims: dict[tuple[str, str], dict] = {}
     for llm_file in log_dir.glob("*_llm.jsonl"):

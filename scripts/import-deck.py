@@ -81,9 +81,9 @@ def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
         orig = norm_to_orig.get(nf_norm, nf_norm)
         if " // " in nf_norm:
             first_half = nf_norm.split(" // ")[0]
-            card = scryfall.named(first_half)
-            if card is not None:
-                resolved[orig] = (card["set"].upper(), card["collector_number"])
+            lookup = scryfall.named(first_half)
+            if lookup is not None:
+                resolved[orig] = (lookup["set"].upper(), lookup["collector_number"])
                 continue
         print(f"WARNING: card not found: {orig}", file=sys.stderr)
 

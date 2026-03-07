@@ -1298,11 +1298,11 @@ def resolve_all_cards(
     # For cards not found via collection, try individual lookup
     missing = remaining - set(resolved.keys())
     for name in sorted(missing):
-        card = scryfall.named(name)
-        if card is None and " // " in name:
-            card = scryfall.named(name.split(" // ")[0])
-        if card is not None:
-            resolved[name] = (card["set"].upper(), card["collector_number"])
+        lookup = scryfall.named(name)
+        if lookup is None and " // " in name:
+            lookup = scryfall.named(name.split(" // ")[0])
+        if lookup is not None:
+            resolved[name] = (lookup["set"].upper(), lookup["collector_number"])
         else:
             print(f"  ERROR: card not found at all: {name}")
 

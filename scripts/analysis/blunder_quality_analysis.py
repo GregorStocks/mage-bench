@@ -316,10 +316,10 @@ def analyze_snapshot_accuracy(
                     ]
 
                     # Check if there's meaningful keyword overlap
-                    words1 = set()
+                    words1: set[str] = set()
                     for d in descs1:
                         words1.update(w for w in d.split() if len(w) > 4)
-                    words2 = set()
+                    words2: set[str] = set()
                     for d in descs2:
                         words2.update(w for w in d.split() if len(w) > 4)
                     if words1 and words2:

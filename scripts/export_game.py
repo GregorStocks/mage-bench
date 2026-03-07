@@ -233,9 +233,9 @@ def _build_card_data(
     fetched_names = set(card_data.keys())
     for name in names_to_fetch:
         if name not in fetched_names:
-            card = scryfall.named(name)
-            if card:
-                card_data[card["name"]] = _trim_card(card)
+            lookup = scryfall.named(name)
+            if lookup:
+                card_data[lookup["name"]] = _trim_card(lookup)
 
     return updated_images, card_data
 

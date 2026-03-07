@@ -742,7 +742,7 @@ def _call_llm(
             response = client.chat.completions.create(
                 model=model,
                 messages=[
-                    {
+                    {  # type: ignore[list-item,misc]
                         "role": "system",
                         "content": [
                             {
@@ -763,7 +763,7 @@ def _call_llm(
             cached = 0
             ptd = usage.prompt_tokens_details
             if ptd and getattr(ptd, "cached_tokens", None):
-                cached = ptd.cached_tokens
+                cached = ptd.cached_tokens  # type: ignore[assignment]
             return text, usage.prompt_tokens, usage.completion_tokens, cached
         except Exception as e:
             err_str = str(e)

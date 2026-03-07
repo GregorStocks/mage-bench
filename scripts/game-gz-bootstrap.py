@@ -13,7 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from analysis.blunder_eval_common import GAMES_DIR, load_game
+from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
 
 LOGS_DIR = Path.home() / "mage-bench-logs"
 
