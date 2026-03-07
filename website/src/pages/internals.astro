@@ -41,8 +41,13 @@ if (fs.existsSync(exportsDir)) {
       <div class="metric-row">
         <span class="control-label">Metric</span>
         <div class="metric-buttons" id="metric-buttons">
-          <button class="metric-btn active" data-metric="timeoutRate">TO Rate</button>
-          <button class="metric-btn" data-metric="costPerGame">Cost/Game</button>
+          <button class="metric-btn active" data-metric="costPerGame">Cost/Game</button>
+          <button class="metric-btn" data-metric="winRate">Win Rate</button>
+          <button class="metric-btn" data-metric="toolFailRate">Tool Fail%</button>
+          <button class="metric-btn" data-metric="errorRate">Error Rate</button>
+          <button class="metric-btn" data-metric="latencyP50">Latency p50</button>
+          <button class="metric-btn" data-metric="timerTimeoutRate">Timer TO%</button>
+          <button class="metric-btn" data-metric="timeoutRate">TO Rate</button>
           <button class="metric-btn" data-metric="cacheRate">Cache%</button>
           <button class="metric-btn" data-metric="toolCallsPerGame">Tools/Game</button>
           <button class="metric-btn" data-metric="avgPromptTokens">Prompt Tok</button>
@@ -249,6 +254,7 @@ if (fs.existsSync(exportsDir)) {
       key: string;
       modelName: string;
       won: boolean;
+      timedOut: boolean;
       costUsd: number;
       promptTokens: number;
       completionTokens: number;
@@ -261,6 +267,7 @@ if (fs.existsSync(exportsDir)) {
       timeouts: number;
       otherErrors: number;
       contextResets: number;
+      latencyP50: number | null;
     };
 
     type GameRecord = {
@@ -298,7 +305,7 @@ if (fs.existsSync(exportsDir)) {
     ];
 
     // State
-    let currentMetric = 'timeoutRate';
+    let currentMetric = 'costPerGame';
     let currentFormat = 'all';
     let selectedModels = new Set(allModels.map(m => m[0]));
     let minEpochTrend = 11;
@@ -400,6 +407,42 @@ if (fs.existsSync(exportsDir)) {
     };
 
     const METRICS: Record<string, PerGameMetric> = {
+      costPerGame: {
+        label: 'Cost per Game',
+        unit: '$',
+        compute: (p) => p.costUsd,
+      },
+      winRate: {
+        label: 'Win Rate',
+        unit: '%',
+        compute: (p) => p.won ? 100 : 0,
+      },
+      toolFailRate: {
+        label: 'Tool Fail Rate',
+        unit: '%',
+        compute: (p) => {
+          const total = p.toolCallsOk + p.toolCallsFailed;
+          return total > 0 ? (p.toolCallsFailed / total) * 100 : null;
+        },
+      },
+      errorRate: {
+        label: 'Error Rate',
+        unit: '%',
+        compute: (p) => {
+          const total = p.responses + p.timeouts + p.otherErrors;
+          return total > 0 ? (p.otherErrors / total) * 100 : null;
+        },
+      },
+      latencyP50: {
+        label: 'Latency p50',
+        unit: 's',
+        compute: (p) => p.latencyP50,
+      },
+      timerTimeoutRate: {
+        label: 'Timer Timeout Rate',
+        unit: '%',
+        compute: (p) => p.timedOut ? 100 : 0,
+      },
       timeoutRate: {
         label: 'Timeout Rate',
         unit: '%',
@@ -407,11 +450,6 @@ if (fs.existsSync(exportsDir)) {
           const total = p.timeouts + p.responses;
           return total > 0 ? (p.timeouts / total) * 100 : null;
         },
-      },
-      costPerGame: {
-        label: 'Cost per Game',
-        unit: '$',
-        compute: (p) => p.costUsd,
       },
       cacheRate: {
         label: 'Cache Rate',

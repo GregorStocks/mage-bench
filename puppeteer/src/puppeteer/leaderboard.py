@@ -980,6 +980,10 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         player_completion_tokens: dict[str, int] = {}
         player_cached_tokens: dict[str, int] = {}
         player_reasoning_tokens: dict[str, int] = {}
+        player_latencies: dict[str, list[float]] = {}
+
+        # Track last event timestamp per player for latency gaps
+        last_ts: dict[str, datetime] = {}
 
         for ev in game.get("llmEvents", []):
             player_name = ev.get("player", "")
@@ -1011,6 +1015,21 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
             elif ev_type == "context_reset":
                 player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
 
+            # Track latency from inter-event timestamp gaps
+            ev_ts_str = ev.get("ts", "")
+            if ev_ts_str:
+                try:
+                    ev_ts = datetime.fromisoformat(ev_ts_str)
+                    if player_name in last_ts:
+                        gap = (ev_ts - last_ts[player_name]).total_seconds()
+                        if gap > 0:
+                            if player_name not in player_latencies:
+                                player_latencies[player_name] = []
+                            player_latencies[player_name].append(gap)
+                    last_ts[player_name] = ev_ts
+                except ValueError:
+                    pass
+
         # Parse the game timestamp into ISO format for date-based charting
         raw_ts = game.get("timestamp", "")
         iso_ts = ""
@@ -1034,6 +1053,13 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                 display_name = f"{display_name} ({effort})"
             name = p["name"]
 
+            durations = player_latencies.get(name, [])
+            if durations:
+                durations.sort()
+                lat_p50 = round(durations[len(durations) // 2], 1)
+            else:
+                lat_p50 = None
+
             player_records.append(
                 {
                     "key": key,
@@ -1052,6 +1078,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     "timeouts": player_timeouts.get(name, 0),
                     "otherErrors": player_other_errors.get(name, 0),
                     "contextResets": player_context_resets.get(name, 0),
+                    "latencyP50": lat_p50,
                 }
             )
 

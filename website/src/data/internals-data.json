@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-07T01:56:30.132206+00:00",
+  "generatedAt": "2026-03-07T08:04:36.472305+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -23,7 +23,8 @@
           "responses": 574,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-4.1-mini",
@@ -41,7 +42,8 @@
           "responses": 339,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -59,7 +61,8 @@
           "responses": 198,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "mistralai/devstral-small",
@@ -77,7 +80,8 @@
           "responses": 148,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -103,7 +107,8 @@
           "responses": 346,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-4.1-mini",
@@ -121,7 +126,8 @@
           "responses": 333,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -139,7 +145,8 @@
           "responses": 480,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "mistralai/devstral-small",
@@ -157,7 +164,8 @@
           "responses": 255,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -183,7 +191,8 @@
           "responses": 769,
           "timeouts": 1,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -201,7 +210,8 @@
           "responses": 432,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -219,7 +229,8 @@
           "responses": 406,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "openai/o4-mini",
@@ -237,7 +248,8 @@
           "responses": 173,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.7
         }
       ]
     },
@@ -263,7 +275,8 @@
           "responses": 614,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -281,7 +294,8 @@
           "responses": 467,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -299,7 +313,8 @@
           "responses": 335,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -317,7 +332,8 @@
           "responses": 126,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -343,7 +359,8 @@
           "responses": 182,
           "timeouts": 0,
           "otherErrors": 112,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -361,7 +378,8 @@
           "responses": 250,
           "timeouts": 0,
           "otherErrors": 115,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -379,7 +397,8 @@
           "responses": 343,
           "timeouts": 1,
           "otherErrors": 121,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -397,7 +416,8 @@
           "responses": 316,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -423,7 +443,8 @@
           "responses": 132,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -441,7 +462,8 @@
           "responses": 1943,
           "timeouts": 2,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -459,7 +481,8 @@
           "responses": 650,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -477,7 +500,8 @@
           "responses": 1966,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -503,7 +527,8 @@
           "responses": 1550,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -521,7 +546,8 @@
           "responses": 1876,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -539,7 +565,8 @@
           "responses": 848,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -557,7 +584,8 @@
           "responses": 516,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -583,7 +611,8 @@
           "responses": 153,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -601,7 +630,8 @@
           "responses": 244,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -627,7 +657,8 @@
           "responses": 284,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -645,7 +676,8 @@
           "responses": 281,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -671,7 +703,8 @@
           "responses": 132,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -689,7 +722,8 @@
           "responses": 101,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -715,7 +749,8 @@
           "responses": 872,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -733,7 +768,8 @@
           "responses": 932,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -759,7 +795,8 @@
           "responses": 211,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -777,7 +814,8 @@
           "responses": 217,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -803,7 +841,8 @@
           "responses": 669,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -821,7 +860,8 @@
           "responses": 591,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -847,7 +887,8 @@
           "responses": 560,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -865,7 +906,8 @@
           "responses": 474,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -891,7 +933,8 @@
           "responses": 431,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -909,7 +952,8 @@
           "responses": 237,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -935,7 +979,8 @@
           "responses": 247,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -953,7 +998,8 @@
           "responses": 283,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -979,7 +1025,8 @@
           "responses": 412,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -997,7 +1044,8 @@
           "responses": 144,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1023,7 +1071,8 @@
           "responses": 283,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -1041,7 +1090,8 @@
           "responses": 234,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1067,7 +1117,8 @@
           "responses": 155,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -1085,7 +1136,8 @@
           "responses": 357,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1111,7 +1163,8 @@
           "responses": 276,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -1129,7 +1182,8 @@
           "responses": 260,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1155,7 +1209,8 @@
           "responses": 131,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -1173,7 +1228,8 @@
           "responses": 270,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1199,7 +1255,8 @@
           "responses": 538,
           "timeouts": 13,
           "otherErrors": 1,
-          "contextResets": 2
+          "contextResets": 2,
+          "latencyP50": 0.0
         },
         {
           "key": "openai/gpt-4.1-mini",
@@ -1217,7 +1274,8 @@
           "responses": 518,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1243,7 +1301,8 @@
           "responses": 398,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -1261,7 +1320,8 @@
           "responses": 219,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1287,7 +1347,8 @@
           "responses": 147,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -1305,7 +1366,8 @@
           "responses": 250,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1331,7 +1393,8 @@
           "responses": 286,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -1349,7 +1412,8 @@
           "responses": 199,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1375,7 +1439,8 @@
           "responses": 292,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -1393,7 +1458,8 @@
           "responses": 189,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1419,7 +1485,8 @@
           "responses": 1,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 30.0
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -1437,7 +1504,8 @@
           "responses": 94,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1463,7 +1531,8 @@
           "responses": 288,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -1481,7 +1550,8 @@
           "responses": 344,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1507,7 +1577,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -1525,7 +1596,8 @@
           "responses": 265,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1551,7 +1623,8 @@
           "responses": 245,
           "timeouts": 0,
           "otherErrors": 4,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -1569,7 +1642,8 @@
           "responses": 490,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1595,7 +1669,8 @@
           "responses": 636,
           "timeouts": 2,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -1613,7 +1688,8 @@
           "responses": 499,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1639,7 +1715,8 @@
           "responses": 113,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -1657,7 +1734,8 @@
           "responses": 188,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1683,7 +1761,8 @@
           "responses": 167,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -1701,7 +1780,8 @@
           "responses": 276,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1727,7 +1807,8 @@
           "responses": 329,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -1745,7 +1826,8 @@
           "responses": 489,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1771,7 +1853,8 @@
           "responses": 221,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -1789,7 +1872,8 @@
           "responses": 201,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1815,7 +1899,8 @@
           "responses": 148,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -1833,7 +1918,8 @@
           "responses": 181,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1859,7 +1945,8 @@
           "responses": 340,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -1877,7 +1964,8 @@
           "responses": 298,
           "timeouts": 1,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1903,7 +1991,8 @@
           "responses": 114,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -1921,7 +2010,8 @@
           "responses": 220,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1947,7 +2037,8 @@
           "responses": 398,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -1965,7 +2056,8 @@
           "responses": 323,
           "timeouts": 1,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -1991,7 +2083,8 @@
           "responses": 627,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -2009,7 +2102,8 @@
           "responses": 571,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2035,7 +2129,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -2053,7 +2148,8 @@
           "responses": 204,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2079,7 +2175,8 @@
           "responses": 164,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -2097,7 +2194,8 @@
           "responses": 166,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2123,7 +2221,8 @@
           "responses": 299,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -2141,7 +2240,8 @@
           "responses": 163,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2167,7 +2267,8 @@
           "responses": 69,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -2185,7 +2286,8 @@
           "responses": 205,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2211,7 +2313,8 @@
           "responses": 249,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -2229,7 +2332,8 @@
           "responses": 268,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2255,7 +2359,8 @@
           "responses": 1023,
           "timeouts": 0,
           "otherErrors": 38,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.4
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -2273,7 +2378,8 @@
           "responses": 25,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -2299,7 +2405,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -2317,7 +2424,8 @@
           "responses": 142,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2343,7 +2451,8 @@
           "responses": 579,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -2361,7 +2470,8 @@
           "responses": 662,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2387,7 +2497,8 @@
           "responses": 634,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -2405,7 +2516,8 @@
           "responses": 522,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2431,7 +2543,8 @@
           "responses": 253,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "openai/gpt-4.1-mini",
@@ -2449,7 +2562,8 @@
           "responses": 9562,
           "timeouts": 0,
           "otherErrors": 73,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -2475,7 +2589,8 @@
           "responses": 210,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -2493,7 +2608,8 @@
           "responses": 142,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2519,7 +2635,8 @@
           "responses": 100,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -2537,7 +2654,8 @@
           "responses": 204,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -2563,7 +2681,8 @@
           "responses": 46,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -2581,7 +2700,8 @@
           "responses": 174,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2607,7 +2727,8 @@
           "responses": 367,
           "timeouts": 3,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "openai/gpt-4.1-mini",
@@ -2625,7 +2746,8 @@
           "responses": 3557,
           "timeouts": 0,
           "otherErrors": 13,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -2651,7 +2773,8 @@
           "responses": 715,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -2669,7 +2792,8 @@
           "responses": 150,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -2695,7 +2819,8 @@
           "responses": 451,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -2713,7 +2838,8 @@
           "responses": 1726,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         }
       ]
     },
@@ -2739,7 +2865,8 @@
           "responses": 355,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -2757,7 +2884,8 @@
           "responses": 236,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -2783,7 +2911,8 @@
           "responses": 339,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -2801,7 +2930,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -2827,7 +2957,8 @@
           "responses": 427,
           "timeouts": 0,
           "otherErrors": 24,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -2845,7 +2976,8 @@
           "responses": 222,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2871,7 +3003,8 @@
           "responses": 1573,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -2889,7 +3022,8 @@
           "responses": 558,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2915,7 +3049,8 @@
           "responses": 882,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -2933,7 +3068,8 @@
           "responses": 171,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -2959,7 +3095,8 @@
           "responses": 635,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -2977,7 +3114,8 @@
           "responses": 244,
           "timeouts": 2,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -3003,7 +3141,8 @@
           "responses": 491,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -3021,7 +3160,8 @@
           "responses": 512,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -3047,7 +3187,8 @@
           "responses": 56,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -3065,7 +3206,8 @@
           "responses": 100,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -3091,7 +3233,8 @@
           "responses": 569,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -3109,7 +3252,8 @@
           "responses": 101,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -3135,7 +3279,8 @@
           "responses": 854,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -3153,7 +3298,8 @@
           "responses": 88,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -3179,7 +3325,8 @@
           "responses": 222,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -3197,7 +3344,8 @@
           "responses": 264,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -3223,7 +3371,8 @@
           "responses": 314,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -3241,7 +3390,8 @@
           "responses": 412,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -3267,7 +3417,8 @@
           "responses": 260,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -3285,7 +3436,8 @@
           "responses": 564,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -3311,7 +3463,8 @@
           "responses": 161,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -3329,7 +3482,8 @@
           "responses": 116,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -3355,7 +3509,8 @@
           "responses": 256,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -3373,7 +3528,8 @@
           "responses": 307,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -3399,7 +3555,8 @@
           "responses": 108,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -3417,7 +3574,8 @@
           "responses": 143,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -3443,7 +3601,8 @@
           "responses": 27,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -3461,7 +3620,8 @@
           "responses": 537,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -3487,7 +3647,8 @@
           "responses": 307,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -3505,7 +3666,8 @@
           "responses": 342,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -3531,7 +3693,8 @@
           "responses": 146,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -3549,7 +3712,8 @@
           "responses": 246,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -3575,7 +3739,8 @@
           "responses": 150,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -3593,7 +3758,8 @@
           "responses": 215,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -3619,7 +3785,8 @@
           "responses": 90,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -3637,7 +3804,8 @@
           "responses": 243,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -3663,7 +3831,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -3681,7 +3850,8 @@
           "responses": 66,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -3707,7 +3877,8 @@
           "responses": 180,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -3725,7 +3896,8 @@
           "responses": 208,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -3751,7 +3923,8 @@
           "responses": 182,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -3769,7 +3942,8 @@
           "responses": 112,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -3795,7 +3969,8 @@
           "responses": 341,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -3813,7 +3988,8 @@
           "responses": 172,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -3839,7 +4015,8 @@
           "responses": 151,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -3857,7 +4034,8 @@
           "responses": 285,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -3883,7 +4061,8 @@
           "responses": 138,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -3901,7 +4080,8 @@
           "responses": 101,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -3927,7 +4107,8 @@
           "responses": 331,
           "timeouts": 20,
           "otherErrors": 0,
-          "contextResets": 2
+          "contextResets": 2,
+          "latencyP50": 1.0
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -3945,7 +4126,8 @@
           "responses": 191,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -3971,7 +4153,8 @@
           "responses": 115,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -3989,7 +4172,8 @@
           "responses": 178,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -4015,7 +4199,8 @@
           "responses": 282,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -4033,7 +4218,8 @@
           "responses": 158,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -4059,7 +4245,8 @@
           "responses": 397,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -4077,7 +4264,8 @@
           "responses": 249,
           "timeouts": 1,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -4103,7 +4291,8 @@
           "responses": 243,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -4121,7 +4310,8 @@
           "responses": 165,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -4147,7 +4337,8 @@
           "responses": 195,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -4165,7 +4356,8 @@
           "responses": 152,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         }
       ]
     },
@@ -4191,7 +4383,8 @@
           "responses": 143,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -4209,7 +4402,8 @@
           "responses": 103,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -4235,7 +4429,8 @@
           "responses": 92,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -4253,7 +4448,8 @@
           "responses": 217,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -4279,7 +4475,8 @@
           "responses": 623,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -4297,7 +4494,8 @@
           "responses": 196,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -4323,7 +4521,8 @@
           "responses": 194,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -4341,7 +4540,8 @@
           "responses": 108,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -4367,7 +4567,8 @@
           "responses": 239,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -4385,7 +4586,8 @@
           "responses": 297,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -4411,7 +4613,8 @@
           "responses": 100,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -4429,7 +4632,8 @@
           "responses": 272,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -4455,7 +4659,8 @@
           "responses": 200,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -4473,7 +4678,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -4499,7 +4705,8 @@
           "responses": 156,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -4517,7 +4724,8 @@
           "responses": 101,
           "timeouts": 1,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -4543,7 +4751,8 @@
           "responses": 404,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "openai/gpt-5-nano",
@@ -4561,7 +4770,8 @@
           "responses": 141,
           "timeouts": 31,
           "otherErrors": 1,
-          "contextResets": 6
+          "contextResets": 6,
+          "latencyP50": 3.9
         }
       ]
     },
@@ -4587,7 +4797,8 @@
           "responses": 152,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -4605,7 +4816,8 @@
           "responses": 195,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -4631,7 +4843,8 @@
           "responses": 350,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -4649,7 +4862,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -4675,7 +4889,8 @@
           "responses": 307,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -4693,7 +4908,8 @@
           "responses": 105,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -4719,7 +4935,8 @@
           "responses": 161,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -4737,7 +4954,8 @@
           "responses": 47,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -4763,7 +4981,8 @@
           "responses": 181,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -4781,7 +5000,8 @@
           "responses": 225,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -4807,7 +5027,8 @@
           "responses": 326,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -4825,7 +5046,8 @@
           "responses": 77,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -4851,7 +5073,8 @@
           "responses": 169,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -4869,7 +5092,8 @@
           "responses": 260,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -4895,7 +5119,8 @@
           "responses": 232,
           "timeouts": 6,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -4913,7 +5138,8 @@
           "responses": 392,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -4939,7 +5165,8 @@
           "responses": 116,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -4957,7 +5184,8 @@
           "responses": 150,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -4983,7 +5211,8 @@
           "responses": 35,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -5001,7 +5230,8 @@
           "responses": 116,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -5027,7 +5257,8 @@
           "responses": 145,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -5045,7 +5276,8 @@
           "responses": 164,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -5071,7 +5303,8 @@
           "responses": 137,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -5089,7 +5322,8 @@
           "responses": 95,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -5115,7 +5349,8 @@
           "responses": 182,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -5133,7 +5368,8 @@
           "responses": 275,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -5159,7 +5395,8 @@
           "responses": 103,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -5177,7 +5414,8 @@
           "responses": 183,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -5203,7 +5441,8 @@
           "responses": 305,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -5221,7 +5460,8 @@
           "responses": 183,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -5247,7 +5487,8 @@
           "responses": 110,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -5265,7 +5506,8 @@
           "responses": 34,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -5291,7 +5533,8 @@
           "responses": 36,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -5309,7 +5552,8 @@
           "responses": 69,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -5335,7 +5579,8 @@
           "responses": 54,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -5353,7 +5598,8 @@
           "responses": 192,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -5379,7 +5625,8 @@
           "responses": 109,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -5397,7 +5644,8 @@
           "responses": 107,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -5423,7 +5671,8 @@
           "responses": 1167,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -5441,7 +5690,8 @@
           "responses": 241,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -5459,7 +5709,8 @@
           "responses": 267,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -5477,7 +5728,8 @@
           "responses": 520,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -5503,7 +5755,8 @@
           "responses": 727,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -5521,7 +5774,8 @@
           "responses": 111,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -5539,7 +5793,8 @@
           "responses": 216,
           "timeouts": 3,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -5557,7 +5812,8 @@
           "responses": 257,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -5583,7 +5839,8 @@
           "responses": 271,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -5601,7 +5858,8 @@
           "responses": 370,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -5619,7 +5877,8 @@
           "responses": 309,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -5637,7 +5896,8 @@
           "responses": 129,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -5663,7 +5923,8 @@
           "responses": 329,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -5681,7 +5942,8 @@
           "responses": 150,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -5699,7 +5961,8 @@
           "responses": 304,
           "timeouts": 32,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -5717,7 +5980,8 @@
           "responses": 92,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -5743,7 +6007,8 @@
           "responses": 362,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -5761,7 +6026,8 @@
           "responses": 482,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -5779,7 +6045,8 @@
           "responses": 114,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -5797,7 +6064,8 @@
           "responses": 199,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -5823,7 +6091,8 @@
           "responses": 437,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -5841,7 +6110,8 @@
           "responses": 374,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -5859,7 +6129,8 @@
           "responses": 83,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -5877,7 +6148,8 @@
           "responses": 177,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -5903,7 +6175,8 @@
           "responses": 141,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -5921,7 +6194,8 @@
           "responses": 551,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -5939,7 +6213,8 @@
           "responses": 234,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -5957,7 +6232,8 @@
           "responses": 328,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -5983,7 +6259,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -6001,7 +6278,8 @@
           "responses": 198,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -6019,7 +6297,8 @@
           "responses": 243,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "qwen/qwen3-max-thinking::medium",
@@ -6037,7 +6316,8 @@
           "responses": 296,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -6063,7 +6343,8 @@
           "responses": 450,
           "timeouts": 11,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -6081,7 +6362,8 @@
           "responses": 409,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -6099,7 +6381,8 @@
           "responses": 279,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -6117,7 +6400,8 @@
           "responses": 563,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -6143,7 +6427,8 @@
           "responses": 172,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -6161,7 +6446,8 @@
           "responses": 615,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -6179,7 +6465,8 @@
           "responses": 395,
           "timeouts": 12,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -6197,7 +6484,8 @@
           "responses": 536,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -6223,7 +6511,8 @@
           "responses": 463,
           "timeouts": 6,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -6241,7 +6530,8 @@
           "responses": 339,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -6259,7 +6549,8 @@
           "responses": 273,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -6277,7 +6568,8 @@
           "responses": 231,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -6303,7 +6595,8 @@
           "responses": 260,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -6321,7 +6614,8 @@
           "responses": 127,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -6339,7 +6633,8 @@
           "responses": 120,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -6357,7 +6652,8 @@
           "responses": 254,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -6383,7 +6679,8 @@
           "responses": 165,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -6401,7 +6698,8 @@
           "responses": 313,
           "timeouts": 7,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -6419,7 +6717,8 @@
           "responses": 277,
           "timeouts": 3,
           "otherErrors": 3,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.6
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -6437,7 +6736,8 @@
           "responses": 298,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -6463,7 +6763,8 @@
           "responses": 423,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -6481,7 +6782,8 @@
           "responses": 177,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -6499,7 +6801,8 @@
           "responses": 227,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -6517,7 +6820,8 @@
           "responses": 133,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -6543,7 +6847,8 @@
           "responses": 139,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -6561,7 +6866,8 @@
           "responses": 408,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -6579,7 +6885,8 @@
           "responses": 353,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -6597,7 +6904,8 @@
           "responses": 791,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -6623,7 +6931,8 @@
           "responses": 290,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -6641,7 +6950,8 @@
           "responses": 566,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -6659,7 +6969,8 @@
           "responses": 291,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -6677,7 +6988,8 @@
           "responses": 246,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -6703,7 +7015,8 @@
           "responses": 468,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -6721,7 +7034,8 @@
           "responses": 389,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -6739,7 +7053,8 @@
           "responses": 708,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -6757,7 +7072,8 @@
           "responses": 492,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -6783,7 +7099,8 @@
           "responses": 704,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -6801,7 +7118,8 @@
           "responses": 884,
           "timeouts": 2,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -6819,7 +7137,8 @@
           "responses": 359,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -6837,7 +7156,8 @@
           "responses": 176,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -6863,7 +7183,8 @@
           "responses": 407,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -6881,7 +7202,8 @@
           "responses": 77,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -6899,7 +7221,8 @@
           "responses": 568,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -6917,7 +7240,8 @@
           "responses": 388,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -6943,7 +7267,8 @@
           "responses": 128,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -6961,7 +7286,8 @@
           "responses": 321,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -6979,7 +7305,8 @@
           "responses": 330,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -6997,7 +7324,8 @@
           "responses": 151,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -7023,7 +7351,8 @@
           "responses": 195,
           "timeouts": 5,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -7041,7 +7370,8 @@
           "responses": 342,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -7067,7 +7397,8 @@
           "responses": 189,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -7085,7 +7416,8 @@
           "responses": 575,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -7111,7 +7443,8 @@
           "responses": 193,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -7129,7 +7462,8 @@
           "responses": 328,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -7155,7 +7489,8 @@
           "responses": 132,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -7173,7 +7508,8 @@
           "responses": 123,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -7199,7 +7535,8 @@
           "responses": 382,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -7217,7 +7554,8 @@
           "responses": 553,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -7243,7 +7581,8 @@
           "responses": 138,
           "timeouts": 3,
           "otherErrors": 2,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 0.9
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -7261,7 +7600,8 @@
           "responses": 78,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -7287,7 +7627,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -7305,7 +7646,8 @@
           "responses": 307,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -7331,7 +7673,8 @@
           "responses": 160,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -7349,7 +7692,8 @@
           "responses": 219,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -7375,7 +7719,8 @@
           "responses": 180,
           "timeouts": 10,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -7393,7 +7738,8 @@
           "responses": 172,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -7419,7 +7765,8 @@
           "responses": 401,
           "timeouts": 2,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -7437,7 +7784,8 @@
           "responses": 374,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -7463,7 +7811,8 @@
           "responses": 210,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -7481,7 +7830,8 @@
           "responses": 440,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -7507,7 +7857,8 @@
           "responses": 243,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -7525,7 +7876,8 @@
           "responses": 335,
           "timeouts": 6,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         }
       ]
     },
@@ -7551,7 +7903,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -7569,7 +7922,8 @@
           "responses": 225,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         }
       ]
     },
@@ -7595,7 +7949,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -7613,7 +7968,8 @@
           "responses": 51,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -7639,7 +7995,8 @@
           "responses": 308,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -7657,7 +8014,8 @@
           "responses": 371,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -7683,7 +8041,8 @@
           "responses": 79,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -7701,7 +8060,8 @@
           "responses": 140,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -7727,7 +8087,8 @@
           "responses": 186,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -7745,7 +8106,8 @@
           "responses": 96,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -7771,7 +8133,8 @@
           "responses": 120,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -7789,7 +8152,8 @@
           "responses": 97,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         }
       ]
     },
@@ -7815,7 +8179,8 @@
           "responses": 136,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -7833,7 +8198,8 @@
           "responses": 235,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -7859,7 +8225,8 @@
           "responses": 192,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -7877,7 +8244,8 @@
           "responses": 120,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -7903,7 +8271,8 @@
           "responses": 158,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -7921,7 +8290,8 @@
           "responses": 83,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -7947,7 +8317,8 @@
           "responses": 175,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -7965,7 +8336,8 @@
           "responses": 251,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         }
       ]
     },
@@ -7991,7 +8363,8 @@
           "responses": 82,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -8009,7 +8382,8 @@
           "responses": 195,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -8035,7 +8409,8 @@
           "responses": 110,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 0.7
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -8053,7 +8428,8 @@
           "responses": 86,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -8079,7 +8455,8 @@
           "responses": 204,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -8097,7 +8474,8 @@
           "responses": 63,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -8123,7 +8501,8 @@
           "responses": 143,
           "timeouts": 6,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 0.7
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -8141,7 +8520,8 @@
           "responses": 196,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -8167,7 +8547,8 @@
           "responses": 109,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -8185,7 +8566,8 @@
           "responses": 170,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -8211,7 +8593,8 @@
           "responses": 187,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -8229,7 +8612,8 @@
           "responses": 150,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -8255,7 +8639,8 @@
           "responses": 288,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -8273,7 +8658,8 @@
           "responses": 128,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -8299,7 +8685,8 @@
           "responses": 255,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -8317,7 +8704,8 @@
           "responses": 387,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -8343,7 +8731,8 @@
           "responses": 206,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -8361,7 +8750,8 @@
           "responses": 203,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -8379,7 +8769,8 @@
           "responses": 193,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -8397,7 +8788,8 @@
           "responses": 165,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -8423,7 +8815,8 @@
           "responses": 319,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -8441,7 +8834,8 @@
           "responses": 472,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -8459,7 +8853,8 @@
           "responses": 363,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -8477,7 +8872,8 @@
           "responses": 126,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -8503,7 +8899,8 @@
           "responses": 118,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -8521,7 +8918,8 @@
           "responses": 211,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 3.3
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -8539,7 +8937,8 @@
           "responses": 185,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -8557,7 +8956,8 @@
           "responses": 101,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -8583,7 +8983,8 @@
           "responses": 364,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -8601,7 +9002,8 @@
           "responses": 163,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -8619,7 +9021,8 @@
           "responses": 292,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -8637,7 +9040,8 @@
           "responses": 164,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -8663,7 +9067,8 @@
           "responses": 34,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -8681,7 +9086,8 @@
           "responses": 301,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -8699,7 +9105,8 @@
           "responses": 103,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -8717,7 +9124,8 @@
           "responses": 214,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -8743,7 +9151,8 @@
           "responses": 366,
           "timeouts": 19,
           "otherErrors": 0,
-          "contextResets": 3
+          "contextResets": 3,
+          "latencyP50": 3.3
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -8761,7 +9170,8 @@
           "responses": 238,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -8779,7 +9189,8 @@
           "responses": 119,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -8797,7 +9208,8 @@
           "responses": 237,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -8823,7 +9235,8 @@
           "responses": 225,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -8841,7 +9254,8 @@
           "responses": 225,
           "timeouts": 2,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -8859,7 +9273,8 @@
           "responses": 372,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 3.5
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -8877,7 +9292,8 @@
           "responses": 254,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         }
       ]
     },
@@ -8903,7 +9319,8 @@
           "responses": 150,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -8921,7 +9338,8 @@
           "responses": 93,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -8939,7 +9357,8 @@
           "responses": 754,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -8957,7 +9376,8 @@
           "responses": 236,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -8983,7 +9403,8 @@
           "responses": 119,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.5
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -9001,7 +9422,8 @@
           "responses": 143,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -9027,7 +9449,8 @@
           "responses": 200,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -9045,7 +9468,8 @@
           "responses": 240,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -9071,7 +9495,8 @@
           "responses": 104,
           "timeouts": 48,
           "otherErrors": 0,
-          "contextResets": 12
+          "contextResets": 12,
+          "latencyP50": 9.3
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -9089,7 +9514,8 @@
           "responses": 173,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -9115,7 +9541,8 @@
           "responses": 76,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -9133,7 +9560,8 @@
           "responses": 154,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -9159,7 +9587,8 @@
           "responses": 142,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 2.0
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -9177,7 +9606,8 @@
           "responses": 96,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -9203,7 +9633,8 @@
           "responses": 256,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/gpt-5.2",
@@ -9221,7 +9652,8 @@
           "responses": 104,
           "timeouts": 16,
           "otherErrors": 0,
-          "contextResets": 2
+          "contextResets": 2,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -9247,7 +9679,8 @@
           "responses": 199,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 5.3
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -9265,7 +9698,8 @@
           "responses": 142,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.2
         }
       ]
     },
@@ -9291,7 +9725,8 @@
           "responses": 143,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -9309,7 +9744,8 @@
           "responses": 114,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -9335,7 +9771,8 @@
           "responses": 157,
           "timeouts": 15,
           "otherErrors": 0,
-          "contextResets": 4
+          "contextResets": 4,
+          "latencyP50": 1.2
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -9353,7 +9790,8 @@
           "responses": 139,
           "timeouts": 7,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -9379,7 +9817,8 @@
           "responses": 39,
           "timeouts": 22,
           "otherErrors": 0,
-          "contextResets": 4
+          "contextResets": 4,
+          "latencyP50": 15.1
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -9397,7 +9836,8 @@
           "responses": 91,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -9423,7 +9863,8 @@
           "responses": 75,
           "timeouts": 14,
           "otherErrors": 0,
-          "contextResets": 3
+          "contextResets": 3,
+          "latencyP50": 7.4
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -9441,7 +9882,8 @@
           "responses": 30,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.5
         }
       ]
     },
@@ -9467,7 +9909,8 @@
           "responses": 66,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         },
         {
           "key": "x-ai/grok-4::medium",
@@ -9485,7 +9928,8 @@
           "responses": 49,
           "timeouts": 10,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 7.0
         }
       ]
     },
@@ -9511,7 +9955,8 @@
           "responses": 215,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -9529,7 +9974,8 @@
           "responses": 276,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.2
         }
       ]
     },
@@ -9555,7 +10001,8 @@
           "responses": 94,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.1
         },
         {
           "key": "openai/gpt-5.2",
@@ -9573,7 +10020,8 @@
           "responses": 40,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -9599,7 +10047,8 @@
           "responses": 319,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/o3::medium",
@@ -9617,7 +10066,8 @@
           "responses": 218,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 5.4
         }
       ]
     },
@@ -9643,7 +10093,8 @@
           "responses": 109,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -9661,7 +10112,8 @@
           "responses": 221,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -9687,7 +10139,8 @@
           "responses": 271,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -9705,7 +10158,8 @@
           "responses": 473,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.4
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -9723,7 +10177,8 @@
           "responses": 229,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -9741,7 +10196,8 @@
           "responses": 409,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         }
       ]
     },
@@ -9767,7 +10223,8 @@
           "responses": 109,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -9785,7 +10242,8 @@
           "responses": 486,
           "timeouts": 8,
           "otherErrors": 7,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "openai/gpt-5.2",
@@ -9803,7 +10261,8 @@
           "responses": 146,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -9821,7 +10280,8 @@
           "responses": 220,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -9847,7 +10307,8 @@
           "responses": 232,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -9865,7 +10326,8 @@
           "responses": 340,
           "timeouts": 15,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.5
         },
         {
           "key": "x-ai/grok-4::medium",
@@ -9883,7 +10345,8 @@
           "responses": 100,
           "timeouts": 39,
           "otherErrors": 0,
-          "contextResets": 9
+          "contextResets": 9,
+          "latencyP50": 10.6
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -9901,7 +10364,8 @@
           "responses": 258,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -9927,7 +10391,8 @@
           "responses": 168,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -9945,7 +10410,8 @@
           "responses": 73,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -9963,7 +10429,8 @@
           "responses": 160,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -9981,7 +10448,8 @@
           "responses": 82,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -10007,7 +10475,8 @@
           "responses": 101,
           "timeouts": 52,
           "otherErrors": 0,
-          "contextResets": 15
+          "contextResets": 15,
+          "latencyP50": 11.3
         },
         {
           "key": "openai/o3::medium",
@@ -10025,7 +10494,8 @@
           "responses": 109,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 8.7
         }
       ]
     },
@@ -10051,7 +10521,8 @@
           "responses": 71,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "openai/gpt-5.2",
@@ -10069,7 +10540,8 @@
           "responses": 19,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -10095,7 +10567,8 @@
           "responses": 178,
           "timeouts": 10,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -10113,7 +10586,8 @@
           "responses": 233,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -10139,7 +10613,8 @@
           "responses": 13,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 11.5
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -10157,7 +10632,8 @@
           "responses": 79,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -10183,7 +10659,8 @@
           "responses": 91,
           "timeouts": 48,
           "otherErrors": 0,
-          "contextResets": 13
+          "contextResets": 13,
+          "latencyP50": 12.1
         },
         {
           "key": "openai/gpt-5.2",
@@ -10201,7 +10678,8 @@
           "responses": 54,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -10227,7 +10705,8 @@
           "responses": 63,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -10245,7 +10724,8 @@
           "responses": 252,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.0
         }
       ]
     },
@@ -10271,7 +10751,8 @@
           "responses": 104,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "openai/o3::medium",
@@ -10289,7 +10770,8 @@
           "responses": 78,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 5.3
         }
       ]
     },
@@ -10315,7 +10797,8 @@
           "responses": 278,
           "timeouts": 14,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -10333,7 +10816,8 @@
           "responses": 238,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -10359,7 +10843,8 @@
           "responses": 69,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -10377,7 +10862,8 @@
           "responses": 123,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -10403,7 +10889,8 @@
           "responses": 143,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -10421,7 +10908,8 @@
           "responses": 74,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         }
       ]
     },
@@ -10447,7 +10935,8 @@
           "responses": 275,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "openai/gpt-5.2",
@@ -10465,7 +10954,8 @@
           "responses": 194,
           "timeouts": 10,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -10491,7 +10981,8 @@
           "responses": 116,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -10509,7 +11000,8 @@
           "responses": 88,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -10535,7 +11027,8 @@
           "responses": 61,
           "timeouts": 57,
           "otherErrors": 0,
-          "contextResets": 17
+          "contextResets": 17,
+          "latencyP50": 11.9
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -10553,7 +11046,8 @@
           "responses": 88,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.8
         }
       ]
     },
@@ -10579,7 +11073,8 @@
           "responses": 238,
           "timeouts": 18,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.2
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -10597,7 +11092,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -10623,7 +11119,8 @@
           "responses": 362,
           "timeouts": 6,
           "otherErrors": 3,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.1
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -10641,7 +11138,8 @@
           "responses": 325,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         }
       ]
     },
@@ -10667,7 +11165,8 @@
           "responses": 98,
           "timeouts": 48,
           "otherErrors": 0,
-          "contextResets": 14
+          "contextResets": 14,
+          "latencyP50": 7.8
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -10685,7 +11184,8 @@
           "responses": 51,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -10711,7 +11211,8 @@
           "responses": 65,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "openai/o3::medium",
@@ -10729,7 +11230,8 @@
           "responses": 182,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -10755,7 +11257,8 @@
           "responses": 49,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "openai/gpt-5.2",
@@ -10773,7 +11276,8 @@
           "responses": 69,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -10799,7 +11303,8 @@
           "responses": 51,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -10817,7 +11322,8 @@
           "responses": 92,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -10843,7 +11349,8 @@
           "responses": 130,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -10861,7 +11368,8 @@
           "responses": 180,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -10887,7 +11395,8 @@
           "responses": 168,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 2.4
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -10905,7 +11414,8 @@
           "responses": 66,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         }
       ]
     },
@@ -10931,7 +11441,8 @@
           "responses": 154,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "openai/o3::medium",
@@ -10949,7 +11460,8 @@
           "responses": 65,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         }
       ]
     },
@@ -10975,7 +11487,8 @@
           "responses": 105,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 9.1
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -10993,7 +11506,8 @@
           "responses": 43,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -11019,7 +11533,8 @@
           "responses": 438,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -11037,7 +11552,8 @@
           "responses": 148,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -11063,7 +11579,8 @@
           "responses": 82,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         },
         {
           "key": "openai/gpt-5.2",
@@ -11081,7 +11598,8 @@
           "responses": 108,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -11107,7 +11625,8 @@
           "responses": 32,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -11125,7 +11644,8 @@
           "responses": 28,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.4
         }
       ]
     },
@@ -11151,7 +11671,8 @@
           "responses": 141,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.6
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -11169,7 +11690,8 @@
           "responses": 169,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         }
       ]
     },
@@ -11195,7 +11717,8 @@
           "responses": 285,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -11213,7 +11736,8 @@
           "responses": 210,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -11239,7 +11763,8 @@
           "responses": 133,
           "timeouts": 5,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 9.6
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -11257,7 +11782,8 @@
           "responses": 115,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         }
       ]
     },
@@ -11283,7 +11809,8 @@
           "responses": 118,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -11301,7 +11828,8 @@
           "responses": 80,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         }
       ]
     },
@@ -11327,7 +11855,8 @@
           "responses": 163,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.0
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -11345,7 +11874,8 @@
           "responses": 75,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -11371,7 +11901,8 @@
           "responses": 209,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -11389,7 +11920,8 @@
           "responses": 188,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -11415,7 +11947,8 @@
           "responses": 339,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.2
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -11433,7 +11966,8 @@
           "responses": 48,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.6
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -11451,7 +11985,8 @@
           "responses": 126,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.3
         },
         {
           "key": "openai/o3::medium",
@@ -11469,7 +12004,8 @@
           "responses": 279,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.8
         }
       ]
     },
@@ -11495,7 +12031,8 @@
           "responses": 413,
           "timeouts": 3,
           "otherErrors": 4,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         },
         {
           "key": "openai/gpt-5.2",
@@ -11513,7 +12050,8 @@
           "responses": 199,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -11531,7 +12069,8 @@
           "responses": 221,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -11549,7 +12088,8 @@
           "responses": 104,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         }
       ]
     },
@@ -11575,7 +12115,8 @@
           "responses": 426,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -11593,7 +12134,8 @@
           "responses": 205,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.5
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -11611,7 +12153,8 @@
           "responses": 307,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -11629,7 +12172,8 @@
           "responses": 60,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 6.3
         }
       ]
     },
@@ -11655,7 +12199,8 @@
           "responses": 102,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -11673,7 +12218,8 @@
           "responses": 272,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -11691,7 +12237,8 @@
           "responses": 306,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         },
         {
           "key": "x-ai/grok-4::medium",
@@ -11709,7 +12256,8 @@
           "responses": 121,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 10.0
         }
       ]
     },
@@ -11735,7 +12283,8 @@
           "responses": 70,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.5
         },
         {
           "key": "google/gemini-2.5-flash::medium",
@@ -11753,7 +12302,8 @@
           "responses": 133,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         }
       ]
     },
@@ -11779,7 +12329,8 @@
           "responses": 87,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -11797,7 +12348,8 @@
           "responses": 36,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         }
       ]
     },
@@ -11823,7 +12375,8 @@
           "responses": 141,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -11841,7 +12394,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.6
         }
       ]
     },
@@ -11867,7 +12421,8 @@
           "responses": 96,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -11885,7 +12440,8 @@
           "responses": 155,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -11911,7 +12467,8 @@
           "responses": 108,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 8.5
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -11929,7 +12486,8 @@
           "responses": 46,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -11955,7 +12513,8 @@
           "responses": 22,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 7.2
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -11973,7 +12532,8 @@
           "responses": 173,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         }
       ]
     },
@@ -11999,7 +12559,8 @@
           "responses": 136,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -12017,7 +12578,8 @@
           "responses": 175,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -12035,7 +12597,8 @@
           "responses": 366,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.0
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -12053,7 +12616,8 @@
           "responses": 497,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         }
       ]
     },
@@ -12079,7 +12643,8 @@
           "responses": 84,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -12097,7 +12662,8 @@
           "responses": 189,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -12123,7 +12689,8 @@
           "responses": 267,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -12141,7 +12708,8 @@
           "responses": 182,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.1
         }
       ]
     },
@@ -12167,7 +12735,8 @@
           "responses": 184,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "google/gemini-3-pro-preview::medium",
@@ -12185,7 +12754,8 @@
           "responses": 151,
           "timeouts": 1,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -12211,7 +12781,8 @@
           "responses": 102,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -12229,7 +12800,8 @@
           "responses": 187,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -12255,7 +12827,8 @@
           "responses": 75,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -12273,7 +12846,8 @@
           "responses": 99,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -12299,7 +12873,8 @@
           "responses": 69,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -12317,7 +12892,8 @@
           "responses": 70,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -12343,7 +12919,8 @@
           "responses": 51,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -12361,7 +12938,8 @@
           "responses": 166,
           "timeouts": 4,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -12387,7 +12965,8 @@
           "responses": 79,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -12405,7 +12984,8 @@
           "responses": 142,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         }
       ]
     },
@@ -12431,7 +13011,8 @@
           "responses": 152,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.0
         },
         {
           "key": "openai/gpt-5-mini::medium",
@@ -12449,7 +13030,8 @@
           "responses": 118,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -12475,7 +13057,8 @@
           "responses": 196,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/o3::medium",
@@ -12493,7 +13076,8 @@
           "responses": 98,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.4
         }
       ]
     },
@@ -12519,7 +13103,8 @@
           "responses": 136,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.5
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -12537,7 +13122,8 @@
           "responses": 156,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -12563,7 +13149,8 @@
           "responses": 123,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "x-ai/grok-4.1-fast::medium",
@@ -12581,7 +13168,8 @@
           "responses": 156,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 5.4
         }
       ]
     },
@@ -12607,7 +13195,8 @@
           "responses": 117,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "moonshotai/kimi-k2.5::medium",
@@ -12625,7 +13214,8 @@
           "responses": 170,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         }
       ]
     },
@@ -12651,7 +13241,8 @@
           "responses": 128,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "moonshotai/kimi-k2-0905::medium",
@@ -12669,7 +13260,8 @@
           "responses": 159,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -12695,7 +13287,8 @@
           "responses": 130,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 9.7
         },
         {
           "key": "openai/gpt-5.2",
@@ -12713,7 +13306,8 @@
           "responses": 144,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -12739,7 +13333,8 @@
           "responses": 76,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -12757,7 +13352,8 @@
           "responses": 83,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.3
         }
       ]
     },
@@ -12783,7 +13379,8 @@
           "responses": 59,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "xiaomi/mimo-v2-flash::medium",
@@ -12801,7 +13398,8 @@
           "responses": 88,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -12827,7 +13425,8 @@
           "responses": 94,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "google/gemini-2.5-pro::medium",
@@ -12845,7 +13444,8 @@
           "responses": 26,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -12871,7 +13471,8 @@
           "responses": 121,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5.2",
@@ -12889,7 +13490,8 @@
           "responses": 265,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -12915,7 +13517,8 @@
           "responses": 45,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "x-ai/grok-4::medium",
@@ -12933,7 +13536,8 @@
           "responses": 97,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.9
         }
       ]
     },
@@ -12959,7 +13563,8 @@
           "responses": 159,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -12977,7 +13582,8 @@
           "responses": 63,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -13003,7 +13609,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "minimax/minimax-m2.1::medium",
@@ -13021,7 +13628,8 @@
           "responses": 67,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.0
         }
       ]
     },
@@ -13047,7 +13655,8 @@
           "responses": 192,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -13065,7 +13674,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -13091,7 +13701,8 @@
           "responses": 99,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5-nano::low",
@@ -13109,7 +13720,8 @@
           "responses": 153,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -13135,7 +13747,8 @@
           "responses": 58,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "openai/gpt-4o-mini",
@@ -13153,7 +13766,8 @@
           "responses": 60,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -13179,7 +13793,8 @@
           "responses": 189,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.0
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -13197,7 +13812,8 @@
           "responses": 73,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 5.8
         }
       ]
     },
@@ -13223,7 +13839,8 @@
           "responses": 87,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5::medium",
@@ -13241,7 +13858,8 @@
           "responses": 93,
           "timeouts": 8,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -13267,7 +13885,8 @@
           "responses": 132,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -13285,7 +13904,8 @@
           "responses": 91,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -13311,7 +13931,8 @@
           "responses": 114,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -13329,7 +13950,8 @@
           "responses": 166,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -13355,7 +13977,8 @@
           "responses": 123,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "openai/gpt-5::medium",
@@ -13373,7 +13996,8 @@
           "responses": 99,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -13399,7 +14023,8 @@
           "responses": 156,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "minimax/minimax-m2.5::medium",
@@ -13417,7 +14042,8 @@
           "responses": 94,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.0
         }
       ]
     },
@@ -13443,7 +14069,8 @@
           "responses": 263,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -13461,7 +14088,8 @@
           "responses": 32,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         }
       ]
     },
@@ -13487,7 +14115,8 @@
           "responses": 394,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.3
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -13505,7 +14134,8 @@
           "responses": 81,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -13531,7 +14161,8 @@
           "responses": 155,
           "timeouts": 7,
           "otherErrors": 0,
-          "contextResets": 1
+          "contextResets": 1,
+          "latencyP50": 0.4
         },
         {
           "key": "minimax/minimax-m2.5::medium",
@@ -13549,7 +14180,8 @@
           "responses": 122,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         }
       ]
     },
@@ -13575,7 +14207,8 @@
           "responses": 291,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -13593,7 +14226,8 @@
           "responses": 229,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     },
@@ -13619,7 +14253,8 @@
           "responses": 102,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "google/gemini-3.1-pro-preview::medium",
@@ -13637,7 +14272,8 @@
           "responses": 54,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 9.0
         }
       ]
     },
@@ -13663,7 +14299,8 @@
           "responses": 190,
           "timeouts": 1,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -13681,7 +14318,8 @@
           "responses": 199,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         }
       ]
     },
@@ -13707,7 +14345,8 @@
           "responses": 35,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.8
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -13725,7 +14364,8 @@
           "responses": 86,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         }
       ]
     },
@@ -13751,7 +14391,8 @@
           "responses": 141,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -13769,7 +14410,8 @@
           "responses": 39,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -13795,7 +14437,8 @@
           "responses": 65,
           "timeouts": 1,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -13813,7 +14456,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -13839,7 +14483,8 @@
           "responses": 102,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -13857,7 +14502,8 @@
           "responses": 69,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.8
         }
       ]
     },
@@ -13883,7 +14529,8 @@
           "responses": 56,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "anthropic/claude-haiku-4.5::low",
@@ -13901,7 +14548,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -13927,7 +14575,8 @@
           "responses": 265,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "qwen/qwen3-max-thinking::low",
@@ -13945,7 +14594,8 @@
           "responses": 227,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.7
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -13963,7 +14613,8 @@
           "responses": 157,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "anthropic/claude-opus-4.6::medium",
@@ -13981,7 +14632,8 @@
           "responses": 269,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         }
       ]
     },
@@ -14007,7 +14659,8 @@
           "responses": 257,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "deepseek/deepseek-v3.2",
@@ -14025,7 +14678,8 @@
           "responses": 297,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 5.3
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -14043,7 +14697,8 @@
           "responses": 220,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.0
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -14061,7 +14716,8 @@
           "responses": 207,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.8
         }
       ]
     },
@@ -14087,7 +14743,8 @@
           "responses": 146,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "qwen/qwen3-235b-a22b-2507",
@@ -14105,7 +14762,8 @@
           "responses": 104,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -14131,7 +14789,8 @@
           "responses": 72,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -14149,7 +14808,8 @@
           "responses": 82,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -14175,7 +14835,8 @@
           "responses": 98,
           "timeouts": 1,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.6
         },
         {
           "key": "meta-llama/llama-4-maverick",
@@ -14193,7 +14854,8 @@
           "responses": 108,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -14219,7 +14881,8 @@
           "responses": 145,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.1
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -14237,7 +14900,8 @@
           "responses": 122,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -14263,7 +14927,8 @@
           "responses": 142,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "z-ai/glm-4.7::medium",
@@ -14281,7 +14946,8 @@
           "responses": 60,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         }
       ]
     },
@@ -14307,7 +14973,8 @@
           "responses": 128,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "openai/gpt-oss-120b::medium",
@@ -14325,7 +14992,8 @@
           "responses": 137,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         }
       ]
     },
@@ -14351,7 +15019,8 @@
           "responses": 89,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "qwen/qwen3-coder",
@@ -14369,7 +15038,8 @@
           "responses": 184,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -14395,7 +15065,8 @@
           "responses": 146,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "openai/gpt-5::medium",
@@ -14413,7 +15084,8 @@
           "responses": 134,
           "timeouts": 3,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -14439,7 +15111,8 @@
           "responses": 65,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.5
         },
         {
           "key": "openai/gpt-5::medium",
@@ -14457,7 +15130,8 @@
           "responses": 73,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -14483,7 +15157,8 @@
           "responses": 86,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -14501,7 +15176,8 @@
           "responses": 82,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -14527,7 +15203,8 @@
           "responses": 75,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -14545,7 +15222,8 @@
           "responses": 116,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -14571,7 +15249,8 @@
           "responses": 151,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -14589,7 +15268,8 @@
           "responses": 93,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -14615,7 +15295,8 @@
           "responses": 66,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -14633,7 +15314,8 @@
           "responses": 64,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         }
       ]
     },
@@ -14659,7 +15341,8 @@
           "responses": 65,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "qwen/qwen3-coder",
@@ -14677,7 +15360,8 @@
           "responses": 118,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -14703,7 +15387,8 @@
           "responses": 87,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "google/gemini-3.1-pro-preview::medium",
@@ -14721,7 +15406,8 @@
           "responses": 198,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         }
       ]
     },
@@ -14747,7 +15433,8 @@
           "responses": 87,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -14765,7 +15452,8 @@
           "responses": 77,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -14791,7 +15479,8 @@
           "responses": 112,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5::medium",
@@ -14809,7 +15498,8 @@
           "responses": 94,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -14835,7 +15525,8 @@
           "responses": 76,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.7
         },
         {
           "key": "openai/gpt-oss-120b::medium",
@@ -14853,7 +15544,8 @@
           "responses": 144,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.2
         }
       ]
     },
@@ -14879,7 +15571,8 @@
           "responses": 83,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-3.1-pro-preview::medium",
@@ -14897,7 +15590,8 @@
           "responses": 80,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.9
         }
       ]
     },
@@ -14923,7 +15617,8 @@
           "responses": 103,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.6
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -14941,7 +15636,8 @@
           "responses": 80,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         }
       ]
     },
@@ -14967,7 +15663,8 @@
           "responses": 107,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "minimax/minimax-m2.5::medium",
@@ -14985,7 +15682,8 @@
           "responses": 77,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -15011,7 +15709,8 @@
           "responses": 68,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -15029,7 +15728,8 @@
           "responses": 118,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -15055,7 +15755,8 @@
           "responses": 152,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         },
         {
           "key": "qwen/qwen3-coder",
@@ -15073,7 +15774,8 @@
           "responses": 166,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         }
       ]
     },
@@ -15099,7 +15801,8 @@
           "responses": 83,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -15117,7 +15820,8 @@
           "responses": 62,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -15143,7 +15847,8 @@
           "responses": 61,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -15161,7 +15866,8 @@
           "responses": 61,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -15187,7 +15893,8 @@
           "responses": 185,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.5
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -15205,7 +15912,8 @@
           "responses": 100,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -15231,7 +15939,8 @@
           "responses": 67,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "google/gemini-3.1-pro-preview::medium",
@@ -15249,7 +15958,8 @@
           "responses": 48,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         }
       ]
     },
@@ -15275,7 +15985,8 @@
           "responses": 57,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -15293,7 +16004,8 @@
           "responses": 82,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -15319,7 +16031,8 @@
           "responses": 62,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -15337,7 +16050,8 @@
           "responses": 27,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         }
       ]
     },
@@ -15363,7 +16077,8 @@
           "responses": 3,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 37.2
         },
         {
           "key": "openai/gpt-oss-120b::medium",
@@ -15381,7 +16096,8 @@
           "responses": 8,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 8.4
         }
       ]
     },
@@ -15407,7 +16123,8 @@
           "responses": 95,
           "timeouts": 0,
           "otherErrors": 1,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         },
         {
           "key": "qwen/qwen3-coder",
@@ -15425,7 +16142,8 @@
           "responses": 225,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         }
       ]
     },
@@ -15451,7 +16169,8 @@
           "responses": 113,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "qwen/qwen3-coder",
@@ -15469,7 +16188,8 @@
           "responses": 63,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -15495,7 +16215,8 @@
           "responses": 62,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -15513,7 +16234,8 @@
           "responses": 40,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -15539,7 +16261,8 @@
           "responses": 152,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -15557,7 +16280,8 @@
           "responses": 148,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -15583,7 +16307,8 @@
           "responses": 99,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -15601,7 +16326,8 @@
           "responses": 129,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         }
       ]
     },
@@ -15627,7 +16353,8 @@
           "responses": 101,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -15645,7 +16372,8 @@
           "responses": 112,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -15671,7 +16399,8 @@
           "responses": 111,
           "timeouts": 9,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.4
         },
         {
           "key": "openai/gpt-5::medium",
@@ -15689,7 +16418,8 @@
           "responses": 54,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.2
         }
       ]
     },
@@ -15715,7 +16445,8 @@
           "responses": 191,
           "timeouts": 1,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.1
         },
         {
           "key": "google/gemini-3-flash-preview::medium",
@@ -15733,7 +16464,8 @@
           "responses": 122,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         }
       ]
     },
@@ -15759,7 +16491,8 @@
           "responses": 220,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5.2::medium",
@@ -15777,7 +16510,8 @@
           "responses": 106,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -15803,7 +16537,8 @@
           "responses": 138,
           "timeouts": 0,
           "otherErrors": 3,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.2
         },
         {
           "key": "anthropic/claude-sonnet-4.5::medium",
@@ -15821,7 +16556,8 @@
           "responses": 78,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -15847,7 +16583,8 @@
           "responses": 88,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.6
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -15865,7 +16602,8 @@
           "responses": 78,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -15891,7 +16629,8 @@
           "responses": 145,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -15909,7 +16648,8 @@
           "responses": 87,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         }
       ]
     },
@@ -15935,7 +16675,8 @@
           "responses": 55,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         },
         {
           "key": "mistralai/mistral-medium-3.1",
@@ -15953,7 +16694,8 @@
           "responses": 60,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -15979,7 +16721,8 @@
           "responses": 128,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.5
         },
         {
           "key": "x-ai/grok-4-fast::medium",
@@ -15997,7 +16740,8 @@
           "responses": 160,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.4
         }
       ]
     },
@@ -16023,7 +16767,8 @@
           "responses": 128,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16041,7 +16786,8 @@
           "responses": 81,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -16067,7 +16813,8 @@
           "responses": 40,
           "timeouts": 2,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "openai/gpt-5.4::medium",
@@ -16085,7 +16832,8 @@
           "responses": 95,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -16111,7 +16859,8 @@
           "responses": 154,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16129,7 +16878,8 @@
           "responses": 153,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -16155,7 +16905,8 @@
           "responses": 63,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.8
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16173,7 +16924,8 @@
           "responses": 31,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.9
         }
       ]
     },
@@ -16199,7 +16951,8 @@
           "responses": 127,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.7
         },
         {
           "key": "openai/gpt-5.4::medium",
@@ -16217,7 +16970,8 @@
           "responses": 111,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.0
         }
       ]
     },
@@ -16243,7 +16997,8 @@
           "responses": 116,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.6
         },
         {
           "key": "openai/gpt-5.4::medium",
@@ -16261,7 +17016,8 @@
           "responses": 100,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.6
         }
       ]
     },
@@ -16287,7 +17043,8 @@
           "responses": 76,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         },
         {
           "key": "mistralai/mistral-large-2512",
@@ -16305,7 +17062,8 @@
           "responses": 137,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.4
         }
       ]
     },
@@ -16331,7 +17089,8 @@
           "responses": 320,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.7
         },
         {
           "key": "openai/gpt-5.3-codex::medium",
@@ -16349,7 +17108,8 @@
           "responses": 256,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.2
         }
       ]
     },
@@ -16375,7 +17135,8 @@
           "responses": 124,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.9
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16393,7 +17154,8 @@
           "responses": 112,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     },
@@ -16419,7 +17181,8 @@
           "responses": 84,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.3
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16437,7 +17200,8 @@
           "responses": 45,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.1
         }
       ]
     },
@@ -16463,7 +17227,8 @@
           "responses": 125,
           "timeouts": 0,
           "otherErrors": 2,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.5
         },
         {
           "key": "openai/gpt-5.4::medium",
@@ -16481,7 +17246,8 @@
           "responses": 153,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 4.2
         }
       ]
     },
@@ -16507,7 +17273,8 @@
           "responses": 68,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 0.7
         },
         {
           "key": "openai/gpt-5.4::medium",
@@ -16525,7 +17292,8 @@
           "responses": 95,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 3.0
         }
       ]
     },
@@ -16551,7 +17319,8 @@
           "responses": 159,
           "timeouts": 0,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 2.3
         },
         {
           "key": "google/gemini-3.1-flash-lite-preview",
@@ -16569,7 +17338,8 @@
           "responses": 86,
           "timeouts": 1,
           "otherErrors": 0,
-          "contextResets": 0
+          "contextResets": 0,
+          "latencyP50": 1.0
         }
       ]
     }
