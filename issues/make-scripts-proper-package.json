@@ -1,0 +1,10 @@
+{
+  "title": "Make scripts/ a proper installable package to eliminate sys.path hacks",
+  "description": "Several scripts use `sys.path.insert` to make `puppeteer` and `scripts` importable. This is unnecessary since both are workspace packages, but `schemas/` is not — it relies on namespace package resolution after a `sys.path.insert(0, REPO_ROOT)` call.\n\nPR #923 removed most path hacks, but one remains in `schemas/migrations/v3_to_v4.py` (which does `sys.path.insert` to import from `puppeteer.harness_epoch`). The root `pyproject.toml` declares `packages = [\"scripts\"]` but not `schemas`, so `schemas` only works as an implicit namespace package when the repo root is on sys.path.\n\nFix: add `schemas` to the `packages` list in the root `pyproject.toml` (and add `schemas/__init__.py` if needed), then remove the remaining `sys.path.insert` in `v3_to_v4.py`. This ensures all cross-package imports work through the workspace without path manipulation.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["scripts", "build"],
+  "created_at": "2026-03-06T12:00:00.000000-08:00",
+  "updated_at": "2026-03-06T12:00:00.000000-08:00"
+}
