@@ -98,8 +98,8 @@ class TestFindNextMatch:
         assert match["seed_a"] == 1
         assert match["seed_b"] == 8
         assert match["winner_seed"] is None
-        # Round was added to tournament
-        assert len(t["rounds"]) == 1
+        # All rounds pre-generated (QF + SF + Finals for 8 players)
+        assert len(t["rounds"]) == 3
 
     def test_partially_complete_round(self):
         t = _make_tournament(4)
@@ -129,7 +129,6 @@ class TestFindNextMatch:
         assert round_dict["name"] == "Finals"
         assert match["seed_a"] == 1
         assert match["seed_b"] == 2
-        assert len(t["rounds"]) == 2
 
     def test_tournament_complete(self):
         t = _make_tournament(2)
@@ -154,7 +153,6 @@ class TestFindNextMatch:
             match["game_id"] = f"game_{matches_played}"
             matches_played += 1
         assert matches_played == 7
-        assert len(t["rounds"]) == 3  # QF, SF, Finals
         # Seed 1 wins the tournament
         final = t["rounds"][-1]["matches"][0]
         assert final["winner_seed"] == 1

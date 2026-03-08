@@ -13,6 +13,7 @@ Usage:
 import argparse
 import json
 import subprocess
+from collections.abc import Sequence
 from pathlib import Path
 
 from puppeteer.config import (
@@ -77,7 +78,9 @@ def round_name(num_matches: int) -> str:
 # -- Bracket state management --
 
 
-def _build_round(round_num: int, matchups: list[tuple[int, int]]) -> dict:
+def _build_round(
+    round_num: int, matchups: Sequence[tuple[int | None, int | None]]
+) -> dict:
     """Build a round dict from a list of (seed_a, seed_b) matchups."""
     return {
         "round": round_num,
@@ -95,47 +98,82 @@ def _build_round(round_num: int, matchups: list[tuple[int, int]]) -> dict:
     }
 
 
+def _init_bracket(tournament: dict) -> None:
+    """Initialize all bracket rounds upfront with null seeds for future rounds.
+
+    The website expects all rounds to be present (not generated on demand),
+    so we create the full bracket structure immediately.
+    """
+    rounds = tournament["rounds"]
+    size = tournament["size"]
+    bracket = generate_bracket(size)
+    rounds.append(_build_round(1, bracket))
+    # Pre-generate placeholder rounds (null seeds until matchups are known)
+    num_matches = len(bracket) // 2
+    round_num = 2
+    while num_matches >= 1:
+        rounds.append(
+            _build_round(
+                round_num,
+                [(None, None)] * num_matches,
+            )
+        )
+        num_matches //= 2
+        round_num += 1
+
+
+def _advance_round(rounds: list[dict], round_idx: int) -> None:
+    """Fill in the next round's matchups from the completed round's winners."""
+    completed = rounds[round_idx]
+    next_round = rounds[round_idx + 1]
+    winners = [m["winner_seed"] for m in completed["matches"]]
+    for i, match in enumerate(next_round["matches"]):
+        match["seed_a"] = winners[i * 2]
+        match["seed_b"] = winners[i * 2 + 1]
+
+
 def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
     """Find the next unplayed match in the tournament bracket.
 
-    Generates rounds on demand:
-    - If rounds is empty, creates round 1 from the bracket seedings.
-    - If the current round is complete, creates the next round from winners.
+    All rounds are pre-generated at init time. When a round completes,
+    the next round's matchups are filled in from the winners.
 
     Returns (round_dict, match_dict) for the next match to play, or None if
     the tournament is complete.
 
-    Modifies tournament["rounds"] in place when generating new rounds.
+    Modifies tournament["rounds"] in place.
     """
     rounds = tournament["rounds"]
-    size = tournament["size"]
 
-    # Generate round 1 if needed
+    # Generate full bracket if needed
     if not rounds:
-        bracket = generate_bracket(size)
-        rounds.append(_build_round(1, bracket))
+        _init_bracket(tournament)
 
-    while True:
-        current_round = rounds[-1]
+    for i, current_round in enumerate(rounds):
         matches = current_round["matches"]
 
-        # Find first unplayed match in current round
+        # Check if this round is complete
+        all_complete = all(m["winner_seed"] is not None for m in matches)
+        if all_complete:
+            # If there's a next round, advance matchups
+            if i + 1 < len(rounds) and rounds[i + 1]["matches"][0]["seed_a"] is None:
+                _advance_round(rounds, i)
+            continue
+
+        # Find first unplayed match with known seeds
         for match in matches:
-            if match["winner_seed"] is None:
+            if match["winner_seed"] is None and match["seed_a"] is not None:
                 return current_round, match
 
-        # Current round is complete — generate next round if possible
-        if len(matches) == 1:
-            # Finals are done — tournament is complete
-            return None
+        # Seeds not yet determined (earlier round incomplete)
+        break
 
-        # Pair adjacent winners for next round
-        winners = [m["winner_seed"] for m in matches]
-        next_matchups = [
-            (winners[i], winners[i + 1]) for i in range(0, len(winners), 2)
-        ]
-        next_round_num = current_round["round"] + 1
-        rounds.append(_build_round(next_round_num, next_matchups))
+    # Check if tournament is complete (all rounds done)
+    final_round = rounds[-1]
+    if final_round["matches"][0]["winner_seed"] is not None:
+        return None
+
+    return None
 
 
 # -- Deck file management --
