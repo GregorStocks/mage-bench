@@ -108,10 +108,7 @@ def _missing_llm_api_keys_for_run(config: Config) -> list[str]:
     for config_file in config.batch_config_files:
         game_config = Config(config_file=config_file)
         game_config.load_config()
-        errors.extend(
-            f"{config_file}: {missing}"
-            for missing in _missing_llm_api_keys(game_config)
-        )
+        errors.extend(f"{config_file}: {missing}" for missing in _missing_llm_api_keys(game_config))
     return errors
 
 
@@ -517,17 +514,14 @@ def parse_args() -> Config:
             f"Batch config manifest must be a non-empty JSON array: {args.batch_config_manifest}"
         )
         for i, item in enumerate(manifest):
-            assert isinstance(item, str) and item, (
-                f"Batch config manifest entry {i} must be a non-empty string path"
-            )
+            assert isinstance(item, str) and item, f"Batch config manifest entry {i} must be a non-empty string path"
             path = Path(item)
             assert path.exists(), f"Batch config file not found: {path}"
             batch_config_files.append(path)
         config_file = batch_config_files[0]
         if args.games != 1:
             assert args.games == len(batch_config_files), (
-                f"--games ({args.games}) must match batch config count "
-                f"({len(batch_config_files)})"
+                f"--games ({args.games}) must match batch config count ({len(batch_config_files)})"
             )
         num_games = len(batch_config_files)
 
@@ -1214,9 +1208,7 @@ def _setup_game(
     if batch:
         config_file = base_config.config_file
         if base_config.batch_config_files:
-            assert index < len(base_config.batch_config_files), (
-                f"Missing batch config for game {index + 1}/{num_games}"
-            )
+            assert index < len(base_config.batch_config_files), f"Missing batch config for game {index + 1}/{num_games}"
             config_file = base_config.batch_config_files[index]
         game_config = Config(
             config_file=config_file,

@@ -326,7 +326,9 @@ def _make_runner_config(
     )
 
 
-def _print_match_header(round_dict: dict, match: dict, entrants_by_seed: dict[int, dict], best_of: int) -> None:
+def _print_match_header(
+    round_dict: dict, match: dict, entrants_by_seed: dict[int, dict], best_of: int
+) -> None:
     """Print the standard per-match banner."""
     seed_a = match["seed_a"]
     seed_b = match["seed_b"]
@@ -351,7 +353,9 @@ def _complete_match_if_decided(
         if count < wins_needed:
             continue
         match_winner = seed
-        match_loser = match["seed_b"] if match_winner == match["seed_a"] else match["seed_a"]
+        match_loser = (
+            match["seed_b"] if match_winner == match["seed_a"] else match["seed_a"]
+        )
         match["winner_seed"] = match_winner
         _save_tournament(tournament, tournament_path)
         winner_display = entrants_by_seed[match_winner]["display_name"]
@@ -680,7 +684,9 @@ def main() -> int:
         else:
             # Multiple matches — run one game per match on a shared server batch
             _save_tournament(tournament, tournament_path)
-            print(f"\nStarting {batch_size} matches in parallel on one XMage server...\n")
+            print(
+                f"\nStarting {batch_size} matches in parallel on one XMage server...\n"
+            )
             _run_match_batch(
                 tournament,
                 tournament_path,
