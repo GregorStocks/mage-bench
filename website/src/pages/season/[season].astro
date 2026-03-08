@@ -215,6 +215,12 @@ const bracket = buildTwoSidedBracket(tournament);
 function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
 }
+
+function deckNameForSeed(seed: number): string | null {
+  const dl = tournament?.draft?.decklists?.[String(seed)];
+  if (!dl?.half_decks) return null;
+  return dl.half_decks.map((h: string) => cleanThemeName(h)).join(' + ');
+}
 ---
 
 <Base title={`Season ${seasonNum}`} wide={!!tournament}>
@@ -243,7 +249,7 @@ function cleanThemeName(name: string): string {
         <div class="bracket-section">
           <h3>Bracket</h3>
           <div class="bracket-scroll">
-            <div class="bracket-two-sided" style={`--bracket-half-height: ${(tournament.size / 2) * 56}px`}>
+            <div class="bracket-two-sided" style={`--bracket-half-height: ${(tournament.size / 2) * 72}px`}>
               {/* Left half: R1 → QF → SF */}
               <div class="bracket-half bracket-half-left">
                 {bracket.leftRounds.map((round: any, ri: number) => (
@@ -264,7 +270,10 @@ function cleanThemeName(name: string): string {
                                   {match.seed_a != null ? (
                                     <>
                                       <span class="bracket-seed-num">#{match.seed_a}</span>
-                                      <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                      <span class="bracket-player-info">
+                                        <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                        {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
+                                      </span>
                                       {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -275,7 +284,10 @@ function cleanThemeName(name: string): string {
                                   {match.seed_b != null ? (
                                     <>
                                       <span class="bracket-seed-num">#{match.seed_b}</span>
-                                      <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                      <span class="bracket-player-info">
+                                        <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                        {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
+                                      </span>
                                       {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -387,7 +399,10 @@ function cleanThemeName(name: string): string {
                                   {match.seed_a != null ? (
                                     <>
                                       <span class="bracket-seed-num">#{match.seed_a}</span>
-                                      <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                      <span class="bracket-player-info">
+                                        <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                        {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
+                                      </span>
                                       {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -398,7 +413,10 @@ function cleanThemeName(name: string): string {
                                   {match.seed_b != null ? (
                                     <>
                                       <span class="bracket-seed-num">#{match.seed_b}</span>
-                                      <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                      <span class="bracket-player-info">
+                                        <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                        {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
+                                      </span>
                                       {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -1136,11 +1154,11 @@ function cleanThemeName(name: string): string {
 
   .bracket-round {
     flex-shrink: 0;
-    min-width: 170px;
+    min-width: 210px;
   }
 
   .bracket-finals {
-    min-width: 190px;
+    min-width: 230px;
   }
 
   .round-label {
@@ -1209,10 +1227,26 @@ function cleanThemeName(name: string): string {
     color: var(--color-success);
   }
 
+  .bracket-player-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+
   .bracket-player-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .bracket-deck {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
   }
 
   .bracket-match.tbd {
