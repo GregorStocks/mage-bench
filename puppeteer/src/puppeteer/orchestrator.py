@@ -532,6 +532,14 @@ def refresh_observer_resources(project_root: Path) -> bool:
     return result.returncode == 0
 
 
+def clean_stale_h2_locks(project_root: Path) -> None:
+    """Remove stale H2 lock files left by previously killed server processes."""
+    db_dir = project_root / "Mage.Server" / "db"
+    for lock_file in db_dir.glob("*.lock.db"):
+        logger.info("Removing stale DB lock file: %s", lock_file)
+        lock_file.unlink()
+
+
 def start_server(
     pm: ProcessManager,
     project_root: Path,
@@ -1497,10 +1505,7 @@ def main() -> int:
         # Skip when --skip-compile is set: the caller handles cleanup once
         # before spawning parallel instances (avoids deleting a sibling's lock).
         if not config.skip_compile:
-            db_dir = project_root / "Mage.Server" / "db"
-            for lock_file in db_dir.glob("*.lock.db"):
-                logger.info("Removing stale DB lock file: %s", lock_file)
-                lock_file.unlink()
+            clean_stale_h2_locks(project_root)
 
         # Start server
         logger.info("Starting XMage server...")

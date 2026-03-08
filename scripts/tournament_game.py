@@ -25,6 +25,7 @@ from puppeteer.config import (
 )
 from puppeteer.orchestrator import (
     AnnotationFailure,
+    clean_stale_h2_locks,
     compile_project,
     refresh_observer_resources,
     resolve_annotation_failures,
@@ -142,57 +143,14 @@ def _advance_round(rounds: list[dict], round_idx: int) -> None:
         match["seed_b"] = winners[i * 2 + 1]
 
 
-def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
-    """Find the next unplayed match in the tournament bracket.
-
-    All rounds are pre-generated at init time. When a round completes,
-    the next round's matchups are filled in from the winners.
-
-    Returns (round_dict, match_dict) for the next match to play, or None if
-    the tournament is complete.
-
-    Modifies tournament["rounds"] in place.
-    """
-    rounds = tournament["rounds"]
-
-    # Generate full bracket if needed
-    if not rounds:
-        _init_bracket(tournament)
-
-    for i, current_round in enumerate(rounds):
-        matches = current_round["matches"]
-
-        # Check if this round is complete
-        all_complete = all(m["winner_seed"] is not None for m in matches)
-        if all_complete:
-            # If there's a next round, advance matchups
-            if i + 1 < len(rounds) and rounds[i + 1]["matches"][0]["seed_a"] is None:
-                _advance_round(rounds, i)
-            continue
-
-        # Find first unplayed match with known seeds
-        for match in matches:
-            if match["winner_seed"] is None and match["seed_a"] is not None:
-                return current_round, match
-
-        # Seeds not yet determined (earlier round incomplete)
-        break
-
-    # Check if tournament is complete (all rounds done)
-    final_round = rounds[-1]
-    if final_round["matches"][0]["winner_seed"] is not None:
-        return None
-
-    return None
-
-
 def find_ready_matches(tournament: dict) -> list[tuple[dict, dict]]:
     """Find all playable matches in the current round.
 
     Returns a list of (round_dict, match_dict) tuples for matches
-    that have known seeds but no winner yet. Unlike find_next_match()
-    which returns only the first, this returns all of them so they
-    can be run in parallel.
+    that have known seeds but no winner yet. Advances completed rounds
+    and initializes brackets as needed.
+
+    Modifies tournament["rounds"] in place.
     """
     rounds = tournament["rounds"]
 
@@ -215,6 +173,12 @@ def find_ready_matches(tournament: dict) -> list[tuple[dict, dict]]:
         return ready
 
     return []
+
+
+def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
+    """Find the next unplayed match. Returns (round_dict, match_dict) or None."""
+    ready = find_ready_matches(tournament)
+    return ready[0] if ready else None
 
 
 # -- Deck file management --
@@ -387,10 +351,8 @@ def _run_single_game(
         f"Orchestrator exited with code {rc}\n"
         f"Output (last 2000 chars):\n{output[-2000:]}"
     )
-    assert game_dir is not None, (
-        "Could not find 'Game logs:' in orchestrator output.\n"
-        f"Output (last 2000 chars):\n{output[-2000:]}"
-    )
+    if game_dir is None:
+        game_dir = _parse_game_dir(output)
 
     winner_name = read_game_winner(game_dir)
     assert winner_name is not None, (
@@ -552,10 +514,7 @@ def main() -> int:
         assert refresh_observer_resources(_ROOT), "Observer resource refresh failed"
 
         # Clean stale H2 lock files once before spawning parallel servers
-        db_dir = _ROOT / "Mage.Server" / "db"
-        for lock_file in db_dir.glob("*.lock.db"):
-            print(f"  Removing stale DB lock file: {lock_file.name}")
-            lock_file.unlink()
+        clean_stale_h2_locks(_ROOT)
 
     deferred_failures: list[AnnotationFailure] = []
     matches_played = 0

@@ -160,7 +160,7 @@ def test_update_website_youtube_url_no_files():
         _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
 
-def testupload_and_export_returns_zero_without_api_key():
+def test_upload_and_export_returns_zero_without_api_key():
     """Without OPENROUTER_API_KEY, should export without annotation and return 0.0."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir) / "game_20260210_120000"
@@ -183,7 +183,7 @@ def testupload_and_export_returns_zero_without_api_key():
     assert result == 0.0
 
 
-def testupload_and_export_skips_youtube_without_recording():
+def test_upload_and_export_skips_youtube_without_recording():
     """Without recording.mov, should skip YouTube upload but still export."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir) / "game_20260210_120000"
