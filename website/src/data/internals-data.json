@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T01:46:25.304354+00:00",
+  "generatedAt": "2026-03-08T04:48:30.439015+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -17340,52 +17340,6 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 1.0
-        }
-      ]
-    },
-    {
-      "id": "game_20260307_173319",
-      "ts": "2026-03-07T17:33:19",
-      "epoch": 45,
-      "format": "jumpstart",
-      "players": [
-        {
-          "key": "anthropic/claude-opus-4.6::medium",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "won": false,
-          "timedOut": false,
-          "costUsd": 4.6528,
-          "promptTokens": 873250,
-          "completionTokens": 11464,
-          "cachedTokens": 660081,
-          "reasoningTokens": 23,
-          "toolCallsOk": 75,
-          "toolCallsFailed": 0,
-          "thinkingTimeSecs": 344.7,
-          "responses": 69,
-          "timeouts": 0,
-          "otherErrors": 0,
-          "contextResets": 0,
-          "latencyP50": 2.5
-        },
-        {
-          "key": "qwen/qwen3-coder",
-          "modelName": "Qwen3 Coder 480B",
-          "won": true,
-          "timedOut": false,
-          "costUsd": 0.2241,
-          "promptTokens": 1007592,
-          "completionTokens": 2463,
-          "cachedTokens": 361120,
-          "reasoningTokens": 0,
-          "toolCallsOk": 108,
-          "toolCallsFailed": 0,
-          "thinkingTimeSecs": 258.8,
-          "responses": 108,
-          "timeouts": 0,
-          "otherErrors": 0,
-          "contextResets": 0,
-          "latencyP50": 0.5
         }
       ]
     }
