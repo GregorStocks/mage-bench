@@ -374,13 +374,13 @@ def _run_single_game(
     tournament: dict,
     seed_a: int,
     seed_b: int,
-    _quiet: bool = False,
+    quiet: bool = False,
     skip_compile: bool = False,
 ) -> tuple[Path, int]:
     """Run a single game between two seeds. Returns (game_dir, winner_seed).
 
     Args:
-        _quiet: Deprecated. Kept for compatibility with existing callers.
+        quiet: Unused. Kept for compatibility with existing callers.
         skip_compile: If True, pass --skip-compile to orchestrator (caller already compiled).
     """
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
@@ -406,7 +406,7 @@ def _run_single_game(
 def _run_batch_games(
     tournament: dict,
     matchups: list[tuple[int, int]],
-    _quiet: bool = True,
+    quiet: bool = True,
     skip_compile: bool = False,
 ) -> list[tuple[Path, int]]:
     """Run one game for each matchup on a single shared XMage server."""
