@@ -91,7 +91,7 @@ def _build_round(
                 "seed_a": a,
                 "seed_b": b,
                 "winner_seed": None,
-                "game_id": None,
+                "games": [],
             }
             for i, (a, b) in enumerate(matchups)
         ],
@@ -280,36 +280,12 @@ def map_winner_to_seed(
 # -- Main logic --
 
 
-def run_match(tournament: dict, tournament_path: Path) -> bool:
-    """Run the next tournament match. Returns True if a match was played, False if tournament is complete."""
-    result = find_next_match(tournament)
-    if result is None:
-        # Tournament is complete — find the champion
-        final_round = tournament["rounds"][-1]
-        champion_seed = final_round["matches"][0]["winner_seed"]
-        entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
-        champion = entrants_by_seed[champion_seed]
-        print(
-            f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}"
-        )
-        return False
-
-    round_dict, match = result
-    seed_a = match["seed_a"]
-    seed_b = match["seed_b"]
-    entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
-    name_a = entrants_by_seed[seed_a]["display_name"]
-    name_b = entrants_by_seed[seed_b]["display_name"]
-
-    print(f"\n{'=' * 60}")
-    print(f"{round_dict['name']} — Match {match['match']}")
-    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
-    print(f"{'=' * 60}\n")
-
-    # Save rounds state before running (in case of crash, bracket structure is preserved)
-    tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
-
-    # Build config and run the game
+def _run_single_game(
+    tournament: dict,
+    seed_a: int,
+    seed_b: int,
+) -> tuple[Path, str, int]:
+    """Run a single game between two seeds. Returns (game_dir, winner_name, winner_seed)."""
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
 
     rc = subprocess.run(
@@ -331,7 +307,6 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
 
     assert rc == 0, f"Orchestrator exited with code {rc}"
 
-    # Determine winner
     game_dir = find_latest_game_dir()
     winner_name = read_game_winner(game_dir)
     assert winner_name is not None, (
@@ -339,20 +314,86 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
     )
 
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
-    winner_display = entrants_by_seed[winner_seed]["display_name"]
-    loser_seed = seed_b if winner_seed == seed_a else seed_a
-    loser_display = entrants_by_seed[loser_seed]["display_name"]
+    return game_dir, winner_name, winner_seed
 
-    # Record result
-    match["winner_seed"] = winner_seed
-    match["game_id"] = game_dir.name
+
+def run_match(tournament: dict, tournament_path: Path) -> bool:
+    """Run the next tournament match. Returns True if a match was played, False if tournament is complete."""
+    result = find_next_match(tournament)
+    if result is None:
+        # Tournament is complete — find the champion
+        final_round = tournament["rounds"][-1]
+        champion_seed = final_round["matches"][0]["winner_seed"]
+        entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
+        champion = entrants_by_seed[champion_seed]
+        print(
+            f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}"
+        )
+        return False
+
+    round_dict, match = result
+    seed_a = match["seed_a"]
+    seed_b = match["seed_b"]
+    best_of = tournament["best_of"]
+    wins_needed = best_of // 2 + 1
+    entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
+    name_a = entrants_by_seed[seed_a]["display_name"]
+    name_b = entrants_by_seed[seed_b]["display_name"]
+
+    print(f"\n{'=' * 60}")
+    print(f"{round_dict['name']} — Match {match['match']} (best of {best_of})")
+    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
+    print(f"{'=' * 60}\n")
+
+    # Save rounds state before running (in case of crash, bracket structure is preserved)
     tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+
+    # Play games until one player reaches wins_needed
+    wins = {seed_a: 0, seed_b: 0}
+
+    for game_num in range(1, best_of + 1):
+        if best_of > 1:
+            print(
+                f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
+            )
+
+        game_dir, _winner_name, winner_seed = _run_single_game(
+            tournament, seed_a, seed_b
+        )
+        wins[winner_seed] += 1
+
+        match["games"].append(
+            {
+                "game_id": game_dir.name,
+                "winner_seed": winner_seed,
+            }
+        )
+
+        # Save after each game so partial series survive crashes
+        tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+
+        winner_display = entrants_by_seed[winner_seed]["display_name"]
+        print(
+            f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
+        )
+
+        if wins[winner_seed] >= wins_needed:
+            break
+
+    # Record match winner
+    match_winner = seed_a if wins[seed_a] >= wins_needed else seed_b
+    match_loser = seed_b if match_winner == seed_a else seed_a
+    match["winner_seed"] = match_winner
+    tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+
+    winner_display = entrants_by_seed[match_winner]["display_name"]
+    loser_display = entrants_by_seed[match_loser]["display_name"]
 
     print(f"\n{'=' * 60}")
     print(
-        f"RESULT: #{winner_seed} {winner_display} defeats #{loser_seed} {loser_display}"
+        f"RESULT: #{match_winner} {winner_display} defeats "
+        f"#{match_loser} {loser_display} ({wins[seed_a]}-{wins[seed_b]})"
     )
-    print(f"Game: {game_dir.name}")
     print(f"{'=' * 60}\n")
 
     return True

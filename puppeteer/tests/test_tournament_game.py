@@ -150,7 +150,7 @@ class TestFindNextMatch:
             # Higher seed (lower number) always wins
             winner = min(match["seed_a"], match["seed_b"])
             match["winner_seed"] = winner
-            match["game_id"] = f"game_{matches_played}"
+            match["games"].append({"game_id": f"game_{matches_played}", "winner_seed": winner})
             matches_played += 1
         assert matches_played == 7
         # Seed 1 wins the tournament

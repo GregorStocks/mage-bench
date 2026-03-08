@@ -184,13 +184,13 @@ function buildTwoSidedBracket(tournament: any) {
     const allR1 = [...BRACKET_16_LEFT, ...BRACKET_16_RIGHT];
     rounds = [{
       name: ROUND_NAMES[1], round: 1,
-      matches: allR1.map(([a, b]) => ({ seed_a: a, seed_b: b, winner_seed: null, game_id: null })),
+      matches: allR1.map(([a, b]) => ({ seed_a: a, seed_b: b, winner_seed: null, games: [] })),
     }];
     let matchCount = 4;
     for (let r = 2; r <= 4; r++) {
       rounds.push({
         name: ROUND_NAMES[r], round: r,
-        matches: Array.from({ length: matchCount }, () => ({ seed_a: null, seed_b: null, winner_seed: null, game_id: null })),
+        matches: Array.from({ length: matchCount }, () => ({ seed_a: null, seed_b: null, winner_seed: null, games: [] })),
       });
       matchCount = Math.max(1, matchCount / 2);
     }
@@ -216,10 +216,33 @@ function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
 }
 
+function matchScore(match: any): { winsA: number; winsB: number } | null {
+  const games = match.games;
+  if (!games || games.length === 0) return null;
+  let winsA = 0, winsB = 0;
+  for (const g of games) {
+    if (g.winner_seed === match.seed_a) winsA++;
+    else if (g.winner_seed === match.seed_b) winsB++;
+  }
+  return { winsA, winsB };
+}
+
 function deckNameForSeed(seed: number): string | null {
   const dl = tournament?.draft?.decklists?.[String(seed)];
   if (!dl?.half_decks) return null;
   return dl.half_decks.map((h: string) => cleanThemeName(h)).join(' + ');
+}
+
+// Match rendering data used by all bracket sections
+function matchRenderData(match: any) {
+  const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
+  const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
+  const isComplete = match.winner_seed != null;
+  const isTBD = match.seed_a == null || match.seed_b == null;
+  const score = matchScore(match);
+  const games: any[] = match.games ?? [];
+  const singleGameUrl = games.length === 1 ? `/games/${games[0].game_id}` : null;
+  return { ea, eb, isComplete, isTBD, score, games, singleGameUrl };
 }
 ---
 
@@ -259,14 +282,10 @@ function deckNameForSeed(seed: number): string | null {
                       <div class="round-label">{round.name}</div>
                       <div class="round-matches">
                         {round.matches.map((match: any) => {
-                          const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
-                          const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
-                          const isComplete = match.winner_seed != null;
-                          const isTBD = match.seed_a == null || match.seed_b == null;
-                          const gameUrl = match.game_id ? `/games/${match.game_id}` : null;
+                          const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
                           return (
                             <div class="bracket-match-wrap">
-                              <a class:list={['bracket-match', { 'has-link': !!gameUrl, 'tbd': isTBD }]} href={gameUrl || undefined}>
+                              <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
                                 <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                                   {match.seed_a != null ? (
                                     <>
@@ -275,6 +294,7 @@ function deckNameForSeed(seed: number): string | null {
                                         <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
                                         {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                       </span>
+                                      {score && <span class="bracket-wins">{score.winsA}</span>}
                                       {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -289,6 +309,7 @@ function deckNameForSeed(seed: number): string | null {
                                         <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
                                         {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                       </span>
+                                      {score && <span class="bracket-wins">{score.winsB}</span>}
                                       {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -296,6 +317,13 @@ function deckNameForSeed(seed: number): string | null {
                                   )}
                                 </div>
                               </a>
+                              {games.length > 1 && (
+                                <div class="bracket-game-links">
+                                  {games.map((g: any, gi: number) => (
+                                    <a href={`/games/${g.game_id}`} class="bracket-game-link">G{gi + 1}</a>
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           );
                         })}
@@ -321,19 +349,16 @@ function deckNameForSeed(seed: number): string | null {
                   <div class="round-label">{bracket.finals.name}</div>
                   <div class="round-matches">
                     {bracket.finals.matches.map((match: any) => {
-                      const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
-                      const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
-                      const isComplete = match.winner_seed != null;
-                      const isTBD = match.seed_a == null || match.seed_b == null;
-                      const gameUrl = match.game_id ? `/games/${match.game_id}` : null;
+                      const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
                       return (
                         <div class="bracket-match-wrap">
-                          <a class:list={['bracket-match', { 'has-link': !!gameUrl, 'tbd': isTBD }]} href={gameUrl || undefined}>
+                          <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
                             <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                               {match.seed_a != null ? (
                                 <>
                                   <span class="bracket-seed-num">#{match.seed_a}</span>
                                   <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                  {score && <span class="bracket-wins">{score.winsA}</span>}
                                   {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                                 </>
                               ) : (
@@ -345,6 +370,7 @@ function deckNameForSeed(seed: number): string | null {
                                 <>
                                   <span class="bracket-seed-num">#{match.seed_b}</span>
                                   <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                  {score && <span class="bracket-wins">{score.winsB}</span>}
                                   {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                                 </>
                               ) : (
@@ -352,6 +378,13 @@ function deckNameForSeed(seed: number): string | null {
                               )}
                             </div>
                           </a>
+                          {games.length > 1 && (
+                            <div class="bracket-game-links">
+                              {games.map((g: any, gi: number) => (
+                                <a href={`/games/${g.game_id}`} class="bracket-game-link">G{gi + 1}</a>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       );
                     })}
@@ -388,14 +421,10 @@ function deckNameForSeed(seed: number): string | null {
                       <div class="round-label">{round.name}</div>
                       <div class="round-matches">
                         {round.matches.map((match: any) => {
-                          const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
-                          const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
-                          const isComplete = match.winner_seed != null;
-                          const isTBD = match.seed_a == null || match.seed_b == null;
-                          const gameUrl = match.game_id ? `/games/${match.game_id}` : null;
+                          const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
                           return (
                             <div class="bracket-match-wrap">
-                              <a class:list={['bracket-match', { 'has-link': !!gameUrl, 'tbd': isTBD }]} href={gameUrl || undefined}>
+                              <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
                                 <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                                   {match.seed_a != null ? (
                                     <>
@@ -404,6 +433,7 @@ function deckNameForSeed(seed: number): string | null {
                                         <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
                                         {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                       </span>
+                                      {score && <span class="bracket-wins">{score.winsA}</span>}
                                       {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -418,6 +448,7 @@ function deckNameForSeed(seed: number): string | null {
                                         <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
                                         {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                       </span>
+                                      {score && <span class="bracket-wins">{score.winsB}</span>}
                                       {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                                     </>
                                   ) : (
@@ -425,6 +456,13 @@ function deckNameForSeed(seed: number): string | null {
                                   )}
                                 </div>
                               </a>
+                              {games.length > 1 && (
+                                <div class="bracket-game-links">
+                                  {games.map((g: any, gi: number) => (
+                                    <a href={`/games/${g.game_id}`} class="bracket-game-link">G{gi + 1}</a>
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           );
                         })}
@@ -1259,6 +1297,20 @@ function deckNameForSeed(seed: number): string | null {
     font-style: italic;
   }
 
+  .bracket-wins {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
+    min-width: 0.8rem;
+    text-align: center;
+  }
+
+  .bracket-slot.winner .bracket-wins {
+    color: var(--color-success);
+  }
+
   .bracket-win-mark {
     font-size: 0.6rem;
     font-weight: 700;
@@ -1266,8 +1318,30 @@ function deckNameForSeed(seed: number): string | null {
     background: var(--color-success);
     padding: 0.05rem 0.25rem;
     border-radius: 2px;
-    margin-left: auto;
+    margin-left: 0.25rem;
     flex-shrink: 0;
+  }
+
+  .bracket-game-links {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    margin-top: 0.15rem;
+  }
+
+  .bracket-game-link {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.05rem 0.3rem;
+    border-radius: 2px;
+    background: var(--bg-elevated);
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .bracket-game-link:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
   }
 
   /* --- Bracket Connectors --- */

@@ -117,7 +117,7 @@ def main() -> int:
     tournament = {
         "season": season_num,
         "size": size,
-        "best_of": 1,
+        "best_of": 3,
         "elimination": "single",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "entrants": entrants,
