@@ -518,6 +518,7 @@ class Config:
     record_output: Path | None = None
     num_games: int = 1  # Number of parallel games on the same server
     debug: bool = False  # Enable DEBUG-level logging
+    skip_compile: bool = False  # Skip compilation (caller already compiled)
 
     # Match timer settings (XMage enum names, e.g. "MIN__20", "SEC__10")
     match_time_limit: str = ""

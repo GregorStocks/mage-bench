@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T08:30:49.368364+00:00",
+  "generatedAt": "2026-03-08T19:15:04.660258+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -17432,6 +17432,98 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 0.7
+        }
+      ]
+    },
+    {
+      "id": "game_20260308_103128",
+      "ts": "2026-03-08T10:31:28",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "deepseek/deepseek-v3.2",
+          "modelName": "DeepSeek V3.2",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.4114,
+          "promptTokens": 1622288,
+          "completionTokens": 14674,
+          "cachedTokens": 810944,
+          "reasoningTokens": 0,
+          "toolCallsOk": 133,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 1523.4,
+          "responses": 134,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 5.1
+        },
+        {
+          "key": "x-ai/grok-4-fast::medium",
+          "modelName": "Grok 4 Fast (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.3009,
+          "promptTokens": 1278947,
+          "completionTokens": 90139,
+          "cachedTokens": 868368,
+          "reasoningTokens": 74142,
+          "toolCallsOk": 233,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 938.7,
+          "responses": 142,
+          "timeouts": 2,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 3.0
+        }
+      ]
+    },
+    {
+      "id": "game_20260308_111846",
+      "ts": "2026-03-08T11:18:46",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "deepseek/deepseek-v3.2",
+          "modelName": "DeepSeek V3.2",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.4763,
+          "promptTokens": 1873408,
+          "completionTokens": 19906,
+          "cachedTokens": 801536,
+          "reasoningTokens": 0,
+          "toolCallsOk": 141,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 1514.2,
+          "responses": 143,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 6.2
+        },
+        {
+          "key": "x-ai/grok-4-fast::medium",
+          "modelName": "Grok 4 Fast (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.3373,
+          "promptTokens": 1400990,
+          "completionTokens": 114173,
+          "cachedTokens": 929554,
+          "reasoningTokens": 96103,
+          "toolCallsOk": 243,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 1215.6,
+          "responses": 149,
+          "timeouts": 2,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 3.6
         }
       ]
     }

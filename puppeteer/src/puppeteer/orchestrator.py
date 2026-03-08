@@ -472,6 +472,11 @@ def parse_args() -> Config:
         action="store_true",
         help="Enable DEBUG-level logging (verbose MCP details, process management)",
     )
+    parser.add_argument(
+        "--skip-compile",
+        action="store_true",
+        help="Skip compilation (caller already compiled)",
+    )
     args = parser.parse_args()
 
     # Determine record output path
@@ -486,6 +491,7 @@ def parse_args() -> Config:
         record_output=record_output,
         num_games=args.games,
         debug=args.debug,
+        skip_compile=args.skip_compile,
     )
 
 
@@ -1448,15 +1454,18 @@ def main() -> int:
         log_dir.mkdir(parents=True, exist_ok=True)
 
         # Compile if needed
-        if not compile_project(project_root, observer=config.observer):
-            logger.error("Compilation failed")
-            return 1
-
-        if config.observer:
-            logger.info("Refreshing observer resources...")
-            if not refresh_observer_resources(project_root):
-                logger.error("Failed to refresh observer resources")
+        if config.skip_compile:
+            logger.info("Skipping compilation (--skip-compile)")
+        else:
+            if not compile_project(project_root, observer=config.observer):
+                logger.error("Compilation failed")
                 return 1
+
+            if config.observer:
+                logger.info("Refreshing observer resources...")
+                if not refresh_observer_resources(project_root):
+                    logger.error("Failed to refresh observer resources")
+                    return 1
 
         # Find available port
         logger.info("Finding available port starting from %d...", config.start_port)
@@ -1485,10 +1494,13 @@ def main() -> int:
 
         # Remove stale H2 lock files left by previously killed server processes.
         # A leftover lock file blocks the new server from opening the card DB.
-        db_dir = project_root / "Mage.Server" / "db"
-        for lock_file in db_dir.glob("*.lock.db"):
-            logger.info("Removing stale DB lock file: %s", lock_file)
-            lock_file.unlink()
+        # Skip when --skip-compile is set: the caller handles cleanup once
+        # before spawning parallel instances (avoids deleting a sibling's lock).
+        if not config.skip_compile:
+            db_dir = project_root / "Mage.Server" / "db"
+            for lock_file in db_dir.glob("*.lock.db"):
+                logger.info("Removing stale DB lock file: %s", lock_file)
+                lock_file.unlink()
 
         # Start server
         logger.info("Starting XMage server...")

@@ -23,6 +23,7 @@ from puppeteer.config import (
     load_models,
     load_personalities,
 )
+from puppeteer.orchestrator import compile_project, refresh_observer_resources
 from scripts.export_game import WEBSITE_GAMES_DIR, export_game, read_game_winner
 from scripts.generate_leaderboard import generate_all_website_data
 
@@ -330,28 +331,34 @@ def _run_single_game(
     seed_a: int,
     seed_b: int,
     quiet: bool = False,
+    skip_compile: bool = False,
 ) -> tuple[Path, int]:
     """Run a single game between two seeds. Returns (game_dir, winner_seed).
 
     Args:
         quiet: If True, suppress live output (used for parallel matches).
+        skip_compile: If True, pass --skip-compile to orchestrator (caller already compiled).
     """
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
 
+    cmd = [
+        "uv",
+        "run",
+        "--project",
+        "puppeteer",
+        "python",
+        "-m",
+        "puppeteer",
+        "--observer",
+        "--record",
+        "--config",
+        str(config_path),
+    ]
+    if skip_compile:
+        cmd.append("--skip-compile")
+
     proc = subprocess.Popen(
-        [
-            "uv",
-            "run",
-            "--project",
-            "puppeteer",
-            "python",
-            "-m",
-            "puppeteer",
-            "--observer",
-            "--record",
-            "--config",
-            str(config_path),
-        ],
+        cmd,
         cwd=_ROOT,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -394,6 +401,7 @@ def _run_match_on(
     round_dict: dict,
     match: dict,
     quiet: bool = False,
+    skip_compile: bool = False,
 ) -> None:
     """Run a specific match (best-of-N series)."""
     seed_a = match["seed_a"]
@@ -419,7 +427,7 @@ def _run_match_on(
             )
 
         game_dir, winner_seed = _run_single_game(
-            tournament, seed_a, seed_b, quiet=quiet
+            tournament, seed_a, seed_b, quiet=quiet, skip_compile=skip_compile
         )
         wins[winner_seed] += 1
 
@@ -522,6 +530,21 @@ def main() -> int:
         run_match(tournament, tournament_path)
         return 0
 
+    # Pre-compile once so parallel subprocesses can skip compilation.
+    # This avoids 4 concurrent Maven builds fighting over the same build dir,
+    # and prevents H2 lock file races between sibling processes.
+    parallel = games_to_play > 1
+    if parallel:
+        print("\nPre-compiling before parallel execution...")
+        assert compile_project(_ROOT, observer=True), "Compilation failed"
+        assert refresh_observer_resources(_ROOT), "Observer resource refresh failed"
+
+        # Clean stale H2 lock files once before spawning parallel servers
+        db_dir = _ROOT / "Mage.Server" / "db"
+        for lock_file in db_dir.glob("*.lock.db"):
+            print(f"  Removing stale DB lock file: {lock_file.name}")
+            lock_file.unlink()
+
     matches_played = 0
     while matches_played < games_to_play:
         ready = find_ready_matches(tournament)
@@ -536,7 +559,10 @@ def main() -> int:
             # Single match — run with live output
             round_dict, match = batch[0]
             _save_tournament(tournament, tournament_path)
-            _run_match_on(tournament, tournament_path, round_dict, match)
+            _run_match_on(
+                tournament, tournament_path, round_dict, match,
+                skip_compile=parallel,
+            )
         else:
             # Multiple matches — run in parallel
             _save_tournament(tournament, tournament_path)
@@ -552,6 +578,7 @@ def main() -> int:
                         round_dict,
                         match,
                         quiet=True,
+                        skip_compile=True,
                     ): match
                     for round_dict, match in batch
                 }
