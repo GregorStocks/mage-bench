@@ -203,8 +203,17 @@
           "match": 4,
           "seed_a": 5,
           "seed_b": 12,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 12,
+          "games": [
+            {
+              "game_id": "game_20260308_103128",
+              "winner_seed": 12
+            },
+            {
+              "game_id": "game_20260308_111846",
+              "winner_seed": 12
+            }
+          ]
         },
         {
           "match": 5,
