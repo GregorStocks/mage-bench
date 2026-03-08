@@ -1,0 +1,635 @@
+---
+import Base from '../../../layouts/Base.astro';
+import benchmarkData from '../../../data/benchmark-results.json';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [];
+
+export function getStaticPaths() {
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
+  );
+  const seasons: number[] = data.availableSeasons ?? [];
+  // Only generate for seasons that have tournament data
+  return seasons
+    .filter(s => {
+      const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
+      return fs.existsSync(tp);
+    })
+    .map(s => ({ params: { season: String(s) } }));
+}
+
+const { season } = Astro.params;
+const seasonNum = parseInt(season!, 10);
+
+// Load tournament data
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
+const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+
+// Load personalities for display
+const personalitiesPath = path.join(process.cwd(), '..', 'puppeteer', 'personalities.json');
+let personalities: Record<string, any> = {};
+if (fs.existsSync(personalitiesPath)) {
+  personalities = JSON.parse(fs.readFileSync(personalitiesPath, 'utf-8'));
+}
+
+// Build entrants lookup
+const entrantsBySeed: Record<number, any> = {};
+for (const e of tournament.entrants) {
+  entrantsBySeed[e.seed] = e;
+}
+
+function cleanThemeName(name: string): string {
+  return name.replace(/^J22 /, '');
+}
+---
+
+<Base title={`Season ${seasonNum} Tournament`}>
+  <div class="tournament-detail-page">
+    <p class="back-link"><a href={`/season/${seasonNum}`}>&larr; Back to Season {seasonNum}</a></p>
+    <h1>Season {seasonNum} Championship</h1>
+
+    <div class="tournament-meta">
+      <span class="meta-chip">best of {tournament.best_of}</span>
+      <span class="meta-chip">{tournament.elimination} elimination</span>
+      <span class="meta-chip">{tournament.size} players</span>
+      <span class="meta-chip">Jumpstart draft</span>
+    </div>
+
+    {/* Entrants & Decklists */}
+    <section class="entrants-section">
+      <h2>Entrants & Decklists</h2>
+      <div class="entrants-grid">
+        {tournament.entrants.map((e: any) => {
+          const p = personalities[e.personality];
+          const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
+          const cards = deckInfo?.cards?.map((c: string) => {
+            const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
+            if (!m) return { count: 1, set: '', num: '', name: c };
+            return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
+          }) || [];
+          return (
+            <div class="entrant-card">
+              <div class="entrant-seed">#{e.seed}</div>
+              <div class="entrant-info">
+                <div class="entrant-name">
+                  {e.display_name}
+                </div>
+                <div class="entrant-personality">
+                  <span class="personality-name">{e.personality}</span>
+                  {p?.prompt_suffix && (
+                    <span class="personality-desc" title={p.prompt_suffix}>
+                      {p.prompt_suffix.length > 60 ? p.prompt_suffix.slice(0, 60) + '...' : p.prompt_suffix}
+                    </span>
+                  )}
+                </div>
+                <div class="entrant-stats">
+                  <span class="entrant-elo">Elo {e.combined_elo}</span>
+                  <span class="entrant-games">{e.games_played} games</span>
+                </div>
+                {deckInfo && (
+                  <details class="entrant-decklist-details">
+                    <summary class="entrant-deck-summary">
+                      {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
+                      <span class="deck-card-count">{cards.reduce((s: number, c: any) => s + c.count, 0)} cards</span>
+                    </summary>
+                    <div class="decklist-cards">
+                      {cards.map((c: any) => (
+                        <div class="deck-card-row">
+                          <span class="deck-card-qty">{c.count}</span>
+                          <span class="deck-card-name">{c.name}</span>
+                          <span class="deck-card-set">{c.set}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    {/* Draft */}
+    {tournament.draft && (
+      <section class="draft-section">
+        <h2>Draft</h2>
+        <div class="draft-stats-bar">
+          <span>{tournament.draft.picks.length} picks</span>
+          <span class="draft-stat-sep">&middot;</span>
+          <span>{tournament.draft.pool.length} packs in pool</span>
+          <span class="draft-stat-sep">&middot;</span>
+          <span>${tournament.draft.total_cost_usd.toFixed(2)} total cost</span>
+        </div>
+        {[1, 2].map((roundNum: number) => {
+          const roundPicks = tournament.draft.picks
+            .map((p: any, idx: number) => ({ ...p, _idx: idx }))
+            .filter((p: any) => p.round === roundNum);
+          return (
+            <div class={`draft-round draft-round-${roundNum}`}>
+              <div class="draft-round-header">
+                <span class="draft-round-label">Round {roundNum}</span>
+                <span class="draft-round-count">{roundPicks.length} picks</span>
+              </div>
+              <div class="draft-round-picks">
+                {roundPicks.map((pick: any) => {
+                  const ent = entrantsBySeed[pick.seed];
+                  return (
+                    <div class="dpick">
+                      <button class="dpick-row" type="button" aria-expanded="false">
+                        <span class="dpick-num">{pick._idx + 1}</span>
+                        <span class="dpick-player">
+                          <span class="dpick-seed">#{pick.seed}</span>
+                          <span class="dpick-name">{ent?.display_name || `Seed ${pick.seed}`}</span>
+                        </span>
+                        <span class="dpick-chose">{cleanThemeName(pick.picked)}</span>
+                        <span class="dpick-cost">${pick.cost_usd.toFixed(2)}</span>
+                        <span class="dpick-chevron">&#9656;</span>
+                      </button>
+                      <div class="dpick-detail" hidden>
+                        <div class="dpick-reasoning">
+                          <div class="dpick-detail-label">Reasoning</div>
+                          <div class="dpick-reasoning-text">{pick.reasoning}</div>
+                        </div>
+                        {pick.thinking && (
+                          <details class="dpick-thinking">
+                            <summary class="dpick-detail-label clickable">Extended Thinking</summary>
+                            <div class="dpick-thinking-text">{pick.thinking}</div>
+                          </details>
+                        )}
+                        <div class="dpick-pool">
+                          <div class="dpick-detail-label">Available ({pick.options.length} packs)</div>
+                          <div class="dpick-pool-tags">
+                            {pick.options.map((opt: string) => (
+                              <span class:list={['dpick-tag', { 'dpick-tag-picked': opt === pick.picked }]}>
+                                {cleanThemeName(opt)}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div class="dpick-meta">
+                          {pick.usage.prompt_tokens.toLocaleString()} prompt &middot; {pick.usage.completion_tokens.toLocaleString()} completion tokens
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+    )}
+
+    {!tournament.draft && (
+      <section class="draft-pending-section">
+        <h2>Draft</h2>
+        <div class="draft-pending">
+          <p>Draft results will appear here once the Jumpstart draft is complete.</p>
+        </div>
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  .tournament-detail-page {
+    max-width: 1000px;
+  }
+
+  .back-link {
+    margin-bottom: 1rem;
+  }
+
+  .back-link a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.15s;
+  }
+
+  .back-link a:hover {
+    color: var(--accent-primary);
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--accent-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .tournament-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .meta-chip {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    background: rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    border-radius: 20px;
+    color: var(--accent-secondary);
+    text-transform: capitalize;
+  }
+
+  /* --- Entrants --- */
+  .entrants-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .entrants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .entrant-card {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .entrant-card:hover {
+    border-color: var(--accent-secondary);
+  }
+
+  .entrant-seed {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    min-width: 2rem;
+    text-align: center;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .entrant-info {
+    min-width: 0;
+  }
+
+  .entrant-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .entrant-personality {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
+  .personality-name {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: capitalize;
+    flex-shrink: 0;
+  }
+
+  .personality-desc {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .entrant-stats {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+  }
+
+  .entrant-elo {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entrant-decklist-details {
+    margin-top: 0.3rem;
+  }
+
+  .entrant-deck-summary {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--accent-secondary);
+    user-select: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .deck-card-count {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .decklist-cards {
+    margin-top: 0.3rem;
+    padding-left: 0.25rem;
+    font-size: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .deck-card-row {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.1rem 0;
+    color: var(--text-secondary);
+  }
+
+  .deck-card-qty {
+    color: var(--text-muted);
+    min-width: 1rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .deck-card-name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .deck-card-set {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* --- Draft --- */
+  .draft-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .draft-stats-bar {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .draft-stat-sep {
+    color: var(--text-muted);
+  }
+
+  .draft-round {
+    margin-bottom: 1.5rem;
+  }
+
+  .draft-round-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--border-default);
+  }
+
+  .draft-round-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-secondary);
+  }
+
+  .draft-round-2 .draft-round-label {
+    color: var(--accent-primary);
+  }
+
+  .draft-round-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .draft-round-picks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dpick {
+    border-left: 3px solid var(--accent-secondary);
+    background: var(--bg-surface);
+    border-radius: 0 4px 4px 0;
+    overflow: hidden;
+  }
+
+  .draft-round-2 .dpick {
+    border-left-color: var(--accent-primary);
+  }
+
+  .dpick-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.75rem;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .dpick-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .dpick-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 1.8rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .dpick-player {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .dpick-seed {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .dpick-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.85rem;
+  }
+
+  .dpick-chose {
+    color: var(--accent-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .draft-round-2 .dpick-chose {
+    color: var(--accent-primary);
+  }
+
+  .dpick-cost {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .dpick-chevron {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .dpick.open .dpick-chevron {
+    transform: rotate(90deg);
+  }
+
+  .dpick-detail {
+    padding: 0.5rem 0.75rem 0.75rem 2.8rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .dpick-detail-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .dpick-detail-label.clickable {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .dpick-reasoning-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .dpick-thinking {
+    margin-bottom: 0.75rem;
+  }
+
+  .dpick-thinking-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-top: 0.25rem;
+    white-space: pre-wrap;
+  }
+
+  .dpick-pool {
+    margin-bottom: 0.5rem;
+  }
+
+  .dpick-pool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .dpick-tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    background: var(--bg-elevated);
+    color: var(--text-secondary);
+  }
+
+  .dpick-tag-picked {
+    background: rgba(20, 184, 166, 0.15);
+    color: var(--accent-secondary);
+    font-weight: 600;
+  }
+
+  .draft-round-2 .dpick-tag-picked {
+    background: rgba(233, 69, 96, 0.15);
+    color: var(--accent-primary);
+  }
+
+  .dpick-meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .draft-pending {
+    padding: 2rem;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border-default);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .draft-pending p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.dpick-row');
+    if (!btn) return;
+    var card = btn.closest('.dpick');
+    var detail = card.querySelector('.dpick-detail');
+    if (!detail) return;
+    var isOpen = !detail.hidden;
+    detail.hidden = isOpen;
+    card.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>
