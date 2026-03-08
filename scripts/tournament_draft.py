@@ -52,6 +52,7 @@ _LOGS_DIR = Path.home() / ".mage-bench" / "logs"
 PACKS_PER_PLAYER = 4
 LLM_TIMEOUT_SECS = 900
 MAX_TOKENS = 20_000
+MAX_PICK_RETRIES = 10
 
 
 def draft_order(num_entrants: int) -> list[int]:
@@ -305,16 +306,16 @@ def _log_llm_call(
 def _extract_content(message: object) -> tuple[str | None, str | None]:
     """Extract (content, thinking) from an OpenAI chat completion message.
 
-    Strips whitespace and falls back to reasoning_content if content is empty.
+    Strips whitespace. Does NOT fall back to reasoning_content — reasoning
+    text is internal deliberation full of option references that confuse
+    parse_pick. If the model produced no content, the caller must retry.
     """
     content: str | None = getattr(message, "content", None)
     if content is not None:
-        content = content.strip()
+        content = content.strip() or None
     thinking: str | None = getattr(message, "reasoning_content", None) or getattr(
         message, "reasoning", None
     )
-    if not content and thinking:
-        content = thinking.strip()
     return content, thinking
 
 
@@ -328,59 +329,33 @@ async def _llm_pick(
     log_file: IO[str],
     pick_meta: dict,
 ) -> tuple[int, str, str | None, dict]:
-    """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict)."""
-    messages = [
+    """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict).
+
+    Retries up to MAX_PICK_RETRIES times if the model fails to produce a
+    parseable pick (empty content, unparseable response, etc.). Each retry
+    includes the full conversation history so the model can see what went wrong.
+    """
+    messages: list = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt},
     ]
 
     create_kwargs: dict = dict(
         model=model,
-        messages=messages,
         max_tokens=MAX_TOKENS,
     )
     if reasoning_effort is not None:
         create_kwargs["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
 
-    response = await asyncio.wait_for(
-        client.chat.completions.create(**create_kwargs),
-        timeout=LLM_TIMEOUT_SECS,
-    )
+    usage: dict = {"prompt_tokens": 0, "completion_tokens": 0}
+    thinking: str | None = None
+    first_content: str | None = None
 
-    _log_llm_call(
-        log_file,
-        model=model,
-        system_prompt=system_prompt,
-        user_prompt=user_prompt,
-        response_json=response.model_dump(),
-        attempt="initial",
-        pick_meta=pick_meta,
-    )
+    for attempt in range(1, MAX_PICK_RETRIES + 1):
+        attempt_label = "initial" if attempt == 1 else f"retry_{attempt - 1}"
 
-    assert response.choices, f"LLM returned empty choices for model {model}"
-    content, thinking = _extract_content(response.choices[0].message)
-    assert content, f"LLM returned empty content for model {model}"
-
-    usage: dict = {}
-    if response.usage:
-        usage = {
-            "prompt_tokens": response.usage.prompt_tokens or 0,
-            "completion_tokens": response.usage.completion_tokens or 0,
-        }
-
-    try:
-        pick = parse_pick(content, num_options)
-    except ValueError:
-        # Retry once with a clearer prompt
-        messages.append({"role": "assistant", "content": content})
-        messages.append(
-            {
-                "role": "user",
-                "content": f"Please reply with ONLY a single number from 1 to {num_options}.",
-            }
-        )
-        retry_response = await asyncio.wait_for(
-            client.chat.completions.create(**create_kwargs | {"messages": messages}),
+        response = await asyncio.wait_for(
+            client.chat.completions.create(messages=messages, **create_kwargs),
             timeout=LLM_TIMEOUT_SECS,
         )
 
@@ -389,30 +364,54 @@ async def _llm_pick(
             model=model,
             system_prompt=system_prompt,
             user_prompt=user_prompt,
-            response_json=retry_response.model_dump(),
-            attempt="retry",
+            response_json=response.model_dump(),
+            attempt=attempt_label,
             pick_meta=pick_meta,
         )
 
-        assert retry_response.choices, (
-            f"LLM returned empty choices on retry for model {model}"
+        assert response.choices, (
+            f"LLM returned empty choices for model {model} (attempt {attempt})"
         )
-        retry_content, retry_thinking = _extract_content(
-            retry_response.choices[0].message
-        )
-        if retry_thinking:
-            thinking = retry_thinking
-        assert retry_content, f"LLM returned empty content on retry for model {model}"
-        if retry_response.usage:
-            usage["prompt_tokens"] = usage.get("prompt_tokens", 0) + (
-                retry_response.usage.prompt_tokens or 0
-            )
-            usage["completion_tokens"] = usage.get("completion_tokens", 0) + (
-                retry_response.usage.completion_tokens or 0
-            )
-        pick = parse_pick(retry_content, num_options)
 
-    return pick, content, thinking, usage
+        if response.usage:
+            usage["prompt_tokens"] += response.usage.prompt_tokens or 0
+            usage["completion_tokens"] += response.usage.completion_tokens or 0
+
+        content, attempt_thinking = _extract_content(response.choices[0].message)
+        if attempt_thinking:
+            thinking = attempt_thinking
+
+        if not content:
+            reason = "Your response was empty — no content was returned."
+        else:
+            if first_content is None:
+                first_content = content
+            try:
+                pick = parse_pick(content, num_options)
+                return pick, first_content, thinking, usage
+            except ValueError:
+                reason = (
+                    f"Could not parse a valid option number (1-{num_options}) "
+                    f"from your response."
+                )
+
+        # Append the failed response and a retry prompt to the conversation
+        messages.append({"role": "assistant", "content": content or "(empty response)"})
+        messages.append(
+            {
+                "role": "user",
+                "content": (
+                    f"{reason} Reply with ONLY a single number from "
+                    f"1 to {num_options}. No other text."
+                ),
+            }
+        )
+        print(f"    Attempt {attempt} failed: {reason} Retrying...")
+
+    assert False, (
+        f"Model {model} failed to produce a valid pick after "
+        f"{MAX_PICK_RETRIES} attempts"
+    )
 
 
 async def run_draft(tournament: dict, tournament_path: Path) -> None:
