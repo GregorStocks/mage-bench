@@ -6,13 +6,15 @@ determines the next match to play, creates a game config on the fly, runs it via
 the orchestrator, and records the result back to the tournament JSON.
 
 Usage:
-    python scripts/tournament_game.py             # play the next match
-    python scripts/tournament_game.py --games 3   # play the next 3 matches
+    python scripts/tournament_game.py                        # play the next match
+    python scripts/tournament_game.py --games 8 --parallel 4 # play 8 matches, 4 at a time
 """
 
 import argparse
+import concurrent.futures
 import json
 import subprocess
+import threading
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -176,6 +178,37 @@ def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
     return None
 
 
+def find_ready_matches(tournament: dict) -> list[tuple[dict, dict]]:
+    """Find all playable matches in the current round.
+
+    Returns a list of (round_dict, match_dict) tuples for matches
+    that have known seeds but no winner yet. Unlike find_next_match()
+    which returns only the first, this returns all of them so they
+    can be run in parallel.
+    """
+    rounds = tournament["rounds"]
+
+    if not rounds:
+        _init_bracket(tournament)
+
+    for i, current_round in enumerate(rounds):
+        matches = current_round["matches"]
+
+        all_complete = all(m["winner_seed"] is not None for m in matches)
+        if all_complete:
+            if i + 1 < len(rounds) and rounds[i + 1]["matches"][0]["seed_a"] is None:
+                _advance_round(rounds, i)
+            continue
+
+        ready = []
+        for match in matches:
+            if match["winner_seed"] is None and match["seed_a"] is not None:
+                ready.append((current_round, match))
+        return ready
+
+    return []
+
+
 # -- Deck file management --
 
 
@@ -241,14 +274,24 @@ def build_game_config(
 
 # -- Game result extraction --
 
+_write_lock = threading.Lock()
 
-def find_latest_game_dir() -> Path:
-    """Find the most recently created game directory."""
-    logs_dir = Path.home() / ".mage-bench" / "logs"
-    assert logs_dir.exists(), f"Logs directory not found: {logs_dir}"
-    game_dirs = list(logs_dir.glob("game_*"))
-    assert game_dirs, f"No game directories found in {logs_dir}"
-    return max(game_dirs, key=lambda p: p.name)
+
+def _save_tournament(tournament: dict, tournament_path: Path) -> None:
+    """Thread-safe tournament JSON save."""
+    with _write_lock:
+        tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+
+
+def _parse_game_dir(output: str) -> Path:
+    """Parse the game directory path from orchestrator output."""
+    for line in output.splitlines():
+        if "Game logs:" in line:
+            return Path(line.split("Game logs:")[-1].strip())
+    raise AssertionError(
+        "Could not find 'Game logs:' in orchestrator output.\n"
+        f"Output (last 2000 chars):\n{output[-2000:]}"
+    )
 
 
 def map_winner_to_seed(
@@ -284,11 +327,16 @@ def _run_single_game(
     tournament: dict,
     seed_a: int,
     seed_b: int,
+    quiet: bool = False,
 ) -> tuple[Path, int]:
-    """Run a single game between two seeds. Returns (game_dir, winner_seed)."""
+    """Run a single game between two seeds. Returns (game_dir, winner_seed).
+
+    Args:
+        quiet: If True, suppress live output (used for parallel matches).
+    """
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
 
-    rc = subprocess.run(
+    proc = subprocess.Popen(
         [
             "uv",
             "run",
@@ -303,11 +351,32 @@ def _run_single_game(
             str(config_path),
         ],
         cwd=_ROOT,
-    ).returncode
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
 
-    assert rc == 0, f"Orchestrator exited with code {rc}"
+    game_dir = None
+    output_lines: list[str] = []
+    assert proc.stdout is not None
+    for line in proc.stdout:
+        output_lines.append(line)
+        if not quiet:
+            print(line, end="", flush=True)
+        if game_dir is None and "Game logs:" in line:
+            game_dir = Path(line.split("Game logs:")[-1].strip())
 
-    game_dir = find_latest_game_dir()
+    rc = proc.wait()
+    output = "".join(output_lines)
+    assert rc == 0, (
+        f"Orchestrator exited with code {rc}\n"
+        f"Output (last 2000 chars):\n{output[-2000:]}"
+    )
+    assert game_dir is not None, (
+        "Could not find 'Game logs:' in orchestrator output.\n"
+        f"Output (last 2000 chars):\n{output[-2000:]}"
+    )
+
     winner_name = read_game_winner(game_dir)
     assert winner_name is not None, (
         f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
@@ -315,6 +384,76 @@ def _run_single_game(
 
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
     return game_dir, winner_seed
+
+
+def _run_match_on(
+    tournament: dict,
+    tournament_path: Path,
+    round_dict: dict,
+    match: dict,
+    quiet: bool = False,
+) -> None:
+    """Run a specific match (best-of-N series)."""
+    seed_a = match["seed_a"]
+    seed_b = match["seed_b"]
+    best_of = tournament["best_of"]
+    wins_needed = best_of // 2 + 1
+    entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
+    name_a = entrants_by_seed[seed_a]["display_name"]
+    name_b = entrants_by_seed[seed_b]["display_name"]
+
+    print(f"\n{'=' * 60}")
+    print(f"{round_dict['name']} — Match {match['match']} (best of {best_of})")
+    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
+    print(f"{'=' * 60}\n")
+
+    # Play games until one player reaches wins_needed
+    wins = {seed_a: 0, seed_b: 0}
+
+    for game_num in range(1, best_of + 1):
+        if best_of > 1:
+            print(
+                f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
+            )
+
+        game_dir, winner_seed = _run_single_game(
+            tournament, seed_a, seed_b, quiet=quiet
+        )
+        wins[winner_seed] += 1
+
+        match["games"].append(
+            {
+                "game_id": game_dir.name,
+                "winner_seed": winner_seed,
+            }
+        )
+
+        # Save after each game so partial series survive crashes
+        _save_tournament(tournament, tournament_path)
+
+        winner_display = entrants_by_seed[winner_seed]["display_name"]
+        print(
+            f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
+        )
+
+        if wins[winner_seed] >= wins_needed:
+            break
+
+    # Record match winner
+    match_winner = seed_a if wins[seed_a] >= wins_needed else seed_b
+    match_loser = seed_b if match_winner == seed_a else seed_a
+    match["winner_seed"] = match_winner
+    _save_tournament(tournament, tournament_path)
+
+    winner_display = entrants_by_seed[match_winner]["display_name"]
+    loser_display = entrants_by_seed[match_loser]["display_name"]
+
+    print(f"\n{'=' * 60}")
+    print(
+        f"RESULT: #{match_winner} {winner_display} defeats "
+        f"#{match_loser} {loser_display} ({wins[seed_a]}-{wins[seed_b]})"
+    )
+    print(f"{'=' * 60}\n")
 
 
 def run_match(tournament: dict, tournament_path: Path) -> bool:
@@ -332,68 +471,11 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
         return False
 
     round_dict, match = result
-    seed_a = match["seed_a"]
-    seed_b = match["seed_b"]
-    best_of = tournament["best_of"]
-    wins_needed = best_of // 2 + 1
-    entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
-    name_a = entrants_by_seed[seed_a]["display_name"]
-    name_b = entrants_by_seed[seed_b]["display_name"]
-
-    print(f"\n{'=' * 60}")
-    print(f"{round_dict['name']} — Match {match['match']} (best of {best_of})")
-    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
-    print(f"{'=' * 60}\n")
 
     # Save rounds state before running (in case of crash, bracket structure is preserved)
-    tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+    _save_tournament(tournament, tournament_path)
 
-    # Play games until one player reaches wins_needed
-    wins = {seed_a: 0, seed_b: 0}
-
-    for game_num in range(1, best_of + 1):
-        if best_of > 1:
-            print(
-                f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
-            )
-
-        game_dir, winner_seed = _run_single_game(tournament, seed_a, seed_b)
-        wins[winner_seed] += 1
-
-        match["games"].append(
-            {
-                "game_id": game_dir.name,
-                "winner_seed": winner_seed,
-            }
-        )
-
-        # Save after each game so partial series survive crashes
-        tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
-
-        winner_display = entrants_by_seed[winner_seed]["display_name"]
-        print(
-            f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
-        )
-
-        if wins[winner_seed] >= wins_needed:
-            break
-
-    # Record match winner
-    match_winner = seed_a if wins[seed_a] >= wins_needed else seed_b
-    match_loser = seed_b if match_winner == seed_a else seed_a
-    match["winner_seed"] = match_winner
-    tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
-
-    winner_display = entrants_by_seed[match_winner]["display_name"]
-    loser_display = entrants_by_seed[match_loser]["display_name"]
-
-    print(f"\n{'=' * 60}")
-    print(
-        f"RESULT: #{match_winner} {winner_display} defeats "
-        f"#{match_loser} {loser_display} ({wins[seed_a]}-{wins[seed_b]})"
-    )
-    print(f"{'=' * 60}\n")
-
+    _run_match_on(tournament, tournament_path, round_dict, match)
     return True
 
 
@@ -403,10 +485,17 @@ def main() -> int:
         "--games",
         type=int,
         default=1,
-        help="Number of sequential matches to play (default: 1)",
+        help="Number of matches to play (default: 1)",
+    )
+    parser.add_argument(
+        "--parallel",
+        type=int,
+        default=1,
+        help="Max concurrent matches within a round (default: 1)",
     )
     args = parser.parse_args()
     assert args.games >= 1, f"--games must be >= 1, got {args.games}"
+    assert args.parallel >= 1, f"--parallel must be >= 1, got {args.parallel}"
 
     tournament, tournament_path = load_tournament()
     assert "draft" in tournament, (
@@ -434,11 +523,43 @@ def main() -> int:
         run_match(tournament, tournament_path)
         return 0
 
-    for i in range(games_to_play):
-        if games_to_play > 1:
-            print(f"\n--- Match {i + 1} of {games_to_play} ---")
-        if not run_match(tournament, tournament_path):
+    matches_played = 0
+    while matches_played < games_to_play:
+        ready = find_ready_matches(tournament)
+        if not ready:
+            run_match(tournament, tournament_path)  # prints champion
             break
+
+        batch_size = min(len(ready), games_to_play - matches_played, args.parallel)
+        batch = ready[:batch_size]
+
+        if batch_size == 1:
+            # Single match — run with live output
+            round_dict, match = batch[0]
+            _save_tournament(tournament, tournament_path)
+            _run_match_on(tournament, tournament_path, round_dict, match)
+        else:
+            # Multiple matches — run in parallel with suppressed output
+            _save_tournament(tournament, tournament_path)
+            print(f"\nStarting {batch_size} matches in parallel...\n")
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=batch_size
+            ) as executor:
+                futures = {
+                    executor.submit(
+                        _run_match_on,
+                        tournament,
+                        tournament_path,
+                        round_dict,
+                        match,
+                        quiet=True,
+                    ): match
+                    for round_dict, match in batch
+                }
+                for future in concurrent.futures.as_completed(futures):
+                    future.result()  # re-raise any exceptions
+
+        matches_played += batch_size
 
     return 0
 

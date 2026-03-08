@@ -9,7 +9,9 @@ from pathlib import Path
 import pytest
 
 from scripts.tournament_game import (
+    _parse_game_dir,
     find_next_match,
+    find_ready_matches,
     generate_bracket,
     round_name,
     write_tournament_deck,
@@ -156,6 +158,85 @@ class TestFindNextMatch:
         # Seed 1 wins the tournament
         final = t["rounds"][-1]["matches"][0]
         assert final["winner_seed"] == 1
+
+
+# -- Finding ready matches (parallel support) --
+
+
+class TestFindReadyMatches:
+    def test_empty_rounds_returns_all_first_round(self):
+        t = _make_tournament(8)
+        ready = find_ready_matches(t)
+        assert len(ready) == 4
+        seeds = [(r[1]["seed_a"], r[1]["seed_b"]) for r in ready]
+        assert (1, 8) in seeds
+        assert (4, 5) in seeds
+        assert (2, 7) in seeds
+        assert (3, 6) in seeds
+
+    def test_partially_complete_round(self):
+        t = _make_tournament(4)
+        find_ready_matches(t)
+        t["rounds"][0]["matches"][0]["winner_seed"] = 1
+        ready = find_ready_matches(t)
+        assert len(ready) == 1
+        assert ready[0][1]["seed_a"] == 2
+        assert ready[0][1]["seed_b"] == 3
+
+    def test_round_complete_advances_to_next(self):
+        t = _make_tournament(4)
+        find_ready_matches(t)
+        t["rounds"][0]["matches"][0]["winner_seed"] = 1
+        t["rounds"][0]["matches"][1]["winner_seed"] = 2
+        ready = find_ready_matches(t)
+        assert len(ready) == 1
+        assert ready[0][1]["seed_a"] == 1
+        assert ready[0][1]["seed_b"] == 2
+
+    def test_tournament_complete_returns_empty(self):
+        t = _make_tournament(2)
+        find_ready_matches(t)
+        t["rounds"][0]["matches"][0]["winner_seed"] = 1
+        ready = find_ready_matches(t)
+        assert len(ready) == 0
+
+    def test_all_round_matches_returned(self):
+        """All 8 first-round matches in a 16-player bracket are returned."""
+        t = _make_tournament(16)
+        ready = find_ready_matches(t)
+        assert len(ready) == 8
+
+    def test_consistent_with_find_next_match(self):
+        """First element of find_ready_matches matches find_next_match."""
+        t = _make_tournament(8)
+        ready = find_ready_matches(t)
+        single = find_next_match(t)
+        assert single is not None
+        assert ready[0][1] is single[1]
+
+
+# -- Parsing game dir from output --
+
+
+class TestParseGameDir:
+    def test_parses_game_dir(self):
+        output = (
+            "INFO Starting server...\n"
+            "INFO Game logs: /home/user/.mage-bench/logs/game_20260308_120000\n"
+            "INFO Starting pilots...\n"
+        )
+        assert _parse_game_dir(output) == Path(
+            "/home/user/.mage-bench/logs/game_20260308_120000"
+        )
+
+    def test_parses_with_label_prefix(self):
+        output = "INFO Game 1/3: Game logs: /tmp/logs/game_20260308_120000_g1\n"
+        assert _parse_game_dir(output) == Path("/tmp/logs/game_20260308_120000_g1")
+
+    def test_missing_game_dir_raises(self):
+        output = "INFO Starting server...\nINFO Done.\n"
+        with pytest.raises(AssertionError, match="Game logs"):
+            _parse_game_dir(output)
 
 
 # -- Deck file writing --
