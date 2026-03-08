@@ -86668,8 +86668,144 @@
   "youtubeUrl": "https://youtu.be/sAGRfx4_Elw",
   "season": 1,
   "tournament": "season-1",
-  "annotations": [],
-  "blunderScriptVersion": 0,
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Timed out on Thriving Heath's color choice, likely defaulting to Blue instead of Black. The player has Grotesque Mutation (1B) in hand and Blight Keeper on board (with an 7B activation), making Black the clearly correct choice for the second color. Blue mana has no use in their hand or visible game plan.",
+      "actionTaken": "Timed out, likely defaulting to Blue for Thriving Heath's color choice.",
+      "betterLine": "Choose Black as the second color for Thriving Heath, enabling it to tap for W or B to support both Grotesque Mutation and the deck's black requirements.",
+      "type": "blunder",
+      "snapshotIndex": 23,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "minor",
+      "description": "Cast Chandra's Pyrohelix early to kill a tapped 1/1 Blight Keeper, wasting significant synergy with Chandra's Spitfire (in hand, castable next turn). Pyrohelix combined with Spitfire would deal noncombat damage triggering +3/+0 (or +6/+0 if split to hit the opponent), making it much more impactful later.",
+      "actionTaken": "Cast Chandra's Pyrohelix to kill Blight Keeper on turn 4 with no synergy pieces on board.",
+      "betterLine": "Cast Dragon Hatchling as a 0/1 flying blocker/attacker, save Pyrohelix for next turn or later when Chandra's Spitfire is on the battlefield to maximize the noncombat damage synergy for a much larger attack.",
+      "type": "blunder",
+      "snapshotIndex": 35,
+      "player": "Grok4F ESPN"
+    },
+    {
+      "severity": "minor",
+      "description": "Chose the weakest 3-mana option (Dragon Hatchling 0/1) over Spiteful Prankster (3/2 first strike) or Chandra's Spitfire (1/3 flyer with upside), both available at the same mana cost. Dragon Hatchling requires additional mana investment to be relevant while the alternatives are immediately impactful.",
+      "actionTaken": "Cast Dragon Hatchling (0/1 flyer, needs R to pump) for 2 mana",
+      "betterLine": "Cast Spiteful Prankster (3/2, first strike on your turn, death-trigger ping) or Chandra's Spitfire (1/3 flyer with noncombat damage synergy) for 3 mana, deploying a much more impactful creature on an empty opposing board.",
+      "type": "blunder",
+      "snapshotIndex": 56,
+      "player": "Grok4F ESPN"
+    },
+    {
+      "severity": "minor",
+      "description": "Activated Dragon Hatchling's pump ability (+1/+0 until end of turn) during precombat main phase, but Dragon Hatchling has summoning sickness and cannot attack this turn. The buff expires at end of turn with no benefit gained.",
+      "actionTaken": "Pumped Dragon Hatchling with {R} for +1/+0 during own precombat main while it has summoning sickness",
+      "betterLine": "Pass priority without activating the pump ability. The mana wasn't needed for anything else, but spending it for zero effect is still a wasted activation with no upside.",
+      "type": "blunder",
+      "snapshotIndex": 62,
+      "player": "Grok4F ESPN"
+    },
+    {
+      "severity": "moderate",
+      "description": "Cast Grotesque Mutation on summoning-sick Yargle in postcombat main phase. The +3/+1 and lifelink are nearly worthless since Yargle can't attack this turn (lifelink does nothing) and Yargle at 9/3 already survives anything the opponent can throw at it. This wastes a combat trick that could be devastating next turn when Yargle attacks.",
+      "actionTaken": "Cast Grotesque Mutation on Yargle (summoning sick) in postcombat main, giving temporary +3/+1 and lifelink with no combat to leverage it.",
+      "betterLine": "Cast Sage's Reverie on Yargle for a permanent +1/+1 AND draw a card, or cast Eaten Alive to exile Spiteful Prankster or Chandra's Spitfire (both dangerous threats), or save Grotesque Mutation for next turn's attack where lifelink on a 12/4 Yargle would gain 12 life.",
+      "type": "blunder",
+      "snapshotIndex": 142,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "major",
+      "description": "DSV3 Stoic targeted their own Yargle, Glutton of Urborg (9/3) with Eaten Alive instead of targeting one of the opponent's threatening creatures. This exiles their own best threat for no benefit while the opponent's board (Spiteful Prankster, Chandra's Spitfire, Dragon Hatchling) remains intact.",
+      "actionTaken": "Targeted Yargle, Glutton of Urborg (own 9/3 creature) with Eaten Alive, exiling their own biggest threat.",
+      "betterLine": "Target Spiteful Prankster or Chandra's Spitfire with Eaten Alive. Spiteful Prankster is likely the best target as it has first strike on their turn, pings on creature death, and synergizes with Chandra's Spitfire. This preserves Yargle as a massive offensive threat.",
+      "type": "blunder",
+      "snapshotIndex": 143,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "major",
+      "description": "At 7 life facing a 12/4 Yargle that threatens lethal next attack, the player activated Dragon Hatchling's pump ability (+1/+0 for {R}) instead of casting Fiery Intervention to kill Yargle. Fiery Intervention deals 5 damage to a creature, which would destroy the 4-toughness Yargle. Spending mana on a minor pump when a lethal threat needs answering is a critical error. Even if they still have enough mana after, the sequencing priority should be removing the lethal threat first.",
+      "actionTaken": "Activated Dragon Hatchling's pump ability ({R}: +1/+0)",
+      "betterLine": "Cast Fiery Intervention targeting Yargle, Glutton of Urborg to destroy it and survive the next turn. Play Thriving Bluff for the land drop first if needed for future mana, then use remaining mana on Fiery Intervention.",
+      "type": "blunder",
+      "snapshotIndex": 166,
+      "player": "Grok4F ESPN"
+    },
+    {
+      "severity": "moderate",
+      "description": "Blocked Spiteful Prankster which has first strike on its controller's turn, meaning Favored of Iroas dies before dealing damage (Prankster survives). This also triggers Prankster's death trigger and pumps Chandra's Spitfire via noncombat damage, resulting in 9 total damage and losing Favored for nothing. Blocking Chandra's Spitfire instead would trade Favored for their best threat, result in only 6 damage taken, and remove a dangerous flying creature.",
+      "actionTaken": "Blocked Spiteful Prankster with Favored of Iroas, losing Favored to first strike for no trade and enabling Spitfire pump",
+      "betterLine": "Block Chandra's Spitfire with Favored of Iroas to trade 2/2 for 4/3 flyer, taking 6 damage instead of 9 and removing opponent's best threat",
+      "type": "blunder",
+      "snapshotIndex": 190,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Casting Eaten Alive by sacrificing the only creature (Skullslither Worm, a 3/3) while ahead 17-7 on life removes one opposing threat but leaves the player with zero board presence and no way to close the game. The Worm could apply significant pressure next turn against an opponent at 7 life.",
+      "actionTaken": "Cast Eaten Alive (sacrificing Skullslither Worm) to exile an opponent's creature while the Worm's ETB was still on the stack",
+      "betterLine": "Keep Skullslither Worm as a 3/3 attacker to pressure the opponent at 7 life. Save Eaten Alive for later when another creature is available to sacrifice, or when the {3}{B} alternative cost is affordable. The Worm threatens a 3-turn clock and forces the opponent to block defensively.",
+      "type": "blunder",
+      "snapshotIndex": 217,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Chose to exile Chandra's Spitfire over Spiteful Prankster. Spiteful Prankster is the engine that enables Spitfire's pump triggers and is itself a 3/2 first striker. Without Prankster, Spitfire is just a 1/3 flyer that only grows from burn spells. Additionally, sacrificing a creature to Eaten Alive while Prankster is on the board triggers Prankster (1 damage to DSV3) which also pumps Spitfire. Removing Prankster first eliminates the synergy engine and the sacrifice-trigger problem.",
+      "actionTaken": "Targeted Chandra's Spitfire with Eaten Alive",
+      "betterLine": "Target Spiteful Prankster with Eaten Alive to remove the damage engine, leaving only a 1/3 flyer and 0/1 Dragon Hatchling as threats against a 3/3 Skullslither Worm with the opponent at 7 life",
+      "type": "blunder",
+      "snapshotIndex": 219,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "questionable",
+      "description": "With no creatures on board and facing lethal threats, passing up the chance to cast Sage's Reverie on opponent's Dragon Hatchling (0/1) to draw a card seems suboptimal. At 9 life with an empty board and no other plays available, digging for answers is critical. The +1/+1 buff on the Hatchling is minimal cost compared to finding a creature or removal spell.",
+      "actionTaken": "Passed priority during combat with Sage's Reverie castable on an opponent's creature.",
+      "betterLine": "Cast Sage's Reverie targeting Dragon Hatchling to draw 1 card and dig for answers, accepting the minimal +1/+1 buff on a 0/1 creature.",
+      "type": "blunder",
+      "snapshotIndex": 275,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "major",
+      "description": "Missed lethal. The player has Lightning Shrieker (5/5 flying trample haste) in hand and 7 Mountains untapped. Casting it for 4R before combat and attacking with Lightning Shrieker (5), Rapacious Dragon (3), and Spiteful Prankster (3) deals 11 damage to the opponent at 9 life — that's lethal. Instead, the player attacked for only 6 without casting Lightning Shrieker first.",
+      "actionTaken": "Attacked with only Rapacious Dragon and Spiteful Prankster for 6 damage, leaving opponent at 3 life.",
+      "betterLine": "Cast Lightning Shrieker (4R) precombat main, then attack with Lightning Shrieker, Rapacious Dragon, Spiteful Prankster, and Dragon Hatchling for 11+ damage — lethal.",
+      "type": "blunder",
+      "snapshotIndex": 279,
+      "player": "Grok4F ESPN"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to play a Plains from hand during the end step when there was no downside. At 3 life facing lethal threats next turn, having 6 mana available instead of 5 could be relevant for casting both Chains of Custody and potentially Sage's Reverie or other spells. Missing a free land drop is wasted value.",
+      "actionTaken": "Passed priority without playing the Plains from hand.",
+      "betterLine": "Play the Plains to have 6 mana available next turn, maximizing options for casting Chains of Custody plus any other spells drawn or in hand.",
+      "type": "blunder",
+      "snapshotIndex": 302,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "minor",
+      "description": "At 3 life with no board and facing lethal flying threats next turn, DSV3 Stoic passed on casting Sage's Reverie, their only available action. Even though it would need to enchant an opponent's creature (like Dragon Hatchling), it would draw 1 card, potentially finding a creature or answer. With Chains of Custody also in hand but no creatures to enchant, finding any creature is critical. Passing means ending the turn with 4 mana unused and no progress toward stabilizing.",
+      "actionTaken": "Passed priority in postcombat main phase, ending the turn with 4+ unused mana and a castable spell.",
+      "betterLine": "Cast Sage's Reverie targeting Dragon Hatchling (the smallest threat) to draw a card and potentially find a creature or removal spell to survive. The +1/+1 buff to Hatchling is a minor cost compared to the value of drawing toward answers in a desperate position.",
+      "type": "blunder",
+      "snapshotIndex": 307,
+      "player": "DSV3 Stoic"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 3 life. Pillar of Flame deals 2 damage to any target (sorcery), which would put the opponent to 1 life. Next turn, Dragon Hatchling (flying, untapped) can attack and be pumped to at least 1/1 with any Mountain for exact lethal. By passing without casting Pillar of Flame, the player gives the opponent an extra turn to find answers, blockers, or life gain, when a two-turn lethal sequence was available.",
+      "actionTaken": "Passed priority in postcombat main without casting Pillar of Flame, ending the turn.",
+      "betterLine": "Cast Pillar of Flame targeting the opponent (3 → 1 life), then next turn attack with Dragon Hatchling and pump with {R} for 1 flying damage = lethal.",
+      "type": "blunder",
+      "snapshotIndex": 309,
+      "player": "Grok4F ESPN"
+    }
+  ],
+  "blunderScriptVersion": 32,
   "decisions": [
     {
       "index": 0,
