@@ -284,8 +284,8 @@ def _run_single_game(
     tournament: dict,
     seed_a: int,
     seed_b: int,
-) -> tuple[Path, str, int]:
-    """Run a single game between two seeds. Returns (game_dir, winner_name, winner_seed)."""
+) -> tuple[Path, int]:
+    """Run a single game between two seeds. Returns (game_dir, winner_seed)."""
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
 
     rc = subprocess.run(
@@ -314,7 +314,7 @@ def _run_single_game(
     )
 
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
-    return game_dir, winner_name, winner_seed
+    return game_dir, winner_seed
 
 
 def run_match(tournament: dict, tournament_path: Path) -> bool:
@@ -357,9 +357,7 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
                 f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
             )
 
-        game_dir, _winner_name, winner_seed = _run_single_game(
-            tournament, seed_a, seed_b
-        )
+        game_dir, winner_seed = _run_single_game(tournament, seed_a, seed_b)
         wins[winner_seed] += 1
 
         match["games"].append(
