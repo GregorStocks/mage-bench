@@ -560,7 +560,10 @@ def main() -> int:
             round_dict, match = batch[0]
             _save_tournament(tournament, tournament_path)
             _run_match_on(
-                tournament, tournament_path, round_dict, match,
+                tournament,
+                tournament_path,
+                round_dict,
+                match,
                 skip_compile=parallel,
             )
         else:

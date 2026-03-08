@@ -1082,8 +1082,7 @@ def build_export(game_dir: Path) -> dict:
     }
     if meta.get("harness_epoch") is not None:
         output["harnessEpoch"] = meta["harness_epoch"]
-    if meta.get("youtube_url"):
-        output["youtubeUrl"] = meta["youtube_url"]
+    output["youtubeUrl"] = meta.get("youtube_url", "")
 
     # Season/tournament (v4)
     if "season" in meta:
