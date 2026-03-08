@@ -225,9 +225,7 @@ class TestParseGameDir:
             "INFO Game logs: /home/user/.mage-bench/logs/game_20260308_120000\n"
             "INFO Starting pilots...\n"
         )
-        assert _parse_game_dir(output) == Path(
-            "/home/user/.mage-bench/logs/game_20260308_120000"
-        )
+        assert _parse_game_dir(output) == Path("/home/user/.mage-bench/logs/game_20260308_120000")
 
     def test_parses_with_label_prefix(self):
         output = "INFO Game 1/3: Game logs: /tmp/logs/game_20260308_120000_g1\n"
