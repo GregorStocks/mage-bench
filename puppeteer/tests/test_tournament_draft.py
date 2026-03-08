@@ -130,6 +130,22 @@ class TestParsePick:
     def test_whitespace(self):
         assert parse_pick("  2  \n", 4) == 2
 
+    def test_bold_number_at_start(self):
+        assert parse_pick("**17**\n\nElves is the strongest pack here.", 64) == 17
+
+    def test_bold_number_beats_option_in_reasoning(self):
+        # Model says **17** as its pick, then references "Option 30" in analysis
+        assert (
+            parse_pick(
+                "**17**\n\nElves is great and pairs with J22 Elves (Option 30)",
+                64,
+            )
+            == 17
+        )
+
+    def test_leading_number_with_period(self):
+        assert parse_pick("17. Elves is the best choice.", 64) == 17
+
 
 # -- Prompt building tests (using real packs) --
 

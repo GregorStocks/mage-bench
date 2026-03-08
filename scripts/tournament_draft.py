@@ -209,6 +209,15 @@ def parse_pick(response_text: str, num_options: int) -> int:
         if 1 <= n <= num_options:
             return n
 
+    # Check for a leading number (possibly bold-wrapped like **17**).
+    # Models put their answer first, then reasoning that may reference
+    # other option numbers — so a leading number is the strongest signal.
+    leading = re.match(r"\*{0,2}(\d{1,2})\*{0,2}(?:\s|$|[.),:])", text)
+    if leading:
+        n = int(leading.group(1))
+        if 1 <= n <= num_options:
+            return n
+
     # Look for explicit patterns: "Option 12", "pick #3", "choose 7"
     explicit = re.findall(
         r"(?:option|pick|choose|choice)\s*#?\s*(\d+)", text, re.IGNORECASE
