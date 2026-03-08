@@ -6,8 +6,8 @@ determines the next match to play, creates a game config on the fly, runs it via
 the orchestrator, and records the result back to the tournament JSON.
 
 Usage:
-    python scripts/tournament_game.py                        # play the next match
-    python scripts/tournament_game.py --games 8 --parallel 4 # play 8 matches, 4 at a time
+    python scripts/tournament_game.py            # play the next match
+    python scripts/tournament_game.py --games 8  # play up to 8 matches in parallel
 """
 
 import argparse
@@ -485,17 +485,10 @@ def main() -> int:
         "--games",
         type=int,
         default=1,
-        help="Number of matches to play (default: 1)",
-    )
-    parser.add_argument(
-        "--parallel",
-        type=int,
-        default=1,
-        help="Max concurrent matches within a round (default: 1)",
+        help="Number of matches to play in parallel (default: 1)",
     )
     args = parser.parse_args()
     assert args.games >= 1, f"--games must be >= 1, got {args.games}"
-    assert args.parallel >= 1, f"--parallel must be >= 1, got {args.parallel}"
 
     tournament, tournament_path = load_tournament()
     assert "draft" in tournament, (
@@ -530,7 +523,7 @@ def main() -> int:
             run_match(tournament, tournament_path)  # prints champion
             break
 
-        batch_size = min(len(ready), games_to_play - matches_played, args.parallel)
+        batch_size = min(len(ready), games_to_play - matches_played)
         batch = ready[:batch_size]
 
         if batch_size == 1:
@@ -539,7 +532,7 @@ def main() -> int:
             _save_tournament(tournament, tournament_path)
             _run_match_on(tournament, tournament_path, round_dict, match)
         else:
-            # Multiple matches — run in parallel with suppressed output
+            # Multiple matches — run in parallel
             _save_tournament(tournament, tournament_path)
             print(f"\nStarting {batch_size} matches in parallel...\n")
             with concurrent.futures.ThreadPoolExecutor(
