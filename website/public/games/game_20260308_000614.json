@@ -50391,8 +50391,36 @@
   "youtubeUrl": "https://youtu.be/cS39pm8pEqY",
   "season": 1,
   "tournament": "season-1",
-  "annotations": [],
-  "blunderScriptVersion": 0,
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Cast Feral Invocation (a flash spell) during their own precombat main phase, wasting its surprise value. The opponent has Elvish Warmaster and growing elf tokens that will likely attack next turn. Feral Invocation on Feral Prowler would be much better as a combat trick during the opponent's attack step, potentially ambushing an attacker or making a favorable block.",
+      "actionTaken": "Cast Feral Invocation precombat main phase on Feral Prowler, making it a 3/5 with no combat trick surprise.",
+      "betterLine": "Either cast Initiate's Companion (sorcery-speed creature that must be cast now) or pass the turn entirely and hold Feral Invocation for the opponent's combat step to use as a surprise combat trick, potentially eating an attacker.",
+      "type": "blunder",
+      "snapshotIndex": 65,
+      "player": "QwCdr Diplom"
+    },
+    {
+      "severity": "moderate",
+      "description": "Opponent has Elvish Warmaster, Elderleaf Mentor, and 4 Elf tokens building an aggressive board. QwCdr Diplom is at 16 life with only Feral Prowler as a blocker. Casting Ill-Gotten Inheritance (a slow drain enchantment) does nothing to address the immediate board pressure and wastes the entire turn's mana on a card that won't meaningfully impact the game before being overrun.",
+      "actionTaken": "Cast Ill-Gotten Inheritance (slow 1-damage-per-turn drain enchantment) for 4 mana.",
+      "betterLine": "Cast Oathsworn Vampire (2/2 body for 2 mana) to add a blocker, leaving mana open for Feral Invocation on Feral Prowler during combat to create a 3/5 blocker. This addresses the immediate board crisis by having two blockers including one that can wall multiple elves.",
+      "type": "blunder",
+      "snapshotIndex": 117,
+      "player": "QwCdr Diplom"
+    },
+    {
+      "severity": "questionable",
+      "description": "At 7 life facing a massive elf board (6 creatures + Presence of Gond token generation + Elvish Warmaster pump potential), Canopy Stalker's 4/2 body doesn't block well against a wide board. Ill-Gotten Inheritance would provide guaranteed incremental drain (1 damage + 1 life per turn) and a sacrifice option for 4 damage + 4 life, which could be critical for racing or stabilizing. The life gain from IGI also enables casting Oathsworn Vampire from graveyard and would later trigger Epicure of Blood.",
+      "actionTaken": "Cast Canopy Stalker (4/2 must-be-blocked)",
+      "betterLine": "Cast Ill-Gotten Inheritance for {3}{B} to start draining the opponent and gaining life each upkeep, with the option to sacrifice for 4 damage/4 life as a finisher. Then cast Creeping Bloodsucker next turn to double up on drain effects and enable Epicure of Blood synergies.",
+      "type": "blunder",
+      "snapshotIndex": 160,
+      "player": "QwCdr Diplom"
+    }
+  ],
+  "blunderScriptVersion": 32,
   "decisions": [
     {
       "index": 0,

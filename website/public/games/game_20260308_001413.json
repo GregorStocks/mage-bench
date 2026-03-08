@@ -87573,8 +87573,54 @@
   "youtubeUrl": "https://youtu.be/49QadL04fdE",
   "season": 1,
   "tournament": "season-1",
-  "annotations": [],
-  "blunderScriptVersion": 0,
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Casting Elven Bow with only 1 mana available means they cannot pay the optional {2} for the ETB trigger, losing the 1/1 Elf Warrior token and the auto-attach. Next turn with more mana available, they could cast it with the kicker to get a 2/3 reach creature (token + equipment), which also synergizes with Ivy Lane Denizen's +1/+1 counter trigger.",
+      "actionTaken": "Cast Elven Bow immediately with no mana to pay the {2} ETB cost, getting just a bare equipment.",
+      "betterLine": "Hold Elven Bow and cast it on a later turn when {2} is available to get the token. Ideally, cast Ivy Lane Denizen first, then Elven Bow with the {2} kicker so the token entering triggers a +1/+1 counter.",
+      "type": "blunder",
+      "snapshotIndex": 32,
+      "player": "Opus Brewer"
+    },
+    {
+      "severity": "questionable",
+      "description": "Using Band Together to kill Vampire Envoy (1/4) while it's already tapped and can't block this turn. The opponent has 6 cards in hand and could deploy much bigger threats that Band Together would answer more efficiently. The Envoy is a modest threat (1/4 flyer with incremental life gain).",
+      "actionTaken": "Cast Band Together targeting Ivy Lane Denizen (and likely Llanowar Visionary) to kill the tapped Vampire Envoy",
+      "betterLine": "Consider holding Band Together for a more impactful threat. Attack freely this turn since Vampire Envoy is tapped. Use the mana to cast Silhana Wayfinder or Roots of Wisdom to develop the board instead, saving removal for a bigger creature.",
+      "type": "blunder",
+      "snapshotIndex": 124,
+      "player": "Opus Brewer"
+    },
+    {
+      "severity": "questionable",
+      "description": "With Bloodthirsty Aerialist and Epicure of Blood in hand, Ill-Gotten Inheritance would establish an incremental value engine that synergizes powerfully with both cards (each upkeep: deal 1, gain 1 life, trigger Aerialist's +1/+1 counter, trigger Epicure's 1 damage). Canopy Stalker as a 4/2 is likely to trade poorly against the opponent's 3/4 Ivy Lane Denizen.",
+      "actionTaken": "Cast Canopy Stalker",
+      "betterLine": "Cast Ill-Gotten Inheritance to establish the life-gain synergy engine that powers Bloodthirsty Aerialist and Epicure of Blood on future turns.",
+      "type": "blunder",
+      "snapshotIndex": 167,
+      "player": "QwCdr Diplom"
+    },
+    {
+      "severity": "moderate",
+      "description": "At 9 life facing an overwhelming board (18+ power across 6 creatures), QwCdr Diplom cast the slow Ill-Gotten Inheritance instead of Bloodthirsty Aerialist. The opponent can attack for near-lethal or lethal next turn. IGI's 1 damage/1 life per turn is far too slow to matter. Bloodthirsty Aerialist would provide a 2/3 flying blocker that grows with Vampire Envoy's life gain triggers and represents an evasive clock.",
+      "actionTaken": "Cast Ill-Gotten Inheritance ({3}{B}), a slow incremental enchantment",
+      "betterLine": "Play Swamp (land drop), then cast Bloodthirsty Aerialist ({1}{B}{B}) using Forest + Swamp + Swamp. This provides an immediate flying blocker/threat that synergizes with Vampire Envoy's life gain, helping stabilize against the massive opposing board.",
+      "type": "blunder",
+      "snapshotIndex": 258,
+      "player": "QwCdr Diplom"
+    },
+    {
+      "severity": "minor",
+      "description": "QwCdr Diplom passed on playing a land while Ill-Gotten Inheritance was on the stack. At 9 life with expensive cards in hand (Epicure of Blood, Keeper of Fables, Enlarge) and only 4 lands on board, every land drop is critical. While they may get another opportunity after the spell resolves, declining the land play here risks missing the drop entirely if the game engine doesn't re-offer it.",
+      "actionTaken": "Passed priority without playing a land (Forest or Swamp were available)",
+      "betterLine": "Play the Swamp to enable future casting of Bloodthirsty Aerialist (1BB) or Epicure of Blood (4B), then let Ill-Gotten Inheritance resolve. Having 5 lands (3 Forest, 2 Swamp) is critical for casting the powerful cards in hand.",
+      "type": "blunder",
+      "snapshotIndex": 264,
+      "player": "QwCdr Diplom"
+    }
+  ],
+  "blunderScriptVersion": 32,
   "decisions": [
     {
       "index": 0,
