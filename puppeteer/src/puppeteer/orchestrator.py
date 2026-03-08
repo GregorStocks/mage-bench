@@ -1597,8 +1597,9 @@ def main() -> int:
                 logger.error("  %s", msg)
             logger.error("!" * 60)
 
-        generate_all_website_data()
-        logger.info("Website data regenerated")
+        if not config.skip_post_game_prompts:
+            generate_all_website_data()
+            logger.info("Website data regenerated")
 
         return 0
     finally:
