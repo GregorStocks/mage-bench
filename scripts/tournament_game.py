@@ -359,7 +359,7 @@ def main() -> int:
     remaining = total_matches - played
 
     print(f"Tournament: Season {tournament['season']}, {tournament['size']} players")
-    print(f"Format: {tournament['format']}")
+    print(f"Format: best-of-{tournament['best_of']}, {tournament['elimination']} elimination")
     print(f"Progress: {played}/{total_matches} matches played, {remaining} remaining")
 
     games_to_play = min(args.games, remaining)

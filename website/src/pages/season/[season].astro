@@ -237,7 +237,8 @@ function deckNameForSeed(seed: number): string | null {
       <div class="tournament-header">
         <h2>Season {seasonNum} Championship</h2>
         <div class="tournament-meta">
-          <span class="meta-chip">{tournament.format.replace('-', ' ')}</span>
+          <span class="meta-chip">best of {tournament.best_of}</span>
+          <span class="meta-chip">{tournament.elimination} elimination</span>
           <span class="meta-chip">{tournament.size} players</span>
           <span class="meta-chip">Jumpstart draft</span>
         </div>
