@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T04:48:30.439015+00:00",
+  "generatedAt": "2026-03-08T08:30:49.368364+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -17340,6 +17340,98 @@
           "otherErrors": 0,
           "contextResets": 0,
           "latencyP50": 1.0
+        }
+      ]
+    },
+    {
+      "id": "game_20260308_000614",
+      "ts": "2026-03-08T00:06:14",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-opus-4.6::medium",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 3.0261,
+          "promptTokens": 569640,
+          "completionTokens": 7114,
+          "cachedTokens": 423955,
+          "reasoningTokens": 24,
+          "toolCallsOk": 54,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 258.3,
+          "responses": 52,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 2.3
+        },
+        {
+          "key": "qwen/qwen3-coder",
+          "modelName": "Qwen3 Coder 480B",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.048,
+          "promptTokens": 215037,
+          "completionTokens": 691,
+          "cachedTokens": 175946,
+          "reasoningTokens": 0,
+          "toolCallsOk": 30,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 58.0,
+          "responses": 30,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 0.7
+        }
+      ]
+    },
+    {
+      "id": "game_20260308_001413",
+      "ts": "2026-03-08T00:14:13",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-opus-4.6::medium",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 9.6448,
+          "promptTokens": 1840118,
+          "completionTokens": 17767,
+          "cachedTokens": 1402075,
+          "reasoningTokens": 19,
+          "toolCallsOk": 132,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 581.6,
+          "responses": 129,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 2.3
+        },
+        {
+          "key": "qwen/qwen3-coder",
+          "modelName": "Qwen3 Coder 480B",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.212,
+          "promptTokens": 953017,
+          "completionTokens": 2292,
+          "cachedTokens": 639985,
+          "reasoningTokens": 0,
+          "toolCallsOk": 103,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 278.7,
+          "responses": 103,
+          "timeouts": 1,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 0.7
         }
       ]
     }

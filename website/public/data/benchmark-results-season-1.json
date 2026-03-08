@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-03-08T04:48:13.726427+00:00",
-  "totalGames": 208,
+  "generatedAt": "2026-03-08T08:30:34.865957+00:00",
+  "totalGames": 210,
   "models": [
     {
       "modelId": "anthropic/claude-opus-4.6",
       "modelName": "Claude Opus 4.6 (medium)",
       "provider": "Anthropic",
-      "rating": 1747,
-      "gamesPlayed": 16,
-      "winRate": 0.875,
+      "rating": 1766,
+      "gamesPlayed": 18,
+      "winRate": 0.8889,
       "timeoutLosses": 0,
       "timeoutLossRate": 0.0,
-      "avgApiCost": 8.93,
-      "avgToolCallsOk": 120.2,
+      "avgApiCost": 8.64,
+      "avgToolCallsOk": 117.2,
       "avgToolCallsFailed": 1.2,
-      "avgThinkingTimeSecs": 620.1,
+      "avgThinkingTimeSecs": 597.9,
       "blunderScore": 0.49,
       "reasoningEffort": "medium"
     },
@@ -242,21 +242,6 @@
       "reasoningEffort": "medium"
     },
     {
-      "modelId": "qwen/qwen3-coder",
-      "modelName": "Qwen3 Coder 480B",
-      "provider": "Qwen",
-      "rating": 1601,
-      "gamesPlayed": 11,
-      "winRate": 0.5455,
-      "timeoutLosses": 0,
-      "timeoutLossRate": 0.0,
-      "avgApiCost": 0.39,
-      "avgToolCallsOk": 153.3,
-      "avgToolCallsFailed": 3.3,
-      "avgThinkingTimeSecs": 442.4,
-      "blunderScore": 0.93
-    },
-    {
       "modelId": "qwen/qwen3-max-thinking",
       "modelName": "Qwen3 Max Thinking (low)",
       "provider": "Qwen",
@@ -349,6 +334,21 @@
       "avgThinkingTimeSecs": 1215.2,
       "blunderScore": 1.41,
       "reasoningEffort": "medium"
+    },
+    {
+      "modelId": "qwen/qwen3-coder",
+      "modelName": "Qwen3 Coder 480B",
+      "provider": "Qwen",
+      "rating": 1582,
+      "gamesPlayed": 13,
+      "winRate": 0.4615,
+      "timeoutLosses": 0,
+      "timeoutLossRate": 0.0,
+      "avgApiCost": 0.35,
+      "avgToolCallsOk": 139.9,
+      "avgToolCallsFailed": 2.8,
+      "avgThinkingTimeSecs": 400.2,
+      "blunderScore": 0.85
     },
     {
       "modelId": "google/gemini-3.1-flash-lite-preview",
@@ -564,8 +564,8 @@
   ],
   "formats": {
     "jumpstart": {
-      "generatedAt": "2026-03-08T04:48:13.722981+00:00",
-      "totalGames": 84,
+      "generatedAt": "2026-03-08T08:30:34.862458+00:00",
+      "totalGames": 86,
       "models": [
         {
           "modelId": "openai/gpt-5.2",
@@ -600,6 +600,22 @@
           "reasoningEffort": "medium"
         },
         {
+          "modelId": "anthropic/claude-opus-4.6",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "provider": "Anthropic",
+          "rating": 1686,
+          "gamesPlayed": 6,
+          "winRate": 1.0,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 7.15,
+          "avgToolCallsOk": 96.3,
+          "avgToolCallsFailed": 0.8,
+          "avgThinkingTimeSecs": 573.1,
+          "blunderScore": 0.49,
+          "reasoningEffort": "medium"
+        },
+        {
           "modelId": "google/gemini-3-pro-preview",
           "modelName": "Gemini 3 Pro (medium)",
           "provider": "Google",
@@ -613,22 +629,6 @@
           "avgToolCallsFailed": 2.2,
           "avgThinkingTimeSecs": 998.0,
           "blunderScore": 0.85,
-          "reasoningEffort": "medium"
-        },
-        {
-          "modelId": "anthropic/claude-opus-4.6",
-          "modelName": "Claude Opus 4.6 (medium)",
-          "provider": "Anthropic",
-          "rating": 1660,
-          "gamesPlayed": 4,
-          "winRate": 1.0,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 7.56,
-          "avgToolCallsOk": 98.0,
-          "avgToolCallsFailed": 0.8,
-          "avgThinkingTimeSecs": 649.8,
-          "blunderScore": 0.5,
           "reasoningEffort": "medium"
         },
         {
@@ -808,21 +808,6 @@
           "reasoningEffort": "low"
         },
         {
-          "modelId": "qwen/qwen3-coder",
-          "modelName": "Qwen3 Coder 480B",
-          "provider": "Qwen",
-          "rating": 1599,
-          "gamesPlayed": 11,
-          "winRate": 0.5455,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.39,
-          "avgToolCallsOk": 153.3,
-          "avgToolCallsFailed": 3.3,
-          "avgThinkingTimeSecs": 442.4,
-          "blunderScore": 0.93
-        },
-        {
           "modelId": "x-ai/grok-4-fast",
           "modelName": "Grok 4 Fast (medium)",
           "provider": "X-Ai",
@@ -998,6 +983,21 @@
           "blunderScore": 1.01
         },
         {
+          "modelId": "qwen/qwen3-coder",
+          "modelName": "Qwen3 Coder 480B",
+          "provider": "Qwen",
+          "rating": 1574,
+          "gamesPlayed": 13,
+          "winRate": 0.4615,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.35,
+          "avgToolCallsOk": 139.9,
+          "avgToolCallsFailed": 2.8,
+          "avgThinkingTimeSecs": 400.2,
+          "blunderScore": 0.85
+        },
+        {
           "modelId": "google/gemini-3-flash-preview",
           "modelName": "Gemini 3 Flash (medium)",
           "provider": "Google",
@@ -1112,7 +1112,7 @@
       ]
     },
     "standard": {
-      "generatedAt": "2026-03-08T04:48:13.723695+00:00",
+      "generatedAt": "2026-03-08T08:30:34.863136+00:00",
       "totalGames": 56,
       "models": [
         {
@@ -1505,7 +1505,7 @@
       ]
     },
     "modern": {
-      "generatedAt": "2026-03-08T04:48:13.723950+00:00",
+      "generatedAt": "2026-03-08T08:30:34.863396+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -1802,7 +1802,7 @@
       ]
     },
     "legacy": {
-      "generatedAt": "2026-03-08T04:48:13.724207+00:00",
+      "generatedAt": "2026-03-08T08:30:34.863660+00:00",
       "totalGames": 17,
       "models": [
         {
@@ -2113,7 +2113,7 @@
       ]
     },
     "commander": {
-      "generatedAt": "2026-03-08T04:48:13.724774+00:00",
+      "generatedAt": "2026-03-08T08:30:34.864181+00:00",
       "totalGames": 34,
       "exhibition": true,
       "models": [
@@ -2555,22 +2555,22 @@
       ]
     },
     "combined": {
-      "generatedAt": "2026-03-08T04:48:13.726427+00:00",
-      "totalGames": 174,
+      "generatedAt": "2026-03-08T08:30:34.865957+00:00",
+      "totalGames": 176,
       "models": [
         {
           "modelId": "anthropic/claude-opus-4.6",
           "modelName": "Claude Opus 4.6 (medium)",
           "provider": "Anthropic",
-          "rating": 1747,
-          "gamesPlayed": 16,
-          "winRate": 0.875,
+          "rating": 1766,
+          "gamesPlayed": 18,
+          "winRate": 0.8889,
           "timeoutLosses": 0,
           "timeoutLossRate": 0.0,
-          "avgApiCost": 8.93,
-          "avgToolCallsOk": 120.2,
+          "avgApiCost": 8.64,
+          "avgToolCallsOk": 117.2,
           "avgToolCallsFailed": 1.2,
-          "avgThinkingTimeSecs": 620.1,
+          "avgThinkingTimeSecs": 597.9,
           "blunderScore": 0.49,
           "reasoningEffort": "medium"
         },
@@ -2798,21 +2798,6 @@
           "reasoningEffort": "medium"
         },
         {
-          "modelId": "qwen/qwen3-coder",
-          "modelName": "Qwen3 Coder 480B",
-          "provider": "Qwen",
-          "rating": 1601,
-          "gamesPlayed": 11,
-          "winRate": 0.5455,
-          "timeoutLosses": 0,
-          "timeoutLossRate": 0.0,
-          "avgApiCost": 0.39,
-          "avgToolCallsOk": 153.3,
-          "avgToolCallsFailed": 3.3,
-          "avgThinkingTimeSecs": 442.4,
-          "blunderScore": 0.93
-        },
-        {
           "modelId": "qwen/qwen3-max-thinking",
           "modelName": "Qwen3 Max Thinking (low)",
           "provider": "Qwen",
@@ -2905,6 +2890,21 @@
           "avgThinkingTimeSecs": 1215.2,
           "blunderScore": 1.41,
           "reasoningEffort": "medium"
+        },
+        {
+          "modelId": "qwen/qwen3-coder",
+          "modelName": "Qwen3 Coder 480B",
+          "provider": "Qwen",
+          "rating": 1582,
+          "gamesPlayed": 13,
+          "winRate": 0.4615,
+          "timeoutLosses": 0,
+          "timeoutLossRate": 0.0,
+          "avgApiCost": 0.35,
+          "avgToolCallsOk": 139.9,
+          "avgToolCallsFailed": 2.8,
+          "avgThinkingTimeSecs": 400.2,
+          "blunderScore": 0.85
         },
         {
           "modelId": "google/gemini-3.1-flash-lite-preview",
