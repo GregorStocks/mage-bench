@@ -99,6 +99,22 @@ def _missing_llm_api_keys(config: Config) -> list[str]:
     return errors
 
 
+def _missing_llm_api_keys_for_run(config: Config) -> list[str]:
+    """Return missing-key validation errors for a single config or batch manifest."""
+    if not config.batch_config_files:
+        return _missing_llm_api_keys(config)
+
+    errors: list[str] = []
+    for config_file in config.batch_config_files:
+        game_config = Config(config_file=config_file)
+        game_config.load_config()
+        errors.extend(
+            f"{config_file}: {missing}"
+            for missing in _missing_llm_api_keys(game_config)
+        )
+    return errors
+
+
 def bring_to_foreground_macos() -> None:
     """Bring the Java app to foreground on macOS using AppleScript."""
     if sys.platform != "darwin":
@@ -449,6 +465,11 @@ def parse_args() -> Config:
         help="Path to player config JSON",
     )
     parser.add_argument(
+        "--batch-config-manifest",
+        type=Path,
+        help="Path to a JSON array of per-game config files",
+    )
+    parser.add_argument(
         "--observer",
         action="store_true",
         help="Launch the observer spectator client (auto-requests hand permissions)",
@@ -478,18 +499,45 @@ def parse_args() -> Config:
         help="Skip compilation (caller already compiled)",
     )
     args = parser.parse_args()
+    assert not (args.config and args.batch_config_manifest), (
+        "--config and --batch-config-manifest are mutually exclusive"
+    )
 
     # Determine record output path
     record_output = None
     if args.record and args.record is not True:
         record_output = Path(args.record)
 
+    batch_config_files: list[Path] = []
+    config_file = args.config
+    num_games = args.games
+    if args.batch_config_manifest:
+        manifest = json.loads(args.batch_config_manifest.read_text())
+        assert isinstance(manifest, list) and manifest, (
+            f"Batch config manifest must be a non-empty JSON array: {args.batch_config_manifest}"
+        )
+        for i, item in enumerate(manifest):
+            assert isinstance(item, str) and item, (
+                f"Batch config manifest entry {i} must be a non-empty string path"
+            )
+            path = Path(item)
+            assert path.exists(), f"Batch config file not found: {path}"
+            batch_config_files.append(path)
+        config_file = batch_config_files[0]
+        if args.games != 1:
+            assert args.games == len(batch_config_files), (
+                f"--games ({args.games}) must match batch config count "
+                f"({len(batch_config_files)})"
+            )
+        num_games = len(batch_config_files)
+
     return Config(
-        config_file=args.config,
+        config_file=config_file,
+        batch_config_files=batch_config_files,
         observer=args.observer,
         record=bool(args.record),
         record_output=record_output,
-        num_games=args.games,
+        num_games=num_games,
         debug=args.debug,
         skip_compile=args.skip_compile,
     )
@@ -1128,6 +1176,17 @@ class GameSession:
     pilot_procs: list[tuple[str, subprocess.Popen]] = field(default_factory=list)
 
 
+@dataclass
+class OrchestratorRunResult:
+    """Result of a programmatic orchestrator run."""
+
+    exit_code: int
+    sessions: list[GameSession] = field(default_factory=list)
+    pilot_costs: dict[int, float] = field(default_factory=dict)
+    blunder_costs: dict[int, float] = field(default_factory=dict)
+    post_game_failures: list[str] = field(default_factory=list)
+
+
 def _setup_game(
     index: int,
     num_games: int,
@@ -1153,8 +1212,14 @@ def _setup_game(
     # Create a fresh config for each game so random resolution is independent.
     # For single-game runs, reuse the base_config directly (already loaded).
     if batch:
+        config_file = base_config.config_file
+        if base_config.batch_config_files:
+            assert index < len(base_config.batch_config_files), (
+                f"Missing batch config for game {index + 1}/{num_games}"
+            )
+            config_file = base_config.batch_config_files[index]
         game_config = Config(
-            config_file=base_config.config_file,
+            config_file=config_file,
             observer=base_config.observer,
             record=base_config.record,
             num_games=num_games,
@@ -1414,13 +1479,10 @@ def _check_season_tournament_block(project_root: Path) -> str | None:
     return f"Season {season_num} is in the tournament phase! Free-play games are not allowed during tournaments."
 
 
-def main() -> int:
-    """Main orchestrator for game lifecycle management."""
-    config = parse_args()
-    setup_logging(debug=config.debug)
-    if config.debug:
-        os.environ["PUPPETEER_LOG_LEVEL"] = "DEBUG"
-    project_root = Path.cwd().resolve()
+def run_orchestrator(config: Config, project_root: Path | None = None) -> OrchestratorRunResult:
+    """Run one orchestrator job programmatically."""
+    if project_root is None:
+        project_root = Path.cwd().resolve()
 
     # Load player config early so we can check flags before heavy setup.
     config.load_config()
@@ -1430,24 +1492,27 @@ def main() -> int:
         tournament_block = _check_season_tournament_block(project_root)
         if tournament_block:
             logger.error(tournament_block)
-            return 2
+            return OrchestratorRunResult(exit_code=2)
     pm = ProcessManager()
     port_reservation = None
     sessions: list[GameSession] = []
     batch = config.num_games > 1
+    pilot_costs: dict[int, float] = {}
+    blunder_costs: dict[int, float] = {}
+    post_game_failures: list[str] = []
 
     try:
         # Validate parallel mode constraints
         if batch and config.record_output:
             logger.error("--record=PATH cannot be used with --games (use --record without a path instead)")
-            return 2
-        missing_llm_keys = _missing_llm_api_keys(config)
+            return OrchestratorRunResult(exit_code=2)
+        missing_llm_keys = _missing_llm_api_keys_for_run(config)
         if missing_llm_keys:
             logger.error("LLM players configured without required API keys:")
             for missing in missing_llm_keys:
                 logger.error("  - %s", missing)
             logger.error("Set the required key(s) or use a non-LLM config (e.g. make run-dumb).")
-            return 2
+            return OrchestratorRunResult(exit_code=2)
 
         # Set timestamp
         config.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1467,13 +1532,13 @@ def main() -> int:
         else:
             if not compile_project(project_root, observer=config.observer):
                 logger.error("Compilation failed")
-                return 1
+                return OrchestratorRunResult(exit_code=1)
 
             if config.observer:
                 logger.info("Refreshing observer resources...")
                 if not refresh_observer_resources(project_root):
                     logger.error("Failed to refresh observer resources")
-                    return 1
+                    return OrchestratorRunResult(exit_code=1)
 
         # Find available port
         logger.info("Finding available port starting from %d...", config.start_port)
@@ -1514,7 +1579,7 @@ def main() -> int:
         if not wait_for_port(config.server, config.port, config.server_wait):
             logger.error("Server failed to start within %ds", config.server_wait)
             logger.error("Check %s for details", server_log)
-            return 1
+            return OrchestratorRunResult(exit_code=1)
 
         # Server has bound the port — release the reservation lock
         port_reservation.release()
@@ -1562,7 +1627,7 @@ def main() -> int:
 
         if batch and not sessions:
             logger.error("No games launched successfully")
-            return 1
+            return OrchestratorRunResult(exit_code=1)
 
         # Bring the GUI window to the foreground on macOS (single game only)
         if not batch:
@@ -1570,7 +1635,7 @@ def main() -> int:
 
         # Update symlinks to point to the last game directory
         last_game_dir = sessions[-1].game_dir
-        if config.config_file:
+        if config.config_file and not config.batch_config_files:
             last_link = log_dir / f"last-{config.run_tag}"
             last_link.unlink(missing_ok=True)
             last_link.symlink_to(last_game_dir.name)
@@ -1582,9 +1647,6 @@ def main() -> int:
             branch_link.symlink_to(last_game_dir.name)
 
         # --- Wait for all games to complete ---
-        pilot_costs: dict[int, float] = {}
-        blunder_costs: dict[int, float] = {}
-        post_game_failures: list[str] = []
         if batch:
             results = _wait_for_all_games(sessions, pm)
             deferred: list[AnnotationFailure] = []
@@ -1625,10 +1687,25 @@ def main() -> int:
             generate_all_website_data()
             logger.info("Website data regenerated")
 
-        return 0
+        return OrchestratorRunResult(
+            exit_code=0,
+            sessions=sessions,
+            pilot_costs=pilot_costs,
+            blunder_costs=blunder_costs,
+            post_game_failures=post_game_failures,
+        )
     finally:
         # Release any held port reservations (safety net for early exits)
         if port_reservation is not None:
             port_reservation.release()
         # Always cleanup child processes, even on exceptions
         pm.cleanup()
+
+
+def main() -> int:
+    """Main orchestrator for game lifecycle management."""
+    config = parse_args()
+    setup_logging(debug=config.debug)
+    if config.debug:
+        os.environ["PUPPETEER_LOG_LEVEL"] = "DEBUG"
+    return run_orchestrator(config).exit_code

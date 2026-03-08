@@ -2,6 +2,7 @@
 
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -21,6 +22,7 @@ from puppeteer.orchestrator import (
     _wait_for_game_start,
     _wait_with_pilot_monitoring,
     _write_error_log,
+    parse_args,
     start_observer_client,
 )
 
@@ -49,6 +51,47 @@ def test_missing_llm_api_keys_present():
     with patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-test"}, clear=True):
         errors = _missing_llm_api_keys(config)
     assert errors == []
+
+
+def test_parse_args_batch_manifest_sets_num_games(tmp_path: Path, monkeypatch):
+    """Batch manifests should set num_games from the manifest length."""
+    config_a = tmp_path / "a.json"
+    config_b = tmp_path / "b.json"
+    config_a.write_text("{}\n")
+    config_b.write_text("{}\n")
+    manifest = tmp_path / "batch.json"
+    manifest.write_text(json.dumps([str(config_a), str(config_b)]) + "\n")
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["puppeteer", "--observer", "--batch-config-manifest", str(manifest)],
+    )
+
+    config = parse_args()
+
+    assert config.config_file == config_a
+    assert config.batch_config_files == [config_a, config_b]
+    assert config.num_games == 2
+
+
+def test_parse_args_rejects_mismatched_batch_games(tmp_path: Path, monkeypatch):
+    """Explicit --games must match the batch manifest length."""
+    config_a = tmp_path / "a.json"
+    config_b = tmp_path / "b.json"
+    config_a.write_text("{}\n")
+    config_b.write_text("{}\n")
+    manifest = tmp_path / "batch.json"
+    manifest.write_text(json.dumps([str(config_a), str(config_b)]) + "\n")
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["puppeteer", "--games", "3", "--batch-config-manifest", str(manifest)],
+    )
+
+    with pytest.raises(AssertionError, match="must match batch config count"):
+        parse_args()
 
 
 def test_ensure_game_over_event_already_present():
@@ -508,6 +551,50 @@ def test_config_num_games_set():
     """num_games should be settable."""
     config = Config(num_games=3)
     assert config.num_games == 3
+
+
+@patch("puppeteer.orchestrator.start_observer_client")
+@patch("puppeteer.orchestrator._write_game_meta")
+@patch("puppeteer.orchestrator.resolve_choice_decks")
+def test_setup_game_uses_batch_specific_config(
+    mock_resolve,
+    mock_write_meta,
+    mock_start_spectator,
+    tmp_path: Path,
+):
+    """Batch mode should load the config file assigned to that game index."""
+    config_a = tmp_path / "g1.json"
+    config_b = tmp_path / "g2.json"
+    config_a.write_text(json.dumps({"players": [{"type": "cpu", "name": "alpha"}]}) + "\n")
+    config_b.write_text(json.dumps({"players": [{"type": "cpu", "name": "beta"}]}) + "\n")
+
+    spectator_proc = MagicMock()
+    spectator_proc.poll.return_value = None
+    mock_start_spectator.return_value = spectator_proc
+
+    base_config = Config(
+        config_file=config_a,
+        batch_config_files=[config_a, config_b],
+        observer=True,
+        num_games=2,
+    )
+    base_config.port = 17174
+    log_dir = tmp_path / "logs"
+    log_dir.mkdir()
+
+    session = _setup_game(
+        1,
+        2,
+        base_config,
+        MagicMock(),
+        Path("/fake/root"),
+        log_dir,
+        "20260101_000000",
+    )
+
+    assert session.config.config_file == config_b
+    assert [player.name for player in session.config.cpu_players] == ["beta"]
+    assert json.loads((session.game_dir / "config.json").read_text())["players"][0]["name"] == "beta"
 
 
 # --- _setup_game cleanup on failure tests ---

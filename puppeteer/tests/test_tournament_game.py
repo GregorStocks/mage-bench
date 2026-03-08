@@ -4,35 +4,30 @@ Unit tests for bracket generation, round naming, next-match finding,
 result recording, and deck file writing.
 """
 
+import sys
 from pathlib import Path
+from unittest.mock import MagicMock
 
 import pytest
 
-from scripts.tournament_game import (
-    _parse_game_dir,
-    find_next_match,
-    find_ready_matches,
-    generate_bracket,
-    round_name,
-    write_tournament_deck,
-)
+import scripts.tournament_game as tournament_game
 
 # -- Bracket generation --
 
 
 class TestGenerateBracket:
     def test_size_2(self):
-        assert generate_bracket(2) == [(1, 2)]
+        assert tournament_game.generate_bracket(2) == [(1, 2)]
 
     def test_size_4(self):
-        bracket = generate_bracket(4)
+        bracket = tournament_game.generate_bracket(4)
         assert bracket == [(1, 4), (2, 3)]
         # Seeds 1 and 2 are on opposite sides
         assert bracket[0][0] == 1
         assert bracket[1][0] == 2
 
     def test_size_8(self):
-        bracket = generate_bracket(8)
+        bracket = tournament_game.generate_bracket(8)
         assert bracket == [(1, 8), (4, 5), (2, 7), (3, 6)]
         # Top half: 1v8, 4v5; bottom half: 2v7, 3v6
         # 1 and 2 can only meet in the final
@@ -41,7 +36,7 @@ class TestGenerateBracket:
         assert 1 in top_seeds and 2 in bottom_seeds
 
     def test_size_16(self):
-        bracket = generate_bracket(16)
+        bracket = tournament_game.generate_bracket(16)
         assert len(bracket) == 8
         # All seeds 1-16 appear exactly once
         all_seeds = [s for pair in bracket for s in pair]
@@ -52,11 +47,11 @@ class TestGenerateBracket:
 
     def test_non_power_of_2_fails(self):
         with pytest.raises(AssertionError, match="power of 2"):
-            generate_bracket(6)
+            tournament_game.generate_bracket(6)
 
     def test_size_1_fails(self):
         with pytest.raises(AssertionError, match="power of 2"):
-            generate_bracket(1)
+            tournament_game.generate_bracket(1)
 
 
 # -- Round naming --
@@ -64,16 +59,16 @@ class TestGenerateBracket:
 
 class TestRoundName:
     def test_finals(self):
-        assert round_name(1) == "Finals"
+        assert tournament_game.round_name(1) == "Finals"
 
     def test_semifinals(self):
-        assert round_name(2) == "Semifinals"
+        assert tournament_game.round_name(2) == "Semifinals"
 
     def test_quarterfinals(self):
-        assert round_name(4) == "Quarterfinals"
+        assert tournament_game.round_name(4) == "Quarterfinals"
 
     def test_round_of_16(self):
-        assert round_name(8) == "Round of 16"
+        assert tournament_game.round_name(8) == "Round of 16"
 
 
 # -- Finding next match --
@@ -91,7 +86,7 @@ def _make_tournament(size: int, rounds: list | None = None) -> dict:
 class TestFindNextMatch:
     def test_empty_rounds_generates_round_1(self):
         t = _make_tournament(8)
-        result = find_next_match(t)
+        result = tournament_game.find_next_match(t)
         assert result is not None
         round_dict, match = result
         assert round_dict["round"] == 1
@@ -106,11 +101,11 @@ class TestFindNextMatch:
     def test_partially_complete_round(self):
         t = _make_tournament(4)
         # Generate round 1 first
-        find_next_match(t)
+        tournament_game.find_next_match(t)
         # Complete first match
         t["rounds"][0]["matches"][0]["winner_seed"] = 1
         # Should return second match
-        result = find_next_match(t)
+        result = tournament_game.find_next_match(t)
         assert result is not None
         _, match = result
         assert match["match"] == 2
@@ -119,12 +114,12 @@ class TestFindNextMatch:
 
     def test_complete_round_generates_next(self):
         t = _make_tournament(4)
-        find_next_match(t)
+        tournament_game.find_next_match(t)
         # Complete both round 1 matches
         t["rounds"][0]["matches"][0]["winner_seed"] = 1  # 1 beats 4
         t["rounds"][0]["matches"][1]["winner_seed"] = 2  # 2 beats 3
         # Should generate round 2 (finals)
-        result = find_next_match(t)
+        result = tournament_game.find_next_match(t)
         assert result is not None
         round_dict, match = result
         assert round_dict["round"] == 2
@@ -134,10 +129,10 @@ class TestFindNextMatch:
 
     def test_tournament_complete(self):
         t = _make_tournament(2)
-        find_next_match(t)
+        tournament_game.find_next_match(t)
         # Complete the only match
         t["rounds"][0]["matches"][0]["winner_seed"] = 1
-        result = find_next_match(t)
+        result = tournament_game.find_next_match(t)
         assert result is None
 
     def test_8_player_full_bracket(self):
@@ -145,7 +140,7 @@ class TestFindNextMatch:
         # Play through all 7 matches
         matches_played = 0
         while True:
-            result = find_next_match(t)
+            result = tournament_game.find_next_match(t)
             if result is None:
                 break
             _, match = result
@@ -166,7 +161,7 @@ class TestFindNextMatch:
 class TestFindReadyMatches:
     def test_empty_rounds_returns_all_first_round(self):
         t = _make_tournament(8)
-        ready = find_ready_matches(t)
+        ready = tournament_game.find_ready_matches(t)
         assert len(ready) == 4
         seeds = [(r[1]["seed_a"], r[1]["seed_b"]) for r in ready]
         assert (1, 8) in seeds
@@ -176,65 +171,43 @@ class TestFindReadyMatches:
 
     def test_partially_complete_round(self):
         t = _make_tournament(4)
-        find_ready_matches(t)
+        tournament_game.find_ready_matches(t)
         t["rounds"][0]["matches"][0]["winner_seed"] = 1
-        ready = find_ready_matches(t)
+        ready = tournament_game.find_ready_matches(t)
         assert len(ready) == 1
         assert ready[0][1]["seed_a"] == 2
         assert ready[0][1]["seed_b"] == 3
 
     def test_round_complete_advances_to_next(self):
         t = _make_tournament(4)
-        find_ready_matches(t)
+        tournament_game.find_ready_matches(t)
         t["rounds"][0]["matches"][0]["winner_seed"] = 1
         t["rounds"][0]["matches"][1]["winner_seed"] = 2
-        ready = find_ready_matches(t)
+        ready = tournament_game.find_ready_matches(t)
         assert len(ready) == 1
         assert ready[0][1]["seed_a"] == 1
         assert ready[0][1]["seed_b"] == 2
 
     def test_tournament_complete_returns_empty(self):
         t = _make_tournament(2)
-        find_ready_matches(t)
+        tournament_game.find_ready_matches(t)
         t["rounds"][0]["matches"][0]["winner_seed"] = 1
-        ready = find_ready_matches(t)
+        ready = tournament_game.find_ready_matches(t)
         assert len(ready) == 0
 
     def test_all_round_matches_returned(self):
         """All 8 first-round matches in a 16-player bracket are returned."""
         t = _make_tournament(16)
-        ready = find_ready_matches(t)
+        ready = tournament_game.find_ready_matches(t)
         assert len(ready) == 8
 
     def test_consistent_with_find_next_match(self):
         """First element of find_ready_matches matches find_next_match."""
         t = _make_tournament(8)
-        ready = find_ready_matches(t)
-        single = find_next_match(t)
+        ready = tournament_game.find_ready_matches(t)
+        single = tournament_game.find_next_match(t)
         assert single is not None
         assert ready[0][1] is single[1]
-
-
-# -- Parsing game dir from output --
-
-
-class TestParseGameDir:
-    def test_parses_game_dir(self):
-        output = (
-            "INFO Starting server...\n"
-            "INFO Game logs: /home/user/.mage-bench/logs/game_20260308_120000\n"
-            "INFO Starting pilots...\n"
-        )
-        assert _parse_game_dir(output) == Path("/home/user/.mage-bench/logs/game_20260308_120000")
-
-    def test_parses_with_label_prefix(self):
-        output = "INFO Game 1/3: Game logs: /tmp/logs/game_20260308_120000_g1\n"
-        assert _parse_game_dir(output) == Path("/tmp/logs/game_20260308_120000_g1")
-
-    def test_missing_game_dir_raises(self):
-        output = "INFO Starting server...\nINFO Done.\n"
-        with pytest.raises(AssertionError, match="Game logs"):
-            _parse_game_dir(output)
 
 
 # -- Deck file writing --
@@ -244,7 +217,7 @@ class TestWriteTournamentDeck:
     def test_writes_dck_file(self, tmp_path: Path):
         cards = ["1 [JMP:1] Serra Angel", "7 [JMP:2] Plains"]
         half_decks = ["Angels", "Cats"]
-        rel_path = write_tournament_deck(tmp_path, 3, cards, half_decks)
+        rel_path = tournament_game.write_tournament_deck(tmp_path, 3, cards, half_decks)
         full_path = tmp_path / rel_path
         assert full_path.exists()
         content = full_path.read_text()
@@ -253,9 +226,189 @@ class TestWriteTournamentDeck:
         assert "7 [JMP:2] Plains" in content
 
     def test_filename_contains_seed(self, tmp_path: Path):
-        rel_path = write_tournament_deck(tmp_path, 5, ["1 [JMP:1] Card"], ["Pack"])
+        rel_path = tournament_game.write_tournament_deck(tmp_path, 5, ["1 [JMP:1] Card"], ["Pack"])
         assert "seed-5" in str(rel_path)
 
     def test_path_is_relative(self, tmp_path: Path):
-        rel_path = write_tournament_deck(tmp_path, 1, ["1 [JMP:1] Card"], ["Pack"])
+        rel_path = tournament_game.write_tournament_deck(tmp_path, 1, ["1 [JMP:1] Card"], ["Pack"])
         assert not rel_path.is_absolute()
+
+
+def test_load_match_wins_resumes_partial_series():
+    """Recorded games should count toward the current best-of score."""
+    match = {
+        "seed_a": 1,
+        "seed_b": 4,
+        "games": [
+            {"game_id": "g1", "winner_seed": 1},
+            {"game_id": "g2", "winner_seed": 4},
+            {"game_id": "g3", "winner_seed": 1},
+        ],
+    }
+    assert tournament_game._load_match_wins(match, 1, 4) == {1: 2, 4: 1}
+
+
+def test_make_runner_config_for_batch(tmp_path: Path):
+    """Batch runner config should map one config file per game."""
+    config_a = tmp_path / "a.json"
+    config_b = tmp_path / "b.json"
+    config_a.write_text("{}\n")
+    config_b.write_text("{}\n")
+
+    config = tournament_game._make_runner_config(
+        [config_a, config_b],
+        skip_compile=True,
+    )
+
+    assert config.config_file == config_a
+    assert config.batch_config_files == [config_a, config_b]
+    assert config.num_games == 2
+    assert config.skip_compile is True
+    assert config.observer is True
+    assert config.record is True
+
+
+def test_run_single_game_uses_shared_orchestrator(monkeypatch):
+    """Tournament single-game path should call run_orchestrator directly."""
+    monkeypatch.setattr(
+        tournament_game,
+        "build_game_config",
+        lambda *args, **kwargs: Path("/tmp/config.json"),
+    )
+    monkeypatch.setattr(
+        tournament_game,
+        "run_orchestrator",
+        lambda config, project_root: MagicMock(
+            exit_code=0,
+            sessions=[MagicMock(game_dir=Path("/tmp/game_1"))],
+        ),
+    )
+    monkeypatch.setattr(tournament_game, "read_game_winner", lambda game_dir: "winner")
+    monkeypatch.setattr(tournament_game, "map_winner_to_seed", lambda *args, **kwargs: 1)
+
+    game_dir, winner_seed = tournament_game._run_single_game(
+        {"entrants": []},
+        1,
+        4,
+        skip_compile=True,
+    )
+
+    assert game_dir == Path("/tmp/game_1")
+    assert winner_seed == 1
+
+
+def test_run_batch_games_uses_shared_orchestrator(monkeypatch):
+    """Tournament batch path should call run_orchestrator once for all games."""
+    monkeypatch.setattr(
+        tournament_game,
+        "build_game_config",
+        lambda tournament, seed_a, seed_b, root: Path(f"/tmp/{seed_a}-vs-{seed_b}.json"),
+    )
+    monkeypatch.setattr(
+        tournament_game,
+        "run_orchestrator",
+        lambda config, project_root: MagicMock(
+            exit_code=0,
+            sessions=[
+                MagicMock(game_dir=Path("/tmp/game_1")),
+                MagicMock(game_dir=Path("/tmp/game_2")),
+            ],
+        ),
+    )
+    monkeypatch.setattr(
+        tournament_game,
+        "read_game_winner",
+        lambda game_dir: "alice" if game_dir.name == "game_1" else "bob",
+    )
+    monkeypatch.setattr(
+        tournament_game,
+        "map_winner_to_seed",
+        lambda winner_name, seed_a, seed_b, tournament: seed_a if winner_name == "alice" else seed_b,
+    )
+
+    results = tournament_game._run_batch_games(
+        {"entrants": []},
+        [(1, 8), (2, 7)],
+        skip_compile=True,
+    )
+
+    assert results == [
+        (Path("/tmp/game_1"), 1),
+        (Path("/tmp/game_2"), 7),
+    ]
+
+
+def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
+    """A resumed match should continue from existing recorded wins."""
+    tournament = {
+        "best_of": 3,
+        "entrants": [
+            {"seed": 1, "display_name": "Alpha"},
+            {"seed": 4, "display_name": "Beta"},
+        ],
+    }
+    match = {
+        "match": 1,
+        "seed_a": 1,
+        "seed_b": 4,
+        "winner_seed": None,
+        "games": [{"game_id": "existing", "winner_seed": 1}],
+    }
+    tournament_path = tmp_path / "tournament.json"
+    tournament_path.write_text("{}\n")
+
+    monkeypatch.setattr(
+        tournament_game,
+        "_run_single_game",
+        lambda *args, **kwargs: (Path("/tmp/game_2"), 1),
+    )
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *args, **kwargs: None)
+
+    tournament_game._run_match_on(
+        tournament,
+        tournament_path,
+        {"round": 1, "name": "Semifinals"},
+        match,
+        skip_compile=True,
+    )
+
+    assert match["winner_seed"] == 1
+    assert [game["winner_seed"] for game in match["games"]] == [1, 1]
+
+
+def test_main_parallel_uses_batch_runner(monkeypatch):
+    """Parallel tournament mode should batch matches onto one orchestrator run."""
+    tournament = {
+        "season": 1,
+        "size": 4,
+        "best_of": 3,
+        "elimination": "single",
+        "draft": {"decklists": {}},
+        "rounds": [],
+        "entrants": [],
+    }
+    ready = [
+        (
+            {"round": 1, "name": "Semifinals"},
+            {"match": 1, "seed_a": 1, "seed_b": 4, "winner_seed": None, "games": []},
+        ),
+        (
+            {"round": 1, "name": "Semifinals"},
+            {"match": 2, "seed_a": 2, "seed_b": 3, "winner_seed": None, "games": []},
+        ),
+    ]
+    run_match_batch = MagicMock()
+
+    monkeypatch.setattr(tournament_game, "load_tournament", lambda: (tournament, Path("/tmp/tournament.json")))
+    monkeypatch.setattr(tournament_game, "compile_project", lambda *args, **kwargs: True)
+    monkeypatch.setattr(tournament_game, "refresh_observer_resources", lambda *args, **kwargs: True)
+    monkeypatch.setattr(tournament_game, "clean_stale_h2_locks", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "find_ready_matches", lambda _tournament: ready)
+    monkeypatch.setattr(tournament_game, "_run_match_batch", run_match_batch)
+    monkeypatch.setattr(tournament_game, "resolve_annotation_failures", lambda *args, **kwargs: None)
+    monkeypatch.setattr(tournament_game, "generate_all_website_data", lambda: None)
+    monkeypatch.setattr(sys, "argv", ["tournament_game.py", "--games", "2"])
+
+    assert tournament_game.main() == 0
+    run_match_batch.assert_called_once()
+    assert run_match_batch.call_args.kwargs["skip_compile"] is True

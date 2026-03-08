@@ -11,24 +11,26 @@ Usage:
 """
 
 import argparse
-import concurrent.futures
 import json
-import subprocess
 import threading
 from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 
 from puppeteer.config import (
+    Config,
     _generate_player_name,
     load_models,
     load_personalities,
 )
+from puppeteer.log import setup_logging
 from puppeteer.orchestrator import (
     AnnotationFailure,
     clean_stale_h2_locks,
     compile_project,
     refresh_observer_resources,
     resolve_annotation_failures,
+    run_orchestrator,
     upload_and_export,
 )
 from scripts.export_game import read_game_winner
@@ -256,15 +258,26 @@ def _save_tournament(tournament: dict, tournament_path: Path) -> None:
         tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
 
 
-def _parse_game_dir(output: str) -> Path:
-    """Parse the game directory path from orchestrator output."""
-    for line in output.splitlines():
-        if "Game logs:" in line:
-            return Path(line.split("Game logs:")[-1].strip())
-    raise AssertionError(
-        "Could not find 'Game logs:' in orchestrator output.\n"
-        f"Output (last 2000 chars):\n{output[-2000:]}"
-    )
+@dataclass
+class MatchSeries:
+    """Mutable state for an in-progress best-of-N match."""
+
+    round_dict: dict
+    match: dict
+    wins: dict[int, int]
+
+
+def _load_match_wins(match: dict, seed_a: int, seed_b: int) -> dict[int, int]:
+    """Reconstruct current series score from already-recorded games."""
+    wins = {seed_a: 0, seed_b: 0}
+    for game in match["games"]:
+        winner_seed = game["winner_seed"]
+        assert winner_seed in wins, (
+            f"Recorded game winner {winner_seed} is not part of match "
+            f"{seed_a} vs {seed_b}"
+        )
+        wins[winner_seed] += 1
+    return wins
 
 
 def map_winner_to_seed(
@@ -296,63 +309,86 @@ def map_winner_to_seed(
 # -- Main logic --
 
 
+def _make_runner_config(
+    config_paths: list[Path],
+    *,
+    skip_compile: bool,
+) -> Config:
+    """Build an orchestrator Config for one or more tournament games."""
+    assert config_paths, "Tournament runner requires at least one config file"
+    return Config(
+        config_file=config_paths[0],
+        batch_config_files=config_paths if len(config_paths) > 1 else [],
+        observer=True,
+        record=True,
+        num_games=len(config_paths),
+        skip_compile=skip_compile,
+    )
+
+
+def _print_match_header(round_dict: dict, match: dict, entrants_by_seed: dict[int, dict], best_of: int) -> None:
+    """Print the standard per-match banner."""
+    seed_a = match["seed_a"]
+    seed_b = match["seed_b"]
+    name_a = entrants_by_seed[seed_a]["display_name"]
+    name_b = entrants_by_seed[seed_b]["display_name"]
+    print(f"\n{'=' * 60}")
+    print(f"{round_dict['name']} — Match {match['match']} (best of {best_of})")
+    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
+    print(f"{'=' * 60}\n")
+
+
+def _complete_match_if_decided(
+    tournament: dict,
+    tournament_path: Path,
+    match: dict,
+    wins: dict[int, int],
+    wins_needed: int,
+    entrants_by_seed: dict[int, dict],
+) -> bool:
+    """Set and print the match winner once a player has enough game wins."""
+    for seed, count in wins.items():
+        if count < wins_needed:
+            continue
+        match_winner = seed
+        match_loser = match["seed_b"] if match_winner == match["seed_a"] else match["seed_a"]
+        match["winner_seed"] = match_winner
+        _save_tournament(tournament, tournament_path)
+        winner_display = entrants_by_seed[match_winner]["display_name"]
+        loser_display = entrants_by_seed[match_loser]["display_name"]
+        print(f"\n{'=' * 60}")
+        print(
+            f"RESULT: #{match_winner} {winner_display} defeats "
+            f"#{match_loser} {loser_display} ({wins[match['seed_a']]}-{wins[match['seed_b']]})"
+        )
+        print(f"{'=' * 60}\n")
+        return True
+    return False
+
+
 def _run_single_game(
     tournament: dict,
     seed_a: int,
     seed_b: int,
-    quiet: bool = False,
+    _quiet: bool = False,
     skip_compile: bool = False,
 ) -> tuple[Path, int]:
     """Run a single game between two seeds. Returns (game_dir, winner_seed).
 
     Args:
-        quiet: If True, suppress live output (used for parallel matches).
+        _quiet: Deprecated. Kept for compatibility with existing callers.
         skip_compile: If True, pass --skip-compile to orchestrator (caller already compiled).
     """
     config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
-
-    cmd = [
-        "uv",
-        "run",
-        "--project",
-        "puppeteer",
-        "python",
-        "-m",
-        "puppeteer",
-        "--observer",
-        "--record",
-        "--config",
-        str(config_path),
-    ]
-    if skip_compile:
-        cmd.append("--skip-compile")
-
-    proc = subprocess.Popen(
-        cmd,
-        cwd=_ROOT,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
+    result = run_orchestrator(
+        _make_runner_config([config_path], skip_compile=skip_compile),
+        project_root=_ROOT,
     )
-
-    game_dir = None
-    output_lines: list[str] = []
-    assert proc.stdout is not None
-    for line in proc.stdout:
-        output_lines.append(line)
-        if not quiet:
-            print(line, end="", flush=True)
-        if game_dir is None and "Game logs:" in line:
-            game_dir = Path(line.split("Game logs:")[-1].strip())
-
-    rc = proc.wait()
-    output = "".join(output_lines)
-    assert rc == 0, (
-        f"Orchestrator exited with code {rc}\n"
-        f"Output (last 2000 chars):\n{output[-2000:]}"
+    assert result.exit_code == 0, f"Orchestrator exited with code {result.exit_code}"
+    assert len(result.sessions) == 1, (
+        f"Expected 1 game session, got {len(result.sessions)}"
     )
-    if game_dir is None:
-        game_dir = _parse_game_dir(output)
+    game_dir = result.sessions[0].game_dir
 
     winner_name = read_game_winner(game_dir)
     assert winner_name is not None, (
@@ -361,6 +397,38 @@ def _run_single_game(
 
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
     return game_dir, winner_seed
+
+
+def _run_batch_games(
+    tournament: dict,
+    matchups: list[tuple[int, int]],
+    _quiet: bool = True,
+    skip_compile: bool = False,
+) -> list[tuple[Path, int]]:
+    """Run one game for each matchup on a single shared XMage server."""
+    assert len(matchups) > 1, "_run_batch_games requires at least two matchups"
+    config_paths = [
+        build_game_config(tournament, seed_a, seed_b, _ROOT)
+        for seed_a, seed_b in matchups
+    ]
+    result = run_orchestrator(
+        _make_runner_config(config_paths, skip_compile=skip_compile),
+        project_root=_ROOT,
+    )
+    assert result.exit_code == 0, f"Orchestrator exited with code {result.exit_code}"
+    assert len(result.sessions) == len(matchups), (
+        f"Expected {len(matchups)} game sessions, got {len(result.sessions)}"
+    )
+    game_dirs = [session.game_dir for session in result.sessions]
+    results: list[tuple[Path, int]] = []
+    for game_dir, (seed_a, seed_b) in zip(game_dirs, matchups):
+        winner_name = read_game_winner(game_dir)
+        assert winner_name is not None, (
+            f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
+        )
+        winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
+        results.append((game_dir, winner_seed))
+    return results
 
 
 def _run_match_on(
@@ -378,18 +446,16 @@ def _run_match_on(
     best_of = tournament["best_of"]
     wins_needed = best_of // 2 + 1
     entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
-    name_a = entrants_by_seed[seed_a]["display_name"]
-    name_b = entrants_by_seed[seed_b]["display_name"]
-
-    print(f"\n{'=' * 60}")
-    print(f"{round_dict['name']} — Match {match['match']} (best of {best_of})")
-    print(f"  #{seed_a} {name_a}  vs  #{seed_b} {name_b}")
-    print(f"{'=' * 60}\n")
+    _print_match_header(round_dict, match, entrants_by_seed, best_of)
 
     # Play games until one player reaches wins_needed
-    wins = {seed_a: 0, seed_b: 0}
+    wins = _load_match_wins(match, seed_a, seed_b)
+    if _complete_match_if_decided(
+        tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
+    ):
+        return
 
-    for game_num in range(1, best_of + 1):
+    for game_num in range(len(match["games"]) + 1, best_of + 1):
         if best_of > 1:
             print(
                 f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
@@ -424,24 +490,97 @@ def _run_match_on(
             f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
         )
 
-        if wins[winner_seed] >= wins_needed:
+        if _complete_match_if_decided(
+            tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
+        ):
             break
 
-    # Record match winner
-    match_winner = seed_a if wins[seed_a] >= wins_needed else seed_b
-    match_loser = seed_b if match_winner == seed_a else seed_a
-    match["winner_seed"] = match_winner
-    _save_tournament(tournament, tournament_path)
 
-    winner_display = entrants_by_seed[match_winner]["display_name"]
-    loser_display = entrants_by_seed[match_loser]["display_name"]
+def _run_match_batch(
+    tournament: dict,
+    tournament_path: Path,
+    batch: list[tuple[dict, dict]],
+    skip_compile: bool = False,
+    deferred_failures: list[AnnotationFailure] | None = None,
+) -> None:
+    """Run multiple tournament matches in parallel on one XMage server per round."""
+    best_of = tournament["best_of"]
+    wins_needed = best_of // 2 + 1
+    entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
+    active_series: list[MatchSeries] = []
 
-    print(f"\n{'=' * 60}")
-    print(
-        f"RESULT: #{match_winner} {winner_display} defeats "
-        f"#{match_loser} {loser_display} ({wins[seed_a]}-{wins[seed_b]})"
-    )
-    print(f"{'=' * 60}\n")
+    for round_dict, match in batch:
+        _print_match_header(round_dict, match, entrants_by_seed, best_of)
+        wins = _load_match_wins(match, match["seed_a"], match["seed_b"])
+        if not _complete_match_if_decided(
+            tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
+        ):
+            active_series.append(MatchSeries(round_dict, match, wins))
+
+    while active_series:
+        for series in active_series:
+            game_num = len(series.match["games"]) + 1
+            if best_of > 1:
+                print(
+                    f"\n--- Match {series.match['match']} Game {game_num} of {best_of} "
+                    f"(series: {series.wins[series.match['seed_a']]}-{series.wins[series.match['seed_b']]}) ---"
+                )
+
+        if len(active_series) == 1:
+            series = active_series[0]
+            results = [
+                _run_single_game(
+                    tournament,
+                    series.match["seed_a"],
+                    series.match["seed_b"],
+                    quiet=True,
+                    skip_compile=skip_compile,
+                )
+            ]
+        else:
+            results = _run_batch_games(
+                tournament,
+                [
+                    (series.match["seed_a"], series.match["seed_b"])
+                    for series in active_series
+                ],
+                quiet=True,
+                skip_compile=skip_compile,
+            )
+
+        next_active: list[MatchSeries] = []
+        for series, (game_dir, winner_seed) in zip(active_series, results):
+            series.wins[winner_seed] += 1
+            series.match["games"].append(
+                {
+                    "game_id": game_dir.name,
+                    "winner_seed": winner_seed,
+                }
+            )
+            _save_tournament(tournament, tournament_path)
+            upload_and_export(
+                game_dir,
+                _ROOT,
+                deferred_failures=deferred_failures,
+            )
+            winner_display = entrants_by_seed[winner_seed]["display_name"]
+            print(
+                f"  Match {series.match['match']} Game {len(series.match['games'])}: "
+                f"#{winner_seed} {winner_display} wins "
+                f"({series.wins[series.match['seed_a']]}-{series.wins[series.match['seed_b']]})"
+            )
+
+            if not _complete_match_if_decided(
+                tournament,
+                tournament_path,
+                series.match,
+                series.wins,
+                wins_needed,
+                entrants_by_seed,
+            ):
+                next_active.append(series)
+
+        active_series = next_active
 
 
 def run_match(tournament: dict, tournament_path: Path) -> bool:
@@ -468,6 +607,7 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
 
 
 def main() -> int:
+    setup_logging()
     parser = argparse.ArgumentParser(description="Run tournament bracket matches")
     parser.add_argument(
         "--games",
@@ -504,16 +644,14 @@ def main() -> int:
         run_match(tournament, tournament_path)
         return 0
 
-    # Pre-compile once so parallel subprocesses can skip compilation.
-    # This avoids 4 concurrent Maven builds fighting over the same build dir,
-    # and prevents H2 lock file races between sibling processes.
+    # Pre-compile once so repeated orchestrator batches can skip compilation.
     parallel = games_to_play > 1
     if parallel:
         print("\nPre-compiling before parallel execution...")
         assert compile_project(_ROOT, observer=True), "Compilation failed"
         assert refresh_observer_resources(_ROOT), "Observer resource refresh failed"
 
-        # Clean stale H2 lock files once before spawning parallel servers
+        # Clean stale H2 lock files once before starting the first shared server
         clean_stale_h2_locks(_ROOT)
 
     deferred_failures: list[AnnotationFailure] = []
@@ -540,27 +678,16 @@ def main() -> int:
                 deferred_failures=deferred_failures,
             )
         else:
-            # Multiple matches — run in parallel
+            # Multiple matches — run one game per match on a shared server batch
             _save_tournament(tournament, tournament_path)
-            print(f"\nStarting {batch_size} matches in parallel...\n")
-            with concurrent.futures.ThreadPoolExecutor(
-                max_workers=batch_size
-            ) as executor:
-                futures = {
-                    executor.submit(
-                        _run_match_on,
-                        tournament,
-                        tournament_path,
-                        round_dict,
-                        match,
-                        quiet=True,
-                        skip_compile=True,
-                        deferred_failures=deferred_failures,
-                    ): match
-                    for round_dict, match in batch
-                }
-                for future in concurrent.futures.as_completed(futures):
-                    future.result()  # re-raise any exceptions
+            print(f"\nStarting {batch_size} matches in parallel on one XMage server...\n")
+            _run_match_batch(
+                tournament,
+                tournament_path,
+                batch,
+                skip_compile=True,
+                deferred_failures=deferred_failures,
+            )
 
         matches_played += batch_size
 

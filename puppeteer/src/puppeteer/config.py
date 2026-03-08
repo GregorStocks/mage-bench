@@ -513,6 +513,7 @@ class Config:
 
     # CLI options
     config_file: Path | None = None
+    batch_config_files: list[Path] = field(default_factory=list)
     observer: bool = False
     record: bool = False
     record_output: Path | None = None
