@@ -3096,7 +3096,7 @@
   ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
-    "message": "Game ended",
+    "message": "Opponent",
     "seq": 175
   },
   "gameType": "Two Player Duel",
@@ -6665,6 +6665,7 @@
     {
       "deckName": "filler_opponent",
       "name": "Opponent",
+      "placement": 1,
       "type": "replay"
     }
   ],
@@ -20546,5 +20547,5 @@
   "totalTurns": 11,
   "tournament": null,
   "version": 6,
-  "winner": null
+  "winner": "Opponent"
 }

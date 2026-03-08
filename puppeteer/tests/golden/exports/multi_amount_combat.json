@@ -1693,7 +1693,7 @@
   ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
-    "message": "Game ended",
+    "message": "Opponent",
     "seq": 92
   },
   "gameType": "Two Player Duel",
@@ -3884,6 +3884,7 @@
     {
       "deckName": "two_savannah_lions",
       "name": "Opponent",
+      "placement": 1,
       "type": "replay"
     }
   ],
@@ -11703,5 +11704,5 @@
   "totalTurns": 5,
   "tournament": null,
   "version": 6,
-  "winner": null
+  "winner": "Opponent"
 }

@@ -1993,7 +1993,7 @@
   ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
-    "message": "Game ended",
+    "message": "Opponent",
     "seq": 103
   },
   "gameType": "Two Player Duel",
@@ -4377,6 +4377,7 @@
     {
       "deckName": "plains_lions_opponent",
       "name": "Opponent",
+      "placement": 1,
       "type": "replay"
     }
   ],
@@ -11844,5 +11845,5 @@
   "totalTurns": 5,
   "tournament": null,
   "version": 6,
-  "winner": null
+  "winner": "Opponent"
 }
