@@ -50390,7 +50390,9 @@
   "harnessEpoch": 45,
   "youtubeUrl": "https://youtu.be/cS39pm8pEqY",
   "season": 1,
-  "tournament": null,
+  "tournament": "season-1",
+  "annotations": [],
+  "blunderScriptVersion": 0,
   "decisions": [
     {
       "index": 0,
@@ -62863,53 +62865,5 @@
       ],
       "actionSeq": 344
     }
-  ],
-  "annotations": [
-    {
-      "severity": "minor",
-      "description": "Opus Brewer declined to attack with Elvish Warmaster (2/2) when the opponent had no untapped lands and only a summoning-sick Feral Prowler that couldn't block. This was 2 free damage with zero risk.",
-      "actionTaken": "Passed on attacking, dealing 0 damage.",
-      "betterLine": "Attack with Elvish Warmaster for 2 unblockable, risk-free damage against an opponent with no available mana for tricks.",
-      "type": "blunder",
-      "snapshotIndex": 61,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "minor",
-      "description": "Cast Feral Invocation (which has flash) during precombat main phase instead of Initiate's Companion. Feral Invocation can be cast at instant speed later as a combat trick, preserving its surprise value. Meanwhile, the opponent is building a threatening elf board (Elvish Warmaster + multiple elves) and QwCdr Diplom only has one creature. Developing a second body with Initiate's Companion is more important for board presence, and the flash aura could be held for a future turn when it could blow out a combat.",
-      "actionTaken": "Cast Feral Invocation (flash aura) during precombat main phase on Feral Prowler",
-      "betterLine": "Cast Initiate's Companion to develop board presence, hold Feral Invocation as a flash combat trick for a future turn when it could provide more value",
-      "type": "blunder",
-      "snapshotIndex": 65,
-      "player": "QwCdr Diplom"
-    },
-    {
-      "severity": "minor",
-      "description": "Cast Ill-Gotten Inheritance (slow drain enchantment) using all 4 mana while facing a threatening elf swarm board. The opponent has Elvish Warmaster + 4 elf tokens + Elderleaf Mentor that will attack next turn for massive damage. IGI doesn't address the board pressure at all.",
-      "actionTaken": "Cast Ill-Gotten Inheritance for {3}{B}, using all available mana",
-      "betterLine": "Cast Oathsworn Vampire for {1}{B} to add a blocker, leaving {2}{G} open for Feral Invocation as a combat trick during opponent's attack. This provides both board presence and defensive flexibility against the elf swarm.",
-      "type": "blunder",
-      "snapshotIndex": 117,
-      "player": "QwCdr Diplom"
-    },
-    {
-      "severity": "minor",
-      "description": "Enchanting Elvish Warmaster with Presence of Gond instead of a 1/1 Elf Warrior token. Both produce 2 tokens per turn (the created token triggers Warmaster either way), but putting it on a token keeps Warmaster free to attack as a 2/2 and spreads risk - if the opponent removes the enchanted creature, losing a 1/1 token is much less costly than losing the Warmaster.",
-      "actionTaken": "Enchanted Elvish Warmaster with Presence of Gond",
-      "betterLine": "Enchant one of the 1/1 Elf Warrior tokens with Presence of Gond, getting the same 2-tokens-per-turn engine while keeping Warmaster available to attack and reducing the value of opponent's removal.",
-      "type": "blunder",
-      "snapshotIndex": 142,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "minor",
-      "description": "At 7 life facing a massive elf board, QwCdr Diplom cast Canopy Stalker (4/2 for 4 mana) instead of Creeping Bloodsucker (1/2 for 2 mana) which would have left mana open for Feral Invocation as a combat trick. Creeping Bloodsucker + Feral Invocation held up would provide better defense (buffing Oathsworn Vampire to 4/4 during blocks), start a life drain engine, and enable Oathsworn Vampire graveyard recursion. Canopy Stalker's 'must be blocked' ability is nearly irrelevant when the opponent has 6+ creatures.",
-      "actionTaken": "Cast Canopy Stalker for {3}{G}, spending all available mana",
-      "betterLine": "Cast Creeping Bloodsucker for {1}{B}, hold up Feral Invocation ({2}{G}) for defensive combat trick on Oathsworn Vampire, creating a 4/4 blocker while starting the life drain engine",
-      "type": "blunder",
-      "snapshotIndex": 160,
-      "player": "QwCdr Diplom"
-    }
-  ],
-  "blunderScriptVersion": 32
+  ]
 }

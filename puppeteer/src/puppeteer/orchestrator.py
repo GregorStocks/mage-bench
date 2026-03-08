@@ -273,6 +273,8 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         "git_branch": _git("rev-parse --abbrev-ref HEAD", project_root),
         "git_commit": _git("rev-parse --short HEAD", project_root),
     }
+    if config.tournament_game:
+        meta["tournament_game"] = True
     (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
 

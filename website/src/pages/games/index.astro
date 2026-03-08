@@ -79,6 +79,7 @@ if (fs.existsSync(gamesDir)) {
       season: data.season ?? 0,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
+    if (data.tournament) continue; // Tournament games shown on season page, not here
     const annotations = data.annotations;
     if (annotations == null) {
       throw new Error(`Game ${data.id} has no annotations`);

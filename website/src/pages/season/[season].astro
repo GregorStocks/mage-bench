@@ -108,6 +108,11 @@ if (fs.existsSync(gamesDir)) {
       tournament: data.tournament ?? null,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
+    // Tournament games may not have annotations yet — skip blunder scoring
+    if (data.tournament) {
+      games.push(entry);
+      continue;
+    }
     const annotations = data.annotations;
     if (annotations == null) {
       throw new Error(`Game ${data.id} has no annotations`);

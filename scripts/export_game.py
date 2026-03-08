@@ -8,10 +8,10 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-WEBSITE_GAMES_DIR = (
-    Path(__file__).resolve().parent.parent / "website" / "public" / "games"
-)
+_ROOT = Path(__file__).resolve().parent.parent
+WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
+_TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
 
 FONT_TAG_RE = re.compile(r"<font[^>]*>|</font>")
 OBJECT_ID_RE = re.compile(r"\s*\[[0-9a-f]{3,}\]")
@@ -953,6 +953,18 @@ def _link_errors_to_decisions(
             err["decisionIndex"] = pd[lo - 1][1]
 
 
+def _find_tournament_for_game(game_id: str) -> str | None:
+    """Return tournament identifier (e.g. 'season-1') if game_id is in a bracket."""
+    for path in _TOURNAMENTS_DIR.glob("season-*.json"):
+        data = json.loads(path.read_text())
+        for rnd in data.get("rounds", []):
+            for match in rnd.get("matches", []):
+                for game in match.get("games", []):
+                    if game.get("game_id") == game_id:
+                        return path.stem  # e.g. "season-1"
+    return None
+
+
 def build_export(game_dir: Path) -> dict:
     """Build the export data dict from a game directory.
 
@@ -1080,7 +1092,20 @@ def build_export(game_dir: Path) -> dict:
         from schemas.migrations.v3_to_v4 import compute_season
 
         output["season"] = compute_season(meta.get("harness_epoch", 0))
-    output["tournament"] = None
+    tournament_id: str | None = None
+    if meta.get("tournament_game", False):
+        tournament_id = _find_tournament_for_game(game_dir.name)
+        assert tournament_id is not None, (
+            f"tournament_game flag set but {game_dir.name} not found in any bracket"
+        )
+    else:
+        # Check tournament data for older games that predate the meta flag
+        tournament_id = _find_tournament_for_game(game_dir.name)
+    output["tournament"] = tournament_id
+    if tournament_id is not None:
+        # Tournament games may not have been annotated yet
+        output["annotations"] = []
+        output["blunderScriptVersion"] = 0
 
     # Build canonical decisions
     harness_epoch = meta.get("harness_epoch", 0)

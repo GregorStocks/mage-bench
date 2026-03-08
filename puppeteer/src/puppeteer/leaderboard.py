@@ -382,7 +382,8 @@ def generate_leaderboard(
     {game_id: {model_id: {before, after}}}.
     """
     # Filter to games with a winner for leaderboard purposes
-    scored_games = [g for g in games_index if g.get("winner")]
+    # Exclude tournament games — they have separate scoring
+    scored_games = [g for g in games_index if g.get("winner") and not g.get("tournament")]
 
     final_ratings, per_game = compute_elo_ratings(scored_games, games_dir)
 
@@ -720,6 +721,8 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
         }
         if "annotations" in game:
             game_entry["annotations"] = game["annotations"]
+        if game.get("tournament"):
+            game_entry["tournament"] = True
         games_index.append(game_entry)
 
     model_registry = load_model_registry(models_json)

@@ -87572,7 +87572,9 @@
   "harnessEpoch": 45,
   "youtubeUrl": "https://youtu.be/49QadL04fdE",
   "season": 1,
-  "tournament": null,
+  "tournament": "season-1",
+  "annotations": [],
+  "blunderScriptVersion": 0,
   "decisions": [
     {
       "index": 0,
@@ -147412,89 +147414,5 @@
       ],
       "actionSeq": 520
     }
-  ],
-  "annotations": [
-    {
-      "severity": "minor",
-      "description": "Cast Elven Bow without the {2} kicker, deploying a bare equipment that does nothing immediately. By waiting to cast it later when they have 3+ mana (ideally after Ivy Lane Denizen is on the battlefield), they could create a 1/1 Elf Warrior token equipped with the Bow (a 2/3 reach creature) and trigger Ivy Lane Denizen's +1/+1 counter ability. The 1 mana spent here has no immediate board impact.",
-      "actionTaken": "Cast Elven Bow for {G} without the kicker, getting just a bare equipment",
-      "betterLine": "Hold the Elven Bow and save the mana (or just pass with no other options). Cast Elven Bow later with the {2} kicker to get the 1/1 token, ideally after deploying Ivy Lane Denizen for the +1/+1 counter synergy.",
-      "type": "blunder",
-      "snapshotIndex": 32,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "minor",
-      "description": "With Keeper of Fables (5 mana) and Enlarge (5 mana) likely in the deck/hand and only 4 mana sources, Elvish Rejuvenator would ramp to enable casting expensive spells next turn. Ivy Lane Denizen is a value engine but doesn't help with the mana constraint. Alternatively, Silhana Wayfinder + Roots of Wisdom for the same 4 mana would generate more card selection/advantage.",
-      "actionTaken": "Cast Ivy Lane Denizen for 4 mana",
-      "betterLine": "Cast Elvish Rejuvenator (3 mana) to ramp into 5+ mana next turn, enabling the powerful expensive cards in hand. The ramp is more impactful than a value engine when mana-constrained.",
-      "type": "blunder",
-      "snapshotIndex": 88,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "major",
-      "description": "Band Together is selecting the target creature to receive damage ('another target creature'). The choices include the opponent's Vampire Envoy (1/4 flyer that gains life) and three of the player's own creatures. The player chose to target their own Ivy Lane Denizen (2/3) instead of the opponent's Vampire Envoy, meaning they will destroy their own creature rather than removing the opponent's only threat.",
-      "actionTaken": "Targeted Ivy Lane Denizen (own 2/3 creature) to receive damage from Band Together",
-      "betterLine": "Target Vampire Envoy (opponent's 1/4 flying lifelinker) with Band Together to remove the opponent's threat. Two creatures with combined power 3+ (e.g., Llanowar Visionary 2/2 + Elvish Rejuvenator 1/1 = 3 power, or Ivy Lane Denizen 2/3 + any other) can kill the 4-toughness Envoy.",
-      "type": "blunder",
-      "snapshotIndex": 124,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "major",
-      "description": "When resolving Band Together, Opus Brewer selected their own Llanowar Visionary as the target to receive damage instead of the opponent's Vampire Envoy 1/4. This would kill their own mana dork/card draw creature for no benefit, while the opponent's flying Vampire Envoy (which they have limited ways to interact with) remains on the battlefield.",
-      "actionTaken": "Selected Llanowar Visionary (own 2/2 creature) as the damage target for Band Together",
-      "betterLine": "Select Vampire Envoy (opponent's 1/4 flyer) as the damage target for Band Together, removing a flying threat they have few answers to",
-      "type": "blunder",
-      "snapshotIndex": 136,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "moderate",
-      "description": "Chose Canopy Stalker over Ill-Gotten Inheritance despite having Bloodthirsty Aerialist and Epicure of Blood in hand, which form a powerful synergy engine with the Inheritance's repeatable life gain trigger. The opponent has a wider, stronger board that can block Canopy Stalker favorably (3/4 Ivy Lane Denizen survives, 3/3 Llanowar Visionary trades). Ill-Gotten Inheritance provides inevitability and enables the drain synergy package.",
-      "actionTaken": "Cast Canopy Stalker, a 4/2 must-be-blocked creature that matches up poorly against opponent's board",
-      "betterLine": "Cast Ill-Gotten Inheritance to start the drain clock and enable future synergies with Bloodthirsty Aerialist and Epicure of Blood, building toward a grindy evasive/drain game plan that better addresses the opponent's superior ground presence",
-      "type": "blunder",
-      "snapshotIndex": 167,
-      "player": "QwCdr Diplom"
-    },
-    {
-      "severity": "minor",
-      "description": "Casting Band Together precombat to remove a summoning-sick Canopy Stalker when the opponent is fully tapped out. The Canopy Stalker can't attack this turn, so there's no urgency. Using 3 mana on Band Together prevents using Ghirapur Guide's activated ability ({2}{G}) during combat to make a creature unblockable by power 2 or less, which could push through extra damage. Band Together could also be saved as a reactive removal spell for a more critical moment.",
-      "actionTaken": "Cast Band Together in precombat main phase to preemptively remove Canopy Stalker",
-      "betterLine": "Attack first with available creatures (opponent is tapped out with only a tapped Vampire Envoy as a potential blocker). Use Ghirapur Guide's ability to make a creature unblockable. Save Band Together for when the Canopy Stalker actually threatens to attack or for a bigger threat later.",
-      "type": "blunder",
-      "snapshotIndex": 184,
-      "player": "Opus Brewer"
-    },
-    {
-      "severity": "questionable",
-      "description": "Feral Prowler blocked the 4/5 Ivy Lane Denizen, which prevents the most damage (4) but doesn't kill anything. Blocking the 2/1 Silhana Wayfinder would have killed it while still drawing a card from Prowler's death trigger, trading a creature that was going to die anyway for an actual opposing creature.",
-      "actionTaken": "Blocked Ivy Lane Denizen (4/5) with Feral Prowler, preventing 4 damage but not trading for any creature.",
-      "betterLine": "Block Silhana Wayfinder (2/1) with Feral Prowler (1/3) to kill it, still draw a card from Prowler dying, and remove an attacker from the board. The 2 extra life from blocking Denizen is likely less valuable than removing a creature when behind on board.",
-      "type": "blunder",
-      "snapshotIndex": 248,
-      "player": "QwCdr Diplom"
-    },
-    {
-      "severity": "minor",
-      "description": "QwCdr Diplom cast Ill-Gotten Inheritance before playing their Swamp from hand. They have a land drop remaining and a Swamp in hand. Playing the land first is strictly better sequencing - it ensures the land drop isn't wasted if the turn ends or they forget, and it provides additional mana on future turns. With only 9 life facing a board of large creatures, having extra mana available (for Epicure of Blood or Bloodthirsty Aerialist next turn, or IGI's sacrifice activation) is important.",
-      "actionTaken": "Cast Ill-Gotten Inheritance without playing land first",
-      "betterLine": "Play Swamp from hand first, then cast Ill-Gotten Inheritance using the available mana",
-      "type": "blunder",
-      "snapshotIndex": 258,
-      "player": "QwCdr Diplom"
-    },
-    {
-      "severity": "moderate",
-      "description": "QwCdr Diplom passed priority without playing a land despite having both Forest and Swamp in hand with 1 land drop remaining. They are at 9 life facing a massive board and desperately need to deploy expensive threats like Epicure of Blood (4B), Enlarge (3GG), or Keeper of Fables (3GG). All their current lands are tapped, so playing a land now (which enters untapped) would also provide mana this turn. Missing this land drop delays their ability to cast critical cards by a full turn in a game where they're far behind.",
-      "actionTaken": "Passed priority without playing a land",
-      "betterLine": "Play Swamp to reach 2 Swamps + 3 Forests (5 lands total), enabling Epicure of Blood next turn which synergizes with Ill-Gotten Inheritance and Bloodthirsty Aerialist for the life-drain plan needed to stabilize.",
-      "type": "blunder",
-      "snapshotIndex": 264,
-      "player": "QwCdr Diplom"
-    }
-  ],
-  "blunderScriptVersion": 32
+  ]
 }
