@@ -72,7 +72,7 @@ if (fs.existsSync(exportsDir)) {
         <div class="filter-group">
           <label class="control-label">
             Min Epoch
-            <input type="number" id="trend-min-epoch" value={1} min="1" />
+            <input type="number" id="trend-min-epoch" value={11} min="1" />
           </label>
         </div>
         <div class="filter-group">
@@ -232,22 +232,38 @@ if (fs.existsSync(exportsDir)) {
       document.getElementById(`tab-${tabName}`)!.classList.add('active');
     }
 
+    function syncTabToUrl(tabName: string) {
+      const url = new URL(window.location.href);
+      if (tabName !== 'trends') url.searchParams.set('tab', tabName);
+      else url.searchParams.delete('tab');
+      history.replaceState(null, '', url.toString());
+    }
+
     document.querySelectorAll('.tab').forEach(btn => {
       btn.addEventListener('click', () => {
         const target = btn.getAttribute('data-tab')!;
-        location.hash = target;
+        switchTab(target);
+        syncTabToUrl(target);
       });
     });
 
-    // Activate tab from URL hash (e.g. /internals#model-stats)
-    function activateFromHash() {
+    // Activate tab from URL (?tab= or legacy #hash)
+    function activateFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      if (tabParam && document.querySelector(`.tab[data-tab="${tabParam}"]`)) {
+        switchTab(tabParam);
+        return;
+      }
+      // Legacy hash support
       const hash = location.hash.replace('#', '');
       if (hash && document.querySelector(`.tab[data-tab="${hash}"]`)) {
         switchTab(hash);
+        syncTabToUrl(hash);
       }
     }
-    activateFromHash();
-    window.addEventListener('hashchange', activateFromHash);
+    activateFromUrl();
+    window.addEventListener('hashchange', activateFromUrl);
 
     // ─── Trend chart ───
     type PlayerRecord = {
@@ -364,6 +380,7 @@ if (fs.existsSync(exportsDir)) {
         btn.classList.add('active');
         currentMetric = (btn as HTMLElement).dataset.metric!;
         updateChart();
+        syncTrendsToUrl();
       });
     });
 
@@ -374,6 +391,7 @@ if (fs.existsSync(exportsDir)) {
         btn.classList.add('active');
         currentFormat = (btn as HTMLElement).dataset.format!;
         updateChart();
+        syncTrendsToUrl();
       });
     });
 
@@ -382,6 +400,7 @@ if (fs.existsSync(exportsDir)) {
     minEpochTrendInput.addEventListener('input', () => {
       minEpochTrend = parseInt(minEpochTrendInput.value) || 1;
       updateChart();
+      syncTrendsToUrl();
     });
 
     // Smoothing window
@@ -389,6 +408,7 @@ if (fs.existsSync(exportsDir)) {
     smoothingInput.addEventListener('input', () => {
       smoothingWindow = Math.max(0, parseInt(smoothingInput.value) || 0);
       updateChart();
+      syncTrendsToUrl();
     });
 
     // Models with known-unreliable cached_tokens data (upstream API bug).
@@ -720,6 +740,56 @@ if (fs.existsSync(exportsDir)) {
       });
     }
 
+    function syncTrendsToUrl() {
+      const url = new URL(window.location.href);
+      if (currentMetric !== 'costPerGame') url.searchParams.set('metric', currentMetric);
+      else url.searchParams.delete('metric');
+      if (currentFormat !== 'all') url.searchParams.set('format', currentFormat);
+      else url.searchParams.delete('format');
+      if (smoothingWindow !== 5) url.searchParams.set('smoothing', String(smoothingWindow));
+      else url.searchParams.delete('smoothing');
+      if (minEpochTrend !== 11) url.searchParams.set('minEpoch', String(minEpochTrend));
+      else url.searchParams.delete('minEpoch');
+      history.replaceState(null, '', url.toString());
+    }
+
+    // Read URL params on load
+    {
+      const params = new URLSearchParams(window.location.search);
+      const metricParam = params.get('metric');
+      if (metricParam && METRICS[metricParam]) {
+        currentMetric = metricParam;
+        document.querySelectorAll('.metric-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`.metric-btn[data-metric="${metricParam}"]`);
+        if (btn) btn.classList.add('active');
+      }
+      const formatParam = params.get('format');
+      if (formatParam) {
+        const btn = document.querySelector(`#format-buttons .toggle-btn[data-format="${formatParam}"]`);
+        if (btn) {
+          currentFormat = formatParam;
+          document.querySelectorAll('#format-buttons .toggle-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      }
+      const smoothingParam = params.get('smoothing');
+      if (smoothingParam !== null) {
+        const val = parseInt(smoothingParam);
+        if (!isNaN(val) && val >= 0) {
+          smoothingWindow = val;
+          smoothingInput.value = String(val);
+        }
+      }
+      const minEpochParam = params.get('minEpoch');
+      if (minEpochParam !== null) {
+        const val = parseInt(minEpochParam);
+        if (!isNaN(val) && val >= 1) {
+          minEpochTrend = val;
+          minEpochTrendInput.value = String(val);
+        }
+      }
+    }
+
     updateChart();
   </script>
 
@@ -1025,6 +1095,15 @@ if (fs.existsSync(exportsDir)) {
     const blunderCanvas = document.getElementById('blunder-chart') as HTMLCanvasElement;
     const blunderNote = document.getElementById('blunder-chart-note') as HTMLElement;
 
+    function syncBlunderToUrl() {
+      const url = new URL(window.location.href);
+      if (blunderMetric !== 'cacheRate') url.searchParams.set('bmetric', blunderMetric);
+      else url.searchParams.delete('bmetric');
+      if (blunderMinVersion !== 1) url.searchParams.set('bminVer', String(blunderMinVersion));
+      else url.searchParams.delete('bminVer');
+      history.replaceState(null, '', url.toString());
+    }
+
     // Metric button switching
     document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1032,6 +1111,7 @@ if (fs.existsSync(exportsDir)) {
         btn.classList.add('active');
         blunderMetric = btn.getAttribute('data-metric')!;
         updateBlunderChart();
+        syncBlunderToUrl();
       });
     });
 
@@ -1039,6 +1119,7 @@ if (fs.existsSync(exportsDir)) {
     blunderMinVersionInput.addEventListener('input', () => {
       blunderMinVersion = parseInt(blunderMinVersionInput.value) || 1;
       updateBlunderChart();
+      syncBlunderToUrl();
     });
 
     function updateBlunderChart() {
@@ -1120,6 +1201,26 @@ if (fs.existsSync(exportsDir)) {
           },
         },
       });
+    }
+
+    // Read URL params for blunder tab
+    {
+      const params = new URLSearchParams(window.location.search);
+      const bmetric = params.get('bmetric');
+      if (bmetric && BLUNDER_METRICS[bmetric]) {
+        blunderMetric = bmetric;
+        document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`#blunder-metric-buttons .metric-btn[data-metric="${bmetric}"]`);
+        if (btn) btn.classList.add('active');
+      }
+      const bminVer = params.get('bminVer');
+      if (bminVer !== null) {
+        const val = parseInt(bminVer);
+        if (!isNaN(val) && val >= 1) {
+          blunderMinVersion = val;
+          blunderMinVersionInput.value = String(val);
+        }
+      }
     }
 
     updateBlunderChart();

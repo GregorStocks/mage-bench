@@ -1088,6 +1088,10 @@ const scenarioTitle = slug.replace(/_/g, ' ');
   function goTo(index) {
     currentIndex = Math.max(0, Math.min(index, game.snapshots.length - 1));
     renderSnapshot(currentIndex);
+    var url = new URL(window.location.href);
+    if (currentIndex === game.snapshots.length - 1) url.searchParams.delete("s");
+    else url.searchParams.set("s", String(currentIndex));
+    history.replaceState(null, "", url.toString());
   }
 
   function toggleAutoPlay() {

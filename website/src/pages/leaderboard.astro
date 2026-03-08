@@ -156,43 +156,59 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     });
   }
 
+  function syncFiltersToUrl() {
+    const url = new URL(window.location.href);
+    if (activeFormat !== 'combined') url.searchParams.set('format', activeFormat);
+    else url.searchParams.delete('format');
+    if (showInactiveCheckbox.checked) url.searchParams.set('inactive', '1');
+    else url.searchParams.delete('inactive');
+    history.replaceState(null, '', url.toString());
+  }
+
+  function switchFormat(fmt: string) {
+    if (fmt === activeFormat) return;
+
+    // Hide all tbodies, show selected
+    table!.querySelectorAll('tbody[data-format]').forEach((tb) => {
+      (tb as HTMLElement).style.display = 'none';
+    });
+    const newTbody = table!.querySelector(`tbody[data-format="${fmt}"]`) as HTMLElement;
+    if (newTbody) newTbody.style.display = '';
+
+    // Update active tab styling
+    if (formatTabs) {
+      formatTabs.querySelectorAll('.format-tab').forEach((t) => t.classList.remove('active'));
+      const btn = formatTabs.querySelector(`.format-tab[data-format="${fmt}"]`);
+      if (btn) btn.classList.add('active');
+    }
+
+    activeFormat = fmt;
+    table!.classList.toggle('format-combined', fmt === 'combined');
+
+    // Hide rating column for exhibition formats
+    const isExhibition = newTbody?.dataset.exhibition === 'true';
+    table!.classList.toggle('hide-rating-col', isExhibition);
+
+    // If sorted by rating and switching to exhibition, switch to winRate
+    if (isExhibition) {
+      const ratingTh = table!.querySelector('th[data-sort="rating"]');
+      if (ratingTh?.classList.contains('sorted')) {
+        const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
+        if (winRateTh) winRateTh.click();
+      }
+    }
+
+    updateGamesLinks();
+    applyFilters();
+    syncFiltersToUrl();
+  }
+
   // Format tab switching
   if (formatTabs) {
     formatTabs.addEventListener('click', (e) => {
       const btn = (e.target as HTMLElement).closest('.format-tab') as HTMLElement | null;
       if (!btn) return;
-      const fmt = btn.dataset.format!;
-      if (fmt === activeFormat) return;
-
-      // Hide all tbodies, show selected
-      table!.querySelectorAll('tbody[data-format]').forEach((tb) => {
-        (tb as HTMLElement).style.display = 'none';
-      });
-      const newTbody = table!.querySelector(`tbody[data-format="${fmt}"]`) as HTMLElement;
-      if (newTbody) newTbody.style.display = '';
-
-      // Update active tab styling
-      formatTabs.querySelectorAll('.format-tab').forEach((t) => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      activeFormat = fmt;
-      table!.classList.toggle('format-combined', fmt === 'combined');
-
-      // Hide rating column for exhibition formats
-      const isExhibition = newTbody?.dataset.exhibition === 'true';
-      table!.classList.toggle('hide-rating-col', isExhibition);
-
-      // If sorted by rating and switching to exhibition, switch to winRate
-      if (isExhibition) {
-        const ratingTh = table!.querySelector('th[data-sort="rating"]');
-        if (ratingTh?.classList.contains('sorted')) {
-          const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
-          if (winRateTh) winRateTh.click();
-        }
-      }
-
-      updateGamesLinks();
-      applyFilters();
+      switchFormat(btn.dataset.format!);
     });
   }
 
@@ -291,7 +307,10 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     });
   }
 
-  showInactiveCheckbox.addEventListener('change', applyFilters);
+  showInactiveCheckbox.addEventListener('change', () => {
+    applyFilters();
+    syncFiltersToUrl();
+  });
   updateGamesLinks();
   applyFilters();
 
@@ -382,6 +401,7 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     table!.classList.remove('hide-rating-col');
     updateGamesLinks();
     applyFilters();
+    syncFiltersToUrl();
   }
 
   const seasonTabs = document.getElementById('season-tabs');
@@ -420,6 +440,19 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
       if (btn && !btn.classList.contains('active')) {
         btn.click();
       }
+    }
+  }
+
+  // On page load, apply format and inactive params
+  {
+    const params = new URLSearchParams(window.location.search);
+    const formatParam = params.get('format');
+    if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
+      switchFormat(formatParam);
+    }
+    if (params.get('inactive') === '1') {
+      showInactiveCheckbox.checked = true;
+      applyFilters();
     }
   }
 
