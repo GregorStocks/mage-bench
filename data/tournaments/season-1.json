@@ -163,7 +163,70 @@
       "games_played": 11
     }
   ],
-  "rounds": [],
+  "rounds": [
+    {
+      "round": 1,
+      "name": "Round of 16",
+      "matches": [
+        {
+          "match": 1,
+          "seed_a": 1,
+          "seed_b": 16,
+          "winner_seed": 16,
+          "game_id": "game_20260307_173319"
+        },
+        {
+          "match": 2,
+          "seed_a": 8,
+          "seed_b": 9,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 3,
+          "seed_a": 4,
+          "seed_b": 13,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 4,
+          "seed_a": 5,
+          "seed_b": 12,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 5,
+          "seed_a": 2,
+          "seed_b": 15,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 6,
+          "seed_a": 7,
+          "seed_b": 10,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 7,
+          "seed_a": 3,
+          "seed_b": 14,
+          "winner_seed": null,
+          "game_id": null
+        },
+        {
+          "match": 8,
+          "seed_a": 6,
+          "seed_b": 11,
+          "winner_seed": null,
+          "game_id": null
+        }
+      ]
+    }
+  ],
   "draft": {
     "packs_per_player": 4,
     "pool": [
