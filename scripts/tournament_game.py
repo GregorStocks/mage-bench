@@ -23,8 +23,14 @@ from puppeteer.config import (
     load_models,
     load_personalities,
 )
-from puppeteer.orchestrator import compile_project, refresh_observer_resources
-from scripts.export_game import WEBSITE_GAMES_DIR, export_game, read_game_winner
+from puppeteer.orchestrator import (
+    AnnotationFailure,
+    compile_project,
+    refresh_observer_resources,
+    resolve_annotation_failures,
+    upload_and_export,
+)
+from scripts.export_game import read_game_winner
 from scripts.generate_leaderboard import generate_all_website_data
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -402,6 +408,7 @@ def _run_match_on(
     match: dict,
     quiet: bool = False,
     skip_compile: bool = False,
+    deferred_failures: list[AnnotationFailure] | None = None,
 ) -> None:
     """Run a specific match (best-of-N series)."""
     seed_a = match["seed_a"]
@@ -441,9 +448,14 @@ def _run_match_on(
         # Save after each game so partial series survive crashes
         _save_tournament(tournament, tournament_path)
 
-        # Export now that bracket contains the game_id (orchestrator skips
-        # export for tournament games to avoid the race condition)
-        export_game(game_dir, WEBSITE_GAMES_DIR)
+        # Upload to YouTube + export + blunder analysis (orchestrator skips
+        # these for tournament games; we handle it here after the bracket
+        # JSON is updated so the export finds the tournament context)
+        upload_and_export(
+            game_dir,
+            _ROOT,
+            deferred_failures=deferred_failures,
+        )
 
         winner_display = entrants_by_seed[winner_seed]["display_name"]
         print(
@@ -545,6 +557,7 @@ def main() -> int:
             print(f"  Removing stale DB lock file: {lock_file.name}")
             lock_file.unlink()
 
+    deferred_failures: list[AnnotationFailure] = []
     matches_played = 0
     while matches_played < games_to_play:
         ready = find_ready_matches(tournament)
@@ -565,6 +578,7 @@ def main() -> int:
                 round_dict,
                 match,
                 skip_compile=parallel,
+                deferred_failures=deferred_failures,
             )
         else:
             # Multiple matches — run in parallel
@@ -582,6 +596,7 @@ def main() -> int:
                         match,
                         quiet=True,
                         skip_compile=True,
+                        deferred_failures=deferred_failures,
                     ): match
                     for round_dict, match in batch
                 }
@@ -589,6 +604,9 @@ def main() -> int:
                     future.result()  # re-raise any exceptions
 
         matches_played += batch_size
+
+    # Resolve any deferred annotation failures
+    resolve_annotation_failures(deferred_failures, _ROOT)
 
     generate_all_website_data()
     return 0

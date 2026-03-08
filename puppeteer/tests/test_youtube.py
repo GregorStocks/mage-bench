@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
-from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url, _upload_and_export
+from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url, upload_and_export
 from scripts.upload_youtube import _build_description, _build_title
 
 
@@ -160,7 +160,7 @@ def test_update_website_youtube_url_no_files():
         _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
 
-def test_upload_and_export_returns_zero_without_api_key():
+def testupload_and_export_returns_zero_without_api_key():
     """Without OPENROUTER_API_KEY, should export without annotation and return 0.0."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir) / "game_20260210_120000"
@@ -179,11 +179,11 @@ def test_upload_and_export_returns_zero_without_api_key():
             export_path.parent.mkdir(parents=True)
             export_path.write_text("{}")
             mock_export.return_value = export_path
-            result = _upload_and_export(game_dir, project_root)
+            result = upload_and_export(game_dir, project_root)
     assert result == 0.0
 
 
-def test_upload_and_export_skips_youtube_without_recording():
+def testupload_and_export_skips_youtube_without_recording():
     """Without recording.mov, should skip YouTube upload but still export."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir) / "game_20260210_120000"
@@ -201,5 +201,5 @@ def test_upload_and_export_skips_youtube_without_recording():
             export_path.parent.mkdir(parents=True)
             export_path.write_text("{}")
             mock_export.return_value = export_path
-            _upload_and_export(game_dir, project_root)
+            upload_and_export(game_dir, project_root)
         mock_yt.assert_not_called()
