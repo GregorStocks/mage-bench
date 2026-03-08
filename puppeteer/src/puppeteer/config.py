@@ -490,7 +490,7 @@ class Config:
     start_port: int = 17171
     user: str = "spectator"
     password: str = ""
-    server_wait: int = 90
+    server_wait: int = 240
     bridge_delay: int = 5
     log_dir: Path = field(default_factory=lambda: Path.home() / ".mage-bench" / "logs")
     jvm_opens: str = "--add-opens=java.base/java.io=ALL-UNNAMED"

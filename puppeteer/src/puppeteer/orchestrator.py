@@ -1483,6 +1483,13 @@ def main() -> int:
 
         logger.info("Server log: %s", server_log)
 
+        # Remove stale H2 lock files left by previously killed server processes.
+        # A leftover lock file blocks the new server from opening the card DB.
+        db_dir = project_root / "Mage.Server" / "db"
+        for lock_file in db_dir.glob("*.lock.db"):
+            logger.info("Removing stale DB lock file: %s", lock_file)
+            lock_file.unlink()
+
         # Start server
         logger.info("Starting XMage server...")
         start_server(pm, project_root, config, server_config_path, server_log)
