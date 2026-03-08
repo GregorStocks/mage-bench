@@ -23,7 +23,8 @@ from puppeteer.config import (
     load_models,
     load_personalities,
 )
-from scripts.export_game import read_game_winner
+from scripts.export_game import WEBSITE_GAMES_DIR, export_game, read_game_winner
+from scripts.generate_leaderboard import generate_all_website_data
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
@@ -258,6 +259,7 @@ def build_game_config(
 
     config = {
         "tournamentGame": True,
+        "skipPostGamePrompts": True,
         "gameType": "Two Player Duel",
         "deckType": "Limited",
         "matchTimeLimit": "MIN__60",
@@ -431,6 +433,10 @@ def _run_match_on(
         # Save after each game so partial series survive crashes
         _save_tournament(tournament, tournament_path)
 
+        # Export now that bracket contains the game_id (orchestrator skips
+        # export for tournament games to avoid the race condition)
+        export_game(game_dir, WEBSITE_GAMES_DIR)
+
         winner_display = entrants_by_seed[winner_seed]["display_name"]
         print(
             f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
@@ -554,6 +560,7 @@ def main() -> int:
 
         matches_played += batch_size
 
+    generate_all_website_data()
     return 0
 
 
