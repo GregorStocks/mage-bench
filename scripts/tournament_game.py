@@ -20,6 +20,7 @@ from puppeteer.config import (
     load_models,
     load_personalities,
 )
+from scripts.export_game import read_game_winner
 
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
@@ -210,20 +211,6 @@ def find_latest_game_dir() -> Path:
     game_dirs = list(logs_dir.glob("game_*"))
     assert game_dirs, f"No game directories found in {logs_dir}"
     return max(game_dirs, key=lambda p: p.name)
-
-
-def read_game_winner(game_dir: Path) -> str | None:
-    """Read the winner from server_game_events.jsonl in the game directory."""
-    events_file = game_dir / "server_game_events.jsonl"
-    assert events_file.exists(), f"No server_game_events.jsonl in {game_dir}"
-    for line in events_file.read_text().splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        event = json.loads(line)
-        if event.get("type") == "game_end":
-            return event.get("winner")
-    return None
 
 
 def map_winner_to_seed(

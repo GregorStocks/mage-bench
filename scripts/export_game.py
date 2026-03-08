@@ -447,6 +447,20 @@ def _read_llm_events(
     return events, player_costs, player_tools, player_tool_calls, player_thinking
 
 
+def read_game_winner(game_dir: Path) -> str | None:
+    """Read the winner from the game_end event in server_game_events.jsonl."""
+    events_file = game_dir / "server_game_events.jsonl"
+    assert events_file.exists(), f"No server_game_events.jsonl in {game_dir}"
+    for line in events_file.read_text().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        event = json.loads(line)
+        if event.get("type") == "game_end":
+            return event.get("winner")
+    return None
+
+
 def _read_server_events(
     game_dir: Path,
 ) -> tuple[list[dict], list[dict], dict | None, str | None]:
@@ -967,12 +981,7 @@ def build_export(game_dir: Path) -> dict:
     game_id = game_dir.name
     total_turns = max((s.get("turn", 0) for s in snapshots), default=0)
 
-    # Winner extraction for spectator-based exports
-    if not winner and game_over:
-        msg = game_over["message"]
-        m = re.match(r"Player (.+?) is the winner", msg)
-        if m:
-            winner = m.group(1)
+    # Fallback for interrupted games where game_end wasn't written
     if not winner:
         for a in actions:
             m = WON_GAME_RE.match(a.get("message", ""))

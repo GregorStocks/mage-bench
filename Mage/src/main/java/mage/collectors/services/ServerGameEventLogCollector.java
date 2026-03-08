@@ -232,19 +232,25 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         event.put("seq", seq);
         event.put("type", "game_end");
 
-        // Find winner by checking player states
+        // Find winner and life totals in a single pass.
+        // hasWon() is only set for explicit "win the game" effects.
+        // Most games end via a player losing (life <= 0, decking, etc.),
+        // so fall back to: if exactly one player hasn't lost, they won.
         String winnerName = null;
-        for (Player p : game.getPlayers().values()) {
-            if (p.hasWon()) {
-                winnerName = p.getName();
-                break;
-            }
-        }
-
-        // Final life totals
+        String survivor = null;
+        int survivorCount = 0;
         Map<String, Integer> lifeTotals = new LinkedHashMap<>();
         for (Player p : game.getPlayers().values()) {
             lifeTotals.put(p.getName(), p.getLife());
+            if (p.hasWon()) {
+                winnerName = p.getName();
+            } else if (!p.hasLost() && !p.hasLeft()) {
+                survivor = p.getName();
+                survivorCount++;
+            }
+        }
+        if (winnerName == null && survivorCount == 1) {
+            winnerName = survivor;
         }
         event.put("winner", winnerName);
         event.put("life_totals", lifeTotals);
