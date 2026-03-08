@@ -211,6 +211,10 @@ function buildTwoSidedBracket(tournament: any) {
   return { leftRounds, rightRounds, finals: rounds[rounds.length - 1] };
 }
 const bracket = buildTwoSidedBracket(tournament);
+
+function cleanThemeName(name: string): string {
+  return name.replace(/^J22 /, '');
+}
 ---
 
 <Base title={`Season ${seasonNum}`} wide={!!tournament}>
@@ -417,25 +421,73 @@ const bracket = buildTwoSidedBracket(tournament);
 
       {/* Draft */}
       {tournament.draft && (
-        <details class="draft-section">
-          <summary><h3>Draft Picks</h3></summary>
-          <div class="draft-picks">
-            {tournament.draft.picks.map((pick: any, i: number) => {
-              const entrant = entrantsBySeed[pick.seed];
-              return (
-                <div class="draft-pick">
-                  <span class="pick-num">Pick {i + 1}</span>
-                  <span class="pick-player">#{pick.seed} {entrant?.display_name}</span>
-                  <span class="pick-round">Round {pick.round}</span>
-                  <span class="pick-choice">
-                    chose <strong>{pick.picked}</strong>
-                    <span class="pick-options"> from [{pick.options.join(', ')}]</span>
-                  </span>
-                </div>
-              );
-            })}
+        <div class="draft-section">
+          <h3>Draft</h3>
+          <div class="draft-stats-bar">
+            <span>{tournament.draft.picks.length} picks</span>
+            <span class="draft-stat-sep">&middot;</span>
+            <span>{tournament.draft.pool.length} packs in pool</span>
+            <span class="draft-stat-sep">&middot;</span>
+            <span>${tournament.draft.total_cost_usd.toFixed(2)} total cost</span>
           </div>
-        </details>
+          {[1, 2].map((roundNum: number) => {
+            const roundPicks = tournament.draft.picks
+              .map((p: any, idx: number) => ({ ...p, _idx: idx }))
+              .filter((p: any) => p.round === roundNum);
+            return (
+              <div class={`draft-round draft-round-${roundNum}`}>
+                <div class="draft-round-header">
+                  <span class="draft-round-label">Round {roundNum}</span>
+                  <span class="draft-round-count">{roundPicks.length} picks</span>
+                </div>
+                <div class="draft-round-picks">
+                  {roundPicks.map((pick: any) => {
+                    const ent = entrantsBySeed[pick.seed];
+                    return (
+                      <div class="dpick">
+                        <button class="dpick-row" type="button" aria-expanded="false">
+                          <span class="dpick-num">{pick._idx + 1}</span>
+                          <span class="dpick-player">
+                            <span class="dpick-seed">#{pick.seed}</span>
+                            <span class="dpick-name">{ent?.display_name || `Seed ${pick.seed}`}</span>
+                          </span>
+                          <span class="dpick-chose">{cleanThemeName(pick.picked)}</span>
+                          <span class="dpick-cost">${pick.cost_usd.toFixed(2)}</span>
+                          <span class="dpick-chevron">&#9656;</span>
+                        </button>
+                        <div class="dpick-detail" hidden>
+                          <div class="dpick-reasoning">
+                            <div class="dpick-detail-label">Reasoning</div>
+                            <div class="dpick-reasoning-text">{pick.reasoning}</div>
+                          </div>
+                          {pick.thinking && (
+                            <details class="dpick-thinking">
+                              <summary class="dpick-detail-label clickable">Extended Thinking</summary>
+                              <div class="dpick-thinking-text">{pick.thinking}</div>
+                            </details>
+                          )}
+                          <div class="dpick-pool">
+                            <div class="dpick-detail-label">Available ({pick.options.length} packs)</div>
+                            <div class="dpick-pool-tags">
+                              {pick.options.map((opt: string) => (
+                                <span class:list={['dpick-tag', { 'dpick-tag-picked': opt === pick.picked }]}>
+                                  {cleanThemeName(opt)}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div class="dpick-meta">
+                            {pick.usage.prompt_tokens.toLocaleString()} prompt &middot; {pick.usage.completion_tokens.toLocaleString()} completion tokens
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
 
       {/* Draft pending */}
@@ -448,13 +500,18 @@ const bracket = buildTwoSidedBracket(tournament);
         </div>
       )}
 
-      {/* Entrants */}
+      {/* Entrants & Decklists */}
       <details class="entrants-section" open>
-        <summary><h3>Entrants</h3></summary>
+        <summary><h3>Entrants & Decklists</h3></summary>
         <div class="entrants-grid">
           {tournament.entrants.map((e: any) => {
             const p = personalities[e.personality];
             const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
+            const cards = deckInfo?.cards?.map((c: string) => {
+              const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
+              if (!m) return { count: 1, set: '', num: '', name: c };
+              return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
+            }) || [];
             return (
               <div class="entrant-card">
                 <div class="entrant-seed">#{e.seed}</div>
@@ -475,9 +532,21 @@ const bracket = buildTwoSidedBracket(tournament);
                     <span class="entrant-games">{e.games_played} games</span>
                   </div>
                   {deckInfo && (
-                    <div class="entrant-deck">
-                      {deckInfo.half_decks.join(' + ')}
-                    </div>
+                    <details class="entrant-decklist-details">
+                      <summary class="entrant-deck-summary">
+                        {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
+                        <span class="deck-card-count">{cards.reduce((s: number, c: any) => s + c.count, 0)} cards</span>
+                      </summary>
+                      <div class="decklist-cards">
+                        {cards.map((c: any) => (
+                          <div class="deck-card-row">
+                            <span class="deck-card-qty">{c.count}</span>
+                            <span class="deck-card-name">{c.name}</span>
+                            <span class="deck-card-set">{c.set}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </details>
                   )}
                 </div>
               </div>
@@ -711,13 +780,6 @@ const bracket = buildTwoSidedBracket(tournament);
     font-variant-numeric: tabular-nums;
   }
 
-  .entrant-deck {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent-secondary);
-    margin-top: 0.15rem;
-  }
-
   .bracket-pending {
     padding: 2rem;
     background: var(--bg-surface);
@@ -731,68 +793,308 @@ const bracket = buildTwoSidedBracket(tournament);
     font-size: 0.9rem;
   }
 
-  /* --- Draft --- */
+  /* --- Draft Timeline --- */
   .draft-section {
     margin-bottom: 2rem;
   }
 
-  .draft-section summary {
+  .draft-stats-bar {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .draft-stat-sep {
+    color: var(--text-muted);
+  }
+
+  .draft-round {
+    margin-bottom: 1.5rem;
+  }
+
+  .draft-round-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--border-default);
+  }
+
+  .draft-round-label {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-secondary);
+  }
+
+  .draft-round-2 .draft-round-label {
+    color: var(--accent-primary);
+  }
+
+  .draft-round-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .draft-round-picks {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .dpick {
+    border-left: 3px solid var(--accent-secondary);
+    background: var(--bg-surface);
+    border-radius: 0 4px 4px 0;
+    overflow: hidden;
+  }
+
+  .draft-round-2 .dpick {
+    border-left-color: var(--accent-primary);
+  }
+
+  .dpick-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.75rem;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .dpick-row:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .dpick-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 1.8rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .dpick-player {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .dpick-seed {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .dpick-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .dpick-chose {
+    font-weight: 700;
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  .draft-round-2 .dpick-chose {
+    color: var(--accent-primary);
+  }
+
+  .dpick-cost {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    min-width: 3.5rem;
+    text-align: right;
+  }
+
+  .dpick-chevron {
+    font-size: 1rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    width: 1rem;
+    text-align: center;
+  }
+
+  .dpick.open .dpick-chevron {
+    transform: rotate(90deg);
+  }
+
+  .dpick-detail {
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border-default);
+  }
+
+  .dpick-detail-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .dpick-detail-label.clickable {
     cursor: pointer;
     user-select: none;
   }
 
-  .draft-section summary h3 {
-    display: inline;
+  .dpick-reasoning {
+    margin-bottom: 0.75rem;
   }
 
-  .draft-picks {
-    margin-top: 0.75rem;
+  .dpick-reasoning-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .dpick-thinking {
+    margin-bottom: 0.75rem;
+  }
+
+  .dpick-thinking-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 0.4rem;
+  }
+
+  .dpick-pool {
+    margin-bottom: 0.5rem;
+  }
+
+  .dpick-pool-tags {
     display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
   }
 
-  .draft-pick {
-    display: flex;
-    gap: 0.5rem;
-    align-items: baseline;
-    font-size: 0.85rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 4px;
+  .dpick-tag {
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-default);
+    border-radius: 3px;
+    color: var(--text-secondary);
   }
 
-  .draft-pick:nth-child(odd) {
-    background: rgba(22, 33, 62, 0.4);
+  .dpick-tag-picked {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
+    font-weight: 600;
   }
 
-  .pick-num {
+  .draft-round-2 .dpick-tag-picked {
+    background: rgba(233, 69, 96, 0.15);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+  }
+
+  .dpick-meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* --- Decklists in Entrant Cards --- */
+  .entrant-decklist-details {
+    margin-top: 0.3rem;
+  }
+
+  .entrant-deck-summary {
+    cursor: pointer;
+    user-select: none;
     font-family: var(--font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
-    min-width: 4rem;
-    flex-shrink: 0;
-  }
-
-  .pick-player {
-    font-weight: 600;
-    min-width: 10rem;
-    flex-shrink: 0;
-  }
-
-  .pick-round {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    min-width: 4rem;
-    flex-shrink: 0;
-  }
-
-  .pick-choice strong {
     color: var(--accent-secondary);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
   }
 
-  .pick-options {
+  .entrant-deck-summary:hover {
+    color: var(--text-primary);
+  }
+
+  .deck-card-count {
+    font-size: 0.65rem;
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  .decklist-cards {
+    margin-top: 0.4rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-default);
+  }
+
+  .deck-card-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    padding: 0 0.2rem;
+  }
+
+  .deck-card-row:nth-child(odd) {
+    background: rgba(22, 33, 62, 0.3);
+  }
+
+  .deck-card-qty {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    min-width: 1.2rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .deck-card-name {
+    color: var(--text-primary);
+  }
+
+  .deck-card-set {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
   /* --- Bracket --- */
@@ -1055,12 +1357,17 @@ const bracket = buildTwoSidedBracket(tournament);
       grid-template-columns: 1fr;
     }
 
-    .draft-pick {
-      flex-wrap: wrap;
+    .dpick-player {
+      min-width: 0;
+      flex: 0 1 auto;
     }
 
-    .pick-player {
-      min-width: unset;
+    .dpick-cost {
+      display: none;
+    }
+
+    .dpick-detail {
+      padding-left: 1rem;
     }
   }
 </style>
@@ -2024,4 +2331,18 @@ const bracket = buildTwoSidedBracket(tournament);
       renderAll();
       renderTournamentGames();
     });
+</script>
+
+<script is:inline>
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.dpick-row');
+    if (!btn) return;
+    var card = btn.closest('.dpick');
+    var detail = card.querySelector('.dpick-detail');
+    if (!detail) return;
+    var isOpen = !detail.hidden;
+    detail.hidden = isOpen;
+    card.classList.toggle('open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
 </script>
