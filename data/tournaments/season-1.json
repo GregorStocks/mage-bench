@@ -277,15 +277,41 @@
           "match": 7,
           "seed_a": 3,
           "seed_b": 14,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 3,
+          "games": [
+            {
+              "game_id": "game_20260308_183307_g1",
+              "winner_seed": 14
+            },
+            {
+              "game_id": "game_20260308_190542_g1",
+              "winner_seed": 3
+            },
+            {
+              "game_id": "game_20260308_194429_g1",
+              "winner_seed": 3
+            }
+          ]
         },
         {
           "match": 8,
           "seed_a": 6,
           "seed_b": 11,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 11,
+          "games": [
+            {
+              "game_id": "game_20260308_183307_g2",
+              "winner_seed": 6
+            },
+            {
+              "game_id": "game_20260308_190542_g2",
+              "winner_seed": 11
+            },
+            {
+              "game_id": "game_20260308_194429_g2",
+              "winner_seed": 11
+            }
+          ]
         }
       ]
     },
