@@ -321,31 +321,75 @@
       "matches": [
         {
           "match": 1,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 1,
+          "seed_b": 9,
+          "winner_seed": 1,
+          "games": [
+            {
+              "game_id": "game_20260308_203524_g1",
+              "winner_seed": 1
+            },
+            {
+              "game_id": "game_20260308_211323_g1",
+              "winner_seed": 1
+            }
+          ]
         },
         {
           "match": 2,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 4,
+          "seed_b": 12,
+          "winner_seed": 4,
+          "games": [
+            {
+              "game_id": "game_20260308_203524_g2",
+              "winner_seed": 4
+            },
+            {
+              "game_id": "game_20260308_211323_g2",
+              "winner_seed": 12
+            },
+            {
+              "game_id": "game_20260308_225957_g1",
+              "winner_seed": 4
+            }
+          ]
         },
         {
           "match": 3,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 2,
+          "seed_b": 7,
+          "winner_seed": 7,
+          "games": [
+            {
+              "game_id": "game_20260308_203524_g3",
+              "winner_seed": 7
+            },
+            {
+              "game_id": "game_20260308_211323_g3",
+              "winner_seed": 7
+            }
+          ]
         },
         {
           "match": 4,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 3,
+          "seed_b": 11,
+          "winner_seed": 3,
+          "games": [
+            {
+              "game_id": "game_20260308_203524_g4",
+              "winner_seed": 3
+            },
+            {
+              "game_id": "game_20260308_211323_g4",
+              "winner_seed": 11
+            },
+            {
+              "game_id": "game_20260308_225957_g2",
+              "winner_seed": 3
+            }
+          ]
         }
       ]
     },
