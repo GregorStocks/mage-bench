@@ -262,7 +262,6 @@ def _save_tournament(tournament: dict, tournament_path: Path) -> None:
 class MatchSeries:
     """Mutable state for an in-progress best-of-N match."""
 
-    round_dict: dict
     match: dict
     wins: dict[int, int]
 
@@ -370,47 +369,28 @@ def _complete_match_if_decided(
     return False
 
 
-def _run_single_game(
-    tournament: dict,
+def _read_game_result(
+    game_dir: Path,
     seed_a: int,
     seed_b: int,
-    quiet: bool = False,
-    skip_compile: bool = False,
+    tournament: dict,
 ) -> tuple[Path, int]:
-    """Run a single game between two seeds. Returns (game_dir, winner_seed).
-
-    Args:
-        quiet: Unused. Kept for compatibility with existing callers.
-        skip_compile: If True, pass --skip-compile to orchestrator (caller already compiled).
-    """
-    config_path = build_game_config(tournament, seed_a, seed_b, _ROOT)
-    result = run_orchestrator(
-        _make_runner_config([config_path], skip_compile=skip_compile),
-        project_root=_ROOT,
-    )
-    assert result.exit_code == 0, f"Orchestrator exited with code {result.exit_code}"
-    assert len(result.sessions) == 1, (
-        f"Expected 1 game session, got {len(result.sessions)}"
-    )
-    game_dir = result.sessions[0].game_dir
-
+    """Read a finished game's winner and map it back to a tournament seed."""
     winner_name = read_game_winner(game_dir)
     assert winner_name is not None, (
         f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
     )
-
     winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
     return game_dir, winner_seed
 
 
-def _run_batch_games(
+def _run_games(
     tournament: dict,
     matchups: list[tuple[int, int]],
-    quiet: bool = True,
     skip_compile: bool = False,
 ) -> list[tuple[Path, int]]:
-    """Run one game for each matchup on a single shared XMage server."""
-    assert len(matchups) > 1, "_run_batch_games requires at least two matchups"
+    """Run one game for each matchup and return the winner for each."""
+    assert matchups, "_run_games requires at least one matchup"
     config_paths = [
         build_game_config(tournament, seed_a, seed_b, _ROOT)
         for seed_a, seed_b in matchups
@@ -423,16 +403,52 @@ def _run_batch_games(
     assert len(result.sessions) == len(matchups), (
         f"Expected {len(matchups)} game sessions, got {len(result.sessions)}"
     )
-    game_dirs = [session.game_dir for session in result.sessions]
-    results: list[tuple[Path, int]] = []
-    for game_dir, (seed_a, seed_b) in zip(game_dirs, matchups):
-        winner_name = read_game_winner(game_dir)
-        assert winner_name is not None, (
-            f"No winner found in {game_dir}. Check server_game_events.jsonl for details."
-        )
-        winner_seed = map_winner_to_seed(winner_name, seed_a, seed_b, tournament)
-        results.append((game_dir, winner_seed))
-    return results
+    return [
+        _read_game_result(session.game_dir, seed_a, seed_b, tournament)
+        for session, (seed_a, seed_b) in zip(result.sessions, matchups)
+    ]
+
+
+def _record_match_game(
+    tournament: dict,
+    tournament_path: Path,
+    match: dict,
+    wins: dict[int, int],
+    wins_needed: int,
+    entrants_by_seed: dict[int, dict],
+    game_dir: Path,
+    winner_seed: int,
+    result_label: str,
+    deferred_failures: list[AnnotationFailure] | None = None,
+) -> bool:
+    """Persist a finished game and update the surrounding match state."""
+    wins[winner_seed] += 1
+    match["games"].append(
+        {
+            "game_id": game_dir.name,
+            "winner_seed": winner_seed,
+        }
+    )
+    _save_tournament(tournament, tournament_path)
+    upload_and_export(
+        game_dir,
+        _ROOT,
+        deferred_failures=deferred_failures,
+    )
+
+    winner_display = entrants_by_seed[winner_seed]["display_name"]
+    print(
+        f"  {result_label}: #{winner_seed} {winner_display} wins "
+        f"({wins[match['seed_a']]}-{wins[match['seed_b']]})"
+    )
+    return _complete_match_if_decided(
+        tournament,
+        tournament_path,
+        match,
+        wins,
+        wins_needed,
+        entrants_by_seed,
+    )
 
 
 def _run_match_on(
@@ -440,7 +456,6 @@ def _run_match_on(
     tournament_path: Path,
     round_dict: dict,
     match: dict,
-    quiet: bool = False,
     skip_compile: bool = False,
     deferred_failures: list[AnnotationFailure] | None = None,
 ) -> None:
@@ -465,37 +480,22 @@ def _run_match_on(
                 f"\n--- Game {game_num} of {best_of} (series: {wins[seed_a]}-{wins[seed_b]}) ---"
             )
 
-        game_dir, winner_seed = _run_single_game(
-            tournament, seed_a, seed_b, quiet=quiet, skip_compile=skip_compile
-        )
-        wins[winner_seed] += 1
-
-        match["games"].append(
-            {
-                "game_id": game_dir.name,
-                "winner_seed": winner_seed,
-            }
-        )
-
-        # Save after each game so partial series survive crashes
-        _save_tournament(tournament, tournament_path)
-
-        # Upload to YouTube + export + blunder analysis (orchestrator skips
-        # these for tournament games; we handle it here after the bracket
-        # JSON is updated so the export finds the tournament context)
-        upload_and_export(
+        game_dir, winner_seed = _run_games(
+            tournament,
+            [(seed_a, seed_b)],
+            skip_compile=skip_compile,
+        )[0]
+        if _record_match_game(
+            tournament,
+            tournament_path,
+            match,
+            wins,
+            wins_needed,
+            entrants_by_seed,
             game_dir,
-            _ROOT,
-            deferred_failures=deferred_failures,
-        )
-
-        winner_display = entrants_by_seed[winner_seed]["display_name"]
-        print(
-            f"  Game {game_num}: #{winner_seed} {winner_display} wins ({wins[seed_a]}-{wins[seed_b]})"
-        )
-
-        if _complete_match_if_decided(
-            tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
+            winner_seed,
+            f"Game {game_num}",
+            deferred_failures,
         ):
             break
 
@@ -519,7 +519,7 @@ def _run_match_batch(
         if not _complete_match_if_decided(
             tournament, tournament_path, match, wins, wins_needed, entrants_by_seed
         ):
-            active_series.append(MatchSeries(round_dict, match, wins))
+            active_series.append(MatchSeries(match, wins))
 
     while active_series:
         for series in active_series:
@@ -530,57 +530,28 @@ def _run_match_batch(
                     f"(series: {series.wins[series.match['seed_a']]}-{series.wins[series.match['seed_b']]}) ---"
                 )
 
-        if len(active_series) == 1:
-            series = active_series[0]
-            results = [
-                _run_single_game(
-                    tournament,
-                    series.match["seed_a"],
-                    series.match["seed_b"],
-                    quiet=True,
-                    skip_compile=skip_compile,
-                )
-            ]
-        else:
-            results = _run_batch_games(
-                tournament,
-                [
-                    (series.match["seed_a"], series.match["seed_b"])
-                    for series in active_series
-                ],
-                quiet=True,
-                skip_compile=skip_compile,
-            )
+        results = _run_games(
+            tournament,
+            [
+                (series.match["seed_a"], series.match["seed_b"])
+                for series in active_series
+            ],
+            skip_compile=skip_compile,
+        )
 
         next_active: list[MatchSeries] = []
         for series, (game_dir, winner_seed) in zip(active_series, results):
-            series.wins[winner_seed] += 1
-            series.match["games"].append(
-                {
-                    "game_id": game_dir.name,
-                    "winner_seed": winner_seed,
-                }
-            )
-            _save_tournament(tournament, tournament_path)
-            upload_and_export(
-                game_dir,
-                _ROOT,
-                deferred_failures=deferred_failures,
-            )
-            winner_display = entrants_by_seed[winner_seed]["display_name"]
-            print(
-                f"  Match {series.match['match']} Game {len(series.match['games'])}: "
-                f"#{winner_seed} {winner_display} wins "
-                f"({series.wins[series.match['seed_a']]}-{series.wins[series.match['seed_b']]})"
-            )
-
-            if not _complete_match_if_decided(
+            if not _record_match_game(
                 tournament,
                 tournament_path,
                 series.match,
                 series.wins,
                 wins_needed,
                 entrants_by_seed,
+                game_dir,
+                winner_seed,
+                f"Match {series.match['match']} Game {len(series.match['games']) + 1}",
+                deferred_failures,
             ):
                 next_active.append(series)
 

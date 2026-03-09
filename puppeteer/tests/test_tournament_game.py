@@ -268,37 +268,8 @@ def test_make_runner_config_for_batch(tmp_path: Path):
     assert config.record is True
 
 
-def test_run_single_game_uses_shared_orchestrator(monkeypatch):
-    """Tournament single-game path should call run_orchestrator directly."""
-    monkeypatch.setattr(
-        tournament_game,
-        "build_game_config",
-        lambda *args, **kwargs: Path("/tmp/config.json"),
-    )
-    monkeypatch.setattr(
-        tournament_game,
-        "run_orchestrator",
-        lambda config, project_root: MagicMock(
-            exit_code=0,
-            sessions=[MagicMock(game_dir=Path("/tmp/game_1"))],
-        ),
-    )
-    monkeypatch.setattr(tournament_game, "read_game_winner", lambda game_dir: "winner")
-    monkeypatch.setattr(tournament_game, "map_winner_to_seed", lambda *args, **kwargs: 1)
-
-    game_dir, winner_seed = tournament_game._run_single_game(
-        {"entrants": []},
-        1,
-        4,
-        skip_compile=True,
-    )
-
-    assert game_dir == Path("/tmp/game_1")
-    assert winner_seed == 1
-
-
-def test_run_batch_games_uses_shared_orchestrator(monkeypatch):
-    """Tournament batch path should call run_orchestrator once for all games."""
+def test_run_games_reads_winners_in_session_order(monkeypatch):
+    """Shared game runner should map each finished game back to its matchup."""
     monkeypatch.setattr(
         tournament_game,
         "build_game_config",
@@ -326,7 +297,7 @@ def test_run_batch_games_uses_shared_orchestrator(monkeypatch):
         lambda winner_name, seed_a, seed_b, tournament: seed_a if winner_name == "alice" else seed_b,
     )
 
-    results = tournament_game._run_batch_games(
+    results = tournament_game._run_games(
         {"entrants": []},
         [(1, 8), (2, 7)],
         skip_compile=True,
@@ -336,6 +307,49 @@ def test_run_batch_games_uses_shared_orchestrator(monkeypatch):
         (Path("/tmp/game_1"), 1),
         (Path("/tmp/game_2"), 7),
     ]
+
+
+def test_record_match_game_updates_series_and_finishes_match(monkeypatch, tmp_path: Path):
+    tournament = {
+        "entrants": [
+            {"seed": 1, "display_name": "Alpha"},
+            {"seed": 4, "display_name": "Beta"},
+        ]
+    }
+    match = {
+        "seed_a": 1,
+        "seed_b": 4,
+        "winner_seed": None,
+        "games": [{"game_id": "existing", "winner_seed": 1}],
+    }
+    wins = {1: 1, 4: 0}
+    tournament_path = tmp_path / "tournament.json"
+    tournament_path.write_text("{}\n")
+    uploads: list[Path] = []
+
+    monkeypatch.setattr(
+        tournament_game,
+        "upload_and_export",
+        lambda game_dir, *_args, **_kwargs: uploads.append(game_dir),
+    )
+
+    finished = tournament_game._record_match_game(
+        tournament,
+        tournament_path,
+        match,
+        wins,
+        2,
+        {1: {"display_name": "Alpha"}, 4: {"display_name": "Beta"}},
+        Path("/tmp/game_2"),
+        1,
+        "Game 2",
+    )
+
+    assert finished is True
+    assert wins == {1: 2, 4: 0}
+    assert match["winner_seed"] == 1
+    assert [game["winner_seed"] for game in match["games"]] == [1, 1]
+    assert uploads == [Path("/tmp/game_2")]
 
 
 def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
@@ -359,8 +373,8 @@ def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
 
     monkeypatch.setattr(
         tournament_game,
-        "_run_single_game",
-        lambda *args, **kwargs: (Path("/tmp/game_2"), 1),
+        "_run_games",
+        lambda *args, **kwargs: [(Path("/tmp/game_2"), 1)],
     )
     monkeypatch.setattr(tournament_game, "upload_and_export", lambda *args, **kwargs: None)
 
@@ -374,6 +388,55 @@ def test_run_match_on_resumes_partial_series(monkeypatch, tmp_path: Path):
 
     assert match["winner_seed"] == 1
     assert [game["winner_seed"] for game in match["games"]] == [1, 1]
+
+
+def test_run_match_batch_plays_each_series_until_decided(monkeypatch, tmp_path: Path):
+    tournament = {
+        "best_of": 3,
+        "entrants": [
+            {"seed": 1, "display_name": "Alpha"},
+            {"seed": 4, "display_name": "Beta"},
+            {"seed": 2, "display_name": "Gamma"},
+            {"seed": 3, "display_name": "Delta"},
+        ],
+    }
+    batch = [
+        (
+            {"round": 1, "name": "Semifinals"},
+            {"match": 1, "seed_a": 1, "seed_b": 4, "winner_seed": None, "games": []},
+        ),
+        (
+            {"round": 1, "name": "Semifinals"},
+            {"match": 2, "seed_a": 2, "seed_b": 3, "winner_seed": None, "games": []},
+        ),
+    ]
+    tournament_path = tmp_path / "tournament.json"
+    tournament_path.write_text("{}\n")
+    results_by_call = [
+        [(Path("/tmp/g1"), 1), (Path("/tmp/g2"), 3)],
+        [(Path("/tmp/g3"), 1), (Path("/tmp/g4"), 3)],
+    ]
+    seen_matchups: list[list[tuple[int, int]]] = []
+
+    def fake_run_games(tournament_arg, matchups, skip_compile=False):
+        seen_matchups.append(matchups)
+        return results_by_call.pop(0)
+
+    monkeypatch.setattr(tournament_game, "_run_games", fake_run_games)
+    monkeypatch.setattr(tournament_game, "upload_and_export", lambda *args, **kwargs: None)
+
+    tournament_game._run_match_batch(
+        tournament,
+        tournament_path,
+        batch,
+        skip_compile=True,
+    )
+
+    assert seen_matchups == [[(1, 4), (2, 3)], [(1, 4), (2, 3)]]
+    assert batch[0][1]["winner_seed"] == 1
+    assert batch[1][1]["winner_seed"] == 3
+    assert [game["winner_seed"] for game in batch[0][1]["games"]] == [1, 1]
+    assert [game["winner_seed"] for game in batch[1][1]["games"]] == [3, 3]
 
 
 def test_main_parallel_uses_batch_runner(monkeypatch):

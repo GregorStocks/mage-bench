@@ -198,6 +198,62 @@ def test_run_tag_custom():
     assert config.run_tag == "custom-thing"
 
 
+def test_new_game_config_preserves_runtime_options(tmp_path: Path):
+    config_a = tmp_path / "a.json"
+    config_b = tmp_path / "b.json"
+    config_a.write_text("{}\n")
+    config_b.write_text("{}\n")
+
+    base = Config(
+        server="127.0.0.1",
+        start_port=18181,
+        user="spectator",
+        password="secret",
+        server_wait=321,
+        bridge_delay=9,
+        log_dir=tmp_path / "logs",
+        jvm_opens="--test-opens",
+        jvm_rendering="-Dtest.rendering=true",
+        config_file=config_a,
+        observer=True,
+        record=True,
+        record_output=tmp_path / "recording.mov",
+        num_games=4,
+        debug=True,
+        skip_compile=True,
+        port=19191,
+        timestamp="20260101_120000",
+    )
+
+    game = base.new_game_config(
+        config_file=config_b,
+        user="spectator2",
+        num_games=2,
+        port=20202,
+        timestamp="20260101_130000",
+    )
+
+    assert game.server == "127.0.0.1"
+    assert game.start_port == 18181
+    assert game.user == "spectator2"
+    assert game.password == "secret"
+    assert game.server_wait == 321
+    assert game.bridge_delay == 9
+    assert game.log_dir == tmp_path / "logs"
+    assert game.jvm_opens == "--test-opens"
+    assert game.jvm_rendering == "-Dtest.rendering=true"
+    assert game.config_file == config_b
+    assert game.observer is True
+    assert game.record is True
+    assert game.record_output == tmp_path / "recording.mov"
+    assert game.num_games == 2
+    assert game.debug is True
+    assert game.skip_compile is True
+    assert game.port == 20202
+    assert game.timestamp == "20260101_130000"
+    assert game.pilot_players == []
+
+
 # --- Preset tests ---
 
 SAMPLE_PRESETS = {

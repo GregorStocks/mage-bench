@@ -511,6 +511,37 @@ class Config:
         assert self.config_file is not None, "run_tag requires config_file to be set"
         return self.config_file.stem
 
+    def new_game_config(
+        self,
+        *,
+        config_file: Path | None = None,
+        user: str | None = None,
+        num_games: int | None = None,
+        port: int | None = None,
+        timestamp: str | None = None,
+    ) -> "Config":
+        """Create a fresh Config with this run's CLI/runtime options only."""
+        return Config(
+            server=self.server,
+            start_port=self.start_port,
+            user=self.user if user is None else user,
+            password=self.password,
+            server_wait=self.server_wait,
+            bridge_delay=self.bridge_delay,
+            log_dir=self.log_dir,
+            jvm_opens=self.jvm_opens,
+            jvm_rendering=self.jvm_rendering,
+            config_file=self.config_file if config_file is None else config_file,
+            observer=self.observer,
+            record=self.record,
+            record_output=self.record_output,
+            num_games=self.num_games if num_games is None else num_games,
+            debug=self.debug,
+            skip_compile=self.skip_compile,
+            port=self.port if port is None else port,
+            timestamp=self.timestamp if timestamp is None else timestamp,
+        )
+
     # CLI options
     config_file: Path | None = None
     batch_config_files: list[Path] = field(default_factory=list)

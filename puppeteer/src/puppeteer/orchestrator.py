@@ -1210,23 +1210,21 @@ def _setup_game(
         if base_config.batch_config_files:
             assert index < len(base_config.batch_config_files), f"Missing batch config for game {index + 1}/{num_games}"
             config_file = base_config.batch_config_files[index]
-        game_config = Config(
+        game_config = base_config.new_game_config(
             config_file=config_file,
-            observer=base_config.observer,
-            record=base_config.record,
+            user=f"spectator{index + 1}",
             num_games=num_games,
+            port=base_config.port,
+            timestamp=timestamp,
         )
         game_config.load_config(
             cross_game_used_names=used_player_names,
             cross_game_round_robin=cross_game_round_robin,
             cross_game_format_picks=cross_game_format_picks,
         )
-        game_config.port = base_config.port
-        game_config.timestamp = timestamp
         # Each spectator needs a unique username on the server to avoid
         # session conflicts (the server invalidates the old session when a
         # new client connects with the same username).
-        game_config.user = f"spectator{index + 1}"
         # Track all player names so later games can avoid duplicates.
         # Two bridge clients with the same XMage username create an
         # infinite disconnect/reconnect loop (same-host kick race).
