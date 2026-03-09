@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T20:20:32.267321+00:00",
+  "generatedAt": "2026-03-09T00:18:04.568317+00:00",
   "runs": [
     {
       "gameId": "game_20260302_005956_g1",
@@ -858,6 +858,116 @@
       "completionTokens": 35161,
       "cachedTokens": 0,
       "costUsd": 3.5668
+    },
+    {
+      "gameId": "game_20260308_142812_g1",
+      "ts": "2026-03-08T22:13:41.022939+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 151,
+      "promptTokens": 376226,
+      "completionTokens": 42910,
+      "cachedTokens": 0,
+      "costUsd": 2.9539
+    },
+    {
+      "gameId": "game_20260308_142812_g2",
+      "ts": "2026-03-08T22:14:25.955109+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 166,
+      "promptTokens": 401170,
+      "completionTokens": 44231,
+      "cachedTokens": 0,
+      "costUsd": 3.1116
+    },
+    {
+      "gameId": "game_20260308_142812_g3",
+      "ts": "2026-03-08T22:15:17.976985+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 160,
+      "promptTokens": 384858,
+      "completionTokens": 68762,
+      "cachedTokens": 0,
+      "costUsd": 3.6433
+    },
+    {
+      "gameId": "game_20260308_142812_g4",
+      "ts": "2026-03-08T22:16:02.276815+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 211,
+      "promptTokens": 541776,
+      "completionTokens": 39013,
+      "cachedTokens": 0,
+      "costUsd": 3.6842
+    },
+    {
+      "gameId": "game_20260308_151602_g1",
+      "ts": "2026-03-08T23:34:56.449695+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 228,
+      "promptTokens": 519486,
+      "completionTokens": 70499,
+      "cachedTokens": 0,
+      "costUsd": 4.3599
+    },
+    {
+      "gameId": "game_20260308_151602_g2",
+      "ts": "2026-03-08T23:35:48.648145+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 258,
+      "promptTokens": 738002,
+      "completionTokens": 61111,
+      "cachedTokens": 0,
+      "costUsd": 5.2178
+    },
+    {
+      "gameId": "game_20260308_151602_g3",
+      "ts": "2026-03-08T23:36:56.395061+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 252,
+      "promptTokens": 797832,
+      "completionTokens": 99669,
+      "cachedTokens": 0,
+      "costUsd": 6.4809
+    },
+    {
+      "gameId": "game_20260308_151602_g4",
+      "ts": "2026-03-08T23:37:27.179572+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 101,
+      "promptTokens": 251010,
+      "completionTokens": 18034,
+      "cachedTokens": 0,
+      "costUsd": 1.7059
+    },
+    {
+      "gameId": "game_20260308_163727_g1",
+      "ts": "2026-03-09T00:16:57.356188+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 198,
+      "promptTokens": 529967,
+      "completionTokens": 50114,
+      "cachedTokens": 0,
+      "costUsd": 3.9027
+    },
+    {
+      "gameId": "game_20260308_163727_g2",
+      "ts": "2026-03-09T00:17:41.580185+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 222,
+      "promptTokens": 570216,
+      "completionTokens": 51233,
+      "cachedTokens": 0,
+      "costUsd": 4.1319
     }
   ]
 }

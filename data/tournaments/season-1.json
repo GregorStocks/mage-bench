@@ -189,15 +189,37 @@
           "match": 2,
           "seed_a": 8,
           "seed_b": 9,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 9,
+          "games": [
+            {
+              "game_id": "game_20260308_142812_g1",
+              "winner_seed": 9
+            },
+            {
+              "game_id": "game_20260308_151602_g1",
+              "winner_seed": 8
+            },
+            {
+              "game_id": "game_20260308_163727_g1",
+              "winner_seed": 9
+            }
+          ]
         },
         {
           "match": 3,
           "seed_a": 4,
           "seed_b": 13,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 4,
+          "games": [
+            {
+              "game_id": "game_20260308_142812_g2",
+              "winner_seed": 4
+            },
+            {
+              "game_id": "game_20260308_151602_g2",
+              "winner_seed": 4
+            }
+          ]
         },
         {
           "match": 4,
@@ -219,15 +241,37 @@
           "match": 5,
           "seed_a": 2,
           "seed_b": 15,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 2,
+          "games": [
+            {
+              "game_id": "game_20260308_142812_g3",
+              "winner_seed": 2
+            },
+            {
+              "game_id": "game_20260308_151602_g3",
+              "winner_seed": 2
+            }
+          ]
         },
         {
           "match": 6,
           "seed_a": 7,
           "seed_b": 10,
-          "winner_seed": null,
-          "games": []
+          "winner_seed": 7,
+          "games": [
+            {
+              "game_id": "game_20260308_142812_g4",
+              "winner_seed": 7
+            },
+            {
+              "game_id": "game_20260308_151602_g4",
+              "winner_seed": 10
+            },
+            {
+              "game_id": "game_20260308_163727_g2",
+              "winner_seed": 7
+            }
+          ]
         },
         {
           "match": 7,
