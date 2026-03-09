@@ -662,13 +662,14 @@ def _run_opponent_autopass(bridge: BridgeSession) -> None:
     """Auto-pass for the opponent until the game ends.
 
     Uses ``pass_priority(until=end_of_turn)`` to batch-handle callbacks
-    inside Java without per-callback HTTP round-trips.  The ``end_of_turn``
-    yield auto-passes all GAME_SELECT callbacks (skipping the playable-cards
-    check) until the end step on both players' turns.
+    inside Java without per-callback HTTP round-trips. ``until=end_of_turn``
+    now clears when the turn advances, so the harness must explicitly decline
+    ``playable_cards`` prompts on the next turn.
 
     Falls back to ``choose_action`` only for the callbacks that
     ``pass_priority`` cannot handle automatically (combat declarations,
-    GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE).
+    GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE, or a playable-cards prompt that
+    the autopass opponent should decline).
     """
     while True:
         result = bridge.call_tool("pass_priority", {"until": "end_of_turn"})
@@ -676,7 +677,7 @@ def _run_opponent_autopass(bridge: BridgeSession) -> None:
         if _is_game_over(data):
             break
         stop_reason = data.get("stop_reason")
-        if stop_reason in ("non_priority_action", "combat"):
+        if stop_reason in ("non_priority_action", "combat", "playable_cards"):
             # pass_priority can't auto-handle these; use choose_action.
             result = bridge.call_tool("choose_action", {"choice": "no"})
             data = json.loads(result)

@@ -124,6 +124,7 @@ public class BridgeCallbackHandler {
     private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
+    private volatile boolean startGameArmed = false; // keepAlive join_table must arm the next START_GAME
     private volatile boolean superseded = false; // set when createFreshForNextGame() replaces this handler
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
@@ -502,6 +503,7 @@ public class BridgeCallbackHandler {
         BridgeCallbackHandler fresh = createFreshForNextGame();
         mage.cards.decks.DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
+        fresh.startGameArmed = true;
         // Set expectedStartTableId BEFORE joining so stale START_GAME callbacks
         // (from server reconnection replaying old games) are rejected during the
         // window between createFreshForNextGame() and jh.joinTable().
@@ -4866,6 +4868,12 @@ public class BridgeCallbackHandler {
     private void handleStartGame(UUID gameId, ClientCallback callback) {
         TableClientMessage message = (TableClientMessage) callback.getData();
         UUID startTableId = message.getCurrentTableId();
+        if (keepAliveAfterGame && !startGameArmed) {
+            logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
+                    + startTableId + " because join_table has not armed a next game"
+                    + " (gameId=" + gameId + ")");
+            return;
+        }
         UUID expectedTableId = expectedStartTableId;
         if (expectedTableId != null && !expectedTableId.equals(startTableId)) {
             logger.warn("[" + client.getUsername() + "] Ignoring START_GAME for table "
@@ -4874,6 +4882,7 @@ public class BridgeCallbackHandler {
             return;
         }
         expectedStartTableId = null;
+        startGameArmed = false;
         UUID playerId = message.getPlayerId();
         activeGames.put(gameId, playerId);
         currentGameId = gameId;
