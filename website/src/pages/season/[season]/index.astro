@@ -196,6 +196,23 @@ function buildTwoSidedBracket(tournament: any) {
     return null;
   }
 
+  // Propagate winners forward: in single elimination, consecutive match pairs
+  // (2i, 2i+1) in round N feed into match i of round N+1.
+  for (let r = 1; r < rounds.length; r++) {
+    const prev = rounds[r - 1].matches;
+    const curr = rounds[r].matches;
+    for (let m = 0; m < curr.length; m++) {
+      const feederA = prev[m * 2];
+      const feederB = prev[m * 2 + 1];
+      if (feederA?.winner_seed != null && curr[m].seed_a == null) {
+        curr[m].seed_a = feederA.winner_seed;
+      }
+      if (feederB?.winner_seed != null && curr[m].seed_b == null) {
+        curr[m].seed_b = feederB.winner_seed;
+      }
+    }
+  }
+
   // Split each round's matches into left half and right half
   const leftRounds: any[] = [];
   const rightRounds: any[] = [];
