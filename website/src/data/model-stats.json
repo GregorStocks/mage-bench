@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T06:39:40.701292+00:00",
+  "generatedAt": "2026-03-09T10:02:26.331628+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -500,23 +500,23 @@
           "latencySamples": 1060
         },
         "45": {
-          "gamesPlayed": 4,
-          "wins": 4,
+          "gamesPlayed": 7,
+          "wins": 6,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 22.1388,
-          "totalToolCallsOk": 344,
-          "totalToolCallsFailed": 2,
-          "totalThinkingTimeSecs": 1609.3,
-          "totalPromptTokens": 4216870,
-          "totalCompletionTokens": 42174,
-          "totalCachedTokens": 3169822,
-          "totalReasoningTokens": 91,
-          "successfulResponses": 333,
+          "totalCostUsd": 46.3207,
+          "totalToolCallsOk": 667,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 3423.5,
+          "totalPromptTokens": 8799610,
+          "totalCompletionTokens": 92902,
+          "totalCachedTokens": 6598756,
+          "totalReasoningTokens": 163,
+          "successfulResponses": 659,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 0.7,
-          "latencyP95": 8.2,
-          "latencySamples": 683
+          "latencyP50": 1.0,
+          "latencyP95": 8.8,
+          "latencySamples": 1339
         }
       }
     },
@@ -2108,26 +2108,26 @@
           "latencySamples": 259
         },
         "45": {
-          "gamesPlayed": 6,
-          "wins": 4,
+          "gamesPlayed": 9,
+          "wins": 6,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 11.6748,
-          "totalToolCallsOk": 560,
-          "totalToolCallsFailed": 3,
-          "totalThinkingTimeSecs": 6307.9,
-          "totalPromptTokens": 3720227,
-          "totalCompletionTokens": 352867,
-          "totalCachedTokens": 1496024,
-          "totalReasoningTokens": 312961,
-          "successfulResponses": 519,
+          "totalCostUsd": 17.9214,
+          "totalToolCallsOk": 899,
+          "totalToolCallsFailed": 7,
+          "totalThinkingTimeSecs": 10669.0,
+          "totalPromptTokens": 5857084,
+          "totalCompletionTokens": 517281,
+          "totalCachedTokens": 2360829,
+          "totalReasoningTokens": 472596,
+          "successfulResponses": 838,
           "errors": {
-            "timeout": 2,
-            "BadRequestError": 9
+            "timeout": 3,
+            "BadRequestError": 16
           },
           "contextResets": 0,
-          "latencyP50": 0.6,
-          "latencyP95": 29.9,
-          "latencySamples": 1102
+          "latencyP50": 0.5,
+          "latencyP95": 30.3,
+          "latencySamples": 1776
         }
       }
     },
@@ -4838,23 +4838,23 @@
           "latencySamples": 514
         },
         "45": {
-          "gamesPlayed": 5,
-          "wins": 4,
+          "gamesPlayed": 8,
+          "wins": 5,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 16.1241,
-          "totalToolCallsOk": 781,
+          "totalCostUsd": 24.0837,
+          "totalToolCallsOk": 1142,
           "totalToolCallsFailed": 7,
-          "totalThinkingTimeSecs": 6135.2,
-          "totalPromptTokens": 7338019,
-          "totalCompletionTokens": 234473,
-          "totalCachedTokens": 5454464,
-          "totalReasoningTokens": 197774,
-          "successfulResponses": 786,
+          "totalThinkingTimeSecs": 9455.7,
+          "totalPromptTokens": 10935021,
+          "totalCompletionTokens": 353394,
+          "totalCachedTokens": 8149504,
+          "totalReasoningTokens": 300074,
+          "successfulResponses": 1146,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 0.9,
-          "latencyP95": 18.6,
-          "latencySamples": 1580
+          "latencyP50": 0.8,
+          "latencyP95": 20.0,
+          "latencySamples": 2306
         }
       }
     },
@@ -4903,23 +4903,23 @@
           "latencySamples": 1702
         },
         "45": {
-          "gamesPlayed": 5,
-          "wins": 4,
+          "gamesPlayed": 8,
+          "wins": 5,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 20.1177,
-          "totalToolCallsOk": 659,
-          "totalToolCallsFailed": 3,
-          "totalThinkingTimeSecs": 7378.2,
-          "totalPromptTokens": 6305592,
-          "totalCompletionTokens": 290253,
-          "totalCachedTokens": 4513536,
-          "totalReasoningTokens": 260146,
-          "successfulResponses": 657,
+          "totalCostUsd": 32.1276,
+          "totalToolCallsOk": 1033,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 13565.6,
+          "totalPromptTokens": 9714628,
+          "totalCompletionTokens": 522744,
+          "totalCachedTokens": 6867968,
+          "totalReasoningTokens": 475967,
+          "successfulResponses": 1029,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 0.6,
-          "latencyP95": 26.0,
-          "latencySamples": 1325
+          "latencyP50": 0.7,
+          "latencyP95": 30.5,
+          "latencySamples": 2078
         }
       }
     },

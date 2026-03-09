@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T06:39:48.901676+00:00",
+  "generatedAt": "2026-03-09T10:02:34.709446+00:00",
   "runs": [
     {
       "gameId": "game_20260302_005956_g1",
@@ -1144,6 +1144,72 @@
       "completionTokens": 40997,
       "cachedTokens": 0,
       "costUsd": 2.3399
+    },
+    {
+      "gameId": "game_20260308_234838_g1",
+      "ts": "2026-03-09T07:36:37.204863+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 200,
+      "promptTokens": 578366,
+      "completionTokens": 56800,
+      "cachedTokens": 0,
+      "costUsd": 4.3118
+    },
+    {
+      "gameId": "game_20260308_234838_g2",
+      "ts": "2026-03-09T07:37:22.966306+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 151,
+      "promptTokens": 354095,
+      "completionTokens": 46479,
+      "cachedTokens": 0,
+      "costUsd": 2.9324
+    },
+    {
+      "gameId": "game_20260309_003722_g1",
+      "ts": "2026-03-09T08:16:36.585604+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 198,
+      "promptTokens": 524746,
+      "completionTokens": 59139,
+      "cachedTokens": 0,
+      "costUsd": 4.1022
+    },
+    {
+      "gameId": "game_20260309_003722_g2",
+      "ts": "2026-03-09T08:21:43.131814+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 125,
+      "promptTokens": 286812,
+      "completionTokens": 36877,
+      "cachedTokens": 0,
+      "costUsd": 2.356
+    },
+    {
+      "gameId": "game_20260309_012143_g1",
+      "ts": "2026-03-09T10:01:07.948390+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 132,
+      "promptTokens": 318156,
+      "completionTokens": 38915,
+      "cachedTokens": 0,
+      "costUsd": 2.5637
+    },
+    {
+      "gameId": "game_20260309_012143_g2",
+      "ts": "2026-03-09T10:02:09.530667+00:00",
+      "version": 32,
+      "model": "anthropic/claude-opus-4.6",
+      "decisionsAnalyzed": 221,
+      "promptTokens": 602961,
+      "completionTokens": 74515,
+      "cachedTokens": 0,
+      "costUsd": 4.8777
     }
   ]
 }

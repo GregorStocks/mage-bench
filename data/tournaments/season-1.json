@@ -399,17 +399,43 @@
       "matches": [
         {
           "match": 1,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 1,
+          "seed_b": 4,
+          "winner_seed": 1,
+          "games": [
+            {
+              "game_id": "game_20260308_234838_g1",
+              "winner_seed": 1
+            },
+            {
+              "game_id": "game_20260309_003722_g1",
+              "winner_seed": 4
+            },
+            {
+              "game_id": "game_20260309_012143_g1",
+              "winner_seed": 1
+            }
+          ]
         },
         {
           "match": 2,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 7,
+          "seed_b": 3,
+          "winner_seed": 3,
+          "games": [
+            {
+              "game_id": "game_20260308_234838_g2",
+              "winner_seed": 3
+            },
+            {
+              "game_id": "game_20260309_003722_g2",
+              "winner_seed": 7
+            },
+            {
+              "game_id": "game_20260309_012143_g2",
+              "winner_seed": 3
+            }
+          ]
         }
       ]
     },
