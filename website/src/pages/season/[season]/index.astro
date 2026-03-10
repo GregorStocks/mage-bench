@@ -430,18 +430,17 @@ function matchRenderData(match: any) {
                         </div>
                       );
                     })}
-                    {/* Champion */}
-                    {(() => {
-                      const finalMatch = bracket.finals.matches[0];
-                      const champion = finalMatch?.winner_seed ? entrantsBySeed[finalMatch.winner_seed] : null;
-                      return champion ? (
-                        <div class="champion-card">
-                          <span class="champion-trophy">&#127942;</span>
-                          <span class="champion-name">{champion.display_name}</span>
-                        </div>
-                      ) : null;
-                    })()}
                   </div>
+                  {(() => {
+                    const finalMatch = bracket.finals.matches[0];
+                    const champion = finalMatch?.winner_seed ? entrantsBySeed[finalMatch.winner_seed] : null;
+                    return champion ? (
+                      <div class="champion-card">
+                        <span class="champion-trophy">&#127942;</span>
+                        <span class="champion-name">{champion.display_name}</span>
+                      </div>
+                    ) : null;
+                  })()}
                 </div>
                 <div class="bracket-conn-col bracket-conn-col-right">
                   <div class="bracket-conn-item" />
@@ -792,6 +791,7 @@ function matchRenderData(match: any) {
 
   .bracket-match-wrap {
     padding: 0 0.5rem;
+    position: relative;
   }
 
   .bracket-match {
@@ -900,6 +900,10 @@ function matchRenderData(match: any) {
     gap: 3px;
     justify-content: center;
     margin-top: 4px;
+    position: absolute;
+    left: 0.5rem;
+    right: 0.5rem;
+    top: 100%;
   }
 
   .series-game {
