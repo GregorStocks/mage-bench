@@ -258,6 +258,7 @@ const hasDraft = !!tournament.draft;
     gap: 0.4rem;
     padding: 0.1rem 0;
     color: var(--text-secondary);
+    cursor: default;
   }
 
   .deck-card-qty {
@@ -277,10 +278,6 @@ const hasDraft = !!tournament.draft;
     font-size: 0.65rem;
     text-transform: uppercase;
     flex-shrink: 0;
-  }
-
-  .deck-card-row {
-    cursor: default;
   }
 
   .deck-card-row[data-set]:hover .deck-card-name {
@@ -327,30 +324,32 @@ const hasDraft = !!tournament.draft;
   }
 </style>
 
+<script is:inline src="/game-renderer.js"></script>
 <script is:inline>
   (function() {
     var preview = document.getElementById('card-preview');
     var img = document.getElementById('preview-image');
-    var activeRow = null;
+    var hovering = false;
+
+    // Reuse the game viewer's mouse-following positioning
+    GameRenderer.setupMousePreview(preview);
 
     img.addEventListener('load', function() {
-      // Only show if still hovering the row that requested this image
-      if (activeRow) preview.classList.remove('hidden');
+      if (hovering) preview.classList.remove('hidden');
     });
 
     document.addEventListener('mouseenter', function(e) {
+      if (!e.target.closest) return;
       var row = e.target.closest('.deck-card-row[data-set]');
       if (!row) return;
-      activeRow = row;
+      hovering = true;
       var set = row.dataset.set;
       var num = row.dataset.num;
       if (!set || !num) return;
       var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
       if (img.src === url && img.complete && img.naturalWidth > 0) {
-        // Already cached — show immediately
         preview.classList.remove('hidden');
       } else {
-        // Hide until loaded
         preview.classList.add('hidden');
         img.src = url;
       }
@@ -358,25 +357,11 @@ const hasDraft = !!tournament.draft;
     }, true);
 
     document.addEventListener('mouseleave', function(e) {
+      if (!e.target.closest) return;
       var row = e.target.closest('.deck-card-row[data-set]');
       if (!row) return;
-      activeRow = null;
+      hovering = false;
       preview.classList.add('hidden');
     }, true);
-
-    document.addEventListener('mousemove', function(e) {
-      if (preview.classList.contains('hidden')) return;
-      var x = e.clientX + 20;
-      var y = e.clientY - 20;
-      var vw = window.innerWidth;
-      var vh = window.innerHeight;
-      var w = preview.offsetWidth || 250;
-      var h = preview.offsetHeight || 350;
-      if (x + w > vw) x = e.clientX - w - 20;
-      if (y + h > vh) y = vh - h - 8;
-      if (y < 8) y = 8;
-      preview.style.left = x + 'px';
-      preview.style.top = y + 'px';
-    });
   })();
 </script>
