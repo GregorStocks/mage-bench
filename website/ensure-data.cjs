@@ -7,7 +7,6 @@ const fs = require("fs");
 
 const REQUIRED = [
   "src/data/benchmark-results.json",
-  "src/data/games-metadata.json",
   "src/data/model-stats.json",
 ];
 

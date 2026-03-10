@@ -7,7 +7,6 @@ from pathlib import Path
 
 from puppeteer.leaderboard import (
     generate_blunder_stats,
-    generate_games_metadata,
     generate_internals_data,
     generate_leaderboard_file,
     generate_model_stats,
@@ -33,7 +32,6 @@ def generate_all_website_data(
     generate_model_stats(games_dir, data_dir, models_json)
     generate_internals_data(games_dir, data_dir, models_json)
     generate_blunder_stats(data_dir)
-    generate_games_metadata(games_dir, data_dir)
 
 
 def main() -> None:
