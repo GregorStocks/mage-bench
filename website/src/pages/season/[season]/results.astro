@@ -443,11 +443,13 @@ const hasDraft = !!tournament.draft;
 
             {/* Right half: SF <- QF <- R1 (reversed order in DOM) */}
             <div class="bracket-half bracket-half-right">
-              {[...bracket.rightRounds].reverse().map((round: any, ri: number) => (
+              {(() => {
+                const reversed = [...bracket.rightRounds].reverse();
+                return reversed.map((round: any, ri: number) => (
                 <>
-                  {ri < bracket.rightRounds.length - 1 && (
+                  {ri > 0 && (
                     <div class="bracket-conn-col bracket-conn-col-right">
-                      {Array.from({ length: round.matches.length }).map((_: any) => (
+                      {Array.from({ length: reversed[ri - 1].matches.length }).map((_: any) => (
                         <div class="bracket-conn-item" />
                       ))}
                     </div>
@@ -508,7 +510,8 @@ const hasDraft = !!tournament.draft;
                     </div>
                   </div>
                 </>
-              ))}
+                ));
+              })()}
             </div>
           </div>
         </div>
@@ -671,6 +674,7 @@ const hasDraft = !!tournament.draft;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 1rem;
+    max-width: 100%;
   }
 
   .bracket-two-sided {
@@ -963,6 +967,16 @@ const hasDraft = !!tournament.draft;
 
   .bracket-conn-col-right .bracket-conn-item {
     background: linear-gradient(var(--border-default), var(--border-default)) left center / 50% 2px no-repeat;
+  }
+
+  /* Center connectors: straight lines (1 match → 1 match, no merge) */
+  .bracket-center > .bracket-conn-col .bracket-conn-item::before,
+  .bracket-center > .bracket-conn-col .bracket-conn-item::after {
+    display: none;
+  }
+
+  .bracket-center > .bracket-conn-col .bracket-conn-item {
+    background: linear-gradient(var(--border-default), var(--border-default)) center / 100% 2px no-repeat;
   }
 
   .bracket-champion .round-matches {
