@@ -425,6 +425,7 @@ const hasDraft = !!tournament.draft;
                     );
                   })}
                 </div>
+                {/* Champion */}
                 {(() => {
                   const finalMatch = bracket.finals.matches[0];
                   const champion = finalMatch?.winner_seed ? entrantsBySeed[finalMatch.winner_seed] : null;
