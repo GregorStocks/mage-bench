@@ -1158,3 +1158,66 @@ def generate_blunder_stats(data_dir: Path) -> Path:
     output_path = data_dir / "blunder-internals.json"
     _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
     return output_path
+
+
+def generate_games_metadata(games_dir: Path, data_dir: Path) -> Path:
+    """Generate a lightweight metadata index for all exported games.
+
+    The Astro pages for /games, /season/*/games, and /season/*/results need
+    per-game metadata (players, blunder scores, etc.) but only use a few
+    top-level fields.  Without this index they read and parse every game JSON
+    file (~1 GB) on each SSR request, which takes 4-5 s.  This function
+    pre-computes the metadata into a single ~200 KB file.
+
+    Writes data_dir/games-metadata.json and returns its path.
+    """
+    games: list[dict[str, Any]] = []
+    for gz_path in _glob_game_files(games_dir):
+        game = _load_game_file(gz_path)
+        _backfill_player_stats(game)
+
+        # Strip bulky fields (e.g. MCP tool definitions) from player objects.
+        _STRIP_PLAYER_KEYS = {"tools"}
+        players = [{k: v for k, v in p.items() if k not in _STRIP_PLAYER_KEYS} for p in game.get("players", [])]
+        entry: dict[str, Any] = {
+            "id": game["id"],
+            "timestamp": game.get("timestamp", ""),
+            "totalTurns": game.get("totalTurns", 0),
+            "winner": game.get("winner"),
+            "players": players,
+            "deckType": game.get("deckType", ""),
+            "harnessEpoch": game.get("harnessEpoch"),
+            "season": game.get("season", 0),
+        }
+        if game.get("youtubeUrl"):
+            entry["youtubeUrl"] = game["youtubeUrl"]
+        if game.get("tournament"):
+            entry["tournament"] = game["tournament"]
+
+        annotations = game.get("annotations")
+        if annotations is not None:
+            entry["blunderScriptVersion"] = game.get("blunderScriptVersion")
+            total_turns = game.get("totalTurns", 0)
+            if total_turns and total_turns > 0:
+                weighted: dict[str, float] = {p.get("name", ""): 0.0 for p in players}
+                for ann in annotations:
+                    if ann.get("type") != "blunder":
+                        continue
+                    sev = ann.get("severity", "")
+                    player = ann.get("player", "Unknown")
+                    weighted[player] = weighted.get(player, 0.0) + BLUNDER_WEIGHTS.get(sev, 0)
+                entry["blunderScoreByPlayer"] = {p: round(w / total_turns, 2) for p, w in weighted.items()}
+
+        games.append(entry)
+
+    games.sort(key=lambda g: g["id"], reverse=True)
+
+    output: dict[str, Any] = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "games": games,
+    }
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    output_path = data_dir / "games-metadata.json"
+    _write_if_changed(output_path, json.dumps(output, indent=2) + "\n")
+    return output_path
