@@ -280,7 +280,10 @@ const hasDraft = !!tournament.draft;
                             {match.seed_a != null ? (
                               <>
                                 <span class="bracket-seed-num">#{match.seed_a}</span>
-                                <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                <span class="bracket-player-info">
+                                  <span class="bracket-player-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                                  {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
+                                </span>
                                 {score && <span class="bracket-wins">{score.winsA}</span>}
                                 {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
                               </>
@@ -292,7 +295,10 @@ const hasDraft = !!tournament.draft;
                             {match.seed_b != null ? (
                               <>
                                 <span class="bracket-seed-num">#{match.seed_b}</span>
-                                <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                <span class="bracket-player-info">
+                                  <span class="bracket-player-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                                  {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
+                                </span>
                                 {score && <span class="bracket-wins">{score.winsB}</span>}
                                 {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
                               </>
