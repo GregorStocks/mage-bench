@@ -158,6 +158,7 @@ _PROVIDER_DISPLAY: dict[str, str] = {
     "mistralai": "Mistral AI",
     "deepseek": "DeepSeek",
     "meta-llama": "Meta",
+    "x-ai": "xAI",
 }
 
 
