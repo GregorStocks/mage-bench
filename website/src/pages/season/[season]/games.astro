@@ -2,9 +2,9 @@
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
 import benchmarkData from '../../../data/benchmark-results.json';
+import { loadAllGames } from '../../../utils/load-games';
 import fs from 'node:fs';
 import path from 'node:path';
-import zlib from 'node:zlib';
 
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 
@@ -19,114 +19,8 @@ export function getStaticPaths() {
 const { season } = Astro.params;
 const seasonNum = parseInt(season!, 10);
 
-// Load games for this season (only free-play games)
-const gamesDir = path.join(process.cwd(), 'public', 'games');
-const games: Array<Record<string, unknown>> = [];
-if (fs.existsSync(gamesDir)) {
-  for (const file of fs.readdirSync(gamesDir)) {
-    if (!file.startsWith('game_')) continue;
-    let data;
-    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
-      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
-    } else if (file.endsWith('.json.gz')) {
-      const jsonPath = path.join(gamesDir, file.replace('.json.gz', '.json'));
-      if (fs.existsSync(jsonPath)) continue;
-      const compressed = fs.readFileSync(path.join(gamesDir, file));
-      data = JSON.parse(zlib.gunzipSync(compressed).toString());
-    } else {
-      continue;
-    }
-    const gameSeason = data.season ?? 0;
-    if (gameSeason !== seasonNum) continue;
-
-    // Skip tournament games — this page is free play only
-    if (data.tournament) continue;
-
-    const players = data.players || [];
-    if (players.length > 0 && !players.some((p: any) => p.toolCallsOk != null)) {
-      const toolOk: Record<string, number> = {};
-      const toolFailed: Record<string, number> = {};
-      for (const ev of (data.llmEvents || [])) {
-        if (ev.type !== 'tool_call' || !ev.player) continue;
-        let isFail = false;
-        if (ev.result) {
-          try {
-            const r = JSON.parse(ev.result);
-            if (r && typeof r === 'object' && r.success === false) isFail = true;
-          } catch {}
-        }
-        if (isFail) toolFailed[ev.player] = (toolFailed[ev.player] || 0) + 1;
-        else toolOk[ev.player] = (toolOk[ev.player] || 0) + 1;
-      }
-      for (const p of players) {
-        if (toolOk[p.name] != null || toolFailed[p.name] != null) {
-          p.toolCallsOk = toolOk[p.name] || 0;
-          p.toolCallsFailed = toolFailed[p.name] || 0;
-        }
-      }
-    }
-    if (players.length > 0 && !players.some((p: any) => p.thinkingTimeSecs != null)) {
-      const llmEvents: any[] = data.llmEvents || [];
-      if (llmEvents.length > 1) {
-        const thinking: Record<string, number> = {};
-        for (let i = 0; i < llmEvents.length - 1; i++) {
-          const player = llmEvents[i].player;
-          if (!player) continue;
-          const tsA = llmEvents[i].ts;
-          const tsB = llmEvents[i + 1].ts;
-          if (!tsA || !tsB) continue;
-          const gap = (new Date(tsB).getTime() - new Date(tsA).getTime()) / 1000;
-          if (gap > 0) thinking[player] = (thinking[player] || 0) + gap;
-        }
-        for (const p of players) {
-          if (thinking[p.name] != null) {
-            p.thinkingTimeSecs = Math.round(thinking[p.name] * 10) / 10;
-          }
-        }
-      }
-    }
-    const entry: Record<string, unknown> = {
-      id: data.id,
-      timestamp: data.timestamp,
-      totalTurns: data.totalTurns,
-      winner: data.winner,
-      players: players,
-      deckType: data.deckType || '',
-      harnessEpoch: data.harnessEpoch ?? null,
-      season: data.season ?? 0,
-      tournament: data.tournament ?? null,
-    };
-    if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
-    const annotations = data.annotations;
-    if (annotations == null) {
-      throw new Error(`Game ${data.id} has no annotations`);
-    }
-    const totalTurns = data.totalTurns as number;
-    if (!totalTurns || totalTurns <= 0) {
-      throw new Error(`Game ${data.id} has no turns`);
-    }
-    const WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
-    const weightedByPlayer: Record<string, number> = {};
-    for (const p of players) {
-      weightedByPlayer[(p as any).name] = 0;
-    }
-    for (const a of annotations) {
-      const ann = a as Record<string, unknown>;
-      if (ann.type !== "blunder") continue;
-      const sev = ann.severity as string;
-      const player = (ann.player as string) || "Unknown";
-      weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (WEIGHTS[sev] || 0);
-    }
-    const scoreByPlayer: Record<string, number> = {};
-    for (const [player, weight] of Object.entries(weightedByPlayer)) {
-      scoreByPlayer[player] = Math.round((weight / totalTurns) * 100) / 100;
-    }
-    entry.blunderScoreByPlayer = scoreByPlayer;
-    entry.blunderScriptVersion = data.blunderScriptVersion ?? null;
-    games.push(entry);
-  }
-}
-games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
+// Free-play games for this season
+const games = loadAllGames().filter(g => (g.season ?? 0) === seasonNum && !g.tournament);
 
 // Check for tournament existence for SeasonNav props
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
