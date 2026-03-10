@@ -65,7 +65,7 @@ import Base from '../../layouts/Base.astro';
   #connection-status {
     text-align: center;
     padding: 4rem 0;
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   #connection-status.error {
@@ -80,8 +80,8 @@ import Base from '../../layouts/Base.astro';
     align-items: baseline;
     gap: 1rem;
     padding: 0.75rem 1rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     margin-bottom: 0.75rem;
   }
@@ -94,7 +94,7 @@ import Base from '../../layouts/Base.astro';
 
   #turn-info {
     font-size: 0.85rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
     text-align: right;
   }
 

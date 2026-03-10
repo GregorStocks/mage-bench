@@ -128,12 +128,15 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 <style>
   h1 {
     font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.02em;
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
 
   .subtitle {
     color: var(--text-secondary);
+    font-size: 1.05rem;
     margin-bottom: 2rem;
   }
 
@@ -152,18 +155,19 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .format-tab {
     font-family: inherit;
-    font-size: 0.85rem;
-    padding: 0.4rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
   }
 
   .format-tab:hover {
-    border-color: var(--accent-primary);
+    border-color: var(--text-muted);
     color: var(--text-primary);
   }
 
@@ -194,8 +198,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .tab-count {
-    font-size: 0.75rem;
-    opacity: 0.7;
+    font-size: 0.8rem;
+    opacity: 0.6;
     margin-left: 0.2rem;
   }
 
@@ -211,26 +215,26 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .model-tabs-label {
-    font-size: 0.8rem;
-    color: #a0a0b8;
+    font-size: 0.85rem;
+    color: var(--text-muted);
     align-self: center;
     margin-right: 0.2rem;
   }
 
   .model-tab {
     font-family: inherit;
-    font-size: 0.8rem;
-    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.75rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
   }
 
   .model-tab:hover {
-    border-color: var(--accent-primary);
+    border-color: var(--text-muted);
     color: var(--text-primary);
   }
 
@@ -249,8 +253,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .filter-label {
-    color: #a0a0b8;
-    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
   }
 
   .filter-chip {
@@ -258,8 +262,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     align-items: center;
     gap: 0.35rem;
     font-family: inherit;
-    font-size: 0.8rem;
-    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.7rem;
     background: rgba(233, 69, 96, 0.15);
     border: 1px solid #e94560;
     border-radius: 20px;
@@ -284,7 +288,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   .filter-clear {
     background: none;
     border: none;
-    color: #a0a0b8;
+    color: var(--text-muted);
     cursor: pointer;
     font-family: inherit;
     font-size: 0.8rem;
@@ -292,11 +296,11 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .filter-clear:hover {
-    color: #e0e0e0;
+    color: var(--text-primary);
   }
 
   .filter-count {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.85rem;
     margin-left: auto;
   }
@@ -336,9 +340,9 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 1rem;
-    background: rgba(15, 52, 96, 0.3);
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
-    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.9rem;
   }
 
   .game-date {
@@ -346,12 +350,12 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .format-badge {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
+    padding: 0.15rem 0.45rem;
     border-radius: 3px;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
   }
 
   .format-standard {
@@ -380,26 +384,26 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .winner-badge {
     display: inline-block;
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--bg-base);
     background: var(--color-success);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
     vertical-align: middle;
     margin-left: 0.4rem;
   }
 
   .timeout-badge {
     display: inline-block;
-    font-size: 0.55rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--bg-base);
     background: var(--color-warning);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
     vertical-align: middle;
     margin-left: 0.4rem;
   }
@@ -422,8 +426,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .player-cell {
     padding: 0.6rem 1rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.3);
-    border-right: 1px solid rgba(15, 52, 96, 0.3);
+    border-bottom: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
   }
 
   .player-cell:nth-child(2n) {
@@ -441,7 +445,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .player-name {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 0.15rem;
     display: flex;
     align-items: center;
@@ -449,15 +453,15 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .player-model-inline {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
+    font-size: 0.8rem;
+    color: var(--text-muted);
     font-weight: 400;
   }
 
   .player-placement {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    padding: 0.05rem 0.3rem;
+    padding: 0.1rem 0.35rem;
     border-radius: 3px;
     flex-shrink: 0;
   }
@@ -479,7 +483,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .player-placement.placement-4 {
     background: rgba(160, 160, 184, 0.2);
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   .player-cell.placement-1 {
@@ -495,26 +499,26 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .player-cell.placement-4 {
-    box-shadow: inset 3px 0 0 #a0a0b8;
+    box-shadow: inset 3px 0 0 var(--text-muted);
   }
 
   .player-commander {
-    font-size: 0.8rem;
-    color: #a0a0b8;
+    font-size: 0.85rem;
+    color: var(--text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .player-cost {
-    font-size: 0.75rem;
-    color: #a0a0b8;
+    font-size: 0.8rem;
+    color: var(--text-muted);
     font-variant-numeric: tabular-nums;
   }
 
   .player-rating {
-    font-size: 0.75rem;
-    color: #a0a0b8;
+    font-size: 0.8rem;
+    color: var(--text-muted);
     font-variant-numeric: tabular-nums;
   }
 
@@ -528,15 +532,15 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   .game-footer {
     padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    color: #a0a0b8;
+    font-size: 0.85rem;
+    color: var(--text-muted);
     text-align: right;
-    border-top: 1px solid rgba(15, 52, 96, 0.5);
+    border-top: 1px solid var(--border-subtle);
     font-variant-numeric: tabular-nums;
   }
 
   .player-blunder-score {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-variant-numeric: tabular-nums;
   }
 
@@ -553,12 +557,12 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .season-badge {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
+    padding: 0.15rem 0.45rem;
     border-radius: 3px;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
   }
 
   .season-filter {
@@ -573,22 +577,22 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .season-filter-label {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    font-size: 0.85rem;
+    color: var(--text-muted);
     margin-right: 0.2rem;
   }
 
   .season-filter-btn {
     font-family: inherit;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    padding: 0.3rem 0.7rem;
+    padding: 0.35rem 0.8rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
   }
 
   .season-filter-btn:hover {
@@ -618,8 +622,8 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .old-analysis-tag {
-    color: #a0a0b8;
-    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
     font-style: italic;
   }
 
@@ -633,7 +637,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     }
 
     .player-cell {
-      border-bottom: 1px solid rgba(15, 52, 96, 0.3);
+      border-bottom: 1px solid var(--border-subtle);
     }
 
     .player-cell:last-child {

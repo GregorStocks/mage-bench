@@ -62,7 +62,7 @@ const { slug } = Astro.params;
   #loading, #error {
     text-align: center;
     padding: 4rem 0;
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   #error {
@@ -76,8 +76,8 @@ const { slug } = Astro.params;
     align-items: baseline;
     gap: 0.75rem;
     padding: 0.5rem 0.75rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     margin-bottom: 0.5rem;
     flex-wrap: wrap;
@@ -124,7 +124,7 @@ const { slug } = Astro.params;
 
   .error-list {
     font-size: 0.75rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
     padding-left: 1.2rem;
     margin-top: 0.3rem;
   }

@@ -60,7 +60,7 @@ function formatDate(date: Date): string {
 
   .back-link {
     display: inline-block;
-    color: #a0a0b8;
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 0.85rem;
     margin-bottom: 1.5rem;
@@ -83,7 +83,7 @@ function formatDate(date: Date): string {
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.85rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
     margin-bottom: 0.75rem;
   }
 
@@ -122,19 +122,19 @@ function formatDate(date: Date): string {
     color: #e0e0e0;
     margin-top: 2rem;
     margin-bottom: 0.75rem;
-    border-bottom: 1px solid #0f3460;
+    border-bottom: 1px solid var(--border-default);
     padding-bottom: 0.3rem;
   }
 
   .content :global(h3) {
-    color: #a0a0b8;
+    color: var(--text-muted);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   .content :global(p) {
     margin-bottom: 1rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   .content :global(a) {
@@ -142,7 +142,7 @@ function formatDate(date: Date): string {
   }
 
   .content :global(code) {
-    background: #16213e;
+    background: var(--bg-surface);
     padding: 0.15rem 0.4rem;
     border-radius: 3px;
     font-size: 0.85em;
@@ -150,8 +150,8 @@ function formatDate(date: Date): string {
   }
 
   .content :global(pre) {
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 6px;
     padding: 1rem;
     overflow-x: auto;
@@ -167,7 +167,7 @@ function formatDate(date: Date): string {
     border-left: 3px solid #e94560;
     padding-left: 1rem;
     margin: 1rem 0;
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-style: italic;
   }
 
@@ -175,7 +175,7 @@ function formatDate(date: Date): string {
   .content :global(ol) {
     margin-bottom: 1rem;
     padding-left: 1.5rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   .content :global(li) {
@@ -189,7 +189,7 @@ function formatDate(date: Date): string {
 
   .content :global(hr) {
     border: none;
-    border-top: 1px solid #0f3460;
+    border-top: 1px solid var(--border-default);
     margin: 2rem 0;
   }
 </style>

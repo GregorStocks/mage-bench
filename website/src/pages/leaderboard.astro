@@ -462,6 +462,8 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
 <style is:global>
   h1 {
     font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.02em;
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
   }
@@ -481,15 +483,15 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
 
   .season-tab {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.4rem 0.9rem;
+    padding: 0.4rem 1rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
@@ -497,30 +499,31 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   }
 
   .season-tab:hover {
-    border-color: var(--accent-secondary);
+    border-color: var(--accent-primary);
     color: var(--text-primary);
   }
 
   .season-tab.active {
-    background: var(--accent-secondary);
-    border-color: var(--accent-secondary);
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
     color: #fff;
   }
 
   .season-tab-badge {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 0.1rem 0.35rem;
+    padding: 0.15rem 0.4rem;
     border-radius: 3px;
     background: rgba(255, 255, 255, 0.2);
     line-height: 1;
+    vertical-align: middle;
   }
 
   .subtitle {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1rem;
     margin-bottom: 1.5rem;
     line-height: 1.7;
   }
@@ -538,19 +541,19 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
 
   .format-tab {
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    padding: 0.4rem 0.9rem;
+    padding: 0.4rem 1rem;
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 20px;
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
   }
 
   .format-tab:hover {
-    border-color: var(--accent-primary);
+    border-color: var(--text-muted);
     color: var(--text-primary);
   }
 
@@ -582,19 +585,19 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   }
 
   .format-tab.active[data-format="combined"] {
-    background: var(--accent-secondary);
-    border-color: var(--accent-secondary);
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
   }
 
   .tab-count {
-    font-size: 0.75rem;
-    opacity: 0.7;
+    font-size: 0.8rem;
+    opacity: 0.6;
     margin-left: 0.2rem;
   }
 
   .scoring-link {
     margin-bottom: 1.5rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   .scoring-link a {
@@ -610,12 +613,12 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     cursor: pointer;
     white-space: nowrap;
     margin-left: auto;
-    border-bottom: 1px dotted var(--text-secondary);
+    border-bottom: 1px dotted var(--text-muted);
     padding-bottom: 1px;
   }
 
@@ -666,23 +669,26 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     width: 100%;
     min-width: 620px;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   th {
     text-align: left;
-    padding: 0.6rem 0.75rem;
+    padding: 0.7rem 0.85rem;
     border-bottom: 2px solid var(--border-default);
-    color: var(--text-secondary);
-    font-weight: 600;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     cursor: pointer;
     user-select: none;
     white-space: nowrap;
-    transition: color 0.2s;
+    transition: color 0.15s;
   }
 
   th:hover {
-    color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   th.sorted {
@@ -692,27 +698,27 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   .sort-arrow {
     display: inline-block;
     margin-left: 0.35rem;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     vertical-align: middle;
   }
 
   td {
-    padding: 0.6rem 0.75rem;
+    padding: 0.7rem 0.85rem;
     border-bottom: 1px solid var(--border-subtle);
   }
 
   .rank-col {
     cursor: default;
-    width: 2rem;
+    width: 2.5rem;
     text-align: center;
   }
 
   .rank-cell {
     text-align: center;
-    color: var(--text-secondary);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.9rem;
     font-variant-numeric: tabular-nums;
   }
 
@@ -786,7 +792,7 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   }
 
   tbody tr:nth-child(even):not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
-    background: rgba(22, 33, 62, 0.3);
+    background: rgba(255, 255, 255, 0.02);
   }
 
   tbody tr:hover {
@@ -820,7 +826,11 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
   @media (max-width: 600px) {
     th, td {
       padding: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    th {
+      font-size: 0.7rem;
     }
 
     .format-tabs {
@@ -828,8 +838,8 @@ const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length >
     }
 
     .format-tab {
-      font-size: 0.75rem;
-      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.7rem;
     }
   }
 </style>

@@ -31,7 +31,7 @@ const tags = getUniqueTags(posts);
 <style>
   .back-link {
     display: inline-block;
-    color: #a0a0b8;
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 0.85rem;
     margin-bottom: 1.5rem;
@@ -58,8 +58,8 @@ const tags = getUniqueTags(posts);
     align-items: center;
     gap: 0.4rem;
     padding: 0.4rem 0.8rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 20px;
     color: #e0e0e0;
     text-decoration: none;
@@ -74,10 +74,10 @@ const tags = getUniqueTags(posts);
 
   .tag-count {
     font-size: 0.75rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   .empty {
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 </style>
