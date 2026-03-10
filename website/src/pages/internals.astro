@@ -661,7 +661,7 @@ if (fs.existsSync(exportsDir)) {
             legend: {
               position: 'bottom',
               labels: {
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
@@ -673,7 +673,7 @@ if (fs.existsSync(exportsDir)) {
               borderColor: '#2e2e38',
               borderWidth: 1,
               titleColor: '#f0f0f2',
-              bodyColor: 'var(--text-muted)',
+              bodyColor: 'var(--text-secondary)',
               filter: (item: any) => !item.dataset.label?.endsWith('(trend)'),
               callbacks: {
                 title: (items: any[]) => {
@@ -703,11 +703,11 @@ if (fs.existsSync(exportsDir)) {
               title: {
                 display: true,
                 text: 'Games (chronological)',
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 font: { size: 11 },
               },
               ticks: {
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 maxRotation: 45,
                 font: { size: 11 },
                 callback: function(value: any) {
@@ -719,11 +719,11 @@ if (fs.existsSync(exportsDir)) {
               afterBuildTicks: function(axis: any) {
                 axis.ticks = dateTicks.map(t => ({ value: t.value }));
               },
-              grid: { color: 'var(--border-subtle)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
               ticks: {
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 font: { size: 11 },
                 callback: (val: any) => {
                   if (metric.unit === '%') return val + '%';
@@ -732,7 +732,7 @@ if (fs.existsSync(exportsDir)) {
                   return val;
                 },
               },
-              grid: { color: 'var(--border-subtle)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
               beginAtZero: true,
             },
           },
@@ -1178,25 +1178,25 @@ if (fs.existsSync(exportsDir)) {
           scales: {
             x: {
               type: 'linear',
-              title: { display: true, text: 'Annotation Run', color: 'var(--text-muted)' },
+              title: { display: true, text: 'Annotation Run', color: 'var(--text-secondary)' },
               ticks: {
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
                 callback: function(value: string | number) {
                   const idx = typeof value === 'string' ? parseInt(value) : value;
                   const d = dateLabels.get(idx);
                   return d ? `${d.getMonth() + 1}/${d.getDate()}` : '';
                 },
               },
-              grid: { color: 'rgba(255,255,255,0.05)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
               title: {
                 display: true,
                 text: metric.unit ? `${metric.label} (${metric.unit})` : metric.label,
-                color: 'var(--text-muted)',
+                color: 'var(--text-secondary)',
               },
-              ticks: { color: 'var(--text-muted)' },
-              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: 'var(--text-secondary)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
           },
         },
