@@ -1,0 +1,73 @@
+---
+interface Props {
+  season: number;
+  active: 'results' | 'entrants' | 'draft' | 'rankings' | 'games';
+  hasTournament: boolean;
+  hasDraft: boolean;
+}
+
+const { season, active, hasTournament, hasDraft } = Astro.props;
+
+const tabs: Array<{ id: string; label: string; href: string }> = [];
+if (hasTournament) {
+  tabs.push({ id: 'results', label: 'Championship Results', href: `/season/${season}/results` });
+  tabs.push({ id: 'entrants', label: 'Championship Entrants', href: `/season/${season}/entrants` });
+  if (hasDraft) {
+    tabs.push({ id: 'draft', label: 'Championship Draft', href: `/season/${season}/draft` });
+  }
+}
+tabs.push({ id: 'rankings', label: 'Free Play Rankings', href: `/season/${season}/rankings` });
+tabs.push({ id: 'games', label: 'Free Play Games', href: `/season/${season}/games` });
+---
+
+<nav class="season-nav" aria-label="Season sub-navigation">
+  {tabs.map(tab => (
+    <a
+      href={tab.href}
+      class:list={['season-nav-tab', { active: tab.id === active }]}
+    >
+      {tab.label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .season-nav {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-default);
+    padding-bottom: 0;
+  }
+
+  .season-nav-tab {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+
+  .season-nav-tab:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--text-muted);
+  }
+
+  .season-nav-tab.active {
+    color: var(--accent-primary);
+    border-bottom-color: var(--accent-primary);
+  }
+
+  @media (max-width: 600px) {
+    .season-nav-tab {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+    }
+  }
+</style>
