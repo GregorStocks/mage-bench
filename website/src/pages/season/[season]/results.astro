@@ -672,9 +672,7 @@ const hasDraft = !!tournament.draft;
   }
 
   .bracket-scroll {
-    overflow-x: auto;
-    overflow-y: clip;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
     padding-bottom: 1rem;
     max-width: 100%;
   }
@@ -1381,6 +1379,28 @@ const hasDraft = !!tournament.draft;
     }
   }
 </style>
+
+<script is:inline>
+  (function() {
+    var scroll = document.querySelector('.bracket-horizontal .bracket-scroll');
+    var bracket = scroll && scroll.querySelector('.bracket-two-sided');
+    if (!scroll || !bracket) return;
+    bracket.style.transformOrigin = 'top left';
+    function update() {
+      bracket.style.transform = 'none';
+      scroll.style.height = '';
+      var natural = bracket.scrollWidth;
+      var available = scroll.clientWidth;
+      if (natural === 0 || available === 0) return;
+      var scale = Math.min(1, available / natural);
+      if (scale < 1) {
+        bracket.style.transform = 'scale(' + scale + ')';
+        scroll.style.height = bracket.scrollHeight * scale + 'px';
+      }
+    }
+    new ResizeObserver(update).observe(scroll);
+  })();
+</script>
 
 <script is:inline define:vars={{ tournamentGames }}>
   var DECK_TYPE_FORMATS = {
