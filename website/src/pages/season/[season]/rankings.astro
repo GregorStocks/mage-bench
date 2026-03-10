@@ -56,7 +56,6 @@ if (hasTournament) {
 ---
 
 <Base title={`Season ${seasonNum} Free Play Rankings`} wide>
-  <h1>Season {seasonNum}</h1>
   <SeasonNav season={seasonNum} active="rankings" hasTournament={hasTournament} hasDraft={hasDraft} />
 
   {hasData ? (
@@ -346,12 +345,6 @@ if (hasTournament) {
 </script>
 
 <style is:global>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 1rem;
-  }
-
   .subtitle {
     color: var(--text-secondary);
     font-size: 0.95rem;

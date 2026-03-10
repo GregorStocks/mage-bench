@@ -38,8 +38,7 @@ function cleanThemeName(name: string): string {
 }
 ---
 
-<Base title={`Season ${seasonNum} Championship Draft`}>
-  <h1>Season {seasonNum}</h1>
+<Base title={`Season ${seasonNum} Championship Draft`} wide>
   <SeasonNav season={seasonNum} active="draft" hasTournament={true} hasDraft={true} />
 
   <div class="draft-page">
@@ -112,12 +111,6 @@ function cleanThemeName(name: string): string {
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 1rem;
-  }
-
   h2 {
     font-family: var(--font-heading);
     color: var(--text-secondary);

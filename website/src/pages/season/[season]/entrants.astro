@@ -44,8 +44,7 @@ function cleanThemeName(name: string): string {
 const hasDraft = !!tournament.draft;
 ---
 
-<Base title={`Season ${seasonNum} Championship Entrants`}>
-  <h1>Season {seasonNum}</h1>
+<Base title={`Season ${seasonNum} Championship Entrants`} wide>
   <SeasonNav season={seasonNum} active="entrants" hasTournament={true} hasDraft={hasDraft} />
 
   <div class="entrants-page">
@@ -111,10 +110,8 @@ const hasDraft = !!tournament.draft;
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 1rem;
+  .entrants-page {
+    max-width: 52rem;
   }
 
   h2 {

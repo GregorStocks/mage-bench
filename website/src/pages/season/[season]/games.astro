@@ -138,25 +138,24 @@ if (hasTournament) {
 }
 ---
 
-<Base title={`Season ${seasonNum} - Free Play Games`}>
-  <h1>Season {seasonNum}</h1>
+<Base title={`Season ${seasonNum} - Free Play Games`} wide>
   <SeasonNav season={seasonNum} active="games" hasTournament={hasTournament} hasDraft={hasDraft} />
-  <div id="format-tabs" class="format-tabs"></div>
-  <details class="model-filter-details" id="model-filter-details">
-    <summary class="model-filter-summary">Filter by model</summary>
-    <div id="model-tabs" class="model-tabs"></div>
-  </details>
-  <div id="filter-bar" style="display:none"></div>
-  <div id="games-list">
-    {games.length > 0 && <p class="loading">Loading games...</p>}
+  <div class="games-content">
+    <div id="format-tabs" class="format-tabs"></div>
+    <details class="model-filter-details" id="model-filter-details">
+      <summary class="model-filter-summary">Filter by model</summary>
+      <div id="model-tabs" class="model-tabs"></div>
+    </details>
+    <div id="filter-bar" style="display:none"></div>
+    <div id="games-list">
+      {games.length > 0 && <p class="loading">Loading games...</p>}
+    </div>
   </div>
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 1.5rem;
+  .games-content {
+    max-width: 52rem;
   }
 
   .loading {

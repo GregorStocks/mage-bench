@@ -282,7 +282,6 @@ const hasDraft = !!tournament.draft;
 ---
 
 <Base title={`Season ${seasonNum} Championship Results`} wide={true}>
-  <h1>Season {seasonNum}</h1>
   <SeasonNav season={seasonNum} active="results" hasTournament={true} hasDraft={hasDraft} />
 
   <section class="tournament-section">
@@ -605,12 +604,6 @@ const hasDraft = !!tournament.draft;
 </Base>
 
 <style>
-  h1 {
-    font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 1.5rem;
-  }
-
   /* --- Tournament Section --- */
   .tournament-section {
     margin-bottom: 3rem;
