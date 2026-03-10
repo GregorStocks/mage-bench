@@ -1466,7 +1466,7 @@ def _check_season_tournament_block(project_root: Path) -> str | None:
     if season_data.get("phase") != "tournament":
         return None
     season_num = season_data.get("current_season", "?")
-    return f"Season {season_num} is in the tournament phase! Free-play games are not allowed during tournaments."
+    return f"Season {season_num} is in the tournament phase! Regular-season games are not allowed during tournaments."
 
 
 def run_orchestrator(config: Config, project_root: Path | None = None) -> OrchestratorRunResult:
@@ -1477,7 +1477,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
     # Load player config early so we can check flags before heavy setup.
     config.load_config()
 
-    # Block free-play games during tournament phase (test configs and tournament games are exempt)
+    # Block regular-season games during tournament phase (test configs and tournament games are exempt)
     if not config.skip_post_game_prompts and not config.tournament_game:
         tournament_block = _check_season_tournament_block(project_root)
         if tournament_block:
