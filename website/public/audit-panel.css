@@ -7,8 +7,8 @@
 
 /* Audit bar (below game viewer) */
 #audit-panel {
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   padding: 0.5rem 1rem;
   margin-top: 0.75rem;
@@ -26,11 +26,11 @@
   font-size: 0.82rem;
   line-height: 1.45;
 }
-#audit-decision-context .label { color: #a0a0b8; font-size: 0.75rem; }
+#audit-decision-context .label { color: var(--text-muted); font-size: 0.85rem; }
 #audit-decision-context .value { color: #e0e0e0; }
 #audit-decision-header {
-  font-size: 0.75rem;
-  color: #a0a0b8;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   margin-bottom: 0.15rem;
 }
 #audit-decision-message {
@@ -46,30 +46,30 @@
   padding: 0.4rem 0.6rem;
   background: rgba(255,255,255,0.03);
   border-radius: 4px;
-  border-left: 3px solid #0f3460;
-  font-size: 0.8rem;
+  border-left: 3px solid var(--border-default);
+  font-size: 0.85rem;
   max-height: 5.5em;
   overflow-y: auto;
 }
 #audit-annotation-box .ann-severity {
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   letter-spacing: 0.04em;
 }
 #audit-annotation-box .ann-severity.major { color: #e74c3c; }
 #audit-annotation-box .ann-severity.moderate { color: #e67e22; }
 #audit-annotation-box .ann-severity.minor { color: #f1c40f; }
 #audit-annotation-box .ann-severity.questionable { color: #888; }
-#audit-annotation-desc { color: #a0a0b8; margin-top: 0.15rem; }
+#audit-annotation-desc { color: var(--text-muted); margin-top: 0.15rem; }
 #audit-annotation-details { margin-top: 0.25rem; font-size: 0.78rem; }
-#audit-annotation-details .detail-label { color: #a0a0b8; font-weight: 600; }
+#audit-annotation-details .detail-label { color: var(--text-muted); font-weight: 600; }
 #audit-annotation-details .detail-value { color: #e0e0e0; }
 
 /* Stats bar */
 #audit-stats {
-  font-size: 0.75rem;
-  color: #a0a0b8;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   margin-bottom: 0.35rem;
 }
 
@@ -89,7 +89,7 @@
   border: 2px solid transparent;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   transition: all 0.15s;
   text-align: center;
@@ -103,12 +103,12 @@
 #audit-btn-questionable { background: #f1c40f; color: #333; }
 
 #audit-notes-input {
-  background: #1a1a2e;
+  background: var(--bg-base);
   color: #e0e0e0;
-  border: 1px solid #0f3460;
+  border: 1px solid var(--border-default);
   border-radius: 4px;
   padding: 0.35rem 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-family: inherit;
   resize: none;
   height: 2.2rem;
@@ -130,15 +130,15 @@
 #audit-submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 #audit-verdict-status {
-  font-size: 0.75rem;
-  color: #a0a0b8;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   text-align: center;
   min-height: 1.1em;
 }
 
 .audit-shortcut-hint {
   font-size: 0.65rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
   display: block;
 }
 
@@ -146,7 +146,7 @@
   text-align: center;
   padding: 0.3rem;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
 }
 #audit-existing-verdict.v-blunder { background: rgba(231,76,60,0.2); color: #e74c3c; }
@@ -154,8 +154,8 @@
 #audit-existing-verdict.v-questionable { background: rgba(241,196,15,0.2); color: #f1c40f; }
 
 #audit-existing-notes {
-  font-size: 0.75rem;
-  color: #a0a0b8;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   text-align: center;
   font-style: italic;
 }
@@ -163,25 +163,25 @@
 /* Mark Current + Nav buttons */
 #audit-mark-btn {
   padding: 0.45rem;
-  background: #0f3460;
+  background: var(--border-default);
   color: #e0e0e0;
   border: 1px solid #e94560;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   transition: all 0.15s;
   width: 100%;
 }
 #audit-mark-btn:hover { background: rgba(233,69,96,0.2); }
-#audit-mark-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: #0f3460; }
+#audit-mark-btn:disabled { opacity: 0.3; cursor: not-allowed; border-color: var(--border-default); }
 
 #audit-nav-buttons { display: flex; gap: 0.4rem; }
 #audit-nav-buttons button {
   flex: 1;
   padding: 0.3rem;
-  background: #0f3460;
-  color: #a0a0b8;
+  background: var(--border-default);
+  color: var(--text-muted);
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   cursor: pointer;
@@ -204,8 +204,8 @@
 }
 #audit-disambig-overlay.hidden { display: none; }
 #audit-disambig-box {
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   padding: 1rem;
   max-width: 500px;
@@ -223,25 +223,25 @@
   padding: 0.5rem 0.6rem;
   margin-bottom: 0.3rem;
   background: rgba(255,255,255,0.03);
-  border: 1px solid #0f3460;
+  border: 1px solid var(--border-default);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.1s;
 }
 .audit-disambig-item:hover { background: rgba(233,69,96,0.1); border-color: #e94560; }
 .audit-disambig-player { font-weight: 700; color: #e0e0e0; }
-.audit-disambig-turn { color: #a0a0b8; font-size: 0.8rem; }
+.audit-disambig-turn { color: var(--text-muted); font-size: 0.85rem; }
 .audit-disambig-message { color: #e0e0e0; font-size: 0.82rem; margin-top: 0.15rem; }
-.audit-disambig-chosen { color: #a0a0b8; font-size: 0.78rem; }
+.audit-disambig-chosen { color: var(--text-muted); font-size: 0.78rem; }
 #audit-disambig-cancel {
   margin-top: 0.5rem;
   padding: 0.35rem 0.7rem;
-  background: #1a1a2e;
-  color: #a0a0b8;
-  border: 1px solid #0f3460;
+  background: var(--bg-base);
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 #audit-disambig-cancel:hover { color: #e0e0e0; }
 
@@ -250,7 +250,7 @@
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 2px solid #a0a0b8;
+  border: 2px solid var(--text-muted);
   border-top-color: #e94560;
   border-radius: 50%;
   animation: audit-spin 0.6s linear infinite;

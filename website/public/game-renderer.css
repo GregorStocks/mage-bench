@@ -59,9 +59,9 @@
 }
 
 .player-card {
-  border: 1px solid #0f3460;
+  border: 1px solid var(--border-default);
   border-radius: 8px;
-  background: #16213e;
+  background: var(--bg-surface);
   overflow: hidden;
 }
 
@@ -73,22 +73,22 @@
 .player-card.player-0 {
   border: 1px solid rgba(59, 130, 246, 0.3);
   border-left: 3px solid #3b82f6;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), #16213e 40%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), var(--bg-surface) 40%);
 }
 .player-card.player-1 {
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-left: 3px solid #ef4444;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), #16213e 40%);
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), var(--bg-surface) 40%);
 }
 .player-card.player-2 {
   border: 1px solid rgba(34, 197, 94, 0.3);
   border-left: 3px solid #22c55e;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), #16213e 40%);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), var(--bg-surface) 40%);
 }
 .player-card.player-3 {
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-left: 3px solid #f59e0b;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), #16213e 40%);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), var(--bg-surface) 40%);
 }
 .player-name.player-0 { color: #3b82f6; }
 .player-name.player-1 { color: #ef4444; }
@@ -128,7 +128,7 @@
 
 .player-life {
   font-size: 0.85rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
 }
 
 .player-badges {
@@ -139,20 +139,20 @@
 }
 
 .player-model {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: #888;
   font-family: var(--font-mono, monospace);
 }
 
 .player-cost {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: #a8d9a5;
   font-family: var(--font-mono, monospace);
 }
 
 .player-counters {
   font-size: 0.75rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
   padding: 0.15rem 0.75rem;
 }
 
@@ -197,7 +197,7 @@
 }
 
 .side-zones .zone-title {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 
 .side-zones .cards-row {
@@ -267,7 +267,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #a0a0b8;
+  color: var(--text-muted);
   margin-bottom: 0.3rem;
 }
 
@@ -363,7 +363,7 @@
   right: 2px;
   background: rgba(0, 0, 0, 0.8);
   color: #a8d9a5;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   padding: 1px 4px;
   border-radius: 3px;
@@ -378,7 +378,7 @@
   justify-content: center;
   background: rgba(44, 64, 72, 0.8);
   color: #e0e0e0;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   text-align: center;
   padding: 4px;
   word-break: break-word;
@@ -401,14 +401,14 @@
 }
 
 .token-name {
-  font-size: 0.55rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #e0e0e0;
   line-height: 1.2;
 }
 
 .token-pt {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #a8d9a5;
   margin-top: auto;
@@ -533,7 +533,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #a0a0b8;
+  color: var(--text-muted);
   margin-bottom: 0.4rem;
 }
 
@@ -542,8 +542,8 @@
   width: 120px;
   flex-shrink: 0;
   padding: 0.5rem;
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   align-self: stretch;
 }
@@ -579,7 +579,7 @@
 .decision-prompt {
   padding: 0.3rem 0.5rem;
   font-size: 0.75rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
   border-left: 2px solid #e94560;
   margin-top: 0.3rem;
 }
@@ -629,7 +629,7 @@
 }
 
 .ability-source-name {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #ffd700;
   text-align: center;
@@ -670,7 +670,7 @@
   grid-template-columns: 160px 1fr;
   gap: 10px;
   padding: 10px;
-  border: 1px solid #0f3460;
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   background: rgba(22, 33, 62, 0.97);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
@@ -712,7 +712,7 @@
 
 .card-type {
   font-size: 0.75rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
   margin-bottom: 4px;
   padding-bottom: 3px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -823,12 +823,12 @@
 
 @keyframes life-pulse-up {
   0% { color: #4caf50; transform: scale(1.15); }
-  100% { color: #a0a0b8; transform: scale(1); }
+  100% { color: var(--text-muted); transform: scale(1); }
 }
 
 @keyframes life-pulse-down {
   0% { color: #e94560; transform: scale(1.15); }
-  100% { color: #a0a0b8; transform: scale(1); }
+  100% { color: var(--text-muted); transform: scale(1); }
 }
 
 .life-changed-up {
@@ -1063,7 +1063,7 @@
   padding: 6px 8px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   line-height: 1.3;
   color: #b0b0c0;
   max-height: 12rem;
@@ -1075,7 +1075,7 @@
 /* Unified log badge base class */
 .log-badge {
   display: inline-block;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -1112,13 +1112,13 @@
   display: inline;
   margin-left: 0.4rem;
   opacity: 0.5;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
 }
 
 .llm-tool-raw summary {
   cursor: pointer;
   font-family: var(--font-mono, monospace);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: #7888a0;
   display: inline;
   list-style: none;
@@ -1126,7 +1126,7 @@
 
 .llm-tool-raw summary::before {
   content: "\25b6 ";
-  font-size: 0.5rem;
+  font-size: 0.7rem;
 }
 
 .llm-tool-raw[open] summary::before {
@@ -1160,7 +1160,7 @@
 
 .llm-cost {
   color: #666;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono, monospace);
   margin-left: 6px;
 }
@@ -1199,7 +1199,7 @@
 .chat-badge,
 .thinking-badge {
   display: inline-block;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -1224,8 +1224,8 @@
 /* Game log panel (shared by live + replay) */
 .game-log {
   padding: 0.75rem 1rem;
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   margin-bottom: 0.75rem;
   position: sticky;
@@ -1284,7 +1284,7 @@
 
 .annotation-badge {
   display: inline-block;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   padding: 0.1rem 0.4rem;
@@ -1334,7 +1334,7 @@
 }
 
 .annotation-details summary {
-  color: #a0a0b8;
+  color: var(--text-muted);
   cursor: pointer;
   font-size: 0.7rem;
 }
@@ -1346,7 +1346,7 @@
 }
 
 .annotation-field strong {
-  color: #a0a0b8;
+  color: var(--text-muted);
 }
 
 /* Timeline annotation markers */
@@ -1395,7 +1395,7 @@
 
 /* Harness epoch (small metadata) */
 #epoch-info {
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   color: #666;
   font-family: var(--font-mono, monospace);
 }
@@ -1417,7 +1417,7 @@
 }
 
 #blunder-summary .old-analysis-tag {
-  color: #a0a0b8;
+  color: var(--text-muted);
   font-size: 0.7rem;
   font-weight: 400;
   font-style: italic;
@@ -1461,10 +1461,10 @@
   grid-column: 1 / -1;
   text-align: center;
   font-size: 0.8rem;
-  color: #a0a0b8;
+  color: var(--text-muted);
   padding: 0.3rem 0.75rem;
-  background: rgba(15, 52, 96, 0.3);
-  border: 1px solid rgba(15, 52, 96, 0.5);
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 6px;
 }
 
@@ -1495,7 +1495,7 @@
   color: #e0e0f0;
   padding: 0.75rem 0.5rem;
   margin-top: 0.5rem;
-  border-top: 1px solid #0f3460;
+  border-top: 1px solid var(--border-default);
 }
 
 .game-result-timeout {

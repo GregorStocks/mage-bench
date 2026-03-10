@@ -33,7 +33,7 @@ const navLinks = [
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <title>{title} | mage-bench</title>
   </head>
   <body>
@@ -64,29 +64,29 @@ const navLinks = [
 
 <style>
   :global(:root) {
-    --bg-base: #1a1a2e;
-    --bg-surface: #16213e;
-    --bg-elevated: #1e2a4a;
-    --bg-deep: #0d1b2a;
-    --border-default: #0f3460;
-    --border-subtle: rgba(15, 52, 96, 0.5);
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0b8;
-    --text-muted: #666;
+    --bg-base: #0c0c0f;
+    --bg-surface: #17171c;
+    --bg-elevated: #232329;
+    --bg-deep: #060608;
+    --border-default: #2e2e38;
+    --border-subtle: rgba(46, 46, 56, 0.6);
+    --text-primary: #f0f0f2;
+    --text-secondary: #9e9eab;
+    --text-muted: #6b6b78;
     --accent-primary: #e94560;
     --accent-primary-rgb: 233, 69, 96;
-    --accent-secondary: #14b8a6;
-    --accent-secondary-rgb: 20, 184, 166;
-    --color-success: #a8d9a5;
+    --accent-secondary: #e94560;
+    --accent-secondary-rgb: 233, 69, 96;
+    --color-success: #5ddb6a;
     --color-warning: #fbbf24;
     --color-danger: #ef4444;
-    --format-standard: #66bb6a;
+    --format-standard: #5ddb6a;
     --format-modern: #42a5f5;
-    --format-legacy: #ab47bc;
+    --format-legacy: #c57bdb;
     --format-commander: #ffa726;
     --format-jumpstart: #e94560;
-    --font-heading: 'Rajdhani', system-ui, sans-serif;
-    --font-body: 'Source Sans 3', system-ui, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
@@ -97,23 +97,13 @@ const navLinks = [
 
   :global(body) {
     font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--text-primary);
     background: var(--bg-base);
-    background-image: radial-gradient(ellipse at 20% 0%, rgba(15, 52, 96, 0.4) 0%, transparent 60%),
-                      radial-gradient(ellipse at 80% 100%, rgba(233, 69, 96, 0.06) 0%, transparent 50%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-  }
-
-  :global(body)::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: -1;
   }
 
 
@@ -122,8 +112,8 @@ const navLinks = [
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem 2rem;
-    padding: 1rem 2rem;
-    background: rgba(22, 33, 62, 0.85);
+    padding: 0.85rem 2rem;
+    background: rgba(12, 12, 15, 0.9);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-default);
@@ -134,11 +124,11 @@ const navLinks = [
 
   .site-title {
     font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--accent-primary);
     text-decoration: none;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.02em;
   }
 
   nav ul {
@@ -152,24 +142,24 @@ const navLinks = [
   nav a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.15s;
     position: relative;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
 
   nav a:hover {
-    color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   nav a.active {
-    color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   nav a.active::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: -6px;
     left: 0;
     right: 0;
     height: 2px;
@@ -194,16 +184,14 @@ const navLinks = [
     padding: 3rem 2rem 2rem;
     color: var(--text-muted);
     border-top: 1px solid var(--border-default);
-    background: linear-gradient(to bottom, var(--bg-base), var(--bg-deep));
   }
 
   .footer-tagline {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin-bottom: 1rem;
-    letter-spacing: 0.02em;
   }
 
   .footer-links {
@@ -216,12 +204,12 @@ const navLinks = [
   footer a {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
+    font-size: 0.95rem;
+    transition: color 0.15s;
   }
 
   footer a:hover {
-    color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   @media (max-width: 600px) {

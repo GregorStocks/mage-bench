@@ -215,17 +215,17 @@ if (fs.existsSync(gamesDir)) {
   h1 {
     font-family: var(--font-heading);
     font-size: 3.5rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--accent-primary);
     margin-bottom: 0.5rem;
-    letter-spacing: 0.03em;
+    letter-spacing: -0.03em;
   }
 
   .tagline {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     color: var(--text-secondary);
     margin-bottom: 0;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .season-status {
@@ -233,13 +233,13 @@ if (fs.existsSync(gamesDir)) {
     align-items: center;
     gap: 0.6rem;
     margin-top: 0.75rem;
-    padding: 0.3rem 0.9rem;
-    background: rgba(20, 184, 166, 0.08);
-    border: 1px solid rgba(20, 184, 166, 0.25);
+    padding: 0.35rem 1rem;
+    background: rgba(var(--accent-primary-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-primary-rgb), 0.25);
     border-radius: 100px;
     font-family: var(--font-heading);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
@@ -256,7 +256,7 @@ if (fs.existsSync(gamesDir)) {
   }
 
   .season-status-label {
-    color: var(--accent-secondary);
+    color: var(--accent-primary);
   }
 
   .season-status[data-phase="tournament"] .season-status-label {
@@ -280,10 +280,12 @@ if (fs.existsSync(gamesDir)) {
   }
 
   .intro {
-    line-height: 1.7;
+    font-size: 1.05rem;
+    line-height: 1.75;
     text-align: center;
     max-width: 40rem;
     margin: 0 auto;
+    color: var(--text-secondary);
   }
 
   .intro p {
@@ -303,18 +305,19 @@ if (fs.existsSync(gamesDir)) {
   }
 
   .links a {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid var(--accent-primary);
-    color: var(--accent-primary);
+    padding: 0.7rem 1.5rem;
+    border: 1px solid var(--border-default);
+    color: var(--text-primary);
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-weight: 600;
-    transition: background 0.2s, color 0.2s;
+    font-size: 1rem;
+    transition: border-color 0.15s, background 0.15s;
   }
 
   .links a:hover {
-    background: var(--accent-primary);
-    color: var(--bg-base);
+    border-color: var(--accent-primary);
+    background: rgba(var(--accent-primary-rgb), 0.1);
   }
 
   /* Stats strip */
@@ -324,11 +327,11 @@ if (fs.existsSync(gamesDir)) {
   }
 
   .stats-qualifier {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin-bottom: 0.75rem;
   }
 
@@ -350,20 +353,21 @@ if (fs.existsSync(gamesDir)) {
   .stat-number {
     display: block;
     font-family: var(--font-heading);
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--accent-secondary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
     line-height: 1.1;
+    letter-spacing: -0.02em;
   }
 
   .stat-label {
     display: block;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-top: 0.3rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
   }
 
   /* Leaderboard preview */
@@ -380,19 +384,20 @@ if (fs.existsSync(gamesDir)) {
     display: flex;
     align-items: baseline;
     gap: 1rem;
+    letter-spacing: -0.01em;
   }
 
   .section-link {
     font-family: var(--font-body);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--accent-secondary);
+    color: var(--text-muted);
     text-decoration: none;
     margin-left: auto;
   }
 
   .section-link:hover {
-    color: var(--accent-primary);
+    color: var(--text-primary);
   }
 
   .mini-leaderboard {
@@ -434,8 +439,8 @@ if (fs.existsSync(gamesDir)) {
   .mini-rank {
     font-family: var(--font-heading);
     font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-secondary);
+    font-weight: 800;
+    color: var(--text-muted);
     min-width: 1.5rem;
     text-align: center;
   }
@@ -452,20 +457,20 @@ if (fs.existsSync(gamesDir)) {
 
   .mini-name {
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-primary);
   }
 
   .mini-provider {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    font-size: 0.85rem;
+    color: var(--text-muted);
   }
 
   .mini-rating {
-    font-family: var(--font-heading);
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--accent-primary);
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
     font-variant-numeric: tabular-nums;
   }
 
@@ -483,6 +488,7 @@ if (fs.existsSync(gamesDir)) {
     display: flex;
     align-items: baseline;
     gap: 1rem;
+    letter-spacing: -0.01em;
   }
 
   .game-strip {
@@ -507,28 +513,30 @@ if (fs.existsSync(gamesDir)) {
     transform: translateY(-2px);
   }
 
-  .mini-game-card[data-format="standard"] { border-top: 3px solid var(--format-standard); }
-  .mini-game-card[data-format="modern"] { border-top: 3px solid var(--format-modern); }
-  .mini-game-card[data-format="legacy"] { border-top: 3px solid var(--format-legacy); }
-  .mini-game-card[data-format="commander"] { border-top: 3px solid var(--format-commander); }
-  .mini-game-card[data-format="jumpstart"] { border-top: 3px solid var(--format-jumpstart); }
+  .mini-game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
+  .mini-game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
+  .mini-game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
+  .mini-game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
+  .mini-game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
 
   .mgc-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--border-subtle);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .mgc-format {
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.65rem;
-    letter-spacing: 0.03em;
-    padding: 0.1rem 0.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    padding: 0.15rem 0.45rem;
     border-radius: 3px;
+    white-space: nowrap;
   }
 
   .mgc-format-standard { background: rgba(76, 175, 80, 0.15); color: var(--format-standard); }
@@ -550,7 +558,7 @@ if (fs.existsSync(gamesDir)) {
     align-items: center;
     gap: 0.3rem;
     padding: 0.15rem 0;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .mgc-winner {
@@ -566,13 +574,13 @@ if (fs.existsSync(gamesDir)) {
   }
 
   .mgc-winner-label {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: var(--bg-base);
     background: var(--color-success);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
     margin-left: auto;
   }
 
