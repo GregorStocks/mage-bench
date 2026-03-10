@@ -331,22 +331,36 @@ const hasDraft = !!tournament.draft;
   (function() {
     var preview = document.getElementById('card-preview');
     var img = document.getElementById('preview-image');
+    var activeRow = null;
+
+    img.addEventListener('load', function() {
+      // Only show if still hovering the row that requested this image
+      if (activeRow) preview.classList.remove('hidden');
+    });
 
     document.addEventListener('mouseenter', function(e) {
       var row = e.target.closest('.deck-card-row[data-set]');
       if (!row) return;
+      activeRow = row;
       var set = row.dataset.set;
       var num = row.dataset.num;
       if (!set || !num) return;
       var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
-      img.src = url;
+      if (img.src === url && img.complete && img.naturalWidth > 0) {
+        // Already cached — show immediately
+        preview.classList.remove('hidden');
+      } else {
+        // Hide until loaded
+        preview.classList.add('hidden');
+        img.src = url;
+      }
       img.alt = row.querySelector('.deck-card-name').textContent;
-      preview.classList.remove('hidden');
     }, true);
 
     document.addEventListener('mouseleave', function(e) {
       var row = e.target.closest('.deck-card-row[data-set]');
       if (!row) return;
+      activeRow = null;
       preview.classList.add('hidden');
     }, true);
 
