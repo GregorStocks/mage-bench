@@ -92,7 +92,7 @@ const hasDraft = !!tournament.draft;
                   </summary>
                   <div class="decklist-cards">
                     {cards.map((c: any) => (
-                      <div class="deck-card-row">
+                      <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
                         <span class="deck-card-qty">{c.count}</span>
                         <span class="deck-card-name">{c.name}</span>
                         <span class="deck-card-set">{c.set}</span>
@@ -106,6 +106,9 @@ const hasDraft = !!tournament.draft;
         );
       })}
     </div>
+  </div>
+  <div id="card-preview" class="hidden">
+    <img id="preview-image" alt="" />
   </div>
 </Base>
 
@@ -276,6 +279,41 @@ const hasDraft = !!tournament.draft;
     flex-shrink: 0;
   }
 
+  .deck-card-row {
+    cursor: default;
+  }
+
+  .deck-card-row[data-set]:hover .deck-card-name {
+    color: var(--accent-secondary);
+  }
+
+  #card-preview {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.1s;
+  }
+
+  #card-preview.hidden {
+    display: none;
+  }
+
+  #card-preview img {
+    display: block;
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 600px) {
+    #card-preview img {
+      width: 200px;
+    }
+  }
+
   @media (max-width: 900px) {
     .entrants-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -288,3 +326,43 @@ const hasDraft = !!tournament.draft;
     }
   }
 </style>
+
+<script is:inline>
+  (function() {
+    var preview = document.getElementById('card-preview');
+    var img = document.getElementById('preview-image');
+
+    document.addEventListener('mouseenter', function(e) {
+      var row = e.target.closest('.deck-card-row[data-set]');
+      if (!row) return;
+      var set = row.dataset.set;
+      var num = row.dataset.num;
+      if (!set || !num) return;
+      var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
+      img.src = url;
+      img.alt = row.querySelector('.deck-card-name').textContent;
+      preview.classList.remove('hidden');
+    }, true);
+
+    document.addEventListener('mouseleave', function(e) {
+      var row = e.target.closest('.deck-card-row[data-set]');
+      if (!row) return;
+      preview.classList.add('hidden');
+    }, true);
+
+    document.addEventListener('mousemove', function(e) {
+      if (preview.classList.contains('hidden')) return;
+      var x = e.clientX + 20;
+      var y = e.clientY - 20;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      var w = preview.offsetWidth || 250;
+      var h = preview.offsetHeight || 350;
+      if (x + w > vw) x = e.clientX - w - 20;
+      if (y + h > vh) y = vh - h - 8;
+      if (y < 8) y = 8;
+      preview.style.left = x + 'px';
+      preview.style.top = y + 'px';
+    });
+  })();
+</script>
