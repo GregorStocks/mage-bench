@@ -72,7 +72,7 @@ if (fs.existsSync(exportsDir)) {
         <div class="filter-group">
           <label class="control-label">
             Min Epoch
-            <input type="number" id="trend-min-epoch" value={11} min="1" />
+            <input type="number" id="trend-min-epoch" value={1} min="1" />
           </label>
         </div>
         <div class="filter-group">
@@ -324,7 +324,7 @@ if (fs.existsSync(exportsDir)) {
     let currentMetric = 'costPerGame';
     let currentFormat = 'all';
     let selectedModels = new Set(allModels.map(m => m[0]));
-    let minEpochTrend = 11;
+    let minEpochTrend = 1;
     let smoothingWindow = 5;
 
     // Build model checkboxes
@@ -748,7 +748,7 @@ if (fs.existsSync(exportsDir)) {
       else url.searchParams.delete('format');
       if (smoothingWindow !== 5) url.searchParams.set('smoothing', String(smoothingWindow));
       else url.searchParams.delete('smoothing');
-      if (minEpochTrend !== 11) url.searchParams.set('minEpoch', String(minEpochTrend));
+      if (minEpochTrend !== 1) url.searchParams.set('minEpoch', String(minEpochTrend));
       else url.searchParams.delete('minEpoch');
       history.replaceState(null, '', url.toString());
     }
