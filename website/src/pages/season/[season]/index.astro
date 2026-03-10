@@ -39,11 +39,12 @@ const redirectUrl = `/season/${seasonNum}/${target}`;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0; url=${redirectUrl}`} />
     <link rel="canonical" href={redirectUrl} />
     <title>Season {seasonNum} | mage-bench</title>
+    <script is:inline define:vars={{ redirectUrl }}>
+      window.location.replace(redirectUrl);
+    </script>
+    <meta http-equiv="refresh" content={`0; url=${redirectUrl}`} />
   </head>
-  <body>
-    <p>Redirecting to <a href={redirectUrl}>{redirectUrl}</a>...</p>
-  </body>
+  <body></body>
 </html>
