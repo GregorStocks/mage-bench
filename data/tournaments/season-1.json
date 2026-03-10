@@ -445,10 +445,23 @@
       "matches": [
         {
           "match": 1,
-          "seed_a": null,
-          "seed_b": null,
-          "winner_seed": null,
-          "games": []
+          "seed_a": 1,
+          "seed_b": 3,
+          "winner_seed": 3,
+          "games": [
+            {
+              "game_id": "game_20260309_162848",
+              "winner_seed": 3
+            },
+            {
+              "game_id": "game_20260309_173923",
+              "winner_seed": 1
+            },
+            {
+              "game_id": "game_20260309_181423",
+              "winner_seed": 3
+            }
+          ]
         }
       ]
     }

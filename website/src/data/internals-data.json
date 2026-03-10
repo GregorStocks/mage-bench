@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T10:02:34.699502+00:00",
+  "generatedAt": "2026-03-10T01:52:07.501147+00:00",
   "games": [
     {
       "id": "game_20260210_074307",
@@ -18996,6 +18996,144 @@
           "otherErrors": 4,
           "contextResets": 0,
           "latencyP50": 3.2
+        }
+      ]
+    },
+    {
+      "id": "game_20260309_162848",
+      "ts": "2026-03-09T16:28:48",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-opus-4.6::medium",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 0.6232,
+          "promptTokens": 114746,
+          "completionTokens": 1977,
+          "cachedTokens": 98335,
+          "reasoningTokens": 18,
+          "toolCallsOk": 19,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 73.6,
+          "responses": 18,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 2.4
+        },
+        {
+          "key": "google/gemini-3-pro-preview::medium",
+          "modelName": "Gemini 3 Pro (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 0.457,
+          "promptTokens": 192056,
+          "completionTokens": 6077,
+          "cachedTokens": 41206,
+          "reasoningTokens": 5462,
+          "toolCallsOk": 42,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 3777.0,
+          "responses": 42,
+          "timeouts": 0,
+          "otherErrors": 1,
+          "contextResets": 0,
+          "latencyP50": 2.1
+        }
+      ]
+    },
+    {
+      "id": "game_20260309_173923",
+      "ts": "2026-03-09T17:39:23",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-opus-4.6::medium",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 8.8459,
+          "promptTokens": 1686354,
+          "completionTokens": 16565,
+          "cachedTokens": 1270352,
+          "reasoningTokens": 23,
+          "toolCallsOk": 122,
+          "toolCallsFailed": 1,
+          "thinkingTimeSecs": 635.0,
+          "responses": 123,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 2.8
+        },
+        {
+          "key": "google/gemini-3-pro-preview::medium",
+          "modelName": "Gemini 3 Pro (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 2.1474,
+          "promptTokens": 728677,
+          "completionTokens": 57500,
+          "cachedTokens": 252794,
+          "reasoningTokens": 55356,
+          "toolCallsOk": 106,
+          "toolCallsFailed": 0,
+          "thinkingTimeSecs": 1080.6,
+          "responses": 101,
+          "timeouts": 0,
+          "otherErrors": 2,
+          "contextResets": 0,
+          "latencyP50": 2.7
+        }
+      ]
+    },
+    {
+      "id": "game_20260309_181423",
+      "ts": "2026-03-09T18:14:23",
+      "epoch": 45,
+      "format": "jumpstart",
+      "players": [
+        {
+          "key": "anthropic/claude-opus-4.6::medium",
+          "modelName": "Claude Opus 4.6 (medium)",
+          "won": false,
+          "timedOut": false,
+          "costUsd": 7.4574,
+          "promptTokens": 1403033,
+          "completionTokens": 17690,
+          "cachedTokens": 1058844,
+          "reasoningTokens": 18,
+          "toolCallsOk": 102,
+          "toolCallsFailed": 3,
+          "thinkingTimeSecs": 585.0,
+          "responses": 101,
+          "timeouts": 0,
+          "otherErrors": 0,
+          "contextResets": 0,
+          "latencyP50": 3.1
+        },
+        {
+          "key": "google/gemini-3-pro-preview::medium",
+          "modelName": "Gemini 3 Pro (medium)",
+          "won": true,
+          "timedOut": false,
+          "costUsd": 2.399,
+          "promptTokens": 804136,
+          "completionTokens": 65898,
+          "cachedTokens": 330505,
+          "reasoningTokens": 55240,
+          "toolCallsOk": 100,
+          "toolCallsFailed": 2,
+          "thinkingTimeSecs": 1261.7,
+          "responses": 94,
+          "timeouts": 0,
+          "otherErrors": 1,
+          "contextResets": 0,
+          "latencyP50": 3.7
         }
       ]
     }
