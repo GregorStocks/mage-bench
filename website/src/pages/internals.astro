@@ -310,14 +310,14 @@ if (fs.existsSync(exportsDir)) {
     const allModels = Array.from(modelMap.entries())
       .sort((a, b) => a[1].localeCompare(b[1]));
 
-    // Color palette for lines
+    // Color palette for lines — high-saturation, maximally distinct on dark bg
     const LINE_COLORS = [
-      '#e94560', '#4ecdc4', '#fbbf24', '#a78bfa', '#34d399',
-      '#f472b6', '#60a5fa', '#fb923c', '#a3e635', '#c084fc',
-      '#38bdf8', '#f87171', '#2dd4bf', '#facc15', '#818cf8',
-      '#4ade80', '#f9a8d4', '#93c5fd', '#fdba74', '#bef264',
-      '#e879f9', '#7dd3fc', '#fca5a5', '#5eead4', '#fde047',
-      '#a5b4fc', '#86efac', '#f5d0fe', '#bfdbfe', '#fed7aa',
+      '#ff4444', '#4dc9f6', '#f7e430', '#2ecc71', '#cc66ff',
+      '#ff9933', '#00d4aa', '#ff66aa', '#96cc33', '#6688ff',
+      '#ff7766', '#33bbdd', '#ddaa22', '#33bb88', '#ee55cc',
+      '#cc6633', '#55ddcc', '#dd4477', '#66bb33', '#9966ee',
+      '#ff9988', '#77ccee', '#eebb44', '#66dd99', '#bb88ee',
+      '#ffbb66', '#44eebb', '#ff88bb', '#bbdd55', '#8888dd',
     ];
 
     // State
