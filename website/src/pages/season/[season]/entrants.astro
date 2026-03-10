@@ -1,0 +1,290 @@
+---
+import Base from '../../../layouts/Base.astro';
+import SeasonNav from '../../../components/SeasonNav.astro';
+import benchmarkData from '../../../data/benchmark-results.json';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [];
+
+export function getStaticPaths() {
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
+  );
+  const seasons: number[] = data.availableSeasons ?? [];
+  return seasons
+    .filter(s => {
+      const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
+      return fs.existsSync(tp);
+    })
+    .map(s => ({ params: { season: String(s) } }));
+}
+
+const { season } = Astro.params;
+const seasonNum = parseInt(season!, 10);
+
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
+const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+
+const personalitiesPath = path.join(process.cwd(), '..', 'puppeteer', 'personalities.json');
+let personalities: Record<string, any> = {};
+if (fs.existsSync(personalitiesPath)) {
+  personalities = JSON.parse(fs.readFileSync(personalitiesPath, 'utf-8'));
+}
+
+const entrantsBySeed: Record<number, any> = {};
+for (const e of tournament.entrants) {
+  entrantsBySeed[e.seed] = e;
+}
+
+function cleanThemeName(name: string): string {
+  return name.replace(/^J22 /, '');
+}
+
+const hasDraft = !!tournament.draft;
+---
+
+<Base title={`Season ${seasonNum} Championship Entrants`} wide>
+  <SeasonNav season={seasonNum} active="entrants" hasTournament={true} hasDraft={hasDraft} />
+
+  <div class="entrants-page">
+    <h2>Entrants & Decklists</h2>
+    <div class="tournament-meta">
+      <span class="meta-chip">best of {tournament.best_of}</span>
+      <span class="meta-chip">{tournament.elimination} elimination</span>
+      <span class="meta-chip">{tournament.size} players</span>
+      <span class="meta-chip">Jumpstart draft</span>
+    </div>
+
+    <div class="entrants-grid">
+      {tournament.entrants.map((e: any) => {
+        const p = personalities[e.personality];
+        const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
+        const cards = deckInfo?.cards?.map((c: string) => {
+          const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
+          if (!m) return { count: 1, set: '', num: '', name: c };
+          return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
+        }) || [];
+        return (
+          <div class="entrant-card">
+            <div class="entrant-seed">#{e.seed}</div>
+            <div class="entrant-info">
+              <div class="entrant-name">
+                {e.display_name}
+              </div>
+              <div class="entrant-personality">
+                <span class="personality-name">{e.personality}</span>
+                {p?.prompt_suffix && (
+                  <span class="personality-desc" title={p.prompt_suffix}>
+                    {p.prompt_suffix.length > 60 ? p.prompt_suffix.slice(0, 60) + '...' : p.prompt_suffix}
+                  </span>
+                )}
+              </div>
+              <div class="entrant-stats">
+                <span class="entrant-elo">Elo {e.combined_elo}</span>
+                <span class="entrant-games">{e.games_played} games</span>
+              </div>
+              {deckInfo && (
+                <details class="entrant-decklist-details">
+                  <summary class="entrant-deck-summary">
+                    {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
+                    <span class="deck-card-count">{cards.reduce((s: number, c: any) => s + c.count, 0)} cards</span>
+                  </summary>
+                  <div class="decklist-cards">
+                    {cards.map((c: any) => (
+                      <div class="deck-card-row">
+                        <span class="deck-card-qty">{c.count}</span>
+                        <span class="deck-card-name">{c.name}</span>
+                        <span class="deck-card-set">{c.set}</span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .entrants-page {
+    max-width: 52rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+
+  .tournament-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .meta-chip {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    background: rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+    border-radius: 20px;
+    color: var(--accent-secondary);
+    text-transform: capitalize;
+  }
+
+  .entrants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .entrant-card {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .entrant-card:hover {
+    border-color: var(--accent-secondary);
+  }
+
+  .entrant-seed {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    min-width: 2rem;
+    text-align: center;
+    flex-shrink: 0;
+    padding-top: 0.1rem;
+  }
+
+  .entrant-info {
+    min-width: 0;
+  }
+
+  .entrant-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .entrant-personality {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+
+  .personality-name {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: capitalize;
+    flex-shrink: 0;
+  }
+
+  .personality-desc {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .entrant-stats {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+  }
+
+  .entrant-elo {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entrant-decklist-details {
+    margin-top: 0.3rem;
+  }
+
+  .entrant-deck-summary {
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--accent-secondary);
+    user-select: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .deck-card-count {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .decklist-cards {
+    margin-top: 0.3rem;
+    padding-left: 0.25rem;
+    font-size: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .deck-card-row {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.1rem 0;
+    color: var(--text-secondary);
+  }
+
+  .deck-card-qty {
+    color: var(--text-muted);
+    min-width: 1rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .deck-card-name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .deck-card-set {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .entrants-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .entrants-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

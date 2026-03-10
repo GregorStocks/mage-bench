@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T10:02:26.331628+00:00",
+  "generatedAt": "2026-03-10T01:51:59.055689+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -500,23 +500,23 @@
           "latencySamples": 1060
         },
         "45": {
-          "gamesPlayed": 7,
-          "wins": 6,
+          "gamesPlayed": 10,
+          "wins": 7,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 46.3207,
-          "totalToolCallsOk": 667,
-          "totalToolCallsFailed": 5,
-          "totalThinkingTimeSecs": 3423.5,
-          "totalPromptTokens": 8799610,
-          "totalCompletionTokens": 92902,
-          "totalCachedTokens": 6598756,
-          "totalReasoningTokens": 163,
-          "successfulResponses": 659,
+          "totalCostUsd": 63.2472,
+          "totalToolCallsOk": 910,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 4717.1,
+          "totalPromptTokens": 12003743,
+          "totalCompletionTokens": 129134,
+          "totalCachedTokens": 9026287,
+          "totalReasoningTokens": 222,
+          "successfulResponses": 901,
           "errors": {},
           "contextResets": 0,
-          "latencyP50": 1.0,
-          "latencyP95": 8.8,
-          "latencySamples": 1339
+          "latencyP50": 0.9,
+          "latencyP95": 8.9,
+          "latencySamples": 1834
         }
       }
     },
@@ -2108,26 +2108,26 @@
           "latencySamples": 259
         },
         "45": {
-          "gamesPlayed": 9,
-          "wins": 6,
+          "gamesPlayed": 12,
+          "wins": 8,
           "timerTimeoutLosses": 0,
-          "totalCostUsd": 17.9214,
-          "totalToolCallsOk": 899,
-          "totalToolCallsFailed": 7,
-          "totalThinkingTimeSecs": 10669.0,
-          "totalPromptTokens": 5857084,
-          "totalCompletionTokens": 517281,
-          "totalCachedTokens": 2360829,
-          "totalReasoningTokens": 472596,
-          "successfulResponses": 838,
+          "totalCostUsd": 22.9248,
+          "totalToolCallsOk": 1147,
+          "totalToolCallsFailed": 9,
+          "totalThinkingTimeSecs": 16788.3,
+          "totalPromptTokens": 7581953,
+          "totalCompletionTokens": 646756,
+          "totalCachedTokens": 2985334,
+          "totalReasoningTokens": 588654,
+          "successfulResponses": 1075,
           "errors": {
             "timeout": 3,
-            "BadRequestError": 16
+            "BadRequestError": 20
           },
           "contextResets": 0,
           "latencyP50": 0.5,
-          "latencyP95": 30.3,
-          "latencySamples": 1776
+          "latencyP95": 28.9,
+          "latencySamples": 2271
         }
       }
     },
