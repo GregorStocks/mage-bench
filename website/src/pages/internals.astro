@@ -661,7 +661,7 @@ if (fs.existsSync(exportsDir)) {
             legend: {
               position: 'bottom',
               labels: {
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
@@ -669,11 +669,11 @@ if (fs.existsSync(exportsDir)) {
               },
             },
             tooltip: {
-              backgroundColor: '#16213e',
-              borderColor: '#0f3460',
+              backgroundColor: 'var(--bg-surface)',
+              borderColor: '#2e2e38',
               borderWidth: 1,
-              titleColor: '#e0e0e0',
-              bodyColor: '#a0a0b8',
+              titleColor: '#f0f0f2',
+              bodyColor: 'var(--text-muted)',
               filter: (item: any) => !item.dataset.label?.endsWith('(trend)'),
               callbacks: {
                 title: (items: any[]) => {
@@ -703,11 +703,11 @@ if (fs.existsSync(exportsDir)) {
               title: {
                 display: true,
                 text: 'Games (chronological)',
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
                 font: { size: 11 },
               },
               ticks: {
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
                 maxRotation: 45,
                 font: { size: 11 },
                 callback: function(value: any) {
@@ -719,11 +719,11 @@ if (fs.existsSync(exportsDir)) {
               afterBuildTicks: function(axis: any) {
                 axis.ticks = dateTicks.map(t => ({ value: t.value }));
               },
-              grid: { color: 'rgba(15, 52, 96, 0.5)' },
+              grid: { color: 'var(--border-subtle)' },
             },
             y: {
               ticks: {
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
                 font: { size: 11 },
                 callback: (val: any) => {
                   if (metric.unit === '%') return val + '%';
@@ -732,7 +732,7 @@ if (fs.existsSync(exportsDir)) {
                   return val;
                 },
               },
-              grid: { color: 'rgba(15, 52, 96, 0.5)' },
+              grid: { color: 'var(--border-subtle)' },
               beginAtZero: true,
             },
           },
@@ -1178,9 +1178,9 @@ if (fs.existsSync(exportsDir)) {
           scales: {
             x: {
               type: 'linear',
-              title: { display: true, text: 'Annotation Run', color: '#a0a0b8' },
+              title: { display: true, text: 'Annotation Run', color: 'var(--text-muted)' },
               ticks: {
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
                 callback: function(value: string | number) {
                   const idx = typeof value === 'string' ? parseInt(value) : value;
                   const d = dateLabels.get(idx);
@@ -1193,9 +1193,9 @@ if (fs.existsSync(exportsDir)) {
               title: {
                 display: true,
                 text: metric.unit ? `${metric.label} (${metric.unit})` : metric.label,
-                color: '#a0a0b8',
+                color: 'var(--text-muted)',
               },
-              ticks: { color: '#a0a0b8' },
+              ticks: { color: 'var(--text-muted)' },
               grid: { color: 'rgba(255,255,255,0.05)' },
             },
           },
@@ -1281,7 +1281,7 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .control-label {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 600;
     flex-shrink: 0;
@@ -1302,10 +1302,10 @@ if (fs.existsSync(exportsDir)) {
 
   .metric-btn {
     padding: 0.35rem 0.65rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.8rem;
     font-family: inherit;
     cursor: pointer;
@@ -1343,9 +1343,9 @@ if (fs.existsSync(exportsDir)) {
 
   .toggle-btn {
     padding: 0.35rem 0.65rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
-    color: #a0a0b8;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    color: var(--text-muted);
     font-size: 0.8rem;
     font-family: inherit;
     cursor: pointer;
@@ -1369,7 +1369,7 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .toggle-btn.active {
-    background: #0f3460;
+    background: var(--border-default);
     color: #e94560;
     font-weight: 600;
   }
@@ -1379,8 +1379,8 @@ if (fs.existsSync(exportsDir)) {
     font-family: inherit;
     font-size: 0.85rem;
     padding: 0.35rem 0.5rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     color: #e0e0e0;
     outline: none;
@@ -1393,10 +1393,10 @@ if (fs.existsSync(exportsDir)) {
 
   /* ─── Model filter ─── */
   .model-filter {
-    border: 1px solid #0f3460;
+    border: 1px solid var(--border-default);
     border-radius: 6px;
     padding: 0.5rem 0.75rem;
-    background: #16213e;
+    background: var(--bg-surface);
   }
 
   .model-filter-header {
@@ -1412,8 +1412,8 @@ if (fs.existsSync(exportsDir)) {
     font-family: inherit;
     font-size: 0.8rem;
     padding: 0.3rem 0.5rem;
-    background: #1a1a2e;
-    border: 1px solid #0f3460;
+    background: var(--bg-base);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     color: #e0e0e0;
     outline: none;
@@ -1429,10 +1429,10 @@ if (fs.existsSync(exportsDir)) {
 
   .small-btn {
     padding: 0.25rem 0.5rem;
-    background: #0f3460;
+    background: var(--border-default);
     border: 1px solid #1a4a8a;
     border-radius: 3px;
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
@@ -1458,7 +1458,7 @@ if (fs.existsSync(exportsDir)) {
     align-items: center;
     gap: 0.3rem;
     font-size: 0.8rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
     cursor: pointer;
     white-space: nowrap;
   }
@@ -1478,8 +1478,8 @@ if (fs.existsSync(exportsDir)) {
   .chart-container {
     position: relative;
     height: 450px;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     padding: 1rem;
   }
@@ -1500,7 +1500,7 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .epoch-label {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -1515,8 +1515,8 @@ if (fs.existsSync(exportsDir)) {
     font-family: inherit;
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 4px;
     color: #e0e0e0;
     outline: none;
@@ -1528,7 +1528,7 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .filters input::placeholder {
-    color: #a0a0b8;
+    color: var(--text-muted);
   }
 
   #search-input {
@@ -1552,8 +1552,8 @@ if (fs.existsSync(exportsDir)) {
   th {
     text-align: left;
     padding: 0.6rem 0.75rem;
-    border-bottom: 2px solid #0f3460;
-    color: #a0a0b8;
+    border-bottom: 2px solid var(--border-default);
+    color: var(--text-muted);
     font-weight: 600;
     cursor: pointer;
     user-select: none;
@@ -1578,7 +1578,7 @@ if (fs.existsSync(exportsDir)) {
 
   #stats-table :global(td) {
     padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   #stats-table :global(.model-name) {
@@ -1615,7 +1615,7 @@ if (fs.existsSync(exportsDir)) {
   }
 
   #stats-table :global(tbody tr:nth-child(even)) {
-    background: rgba(22, 33, 62, 0.3);
+    background: rgba(255, 255, 255, 0.02);
   }
 
   #stats-table :global(tbody tr:hover) {
@@ -1640,14 +1640,14 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .footnote {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.8rem;
     font-style: italic;
     margin-top: 0.5rem;
   }
 
   .no-results {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-style: italic;
     text-align: center;
     padding: 2rem 0;
@@ -1656,7 +1656,7 @@ if (fs.existsSync(exportsDir)) {
   .error-detail {
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #0f3460;
+    border-top: 1px solid var(--border-default);
   }
 
   .error-detail h2 {
@@ -1677,11 +1677,11 @@ if (fs.existsSync(exportsDir)) {
 
   #error-detail-table :global(td) {
     padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    border-bottom: 1px solid var(--border-subtle);
   }
 
   #error-detail :global(.empty) {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-style: italic;
   }
 
@@ -1702,8 +1702,8 @@ if (fs.existsSync(exportsDir)) {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.25rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
     border-radius: 8px;
     text-decoration: none;
     color: inherit;
@@ -1724,7 +1724,7 @@ if (fs.existsSync(exportsDir)) {
 
   .scenario-meta {
     font-size: 0.8rem;
-    color: #a0a0b8;
+    color: var(--text-muted);
     white-space: nowrap;
   }
 

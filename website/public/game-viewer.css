@@ -11,8 +11,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.75rem;
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   margin-bottom: 0.5rem;
 }
@@ -24,14 +24,14 @@
 }
 
 .transport-buttons button {
-  background: #0f3460;
+  background: var(--border-default);
   color: #e0e0e0;
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   padding: 0.35rem 0.6rem;
   cursor: pointer;
   font-family: var(--font-mono, monospace);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   transition: background 0.15s;
 }
 
@@ -61,13 +61,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.15rem;
-  background: #0f3460;
+  background: var(--border-default);
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   padding: 0.3rem 0.5rem;
   font-family: var(--font-mono, monospace);
-  font-size: 0.8rem;
-  color: #a0a0b8;
+  font-size: 0.9rem;
+  color: var(--text-muted);
   flex-shrink: 0;
   cursor: text;
 }
@@ -192,8 +192,8 @@
 /* Action log */
 #action-log {
   padding: 0.5rem 0.75rem;
-  background: #16213e;
-  border: 1px solid #0f3460;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: 8px;
   position: sticky;
   top: 0.5rem;
@@ -216,17 +216,17 @@
 }
 
 #player-filter {
-  background: #0f3460;
+  background: var(--border-default);
   color: #e0e0e0;
   border: 1px solid #1a4a8a;
   border-radius: 4px;
   padding: 0.2rem 0.3rem;
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   cursor: pointer;
 }
 
 .filter-checkbox {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   color: #888;
   cursor: pointer;
   user-select: none;
@@ -238,7 +238,7 @@
 }
 
 #llm-toggle-label {
-  font-size: 0.72rem;
+  font-size: 0.9rem;
   color: #888;
   cursor: pointer;
   user-select: none;
@@ -252,7 +252,7 @@
 #action-list {
   overflow-y: auto;
   overflow-x: hidden;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 1.35;
   word-break: break-word;
 }

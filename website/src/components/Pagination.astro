@@ -33,7 +33,7 @@ const { prevUrl, nextUrl, currentPage, lastPage } = Astro.props;
     gap: 1.5rem;
     margin-top: 2rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #0f3460;
+    border-top: 1px solid var(--border-default);
   }
 
   .page-link {
@@ -53,7 +53,7 @@ const { prevUrl, nextUrl, currentPage, lastPage } = Astro.props;
   }
 
   .page-info {
-    color: #a0a0b8;
+    color: var(--text-muted);
     font-size: 0.85rem;
   }
 </style>
