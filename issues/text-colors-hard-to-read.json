@@ -1,0 +1,10 @@
+{
+  "title": "text-secondary and text-muted are hard to read",
+  "description": "The current text color hierarchy (--text-primary: #f0f0f2, --text-secondary: #9e9eab, --text-muted: #6b6b78) has readability problems. text-secondary is used in 76 places across 16 files and text-muted is even dimmer. Both are hard to read against the dark background, especially for body content.\n\nWe should either:\n1. Bump the brightness of text-secondary and text-muted so they're more readable at their current usage sites, or\n2. Audit all 76+ usages and switch most of them to text-primary, reserving text-secondary/text-muted for genuinely de-emphasized elements like timestamps and token counts.\n\nProbably a mix of both — make the values themselves more readable AND reduce how much we lean on the dimmer tiers for content people actually want to read.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["website"],
+  "created_at": "2026-03-10T19:55:00.000000-07:00",
+  "updated_at": "2026-03-10T19:55:00.000000-07:00"
+}
