@@ -701,27 +701,6 @@
       dom.sliderContainer.appendChild(container);
     }
 
-    function renderDecisionMarkers(decisionSnapIndices, totalSnapshots) {
-      var existing = dom.sliderContainer.querySelector(".decision-markers");
-      if (existing) existing.remove();
-
-      if (!decisionSnapIndices || decisionSnapIndices.length === 0 || totalSnapshots <= 1) return;
-
-      var container = document.createElement("div");
-      container.className = "decision-markers";
-      for (var i = 0; i < decisionSnapIndices.length; i++) {
-        var dot = document.createElement("div");
-        dot.className = "decision-marker";
-        var pct = (decisionSnapIndices[i] / (totalSnapshots - 1)) * 100;
-        dot.style.left = pct + "%";
-        dot.addEventListener("click", (function (idx) {
-          return function () { goTo(idx); };
-        })(decisionSnapIndices[i]));
-        container.appendChild(dot);
-      }
-      dom.sliderContainer.appendChild(container);
-    }
-
     // ── Core rendering ──
 
     function renderSnapshot(index) {
@@ -1313,9 +1292,8 @@
       }
     }
 
-    // Render turn boundary markers, decision markers, and annotation markers on slider
+    // Render turn boundary markers and annotation markers on slider
     renderTurnMarkers(turnStartIndices, game.snapshots.length);
-    renderDecisionMarkers(decisionSnapshotIndices, game.snapshots.length);
     if (hasAnnotations) {
       renderAnnotationMarkers(game.annotations, game.snapshots.length);
     }
