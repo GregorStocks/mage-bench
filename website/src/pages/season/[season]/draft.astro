@@ -63,6 +63,8 @@ function cleanThemeName(name: string): string {
           <div class="draft-round-picks">
             {roundPicks.map((pick: any) => {
               const ent = entrantsBySeed[pick.seed];
+              const previewSrc = pick.thinking || (pick.reasoning?.length > 10 ? pick.reasoning : null);
+              const preview = previewSrc ? previewSrc.slice(0, 300).replace(/\*+/g, '') : null;
               return (
                 <div class="dpick">
                   <button class="dpick-row" type="button" aria-expanded="false">
@@ -75,17 +77,20 @@ function cleanThemeName(name: string): string {
                     <span class="dpick-cost">${pick.cost_usd.toFixed(2)}</span>
                     <span class="dpick-chevron">&#9656;</span>
                   </button>
+                  {preview && (
+                    <div class="dpick-preview">{preview}</div>
+                  )}
                   <div class="dpick-detail" hidden>
-                    <div class="dpick-reasoning">
-                      <div class="dpick-detail-label">Reasoning</div>
-                      <div class="dpick-reasoning-text">{pick.reasoning}</div>
-                    </div>
                     {pick.thinking && (
-                      <details class="dpick-thinking">
-                        <summary class="dpick-detail-label clickable">Extended Thinking</summary>
-                        <div class="dpick-thinking-text">{pick.thinking}</div>
+                      <details class="dpick-logic" open>
+                        <summary class="dpick-detail-label clickable">Logic</summary>
+                        <div class="dpick-logic-text">{pick.thinking}</div>
                       </details>
                     )}
+                    <div class="dpick-decision">
+                      <div class="dpick-detail-label">Decision</div>
+                      <div class="dpick-decision-text">{pick.reasoning}</div>
+                    </div>
                     <div class="dpick-pool">
                       <div class="dpick-detail-label">Available ({pick.options.length} packs)</div>
                       <div class="dpick-pool-tags">
@@ -284,23 +289,41 @@ function cleanThemeName(name: string): string {
     user-select: none;
   }
 
-  .dpick-reasoning-text {
+  .dpick-preview {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    padding: 0 0.75rem 0.4rem 2.8rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .dpick-preview:hover {
+    color: var(--text-secondary);
+  }
+
+  .dpick.open .dpick-preview {
+    display: none;
+  }
+
+  .dpick-logic,
+  .dpick-decision {
+    margin-bottom: 0.75rem;
+  }
+
+  .dpick-logic-text,
+  .dpick-decision-text {
     font-size: 0.8rem;
     color: var(--text-secondary);
     line-height: 1.4;
-    margin-bottom: 0.75rem;
-  }
-
-  .dpick-thinking {
-    margin-bottom: 0.75rem;
-  }
-
-  .dpick-thinking-text {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-    margin-top: 0.25rem;
     white-space: pre-wrap;
+  }
+
+  .dpick-logic-text {
+    margin-top: 0.25rem;
   }
 
   .dpick-pool {
@@ -356,7 +379,7 @@ function cleanThemeName(name: string): string {
 
 <script is:inline>
   document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.dpick-row');
+    var btn = e.target.closest('.dpick-row, .dpick-preview');
     if (!btn) return;
     var card = btn.closest('.dpick');
     var detail = card.querySelector('.dpick-detail');
