@@ -1079,14 +1079,22 @@ public class GameController implements GameCallback {
             throw new IllegalArgumentException("Can't find real turn controller for player id: " + playerId);
         }
 
-        if (gameSessions.containsKey(realPlayerController.getId())) {
-            startResponseIdleTimeout(realPlayerController.getId());
-            command.execute(realPlayerController.getId());
-        }
+        // informOthers MUST run before command.execute(). command.execute() fires
+        // the GAME_SELECT callback to the active player, who may respond immediately.
+        // The response goes through setResponseBoolean() → waitResponseOpen(), which
+        // spins until responseOpenedForAnswer is set by waitForResponse() (called AFTER
+        // firePriorityEvent/perform returns). If informOthers() runs after
+        // command.execute() and blocks (slow RMI to spectator/opponent), it delays the
+        // return from perform(), delaying waitForResponse(), and waitResponseOpen() can
+        // time out — silently dropping the response and freezing the game.
         // TODO: if watcher disconnects then game freezes with active timer, must be fix for such use case
         //  same for another player (can be fixed by super-duper connection)
         if (informOthers) {
             informOthers(realPlayerController.getId());
+        }
+        if (gameSessions.containsKey(realPlayerController.getId())) {
+            startResponseIdleTimeout(realPlayerController.getId());
+            command.execute(realPlayerController.getId());
         }
     }
 
