@@ -12,6 +12,11 @@ const currentPath = Astro.url.pathname;
 const currentSeason = (seasonData as any).current_season;
 const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [currentSeason];
 
+const docsLinks = [
+  { href: '/scoring', label: 'Scoring' },
+  { href: '/internals', label: 'Internals' },
+];
+
 const navLinks = [
   { href: '/', label: 'Home' },
   ...[...availableSeasons].reverse().map(s => ({
@@ -19,11 +24,6 @@ const navLinks = [
     label: `Season ${s}`,
   })),
   { href: '/blog', label: 'Blog' },
-];
-
-const docsLinks = [
-  { href: '/scoring', label: 'Scoring' },
-  { href: '/internals', label: 'Internals' },
 ];
 ---
 
@@ -42,25 +42,29 @@ const docsLinks = [
     <nav>
       <a class="site-title" href="/">mage-bench</a>
       <ul>
-        {navLinks.map(link => (
-          <li>
-            <a href={link.href} class:list={[{ active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}>
-              {link.label}
-            </a>
-          </li>
-        ))}
-        <li class="nav-dropdown">
-          <span class:list={['nav-dropdown-trigger', { active: docsLinks.some(l => currentPath === l.href || currentPath.startsWith(l.href)) }]}>Docs</span>
-          <ul class="nav-dropdown-menu">
-            {docsLinks.map(link => (
-              <li>
-                <a href={link.href} class:list={[{ active: currentPath === link.href || currentPath.startsWith(link.href) }]}>
-                  {link.label}
-                </a>
+        {navLinks.map((link, i) => (
+          <Fragment>
+            <li>
+              <a href={link.href} class:list={[{ active: currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) }]}>
+                {link.label}
+              </a>
+            </li>
+            {i === navLinks.length - 2 && (
+              <li class="nav-dropdown">
+                <span class:list={['nav-dropdown-trigger', { active: docsLinks.some(l => currentPath === l.href || currentPath.startsWith(l.href)) }]}>Docs</span>
+                <ul class="nav-dropdown-menu">
+                  {docsLinks.map(link => (
+                    <li>
+                      <a href={link.href} class:list={[{ active: currentPath === link.href || currentPath.startsWith(link.href) }]}>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </li>
-            ))}
-          </ul>
-        </li>
+            )}
+          </Fragment>
+        ))}
       </ul>
     </nav>
     <main class:list={[{ wide }]}>
@@ -227,8 +231,7 @@ const docsLinks = [
     display: none;
     position: absolute;
     top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     background: var(--bg-elevated);
     border: 1px solid var(--border-default);
     border-radius: 8px;
