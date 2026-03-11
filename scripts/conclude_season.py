@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conclude the current season and create an end-of-season tournament.
+"""Conclude the current season and create a postseason tournament.
 
 Reads the combined leaderboard, selects the top N players by Elo rating,
 locks in their preset/personality/effort for all tournament games, and

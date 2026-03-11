@@ -1,6 +1,6 @@
 # Season Lifecycle
 
-A season is a cycle of regular-season games followed by an end-of-season tournament. The current state lives in `data/season.json`:
+A season is a cycle of regular-season games followed by a postseason tournament. The current state lives in `data/season.json`:
 
 ```json
 {
