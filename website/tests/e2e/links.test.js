@@ -49,6 +49,29 @@ function collectInternalLinks() {
 }
 
 /**
+ * Collect all HTML pages in dist/ (directories containing index.html).
+ * Returns a set of page paths like "/", "/leaderboard", "/games", etc.
+ */
+function collectAllPages() {
+  const pages = new Set();
+
+  function walk(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+      } else if (entry.name === "index.html") {
+        const rel = path.relative(distDir, path.dirname(full));
+        pages.add(rel === "" ? "/" : "/" + rel);
+      }
+    }
+  }
+
+  walk(distDir);
+  return pages;
+}
+
+/**
  * Check if an internal href resolves to a file in dist/.
  * Astro generates: /foo -> dist/foo/index.html
  * Static assets: /favicon.svg -> dist/favicon.svg
@@ -93,6 +116,36 @@ describe("internal links", () => {
         .join("\n");
       expect.fail(
         `Found ${broken.length} broken internal link(s):\n${report}`
+      );
+    }
+  });
+
+  test("all pages are reachable from at least one other page", () => {
+    const allPages = collectAllPages();
+    const links = collectInternalLinks();
+    const linkedTo = new Set();
+
+    for (const href of links.keys()) {
+      // Normalize: strip trailing slash to match page format
+      const cleaned =
+        href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
+      linkedTo.add(cleaned);
+    }
+
+    const unreachable = [];
+    for (const page of allPages) {
+      if (page === "/") continue; // homepage is always an entry point
+      if (/^\/games\/game_/.test(page)) continue; // game pages linked dynamically via JS
+      if (page === "/games/live") continue; // live viewer accessed via direct URL
+      if (!linkedTo.has(page)) {
+        unreachable.push(page);
+      }
+    }
+
+    if (unreachable.length > 0) {
+      expect.fail(
+        `Found ${unreachable.length} unreachable page(s) (not linked from anywhere):\n` +
+          unreachable.map((p) => `  ${p}`).join("\n")
       );
     }
   });
