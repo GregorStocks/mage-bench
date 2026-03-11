@@ -140,7 +140,7 @@ if (fs.existsSync(gamesDir)) {
   </section>
 
   <section class="links">
-    <a href="/leaderboard">Leaderboard</a>
+    <a href={`/season/${currentSeason}/rankings`}>Leaderboard</a>
     <a href="/games">Watch games</a>
     <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
   </section>
@@ -165,7 +165,7 @@ if (fs.existsSync(gamesDir)) {
 
   {top5.length > 0 && (
     <section class="leaderboard-preview">
-      <h2>Top Models <a href="/leaderboard" class="section-link">Full leaderboard &rarr;</a></h2>
+      <h2>Top Models <a href={`/season/${currentSeason}/rankings`} class="section-link">Full leaderboard &rarr;</a></h2>
       <div class="mini-leaderboard">
         {top5.map((m: any, i: number) => (
           <div class:list={['mini-row', { 'mini-gold': i === 0, 'mini-silver': i === 1, 'mini-bronze': i === 2 }]}>

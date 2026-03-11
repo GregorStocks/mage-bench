@@ -14,14 +14,16 @@ const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [c
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/leaderboard', label: 'Leaderboard' },
   ...[...availableSeasons].reverse().map(s => ({
     href: `/season/${s}`,
     label: `Season ${s}`,
   })),
+  { href: '/blog', label: 'Blog' },
+];
+
+const docsLinks = [
   { href: '/scoring', label: 'Scoring' },
   { href: '/internals', label: 'Internals' },
-  { href: '/blog', label: 'Blog' },
 ];
 ---
 
@@ -47,6 +49,18 @@ const navLinks = [
             </a>
           </li>
         ))}
+        <li class="nav-dropdown">
+          <span class:list={['nav-dropdown-trigger', { active: docsLinks.some(l => currentPath === l.href || currentPath.startsWith(l.href)) }]}>Docs</span>
+          <ul class="nav-dropdown-menu">
+            {docsLinks.map(link => (
+              <li>
+                <a href={link.href} class:list={[{ active: currentPath === link.href || currentPath.startsWith(link.href) }]}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
       </ul>
     </nav>
     <main class:list={[{ wide }]}>
@@ -165,6 +179,84 @@ const navLinks = [
     height: 2px;
     background: var(--accent-primary);
     border-radius: 1px;
+  }
+
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    color: var(--text-secondary);
+    cursor: default;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    transition: color 0.15s;
+  }
+
+  .nav-dropdown-trigger::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 3.5px solid transparent;
+    border-right: 3.5px solid transparent;
+    border-top: 4px solid currentColor;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+    opacity: 0.6;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-trigger,
+  .nav-dropdown-trigger.active {
+    color: var(--text-primary);
+  }
+
+  .nav-dropdown-trigger.active::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    border-radius: 1px;
+  }
+
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 0.4rem 0;
+    min-width: 140px;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    display: flex;
+  }
+
+  .nav-dropdown-menu li {
+    list-style: none;
+  }
+
+  .nav-dropdown-menu a {
+    display: block;
+    padding: 0.45rem 1rem;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  .nav-dropdown-menu a:hover {
+    background: rgba(var(--accent-primary-rgb), 0.1);
   }
 
   main {
