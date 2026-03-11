@@ -1,0 +1,811 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import SeasonNav from '../../../../components/SeasonNav.astro';
+import { loadAllGames } from '../../../../utils/load-games';
+import fs from 'node:fs';
+import path from 'node:path';
+
+function assert(cond: any, msg: string): asserts cond {
+  if (!cond) throw new Error(msg);
+}
+
+export function getStaticPaths() {
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
+  );
+  const seasons: number[] = data.availableSeasons ?? [];
+  const paths: any[] = [];
+
+  for (const s of seasons) {
+    const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
+    if (!fs.existsSync(tp)) continue;
+    const tournament = JSON.parse(fs.readFileSync(tp, 'utf-8'));
+    for (const e of tournament.entrants) {
+      paths.push({ params: { season: String(s), seed: String(e.seed) } });
+    }
+  }
+  return paths;
+}
+
+const { season, seed } = Astro.params;
+const seasonNum = parseInt(season!, 10);
+const seedNum = parseInt(seed!, 10);
+
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
+const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+
+const personalitiesPath = path.join(process.cwd(), '..', 'puppeteer', 'personalities.json');
+let personalities: Record<string, any> = {};
+if (fs.existsSync(personalitiesPath)) {
+  personalities = JSON.parse(fs.readFileSync(personalitiesPath, 'utf-8'));
+}
+
+const entrantsBySeed: Record<number, any> = {};
+for (const e of tournament.entrants) {
+  entrantsBySeed[e.seed] = e;
+}
+
+const entrant = entrantsBySeed[seedNum];
+assert(entrant, `No entrant with seed ${seedNum}`);
+
+const personality = personalities[entrant.personality];
+const hasDraft = !!tournament.draft;
+
+function cleanThemeName(name: string): string {
+  return name.replace(/^J22 /, '');
+}
+
+// Parse decklist
+const deckInfo = tournament.draft?.decklists?.[String(seedNum)];
+const cards = deckInfo?.cards?.map((c: string) => {
+  const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
+  if (!m) return { count: 1, set: '', num: '', name: c };
+  return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
+}) || [];
+
+const totalCards = cards.reduce((s: number, c: any) => s + c.count, 0);
+
+// Separate lands from spells for display
+const isLand = (name: string) => name === 'Forest' || name === 'Island' || name === 'Mountain' ||
+  name === 'Plains' || name === 'Swamp' || name.includes('Thriving');
+const spells = cards.filter((c: any) => !isLand(c.name));
+const lands = cards.filter((c: any) => isLand(c.name));
+
+// Build championship record: find all matches this player was in
+interface MatchRecord {
+  round: number;
+  roundName: string;
+  matchNum: number;
+  opponentSeed: number;
+  won: boolean;
+  gamesWon: number;
+  gamesLost: number;
+  gameIds: string[];
+}
+
+const matchRecords: MatchRecord[] = [];
+let eliminated = false;
+let bestRound = '';
+
+for (const round of (tournament.rounds || [])) {
+  for (const match of round.matches) {
+    if (match.seed_a !== seedNum && match.seed_b !== seedNum) continue;
+    const opponentSeed = match.seed_a === seedNum ? match.seed_b : match.seed_a;
+    const won = match.winner_seed === seedNum;
+    let gamesWon = 0;
+    let gamesLost = 0;
+    const gameIds: string[] = [];
+    for (const g of (match.games || [])) {
+      gameIds.push(g.game_id);
+      if (g.winner_seed === seedNum) gamesWon++;
+      else gamesLost++;
+    }
+    matchRecords.push({
+      round: round.round,
+      roundName: round.name,
+      matchNum: match.match,
+      opponentSeed,
+      won,
+      gamesWon,
+      gamesLost,
+      gameIds,
+    });
+    if (!won) {
+      eliminated = true;
+      bestRound = round.name;
+    }
+  }
+}
+
+if (!eliminated && matchRecords.length > 0) {
+  bestRound = 'Champion';
+}
+
+const totalGamesWon = matchRecords.reduce((s, m) => s + m.gamesWon, 0);
+const totalGamesLost = matchRecords.reduce((s, m) => s + m.gamesLost, 0);
+const matchesWon = matchRecords.filter(m => m.won).length;
+const matchesLost = matchRecords.filter(m => !m.won).length;
+
+// Load game metadata for enrichment
+const allGames = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
+const gameMeta: Record<string, any> = {};
+for (const g of allGames) {
+  gameMeta[g.id as string] = g;
+}
+
+// Build scryfall identifiers for the client-side mana curve fetch
+const scryfallIds = cards
+  .filter((c: any) => c.set && c.num && !isLand(c.name))
+  .map((c: any) => ({ set: c.set.toLowerCase(), collector_number: c.num, count: c.count }));
+---
+
+<Base title={`${entrant.display_name} — Season ${seasonNum}`}>
+  <SeasonNav season={seasonNum} active="entrants" hasTournament={true} hasDraft={hasDraft} />
+
+  <div class="player-page">
+    <a href={`/season/${seasonNum}/entrants`} class="back-link">&larr; Back to entrants</a>
+
+    <div class="player-header">
+      <span class="player-seed">#{seedNum}</span>
+      <div class="player-header-info">
+        <h1 class="player-name">{entrant.display_name}</h1>
+        <div class="player-meta">
+          <span class="player-personality">{entrant.personality}</span>
+          <span class="player-model">{entrant.model}</span>
+        </div>
+      </div>
+    </div>
+
+    {personality?.prompt_suffix && (
+      <div class="personality-quote">"{personality.prompt_suffix}"</div>
+    )}
+
+    <div class="player-stats-bar">
+      <div class="stat-item">
+        <span class="stat-value">{entrant.combined_elo}</span>
+        <span class="stat-label">Elo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{bestRound || 'N/A'}</span>
+        <span class="stat-label">Result</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{matchesWon}–{matchesLost}</span>
+        <span class="stat-label">Matches</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{totalGamesWon}–{totalGamesLost}</span>
+        <span class="stat-label">Games</span>
+      </div>
+    </div>
+
+    {matchRecords.length > 0 && (
+      <section class="section">
+        <h2 class="section-heading">Championship Run</h2>
+        <div class="matches-list">
+          {matchRecords.map((m) => {
+            const opponent = entrantsBySeed[m.opponentSeed];
+            return (
+              <div class:list={['match-row', { won: m.won, lost: !m.won }]}>
+                <div class="match-round">{m.roundName}</div>
+                <div class="match-details">
+                  <span class="match-result">{m.won ? 'W' : 'L'}</span>
+                  <span class="match-score">{m.gamesWon}–{m.gamesLost}</span>
+                  <span class="match-vs">vs</span>
+                  <a href={`/season/${seasonNum}/player/${m.opponentSeed}`} class="match-opponent">
+                    <span class="opponent-seed">#{m.opponentSeed}</span>
+                    {opponent?.display_name}
+                  </a>
+                </div>
+                <div class="match-games">
+                  {m.gameIds.map((gid, i) => {
+                    const meta = gameMeta[gid];
+                    return (
+                      <a href={`/games/${gid}`} class="game-link">
+                        Game {i + 1}
+                        {meta?.totalTurns && <span class="game-turns">{meta.totalTurns}t</span>}
+                      </a>
+                    );
+                  })}
+                  <a href={`/season/${seasonNum}/match/r${m.round}m${m.matchNum}`} class="match-detail-link">
+                    Match details &rarr;
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+    {deckInfo && (
+      <section class="section">
+        <h2 class="section-heading">Decklist</h2>
+        <div class="deck-header">
+          <span class="deck-name">{deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}</span>
+          <span class="deck-count">{totalCards} cards</span>
+        </div>
+
+        <div class="deck-layout">
+          <div class="mana-curve" id="mana-curve">
+            <div class="curve-placeholder">Loading mana curve...</div>
+          </div>
+
+          <div class="decklist-columns">
+            <div class="decklist-col">
+              <h3 class="col-heading">Spells ({spells.reduce((s: number, c: any) => s + c.count, 0)})</h3>
+              {spells.map((c: any) => (
+                <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
+                  <span class="deck-card-qty">{c.count}</span>
+                  <span class="deck-card-name">{c.name}</span>
+                  <span class="deck-card-set">{c.set}</span>
+                </div>
+              ))}
+            </div>
+            <div class="decklist-col">
+              <h3 class="col-heading">Lands ({lands.reduce((s: number, c: any) => s + c.count, 0)})</h3>
+              {lands.map((c: any) => (
+                <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
+                  <span class="deck-card-qty">{c.count}</span>
+                  <span class="deck-card-name">{c.name}</span>
+                  <span class="deck-card-set">{c.set}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+  </div>
+
+  <div id="card-preview" class="hidden">
+    <img id="preview-image" alt="" />
+  </div>
+</Base>
+
+<script is:inline define:vars={{ scryfallIds }}>
+  // Fetch mana values from Scryfall and render the mana curve
+  (function() {
+    var curveEl = document.getElementById('mana-curve');
+    if (!curveEl || !scryfallIds || scryfallIds.length === 0) {
+      if (curveEl) curveEl.innerHTML = '';
+      return;
+    }
+
+    var identifiers = scryfallIds.map(function(c) {
+      return { set: c.set, collector_number: c.collector_number };
+    });
+
+    fetch('https://api.scryfall.com/cards/collection', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifiers: identifiers }),
+    })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.data) { curveEl.innerHTML = ''; return; }
+
+        // Build CMC lookup
+        var cmcMap = {};
+        for (var i = 0; i < data.data.length; i++) {
+          var card = data.data[i];
+          var key = card.set + ':' + card.collector_number;
+          cmcMap[key] = card.cmc || 0;
+        }
+
+        // Count cards at each CMC
+        var curve = {};
+        var maxCmc = 0;
+        for (var j = 0; j < scryfallIds.length; j++) {
+          var c = scryfallIds[j];
+          var k = c.set + ':' + c.collector_number;
+          var cmc = cmcMap[k] != null ? Math.floor(cmcMap[k]) : 0;
+          if (cmc > 7) cmc = 7; // group 7+
+          curve[cmc] = (curve[cmc] || 0) + c.count;
+          if (cmc > maxCmc) maxCmc = cmc;
+        }
+
+        // Find max count for scaling
+        var maxCount = 0;
+        for (var m = 0; m <= maxCmc; m++) {
+          if ((curve[m] || 0) > maxCount) maxCount = curve[m];
+        }
+        if (maxCount === 0) { curveEl.innerHTML = ''; return; }
+
+        // Render bars
+        var html = '<div class="curve-bars">';
+        for (var n = 0; n <= maxCmc; n++) {
+          var count = curve[n] || 0;
+          var pct = Math.round((count / maxCount) * 100);
+          var label = n === 7 ? '7+' : String(n);
+          html += '<div class="curve-col">';
+          html += '<span class="curve-count">' + (count || '') + '</span>';
+          html += '<div class="curve-bar" style="height:' + pct + '%"></div>';
+          html += '<span class="curve-label">' + label + '</span>';
+          html += '</div>';
+        }
+        html += '</div>';
+        curveEl.innerHTML = html;
+      })
+      .catch(function() {
+        curveEl.innerHTML = '';
+      });
+  })();
+</script>
+
+<script is:inline src="/game-renderer.js"></script>
+<script is:inline>
+  (function() {
+    var preview = document.getElementById('card-preview');
+    var img = document.getElementById('preview-image');
+    var hovering = false;
+
+    GameRenderer.setupMousePreview(preview);
+
+    img.addEventListener('load', function() {
+      if (hovering) preview.classList.remove('hidden');
+    });
+
+    document.addEventListener('mouseenter', function(e) {
+      if (!e.target.closest) return;
+      var row = e.target.closest('.deck-card-row[data-set]');
+      if (!row) return;
+      hovering = true;
+      var set = row.dataset.set;
+      var num = row.dataset.num;
+      if (!set || !num) return;
+      var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
+      if (img.src === url && img.complete && img.naturalWidth > 0) {
+        preview.classList.remove('hidden');
+      } else {
+        preview.classList.add('hidden');
+        img.src = url;
+      }
+      img.alt = row.querySelector('.deck-card-name').textContent;
+    }, true);
+
+    document.addEventListener('mouseleave', function(e) {
+      if (!e.target.closest) return;
+      var row = e.target.closest('.deck-card-row[data-set]');
+      if (!row) return;
+      hovering = false;
+      preview.classList.add('hidden');
+    }, true);
+  })();
+</script>
+
+<style>
+  .player-page {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--text-primary);
+  }
+
+  .player-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .player-seed {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent-secondary);
+    flex-shrink: 0;
+  }
+
+  .player-header-info {
+    min-width: 0;
+  }
+
+  .player-name {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .player-meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    margin-top: 0.25rem;
+  }
+
+  .player-personality {
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+  }
+
+  .player-model {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+  }
+
+  .personality-quote {
+    color: var(--text-muted);
+    font-family: var(--font-prose);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border-default);
+  }
+
+  .player-stats-bar {
+    display: flex;
+    gap: 0;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    background: var(--bg-surface);
+  }
+
+  .stat-item + .stat-item {
+    border-left: 1px solid var(--border-default);
+  }
+
+  .stat-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.15rem;
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-heading {
+    font-family: var(--font-heading);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Championship run */
+  .matches-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .match-row {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.15s;
+  }
+
+  .match-row.won {
+    border-left: 3px solid var(--color-success);
+  }
+
+  .match-row.lost {
+    border-left: 3px solid var(--color-danger);
+  }
+
+  .match-round {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .match-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .match-result {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1rem;
+    min-width: 1.2rem;
+  }
+
+  .match-row.won .match-result {
+    color: var(--color-success);
+  }
+
+  .match-row.lost .match-result {
+    color: var(--color-danger);
+  }
+
+  .match-score {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .match-vs {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .match-opponent {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.15s;
+  }
+
+  .match-opponent:hover {
+    color: var(--accent-primary);
+  }
+
+  .opponent-seed {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-right: 0.25rem;
+  }
+
+  .match-games {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .game-link {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.15rem 0.5rem;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .game-link:hover {
+    color: var(--text-primary);
+    background: var(--border-default);
+  }
+
+  .game-turns {
+    color: var(--text-muted);
+    margin-left: 0.25rem;
+  }
+
+  .match-detail-link {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .match-detail-link:hover {
+    color: var(--accent-primary);
+  }
+
+  /* Decklist */
+  .deck-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .deck-name {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+  }
+
+  .deck-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .deck-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Mana curve */
+  .mana-curve {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    padding: 1rem;
+    min-height: 120px;
+  }
+
+  .curve-placeholder {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  :global(.curve-bars) {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 100px;
+  }
+
+  :global(.curve-col) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  :global(.curve-count) {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    min-height: 1em;
+  }
+
+  :global(.curve-bar) {
+    width: 100%;
+    max-width: 2.5rem;
+    background: var(--accent-secondary);
+    border-radius: 3px 3px 0 0;
+    min-height: 2px;
+    opacity: 0.75;
+    transition: opacity 0.15s;
+  }
+
+  :global(.curve-col:hover .curve-bar) {
+    opacity: 1;
+  }
+
+  :global(.curve-label) {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  /* Decklist columns */
+  .decklist-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .col-heading {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .deck-card-row {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.15rem 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: default;
+  }
+
+  .deck-card-qty {
+    color: var(--text-muted);
+    min-width: 1rem;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .deck-card-name {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .deck-card-set {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .deck-card-row[data-set]:hover .deck-card-name {
+    color: var(--accent-secondary);
+  }
+
+  /* Card preview */
+  #card-preview {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+    transition: opacity 0.1s;
+  }
+
+  #card-preview.hidden {
+    display: none;
+  }
+
+  #card-preview img {
+    display: block;
+    width: 250px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .player-header {
+      gap: 0.75rem;
+    }
+
+    .player-seed {
+      font-size: 1.5rem;
+    }
+
+    .player-name {
+      font-size: 1.2rem;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+    }
+
+    .decklist-columns {
+      grid-template-columns: 1fr;
+    }
+
+    #card-preview img {
+      width: 200px;
+    }
+  }
+</style>

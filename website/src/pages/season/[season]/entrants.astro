@@ -60,13 +60,12 @@ const hasDraft = !!tournament.draft;
       {tournament.entrants.map((e: any) => {
         const p = personalities[e.personality];
         const deckInfo = tournament.draft?.decklists?.[String(e.seed)];
-        const cards = deckInfo?.cards?.map((c: string) => {
-          const m = c.match(/^(\d+)\s+\[(\w+):(\w+)\]\s+(.+)$/);
-          if (!m) return { count: 1, set: '', num: '', name: c };
-          return { count: parseInt(m[1]), set: m[2], num: m[3], name: m[4] };
-        }) || [];
+        const cardCount = deckInfo?.cards?.reduce((sum: number, c: string) => {
+          const m = c.match(/^(\d+)\s+/);
+          return sum + (m ? parseInt(m[1]) : 1);
+        }, 0) ?? 0;
         return (
-          <div class="entrant-card">
+          <a href={`/season/${seasonNum}/player/${e.seed}`} class="entrant-card">
             <div class="entrant-seed">#{e.seed}</div>
             <div class="entrant-info">
               <div class="entrant-name">
@@ -85,30 +84,16 @@ const hasDraft = !!tournament.draft;
                 <span class="entrant-games">{e.games_played} games</span>
               </div>
               {deckInfo && (
-                <details class="entrant-decklist-details">
-                  <summary class="entrant-deck-summary">
-                    {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
-                    <span class="deck-card-count">{cards.reduce((s: number, c: any) => s + c.count, 0)} cards</span>
-                  </summary>
-                  <div class="decklist-cards">
-                    {cards.map((c: any) => (
-                      <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
-                        <span class="deck-card-qty">{c.count}</span>
-                        <span class="deck-card-name">{c.name}</span>
-                        <span class="deck-card-set">{c.set}</span>
-                      </div>
-                    ))}
-                  </div>
-                </details>
+                <div class="entrant-deck-summary">
+                  {deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}
+                  <span class="deck-card-count">{cardCount} cards</span>
+                </div>
               )}
             </div>
-          </div>
+          </a>
         );
       })}
     </div>
-  </div>
-  <div id="card-preview" class="hidden">
-    <img id="preview-image" alt="" />
   </div>
 </Base>
 
@@ -160,6 +145,8 @@ const hasDraft = !!tournament.draft;
     border-radius: 8px;
     transition: border-color 0.2s;
     overflow: hidden;
+    text-decoration: none;
+    color: inherit;
   }
 
   .entrant-card:hover {
@@ -226,89 +213,20 @@ const hasDraft = !!tournament.draft;
     font-variant-numeric: tabular-nums;
   }
 
-  .entrant-decklist-details {
-    margin-top: 0.3rem;
-  }
-
   .entrant-deck-summary {
-    cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--accent-secondary);
-    user-select: none;
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    margin-top: 0.3rem;
   }
 
   .deck-card-count {
     color: var(--text-muted);
     font-size: 0.7rem;
-  }
-
-  .decklist-cards {
-    margin-top: 0.3rem;
-    padding-left: 0.25rem;
-    font-size: 0.75rem;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-
-  .deck-card-row {
-    display: flex;
-    gap: 0.4rem;
-    padding: 0.1rem 0;
-    color: var(--text-secondary);
-    cursor: default;
-  }
-
-  .deck-card-qty {
-    color: var(--text-muted);
-    min-width: 1rem;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .deck-card-name {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .deck-card-set {
-    color: var(--text-muted);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    flex-shrink: 0;
-  }
-
-  .deck-card-row[data-set]:hover .deck-card-name {
-    color: var(--accent-secondary);
-  }
-
-  #card-preview {
-    position: fixed;
-    z-index: 9999;
-    pointer-events: none;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
-    transition: opacity 0.1s;
-  }
-
-  #card-preview.hidden {
-    display: none;
-  }
-
-  #card-preview img {
-    display: block;
-    width: 250px;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  @media (max-width: 600px) {
-    #card-preview img {
-      width: 200px;
-    }
+    font-weight: 400;
   }
 
   @media (max-width: 900px) {
@@ -324,44 +242,3 @@ const hasDraft = !!tournament.draft;
   }
 </style>
 
-<script is:inline src="/game-renderer.js"></script>
-<script is:inline>
-  (function() {
-    var preview = document.getElementById('card-preview');
-    var img = document.getElementById('preview-image');
-    var hovering = false;
-
-    // Reuse the game viewer's mouse-following positioning
-    GameRenderer.setupMousePreview(preview);
-
-    img.addEventListener('load', function() {
-      if (hovering) preview.classList.remove('hidden');
-    });
-
-    document.addEventListener('mouseenter', function(e) {
-      if (!e.target.closest) return;
-      var row = e.target.closest('.deck-card-row[data-set]');
-      if (!row) return;
-      hovering = true;
-      var set = row.dataset.set;
-      var num = row.dataset.num;
-      if (!set || !num) return;
-      var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
-      if (img.src === url && img.complete && img.naturalWidth > 0) {
-        preview.classList.remove('hidden');
-      } else {
-        preview.classList.add('hidden');
-        img.src = url;
-      }
-      img.alt = row.querySelector('.deck-card-name').textContent;
-    }, true);
-
-    document.addEventListener('mouseleave', function(e) {
-      if (!e.target.closest) return;
-      var row = e.target.closest('.deck-card-row[data-set]');
-      if (!row) return;
-      hovering = false;
-      preview.classList.add('hidden');
-    }, true);
-  })();
-</script>
