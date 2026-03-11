@@ -41,7 +41,9 @@ Empirically, a better pattern is this:
 
 ```protobuf
 message MyRequest {
-  string mana_plan = 1; // comma-separated list of ids, colors (to spend from pool), or id:ability pairs. Example: "p1,p5,RED,RED,p3:2"
+  // comma-separated list of ids, colors (to spend from pool),
+  // or id:ability pairs. Example: "p1,p5,RED,RED,p3:2"
+  string mana_plan = 1;
 }
 ```
 
