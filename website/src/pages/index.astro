@@ -34,13 +34,13 @@ const entrantsBySeed: Record<number, any> = {};
 for (const e of tournament.entrants) {
   entrantsBySeed[e.seed] = e;
 }
-const finalsRound = tournament.rounds.find((r: any) => r.name === 'Finals');
+const finalsRound = tournament.rounds[tournament.rounds.length - 1];
 const finalsMatch = finalsRound.matches[0];
 const champion = entrantsBySeed[finalsMatch.winner_seed];
 const runnerUpSeed = finalsMatch.seed_a === finalsMatch.winner_seed ? finalsMatch.seed_b : finalsMatch.seed_a;
 const runnerUp = entrantsBySeed[runnerUpSeed];
 const champWins = finalsMatch.games.filter((g: any) => g.winner_seed === finalsMatch.winner_seed).length;
-const runnerUpWins = finalsMatch.games.length - champWins;
+const runnerUpWins = finalsMatch.games.filter((g: any) => g.winner_seed === runnerUpSeed).length;
 
 // Stats
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {};
@@ -118,15 +118,12 @@ if (fs.existsSync(gamesDir)) {
   </section>
 
   <a href="/season/1/results" class="champ-banner">
-    <div class="champ-border-glow"></div>
-    <div class="champ-content">
-      <span class="champ-eyebrow">Season 1 Champion</span>
-      <span class="champ-name">{champion.display_name}</span>
-      <span class="champ-finals">
-        Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
-      </span>
-      <span class="champ-cta">View full bracket &rarr;</span>
-    </div>
+    <span class="champ-eyebrow">Season 1 Champion</span>
+    <span class="champ-name">{champion.display_name}</span>
+    <span class="champ-finals">
+      Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
+    </span>
+    <span class="champ-cta">View full bracket &rarr;</span>
   </a>
 
   <section class="intro">
@@ -308,7 +305,10 @@ if (fs.existsSync(gamesDir)) {
 
   /* Championship banner */
   .champ-banner {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
     position: relative;
     max-width: 32rem;
     margin: 2rem auto 2.5rem;
@@ -324,12 +324,8 @@ if (fs.existsSync(gamesDir)) {
     transition: border-color 0.25s, transform 0.25s;
   }
 
-  .champ-banner:hover {
-    border-color: rgba(255, 215, 0, 0.45);
-    transform: translateY(-2px);
-  }
-
-  .champ-border-glow {
+  .champ-banner::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 10%;
@@ -346,11 +342,9 @@ if (fs.existsSync(gamesDir)) {
     border-radius: 2px;
   }
 
-  .champ-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
+  .champ-banner:hover {
+    border-color: rgba(255, 215, 0, 0.45);
+    transform: translateY(-2px);
   }
 
   .champ-eyebrow {
