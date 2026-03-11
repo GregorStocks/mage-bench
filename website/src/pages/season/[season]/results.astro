@@ -201,7 +201,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsA}</span>}
-                                    {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -216,7 +216,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsB}</span>}
-                                    {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -261,7 +261,7 @@ const hasDraft = !!tournament.draft;
                                   {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                 </span>
                                 {score && <span class="bracket-wins">{score.winsA}</span>}
-                                {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                               </>
                             ) : (
                               <span class="bracket-player-name tbd-text">TBD</span>
@@ -276,7 +276,7 @@ const hasDraft = !!tournament.draft;
                                   {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                 </span>
                                 {score && <span class="bracket-wins">{score.winsB}</span>}
-                                {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                               </>
                             ) : (
                               <span class="bracket-player-name tbd-text">TBD</span>
@@ -334,7 +334,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsA}</span>}
-                                    {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -349,7 +349,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsB}</span>}
-                                    {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -393,7 +393,7 @@ const hasDraft = !!tournament.draft;
                             <span class="lin-seed">#{match.seed_a}</span>
                             <span class="lin-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
                             {score && <span class="lin-score">{score.winsA}</span>}
-                            {isComplete && match.winner_seed === match.seed_a && <span class="lin-w">W</span>}
+                            <span class:list={['lin-w', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                           </>
                         ) : (
                           <span class="lin-name tbd-text">TBD</span>
@@ -405,7 +405,7 @@ const hasDraft = !!tournament.draft;
                             <span class="lin-seed">#{match.seed_b}</span>
                             <span class="lin-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
                             {score && <span class="lin-score">{score.winsB}</span>}
-                            {isComplete && match.winner_seed === match.seed_b && <span class="lin-w">W</span>}
+                            <span class:list={['lin-w', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                           </>
                         ) : (
                           <span class="lin-name tbd-text">TBD</span>
@@ -669,6 +669,11 @@ const hasDraft = !!tournament.draft;
     border-radius: 2px;
     margin-left: 0.25rem;
     flex-shrink: 0;
+    visibility: hidden;
+  }
+
+  .bracket-win-mark.visible {
+    visibility: visible;
   }
 
   /* --- Bracket Connectors --- */
@@ -915,6 +920,11 @@ const hasDraft = !!tournament.draft;
     padding: 0.05rem 0.25rem;
     border-radius: 2px;
     flex-shrink: 0;
+    visibility: hidden;
+  }
+
+  .lin-w.visible {
+    visibility: visible;
   }
 
   @media (max-width: 600px) {
