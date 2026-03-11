@@ -130,7 +130,7 @@
 
 .annotation-marker {
   position: absolute;
-  top: -2px;
+  bottom: 0;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -144,29 +144,6 @@
 .annotation-marker.severity-moderate { background: #e67e22; }
 .annotation-marker.severity-minor { background: #f1c40f; }
 .annotation-marker.severity-questionable { background: #888; }
-
-/* Decision markers on slider */
-.decision-markers {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-}
-
-.decision-marker {
-  position: absolute;
-  bottom: -2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgba(100, 180, 255, 0.5);
-  transform: translateX(-50%);
-  pointer-events: auto;
-  cursor: pointer;
-  z-index: 2;
-}
 
 /* Two-column layout */
 #game-content {

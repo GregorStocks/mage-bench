@@ -310,14 +310,14 @@ if (fs.existsSync(exportsDir)) {
     const allModels = Array.from(modelMap.entries())
       .sort((a, b) => a[1].localeCompare(b[1]));
 
-    // Color palette for lines
+    // Color palette for lines — high-saturation, maximally distinct on dark bg
     const LINE_COLORS = [
-      '#e94560', '#4ecdc4', '#fbbf24', '#a78bfa', '#34d399',
-      '#f472b6', '#60a5fa', '#fb923c', '#a3e635', '#c084fc',
-      '#38bdf8', '#f87171', '#2dd4bf', '#facc15', '#818cf8',
-      '#4ade80', '#f9a8d4', '#93c5fd', '#fdba74', '#bef264',
-      '#e879f9', '#7dd3fc', '#fca5a5', '#5eead4', '#fde047',
-      '#a5b4fc', '#86efac', '#f5d0fe', '#bfdbfe', '#fed7aa',
+      '#ff4444', '#4dc9f6', '#f7e430', '#2ecc71', '#cc66ff',
+      '#ff9933', '#00d4aa', '#ff66aa', '#96cc33', '#6688ff',
+      '#ff7766', '#33bbdd', '#ddaa22', '#33bb88', '#ee55cc',
+      '#cc6633', '#55ddcc', '#dd4477', '#66bb33', '#9966ee',
+      '#ff9988', '#77ccee', '#eebb44', '#66dd99', '#bb88ee',
+      '#ffbb66', '#44eebb', '#ff88bb', '#bbdd55', '#8888dd',
     ];
 
     // State
@@ -661,7 +661,7 @@ if (fs.existsSync(exportsDir)) {
             legend: {
               position: 'bottom',
               labels: {
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
@@ -669,11 +669,11 @@ if (fs.existsSync(exportsDir)) {
               },
             },
             tooltip: {
-              backgroundColor: 'var(--bg-surface)',
+              backgroundColor: '#17171c',
               borderColor: '#2e2e38',
               borderWidth: 1,
               titleColor: '#f0f0f2',
-              bodyColor: 'var(--text-muted)',
+              bodyColor: '#9e9eab',
               filter: (item: any) => !item.dataset.label?.endsWith('(trend)'),
               callbacks: {
                 title: (items: any[]) => {
@@ -703,11 +703,11 @@ if (fs.existsSync(exportsDir)) {
               title: {
                 display: true,
                 text: 'Games (chronological)',
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
                 font: { size: 11 },
               },
               ticks: {
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
                 maxRotation: 45,
                 font: { size: 11 },
                 callback: function(value: any) {
@@ -719,11 +719,11 @@ if (fs.existsSync(exportsDir)) {
               afterBuildTicks: function(axis: any) {
                 axis.ticks = dateTicks.map(t => ({ value: t.value }));
               },
-              grid: { color: 'var(--border-subtle)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
               ticks: {
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
                 font: { size: 11 },
                 callback: (val: any) => {
                   if (metric.unit === '%') return val + '%';
@@ -732,7 +732,7 @@ if (fs.existsSync(exportsDir)) {
                   return val;
                 },
               },
-              grid: { color: 'var(--border-subtle)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
               beginAtZero: true,
             },
           },
@@ -1178,25 +1178,25 @@ if (fs.existsSync(exportsDir)) {
           scales: {
             x: {
               type: 'linear',
-              title: { display: true, text: 'Annotation Run', color: 'var(--text-muted)' },
+              title: { display: true, text: 'Annotation Run', color: '#9e9eab' },
               ticks: {
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
                 callback: function(value: string | number) {
                   const idx = typeof value === 'string' ? parseInt(value) : value;
                   const d = dateLabels.get(idx);
                   return d ? `${d.getMonth() + 1}/${d.getDate()}` : '';
                 },
               },
-              grid: { color: 'rgba(255,255,255,0.05)' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
               title: {
                 display: true,
                 text: metric.unit ? `${metric.label} (${metric.unit})` : metric.label,
-                color: 'var(--text-muted)',
+                color: '#9e9eab',
               },
-              ticks: { color: 'var(--text-muted)' },
-              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#9e9eab' },
+              grid: { color: 'rgba(255,255,255,0.1)' },
             },
           },
         },
@@ -1246,7 +1246,7 @@ if (fs.existsSync(exportsDir)) {
     padding: 0.6rem 1.25rem;
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: #9e9eab;
     font-size: 0.95rem;
     font-family: inherit;
     cursor: pointer;

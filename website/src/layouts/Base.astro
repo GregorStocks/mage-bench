@@ -33,7 +33,7 @@ const navLinks = [
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <title>{title} | mage-bench</title>
   </head>
   <body>
@@ -53,7 +53,6 @@ const navLinks = [
       <slot />
     </main>
     <footer>
-      <p class="footer-tagline">LLMs play Magic: The Gathering.</p>
       <div class="footer-links">
         <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
         <a href="/contact">Contact</a>
@@ -88,6 +87,7 @@ const navLinks = [
     --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
     --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-prose: 'Crimson Pro', 'Georgia', serif;
   }
 
   :global(*, *::before, *::after) {
@@ -184,14 +184,6 @@ const navLinks = [
     padding: 3rem 2rem 2rem;
     color: var(--text-muted);
     border-top: 1px solid var(--border-default);
-  }
-
-  .footer-tagline {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
   }
 
   .footer-links {

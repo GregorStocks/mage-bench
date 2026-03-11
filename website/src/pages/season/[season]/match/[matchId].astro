@@ -1,0 +1,304 @@
+---
+import Base from '../../../../layouts/Base.astro';
+import SeasonNav from '../../../../components/SeasonNav.astro';
+import benchmarkData from '../../../../data/benchmark-results.json';
+import { loadAllGames } from '../../../../utils/load-games';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export function getStaticPaths() {
+  const data = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
+  );
+  const seasons: number[] = data.availableSeasons ?? [];
+  const paths: any[] = [];
+
+  for (const s of seasons) {
+    const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
+    if (!fs.existsSync(tp)) continue;
+    const tournament = JSON.parse(fs.readFileSync(tp, 'utf-8'));
+    if (!tournament.rounds) continue;
+    for (const round of tournament.rounds) {
+      for (const match of round.matches) {
+        if (match.winner_seed == null) continue;
+        paths.push({
+          params: { season: String(s), matchId: `r${round.round}m${match.match}` },
+        });
+      }
+    }
+  }
+  return paths;
+}
+
+const { season, matchId } = Astro.params;
+const seasonNum = parseInt(season!, 10);
+
+// Parse matchId: "r1m3" -> round 1, match 3
+const idMatch = matchId!.match(/^r(\d+)m(\d+)$/);
+assert(idMatch, `Invalid matchId: ${matchId}`);
+const roundNum = parseInt(idMatch[1], 10);
+const matchNum = parseInt(idMatch[2], 10);
+
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
+const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+
+const round = tournament.rounds.find((r: any) => r.round === roundNum);
+assert(round, `Round ${roundNum} not found`);
+const match = round.matches.find((m: any) => m.match === matchNum);
+assert(match, `Match ${matchNum} not found in round ${roundNum}`);
+
+// Build entrants lookup
+const entrantsBySeed: Record<number, any> = {};
+for (const e of tournament.entrants) {
+  entrantsBySeed[e.seed] = e;
+}
+
+const ea = entrantsBySeed[match.seed_a];
+const eb = entrantsBySeed[match.seed_b];
+
+function cleanThemeName(name: string): string {
+  return name.replace(/^J22 /, '');
+}
+
+function deckNameForSeed(seed: number): string | null {
+  const dl = tournament?.draft?.decklists?.[String(seed)];
+  if (!dl?.half_decks) return null;
+  return dl.half_decks.map((h: string) => cleanThemeName(h)).join(' + ');
+}
+
+// Load game metadata
+const allGames = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
+const gameMeta: Record<string, any> = {};
+for (const g of allGames) {
+  gameMeta[g.id as string] = g;
+}
+
+// Enrich match games
+const games = (match.games ?? []).map((g: any, i: number) => {
+  const meta = gameMeta[g.game_id];
+  return {
+    ...g,
+    index: i + 1,
+    winnerName: meta?.winner ?? null,
+    totalTurns: meta?.totalTurns ?? null,
+  };
+});
+
+let winsA = 0, winsB = 0;
+for (const g of games) {
+  if (g.winner_seed === match.seed_a) winsA++;
+  else if (g.winner_seed === match.seed_b) winsB++;
+}
+
+const hasDraft = !!tournament.draft;
+
+function assert(cond: any, msg: string): asserts cond {
+  if (!cond) throw new Error(msg);
+}
+---
+
+<Base title={`${round.name} — ${ea?.display_name} vs ${eb?.display_name}`}>
+  <SeasonNav season={seasonNum} active="results" hasTournament={true} hasDraft={hasDraft} />
+
+  <div class="match-detail">
+    <a href={`/season/${seasonNum}/results`} class="back-link">&larr; Back to bracket</a>
+
+    <div class="match-header">
+      <span class="round-name">{round.name}</span>
+      <span class="best-of">Best of {tournament.best_of}</span>
+    </div>
+
+    <div class="match-card">
+      <div class:list={['match-player', { winner: match.winner_seed === match.seed_a }]}>
+        <span class="player-seed">#{match.seed_a}</span>
+        <div class="player-info">
+          <span class="player-name">{ea?.display_name}</span>
+          {deckNameForSeed(match.seed_a) && <span class="player-deck">{deckNameForSeed(match.seed_a)}</span>}
+        </div>
+        <span class="player-score">{winsA}</span>
+      </div>
+      <div class:list={['match-player', { winner: match.winner_seed === match.seed_b }]}>
+        <span class="player-seed">#{match.seed_b}</span>
+        <div class="player-info">
+          <span class="player-name">{eb?.display_name}</span>
+          {deckNameForSeed(match.seed_b) && <span class="player-deck">{deckNameForSeed(match.seed_b)}</span>}
+        </div>
+        <span class="player-score">{winsB}</span>
+      </div>
+    </div>
+
+    <h3 class="games-heading">Games</h3>
+    <div class="games-list">
+      {games.map((g: any) => {
+        const winnerEntrant = entrantsBySeed[g.winner_seed];
+        return (
+          <a href={`/games/${g.game_id}`} class="game-row">
+            <span class="game-num">Game {g.index}</span>
+            <span class="game-winner">
+              {winnerEntrant?.display_name} wins
+              {g.totalTurns && <span class="game-turns"> in {g.totalTurns} turns</span>}
+            </span>
+            <span class="game-arrow">&rarr;</span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .match-detail {
+    max-width: 36rem;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--text-primary);
+  }
+
+  .match-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .round-name {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .best-of {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .match-card {
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .match-player {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .match-player + .match-player {
+    border-top: 1px solid var(--border-default);
+  }
+
+  .match-player.winner {
+    background: rgba(168, 217, 165, 0.08);
+  }
+
+  .player-seed {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    min-width: 2rem;
+  }
+
+  .match-player.winner .player-seed {
+    color: var(--color-success);
+  }
+
+  .player-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .player-name {
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+  }
+
+  .player-deck {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .player-score {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-width: 1.5rem;
+    text-align: center;
+  }
+
+  .match-player.winner .player-score {
+    color: var(--color-success);
+  }
+
+  .games-heading {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .game-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.15s;
+  }
+
+  .game-row:hover {
+    border-color: var(--accent-primary);
+  }
+
+  .game-num {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    min-width: 4rem;
+  }
+
+  .game-winner {
+    flex: 1;
+    font-size: 0.9rem;
+  }
+
+  .game-turns {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .game-arrow {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>

@@ -1,21 +1,21 @@
 # Season Lifecycle
 
-A season is a cycle of free-play games followed by an end-of-season tournament. The current state lives in `data/season.json`:
+A season is a cycle of regular-season games followed by a postseason tournament. The current state lives in `data/season.json`:
 
 ```json
 {
   "current_season": 1,
-  "phase": "free-play"
+  "phase": "regular-season"
 }
 ```
 
-Two phases: `"free-play"` (normal games allowed) and `"tournament"` (free-play blocked, only tournament matches run).
+Two phases: `"regular-season"` (normal games allowed) and `"tournament"` (regular-season games blocked, only tournament matches run).
 
 ## Full Flow
 
-### 1. Free-Play
+### 1. Regular Season
 
-During free-play, run games normally:
+During the regular season, run games normally:
 
 ```bash
 make run                               # CPU duel (no API keys)
@@ -80,7 +80,7 @@ Each invocation:
 
 1. Finds the next unplayed match in the bracket (generates rounds on demand using seeded fold pairing: `(1,8), (4,5), (2,7), (3,6)` for 8 players)
 2. Writes tournament decklists to `tmp/tournament-decks/`
-3. Builds a game config with `tournamentGame: true` (bypasses the free-play block)
+3. Builds a game config with `tournamentGame: true` (bypasses the regular-season block)
 4. Runs the game via the orchestrator
 5. Extracts the winner from `server_game_events.jsonl`
 6. Records `winner_seed` and `game_id` in the tournament JSON
@@ -99,16 +99,16 @@ The planned `make conclude-tournament` target would:
 1. Verify all rounds are complete (bracket has a final winner)
 2. Record the season champion in the tournament JSON
 3. Bump `current_season` in `data/season.json` to N+1
-4. Reset `phase` to `"free-play"` and clear the `tournament` pointer
+4. Reset `phase` to `"regular-season"` and clear the `tournament` pointer
 5. Print a summary of the tournament results
 
-This unblocks `make run` for the next season's free-play games. The completed tournament file stays in `data/tournaments/` as a historical record.
+This unblocks `make run` for the next season's regular-season games. The completed tournament file stays in `data/tournaments/` as a historical record.
 
 Until this is implemented, transitioning to the next season requires manually editing `data/season.json`.
 
-### 6. Free-Play (Next Season)
+### 6. Regular Season (Next Season)
 
-Once the season is back in `"free-play"` phase (with `current_season` incremented), `make run` works again. New games are tagged with the new season number. The cycle repeats from step 1.
+Once the season is back in `"regular-season"` phase (with `current_season` incremented), `make run` works again. New games are tagged with the new season number. The cycle repeats from step 1.
 
 ## Key Files
 
@@ -127,14 +127,14 @@ Once the season is back in `"free-play"` phase (with `current_season` incremente
 
 ## Enforcement
 
-- **Free-play block**: `orchestrator.py:_check_season_tournament_block()` rejects `make run` during tournament phase. Tournament games (with `tournamentGame: true`) and test configs (with `skip_post_game_prompts: true`) are exempt.
+- **Regular-season block**: `orchestrator.py:_check_season_tournament_block()` rejects `make run` during tournament phase. Tournament games (with `tournamentGame: true`) and test configs (with `skip_post_game_prompts: true`) are exempt.
 - **Leaderboard**: Games with `season == 0` are unrated. Only `season >= 1` games contribute to Elo.
 - **Website**: `scripts/generate_leaderboard.py` copies `data/season.json` to `website/src/data/season.json` at build time. The season page at `/season/N` renders the tournament bracket.
 
 ## Command Summary
 
 ```bash
-# --- Free-play ---
+# --- Regular season ---
 make run [CONFIG=...]              # Run a game (blocked during tournaments)
 make export-game GAME=...         # Export game for website
 make leaderboard                  # Regenerate Elo ratings
@@ -147,5 +147,5 @@ make tournament-draft             # Snake draft: each LLM picks 2 Jumpstart pack
 make tournament-game [GAMES=N]    # Play next N bracket matches
 
 # --- Next season (not yet implemented) ---
-# make conclude-tournament        # Crown winner, bump season, return to free-play
+# make conclude-tournament        # Crown winner, bump season, return to regular-season
 ```

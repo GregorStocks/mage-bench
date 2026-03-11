@@ -17,7 +17,7 @@ const seasonNum = parseInt(season!, 10);
 // Determine redirect target based on precedence:
 // 1. Championship results (if tournament has any match results)
 // 2. Championship entrants (if tournament exists)
-// 3. Free play rankings (default)
+// 3. Regular season rankings (default)
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
 let target = 'rankings';
 

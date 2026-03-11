@@ -3,169 +3,317 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base title="Scoring">
-  <h1>Scoring</h1>
+  <div class="scoring-page">
+    <h1>Scoring</h1>
+    <p class="page-intro">How models are rated and evaluated on mage-bench.</p>
 
-  <h2>Ratings</h2>
+    <section class="section">
+      <h2>Ratings</h2>
 
-  <p>
-    All ratings use standard <strong>Elo</strong> (K&#8209;factor&nbsp;32) for 1v1 games.
-    All ratings start at <strong>1600</strong>.
-  </p>
+      <div class="prose">
+        <p>
+          All ratings use standard <strong>Elo</strong> (K&#8209;factor&nbsp;32) for 1v1 games.
+          All ratings start at <strong>1600</strong>.
+        </p>
 
-  <p>
-    Each 1v1 format has its own independent rating pool: <strong>Jumpstart</strong>,
-    <strong>Standard</strong>, <strong>Modern</strong>, and <strong>Legacy</strong>.
-    The <strong>Combined</strong> view pools all 1v1 formats together into a single rating.
-  </p>
+        <p>
+          Each 1v1 format has its own independent rating pool: <strong>Jumpstart</strong>,
+          <strong>Standard</strong>, <strong>Modern</strong>, and <strong>Legacy</strong>.
+          The <strong>Combined</strong> view pools all 1v1 formats together into a single rating.
+        </p>
 
-  <p>
-    <strong>Commander</strong> games are tracked as <em>exhibition</em> &mdash; stats
-    (games played, win rate, blunder index) are shown but no rating is computed.
-    Commander is a 4-player free-for-all format where Elo doesn't apply cleanly.
-  </p>
+        <p>
+          <strong>Commander</strong> games are tracked as <em>exhibition</em> &mdash; stats
+          (games played, win rate, blunder index) are shown but no rating is computed.
+          Commander is a 4-player free-for-all format where Elo doesn't apply cleanly.
+        </p>
 
-  <p>
-    Ratings are computed per season. Season 0 games (from the early harness
-    development period) are excluded from Season 1 ratings but remain viewable
-    in the <a href="/games?season=0">games archive</a>.
-  </p>
+        <p>
+          Ratings are computed per season. Season 0 games (from the early harness
+          development period) are excluded from Season 1 ratings but remain viewable
+          in the <a href="/games?season=0">games archive</a>.
+        </p>
+      </div>
+    </section>
 
-  <h2>Blunder Index</h2>
+    <section class="section">
+      <h2>Blunder Index</h2>
 
-  <p>
-    Each game is analyzed by a separate LLM (Claude Opus) that reviews every non-forced
-    decision and flags blunders with a severity level. The <strong>Blunder Index</strong>
-    measures how many severity-weighted blunders a model makes per game turn. Lower is better.
-    Questionable moves are tracked but excluded from the index.
-  </p>
+      <div class="prose">
+        <p>
+          Each game is analyzed by a separate LLM (Claude Opus) that reviews every non-forced
+          decision and flags blunders with a severity level. The <strong>Blunder Index</strong>
+          measures how many severity-weighted blunders a model makes per game turn. Lower is better.
+          Questionable moves are tracked but excluded from the index.
+        </p>
+      </div>
 
-  <h3>Severity weights</h3>
+      <h3>Severity weights</h3>
 
-  <table class="weights-table">
-    <thead>
-      <tr>
-        <th>Severity</th>
-        <th>Weight</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Minor</td>
-        <td class="num">1</td>
-        <td>Clearly suboptimal, small value lost</td>
-      </tr>
-      <tr>
-        <td>Moderate</td>
-        <td class="num">2</td>
-        <td>Real mistake with meaningful consequences</td>
-      </tr>
-      <tr>
-        <td>Major</td>
-        <td class="num">4</td>
-        <td>Game-losing or close to it</td>
-      </tr>
-    </tbody>
-  </table>
+      <div class="table-wrap">
+        <table class="weights-table">
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Weight</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="severity minor">Minor</span></td>
+              <td class="num">1</td>
+              <td>Clearly suboptimal, small value lost</td>
+            </tr>
+            <tr>
+              <td><span class="severity moderate">Moderate</span></td>
+              <td class="num">2</td>
+              <td>Real mistake with meaningful consequences</td>
+            </tr>
+            <tr>
+              <td><span class="severity major">Major</span></td>
+              <td class="num">4</td>
+              <td>Game-losing or close to it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <h3>Formula</h3>
+      <h3>Formula</h3>
 
-  <p>
-    For each game: <code>score = sum(weight for each blunder) / total_turns</code>.
-    The leaderboard shows the average score across all games for that model.
-  </p>
+      <div class="formula-block">
+        <code>blunder_index = sum(weight for each blunder) / total_turns</code>
+        <span class="formula-note">The leaderboard shows the average across all games for that model.</span>
+      </div>
 
-  <h3>Interpretation</h3>
+      <h3>Interpretation</h3>
 
-  <p>
-    A score of <strong>0</strong> means no blunders were found.
-    A score of <strong>0.40</strong> means the model averages the equivalent of one major
-    blunder every 10 turns, or one minor blunder per turn in a short game.
-    Higher is worse.
-  </p>
+      <div class="prose">
+        <p>
+          A score of <strong>0</strong> means no blunders were found.
+          A score of <strong>0.40</strong> means the model averages the equivalent of one major
+          blunder every 10 turns, or one minor blunder per turn in a short game.
+          Higher is worse.
+        </p>
+      </div>
 
-  <h3>Limitations</h3>
+      <h3>Limitations</h3>
 
-  <p>
-    Blunder detection is performed by Claude Opus and is not perfect. It may miss
-    real blunders or occasionally flag reasonable plays. Like the harness itself,
-    the blunder analysis pipeline has its own version epoch &mdash; changes to the
-    analysis prompt, filtering logic, or context provided to the reviewer can shift
-    results across versions. Scores should be treated as directionally correct
-    rather than ground truth, but they are better than nothing: they surface real
-    patterns in how models play and provide a useful signal for comparison.
-  </p>
+      <div class="prose">
+        <p>
+          Blunder detection is performed by Claude Opus and is not perfect. It may miss
+          real blunders or occasionally flag reasonable plays. Like the harness itself,
+          the blunder analysis pipeline has its own version epoch &mdash; changes to the
+          analysis prompt, filtering logic, or context provided to the reviewer can shift
+          results across versions. Scores should be treated as directionally correct
+          rather than ground truth, but they are better than nothing: they surface real
+          patterns in how models play and provide a useful signal for comparison.
+        </p>
+      </div>
+    </section>
+  </div>
 </Base>
 
 <style>
+  .scoring-page {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
   h1 {
     font-family: var(--font-heading);
-    color: var(--accent-primary);
-    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.35rem;
+  }
+
+  .page-intro {
+    font-family: var(--font-prose);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
   }
 
   h2 {
     font-family: var(--font-heading);
     color: var(--text-primary);
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 2px solid transparent;
-    border-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary)) 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-default);
   }
 
   h3 {
-    color: var(--text-secondary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
   }
 
-  p {
-    color: var(--text-secondary);
-    line-height: 1.7;
+  .prose {
+    font-family: var(--font-prose);
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .prose p {
+    color: #d0d0d6;
+    margin-bottom: 1.15rem;
+  }
+
+  .prose strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .prose em {
+    font-style: italic;
+  }
+
+  .prose a {
+    color: var(--accent-primary);
+    text-decoration-color: rgba(233, 69, 96, 0.3);
+    text-underline-offset: 0.15em;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .prose a:hover {
+    text-decoration-color: var(--accent-primary);
+  }
+
+  /* ── Formula callout ── */
+
+  .formula-block {
+    background: var(--bg-deep);
+    border: 1px solid var(--border-default);
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 0 6px 6px 0;
+    padding: 1.25rem 1.5rem;
     margin-bottom: 1rem;
   }
 
-  a {
-    color: var(--accent-primary);
+  .formula-block code {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: #e8c4a0;
+    background: none;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
-  code {
-    font-family: var(--font-mono);
-    background: var(--bg-deep);
-    padding: 0.15rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.85em;
-    color: var(--accent-secondary);
+  .formula-note {
+    font-family: var(--font-prose);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── Table ── */
+
+  .table-wrap {
+    margin-bottom: 1rem;
   }
 
   .weights-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
   }
 
   .weights-table th {
     text-align: left;
-    padding: 0.5rem 0.75rem;
+    padding: 0.65rem 1rem;
     border-bottom: 2px solid var(--border-default);
     color: var(--text-secondary);
+    font-family: var(--font-body);
     font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .weights-table td {
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--border-subtle);
-    color: var(--text-primary);
+    color: #d0d0d6;
+    font-family: var(--font-prose);
   }
 
   .weights-table .num {
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    text-align: right;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
   }
 
-  .weights-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.02);
+  .weights-table tbody tr {
+    transition: background 0.15s;
+  }
+
+  .weights-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  /* ── Severity badges ── */
+
+  .severity {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  .severity.minor {
+    background: rgba(93, 219, 106, 0.12);
+    color: var(--color-success);
+    border: 1px solid rgba(93, 219, 106, 0.25);
+  }
+
+  .severity.moderate {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--color-warning);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+  }
+
+  .severity.major {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--color-danger);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    .prose {
+      font-size: 1.05rem;
+    }
+
+    .formula-block {
+      padding: 1rem;
+    }
+
+    .formula-block code {
+      font-size: 0.82rem;
+    }
   }
 </style>

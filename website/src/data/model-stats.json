@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-10T01:51:59.055689+00:00",
+  "generatedAt": "2026-03-10T15:53:30.486404+00:00",
   "models": {
     "anthropic/claude-haiku-4.5::low": {
       "modelId": "anthropic/claude-haiku-4.5",
@@ -6045,7 +6045,7 @@
     "x-ai/grok-4-fast::medium": {
       "modelId": "x-ai/grok-4-fast",
       "modelName": "Grok 4 Fast (medium)",
-      "provider": "X-Ai",
+      "provider": "xAI",
       "reasoningEffort": "medium",
       "epochs": {
         "1": {
@@ -6377,7 +6377,7 @@
     "x-ai/grok-4.1-fast::medium": {
       "modelId": "x-ai/grok-4.1-fast",
       "modelName": "Grok 4.1 Fast (medium)",
-      "provider": "X-Ai",
+      "provider": "xAI",
       "reasoningEffort": "medium",
       "epochs": {
         "13": {
@@ -6488,7 +6488,7 @@
     "x-ai/grok-4::medium": {
       "modelId": "x-ai/grok-4",
       "modelName": "Grok 4 (medium)",
-      "provider": "X-Ai",
+      "provider": "xAI",
       "reasoningEffort": "medium",
       "epochs": {
         "13": {
