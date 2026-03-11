@@ -49,9 +49,11 @@ const hasData = (seasonBenchmark.models?.length ?? 0) > 0 || Object.keys(formats
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
 const hasTournament = fs.existsSync(tournamentPath);
 let hasDraft = false;
+let tournamentSize = 0;
 if (hasTournament) {
   const t = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
   hasDraft = !!t.draft;
+  tournamentSize = t.size ?? 0;
 }
 ---
 
@@ -135,12 +137,14 @@ if (hasTournament) {
   )}
 </Base>
 
-<script define:vars={{ seasonNum }}>
+<script define:vars={{ seasonNum, tournamentSize }}>
   window.__seasonNum = seasonNum;
+  window.__tournamentSize = tournamentSize;
 </script>
 
 <script>
   const seasonNum = (window as any).__seasonNum;
+  const tournamentSize: number = (window as any).__tournamentSize || 0;
   const table = document.getElementById('leaderboard-table') as HTMLTableElement | null;
   if (!table) {
     // No data yet, nothing to make interactive
@@ -229,7 +233,7 @@ if (hasTournament) {
   function sortTable(column: string, type: string, ascending: boolean) {
     const tbody = getActiveTbody();
     if (!tbody) return;
-    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const rows = Array.from(tbody.querySelectorAll('tr:not(.cutoff-row)'));
 
     rows.sort((a, b) => {
       const elA = a as HTMLElement;
@@ -287,7 +291,7 @@ if (hasTournament) {
     const showInactive = showInactiveCheckbox.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
-    const rows = tbody.querySelectorAll('tr');
+    const rows = tbody.querySelectorAll('tr:not(.cutoff-row)');
     let visibleCount = 0;
 
     rows.forEach(row => {
@@ -306,6 +310,12 @@ if (hasTournament) {
     const tbody = getActiveTbody();
     if (!tbody) return;
     let rank = 1;
+    const showCutoff = tournamentSize > 0 && activeFormat === 'combined';
+
+    // Remove any existing cutoff row
+    tbody.querySelector('.cutoff-row')?.remove();
+
+    let cutoffAfter: HTMLElement | null = null;
     tbody.querySelectorAll('tr').forEach(row => {
       const el = row as HTMLElement;
       const rankCell = el.querySelector('.rank-cell');
@@ -317,8 +327,18 @@ if (hasTournament) {
         const r = rank++;
         rankCell.textContent = String(r);
         el.dataset.rank = String(r);
+        if (showCutoff && r === tournamentSize) {
+          cutoffAfter = el;
+        }
       }
     });
+
+    if (cutoffAfter) {
+      const cutoffRow = document.createElement('tr');
+      cutoffRow.className = 'cutoff-row';
+      cutoffRow.innerHTML = '<td colspan="8"><div class="cutoff-inner"><span class="cutoff-line"></span><span class="cutoff-label">Top 16 — Championship Qualified</span><span class="cutoff-line"></span></div></td>';
+      (cutoffAfter as HTMLElement).after(cutoffRow);
+    }
   }
 
   showInactiveCheckbox.addEventListener('change', () => {
@@ -607,6 +627,41 @@ if (hasTournament) {
   }
 
   tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
+
+  /* Championship cutoff divider */
+  .cutoff-row td {
+    padding: 0 !important;
+    border-bottom: none !important;
+    background: none !important;
+  }
+
+  .cutoff-row:hover {
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .cutoff-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+  }
+
+  .cutoff-line {
+    flex: 1;
+    height: 1px;
+    background: var(--accent-primary);
+    opacity: 0.4;
+  }
+
+  .cutoff-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 
   tbody tr {
     transition: background 0.15s, box-shadow 0.15s;

@@ -24,10 +24,10 @@ gh pr view <number> --json state -q .state
 
 If the PR is closed/merged, create a new one instead of pushing to a dead branch.
 
-**Every time you `git push` to a branch that has an open PR, update the PR description** to reflect the current state of all changes on the branch. The description should accurately summarize the full diff against the base branch, not just the latest commit. Do this immediately after every push, not just the first one:
+**Every time you `git push` to a branch that has an open PR, update the PR title and description** to reflect the current state of all changes on the branch. The title should be concise (under 70 characters) and the description should accurately summarize the full diff against the base branch, not just the latest commit. Do this immediately after every push, not just the first one:
 
 ```bash
-gh pr edit <number> --body "$(cat <<'EOF'
+gh pr edit <number> --title "Updated title" --body "$(cat <<'EOF'
 ...updated description...
 EOF
 )"

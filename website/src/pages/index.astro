@@ -27,6 +27,21 @@ const FORMAT_DISPLAY: Record<string, string> = {
   jumpstart: "Jumpstart",
 };
 
+// Season 1 championship data
+const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', 'season-1.json');
+const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+const entrantsBySeed: Record<number, any> = {};
+for (const e of tournament.entrants) {
+  entrantsBySeed[e.seed] = e;
+}
+const finalsRound = tournament.rounds[tournament.rounds.length - 1];
+const finalsMatch = finalsRound.matches[0];
+const champion = entrantsBySeed[finalsMatch.winner_seed];
+const runnerUpSeed = finalsMatch.seed_a === finalsMatch.winner_seed ? finalsMatch.seed_b : finalsMatch.seed_a;
+const runnerUp = entrantsBySeed[runnerUpSeed];
+const champWins = finalsMatch.games.filter((g: any) => g.winner_seed === finalsMatch.winner_seed).length;
+const runnerUpWins = finalsMatch.games.filter((g: any) => g.winner_seed === runnerUpSeed).length;
+
 // Stats
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {};
 const combinedModels = (benchmarkData as any).models ?? [];
@@ -101,6 +116,15 @@ if (fs.existsSync(gamesDir)) {
       <span class="season-status-phase">{phaseLabel}</span>
     </a>
   </section>
+
+  <a href="/season/1/results" class="champ-banner">
+    <span class="champ-eyebrow">Season 1 Champion</span>
+    <span class="champ-name">{champion.display_name}</span>
+    <span class="champ-finals">
+      Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
+    </span>
+    <span class="champ-cta">View full bracket &rarr;</span>
+  </a>
 
   <section class="intro">
     <p>
@@ -277,6 +301,98 @@ if (fs.existsSync(gamesDir)) {
 
   .season-status[data-phase="tournament"] .season-status-phase {
     color: var(--accent-primary);
+  }
+
+  /* Championship banner */
+  .champ-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    position: relative;
+    max-width: 32rem;
+    margin: 2rem auto 2.5rem;
+    padding: 2rem 2rem 1.6rem;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(255, 215, 0, 0.06) 0%, transparent 70%),
+      var(--bg-surface);
+    border: 1px solid rgba(255, 215, 0, 0.18);
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .champ-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #ffd700 30%,
+      #fff8dc 50%,
+      #ffd700 70%,
+      transparent
+    );
+    border-radius: 2px;
+  }
+
+  .champ-banner:hover {
+    border-color: rgba(255, 215, 0, 0.45);
+    transform: translateY(-2px);
+  }
+
+  .champ-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #ffd700;
+  }
+
+  .champ-name {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0.15rem 0;
+  }
+
+  .champ-finals {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .champ-cta {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+
+  .champ-banner:hover .champ-cta {
+    color: #ffd700;
+  }
+
+  @media (max-width: 600px) {
+    .champ-banner {
+      margin: 1.5rem 0 2rem;
+      padding: 1.5rem 1.2rem 1.2rem;
+    }
+
+    .champ-name {
+      font-size: 1.25rem;
+    }
   }
 
   .intro {

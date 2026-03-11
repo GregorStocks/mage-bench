@@ -1,51 +1,69 @@
-import { test, expect, describe } from "vitest";
+import { test, expect, describe, beforeAll } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 
 const distDir = path.join(process.cwd(), "dist");
 
+function stripTrailingSlash(href) {
+  return href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
+}
+
 /**
- * Crawl all HTML files in dist/ and collect every internal href.
- * Returns a map of href -> list of pages that link to it.
+ * Single walk of dist/ that collects both:
+ * - links: Map of href -> Set<sourcePage> (every internal href found in HTML)
+ * - pages: Set of page paths (every directory containing index.html)
  */
-function collectInternalLinks() {
+function crawlDist() {
   const links = new Map(); // href -> Set<sourcePage>
+  const pages = new Set(); // page paths like "/", "/leaderboard"
 
   function walk(dir) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         walk(full);
+      } else if (entry.name === "index.html") {
+        // Record as a page
+        const rel = path.relative(distDir, path.dirname(full));
+        pages.add(rel === "" ? "/" : "/" + rel);
+
+        // Also extract links (index.html is HTML)
+        const html = fs.readFileSync(full, "utf-8");
+        const sourcePage = "/" + path.relative(distDir, full);
+        extractLinks(html, sourcePage, links);
       } else if (entry.name.endsWith(".html")) {
         const html = fs.readFileSync(full, "utf-8");
         const sourcePage = "/" + path.relative(distDir, full);
-        // Match href="..." in all forms (single/double quotes)
-        for (const match of html.matchAll(/href=["']([^"']*?)["']/g)) {
-          const raw = match[1];
-          // Skip external, protocol-relative, mailto, javascript, anchor-only
-          if (
-            raw.startsWith("http://") ||
-            raw.startsWith("https://") ||
-            raw.startsWith("//") ||
-            raw.startsWith("mailto:") ||
-            raw.startsWith("javascript:") ||
-            raw.startsWith("#") ||
-            raw === ""
-          ) {
-            continue;
-          }
-          // Strip query string and fragment
-          const href = raw.split("?")[0].split("#")[0];
-          if (!href.startsWith("/")) continue; // skip relative links for now
-          if (!links.has(href)) links.set(href, new Set());
-          links.get(href).add(sourcePage);
-        }
+        extractLinks(html, sourcePage, links);
       }
     }
   }
 
   walk(distDir);
-  return links;
+  return { links, pages };
+}
+
+function extractLinks(html, sourcePage, links) {
+  for (const match of html.matchAll(/href=["']([^"']*?)["']/g)) {
+    const raw = match[1];
+    // Skip external, protocol-relative, mailto, javascript, anchor-only
+    if (
+      raw.startsWith("http://") ||
+      raw.startsWith("https://") ||
+      raw.startsWith("//") ||
+      raw.startsWith("mailto:") ||
+      raw.startsWith("javascript:") ||
+      raw.startsWith("#") ||
+      raw === ""
+    ) {
+      continue;
+    }
+    // Strip query string and fragment
+    const href = raw.split("?")[0].split("#")[0];
+    if (!href.startsWith("/")) continue; // skip relative links for now
+    if (!links.has(href)) links.set(href, new Set());
+    links.get(href).add(sourcePage);
+  }
 }
 
 /**
@@ -54,8 +72,7 @@ function collectInternalLinks() {
  * Static assets: /favicon.svg -> dist/favicon.svg
  */
 function linkExists(href) {
-  // Normalize: remove trailing slash
-  const cleaned = href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
+  const cleaned = stripTrailingSlash(href);
   const rel = cleaned === "/" ? "" : cleaned;
 
   // Check as directory with index.html (Astro page)
@@ -70,12 +87,20 @@ function linkExists(href) {
 }
 
 describe("internal links", () => {
+  let links;
+  let pages;
+
+  beforeAll(() => {
+    const result = crawlDist();
+    links = result.links;
+    pages = result.pages;
+  });
+
   test("dist directory exists", () => {
     expect(fs.existsSync(distDir)).toBe(true);
   });
 
   test("all internal links resolve to existing pages or files", () => {
-    const links = collectInternalLinks();
     const broken = [];
 
     for (const [href, sources] of links) {
@@ -97,8 +122,32 @@ describe("internal links", () => {
     }
   });
 
+  test("all pages are reachable from at least one other page", () => {
+    const linkedTo = new Set();
+
+    for (const href of links.keys()) {
+      linkedTo.add(stripTrailingSlash(href));
+    }
+
+    const unreachable = [];
+    for (const page of pages) {
+      if (page === "/") continue; // homepage is always an entry point
+      if (/^\/games\/game_/.test(page)) continue; // game pages linked dynamically via JS
+      if (page === "/games/live") continue; // live viewer accessed via direct URL
+      if (!linkedTo.has(page)) {
+        unreachable.push(page);
+      }
+    }
+
+    if (unreachable.length > 0) {
+      expect.fail(
+        `Found ${unreachable.length} unreachable page(s) (not linked from anywhere):\n` +
+          unreachable.map((p) => `  ${p}`).join("\n")
+      );
+    }
+  });
+
   test("found a reasonable number of internal links", () => {
-    const links = collectInternalLinks();
     // Sanity check: the site should have many internal links
     expect(links.size).toBeGreaterThan(10);
   });
