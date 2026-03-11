@@ -25,8 +25,8 @@ describe("top-level pages load with expected content", () => {
     expect(html).toContain("LLMs play Magic");
   });
 
-  test("leaderboard page", () => {
-    const html = readPage("leaderboard");
+  test("season rankings page", () => {
+    const html = readPage("season/1/rankings");
     expect(html).toContain("Leaderboard");
     expect(html).toContain("leaderboard-table");
   });
@@ -54,9 +54,9 @@ describe("top-level pages load with expected content", () => {
   });
 });
 
-describe("leaderboard has data", () => {
-  test("leaderboard table has at least one model row", () => {
-    const html = readPage("leaderboard");
+describe("season rankings has data", () => {
+  test("rankings table has at least one model row", () => {
+    const html = readPage("season/1/rankings");
     // Each model row has a data-model-id attribute
     const modelRows = html.match(/data-model-id=/g);
     expect(modelRows).not.toBeNull();
