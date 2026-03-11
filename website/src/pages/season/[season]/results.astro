@@ -140,10 +140,9 @@ function deckNameForSeed(seed: number): string | null {
 }
 
 // Build lookup of tournament game metadata from exported files
-const tournamentGameMeta: Record<string, { totalTurns: number; winner: string }> = {};
+const tournamentGameMeta: Record<string, { winner: string }> = {};
 for (const g of tournamentGames) {
   tournamentGameMeta[g.id as string] = {
-    totalTurns: g.totalTurns as number,
     winner: g.winner as string,
   };
 }
@@ -161,7 +160,6 @@ function matchRenderData(match: any) {
     const meta = tournamentGameMeta[g.game_id];
     return {
       ...g,
-      totalTurns: meta?.totalTurns ?? null,
       winnerName: meta?.winner ?? null,
     };
   });
@@ -749,7 +747,6 @@ const hasDraft = !!tournament.draft;
     font-weight: 700;
     letter-spacing: 0.02em;
     line-height: 1;
-    cursor: pointer;
     transition: background 0.15s, color 0.15s;
   }
 
@@ -933,6 +930,10 @@ const hasDraft = !!tournament.draft;
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
+  }
+
+  .lin-match-wrap {
+    position: relative;
   }
 
   .lin-match {
