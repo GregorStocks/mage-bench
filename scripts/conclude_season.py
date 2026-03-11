@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conclude the current season and create an end-of-season tournament.
+"""Conclude the current season and create a postseason tournament.
 
 Reads the combined leaderboard, selects the top N players by Elo rating,
 locks in their preset/personality/effort for all tournament games, and
@@ -47,7 +47,7 @@ def main() -> int:
     # Load current season state
     assert _SEASON_FILE.exists(), f"Season file not found: {_SEASON_FILE}"
     season_data = json.loads(_SEASON_FILE.read_text())
-    assert season_data["phase"] == "free-play", (
+    assert season_data["phase"] == "regular-season", (
         f"Season {season_data['current_season']} is already in phase "
         f"'{season_data['phase']}', cannot conclude"
     )
@@ -144,7 +144,7 @@ def main() -> int:
             f"personality: {e['personality']}"
         )
     print()
-    print("Free-play games are now blocked. Use tournament targets to proceed.")
+    print("Regular-season games are now blocked. Use tournament targets to proceed.")
 
     return 0
 

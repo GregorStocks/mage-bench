@@ -8,7 +8,7 @@ import zlib from 'node:zlib';
 
 const currentSeason = (seasonData as any).current_season;
 const seasonPhase = (seasonData as any).phase;
-const phaseLabel = seasonPhase === 'tournament' ? 'Tournament' : 'Free Play';
+const phaseLabel = seasonPhase === 'tournament' ? 'Tournament' : 'Regular Season';
 
 const DECK_TYPE_FORMATS: Record<string, string> = {
   "Constructed - Standard": "standard",

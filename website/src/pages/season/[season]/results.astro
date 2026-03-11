@@ -30,7 +30,7 @@ const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
 
 const games = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
 
-// Split tournament games from free-play games
+// Split tournament games from regular-season games
 const tournamentGames = games.filter(g => g.tournament != null);
 
 // Build entrants lookup for bracket rendering
