@@ -149,7 +149,7 @@ const navLinks = [
     letter-spacing: -0.02em;
   }
 
-  nav ul {
+  nav > ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
@@ -198,7 +198,7 @@ const navLinks = [
     transition: color 0.15s;
   }
 
-  .nav-dropdown-trigger::after {
+  .nav-dropdown-trigger::before {
     content: '';
     display: inline-block;
     width: 0;
@@ -206,7 +206,7 @@ const navLinks = [
     border-left: 3.5px solid transparent;
     border-right: 3.5px solid transparent;
     border-top: 4px solid currentColor;
-    margin-left: 0.35rem;
+    margin-right: 0.3rem;
     vertical-align: middle;
     opacity: 0.6;
   }
