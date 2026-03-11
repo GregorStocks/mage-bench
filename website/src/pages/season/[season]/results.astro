@@ -139,34 +139,21 @@ function deckNameForSeed(seed: number): string | null {
   return dl.half_decks.map((h: string) => cleanThemeName(h)).join(' + ');
 }
 
-// Build lookup of tournament game metadata from exported files
-const tournamentGameMeta: Record<string, { totalTurns: number; winner: string }> = {};
-for (const g of tournamentGames) {
-  tournamentGameMeta[g.id as string] = {
-    totalTurns: g.totalTurns as number,
-    winner: g.winner as string,
-  };
-}
-
 // Match rendering data used by all bracket sections
-function matchRenderData(match: any) {
+function matchRenderData(match: any, roundNum?: number) {
   const ea = match.seed_a != null ? entrantsBySeed[match.seed_a] : null;
   const eb = match.seed_b != null ? entrantsBySeed[match.seed_b] : null;
   const isComplete = match.winner_seed != null;
   const isTBD = match.seed_a == null || match.seed_b == null;
   const score = matchScore(match);
   const rawGames: any[] = match.games ?? [];
-  // Enrich games with metadata from exported files
-  const games = rawGames.map((g: any) => {
-    const meta = tournamentGameMeta[g.game_id];
-    return {
-      ...g,
-      totalTurns: meta?.totalTurns ?? null,
-      winnerName: meta?.winner ?? null,
-    };
-  });
-  const singleGameUrl = games.length === 1 ? `/games/${games[0].game_id}` : null;
-  return { ea, eb, isComplete, isTBD, score, games, singleGameUrl };
+  let matchUrl: string | null = null;
+  if (isComplete && rawGames.length === 1) {
+    matchUrl = `/games/${rawGames[0].game_id}`;
+  } else if (isComplete && rawGames.length > 1 && roundNum != null && match.match != null) {
+    matchUrl = `/season/${seasonNum}/match/r${roundNum}m${match.match}`;
+  }
+  return { ea, eb, isComplete, isTBD, score, matchUrl };
 }
 
 const hasDraft = !!tournament.draft;
@@ -201,10 +188,10 @@ const hasDraft = !!tournament.draft;
                     <div class="round-label">{round.name}</div>
                     <div class="round-matches">
                       {round.matches.map((match: any) => {
-                        const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
+                        const { ea, eb, isComplete, isTBD, score, matchUrl } = matchRenderData(match, round.round);
                         return (
                           <div class="bracket-match-wrap">
-                            <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
+                            <a class:list={['bracket-match', { 'has-link': !!matchUrl, 'tbd': isTBD }]} href={matchUrl || undefined}>
                               <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                                 {match.seed_a != null ? (
                                   <>
@@ -214,7 +201,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsA}</span>}
-                                    {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -229,24 +216,13 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsB}</span>}
-                                    {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
                                 )}
                               </div>
                             </a>
-                            {games.length > 0 && isComplete && (
-                              <div class="match-series">
-                                {games.map((g: any, gi: number) => (
-                                  <a href={`/games/${g.game_id}`} class="series-game" title={`Game ${gi + 1}: ${g.winnerName || '?'} wins${g.totalTurns ? ` in ${g.totalTurns} turns` : ''}`}>
-                                    <span class="series-game-num">G{gi + 1}</span>
-                                    <span class:list={['series-pip', { 'pip-a': g.winner_seed === match.seed_a, 'pip-b': g.winner_seed === match.seed_b }]} />
-                                    {g.totalTurns && <span class="series-turns">{g.totalTurns}t</span>}
-                                  </a>
-                                ))}
-                              </div>
-                            )}
                           </div>
                         );
                       })}
@@ -272,10 +248,10 @@ const hasDraft = !!tournament.draft;
                 <div class="round-label">{bracket.finals.name}</div>
                 <div class="round-matches">
                   {bracket.finals.matches.map((match: any) => {
-                    const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
+                    const { ea, eb, isComplete, isTBD, score, matchUrl } = matchRenderData(match, bracket.finals.round);
                     return (
                       <div class="bracket-match-wrap">
-                        <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
+                        <a class:list={['bracket-match', { 'has-link': !!matchUrl, 'tbd': isTBD }]} href={matchUrl || undefined}>
                           <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                             {match.seed_a != null ? (
                               <>
@@ -285,7 +261,7 @@ const hasDraft = !!tournament.draft;
                                   {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                 </span>
                                 {score && <span class="bracket-wins">{score.winsA}</span>}
-                                {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                               </>
                             ) : (
                               <span class="bracket-player-name tbd-text">TBD</span>
@@ -300,24 +276,13 @@ const hasDraft = !!tournament.draft;
                                   {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                 </span>
                                 {score && <span class="bracket-wins">{score.winsB}</span>}
-                                {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                               </>
                             ) : (
                               <span class="bracket-player-name tbd-text">TBD</span>
                             )}
                           </div>
                         </a>
-                        {games.length > 0 && isComplete && (
-                          <div class="match-series">
-                            {games.map((g: any, gi: number) => (
-                              <a href={`/games/${g.game_id}`} class="series-game" title={`Game ${gi + 1}: ${g.winnerName || '?'} wins${g.totalTurns ? ` in ${g.totalTurns} turns` : ''}`}>
-                                <span class="series-game-num">G{gi + 1}</span>
-                                <span class:list={['series-pip', { 'pip-a': g.winner_seed === match.seed_a, 'pip-b': g.winner_seed === match.seed_b }]} />
-                                {g.totalTurns && <span class="series-turns">{g.totalTurns}t</span>}
-                              </a>
-                            ))}
-                          </div>
-                        )}
                       </div>
                     );
                   })}
@@ -356,10 +321,10 @@ const hasDraft = !!tournament.draft;
                     <div class="round-label">{round.name}</div>
                     <div class="round-matches">
                       {round.matches.map((match: any) => {
-                        const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
+                        const { ea, eb, isComplete, isTBD, score, matchUrl } = matchRenderData(match, round.round);
                         return (
                           <div class="bracket-match-wrap">
-                            <a class:list={['bracket-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
+                            <a class:list={['bracket-match', { 'has-link': !!matchUrl, 'tbd': isTBD }]} href={matchUrl || undefined}>
                               <div class:list={['bracket-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
                                 {match.seed_a != null ? (
                                   <>
@@ -369,7 +334,7 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_a) && <span class="bracket-deck">{deckNameForSeed(match.seed_a)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsA}</span>}
-                                    {isComplete && match.winner_seed === match.seed_a && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
@@ -384,24 +349,13 @@ const hasDraft = !!tournament.draft;
                                       {deckNameForSeed(match.seed_b) && <span class="bracket-deck">{deckNameForSeed(match.seed_b)}</span>}
                                     </span>
                                     {score && <span class="bracket-wins">{score.winsB}</span>}
-                                    {isComplete && match.winner_seed === match.seed_b && <span class="bracket-win-mark">W</span>}
+                                    <span class:list={['bracket-win-mark', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
                                   </>
                                 ) : (
                                   <span class="bracket-player-name tbd-text">TBD</span>
                                 )}
                               </div>
                             </a>
-                            {games.length > 0 && isComplete && (
-                              <div class="match-series">
-                                {games.map((g: any, gi: number) => (
-                                  <a href={`/games/${g.game_id}`} class="series-game" title={`Game ${gi + 1}: ${g.winnerName || '?'} wins${g.totalTurns ? ` in ${g.totalTurns} turns` : ''}`}>
-                                    <span class="series-game-num">G{gi + 1}</span>
-                                    <span class:list={['series-pip', { 'pip-a': g.winner_seed === match.seed_a, 'pip-b': g.winner_seed === match.seed_b }]} />
-                                    {g.totalTurns && <span class="series-turns">{g.totalTurns}t</span>}
-                                  </a>
-                                ))}
-                              </div>
-                            )}
                           </div>
                         );
                       })}
@@ -430,47 +384,34 @@ const hasDraft = !!tournament.draft;
               </div>
               <div class:list={['lin-matches', { 'lin-matches-few': round.matches.length >= 2 && round.matches.length <= 4, 'lin-matches-single': round.matches.length === 1 }]}>
                 {round.matches.map((match: any) => {
-                  const { ea, eb, isComplete, isTBD, score, games, singleGameUrl } = matchRenderData(match);
+                  const { ea, eb, isComplete, isTBD, score, matchUrl } = matchRenderData(match, round.round);
                   return (
-                    <div class="lin-match-wrap">
-                      <a class:list={['lin-match', { 'has-link': !!singleGameUrl, 'tbd': isTBD }]} href={singleGameUrl || undefined}>
-                        <div class:list={['lin-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
-                          {match.seed_a != null ? (
-                            <>
-                              <span class="lin-seed">#{match.seed_a}</span>
-                              <span class="lin-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
-                              {score && <span class="lin-score">{score.winsA}</span>}
-                              {isComplete && match.winner_seed === match.seed_a && <span class="lin-w">W</span>}
-                            </>
-                          ) : (
-                            <span class="lin-name tbd-text">TBD</span>
-                          )}
-                        </div>
-                        <div class:list={['lin-slot', { winner: isComplete && match.winner_seed === match.seed_b }]}>
-                          {match.seed_b != null ? (
-                            <>
-                              <span class="lin-seed">#{match.seed_b}</span>
-                              <span class="lin-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
-                              {score && <span class="lin-score">{score.winsB}</span>}
-                              {isComplete && match.winner_seed === match.seed_b && <span class="lin-w">W</span>}
-                            </>
-                          ) : (
-                            <span class="lin-name tbd-text">TBD</span>
-                          )}
-                        </div>
-                      </a>
-                      {games.length > 0 && isComplete && (
-                        <div class="match-series">
-                          {games.map((g: any, gi: number) => (
-                            <a href={`/games/${g.game_id}`} class="series-game" title={`Game ${gi + 1}: ${g.winnerName || '?'} wins${g.totalTurns ? ` in ${g.totalTurns} turns` : ''}`}>
-                              <span class="series-game-num">G{gi + 1}</span>
-                              <span class:list={['series-pip', { 'pip-a': g.winner_seed === match.seed_a, 'pip-b': g.winner_seed === match.seed_b }]} />
-                              {g.totalTurns && <span class="series-turns">{g.totalTurns}t</span>}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <a class:list={['lin-match', { 'has-link': !!matchUrl, 'tbd': isTBD }]} href={matchUrl || undefined}>
+                      <div class:list={['lin-slot', { winner: isComplete && match.winner_seed === match.seed_a }]}>
+                        {match.seed_a != null ? (
+                          <>
+                            <span class="lin-seed">#{match.seed_a}</span>
+                            <span class="lin-name">{ea?.display_name || `Seed ${match.seed_a}`}</span>
+                            {score && <span class="lin-score">{score.winsA}</span>}
+                            <span class:list={['lin-w', { visible: isComplete && match.winner_seed === match.seed_a }]}>W</span>
+                          </>
+                        ) : (
+                          <span class="lin-name tbd-text">TBD</span>
+                        )}
+                      </div>
+                      <div class:list={['lin-slot', { winner: isComplete && match.winner_seed === match.seed_b }]}>
+                        {match.seed_b != null ? (
+                          <>
+                            <span class="lin-seed">#{match.seed_b}</span>
+                            <span class="lin-name">{eb?.display_name || `Seed ${match.seed_b}`}</span>
+                            {score && <span class="lin-score">{score.winsB}</span>}
+                            <span class:list={['lin-w', { visible: isComplete && match.winner_seed === match.seed_b }]}>W</span>
+                          </>
+                        ) : (
+                          <span class="lin-name tbd-text">TBD</span>
+                        )}
+                      </div>
+                    </a>
                   );
                 })}
               </div>
@@ -728,70 +669,11 @@ const hasDraft = !!tournament.draft;
     border-radius: 2px;
     margin-left: 0.25rem;
     flex-shrink: 0;
+    visibility: hidden;
   }
 
-  /* --- Match Series Strip --- */
-  .match-series {
-    display: flex;
-    gap: 3px;
-    justify-content: center;
-    margin-top: 4px;
-    position: absolute;
-    left: 0.5rem;
-    right: 0.5rem;
-    top: 100%;
-  }
-
-  .series-game {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    background: var(--bg-elevated);
-    border: 1px solid transparent;
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-size: 0.65rem;
-    transition: border-color 0.15s, background 0.15s;
-    line-height: 1;
-  }
-
-  .series-game:hover {
-    border-color: var(--accent-primary);
-    background: var(--bg-surface);
-  }
-
-  .series-game-num {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--text-muted);
-  }
-
-  .series-pip {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--text-muted);
-    flex-shrink: 0;
-  }
-
-  .series-pip.pip-a {
-    background: var(--color-success);
-    box-shadow: 0 0 4px rgba(168, 217, 165, 0.4);
-  }
-
-  .series-pip.pip-b {
-    background: var(--accent-primary);
-    box-shadow: 0 0 4px rgba(233, 69, 96, 0.4);
-  }
-
-  .series-turns {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    color: var(--text-muted);
+  .bracket-win-mark.visible {
+    visibility: visible;
   }
 
   /* --- Bracket Connectors --- */
@@ -1038,6 +920,11 @@ const hasDraft = !!tournament.draft;
     padding: 0.05rem 0.25rem;
     border-radius: 2px;
     flex-shrink: 0;
+    visibility: hidden;
+  }
+
+  .lin-w.visible {
+    visibility: visible;
   }
 
   @media (max-width: 600px) {
