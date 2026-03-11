@@ -65,12 +65,6 @@ const cards = deckInfo?.cards?.map((c: string) => {
 
 const totalCards = cards.reduce((s: number, c: any) => s + c.count, 0);
 
-// Separate lands from spells for display
-const isLand = (name: string) => name === 'Forest' || name === 'Island' || name === 'Mountain' ||
-  name === 'Plains' || name === 'Swamp' || name.includes('Thriving');
-const spells = cards.filter((c: any) => !isLand(c.name));
-const lands = cards.filter((c: any) => isLand(c.name));
-
 // Build championship record: find all matches this player was in
 interface MatchRecord {
   round: number;
@@ -133,13 +127,13 @@ for (const g of allGames) {
   gameMeta[g.id as string] = g;
 }
 
-// Build scryfall identifiers for the client-side mana curve fetch
+// Build scryfall identifiers for the client-side visual decklist
 const scryfallIds = cards
-  .filter((c: any) => c.set && c.num && !isLand(c.name))
-  .map((c: any) => ({ set: c.set.toLowerCase(), collector_number: c.num, count: c.count }));
+  .filter((c: any) => c.set && c.num)
+  .map((c: any) => ({ set: c.set.toLowerCase(), collector_number: c.num, count: c.count, name: c.name }));
 ---
 
-<Base title={`${entrant.display_name} — Season ${seasonNum}`}>
+<Base title={`${entrant.display_name} — Season ${seasonNum}`} wide>
   <SeasonNav season={seasonNum} active="entrants" hasTournament={true} hasDraft={hasDraft} />
 
   <div class="player-page">
@@ -218,63 +212,43 @@ const scryfallIds = cards
       </section>
     )}
 
-    {deckInfo && (
-      <section class="section">
-        <h2 class="section-heading">Decklist</h2>
-        <div class="deck-header">
-          <span class="deck-name">{deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}</span>
-          <span class="deck-count">{totalCards} cards</span>
-        </div>
-
-        <div class="deck-layout">
-          <div class="mana-curve" id="mana-curve">
-            <div class="curve-placeholder">Loading mana curve...</div>
-          </div>
-
-          <div class="decklist-columns">
-            <div class="decklist-col">
-              <h3 class="col-heading">Spells ({spells.reduce((s: number, c: any) => s + c.count, 0)})</h3>
-              {spells.map((c: any) => (
-                <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
-                  <span class="deck-card-qty">{c.count}</span>
-                  <span class="deck-card-name">{c.name}</span>
-                  <span class="deck-card-set">{c.set}</span>
-                </div>
-              ))}
-            </div>
-            <div class="decklist-col">
-              <h3 class="col-heading">Lands ({lands.reduce((s: number, c: any) => s + c.count, 0)})</h3>
-              {lands.map((c: any) => (
-                <div class="deck-card-row" data-set={c.set.toLowerCase()} data-num={c.num}>
-                  <span class="deck-card-qty">{c.count}</span>
-                  <span class="deck-card-name">{c.name}</span>
-                  <span class="deck-card-set">{c.set}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    )}
   </div>
 
-  <div id="card-preview" class="hidden">
-    <img id="preview-image" alt="" />
-  </div>
+  {deckInfo && (
+    <section class="deck-section">
+      <h2 class="section-heading">Decklist</h2>
+      <div class="deck-header">
+        <span class="deck-name">{deckInfo.half_decks.map((h: string) => cleanThemeName(h)).join(' + ')}</span>
+        <span class="deck-count">{totalCards} cards</span>
+      </div>
+
+      <div class="visual-deck" id="visual-deck">
+        <div class="deck-loading">Loading cards...</div>
+      </div>
+    </section>
+  )}
+
 </Base>
 
 <script is:inline define:vars={{ scryfallIds }}>
-  // Fetch mana values from Scryfall and render the mana curve
+  // Fetch card images from Scryfall and render visual deck grouped by mana value
   (function() {
-    var curveEl = document.getElementById('mana-curve');
-    if (!curveEl || !scryfallIds || scryfallIds.length === 0) {
-      if (curveEl) curveEl.innerHTML = '';
+    var deckEl = document.getElementById('visual-deck');
+    if (!deckEl || !scryfallIds || scryfallIds.length === 0) {
+      if (deckEl) deckEl.innerHTML = '';
       return;
     }
 
-    var identifiers = scryfallIds.map(function(c) {
-      return { set: c.set, collector_number: c.collector_number };
-    });
+    // Deduplicate identifiers for the API (same card from same set)
+    var seen = {};
+    var identifiers = [];
+    for (var i = 0; i < scryfallIds.length; i++) {
+      var key = scryfallIds[i].set + ':' + scryfallIds[i].collector_number;
+      if (!seen[key]) {
+        seen[key] = true;
+        identifiers.push({ set: scryfallIds[i].set, collector_number: scryfallIds[i].collector_number });
+      }
+    }
 
     fetch('https://api.scryfall.com/cards/collection', {
       method: 'POST',
@@ -283,94 +257,105 @@ const scryfallIds = cards
     })
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        if (!data.data) { curveEl.innerHTML = ''; return; }
+        if (!data.data) { deckEl.innerHTML = ''; return; }
 
-        // Build CMC lookup
-        var cmcMap = {};
-        for (var i = 0; i < data.data.length; i++) {
-          var card = data.data[i];
-          var key = card.set + ':' + card.collector_number;
-          cmcMap[key] = card.cmc || 0;
+        // Build lookup: set:num -> { cmc, image_url }
+        var cardInfo = {};
+        for (var j = 0; j < data.data.length; j++) {
+          var card = data.data[j];
+          var k = card.set + ':' + card.collector_number;
+          var img = card.image_uris ? card.image_uris.normal : null;
+          if (!img && card.card_faces && card.card_faces[0]) {
+            img = card.card_faces[0].image_uris ? card.card_faces[0].image_uris.normal : null;
+          }
+          var typeLine = card.type_line || '';
+          var isLandType = typeLine.split('//')[0].indexOf('Land') !== -1;
+          cardInfo[k] = { cmc: card.cmc || 0, image: img, name: card.name, isLand: isLandType };
         }
 
-        // Count cards at each CMC
-        var curve = {};
-        var maxCmc = 0;
-        for (var j = 0; j < scryfallIds.length; j++) {
-          var c = scryfallIds[j];
-          var k = c.set + ':' + c.collector_number;
-          var cmc = cmcMap[k] != null ? Math.floor(cmcMap[k]) : 0;
-          if (cmc > 7) cmc = 7; // group 7+
-          curve[cmc] = (curve[cmc] || 0) + c.count;
-          if (cmc > maxCmc) maxCmc = cmc;
+        // Group cards by CMC; lands go in their own group keyed as 'L'
+        var groups = {};
+        for (var m = 0; m < scryfallIds.length; m++) {
+          var c = scryfallIds[m];
+          var ck = c.set + ':' + c.collector_number;
+          var info = cardInfo[ck];
+          if (!info || !info.image) continue;
+          var groupKey = info.isLand ? 'L' : String(Math.min(Math.floor(info.cmc), 7));
+          if (!groups[groupKey]) groups[groupKey] = [];
+          for (var n = 0; n < c.count; n++) {
+            groups[groupKey].push({ image: info.image, name: info.name, cmc: info.cmc });
+          }
         }
 
-        // Find max count for scaling
-        var maxCount = 0;
-        for (var m = 0; m <= maxCmc; m++) {
-          if ((curve[m] || 0) > maxCount) maxCount = curve[m];
+        // Sort within each group by cmc then name
+        for (var gk in groups) {
+          groups[gk].sort(function(a, b) {
+            if (a.cmc !== b.cmc) return a.cmc - b.cmc;
+            return a.name.localeCompare(b.name);
+          });
         }
-        if (maxCount === 0) { curveEl.innerHTML = ''; return; }
 
-        // Render bars
-        var html = '<div class="curve-bars">';
-        for (var n = 0; n <= maxCmc; n++) {
-          var count = curve[n] || 0;
-          var pct = Math.round((count / maxCount) * 100);
-          var label = n === 7 ? '7+' : String(n);
-          html += '<div class="curve-col">';
-          html += '<span class="curve-count">' + (count || '') + '</span>';
-          html += '<div class="curve-bar" style="height:' + pct + '%"></div>';
-          html += '<span class="curve-label">' + label + '</span>';
-          html += '</div>';
+        // Determine column order: 0,1,2,...,7, then Lands
+        var colKeys = [];
+        for (var x = 0; x <= 7; x++) {
+          if (groups[String(x)]) colKeys.push(String(x));
         }
-        html += '</div>';
-        curveEl.innerHTML = html;
+        if (groups['L']) colKeys.push('L');
+
+        // For lands, deduplicate to show count badges instead of stacking 14 identical Forests
+        if (groups['L']) {
+          var landCounts = {};
+          var landOrder = [];
+          for (var li = 0; li < groups['L'].length; li++) {
+            var lc = groups['L'][li];
+            if (!landCounts[lc.image]) {
+              landCounts[lc.image] = { image: lc.image, name: lc.name, count: 0 };
+              landOrder.push(lc.image);
+            }
+            landCounts[lc.image].count++;
+          }
+          var deduped = [];
+          for (var lo = 0; lo < landOrder.length; lo++) {
+            deduped.push(landCounts[landOrder[lo]]);
+          }
+          groups['L'] = deduped;
+        }
+
+        // Render columns
+        var html = '';
+        var totalLands = 0;
+        for (var ci = 0; ci < colKeys.length; ci++) {
+          var colKey = colKeys[ci];
+          var colCards = groups[colKey];
+          var isLandCol = colKey === 'L';
+          if (isLandCol) {
+            for (var tl = 0; tl < colCards.length; tl++) totalLands += colCards[tl].count;
+          }
+          var colCount = isLandCol ? totalLands : colCards.length;
+          var label = isLandCol ? 'Lands' : (colKey === '7' ? '7+' : colKey);
+          html += '<div class="deck-col">';
+          html += '<div class="deck-col-header"><span class="deck-col-label">' + label + '</span>';
+          html += '<span class="deck-col-count">' + colCount + '</span></div>';
+          html += '<div class="deck-col-stack">';
+          for (var si = 0; si < colCards.length; si++) {
+            var sc = colCards[si];
+            var hasCount = isLandCol && sc.count > 1;
+            if (hasCount) {
+              html += '<div class="deck-col-card-wrap">';
+            }
+            html += '<img class="deck-col-card" src="' + sc.image + '" alt="' + sc.name.replace(/"/g, '&quot;') + '" loading="lazy" />';
+            if (hasCount) {
+              html += '<span class="card-count-badge">&times;' + sc.count + '</span>';
+              html += '</div>';
+            }
+          }
+          html += '</div></div>';
+        }
+        deckEl.innerHTML = html;
       })
       .catch(function() {
-        curveEl.innerHTML = '';
+        deckEl.innerHTML = '';
       });
-  })();
-</script>
-
-<script is:inline src="/game-renderer.js"></script>
-<script is:inline>
-  (function() {
-    var preview = document.getElementById('card-preview');
-    var img = document.getElementById('preview-image');
-    var hovering = false;
-
-    GameRenderer.setupMousePreview(preview);
-
-    img.addEventListener('load', function() {
-      if (hovering) preview.classList.remove('hidden');
-    });
-
-    document.addEventListener('mouseenter', function(e) {
-      if (!e.target.closest) return;
-      var row = e.target.closest('.deck-card-row[data-set]');
-      if (!row) return;
-      hovering = true;
-      var set = row.dataset.set;
-      var num = row.dataset.num;
-      if (!set || !num) return;
-      var url = 'https://api.scryfall.com/cards/' + set + '/' + num + '?format=image&version=normal';
-      if (img.src === url && img.complete && img.naturalWidth > 0) {
-        preview.classList.remove('hidden');
-      } else {
-        preview.classList.add('hidden');
-        img.src = url;
-      }
-      img.alt = row.querySelector('.deck-card-name').textContent;
-    }, true);
-
-    document.addEventListener('mouseleave', function(e) {
-      if (!e.target.closest) return;
-      var row = e.target.closest('.deck-card-row[data-set]');
-      if (!row) return;
-      hovering = false;
-      preview.classList.add('hidden');
-    }, true);
   })();
 </script>
 
@@ -625,6 +610,11 @@ const scryfallIds = cards
   }
 
   /* Decklist */
+  .deck-section {
+    max-width: 64rem;
+    margin: 0 auto 2.5rem;
+  }
+
   .deck-header {
     display: flex;
     align-items: baseline;
@@ -644,143 +634,107 @@ const scryfallIds = cards
     color: var(--text-muted);
   }
 
-  .deck-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  /* Mana curve */
-  .mana-curve {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    padding: 1rem;
-    min-height: 120px;
-  }
-
-  .curve-placeholder {
+  .deck-loading {
     color: var(--text-muted);
-    font-size: 0.8rem;
-    text-align: center;
+    font-size: 0.85rem;
     padding: 2rem 0;
   }
 
-  :global(.curve-bars) {
+  /* Visual deck - card images stacked by CMC */
+  :global(.visual-deck) {
     display: flex;
-    align-items: flex-end;
-    gap: 0.4rem;
-    height: 100px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
-  :global(.curve-col) {
-    flex: 1;
+  :global(.deck-col) {
+    flex: 1 1 0;
+    min-width: 90px;
+    max-width: 160px;
+  }
+
+  :global(.deck-col-header) {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.2rem;
-    height: 100%;
-    justify-content: flex-end;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin-bottom: 0.4rem;
+    padding-left: 0.15rem;
   }
 
-  :global(.curve-count) {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    min-height: 1em;
-  }
-
-  :global(.curve-bar) {
-    width: 100%;
-    max-width: 2.5rem;
-    background: var(--accent-secondary);
-    border-radius: 3px 3px 0 0;
-    min-height: 2px;
-    opacity: 0.75;
-    transition: opacity 0.15s;
-  }
-
-  :global(.curve-col:hover .curve-bar) {
-    opacity: 1;
-  }
-
-  :global(.curve-label) {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    font-family: var(--font-heading);
-    font-weight: 600;
-  }
-
-  /* Decklist columns */
-  .decklist-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .col-heading {
+  :global(.deck-col-label) {
     font-family: var(--font-heading);
     font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.5rem;
-  }
-
-  .deck-card-row {
-    display: flex;
-    gap: 0.4rem;
-    padding: 0.15rem 0;
+    font-weight: 700;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    cursor: default;
   }
 
-  .deck-card-qty {
-    color: var(--text-muted);
-    min-width: 1rem;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .deck-card-name {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .deck-card-set {
-    color: var(--text-muted);
+  :global(.deck-col-count) {
     font-size: 0.7rem;
-    text-transform: uppercase;
-    flex-shrink: 0;
+    color: var(--text-muted);
   }
 
-  .deck-card-row[data-set]:hover .deck-card-name {
-    color: var(--accent-secondary);
+  :global(.deck-col-stack) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* Card preview */
-  #card-preview {
-    position: fixed;
-    z-index: 9999;
-    pointer-events: none;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
-    transition: opacity 0.1s;
-  }
-
-  #card-preview.hidden {
-    display: none;
-  }
-
-  #card-preview img {
-    display: block;
-    width: 250px;
+  :global(.deck-col-card) {
+    width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 6px;
+    display: block;
+    /* Overlap: hide ~77% of card height. Card aspect ratio is 488:680 ≈ 1:1.393
+       So 77% of height = 77% × 1.393 × width ≈ 107% of width */
+    margin-top: -107%;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  :global(.deck-col-card:first-child) {
+    margin-top: 0;
+  }
+
+  :global(.deck-col-card:hover) {
+    transform: scale(2.2);
+    transform-origin: top center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    border-radius: 8px;
+  }
+
+  :global(.deck-col-card-wrap) {
+    position: relative;
+  }
+
+  :global(.deck-col-card-wrap) :global(.deck-col-card) {
+    margin-top: 0;
+  }
+
+  :global(.deck-col-card-wrap:hover) {
+    z-index: 100;
+  }
+
+  :global(.deck-col-card-wrap + .deck-col-card-wrap),
+  :global(.deck-col-card + .deck-col-card-wrap),
+  :global(.deck-col-card-wrap + .deck-col-card) {
+    margin-top: -107%;
+  }
+
+  :global(.card-count-badge) {
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    line-height: 1.2;
+    z-index: 5;
   }
 
   @media (max-width: 600px) {
@@ -800,12 +754,9 @@ const scryfallIds = cards
       font-size: 0.95rem;
     }
 
-    .decklist-columns {
-      grid-template-columns: 1fr;
-    }
-
-    #card-preview img {
-      width: 200px;
+    :global(.deck-col) {
+      min-width: 70px;
+      max-width: 120px;
     }
   }
 </style>
