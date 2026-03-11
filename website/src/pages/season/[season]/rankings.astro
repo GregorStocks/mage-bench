@@ -233,7 +233,7 @@ if (hasTournament) {
   function sortTable(column: string, type: string, ascending: boolean) {
     const tbody = getActiveTbody();
     if (!tbody) return;
-    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const rows = Array.from(tbody.querySelectorAll('tr:not(.cutoff-row)'));
 
     rows.sort((a, b) => {
       const elA = a as HTMLElement;
@@ -291,7 +291,7 @@ if (hasTournament) {
     const showInactive = showInactiveCheckbox.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
-    const rows = tbody.querySelectorAll('tr');
+    const rows = tbody.querySelectorAll('tr:not(.cutoff-row)');
     let visibleCount = 0;
 
     rows.forEach(row => {
@@ -311,9 +311,13 @@ if (hasTournament) {
     if (!tbody) return;
     let rank = 1;
     const showCutoff = tournamentSize > 0 && activeFormat === 'combined';
+
+    // Remove any existing cutoff row
+    tbody.querySelector('.cutoff-row')?.remove();
+
+    let cutoffAfter: HTMLElement | null = null;
     tbody.querySelectorAll('tr').forEach(row => {
       const el = row as HTMLElement;
-      el.classList.remove('championship-cutoff');
       const rankCell = el.querySelector('.rank-cell');
       if (!rankCell) return;
       if (el.style.display === 'none') {
@@ -324,10 +328,17 @@ if (hasTournament) {
         rankCell.textContent = String(r);
         el.dataset.rank = String(r);
         if (showCutoff && r === tournamentSize) {
-          el.classList.add('championship-cutoff');
+          cutoffAfter = el;
         }
       }
     });
+
+    if (cutoffAfter) {
+      const cutoffRow = document.createElement('tr');
+      cutoffRow.className = 'cutoff-row';
+      cutoffRow.innerHTML = '<td colspan="8"><div class="cutoff-inner"><span class="cutoff-line"></span><span class="cutoff-label">Top 16 — Championship Qualified</span><span class="cutoff-line"></span></div></td>';
+      (cutoffAfter as HTMLElement).after(cutoffRow);
+    }
   }
 
   showInactiveCheckbox.addEventListener('change', () => {
@@ -617,27 +628,37 @@ if (hasTournament) {
 
   tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
 
-  /* Championship cutoff line */
-  tbody tr.championship-cutoff td {
-    border-bottom: 2px dashed var(--accent-primary);
+  /* Championship cutoff divider */
+  .cutoff-row td {
+    padding: 0 !important;
+    border-bottom: none !important;
+    background: none !important;
   }
 
-  tbody tr.championship-cutoff .rank-cell {
-    position: relative;
+  .cutoff-row:hover {
+    background: none !important;
+    box-shadow: none !important;
   }
 
-  tbody tr.championship-cutoff .rank-cell::after {
-    content: 'Championship cutoff \2191';
-    position: absolute;
-    left: 0;
-    bottom: -12px;
-    font-size: 0.65rem;
-    font-weight: 600;
+  .cutoff-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+  }
+
+  .cutoff-line {
+    flex: 1;
+    height: 1px;
+    background: var(--accent-primary);
+    opacity: 0.4;
+  }
+
+  .cutoff-label {
+    font-size: 0.7rem;
+    font-weight: 700;
     color: var(--accent-primary);
-    background: var(--bg-primary);
-    padding: 0 0.5rem;
-    z-index: 1;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     white-space: nowrap;
   }
