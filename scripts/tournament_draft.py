@@ -319,6 +319,18 @@ def _extract_content(message: object) -> tuple[str | None, str | None]:
     return content, thinking
 
 
+def _append_thinking_history(
+    thinking: str | None, attempt_thinking: str | None, attempt: int
+) -> str | None:
+    """Append retry thinking to the stored history without losing earlier attempts."""
+    if not attempt_thinking:
+        return thinking
+    if thinking is None:
+        return attempt_thinking
+    assert attempt > 1, "attempt must be > 1 when appending to existing thinking"
+    return f"{thinking}\n\nRetry {attempt - 1}:\n{attempt_thinking}"
+
+
 async def _llm_pick(
     client: AsyncOpenAI,
     model: str,
@@ -378,8 +390,7 @@ async def _llm_pick(
             usage["completion_tokens"] += response.usage.completion_tokens or 0
 
         content, attempt_thinking = _extract_content(response.choices[0].message)
-        if attempt_thinking and thinking is None:
-            thinking = attempt_thinking
+        thinking = _append_thinking_history(thinking, attempt_thinking, attempt)
 
         if not content:
             reason = "Your response was empty — no content was returned."
