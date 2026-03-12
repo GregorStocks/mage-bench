@@ -1179,8 +1179,12 @@ def _validate_export(data: dict) -> None:
     assert data.get("version") == 7, f"Expected version 7, got {data.get('version')}"
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
-    assert isinstance(data["gameType"], str) and data["gameType"], "gameType must be a non-empty string"
-    assert isinstance(data["deckType"], str) and data["deckType"], "deckType must be a non-empty string"
+    assert isinstance(data["gameType"], str) and data["gameType"], (
+        "gameType must be a non-empty string"
+    )
+    assert isinstance(data["deckType"], str) and data["deckType"], (
+        "deckType must be a non-empty string"
+    )
     assert isinstance(data["players"], list), "players must be a list"
     assert isinstance(data["snapshots"], list), "snapshots must be a list"
     assert isinstance(data["actions"], list), "actions must be a list"
