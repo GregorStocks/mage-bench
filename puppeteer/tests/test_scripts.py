@@ -26,6 +26,7 @@ claim_issue = _import_script("claim-issue")
 worktree_setup = _import_script("worktree-setup")
 import_deck = _import_script("import-deck")
 import_metagame = _import_script("import-metagame")
+conclude_season = _import_script("conclude_season")
 conclude_tournament = _import_script("conclude_tournament")
 
 
@@ -557,6 +558,110 @@ class TestImportDeck:
 
 
 # ===========================================================================
+# conclude-season
+# ===========================================================================
+
+
+class TestConcludeSeason:
+    def test_main_refreshes_website_season_data(self, tmp_path: Path) -> None:
+        data_dir = tmp_path / "data"
+        tournaments_dir = data_dir / "tournaments"
+        website_data_dir = tmp_path / "website" / "src" / "data"
+        puppeteer_dir = tmp_path / "puppeteer"
+        tournaments_dir.mkdir(parents=True)
+        website_data_dir.mkdir(parents=True)
+        puppeteer_dir.mkdir(parents=True)
+
+        season_file = data_dir / "season.json"
+        season_file.write_text(
+            json.dumps(
+                {
+                    "current_season": 5,
+                    "phase": "regular-season",
+                    "tournament": None,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        # Seed the website copy with stale data to prove it gets refreshed.
+        (website_data_dir / "season.json").write_text(
+            json.dumps(
+                {
+                    "current_season": 5,
+                    "phase": "regular-season",
+                    "tournament": None,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        benchmark_file = website_data_dir / "benchmark-results.json"
+        benchmark_file.write_text(
+            json.dumps(
+                {
+                    "models": [
+                        {
+                            "modelId": f"model-{i}",
+                            "modelName": f"Model {i}",
+                            "rating": 1800 - i,
+                            "gamesPlayed": 10 + i,
+                            "reasoningEffort": "medium",
+                        }
+                        for i in range(8)
+                    ]
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        presets_file = puppeteer_dir / "presets.json"
+        presets_file.write_text(
+            json.dumps(
+                {
+                    "presets": {
+                        f"preset-{i}": {
+                            "model": f"model-{i}",
+                            "reasoning_effort": "medium",
+                        }
+                        for i in range(8)
+                    }
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        personalities_file = puppeteer_dir / "personalities.json"
+        personalities_file.write_text(json.dumps({f"personality-{i}": {} for i in range(8)}, indent=2) + "\n")
+
+        with (
+            patch.object(conclude_season, "_ROOT", tmp_path),
+            patch.object(conclude_season, "_SEASON_FILE", season_file),
+            patch.object(conclude_season, "_TOURNAMENTS_DIR", tournaments_dir),
+            patch.object(conclude_season, "_BENCHMARK_RESULTS", benchmark_file),
+            patch.object(conclude_season, "_PRESETS_JSON", presets_file),
+            patch.object(conclude_season, "_PERSONALITIES_JSON", personalities_file),
+            patch.object(conclude_season.random, "shuffle", lambda items: None),
+            patch.object(sys, "argv", ["conclude_season.py", "8"]),
+        ):
+            assert conclude_season.main() == 0
+
+        season_data = json.loads(season_file.read_text())
+        assert season_data["phase"] == "tournament"
+        assert season_data["tournament"] == "data/tournaments/season-5.json"
+
+        website_season = json.loads((website_data_dir / "season.json").read_text())
+        assert website_season == season_data
+
+        tournament = json.loads((tournaments_dir / "season-5.json").read_text())
+        assert tournament["season"] == 5
+        assert tournament["size"] == 8
+
+
+# ===========================================================================
 # conclude-tournament
 # ===========================================================================
 
@@ -565,10 +670,23 @@ class TestConcludeTournament:
     def test_main_advances_to_next_regular_season(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         data_dir = tmp_path / "data"
         tournaments_dir = data_dir / "tournaments"
+        website_data_dir = tmp_path / "website" / "src" / "data"
         tournaments_dir.mkdir(parents=True)
+        website_data_dir.mkdir(parents=True)
 
         season_file = data_dir / "season.json"
         season_file.write_text(
+            json.dumps(
+                {
+                    "current_season": 3,
+                    "phase": "between-seasons",
+                    "tournament": "data/tournaments/season-3.json",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        (website_data_dir / "season.json").write_text(
             json.dumps(
                 {
                     "current_season": 3,
@@ -626,6 +744,8 @@ class TestConcludeTournament:
         assert season_data["current_season"] == 4
         assert season_data["phase"] == "regular-season"
         assert season_data["tournament"] is None
+        website_season = json.loads((website_data_dir / "season.json").read_text())
+        assert website_season == season_data
 
         out = capsys.readouterr().out
         assert "Season 3 champion: #1 Alpha" in out

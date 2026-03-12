@@ -19,6 +19,17 @@ MODELS_JSON = _ROOT / "puppeteer" / "models.json"
 SEASON_JSON = _ROOT / "data" / "season.json"
 
 
+def copy_season_data(
+    data_dir: Path = WEBSITE_DATA_DIR,
+    season_json: Path = SEASON_JSON,
+) -> Path:
+    """Copy the authoritative season state into the website data directory."""
+    data_dir.mkdir(parents=True, exist_ok=True)
+    dst = data_dir / "season.json"
+    shutil.copy2(season_json, dst)
+    return dst
+
+
 def generate_all_website_data(
     games_dir: Path = WEBSITE_GAMES_DIR,
     data_dir: Path = WEBSITE_DATA_DIR,
@@ -26,8 +37,7 @@ def generate_all_website_data(
 ) -> None:
     """Regenerate all website data: leaderboard, model stats, internals, blunder stats."""
     # Copy season.json first so leaderboard generation and Astro pages can use it
-    data_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(SEASON_JSON, data_dir / "season.json")
+    copy_season_data(data_dir=data_dir)
     generate_leaderboard_file(games_dir, data_dir, models_json)
     generate_model_stats(games_dir, data_dir, models_json)
     generate_internals_data(games_dir, data_dir, models_json)

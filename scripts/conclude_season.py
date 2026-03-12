@@ -16,6 +16,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from scripts.generate_leaderboard import copy_season_data
+
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
 _TOURNAMENTS_DIR = _ROOT / "data" / "tournaments"
@@ -131,6 +133,10 @@ def main() -> int:
     season_data["phase"] = "tournament"
     season_data["tournament"] = f"data/tournaments/season-{season_num}.json"
     _SEASON_FILE.write_text(json.dumps(season_data, indent=2) + "\n")
+    copy_season_data(
+        data_dir=_ROOT / "website" / "src" / "data",
+        season_json=_SEASON_FILE,
+    )
     print(f"Season {season_num} moved to tournament phase -> {_SEASON_FILE}")
 
     # Print the bracket seeding

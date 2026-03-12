@@ -8,6 +8,7 @@ Usage:
 import json
 from pathlib import Path
 
+from scripts.generate_leaderboard import copy_season_data
 from scripts.tournament_game import (
     BETWEEN_SEASONS_PHASE,
     REGULAR_SEASON_PHASE,
@@ -63,6 +64,10 @@ def main() -> int:
     season_data["phase"] = REGULAR_SEASON_PHASE
     season_data["tournament"] = None
     _save_season(season_data)
+    copy_season_data(
+        data_dir=_ROOT / "website" / "src" / "data",
+        season_json=_SEASON_FILE,
+    )
 
     print(f"Season {season_num} champion: #{champion_seed} {champion['display_name']}")
     print(f"Season {season_num + 1} moved to regular season -> {_SEASON_FILE}")
