@@ -166,3 +166,5 @@ If you discovered new recurring patterns, useful analysis techniques, broken scr
 - Scripts that are broken or have known limitations
 - Workflow improvements (e.g. better parallelization, useful cross-referencing techniques)
 - New analysis scripts you created in `scripts/analysis/`
+
+Do **not** add issue-specific bug notes to the skill if you already filed them in `issues/`. The skill should capture reusable investigation technique, tooling caveats, and durable workflow guidance, not duplicate the issue tracker.

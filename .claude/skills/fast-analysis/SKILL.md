@@ -80,7 +80,7 @@ The scripts should cover:
 - **game_timeline.py**: Chronological event viewer with filtering by `--turns`, `--player`, `--mana`, and `-v` for verbose output. More powerful than `game_narrative.py` for drilling into specific turns or mana behavior. **Known issue**: the `--turns` filter has a bug where `find_turn_at_ts` assigns all events to the last turn, making turn-range filtering useless. Use without `--turns` or use `extract_decisions.py` with turn filtering instead.
 - **mcp_errors.py**: MCP tool error analysis — error frequencies by error_code, retry outcomes, per-model breakdowns, and "least helpful error messages" (where models retry with the same error). Run this when `llm_events.py` shows many failed tool calls.
 - **mana_tapping.py**: Mana behavior analysis — mana_plan usage/success, auto-tap effectiveness, GAME_CHOOSE_ABILITY handling, spell cancellations. Run this when you see mana-related errors or spell cancellations.
-- **extract_decisions.py**: Structured decision extraction — outputs each decision point with board state, available choices, what was chosen, reasoning, and what happened next. Useful for evaluating specific decisions in depth.
+- **extract_decisions.py**: Structured decision extraction — outputs each decision point with board state, available choices, what was chosen, reasoning, and what happened next. Useful for evaluating specific decisions in depth. Caveat: it has no real CLI parser; pass only the game path and do any filtering outside the script.
 
 **Critical errors**: The `errors` array in the export surfaces critical issues from the game's error logs — loop detector interventions, uncaught exceptions, server short ID collisions, etc. These indicate genuine bugs rather than normal LLM mistakes. **Always check and explicitly call out any entries in the `errors` array** — they are high-signal indicators of platform bugs that need investigation.
 
@@ -165,6 +165,8 @@ If you discovered new recurring patterns, useful analysis techniques, broken scr
 - Scripts that are broken or have known limitations (add caveats)
 - Workflow improvements (e.g. better parallelization strategies)
 - New analysis scripts you created in `scripts/analysis/`
+
+Do **not** add issue-specific bug notes to the skill if you already filed them in `issues/`. The skill should capture reusable workflow guidance, script/tool caveats, and stable recurring model-only patterns, not duplicate the issue tracker.
 
 ## What this skill does NOT do
 
