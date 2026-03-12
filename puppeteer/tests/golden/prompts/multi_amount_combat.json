@@ -184,7 +184,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=52 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat: Savannah Lions -> TestPlayer\n  Combat Phase: blockers\n  Message: Select blockers\n  Choices (1): Grizzly Bears [id=p16]\n  Respond: blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=52 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat: Savannah Lions -> TestPlayer\n  Combat Phase: blockers\n  Incoming Attackers: Savannah Lions [id=p8, 2/1]\n  Message: Select blockers\n  Choices (1): Grizzly Bears [id=p16]\n  Respond: blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },

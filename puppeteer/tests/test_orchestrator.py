@@ -431,10 +431,47 @@ def test_write_game_meta_raises_on_missing_deck(tmp_path: Path):
     config_file = tmp_path / "config.json"
     config_file.write_text("{}\n")
 
-    config = Config(config_file=config_file, timestamp="20260312_010203")
+    config = Config(
+        config_file=config_file,
+        timestamp="20260312_010203",
+        game_type="Two Player Duel",
+        deck_type="Constructed - Legacy",
+    )
     config.pilot_players = [PilotPlayer(name="ace", deck="missing.dck", model="test/model")]
 
     with pytest.raises(FileNotFoundError):
+        _write_game_meta(game_dir, config, tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("game_type", "deck_type", "message"),
+    [
+        ("", "Variant Magic - Freeform Commander", "non-empty config\\.game_type"),
+        ("Commander Free For All", "", "non-empty config\\.deck_type"),
+    ],
+)
+def test_write_game_meta_requires_non_empty_format_fields(
+    tmp_path: Path,
+    game_type: str,
+    deck_type: str,
+    message: str,
+):
+    """Missing format metadata should fail before writing an invalid game_meta."""
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "season.json").write_text(json.dumps({"current_season": 7}))
+    config_file = tmp_path / "config.json"
+    config_file.write_text("{}\n")
+
+    config = Config(
+        config_file=config_file,
+        timestamp="20260312_010203",
+        game_type=game_type,
+        deck_type=deck_type,
+    )
+
+    with pytest.raises(AssertionError, match=message):
         _write_game_meta(game_dir, config, tmp_path)
 
 

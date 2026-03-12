@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate leaderboard JSON from game data for the website."""
 
+import json
 import shutil
 import sys
 from pathlib import Path
@@ -38,7 +39,13 @@ def generate_all_website_data(
     """Regenerate all website data: leaderboard, model stats, internals, blunder stats."""
     # Copy season.json first so leaderboard generation and Astro pages can use it
     copy_season_data(data_dir=data_dir)
-    generate_leaderboard_file(games_dir, data_dir, models_json)
+    season_data = json.loads(SEASON_JSON.read_text())
+    generate_leaderboard_file(
+        games_dir,
+        data_dir,
+        models_json,
+        current_season=season_data["current_season"],
+    )
     generate_model_stats(games_dir, data_dir, models_json)
     generate_internals_data(games_dir, data_dir, models_json)
     generate_blunder_stats(data_dir)

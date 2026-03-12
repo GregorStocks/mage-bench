@@ -254,6 +254,8 @@ def _write_error_log(game_dir: Path) -> None:
 
 def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None:
     """Write game_meta.json with player configs, decklists, format, and git info."""
+    assert config.game_type, "game_meta requires non-empty config.game_type"
+    assert config.deck_type, "game_meta requires non-empty config.deck_type"
     players = []
     all_players = [
         *((p, "pilot") for p in config.pilot_players),

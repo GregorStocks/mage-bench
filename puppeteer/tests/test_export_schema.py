@@ -23,8 +23,8 @@ def _minimal_export(version: int, **overrides) -> dict:
         "version": version,
         "id": f"test_v{version}",
         "timestamp": "",
-        "gameType": "",
-        "deckType": "",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
         "totalTurns": 0,
         "winner": None,
         "harnessEpoch": 0,
@@ -153,6 +153,12 @@ class TestExportSchema:
         errors = list(validator.iter_errors(v6_with_trace))
         assert errors, "v6 schema should reject exports with llmTrace"
 
+    def test_v6_schema_rejects_empty_format_fields(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(6))
+        v6 = _minimal_export(6, season=1, tournament=None, gameType="", deckType="")
+        errors = list(validator.iter_errors(v6))
+        assert errors, "v6 schema should reject empty gameType/deckType"
+
     def test_v7_schema_is_valid(self) -> None:
         schema = _load_schema(7)
         jsonschema.Draft7Validator.check_schema(schema)
@@ -191,6 +197,12 @@ class TestExportSchema:
         )
         errors = list(validator.iter_errors(v7))
         assert errors, "v7 schema should reject players without normalized stats"
+
+    def test_v7_schema_rejects_empty_format_fields(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(7))
+        v7 = _minimal_export(7, season=1, tournament=None, gameType="", deckType="")
+        errors = list(validator.iter_errors(v7))
+        assert errors, "v7 schema should reject empty gameType/deckType"
 
     def test_schema_rejects_missing_required_field(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(5))

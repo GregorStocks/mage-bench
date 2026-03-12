@@ -162,6 +162,33 @@ class TestRenderDecision:
         text = render_decision(decision, snap)
         assert "Combat: Goblin Guide -> Bob" in text
 
+    @pytest.mark.parametrize("combat_phase", ["blockers", "declare_blockers"])
+    def test_blockers_prompt_renders_incoming_attacker_ids(self, combat_phase: str) -> None:
+        snap = _make_snapshot(
+            combat=[
+                {
+                    "attackers": [{"name": "Goblin Token"}, {"name": "Goblin Token"}],
+                    "blockers": [],
+                    "blocked": False,
+                    "defending": "Alice",
+                }
+            ]
+        )
+        decision = _make_decision(
+            phase="COMBAT",
+            message="Select blockers",
+            choices=[{"index": 0, "name": "Wall of Omens", "id": "p30", "choice_type": "blocker"}],
+            pilot_context={
+                "combatPhase": combat_phase,
+                "incomingAttackers": [
+                    {"name": "Goblin Token", "id": "p10", "power": "1", "toughness": "1"},
+                    {"name": "Goblin Token", "id": "p11", "power": "1", "toughness": "1"},
+                ],
+            },
+        )
+        text = render_decision(decision, snap)
+        assert "Incoming Attackers: Goblin Token [id=p10, 1/1], Goblin Token [id=p11, 1/1]" in text
+
     def test_include_chosen(self) -> None:
         snap = _make_snapshot()
         decision = _make_decision()

@@ -79,6 +79,7 @@ Pick and solve exactly **one** issue, then create a PR.
    ```
 
 7. Update tests to expect the correct behavior
+   - If your code changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, proactively search existing goldens for the affected prompt fragment or behavior and regenerate every impacted golden before moving on. Do not assume a newly added golden is the only file that needs updating, and do not wait for CI to discover stale goldens you could have found locally.
 8. Run `make check` to verify lint, typecheck, and tests pass
 9. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
 10. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
@@ -88,6 +89,8 @@ Pick and solve exactly **one** issue, then create a PR.
     ```bash
     uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
     ```
+
+    Then check CI status with `gh pr checks` (or `gh pr checks --watch` if you can wait). Do not tell the user the PR is clean/ready while required checks are still pending, and do not treat CI as the first place to notice missing golden regenerations.
 
     Then stop — leave remaining issues for the next Claude.
 

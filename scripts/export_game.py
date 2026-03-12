@@ -1042,10 +1042,15 @@ def build_export(game_dir: Path) -> dict:
         if m:
             timed_out_players.add(m.group(1))
 
+    assert "game_type" in meta, f"{game_id}: game_meta.json missing game_type"
+    game_type = meta["game_type"]
+    assert isinstance(game_type, str) and game_type, (
+        f"{game_id}: expected game_type to be a non-empty string, got {game_type!r}"
+    )
     assert "deck_type" in meta, f"{game_id}: game_meta.json missing deck_type"
     deck_type = meta["deck_type"]
-    assert isinstance(deck_type, str), (
-        f"{game_id}: expected deck_type to be a string, got {type(deck_type).__name__}"
+    assert isinstance(deck_type, str) and deck_type, (
+        f"{game_id}: expected deck_type to be a non-empty string, got {deck_type!r}"
     )
     assert "harness_epoch" in meta, f"{game_id}: game_meta.json missing harness_epoch"
     harness_epoch = meta["harness_epoch"]
@@ -1086,7 +1091,7 @@ def build_export(game_dir: Path) -> dict:
         "version": 7,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
-        "gameType": meta.get("game_type", ""),
+        "gameType": game_type,
         "deckType": deck_type,
         "totalTurns": total_turns,
         "winner": winner,
@@ -1174,6 +1179,12 @@ def _validate_export(data: dict) -> None:
     assert data.get("version") == 7, f"Expected version 7, got {data.get('version')}"
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
+    assert isinstance(data["gameType"], str) and data["gameType"], (
+        "gameType must be a non-empty string"
+    )
+    assert isinstance(data["deckType"], str) and data["deckType"], (
+        "deckType must be a non-empty string"
+    )
     assert isinstance(data["players"], list), "players must be a list"
     assert isinstance(data["snapshots"], list), "snapshots must be a list"
     assert isinstance(data["actions"], list), "actions must be a list"
