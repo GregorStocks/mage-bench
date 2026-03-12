@@ -332,8 +332,9 @@ async def _llm_pick(
     """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict).
 
     Retries up to MAX_PICK_RETRIES times if the model fails to produce a
-    parseable pick (empty content, unparseable response, etc.). Each retry
-    includes the full conversation history so the model can see what went wrong.
+    parseable bare-number pick (empty content, extra text, unparseable
+    response, etc.). Each retry includes the full conversation history so the
+    model can see what went wrong.
     """
     messages: list = [
         {"role": "system", "content": system_prompt},
@@ -349,7 +350,6 @@ async def _llm_pick(
 
     usage: dict = {"prompt_tokens": 0, "completion_tokens": 0}
     thinking: str | None = None
-    first_content: str | None = None
 
     for attempt in range(1, MAX_PICK_RETRIES + 1):
         attempt_label = "initial" if attempt == 1 else f"retry_{attempt - 1}"
@@ -378,17 +378,17 @@ async def _llm_pick(
             usage["completion_tokens"] += response.usage.completion_tokens or 0
 
         content, attempt_thinking = _extract_content(response.choices[0].message)
-        if attempt_thinking:
+        if attempt_thinking and thinking is None:
             thinking = attempt_thinking
 
         if not content:
             reason = "Your response was empty — no content was returned."
         else:
-            if first_content is None:
-                first_content = content
             try:
                 pick = parse_pick(content, num_options)
-                return pick, first_content, thinking, usage
+                if content.isdigit():
+                    return pick, content, thinking, usage
+                reason = "I parsed your pick, but your response included extra text."
             except ValueError:
                 reason = (
                     f"Could not parse a valid option number (1-{num_options}) "
