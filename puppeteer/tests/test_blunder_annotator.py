@@ -152,9 +152,9 @@ def _read_gz(path: Path) -> dict:
         return json.load(f)
 
 
-def _run_script(script_name: str, *args: str) -> subprocess.CompletedProcess[str]:
+def _run_script(script_name: str, *args: str, extra_flags: tuple[str, ...] = ()) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        ["uv", "run", "python", str(SCRIPTS_DIR / script_name), *args],
+        ["uv", "run", "python", str(SCRIPTS_DIR / script_name), *args, *extra_flags],
         capture_output=True,
         text=True,
         check=True,
@@ -349,7 +349,12 @@ class TestAnnotateGame:
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps(annotations))
 
-        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+        _run_script(
+            "annotate_game.py",
+            str(gz_path),
+            str(ann_path),
+            extra_flags=("--no-leaderboard",),
+        )
 
         data = _read_gz(gz_path)
         assert "annotations" in data
@@ -366,7 +371,12 @@ class TestAnnotateGame:
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([annotation]))
 
-        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+        _run_script(
+            "annotate_game.py",
+            str(gz_path),
+            str(ann_path),
+            extra_flags=("--no-leaderboard",),
+        )
 
         data = _read_gz(gz_path)
         assert len(data["annotations"]) == 1
@@ -383,7 +393,12 @@ class TestAnnotateGame:
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([new_annotation]))
 
-        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+        _run_script(
+            "annotate_game.py",
+            str(gz_path),
+            str(ann_path),
+            extra_flags=("--no-leaderboard",),
+        )
 
         data = _read_gz(gz_path)
         assert len(data["annotations"]) == 1
@@ -398,7 +413,12 @@ class TestAnnotateGame:
         ann_path.write_text(json.dumps([annotation]))
 
         with pytest.raises(subprocess.CalledProcessError):
-            _run_script("annotate_game.py", str(gz_path), str(ann_path))
+            _run_script(
+                "annotate_game.py",
+                str(gz_path),
+                str(ann_path),
+                extra_flags=("--no-leaderboard",),
+            )
 
     def test_invalid_severity(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game.json.gz"
@@ -410,7 +430,12 @@ class TestAnnotateGame:
         ann_path.write_text(json.dumps([annotation]))
 
         with pytest.raises(subprocess.CalledProcessError):
-            _run_script("annotate_game.py", str(gz_path), str(ann_path))
+            _run_script(
+                "annotate_game.py",
+                str(gz_path),
+                str(ann_path),
+                extra_flags=("--no-leaderboard",),
+            )
 
     def test_invalid_player(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game.json.gz"
@@ -422,7 +447,12 @@ class TestAnnotateGame:
         ann_path.write_text(json.dumps([annotation]))
 
         with pytest.raises(subprocess.CalledProcessError):
-            _run_script("annotate_game.py", str(gz_path), str(ann_path))
+            _run_script(
+                "annotate_game.py",
+                str(gz_path),
+                str(ann_path),
+                extra_flags=("--no-leaderboard",),
+            )
 
     def test_preserves_other_data(self, tmp_path: Path) -> None:
         game = _make_test_game()
@@ -433,7 +463,12 @@ class TestAnnotateGame:
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps(annotations))
 
-        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+        _run_script(
+            "annotate_game.py",
+            str(gz_path),
+            str(ann_path),
+            extra_flags=("--no-leaderboard",),
+        )
 
         data = _read_gz(gz_path)
         assert data["id"] == "game_test_001"
@@ -449,7 +484,12 @@ class TestAnnotateGame:
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text("[]")
 
-        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+        _run_script(
+            "annotate_game.py",
+            str(gz_path),
+            str(ann_path),
+            extra_flags=("--no-leaderboard",),
+        )
 
         data = _read_gz(gz_path)
         assert data["annotations"] == []
@@ -464,4 +504,9 @@ class TestAnnotateGame:
         ann_path.write_text(json.dumps([annotation]))
 
         with pytest.raises(subprocess.CalledProcessError):
-            _run_script("annotate_game.py", str(gz_path), str(ann_path))
+            _run_script(
+                "annotate_game.py",
+                str(gz_path),
+                str(ann_path),
+                extra_flags=("--no-leaderboard",),
+            )
