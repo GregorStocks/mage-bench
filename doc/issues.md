@@ -24,7 +24,7 @@ Use real timestamps (the actual time you're creating the issue), not `00:00:00` 
 ### Fields
 
 | Field | Type | Description |
-|-------|------|-------------|
+| ------- | ------ | ------------- |
 | `title` | string | Short summary |
 | `description` | string | Full description with context |
 | `status` | string | Always "open" (delete closed issues) |

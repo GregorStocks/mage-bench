@@ -32,15 +32,24 @@ def _make_game(
     winner: str | None,
     players: list[dict],
     season: int = 1,
+    deck_type: str = "Variant Magic - Freeform Commander",
+    harness_epoch: int = HARNESS_EPOCH,
+    tournament: str | None = None,
 ) -> dict:
     return {
+        "version": 7,
         "id": game_id,
         "timestamp": timestamp,
+        "gameType": deck_type,
+        "deckType": deck_type,
         "totalTurns": 10,
         "winner": winner,
         "players": players,
         "annotations": [],
+        "llmEvents": [],
+        "harnessEpoch": harness_epoch,
         "season": season,
+        "tournament": tournament,
     }
 
 
@@ -49,18 +58,23 @@ def _pilot(
     model: str,
     cost: float = 1.0,
     placement: int | None = None,
-    tool_calls_ok: int | None = None,
-    tool_calls_failed: int | None = None,
+    tool_calls_ok: int = 0,
+    tool_calls_failed: int = 0,
+    thinking_time_secs: float = 0.0,
     reasoning_effort: str | None = None,
     timed_out: bool = False,
 ) -> dict:
-    d: dict = {"name": name, "type": "pilot", "model": model, "totalCostUsd": cost}
+    d: dict = {
+        "name": name,
+        "type": "pilot",
+        "model": model,
+        "totalCostUsd": cost,
+        "toolCallsOk": tool_calls_ok,
+        "toolCallsFailed": tool_calls_failed,
+        "thinkingTimeSecs": thinking_time_secs,
+    }
     if placement is not None:
         d["placement"] = placement
-    if tool_calls_ok is not None:
-        d["toolCallsOk"] = tool_calls_ok
-    if tool_calls_failed is not None:
-        d["toolCallsFailed"] = tool_calls_failed
     if reasoning_effort is not None:
         d["reasoningEffort"] = reasoning_effort
     if timed_out:
@@ -69,7 +83,14 @@ def _pilot(
 
 
 def _cpu(name: str) -> dict:
-    return {"name": name, "type": "cpu", "commander": "Some Commander"}
+    return {
+        "name": name,
+        "type": "cpu",
+        "commander": "Some Commander",
+        "toolCallsOk": 0,
+        "toolCallsFailed": 0,
+        "thinkingTimeSecs": 0.0,
+    }
 
 
 # --- capitalize_provider ---
@@ -175,20 +196,18 @@ def test_extract_placements_from_game_file():
     """Falls back to reading full game JSON for elimination order."""
     with tempfile.TemporaryDirectory() as tmpdir:
         games_dir = Path(tmpdir)
-        game_data = {
-            "actions": [
-                {"seq": 100, "message": "Carol has lost the game."},
-                {"seq": 200, "message": "Bob has lost the game."},
-            ]
-        }
-        (games_dir / "g1.json.gz").write_bytes(gzip.compress(json.dumps(game_data).encode()))
-
         game = _make_game(
             "g1",
             "20260101_000000",
             "Alice",
             [_pilot("Alice", "a/x"), _pilot("Bob", "b/y"), _pilot("Carol", "c/z")],
         )
+        game["actions"] = [
+            {"seq": 100, "message": "Carol has lost the game."},
+            {"seq": 200, "message": "Bob has lost the game."},
+        ]
+        (games_dir / "g1.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
         result = extract_placements(game, games_dir)
         assert result == {"Alice": 1, "Bob": 2, "Carol": 3}
 
@@ -506,7 +525,8 @@ def test_generate_leaderboard_sorted_by_rating():
 
 
 def test_generate_leaderboard_missing_cost():
-    player = {"name": "Alice", "type": "pilot", "model": "a/x", "placement": 1}
+    player = _pilot("Alice", "a/x", placement=1)
+    player.pop("totalCostUsd")
     games = [_make_game("g1", "20260101_000000", "Alice", [player])]
     result, _ = generate_leaderboard(
         games,
@@ -759,6 +779,26 @@ def test_generate_leaderboard_file_with_game_fallback():
         assert models_by_name["X"]["rating"] > models_by_name["Y"]["rating"]
 
 
+def test_generate_leaderboard_file_requires_deck_type():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
+        )
+        game.pop("deckType")
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        with pytest.raises(AssertionError, match="missing deckType"):
+            generate_leaderboard_file(games_dir, data_dir, root / "models.json")
+
+
 # --- derive_format ---
 
 
@@ -778,15 +818,15 @@ def test_derive_format_commander():
     assert derive_format({"deckType": "Variant Magic - Freeform Commander"}) == "commander"
 
 
-def test_derive_format_commander_default():
-    """Empty deckType defaults to 'commander' for backward compat."""
-    assert derive_format({}) == "commander"
-    assert derive_format({"deckType": ""}) == "commander"
+def test_derive_format_requires_deck_type():
+    with pytest.raises(AssertionError, match="missing deckType"):
+        derive_format({})
+    with pytest.raises(AssertionError, match="missing deckType"):
+        derive_format({"deckType": ""})
 
 
-def test_derive_format_commander_from_game_type():
-    """Commander gameType with unknown deckType -> commander."""
-    assert derive_format({"gameType": "Commander Free For All", "deckType": "something"}) == "commander"
+def test_derive_format_unknown_deck_type_slugifies():
+    assert derive_format({"gameType": "Commander Free For All", "deckType": "Some Weird Format"}) == "some-weird-format"
 
 
 # --- generate_all_leaderboards ---
@@ -1291,8 +1331,7 @@ def test_generate_leaderboard_thinking_time():
     assert bob["avgThinkingTimeSecs"] == 100.0
 
 
-def test_generate_leaderboard_missing_thinking_time():
-    """Old games without thinkingTimeSecs should default to 0."""
+def test_generate_leaderboard_requires_thinking_time():
     games = [
         _make_game(
             "g1",
@@ -1301,10 +1340,10 @@ def test_generate_leaderboard_missing_thinking_time():
             [_pilot("Alice", "a/model-a", placement=1), _pilot("Bob", "b/model-b", placement=2)],
         ),
     ]
-    result, _ = generate_leaderboard(games, {})
+    games[0]["players"][0].pop("thinkingTimeSecs")
 
-    alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    assert alice["avgThinkingTimeSecs"] == 0.0
+    with pytest.raises(AssertionError, match="missing thinkingTimeSecs"):
+        generate_leaderboard(games, {})
 
 
 # --- generate_model_stats ---
@@ -1317,15 +1356,23 @@ def _make_game_with_events(
     players: list[dict],
     llm_events: list[dict],
     epoch: int = HARNESS_EPOCH,
+    deck_type: str = "Variant Magic - Freeform Commander",
+    season: int = 1,
+    tournament: str | None = None,
 ) -> dict:
     return {
+        "version": 7,
         "id": game_id,
         "timestamp": timestamp,
+        "gameType": deck_type,
+        "deckType": deck_type,
         "totalTurns": 10,
         "winner": winner,
         "players": players,
         "llmEvents": llm_events,
         "harnessEpoch": epoch,
+        "season": season,
+        "tournament": tournament,
     }
 
 
@@ -1380,7 +1427,7 @@ def test_generate_model_stats_basic():
             ],
             epoch=10,
         )
-        # Add thinkingTimeSecs so backfill doesn't need real timestamps
+        # Override the default zero values so aggregation exercises non-zero totals.
         game["players"][0]["thinkingTimeSecs"] = 60.0
         game["players"][1]["thinkingTimeSecs"] = 30.0
         (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
@@ -1418,6 +1465,34 @@ def test_generate_model_stats_basic():
         # Bob had no cache/reasoning data — should default to 0
         assert bob_bucket["totalCachedTokens"] == 0
         assert bob_bucket["totalReasoningTokens"] == 0
+
+
+def test_generate_model_stats_requires_normalized_player_stats():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=5.0, placement=1),
+                _pilot("Bob", "b/model-b", cost=2.0, placement=2),
+            ],
+            [],
+            epoch=10,
+        )
+        game["players"][0].pop("thinkingTimeSecs")
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        with pytest.raises(AssertionError, match="missing thinkingTimeSecs"):
+            generate_model_stats(games_dir, data_dir, models_json)
 
 
 def test_generate_model_stats_epoch_bucketing():
@@ -1700,7 +1775,7 @@ def test_generate_internals_data_basic():
         assert g["id"] == "game_20260115_120000"
         assert g["ts"] == "2026-01-15T12:00:00"
         assert g["epoch"] == 10
-        assert g["format"] == "commander"  # default for games without deckType
+        assert g["format"] == "commander"
         assert len(g["players"]) == 2
 
         alice = next(p for p in g["players"] if p["key"] == "a/model-a")
