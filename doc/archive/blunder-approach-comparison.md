@@ -12,7 +12,7 @@ one shot, it confuses details between decisions that mention the same card.
 ## Approaches tested
 
 | ID | Description | Model | Architecture |
-|----|-------------|-------|-------------|
+| ---- | ------------- | ------- | ------------- |
 | baseline | Single-pass, current v5 prompt | Opus | 1 call for all decisions |
 | A | Inline annotation (emit after each decision) | Opus | 1 call, structured output |
 | B | Per-decision | Flash | 1 call per decision |
@@ -35,7 +35,7 @@ one shot, it confuses details between decisions that mention the same card.
 ## Test games
 
 | Game | Decisions | Non-forced | Format | Approaches run |
-|------|-----------|------------|--------|----------------|
+| ------ | ----------- | ------------ | -------- | ---------------- |
 | g8 | 23 | 14 | Standard | 17 |
 | g3 | 113 | 54 | Legacy (Doomsday vs Lands) | 17 |
 | g4 | 186 | 144 | Modern (Yawgmoth vs Prowess) | 15 |
@@ -52,7 +52,7 @@ with snapshots within +/-2 considered the same blunder.
 Coverage = consensus blunder hits / (hits + misses). FP = non-consensus annotations.
 
 | Approach | Games | Coverage | FP% | $/game | s/game |
-|----------|-------|----------|-----|--------|--------|
+| ---------- | ------- | ---------- | ----- | -------- | -------- |
 | **L_sonnet_thinking** | **5** | **91%** | **11%** | **$3.29** | **4291s** |
 | **O_sonnet_medium** | **5** | **87%** | **15%** | **$2.97** | **3929s** |
 | P_sonnet_low | 5 | 83% | 14% | $1.50 | 1899s |
@@ -80,7 +80,7 @@ For every game where both ran, every consensus blunder found by D was also found
 The reverse is not true — L finds 7-18 additional consensus blunders per game that D misses.
 
 | Game | Consensus | D hits | L hits | D-only | L-only |
-|------|-----------|--------|--------|--------|--------|
+| ------ | ----------- | -------- | -------- | -------- | -------- |
 | g8 | 4 | 2 | 2 | 0 | 0 |
 | g3 | 18 | 13 | 17 | 0 | 4 |
 | g4 | 36 | 29 | 36 | 0 | 7 |
@@ -104,7 +104,7 @@ The descriptions read as genuine observations, not hallucinations. Examples:
 ### Extended thinking helps Sonnet but hurts Opus
 
 | Model | Without thinking | With thinking | Change |
-|-------|-----------------|---------------|--------|
+| ------- | ----------------- | --------------- | -------- |
 | Sonnet 4.5 | 53% coverage (E) | 98% coverage (L) | +45pp |
 | Opus | 79% coverage (D) | 63% coverage (K) | -16pp |
 
@@ -120,7 +120,7 @@ The bug that started this experiment. Correct answer: snap 75 (ETB chose wrong t
 v5 production attributed to snap 55 (card revealed during behold).
 
 | Approach | Found? | Snapshot | Description |
-|----------|--------|----------|-------------|
+| ---------- | -------- | ---------- | ------------- |
 | D_opus | Yes | 75 | "Destroyed Multiversal Passage instead of Spirebluff Canal" |
 | L_sonnet | Yes | 73 + 75 | Found both the casting decision and ETB target |
 | K_opus | Yes | 75 | Same correct attribution |
@@ -134,7 +134,7 @@ Llama4 Coach casts Doomsday 3+ times with no win condition in pile while opponen
 lethal Dark Depths combo assembled.
 
 | Approach | Doomsday annotations | Dark Depths annotations |
-|----------|---------------------|------------------------|
+| ---------- | --------------------- | ------------------------ |
 | L_sonnet | 21 | 18 |
 | K_opus | 15 | 13 |
 | D_opus | 14 | 15 |
@@ -170,7 +170,7 @@ reduce cost without losing much accuracy by isolating two factors:
 ### Factor isolation
 
 | Approach | Architecture | Thinking | Coverage | $/game |
-|----------|-------------|----------|----------|--------|
+| ---------- | ------------- | ---------- | ---------- | -------- |
 | L | per-decision | high | 91% | $3.29 |
 | O | per-decision | medium | 87% | $2.97 |
 | P | per-decision | low | 83% | $1.50 |
@@ -199,7 +199,7 @@ saved ~20% of output tokens with no impact on annotation quality.
 Per-game consensus hits:
 
 | Game | Consensus | L | O | P |
-|------|-----------|---|---|---|
+| ------ | ----------- | --- | --- | --- |
 | 003230 | 30 | 28 | 27 | 28 |
 | g4 | 69 | 62 | 61 | 53 |
 | g3 | 26 | 25 | 24 | 23 |
@@ -265,7 +265,7 @@ Average: 110 non-forced decisions/game.
 Per-call cost from experiment data:
 
 | Approach | $/call | $/game (avg) | Full reanalysis (152 games) |
-|----------|--------|-------------|---------------------------|
+| ---------- | -------- | ------------- | --------------------------- |
 | L (high) | $0.047 | $3.29 | **$785** |
 | O (medium) | $0.042 | $2.97 | **$708** |
 | P (low) | $0.021 | $1.50 | **$357** |
@@ -298,7 +298,7 @@ epoch 11 games with clean decision data to validate the findings.
 ### Approaches tested
 
 | ID | Description |
-|----|-------------|
+| ---- | ------------- |
 | L | Per-decision Sonnet 4.5, thinking=high |
 | O | Per-decision Sonnet 4.5, thinking=medium |
 | P | Per-decision Sonnet 4.5, thinking=low |
@@ -307,7 +307,7 @@ epoch 11 games with clean decision data to validate the findings.
 ### Test games
 
 | Game | Non-forced | Format | Approaches |
-|------|-----------|--------|------------|
+| ------ | ----------- | -------- | ------------ |
 | g8 (epoch 11) | 14 | Standard | L, O, P, Q |
 | g5 (epoch 11) | 85 | Standard | L, O, P, Q |
 | g2 (epoch 11) | 208 | Standard (1v1) | L, O, P |
@@ -318,7 +318,7 @@ epoch 11 games with clean decision data to validate the findings.
 Consensus threshold: >= 2 approaches (with only 3-4 approaches per game).
 
 | Approach | Games | Coverage | FP% | Total cost | $/game (avg) |
-|----------|-------|----------|-----|------------|--------------|
+| ---------- | ------- | ---------- | ----- | ------------ | -------------- |
 | **O_sonnet_medium** | **4** | **93%** | **52%** | **$22.90** | **$5.72** |
 | L_sonnet_thinking | 4 | 92% | 53% | $26.43 | $6.61 |
 | P_sonnet_low | 4 | 88% | 48% | $12.03 | $3.01 |
@@ -332,7 +332,7 @@ the consensus pool was richer.
 ### Per-game breakdown
 
 | Game | Consensus | L hits | O hits | P hits | Q hits |
-|------|-----------|--------|--------|--------|--------|
+| ------ | ----------- | -------- | -------- | -------- | -------- |
 | g8 | 3 | 3 | 2 | 1 | 2 |
 | g5 | 24 | 21 | 22 | 20 | 18 |
 | g2 | 37 | 33 | **37** | 33 | 30 |
@@ -361,7 +361,7 @@ the accuracy tradeoff.
 ### Cost per game (epoch 11)
 
 | Game | Non-forced | L cost | O cost | P cost | Q cost |
-|------|-----------|--------|--------|--------|--------|
+| ------ | ----------- | -------- | -------- | -------- | -------- |
 | g8 | 14 | $0.60 | $0.51 | $0.26 | $0.19 |
 | g5 | 85 | $3.54 | $3.23 | $1.69 | $1.57 |
 | g2 | 208 | $8.77 | $7.83 | $4.15 | $3.59 |
@@ -377,7 +377,7 @@ so per-game costs are higher than Phase 2 estimates.
 Corpus: 152 games. Using epoch 11 per-call costs:
 
 | Approach | $/call | $/game (est) | Full reanalysis |
-|----------|--------|-------------|-----------------|
+| ---------- | -------- | ------------- | ----------------- |
 | L (high) | $0.048 | $5.30 | **$806** |
 | O (medium) | $0.041 | $4.52 | **$687** |
 | P (low) | $0.022 | $2.42 | **$368** |
@@ -397,7 +397,7 @@ Consensus for this follow-up section is defined against the existing L/O/P pool
 ### Results (g8 + g5 only)
 
 | Approach | Consensus hits | Coverage | Cost |
-|----------|----------------|----------|------|
+| ---------- | ---------------- | ---------- | ------ |
 | P (baseline) | 26/34 | 76.5% | $1.947 |
 | **R_sonnet_low_minimal** | **27/34** | **79.4%** | **$1.945** |
 | S_sonnet_batched2_low | 19/34 | 55.9% | $1.146 |

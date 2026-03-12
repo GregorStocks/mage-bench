@@ -8,10 +8,6 @@
     "role": "user"
   },
   {
-    "content": "Current game state: Turn 6; Precombat Main; TestPlayer: 20hp, 7 permanents, 6 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -31,6 +27,10 @@
     "content": "## Card Reference\n- Boggart Trawler {2}{B} 3/1: When {this} enters, exile target player's graveyard.\n- Crashing Footfalls: Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.) / Create two 4/4 green Rhino creature tokens with trample.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Boggart Trawler, Crashing Footfalls, Forest, Plains, Plains, Plains, Plains] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
     "tool_call_id": "call_1"
+  },
+  {
+    "content": "Current game state: Turn 6; Precombat Main; TestPlayer: 20hp, 7 permanents, 6 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,

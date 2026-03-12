@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "test": "vitest run"
   },
   "dependencies": {
@@ -16,9 +17,11 @@
     "chart.js": "^4.5.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "happy-dom": "^20.8.3",
     "json-schema-to-typescript": "^15.0.4",
     "markdownlint-cli2": "^0.21.0",
+    "typescript": "^5.9.3",
     "vitest": "^4.0.18"
   }
 }

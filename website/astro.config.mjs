@@ -12,13 +12,31 @@ import { gzipSync } from 'node:zlib';
 // Also adds transparent gzip compression for all compressible responses
 // (JSON, JS, CSS, HTML, SVG). Game JSON files are 3-17 MB uncompressed but
 // compress to ~3% of their size, so this is a massive dev-mode speedup.
+/** @returns {import('vite').Plugin} */
 function serveGzPlugin() {
   const COMPRESSIBLE = /\b(json|javascript|html|css|svg|xml|text)\b/i;
   const MIN_SIZE = 1024;
 
+  /**
+   * @param {string | Buffer | Uint8Array} chunk
+   * @param {BufferEncoding | undefined} encoding
+   * @returns {Buffer}
+   */
+  function toBuffer(chunk, encoding) {
+    if (Buffer.isBuffer(chunk)) return chunk;
+    if (typeof chunk === 'string') return Buffer.from(chunk, encoding);
+    return Buffer.from(chunk);
+  }
+
   return {
     name: 'serve-gz',
+    /** @param {import('vite').ViteDevServer} server */
     configureServer(server) {
+      /**
+       * @param {import('node:http').IncomingMessage} req
+       * @param {import('node:http').ServerResponse} res
+       * @param {() => void} next
+       */
       server.middlewares.use((req, res, next) => {
         // Serve pre-compressed .json.gz files directly (client decompresses).
         if (req.url && req.url.endsWith('.json.gz')) {
@@ -43,20 +61,29 @@ function serveGzPlugin() {
         const _writeHead = res.writeHead;
         const _write = res.write;
         const _end = res.end;
+        const rawEnd = /** @type {any} */ (_end);
+        const mutableRes = /** @type {any} */ (res);
         /** @type {Buffer[]} */
         const chunks = [];
         let ended = false;
 
         // Intercept writeHead: apply headers via setHeader() so we can still
         // modify them (add Content-Encoding) before the response is flushed.
-        res.writeHead = function (statusCode, statusMessage, headers) {
+        /**
+         * @param {any} statusCode
+         * @param {any} statusMessage
+         * @param {any} headers
+         */
+        mutableRes.writeHead = function (statusCode, statusMessage, headers) {
           if (typeof statusMessage === 'object' && statusMessage !== null) {
             headers = statusMessage;
             statusMessage = undefined;
           }
           if (headers) {
             for (const [key, value] of Object.entries(headers)) {
-              try { res.setHeader(key, value); } catch (_) {}
+              if (value !== undefined) {
+                try { res.setHeader(key, value); } catch {}
+              }
             }
           }
           res.statusCode = statusCode;
@@ -64,21 +91,45 @@ function serveGzPlugin() {
           return res;
         };
 
-        res.write = function (chunk, encoding, cb) {
+        /**
+         * @param {any} chunk
+         * @param {any} encoding
+         * @param {any} cb
+         */
+        mutableRes.write = function (chunk, encoding, cb) {
           if (chunk != null) {
-            chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk, typeof encoding === 'string' ? encoding : undefined));
+            chunks.push(
+              toBuffer(
+                chunk,
+                typeof encoding === 'string'
+                  ? /** @type {BufferEncoding} */ (encoding)
+                  : undefined,
+              ),
+            );
           }
-          if (typeof encoding === 'function') encoding();
-          else if (typeof cb === 'function') cb();
+          if (typeof encoding === 'function') encoding(undefined);
+          else if (typeof cb === 'function') cb(undefined);
           return true;
         };
 
-        res.end = function (chunk, encoding, cb) {
+        /**
+         * @param {any} chunk
+         * @param {any} encoding
+         * @param {any} cb
+         */
+        mutableRes.end = function (chunk, encoding, cb) {
           if (ended) return res;
           ended = true;
 
           if (chunk != null && typeof chunk !== 'function') {
-            chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk, typeof encoding === 'string' ? encoding : undefined));
+            chunks.push(
+              toBuffer(
+                chunk,
+                typeof encoding === 'string'
+                  ? /** @type {BufferEncoding} */ (encoding)
+                  : undefined,
+              ),
+            );
           }
           const callback = typeof chunk === 'function' ? chunk : typeof encoding === 'function' ? encoding : cb;
 
@@ -98,11 +149,11 @@ function serveGzPlugin() {
               res.setHeader('content-encoding', 'gzip');
               res.setHeader('vary', 'Accept-Encoding');
               res.removeHeader('content-length');
-              return _end.call(res, compressed, callback);
+              return callback ? rawEnd.call(res, compressed, callback) : rawEnd.call(res, compressed);
             }
           }
 
-          return _end.call(res, body, callback);
+          return callback ? rawEnd.call(res, body, callback) : rawEnd.call(res, body);
         };
 
         next();
@@ -121,6 +172,7 @@ const allowedHosts = fs.existsSync(configPath)
 // Proxy audit API to the Python backend when running in audit mode.
 // AUDIT_API_PORT is set by `make blunder-audit-web`.
 const auditApiPort = process.env.AUDIT_API_PORT;
+/** @type {import('vite').ServerOptions['proxy']} */
 const auditProxy = auditApiPort
   ? {
       '/api/audit': {
@@ -137,7 +189,7 @@ export default defineConfig({
     plugins: [serveGzPlugin()],
     server: {
       allowedHosts,
-      proxy: auditProxy,
+      ...(auditProxy ? { proxy: auditProxy } : {}),
     },
   },
 });

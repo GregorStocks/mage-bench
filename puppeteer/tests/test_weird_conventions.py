@@ -13,7 +13,7 @@ import re
 import subprocess
 from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, ClassVar
+from typing import ClassVar
 
 import pytest
 
@@ -42,7 +42,7 @@ _EXPECTED_DECK_FORMATS = {"standard", "modern", "legacy", "commander", "jumpstar
 # ---------------------------------------------------------------------------
 
 
-def _load_json(path: Path) -> Any:
+def _load_json(path: Path) -> object:
     return json.loads(path.read_text())
 
 

@@ -8,8 +8,11 @@ import sys
 import time
 from pathlib import Path
 
+from mcp import McpError
+
 from puppeteer.bridge_transport import spawn_bridge_http
 from puppeteer.log import get_logger, setup_logging
+from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 logger = get_logger(__name__)
 
@@ -89,7 +92,7 @@ async def run_sleepwalker(
             try:
                 # Wait for pending action (blocks until decision needed)
                 result = await session.call_tool("pass_priority", {"timeout_ms": 15000})
-                status = json.loads(result.content[0].text)
+                status = json.loads(extract_text_content("pass_priority", result))
 
                 if status.get("action_pending"):
                     action_type = status.get("action_type", "UNKNOWN")
@@ -104,7 +107,7 @@ async def run_sleepwalker(
 
                     # Print game log (only new entries since last check)
                     log_result = await session.call_tool("get_game_log", {"max_chars": 10000})
-                    log_data = json.loads(log_result.content[0].text)
+                    log_data = json.loads(extract_text_content("get_game_log", log_result))
                     current_log = log_data.get("log", "")
                     total_length = log_data.get("total_length", 0)
 
@@ -125,7 +128,7 @@ async def run_sleepwalker(
                 if current_time - last_chat_time > CHAT_INTERVAL_SECS:
                     chat_message = get_sleepy_noise()
                     result = await session.call_tool("send_chat_message", {"message": chat_message})
-                    chat_result = json.loads(result.content[0].text)
+                    chat_result = json.loads(extract_text_content("send_chat_message", result))
                     if chat_result.get("success"):
                         logger.info("[sleepwalker] Chat sent: %s", chat_message)
                     else:
@@ -137,7 +140,7 @@ async def run_sleepwalker(
             except KeyboardInterrupt:
                 logger.info("[sleepwalker] Interrupted, shutting down...")
                 break
-            except Exception as e:
+            except (McpError, OSError, RuntimeError, ToolExecutionError, TypeError, json.JSONDecodeError) as e:
                 logger.error("[sleepwalker] Error: %s", e)
                 await asyncio.sleep(1)
 

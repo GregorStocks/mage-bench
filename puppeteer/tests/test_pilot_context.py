@@ -1,15 +1,21 @@
 """Tests for pilot context window management: summarisation and rendering."""
 
 import json
+from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
 
 from puppeteer.pilot import (
     CONTEXT_RECENT_COUNT,
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
-    TOOL_RESULT_MAX_CHARS,
+    TOOL_SUMMARY_TRIGGER_CHARS,
+    PilotLoopState,
+    _build_loop_messages,
     _build_reset_message,
     _extract_last_reasoning,
     _find_tool_name,
+    _mark_tail_cache_breakpoint,
     _render_context,
     _summarize_tool_result,
     _with_cache_control,
@@ -146,7 +152,6 @@ def test_summarize_get_action_choices():
     assert "GAME_SELECT" in result
     assert "3 choices" in result
     assert "Mountain" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
 
 
 def test_summarize_get_action_choices_old_format():
@@ -183,7 +188,6 @@ def test_summarize_get_game_state():
     assert "main1" in result
     assert "Alice:15hp/3perm" in result
     assert "Bob:12hp/5perm" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
 
 
 def test_summarize_get_game_log_basic():
@@ -199,7 +203,7 @@ def test_summarize_get_game_log_basic():
     assert "log(" in result
     assert "5234 chars" in result
     assert "Alice turn 3" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Alice casts Sol Ring" in result
 
 
 def test_summarize_get_game_log_since_turn():
@@ -216,7 +220,8 @@ def test_summarize_get_game_log_since_turn():
     result = _summarize_tool_result("get_game_log", content)
     assert "since_turn=2" in result
     assert "Bob turn 2" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Bob casts Sol Ring" in result
+    assert "Alice plays Forest" in result
 
 
 def test_summarize_get_game_log_truncated():
@@ -233,7 +238,7 @@ def test_summarize_get_game_log_truncated():
     result = _summarize_tool_result("get_game_log", content)
     assert "truncated" in result
     assert "since_turn=1" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Alice attacks with Goblin Guide" in result
 
 
 def test_summarize_get_game_log_empty():
@@ -252,13 +257,28 @@ def test_summarize_get_game_log_empty():
 
 def test_summarize_invalid_json():
     result = _summarize_tool_result("get_game_state", "not valid json at all")
-    assert result == "not valid json at all"[:TOOL_RESULT_MAX_CHARS]
+    assert result == "not valid json at all"
+
+
+def test_summarize_rendered_tool_content_keeps_full_text():
+    content = (
+        "## Card Reference\n"
+        "- Dark Depths -- Land: {this} enters with ten ice counters on it. / "
+        "{3}: Remove an ice counter from {this}. / "
+        "When {this} has no ice counters on it, sacrifice it. If you do, "
+        "create Marit Lage, a legendary 20/20 black Avatar creature token "
+        "with flying and indestructible.\n"
+        "\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer"
+    )
+    result = _summarize_tool_result("choose_action", content)
+    assert result == content
+    assert "Marit Lage" in result
 
 
 def test_summarize_already_small():
     content = json.dumps({"success": True})
     result = _summarize_tool_result("send_chat_message", content)
-    assert result == content[:TOOL_RESULT_MAX_CHARS]
+    assert result == content
 
 
 # ---------------------------------------------------------------------------
@@ -341,9 +361,29 @@ def test_render_short_history():
 
 
 def test_render_long_history_summarizes_old():
-    """Over threshold: old tool results get summarised."""
+    """Over threshold: old verbose tool results get structural summaries."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
+    history[9] = _make_assistant_msg([("call_4", "get_game_log")])
+    history[10] = _make_tool_msg(
+        "call_4",
+        json.dumps(
+            {
+                "log": (
+                    "Alice turn 3 (20 - 15)\n"
+                    "Alice casts Sol Ring\n"
+                    "Alice attacks with Goblin Guide\n"
+                    "Bob blocks with Ornithopter\n"
+                    "Bob takes 2"
+                ),
+                "total_length": 5234,
+                "truncated": False,
+                "cursor": 5234,
+                "detail": "x" * 100,
+            }
+        ),
+    )
+    assert len(history[10]["content"]) > TOOL_SUMMARY_TRIGGER_CHARS
     messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # Should have: system + summarised slice + state bridge + recent slice
@@ -359,10 +399,11 @@ def test_render_long_history_summarizes_old():
 
     # Find tool messages in the summarised section (between system and bridge)
     summarised_section = messages[1:bridge_idx]
-    for msg in summarised_section:
-        if msg["role"] == "tool":
-            # Should be summarised (short)
-            assert len(msg["content"]) <= TOOL_RESULT_MAX_CHARS
+    summary_tool = next(msg for msg in summarised_section if msg["role"] == "tool" and msg["tool_call_id"] == "call_4")
+    assert summary_tool["content"].startswith("log(")
+    assert "Alice turn 3" in summary_tool["content"]
+    assert "Bob blocks with Ornithopter" in summary_tool["content"]
+    assert summary_tool["content"].endswith(" / ...")
 
 
 def test_render_preserves_recent_full():
@@ -410,6 +451,31 @@ def test_render_no_orphaned_tool_results():
             assert msg["tool_call_id"] in seen_call_ids, (
                 f"Orphaned tool result: {msg['tool_call_id']} not in any preceding assistant message"
             )
+
+
+def test_render_keeps_tool_results_contiguous():
+    """No non-tool message may interrupt an assistant tool-call block."""
+    history = _make_history(CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 6)
+    history.extend(
+        [
+            _make_assistant_msg([("call_chat", "send_chat_message"), ("call_act", "choose_action")]),
+            _make_tool_msg("call_chat", '{"success": true}'),
+            _make_tool_msg("call_act", '{"success": true}'),
+        ]
+    )
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+
+    remaining_call_ids: set[str] = set()
+    for msg in messages:
+        if msg.get("role") == "assistant" and msg.get("tool_calls"):
+            remaining_call_ids = {tc["id"] for tc in msg["tool_calls"]}
+            continue
+        if msg.get("role") == "tool":
+            assert remaining_call_ids, f"Tool result {msg['tool_call_id']} has no open assistant tool-call block"
+            assert msg["tool_call_id"] in remaining_call_ids
+            remaining_call_ids.remove(msg["tool_call_id"])
+            continue
+        assert not remaining_call_ids, f"Non-tool message interrupted tool block: {msg}"
 
 
 # ---------------------------------------------------------------------------
@@ -500,39 +566,30 @@ def test_render_state_bridge_after_summarized():
     assert len(recent_messages) >= CONTEXT_RECENT_COUNT
 
 
-# ---------------------------------------------------------------------------
-# Cached prefix reuse
-# ---------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_build_loop_messages_matches_fresh_render_after_history_growth():
+    """Long-history builds should rerender the current history, not reuse a stale prompt."""
+    history = _make_history(CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10)
+    state = PilotLoopState(history=list(history))
+    session = MagicMock()
 
+    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY) as fetch:
+        first = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
+        assert first == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
 
-def test_cached_prefix_reuse_concept():
-    """Verify that cached_render + new_history produces valid messages."""
-    n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
-    history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
-    cached_render = list(messages)
-    cached_history_len = len(history)
+        state.history.extend(
+            [
+                _make_assistant_msg([("call_new_1", "pass_priority")]),
+                _make_tool_msg("call_new_1", json.dumps({"timeout": True})),
+                _make_assistant_msg([("call_new_2", "choose_action")]),
+                _make_tool_msg("call_new_2", json.dumps({"success": True, "action_taken": "passed"})),
+            ]
+        )
 
-    # Simulate 2 new history entries (assistant + tool pair)
-    new_entries = [
-        _make_assistant_msg([("call_new_1", "pass_priority")]),
-        _make_tool_msg("call_new_1", json.dumps({"timeout": True})),
-    ]
-    history.extend(new_entries)
+        second = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
 
-    # Reuse cached prefix + new entries
-    reused = cached_render + history[cached_history_len:]
-    assert reused[: len(cached_render)] == cached_render
-    assert reused[len(cached_render) :] == new_entries
-
-    # Verify no orphaned tool results in the combined output
-    seen_call_ids: set[str] = set()
-    for msg in reused:
-        if msg.get("role") == "assistant":
-            for tc in msg.get("tool_calls", []):
-                seen_call_ids.add(tc["id"])
-        elif msg.get("role") == "tool":
-            assert msg["tool_call_id"] in seen_call_ids
+    assert second == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
+    assert fetch.await_count == 1
 
 
 def test_render_interval_constant():
@@ -751,29 +808,32 @@ def test_with_cache_control_does_not_mutate_original():
     assert msg["content"] == "hello"  # unchanged
 
 
-def test_tail_breakpoint_does_not_mutate_cached_render():
-    """Applying tail breakpoint should not modify cached_render dicts."""
+@pytest.mark.asyncio
+async def test_long_history_tail_breakpoint_marks_state_bridge():
+    """Long-history cache breakpoint should target the state bridge, not the newest tool message."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
+    state = PilotLoopState(history=list(history))
+    session = MagicMock()
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
-    cached_render = list(messages)
 
-    # Simulate the tail breakpoint logic from run_pilot_loop
-    new_entries = [
-        _make_assistant_msg([("call_new", "pass_priority")]),
-        _make_tool_msg("call_new", json.dumps({"timeout": True})),
-    ]
-    assembled = list(cached_render) + new_entries
-    tail_idx = len(cached_render) - 1
-    original_content = cached_render[tail_idx].get("content")
+    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY):
+        messages = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=cc)
 
-    marked = _with_cache_control(assembled[tail_idx], cc)
-    if marked is not assembled[tail_idx]:
-        assembled[tail_idx] = marked
+    bridge_idx = None
+    for i, msg in enumerate(messages):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
+            bridge_idx = i
+            break
+    assert bridge_idx is not None, "State bridge not found"
+    assert state.cache_breakpoint_idx == bridge_idx
 
-    # cached_render's message should be unchanged
-    assert cached_render[tail_idx].get("content") == original_content
+    original_last = messages[-1]
+    _mark_tail_cache_breakpoint(messages, state, cc)
+    assert messages[-1] == original_last
+    bridge_content = messages[bridge_idx]["content"]
+    assert isinstance(bridge_content, list)
+    assert any(block.get("cache_control") == cc for block in bridge_content if isinstance(block, dict))
 
 
 def test_short_history_tail_breakpoint():

@@ -3,8 +3,14 @@
 import json
 import tempfile
 from pathlib import Path
+from unittest.mock import MagicMock
 
-from puppeteer.llm_cost import get_model_price, required_api_key_env, write_cost_file
+from puppeteer.llm_cost import (
+    fetch_openrouter_prices,
+    get_model_price,
+    required_api_key_env,
+    write_cost_file,
+)
 
 
 def test_required_api_key_env_openrouter():
@@ -64,3 +70,13 @@ def test_write_cost_file():
         assert cost_file.exists()
         data = json.loads(cost_file.read_text())
         assert data == {"cost_usd": 1.23}
+
+
+def test_fetch_openrouter_prices_returns_empty_dict_on_invalid_json(monkeypatch):
+    response = MagicMock()
+    response.__enter__.return_value = response
+    response.__exit__.return_value = None
+    response.read.return_value = b"{not json"
+    monkeypatch.setattr("urllib.request.urlopen", lambda *args, **kwargs: response)
+
+    assert fetch_openrouter_prices() == {}

@@ -5,6 +5,7 @@ import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from openai import OpenAIError
 
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
@@ -72,7 +73,7 @@ def _no_prefetch():
 async def test_401_raises_permanent_failure():
     """A 401 error (user not found / bad API key) should raise PermanentLLMFailure."""
     session = _make_session()
-    client = _make_client(Exception("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
+    client = _make_client(OpenAIError("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
 
     with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
         await run_pilot_loop(
@@ -91,7 +92,7 @@ async def test_401_raises_permanent_failure():
 async def test_403_raises_permanent_failure():
     """A 403 error (key quota exceeded) should raise PermanentLLMFailure."""
     session = _make_session()
-    client = _make_client(Exception("Error code: 403 - Forbidden"))
+    client = _make_client(OpenAIError("Error code: 403 - Forbidden"))
 
     with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
         await run_pilot_loop(
@@ -110,7 +111,7 @@ async def test_403_raises_permanent_failure():
 async def test_402_raises_permanent_failure():
     """A 402 error (credits exhausted) should raise PermanentLLMFailure."""
     session = _make_session()
-    client = _make_client(Exception("Error code: 402 - Payment Required"))
+    client = _make_client(OpenAIError("Error code: 402 - Payment Required"))
 
     with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
         await run_pilot_loop(
@@ -129,7 +130,7 @@ async def test_402_raises_permanent_failure():
 async def test_404_raises_permanent_failure():
     """A 404 error (model not found) should raise PermanentLLMFailure."""
     session = _make_session()
-    client = _make_client(Exception("Error code: 404 - Not Found"))
+    client = _make_client(OpenAIError("Error code: 404 - Not Found"))
 
     with pytest.raises(PermanentLLMFailure, match="Model not found"):
         await run_pilot_loop(
@@ -751,7 +752,7 @@ async def test_transient_error_reset_preserves_board_context():
             return _make_llm_response("pass_priority", "{}")
         if fake_create.calls == 1:
             fake_create.calls += 1
-            raise Exception("temporary upstream failure")
+            raise OpenAIError("temporary upstream failure")
         fake_create.calls += 1
         return _make_llm_response("pass_priority", "{}")
 

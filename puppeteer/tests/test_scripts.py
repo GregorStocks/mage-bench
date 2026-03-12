@@ -127,6 +127,84 @@ class TestClaimIssue:
         ):
             claim_issue.main()
 
+    def test_conflicting_open_branch_pr_exits_2(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        branch_pr_result = MagicMock()
+        branch_pr_result.returncode = 0
+        branch_pr_result.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": "<!-- claim: bug-b -->",
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return branch_pr_result
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch("subprocess.run") as mock_subprocess,
+            pytest.raises(SystemExit, match="2"),
+        ):
+            claim_issue.main()
+
+        mock_subprocess.assert_not_called()
+
+    def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        branch_pr_result = MagicMock()
+        branch_pr_result.returncode = 0
+        branch_pr_result.stdout = json.dumps(
+            [
+                {
+                    "number": 42,
+                    "body": "<!-- claim: bug-a -->",
+                    "url": "https://example.test/pr/42",
+                }
+            ]
+        )
+
+        race_result = MagicMock()
+        race_result.stdout = "42\n"
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return branch_pr_result
+            return race_result
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run") as mock_subprocess,
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
+
     def test_race_recheck_passes(self, tmp_path: Path) -> None:
         """Both checks return our PR as winner — claim succeeds, sleep is called."""
         issues_dir = tmp_path
@@ -138,8 +216,13 @@ class TestClaimIssue:
         log_result = MagicMock()
         log_result.stdout = "abc123 some commit\n"
 
-        existing_pr_result = MagicMock()
-        existing_pr_result.stdout = "42\n"
+        branch_pr_result = MagicMock()
+        branch_pr_result.returncode = 0
+        branch_pr_result.stdout = "[]"
+
+        create_pr_result = MagicMock()
+        create_pr_result.returncode = 0
+        create_pr_result.stdout = "https://example.test/pr/42\n"
 
         race_result = MagicMock()
         race_result.stdout = "42\n"
@@ -149,8 +232,10 @@ class TestClaimIssue:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
                 return log_result
-            if "pr" in cmd and "list" in cmd and "--head" in cmd:
-                return existing_pr_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return branch_pr_result
+            if cmd[:3] == ["gh", "pr", "create"]:
+                return create_pr_result
             # _race_winner calls
             return race_result
 
@@ -176,8 +261,13 @@ class TestClaimIssue:
         log_result = MagicMock()
         log_result.stdout = "abc123 some commit\n"
 
-        existing_pr_result = MagicMock()
-        existing_pr_result.stdout = "42\n"
+        branch_pr_result = MagicMock()
+        branch_pr_result.returncode = 0
+        branch_pr_result.stdout = "[]"
+
+        create_pr_result = MagicMock()
+        create_pr_result.returncode = 0
+        create_pr_result.stdout = "https://example.test/pr/42\n"
 
         race_results = iter(
             [
@@ -191,8 +281,10 @@ class TestClaimIssue:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
                 return log_result
-            if "pr" in cmd and "list" in cmd and "--head" in cmd:
-                return existing_pr_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return branch_pr_result
+            if cmd[:3] == ["gh", "pr", "create"]:
+                return create_pr_result
             return next(race_results)
 
         with (
@@ -218,8 +310,13 @@ class TestClaimIssue:
         log_result = MagicMock()
         log_result.stdout = "abc123 some commit\n"
 
-        existing_pr_result = MagicMock()
-        existing_pr_result.stdout = "42\n"
+        branch_pr_result = MagicMock()
+        branch_pr_result.returncode = 0
+        branch_pr_result.stdout = "[]"
+
+        create_pr_result = MagicMock()
+        create_pr_result.returncode = 0
+        create_pr_result.stdout = "https://example.test/pr/42\n"
 
         race_result = MagicMock()
         race_result.stdout = "41\n"  # lower PR already claims it
@@ -229,8 +326,10 @@ class TestClaimIssue:
                 return branch_result
             if cmd[:2] == ["git", "log"]:
                 return log_result
-            if "pr" in cmd and "list" in cmd and "--head" in cmd:
-                return existing_pr_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return branch_pr_result
+            if cmd[:3] == ["gh", "pr", "create"]:
+                return create_pr_result
             return race_result
 
         with (

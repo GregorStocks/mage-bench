@@ -61,7 +61,7 @@ class _HealthHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def log_message(self, format: str, *args: object) -> None:
+    def log_message(self, fmt: str, *args: object) -> None:
         pass  # Suppress request logs during tests
 
 

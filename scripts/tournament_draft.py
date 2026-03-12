@@ -24,6 +24,7 @@ import random
 import re
 from pathlib import Path
 from typing import IO
+from zoneinfo import ZoneInfo
 
 from openai import AsyncOpenAI
 
@@ -57,6 +58,7 @@ PACKS_PER_PLAYER = 4
 LLM_TIMEOUT_SECS = 900
 MAX_TOKENS = 20_000
 MAX_PICK_RETRIES = 10
+_LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
 def draft_order(num_entrants: int) -> list[int]:
@@ -295,7 +297,7 @@ def _log_llm_call(
     """Write a raw LLM call record to the draft log, before any asserts."""
     entry = {
         "type": "llm_call",
-        "ts": datetime.datetime.now().isoformat(),
+        "ts": datetime.datetime.now(_LOG_TZ).isoformat(),
         "attempt": attempt,
         "model": model,
         "system_prompt": system_prompt,
@@ -518,7 +520,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
     toolsets = load_toolsets(None)
 
     # Set up incremental draft log
-    ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.datetime.now(_LOG_TZ).strftime("%Y%m%d_%H%M%S")
     log_dir = _LOGS_DIR / f"draft_{ts}"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "draft.jsonl"
@@ -633,7 +635,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             log_entry = {
                 "type": "pick_result",
                 **pick_record,
-                "ts": datetime.datetime.now().isoformat(),
+                "ts": datetime.datetime.now(_LOG_TZ).isoformat(),
                 "pick_idx": pick_idx,
                 "display_name": entrant["display_name"],
                 "model": model,

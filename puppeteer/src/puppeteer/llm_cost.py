@@ -41,7 +41,7 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
         req = urllib.request.Request(OPENROUTER_MODELS_URL)
         with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_SECS) as resp:
             data = json.loads(resp.read())
-    except Exception as e:
+    except (OSError, json.JSONDecodeError) as e:
         logger.warning("[llm_cost] Failed to fetch OpenRouter prices: %s", e)
         return {}
 
@@ -93,5 +93,5 @@ def write_cost_file(game_dir: Path, username: str, cost: float) -> None:
     try:
         tmp_file.write_text(json.dumps({"cost_usd": cost}))
         tmp_file.rename(cost_file)
-    except Exception as e:
+    except OSError as e:
         logger.error("[llm_cost] Failed to write cost file: %s", e)

@@ -9,15 +9,17 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 _setup_done = False
+_LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
 class _PuppeteerFormatter(logging.Formatter):
     """Custom formatter: timestamps always, level name only for WARNING+."""
 
     def format(self, record: logging.LogRecord) -> str:
-        ts = datetime.now().strftime("%H:%M:%S")
+        ts = datetime.now(_LOG_TZ).strftime("%H:%M:%S")
         msg = record.getMessage()
         if record.levelno >= logging.WARNING:
             return f"[{ts}] [{record.levelname}] {msg}"
@@ -72,7 +74,7 @@ def log_error(
     """
     logger.error(msg)
     if game_dir:
-        ts = datetime.now().strftime("%H:%M:%S")
+        ts = datetime.now(_LOG_TZ).strftime("%H:%M:%S")
         try:
             with open(game_dir / f"{username}_errors.log", "a") as f:
                 f.write(f"[{ts}] {msg}\n")

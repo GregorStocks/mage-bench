@@ -8,7 +8,7 @@ Usage:
 Exit codes:
     0  Claimed successfully (or --list succeeded)
     1  Already claimed or lost race
-    2  Bad input
+    2  Bad input / branch already tied to a different open PR
 """
 
 import json
@@ -26,6 +26,11 @@ def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, capture_output=True, text=True)
 
 
+def extract_claim_tag(body: str) -> str | None:
+    m = re.search(r"<!-- claim: (.+?) -->", body.replace("\r", ""))
+    return m.group(1) if m else None
+
+
 def list_claimed() -> list[str]:
     """Return list of claimed issue filenames from open and merged PRs.
 
@@ -40,11 +45,37 @@ def list_claimed() -> list[str]:
         if result.returncode != 0:
             continue
         for line in result.stdout.splitlines():
-            line = line.strip().replace("\r", "")
-            m = re.search(r"<!-- claim: (.+?) -->", line)
-            if m:
-                claimed.append(m.group(1))
+            claim = extract_claim_tag(line.strip())
+            if claim:
+                claimed.append(claim)
     return sorted(set(claimed))
+
+
+def get_open_branch_pr(branch: str) -> dict[str, object] | None:
+    """Return the current branch's open PR, if any."""
+    result = run(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--head",
+            branch,
+            "--state",
+            "open",
+            "--json",
+            "number,body,url",
+        ]
+    )
+    assert result.returncode == 0, f"gh pr list --head {branch} failed: {result.stderr}"
+
+    prs = json.loads(result.stdout)
+    if not prs:
+        return None
+
+    assert len(prs) == 1, (
+        f"Expected at most one open PR for branch {branch}, got {len(prs)}"
+    )
+    return prs[0]
 
 
 def _race_winner(issue: str) -> str | None:
@@ -97,51 +128,40 @@ def main() -> None:
         )
         sys.exit(2)
 
-    # Ensure at least one commit ahead of master so the PR can be created
-    log_result = run(["git", "log", "origin/master..HEAD", "--oneline"])
-    if not log_result.stdout.strip():
-        subprocess.run(
-            ["git", "commit", "--allow-empty", "-m", f"Claim: {title}"], check=True
-        )
+    branch_pr = get_open_branch_pr(branch)
+    if branch_pr is not None:
+        existing_claim = extract_claim_tag(str(branch_pr["body"]))
+        pr_number = str(branch_pr["number"])
+        pr_url = str(branch_pr["url"])
+        if existing_claim is None:
+            print(
+                f"Error: branch {branch} already has open PR #{pr_number} without a claim tag "
+                f"({pr_url}); refusing to repurpose it for {issue}",
+                file=sys.stderr,
+            )
+            sys.exit(2)
+        if existing_claim != issue:
+            print(
+                f"Error: branch {branch} already has open PR #{pr_number} claiming "
+                f"{existing_claim}; refusing to also claim {issue} on the same branch",
+                file=sys.stderr,
+            )
+            sys.exit(2)
 
-    # Push current branch
-    subprocess.run(["git", "push", "-u", "origin", branch], check=True)
-
-    # Reuse existing PR for this branch if one exists, otherwise create a new one
-    existing = run(
-        [
-            "gh",
-            "pr",
-            "list",
-            "--head",
-            branch,
-            "--state",
-            "open",
-            "--json",
-            "number",
-            "--jq",
-            ".[0].number // empty",
-        ]
-    )
-    existing_pr = existing.stdout.strip()
-
-    if existing_pr:
-        our_pr = existing_pr
-        subprocess.run(
-            [
-                "gh",
-                "pr",
-                "edit",
-                our_pr,
-                "--title",
-                f"Solve: {title}",
-                "--body",
-                f"<!-- claim: {issue} -->",
-            ],
-            check=True,
-        )
-        print(f"Updated existing PR #{our_pr} for {issue}")
+        our_pr = pr_number
+        subprocess.run(["git", "push", "-u", "origin", branch], check=True)
+        print(f"Branch {branch} already has open PR #{our_pr} claiming {issue}")
     else:
+        # Ensure at least one commit ahead of master so the PR can be created
+        log_result = run(["git", "log", "origin/master..HEAD", "--oneline"])
+        if not log_result.stdout.strip():
+            subprocess.run(
+                ["git", "commit", "--allow-empty", "-m", f"Claim: {title}"], check=True
+            )
+
+        # Push current branch
+        subprocess.run(["git", "push", "-u", "origin", branch], check=True)
+
         result = run(
             [
                 "gh",

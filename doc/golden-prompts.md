@@ -315,7 +315,7 @@ work around nondeterminism. Find and fix the root cause.
 ## File reference
 
 | Path | Purpose |
-|------|---------|
+| ------ | --------- |
 | `puppeteer/tests/golden_helpers.py` | Core infrastructure: `BridgeSession`, `BridgeManager`, `SpectatorProcess`, `run_golden_scenario`, normalization, assertions |
 | `puppeteer/tests/conftest.py` | Session fixtures: XMage server, bridge JVMs, spectator |
 | `puppeteer/tests/test_golden_*.py` | Individual test files |

@@ -207,14 +207,14 @@ No changes needed to Scryfall handling.
 ### New files
 
 | File | Purpose |
-|------|---------|
+| ------ | --------- |
 | `puppeteer/src/puppeteer/decision_renderer.py` | Shared `render_decision()` function |
 | `puppeteer/tests/test_decision_renderer.py` | Tests for renderer |
 
 ### Export pipeline
 
 | File | Change |
-|------|--------|
+| ------ | -------- |
 | `schemas/game-export-v2.schema.json` | Add `decisions` array + `Decision` $def (optional field for compat) |
 | `scripts/export_game.py` | Add `_build_decisions()`. Call from `build_export()` |
 | `doc/export-schema.md` | Update consumers table, describe `decisions` |
@@ -222,27 +222,27 @@ No changes needed to Scryfall handling.
 ### Annotator
 
 | File | Change |
-|------|--------|
+| ------ | -------- |
 | `scripts/analysis/extract_decisions.py` | Read pre-built `decisions` when present; keep legacy path |
 | `scripts/analysis/blunder_analysis.py` | Use `render_decision()`, read reasoning from llmEvents via indices |
 
 ### Pilot
 
 | File | Change |
-|------|--------|
+| ------ | -------- |
 | `puppeteer/src/puppeteer/pilot.py` | Render pass_priority/get_action_choices results; track last board for board_unchanged |
 | `puppeteer/prompts.json` | Update system prompt for text format |
 
 ### Infrastructure
 
 | File | Change |
-|------|--------|
+| ------ | -------- |
 | `puppeteer/src/puppeteer/harness_epoch.py` | Bump epoch |
 
 ### Tests
 
 | File | Change |
-|------|--------|
+| ------ | -------- |
 | `puppeteer/tests/test_blunder_annotator.py` | Update for new code paths |
 | `puppeteer/tests/test_blunder_golden_prompts.py` | Regenerate golden prompt files |
 | `puppeteer/tests/test_export_schema.py` | Auto-validates against updated schema |

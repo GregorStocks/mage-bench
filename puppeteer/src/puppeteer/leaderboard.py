@@ -9,12 +9,14 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, TypedDict
+from zoneinfo import ZoneInfo
 
 from typing_extensions import NotRequired
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
+_GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 
 class _ModelEntry(TypedDict):
@@ -64,11 +66,11 @@ def _load_game_file(path: Path) -> dict:
     return game
 
 
-def _assert_int(value: Any, message: str) -> None:
+def _assert_int(value: object, message: str) -> None:
     assert isinstance(value, int) and not isinstance(value, bool), message
 
 
-def _assert_number(value: Any, message: str) -> None:
+def _assert_number(value: object, message: str) -> None:
     assert isinstance(value, (int, float)) and not isinstance(value, bool), message
 
 
@@ -1050,8 +1052,8 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         if raw_ts:
             # Timestamps are like "20260210_074307"
             try:
-                dt = datetime.strptime(raw_ts, "%Y%m%d_%H%M%S")
-                iso_ts = dt.isoformat()
+                dt = datetime.strptime(raw_ts, "%Y%m%d_%H%M%S").replace(tzinfo=_GAME_TIMESTAMP_TZ)
+                iso_ts = dt.strftime("%Y-%m-%dT%H:%M:%S")
             except ValueError:
                 iso_ts = raw_ts
 

@@ -8,10 +8,6 @@
     "role": "user"
   },
   {
-    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 4 permanents, 4 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -31,6 +27,10 @@
     "content": "## Card Reference\n- Black Lotus {0}: {T}, Sacrifice {this}: Add three mana of any one color.\n- Clone {3}{U} 0/0: You may have {this} enter as a copy of any creature on the battlefield.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
     "tool_call_id": "call_1"
+  },
+  {
+    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 4 permanents, 4 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,

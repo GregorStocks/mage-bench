@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from mcp import ClientSession
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
 from puppeteer.bridge_transport import spawn_bridge_http
@@ -60,7 +60,7 @@ MAX_EMPTY_RESPONSES = 10
 # with tool results summarised to save tokens.
 CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
-TOOL_RESULT_MAX_CHARS = 200  # max chars for a summarised tool result
+TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
@@ -255,12 +255,12 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
     """Compress a tool result to a short summary for older context entries.
 
     Parses the JSON result and extracts key fields per tool type.
-    Falls back to truncation for unknown tools or invalid JSON.
+    Falls back to the original content for unknown tools or invalid JSON.
     """
     try:
         data = json.loads(content)
     except (json.JSONDecodeError, TypeError):
-        return content[:TOOL_RESULT_MAX_CHARS]
+        return content
 
     if tool_name == "pass_priority":
         if data.get("player_dead"):
@@ -323,7 +323,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             life = p.get("life", "?")
             bf = len(p.get("battlefield", []))
             parts.append(f"{name}:{life}hp/{bf}perm")
-        return "; ".join(parts) if parts else content[:TOOL_RESULT_MAX_CHARS]
+        return "; ".join(parts) if parts else content
 
     if tool_name == "get_game_log":
         total = data.get("total_length", "?")
@@ -336,13 +336,17 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         if truncated:
             prefix += ", truncated"
         prefix += "): "
-        remaining = TOOL_RESULT_MAX_CHARS - len(prefix)
-        if remaining > 0 and log_text:
-            return prefix + log_text[:remaining]
+        if log_text:
+            lines = [line.strip() for line in log_text.splitlines() if line.strip()]
+            if lines:
+                excerpt = " / ".join(lines[:4])
+                if len(lines) > 4:
+                    excerpt += " / ..."
+                return prefix + excerpt
         return prefix.rstrip(": ")
 
     # get_oracle_text, send_chat_message, unknown
-    return content[:TOOL_RESULT_MAX_CHARS]
+    return content
 
 
 def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str) -> str:
@@ -402,6 +406,29 @@ def _with_cache_control(msg: dict, cache_control: dict) -> dict:
     return msg
 
 
+_CACHE_BREAKPOINT_MARKER = "All cards listed are playable right now."
+
+
+def _message_text(msg: dict) -> str:
+    """Extract concatenated text content from a rendered message."""
+    content = msg.get("content")
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "".join(
+            block.get("text", "") for block in content if isinstance(block, dict) and block.get("type") == "text"
+        )
+    return ""
+
+
+def _find_cache_breakpoint_idx(messages: list[dict]) -> int:
+    """Return the message index that ends the stable cacheable prefix."""
+    for idx in range(len(messages) - 1, -1, -1):
+        if messages[idx].get("role") == "user" and _CACHE_BREAKPOINT_MARKER in _message_text(messages[idx]):
+            return idx
+    return len(messages) - 1
+
+
 def _render_context(
     history: list[dict],
     system_prompt: str,
@@ -450,7 +477,7 @@ def _render_context(
 
     for i in range(summary_start, recent_start):
         msg = history[i]
-        if msg.get("role") == "tool" and len(msg.get("content", "")) > TOOL_RESULT_MAX_CHARS:
+        if msg.get("role") == "tool" and len(msg.get("content", "")) > TOOL_SUMMARY_TRIGGER_CHARS:
             tool_name = _find_tool_name(history, i, msg.get("tool_call_id", ""))
             messages.append({**msg, "content": _summarize_tool_result(tool_name, msg["content"])})
         else:
@@ -604,8 +631,7 @@ class PilotLoopState:
     current_game_turn: int = 0
     last_chat_turn: int = 0
     seen_oracle_cards: set[str] = field(default_factory=set)
-    cached_render: list[dict] | None = None
-    cached_history_len: int = 0
+    cache_breakpoint_idx: int | None = None
     render_counter: int = 0
 
 
@@ -620,10 +646,9 @@ class PilotTurnState:
 
 
 def _reset_render_cache(state: PilotLoopState) -> None:
-    """Drop the cached render prefix after a context reset."""
+    """Drop cached prompt metadata after a context reset."""
     state.state_summary = ""
-    state.cached_render = None
-    state.cached_history_len = 0
+    state.cache_breakpoint_idx = None
     state.render_counter = 0
 
 
@@ -654,24 +679,24 @@ async def _build_loop_messages(
     system_prompt: str,
     cache_control: dict | None,
 ) -> list[dict]:
-    """Render the next LLM request, reusing cached context when possible."""
+    """Render the next LLM request from the current history.
+
+    Reusing an old full render can leave the recent window stale even when the
+    history has grown. Refreshing the rendered messages each turn keeps the
+    assistant/tool transcript aligned with the current history while still
+    reusing the cheaper state summary between refreshes.
+    """
     if len(state.history) > CONTEXT_RECENT_COUNT:
         state.render_counter += 1
-        need_rerender = state.cached_render is None or state.render_counter % RENDER_INTERVAL == 0
-        if need_rerender:
+        if not state.state_summary or state.render_counter % RENDER_INTERVAL == 0:
             state.state_summary = await _fetch_state_summary(session)
-            messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
-            state.cached_render = list(messages)
-            state.cached_history_len = len(state.history)
             state.render_counter = 0
-            return messages
-
-        assert state.cached_render is not None, "cached_render must be populated before reuse"
-        return list(state.cached_render) + state.history[state.cached_history_len :]
+        messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+        state.cache_breakpoint_idx = _find_cache_breakpoint_idx(messages)
+        return messages
 
     messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
-    state.cached_render = None
-    state.cached_history_len = 0
+    state.cache_breakpoint_idx = len(messages) - 1 if messages else None
     state.render_counter = 0
     return messages
 
@@ -685,7 +710,7 @@ def _mark_tail_cache_breakpoint(
     if not cache_control or len(messages) <= 1:
         return
 
-    tail_idx = len(state.cached_render) - 1 if state.cached_render else len(messages) - 1
+    tail_idx = state.cache_breakpoint_idx if state.cache_breakpoint_idx is not None else len(messages) - 1
     marked = _with_cache_control(messages[tail_idx], cache_control)
     if marked is not messages[tail_idx]:
         messages[tail_idx] = marked
@@ -959,12 +984,12 @@ async def _recover_from_stall(
             "send_chat_message",
             {"message": "Brain freeze! Auto-passing until next turn..."},
         )
-    except Exception:
+    except ToolExecutionError:
         pass
     try:
         await execute_tool(session, "pass_priority", {})
         logger.info("[pilot] Auto-passed stalled action")
-    except Exception as e:
+    except ToolExecutionError as e:
         logger.warning("[pilot] Auto-pass failed: %s", e)
 
     state.turns_without_progress = 0
@@ -995,7 +1020,7 @@ async def _handle_timeout(
         )
     try:
         await execute_tool(session, "pass_priority", {})
-    except Exception:
+    except ToolExecutionError:
         await asyncio.sleep(5)
 
     if state.consecutive_timeouts < MAX_CONSECUTIVE_TIMEOUTS:
@@ -1142,7 +1167,7 @@ async def run_pilot_loop(
                             "send_chat_message",
                             {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
                         )
-                    except Exception:
+                    except ToolExecutionError:
                         pass
                     await auto_pass_loop(session, game_dir, username, "pilot")
                     return
@@ -1255,7 +1280,7 @@ async def run_pilot_loop(
                                 "send_chat_message",
                                 {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
                             )
-                        except Exception:
+                        except ToolExecutionError:
                             pass
                         await auto_pass_loop(session, game_dir, username, "pilot")
                         return
@@ -1281,7 +1306,7 @@ async def run_pilot_loop(
         except ToolExecutionError:
             raise
 
-        except Exception as e:
+        except OpenAIError as e:
             state.consecutive_timeouts = 0
             error_str = str(e)
             logger.warning("[pilot] LLM error: %s", e)
@@ -1301,14 +1326,14 @@ async def run_pilot_loop(
                         "send_chat_message",
                         {"message": f"{reason}... aborting game. GG!"},
                     )
-                except Exception:
+                except ToolExecutionError:
                     pass
                 raise PermanentLLMFailure(reason) from None
 
             # Transient error - keep actions flowing while waiting to retry
             try:
                 await execute_tool(session, "pass_priority", {})
-            except Exception:
+            except ToolExecutionError:
                 await asyncio.sleep(5)
 
             _reset_context(

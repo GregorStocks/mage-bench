@@ -16,6 +16,7 @@ import json
 import textwrap
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
@@ -34,6 +35,8 @@ from scripts.analysis.blunder_eval_common import (
     load_ground_truth,
     play_key,
 )
+
+_LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 
 def compare_results(
@@ -264,7 +267,7 @@ def main() -> None:
             pk = futures[fut]
             try:
                 anns, cost, parsed_ok, raw = fut.result()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - keep the eval running when one play crashes
                 print(f"  WARNING: {pk} failed: {e}")
                 eval_results[pk] = {"detected": False}
                 continue
@@ -283,7 +286,7 @@ def main() -> None:
 
     # Save results
     TMP_DIR.mkdir(exist_ok=True)
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ts = datetime.now(_LOG_TZ).strftime("%Y%m%d_%H%M%S")
     output_path = TMP_DIR / f"blunder_eval_{ts}.json"
     output = {
         "blunder_script_version": BLUNDER_SCRIPT_VERSION,

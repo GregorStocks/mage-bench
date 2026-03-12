@@ -1,0 +1,10 @@
+{
+  "title": "Add ESLint to the website and stage JS/Astro cleanup",
+  "description": "The website now runs `astro check`, but it still has no JavaScript/Astro lint step. That leaves a large surface area of client code effectively unchecked beyond syntax and TypeScript diagnostics.\n\nCurrent state from local sampling:\n- `website/src` has roughly 90 `any` usages.\n- The website JS/Astro surface has roughly 1,000 `var` declarations across `website/public/*.js`, inline `<script>` blocks, and tests.\n- There is no bug-finding lint for things like accidental globals, redeclarations, unreachable code, or loose equality.\n\nThis should be tackled in stages:\n1. Add ESLint with Astro support and bug-finding rules first (`no-undef`, `no-redeclare`, `eqeqeq`, `no-unreachable`, etc.).\n2. Scope or ignore generated files like `website/src/types/game-export.d.ts`.\n3. Convert `var` to `const`/`let` where safe, preferably module-by-module instead of repo-wide churn.\n4. Only after that, consider stricter rules around `any` and inline scripts.\n\nThe goal is to add real signal without turning this into a giant style-only migration.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "lint"],
+  "created_at": "2026-03-12T00:31:30.296525-07:00",
+  "updated_at": "2026-03-12T00:31:30.296525-07:00"
+}
