@@ -1,0 +1,10 @@
+{
+  "title": "Fix MD060 table-column-style violations and re-enable the rule",
+  "description": "markdownlint-cli2 v0.21.0 introduced MD060/table-column-style which flags compact markdown tables missing spaces around pipes. There are 228 violations across existing markdown files (mostly in doc/archive/blunder-approach-comparison.md). We disabled MD060 in .markdownlint-cli2.jsonc to unblock the dependency update. Need to fix the table formatting and re-enable the rule.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["website"],
+  "created_at": "2026-03-11T12:00:00.000000-07:00",
+  "updated_at": "2026-03-11T12:00:00.000000-07:00"
+}

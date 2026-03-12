@@ -62,7 +62,7 @@
             <!-- Purge shared build cache on mvn clean to prevent stale artifacts -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.0</version>
                 <inherited>false</inherited>
                 <configuration>
                     <filesets>
@@ -75,7 +75,7 @@
 
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.5.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
@@ -101,7 +101,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.11</version>
+                <version>0.8.14</version>
                 <executions>
                     <execution>
                         <!-- prepare command line to inject in java agent (collect code executing stats) -->
@@ -118,7 +118,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>3.15.0</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
@@ -136,13 +136,13 @@
                     <!-- test runner for maven, travis-ci (IDE uses own test runner) -->
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.5.5</version>
                     <dependencies>
                         <!-- tree reporter deps -->
                         <dependency>
                             <groupId>me.fabriciorby</groupId>
                             <artifactId>maven-surefire-junit5-tree-reporter</artifactId>
-                            <version>1.2.1</version>
+                            <version>1.5.1</version>
                         </dependency>
                     </dependencies>
                     <configuration>
@@ -200,24 +200,24 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>3.1.4</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>3.1.4</version>
                 </plugin>
 
                 <!-- devs only: allows to run apps from command line by exec:java command -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.6.3</version>
                 </plugin>
 
                 <!-- generate readable readme file for releases -->
@@ -226,7 +226,7 @@
                 <plugin>
                     <groupId>com.ruleoftech</groupId>
                     <artifactId>markdown-page-generator-plugin</artifactId>
-                    <version>2.4.0</version>
+                    <version>2.4.2</version>
                     <executions>
                         <execution>
                             <phase>process-resources</phase>
@@ -324,7 +324,7 @@
             <!-- write asserts in unit tests like a real language -->
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.21.0</version>
+            <version>3.27.7</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -366,7 +366,7 @@
                 <!-- extended lib from google (collections, io, etc) -->
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>33.4.8-jre</version>
+                <version>33.5.0-jre</version>
             </dependency>
             <dependency>
                 <!-- escape/unescape html in texts -->
@@ -384,13 +384,13 @@
                 <!-- lib with useful code and utils -->
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.18.0</version>
+                <version>3.20.0</version>
             </dependency>
             <dependency>
                 <!-- scraping lib to download and parse html/symbols/images/svg -->
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
-                <version>1.21.2</version>
+                <version>1.22.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
