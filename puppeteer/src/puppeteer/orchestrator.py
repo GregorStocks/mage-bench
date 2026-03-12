@@ -546,25 +546,33 @@ def parse_args() -> Config:
     )
 
 
-def compile_project(project_root: Path, observer: bool = False) -> bool:
+def compile_project(
+    project_root: Path,
+    observer: bool = False,
+    populate_local_repo: bool = False,
+) -> bool:
     """Compile the project using Maven."""
     logger.info("Compiling project...")
     modules = "Mage.Server,Mage.Client,Mage.Client.Bridge"
     if observer:
         modules += ",Mage.Client.Observer"
 
-    result = subprocess.run(
-        [
-            "mvn",
-            "-q",
-            "-DskipTests",
-            "-pl",
-            modules,
-            "-am",
-            "install",
-        ],
-        cwd=project_root,
-    )
+    cmd = [
+        "mvn",
+        "-q",
+        "-DskipTests",
+        "-pl",
+        modules,
+        "-am",
+    ]
+    if populate_local_repo:
+        # Golden tests compute per-module classpaths with separate Maven invocations.
+        # Disable the build cache here so install writes reactor artifacts into the
+        # local Maven repo instead of restoring only target/classes from cache.
+        cmd.append("-Dmaven.build.cache.enabled=false")
+    cmd.append("install")
+
+    result = subprocess.run(cmd, cwd=project_root)
     return result.returncode == 0
 
 

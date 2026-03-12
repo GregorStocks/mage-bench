@@ -71,7 +71,7 @@ def xmage_server(project_root, tmp_path_factory):
 
     # Compile all needed modules
     with timed_phase("session", "compilation"):
-        assert compile_project(project_root, observer=True), "Compilation failed"
+        assert compile_project(project_root, observer=True, populate_local_repo=True), "Compilation failed"
 
     # Find available port
     port_res = find_available_port("localhost", 17171)

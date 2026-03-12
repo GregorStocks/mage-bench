@@ -24,6 +24,7 @@ from puppeteer.orchestrator import (
     _wait_with_pilot_monitoring,
     _write_error_log,
     _write_game_meta,
+    compile_project,
     parse_args,
     start_observer_client,
 )
@@ -94,6 +95,47 @@ def test_parse_args_rejects_mismatched_batch_games(tmp_path: Path, monkeypatch):
 
     with pytest.raises(AssertionError, match="must match batch config count"):
         parse_args()
+
+
+def test_compile_project_default_args(tmp_path: Path):
+    completed = MagicMock(returncode=0)
+
+    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as run_mock:
+        assert compile_project(tmp_path) is True
+
+    run_mock.assert_called_once()
+    cmd = run_mock.call_args.args[0]
+    assert cmd == [
+        "mvn",
+        "-q",
+        "-DskipTests",
+        "-pl",
+        "Mage.Server,Mage.Client,Mage.Client.Bridge",
+        "-am",
+        "install",
+    ]
+    assert run_mock.call_args.kwargs["cwd"] == tmp_path
+
+
+def test_compile_project_can_disable_build_cache(tmp_path: Path):
+    completed = MagicMock(returncode=0)
+
+    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as run_mock:
+        assert compile_project(tmp_path, observer=True, populate_local_repo=True) is True
+
+    run_mock.assert_called_once()
+    cmd = run_mock.call_args.args[0]
+    assert cmd == [
+        "mvn",
+        "-q",
+        "-DskipTests",
+        "-pl",
+        "Mage.Server,Mage.Client,Mage.Client.Bridge,Mage.Client.Observer",
+        "-am",
+        "-Dmaven.build.cache.enabled=false",
+        "install",
+    ]
+    assert run_mock.call_args.kwargs["cwd"] == tmp_path
 
 
 def test_check_regular_season_block_allows_regular_season(tmp_path: Path):
