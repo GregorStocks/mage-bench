@@ -1,0 +1,10 @@
+{
+  "title": "Audit puppeteer helpers for silent fallbacks that violate fail-fast",
+  "description": "Several helper functions in the Python harness still swallow errors or return silent defaults even though AGENTS.md says not to add graceful fallbacks or backwards-compatibility shims.\n\nCurrent examples:\n- `puppeteer/src/puppeteer/orchestrator.py:_git()` uses `shell=True` and returns an empty string on any exception.\n- `puppeteer/src/puppeteer/game_log.py:read_decklist()` returns `[]` if the deck file does not exist.\n- `puppeteer/src/puppeteer/game_log.py:_parse_ts()` converts any exception into `None`.\n- `puppeteer/src/puppeteer/pilot.py:_fetch_state_summary()` returns an empty string on any exception.\n- `puppeteer/src/puppeteer/pilot.py:execute_tool()` converts exceptions into a JSON error string instead of surfacing the original failure.\n\nNot every best-effort path is necessarily wrong, but the current state is too broad and inconsistent. Audit these helpers and make an explicit choice for each one:\n1. If the failure is truly optional or cleanup-only, log narrowly and document why.\n2. If the data is required, raise immediately with a clear message.\n3. Add tests for whichever behavior is chosen.\n\nThe goal is to make failure handling intentional instead of implicit.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["puppeteer"],
+  "created_at": "2026-03-11T22:39:10.811128-07:00",
+  "updated_at": "2026-03-11T22:39:10.811128-07:00"
+}

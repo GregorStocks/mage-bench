@@ -42,6 +42,10 @@ from puppeteer.llm_cost import (
     load_prices,
     required_api_key_env,
 )
+from scripts.draft_history import (
+    CURRENT_DRAFT_HISTORY_VERSION,
+    assert_current_draft_history_version,
+)
 from scripts import scryfall
 
 _ROOT = Path(__file__).resolve().parent.parent
@@ -319,6 +323,22 @@ def _extract_content(message: object) -> tuple[str | None, str | None]:
     return content, thinking
 
 
+def _build_attempt_record(
+    attempt: int,
+    content: str | None,
+    thinking: str | None,
+) -> dict:
+    """Build one ordered LLM attempt record for draft history v2."""
+    record: dict = {
+        "attempt": attempt,
+        "response": content,
+        "accepted": False,
+    }
+    if thinking:
+        record["thinking"] = thinking
+    return record
+
+
 async def _llm_pick(
     client: AsyncOpenAI,
     model: str,
@@ -328,12 +348,15 @@ async def _llm_pick(
     num_options: int,
     log_file: IO[str],
     pick_meta: dict,
-) -> tuple[int, str, str | None, dict]:
-    """Call the LLM to make a draft pick. Returns (1-based pick, response text, thinking, usage dict).
+) -> tuple[int, str, list[dict], dict]:
+    """Call the LLM to make a draft pick.
+
+    Returns (1-based pick, final response text, ordered attempts, usage dict).
 
     Retries up to MAX_PICK_RETRIES times if the model fails to produce a
-    parseable pick (empty content, unparseable response, etc.). Each retry
-    includes the full conversation history so the model can see what went wrong.
+    parseable bare-number pick (empty content, extra text, unparseable
+    response, etc.). Each retry includes the full conversation history so the
+    model can see what went wrong.
     """
     messages: list = [
         {"role": "system", "content": system_prompt},
@@ -348,8 +371,7 @@ async def _llm_pick(
         create_kwargs["extra_body"] = {"reasoning": {"effort": reasoning_effort}}
 
     usage: dict = {"prompt_tokens": 0, "completion_tokens": 0}
-    thinking: str | None = None
-    first_content: str | None = None
+    attempts: list[dict] = []
 
     for attempt in range(1, MAX_PICK_RETRIES + 1):
         attempt_label = "initial" if attempt == 1 else f"retry_{attempt - 1}"
@@ -378,22 +400,26 @@ async def _llm_pick(
             usage["completion_tokens"] += response.usage.completion_tokens or 0
 
         content, attempt_thinking = _extract_content(response.choices[0].message)
-        if attempt_thinking:
-            thinking = attempt_thinking
+        attempt_record = _build_attempt_record(attempt, content, attempt_thinking)
 
         if not content:
             reason = "Your response was empty — no content was returned."
         else:
-            if first_content is None:
-                first_content = content
             try:
                 pick = parse_pick(content, num_options)
-                return pick, first_content, thinking, usage
+                if content.isdigit():
+                    attempt_record["accepted"] = True
+                    attempts.append(attempt_record)
+                    return pick, content, attempts, usage
+                reason = "I parsed your pick, but your response included extra text."
             except ValueError:
                 reason = (
                     f"Could not parse a valid option number (1-{num_options}) "
                     f"from your response."
                 )
+
+        attempt_record["rejection_reason"] = reason
+        attempts.append(attempt_record)
 
         # Append the failed response and a retry prompt to the conversation
         messages.append({"role": "assistant", "content": content or "(empty response)"})
@@ -423,6 +449,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
 
     # Early exit if draft is already complete
     if "draft" in tournament:
+        assert_current_draft_history_version(tournament["draft"])
         existing_picks = tournament["draft"]["picks"]
         if len(existing_picks) >= len(order) and tournament["draft"].get("decklists"):
             print("Draft already complete. Nothing to do.")
@@ -468,6 +495,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
         start_idx = 0
 
         tournament["draft"] = {
+            "history_version": CURRENT_DRAFT_HISTORY_VERSION,
             "packs_per_player": PACKS_PER_PLAYER,
             "pool": sorted(available_packs.keys()),
             "picks": picks,
@@ -554,7 +582,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 "display_name": entrant["display_name"],
                 "round": round_num,
             }
-            pick_num, reasoning, thinking, usage = await _llm_pick(
+            pick_num, reasoning, attempts, usage = await _llm_pick(
                 client,
                 model,
                 system_prompt,
@@ -595,11 +623,10 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 "options": option_themes,
                 "picked": picked_theme,
                 "reasoning": reasoning,
+                "attempts": attempts,
                 "usage": usage,
                 "cost_usd": pick_cost,
             }
-            if thinking:
-                pick_record["thinking"] = thinking
             picks.append(pick_record)
 
             # Write incremental JSONL log entry (parsed result)

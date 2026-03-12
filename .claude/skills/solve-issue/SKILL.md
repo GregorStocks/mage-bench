@@ -21,7 +21,16 @@ Pick and solve exactly **one** issue, then create a PR.
 
    If either check fails, **stop immediately** and tell the user. Do not proceed — solve-issue must start from a clean branch that matches `origin/master` exactly.
 
-1. **Claim an issue** by running:
+1. **Resolve a user-supplied issue argument** — only if the user explicitly passed an issue name/path. Use your judgment to determine the issue file they very obviously meant before invoking the claim script.
+
+   Canonicalize the argument to the basename expected by `scripts/autoclaim-issue.py`:
+   - If they passed `issues/<name>.json`, strip the leading `issues/`
+   - If they passed `<name>` without `.json`, try `<name>.json`
+   - If they passed a path or near-exact basename that uniquely identifies one file under `issues/`, use that file's basename
+
+   Do **not** silently switch to a different issue or auto-pick a replacement. If there is no single obvious match, **stop immediately** and ask the user to clarify instead of guessing.
+
+2. **Claim an issue** by running:
 
    ```bash
    uv run python scripts/autoclaim-issue.py
@@ -29,25 +38,25 @@ Pick and solve exactly **one** issue, then create a PR.
 
    This auto-picks the highest-priority unclaimed issue, skipping issues with `"not_autoclaimable": true` (those have preconditions that need manual review).
 
-   **Only if the user explicitly passed an issue name** (e.g. `/solve-issue populate-deck-strategies`), claim that specific issue instead:
+   **Only if the user explicitly passed an issue name** (e.g. `/solve-issue populate-deck-strategies` or `/solve-issue issues/populate-deck-strategies.json`), claim that resolved canonical issue instead:
 
    ```bash
-   uv run python scripts/autoclaim-issue.py <issue-name>
+   uv run python scripts/autoclaim-issue.py <resolved-issue-name>
    ```
 
    Never pick a specific issue on your own — always use the auto-pick unless the user told you which issue to work on.
 
-   - If the script **succeeds** (exit 0): you claimed it. Continue to step 2.
+   - If the script **succeeds** (exit 0): you claimed it. Continue to step 3.
    - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
-2. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
+3. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
    - Finding when the issue file was created (`git log --diff-filter=A -- issues/<filename>.json`)
    - Reviewing git history since that date for commits that look like they address the issue
    - Reading the relevant code to see if the described bug/problem still exists
 
    If the issue **is already fixed**: skip the planning/implementation steps entirely. Just delete the issue file, commit it, push, and finalize the PR as a cleanup. The PR title should be something like "Clean up outdated issue: \<title\>" and the body should briefly explain that the issue was already resolved (mention the commit or change that fixed it). Conceptually this is a zero-line fix — the only change is removing the stale issue file.
 
-   If the issue **is NOT fixed**: continue to step 3.
-3. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
+   If the issue **is NOT fixed**: continue to step 4.
+4. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
 
    ```markdown
    ## Post-implementation checklist
@@ -61,19 +70,19 @@ Pick and solve exactly **one** issue, then create a PR.
    ```
 
    This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
-4. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
-5. Implement the fix. Push progress:
+5. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
+6. Implement the fix. Push progress:
 
    ```bash
    git push origin HEAD
    ```
 
-6. Update tests to expect the correct behavior
-7. Run `make check` to verify lint, typecheck, and tests pass
-8. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
-9. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
-10. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found.
-11. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
+7. Update tests to expect the correct behavior
+8. Run `make check` to verify lint, typecheck, and tests pass
+9. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
+10. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
+11. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found.
+12. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
 
     ```bash
     uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
