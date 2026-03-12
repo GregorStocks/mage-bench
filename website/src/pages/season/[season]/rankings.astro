@@ -323,10 +323,12 @@ if (hasTournament) {
       if (el.style.display === 'none') {
         rankCell.textContent = '';
         delete el.dataset.rank;
+        el.classList.remove('stripe');
       } else {
         const r = rank++;
         rankCell.textContent = String(r);
         el.dataset.rank = String(r);
+        el.classList.toggle('stripe', r % 2 === 0);
         if (showCutoff && r === tournamentSize) {
           cutoffAfter = el;
         }
@@ -667,7 +669,7 @@ if (hasTournament) {
     transition: background 0.15s, box-shadow 0.15s;
   }
 
-  tbody tr:nth-child(even):not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
+  tbody tr.stripe:not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
     background: rgba(22, 33, 62, 0.3);
   }
 
