@@ -1,0 +1,10 @@
+{
+  "title": "Centralize season page data loading instead of repeating fs/path logic",
+  "description": "The season pages repeat the same file-loading patterns in multiple places. `website/src/pages/season/[season]/results.astro`, `rankings.astro`, `games.astro`, `entrants.astro`, `draft.astro`, `index.astro`, `player/[seed].astro`, and `match/[matchId].astro` all re-read some combination of `src/data/benchmark-results.json`, `data/tournaments/season-N.json`, and `puppeteer/personalities.json` with near-identical `fs.existsSync`, `fs.readFileSync`, and `path.join(process.cwd(), ...)` code.\n\nThis has a few costs:\n- Every page frontmatter has bespoke I/O logic.\n- The same path conventions are encoded in many files.\n- It is easy for one page to drift from the others.\n- Testing season-page data behavior requires touching many pages instead of one loader.\n\nAdd a shared website utility, for example `website/src/utils/season-data.ts`, with helpers such as:\n1. `loadAvailableSeasons()`\n2. `loadTournament(season)`\n3. `loadSeasonBenchmark(season)`\n4. `loadPersonalities()`\n5. `hasTournament(season)` / `hasDraft(season)`\n\nThen make the Astro pages thin consumers of that shared loader layer.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "seasons"],
+  "created_at": "2026-03-11T22:39:10.811128-07:00",
+  "updated_at": "2026-03-11T22:39:10.811128-07:00"
+}
