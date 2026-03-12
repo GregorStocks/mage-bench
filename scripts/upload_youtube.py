@@ -171,6 +171,7 @@ def upload_to_youtube(game_dir: Path) -> str | None:
 
     Returns the YouTube video URL on success, None if no recording exists.
     """
+    from googleapiclient.errors import HttpError
     from googleapiclient.http import MediaFileUpload
 
     recording = game_dir / "recording.mov"
@@ -247,7 +248,7 @@ def upload_to_youtube(game_dir: Path) -> str | None:
             },
         ).execute()
         print("  Added to playlist")
-    except Exception as e:
+    except HttpError as e:
         print(f"  Warning: failed to add to playlist: {e}")
 
     return url

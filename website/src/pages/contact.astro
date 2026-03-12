@@ -18,6 +18,9 @@ import Base from '../layouts/Base.astro';
   const a = document.getElementById('email');
   const u = 'gregor';
   const d = 'mage-bench.com';
+  if (!(a instanceof HTMLAnchorElement)) {
+    throw new Error('Expected #email anchor');
+  }
   a.href = 'mailto:' + u + '@' + d;
   a.textContent = u + '@' + d;
 </script>

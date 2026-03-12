@@ -20,9 +20,11 @@ import re
 import sys
 import tempfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
 from pathlib import Path
 
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from openai import OpenAI
 
@@ -63,6 +65,7 @@ BASE_URL = "https://openrouter.ai/api/v1"
 # so 50 concurrent requests is well within limits. The openai SDK retries 429s
 # automatically with exponential backoff.
 MAX_WORKERS = 50
+_LOG_TZ = ZoneInfo("America/Los_Angeles")
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
@@ -1181,7 +1184,7 @@ def eval_decisions(
             idx = futures[fut]
             try:
                 results_by_idx[idx] = fut.result()
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - keep the batch running when one decision eval fails
                 print(f"  WARNING: decision_{idx} failed: {e}")
                 results_by_idx[idx] = ([], 0.0, False, {})
     except KeyboardInterrupt:
@@ -1345,12 +1348,10 @@ def main(gz_path: str) -> float:
 
     # Save raw LLM data to log directory (never overwrite — new file each run)
     if raw_records:
-        from datetime import datetime
-
         game_id = Path(gz_path).stem.replace(".json", "")
         log_dir = Path.home() / ".mage-bench" / "logs" / game_id
         if log_dir.is_dir():
-            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            ts = datetime.now(_LOG_TZ).strftime("%Y%m%d_%H%M%S")
             raw_path = (
                 log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
             )

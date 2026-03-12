@@ -1,0 +1,10 @@
+{
+  "title": "Remove remaining broad-except lint exemptions",
+  "description": "The new `BLE001` lint is now enabled for Python, but there are still explicit carve-outs in places where broad exception handling is entangled with batch execution or request-serving behavior.\n\nCurrent exemptions include:\n- A per-file Ruff ignore for `puppeteer/src/puppeteer/orchestrator.py`.\n- Inline `# noqa: BLE001` exemptions in `scripts/analysis/blunder_analysis.py`, `scripts/analysis/blunder_eval.py`, and `scripts/analysis/blunder_audit_web.py`.\n\nThose sites are not obviously wrong, but they are still broad enough to hide programmer bugs. The right cleanup is to replace them with narrower failure boundaries:\n1. Identify the concrete exception types each helper actually raises.\n2. Preserve the intended behavior (`continue batch`, `return HTTP 500`, `warn and continue`) without catching everything.\n3. Remove the Ruff exemptions once the code paths are narrowed.\n\nThis is worth doing because it closes the remaining gap between the repo's fail-fast guidance and the actual runtime error handling.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer", "lint"],
+  "created_at": "2026-03-12T00:31:30.296525-07:00",
+  "updated_at": "2026-03-12T00:31:30.296525-07:00"
+}

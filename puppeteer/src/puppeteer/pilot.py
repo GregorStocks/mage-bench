@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from mcp import ClientSession
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, OpenAIError
 
 from puppeteer.auto_pass import auto_pass_loop
 from puppeteer.bridge_transport import spawn_bridge_http
@@ -959,12 +959,12 @@ async def _recover_from_stall(
             "send_chat_message",
             {"message": "Brain freeze! Auto-passing until next turn..."},
         )
-    except Exception:
+    except ToolExecutionError:
         pass
     try:
         await execute_tool(session, "pass_priority", {})
         logger.info("[pilot] Auto-passed stalled action")
-    except Exception as e:
+    except ToolExecutionError as e:
         logger.warning("[pilot] Auto-pass failed: %s", e)
 
     state.turns_without_progress = 0
@@ -995,7 +995,7 @@ async def _handle_timeout(
         )
     try:
         await execute_tool(session, "pass_priority", {})
-    except Exception:
+    except ToolExecutionError:
         await asyncio.sleep(5)
 
     if state.consecutive_timeouts < MAX_CONSECUTIVE_TIMEOUTS:
@@ -1142,7 +1142,7 @@ async def run_pilot_loop(
                             "send_chat_message",
                             {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
                         )
-                    except Exception:
+                    except ToolExecutionError:
                         pass
                     await auto_pass_loop(session, game_dir, username, "pilot")
                     return
@@ -1255,7 +1255,7 @@ async def run_pilot_loop(
                                 "send_chat_message",
                                 {"message": "My brain is fried... going on autopilot for the rest of this game. GG!"},
                             )
-                        except Exception:
+                        except ToolExecutionError:
                             pass
                         await auto_pass_loop(session, game_dir, username, "pilot")
                         return
@@ -1281,7 +1281,7 @@ async def run_pilot_loop(
         except ToolExecutionError:
             raise
 
-        except Exception as e:
+        except OpenAIError as e:
             state.consecutive_timeouts = 0
             error_str = str(e)
             logger.warning("[pilot] LLM error: %s", e)
@@ -1301,14 +1301,14 @@ async def run_pilot_loop(
                         "send_chat_message",
                         {"message": f"{reason}... aborting game. GG!"},
                     )
-                except Exception:
+                except ToolExecutionError:
                     pass
                 raise PermanentLLMFailure(reason) from None
 
             # Transient error - keep actions flowing while waiting to retry
             try:
                 await execute_tool(session, "pass_priority", {})
-            except Exception:
+            except ToolExecutionError:
                 await asyncio.sleep(5)
 
             _reset_context(

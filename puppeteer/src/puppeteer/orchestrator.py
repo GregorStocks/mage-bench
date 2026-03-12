@@ -13,6 +13,7 @@ import time
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from puppeteer.config import Config, PilotPlayer
 from puppeteer.deck_choice import resolve_choice_decks
@@ -33,6 +34,7 @@ logger = get_logger(__name__)
 
 _SPECTATOR_TABLE_READY = "AI Puppeteer: waiting for"
 _SPECTATOR_GAME_STARTED = "AI Puppeteer: all players joined"
+_LOG_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
 
 
 def _git(cmd: str, cwd: Path) -> str:
@@ -212,7 +214,7 @@ def _ensure_game_over_event(game_dir: Path, spectator_exit_code: int = -1) -> No
         else:
             reason = "spectator_crashed"
             message = f"Game ended (spectator exited with code {spectator_exit_code})"
-        ts = datetime.now().isoformat(timespec="milliseconds")
+        ts = datetime.now(_LOG_TIMESTAMP_TZ).isoformat(timespec="milliseconds")
         event = {
             "ts": ts,
             "seq": max_seq + 1,
@@ -1520,7 +1522,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
             return OrchestratorRunResult(exit_code=2)
 
         # Set timestamp
-        config.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        config.timestamp = datetime.now(_LOG_TIMESTAMP_TZ).strftime("%Y%m%d_%H%M%S")
 
         # Recording requires observer mode
         if config.record and not config.observer:

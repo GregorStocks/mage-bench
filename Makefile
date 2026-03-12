@@ -29,6 +29,10 @@ format:
 lint-md:
 	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && cd .. && website/node_modules/.bin/markdownlint-cli2
 
+.PHONY: astro-check
+astro-check:
+	cd website && npm install --prefer-offline --no-audit --no-fund && npm run check
+
 .PHONY: format-check
 format-check:
 	uv run --project puppeteer ruff format --check puppeteer/ scripts/ schemas/

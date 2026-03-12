@@ -300,7 +300,7 @@ def _compute_stats() -> dict:
 class AuditHandler(BaseHTTPRequestHandler):
     """HTTP request handler for the audit web UI."""
 
-    def log_message(self, format: str, *args: object) -> None:
+    def log_message(self, fmt: str, *args: object) -> None:
         """Suppress default request logging."""
         pass
 
@@ -379,7 +379,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 detail = _build_play_detail(game_id, di)
                 self._send_json(detail)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
                 self._send_error(500, str(e))
             return
 
@@ -401,7 +401,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 results = _find_decisions_at_snapshot(game_id, snap_idx)
                 self._send_json(results)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
                 self._send_error(500, str(e))
             return
 
@@ -436,7 +436,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 result = _handle_verdict(game_id, di, body)
                 self._send_json(result)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
                 self._send_error(500, str(e))
             return
 

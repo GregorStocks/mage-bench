@@ -115,7 +115,7 @@ async def spawn_bridge_http(
             if proc.stdin:
                 try:
                     proc.stdin.close()
-                except Exception:
+                except OSError:
                     pass
             try:
                 proc.wait(timeout=10)

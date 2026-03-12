@@ -55,6 +55,11 @@ select = [
     "TID",  # flake8-tidy-imports: import clarity
     "RET",  # flake8-return: consistent return patterns
     "PERF", # perflint: catch inefficient patterns
+    "BLE001",  # blind-except
+    "DTZ005",  # datetime.now without tz
+    "DTZ007",  # datetime.strptime without zone
+    "A002",  # builtin argument shadowing
+    "ANN401",  # Any in public signatures
 ]
 ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
@@ -62,6 +67,10 @@ ignore = [
     "PERF203", # try-except in loop - intentional for fault tolerance
 ]
 external = []
+
+[tool.ruff.lint.per-file-ignores]
+"src/puppeteer/orchestrator.py" = ["BLE001"]
+"tests/**/*.py" = ["BLE001"]
 
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 "typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
