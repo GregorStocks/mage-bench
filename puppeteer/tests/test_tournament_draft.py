@@ -21,7 +21,6 @@ import pytest
 
 from puppeteer.jumpstart import load_jumpstart_themes
 from scripts.tournament_draft import (
-    _append_thinking_history,
     _fetch_oracle_texts,
     _llm_pick,
     build_draft_system_prompt,
@@ -200,7 +199,7 @@ class TestLlmPick:
             ]
         )
 
-        pick, reasoning, thinking, usage = await _llm_pick(
+        pick, reasoning, attempts, usage = await _llm_pick(
             client=client,
             model="test-model",
             system_prompt="system",
@@ -213,9 +212,21 @@ class TestLlmPick:
 
         assert pick == 17
         assert reasoning == "17"
-        assert thinking == (
-            "Initial hidden reasoning\n\nRetry 1:\nRetry hidden reasoning that should not replace the first"
-        )
+        assert attempts == [
+            {
+                "attempt": 1,
+                "response": "**17**\n\nElves is the clear pick here because it stays open.",
+                "thinking": "Initial hidden reasoning",
+                "accepted": False,
+                "rejection_reason": "I parsed your pick, but your response included extra text.",
+            },
+            {
+                "attempt": 2,
+                "response": "17",
+                "thinking": "Retry hidden reasoning that should not replace the first",
+                "accepted": True,
+            },
+        ]
         assert usage == {"prompt_tokens": 200, "completion_tokens": 20}
 
         assert client.chat.completions.create.await_count == 2
@@ -231,19 +242,6 @@ class TestLlmPick:
                 "Reply with ONLY a single number from 1 to 64. No other text."
             ),
         }
-
-
-class TestAppendThinkingHistory:
-    def test_first_attempt_sets_thinking(self):
-        assert _append_thinking_history(None, "Initial thinking", 1) == "Initial thinking"
-
-    def test_later_attempts_append_with_retry_marker(self):
-        assert _append_thinking_history("Initial thinking", "Retry thinking", 2) == (
-            "Initial thinking\n\nRetry 1:\nRetry thinking"
-        )
-
-    def test_empty_attempt_thinking_is_ignored(self):
-        assert _append_thinking_history("Initial thinking", None, 2) == "Initial thinking"
 
 
 # -- Prompt building tests (using real packs) --
