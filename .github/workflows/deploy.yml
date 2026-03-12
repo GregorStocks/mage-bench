@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: read
       deployments: write
+      statuses: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,9 +40,13 @@ jobs:
           echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}"
           echo "Branch URL: https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev"
 
-      - name: Add to job summary
+      - name: Add preview link to commit status
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          echo "### Deployment" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Preview:** ${{ steps.deploy.outputs.deployment-url }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Branch URL:** https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev" >> "$GITHUB_STEP_SUMMARY"
+          gh api "repos/${{ github.repository }}/statuses/${{ github.sha }}" \
+            --method POST \
+            -f state=success \
+            -f target_url="https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev" \
+            -f description="Deployed to Cloudflare Pages" \
+            -f context="Preview"
