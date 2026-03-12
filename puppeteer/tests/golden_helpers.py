@@ -7,7 +7,7 @@ These are integration tests that require compilation and a running XMage server.
 They are NOT included in ``make test`` — run them with ``make test-golden``.
 
 To run:    make test-golden
-To update: make update-golden
+To update: make regen-golden
 """
 
 from __future__ import annotations
@@ -1305,7 +1305,7 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         print(f"Updated golden file: {golden_file}")
         return
 
-    assert golden_file.exists(), f"Golden file not found: {golden_file}\nRun 'make update-golden' to generate it."
+    assert golden_file.exists(), f"Golden file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
@@ -1314,7 +1314,7 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         diff_lines = _json_diff(expected_obj, actual_obj)
         diff_text = "\n".join(diff_lines)
         raise AssertionError(
-            f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
+            f"Golden file mismatch: {name}.json\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
         )
 
 
@@ -1382,9 +1382,7 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
         print(f"Updated golden export: {golden_file}")
         return
 
-    assert golden_file.exists(), (
-        f"Golden export file not found: {golden_file}\nRun 'make update-golden' to generate it."
-    )
+    assert golden_file.exists(), f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
@@ -1392,7 +1390,7 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
         diff_lines = _json_diff(expected_obj, export_data)
         diff_text = "\n".join(diff_lines)
         raise AssertionError(
-            f"Golden export mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
+            f"Golden export mismatch: {name}.json\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
         )
 
 
@@ -1472,7 +1470,7 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
         oracle_cache_path.write_text(json.dumps(oracle_texts, indent=2, sort_keys=True) + "\n")
     else:
         assert oracle_cache_path.exists(), (
-            f"Oracle cache missing: {oracle_cache_path}\nRun 'make update-golden' to generate."
+            f"Oracle cache missing: {oracle_cache_path}\nRun 'make regen-golden' to generate."
         )
         oracle_texts = json.loads(oracle_cache_path.read_text())
 
@@ -1513,15 +1511,15 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
             continue
 
         assert golden_file.exists(), (
-            f"Golden blunder prompt missing: {golden_file}\nRun 'make update-golden' to generate."
+            f"Golden blunder prompt missing: {golden_file}\nRun 'make regen-golden' to generate."
         )
         expected = json.loads(golden_file.read_text())
 
         if actual["system"] != expected["system"]:
             raise AssertionError(
-                f"Blunder system prompt changed for {name} decision {idx}\nRun 'make update-golden' to regenerate."
+                f"Blunder system prompt changed for {name} decision {idx}\nRun 'make regen-golden' to regenerate."
             )
         if actual["user"] != expected["user"]:
             raise AssertionError(
-                f"Blunder user message changed for {name} decision {idx}\nRun 'make update-golden' to regenerate."
+                f"Blunder user message changed for {name} decision {idx}\nRun 'make regen-golden' to regenerate."
             )

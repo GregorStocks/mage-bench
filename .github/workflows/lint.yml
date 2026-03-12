@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   java:
     runs-on: ubuntu-latest
@@ -103,4 +106,3 @@ jobs:
       - name: Run e2e tests
         run: npx vitest run --config vitest.e2e.config.js
         working-directory: website
-

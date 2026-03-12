@@ -28,7 +28,7 @@ def main():
     # Ensure scratch directory exists (needed before worktree-setup.py runs)
     (PROJECT_ROOT / "tmp").mkdir(exist_ok=True)
 
-    # Maven (needed for make build / make update-golden)
+    # Maven (needed for make build / make regen-golden)
     if not shutil.which("mvn"):
         print("Installing Maven...")
         run(["sudo", "apt-get", "update", "-qq"])

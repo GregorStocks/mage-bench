@@ -51,7 +51,7 @@ def check_generated_files(command: str) -> None:
     if mcp_source in staged and mcp_output not in staged and mcp_output in dirty:
         block(
             "Blocked: McpServer.java is staged but mcp-tools.json has unstaged changes.\n"
-            "Run: make mcp-tools && git add website/src/data/mcp-tools.json"
+            "Run: make regen-mcp-tools && git add website/src/data/mcp-tools.json"
         )
 
     # game-export-v*.schema.json -> game-export.d.ts
@@ -61,7 +61,7 @@ def check_generated_files(command: str) -> None:
     if schema_sources and schema_output not in staged and schema_output in dirty:
         block(
             "Blocked: game-export schema is staged but game-export.d.ts has unstaged changes.\n"
-            "Run: make schema-types && git add website/src/types/game-export.d.ts"
+            "Run: make regen-schema-types && git add website/src/types/game-export.d.ts"
         )
 
 
@@ -183,15 +183,15 @@ def check(command: str) -> None:
             "Blocked: don't run golden tests directly. Use make targets instead:\n"
             "  make test-golden              # run all golden tests\n"
             "  make test-golden K=bolt       # run golden tests matching 'bolt'\n"
-            "  make update-golden            # regenerate all golden files\n"
-            "  make update-golden K=bolt     # regenerate golden files matching 'bolt'"
+            "  make regen-golden             # regenerate all golden files\n"
+            "  make regen-golden K=bolt      # regenerate golden files matching 'bolt'"
         )
 
     if re.search(r"UPDATE_(?:BLUNDER_)?GOLDEN\s*=\s*1", stripped):
         block(
             "Blocked: don't pass UPDATE_GOLDEN / UPDATE_BLUNDER_GOLDEN as env vars. Use make targets instead:\n"
-            "  make update-golden            # regenerate all golden files\n"
-            "  make update-blunder-golden    # regenerate blunder prompt golden files"
+            "  make regen-golden             # regenerate all golden files\n"
+            "  make regen-blunder-golden     # regenerate blunder prompt golden files"
         )
 
     # --- Expensive make targets ---

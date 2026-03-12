@@ -200,7 +200,7 @@ if (fs.existsSync(exportsDir)) {
   <!-- Golden Tests Tab -->
   <div class="tab-content" id="tab-golden">
     <p class="subtitle">Board states from golden prompt tests. Click a scenario to view the full game replay.</p>
-    {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make test-golden</code> to generate fixtures.</p>}
+    {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make regen-golden</code> to generate fixtures.</p>}
     <div class="scenario-list">
       {scenarios.map(s => (
         <a class="scenario-card" href={`/golden/${s.name}`}>

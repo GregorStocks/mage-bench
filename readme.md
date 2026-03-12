@@ -43,7 +43,7 @@ make run
 make run CONFIG=modern-staller
 
 # List all available configs
-make configs
+make list-configs
 
 # Custom config file
 make run CONFIG=path/to/my-config.json

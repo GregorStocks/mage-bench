@@ -223,7 +223,7 @@ public class McpServer {
 
     /**
      * Print MCP tool definitions as JSON to stdout.
-     * Used by `make mcp-tools` to generate mcp-tools.json.
+     * Used by `make regen-mcp-tools` to generate mcp-tools.json.
      */
     public static void main(String[] args) {
         McpToolRegistry reg = new McpToolRegistry(TOOL_CLASSES);

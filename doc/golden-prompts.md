@@ -94,7 +94,7 @@ A golden test has three inputs:
    `{"name": "tool_name", "arguments": {...}}`.
 
 3. **Golden files**: The checked-in expected outputs (prompt, export, blunder
-   prompts). Generated via `make update-golden`.
+   prompts). Generated via `make regen-golden`.
 
 ### Execution flow
 
@@ -267,8 +267,8 @@ that decision point:
 
 ```bash
 make test-golden        # Run all golden tests
-make update-golden      # Regenerate all golden files after intentional changes
-make update-blunder-golden  # Regenerate blunder golden files only
+make regen-golden       # Regenerate all golden files after intentional changes
+make regen-blunder-golden  # Regenerate blunder golden files only
 ```
 
 `make test-golden` is included in `make check` (which CI runs).
@@ -281,7 +281,7 @@ All require `GOLDEN_INTEGRATION=1` (set automatically by the make targets).
 2. Write the replay script (predict card IDs, plan mana carefully)
 3. Create `puppeteer/tests/test_golden_<name>.py` following the existing
    pattern (mark with `@pytest.mark.golden`, call `run_golden_scenario`)
-4. Run `make update-golden` to generate golden files
+4. Run `make regen-golden` to generate golden files
 5. Review the generated files — verify the prompt, export, and any blunder
    prompts look correct
 6. Commit everything together
