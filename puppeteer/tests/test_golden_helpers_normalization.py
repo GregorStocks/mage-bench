@@ -4,12 +4,12 @@ import pytest
 
 from tests.golden_helpers import (
     _CapturedPilotRequest,
-    _ScriptedChatCompletions,
     _is_short_id,
     _json_diff,
     _normalize_embedded_json,
     _normalize_prompt_for_golden,
     _pilot_script_from_replay_script,
+    _ScriptedChatCompletions,
     _strip_volatile,
 )
 

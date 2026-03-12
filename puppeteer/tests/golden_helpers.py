@@ -33,8 +33,8 @@ from types import SimpleNamespace
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
+from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
 from puppeteer.replay import execute_replay_script
 from scripts.analysis.blunder_analysis import (
@@ -678,8 +678,7 @@ def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
     assert script, "Golden pilot script must contain at least the initial pass_priority"
     first = script[0]
     assert first.get("name") == "pass_priority", (
-        "Golden pilot scripts must start with pass_priority so production prefetch "
-        "can consume the opening decision."
+        "Golden pilot scripts must start with pass_priority so production prefetch can consume the opening decision."
     )
     assert first.get("arguments", {}) == {}, (
         "Golden pilot scripts must start with pass_priority({}) because the real "
