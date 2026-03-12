@@ -276,7 +276,7 @@
         </repository>
         <repository>
             <id>local-project-repo</id>
-            <url>file://${basedir}/repository</url>
+            <url>file://${maven.multiModuleProjectDirectory}/repository</url>
         </repository>
     </repositories>
 
