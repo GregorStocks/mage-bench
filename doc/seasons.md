@@ -113,7 +113,7 @@ Once the season is back in `"regular-season"` phase (with `current_season` incre
 ## Key Files
 
 | Path | Purpose |
-|------|---------|
+| ------ | --------- |
 | `data/season.json` | Current season number and phase |
 | `data/tournaments/season-N.json` | Tournament bracket, entrants, draft, results |
 | `website/src/data/benchmark-results.json` | Combined leaderboard (all seasons) |

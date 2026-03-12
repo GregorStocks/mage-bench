@@ -19,7 +19,7 @@ Read ~/.mage-bench/logs/game_.../screenshot.png
 ### Parameters
 
 | Param | Default | Description |
-|-------|---------|-------------|
+| ------- | --------- | ------------- |
 | `T` | `-0.5` | Time position. Negative = seconds before end, positive = seconds from start |
 | `GAME` | most recent | Path to game log directory |
 | `FILE` | `<game_dir>/screenshot.png` | Output file path |
