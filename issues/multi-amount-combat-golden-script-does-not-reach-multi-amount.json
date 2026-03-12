@@ -1,0 +1,10 @@
+{
+  "title": "multi_amount_combat golden script does not reliably reach GAME_GET_MULTI_AMOUNT",
+  "description": "While adding regression coverage for invalid `GAME_GET_MULTI_AMOUNT` arrays, the existing `puppeteer/tests/test_golden_multi_amount_combat.py` script turned out not to be a reliable way to reach the combat-damage distribution prompt.\n\nEvidence from local runs on 2026-03-12:\n- The existing golden already sends `amounts=[1,1]` while player A is still on a `GAME_SELECT` prompt, producing `missing_param` instead of exercising `GAME_GET_MULTI_AMOUNT`.\n- Multiple attempts to repair the script with `until=my_turn`, `until=precombat_main`, and `until=end_of_turn` still hit earlier combat/main-phase callbacks or timed out after repeated `GAME_SELECT` failures.\n- `make update-golden K=multi_amount_combat` can therefore update or fail this test without validating the multi-amount bridge path the test name claims to cover.\n\nSuggested fix: replace the current scripted-pilot flow with a more explicit integration harness that drives the bridge based on live response types/phases, or rewrite the scenario so it provably reaches the `GAME_GET_MULTI_AMOUNT` prompt before sending `amounts`.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer", "golden", "bridge"],
+  "created_at": "2026-03-12T00:39:34.097608-07:00",
+  "updated_at": "2026-03-12T00:39:34.097608-07:00"
+}

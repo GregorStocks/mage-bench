@@ -1484,6 +1484,51 @@ public class BridgeCallbackHandler {
         return buildError(result, errorCode, message, retryable, action, false);
     }
 
+    private static String formatAmountRange(int min, int max) {
+        if (min == max) {
+            return Integer.toString(min);
+        }
+        return min + "-" + max;
+    }
+
+    static String validateMultiAmountInput(GameClientMessage msg, int[] amounts) {
+        List<MultiAmountMessage> items = msg.getMessages();
+        if (items == null) {
+            throw new IllegalStateException("GAME_GET_MULTI_AMOUNT is missing item metadata");
+        }
+
+        int expectedCount = items.size();
+        String expectedEntries = expectedCount + " " + (expectedCount == 1 ? "entry" : "entries");
+        String expectedShape = "Expected " + expectedCount + " amount"
+            + (expectedCount == 1 ? "" : "s")
+            + " and total " + formatAmountRange(msg.getMin(), msg.getMax()) + ".";
+
+        if (amounts.length != expectedCount) {
+            return "Invalid 'amounts' for GAME_GET_MULTI_AMOUNT: expected " + expectedEntries
+                + ", got " + amounts.length + ". " + expectedShape;
+        }
+
+        long total = 0;
+        for (int i = 0; i < expectedCount; i++) {
+            MultiAmountMessage item = items.get(i);
+            int value = amounts[i];
+            total += value;
+            if (value < item.min || value > item.max) {
+                return "Invalid 'amounts' for GAME_GET_MULTI_AMOUNT: amounts[" + i + "]=" + value
+                    + " is outside item range " + formatAmountRange(item.min, item.max)
+                    + ". " + expectedShape;
+            }
+        }
+
+        if (total < msg.getMin() || total > msg.getMax()) {
+            return "Invalid 'amounts' for GAME_GET_MULTI_AMOUNT: total " + total
+                + " is outside allowed range " + formatAmountRange(msg.getMin(), msg.getMax())
+                + ". " + expectedShape;
+        }
+
+        return null;
+    }
+
     /**
      * Build a human-readable error message from batch combat failed entries.
      */
@@ -1969,6 +2014,16 @@ public class BridgeCallbackHandler {
                     if (amounts == null) {
                         return buildError(result, "missing_param",
                             "Array 'amounts' required for GAME_GET_MULTI_AMOUNT", true, action);
+                    }
+                    GameClientMessage msg = (GameClientMessage) data;
+                    String validationError;
+                    try {
+                        validationError = validateMultiAmountInput(msg, amounts);
+                    } catch (IllegalStateException e) {
+                        return buildError(result, "internal_error", e.getMessage(), false, action);
+                    }
+                    if (validationError != null) {
+                        return buildError(result, "invalid_multi_amount", validationError, true, action);
                     }
                     var sb = new StringBuilder();
                     for (int i = 0; i < amounts.length; i++) {
