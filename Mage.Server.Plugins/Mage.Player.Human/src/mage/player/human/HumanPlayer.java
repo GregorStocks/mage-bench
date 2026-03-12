@@ -250,6 +250,18 @@ public class HumanPlayer extends PlayerImpl {
             }
         }
 
+        long waitedMs = (long) currentTimesWaiting * RESPONSE_WAITING_CHECK_MS;
+        if (waitedMs >= 500 && canRespond()) {
+            logger.info(String.format(
+                    "Delayed waitResponseOpen resolved after %d ms. User: %s; action: %s; game: %s; thread: %s",
+                    waitedMs,
+                    this.getName(),
+                    response.getActiveAction(),
+                    response.getActiveGameInfo(),
+                    Thread.currentThread().getName()
+            ));
+        }
+
         return true; // can use new value
     }
 

@@ -7,6 +7,7 @@ import mage.interfaces.callback.ClientCallbackMethod;
 import mage.players.Player;
 import mage.server.User;
 import mage.server.managers.UserManager;
+import mage.util.ThreadUtils;
 import mage.view.GameClientMessage;
 import mage.view.GameEndView;
 import mage.view.GameView;
@@ -44,7 +45,35 @@ public class GameSessionWatcher {
             if (user.isPresent()) {
                 // TODO: can be called outside of the game thread, e.g. user start watching already running game
                 //    possible fix: getGameView must use last cached value in non game thread call (split by sessions)
-                user.get().fireCallback(new ClientCallback(ClientCallbackMethod.GAME_INIT, game.getId(), getGameView()));
+                long startNanos = System.nanoTime();
+                long viewStartNanos = startNanos;
+                boolean onGameThread = ThreadUtils.isRunGameThread();
+                logger.info(String.format(
+                        "Watcher init start: game=%s, userId=%s, isPlayer=%s, onGameThread=%s, turn=%s, step=%s, thread=%s",
+                        game.getId(),
+                        userId,
+                        isPlayer,
+                        onGameThread,
+                        game.getTurnNum(),
+                        game.getTurnStepType(),
+                        Thread.currentThread().getName()
+                ));
+                GameView gameView = getGameView();
+                long viewMs = (System.nanoTime() - viewStartNanos) / 1_000_000;
+                user.get().fireCallback(new ClientCallback(ClientCallbackMethod.GAME_INIT, game.getId(), gameView));
+                long totalMs = (System.nanoTime() - startNanos) / 1_000_000;
+                logger.info(String.format(
+                        "Watcher init complete: game=%s, userId=%s, isPlayer=%s, onGameThread=%s, viewMs=%d, totalMs=%d, turn=%s, step=%s, thread=%s",
+                        game.getId(),
+                        userId,
+                        isPlayer,
+                        onGameThread,
+                        viewMs,
+                        totalMs,
+                        game.getTurnNum(),
+                        game.getTurnStepType(),
+                        Thread.currentThread().getName()
+                ));
                 return true;
             }
         }
@@ -105,6 +134,9 @@ public class GameSessionWatcher {
     }
 
     public GameView getGameView() {
+        long startNanos = System.nanoTime();
+        boolean onGameThread = ThreadUtils.isRunGameThread();
+
         // game view calculation can take some time and can be called from non-game thread,
         // so use copy for thread save (protection from ConcurrentModificationException)
         Game sourceGame = game.copy();
@@ -112,6 +144,22 @@ public class GameSessionWatcher {
         GameView gameView = new GameView(sourceGame.getState(), sourceGame, null, userId);
         processWatchedHands(sourceGame, userId, gameView);
         gameView.assignShortIdsToHands();
+
+        long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
+        if (!onGameThread || (!isPlayer && elapsedMs >= 250)) {
+            logger.info(String.format(
+                    "Game view built: game=%s, userId=%s, isPlayer=%s, onGameThread=%s, elapsedMs=%d, turn=%s, step=%s, thread=%s",
+                    game.getId(),
+                    userId,
+                    isPlayer,
+                    onGameThread,
+                    elapsedMs,
+                    game.getTurnNum(),
+                    game.getTurnStepType(),
+                    Thread.currentThread().getName()
+            ));
+        }
+
         return gameView;
     }
 

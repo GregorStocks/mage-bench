@@ -475,6 +475,16 @@ public class GameController implements GameCallback {
         }
         managerFactory.userManager().getUser(userId).ifPresent(user -> {
             GameSessionWatcher gameWatcher = new GameSessionWatcher(managerFactory.userManager(), userId, game, false);
+            logger.info(String.format(
+                    "Watcher attach start: game=%s, watcherUserId=%s, watcherName=%s, watchersBefore=%d, turn=%s, step=%s, thread=%s",
+                    game.getId(),
+                    userId,
+                    user.getName(),
+                    watchers.size(),
+                    game.getTurnNum(),
+                    game.getTurnStepType(),
+                    Thread.currentThread().getName()
+            ));
             final Lock w = gameWatchersLock.writeLock();
             w.lock();
             try {
@@ -482,7 +492,20 @@ public class GameController implements GameCallback {
             } finally {
                 w.unlock();
             }
+            long initStartNanos = System.nanoTime();
             gameWatcher.init();
+            long initMs = (System.nanoTime() - initStartNanos) / 1_000_000;
+            logger.info(String.format(
+                    "Watcher attach complete: game=%s, watcherUserId=%s, watcherName=%s, watchersAfter=%d, initMs=%d, turn=%s, step=%s, thread=%s",
+                    game.getId(),
+                    userId,
+                    user.getName(),
+                    watchers.size(),
+                    initMs,
+                    game.getTurnNum(),
+                    game.getTurnStepType(),
+                    Thread.currentThread().getName()
+            ));
             user.addGameWatchInfo(game.getId());
             managerFactory.chatManager().broadcast(chatId, user.getName(), " has started watching", MessageColor.BLUE, true, game, ChatMessage.MessageType.STATUS, null);
         });
@@ -1107,15 +1130,41 @@ public class GameController implements GameCallback {
                 if (gameSessions.containsKey(playerId)) {
                     stopResponseIdleTimeout();
                     command.execute(playerId);
+                } else {
+                    logger.warn(String.format(
+                            "Ignoring player command with no game session: game=%s, userId=%s, playerId=%s, priorityPlayer=%s, turn=%s, step=%s, thread=%s",
+                            game.getId(),
+                            userId,
+                            playerId,
+                            game.getPriorityPlayerId(),
+                            game.getTurnNum(),
+                            game.getTurnStepType(),
+                            Thread.currentThread().getName()
+                    ));
                 }
             } else {
                 // otherwise execute the action under other player's control
+                boolean executed = false;
                 for (UUID controlled : player.getPlayersUnderYourControl()) {
                     Player controlledPlayer = game.getPlayer(controlled);
                     if ((gameSessions.containsKey(controlled) || controlledPlayer.isComputer()) && game.getPriorityPlayerId().equals(controlled)) {
                         stopResponseIdleTimeout();
                         command.execute(controlled);
+                        executed = true;
                     }
+                }
+                if (!executed) {
+                    logger.warn(String.format(
+                            "Ignoring player command due to priority mismatch: game=%s, userId=%s, playerId=%s, priorityPlayer=%s, controlledPlayers=%s, turn=%s, step=%s, thread=%s",
+                            game.getId(),
+                            userId,
+                            playerId,
+                            game.getPriorityPlayerId(),
+                            player.getPlayersUnderYourControl(),
+                            game.getTurnNum(),
+                            game.getTurnStepType(),
+                            Thread.currentThread().getName()
+                    ));
                 }
                 // else player has no priority to do something, so ignore the command
                 // e.g. you click at one of your cards, but you can't play something at that moment
@@ -1123,6 +1172,16 @@ public class GameController implements GameCallback {
 
         } else {
             // ignore - no control over the turn
+            logger.warn(String.format(
+                    "Ignoring player command without game control: game=%s, userId=%s, playerId=%s, priorityPlayer=%s, turn=%s, step=%s, thread=%s",
+                    game.getId(),
+                    userId,
+                    playerId,
+                    game.getPriorityPlayerId(),
+                    game.getTurnNum(),
+                    game.getTurnStepType(),
+                    Thread.currentThread().getName()
+            ));
         }
     }
 
