@@ -1254,6 +1254,45 @@ def test_generate_leaderboard_file_season_1_included():
         assert result["totalGames"] == 1
 
 
+def test_generate_leaderboard_file_includes_empty_current_season():
+    """Current season should get an empty per-season file even before any games exist."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
+            season=1,
+            deck_type="Constructed - Standard",
+        )
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_leaderboard_file(
+            games_dir,
+            data_dir,
+            models_json,
+            current_season=2,
+        )
+        result = json.loads(output_path.read_text())
+
+        assert result["availableSeasons"] == [1, 2]
+
+        current_season_path = root / "data" / "benchmark-results-season-2.json"
+        assert current_season_path.exists()
+        current_season_result = json.loads(current_season_path.read_text())
+        assert current_season_result["availableSeasons"] == [1, 2]
+        assert current_season_result["totalGames"] == 0
+        assert current_season_result["models"] == []
+
+
 # --- compute_thinking_time ---
 
 
