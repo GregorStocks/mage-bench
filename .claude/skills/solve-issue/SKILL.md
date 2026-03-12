@@ -18,8 +18,9 @@ Pick and solve exactly **one** issue, then create a PR.
    Then check that:
    - `git status --porcelain` is empty (no uncommitted changes)
    - `git rev-parse HEAD` equals `git rev-parse origin/master` (no extra commits)
+   - the current branch has **no open PR** (`gh pr list --head "$(git branch --show-current)" --state open --json number,title,url`)
 
-   If either check fails, **stop immediately** and tell the user. Do not proceed — solve-issue must start from a clean branch that matches `origin/master` exactly.
+   If any check fails, **stop immediately** and tell the user. Do not proceed — solve-issue must start from a clean branch that matches `origin/master` exactly and is not already tied to an open PR.
 
 1. **Resolve a user-supplied issue argument** — only if the user explicitly passed an issue name/path. Use your judgment to determine the issue file they very obviously meant before invoking the claim script.
 
@@ -46,10 +47,10 @@ Pick and solve exactly **one** issue, then create a PR.
 
    Never pick a specific issue on your own — always use the auto-pick unless the user told you which issue to work on.
 
-   - If the script **succeeds** (exit 0): you claimed it. Continue to step 3.
+   - If the script **succeeds** (exit 0): immediately inspect the current branch PR (`gh pr view --json body,url`) and extract the `<!-- claim: ... -->` tag from that PR body. Treat that PR claim tag as the authoritative claimed issue for all later steps. If there is no open PR or the claim tag is missing/mismatched, **stop immediately** and tell the user the claim workflow is inconsistent.
    - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
 3. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
-   - Finding when the issue file was created (`git log --diff-filter=A -- issues/<filename>.json`)
+   - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json`)
    - Reviewing git history since that date for commits that look like they address the issue
    - Reading the relevant code to see if the described bug/problem still exists
 
