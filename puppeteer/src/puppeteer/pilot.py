@@ -402,6 +402,29 @@ def _with_cache_control(msg: dict, cache_control: dict) -> dict:
     return msg
 
 
+_CACHE_BREAKPOINT_MARKER = "All cards listed are playable right now."
+
+
+def _message_text(msg: dict) -> str:
+    """Extract concatenated text content from a rendered message."""
+    content = msg.get("content")
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "".join(
+            block.get("text", "") for block in content if isinstance(block, dict) and block.get("type") == "text"
+        )
+    return ""
+
+
+def _find_cache_breakpoint_idx(messages: list[dict]) -> int:
+    """Return the message index that ends the stable cacheable prefix."""
+    for idx in range(len(messages) - 1, -1, -1):
+        if messages[idx].get("role") == "user" and _CACHE_BREAKPOINT_MARKER in _message_text(messages[idx]):
+            return idx
+    return len(messages) - 1
+
+
 def _render_context(
     history: list[dict],
     system_prompt: str,
@@ -604,8 +627,7 @@ class PilotLoopState:
     current_game_turn: int = 0
     last_chat_turn: int = 0
     seen_oracle_cards: set[str] = field(default_factory=set)
-    cached_render: list[dict] | None = None
-    cached_history_len: int = 0
+    cache_breakpoint_idx: int | None = None
     render_counter: int = 0
 
 
@@ -620,10 +642,9 @@ class PilotTurnState:
 
 
 def _reset_render_cache(state: PilotLoopState) -> None:
-    """Drop the cached render prefix after a context reset."""
+    """Drop cached prompt metadata after a context reset."""
     state.state_summary = ""
-    state.cached_render = None
-    state.cached_history_len = 0
+    state.cache_breakpoint_idx = None
     state.render_counter = 0
 
 
@@ -654,24 +675,24 @@ async def _build_loop_messages(
     system_prompt: str,
     cache_control: dict | None,
 ) -> list[dict]:
-    """Render the next LLM request, reusing cached context when possible."""
+    """Render the next LLM request from the current history.
+
+    Reusing an old full render can leave the recent window stale even when the
+    history has grown. Refreshing the rendered messages each turn keeps the
+    assistant/tool transcript aligned with the current history while still
+    reusing the cheaper state summary between refreshes.
+    """
     if len(state.history) > CONTEXT_RECENT_COUNT:
         state.render_counter += 1
-        need_rerender = state.cached_render is None or state.render_counter % RENDER_INTERVAL == 0
-        if need_rerender:
+        if not state.state_summary or state.render_counter % RENDER_INTERVAL == 0:
             state.state_summary = await _fetch_state_summary(session)
-            messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
-            state.cached_render = list(messages)
-            state.cached_history_len = len(state.history)
             state.render_counter = 0
-            return messages
-
-        assert state.cached_render is not None, "cached_render must be populated before reuse"
-        return list(state.cached_render) + state.history[state.cached_history_len :]
+        messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+        state.cache_breakpoint_idx = _find_cache_breakpoint_idx(messages)
+        return messages
 
     messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
-    state.cached_render = None
-    state.cached_history_len = 0
+    state.cache_breakpoint_idx = len(messages) - 1 if messages else None
     state.render_counter = 0
     return messages
 
@@ -685,7 +706,7 @@ def _mark_tail_cache_breakpoint(
     if not cache_control or len(messages) <= 1:
         return
 
-    tail_idx = len(state.cached_render) - 1 if state.cached_render else len(messages) - 1
+    tail_idx = state.cache_breakpoint_idx if state.cache_breakpoint_idx is not None else len(messages) - 1
     marked = _with_cache_control(messages[tail_idx], cache_control)
     if marked is not messages[tail_idx]:
         messages[tail_idx] = marked

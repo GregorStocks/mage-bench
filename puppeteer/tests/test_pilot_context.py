@@ -1,15 +1,21 @@
 """Tests for pilot context window management: summarisation and rendering."""
 
 import json
+from unittest.mock import AsyncMock, MagicMock, patch
+
+import pytest
 
 from puppeteer.pilot import (
     CONTEXT_RECENT_COUNT,
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
     TOOL_RESULT_MAX_CHARS,
+    PilotLoopState,
+    _build_loop_messages,
     _build_reset_message,
     _extract_last_reasoning,
     _find_tool_name,
+    _mark_tail_cache_breakpoint,
     _render_context,
     _summarize_tool_result,
     _with_cache_control,
@@ -412,6 +418,31 @@ def test_render_no_orphaned_tool_results():
             )
 
 
+def test_render_keeps_tool_results_contiguous():
+    """No non-tool message may interrupt an assistant tool-call block."""
+    history = _make_history(CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 6)
+    history.extend(
+        [
+            _make_assistant_msg([("call_chat", "send_chat_message"), ("call_act", "choose_action")]),
+            _make_tool_msg("call_chat", '{"success": true}'),
+            _make_tool_msg("call_act", '{"success": true}'),
+        ]
+    )
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
+
+    remaining_call_ids: set[str] = set()
+    for msg in messages:
+        if msg.get("role") == "assistant" and msg.get("tool_calls"):
+            remaining_call_ids = {tc["id"] for tc in msg["tool_calls"]}
+            continue
+        if msg.get("role") == "tool":
+            assert remaining_call_ids, f"Tool result {msg['tool_call_id']} has no open assistant tool-call block"
+            assert msg["tool_call_id"] in remaining_call_ids
+            remaining_call_ids.remove(msg["tool_call_id"])
+            continue
+        assert not remaining_call_ids, f"Non-tool message interrupted tool block: {msg}"
+
+
 # ---------------------------------------------------------------------------
 # _extract_last_reasoning
 # ---------------------------------------------------------------------------
@@ -500,39 +531,30 @@ def test_render_state_bridge_after_summarized():
     assert len(recent_messages) >= CONTEXT_RECENT_COUNT
 
 
-# ---------------------------------------------------------------------------
-# Cached prefix reuse
-# ---------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_build_loop_messages_matches_fresh_render_after_history_growth():
+    """Long-history builds should rerender the current history, not reuse a stale prompt."""
+    history = _make_history(CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10)
+    state = PilotLoopState(history=list(history))
+    session = MagicMock()
 
+    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY) as fetch:
+        first = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
+        assert first == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
 
-def test_cached_prefix_reuse_concept():
-    """Verify that cached_render + new_history produces valid messages."""
-    n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
-    history = _make_history(n)
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
-    cached_render = list(messages)
-    cached_history_len = len(history)
+        state.history.extend(
+            [
+                _make_assistant_msg([("call_new_1", "pass_priority")]),
+                _make_tool_msg("call_new_1", json.dumps({"timeout": True})),
+                _make_assistant_msg([("call_new_2", "choose_action")]),
+                _make_tool_msg("call_new_2", json.dumps({"success": True, "action_taken": "passed"})),
+            ]
+        )
 
-    # Simulate 2 new history entries (assistant + tool pair)
-    new_entries = [
-        _make_assistant_msg([("call_new_1", "pass_priority")]),
-        _make_tool_msg("call_new_1", json.dumps({"timeout": True})),
-    ]
-    history.extend(new_entries)
+        second = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=None)
 
-    # Reuse cached prefix + new entries
-    reused = cached_render + history[cached_history_len:]
-    assert reused[: len(cached_render)] == cached_render
-    assert reused[len(cached_render) :] == new_entries
-
-    # Verify no orphaned tool results in the combined output
-    seen_call_ids: set[str] = set()
-    for msg in reused:
-        if msg.get("role") == "assistant":
-            for tc in msg.get("tool_calls", []):
-                seen_call_ids.add(tc["id"])
-        elif msg.get("role") == "tool":
-            assert msg["tool_call_id"] in seen_call_ids
+    assert second == _render_context(state.history, SYSTEM_PROMPT, STATE_SUMMARY)
+    assert fetch.await_count == 1
 
 
 def test_render_interval_constant():
@@ -751,29 +773,32 @@ def test_with_cache_control_does_not_mutate_original():
     assert msg["content"] == "hello"  # unchanged
 
 
-def test_tail_breakpoint_does_not_mutate_cached_render():
-    """Applying tail breakpoint should not modify cached_render dicts."""
+@pytest.mark.asyncio
+async def test_long_history_tail_breakpoint_marks_state_bridge():
+    """Long-history cache breakpoint should target the state bridge, not the newest tool message."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
+    state = PilotLoopState(history=list(history))
+    session = MagicMock()
     cc = {"type": "ephemeral"}
-    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
-    cached_render = list(messages)
 
-    # Simulate the tail breakpoint logic from run_pilot_loop
-    new_entries = [
-        _make_assistant_msg([("call_new", "pass_priority")]),
-        _make_tool_msg("call_new", json.dumps({"timeout": True})),
-    ]
-    assembled = list(cached_render) + new_entries
-    tail_idx = len(cached_render) - 1
-    original_content = cached_render[tail_idx].get("content")
+    with patch("puppeteer.pilot._fetch_state_summary", new_callable=AsyncMock, return_value=STATE_SUMMARY):
+        messages = await _build_loop_messages(state, session, SYSTEM_PROMPT, cache_control=cc)
 
-    marked = _with_cache_control(assembled[tail_idx], cc)
-    if marked is not assembled[tail_idx]:
-        assembled[tail_idx] = marked
+    bridge_idx = None
+    for i, msg in enumerate(messages):
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
+            bridge_idx = i
+            break
+    assert bridge_idx is not None, "State bridge not found"
+    assert state.cache_breakpoint_idx == bridge_idx
 
-    # cached_render's message should be unchanged
-    assert cached_render[tail_idx].get("content") == original_content
+    original_last = messages[-1]
+    _mark_tail_cache_breakpoint(messages, state, cc)
+    assert messages[-1] == original_last
+    bridge_content = messages[bridge_idx]["content"]
+    assert isinstance(bridge_content, list)
+    assert any(block.get("cache_control") == cc for block in bridge_content if isinstance(block, dict))
 
 
 def test_short_history_tail_breakpoint():
