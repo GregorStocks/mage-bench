@@ -1,0 +1,10 @@
+{
+  "title": "Make the home page champion banner derive from current season data",
+  "description": "`website/src/pages/index.astro` currently hardcodes Season 1 championship data:\n- It reads `data/tournaments/season-1.json` directly.\n- It links the banner to `/season/1/results`.\n- It hardcodes the copy `Season 1 Champion`.\n\nAt the same time, the page already reads `website/src/data/season.json` for `current_season` and `phase`. So the page has two competing sources of truth.\n\nThis is not broken yet because `season.json` still says `current_season: 1`, but it is staged to go stale as soon as season 2 starts or the tournament pointer moves. The fix should derive the banner data from `season.json` or from the configured tournament path rather than hardcoding Season 1 paths and labels.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "seasons"],
+  "created_at": "2026-03-11T22:39:10.811128-07:00",
+  "updated_at": "2026-03-11T22:39:10.811128-07:00"
+}
