@@ -256,7 +256,8 @@ public class BridgeCallbackHandler {
     // pending decision.  Terminated by game-over / zombie detection.
     private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
-    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private static final DateTimeFormatter TIME_FMT =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
