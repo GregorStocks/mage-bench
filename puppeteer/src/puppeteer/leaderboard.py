@@ -688,7 +688,12 @@ def generate_all_leaderboards(
     return format_results, ratings_by_game
 
 
-def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path) -> Path:
+def generate_leaderboard_file(
+    games_dir: Path,
+    data_dir: Path,
+    models_json: Path,
+    current_season: int | None = None,
+) -> Path:
     """Generate leaderboard files from game data.
 
     Writes:
@@ -754,13 +759,16 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     data_dir.mkdir(parents=True, exist_ok=True)
     all_ratings: dict[str, Any] = {}
     available_seasons: list[int] = sorted(games_by_season.keys())
+    if current_season is not None and current_season not in available_seasons:
+        available_seasons.append(current_season)
+        available_seasons.sort()
 
     # Per-season files go to public/data/ for client-side fetch
     public_data_dir = games_dir.parent / "data"
     public_data_dir.mkdir(parents=True, exist_ok=True)
 
     for season_num in available_seasons:
-        season_output, season_ratings = _build_output(games_by_season[season_num])
+        season_output, season_ratings = _build_output(games_by_season.get(season_num, []))
         season_output["availableSeasons"] = available_seasons
         season_path = public_data_dir / f"benchmark-results-season-{season_num}.json"
         _write_if_changed(season_path, json.dumps(season_output, indent=2) + "\n")
