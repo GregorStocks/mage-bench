@@ -13,6 +13,6 @@ updates:
     schedule:
       interval: 'weekly'
   - package-ecosystem: 'uv'
-    directory: '/puppeteer'
+    directory: '/'
     schedule:
       interval: 'weekly'
