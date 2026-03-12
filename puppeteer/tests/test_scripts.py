@@ -26,6 +26,7 @@ claim_issue = _import_script("claim-issue")
 worktree_setup = _import_script("worktree-setup")
 import_deck = _import_script("import-deck")
 import_metagame = _import_script("import-metagame")
+conclude_tournament = _import_script("conclude_tournament")
 
 
 # ===========================================================================
@@ -454,6 +455,138 @@ class TestImportDeck:
         main_lines, _sb_lines = import_deck.format_dck(cards, resolved)
         assert len(main_lines) == 2
         assert "1 [DGM:135] Wear/Tear" in main_lines
+
+
+# ===========================================================================
+# conclude-tournament
+# ===========================================================================
+
+
+class TestConcludeTournament:
+    def test_main_advances_to_next_regular_season(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+        data_dir = tmp_path / "data"
+        tournaments_dir = data_dir / "tournaments"
+        tournaments_dir.mkdir(parents=True)
+
+        season_file = data_dir / "season.json"
+        season_file.write_text(
+            json.dumps(
+                {
+                    "current_season": 3,
+                    "phase": "between-seasons",
+                    "tournament": "data/tournaments/season-3.json",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        tournament_file = tournaments_dir / "season-3.json"
+        tournament_file.write_text(
+            json.dumps(
+                {
+                    "season": 3,
+                    "size": 2,
+                    "entrants": [
+                        {"seed": 1, "display_name": "Alpha"},
+                        {"seed": 2, "display_name": "Beta"},
+                    ],
+                    "rounds": [
+                        {
+                            "round": 1,
+                            "name": "Finals",
+                            "matches": [
+                                {
+                                    "match": 1,
+                                    "seed_a": 1,
+                                    "seed_b": 2,
+                                    "winner_seed": 1,
+                                    "games": [
+                                        {"game_id": "g1", "winner_seed": 1},
+                                        {"game_id": "g2", "winner_seed": 1},
+                                    ],
+                                }
+                            ],
+                        }
+                    ],
+                    "champion_seed": 1,
+                    "completed_at": "2026-03-12T00:00:00+00:00",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        with (
+            patch.object(conclude_tournament, "_ROOT", tmp_path),
+            patch.object(conclude_tournament, "_SEASON_FILE", season_file),
+        ):
+            assert conclude_tournament.main() == 0
+
+        season_data = json.loads(season_file.read_text())
+        assert season_data["current_season"] == 4
+        assert season_data["phase"] == "regular-season"
+        assert season_data["tournament"] is None
+
+        out = capsys.readouterr().out
+        assert "Season 3 champion: #1 Alpha" in out
+        assert "Season 4 moved to regular season" in out
+
+    def test_main_requires_recorded_champion(self, tmp_path: Path) -> None:
+        data_dir = tmp_path / "data"
+        tournaments_dir = data_dir / "tournaments"
+        tournaments_dir.mkdir(parents=True)
+
+        season_file = data_dir / "season.json"
+        season_file.write_text(
+            json.dumps(
+                {
+                    "current_season": 1,
+                    "phase": "between-seasons",
+                    "tournament": "data/tournaments/season-1.json",
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        tournament_file = tournaments_dir / "season-1.json"
+        tournament_file.write_text(
+            json.dumps(
+                {
+                    "season": 1,
+                    "size": 2,
+                    "entrants": [
+                        {"seed": 1, "display_name": "Alpha"},
+                        {"seed": 2, "display_name": "Beta"},
+                    ],
+                    "rounds": [
+                        {
+                            "round": 1,
+                            "name": "Finals",
+                            "matches": [
+                                {
+                                    "match": 1,
+                                    "seed_a": 1,
+                                    "seed_b": 2,
+                                    "winner_seed": 1,
+                                    "games": [{"game_id": "g1", "winner_seed": 1}],
+                                }
+                            ],
+                        }
+                    ],
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+
+        with (
+            patch.object(conclude_tournament, "_ROOT", tmp_path),
+            patch.object(conclude_tournament, "_SEASON_FILE", season_file),
+            pytest.raises(AssertionError, match="champion has not been recorded"),
+        ):
+            conclude_tournament.main()
 
 
 # ===========================================================================

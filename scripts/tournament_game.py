@@ -13,8 +13,9 @@ Usage:
 import argparse
 import json
 import threading
-from collections.abc import Sequence
+from collections.abc import Collection, Sequence
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 
 from puppeteer.config import (
@@ -39,19 +40,43 @@ from scripts.generate_leaderboard import generate_all_website_data
 _ROOT = Path(__file__).resolve().parent.parent
 _SEASON_FILE = _ROOT / "data" / "season.json"
 
+REGULAR_SEASON_PHASE = "regular-season"
+TOURNAMENT_PHASE = "tournament"
+BETWEEN_SEASONS_PHASE = "between-seasons"
+ACTIVE_TOURNAMENT_PHASES = frozenset({TOURNAMENT_PHASE, BETWEEN_SEASONS_PHASE})
+
 
 # -- Tournament loading --
 
 
-def load_tournament() -> tuple[dict, Path]:
-    """Load the current tournament JSON. Returns (tournament_data, file_path)."""
+def load_season(allowed_phases: Collection[str] | None = None) -> dict:
+    """Load data/season.json, optionally asserting the current phase."""
     assert _SEASON_FILE.exists(), f"Season file not found: {_SEASON_FILE}"
     season_data = json.loads(_SEASON_FILE.read_text())
-    assert season_data["phase"] == "tournament", (
-        f"Season {season_data['current_season']} is in phase "
-        f"'{season_data['phase']}', expected 'tournament'"
+    if allowed_phases is not None:
+        phase = season_data["phase"]
+        assert phase in allowed_phases, (
+            f"Season {season_data['current_season']} is in phase "
+            f"'{phase}', expected one of {sorted(allowed_phases)}"
+        )
+    return season_data
+
+
+def _save_season(season_data: dict) -> None:
+    """Persist data/season.json."""
+    _SEASON_FILE.write_text(json.dumps(season_data, indent=2) + "\n")
+
+
+def load_tournament(
+    allowed_phases: Collection[str] | None = None,
+) -> tuple[dict, Path]:
+    """Load the current tournament JSON. Returns (tournament_data, file_path)."""
+    season_data = load_season(allowed_phases or (TOURNAMENT_PHASE,))
+    tournament_rel = season_data.get("tournament")
+    assert tournament_rel is not None, (
+        f"Season {season_data['current_season']} has no active tournament pointer"
     )
-    tournament_path = _ROOT / season_data["tournament"]
+    tournament_path = _ROOT / tournament_rel
     assert tournament_path.exists(), f"Tournament file not found: {tournament_path}"
     tournament = json.loads(tournament_path.read_text())
     return tournament, tournament_path
@@ -181,6 +206,80 @@ def find_next_match(tournament: dict) -> tuple[dict, dict] | None:
     """Find the next unplayed match. Returns (round_dict, match_dict) or None."""
     ready = find_ready_matches(tournament)
     return ready[0] if ready else None
+
+
+def tournament_is_complete(tournament: dict) -> bool:
+    """Return True once every bracket match has a recorded winner."""
+    rounds = tournament.get("rounds", [])
+    if not rounds:
+        return False
+    matches = [match for round_dict in rounds for match in round_dict["matches"]]
+    expected_matches = tournament["size"] - 1
+    assert len(matches) == expected_matches, (
+        f"Expected {expected_matches} bracket matches, found {len(matches)}"
+    )
+    return all(match["winner_seed"] is not None for match in matches)
+
+
+def get_tournament_champion_seed(tournament: dict) -> int | None:
+    """Return the champion seed once the bracket is fully complete."""
+    if not tournament_is_complete(tournament):
+        return None
+    final_round = tournament["rounds"][-1]
+    assert len(final_round["matches"]) == 1, (
+        f"Final round must contain exactly one match, found {len(final_round['matches'])}"
+    )
+    champion_seed = final_round["matches"][0]["winner_seed"]
+    assert champion_seed is not None, "Complete tournament is missing a finals winner"
+    return champion_seed
+
+
+def _finalize_completed_tournament_state(
+    tournament: dict, tournament_path: Path
+) -> bool:
+    """Persist champion data and switch the season into the between-seasons phase."""
+    champion_seed = get_tournament_champion_seed(tournament)
+    if champion_seed is None:
+        return False
+
+    entrants_by_seed = {entrant["seed"]: entrant for entrant in tournament["entrants"]}
+    assert champion_seed in entrants_by_seed, (
+        f"Champion seed {champion_seed} not found in entrants"
+    )
+    champion = entrants_by_seed[champion_seed]
+    changed = False
+
+    if tournament.get("champion_seed") != champion_seed:
+        tournament["champion_seed"] = champion_seed
+        changed = True
+    if tournament.get("completed_at") is None:
+        tournament["completed_at"] = datetime.now(timezone.utc).isoformat()
+        changed = True
+    if changed:
+        _save_tournament(tournament, tournament_path)
+
+    season_data = load_season(ACTIVE_TOURNAMENT_PHASES)
+    tournament_rel = season_data.get("tournament")
+    assert tournament_rel is not None, (
+        f"Season {season_data['current_season']} has no active tournament pointer"
+    )
+    expected_tournament_path = (_ROOT / tournament_rel).resolve()
+    assert expected_tournament_path == tournament_path.resolve(), (
+        f"Season points at {expected_tournament_path}, not {tournament_path.resolve()}"
+    )
+    if season_data["phase"] == TOURNAMENT_PHASE:
+        season_data["phase"] = BETWEEN_SEASONS_PHASE
+        _save_season(season_data)
+        print(
+            f"Season {season_data['current_season']} championship is complete. "
+            "Champion crowned; regular-season games remain blocked until "
+            "you run 'make conclude-tournament'."
+        )
+
+    print(
+        f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}"
+    )
+    return True
 
 
 # -- Deck file management --
@@ -562,14 +661,7 @@ def run_match(tournament: dict, tournament_path: Path) -> bool:
     """Run the next tournament match. Returns True if a match was played, False if tournament is complete."""
     result = find_next_match(tournament)
     if result is None:
-        # Tournament is complete — find the champion
-        final_round = tournament["rounds"][-1]
-        champion_seed = final_round["matches"][0]["winner_seed"]
-        entrants_by_seed = {e["seed"]: e for e in tournament["entrants"]}
-        champion = entrants_by_seed[champion_seed]
-        print(
-            f"Tournament is complete! Champion: #{champion_seed} {champion['display_name']}"
-        )
+        _finalize_completed_tournament_state(tournament, tournament_path)
         return False
 
     round_dict, match = result
@@ -593,7 +685,7 @@ def main() -> int:
     args = parser.parse_args()
     assert args.games >= 1, f"--games must be >= 1, got {args.games}"
 
-    tournament, tournament_path = load_tournament()
+    tournament, tournament_path = load_tournament(ACTIVE_TOURNAMENT_PHASES)
     assert "draft" in tournament, (
         "Tournament has no draft results. Run 'make tournament-draft' first."
     )
@@ -667,6 +759,8 @@ def main() -> int:
             )
 
         matches_played += batch_size
+
+    _finalize_completed_tournament_state(tournament, tournament_path)
 
     # Resolve any deferred annotation failures
     resolve_annotation_failures(deferred_failures, _ROOT)

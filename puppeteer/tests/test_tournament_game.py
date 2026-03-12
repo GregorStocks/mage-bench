@@ -4,6 +4,7 @@ Unit tests for bracket generation, round naming, next-match finding,
 result recording, and deck file writing.
 """
 
+import json
 import sys
 from pathlib import Path
 from unittest.mock import MagicMock
@@ -83,6 +84,28 @@ def _make_tournament(size: int, rounds: list | None = None) -> dict:
     }
 
 
+def _make_finished_tournament(size: int = 4) -> dict:
+    """Create a completed tournament where the higher seed always wins."""
+    tournament = {
+        "season": 1,
+        "size": size,
+        "best_of": 3,
+        "entrants": [{"seed": i + 1, "display_name": f"Seed {i + 1}"} for i in range(size)],
+        "rounds": [],
+    }
+    game_num = 1
+    while True:
+        result = tournament_game.find_next_match(tournament)
+        if result is None:
+            break
+        _, match = result
+        winner = min(match["seed_a"], match["seed_b"])
+        match["winner_seed"] = winner
+        match["games"].append({"game_id": f"game_{game_num}", "winner_seed": winner})
+        game_num += 1
+    return tournament
+
+
 class TestFindNextMatch:
     def test_empty_rounds_generates_round_1(self):
         t = _make_tournament(8)
@@ -153,6 +176,51 @@ class TestFindNextMatch:
         # Seed 1 wins the tournament
         final = t["rounds"][-1]["matches"][0]
         assert final["winner_seed"] == 1
+
+
+def test_get_tournament_champion_seed_requires_complete_bracket():
+    tournament = _make_tournament(4)
+    tournament_game.find_next_match(tournament)
+    assert tournament_game.get_tournament_champion_seed(tournament) is None
+
+
+def test_run_match_crowns_champion_and_enters_between_seasons(monkeypatch, tmp_path: Path, capsys):
+    tournament = _make_finished_tournament()
+    data_dir = tmp_path / "data"
+    tournaments_dir = data_dir / "tournaments"
+    tournaments_dir.mkdir(parents=True)
+    tournament_path = tournaments_dir / "season-1.json"
+    tournament_path.write_text(json.dumps(tournament, indent=2) + "\n")
+    season_file = data_dir / "season.json"
+    season_file.write_text(
+        json.dumps(
+            {
+                "current_season": 1,
+                "phase": tournament_game.TOURNAMENT_PHASE,
+                "tournament": "data/tournaments/season-1.json",
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+
+    monkeypatch.setattr(tournament_game, "_ROOT", tmp_path)
+    monkeypatch.setattr(tournament_game, "_SEASON_FILE", season_file)
+
+    assert tournament_game.run_match(tournament, tournament_path) is False
+
+    saved_tournament = json.loads(tournament_path.read_text())
+    assert saved_tournament["champion_seed"] == 1
+    assert saved_tournament["completed_at"]
+
+    saved_season = json.loads(season_file.read_text())
+    assert saved_season["current_season"] == 1
+    assert saved_season["phase"] == tournament_game.BETWEEN_SEASONS_PHASE
+    assert saved_season["tournament"] == "data/tournaments/season-1.json"
+
+    output = capsys.readouterr().out
+    assert "run 'make conclude-tournament'" in output
+    assert "Tournament is complete! Champion: #1 Seed 1" in output
 
 
 # -- Finding ready matches (parallel support) --
@@ -462,7 +530,11 @@ def test_main_parallel_uses_batch_runner(monkeypatch):
     ]
     run_match_batch = MagicMock()
 
-    monkeypatch.setattr(tournament_game, "load_tournament", lambda: (tournament, Path("/tmp/tournament.json")))
+    monkeypatch.setattr(
+        tournament_game,
+        "load_tournament",
+        lambda allowed_phases=None: (tournament, Path("/tmp/tournament.json")),
+    )
     monkeypatch.setattr(tournament_game, "compile_project", lambda *args, **kwargs: True)
     monkeypatch.setattr(tournament_game, "refresh_observer_resources", lambda *args, **kwargs: True)
     monkeypatch.setattr(tournament_game, "clean_stale_h2_locks", lambda *args, **kwargs: None)

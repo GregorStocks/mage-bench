@@ -248,6 +248,11 @@ SIZE ?= 8
 conclude-season: leaderboard
 	uv run python scripts/conclude_season.py $(SIZE)
 
+# Start the next regular season after a champion has already been crowned.
+.PHONY: conclude-tournament
+conclude-tournament:
+	uv run python scripts/conclude_tournament.py
+
 # Run a Jumpstart snake draft for the current tournament.
 # Each entrant's LLM picks two half-deck packs to form their tournament deck.
 .PHONY: tournament-draft

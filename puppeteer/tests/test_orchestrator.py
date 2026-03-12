@@ -12,6 +12,7 @@ import pytest
 from puppeteer.config import Config, PilotPlayer
 from puppeteer.orchestrator import (
     GameSession,
+    _check_regular_season_block,
     _ensure_game_over_event,
     _finalize_game,
     _git,
@@ -92,6 +93,24 @@ def test_parse_args_rejects_mismatched_batch_games(tmp_path: Path, monkeypatch):
 
     with pytest.raises(AssertionError, match="must match batch config count"):
         parse_args()
+
+
+def test_check_regular_season_block_allows_regular_season(tmp_path: Path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    (data_dir / "season.json").write_text(json.dumps({"current_season": 2, "phase": "regular-season"}) + "\n")
+
+    assert _check_regular_season_block(tmp_path) is None
+
+
+def test_check_regular_season_block_blocks_between_seasons(tmp_path: Path):
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    (data_dir / "season.json").write_text(json.dumps({"current_season": 2, "phase": "between-seasons"}) + "\n")
+
+    message = _check_regular_season_block(tmp_path)
+    assert message is not None
+    assert "crowned a champion" in message
 
 
 def test_ensure_game_over_event_already_present():

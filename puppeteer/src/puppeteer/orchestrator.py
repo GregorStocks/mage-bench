@@ -1457,16 +1457,26 @@ def _finalize_game(
     return pilot_cost, 0.0
 
 
-def _check_season_tournament_block(project_root: Path) -> str | None:
-    """Return an error message if the season is in tournament phase, else None."""
+def _check_regular_season_block(project_root: Path) -> str | None:
+    """Return an error message if regular-season games should be blocked."""
     season_file = project_root / "data" / "season.json"
     if not season_file.exists():
         return None
     season_data = json.loads(season_file.read_text())
-    if season_data.get("phase") != "tournament":
+    phase = season_data.get("phase")
+    if phase == "regular-season":
         return None
     season_num = season_data.get("current_season", "?")
-    return f"Season {season_num} is in the tournament phase! Regular-season games are not allowed during tournaments."
+    if phase == "tournament":
+        return (
+            f"Season {season_num} is in the tournament phase! Regular-season games are not allowed during tournaments."
+        )
+    if phase == "between-seasons":
+        return (
+            f"Season {season_num} has crowned a champion. "
+            "Regular-season games remain blocked until the next season starts."
+        )
+    return f"Season {season_num} is in phase '{phase}'. Regular-season games are only allowed during regular season."
 
 
 def run_orchestrator(config: Config, project_root: Path | None = None) -> OrchestratorRunResult:
@@ -1477,11 +1487,11 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
     # Load player config early so we can check flags before heavy setup.
     config.load_config()
 
-    # Block regular-season games during tournament phase (test configs and tournament games are exempt)
+    # Block regular-season games outside regular season
     if not config.skip_post_game_prompts and not config.tournament_game:
-        tournament_block = _check_season_tournament_block(project_root)
-        if tournament_block:
-            logger.error(tournament_block)
+        season_block = _check_regular_season_block(project_root)
+        if season_block:
+            logger.error(season_block)
             return OrchestratorRunResult(exit_code=2)
     pm = ProcessManager()
     port_reservation = None
