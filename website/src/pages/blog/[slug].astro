@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import { slugifyTag } from '../../utils/blog';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -39,13 +38,6 @@ function formatDate(date: Date): string {
           </span>
         )}
       </div>
-      {post.data.tags.length > 0 && (
-        <div class="tags">
-          {post.data.tags.map(tag => (
-            <a href={`/blog/tags/${slugifyTag(tag)}`} class="tag">{tag}</a>
-          ))}
-        </div>
-      )}
     </header>
     <div class="content">
       <Content />
@@ -94,40 +86,14 @@ function formatDate(date: Date): string {
     font-size: 0.9rem;
     font-family: var(--font-body);
     color: var(--text-secondary);
-    margin-bottom: 1rem;
-  }
-
-  .updated {
-    font-style: italic;
-    color: var(--text-muted);
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
     margin-bottom: 2.5rem;
     padding-bottom: 2.5rem;
     border-bottom: 1px solid var(--border-default);
   }
 
-  .tag {
-    font-size: 0.75rem;
-    font-family: var(--font-body);
-    padding: 0.2rem 0.6rem;
-    background: rgba(233, 69, 96, 0.08);
-    border: 1px solid rgba(233, 69, 96, 0.2);
-    border-radius: 3px;
-    color: var(--accent-primary);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: background 0.2s, border-color 0.2s;
-  }
-
-  .tag:hover {
-    background: rgba(233, 69, 96, 0.15);
-    border-color: rgba(233, 69, 96, 0.4);
+  .updated {
+    font-style: italic;
+    color: var(--text-muted);
   }
 
   /* ── Prose content ── */
