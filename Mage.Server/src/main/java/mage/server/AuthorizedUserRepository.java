@@ -7,7 +7,6 @@ import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.TableUtils;
 import mage.cards.repository.CardRepository;
 import mage.cards.repository.DatabaseUtils;
@@ -114,14 +113,8 @@ public class AuthorizedUserRepository {
     }
 
     public void closeDB() {
-        try {
-            if (usersDao != null && usersDao.getConnectionSource() != null) {
-                DatabaseConnection conn = usersDao.getConnectionSource().getReadWriteConnection(usersDao.getTableName());
-                conn.executeStatement("SHUTDOWN IMMEDIATELY", DatabaseConnection.DEFAULT_RESULT_FLAGS);
-                usersDao.getConnectionSource().releaseConnection(conn);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AuthorizedUserRepository.class).error("Error closing authorized_user repository - ", ex);
+        if (usersDao != null && usersDao.getConnectionSource() != null) {
+            usersDao.getConnectionSource().closeQuietly();
         }
     }
 
@@ -147,9 +140,9 @@ public class AuthorizedUserRepository {
         try {
             Logger.getLogger(AuthorizedUserRepository.class).info("Starting " + VERSION_ENTITY_NAME + " DB migration from version 1 to version 2");
             usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN active BOOLEAN DEFAULT true;");
-            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN lockedUntil DATETIME;");
-            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN chatLockedUntil DATETIME;");
-            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN lastConnection DATETIME;");
+            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN lockedUntil TIMESTAMP;");
+            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN chatLockedUntil TIMESTAMP;");
+            usersDao.executeRaw("ALTER TABLE authorized_user ADD COLUMN lastConnection TIMESTAMP;");
             RepositoryUtil.updateVersion(usersDao.getConnectionSource(), VERSION_ENTITY_NAME, DB_VERSION);
             Logger.getLogger(AuthorizedUserRepository.class).info("Migration finished.");
             return true;

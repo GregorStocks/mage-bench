@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.17",
-    "astro": "^5.17.1",
+    "astro": "^6.0.3",
     "chart.js": "^4.5.1"
   },
   "devDependencies": {
@@ -22,6 +22,6 @@
     "json-schema-to-typescript": "^15.0.4",
     "markdownlint-cli2": "^0.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.0"
   }
 }
