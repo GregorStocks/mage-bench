@@ -6,9 +6,7 @@ evaluation matches golden reference files, catching regressions in prompt
 assembly (format, context, card references).
 
 To update golden files after intentional changes:
-    UPDATE_BLUNDER_GOLDEN=1 make test
-    # or:
-    make update-blunder-golden
+    make regen-blunder-golden
 """
 
 import gzip

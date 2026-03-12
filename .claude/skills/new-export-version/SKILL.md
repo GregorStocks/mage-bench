@@ -89,14 +89,14 @@ MIGRATIONS = [
 
 These files reference the schema filename and need updating:
 
-- `Makefile` (`schema-types` and `verify-schema-types` targets) → `game-export-v{N+1}.schema.json`
+- `Makefile` (`regen-schema-types` and `verify-schema-types` targets) → `game-export-v{N+1}.schema.json`
 - `.claude/hooks/enforce-agents-rules.py` — no change needed (uses glob pattern)
 - `doc/export-schema.md` — update prose reference if it mentions a specific version
 
 ## Step 7: Regenerate TypeScript types
 
 ```bash
-make schema-types
+make regen-schema-types
 ```
 
 Verify the generated types look correct in `website/src/types/game-export.d.ts`.

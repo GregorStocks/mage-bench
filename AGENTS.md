@@ -38,11 +38,11 @@ EOF
 ```bash
 make build            # Full Java build
 make check            # Lint + typecheck + tests
-make mcp-tools        # Compile + regenerate tool definitions
+make regen-mcp-tools  # Compile + regenerate tool definitions
 make website          # Leaderboard + npm install + dev server
-make run              # Build + run a game
+make run              # Run a game
 make test             # Python tests
-make games-to-analyze # List games needing fast-analysis
+make list-games-to-analyze # List games needing fast-analysis
 ```
 
 ## Local Testing
@@ -50,7 +50,7 @@ make games-to-analyze # List games needing fast-analysis
 Free configs for testing (no API keys needed):
 
 ```bash
-make run                           # 2 CPU Standard duel
+make run                           # 2 CPU Jumpstart duel
 ```
 
 ## Coding Style: Fail Fast

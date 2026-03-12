@@ -4,7 +4,7 @@ Two paths for visually inspecting the UI: extracting frames from game recordings
 
 ## Java Swing UI
 
-Every game run with `--observer --record` (the default for `make run-dumb`, `make run-llm`, etc.) saves a video recording to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/recording.mov`. Extract a frame with:
+Every game run with `--observer --record` (the default for `make run` and other `make run CONFIG=...` invocations) saves a video recording to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/recording.mov`. Extract a frame with:
 
 ```bash
 make screenshot

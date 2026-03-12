@@ -1518,7 +1518,7 @@ def run_orchestrator(config: Config, project_root: Path | None = None) -> Orches
             logger.error("LLM players configured without required API keys:")
             for missing in missing_llm_keys:
                 logger.error("  - %s", missing)
-            logger.error("Set the required key(s) or use a non-LLM config (e.g. make run-dumb).")
+            logger.error("Set the required key(s) or use a non-LLM config (e.g. make run).")
             return OrchestratorRunResult(exit_code=2)
 
         # Set timestamp

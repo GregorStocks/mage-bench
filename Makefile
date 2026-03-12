@@ -2,7 +2,7 @@
 
 # The target directory is used for setting where the output zip files will end up
 # You can override this with an environment variable, ex
-# TARGET_DIR=my_custom_directory make deploy
+# TARGET_DIR=my_custom_directory make package
 # Alternatively, you can set this variable in the .env file
 TARGET_DIR ?= deploy/
 
@@ -62,12 +62,12 @@ check:
 test-golden:
 	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
 
-.PHONY: update-golden
-update-golden:
+.PHONY: regen-golden
+regen-golden:
 	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
 
-.PHONY: update-blunder-golden
-update-blunder-golden:
+.PHONY: regen-blunder-golden
+regen-blunder-golden:
 	UPDATE_BLUNDER_GOLDEN=1 uv run --project puppeteer pytest puppeteer/tests/test_blunder_golden_prompts.py -v
 
 .PHONY: build
@@ -98,8 +98,8 @@ leaderboard:
 
 # Build the website (Astro static site).
 # Only rebuilds when dist/ is missing; delete dist/ to force a rebuild.
-.PHONY: website-build
-website-build: leaderboard
+.PHONY: build-website
+build-website: leaderboard
 	@if [ ! -d website/dist ]; then echo "Building website..."; cd website && npm install --prefer-offline --no-audit --no-fund && npx astro build; fi
 
 # Run a game. CONFIG selects a config from configs/ (or a path to a custom file).
@@ -122,14 +122,14 @@ run:
 	  --config "$$CONFIG_PATH" $(ARGS)
 
 # List available configs
-.PHONY: configs
-configs:
+.PHONY: list-configs
+list-configs:
 	@for f in configs/*.json; do printf "  %s\n" "$$(basename $$f .json)"; done
 
 # Generate mcp-tools.json with MCP tool definitions
 # Compiles first to pick up any Java source changes.
-.PHONY: mcp-tools
-mcp-tools:
+.PHONY: regen-mcp-tools
+regen-mcp-tools:
 	cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../website/src/data/mcp-tools.json
 
 # Launch the desktop client (for image downloads, deck building, etc.)
@@ -214,25 +214,25 @@ blunder-baseline:
 	uv run --project puppeteer python scripts/analysis/blunder_baseline.py
 
 # Generate TypeScript types from the JSON Schema
-.PHONY: schema-types
-schema-types:
+.PHONY: regen-schema-types
+regen-schema-types:
 	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v7.schema.json > src/types/game-export.d.ts
 
 # Verify generated TypeScript types are up to date
 .PHONY: verify-schema-types
 verify-schema-types:
 	@cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v7.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
-		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make schema-types' to regenerate." && exit 1)
+		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate." && exit 1)
 
 # Verify mcp-tools.json is up to date with McpServer.java
 .PHONY: verify-mcp-tools
 verify-mcp-tools:
 	@cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
 		| diff -q - ../website/src/data/mcp-tools.json > /dev/null 2>&1 \
-		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make mcp-tools' to regenerate." && exit 1)
+		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate." && exit 1)
 
-.PHONY: games-to-analyze
-games-to-analyze:
+.PHONY: list-games-to-analyze
+list-games-to-analyze:
 	uv run --project puppeteer python scripts/analysis/find_unanalyzed.py $(ARGS)
 
 .PHONY: blunder-eval

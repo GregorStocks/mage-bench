@@ -150,10 +150,10 @@ When you have creatures, `pass_priority` after a land play will hit the Declare 
 
 1. Run `make check` to verify lint/typecheck/unit tests pass.
 
-2. Run `make update-golden` to generate the golden prompt JSON:
+2. Run `make regen-golden` to generate the golden prompt JSON:
 
    ```bash
-   make update-golden
+   make regen-golden
    ```
 
    This starts an XMage server, runs all golden tests, and writes the golden files. If the script has errors (wrong IDs, wrong indices), the test will fail with details about what went wrong. Fix the script and re-run.
@@ -164,7 +164,7 @@ When you have creatures, `pass_priority` after a land play will hit the Declare 
    - Targets are correct
    - No error responses in the tool results
 
-4. If the script produced errors (e.g., `"error_code":"invalid_choice"`), examine the error to understand what choices were actually available, fix the script, and re-run `make update-golden`.
+4. If the script produced errors (e.g., `"error_code":"invalid_choice"`), examine the error to understand what choices were actually available, fix the script, and re-run `make regen-golden`.
 
 ## Step 6: Commit and PR
 

@@ -76,7 +76,7 @@ After editing, regenerate the tools JSON:
 
 ```bash
 mvn -pl Mage.Client.Bridge -am compile -q
-make mcp-tools
+make regen-mcp-tools
 ```
 
 ### Step 5: Update the analysis script if needed

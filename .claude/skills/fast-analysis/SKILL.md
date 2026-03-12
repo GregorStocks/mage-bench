@@ -30,7 +30,7 @@ Determine which game(s) to analyze:
 - **If no game specified at all**, find the most recent unanalyzed games:
 
   ```bash
-  make games-to-analyze
+  make list-games-to-analyze
   ```
 
   This cross-references all game exports in `website/public/games/` (both `.json` and `.json.gz`) against existing analysis files in `doc/claudes/analyses/fast/` and prints the unanalyzed ones newest-first. Use `ARGS="--count N"` to change the number. Games are automatically skipped if 30+ fast-analysis runs have been done on newer games — at that point, any bugs from the old game have almost certainly already been identified. Use `ARGS="--max-staleness 0"` to disable this filter.
