@@ -8,29 +8,6 @@
     "role": "user"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "pass_priority"
-        },
-        "id": "call_1",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=0 lib=60 | Opponent: 20hp lib=60\n  Message: Select a starting player\n  Choices (2): TestPlayer [id=p2], Opponent [id=p1]\n  Respond: choice=pN — must pick a target",
-    "role": "tool",
-    "tool_call_id": "call_1"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -41,7 +18,7 @@
           },
           "name": "choose_action"
         },
-        "id": "call_2",
+        "id": "call_1",
         "type": "function"
       }
     ]
@@ -49,7 +26,7 @@
   {
     "content": "## Card Reference\n- Mana Drain {U}{U}: Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\n- Sol Ring {1}: {T}: Add {C}{C}.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Island, Mana Drain, Sol Ring] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
-    "tool_call_id": "call_2"
+    "tool_call_id": "call_1"
   },
   {
     "content": null,
@@ -57,12 +34,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 2
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_3",
+        "id": "call_2",
         "type": "function"
       }
     ]
@@ -70,7 +45,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
-    "tool_call_id": "call_3"
+    "tool_call_id": "call_2"
   },
   {
     "content": null,
@@ -83,13 +58,32 @@
           },
           "name": "choose_action"
         },
-        "id": "call_4",
+        "id": "call_3",
         "type": "function"
       }
     ]
   },
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Island, Mana Drain, Sol Ring] lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p10, land], Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "role": "tool",
+    "tool_call_id": "call_3"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
+        "id": "call_4",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p10, land], Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -100,9 +94,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 3
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_5",
         "type": "function"
@@ -110,7 +104,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p10, land], Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain, Sol Ring] lib=53 bf=[Island] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (1): Sol Ring [id=p16, cast, {1}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -131,7 +125,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain, Sol Ring] lib=53 bf=[Island] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (1): Sol Ring [id=p16, cast, {1}]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=53 bf=[Island (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Sol Ring]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -142,9 +136,9 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "until": "my_turn"
           },
-          "name": "choose_action"
+          "name": "pass_priority"
         },
         "id": "call_7",
         "type": "function"
@@ -152,7 +146,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=53 bf=[Island (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Sol Ring]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p25, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -163,8 +157,7 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 5,
-            "until": "my_turn"
+            "until": "precombat_main"
           },
           "name": "pass_priority"
         },
@@ -174,7 +167,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p25, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p25, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -185,10 +178,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 6,
-            "until": "precombat_main"
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_9",
         "type": "function"
@@ -196,7 +188,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Island [id=p11, land], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p25, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -206,10 +198,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_10",
         "type": "function"
@@ -217,7 +207,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Island, Sol Ring] | Opponent: 20hp hand=7 lib=52 bf=[Plains]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Island, Sol Ring] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains]\n  Stack: [Savannah Lions]\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (1): Mana Drain [id=p15, cast, {U}{U}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -228,9 +218,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 7
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_11",
         "type": "function"
@@ -238,7 +228,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island, Mana Drain] lib=52 bf=[Island, Island, Sol Ring] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains]\n  Stack: [Savannah Lions]\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (1): Mana Drain [id=p15, cast, {U}{U}]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains]\n  Stack: [Mana Drain -> {'name': 'Savannah Lions', 'id': 'p27'}, Savannah Lions]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -249,9 +239,9 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "until": "my_turn"
           },
-          "name": "choose_action"
+          "name": "pass_priority"
         },
         "id": "call_12",
         "type": "function"
@@ -259,7 +249,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains]\n  Stack: [Mana Drain -> {'name': 'Savannah Lions', 'id': 'p27'}, Savannah Lions]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Card Reference\n- Fact or Fiction {3}{U}: Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Fact or Fiction, Island, Island, Island, Island] lib=51 bf=[Island, Island, Sol Ring] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (1): Fact or Fiction [id=p29, cast, {3}{U}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -270,8 +260,7 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 9,
-            "until": "my_turn"
+            "until": "precombat_main"
           },
           "name": "pass_priority"
         },
@@ -281,31 +270,9 @@
     ]
   },
   {
-    "content": "## Card Reference\n- Fact or Fiction {3}{U}: Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Fact or Fiction, Island, Island, Island, Island] lib=51 bf=[Island, Island, Sol Ring] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (1): Fact or Fiction [id=p29, cast, {3}{U}]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=5 lib=51 bf=[Island, Island, Sol Ring] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (1): Fact or Fiction [id=p29, cast, {3}{U}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 10,
-            "until": "precombat_main"
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_14",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=5 lib=51 bf=[Island, Island, Sol Ring] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (1): Fact or Fiction [id=p29, cast, {3}{U}]\n  Respond: choice=pN to play, or choice=no to pass",
-    "role": "tool",
-    "tool_call_id": "call_14"
   },
   {
     "content": null,
@@ -319,15 +286,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_15",
+        "id": "call_14",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=51 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Fact or Fiction, Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=51 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Fact or Fiction, Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_15"
+    "tool_call_id": "call_14"
   },
   {
     "content": null,
@@ -335,20 +302,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 11
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_16",
+        "id": "call_15",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=4 lib=51 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Fact or Fiction, Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Choose a pile to put into hand.\n  Choices (0): \n  Respond: pile=1 or pile=2",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=4 lib=51 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Mana Drain] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Fact or Fiction, Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Choose a pile to put into hand.\n  Choices (0): \n  Respond: pile=1 or pile=2\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_16"
+    "tool_call_id": "call_15"
   },
   {
     "content": null,
@@ -361,445 +326,218 @@
           },
           "name": "choose_action"
         },
+        "id": "call_16",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Card Reference\n- Air Elemental {3}{U}{U} 4/4: Flying\n- Djinn of Wishes: Flying / {this} enters with three wish counters on it. / {2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\n- Mind Control: Enchant creature / You control enchanted creature.\n- Serra Angel: Flying / Vigilance\n- Shivan Dragon: Flying / {R}: {this} gets +1/+0 until end of turn.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Air Elemental, Island, Island, Island, Island] lib=46 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Djinn of Wishes, Fact or Fiction, Mana Drain, Mind Control, Serra Angel, Shivan Dragon] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "role": "tool",
+    "tool_call_id": "call_16"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_state"
+        },
         "id": "call_17",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Card Reference\n- Air Elemental {3}{U}{U} 4/4: Flying\n- Djinn of Wishes: Flying / {this} enters with three wish counters on it. / {2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\n- Mind Control: Enchant creature / You control enchanted creature.\n- Serra Angel: Flying / Vigilance\n- Shivan Dragon: Flying / {R}: {this} gets +1/+0 until end of turn.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Air Elemental, Island, Island, Island, Island] lib=46 bf=[Island (tapped), Island (tapped), Sol Ring (tapped)] gy=[Djinn of Wishes, Fact or Fiction, Mana Drain, Mind Control, Serra Angel, Shivan Dragon] | Opponent: 20hp hand=6 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions]\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 101,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Djinn of Wishes",
+              "rules": [
+                "Flying",
+                "{this} enters with three wish counters on it.",
+                "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Fact or Fiction",
+              "rules": [
+                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mind Control",
+              "rules": [
+                "Enchant creature",
+                "You control enchanted creature."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Serra Angel",
+              "rules": [
+                "Flying",
+                "Vigilance"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Shivan Dragon",
+              "rules": [
+                "Flying",
+                "{R}: {this} gets +1/+0 until end of turn."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}{U}",
+              "name": "Air Elemental",
+              "power": 4,
+              "rules": [
+                "Flying"
+              ],
+              "toughness": 4
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 46,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Ability",
+          "rules": [
+            "At the beginning of your next main phase, add {C}."
+          ],
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "step": "Precombat Main",
+      "turn": 3
+    },
     "role": "tool",
     "tool_call_id": "call_17"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_18",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 101,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Sol Ring",
-              "rules": [
-                "{T}: Add {C}{C}."
-              ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Djinn of Wishes",
-              "rules": [
-                "Flying",
-                "{this} enters with three wish counters on it.",
-                "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Fact or Fiction",
-              "rules": [
-                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mana Drain",
-              "rules": [
-                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mind Control",
-              "rules": [
-                "Enchant creature",
-                "You control enchanted creature."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Serra Angel",
-              "rules": [
-                "Flying",
-                "Vigilance"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Shivan Dragon",
-              "rules": [
-                "Flying",
-                "{R}: {this} gets +1/+0 until end of turn."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}{U}",
-              "name": "Air Elemental",
-              "power": 4,
-              "rules": [
-                "Flying"
-              ],
-              "toughness": 4
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 5,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 46,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand_size": 6,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [
-        {
-          "id": "_",
-          "name": "Ability",
-          "rules": [
-            "At the beginning of your next main phase, add {C}."
-          ],
-          "targets": [
-            {
-              "id": "_",
-              "name": "TestPlayer (you)"
-            }
-          ]
-        }
-      ],
-      "step": "Precombat Main",
-      "turn": 3
-    },
-    "role": "tool",
-    "tool_call_id": "call_18"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_19",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 101,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Sol Ring",
-              "rules": [
-                "{T}: Add {C}{C}."
-              ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Djinn of Wishes",
-              "rules": [
-                "Flying",
-                "{this} enters with three wish counters on it.",
-                "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Fact or Fiction",
-              "rules": [
-                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mana Drain",
-              "rules": [
-                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mind Control",
-              "rules": [
-                "Enchant creature",
-                "You control enchanted creature."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Serra Angel",
-              "rules": [
-                "Flying",
-                "Vigilance"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Shivan Dragon",
-              "rules": [
-                "Flying",
-                "{R}: {this} gets +1/+0 until end of turn."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}{U}",
-              "name": "Air Elemental",
-              "power": 4,
-              "rules": [
-                "Flying"
-              ],
-              "toughness": 4
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 5,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 46,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand_size": 6,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [
-        {
-          "id": "_",
-          "name": "Ability",
-          "rules": [
-            "At the beginning of your next main phase, add {C}."
-          ],
-          "targets": [
-            {
-              "id": "_",
-              "name": "TestPlayer (you)"
-            }
-          ]
-        }
-      ],
-      "step": "Precombat Main",
-      "turn": 3
-    },
-    "role": "tool",
-    "tool_call_id": "call_19"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_history"
-        },
-        "id": "call_20",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "cursor": 32,
-      "event_count": 32,
-      "history": "Turn 1:\n    - TestPlayer drew Mana Drain\n    - TestPlayer drew Sol Ring\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Fact or Fiction\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
-    },
-    "role": "tool",
-    "tool_call_id": "call_20"
   }
 ]

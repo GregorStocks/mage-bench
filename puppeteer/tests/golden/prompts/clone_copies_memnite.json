@@ -8,23 +8,8 @@
     "role": "user"
   },
   {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "pass_priority"
-        },
-        "id": "call_1",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=0 lib=60 | Opponent: 20hp lib=60\n  Message: Select a starting player\n  Choices (2): TestPlayer [id=p2], Oppo",
-    "role": "tool",
-    "tool_call_id": "call_1"
+    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 4 permanents, 4 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -37,15 +22,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_2",
+        "id": "call_1",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Card Reference\n- Black Lotus {0}: {T}, Sacrifice {this}: Add three mana of any one color.\n- Clone {3}{U} 0/0: You may have {this} enter as a copy of any creature on the battlefield.\n\n## Decision\n\n[",
+    "content": "## Card Reference\n- Black Lotus {0}: {T}, Sacrifice {this}: Add three mana of any one color.\n- Clone {3}{U} 0/0: You may have {this} enter as a copy of any creature on the battlefield.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
-    "tool_call_id": "call_2"
+    "tool_call_id": "call_1"
   },
   {
     "content": null,
@@ -53,20 +38,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 2
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_3",
+        "id": "call_2",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes ",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
-    "tool_call_id": "call_3"
+    "tool_call_id": "call_2"
   },
   {
     "content": null,
@@ -79,19 +62,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_4",
+        "id": "call_3",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=53 | Opponent: 20hp hand=7 lib",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Black Lotus [id=p10, cast, {0}], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_4"
-  },
-  {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
+    "tool_call_id": "call_3"
   },
   {
     "content": null,
@@ -99,12 +78,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 3
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_5",
+        "id": "call_4",
         "type": "function"
       }
     ]
@@ -112,7 +89,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Black Lotus [id=p10, cast, {0}], Island [id=p12, land], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_5"
+    "tool_call_id": "call_4"
   },
   {
     "content": null,
@@ -125,13 +102,32 @@
           },
           "name": "choose_action"
         },
-        "id": "call_6",
+        "id": "call_5",
         "type": "function"
       }
     ]
   },
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Memnite] lib=53 bf=[Island] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (2): Black Lotus [id=p10, cast, {0}], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
+    "role": "tool",
+    "tool_call_id": "call_5"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
+        "id": "call_6",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Black Lotus [id=p10, cast, {0}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -142,9 +138,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 4
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_7",
         "type": "function"
@@ -152,7 +148,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Black Lotus [id=p10, cast, {0}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -162,10 +158,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_8",
         "type": "function"
@@ -173,7 +167,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -184,9 +178,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 5
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_9",
         "type": "function"
@@ -194,7 +188,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Black Lotus]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -204,10 +198,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_10",
         "type": "function"
@@ -215,30 +207,9 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Black Lotus]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Clone [id=p11, cast, {3}{U}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_10"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 6
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_11",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Clone [id=p11, cast, {3}{U}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Memnite [id=p16, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
-    "role": "tool",
-    "tool_call_id": "call_11"
   },
   {
     "content": null,
@@ -251,13 +222,32 @@
           },
           "name": "choose_action"
         },
+        "id": "call_11",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "role": "tool",
+    "tool_call_id": "call_11"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
         "id": "call_12",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -268,9 +258,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 7
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_13",
         "type": "function"
@@ -278,7 +268,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Memnite]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -288,10 +278,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_14",
         "type": "function"
@@ -299,7 +287,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Memnite]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island] lib=52 bf=[Black Lotus, Island, Memnite 1/1 (sick)] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Clone [id=p11, cast, {3}{U}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -310,9 +298,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 8
+            "choice": 0
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_15",
         "type": "function"
@@ -320,7 +308,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island] lib=52 bf=[Black Lotus, Island, Memnite 1/1 (sick)] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Clone [id=p11, cast, {3}{U}], Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Clone]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -330,10 +318,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_16",
         "type": "function"
@@ -341,30 +327,9 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Clone]\n  Land drops remaining: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=4 lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Clone]\n  Land drops remaining: 1\n  Message: Use effect of Clone?\n  Choices (0): \n  Respond: choice=yes or choice=no\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_16"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 10
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_17",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=4 lib=52 bf=[Island (tapped), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Clone]\n  Land drops remaining: 1\n  Message: Use effect of Clone?\n  Choices (0): \n  Respond: choice=yes or choice=no",
-    "role": "tool",
-    "tool_call_id": "call_17"
   },
   {
     "content": null,
@@ -377,7 +342,7 @@
           },
           "name": "choose_action"
         },
-        "id": "call_18",
+        "id": "call_17",
         "type": "function"
       }
     ]
@@ -390,7 +355,7 @@
       "warning": "Action changed before choices were fetched"
     },
     "role": "tool",
-    "tool_call_id": "call_18"
+    "tool_call_id": "call_17"
   },
   {
     "content": null,
@@ -398,20 +363,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 10
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_19",
+        "id": "call_18",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (4): Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=52 bf=[Island (tapped), Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (4): Island [id=p13, land], Island [id=p14, land], Island [id=p15, land], Island [id=p24, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_19"
+    "tool_call_id": "call_18"
   },
   {
     "content": null,
@@ -424,13 +387,32 @@
           },
           "name": "choose_action"
         },
+        "id": "call_19",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island] lib=52 bf=[Island (tapped), Island, Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "role": "tool",
+    "tool_call_id": "call_19"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
         "id": "call_20",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island] lib=52 bf=[Island (tapped), Island, Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=51 bf=[Island, Island, Memnite 1/1 (copy of Clone), Memnite 1/1] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (4): Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Island [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_20"
   },
@@ -440,10 +422,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 12
-          },
-          "name": "pass_priority"
+          "arguments": {},
+          "name": "get_game_state"
         },
         "id": "call_21",
         "type": "function"
@@ -451,325 +431,136 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=51 bf=[Island, Island, Memnite 1/1 (copy of Clone), Memnite 1/1] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (4): Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Island [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 81,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "copy": true,
+              "id": "_",
+              "modified": true,
+              "name": "Memnite",
+              "original_card": "Clone",
+              "power": 1,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Black Lotus",
+              "rules": [
+                "{T}, Sacrifice {this}: Add three mana of any one color."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 4,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Precombat Main",
+      "turn": 3
+    },
     "role": "tool",
     "tool_call_id": "call_21"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_22",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 81,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "copy": true,
-              "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 4,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Precombat Main",
-      "turn": 3
-    },
-    "role": "tool",
-    "tool_call_id": "call_22"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_23",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 81,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
-            },
-            {
-              "copy": true,
-              "id": "_",
-              "modified": true,
-              "name": "Memnite",
-              "original_card": "Clone",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "power": 1,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 1
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "playable": true,
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            }
-          ],
-          "hand_size": 4,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Precombat Main",
-      "turn": 3
-    },
-    "role": "tool",
-    "tool_call_id": "call_23"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_history"
-        },
-        "id": "call_24",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "cursor": 29,
-      "event_count": 29,
-      "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
-    },
-    "role": "tool",
-    "tool_call_id": "call_24"
   }
 ]

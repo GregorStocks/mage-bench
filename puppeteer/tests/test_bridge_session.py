@@ -58,6 +58,25 @@ class TestBridgeSession:
         assert names == ["pass_priority", "get_game_state"]
 
     @patch("urllib.request.urlopen")
+    def test_list_tool_defs_returns_raw_metadata(self, mock_urlopen):
+        tools_result = {
+            "tools": [
+                {
+                    "name": "pass_priority",
+                    "description": "Pass until the next decision",
+                    "inputSchema": {"type": "object", "properties": {"until": {"type": "string"}}},
+                }
+            ]
+        }
+        response = {"jsonrpc": "2.0", "id": 1, "result": tools_result}
+        mock_urlopen.return_value = _mock_http_response(response)
+
+        bridge = BridgeSession("http://localhost:9999/mcp")
+        tool_defs = bridge.list_tool_defs()
+
+        assert tool_defs == tools_result["tools"]
+
+    @patch("urllib.request.urlopen")
     def test_rpc_error_raises(self, mock_urlopen):
         response = {"jsonrpc": "2.0", "id": 1, "error": {"code": -32603, "message": "boom"}}
         mock_urlopen.return_value = _mock_http_response(response)

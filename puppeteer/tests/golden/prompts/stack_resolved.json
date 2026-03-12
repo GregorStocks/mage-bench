@@ -13,8 +13,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
-          "name": "pass_priority"
+          "arguments": {
+            "choice": 0
+          },
+          "name": "choose_action"
         },
         "id": "call_1",
         "type": "function"
@@ -22,7 +24,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=0 lib=60 | Opponent: 20hp lib=60\n  Message: Select a starting player\n  Choices (2): TestPlayer [id=p2], Opponent [id=p1]\n  Respond: choice=pN — must pick a target",
+    "content": "## Card Reference\n- Badlands -- Land: {T}: Add {B}. / {T}: Add {R}.\n- Lightning Bolt {R}: {this} deals 3 damage to any target.\n- Plateau -- Land: {T}: Add {R}. / {T}: Add {W}.\n- Taiga -- Land: {T}: Add {G}. / {T}: Add {R}.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Mountain, Plateau, Taiga] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -32,10 +34,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_2",
         "type": "function"
@@ -43,30 +43,9 @@
     ]
   },
   {
-    "content": "## Card Reference\n- Badlands -- Land: {T}: Add {B}. / {T}: Add {R}.\n- Lightning Bolt {R}: {this} deals 3 damage to any target.\n- Plateau -- Land: {T}: Add {R}. / {T}: Add {W}.\n- Taiga -- Land: {T}: Add {G}. / {T}: Add {R}.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Mountain, Plateau, Taiga] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
-    "role": "tool",
-    "tool_call_id": "call_2"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 2
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_3",
-        "type": "function"
-      }
-    ]
-  },
-  {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
-    "tool_call_id": "call_3"
+    "tool_call_id": "call_2"
   },
   {
     "content": null,
@@ -79,7 +58,7 @@
           },
           "name": "choose_action"
         },
-        "id": "call_4",
+        "id": "call_3",
         "type": "function"
       }
     ]
@@ -87,7 +66,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Mountain, Plateau, Taiga] lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Badlands [id=p10, land], Memnite [id=p13, cast, {0}], Mountain [id=p14, land], Plateau [id=p15, land], Taiga [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_4"
+    "tool_call_id": "call_3"
   },
   {
     "content": null,
@@ -95,12 +74,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 3
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_5",
+        "id": "call_4",
         "type": "function"
       }
     ]
@@ -108,7 +85,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (5): Badlands [id=p10, land], Memnite [id=p13, cast, {0}], Mountain [id=p14, land], Plateau [id=p15, land], Taiga [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_5"
+    "tool_call_id": "call_4"
   },
   {
     "content": null,
@@ -121,7 +98,7 @@
           },
           "name": "choose_action"
         },
-        "id": "call_6",
+        "id": "call_5",
         "type": "function"
       }
     ]
@@ -129,7 +106,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (3): Lightning Bolt [id=p11, cast, {R}], Lightning Bolt [id=p12, cast, {R}], Memnite [id=p13, cast, {0}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_6"
+    "tool_call_id": "call_5"
   },
   {
     "content": null,
@@ -137,12 +114,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 4
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_7",
+        "id": "call_6",
         "type": "function"
       }
     ]
@@ -150,7 +125,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain] | Opponent: 20hp hand=8 lib=52\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (2): Lightning Bolt [id=p11, cast, {R}], Lightning Bolt [id=p12, cast, {R}]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
-    "tool_call_id": "call_7"
+    "tool_call_id": "call_6"
   },
   {
     "content": null,
@@ -163,7 +138,7 @@
           },
           "name": "choose_action"
         },
-        "id": "call_8",
+        "id": "call_7",
         "type": "function"
       }
     ]
@@ -171,7 +146,7 @@
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain] | Opponent: 20hp hand=8 lib=52\n  Stack: [Lightning Bolt]\n  Untapped lands: 1\n  Message: Select any target\n  Choices (2): TestPlayer [id=p2], Opponent [id=p1]\n  Respond: choice=pN, or choice=no to cancel",
     "role": "tool",
-    "tool_call_id": "call_8"
+    "tool_call_id": "call_7"
   },
   {
     "content": null,
@@ -184,13 +159,34 @@
           },
           "name": "choose_action"
         },
-        "id": "call_9",
+        "id": "call_8",
         "type": "function"
       }
     ]
   },
   {
     "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain (tapped)] | Opponent: 20hp hand=8 lib=52\n  Stack: [Lightning Bolt -> {'name': 'Opponent', 'id': 'p1'}]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "role": "tool",
+    "tool_call_id": "call_8"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "until": "stack_resolved"
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_9",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain (tapped)] gy=[Lightning Bolt] | Opponent: 17hp hand=8 lib=52\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -200,11 +196,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 7,
-            "until": "stack_resolved"
-          },
-          "name": "pass_priority"
+          "arguments": {},
+          "name": "get_game_state"
         },
         "id": "call_10",
         "type": "function"
@@ -212,251 +205,99 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain (tapped)] gy=[Lightning Bolt] | Opponent: 17hp hand=8 lib=52\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": {
+      "active_player": "Opponent",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 32,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 52,
+          "life": 17,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Precombat Main",
+      "turn": 1
+    },
     "role": "tool",
     "tool_call_id": "call_10"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_11",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "Opponent",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 32,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{R}",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
-              "power": 1,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 5,
-          "is_active": false,
-          "is_you": true,
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "hand_size": 8,
-          "is_active": true,
-          "is_you": false,
-          "library_size": 52,
-          "life": 17,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Precombat Main",
-      "turn": 1
-    },
-    "role": "tool",
-    "tool_call_id": "call_11"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_12",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "Opponent",
-      "available": true,
-      "cursor": 1,
-      "game_seq": 32,
-      "phase": "Precombat Main",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{R}",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
-              "power": 1,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 5,
-          "is_active": false,
-          "is_you": true,
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "hand_size": 8,
-          "is_active": true,
-          "is_you": false,
-          "library_size": 52,
-          "life": 17,
-          "name": "Opponent"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Precombat Main",
-      "turn": 1
-    },
-    "role": "tool",
-    "tool_call_id": "call_12"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_history"
-        },
-        "id": "call_13",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "cursor": 20,
-      "event_count": 20,
-      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
-    },
-    "role": "tool",
-    "tool_call_id": "call_13"
   }
 ]

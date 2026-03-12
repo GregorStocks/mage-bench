@@ -43,184 +43,6 @@
   "cardImages": {},
   "decisions": [
     {
-      "actionResult": {
-        "action_pending": true,
-        "action_taken": "auto_selected_required_target",
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p11",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p14",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              },
-              {
-                "id": "p15",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              },
-              {
-                "id": "p16",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 43,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 2,
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "choice=yes or choice=no",
-        "response_type": "boolean",
-        "success": true,
-        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
-        "your_hand": [
-          {
-            "is_land": true,
-            "name": "Ancient Tomb",
-            "rules": [
-              "{T}: Add {C}{C}. {this} deals 2 damage to you."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Ancient Tomb",
-            "rules": [
-              "{T}: Add {C}{C}. {this} deals 2 damage to you."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Ancient Tomb",
-            "rules": [
-              "{T}: Add {C}{C}. {this} deals 2 damage to you."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Ancient Tomb",
-            "rules": [
-              "{T}: Add {C}{C}. {this} deals 2 damage to you."
-            ]
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Blood Moon",
-            "rules": [
-              "Nonbasic lands are Mountains."
-            ]
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Blood Moon",
-            "rules": [
-              "Nonbasic lands are Mountains."
-            ]
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Blood Moon",
-            "rules": [
-              "Nonbasic lands are Mountains."
-            ]
-          }
-        ]
-      },
-      "actionSeq": 1,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "id": "p2",
-          "index": 0,
-          "is_you": true,
-          "name": "TestPlayer",
-          "target_type": "player"
-        },
-        {
-          "id": "p1",
-          "index": 1,
-          "name": "Opponent",
-          "target_type": "player"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "index": 0
-      },
-      "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
-        1,
-        2
-      ],
-      "message": "Select a starting player",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "index",
-      "snapshotIndex": 0,
-      "step": null,
-      "subsequentActions": [],
-      "turn": 1
-    },
-    {
       "actionResult": {},
       "actionSeq": 1,
       "actionType": "GAME_ASK",
@@ -228,10 +50,11 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 1,
+      "index": 0,
       "isForced": false,
       "llmEventIndices": [
-        2
+        2,
+        3
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
@@ -260,11 +83,12 @@
       "chosenArgs": {
         "answer": false
       },
-      "index": 2,
+      "index": 1,
       "isForced": false,
       "llmEventIndices": [
-        3,
-        4
+        4,
+        5,
+        6
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
@@ -283,10 +107,11 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 3,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
-        5
+        8,
+        9
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
@@ -320,71 +145,32 @@
         "choose_action",
         "concede"
       ],
-      "model": "",
+      "model": "google/gemini-2.0-flash-001",
       "player": "TestPlayer",
       "seq": 1,
       "type": "game_start"
     },
     {
-      "args": {},
-      "gameSeq": 1,
+      "costUsd": 0.0,
       "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "hand": [],
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 50,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 60,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 1,
-        "can_cancel": false,
-        "choices": [
-          {
-            "id": "p2",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p1",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Select a starting player",
-        "required": true,
-        "respond_with": "choice=pN — must pick a target",
-        "response_type": "index",
-        "stop_reason": "non_priority_action"
-      },
+      "reasoning": null,
       "seq": 2,
-      "tool": "pass_priority",
-      "type": "tool_call"
+      "toolCalls": [
+        {
+          "arguments": {
+            "index": 0
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "index": 0
       },
       "gameSeq": 1,
+      "latencyMs": 116,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -531,10 +317,25 @@
       "type": "tool_call"
     },
     {
+      "costUsd": 0.0,
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 4,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
       "args": {
         "board_cursor": 2
       },
       "gameSeq": 5,
+      "latencyMs": 2,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -599,15 +400,32 @@
           }
         ]
       },
-      "seq": 4,
+      "seq": 5,
       "tool": "pass_priority",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 6,
+      "toolCalls": [
+        {
+          "arguments": {
+            "answer": false
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "answer": false
       },
       "gameSeq": 5,
+      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
@@ -616,15 +434,30 @@
         "retryable": true,
         "success": false
       },
-      "seq": 5,
+      "seq": 7,
       "tool": "choose_action",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 8,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "board_cursor": 2
       },
       "gameSeq": 5,
+      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -689,13 +522,28 @@
           }
         ]
       },
-      "seq": 6,
+      "seq": 9,
       "tool": "pass_priority",
       "type": "tool_call"
     },
     {
+      "costUsd": 0.0,
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 10,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "get_game_state"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
       "args": {},
       "gameSeq": 5,
+      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "active_player": "",
@@ -782,113 +630,8 @@
         "stack": [],
         "turn": 1
       },
-      "seq": 7,
+      "seq": 11,
       "tool": "get_game_state",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 5,
-      "player": "TestPlayer",
-      "result": {
-        "active_player": "",
-        "available": true,
-        "cursor": 1,
-        "game_seq": 5,
-        "players": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p11",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Ancient Tomb",
-                "rules": [
-                  "{T}: Add {C}{C}. {this} deals 2 damage to you."
-                ]
-              },
-              {
-                "id": "p14",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              },
-              {
-                "id": "p15",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              },
-              {
-                "id": "p16",
-                "mana_cost": "{2}{R}",
-                "name": "Blood Moon",
-                "rules": [
-                  "Nonbasic lands are Mountains."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 43,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "priority_player": "",
-        "stack": [],
-        "turn": 1
-      },
-      "seq": 8,
-      "tool": "get_game_state",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": {
-        "cursor": 14,
-        "event_count": 14,
-        "history": "Turn 1:\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Ancient Tomb\n    - TestPlayer drew Blood Moon\n    - TestPlayer drew Blood Moon\n    - TestPlayer drew Blood Moon\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n"
-      },
-      "seq": 9,
-      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],
@@ -897,7 +640,7 @@
       "deckName": "Red Stompy",
       "name": "TestPlayer",
       "toolCallsFailed": 1,
-      "toolCallsOk": 7,
+      "toolCallsOk": 4,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -909,7 +652,8 @@
         "choose_action",
         "concede"
       ],
-      "type": "replay"
+      "totalCostUsd": 0.0,
+      "type": "pilot"
     },
     {
       "deckName": "Goblins",

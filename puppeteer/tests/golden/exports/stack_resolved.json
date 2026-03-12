@@ -122,187 +122,6 @@
   "cardImages": {},
   "decisions": [
     {
-      "actionResult": {
-        "action_pending": true,
-        "action_taken": "selected_target_0",
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Badlands",
-                "rules": [
-                  "{T}: Add {B}.",
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p11",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
-                "id": "p12",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
-                "id": "p13",
-                "mana_cost": "{0}",
-                "name": "Memnite",
-                "power": "1",
-                "toughness": "1"
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plateau",
-                "rules": [
-                  "{T}: Add {R}.",
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "is_land": true,
-                "name": "Taiga",
-                "rules": [
-                  "{T}: Add {G}.",
-                  "{T}: Add {R}."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 2,
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "choice=yes or choice=no",
-        "response_type": "boolean",
-        "success": true,
-        "your_hand": [
-          {
-            "is_land": true,
-            "name": "Badlands",
-            "rules": [
-              "{T}: Add {B}.",
-              "{T}: Add {R}."
-            ]
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt",
-            "rules": [
-              "{this} deals 3 damage to any target."
-            ]
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt",
-            "rules": [
-              "{this} deals 3 damage to any target."
-            ]
-          },
-          {
-            "mana_cost": "{0}",
-            "name": "Memnite",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "is_land": true,
-            "name": "Mountain",
-            "rules": [
-              "{T}: Add {R}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plateau",
-            "rules": [
-              "{T}: Add {R}.",
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Taiga",
-            "rules": [
-              "{T}: Add {G}.",
-              "{T}: Add {R}."
-            ]
-          }
-        ]
-      },
-      "actionSeq": 1,
-      "actionType": "GAME_TARGET",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "id": "p2",
-          "index": 0,
-          "is_you": true,
-          "name": "TestPlayer",
-          "target_type": "player"
-        },
-        {
-          "id": "p1",
-          "index": 1,
-          "name": "Opponent",
-          "target_type": "player"
-        }
-      ],
-      "chosen": 0,
-      "chosenArgs": {
-        "choice": "0"
-      },
-      "index": 0,
-      "isForced": false,
-      "llmEventIndices": [
-        1,
-        2
-      ],
-      "message": "Select a starting player",
-      "phase": null,
-      "player": "TestPlayer",
-      "responseType": "index",
-      "snapshotIndex": 0,
-      "step": null,
-      "subsequentActions": [],
-      "turn": 1
-    },
-    {
       "actionResult": {},
       "actionSeq": 1,
       "actionType": "GAME_ASK",
@@ -310,10 +129,11 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 1,
+      "index": 0,
       "isForced": false,
       "llmEventIndices": [
-        2
+        2,
+        3
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
@@ -466,11 +286,12 @@
       "chosenArgs": {
         "choice": "no"
       },
-      "index": 2,
+      "index": 1,
       "isForced": false,
       "llmEventIndices": [
-        3,
-        4
+        4,
+        5,
+        6
       ],
       "message": "Mulligan down to 6 cards?",
       "phase": null,
@@ -523,10 +344,11 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 3,
+      "index": 2,
       "isForced": false,
       "llmEventIndices": [
-        4
+        6,
+        7
       ],
       "message": "Play spells and abilities",
       "phase": null,
@@ -715,11 +537,12 @@
       "chosenArgs": {
         "choice": "p14"
       },
-      "index": 4,
+      "index": 3,
       "isForced": false,
       "llmEventIndices": [
-        5,
-        6
+        8,
+        9,
+        10
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
@@ -765,10 +588,11 @@
       ],
       "chosen": null,
       "chosenArgs": {},
-      "index": 5,
+      "index": 4,
       "isForced": false,
       "llmEventIndices": [
-        6
+        10,
+        11
       ],
       "message": "Play spells and abilities",
       "phase": "POSTCOMBAT_MAIN",
@@ -922,11 +746,12 @@
       "chosenArgs": {
         "choice": "0"
       },
-      "index": 6,
+      "index": 5,
       "isForced": false,
       "llmEventIndices": [
-        7,
-        8
+        12,
+        13,
+        14
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -1062,11 +887,12 @@
       "chosenArgs": {
         "choice": "1"
       },
-      "index": 7,
+      "index": 6,
       "isForced": false,
       "llmEventIndices": [
-        8,
-        9
+        14,
+        15,
+        16
       ],
       "message": "Select any target",
       "phase": "PRECOMBAT_MAIN",
@@ -1091,10 +917,11 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 8,
+      "index": 7,
       "isForced": false,
       "llmEventIndices": [
-        9
+        16,
+        17
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -1117,10 +944,11 @@
       "choices": [],
       "chosen": null,
       "chosenArgs": {},
-      "index": 9,
+      "index": 8,
       "isForced": false,
       "llmEventIndices": [
-        10
+        18,
+        19
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -1154,71 +982,32 @@
         "choose_action",
         "concede"
       ],
-      "model": "",
+      "model": "google/gemini-2.0-flash-001",
       "player": "TestPlayer",
       "seq": 1,
       "type": "game_start"
     },
     {
-      "args": {},
-      "gameSeq": 1,
+      "costUsd": 0.0,
       "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "hand": [],
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 60,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 60,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 1,
-        "can_cancel": false,
-        "choices": [
-          {
-            "id": "p2",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p1",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Select a starting player",
-        "required": true,
-        "respond_with": "choice=pN — must pick a target",
-        "response_type": "index",
-        "stop_reason": "non_priority_action"
-      },
+      "reasoning": null,
       "seq": 2,
-      "tool": "pass_priority",
-      "type": "tool_call"
+      "toolCalls": [
+        {
+          "arguments": {
+            "choice": "0"
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "choice": "0"
       },
       "gameSeq": 1,
+      "latencyMs": 20,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1368,10 +1157,25 @@
       "type": "tool_call"
     },
     {
+      "costUsd": 0.0,
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 4,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
       "args": {
         "board_cursor": 2
       },
       "gameSeq": 5,
+      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1438,15 +1242,32 @@
           }
         ]
       },
-      "seq": 4,
+      "seq": 5,
       "tool": "pass_priority",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 6,
+      "toolCalls": [
+        {
+          "arguments": {
+            "choice": "no"
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "choice": "no"
       },
       "gameSeq": 5,
+      "latencyMs": 34,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1579,15 +1400,30 @@
         "response_type": "select",
         "success": true
       },
-      "seq": 5,
+      "seq": 7,
       "tool": "choose_action",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 5,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 8,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "board_cursor": 3
       },
       "gameSeq": 15,
+      "latencyMs": 30,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1638,15 +1474,32 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
-      "seq": 6,
+      "seq": 9,
       "tool": "pass_priority",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 15,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 10,
+      "toolCalls": [
+        {
+          "arguments": {
+            "choice": "p14"
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "choice": "p14"
       },
       "gameSeq": 15,
+      "latencyMs": 6,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1770,15 +1623,30 @@
         "success": true,
         "untapped_lands": 1
       },
-      "seq": 7,
+      "seq": 11,
       "tool": "choose_action",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 15,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 12,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "board_cursor": 4
       },
       "gameSeq": 21,
+      "latencyMs": 61,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1891,15 +1759,32 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
-      "seq": 8,
+      "seq": 13,
       "tool": "pass_priority",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 21,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 14,
+      "toolCalls": [
+        {
+          "arguments": {
+            "choice": "0"
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "choice": "0"
       },
       "gameSeq": 21,
+      "latencyMs": 16,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2009,15 +1894,32 @@
         "success": true,
         "untapped_lands": 1
       },
-      "seq": 9,
+      "seq": 15,
       "tool": "choose_action",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 21,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 16,
+      "toolCalls": [
+        {
+          "arguments": {
+            "choice": "1"
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
         "choice": "1"
       },
       "gameSeq": 22,
+      "latencyMs": 12,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2114,9 +2016,25 @@
         ],
         "success": true
       },
-      "seq": 10,
+      "seq": 17,
       "tool": "choose_action",
       "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 22,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 18,
+      "toolCalls": [
+        {
+          "arguments": {
+            "until": "stack_resolved"
+          },
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
     },
     {
       "args": {
@@ -2124,6 +2042,7 @@
         "until": "stack_resolved"
       },
       "gameSeq": 32,
+      "latencyMs": 74,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2217,13 +2136,28 @@
         "response_type": "boolean",
         "stop_reason": "stack_resolved"
       },
-      "seq": 11,
+      "seq": 19,
       "tool": "pass_priority",
       "type": "tool_call"
     },
     {
+      "costUsd": 0.0,
+      "gameSeq": 32,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 20,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "get_game_state"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
       "args": {},
       "gameSeq": 32,
+      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "active_player": "Opponent",
@@ -2317,120 +2251,8 @@
         "step": "Precombat Main",
         "turn": 1
       },
-      "seq": 12,
+      "seq": 21,
       "tool": "get_game_state",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 32,
-      "player": "TestPlayer",
-      "result": {
-        "active_player": "Opponent",
-        "available": true,
-        "cursor": 1,
-        "game_seq": 32,
-        "phase": "Precombat Main",
-        "players": [
-          {
-            "battlefield": [
-              {
-                "id": "p14",
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ],
-                "tapped": true
-              }
-            ],
-            "graveyard": [
-              {
-                "id": "p11",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              }
-            ],
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Badlands",
-                "rules": [
-                  "{T}: Add {B}.",
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p12",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
-                "id": "p13",
-                "mana_cost": "{0}",
-                "name": "Memnite",
-                "power": "1",
-                "toughness": "1"
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plateau",
-                "rules": [
-                  "{T}: Add {R}.",
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "is_land": true,
-                "name": "Taiga",
-                "rules": [
-                  "{T}: Add {G}.",
-                  "{T}: Add {R}."
-                ]
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 8,
-            "is_active": true,
-            "is_you": false,
-            "library_size": 52,
-            "life": 17,
-            "name": "Opponent"
-          }
-        ],
-        "priority_player": "TestPlayer",
-        "stack": [],
-        "step": "Precombat Main",
-        "turn": 1
-      },
-      "seq": 13,
-      "tool": "get_game_state",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": {
-        "cursor": 20,
-        "event_count": 20,
-        "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
-      },
-      "seq": 14,
-      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],
@@ -2439,7 +2261,7 @@
       "deckName": "bolt_and_burn",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 13,
+      "toolCallsOk": 10,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -2451,7 +2273,8 @@
         "choose_action",
         "concede"
       ],
-      "type": "replay"
+      "totalCostUsd": 0.0,
+      "type": "pilot"
     },
     {
       "deckName": "filler_opponent",

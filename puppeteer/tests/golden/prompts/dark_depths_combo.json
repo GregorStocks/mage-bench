@@ -8,23 +8,8 @@
     "role": "user"
   },
   {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "pass_priority"
-        },
-        "id": "call_1",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=0 lib=60 | Opponent: 20hp lib=60\n  Message: Select a starting player\n  Choices (2): TestPlayer [id=p2], Oppo",
-    "role": "tool",
-    "tool_call_id": "call_1"
+    "content": "Current game state: Turn 5; Precombat Main; TestPlayer: 20hp, 3 permanents, 7 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -37,13 +22,32 @@
           },
           "name": "choose_action"
         },
+        "id": "call_1",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "## Card Reference\n- Dark Depths -- Land: {this} enters with ten ice counters on it. / {3}: Remove an ice counter from {this}. / When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\n- Thespian's Stage -- Land: {T}: Add {C}. / {2}, {T}: {this} becomes a copy of target land, except it has this ability.\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
+    "role": "tool",
+    "tool_call_id": "call_1"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
         "id": "call_2",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Card Reference\n- Dark Depths -- Land: {this} enters with ten ice counters on it. / {3}: Remove an ice counter from {this}. / When {this} has no ice counters on it, sacrifice it. If you do, create M",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes or choice=no",
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -54,9 +58,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 2
+            "choice": "no"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_3",
         "type": "function"
@@ -64,7 +68,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Message: Mulligan down to 6 cards?\n  Choices (0): \n  Respond: choice=yes ",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Dark Depths [id=p10, land], Plains [id=p11, land], Plains [id=p12, land], Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -74,10 +78,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "no"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_4",
         "type": "function"
@@ -85,7 +87,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=53 | Opponent: 20hp ",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Dark Depths [id=p10, land], Plains [id=p11, land], Plains [id=p12, land], Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -96,9 +98,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 3
+            "choice": "_"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_5",
         "type": "function"
@@ -106,7 +108,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=53 | Opponent: 20hp hand=7 lib=53\n  Land drops remaining: 1\n  Message: Play spells and abilities",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Thespian's Stage] lib=53 bf=[Plains] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -116,10 +118,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_6",
         "type": "function"
@@ -127,7 +127,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Thespian's Stage] lib=53 bf=[Plains] | Opponent: ",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=52 bf=[Plains] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Dark Depths [id=p10, land], Plains [id=p12, land], Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -138,9 +138,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 4
+            "choice": "_"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_7",
         "type": "function"
@@ -148,7 +148,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=52 bf=[Plains] | Opp",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Thespian's Stage] lib=52 bf=[Plains, Plains] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -158,10 +158,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_8",
         "type": "function"
@@ -169,13 +167,9 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Thespian's Stage] lib=52 bf=[Plains, Plains] | Opp",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=51 bf=[Plains, Plains] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Dark Depths [id=p10, land], Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_8"
-  },
-  {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
   },
   {
     "content": null,
@@ -184,9 +178,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 6
+            "choice": "_"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_9",
         "type": "function"
@@ -194,7 +188,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Dark Depths, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=51 bf=[Plains, Plains] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Dark Depths [id=p10, land], Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=51 bf=[Dark Depths (ice=10), Plains, Plains] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 3, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -204,10 +198,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_10",
         "type": "function"
@@ -215,7 +207,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=51 bf=[Dark Depths (ice=10), Plains, Plains] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 3, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=50 bf=[Dark Depths (ice=10), Plains, Plains] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 3, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Plains [id=p28, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -226,9 +218,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 8
+            "choice": "_"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_11",
         "type": "function"
@@ -236,7 +228,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Thespian's Stage] lib=50 bf=[Dark Depths (ice=10), Plains, Plains] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 3, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Plains [id=p28, land], Thespian's Stage [id=p16, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (2): Dark Depths [id=p10, activate], Thespian's Stage [id=p16, activate]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -246,10 +238,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_12",
         "type": "function"
@@ -257,7 +247,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (2): Dark Depths [id=p10, activate], Thespian's Stage [id=p16, activate]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Play instants and activated abilities\n  Choices (2): Dark Depths [id=p10, activate], Thespian's Stage [id=p16, activate]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -268,9 +258,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 10
+            "choice": "_"
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_13",
         "type": "function"
@@ -278,7 +268,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Play instants and activated abilities\n  Choices (2): Dark Depths [id=p10, activate], Thespian's Stage [id=p16, activate]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Choose spell or ability to play: Thespian's Stage\n  Choices (2): 1. {T}: Add {C}., 2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -288,10 +278,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_14",
         "type": "function"
@@ -299,7 +287,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Choose spell or ability to play: Thespian's Stage\n  Choices (2): 1. {T}: Add {C}., 2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Choose spell or ability to play: Thespian's Stage\n  Choices (2): 1. {T}: Add {C}., 2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -310,9 +298,9 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 10
+            "choice": 1
           },
-          "name": "pass_priority"
+          "name": "choose_action"
         },
         "id": "call_15",
         "type": "function"
@@ -320,7 +308,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 4\n  Message: Choose spell or ability to play: Thespian's Stage\n  Choices (2): 1. {T}: Add {C}., 2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Untapped lands: 4\n  Message: Select a land\n  Choices (4): Dark Depths [id=p10], Plains [id=p11], Plains [id=p12], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -330,10 +318,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 1
-          },
-          "name": "choose_action"
+          "arguments": {},
+          "name": "pass_priority"
         },
         "id": "call_16",
         "type": "function"
@@ -341,30 +327,9 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Untapped lands: 4\n  Message: Select a land\n  Choices (4): Dark Depths [id=p10], Plains [id=p11], Plains [id=p12], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Untapped lands: 4\n  Message: Select a land\n  Choices (4): Dark Depths [id=p10], Plains [id=p11], Plains [id=p12], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_16"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 10
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_17",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=50 bf=[Dark Depths (ice=10), Plains, Plains, Thespian's Stage] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Untapped lands: 4\n  Message: Select a land\n  Choices (4): Dark Depths [id=p10], Plains [id=p11], Plains [id=p12], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel",
-    "role": "tool",
-    "tool_call_id": "call_17"
   },
   {
     "content": null,
@@ -377,15 +342,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_18",
+        "id": "call_17",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains (tapped), Plains (tapped), Thespian's Stage (tapped)] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability -> {'name': 'Dark Depths (yours)', 'id': 'p10'}]\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Plains (tapped), Plains (tapped), Thespian's Stage (tapped)] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability -> {'name': 'Dark Depths (yours)', 'id': 'p10'}]\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_18"
+    "tool_call_id": "call_17"
   },
   {
     "content": null,
@@ -393,20 +358,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 11
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_19",
+        "id": "call_18",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Dark Depths (tapped, copy of Thespian's Stage), Plains (tapped), Plains (tapped)] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 1\n  Message: Select a Dark Depths to keep (Legendary Rule)?\n  Choices (2): Dark Depths [id=p10], Dark Depths [id=p16]\n  Respond: choice=pN — must pick a target",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (ice=10), Dark Depths (tapped, copy of Thespian's Stage), Plains (tapped), Plains (tapped)] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Untapped lands: 1\n  Message: Select a Dark Depths to keep (Legendary Rule)?\n  Choices (2): Dark Depths [id=p10], Dark Depths [id=p16]\n  Respond: choice=pN — must pick a target\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_19"
+    "tool_call_id": "call_18"
   },
   {
     "content": null,
@@ -419,15 +382,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_20",
+        "id": "call_19",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (tapped, copy of Thespian's Stage), Plains (tapped), Plains (tapped)] gy=[Dark Depths] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 4 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains] lib=50 bf=[Dark Depths (tapped, copy of Thespian's Stage), Plains (tapped), Plains (tapped)] gy=[Dark Depths] | Opponent: 20hp hand=7 lib=50 gy=[Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 4 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_20"
+    "tool_call_id": "call_19"
   },
   {
     "content": null,
@@ -435,20 +398,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 13
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_21",
+        "id": "call_20",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Card Reference\n- Marit Lage 20/20: Flying / Indestructible\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Plains [id=p28, land], Plains [id=p34, land]\n  Respond: choice=pN to play, or choice=no to pass",
+    "content": "## Card Reference\n- Marit Lage 20/20: Flying / Indestructible\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 5 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (7): Plains [id=p13, land], Plains [id=p14, land], Plains [id=p15, land], Plains [id=p24, land], Plains [id=p26, land], Plains [id=p28, land], Plains [id=p34, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_21"
+    "tool_call_id": "call_20"
   },
   {
     "content": null,
@@ -461,15 +422,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_22",
+        "id": "call_21",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat Phase: declare_attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Marit Lage [id=p32], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat Phase: declare_attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Marit Lage [id=p32], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_22"
+    "tool_call_id": "call_21"
   },
   {
     "content": null,
@@ -477,20 +438,18 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "board_cursor": 15
-          },
+          "arguments": {},
           "name": "pass_priority"
         },
-        "id": "call_23",
+        "id": "call_22",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - You\n  Board: TestPlayer: 20hp hand=7 lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat Phase: attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Marit Lage [id=p32], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - You\n  Board: TestPlayer: 20hp hand=7 lib=49 bf=[Marit Lage 20/20 (token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat Phase: attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Marit Lage [id=p32], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_23"
+    "tool_call_id": "call_22"
   },
   {
     "content": null,
@@ -503,15 +462,15 @@
           },
           "name": "choose_action"
         },
-        "id": "call_24",
+        "id": "call_23",
         "type": "function"
       }
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (tapped, token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat: Marit Lage -> Opponent\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 5 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Marit Lage 20/20 (tapped, token), Plains, Plains] gy=[Dark Depths, Thespian's Stage] | Opponent: 20hp hand=7 lib=49 gy=[Mountain, Mountain, Mountain, Mountain]\n  Combat: Marit Lage -> Opponent\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 5 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
-    "tool_call_id": "call_24"
+    "tool_call_id": "call_23"
   },
   {
     "content": null,
@@ -522,7 +481,7 @@
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_25",
+        "id": "call_24",
         "type": "function"
       }
     ]
@@ -545,7 +504,7 @@
           "defending": "Opponent"
         }
       ],
-      "cursor": 1,
+      "cursor": 2,
       "game_seq": 130,
       "phase": "Combat",
       "players": [
@@ -710,166 +669,6 @@
       "turn": 5
     },
     "role": "tool",
-    "tool_call_id": "call_25"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 16
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_26",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": false,
-      "game_over": true,
-      "game_seq": 140,
-      "stop_reason": "game_over"
-    },
-    "role": "tool",
-    "tool_call_id": "call_26"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_state"
-        },
-        "id": "call_27",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "active_player": "TestPlayer",
-      "available": true,
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "toughness": 20
-            }
-          ],
-          "blocked": false,
-          "defending": "Opponent"
-        }
-      ],
-      "cursor": 2,
-      "game_seq": 140,
-      "phase": "Combat",
-      "players": [
-        {
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 0,
-          "life": 0,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "rules": [
-                "Flying",
-                "Indestructible"
-              ],
-              "summoning_sick": false,
-              "tapped": true,
-              "token": true,
-              "toughness": 20
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Dark Depths",
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Thespian's Stage",
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": true,
-          "is_you": false,
-          "library_size": 49,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Combat Damage",
-      "turn": 5
-    },
-    "role": "tool",
-    "tool_call_id": "call_27"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "get_game_history"
-        },
-        "id": "call_28",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "cursor": 38,
-      "event_count": 38,
-      "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
-    },
-    "role": "tool",
-    "tool_call_id": "call_28"
+    "tool_call_id": "call_24"
   }
 ]

@@ -1,7 +1,7 @@
 """Shared helpers for golden prompt integration tests.
 
-Runs real XMage games with scripted replay pilots, captures the exact
-messages array that would be sent to the LLM, and compares against golden files.
+Runs real XMage games, captures the exact production prompt messages that
+``run_pilot_loop()`` would send to the LLM, and compares against golden files.
 
 These are integration tests that require compilation and a running XMage server.
 They are NOT included in ``make test`` — run them with ``make test-golden``.
@@ -28,11 +28,13 @@ from collections import defaultdict
 from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
+from types import SimpleNamespace
 
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.port import find_available_port, wait_for_port
+from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.process_manager import kill_tree
 from puppeteer.replay import execute_replay_script
 from scripts.analysis.blunder_analysis import (
@@ -334,10 +336,14 @@ class BridgeSession:
     def initialize(self) -> dict:
         return self._rpc("initialize", {"protocolVersion": "2024-11-05", "capabilities": {}})
 
+    def list_tool_defs(self) -> list[dict]:
+        """Return raw MCP tool definitions."""
+        result = self._rpc("tools/list", {})
+        return result["tools"]
+
     def list_tools(self) -> list[str]:
         """Return names of available MCP tools."""
-        result = self._rpc("tools/list", {})
-        return [t["name"] for t in result["tools"]]
+        return [t["name"] for t in self.list_tool_defs()]
 
     def call_tool(self, name: str, arguments: dict | None = None, timeout: int | None = None) -> str:
         """Call an MCP tool and return the result text (matches execute_tool() return format)."""
@@ -654,6 +660,207 @@ def _run_replay_on_bridge(
     return prompt
 
 
+@dataclasses.dataclass(frozen=True)
+class _MCPToolDef:
+    name: str
+    description: str
+    inputSchema: dict | None
+
+
+def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
+    """Translate replay-harness scripts into production pilot LLM turns.
+
+    The replay harness scripts start with ``pass_priority`` to obtain the
+    opening decision. The real pilot does that internally in
+    ``_prefetch_first_action()``, so prompt goldens must drop that first
+    scripted step to match production history exactly.
+    """
+    assert script, "Golden pilot script must contain at least the initial pass_priority"
+    first = script[0]
+    assert first.get("name") == "pass_priority", (
+        "Golden pilot scripts must start with pass_priority so production prefetch "
+        "can consume the opening decision."
+    )
+    assert first.get("arguments", {}) == {}, (
+        "Golden pilot scripts must start with pass_priority({}) because the real "
+        "pilot prefetch does not send arguments."
+    )
+    return script[1:]
+
+
+def _build_openai_tools_for_pilot(bridge: BridgeSession) -> list[dict]:
+    """Build the production OpenAI tool list from the bridge's MCP tool defs."""
+    tool_defs = [
+        _MCPToolDef(
+            name=tool["name"],
+            description=tool.get("description", ""),
+            inputSchema=tool.get("inputSchema"),
+        )
+        for tool in bridge.list_tool_defs()
+        if tool["name"] != "join_table"
+    ]
+    return mcp_tools_to_openai(tool_defs)
+
+
+class _AsyncBridgeSession:
+    """Async adapter for the sync HTTP bridge wrapper used by golden tests."""
+
+    def __init__(self, bridge: BridgeSession) -> None:
+        self._bridge = bridge
+
+    async def call_tool(self, name: str, arguments: dict) -> SimpleNamespace:
+        text = self._bridge.call_tool(name, arguments)
+        return SimpleNamespace(content=[SimpleNamespace(text=text)])
+
+
+@dataclasses.dataclass(frozen=True)
+class _ScriptedFunctionCall:
+    name: str
+    arguments: str
+
+
+@dataclasses.dataclass(frozen=True)
+class _ScriptedToolCall:
+    id: str
+    function: _ScriptedFunctionCall
+
+
+@dataclasses.dataclass(frozen=True)
+class _ScriptedMessage:
+    content: str | None
+    tool_calls: list[_ScriptedToolCall]
+
+
+@dataclasses.dataclass(frozen=True)
+class _ScriptedChoice:
+    finish_reason: str
+    message: _ScriptedMessage
+
+
+class _ScriptedResponse:
+    def __init__(self, step: dict, call_index: int) -> None:
+        tool_call = _ScriptedToolCall(
+            id=f"call_{call_index}",
+            function=_ScriptedFunctionCall(
+                name=step["name"],
+                arguments=json.dumps(step.get("arguments", {})),
+            ),
+        )
+        self.choices = [_ScriptedChoice(finish_reason="tool_calls", message=_ScriptedMessage(None, [tool_call]))]
+        self.usage = None
+
+    def model_dump(self) -> dict:
+        choice = self.choices[0]
+        tool_call = choice.message.tool_calls[0]
+        return {
+            "choices": [
+                {
+                    "finish_reason": choice.finish_reason,
+                    "message": {
+                        "content": choice.message.content,
+                        "tool_calls": [
+                            {
+                                "id": tool_call.id,
+                                "function": {
+                                    "name": tool_call.function.name,
+                                    "arguments": tool_call.function.arguments,
+                                },
+                            }
+                        ],
+                    },
+                }
+            ],
+            "usage": None,
+        }
+
+
+@dataclasses.dataclass
+class _CapturedPilotRequest:
+    last_messages: list[dict] | None = None
+    post_script_messages: list[dict] | None = None
+
+
+class _ScriptedChatCompletions:
+    def __init__(self, script: list[dict], capture: _CapturedPilotRequest) -> None:
+        self._script = script
+        self._capture = capture
+        self._call_index = 0
+
+    async def create(self, **kwargs) -> _ScriptedResponse:
+        self._capture.last_messages = json.loads(json.dumps(kwargs["messages"]))
+        self._call_index += 1
+        if self._call_index > len(self._script):
+            self._capture.post_script_messages = self._capture.last_messages
+            raise asyncio.CancelledError()
+        return _ScriptedResponse(self._script[self._call_index - 1], self._call_index)
+
+
+class _ScriptedOpenAIClient:
+    def __init__(self, script: list[dict], capture: _CapturedPilotRequest) -> None:
+        self.chat = SimpleNamespace(completions=_ScriptedChatCompletions(script, capture))
+
+
+def _run_pilot_on_bridge(
+    bridge: BridgeSession,
+    script: list[dict],
+    game_dir: Path,
+    player_name: str,
+    deck_path: str,
+    should_concede: bool = True,
+) -> list[dict]:
+    """Run the real pilot loop with a scripted fake client and capture the prompt."""
+    config_anchor = REPO_ROOT / "puppeteer" / "prompts.json"
+    prompts = load_prompts(config_anchor)
+    assert "default" in prompts, "prompts.json must contain a 'default' key"
+    system_prompt = prompts["default"]
+
+    openai_tools = _build_openai_tools_for_pilot(bridge)
+    tool_names = [tool["function"]["name"] for tool in openai_tools]
+    pilot_script = _pilot_script_from_replay_script(script)
+    capture = _CapturedPilotRequest()
+    client = _ScriptedOpenAIClient(pilot_script, capture)
+    session = _AsyncBridgeSession(bridge)
+
+    game_log = GameLogWriter(game_dir, player_name)
+    game_log.__enter__()
+    game_log.emit(
+        "game_start",
+        model=DEFAULT_MODEL,
+        system_prompt=system_prompt,
+        available_tools=tool_names,
+        deck_path=str(REPO_ROOT / deck_path),
+    )
+
+    try:
+        try:
+            asyncio.run(
+                run_pilot_loop(
+                    session=session,
+                    client=client,
+                    model=DEFAULT_MODEL,
+                    system_prompt=system_prompt,
+                    tools=openai_tools,
+                    prices={},
+                    username=player_name,
+                    game_dir=game_dir,
+                    game_log=game_log,
+                )
+            )
+        except asyncio.CancelledError:
+            pass
+
+        prompt = capture.post_script_messages or capture.last_messages
+        assert prompt is not None, "Scripted pilot did not capture a prompt"
+        prompt_path = game_dir / f"{player_name}_golden_prompt.json"
+        prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+        return prompt
+    finally:
+        if should_concede:
+            bridge.call_tool("concede", {})
+        game_log.emit("game_end", total_cost_usd=round(game_log.last_cumulative_cost_usd(), 6))
+        game_log.__exit__(None, None, None)
+
+
 def _is_game_over(data: dict) -> bool:
     return bool(data.get("game_over") or data.get("player_dead") or data.get("stop_reason") == "game_over")
 
@@ -764,12 +971,12 @@ def run_golden_scenario(
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
 ) -> list[dict]:
-    """Run a golden test scenario with two replay bridges.
+    """Run a golden test scenario with a production pilot and replay opponent.
 
-    Both players use persistent BridgeManager JVMs with scripted replay.
-    Player A's prompt is captured and compared against golden files.
-    Player B runs ``script_b`` if provided, otherwise auto-passes every
+    Player A uses the real production pilot loop with a scripted fake LLM.
+    Player B uses ``script_b`` if provided, otherwise auto-passes every
     priority window until the game ends.
+    Player A's prompt is captured and compared against golden files.
 
     Automatically asserts golden prompt and export comparisons using
     ``golden_name`` as the file identifier.
@@ -783,7 +990,7 @@ def run_golden_scenario(
         game_type,
         deck_type,
         player_a_name,
-        "replay",
+        "pilot",
         deck_a,
         player_b_name,
         "replay",
@@ -854,18 +1061,19 @@ def run_golden_scenario(
         bridge_a.assert_clean_reconnect(f"{golden_name}/bridge_join")
         bridge_b.assert_clean_reconnect(f"{golden_name}/bridge_join")
 
-        # Run both replay scripts concurrently
+        # Run player A's scripted production pilot and player B concurrently
         prompt_a: list[dict] | None = None
         replay_errors: list[tuple[str, Exception]] = []
 
         def _replay_a() -> None:
             nonlocal prompt_a
             try:
-                prompt_a = _run_replay_on_bridge(
+                prompt_a = _run_pilot_on_bridge(
                     session_a,
                     script_a,
                     game_dir,
                     player_a_name,
+                    deck_a,
                 )
             except Exception as exc:
                 replay_errors.append(("player_a", exc))
@@ -918,7 +1126,7 @@ def run_golden_scenario(
 
     finally:
         # Defensive concede on both bridges so they're ready for the next test.
-        # _run_replay_on_bridge already concedes on success, but if it failed
+        # _run_pilot_on_bridge already concedes on success, but if it failed
         # mid-script, we need this safety net.
         for session in [session_a, session_b]:
             try:
