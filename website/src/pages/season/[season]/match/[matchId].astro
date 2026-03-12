@@ -1,22 +1,19 @@
 ---
 import Base from '../../../../layouts/Base.astro';
 import SeasonNav from '../../../../components/SeasonNav.astro';
-import benchmarkData from '../../../../data/benchmark-results.json';
 import { loadAllGames } from '../../../../utils/load-games';
-import fs from 'node:fs';
-import path from 'node:path';
+import {
+  hasTournament as seasonHasTournament,
+  loadAvailableSeasons,
+  loadTournament,
+} from '../../../../utils/season-data';
 
 export function getStaticPaths() {
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
-  );
-  const seasons: number[] = data.availableSeasons ?? [];
   const paths: any[] = [];
 
-  for (const s of seasons) {
-    const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
-    if (!fs.existsSync(tp)) continue;
-    const tournament = JSON.parse(fs.readFileSync(tp, 'utf-8'));
+  for (const s of loadAvailableSeasons()) {
+    if (!seasonHasTournament(s)) continue;
+    const tournament = loadTournament(s);
     if (!tournament.rounds) continue;
     for (const round of tournament.rounds) {
       for (const match of round.matches) {
@@ -39,8 +36,7 @@ assert(idMatch, `Invalid matchId: ${matchId}`);
 const roundNum = parseInt(idMatch[1], 10);
 const matchNum = parseInt(idMatch[2], 10);
 
-const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
-const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+const tournament = loadTournament(seasonNum);
 
 const round = tournament.rounds.find((r: any) => r.round === roundNum);
 assert(round, `Round ${roundNum} not found`);

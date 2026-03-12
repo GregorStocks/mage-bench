@@ -81,7 +81,7 @@ Pick and solve exactly **one** issue, then create a PR.
 8. Run `make check` to verify lint, typecheck, and tests pass
 9. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
 10. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
-11. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found.
+11. Run `/simplify` to review the changed code for reuse, quality, and efficiency, and fix any issues found. If `/simplify` is unavailable in the current session, do the equivalent manually by reviewing your diff for unnecessary duplication, dead code, and avoidable complexity, then continue.
 12. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
 
     ```bash

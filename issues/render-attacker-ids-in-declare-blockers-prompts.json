@@ -1,0 +1,10 @@
+{
+  "title": "Render attacker IDs in declare-blockers prompts",
+  "description": "Batch blocking prompts tell pilots to use attacker IDs from `incoming_attackers`, but the rendered decision text drops those IDs and shows only names. In game_20260309_181423 this made blocking effectively guesswork for Opus Brewer: the rendered prompt in `~/.mage-bench/logs/game_20260309_181423/Opus Brewer_llm_trace.jsonl:100` showed `Combat: Brightmare -> Opus Brewer | Celestial Enforcer -> Opus Brewer | Emancipation Angel -> Opus Brewer | Anointed Chorister -> Opus Brewer | Anointed Chorister -> Opus Brewer` with no attacker IDs, and the model then fabricated IDs from unrelated permanents (`p44`, `p45`, `p42`, `p71`). The resulting block submissions failed at `~/.mage-bench/logs/game_20260309_181423/Opus Brewer_pilot.log:516`, `~/.mage-bench/logs/game_20260309_181423/Opus Brewer_pilot.log:696`, and `~/.mage-bench/logs/game_20260309_181423/Opus Brewer_pilot.log:829` with `unknown attacker ID` / `not a valid block target` errors.\n\nThis is a renderer bug, not missing MCP data. The tool schema and exported decisions both carry `incoming_attackers`, and `puppeteer/src/puppeteer/pilot.py:170` already copies that field into `pilotContext`. But `puppeteer/src/puppeteer/decision_renderer.py:126` and `puppeteer/src/puppeteer/decision_renderer.py:284` only render the `combat` names, never the attacker IDs from `pilotContext.incomingAttackers`.\n\nSuggested fix: when `combatPhase` is `declare_blockers`, render attacker IDs explicitly from `pilotContext.incomingAttackers` (or augment the `Combat:` line with IDs) so the blocker syntax in the prompt is actually actionable. Add a regression test in `puppeteer/tests/test_decision_renderer.py` that asserts a blockers prompt contains attacker IDs, not just names.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["puppeteer", "pilot"],
+  "created_at": "2026-03-11T23:07:50.962120-07:00",
+  "updated_at": "2026-03-11T23:07:50.962120-07:00"
+}

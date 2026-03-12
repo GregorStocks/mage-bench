@@ -27,6 +27,7 @@ from puppeteer.llm_cost import (
     write_cost_file,
 )
 from puppeteer.log import get_logger, log_error, setup_logging
+from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 logger = get_logger(__name__)
 
@@ -483,25 +484,27 @@ def _render_context(
 
 async def _fetch_state_summary(session: ClientSession) -> str:
     """Fetch a compact game state summary for context bridging."""
+    state_result = await execute_tool(session, "get_game_state", {})
     try:
-        state_result = await execute_tool(session, "get_game_state", {})
         state_data = json.loads(state_result)
-        if state_data.get("error"):
-            return ""
-        parts: list[str] = []
-        if "turn" in state_data:
-            parts.append(f"Turn {state_data['turn']}")
-        if "phase" in state_data:
-            parts.append(state_data["phase"])
-        for p in state_data.get("players", []):
-            name = p.get("name", "?")
-            life = p.get("life", "?")
-            bf = len(p.get("battlefield", []))
-            hand = p.get("hand_count", p.get("hand_size", "?"))
-            parts.append(f"{name}: {life}hp, {bf} permanents, {hand} cards")
-        return "Current game state: " + "; ".join(parts) + ". "
-    except Exception:
-        return ""
+    except (json.JSONDecodeError, TypeError) as exc:
+        raise ToolExecutionError(f"get_game_state returned invalid JSON: {state_result!r}") from exc
+    if not isinstance(state_data, dict):
+        raise ToolExecutionError(f"get_game_state returned non-object payload: {state_data!r}")
+    if "error" in state_data:
+        raise ToolExecutionError(f"get_game_state returned error: {state_data['error']}")
+    parts: list[str] = []
+    if "turn" in state_data:
+        parts.append(f"Turn {state_data['turn']}")
+    if "phase" in state_data:
+        parts.append(state_data["phase"])
+    for p in state_data.get("players", []):
+        name = p.get("name", "?")
+        life = p.get("life", "?")
+        bf = len(p.get("battlefield", []))
+        hand = p.get("hand_count", p.get("hand_size", "?"))
+        parts.append(f"{name}: {life}hp, {bf} permanents, {hand} cards")
+    return "Current game state: " + "; ".join(parts) + ". "
 
 
 # Tools that are purely informational (don't advance game state).
@@ -541,9 +544,9 @@ async def execute_tool(session: ClientSession, name: str, arguments: dict) -> st
     """Route a tool call through the MCP session and return the result text."""
     try:
         result = await session.call_tool(name, arguments)
-        return result.content[0].text
-    except Exception as e:
-        return json.dumps({"error": str(e)})
+    except Exception as exc:
+        raise ToolExecutionError(f"MCP tool {name} failed: {exc}") from exc
+    return extract_text_content(name, result)
 
 
 _BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
@@ -1274,6 +1277,9 @@ async def run_pilot_loop(
 
         except asyncio.TimeoutError:
             await _handle_timeout(session, state, game_log)
+
+        except ToolExecutionError:
+            raise
 
         except Exception as e:
             state.consecutive_timeouts = 0

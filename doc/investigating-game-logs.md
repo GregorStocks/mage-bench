@@ -156,6 +156,21 @@ and other weak models that skip `get_action_choices`):
 grep "unknown attacker ID\|not a valid block target\|not found in current choices" "$GAME_DIR"/*_mcp.log "$GAME_DIR"/*_pilot.log
 ```
 
+If the IDs look systematically wrong rather than random, compare the exact
+rendered prompt in `*_llm_trace.jsonl` with the structured MCP/export payload.
+That distinguishes model hallucination from a renderer omission:
+
+```bash
+# What text did the model actually see?
+rg -n "Turn [0-9]+ COMBAT|Combat:" "$GAME_DIR"/*_llm_trace.jsonl
+
+# Does the structured export/MCP data have fields that the rendered prompt omitted?
+rg -n '"incoming_attackers"|Combat Phase: blockers' website/public/games/GAME_ID.json "$GAME_DIR"/*_llm.jsonl
+```
+
+If the JSON has `incoming_attackers` or other blocker metadata but the prompt
+only shows attacker names, suspect `decision_renderer.py` instead of the model.
+
 ## Blind index-0 targeting
 
 Weak models skip `get_action_choices` and default to `index:0` for targeting,
