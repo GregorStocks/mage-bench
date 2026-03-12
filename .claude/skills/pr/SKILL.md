@@ -29,9 +29,11 @@ Create a pull request for the current branch's changes.
 
    Fix any merge conflicts before proceeding.
 
-4. **Run `make check`** (lint, typecheck, tests). Fix any failures before proceeding. Do not create a PR with failing checks.
+4. **Regenerate impacted goldens before validation.** If the diff changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, search existing goldens for the affected behavior and regenerate every stale prompt/export now. Do not assume only newly added tests need updates, and do not wait for CI to remind you.
 
-5. **Write the PR title and body.** The PR description must explain **why** these changes exist, not just what they do. A reviewer can read the diff to see *what* changed — the PR body should tell them *why* it changed, what problem it solves, and any context they'd need to evaluate the approach.
+5. **Run `make check`** (lint, typecheck, tests). Fix any failures before proceeding. Do not create a PR with failing checks.
+
+6. **Write the PR title and body.** The PR description must explain **why** these changes exist, not just what they do. A reviewer can read the diff to see *what* changed — the PR body should tell them *why* it changed, what problem it solves, and any context they'd need to evaluate the approach.
 
    Bad (just restates the diff):
    > - Add `timeout` parameter to `fetch_game_data()`
@@ -45,7 +47,7 @@ Create a pull request for the current branch's changes.
 
    The summary bullets should be a mix of what and why — lead with the motivation, then mention key implementation details only when they're non-obvious.
 
-6. **Push and create the PR:**
+7. **Push and create the PR:**
 
    ```bash
    git push -u origin HEAD
@@ -61,7 +63,9 @@ Create a pull request for the current branch's changes.
    )"
    ```
 
-7. **Report the PR URL** to the user.
+8. **Wait for CI or report its exact state.** Run `gh pr checks` (or `gh pr checks --watch` if you can wait). Do not say the PR is ready/green while required checks are still pending, and do not leave golden coverage to CI if you could have regenerated the affected files locally first.
+
+9. **Report the PR URL** to the user, along with whether checks passed or are still pending.
 
 ## Guidelines
 
