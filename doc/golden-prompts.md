@@ -323,5 +323,5 @@ work around nondeterminism. Find and fix the root cause.
 | `puppeteer/tests/golden/prompts/*.json` | Golden prompt files |
 | `puppeteer/tests/golden/exports/*.json` | Golden export files |
 | `puppeteer/tests/golden/blunder_prompts/` | Golden blunder prompt files |
-| `.claude/commands/golden-test.md` | Skill for adding new tests |
-| `.claude/commands/investigate-golden-flake.md` | Skill for debugging flakes |
+| `.claude/skills/golden-test/SKILL.md` | Skill for adding new tests |
+| `.claude/skills/investigate-golden-flake/SKILL.md` | Skill for debugging flakes |

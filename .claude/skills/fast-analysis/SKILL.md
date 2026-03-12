@@ -1,3 +1,8 @@
+---
+name: fast-analysis
+description: Analyze exported game files to assess gameplay, model decisions, and likely bugs without raw logs. Use for quick game triage.
+---
+
 # Fast Game Analysis
 
 Quickly analyze a game using only the exported game file (`.json` or `.json.gz`). This covers ~85-90% of what the full analysis finds — game narrative, LLM decision quality, error patterns, bug identification — without needing the raw log directory.
