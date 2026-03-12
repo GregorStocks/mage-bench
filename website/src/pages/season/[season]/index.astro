@@ -1,14 +1,8 @@
 ---
-import benchmarkData from '../../../data/benchmark-results.json';
-import fs from 'node:fs';
-import path from 'node:path';
+import { hasTournament, loadAvailableSeasons, loadTournament } from '../../../utils/season-data';
 
 export function getStaticPaths() {
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
-  );
-  const seasons: number[] = data.availableSeasons ?? [];
-  return seasons.map(s => ({ params: { season: String(s) } }));
+  return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
 }
 
 const { season } = Astro.params;
@@ -18,11 +12,10 @@ const seasonNum = parseInt(season!, 10);
 // 1. Championship results (if tournament has any match results)
 // 2. Championship entrants (if tournament exists)
 // 3. Regular season rankings (default)
-const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
 let target = 'rankings';
 
-if (fs.existsSync(tournamentPath)) {
-  const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+if (hasTournament(seasonNum)) {
+  const tournament = loadTournament(seasonNum);
   const hasResults = tournament.rounds?.some((r: any) =>
     r.matches?.some((m: any) => m.winner_seed != null)
   );

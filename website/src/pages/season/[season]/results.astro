@@ -1,23 +1,16 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import benchmarkData from '../../../data/benchmark-results.json';
 import { loadAllGames } from '../../../utils/load-games';
-import fs from 'node:fs';
-import path from 'node:path';
-
-const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [];
+import {
+  hasTournament as seasonHasTournament,
+  loadAvailableSeasons,
+  loadTournament,
+} from '../../../utils/season-data';
 
 export function getStaticPaths() {
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
-  );
-  const seasons: number[] = data.availableSeasons ?? [];
-  return seasons
-    .filter(s => {
-      const tp = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${s}.json`);
-      return fs.existsSync(tp);
-    })
+  return loadAvailableSeasons()
+    .filter(s => seasonHasTournament(s))
     .map(s => ({ params: { season: String(s) } }));
 }
 
@@ -25,8 +18,7 @@ const { season } = Astro.params;
 const seasonNum = parseInt(season!, 10);
 
 // Load tournament data
-const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
-const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+const tournament = loadTournament(seasonNum);
 
 const games = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
 

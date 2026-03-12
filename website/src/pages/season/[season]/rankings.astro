@@ -1,26 +1,22 @@
 ---
 import Base from '../../../layouts/Base.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
-import benchmarkData from '../../../data/benchmark-results.json';
-import fs from 'node:fs';
-import path from 'node:path';
-
-const availableSeasons: number[] = (benchmarkData as any).availableSeasons ?? [];
+import {
+  hasTournament as seasonHasTournament,
+  loadAvailableSeasons,
+  loadSeasonBenchmark,
+  loadTournament,
+} from '../../../utils/season-data';
 
 export function getStaticPaths() {
-  const data = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'benchmark-results.json'), 'utf-8')
-  );
-  const seasons: number[] = data.availableSeasons ?? [];
-  return seasons.map(s => ({ params: { season: String(s) } }));
+  return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
 }
 
 const { season } = Astro.params;
 const seasonNum = parseInt(season!, 10);
 
 // Load season-specific benchmark data
-const seasonDataPath = path.join(process.cwd(), 'public', 'data', `benchmark-results-season-${seasonNum}.json`);
-const seasonBenchmark = JSON.parse(fs.readFileSync(seasonDataPath, 'utf-8'));
+const seasonBenchmark = loadSeasonBenchmark(seasonNum);
 
 const FORMAT_LABELS: Record<string, string> = {
   jumpstart: 'Jumpstart',
@@ -46,15 +42,10 @@ const activeFormats = FORMAT_ORDER.filter(
 const hasData = (seasonBenchmark.models?.length ?? 0) > 0 || Object.keys(formats).length > 1;
 
 // Check if this season has tournament data
-const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
-const hasTournament = fs.existsSync(tournamentPath);
-let hasDraft = false;
-let tournamentSize = 0;
-if (hasTournament) {
-  const t = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
-  hasDraft = !!t.draft;
-  tournamentSize = t.size ?? 0;
-}
+const tournament = seasonHasTournament(seasonNum) ? loadTournament(seasonNum) : null;
+const hasTournament = tournament != null;
+const hasDraft = !!tournament?.draft;
+const tournamentSize = tournament?.size ?? 0;
 ---
 
 <Base title={`Season ${seasonNum} Regular Season Rankings`} wide>
