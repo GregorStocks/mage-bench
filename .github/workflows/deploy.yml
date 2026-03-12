@@ -29,6 +29,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         id: deploy
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -36,11 +37,13 @@ jobs:
           command: pages deploy website/dist/ --project-name=mage-bench --branch=${{ github.head_ref || github.ref_name }}
 
       - name: Print deployment URL
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
         run: |
           echo "Deployed to ${{ steps.deploy.outputs.deployment-url }}"
           echo "Branch URL: https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev"
 
       - name: Add preview link to commit status
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -50,3 +53,7 @@ jobs:
             -f target_url="https://${{ github.head_ref || github.ref_name }}.mage-bench.pages.dev" \
             -f description="Deployed to Cloudflare Pages" \
             -f context="Preview"
+
+      - name: Explain skipped preview deploy
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN == '' || secrets.CLOUDFLARE_ACCOUNT_ID == '' }}
+        run: echo "Skipping Cloudflare Pages preview deploy because Cloudflare secrets are unavailable for this event."
