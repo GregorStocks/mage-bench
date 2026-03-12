@@ -76,10 +76,11 @@ if (fs.existsSync(exportsDir)) {
           </label>
         </div>
         <div class="filter-group">
-          <label class="control-label">
-            Smoothing
-            <input type="number" id="smoothing-window" value="5" min="0" max="50" />
-          </label>
+          <span class="control-label">Y Scale</span>
+          <div class="toggle-buttons" id="y-scale-buttons">
+            <button class="toggle-btn active" data-scale="linear">Linear</button>
+            <button class="toggle-btn" data-scale="symlog">Symlog</button>
+          </div>
         </div>
       </div>
       <div class="model-filter">
@@ -266,6 +267,8 @@ if (fs.existsSync(exportsDir)) {
     window.addEventListener('hashchange', activateFromUrl);
 
     // ─── Trend chart ───
+    type YScaleMode = 'linear' | 'symlog';
+
     type PlayerRecord = {
       key: string;
       modelName: string;
@@ -294,11 +297,21 @@ if (fs.existsSync(exportsDir)) {
       players: PlayerRecord[];
     };
 
+    type TrendPoint = {
+      x: number;
+      y: number;
+      rawY: number;
+      modelName: string;
+      modelCount: number;
+      format: string;
+      gameId: string;
+      dateLabel: string;
+    };
+
     const trendData = JSON.parse(document.getElementById('internals-data')!.textContent!) as {
       games: GameRecord[];
     };
 
-    // Build unique model list sorted by name
     const modelMap = new Map<string, string>();
     for (const g of trendData.games) {
       for (const p of g.players) {
@@ -307,8 +320,7 @@ if (fs.existsSync(exportsDir)) {
         }
       }
     }
-    const allModels = Array.from(modelMap.entries())
-      .sort((a, b) => a[1].localeCompare(b[1]));
+    const allModels = Array.from(modelMap.entries()).sort((a, b) => a[1].localeCompare(b[1]));
 
     // Color palette for lines — high-saturation, maximally distinct on dark bg
     const LINE_COLORS = [
@@ -320,16 +332,66 @@ if (fs.existsSync(exportsDir)) {
       '#ffbb66', '#44eebb', '#ff88bb', '#bbdd55', '#8888dd',
     ];
 
-    // State
+    const SYMLOG_CONSTANT = 1;
+
     let currentMetric = 'costPerGame';
     let currentFormat = 'all';
     let selectedModels = new Set(allModels.map(m => m[0]));
     let minEpochTrend = 1;
-    let smoothingWindow = 5;
+    let yScaleMode: YScaleMode = 'linear';
 
-    // Build model checkboxes
     const checkboxContainer = document.getElementById('model-checkboxes')!;
     const modelSearch = document.getElementById('model-search') as HTMLInputElement;
+    const minEpochTrendInput = document.getElementById('trend-min-epoch') as HTMLInputElement;
+
+    function withAlpha(color: string, alphaHex: string): string {
+      return color.startsWith('#') && color.length === 7 ? color + alphaHex : color;
+    }
+
+    function symlog(value: number): number {
+      return Math.sign(value) * Math.log10(1 + Math.abs(value) / SYMLOG_CONSTANT);
+    }
+
+    function symlogInverse(value: number): number {
+      return Math.sign(value) * SYMLOG_CONSTANT * (Math.pow(10, Math.abs(value)) - 1);
+    }
+
+    function transformY(value: number): number {
+      return yScaleMode === 'symlog' ? symlog(value) : value;
+    }
+
+    function inverseY(value: number): number {
+      return yScaleMode === 'symlog' ? symlogInverse(value) : value;
+    }
+
+    function formatMetricValue(value: number, unit: string): string {
+      if (unit === '%') return `${value.toFixed(1)}%`;
+      if (unit === '$') return `$${value.toFixed(value >= 10 ? 1 : 2)}`;
+      if (unit === 's') return `${value.toFixed(1)}s`;
+      if (Math.abs(value) >= 1000) {
+        return value.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      }
+      if (Number.isInteger(value)) return value.toLocaleString('en-US');
+      return value.toFixed(1);
+    }
+
+    function formatDateTimeLabel(ts: number): string {
+      return new Date(ts).toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+      });
+    }
+
+    function formatTimeTick(ts: number, rangeMs: number): string {
+      if (!Number.isFinite(ts)) return '';
+      if (rangeMs > 3 * 24 * 60 * 60 * 1000) {
+        return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }
+      return new Date(ts).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric' });
+    }
 
     function buildCheckboxes() {
       const search = modelSearch.value.toLowerCase();
@@ -373,53 +435,12 @@ if (fs.existsSync(exportsDir)) {
       updateChart();
     });
 
-    // Metric buttons
-    document.querySelectorAll('.metric-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.metric-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentMetric = (btn as HTMLElement).dataset.metric!;
-        updateChart();
-        syncTrendsToUrl();
-      });
-    });
-
-    // Format buttons
-    document.querySelectorAll('#format-buttons .toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#format-buttons .toggle-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFormat = (btn as HTMLElement).dataset.format!;
-        updateChart();
-        syncTrendsToUrl();
-      });
-    });
-
-    // Min epoch
-    const minEpochTrendInput = document.getElementById('trend-min-epoch') as HTMLInputElement;
-    minEpochTrendInput.addEventListener('input', () => {
-      minEpochTrend = parseInt(minEpochTrendInput.value) || 1;
-      updateChart();
-      syncTrendsToUrl();
-    });
-
-    // Smoothing window
-    const smoothingInput = document.getElementById('smoothing-window') as HTMLInputElement;
-    smoothingInput.addEventListener('input', () => {
-      smoothingWindow = Math.max(0, parseInt(smoothingInput.value) || 0);
-      updateChart();
-      syncTrendsToUrl();
-    });
-
-    // Models with known-unreliable cached_tokens data (upstream API bug).
-    // Keys may have a ::effort suffix, so check the model ID prefix.
     const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
     function hasUnreliableCache(key: string): boolean {
       const modelId = key.split('::')[0];
       return UNRELIABLE_CACHE_MODELS.has(modelId);
     }
 
-    // Per-game metric: computes a single value for one player in one game
     type PerGameMetric = {
       label: string;
       unit: string;
@@ -475,7 +496,8 @@ if (fs.existsSync(exportsDir)) {
         label: 'Cache Rate',
         unit: '%',
         compute: (p) => p.promptTokens > 0 && !hasUnreliableCache(p.key)
-            ? (p.cachedTokens / p.promptTokens) * 100 : null,
+          ? (p.cachedTokens / p.promptTokens) * 100
+          : null,
       },
       toolCallsPerGame: {
         label: 'Tool Calls per Game',
@@ -509,29 +531,56 @@ if (fs.existsSync(exportsDir)) {
       },
     };
 
-    // Moving average smoothing (x is game index)
-    function movingAverage(points: {x: number; y: number}[], window: number): {x: number; y: number}[] {
-      if (points.length === 0 || window <= 1) return points;
-      const result: {x: number; y: number}[] = [];
-      for (let i = 0; i < points.length; i++) {
-        const start = Math.max(0, i - Math.floor(window / 2));
-        const end = Math.min(points.length, i + Math.ceil(window / 2));
-        let sum = 0;
-        for (let j = start; j < end; j++) sum += points[j].y;
-        result.push({ x: points[i].x, y: sum / (end - start) });
-      }
-      return result;
+    function setActiveButton(selector: string, attr: string, value: string) {
+      document.querySelectorAll(selector).forEach(button => {
+        button.classList.toggle('active', (button as HTMLElement).dataset[attr] === value);
+      });
     }
 
-    // Chart instance
+    document.querySelectorAll('#metric-buttons .metric-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#metric-buttons .metric-btn').forEach(button => button.classList.remove('active'));
+        btn.classList.add('active');
+        currentMetric = (btn as HTMLElement).dataset.metric!;
+        updateChart();
+        syncTrendsToUrl();
+      });
+    });
+
+    document.querySelectorAll('#format-buttons .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#format-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
+        btn.classList.add('active');
+        currentFormat = (btn as HTMLElement).dataset.format!;
+        updateChart();
+        syncTrendsToUrl();
+      });
+    });
+
+    document.querySelectorAll('#y-scale-buttons .toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#y-scale-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
+        btn.classList.add('active');
+        yScaleMode = (btn as HTMLElement).dataset.scale as YScaleMode;
+        updateChart();
+        syncTrendsToUrl();
+      });
+    });
+
+    minEpochTrendInput.addEventListener('input', () => {
+      minEpochTrend = parseInt(minEpochTrendInput.value) || 1;
+      updateChart();
+      syncTrendsToUrl();
+    });
+
     const canvas = document.getElementById('trend-chart') as HTMLCanvasElement;
     let chart: Chart | null = null;
 
     function updateChart() {
       const metric = METRICS[currentMetric];
+      if (!metric) throw new Error(`Unknown trend metric: ${currentMetric}`);
 
-      // Filter games and sort chronologically
-      const filtered = trendData.games
+      const filteredGames = trendData.games
         .filter(g => {
           if (g.epoch < minEpochTrend) return false;
           if (currentFormat !== 'all' && g.format !== currentFormat) return false;
@@ -539,113 +588,100 @@ if (fs.existsSync(exportsDir)) {
         })
         .sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
 
-      // Build a global game index: each filtered game gets a sequential number.
-      // Also store date for tick labels.
-      const gameIndex = new Map<string, number>();
-      const gameDate = new Map<number, Date>();
-      filtered.forEach((g, i) => {
-        gameIndex.set(g.id, i);
-        gameDate.set(i, new Date(g.ts));
-      });
+      const noteEl = document.getElementById('chart-note')!;
+      if (filteredGames.length === 0) {
+        noteEl.textContent = 'No games for the selected filters.';
+        if (chart) {
+          chart.destroy();
+          chart = null;
+        }
+        return;
+      }
 
-      // Collect per-model raw points: {x: game_index, y: metric_value}
-      const modelPoints = new Map<string, {x: number; y: number; date: Date}[]>();
-
-      for (const g of filtered) {
-        const idx = gameIndex.get(g.id)!;
-        const date = new Date(g.ts);
-
-        for (const p of g.players) {
-          if (!selectedModels.has(p.key)) continue;
-          const val = metric.compute(p);
-          if (val === null) continue;
-
-          if (!modelPoints.has(p.key)) modelPoints.set(p.key, []);
-          modelPoints.get(p.key)!.push({ x: idx, y: val, date });
+      const modelPoints = new Map<string, TrendPoint[]>();
+      for (const game of filteredGames) {
+        const ts = new Date(game.ts).getTime();
+        if (!Number.isFinite(ts)) continue;
+        for (const player of game.players) {
+          if (!selectedModels.has(player.key)) continue;
+          const rawValue = metric.compute(player);
+          if (rawValue === null) continue;
+          if (!modelPoints.has(player.key)) modelPoints.set(player.key, []);
+          modelPoints.get(player.key)!.push({
+            x: ts,
+            y: transformY(rawValue),
+            rawY: rawValue,
+            modelName: player.modelName,
+            modelCount: 0,
+            format: game.format,
+            gameId: game.id,
+            dateLabel: formatDateTimeLabel(ts),
+          });
         }
       }
 
-      // Sort each model's points by game index
       for (const points of modelPoints.values()) {
         points.sort((a, b) => a.x - b.x);
+        for (const point of points) point.modelCount = points.length;
       }
 
-      // Build datasets: raw scatter + smoothed line per model
       const datasets: any[] = [];
-      let totalRawPoints = 0;
+      const observedTimes: number[] = [];
+      let totalObservations = 0;
+      let modelsWithData = 0;
 
       for (const [modelKey] of allModels) {
         if (!selectedModels.has(modelKey)) continue;
         const points = modelPoints.get(modelKey);
         if (!points || points.length === 0) continue;
 
-        const colorIdx = allModels.findIndex(m => m[0] === modelKey);
+        modelsWithData += 1;
+        totalObservations += points.length;
+        observedTimes.push(...points.map(point => point.x));
+
+        const colorIdx = allModels.findIndex(model => model[0] === modelKey);
         const color = LINE_COLORS[colorIdx % LINE_COLORS.length];
         const modelName = modelMap.get(modelKey) || modelKey;
 
-        totalRawPoints += points.length;
-
-        // Raw scatter points
         datasets.push({
-          label: modelName,
-          data: points.map(p => ({ x: p.x, y: p.y })),
+          label: `${modelName} (n=${points.length})`,
+          data: points,
           type: 'scatter' as const,
           borderColor: color,
-          backgroundColor: color + '66',
-          pointRadius: 3,
+          backgroundColor: withAlpha(color, '66'),
+          pointRadius: 2.75,
           pointHoverRadius: 6,
           showLine: false,
-          order: 2,
         });
-
-        // Smoothed trend line (skip when smoothing is 0)
-        const smoothed = smoothingWindow > 0 ? movingAverage(points, smoothingWindow) : [];
-        if (smoothed.length >= 2) {
-          datasets.push({
-            label: modelName + ' (trend)',
-            data: smoothed.map(p => ({ x: p.x, y: p.y })),
-            type: 'line' as const,
-            borderColor: color,
-            backgroundColor: 'transparent',
-            borderWidth: 2.5,
-            tension: 0.3,
-            pointRadius: 0,
-            pointHoverRadius: 0,
-            order: 1,
-          });
-        }
       }
 
-      // Update note
-      const noteEl = document.getElementById('chart-note')!;
-      if (totalRawPoints === 0) {
-        noteEl.textContent = 'No data for selected filters. Try selecting different models or adjusting filters.';
-        if (chart) { chart.destroy(); chart = null; }
+      if (totalObservations === 0 || observedTimes.length === 0) {
+        noteEl.textContent = 'No data for the selected filters. Try selecting different models or adjusting filters.';
+        if (chart) {
+          chart.destroy();
+          chart = null;
+        }
         return;
       }
-      const numModels = new Set(Array.from(modelPoints.keys()).filter(k => selectedModels.has(k))).size;
-      noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
 
-      // Build date tick labels: show date when it changes between games.
-      // Skip the first one (index 0) so it doesn't render on/left of the Y axis.
-      const dateTicks: {value: number; label: string}[] = [];
-      let lastDateStr = '';
-      for (let i = 0; i < filtered.length; i++) {
-        const d = gameDate.get(i)!;
-        const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        if (dateStr !== lastDateStr) {
-          if (lastDateStr !== '') {
-            dateTicks.push({ value: i, label: dateStr });
-          }
-          lastDateStr = dateStr;
-        }
-      }
+      const minObserved = Math.min(...observedTimes);
+      const maxObserved = Math.max(...observedTimes);
+      const rangeMs = Math.max(maxObserved - minObserved, 60 * 60 * 1000);
+      const xPadding = Math.max(rangeMs * 0.03, 30 * 60 * 1000);
+      const xMin = minObserved - xPadding;
+      const xMax = maxObserved + xPadding;
 
-      // For very few games, ensure the X scale has sensible bounds
-      const xMin = -0.5;
-      const xMax = Math.max(filtered.length - 1, 1) + 0.5;
+      const noteParts = [
+        `${modelsWithData} model(s)`,
+        `${totalObservations} observation(s)`,
+        'raw points only',
+        'x-axis uses actual timestamps',
+      ];
+      if (yScaleMode === 'symlog') noteParts.push('y-axis uses symlog scaling');
+      noteEl.textContent = noteParts.join(' | ');
 
-      // Render chart
+      const isPercentMetric = metric.unit === '%';
+
       if (chart) chart.destroy();
       chart = new Chart(canvas, {
         type: 'scatter',
@@ -665,7 +701,6 @@ if (fs.existsSync(exportsDir)) {
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
-                filter: (item: any) => !item.text.endsWith('(trend)'),
               },
             },
             tooltip: {
@@ -674,23 +709,20 @@ if (fs.existsSync(exportsDir)) {
               borderWidth: 1,
               titleColor: '#f0f0f2',
               bodyColor: '#9e9eab',
-              filter: (item: any) => !item.dataset.label?.endsWith('(trend)'),
               callbacks: {
                 title: (items: any[]) => {
                   if (items.length === 0) return '';
-                  const idx = Math.round(items[0].parsed.x);
-                  const d = gameDate.get(idx);
-                  if (!d) return `Game #${idx}`;
-                  return `Game #${idx + 1} — ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                  const point = items[0].raw as TrendPoint;
+                  return point.dateLabel;
                 },
                 label: (ctx: any) => {
-                  const val = ctx.parsed.y;
-                  const name = ctx.dataset.label;
-                  if (val === null || val === undefined) return `${name}: no data`;
-                  if (metric.unit === '%') return `${name}: ${val.toFixed(1)}%`;
-                  if (metric.unit === '$') return `${name}: $${val.toFixed(2)}`;
-                  if (metric.unit === 's') return `${name}: ${val.toFixed(1)}s`;
-                  return `${name}: ${val.toFixed(1)}`;
+                  const point = ctx.raw as TrendPoint;
+                  return [
+                    `${point.modelName}: ${formatMetricValue(point.rawY, metric.unit)}`,
+                    `model observations in filter: n=${point.modelCount}`,
+                    `format: ${point.format}`,
+                    `game: ${point.gameId}`,
+                  ];
                 },
               },
             },
@@ -702,38 +734,38 @@ if (fs.existsSync(exportsDir)) {
               max: xMax,
               title: {
                 display: true,
-                text: 'Games (chronological)',
+                text: 'Observed Time',
                 color: '#9e9eab',
                 font: { size: 11 },
               },
               ticks: {
                 color: '#9e9eab',
-                maxRotation: 45,
+                maxRotation: 0,
+                autoSkip: true,
+                maxTicksLimit: 8,
                 font: { size: 11 },
-                callback: function(value: any) {
-                  const tick = dateTicks.find(t => t.value === value);
-                  return tick ? tick.label : '';
-                },
-                autoSkip: false,
-              },
-              afterBuildTicks: function(axis: any) {
-                axis.ticks = dateTicks.map(t => ({ value: t.value }));
+                callback: (value: string | number) => formatTimeTick(Number(value), rangeMs),
               },
               grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
+              min: isPercentMetric ? transformY(0) : undefined,
+              max: isPercentMetric ? transformY(100) : undefined,
+              title: {
+                display: true,
+                text: yScaleMode === 'symlog'
+                  ? `${metric.label}${metric.unit ? ` (${metric.unit})` : ''} [symlog]`
+                  : `${metric.label}${metric.unit ? ` (${metric.unit})` : ''}`,
+                color: '#9e9eab',
+                font: { size: 11 },
+              },
               ticks: {
                 color: '#9e9eab',
                 font: { size: 11 },
-                callback: (val: any) => {
-                  if (metric.unit === '%') return val + '%';
-                  if (metric.unit === '$') return '$' + val;
-                  if (metric.unit === 's') return val + 's';
-                  return val;
-                },
+                maxTicksLimit: 8,
+                callback: (value: string | number) => formatMetricValue(inverseY(Number(value)), metric.unit),
               },
               grid: { color: 'rgba(255,255,255,0.1)' },
-              beginAtZero: true,
             },
           },
         },
@@ -746,46 +778,48 @@ if (fs.existsSync(exportsDir)) {
       else url.searchParams.delete('metric');
       if (currentFormat !== 'all') url.searchParams.set('format', currentFormat);
       else url.searchParams.delete('format');
-      if (smoothingWindow !== 5) url.searchParams.set('smoothing', String(smoothingWindow));
-      else url.searchParams.delete('smoothing');
+      if (yScaleMode !== 'linear') url.searchParams.set('yscale', yScaleMode);
+      else url.searchParams.delete('yscale');
       if (minEpochTrend !== 1) url.searchParams.set('minEpoch', String(minEpochTrend));
       else url.searchParams.delete('minEpoch');
+      url.searchParams.delete('display');
+      url.searchParams.delete('bucket');
+      url.searchParams.delete('smoothing');
       history.replaceState(null, '', url.toString());
     }
 
-    // Read URL params on load
     {
       const params = new URLSearchParams(window.location.search);
       const metricParam = params.get('metric');
       if (metricParam && METRICS[metricParam]) {
         currentMetric = metricParam;
-        document.querySelectorAll('.metric-btn').forEach(b => b.classList.remove('active'));
-        const btn = document.querySelector(`.metric-btn[data-metric="${metricParam}"]`);
+        document.querySelectorAll('#metric-buttons .metric-btn').forEach(button => button.classList.remove('active'));
+        const btn = document.querySelector(`#metric-buttons .metric-btn[data-metric="${metricParam}"]`);
         if (btn) btn.classList.add('active');
       }
+
       const formatParam = params.get('format');
       if (formatParam) {
         const btn = document.querySelector(`#format-buttons .toggle-btn[data-format="${formatParam}"]`);
         if (btn) {
           currentFormat = formatParam;
-          document.querySelectorAll('#format-buttons .toggle-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#format-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
           btn.classList.add('active');
         }
       }
-      const smoothingParam = params.get('smoothing');
-      if (smoothingParam !== null) {
-        const val = parseInt(smoothingParam);
-        if (!isNaN(val) && val >= 0) {
-          smoothingWindow = val;
-          smoothingInput.value = String(val);
-        }
+
+      const yScaleParam = params.get('yscale');
+      if (yScaleParam === 'linear' || yScaleParam === 'symlog') {
+        yScaleMode = yScaleParam;
+        setActiveButton('#y-scale-buttons .toggle-btn', 'scale', yScaleParam);
       }
+
       const minEpochParam = params.get('minEpoch');
       if (minEpochParam !== null) {
-        const val = parseInt(minEpochParam);
-        if (!isNaN(val) && val >= 1) {
-          minEpochTrend = val;
-          minEpochTrendInput.value = String(val);
+        const value = parseInt(minEpochParam);
+        if (!isNaN(value) && value >= 1) {
+          minEpochTrend = value;
+          minEpochTrendInput.value = String(value);
         }
       }
     }
@@ -1485,9 +1519,10 @@ if (fs.existsSync(exportsDir)) {
   }
 
   .chart-note {
-    color: #666;
+    color: #8d97b5;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+    line-height: 1.45;
   }
 
   /* ─── Model Stats tab ─── */
