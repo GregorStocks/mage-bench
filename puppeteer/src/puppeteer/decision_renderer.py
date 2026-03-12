@@ -111,6 +111,7 @@ def _render_decision_block(
         f"[Decision {decision.get('index', '?')}, snapshot={decision.get('snapshotIndex', '?')}] "
         f"Turn {turn} {phase} - {player}"
     ]
+    pilot_ctx = decision.get("pilotContext", {})
 
     # Board state from snapshot
     board_line = _render_board(snapshot, deciding_player)
@@ -128,12 +129,15 @@ def _render_decision_block(
         combat_line = _render_combat(combat_groups)
         lines.append(f"  Combat: {combat_line}")
 
-    combat_phase = decision.get("pilotContext", {}).get("combatPhase")
+    combat_phase = pilot_ctx.get("combatPhase")
     if combat_phase:
         lines.append(f"  Combat Phase: {combat_phase}")
 
     # Pilot context overlay
-    pilot_ctx = decision.get("pilotContext", {})
+    incoming_attackers = pilot_ctx.get("incomingAttackers")
+    if _is_declare_blockers_phase(combat_phase) and incoming_attackers:
+        lines.append(f"  Incoming Attackers: {_render_incoming_attackers(incoming_attackers)}")
+
     if "untappedLands" in pilot_ctx or "landDropsUsed" in pilot_ctx:
         ctx_parts: list[str] = []
         if "untappedLands" in pilot_ctx:
@@ -296,6 +300,38 @@ def _render_combat(combat_groups: list) -> str:
             part += f" -> {group['defending']}"
         parts.append(part)
     return " | ".join(parts)
+
+
+def _is_declare_blockers_phase(combat_phase: object) -> bool:
+    """Return whether the pilot context is describing declare blockers."""
+    return isinstance(combat_phase, str) and combat_phase.lower() in {"blockers", "declare_blockers"}
+
+
+def _render_incoming_attackers(incoming_attackers: list) -> str:
+    """Render incoming attackers with IDs for declare-blockers prompts."""
+    parts: list[str] = []
+    for attacker in incoming_attackers:
+        if not isinstance(attacker, dict):
+            parts.append(str(attacker))
+            continue
+
+        name = attacker.get("name") or "?"
+        extras: list[str] = []
+        attacker_id = attacker.get("id")
+        if attacker_id:
+            extras.append(f"id={attacker_id}")
+        pt = attacker.get("power_toughness") or attacker.get("pt")
+        if not pt and attacker.get("power") is not None and attacker.get("toughness") is not None:
+            pt = f"{attacker['power']}/{attacker['toughness']}"
+        if pt:
+            extras.append(pt)
+
+        if extras:
+            parts.append(f"{name} [{', '.join(extras)}]")
+        else:
+            parts.append(name)
+
+    return ", ".join(parts)
 
 
 def _format_choice(c: object) -> str:
