@@ -51,7 +51,7 @@ This gives you a roadmap — you'll know which players had errors, roughly when,
 
 **Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
 
-**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. This is often more useful than manually correlating events across log files.
+**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python scripts/analysis/extract_decisions.py website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
 
@@ -72,6 +72,7 @@ uv run python scripts/list-issues.py
 - **Chat messages**: Extract `player_chat` events from `game_events.jsonl` (`jq 'select(.type=="player_chat")' game_events.jsonl`). Look for XMage system messages about illegal actions, failed spell resolutions, mana payment problems, and rule enforcement. Look for player messages that reveal confusion or frustration. Chat messages often point directly at the root cause before you even open error logs.
 - **Error logs**: Read `*_errors.log` files. Look for Java exceptions (NPE, IndexOutOfBounds, ClassCast), MCP tool failures, and stack traces. Note the exact filename and line numbers.
 - **Pilot logs**: Read `*_pilot.log` files. Look for LLM decision failures, repeated tool call patterns (loops), models sending wrong parameters, empty responses, and context trimming warnings. **Pay close attention to what models complain about in their reasoning/thinking traces** — when a model says "this doesn't make sense", "the tool returned wrong data", or "why can't I cast this", those are often smoking guns for real platform bugs rather than model confusion. Also check for **personality infection**: if the reasoning/thinking is full of in-character narrative (dramatic monologues, villain speeches, valley-girl speak) instead of game analysis, the chat personality is bleeding into gameplay decisions. Note the personality and flag affected decisions.
+  - If a model appears to hallucinate IDs or misunderstand a prompt, compare the exact rendered tool text in `*_llm_trace.jsonl` against the structured MCP/export payload. This catches renderer bugs where the raw JSON has the needed field (for example `incoming_attackers`) but the prompt text shown to the model omits it.
 - **Bridge logs**: Read `*_bridge.jsonl` files. Look for repeated identical MCP calls (loop signatures), failed actions, "Index out of range" errors, and action sequences that suggest confusion (e.g., cast → cancel → cast → cancel).
   - For stale-choice race monitoring, use the Grep tool for `choose_action out-of-range diagnostic` in the game directory's `*_mcp.log` files and classify each hit:
     - likely model misuse: `last_choices_response=boolean` with `index>=0`, or negative index
