@@ -1,3 +1,8 @@
+---
+name: pr
+description: Prepare and open a pull request for the current branch after validating the full diff and checks.
+---
+
 # Make a PR
 
 Create a pull request for the current branch's changes.
