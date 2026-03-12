@@ -1,0 +1,10 @@
+{
+  "title": "Gemini requests still violate function call/response adjacency",
+  "description": "Gemini games still intermittently fail with `BadRequestError 400` from Google AI Studio: `Please ensure that function response turn comes immediately after a function call turn.` This is not normal pilot play error. It means the rendered conversation sometimes sends a tool/function response in a position Gemini considers detached from the immediately preceding tool/function call.\n\nEvidence:\n- game_20260309_181423: Gem3P Coach hit the error at llmEvents seq 175 (`BadRequestError`) after normal `choose_action` traffic and only recovered after the pilot error-reset path.\n- game_20260309_173923: same Gemini error appears twice in one export.\n- game_20260302_184350_g2: same Gemini error appears twice and was already called out in fast analysis.\n- Searching the current exports for the exact error string finds 34 affected games on this branch, so this is recurring rather than a one-off provider hiccup.\n- `puppeteer/tests/test_pilot_context.py` currently asserts only that every rendered tool result has some preceding assistant tool-call pair; it does not assert the stricter adjacency Gemini requires.\n\nSuggested fix: tighten the prompt rendering/history-reset invariants so assistant tool-call turns and their corresponding tool-result turns remain adjacent in the rendered prompt for Gemini/OpenRouter. Add a regression test that fails if a context boundary, state bridge, or other rendered message can appear between a tool-call turn and its tool-result turn.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["puppeteer", "pilot"],
+  "created_at": "2026-03-11T21:53:11.000000-07:00",
+  "updated_at": "2026-03-11T21:53:11.000000-07:00"
+}
