@@ -1,0 +1,444 @@
+/* Shared styles for game list pages (/games and /season/N/games) */
+
+/* Format filter tabs */
+.format-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.format-tab {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.format-tab:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.format-tab.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #fff;
+}
+
+.format-tab.active[data-format="standard"] {
+  background: var(--format-standard);
+  border-color: var(--format-standard);
+}
+
+.format-tab.active[data-format="modern"] {
+  background: var(--format-modern);
+  border-color: var(--format-modern);
+}
+
+.format-tab.active[data-format="legacy"] {
+  background: var(--format-legacy);
+  border-color: var(--format-legacy);
+}
+
+.format-tab.active[data-format="commander"] {
+  background: var(--format-commander);
+  border-color: var(--format-commander);
+}
+
+.tab-count {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-left: 0.2rem;
+}
+
+/* Model filter tabs */
+.model-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.model-tabs:empty {
+  display: none;
+}
+
+.model-tabs-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  align-self: center;
+  margin-right: 0.2rem;
+}
+
+.model-tab {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.model-tab:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.model-tab.active {
+  background: rgba(var(--accent-primary-rgb), 0.15);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Filter bar */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid #e94560;
+  border-radius: 20px;
+  color: #e94560;
+}
+
+.filter-chip-remove {
+  background: none;
+  border: none;
+  color: #e94560;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  opacity: 0.7;
+}
+
+.filter-chip-remove:hover {
+  opacity: 1;
+}
+
+.filter-clear {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+}
+
+.filter-clear:hover {
+  color: var(--text-primary);
+}
+
+.filter-count {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-left: auto;
+}
+
+/* Game cards */
+.no-games {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.game-card {
+  display: block;
+  margin-bottom: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: border-color 0.2s, transform 0.2s;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
+.game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
+.game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
+.game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
+.game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.9rem;
+}
+
+.game-date {
+  color: var(--text-secondary);
+}
+
+.format-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+
+.format-standard {
+  background: rgba(76, 175, 80, 0.15);
+  color: #66bb6a;
+}
+
+.format-modern {
+  background: rgba(33, 150, 243, 0.15);
+  color: #42a5f5;
+}
+
+.format-legacy {
+  background: rgba(156, 39, 176, 0.15);
+  color: #ab47bc;
+}
+
+.format-commander {
+  background: rgba(255, 152, 0, 0.15);
+  color: #ffa726;
+}
+
+.game-turns {
+  color: var(--text-secondary);
+}
+
+.winner-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--bg-base);
+  background: var(--color-success);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 0.4rem;
+}
+
+.timeout-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--bg-base);
+  background: var(--color-warning);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 0.4rem;
+}
+
+.yt-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+
+.yt-link:hover {
+  text-decoration: underline;
+}
+
+/* Player grid */
+.game-players {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.player-cell {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.player-cell:nth-child(2n) {
+  border-right: none;
+}
+
+.player-cell:nth-child(n+3) {
+  border-bottom: none;
+}
+
+.player-cell.is-winner {
+  box-shadow: inset 3px 0 0 var(--color-success);
+  background: rgba(168, 217, 165, 0.04);
+}
+
+.player-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.player-model-inline {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.player-placement {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.player-placement.placement-1 {
+  background: rgba(168, 217, 165, 0.2);
+  color: #a8d9a5;
+}
+
+.player-placement.placement-2 {
+  background: rgba(126, 184, 218, 0.2);
+  color: #7eb8da;
+}
+
+.player-placement.placement-3 {
+  background: rgba(212, 160, 74, 0.2);
+  color: #d4a04a;
+}
+
+.player-placement.placement-4 {
+  background: rgba(160, 160, 184, 0.2);
+  color: var(--text-muted);
+}
+
+.player-cell.placement-1 {
+  box-shadow: inset 3px 0 0 #a8d9a5;
+}
+
+.player-cell.placement-2 {
+  box-shadow: inset 3px 0 0 #7eb8da;
+}
+
+.player-cell.placement-3 {
+  box-shadow: inset 3px 0 0 #d4a04a;
+}
+
+.player-cell.placement-4 {
+  box-shadow: inset 3px 0 0 var(--text-muted);
+}
+
+.player-commander {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-cost {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.player-rating {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.player-rating.rating-up {
+  color: #a8d9a5;
+}
+
+.player-rating.rating-down {
+  color: #e94560;
+}
+
+.game-footer {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: right;
+  border-top: 1px solid var(--border-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.player-blunder-score {
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-blunder-score.blunder-low {
+  color: var(--color-success);
+}
+
+.player-blunder-score.blunder-med {
+  color: var(--color-warning);
+}
+
+.player-blunder-score.blunder-high {
+  color: var(--accent-primary);
+}
+
+.old-analysis-tag {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .game-players {
+    grid-template-columns: 1fr;
+  }
+
+  .player-cell:nth-child(2n) {
+    border-right: none;
+  }
+
+  .player-cell {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .player-cell:last-child {
+    border-bottom: none;
+  }
+
+  .game-header {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+}
