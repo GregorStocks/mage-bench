@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 478,
-      "toolCallsFailed": 15
+      "toolCallsFailed": 15,
+      "thinkingTimeSecs": 2880.1
     },
     {
       "name": "GPT4om Coach",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 512,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 551.0
     }
   ],
   "cardImages": {
@@ -92271,7 +92273,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

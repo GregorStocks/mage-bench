@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 205,
       "toolCallsFailed": 6,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1347.8
     },
     {
       "name": "DSV3 Coach",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 131,
-      "toolCallsFailed": 2
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 873.3
     }
   ],
   "cardImages": {
@@ -24431,7 +24433,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

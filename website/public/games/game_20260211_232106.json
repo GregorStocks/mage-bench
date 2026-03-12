@@ -26,7 +26,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 250,
-      "toolCallsFailed": 2
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 562.5
     },
     {
       "name": "Qwen3L ESPN",
@@ -47,7 +48,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 253,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 818.9
     }
   ],
   "cardImages": {
@@ -36889,7 +36891,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

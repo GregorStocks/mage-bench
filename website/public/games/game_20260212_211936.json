@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 561,
       "toolCallsFailed": 0,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1592.3
     },
     {
       "name": "Haiku Coach",
@@ -50,7 +51,8 @@
       ],
       "toolCallsOk": 563,
       "toolCallsFailed": 6,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "thinkingTimeSecs": 1388.0
     }
   ],
   "cardImages": {
@@ -65564,7 +65566,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

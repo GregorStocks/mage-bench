@@ -13,7 +13,10 @@
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 1.2152,
       "placement": 1,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 143,
+      "toolCallsFailed": 8,
+      "thinkingTimeSecs": 319.6
     },
     {
       "name": "Gem25F Analyst",
@@ -22,7 +25,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 0.3968,
       "placement": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 228,
+      "toolCallsFailed": 8,
+      "thinkingTimeSecs": 472.3
     }
   ],
   "cardImages": {
@@ -29220,7 +29226,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

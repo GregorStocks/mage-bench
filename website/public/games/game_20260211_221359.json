@@ -25,7 +25,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 280,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 574.3
     },
     {
       "name": "Gem25F Libby",
@@ -46,7 +49,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 228,
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 582.8
     }
   ],
   "cardImages": {
@@ -36021,7 +36027,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

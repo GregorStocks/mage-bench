@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 229,
       "toolCallsFailed": 11,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 291.8
     },
     {
       "name": "GPT41m Sarge",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 9489,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 10551.8
     }
   ],
   "cardImages": {
@@ -314112,7 +314114,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 12,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

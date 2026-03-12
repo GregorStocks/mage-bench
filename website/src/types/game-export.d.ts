@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 6). Removes llmTrace (redundant with llmEvents).
+ * Schema for the .json.gz game export format (version 7). Normalizes player stats and requires season/tournament.
  */
-export interface GameExportV6 {
+export interface GameExportV7 {
   /**
-   * Export format version 6: removed llmTrace (redundant with llmEvents).
+   * Export format version 7: normalized player stats and required season/tournament.
    */
-  version: 6;
+  version: 7;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -88,11 +88,11 @@ export interface GameExportV6 {
   /**
    * Season number. 0 = pre-season (harnessEpoch < SEASON_1_START_EPOCH), 1 = season 1. Present in version 4+ exports.
    */
-  season?: number;
+  season: number;
   /**
    * Tournament identifier, or null for non-tournament games. Present in version 4+ exports.
    */
-  tournament?: string | null;
+  tournament: string | null;
   /**
    * Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md.
    */
@@ -143,15 +143,15 @@ export interface Player {
   /**
    * Number of successful tool calls.
    */
-  toolCallsOk?: number;
+  toolCallsOk: number;
   /**
    * Number of failed tool calls.
    */
-  toolCallsFailed?: number;
+  toolCallsFailed: number;
   /**
    * Total time in seconds this player held priority (chess-clock style).
    */
-  thinkingTimeSecs?: number;
+  thinkingTimeSecs: number;
   /**
    * True if this player lost by running out of time on the game timer.
    */

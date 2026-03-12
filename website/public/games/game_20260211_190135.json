@@ -13,7 +13,10 @@
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 1.8996,
       "placement": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 496,
+      "toolCallsFailed": 17,
+      "thinkingTimeSecs": 1300.4
     },
     {
       "name": "Gem25F ESPN",
@@ -22,7 +25,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 1.3992,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 372,
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 1425.0
     }
   ],
   "cardImages": {
@@ -67113,7 +67119,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

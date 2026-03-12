@@ -28,7 +28,7 @@ const seasonNum = parseInt(season!, 10);
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
 const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
 
-const games = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
+const games = loadAllGames().filter(g => g.season === seasonNum);
 
 // Split tournament games from regular-season games
 const tournamentGames = games.filter(g => g.tournament != null);

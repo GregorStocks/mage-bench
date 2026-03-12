@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 116,
       "toolCallsFailed": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 507.7
     },
     {
       "name": "Haiku Truth",
@@ -50,7 +51,8 @@
       ],
       "toolCallsOk": 217,
       "toolCallsFailed": 1,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "thinkingTimeSecs": 448.8
     }
   ],
   "cardImages": {
@@ -28290,7 +28292,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

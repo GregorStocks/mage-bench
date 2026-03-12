@@ -11,7 +11,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 2.3079,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 1281,
+      "toolCallsFailed": 9,
+      "thinkingTimeSecs": 18262.5
     },
     {
       "name": "Gem3F Libby",
@@ -20,7 +23,10 @@
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 5.9399,
       "placement": 3,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 1822,
+      "toolCallsFailed": 54,
+      "thinkingTimeSecs": 1851.0
     },
     {
       "name": "Sonnet Timmy",
@@ -30,7 +36,10 @@
       "totalCostUsd": 19.2201,
       "placement": 2,
       "reasoningEffort": "medium",
-      "timedOut": true
+      "timedOut": true,
+      "toolCallsOk": 843,
+      "toolCallsFailed": 5,
+      "thinkingTimeSecs": 2232.8
     },
     {
       "name": "Haiku ESPN",
@@ -38,7 +47,10 @@
       "commander": "Anhelo, the Painter",
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 6.0832,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 477,
+      "toolCallsFailed": 19,
+      "thinkingTimeSecs": 1233.9
     }
   ],
   "cardImages": {
@@ -305424,7 +305436,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

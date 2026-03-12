@@ -26,7 +26,8 @@
       ],
       "toolCallsOk": 1,
       "toolCallsFailed": 0,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 40.8
     },
     {
       "name": "Gem25P Sarge",
@@ -49,7 +50,8 @@
       ],
       "toolCallsOk": 91,
       "toolCallsFailed": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 599.3
     }
   ],
   "cardImages": {
@@ -6648,7 +6650,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -20,7 +20,7 @@ const { season } = Astro.params;
 const seasonNum = parseInt(season!, 10);
 
 // Regular-season games for this season
-const games = loadAllGames().filter(g => (g.season ?? 0) === seasonNum && !g.tournament);
+const games = loadAllGames().filter(g => g.season === seasonNum && !g.tournament);
 
 // Check for tournament existence for SeasonNav props
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);

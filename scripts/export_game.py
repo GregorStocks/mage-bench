@@ -308,6 +308,35 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     return thinking
 
 
+def compute_tool_call_counts(llm_events: list[dict]) -> dict[str, tuple[int, int]]:
+    """Compute successful/failed tool call counts from exported llmEvents."""
+    player_tool_calls: dict[str, tuple[int, int]] = {}
+    for event in llm_events:
+        if event.get("type") != "tool_call":
+            continue
+        player = event.get("player", "")
+        if not player:
+            continue
+
+        ok, failed = player_tool_calls.get(player, (0, 0))
+        is_failure = False
+        result_str = event.get("result", "")
+        if result_str:
+            try:
+                result_obj = json.loads(result_str)
+                if isinstance(result_obj, dict) and result_obj.get("success") is False:
+                    is_failure = True
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        if is_failure:
+            player_tool_calls[player] = (ok, failed + 1)
+        else:
+            player_tool_calls[player] = (ok + 1, failed)
+
+    return player_tool_calls
+
+
 def _read_llm_events(
     game_dir: Path,
 ) -> tuple[
@@ -326,7 +355,6 @@ def _read_llm_events(
     events = []
     player_costs: dict[str, float] = {}
     player_tools: dict[str, list[str]] = {}
-    player_tool_calls: dict[str, tuple[int, int]] = {}
 
     for path in sorted(game_dir.glob("*_llm.jsonl")):
         for line in path.read_text().splitlines():
@@ -350,26 +378,6 @@ def _read_llm_events(
             # Track per-player tools from game_start
             if event_type == "game_start" and "available_tools" in raw:
                 player_tools[player] = raw["available_tools"]
-
-            # Track per-player tool call success/failure
-            if event_type == "tool_call" and player:
-                ok, failed = player_tool_calls.get(player, (0, 0))
-                is_failure = False
-                result_str = raw.get("result", "")
-                if result_str:
-                    try:
-                        result_obj = json.loads(result_str)
-                        if (
-                            isinstance(result_obj, dict)
-                            and result_obj.get("success") is False
-                        ):
-                            is_failure = True
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-                if is_failure:
-                    player_tool_calls[player] = (ok, failed + 1)
-                else:
-                    player_tool_calls[player] = (ok + 1, failed)
 
             if event_type not in _LLM_EVENT_TYPES:
                 continue
@@ -442,6 +450,7 @@ def _read_llm_events(
     # Sort by timestamp
     events.sort(key=lambda e: e.get("ts", ""))
 
+    player_tool_calls = compute_tool_call_counts(events)
     player_thinking = compute_thinking_time(events)
 
     return events, player_costs, player_tools, player_tool_calls, player_thinking
@@ -1033,13 +1042,28 @@ def build_export(game_dir: Path) -> dict:
         if m:
             timed_out_players.add(m.group(1))
 
+    assert "deck_type" in meta, f"{game_id}: game_meta.json missing deck_type"
+    deck_type = meta["deck_type"]
+    assert isinstance(deck_type, str), (
+        f"{game_id}: expected deck_type to be a string, got {type(deck_type).__name__}"
+    )
+    assert "harness_epoch" in meta, f"{game_id}: game_meta.json missing harness_epoch"
+    harness_epoch = meta["harness_epoch"]
+    assert isinstance(harness_epoch, int), (
+        f"{game_id}: expected harness_epoch to be an int, got {type(harness_epoch).__name__}"
+    )
+
     players_summary = []
     for p in meta.get("players", []):
         name = p.get("name", "?")
+        ok, failed = player_tool_calls.get(name, (0, 0))
         entry: dict = {
             "name": name,
             "type": p.get("type", "?"),
-            "deckName": _deck_display_name(p, meta.get("deck_type", "")),
+            "deckName": _deck_display_name(p, deck_type),
+            "toolCallsOk": ok,
+            "toolCallsFailed": failed,
+            "thinkingTimeSecs": round(player_thinking.get(name, 0.0), 1),
         }
         if p.get("deck_strategy"):
             entry["deckStrategy"] = p["deck_strategy"]
@@ -1053,23 +1077,17 @@ def build_export(game_dir: Path) -> dict:
             entry["placement"] = placements[name]
         if name in player_tools:
             entry["tools"] = player_tools[name]
-        if name in player_tool_calls:
-            ok, failed = player_tool_calls[name]
-            entry["toolCallsOk"] = ok
-            entry["toolCallsFailed"] = failed
-        if name in player_thinking:
-            entry["thinkingTimeSecs"] = round(player_thinking[name], 1)
         if name in timed_out_players:
             entry["timedOut"] = True
         players_summary.append(entry)
 
     # Build output
     output: dict = {
-        "version": 6,
+        "version": 7,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
-        "deckType": meta.get("deck_type", ""),
+        "deckType": deck_type,
         "totalTurns": total_turns,
         "winner": winner,
         "players": players_summary,
@@ -1079,10 +1097,9 @@ def build_export(game_dir: Path) -> dict:
         "actions": actions,
         "llmEvents": llm_events,
         "gameOver": game_over,
+        "harnessEpoch": harness_epoch,
+        "youtubeUrl": meta.get("youtube_url", ""),
     }
-    if meta.get("harness_epoch") is not None:
-        output["harnessEpoch"] = meta["harness_epoch"]
-    output["youtubeUrl"] = meta.get("youtube_url", "")
 
     # Season/tournament (v4)
     if "season" in meta:
@@ -1090,7 +1107,7 @@ def build_export(game_dir: Path) -> dict:
     else:
         from schemas.migrations.v3_to_v4 import compute_season
 
-        output["season"] = compute_season(meta.get("harness_epoch", 0))
+        output["season"] = compute_season(harness_epoch)
     tournament_id: str | None = None
     if meta.get("tournament_game", False):
         tournament_id = _find_tournament_for_game(game_dir.name)
@@ -1107,7 +1124,6 @@ def build_export(game_dir: Path) -> dict:
         output["blunderScriptVersion"] = 0
 
     # Build canonical decisions
-    harness_epoch = meta.get("harness_epoch", 0)
     decisions = _build_decisions(snapshots, actions, llm_events, harness_epoch)
     if decisions:
         output["decisions"] = decisions
@@ -1123,10 +1139,10 @@ def build_export(game_dir: Path) -> dict:
     return output
 
 
-# Fields that build_export() always emits. harnessEpoch and youtubeUrl are
-# conditional on metadata; annotations and blunderScriptVersion are added by
-# annotate_game.py after export. See schemas/game-export-v4.schema.json for
-# the full schema including those downstream fields.
+# Fields that build_export() always emits. annotations and
+# blunderScriptVersion are added by annotate_game.py after export. See
+# schemas/game-export-v7.schema.json for the full schema including those
+# downstream fields.
 _BUILD_EXPORT_REQUIRED = {
     "version",
     "id",
@@ -1141,6 +1157,10 @@ _BUILD_EXPORT_REQUIRED = {
     "actions",
     "llmEvents",
     "gameOver",
+    "harnessEpoch",
+    "youtubeUrl",
+    "season",
+    "tournament",
 }
 
 
@@ -1151,7 +1171,7 @@ def _validate_export(data: dict) -> None:
     required fields and wrong version. The full JSON Schema validation
     runs in tests (test_export_schema.py).
     """
-    assert data.get("version") == 6, f"Expected version 6, got {data.get('version')}"
+    assert data.get("version") == 7, f"Expected version 7, got {data.get('version')}"
     missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
     assert not missing, f"Export missing required fields: {missing}"
     assert isinstance(data["players"], list), "players must be a list"
@@ -1161,6 +1181,9 @@ def _validate_export(data: dict) -> None:
     for i, p in enumerate(data["players"]):
         assert "name" in p, f"Player {i} missing 'name'"
         assert "type" in p, f"Player {i} missing 'type'"
+        assert "toolCallsOk" in p, f"Player {i} missing 'toolCallsOk'"
+        assert "toolCallsFailed" in p, f"Player {i} missing 'toolCallsFailed'"
+        assert "thinkingTimeSecs" in p, f"Player {i} missing 'thinkingTimeSecs'"
 
 
 def export_game(game_dir: Path, website_games_dir: Path) -> Path:

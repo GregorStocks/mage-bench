@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 64,
-      "toolCallsFailed": 1
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 210.7
     },
     {
       "name": "Gem25P Libby",
@@ -50,7 +51,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 64,
-      "toolCallsFailed": 2
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 185.6
     }
   ],
   "cardImages": {
@@ -14238,7 +14240,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

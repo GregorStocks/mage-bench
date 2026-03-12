@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 256,
-      "toolCallsFailed": 4
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 658.2
     },
     {
       "name": "Llama4 Libby",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 448,
-      "toolCallsFailed": 4
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 597.9
     }
   ],
   "cardImages": {
@@ -65738,7 +65740,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 561,
       "toolCallsFailed": 4,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1631.1
     },
     {
       "name": "Qwen3 Spike",
@@ -50,7 +51,8 @@
       ],
       "toolCallsOk": 507,
       "toolCallsFailed": 14,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1133.1
     }
   ],
   "cardImages": {
@@ -59819,7 +59821,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -10,7 +10,10 @@
       "commander": "Wyleth, Soul of Steel",
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 1.7678,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 590,
+      "toolCallsFailed": 16,
+      "thinkingTimeSecs": 1089.1
     },
     {
       "name": "Haiku4.5 Sarge",
@@ -18,7 +21,10 @@
       "commander": "Saskia the Unyielding",
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 3.4747,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 462,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 849.5
     },
     {
       "name": "Gem2.5 Villain",
@@ -26,7 +32,10 @@
       "commander": "Kalemne, Disciple of Iroas",
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 0.8769,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 316,
+      "toolCallsFailed": 11,
+      "thinkingTimeSecs": 776.2
     },
     {
       "name": "Haiku4.5 Truth",
@@ -34,7 +43,10 @@
       "commander": "Kathril, Aspect Warper",
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 0.9937,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 126,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 259.4
     }
   ],
   "cardImages": {
@@ -133984,7 +133996,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

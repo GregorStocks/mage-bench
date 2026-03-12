@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 152,
       "toolCallsFailed": 1,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "thinkingTimeSecs": 284.1
     },
     {
       "name": "Sonnet Stoic",
@@ -50,7 +51,8 @@
       ],
       "toolCallsOk": 164,
       "toolCallsFailed": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 491.4
     }
   ],
   "cardImages": {
@@ -20962,7 +20964,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -26,7 +26,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 247,
-      "toolCallsFailed": 10
+      "toolCallsFailed": 10,
+      "thinkingTimeSecs": 367.4
     },
     {
       "name": "DSV3 Analyst",
@@ -48,7 +49,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 252,
-      "toolCallsFailed": 4
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 1500.0
     }
   ],
   "cardImages": {
@@ -41651,7 +41653,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

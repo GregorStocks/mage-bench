@@ -11,7 +11,10 @@
       "commander": "Prosper, Tome-Bound",
       "model": "anthropic/claude-sonnet-4.5",
       "totalCostUsd": 33.4513,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 765,
+      "toolCallsFailed": 5,
+      "thinkingTimeSecs": 1577.7
     },
     {
       "name": "Haiku4.5",
@@ -19,7 +22,10 @@
       "commander": "Jirina Kudro",
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 7.394,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 426,
+      "toolCallsFailed": 5,
+      "thinkingTimeSecs": 816.7
     },
     {
       "name": "Gem2.5Flash",
@@ -27,14 +33,20 @@
       "commander": "Daxos of Meletis",
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 1.3884,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 391,
+      "toolCallsFailed": 6,
+      "thinkingTimeSecs": 935.6
     },
     {
       "name": "o4-mini",
       "type": "pilot",
       "commander": "Saskia the Unyielding",
       "model": "openai/o4-mini",
-      "totalCostUsd": 1.0263
+      "totalCostUsd": 1.0263,
+      "toolCallsOk": 109,
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 506.3
     }
   ],
   "cardImages": {
@@ -151170,7 +151182,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

@@ -8,16 +8,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 
+import type { GameExportV7 } from '../types/game-export';
+
 export interface GameEntry {
   id: string;
   timestamp: string;
   totalTurns: number;
   winner: string | null;
-  players: any[];
+  players: GameExportV7['players'];
   deckType: string;
-  harnessEpoch: number | null;
+  harnessEpoch: number;
   season: number;
-  tournament?: any;
+  tournament?: string | null;
   youtubeUrl?: string;
   blunderScoreByPlayer?: Record<string, number>;
   blunderScriptVersion?: number | null;
@@ -26,9 +28,42 @@ export interface GameEntry {
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
 const BLUNDER_WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
 
+function invariant(condition: unknown, message: string): asserts condition {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
+
+function assertPlayer(player: unknown, file: string, index: number): asserts player is GameExportV7['players'][number] {
+  invariant(player != null && typeof player === 'object', `${file}: player ${index} must be an object`);
+  const candidate = player as Record<string, unknown>;
+  invariant(typeof candidate.name === 'string', `${file}: player ${index} missing name`);
+  invariant(typeof candidate.type === 'string', `${file}: player ${index} missing type`);
+  invariant(Number.isInteger(candidate.toolCallsOk), `${file}: player ${index} missing toolCallsOk`);
+  invariant(Number.isInteger(candidate.toolCallsFailed), `${file}: player ${index} missing toolCallsFailed`);
+  invariant(typeof candidate.thinkingTimeSecs === 'number', `${file}: player ${index} missing thinkingTimeSecs`);
+}
+
+function assertGameExport(data: unknown, file: string): asserts data is GameExportV7 {
+  invariant(data != null && typeof data === 'object', `${file}: export must be an object`);
+  const candidate = data as Record<string, unknown>;
+  invariant(candidate.version === 7, `${file}: expected export version 7`);
+  invariant(typeof candidate.id === 'string', `${file}: missing id`);
+  invariant(typeof candidate.timestamp === 'string', `${file}: missing timestamp`);
+  invariant(typeof candidate.totalTurns === 'number', `${file}: missing totalTurns`);
+  invariant(candidate.winner === null || typeof candidate.winner === 'string', `${file}: invalid winner`);
+  invariant(typeof candidate.deckType === 'string', `${file}: missing deckType`);
+  invariant(Number.isInteger(candidate.harnessEpoch), `${file}: missing harnessEpoch`);
+  invariant(Number.isInteger(candidate.season), `${file}: missing season`);
+  invariant('tournament' in candidate, `${file}: missing tournament`);
+  invariant(candidate.tournament === null || typeof candidate.tournament === 'string', `${file}: invalid tournament`);
+  invariant(Array.isArray(candidate.players), `${file}: players must be an array`);
+  candidate.players.forEach((player, index) => assertPlayer(player, file, index));
+}
+
 function scanGames(): GameEntry[] {
   const gamesDir = path.join(process.cwd(), 'public', 'games');
-  if (!fs.existsSync(gamesDir)) return [];
+  invariant(fs.existsSync(gamesDir), `Missing games directory: ${gamesDir}`);
 
   const games: GameEntry[] = [];
 
@@ -57,63 +92,18 @@ function scanGames(): GameEntry[] {
       continue;
     }
 
-    const players = data.players || [];
-
-    // Backfill tool call counts from llmEvents if not already on players
-    if (players.length > 0 && !players.some((p: any) => p.toolCallsOk != null)) {
-      const toolOk: Record<string, number> = {};
-      const toolFailed: Record<string, number> = {};
-      for (const ev of (data.llmEvents || [])) {
-        if (ev.type !== 'tool_call' || !ev.player) continue;
-        let isFail = false;
-        if (ev.result) {
-          try {
-            const r = JSON.parse(ev.result);
-            if (r && typeof r === 'object' && r.success === false) isFail = true;
-          } catch {}
-        }
-        if (isFail) toolFailed[ev.player] = (toolFailed[ev.player] || 0) + 1;
-        else toolOk[ev.player] = (toolOk[ev.player] || 0) + 1;
-      }
-      for (const p of players) {
-        if (toolOk[p.name] != null || toolFailed[p.name] != null) {
-          p.toolCallsOk = toolOk[p.name] || 0;
-          p.toolCallsFailed = toolFailed[p.name] || 0;
-        }
-      }
-    }
-
-    // Backfill thinking time from llmEvents if not already on players
-    if (players.length > 0 && !players.some((p: any) => p.thinkingTimeSecs != null)) {
-      const llmEvents: any[] = data.llmEvents || [];
-      if (llmEvents.length > 1) {
-        const thinking: Record<string, number> = {};
-        for (let i = 0; i < llmEvents.length - 1; i++) {
-          const player = llmEvents[i].player;
-          if (!player) continue;
-          const tsA = llmEvents[i].ts;
-          const tsB = llmEvents[i + 1].ts;
-          if (!tsA || !tsB) continue;
-          const gap = (new Date(tsB).getTime() - new Date(tsA).getTime()) / 1000;
-          if (gap > 0) thinking[player] = (thinking[player] || 0) + gap;
-        }
-        for (const p of players) {
-          if (thinking[p.name] != null) {
-            p.thinkingTimeSecs = Math.round(thinking[p.name] * 10) / 10;
-          }
-        }
-      }
-    }
+    assertGameExport(data, file);
+    const players = data.players;
 
     const entry: GameEntry = {
       id: data.id,
       timestamp: data.timestamp,
       totalTurns: data.totalTurns,
       winner: data.winner,
-      players: players,
-      deckType: data.deckType || '',
-      harnessEpoch: data.harnessEpoch ?? null,
-      season: data.season ?? 0,
+      players,
+      deckType: data.deckType,
+      harnessEpoch: data.harnessEpoch,
+      season: data.season,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     if (data.tournament) entry.tournament = data.tournament;

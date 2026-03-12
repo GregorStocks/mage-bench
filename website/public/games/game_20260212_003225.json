@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 452,
       "toolCallsFailed": 8,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 2465.6
     },
     {
       "name": "GPT41m Analyst",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 455,
-      "toolCallsFailed": 1
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 1399.4
     }
   ],
   "cardImages": {
@@ -76565,7 +76567,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -26,7 +26,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 1237,
-      "toolCallsFailed": 3
+      "toolCallsFailed": 3,
+      "thinkingTimeSecs": 1318.2
     },
     {
       "name": "Qwen3 Vorthos",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 514,
-      "toolCallsFailed": 43
+      "toolCallsFailed": 43,
+      "thinkingTimeSecs": 430.2
     }
   ],
   "cardImages": {
@@ -84755,7 +84757,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

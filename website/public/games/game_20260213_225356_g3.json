@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 466,
-      "toolCallsFailed": 9
+      "toolCallsFailed": 9,
+      "thinkingTimeSecs": 2039.0
     },
     {
       "name": "Qwen3L Spike",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 138,
-      "toolCallsFailed": 1
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 811.6
     }
   ],
   "cardImages": {
@@ -36423,7 +36425,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -11,7 +11,10 @@
       "model": "anthropic/claude-sonnet-4.5",
       "totalCostUsd": 4.1842,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 177,
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 495.9
     },
     {
       "name": "Gem25F Analyst",
@@ -20,7 +23,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 0.4115,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 242,
+      "toolCallsFailed": 5,
+      "thinkingTimeSecs": 430.8
     },
     {
       "name": "Gem3F ESPN",
@@ -29,7 +35,10 @@
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 1.4192,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 313,
+      "toolCallsFailed": 8,
+      "thinkingTimeSecs": 698.4
     },
     {
       "name": "Haiku Gramps",
@@ -38,7 +47,10 @@
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 3.2269,
       "placement": 4,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 297,
+      "toolCallsFailed": 18,
+      "thinkingTimeSecs": 534.5
     }
   ],
   "cardImages": {
@@ -137055,7 +137067,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

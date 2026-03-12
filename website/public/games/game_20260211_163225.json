@@ -13,7 +13,10 @@
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 2.346,
       "placement": 1,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 275,
+      "toolCallsFailed": 7,
+      "thinkingTimeSecs": 554.5
     },
     {
       "name": "Gem3F Johnny",
@@ -22,7 +25,10 @@
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 0.7392,
       "placement": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 279,
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 374.9
     }
   ],
   "cardImages": {
@@ -34638,7 +34644,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -13,7 +13,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 0.1845,
       "placement": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 131,
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 163.3
     },
     {
       "name": "Gem3F Sarge",
@@ -22,7 +25,10 @@
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 0.2711,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 94,
+      "toolCallsFailed": 3,
+      "thinkingTimeSecs": 213.9
     }
   ],
   "cardImages": {
@@ -16486,7 +16492,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

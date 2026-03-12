@@ -11,14 +11,20 @@
       "commander": "Breena, the Demagogue",
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 2.3633,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 340,
+      "toolCallsFailed": 3,
+      "thinkingTimeSecs": 609.1
     },
     {
       "name": "GPT-4.1-mini",
       "type": "pilot",
       "commander": "Willowdusk, Essence Seer",
       "model": "openai/gpt-4.1-mini",
-      "totalCostUsd": 0.96
+      "totalCostUsd": 0.96,
+      "toolCallsOk": 275,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 437.0
     },
     {
       "name": "Gemini2.5Flash",
@@ -26,14 +32,20 @@
       "commander": "Kathril, Aspect Warper",
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 1.5291,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 422,
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 546.3
     },
     {
       "name": "Devstral",
       "type": "pilot",
       "commander": "Teferi, Temporal Archmage",
       "model": "mistralai/devstral-small",
-      "totalCostUsd": 0.1905
+      "totalCostUsd": 0.1905,
+      "toolCallsOk": 254,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 248.3
     }
   ],
   "cardImages": {
@@ -82353,7 +82365,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

@@ -6,7 +6,14 @@ from unittest.mock import patch
 import pytest
 
 from puppeteer.harness_epoch import SEASON_1_START_EPOCH
-from schemas.migrations import MIGRATIONS, v2_to_v3, v3_to_v4, v4_to_v5, v5_to_v6
+from schemas.migrations import (
+    MIGRATIONS,
+    v2_to_v3,
+    v3_to_v4,
+    v4_to_v5,
+    v5_to_v6,
+    v6_to_v7,
+)
 from scripts.export_game import _collect_card_names, _trim_card
 from scripts.migrate_exports import find_migration_path
 
@@ -450,6 +457,103 @@ class TestMigrateV5V6:
         v5_restored = v5_to_v6.down(v6)
 
         assert json.dumps(v5_restored, sort_keys=True) == json.dumps(v5_without_trace, sort_keys=True)
+
+
+def _make_v6_export(
+    *,
+    sparse_player_stats: bool = False,
+    sparse_season: bool = False,
+) -> dict:
+    """Create a minimal v6 export with representative llmEvents."""
+    v6 = v5_to_v6.up(_make_v5_export())
+    v6["players"] = [
+        {"name": "Alice", "type": "pilot"},
+        {"name": "Bob", "type": "cpu"},
+    ]
+    v6["llmEvents"] = [
+        {
+            "ts": "2026-03-01T12:00:00-08:00",
+            "player": "Alice",
+            "type": "game_start",
+            "model": "test-model",
+            "availableTools": ["pass_priority"],
+        },
+        {
+            "ts": "2026-03-01T12:00:01-08:00",
+            "player": "Alice",
+            "type": "tool_call",
+            "tool": "pass_priority",
+            "args": "",
+            "result": '{"success": true}',
+        },
+        {
+            "ts": "2026-03-01T12:00:03-08:00",
+            "player": "Alice",
+            "type": "tool_call",
+            "tool": "choose_action",
+            "args": "",
+            "result": '{"success": false}',
+        },
+        {
+            "ts": "2026-03-01T12:00:06-08:00",
+            "player": "Alice",
+            "type": "llm_response",
+            "reasoning": "",
+            "toolCalls": [],
+        },
+    ]
+    v6["season"] = 1
+    v6["tournament"] = None
+
+    if not sparse_player_stats:
+        v6["players"][0]["toolCallsOk"] = 1
+        v6["players"][0]["toolCallsFailed"] = 1
+        v6["players"][0]["thinkingTimeSecs"] = 6.0
+        v6["players"][1]["toolCallsOk"] = 0
+        v6["players"][1]["toolCallsFailed"] = 0
+        v6["players"][1]["thinkingTimeSecs"] = 0.0
+
+    if sparse_season:
+        del v6["season"]
+        del v6["tournament"]
+
+    return v6
+
+
+class TestMigrateV6V7:
+    def test_v6_to_v7_up_normalizes_sparse_player_stats(self) -> None:
+        v7 = v6_to_v7.up(_make_v6_export(sparse_player_stats=True, sparse_season=True))
+        assert v7["version"] == 7
+        assert v7["season"] == 1
+        assert v7["tournament"] is None
+
+        alice, bob = v7["players"]
+        assert alice["toolCallsOk"] == 1
+        assert alice["toolCallsFailed"] == 1
+        assert alice["thinkingTimeSecs"] == 6.0
+        assert bob["toolCallsOk"] == 0
+        assert bob["toolCallsFailed"] == 0
+        assert bob["thinkingTimeSecs"] == 0.0
+
+    def test_v7_to_v6_down_keeps_normalized_fields(self) -> None:
+        v7 = v6_to_v7.up(_make_v6_export(sparse_player_stats=True, sparse_season=True))
+        v6 = v6_to_v7.down(v7)
+
+        assert v6["version"] == 6
+        assert v6["season"] == 1
+        assert v6["tournament"] is None
+        assert v6["players"][0]["toolCallsOk"] == 1
+        assert v6["players"][0]["toolCallsFailed"] == 1
+        assert v6["players"][0]["thinkingTimeSecs"] == 6.0
+
+    def test_round_trip_preserves_normalized_v6_structure(self) -> None:
+        v6_original = _make_v6_export()
+        original_json = json.dumps(v6_original, sort_keys=True)
+
+        v7 = v6_to_v7.up(json.loads(original_json))
+        v6_restored = v6_to_v7.down(v7)
+
+        assert json.dumps(v6_restored, sort_keys=True) == original_json
 
 
 class TestMigrationRunner:

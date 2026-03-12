@@ -11,14 +11,20 @@
       "commander": "Meren of Clan Nel Toth",
       "model": "google/gemini-3-flash-preview",
       "totalCostUsd": 5.5682,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 561,
+      "toolCallsFailed": 5,
+      "thinkingTimeSecs": 986.0
     },
     {
       "name": "GPT-4.1-mini",
       "type": "pilot",
       "commander": "Atraxa, Praetors' Voice",
       "model": "openai/gpt-4.1-mini",
-      "totalCostUsd": 0.8154
+      "totalCostUsd": 0.8154,
+      "toolCallsOk": 276,
+      "toolCallsFailed": 18,
+      "thinkingTimeSecs": 478.7
     },
     {
       "name": "Gemini2.5Flash",
@@ -26,14 +32,20 @@
       "commander": "Lord Windgrace",
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 0.6741,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 158,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 333.8
     },
     {
       "name": "Devstral",
       "type": "pilot",
       "commander": "Meren of Clan Nel Toth",
       "model": "mistralai/devstral-small",
-      "totalCostUsd": 0.0891
+      "totalCostUsd": 0.0891,
+      "toolCallsOk": 148,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 276.1
     }
   ],
   "cardImages": {
@@ -329149,7 +329161,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 12,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 106,
-      "toolCallsFailed": 1
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 251.5
     },
     {
       "name": "Llama4 Valley",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 142,
-      "toolCallsFailed": 8
+      "toolCallsFailed": 8,
+      "thinkingTimeSecs": 202.2
     }
   ],
   "cardImages": {
@@ -21316,7 +21318,7 @@
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

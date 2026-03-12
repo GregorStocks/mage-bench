@@ -25,7 +25,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 668,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 8035.0
     },
     {
       "name": "Gem3F Sarge",
@@ -47,7 +48,8 @@
       ],
       "toolCallsOk": 26,
       "toolCallsFailed": 0,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 135.8
     }
   ],
   "cardImages": {
@@ -25678,7 +25680,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

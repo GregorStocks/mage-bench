@@ -153,6 +153,45 @@ class TestExportSchema:
         errors = list(validator.iter_errors(v6_with_trace))
         assert errors, "v6 schema should reject exports with llmTrace"
 
+    def test_v7_schema_is_valid(self) -> None:
+        schema = _load_schema(7)
+        jsonschema.Draft7Validator.check_schema(schema)
+
+    def test_v7_schema_accepts_v7(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(7))
+        v7 = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 3,
+                    "toolCallsFailed": 1,
+                    "thinkingTimeSecs": 12.5,
+                }
+            ],
+        )
+        errors = list(validator.iter_errors(v7))
+        assert errors == [], f"v7 should be valid: {errors}"
+
+    def test_v7_schema_rejects_v6(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(7))
+        errors = list(validator.iter_errors(_minimal_export(6, season=1, tournament=None)))
+        assert errors, "v7 schema should reject version 6"
+
+    def test_v7_schema_rejects_player_missing_stats(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(7))
+        v7 = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[{"name": "Alice", "type": "pilot"}],
+        )
+        errors = list(validator.iter_errors(v7))
+        assert errors, "v7 schema should reject players without normalized stats"
+
     def test_schema_rejects_missing_required_field(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(5))
         bad = {"version": 5}

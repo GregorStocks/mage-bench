@@ -121,7 +121,7 @@ const matchesWon = matchRecords.filter(m => m.won).length;
 const matchesLost = matchRecords.filter(m => !m.won).length;
 
 // Load game metadata for enrichment
-const allGames = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
+const allGames = loadAllGames().filter(g => g.season === seasonNum);
 const gameMeta: Record<string, any> = {};
 for (const g of allGames) {
   gameMeta[g.id as string] = g;

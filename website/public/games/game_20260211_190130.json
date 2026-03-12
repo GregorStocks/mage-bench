@@ -13,7 +13,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 1.5522,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 620,
+      "toolCallsFailed": 7,
+      "thinkingTimeSecs": 1458.6
     },
     {
       "name": "Haiku Spike",
@@ -22,7 +25,10 @@
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 5.6434,
       "placement": 2,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 586,
+      "toolCallsFailed": 10,
+      "thinkingTimeSecs": 1071.4
     }
   ],
   "cardImages": {
@@ -74076,7 +74082,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

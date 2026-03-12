@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 447,
-      "toolCallsFailed": 7
+      "toolCallsFailed": 7,
+      "thinkingTimeSecs": 698.1
     },
     {
       "name": "GPT4om Timmy",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 1334,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 1984.6
     }
   ],
   "cardImages": {
@@ -105213,7 +105215,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 146,
       "toolCallsFailed": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 524.0
     },
     {
       "name": "GPT4om Libby",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 246,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 414.4
     }
   ],
   "cardImages": {
@@ -31420,7 +31422,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

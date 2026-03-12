@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 56,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 95.6
     },
     {
       "name": "GPT4om Stoic",
@@ -49,7 +50,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 100,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 99.1
     }
   ],
   "cardImages": {
@@ -16730,7 +16732,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

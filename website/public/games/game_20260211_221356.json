@@ -25,7 +25,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 406,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 667.3
     },
     {
       "name": "Haiku Truth",
@@ -46,7 +49,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 144,
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 292.6
     }
   ],
   "cardImages": {
@@ -32706,7 +32712,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

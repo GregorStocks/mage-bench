@@ -67,7 +67,7 @@ function deckNameForSeed(seed: number): string | null {
 }
 
 // Load game metadata
-const allGames = loadAllGames().filter(g => (g.season ?? 0) === seasonNum);
+const allGames = loadAllGames().filter(g => g.season === seasonNum);
 const gameMeta: Record<string, any> = {};
 for (const g of allGames) {
   gameMeta[g.id as string] = g;

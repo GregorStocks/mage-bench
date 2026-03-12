@@ -27,7 +27,8 @@
       ],
       "toolCallsOk": 144,
       "toolCallsFailed": 2,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 534.2
     },
     {
       "name": "Grok4F Sarge",
@@ -50,7 +51,8 @@
       ],
       "toolCallsOk": 181,
       "toolCallsFailed": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 771.7
     }
   ],
   "cardImages": {
@@ -27795,7 +27797,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -11,7 +11,10 @@
       "model": "anthropic/claude-haiku-4.5",
       "totalCostUsd": 1.1488,
       "placement": 4,
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 122,
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 240.1
     },
     {
       "name": "Gem3F Sarge",
@@ -21,7 +24,10 @@
       "totalCostUsd": 7.3194,
       "placement": 2,
       "reasoningEffort": "medium",
-      "timedOut": true
+      "timedOut": true,
+      "toolCallsOk": 1714,
+      "toolCallsFailed": 12,
+      "thinkingTimeSecs": 4106.5
     },
     {
       "name": "Gem25F Timmy",
@@ -30,7 +36,10 @@
       "model": "google/gemini-2.5-flash",
       "totalCostUsd": 1.0876,
       "placement": 3,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 639,
+      "toolCallsFailed": 4,
+      "thinkingTimeSecs": 822.6
     },
     {
       "name": "Sonnet Stoic",
@@ -39,7 +48,10 @@
       "model": "anthropic/claude-sonnet-4.5",
       "totalCostUsd": 43.0949,
       "placement": 1,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 1951,
+      "toolCallsFailed": 14,
+      "thinkingTimeSecs": 24868.5
     }
   ],
   "cardImages": {
@@ -323104,7 +323116,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "gameType": "",
   "deckType": "",
   "decisions": [

@@ -28,7 +28,8 @@
       "toolCallsOk": 587,
       "toolCallsFailed": 4,
       "reasoningEffort": "medium",
-      "timedOut": true
+      "timedOut": true,
+      "thinkingTimeSecs": 2794.6
     },
     {
       "name": "Sonnet Vorthos",
@@ -51,7 +52,8 @@
       ],
       "toolCallsOk": 499,
       "toolCallsFailed": 0,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1709.5
     }
   ],
   "cardImages": {
@@ -76118,7 +76120,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

@@ -26,7 +26,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 127,
-      "toolCallsFailed": 1
+      "toolCallsFailed": 1,
+      "thinkingTimeSecs": 697.7
     },
     {
       "name": "Gem3P Stoic",
@@ -49,7 +50,8 @@
       ],
       "toolCallsOk": 220,
       "toolCallsFailed": 4,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1209.9
     }
   ],
   "cardImages": {
@@ -22378,7 +22380,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

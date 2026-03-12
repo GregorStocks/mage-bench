@@ -27,7 +27,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 564,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 2716.1
     },
     {
       "name": "Grok4F Timmy",
@@ -50,7 +51,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 106,
-      "toolCallsFailed": 2
+      "toolCallsFailed": 2,
+      "thinkingTimeSecs": 660.2
     }
   ],
   "cardImages": {
@@ -29244,7 +29246,7 @@
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

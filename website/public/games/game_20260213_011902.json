@@ -26,7 +26,8 @@
         "save_strategy"
       ],
       "toolCallsOk": 66,
-      "toolCallsFailed": 0
+      "toolCallsFailed": 0,
+      "thinkingTimeSecs": 95.7
     },
     {
       "name": "Grok4F Spike",
@@ -49,7 +50,8 @@
       ],
       "toolCallsOk": 138,
       "toolCallsFailed": 3,
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "thinkingTimeSecs": 1001.3
     }
   ],
   "cardImages": {
@@ -15348,7 +15350,7 @@
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,

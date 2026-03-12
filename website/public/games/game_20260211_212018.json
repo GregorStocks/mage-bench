@@ -25,7 +25,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "medium"
+      "reasoningEffort": "medium",
+      "toolCallsOk": 317,
+      "toolCallsFailed": 31,
+      "thinkingTimeSecs": 1131.5
     },
     {
       "name": "Haiku Valley",
@@ -46,7 +49,10 @@
         "get_my_decklist",
         "save_strategy"
       ],
-      "reasoningEffort": "low"
+      "reasoningEffort": "low",
+      "toolCallsOk": 229,
+      "toolCallsFailed": 6,
+      "thinkingTimeSecs": 482.9
     }
   ],
   "cardImages": {
@@ -48461,7 +48467,7 @@
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 6,
+  "version": 7,
   "decisions": [
     {
       "index": 0,
