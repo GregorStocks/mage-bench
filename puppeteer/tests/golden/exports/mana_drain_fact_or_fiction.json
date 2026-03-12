@@ -1875,7 +1875,6 @@
         "choice": "0"
       },
       "gameSeq": 1,
-      "latencyMs": 16,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2039,7 +2038,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2129,7 +2127,6 @@
         "choice": "no"
       },
       "gameSeq": 5,
-      "latencyMs": 26,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2280,7 +2277,6 @@
         "board_cursor": 3
       },
       "gameSeq": 15,
-      "latencyMs": 84,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2353,7 +2349,6 @@
         "choice": "0"
       },
       "gameSeq": 15,
-      "latencyMs": 10,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2482,7 +2477,6 @@
         "choice": "0"
       },
       "gameSeq": 18,
-      "latencyMs": 17,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2598,7 +2592,6 @@
         "until": "my_turn"
       },
       "gameSeq": 38,
-      "latencyMs": 258,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2773,7 +2766,6 @@
         "until": "precombat_main"
       },
       "gameSeq": 38,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2847,7 +2839,6 @@
         "choice": "0"
       },
       "gameSeq": 38,
-      "latencyMs": 10,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2982,7 +2973,6 @@
         "board_cursor": 7
       },
       "gameSeq": 66,
-      "latencyMs": 323,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3141,7 +3131,6 @@
         "choice": "0"
       },
       "gameSeq": 66,
-      "latencyMs": 266,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3294,7 +3283,6 @@
         "until": "my_turn"
       },
       "gameSeq": 81,
-      "latencyMs": 301,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3476,7 +3464,6 @@
         "until": "precombat_main"
       },
       "gameSeq": 81,
-      "latencyMs": 3,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3540,7 +3527,6 @@
         "mana_plan": "COLORLESS"
       },
       "gameSeq": 81,
-      "latencyMs": 398,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3705,7 +3691,6 @@
         "board_cursor": 11
       },
       "gameSeq": 92,
-      "latencyMs": 289,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3811,7 +3796,6 @@
         "pile": 1
       },
       "gameSeq": 92,
-      "latencyMs": 148,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4019,7 +4003,6 @@
     {
       "args": {},
       "gameSeq": 101,
-      "latencyMs": 2,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",

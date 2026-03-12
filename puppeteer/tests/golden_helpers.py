@@ -1354,11 +1354,12 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Sort llmEvents by (seq, player) then strip ts.
+    # Sort llmEvents by (seq, player) then strip wall-clock timing fields.
     # Mulligans and concedes have both players acting at the same seq;
     # thread interleaving is nondeterministic so we need a stable sort.
     for event in data.get("llmEvents", []):
         event.pop("ts", None)
+        event.pop("latencyMs", None)
     data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
     # Same for llmTrace.

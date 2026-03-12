@@ -3193,7 +3193,6 @@
         "choice": "0"
       },
       "gameSeq": 1,
-      "latencyMs": 16,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3363,7 +3362,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3456,7 +3454,6 @@
         "choice": "no"
       },
       "gameSeq": 5,
-      "latencyMs": 30,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3624,7 +3621,6 @@
         "board_cursor": 3
       },
       "gameSeq": 15,
-      "latencyMs": 47,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3709,7 +3705,6 @@
         "choice": "p11"
       },
       "gameSeq": 15,
-      "latencyMs": 8,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3829,7 +3824,6 @@
         "board_cursor": 4
       },
       "gameSeq": 33,
-      "latencyMs": 135,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4019,7 +4013,6 @@
         "choice": "p12"
       },
       "gameSeq": 33,
-      "latencyMs": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4156,7 +4149,6 @@
         "board_cursor": 6
       },
       "gameSeq": 58,
-      "latencyMs": 198,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4361,7 +4353,6 @@
         "choice": "p10"
       },
       "gameSeq": 58,
-      "latencyMs": 16,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4516,7 +4507,6 @@
         "board_cursor": 8
       },
       "gameSeq": 83,
-      "latencyMs": 327,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4739,7 +4729,6 @@
         "choice": "p16"
       },
       "gameSeq": 83,
-      "latencyMs": 14,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4929,7 +4918,6 @@
         "board_cursor": 10
       },
       "gameSeq": 91,
-      "latencyMs": 32,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4990,7 +4978,6 @@
         "choice": "p16"
       },
       "gameSeq": 91,
-      "latencyMs": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5169,7 +5156,6 @@
         "board_cursor": 10
       },
       "gameSeq": 92,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5219,7 +5205,6 @@
         "choice": "1"
       },
       "gameSeq": 92,
-      "latencyMs": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5421,7 +5406,6 @@
         "board_cursor": 10
       },
       "gameSeq": 93,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5494,7 +5478,6 @@
         "choice": "p10"
       },
       "gameSeq": 93,
-      "latencyMs": 28,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5674,7 +5657,6 @@
         "board_cursor": 11
       },
       "gameSeq": 99,
-      "latencyMs": 71,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5866,7 +5848,6 @@
         "choice": "1"
       },
       "gameSeq": 99,
-      "latencyMs": 21,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6042,7 +6023,6 @@
         "board_cursor": 13
       },
       "gameSeq": 123,
-      "latencyMs": 904,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6290,7 +6270,6 @@
         "choice": "no"
       },
       "gameSeq": 123,
-      "latencyMs": 40,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6501,7 +6480,6 @@
         "board_cursor": 15
       },
       "gameSeq": 125,
-      "latencyMs": 3,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6558,7 +6536,6 @@
         "attackers": "all"
       },
       "gameSeq": 125,
-      "latencyMs": 106,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6769,7 +6746,6 @@
     {
       "args": {},
       "gameSeq": 130,
-      "latencyMs": 4,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",
@@ -6975,7 +6951,6 @@
         "board_cursor": 16
       },
       "gameSeq": 140,
-      "latencyMs": 425,
       "player": "TestPlayer",
       "result": {
         "action_pending": false,

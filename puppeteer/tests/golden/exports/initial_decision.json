@@ -170,7 +170,6 @@
         "index": 0
       },
       "gameSeq": 1,
-      "latencyMs": 116,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -335,7 +334,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 2,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -425,7 +423,6 @@
         "answer": false
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
@@ -457,7 +454,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -543,7 +539,6 @@
     {
       "args": {},
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "active_player": "",

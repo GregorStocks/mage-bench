@@ -1354,7 +1354,6 @@
         "choice": "0"
       },
       "gameSeq": 1,
-      "latencyMs": 10,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1516,7 +1515,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1605,7 +1603,6 @@
         "choice": "no"
       },
       "gameSeq": 5,
-      "latencyMs": 19,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1762,7 +1759,6 @@
         "board_cursor": 3
       },
       "gameSeq": 15,
-      "latencyMs": 31,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1841,7 +1837,6 @@
         "choice": "0"
       },
       "gameSeq": 15,
-      "latencyMs": 6,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1971,7 +1966,6 @@
         "choice": "0"
       },
       "gameSeq": 18,
-      "latencyMs": 12,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2084,7 +2078,6 @@
         "board_cursor": 5
       },
       "gameSeq": 44,
-      "latencyMs": 432,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2273,7 +2266,6 @@
         "choice": "no"
       },
       "gameSeq": 44,
-      "latencyMs": 27,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2432,7 +2424,6 @@
         "board_cursor": 7
       },
       "gameSeq": 46,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2489,7 +2480,6 @@
         "attackers": "all"
       },
       "gameSeq": 46,
-      "latencyMs": 15,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2648,7 +2638,6 @@
     {
       "args": {},
       "gameSeq": 46,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "cursor": 23,
@@ -2681,7 +2670,6 @@
         "until": "postcombat_main"
       },
       "gameSeq": 66,
-      "latencyMs": 82,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2862,7 +2850,6 @@
     {
       "args": {},
       "gameSeq": 66,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",

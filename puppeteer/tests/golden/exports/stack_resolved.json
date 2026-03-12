@@ -1007,7 +1007,6 @@
         "choice": "0"
       },
       "gameSeq": 1,
-      "latencyMs": 20,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1175,7 +1174,6 @@
         "board_cursor": 2
       },
       "gameSeq": 5,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1267,7 +1265,6 @@
         "choice": "no"
       },
       "gameSeq": 5,
-      "latencyMs": 34,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1423,7 +1420,6 @@
         "board_cursor": 3
       },
       "gameSeq": 15,
-      "latencyMs": 30,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1499,7 +1495,6 @@
         "choice": "p14"
       },
       "gameSeq": 15,
-      "latencyMs": 6,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1646,7 +1641,6 @@
         "board_cursor": 4
       },
       "gameSeq": 21,
-      "latencyMs": 61,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1784,7 +1778,6 @@
         "choice": "0"
       },
       "gameSeq": 21,
-      "latencyMs": 16,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1919,7 +1912,6 @@
         "choice": "1"
       },
       "gameSeq": 22,
-      "latencyMs": 12,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2042,7 +2034,6 @@
         "until": "stack_resolved"
       },
       "gameSeq": 32,
-      "latencyMs": 74,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2157,7 +2148,6 @@
     {
       "args": {},
       "gameSeq": 32,
-      "latencyMs": 1,
       "player": "TestPlayer",
       "result": {
         "active_player": "Opponent",

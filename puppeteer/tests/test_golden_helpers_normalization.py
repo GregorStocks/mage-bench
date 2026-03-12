@@ -129,10 +129,10 @@ async def test_scripted_chat_completion_captures_terminal_request():
 def test_strip_volatile_sorts_llm_events_by_seq_player():
     data = {
         "llmEvents": [
-            {"ts": "2025-01-01T00:00:00.000002", "player": "B", "seq": 2, "type": "llm_response"},
-            {"ts": "2025-01-01T00:00:00.000003", "player": "A", "seq": 2, "type": "llm_response"},
-            {"ts": "2025-01-01T00:00:00.000001", "player": "A", "seq": 1, "type": "game_start"},
-            {"ts": "2025-01-01T00:00:00.000000", "player": "B", "seq": 1, "type": "game_start"},
+            {"ts": "2025-01-01T00:00:00.000002", "latencyMs": 17, "player": "B", "seq": 2, "type": "llm_response"},
+            {"ts": "2025-01-01T00:00:00.000003", "latencyMs": 9, "player": "A", "seq": 2, "type": "llm_response"},
+            {"ts": "2025-01-01T00:00:00.000001", "latencyMs": 44, "player": "A", "seq": 1, "type": "game_start"},
+            {"ts": "2025-01-01T00:00:00.000000", "latencyMs": 3, "player": "B", "seq": 1, "type": "game_start"},
         ],
         "llmTrace": [
             {"ts": "2025-01-01T00:00:00.000001", "player": "B", "seq": 1},
@@ -142,9 +142,10 @@ def test_strip_volatile_sorts_llm_events_by_seq_player():
 
     _strip_volatile(data)
 
-    # Sorted by (seq, player); ts stripped before sorting (it's volatile)
+    # Sorted by (seq, player); wall-clock timing stripped before sorting.
     events = data["llmEvents"]
     assert all("ts" not in e for e in events)
+    assert all("latencyMs" not in e for e in events)
     assert [(e["player"], e["seq"]) for e in events] == [
         ("A", 1),
         ("B", 1),
