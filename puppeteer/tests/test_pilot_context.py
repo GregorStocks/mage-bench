@@ -9,7 +9,7 @@ from puppeteer.pilot import (
     CONTEXT_RECENT_COUNT,
     CONTEXT_SUMMARY_COUNT,
     RENDER_INTERVAL,
-    TOOL_RESULT_MAX_CHARS,
+    TOOL_SUMMARY_TRIGGER_CHARS,
     PilotLoopState,
     _build_loop_messages,
     _build_reset_message,
@@ -152,7 +152,6 @@ def test_summarize_get_action_choices():
     assert "GAME_SELECT" in result
     assert "3 choices" in result
     assert "Mountain" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
 
 
 def test_summarize_get_action_choices_old_format():
@@ -189,7 +188,6 @@ def test_summarize_get_game_state():
     assert "main1" in result
     assert "Alice:15hp/3perm" in result
     assert "Bob:12hp/5perm" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
 
 
 def test_summarize_get_game_log_basic():
@@ -205,7 +203,7 @@ def test_summarize_get_game_log_basic():
     assert "log(" in result
     assert "5234 chars" in result
     assert "Alice turn 3" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Alice casts Sol Ring" in result
 
 
 def test_summarize_get_game_log_since_turn():
@@ -222,7 +220,8 @@ def test_summarize_get_game_log_since_turn():
     result = _summarize_tool_result("get_game_log", content)
     assert "since_turn=2" in result
     assert "Bob turn 2" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Bob casts Sol Ring" in result
+    assert "Alice plays Forest" in result
 
 
 def test_summarize_get_game_log_truncated():
@@ -239,7 +238,7 @@ def test_summarize_get_game_log_truncated():
     result = _summarize_tool_result("get_game_log", content)
     assert "truncated" in result
     assert "since_turn=1" in result
-    assert len(result) <= TOOL_RESULT_MAX_CHARS
+    assert "Alice attacks with Goblin Guide" in result
 
 
 def test_summarize_get_game_log_empty():
@@ -258,7 +257,7 @@ def test_summarize_get_game_log_empty():
 
 def test_summarize_invalid_json():
     result = _summarize_tool_result("get_game_state", "not valid json at all")
-    assert result == "not valid json at all"[:TOOL_RESULT_MAX_CHARS]
+    assert result == "not valid json at all"
 
 
 def test_summarize_rendered_tool_content_keeps_full_text():
@@ -279,7 +278,7 @@ def test_summarize_rendered_tool_content_keeps_full_text():
 def test_summarize_already_small():
     content = json.dumps({"success": True})
     result = _summarize_tool_result("send_chat_message", content)
-    assert result == content[:TOOL_RESULT_MAX_CHARS]
+    assert result == content
 
 
 # ---------------------------------------------------------------------------
@@ -362,9 +361,29 @@ def test_render_short_history():
 
 
 def test_render_long_history_summarizes_old():
-    """Over threshold: old tool results get summarised."""
+    """Over threshold: old verbose tool results get structural summaries."""
     n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
     history = _make_history(n)
+    history[9] = _make_assistant_msg([("call_4", "get_game_log")])
+    history[10] = _make_tool_msg(
+        "call_4",
+        json.dumps(
+            {
+                "log": (
+                    "Alice turn 3 (20 - 15)\n"
+                    "Alice casts Sol Ring\n"
+                    "Alice attacks with Goblin Guide\n"
+                    "Bob blocks with Ornithopter\n"
+                    "Bob takes 2"
+                ),
+                "total_length": 5234,
+                "truncated": False,
+                "cursor": 5234,
+                "detail": "x" * 100,
+            }
+        ),
+    )
+    assert len(history[10]["content"]) > TOOL_SUMMARY_TRIGGER_CHARS
     messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY)
 
     # Should have: system + summarised slice + state bridge + recent slice
@@ -380,10 +399,11 @@ def test_render_long_history_summarizes_old():
 
     # Find tool messages in the summarised section (between system and bridge)
     summarised_section = messages[1:bridge_idx]
-    for msg in summarised_section:
-        if msg["role"] == "tool":
-            # Should be summarised (short)
-            assert len(msg["content"]) <= TOOL_RESULT_MAX_CHARS
+    summary_tool = next(msg for msg in summarised_section if msg["role"] == "tool" and msg["tool_call_id"] == "call_4")
+    assert summary_tool["content"].startswith("log(")
+    assert "Alice turn 3" in summary_tool["content"]
+    assert "Bob blocks with Ornithopter" in summary_tool["content"]
+    assert summary_tool["content"].endswith(" / ...")
 
 
 def test_render_preserves_recent_full():

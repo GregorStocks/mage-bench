@@ -60,7 +60,7 @@ MAX_EMPTY_RESPONSES = 10
 # with tool results summarised to save tokens.
 CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
-TOOL_RESULT_MAX_CHARS = 200  # max chars for compact JSON-derived tool summaries
+TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
@@ -255,14 +255,12 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
     """Compress a tool result to a short summary for older context entries.
 
     Parses the JSON result and extracts key fields per tool type.
-    Falls back to truncation for unknown tools or invalid JSON.
+    Falls back to the original content for unknown tools or invalid JSON.
     """
     try:
         data = json.loads(content)
     except (json.JSONDecodeError, TypeError):
-        if content.startswith(("## Decision", "## Card Reference")):
-            return content
-        return content[:TOOL_RESULT_MAX_CHARS]
+        return content
 
     if tool_name == "pass_priority":
         if data.get("player_dead"):
@@ -325,7 +323,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             life = p.get("life", "?")
             bf = len(p.get("battlefield", []))
             parts.append(f"{name}:{life}hp/{bf}perm")
-        return "; ".join(parts) if parts else content[:TOOL_RESULT_MAX_CHARS]
+        return "; ".join(parts) if parts else content
 
     if tool_name == "get_game_log":
         total = data.get("total_length", "?")
@@ -338,13 +336,17 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         if truncated:
             prefix += ", truncated"
         prefix += "): "
-        remaining = TOOL_RESULT_MAX_CHARS - len(prefix)
-        if remaining > 0 and log_text:
-            return prefix + log_text[:remaining]
+        if log_text:
+            lines = [line.strip() for line in log_text.splitlines() if line.strip()]
+            if lines:
+                excerpt = " / ".join(lines[:4])
+                if len(lines) > 4:
+                    excerpt += " / ..."
+                return prefix + excerpt
         return prefix.rstrip(": ")
 
     # get_oracle_text, send_chat_message, unknown
-    return content[:TOOL_RESULT_MAX_CHARS]
+    return content
 
 
 def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str) -> str:
@@ -475,7 +477,7 @@ def _render_context(
 
     for i in range(summary_start, recent_start):
         msg = history[i]
-        if msg.get("role") == "tool" and len(msg.get("content", "")) > TOOL_RESULT_MAX_CHARS:
+        if msg.get("role") == "tool" and len(msg.get("content", "")) > TOOL_SUMMARY_TRIGGER_CHARS:
             tool_name = _find_tool_name(history, i, msg.get("tool_call_id", ""))
             messages.append({**msg, "content": _summarize_tool_result(tool_name, msg["content"])})
         else:
