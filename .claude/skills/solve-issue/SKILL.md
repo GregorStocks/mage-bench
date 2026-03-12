@@ -1,3 +1,8 @@
+---
+name: solve-issue
+description: Claim exactly one issue, fix it, and create a pull request starting from a clean origin/master branch.
+---
+
 # Solve an Issue
 
 Pick and solve exactly **one** issue, then create a PR.

@@ -1,3 +1,8 @@
+---
+name: investigate-golden-flake
+description: Debug a failing golden test from GitHub Actions logs and fix the root cause without papering over nondeterminism.
+---
+
 # Investigate Golden Flake
 
 Debug a golden test failure from CI logs, identify the root cause, and fix it.
