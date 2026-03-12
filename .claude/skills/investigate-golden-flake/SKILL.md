@@ -111,6 +111,7 @@ Common fix patterns:
 - **Reorder operations**: Move state population before the signal that makes it visible to other threads (e.g., populate cache before removing from activeGames).
 - **Use the authoritative callback**: The XMage server sends specific callbacks (game-over, game-update) with authoritative state. Use that state instead of racing with asynchronous pushes.
 - **Fix the bridge's callback handling**: If the auto-pass loop sees different numbers of callbacks across runs, the bridge is violating the priority serialization invariant. Look for places where callbacks are dropped, duplicated, or processed out of order (e.g., `pendingAction` being overwritten, `actionLock` contention, `GAME_UPDATE` callbacks interfering with priority callbacks).
+- **Do not reintroduce fixed post-action waits in `choose_action` as a hang workaround**: A bounded wait can make a replay hang disappear locally, but it also causes real prompt regressions when the next legitimate decision arrives just after the timeout. If the CI failure is a `concede` / `game_end_signal` timeout, investigate concede wakeup and end-game ordering first instead of changing `choose_action` blocking behavior.
 
 **Never work around nondeterminism by modifying test scripts.** If `pass_priority()` is nondeterministic, the fix is in the Java bridge, not in switching to `pass_priority(until="precombat_main")`. See "Key invariant: priority serialization" above.
 
