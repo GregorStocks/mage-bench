@@ -1,3 +1,8 @@
+---
+name: golden-test
+description: Create a new golden prompt test for a specific game scenario in puppeteer/tests.
+---
+
 # Add a Golden Test
 
 Create a new golden prompt test that captures a specific game scenario.

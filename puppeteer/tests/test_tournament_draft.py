@@ -12,13 +12,17 @@ To update golden files after intentional changes:
 
 import json
 import os
+from io import StringIO
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
 from puppeteer.jumpstart import load_jumpstart_themes
 from scripts.tournament_draft import (
     _fetch_oracle_texts,
+    _llm_pick,
     build_draft_system_prompt,
     build_draft_user_prompt,
     draft_order,
@@ -145,6 +149,99 @@ class TestParsePick:
 
     def test_leading_number_with_period(self):
         assert parse_pick("17. Elves is the best choice.", 64) == 17
+
+
+def _mock_draft_response(
+    content: str | None,
+    *,
+    thinking: str | None = None,
+    prompt_tokens: int = 100,
+    completion_tokens: int = 10,
+) -> MagicMock:
+    """Create a mock draft completion response."""
+    response = MagicMock()
+    response.choices = [SimpleNamespace(message=SimpleNamespace(content=content, reasoning_content=thinking))]
+    response.usage = SimpleNamespace(
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+    )
+    response.model_dump.return_value = {
+        "choices": [
+            {
+                "message": {
+                    "content": content,
+                    "reasoning_content": thinking,
+                }
+            }
+        ]
+    }
+    return response
+
+
+class TestLlmPick:
+    @pytest.mark.asyncio
+    async def test_retries_until_response_is_bare_number(self):
+        client = MagicMock()
+        client.chat.completions.create = AsyncMock(
+            side_effect=[
+                _mock_draft_response(
+                    "**17**\n\nElves is the clear pick here because it stays open.",
+                    thinking="Initial hidden reasoning",
+                    prompt_tokens=120,
+                    completion_tokens=15,
+                ),
+                _mock_draft_response(
+                    "17",
+                    thinking="Retry hidden reasoning that should not replace the first",
+                    prompt_tokens=80,
+                    completion_tokens=5,
+                ),
+            ]
+        )
+
+        pick, reasoning, attempts, usage = await _llm_pick(
+            client=client,
+            model="test-model",
+            system_prompt="system",
+            user_prompt="user",
+            reasoning_effort=None,
+            num_options=64,
+            log_file=StringIO(),
+            pick_meta={"seed": 1, "round": 1},
+        )
+
+        assert pick == 17
+        assert reasoning == "17"
+        assert attempts == [
+            {
+                "attempt": 1,
+                "response": "**17**\n\nElves is the clear pick here because it stays open.",
+                "thinking": "Initial hidden reasoning",
+                "accepted": False,
+                "rejection_reason": "I parsed your pick, but your response included extra text.",
+            },
+            {
+                "attempt": 2,
+                "response": "17",
+                "thinking": "Retry hidden reasoning that should not replace the first",
+                "accepted": True,
+            },
+        ]
+        assert usage == {"prompt_tokens": 200, "completion_tokens": 20}
+
+        assert client.chat.completions.create.await_count == 2
+        retry_messages = client.chat.completions.create.await_args_list[1].kwargs["messages"]
+        assert retry_messages[-2] == {
+            "role": "assistant",
+            "content": "**17**\n\nElves is the clear pick here because it stays open.",
+        }
+        assert retry_messages[-1] == {
+            "role": "user",
+            "content": (
+                "I parsed your pick, but your response included extra text. "
+                "Reply with ONLY a single number from 1 to 64. No other text."
+            ),
+        }
 
 
 # -- Prompt building tests (using real packs) --

@@ -1,0 +1,10 @@
+{
+  "title": "Fold list-issues.py into query-issues.py or remove the duplicate entrypoint",
+  "description": "`scripts/list-issues.py` appears to be just the zero-flag behavior of `scripts/query-issues.py`: both load all issue JSON files, sort by priority, and print `filename: priority title` lines. Maintaining both entrypoints means extra docs, tests, and user-facing surface area for almost no functional difference.\n\nClean this up by choosing one of these paths:\n1. Delete `list-issues.py` and point docs/tests to `query-issues.py` with no flags.\n2. Keep `list-issues.py` only as a tiny wrapper around `query-issues.py` so the behavior is defined in one place.\n\nThis is low priority, but it is an easy place to remove duplicated maintenance burden.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["tooling", "issues"],
+  "created_at": "2026-03-11T22:39:10.811128-07:00",
+  "updated_at": "2026-03-11T22:39:10.811128-07:00"
+}

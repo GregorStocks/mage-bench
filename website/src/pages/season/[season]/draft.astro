@@ -27,6 +27,14 @@ const seasonNum = parseInt(season!, 10);
 
 const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', `season-${seasonNum}.json`);
 const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
+if (!tournament.draft) {
+  throw new Error(`Tournament ${seasonNum} has no draft data`);
+}
+if (tournament.draft.history_version !== 2) {
+  throw new Error(
+    `Tournament ${seasonNum} has draft history v${tournament.draft.history_version ?? 1}; expected v2`
+  );
+}
 
 const entrantsBySeed: Record<number, any> = {};
 for (const e of tournament.entrants) {
@@ -35,6 +43,31 @@ for (const e of tournament.entrants) {
 
 function cleanThemeName(name: string): string {
   return name.replace(/^J22 /, '');
+}
+
+function getAttempts(pick: any): any[] {
+  if (!Array.isArray(pick.attempts) || pick.attempts.length === 0) {
+    throw new Error(`Draft pick for seed ${pick.seed} is missing attempts`);
+  }
+  return pick.attempts;
+}
+
+function getAcceptedAttempt(pick: any): any {
+  const accepted = getAttempts(pick).find((attempt: any) => attempt.accepted);
+  if (!accepted) {
+    throw new Error(`Draft pick for seed ${pick.seed} has no accepted attempt`);
+  }
+  return accepted;
+}
+
+function getPreviewSource(pick: any): string | null {
+  const attempts = getAttempts(pick);
+  const first = attempts[0];
+  return first.thinking || first.response || getAcceptedAttempt(pick).response || null;
+}
+
+function renderAttemptResponse(attempt: any): string {
+  return attempt.response ?? '(empty response)';
 }
 ---
 
@@ -63,8 +96,10 @@ function cleanThemeName(name: string): string {
           <div class="draft-round-picks">
             {roundPicks.map((pick: any) => {
               const ent = entrantsBySeed[pick.seed];
-              const previewSrc = pick.thinking || (pick.reasoning?.length > 10 ? pick.reasoning : null);
+              const attempts = getAttempts(pick);
+              const previewSrc = getPreviewSource(pick);
               const preview = previewSrc ? previewSrc.slice(0, 300).replace(/\*+/g, '') : null;
+              const acceptedAttempt = getAcceptedAttempt(pick);
               return (
                 <div class="dpick">
                   <button class="dpick-row" type="button" aria-expanded="false">
@@ -81,15 +116,35 @@ function cleanThemeName(name: string): string {
                     <div class="dpick-preview">{preview}</div>
                   )}
                   <div class="dpick-detail" hidden>
-                    {pick.thinking && (
-                      <details class="dpick-logic" open>
-                        <summary class="dpick-detail-label clickable">Logic</summary>
-                        <div class="dpick-logic-text">{pick.thinking}</div>
-                      </details>
-                    )}
                     <div class="dpick-decision">
-                      <div class="dpick-detail-label">Decision</div>
-                      <div class="dpick-decision-text">{pick.reasoning}</div>
+                      <div class="dpick-detail-label">Final Decision</div>
+                      <div class="dpick-decision-text">{acceptedAttempt.response}</div>
+                    </div>
+                    <div class="dpick-attempts">
+                      <div class="dpick-detail-label">Attempt History ({attempts.length})</div>
+                      {attempts.map((attempt: any) => (
+                        <details class="dpick-attempt" open={attempt.accepted}>
+                          <summary class="dpick-attempt-summary">
+                            Attempt {attempt.attempt} {attempt.accepted ? '· accepted' : '· retry'}
+                          </summary>
+                          {attempt.thinking && (
+                            <div class="dpick-attempt-block">
+                              <div class="dpick-detail-label">Logic</div>
+                              <div class="dpick-logic-text">{attempt.thinking}</div>
+                            </div>
+                          )}
+                          <div class="dpick-attempt-block">
+                            <div class="dpick-detail-label">Decision</div>
+                            <div class="dpick-decision-text">{renderAttemptResponse(attempt)}</div>
+                          </div>
+                          {!attempt.accepted && attempt.rejection_reason && (
+                            <div class="dpick-attempt-block">
+                              <div class="dpick-detail-label">Retry Prompt</div>
+                              <div class="dpick-retry-text">{attempt.rejection_reason}</div>
+                            </div>
+                          )}
+                        </details>
+                      ))}
                     </div>
                     <div class="dpick-pool">
                       <div class="dpick-detail-label">Available ({pick.options.length} packs)</div>
@@ -102,6 +157,7 @@ function cleanThemeName(name: string): string {
                       </div>
                     </div>
                     <div class="dpick-meta">
+                      {attempts.length} attempts &middot;{' '}
                       {pick.usage.prompt_tokens.toLocaleString()} prompt &middot; {pick.usage.completion_tokens.toLocaleString()} completion tokens
                     </div>
                   </div>
@@ -309,9 +365,28 @@ function cleanThemeName(name: string): string {
     display: none;
   }
 
-  .dpick-logic,
+  .dpick-attempts,
   .dpick-decision {
     margin-bottom: 0.75rem;
+  }
+
+  .dpick-attempt {
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    padding: 0.5rem 0.6rem;
+    margin-top: 0.4rem;
+  }
+
+  .dpick-attempt-summary {
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .dpick-attempt-block + .dpick-attempt-block {
+    margin-top: 0.65rem;
   }
 
   .dpick-logic-text,
@@ -324,6 +399,13 @@ function cleanThemeName(name: string): string {
 
   .dpick-logic-text {
     margin-top: 0.25rem;
+  }
+
+  .dpick-retry-text {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    white-space: pre-wrap;
   }
 
   .dpick-pool {
