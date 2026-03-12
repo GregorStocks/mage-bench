@@ -1382,9 +1382,7 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
         print(f"Updated golden export: {golden_file}")
         return
 
-    assert golden_file.exists(), (
-        f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
-    )
+    assert golden_file.exists(), f"Golden export file not found: {golden_file}\nRun 'make regen-golden' to generate it."
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
