@@ -64,8 +64,8 @@ public class DebugUtil {
     // how-to use:
     // - clean db folders or delete all *.trace.db files
     // - run tests or real server to collect some stats
-    // - download h2 files for ver 1.4.197 from https://h2database.com/h2-2018-03-18.zip and open tools folder like xxx\H2\bin
-    // - execute command: java -cp "h2-1.4.196.jar;%H2DRIVERS%;%CLASSPATH%" org.h2.tools.ConvertTraceFile -traceFile "xxx\Mage.Tests\db\cards.h2.trace.db" -script "xxx\Mage.Tests\db\cards.h2.trace.sql"
+    // - download the H2 tools that match the runtime dependency version from https://h2database.com/html/download.html
+    // - execute command: java -cp "h2.jar;%H2DRIVERS%;%CLASSPATH%" org.h2.tools.ConvertTraceFile -traceFile "xxx\Mage.Tests\db\cards.h2.trace.db" -script "xxx\Mage.Tests\db\cards.h2.trace.sql"
     // - open *.sql file for all sql-queries and exec stats
     public static boolean DATABASE_PROFILE_SQL_QUERIES_TO_FILE = false;
 
