@@ -76,24 +76,6 @@ if (fs.existsSync(exportsDir)) {
           </label>
         </div>
         <div class="filter-group">
-          <span class="control-label">Display</span>
-          <div class="toggle-buttons" id="display-mode-buttons">
-            <button class="toggle-btn active" data-display="raw">Raw</button>
-            <button class="toggle-btn" data-display="rawSummary">Raw+Summary</button>
-            <button class="toggle-btn" data-display="summary">Summary</button>
-          </div>
-        </div>
-        <div class="filter-group">
-          <label class="control-label" for="bucket-size">Bucket</label>
-          <select id="bucket-size">
-            <option value="6">6h</option>
-            <option value="12">12h</option>
-            <option value="24" selected>1d</option>
-            <option value="48">2d</option>
-            <option value="96">4d</option>
-          </select>
-        </div>
-        <div class="filter-group">
           <span class="control-label">Y Scale</span>
           <div class="toggle-buttons" id="y-scale-buttons">
             <button class="toggle-btn active" data-scale="linear">Linear</button>
@@ -101,9 +83,6 @@ if (fs.existsSync(exportsDir)) {
           </div>
         </div>
       </div>
-      <p class="trends-help">
-        Raw dots are exact per-game observations. Summary mode uses medians plus IQR for continuous metrics and Wilson 95% intervals for win/timer timeout buckets. Buckets with fewer than 5 observations fall back to raw dots.
-      </p>
       <div class="model-filter">
         <div class="model-filter-header">
           <span class="control-label">Models</span>
@@ -288,8 +267,6 @@ if (fs.existsSync(exportsDir)) {
     window.addEventListener('hashchange', activateFromUrl);
 
     // ─── Trend chart ───
-    type SummaryType = 'continuous' | 'binary';
-    type DisplayMode = 'raw' | 'rawSummary' | 'summary';
     type YScaleMode = 'linear' | 'symlog';
 
     type PlayerRecord = {
@@ -329,35 +306,6 @@ if (fs.existsSync(exportsDir)) {
       format: string;
       gameId: string;
       dateLabel: string;
-      bucketKey: number;
-    };
-
-    type SummaryPoint = {
-      x: number;
-      y: number;
-      rawY: number;
-      modelName: string;
-      modelCount: number;
-      bucketKey: number;
-      bucketStart: number;
-      bucketEnd: number;
-      n: number;
-      q1Y?: number;
-      q3Y?: number;
-      q1Raw?: number;
-      q3Raw?: number;
-      lowY?: number;
-      highY?: number;
-      lowRaw?: number;
-      highRaw?: number;
-      successes?: number;
-    };
-
-    type SummaryBuild = {
-      points: SummaryPoint[];
-      visibleBucketKeys: Set<number>;
-      sparseBuckets: number;
-      sparseSeries: boolean;
     };
 
     const trendData = JSON.parse(document.getElementById('internals-data')!.textContent!) as {
@@ -384,22 +332,17 @@ if (fs.existsSync(exportsDir)) {
       '#ffbb66', '#44eebb', '#ff88bb', '#bbdd55', '#8888dd',
     ];
 
-    const MIN_SUMMARY_SAMPLES = 5;
-    const DEFAULT_BUCKET_HOURS = 24;
     const SYMLOG_CONSTANT = 1;
 
     let currentMetric = 'costPerGame';
     let currentFormat = 'all';
     let selectedModels = new Set(allModels.map(m => m[0]));
     let minEpochTrend = 1;
-    let currentDisplayMode: DisplayMode = 'raw';
-    let bucketHours = DEFAULT_BUCKET_HOURS;
     let yScaleMode: YScaleMode = 'linear';
 
     const checkboxContainer = document.getElementById('model-checkboxes')!;
     const modelSearch = document.getElementById('model-search') as HTMLInputElement;
     const minEpochTrendInput = document.getElementById('trend-min-epoch') as HTMLInputElement;
-    const bucketSizeInput = document.getElementById('bucket-size') as HTMLSelectElement;
 
     function withAlpha(color: string, alphaHex: string): string {
       return color.startsWith('#') && color.length === 7 ? color + alphaHex : color;
@@ -421,40 +364,6 @@ if (fs.existsSync(exportsDir)) {
       return yScaleMode === 'symlog' ? symlogInverse(value) : value;
     }
 
-    function bucketKeyForTime(ts: number, bucketSizeMs: number): number {
-      return Math.floor(ts / bucketSizeMs);
-    }
-
-    function bucketBounds(bucketKey: number, bucketSizeMs: number): { start: number; end: number } {
-      const start = bucketKey * bucketSizeMs;
-      return { start, end: start + bucketSizeMs };
-    }
-
-    function quantile(sortedValues: number[], q: number): number {
-      if (sortedValues.length === 1) return sortedValues[0];
-      const position = (sortedValues.length - 1) * q;
-      const lower = Math.floor(position);
-      const upper = Math.ceil(position);
-      if (lower === upper) return sortedValues[lower];
-      const weight = position - lower;
-      return sortedValues[lower] * (1 - weight) + sortedValues[upper] * weight;
-    }
-
-    function wilsonInterval(successes: number, total: number): [number, number] {
-      const z = 1.96;
-      const p = successes / total;
-      const denom = 1 + (z * z) / total;
-      const center = (p + (z * z) / (2 * total)) / denom;
-      const margin = (z * Math.sqrt((p * (1 - p)) / total + (z * z) / (4 * total * total))) / denom;
-      return [Math.max(0, center - margin), Math.min(1, center + margin)];
-    }
-
-    function formatBucketSize(hours: number): string {
-      if (hours < 24) return `${hours}h`;
-      const days = hours / 24;
-      return days === 1 ? '1d' : `${days}d`;
-    }
-
     function formatMetricValue(value: number, unit: string): string {
       if (unit === '%') return `${value.toFixed(1)}%`;
       if (unit === '$') return `$${value.toFixed(value >= 10 ? 1 : 2)}`;
@@ -474,23 +383,6 @@ if (fs.existsSync(exportsDir)) {
         hour: 'numeric',
         minute: '2-digit',
       });
-    }
-
-    function formatBucketRange(start: number, end: number): string {
-      const startDate = new Date(start);
-      const endDate = new Date(end - 1);
-      if (bucketHours >= 24) {
-        const startLabel = startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        const endLabel = endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-        return startLabel === endLabel ? startLabel : `${startLabel} to ${endLabel}`;
-      }
-      return `${formatDateTimeLabel(start)} to ${endDate.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: '2-digit',
-      })}`;
     }
 
     function formatTimeTick(ts: number, rangeMs: number): string {
@@ -552,7 +444,6 @@ if (fs.existsSync(exportsDir)) {
     type PerGameMetric = {
       label: string;
       unit: string;
-      summaryType: SummaryType;
       compute: (p: PlayerRecord) => number | null;
     };
 
@@ -560,19 +451,16 @@ if (fs.existsSync(exportsDir)) {
       costPerGame: {
         label: 'Cost per Game',
         unit: '$',
-        summaryType: 'continuous',
         compute: (p) => p.costUsd,
       },
       winRate: {
         label: 'Win Rate',
         unit: '%',
-        summaryType: 'binary',
         compute: (p) => p.won ? 100 : 0,
       },
       toolFailRate: {
         label: 'Tool Fail Rate',
         unit: '%',
-        summaryType: 'continuous',
         compute: (p) => {
           const total = p.toolCallsOk + p.toolCallsFailed;
           return total > 0 ? (p.toolCallsFailed / total) * 100 : null;
@@ -581,7 +469,6 @@ if (fs.existsSync(exportsDir)) {
       errorRate: {
         label: 'Error Rate',
         unit: '%',
-        summaryType: 'continuous',
         compute: (p) => {
           const total = p.responses + p.timeouts + p.otherErrors;
           return total > 0 ? (p.otherErrors / total) * 100 : null;
@@ -590,19 +477,16 @@ if (fs.existsSync(exportsDir)) {
       latencyP50: {
         label: 'Latency p50',
         unit: 's',
-        summaryType: 'continuous',
         compute: (p) => p.latencyP50,
       },
       timerTimeoutRate: {
         label: 'Timer Timeout Rate',
         unit: '%',
-        summaryType: 'binary',
         compute: (p) => p.timedOut ? 100 : 0,
       },
       timeoutRate: {
         label: 'Timeout Rate',
         unit: '%',
-        summaryType: 'continuous',
         compute: (p) => {
           const total = p.timeouts + p.responses;
           return total > 0 ? (p.timeouts / total) * 100 : null;
@@ -611,7 +495,6 @@ if (fs.existsSync(exportsDir)) {
       cacheRate: {
         label: 'Cache Rate',
         unit: '%',
-        summaryType: 'continuous',
         compute: (p) => p.promptTokens > 0 && !hasUnreliableCache(p.key)
           ? (p.cachedTokens / p.promptTokens) * 100
           : null,
@@ -619,269 +502,34 @@ if (fs.existsSync(exportsDir)) {
       toolCallsPerGame: {
         label: 'Tool Calls per Game',
         unit: '',
-        summaryType: 'continuous',
         compute: (p) => p.toolCallsOk + p.toolCallsFailed,
       },
       avgPromptTokens: {
         label: 'Prompt Tokens per Response',
         unit: '',
-        summaryType: 'continuous',
         compute: (p) => p.responses > 0 ? p.promptTokens / p.responses : null,
       },
       avgCompletionTokens: {
         label: 'Completion Tokens per Response',
         unit: '',
-        summaryType: 'continuous',
         compute: (p) => p.responses > 0 ? p.completionTokens / p.responses : null,
       },
       resetsPerGame: {
         label: 'Context Resets',
         unit: '',
-        summaryType: 'continuous',
         compute: (p) => p.contextResets,
       },
       thinkingTimePerGame: {
         label: 'Thinking Time',
         unit: 's',
-        summaryType: 'continuous',
         compute: (p) => p.thinkingTimeSecs,
       },
       reasoningPct: {
         label: 'Reasoning Token %',
         unit: '%',
-        summaryType: 'continuous',
         compute: (p) => p.completionTokens > 0 ? (p.reasoningTokens / p.completionTokens) * 100 : null,
       },
     };
-
-    function buildSummaryPoints(points: TrendPoint[], metric: PerGameMetric, bucketSizeMs: number): SummaryBuild {
-      const buckets = new Map<number, TrendPoint[]>();
-      for (const point of points) {
-        if (!buckets.has(point.bucketKey)) buckets.set(point.bucketKey, []);
-        buckets.get(point.bucketKey)!.push(point);
-      }
-
-      if (points.length < MIN_SUMMARY_SAMPLES) {
-        return {
-          points: [],
-          visibleBucketKeys: new Set<number>(),
-          sparseBuckets: buckets.size,
-          sparseSeries: points.length > 0,
-        };
-      }
-
-      const summaryPoints: SummaryPoint[] = [];
-      const visibleBucketKeys = new Set<number>();
-      let sparseBuckets = 0;
-      const sortedBuckets = Array.from(buckets.entries()).sort((a, b) => a[0] - b[0]);
-
-      for (const [bucketKey, bucketPoints] of sortedBuckets) {
-        if (bucketPoints.length < MIN_SUMMARY_SAMPLES) {
-          sparseBuckets += 1;
-          continue;
-        }
-
-        const values = bucketPoints.map(point => point.rawY).sort((a, b) => a - b);
-        const { start, end } = bucketBounds(bucketKey, bucketSizeMs);
-        const center = start + (end - start) / 2;
-        visibleBucketKeys.add(bucketKey);
-
-        if (metric.summaryType === 'binary') {
-          const successes = values.filter(value => value >= 50).length;
-          const proportion = (successes / values.length) * 100;
-          const [low, high] = wilsonInterval(successes, values.length);
-          summaryPoints.push({
-            x: center,
-            y: transformY(proportion),
-            rawY: proportion,
-            modelName: bucketPoints[0].modelName,
-            modelCount: points.length,
-            bucketKey,
-            bucketStart: start,
-            bucketEnd: end,
-            n: values.length,
-            successes,
-            lowY: transformY(low * 100),
-            highY: transformY(high * 100),
-            lowRaw: low * 100,
-            highRaw: high * 100,
-          });
-          continue;
-        }
-
-        const q1 = quantile(values, 0.25);
-        const median = quantile(values, 0.5);
-        const q3 = quantile(values, 0.75);
-        summaryPoints.push({
-          x: center,
-          y: transformY(median),
-          rawY: median,
-          modelName: bucketPoints[0].modelName,
-          modelCount: points.length,
-          bucketKey,
-          bucketStart: start,
-          bucketEnd: end,
-          n: values.length,
-          q1Y: transformY(q1),
-          q3Y: transformY(q3),
-          q1Raw: q1,
-          q3Raw: q3,
-        });
-      }
-
-      return {
-        points: summaryPoints,
-        visibleBucketKeys,
-        sparseBuckets,
-        sparseSeries: summaryPoints.length === 0,
-      };
-    }
-
-    function buildSummaryLineDatasets(summaryPoints: SummaryPoint[], color: string, label: string, bucketSizeMs: number): any[] {
-      if (summaryPoints.length < 2) return [];
-      const datasets: any[] = [];
-      const maxGapMs = bucketSizeMs * 1.75;
-      let currentSegment: SummaryPoint[] = [summaryPoints[0]];
-
-      for (let i = 1; i < summaryPoints.length; i++) {
-        const prev = summaryPoints[i - 1];
-        const next = summaryPoints[i];
-        if (next.x - prev.x > maxGapMs) {
-          if (currentSegment.length >= 2) {
-            datasets.push({
-              label: `${label} summary-line`,
-              data: currentSegment,
-              type: 'line' as const,
-              borderColor: withAlpha(color, '99'),
-              backgroundColor: 'transparent',
-              borderWidth: 1.75,
-              tension: 0,
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              order: 2,
-              trendRole: 'summary-line',
-            });
-          }
-          currentSegment = [next];
-          continue;
-        }
-        currentSegment.push(next);
-      }
-
-      if (currentSegment.length >= 2) {
-        datasets.push({
-          label: `${label} summary-line`,
-          data: currentSegment,
-          type: 'line' as const,
-          borderColor: withAlpha(color, '99'),
-          backgroundColor: 'transparent',
-          borderWidth: 1.75,
-          tension: 0,
-          pointRadius: 0,
-          pointHoverRadius: 0,
-          order: 2,
-          trendRole: 'summary-line',
-        });
-      }
-
-      return datasets;
-    }
-
-    const trendSummaryOverlay = {
-      id: 'trendSummaryOverlay',
-      beforeDatasetsDraw(chartInstance: Chart) {
-        const xScale = chartInstance.scales.x;
-        const yScale = chartInstance.scales.y;
-        if (!xScale || !yScale) return;
-        const { ctx } = chartInstance;
-        ctx.save();
-
-        chartInstance.data.datasets.forEach((dataset: any, datasetIndex: number) => {
-          const meta = chartInstance.getDatasetMeta(datasetIndex);
-          if (meta.hidden) return;
-
-          if (dataset.trendRole === 'summary-continuous') {
-            ctx.strokeStyle = dataset.borderColor;
-            ctx.lineWidth = 1.5;
-            meta.data.forEach((element: any, pointIndex: number) => {
-              const point = dataset.data[pointIndex] as SummaryPoint;
-              if (point.q1Y === undefined || point.q3Y === undefined) return;
-              const yLow = yScale.getPixelForValue(point.q1Y);
-              const yHigh = yScale.getPixelForValue(point.q3Y);
-              ctx.beginPath();
-              ctx.moveTo(element.x, yLow);
-              ctx.lineTo(element.x, yHigh);
-              ctx.moveTo(element.x - 4, yLow);
-              ctx.lineTo(element.x + 4, yLow);
-              ctx.moveTo(element.x - 4, yHigh);
-              ctx.lineTo(element.x + 4, yHigh);
-              ctx.stroke();
-            });
-          }
-
-          if (dataset.trendRole === 'summary-binary') {
-            const zeroY = yScale.getPixelForValue(transformY(0));
-            ctx.fillStyle = dataset.bucketFill;
-            ctx.strokeStyle = dataset.borderColor;
-            ctx.lineWidth = 1.5;
-
-            meta.data.forEach((element: any, pointIndex: number) => {
-              const point = dataset.data[pointIndex] as SummaryPoint;
-              if (point.lowY === undefined || point.highY === undefined) return;
-              const left = xScale.getPixelForValue(point.bucketStart) + 1;
-              const right = xScale.getPixelForValue(point.bucketEnd) - 1;
-              const top = yScale.getPixelForValue(point.y);
-              const rectTop = Math.min(top, zeroY);
-              const rectHeight = Math.max(1, Math.abs(zeroY - top));
-              ctx.fillRect(left, rectTop, Math.max(1, right - left), rectHeight);
-
-              const low = yScale.getPixelForValue(point.lowY);
-              const high = yScale.getPixelForValue(point.highY);
-              ctx.beginPath();
-              ctx.moveTo(element.x, low);
-              ctx.lineTo(element.x, high);
-              ctx.moveTo(element.x - 4, low);
-              ctx.lineTo(element.x + 4, low);
-              ctx.moveTo(element.x - 4, high);
-              ctx.lineTo(element.x + 4, high);
-              ctx.stroke();
-            });
-          }
-        });
-
-        ctx.restore();
-      },
-      afterDatasetsDraw(chartInstance: Chart) {
-        const yScale = chartInstance.scales.y;
-        if (!yScale) return;
-        const { ctx } = chartInstance;
-        ctx.save();
-
-        chartInstance.data.datasets.forEach((dataset: any, datasetIndex: number) => {
-          if (!dataset.showCountLabels) return;
-          const meta = chartInstance.getDatasetMeta(datasetIndex);
-          if (meta.hidden) return;
-
-          ctx.fillStyle = withAlpha(String(dataset.borderColor), 'dd');
-          ctx.font = '11px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'bottom';
-
-          meta.data.forEach((element: any, pointIndex: number) => {
-            const point = dataset.data[pointIndex] as SummaryPoint;
-            let anchorY = element.y;
-            if (point.q3Y !== undefined) anchorY = Math.min(anchorY, yScale.getPixelForValue(point.q3Y));
-            if (point.highY !== undefined) anchorY = Math.min(anchorY, yScale.getPixelForValue(point.highY));
-            let labelY = anchorY - 5;
-            if (labelY < yScale.top + 10) labelY = anchorY + 14;
-            ctx.fillText(`n=${point.n}`, element.x, labelY);
-          });
-        });
-
-        ctx.restore();
-      },
-    };
-    Chart.register(trendSummaryOverlay);
 
     function setActiveButton(selector: string, attr: string, value: string) {
       document.querySelectorAll(selector).forEach(button => {
@@ -909,16 +557,6 @@ if (fs.existsSync(exportsDir)) {
       });
     });
 
-    document.querySelectorAll('#display-mode-buttons .toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#display-mode-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
-        btn.classList.add('active');
-        currentDisplayMode = (btn as HTMLElement).dataset.display as DisplayMode;
-        updateChart();
-        syncTrendsToUrl();
-      });
-    });
-
     document.querySelectorAll('#y-scale-buttons .toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#y-scale-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
@@ -931,12 +569,6 @@ if (fs.existsSync(exportsDir)) {
 
     minEpochTrendInput.addEventListener('input', () => {
       minEpochTrend = parseInt(minEpochTrendInput.value) || 1;
-      updateChart();
-      syncTrendsToUrl();
-    });
-
-    bucketSizeInput.addEventListener('change', () => {
-      bucketHours = parseInt(bucketSizeInput.value) || DEFAULT_BUCKET_HOURS;
       updateChart();
       syncTrendsToUrl();
     });
@@ -966,9 +598,7 @@ if (fs.existsSync(exportsDir)) {
         return;
       }
 
-      const bucketSizeMs = bucketHours * 60 * 60 * 1000;
       const modelPoints = new Map<string, TrendPoint[]>();
-
       for (const game of filteredGames) {
         const ts = new Date(game.ts).getTime();
         if (!Number.isFinite(ts)) continue;
@@ -986,7 +616,6 @@ if (fs.existsSync(exportsDir)) {
             format: game.format,
             gameId: game.id,
             dateLabel: formatDateTimeLabel(ts),
-            bucketKey: bucketKeyForTime(ts, bucketSizeMs),
           });
         }
       }
@@ -998,11 +627,7 @@ if (fs.existsSync(exportsDir)) {
 
       const datasets: any[] = [];
       const observedTimes: number[] = [];
-      let totalRawObservations = 0;
-      let totalRawShown = 0;
-      let totalSummaryShown = 0;
-      let sparseBuckets = 0;
-      let sparseSeries = 0;
+      let totalObservations = 0;
       let modelsWithData = 0;
 
       for (const [modelKey] of allModels) {
@@ -1011,65 +636,26 @@ if (fs.existsSync(exportsDir)) {
         if (!points || points.length === 0) continue;
 
         modelsWithData += 1;
-        totalRawObservations += points.length;
+        totalObservations += points.length;
         observedTimes.push(...points.map(point => point.x));
 
         const colorIdx = allModels.findIndex(model => model[0] === modelKey);
         const color = LINE_COLORS[colorIdx % LINE_COLORS.length];
         const modelName = modelMap.get(modelKey) || modelKey;
-        const summary = buildSummaryPoints(points, metric, bucketSizeMs);
-        sparseBuckets += summary.sparseBuckets;
-        if (summary.sparseSeries) sparseSeries += 1;
-
-        const rawPointsToPlot = currentDisplayMode === 'summary'
-          ? points.filter(point => !summary.visibleBucketKeys.has(point.bucketKey))
-          : points;
-
-        totalRawShown += rawPointsToPlot.length;
 
         datasets.push({
           label: `${modelName} (n=${points.length})`,
-          data: rawPointsToPlot,
+          data: points,
           type: 'scatter' as const,
           borderColor: color,
-          backgroundColor: withAlpha(color, currentDisplayMode === 'summary' ? '8c' : '66'),
-          pointRadius: rawPointsToPlot.length > 0 ? (currentDisplayMode === 'summary' ? 3.25 : 2.75) : 0,
-          pointHoverRadius: rawPointsToPlot.length > 0 ? 6 : 0,
+          backgroundColor: withAlpha(color, '66'),
+          pointRadius: 2.75,
+          pointHoverRadius: 6,
           showLine: false,
-          order: 4,
-          trendRole: 'raw',
-        });
-
-        if (currentDisplayMode === 'raw' || summary.points.length === 0) continue;
-
-        totalSummaryShown += summary.points.length;
-        if (metric.summaryType === 'continuous') {
-          datasets.push(...buildSummaryLineDatasets(summary.points, color, modelName, bucketSizeMs));
-        }
-
-        datasets.push({
-          label: `${modelName} summary`,
-          data: summary.points,
-          type: 'scatter' as const,
-          borderColor: color,
-          backgroundColor: withAlpha(color, 'cc'),
-          pointBorderColor: color,
-          pointBorderWidth: 1.5,
-          pointStyle: metric.summaryType === 'binary' ? 'rectRounded' : 'rect',
-          pointRadius: (ctx: any) => {
-            const point = ctx.raw as SummaryPoint;
-            return 3.5 + Math.min(3.5, Math.sqrt(point.n) * 0.45);
-          },
-          pointHoverRadius: 7,
-          showLine: false,
-          order: 3,
-          trendRole: metric.summaryType === 'binary' ? 'summary-binary' : 'summary-continuous',
-          showCountLabels: true,
-          bucketFill: withAlpha(color, '18'),
         });
       }
 
-      if (totalRawObservations === 0 || observedTimes.length === 0) {
+      if (totalObservations === 0 || observedTimes.length === 0) {
         noteEl.textContent = 'No data for the selected filters. Try selecting different models or adjusting filters.';
         if (chart) {
           chart.destroy();
@@ -1081,25 +667,20 @@ if (fs.existsSync(exportsDir)) {
       const minObserved = Math.min(...observedTimes);
       const maxObserved = Math.max(...observedTimes);
       const rangeMs = Math.max(maxObserved - minObserved, 60 * 60 * 1000);
-      const xPadding = Math.max(rangeMs * 0.03, bucketSizeMs * 0.15, 30 * 60 * 1000);
+      const xPadding = Math.max(rangeMs * 0.03, 30 * 60 * 1000);
       const xMin = minObserved - xPadding;
       const xMax = maxObserved + xPadding;
 
       const noteParts = [
         `${modelsWithData} model(s)`,
-        `${totalRawObservations} total observation(s)`,
-        `${totalRawShown} raw dot(s) shown`,
+        `${totalObservations} observation(s)`,
+        'raw points only',
         'x-axis uses actual timestamps',
       ];
-      if (currentDisplayMode !== 'raw') {
-        noteParts.push(`${totalSummaryShown} summary bucket(s) shown`);
-        noteParts.push(`bucket=${formatBucketSize(bucketHours)}`);
-        noteParts.push(`summary requires n>=${MIN_SUMMARY_SAMPLES}`);
-        if (sparseBuckets > 0) noteParts.push(`${sparseBuckets} sparse bucket(s) fell back to raw`);
-        if (sparseSeries > 0) noteParts.push(`${sparseSeries} model(s) were too sparse for summary`);
-      }
       if (yScaleMode === 'symlog') noteParts.push('y-axis uses symlog scaling');
       noteEl.textContent = noteParts.join(' | ');
+
+      const isPercentMetric = metric.unit === '%';
 
       if (chart) chart.destroy();
       chart = new Chart(canvas, {
@@ -1120,7 +701,6 @@ if (fs.existsSync(exportsDir)) {
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
-                filter: (item: any, data: any) => data.datasets[item.datasetIndex]?.trendRole === 'raw',
               },
             },
             tooltip: {
@@ -1129,43 +709,19 @@ if (fs.existsSync(exportsDir)) {
               borderWidth: 1,
               titleColor: '#f0f0f2',
               bodyColor: '#9e9eab',
-              filter: (item: any) => item.dataset.trendRole !== 'summary-line',
               callbacks: {
                 title: (items: any[]) => {
                   if (items.length === 0) return '';
-                  const first = items[0];
-                  const point = first.raw as SummaryPoint | TrendPoint;
-                  if (first.dataset.trendRole === 'summary-continuous' || first.dataset.trendRole === 'summary-binary') {
-                    return formatBucketRange((point as SummaryPoint).bucketStart, (point as SummaryPoint).bucketEnd);
-                  }
-                  return (point as TrendPoint).dateLabel;
+                  const point = items[0].raw as TrendPoint;
+                  return point.dateLabel;
                 },
                 label: (ctx: any) => {
-                  const point = ctx.raw as SummaryPoint | TrendPoint;
-                  if (ctx.dataset.trendRole === 'summary-continuous') {
-                    const summaryPoint = point as SummaryPoint;
-                    return [
-                      `${summaryPoint.modelName} median: ${formatMetricValue(summaryPoint.rawY, metric.unit)}`,
-                      `IQR: ${formatMetricValue(summaryPoint.q1Raw!, metric.unit)} to ${formatMetricValue(summaryPoint.q3Raw!, metric.unit)}`,
-                      `bucket observations: n=${summaryPoint.n}`,
-                      `model observations in filter: n=${summaryPoint.modelCount}`,
-                    ];
-                  }
-                  if (ctx.dataset.trendRole === 'summary-binary') {
-                    const summaryPoint = point as SummaryPoint;
-                    return [
-                      `${summaryPoint.modelName}: ${formatMetricValue(summaryPoint.rawY, metric.unit)}`,
-                      `Wilson 95%: ${formatMetricValue(summaryPoint.lowRaw!, metric.unit)} to ${formatMetricValue(summaryPoint.highRaw!, metric.unit)}`,
-                      `bucket successes: ${summaryPoint.successes}/${summaryPoint.n}`,
-                      `model observations in filter: n=${summaryPoint.modelCount}`,
-                    ];
-                  }
-                  const rawPoint = point as TrendPoint;
+                  const point = ctx.raw as TrendPoint;
                   return [
-                    `${rawPoint.modelName}: ${formatMetricValue(rawPoint.rawY, metric.unit)}`,
-                    `model observations in filter: n=${rawPoint.modelCount}`,
-                    `format: ${rawPoint.format}`,
-                    `game: ${rawPoint.gameId}`,
+                    `${point.modelName}: ${formatMetricValue(point.rawY, metric.unit)}`,
+                    `model observations in filter: n=${point.modelCount}`,
+                    `format: ${point.format}`,
+                    `game: ${point.gameId}`,
                   ];
                 },
               },
@@ -1193,8 +749,8 @@ if (fs.existsSync(exportsDir)) {
               grid: { color: 'rgba(255,255,255,0.1)' },
             },
             y: {
-              min: metric.summaryType === 'binary' ? transformY(0) : undefined,
-              max: metric.summaryType === 'binary' ? transformY(100) : undefined,
+              min: isPercentMetric ? transformY(0) : undefined,
+              max: isPercentMetric ? transformY(100) : undefined,
               title: {
                 display: true,
                 text: yScaleMode === 'symlog'
@@ -1222,15 +778,12 @@ if (fs.existsSync(exportsDir)) {
       else url.searchParams.delete('metric');
       if (currentFormat !== 'all') url.searchParams.set('format', currentFormat);
       else url.searchParams.delete('format');
-      if (minEpochTrend !== 1) url.searchParams.set('minEpoch', String(minEpochTrend));
-      if (currentDisplayMode !== 'raw') url.searchParams.set('display', currentDisplayMode);
-      else url.searchParams.delete('display');
-      if (bucketHours !== DEFAULT_BUCKET_HOURS) url.searchParams.set('bucket', String(bucketHours));
-      else url.searchParams.delete('bucket');
       if (yScaleMode !== 'linear') url.searchParams.set('yscale', yScaleMode);
       else url.searchParams.delete('yscale');
       if (minEpochTrend !== 1) url.searchParams.set('minEpoch', String(minEpochTrend));
       else url.searchParams.delete('minEpoch');
+      url.searchParams.delete('display');
+      url.searchParams.delete('bucket');
       url.searchParams.delete('smoothing');
       history.replaceState(null, '', url.toString());
     }
@@ -1252,21 +805,6 @@ if (fs.existsSync(exportsDir)) {
           currentFormat = formatParam;
           document.querySelectorAll('#format-buttons .toggle-btn').forEach(button => button.classList.remove('active'));
           btn.classList.add('active');
-        }
-      }
-
-      const displayParam = params.get('display');
-      if (displayParam === 'raw' || displayParam === 'rawSummary' || displayParam === 'summary') {
-        currentDisplayMode = displayParam;
-        setActiveButton('#display-mode-buttons .toggle-btn', 'display', displayParam);
-      }
-
-      const bucketParam = params.get('bucket');
-      if (bucketParam !== null) {
-        const value = parseInt(bucketParam);
-        if ([6, 12, 24, 48, 96].includes(value)) {
-          bucketHours = value;
-          bucketSizeInput.value = String(value);
         }
       }
 
@@ -1885,29 +1423,6 @@ if (fs.existsSync(exportsDir)) {
 
   .filter-group input[type="number"]:focus {
     border-color: #e94560;
-  }
-
-  .filter-group select {
-    font-family: inherit;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.5rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 4px;
-    color: #e0e0e0;
-    outline: none;
-    min-width: 4.5rem;
-  }
-
-  .filter-group select:focus {
-    border-color: #e94560;
-  }
-
-  .trends-help {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    line-height: 1.45;
   }
 
   /* ─── Model filter ─── */
