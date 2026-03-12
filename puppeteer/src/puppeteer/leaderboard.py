@@ -59,9 +59,53 @@ def _write_if_changed(path: Path, content: str) -> bool:
 
 def _load_game_file(path: Path) -> dict:
     """Load a game export file (.json or .json.gz)."""
-    if path.suffix == ".gz":
-        return json.loads(gzip.decompress(path.read_bytes()))
-    return json.loads(path.read_text())
+    game = json.loads(gzip.decompress(path.read_bytes())) if path.suffix == ".gz" else json.loads(path.read_text())
+    _assert_game_export_v7(game, source=path.name)
+    return game
+
+
+def _assert_int(value: Any, message: str) -> None:
+    assert isinstance(value, int) and not isinstance(value, bool), message
+
+
+def _assert_number(value: Any, message: str) -> None:
+    assert isinstance(value, (int, float)) and not isinstance(value, bool), message
+
+
+def _assert_player_summary_fields(player: dict, *, source: str, index: int) -> None:
+    assert isinstance(player.get("name"), str), f"{source}: player {index} missing name"
+    assert isinstance(player.get("type"), str), f"{source}: player {index} missing type"
+    _assert_int(player.get("toolCallsOk"), f"{source}: player {index} missing toolCallsOk")
+    _assert_int(player.get("toolCallsFailed"), f"{source}: player {index} missing toolCallsFailed")
+    _assert_number(player.get("thinkingTimeSecs"), f"{source}: player {index} missing thinkingTimeSecs")
+
+
+def _assert_game_summary_fields(game: dict, *, source: str) -> None:
+    deck_type = game.get("deckType")
+    assert isinstance(deck_type, str) and deck_type, f"{source}: missing deckType"
+    players = game.get("players")
+    assert isinstance(players, list), f"{source}: players must be a list"
+    for index, player in enumerate(players):
+        assert isinstance(player, dict), f"{source}: player {index} must be an object"
+        _assert_player_summary_fields(player, source=source, index=index)
+
+
+def _assert_game_export_v7(game: dict, *, source: str) -> None:
+    assert isinstance(game, dict), f"{source}: export must be an object"
+    assert game.get("version") == 7, f"{source}: expected export version 7, got {game.get('version')}"
+    assert isinstance(game.get("id"), str), f"{source}: missing id"
+    assert isinstance(game.get("timestamp"), str), f"{source}: missing timestamp"
+    assert isinstance(game.get("gameType"), str), f"{source}: missing gameType"
+    _assert_number(game.get("totalTurns"), f"{source}: missing totalTurns")
+    winner = game.get("winner")
+    assert winner is None or isinstance(winner, str), f"{source}: invalid winner"
+    _assert_int(game.get("harnessEpoch"), f"{source}: missing harnessEpoch")
+    _assert_int(game.get("season"), f"{source}: missing season")
+    assert "tournament" in game, f"{source}: missing tournament"
+    tournament = game["tournament"]
+    assert tournament is None or isinstance(tournament, str), f"{source}: invalid tournament"
+    assert isinstance(game.get("llmEvents"), list), f"{source}: llmEvents must be a list"
+    _assert_game_summary_fields(game, source=source)
 
 
 def _glob_game_files(games_dir: Path) -> list[Path]:
@@ -138,16 +182,12 @@ FORMAT_LABELS: dict[str, str] = {
 def derive_format(game: dict) -> str:
     """Derive canonical format name from game data.
 
-    Uses deckType if present, falls back to 'commander' for
-    backward compatibility with existing games.
+    Requires deckType to be present on the normalized export shape.
     """
-    deck_type = game.get("deckType", "")
+    deck_type = game.get("deckType")
+    assert isinstance(deck_type, str) and deck_type, f"Game {game.get('id', '<unknown>')} missing deckType"
     if deck_type in _DECK_TYPE_TO_FORMAT:
         return _DECK_TYPE_TO_FORMAT[deck_type]
-    # Backward compat: old games without deckType were all Commander
-    game_type = game.get("gameType", "")
-    if "Commander" in game_type or not deck_type:
-        return "commander"
     return deck_type.lower().replace(" ", "-")
 
 
@@ -399,6 +439,7 @@ def generate_leaderboard(
     # Aggregate per-player-key stats (model_id::effort or just model_id)
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
+        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         # Build name -> weighted blunder sum from annotations.
         blunder_weight_by_name: dict[str, float] = {}
         for ann in game.get("annotations", []):
@@ -431,9 +472,9 @@ def generate_leaderboard(
             if p.get("timedOut"):
                 stats[key]["timeout_losses"] += 1
             stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
-            stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
-            stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
-            stats[key]["total_thinking_time"] += p.get("thinkingTimeSecs", 0.0)
+            stats[key]["total_tool_calls_ok"] += p["toolCallsOk"]
+            stats[key]["total_tool_calls_failed"] += p["toolCallsFailed"]
+            stats[key]["total_thinking_time"] += p["thinkingTimeSecs"]
             assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
@@ -514,6 +555,7 @@ def generate_exhibition_leaderboard(
 
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
+        _assert_game_summary_fields(game, source=f"game {game.get('id', '<unknown>')}")
         blunder_weight_by_name: dict[str, float] = {}
         for ann in game.get("annotations", []):
             if ann.get("type") == "blunder":
@@ -545,9 +587,9 @@ def generate_exhibition_leaderboard(
             if p.get("timedOut"):
                 stats[key]["timeout_losses"] += 1
             stats[key]["total_cost"] += p.get("totalCostUsd", 0.0)
-            stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
-            stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
-            stats[key]["total_thinking_time"] += p.get("thinkingTimeSecs", 0.0)
+            stats[key]["total_tool_calls_ok"] += p["toolCallsOk"]
+            stats[key]["total_tool_calls_failed"] += p["toolCallsFailed"]
+            stats[key]["total_thinking_time"] += p["thinkingTimeSecs"]
             assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
             assert total_turns > 0, f"Game {game.get('id')} has no turns"
             stats[key]["total_annotated_turns"] += total_turns
@@ -644,55 +686,6 @@ def generate_all_leaderboards(
     return format_results, ratings_by_game
 
 
-def _backfill_player_stats(game: dict) -> None:
-    """Backfill toolCallsOk/toolCallsFailed/thinkingTimeSecs on players from llmEvents.
-
-    Mutates player dicts in-place. Skips fields that are already present.
-    """
-    players = game.get("players", [])
-    if not players:
-        return
-
-    # Compute tool call counts from llmEvents if not already on players
-    if not any("toolCallsOk" in p for p in players):
-        tool_ok: dict[str, int] = {}
-        tool_failed: dict[str, int] = {}
-        for ev in game.get("llmEvents", []):
-            if ev.get("type") != "tool_call":
-                continue
-            player = ev.get("player", "")
-            if not player:
-                continue
-            result_str = ev.get("result", "")
-            is_failure = False
-            if result_str:
-                try:
-                    result_obj = json.loads(result_str)
-                    if isinstance(result_obj, dict) and result_obj.get("success") is False:
-                        is_failure = True
-                except (json.JSONDecodeError, TypeError):
-                    pass
-            if is_failure:
-                tool_failed[player] = tool_failed.get(player, 0) + 1
-            else:
-                tool_ok[player] = tool_ok.get(player, 0) + 1
-        for p in players:
-            name = p.get("name", "")
-            if name in tool_ok or name in tool_failed:
-                p["toolCallsOk"] = tool_ok.get(name, 0)
-                p["toolCallsFailed"] = tool_failed.get(name, 0)
-
-    # Compute thinking time from llmEvents if not already on players
-    if not any("thinkingTimeSecs" in p for p in players):
-        llm_events = game.get("llmEvents", [])
-        if llm_events:
-            thinking = compute_thinking_time(llm_events)
-            for p in players:
-                name = p.get("name", "")
-                if name in thinking:
-                    p["thinkingTimeSecs"] = round(thinking[name], 1)
-
-
 def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path) -> Path:
     """Generate leaderboard files from game data.
 
@@ -705,24 +698,22 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     games_index = []
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        players = game.get("players", [])
-
-        _backfill_player_stats(game)
+        players = game["players"]
 
         game_entry: dict[str, Any] = {
             "id": game["id"],
-            "timestamp": game.get("timestamp", ""),
-            "gameType": game.get("gameType", ""),
-            "deckType": game.get("deckType", ""),
-            "totalTurns": game.get("totalTurns", 0),
-            "winner": game.get("winner"),
+            "timestamp": game["timestamp"],
+            "gameType": game["gameType"],
+            "deckType": game["deckType"],
+            "totalTurns": game["totalTurns"],
+            "winner": game["winner"],
             "players": players,
-            "harnessEpoch": game.get("harnessEpoch"),
+            "harnessEpoch": game["harnessEpoch"],
             "season": game["season"],
         }
         if "annotations" in game:
             game_entry["annotations"] = game["annotations"]
-        if game.get("tournament"):
+        if game["tournament"]:
             game_entry["tournament"] = True
         games_index.append(game_entry)
 
@@ -815,11 +806,9 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        epoch = game.get("harnessEpoch", 0)
-        players = game.get("players", [])
-        winner = game.get("winner")
-
-        _backfill_player_stats(game)
+        epoch = game["harnessEpoch"]
+        players = game["players"]
+        winner = game["winner"]
 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
@@ -872,12 +861,12 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
             if p.get("timedOut"):
                 b["timerTimeoutLosses"] += 1
             b["totalCostUsd"] += p.get("totalCostUsd", 0.0)
-            b["totalToolCallsOk"] += p.get("toolCallsOk", 0)
-            b["totalToolCallsFailed"] += p.get("toolCallsFailed", 0)
-            b["totalThinkingTimeSecs"] += p.get("thinkingTimeSecs", 0.0)
+            b["totalToolCallsOk"] += p["toolCallsOk"]
+            b["totalToolCallsFailed"] += p["toolCallsFailed"]
+            b["totalThinkingTimeSecs"] += p["thinkingTimeSecs"]
 
         # Scan llmEvents for per-player operational stats
-        llm_events = game.get("llmEvents", [])
+        llm_events = game["llmEvents"]
         for ev in llm_events:
             player_name = ev.get("player", "")
             if player_name not in name_to_key:
@@ -986,12 +975,10 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
 
     for gz_path in _glob_game_files(games_dir):
         game = _load_game_file(gz_path)
-        epoch = game.get("harnessEpoch", 0)
+        epoch = game["harnessEpoch"]
         game_format = derive_format(game)
-        winner = game.get("winner")
-        players = game.get("players", [])
-
-        _backfill_player_stats(game)
+        winner = game["winner"]
+        players = game["players"]
 
         # Build name -> player_key map for this game
         name_to_key: dict[str, str] = {}
@@ -1014,7 +1001,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
         # Track last event timestamp per player for latency gaps
         last_ts: dict[str, datetime] = {}
 
-        for ev in game.get("llmEvents", []):
+        for ev in game["llmEvents"]:
             player_name = ev.get("player", "")
             if player_name not in name_to_key:
                 continue
@@ -1098,9 +1085,9 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
                     "completionTokens": player_completion_tokens.get(name, 0),
                     "cachedTokens": player_cached_tokens.get(name, 0),
                     "reasoningTokens": player_reasoning_tokens.get(name, 0),
-                    "toolCallsOk": p.get("toolCallsOk", 0),
-                    "toolCallsFailed": p.get("toolCallsFailed", 0),
-                    "thinkingTimeSecs": round(p.get("thinkingTimeSecs", 0.0), 1),
+                    "toolCallsOk": p["toolCallsOk"],
+                    "toolCallsFailed": p["toolCallsFailed"],
+                    "thinkingTimeSecs": round(p["thinkingTimeSecs"], 1),
                     "responses": player_responses.get(name, 0),
                     "timeouts": player_timeouts.get(name, 0),
                     "otherErrors": player_other_errors.get(name, 0),
