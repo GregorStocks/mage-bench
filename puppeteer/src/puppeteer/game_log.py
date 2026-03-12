@@ -59,8 +59,6 @@ class GameLogWriter:
 
 def read_decklist(deck_path: Path) -> list[str]:
     """Parse a .dck file into a list of card entries (e.g. '1 Sol Ring')."""
-    if not deck_path.exists():
-        return []
     entries = []
     for line in deck_path.read_text().splitlines():
         line = line.strip()
@@ -73,15 +71,12 @@ def read_decklist(deck_path: Path) -> list[str]:
 def _parse_ts(value: str) -> float | None:
     if not value:
         return None
-    try:
-        if value.endswith("Z"):
-            value = value[:-1] + "+00:00"
-        dt = datetime.fromisoformat(value)
-        if dt.tzinfo is None:
-            dt = dt.replace(tzinfo=timezone.utc)
-        return dt.timestamp()
-    except Exception:
-        return None
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    dt = datetime.fromisoformat(value)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.timestamp()
 
 
 def merge_game_log(game_dir: Path) -> None:

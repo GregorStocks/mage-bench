@@ -22,6 +22,7 @@ from puppeteer.orchestrator import (
     _wait_for_game_start,
     _wait_with_pilot_monitoring,
     _write_error_log,
+    _write_game_meta,
     parse_args,
     start_observer_client,
 )
@@ -368,23 +369,54 @@ def test_write_error_log_empty():
 
 def test_git_returns_output():
     """Should return stripped stdout from a successful git command."""
-    with patch("puppeteer.orchestrator.subprocess.check_output", return_value="  main\n") as mock:
+    completed = subprocess.CompletedProcess(
+        args=["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        returncode=0,
+        stdout="  main\n",
+        stderr="",
+    )
+    with patch("puppeteer.orchestrator.subprocess.run", return_value=completed) as mock:
         result = _git("rev-parse --abbrev-ref HEAD", Path("/fake"))
     assert result == "main"
     mock.assert_called_once_with(
-        "git rev-parse --abbrev-ref HEAD",
-        shell=True,
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
         cwd=Path("/fake"),
-        stderr=subprocess.DEVNULL,
+        check=True,
+        capture_output=True,
         text=True,
     )
 
 
-def test_git_returns_empty_on_failure():
-    """Should return empty string when git command fails."""
-    with patch("puppeteer.orchestrator.subprocess.check_output", side_effect=subprocess.CalledProcessError(1, "git")):
-        result = _git("rev-parse HEAD", Path("/fake"))
-    assert result == ""
+def test_git_raises_on_failure():
+    """Git failures should surface immediately."""
+    with (
+        patch(
+            "puppeteer.orchestrator.subprocess.run",
+            side_effect=subprocess.CalledProcessError(
+                1,
+                ["git", "rev-parse", "HEAD"],
+                stderr="fatal: not a git repository",
+            ),
+        ),
+        pytest.raises(RuntimeError, match="fatal: not a git repository"),
+    ):
+        _git("rev-parse HEAD", Path("/fake"))
+
+
+def test_write_game_meta_raises_on_missing_deck(tmp_path: Path):
+    """Declared deck paths should fail fast if the file is missing."""
+    game_dir = tmp_path / "game"
+    game_dir.mkdir()
+    (tmp_path / "data").mkdir()
+    (tmp_path / "data" / "season.json").write_text(json.dumps({"current_season": 7}))
+    config_file = tmp_path / "config.json"
+    config_file.write_text("{}\n")
+
+    config = Config(config_file=config_file, timestamp="20260312_010203")
+    config.pilot_players = [PilotPlayer(name="ace", deck="missing.dck", model="test/model")]
+
+    with pytest.raises(FileNotFoundError):
+        _write_game_meta(game_dir, config, tmp_path)
 
 
 # --- _wait_with_pilot_monitoring tests ---
@@ -556,7 +588,9 @@ def test_config_num_games_set():
 @patch("puppeteer.orchestrator.start_observer_client")
 @patch("puppeteer.orchestrator._write_game_meta")
 @patch("puppeteer.orchestrator.resolve_choice_decks")
+@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_uses_batch_specific_config(
+    mock_git,
     mock_resolve,
     mock_write_meta,
     mock_start_spectator,
@@ -606,7 +640,9 @@ def test_setup_game_uses_batch_specific_config(
 @patch("puppeteer.orchestrator.start_observer_client")
 @patch("puppeteer.orchestrator._write_game_meta")
 @patch("puppeteer.orchestrator.resolve_choice_decks")
+@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_on_spectator_crash(
+    mock_git,
     mock_resolve,
     mock_write_meta,
     mock_start_spectator,
@@ -647,7 +683,9 @@ def test_setup_game_cleans_up_on_spectator_crash(
 @patch("puppeteer.orchestrator.start_observer_client")
 @patch("puppeteer.orchestrator._write_game_meta")
 @patch("puppeteer.orchestrator.resolve_choice_decks")
+@patch("puppeteer.orchestrator._git", side_effect=["main", "abc123", "abc123 test"])
 def test_setup_game_cleans_up_pilots_on_timeout(
+    mock_git,
     mock_resolve,
     mock_write_meta,
     mock_start_spectator,

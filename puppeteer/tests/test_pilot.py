@@ -12,11 +12,14 @@ from puppeteer.pilot import (
     _build_pilot_decision,
     _build_pilot_snapshot,
     _extract_oracle_texts_from_board,
+    _fetch_state_summary,
     _prefetch_first_action,
     _render_for_pilot,
+    execute_tool,
     mcp_tools_to_openai,
     run_pilot_loop,
 )
+from puppeteer.tool_error import ToolExecutionError
 
 
 def _make_session() -> MagicMock:
@@ -33,6 +36,26 @@ def _make_client(error: Exception) -> MagicMock:
     client = MagicMock()
     client.chat.completions.create = AsyncMock(side_effect=error)
     return client
+
+
+@pytest.mark.asyncio
+async def test_execute_tool_raises_on_mcp_failure():
+    session = MagicMock()
+    session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
+
+    with pytest.raises(ToolExecutionError, match="MCP tool pass_priority failed: bridge died"):
+        await execute_tool(session, "pass_priority", {})
+
+
+@pytest.mark.asyncio
+async def test_fetch_state_summary_raises_on_error_payload():
+    session = MagicMock()
+    result = MagicMock()
+    result.content = [MagicMock(text='{"error": "bridge died"}')]
+    session.call_tool = AsyncMock(return_value=result)
+
+    with pytest.raises(ToolExecutionError, match="get_game_state returned error: bridge died"):
+        await _fetch_state_summary(session)
 
 
 @pytest.fixture()
@@ -363,6 +386,27 @@ _BAD_PASS_ARGS = '{"until":"invalid_value"}'
 _PASS_ERROR = '{"error": "Invalid until value: invalid_value"}'
 _PASS_OK = '{"action_pending": false, "stop_reason": "passed"}'
 _TOOLS = [{"type": "function", "function": {"name": "pass_priority", "parameters": {}}}]
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_run_pilot_loop_raises_on_tool_failure():
+    session = MagicMock()
+    session.call_tool = AsyncMock(side_effect=RuntimeError("bridge died"))
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=_make_llm_response("pass_priority", "{}"))
+
+    with pytest.raises(ToolExecutionError, match="MCP tool pass_priority failed: bridge died"):
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=_TOOLS,
+            prices={},
+            username="test-player",
+        )
 
 
 @pytest.mark.asyncio

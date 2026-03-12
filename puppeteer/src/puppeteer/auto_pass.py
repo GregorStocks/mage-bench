@@ -13,6 +13,7 @@ from pathlib import Path
 from mcp import ClientSession
 
 from puppeteer.log import get_logger
+from puppeteer.tool_error import ToolExecutionError, extract_text_content
 
 logger = get_logger(__name__)
 
@@ -23,9 +24,9 @@ MAX_CONSECUTIVE_ERRORS = 20  # 20 * 5s = ~100s of continuous failure
 async def _execute_tool(session: ClientSession, name: str, arguments: dict) -> str:
     try:
         result = await session.call_tool(name, arguments)
-        return result.content[0].text
-    except Exception as e:
-        return json.dumps({"error": str(e)})
+    except Exception as exc:
+        raise ToolExecutionError(f"MCP tool {name} failed: {exc}") from exc
+    return extract_text_content(name, result)
 
 
 async def auto_pass_loop(

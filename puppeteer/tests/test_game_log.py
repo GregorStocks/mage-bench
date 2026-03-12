@@ -4,6 +4,8 @@ import json
 import tempfile
 from pathlib import Path
 
+import pytest
+
 from puppeteer.game_log import GameLogWriter, _parse_ts, merge_game_log, read_decklist
 
 
@@ -28,7 +30,8 @@ def test_read_decklist():
 
 
 def test_read_decklist_missing_file():
-    assert read_decklist(Path("/nonexistent/deck.dck")) == []
+    with pytest.raises(FileNotFoundError):
+        read_decklist(Path("/nonexistent/deck.dck"))
 
 
 def test_parse_ts_iso():
@@ -49,11 +52,22 @@ def test_parse_ts_naive():
 
 
 def test_parse_ts_invalid():
-    assert _parse_ts("not-a-timestamp") is None
+    with pytest.raises(ValueError):
+        _parse_ts("not-a-timestamp")
 
 
 def test_parse_ts_empty():
     assert _parse_ts("") is None
+
+
+def test_merge_game_log_invalid_timestamp_raises():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        events = game_dir / "game_events.jsonl"
+        events.write_text(json.dumps({"ts": "not-a-timestamp", "type": "game_start"}) + "\n")
+
+        with pytest.raises(ValueError):
+            merge_game_log(game_dir)
 
 
 def test_game_log_writer_emit():

@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -35,17 +36,22 @@ _SPECTATOR_GAME_STARTED = "AI Puppeteer: all players joined"
 
 
 def _git(cmd: str, cwd: Path) -> str:
-    """Run a git command and return stripped output, or "" on failure."""
+    """Run a git command and return stripped stdout."""
+    argv = ["git", *shlex.split(cmd)]
     try:
-        return subprocess.check_output(
-            f"git {cmd}",
-            shell=True,
+        return subprocess.run(
+            argv,
             cwd=cwd,
-            stderr=subprocess.DEVNULL,
+            check=True,
+            capture_output=True,
             text=True,
-        ).strip()
-    except Exception:
-        return ""
+        ).stdout.strip()
+    except (OSError, ValueError, subprocess.CalledProcessError) as exc:
+        if isinstance(exc, subprocess.CalledProcessError):
+            detail = exc.stderr.strip() or exc.stdout.strip() or str(exc)
+        else:
+            detail = str(exc)
+        raise RuntimeError(f"git command failed in {cwd}: {' '.join(argv)}: {detail}") from exc
 
 
 def _wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: int = 300) -> None:
@@ -259,8 +265,7 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
         if player.deck:
             entry["deck_path"] = player.deck
             deck_file = project_root / player.deck
-            if deck_file.exists():
-                entry["decklist"] = read_decklist(deck_file)
+            entry["decklist"] = read_decklist(deck_file)
         if player.deck_name:
             entry["deck_name"] = player.deck_name
         if player.deck_strategy:
