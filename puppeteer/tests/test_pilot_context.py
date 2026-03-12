@@ -261,6 +261,21 @@ def test_summarize_invalid_json():
     assert result == "not valid json at all"[:TOOL_RESULT_MAX_CHARS]
 
 
+def test_summarize_rendered_tool_content_keeps_full_text():
+    content = (
+        "## Card Reference\n"
+        "- Dark Depths -- Land: {this} enters with ten ice counters on it. / "
+        "{3}: Remove an ice counter from {this}. / "
+        "When {this} has no ice counters on it, sacrifice it. If you do, "
+        "create Marit Lage, a legendary 20/20 black Avatar creature token "
+        "with flying and indestructible.\n"
+        "\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 () - TestPlayer"
+    )
+    result = _summarize_tool_result("choose_action", content)
+    assert result == content
+    assert "Marit Lage" in result
+
+
 def test_summarize_already_small():
     content = json.dumps({"success": True})
     result = _summarize_tool_result("send_chat_message", content)

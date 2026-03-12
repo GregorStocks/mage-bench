@@ -60,7 +60,7 @@ MAX_EMPTY_RESPONSES = 10
 # with tool results summarised to save tokens.
 CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
-TOOL_RESULT_MAX_CHARS = 200  # max chars for a summarised tool result
+TOOL_RESULT_MAX_CHARS = 200  # max chars for compact JSON-derived tool summaries
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
 
@@ -260,6 +260,8 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
     try:
         data = json.loads(content)
     except (json.JSONDecodeError, TypeError):
+        if content.startswith(("## Decision", "## Card Reference")):
+            return content
         return content[:TOOL_RESULT_MAX_CHARS]
 
     if tool_name == "pass_priority":
