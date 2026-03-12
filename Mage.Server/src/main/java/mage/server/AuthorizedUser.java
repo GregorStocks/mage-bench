@@ -9,9 +9,9 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.codec.Base64;
+import org.apache.shiro.lang.codec.Base64;
 import org.apache.shiro.crypto.hash.Hash;
-import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.lang.util.ByteSource;
 
 @DatabaseTable(tableName = "authorized_user")
 public class AuthorizedUser {
