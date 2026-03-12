@@ -39,10 +39,12 @@
     },
     "gameType": {
       "type": "string",
+      "minLength": 1,
       "description": "XMage game type, e.g. 'Commander Free For All', 'Two Player Duel'."
     },
     "deckType": {
       "type": "string",
+      "minLength": 1,
       "description": "XMage deck type, e.g. 'Variant Magic - Freeform Commander', 'Constructed - Standard'."
     },
     "totalTurns": {

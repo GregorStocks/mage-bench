@@ -48,6 +48,10 @@ jobs:
 
       - run: make test
 
+      - run: make leaderboard
+
+      - run: git diff --exit-code -- website/src/data website/public/data
+
   golden:
     runs-on: ubuntu-latest
     timeout-minutes: 45
