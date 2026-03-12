@@ -1,3 +1,8 @@
+---
+name: deep-analysis
+description: Investigate a game from raw logs, trace bugs to source code, and file detailed issues. Use for deeper debugging than export-only analysis.
+---
+
 # Deep Analysis
 
 Deep analysis of game logs — reads all raw log files, traces bugs to source code, and files detailed issues. For quick triage, use `/fast-analysis` instead.

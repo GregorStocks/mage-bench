@@ -1,3 +1,8 @@
+---
+name: blunder-backfill
+description: Re-annotate recent games with outdated or missing blunder analysis. Use when users ask to backfill or refresh blunder annotations.
+---
+
 # Blunder Backfill
 
 Re-annotate games that have outdated or missing blunder analysis.
