@@ -1,5 +1,6 @@
 """Tests for the pilot module."""
 
+import asyncio
 import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -8,6 +9,7 @@ import pytest
 from puppeteer.pilot import (
     MAX_CHAT_MESSAGES_PER_TURN,
     MAX_CONSECUTIVE_EMPTY_CHOICES,
+    MAX_TOKENS,
     PermanentLLMFailure,
     _build_pilot_decision,
     _build_pilot_snapshot,
@@ -356,6 +358,23 @@ def _make_llm_response(tool_name: str, args: str) -> MagicMock:
     response = MagicMock()
     response.choices = [choice]
     response.usage = MagicMock(prompt_tokens=10, completion_tokens=5)
+    response.usage.prompt_tokens_details = None
+    response.usage.completion_tokens_details = None
+    return response
+
+
+def _make_truncated_response() -> MagicMock:
+    """Create a mock LLM response truncated before it could emit tools."""
+    choice = MagicMock()
+    choice.finish_reason = "length"
+    choice.message.tool_calls = None
+    choice.message.content = None
+
+    response = MagicMock()
+    response.choices = [choice]
+    response.usage = MagicMock(prompt_tokens=10, completion_tokens=MAX_TOKENS)
+    response.usage.prompt_tokens_details = None
+    response.usage.completion_tokens_details = None
     return response
 
 
@@ -517,6 +536,270 @@ async def test_successful_pass_resets_error_counter():
     assert forced_pass_count == 0
 
 
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_repeated_truncation_resets_board_context():
+    """Repeated truncation should clear board context before the next pass."""
+    session = MagicMock()
+    tool_calls: list[tuple[str, dict]] = []
+
+    async def fake_call_tool(name: str, args: dict) -> MagicMock:
+        tool_calls.append((name, dict(args)))
+        if name != "pass_priority":
+            return _mock_tool_result("{}")
+        if len([call for call in tool_calls if call[0] == "pass_priority"]) == 1:
+            return _mock_tool_result(
+                json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "board": [{"name": "You", "life": 20}],
+                        "board_cursor": 7,
+                    }
+                )
+            )
+        return _mock_tool_result('{"game_over": true}')
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+    client = MagicMock()
+
+    async def fake_create(**_kwargs):
+        if fake_create.calls == 0:
+            fake_create.calls += 1
+            return _make_llm_response("pass_priority", "{}")
+        if fake_create.calls == 1:
+            fake_create.calls += 1
+            return _make_truncated_response()
+        fake_create.calls += 1
+        return _make_llm_response("pass_priority", "{}")
+
+    fake_create.calls = 0
+    client.chat.completions.create = AsyncMock(side_effect=fake_create)
+    game_log = MagicMock()
+
+    with (
+        patch("puppeteer.pilot.MAX_CONSECUTIVE_TRUNCATIONS", 1),
+        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+    ):
+        await asyncio.wait_for(
+            run_pilot_loop(
+                session=session,
+                client=client,
+                model="test-model",
+                system_prompt="You are a test.",
+                tools=_TOOLS,
+                prices={},
+                username="test-player",
+                game_log=game_log,
+            ),
+            timeout=2,
+        )
+
+    pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
+    assert pass_calls == [{}, {}]
+    game_log.emit.assert_any_call("context_reset", reason="repeated_truncations")
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_repeated_timeout_resets_board_context():
+    """Repeated timeout recovery should force a fresh board on the next pass."""
+    session = MagicMock()
+    tool_calls: list[tuple[str, dict]] = []
+    pass_call_count = 0
+
+    async def fake_call_tool(name: str, args: dict) -> MagicMock:
+        nonlocal pass_call_count
+        tool_calls.append((name, dict(args)))
+        if name != "pass_priority":
+            return _mock_tool_result("{}")
+        pass_call_count += 1
+        if pass_call_count == 1:
+            return _mock_tool_result(
+                json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "board": [{"name": "You", "life": 20}],
+                        "board_cursor": 11,
+                    }
+                )
+            )
+        if pass_call_count == 2:
+            return _mock_tool_result('{"action_pending": false}')
+        return _mock_tool_result('{"game_over": true}')
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+    client = MagicMock()
+
+    async def fake_create(**_kwargs):
+        if fake_create.calls == 0:
+            fake_create.calls += 1
+            return _make_llm_response("pass_priority", "{}")
+        if fake_create.calls == 1:
+            fake_create.calls += 1
+            raise asyncio.TimeoutError()
+        fake_create.calls += 1
+        return _make_llm_response("pass_priority", "{}")
+
+    fake_create.calls = 0
+    client.chat.completions.create = AsyncMock(side_effect=fake_create)
+    game_log = MagicMock()
+
+    with (
+        patch("puppeteer.pilot.MAX_CONSECUTIVE_TIMEOUTS", 1),
+        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+    ):
+        await asyncio.wait_for(
+            run_pilot_loop(
+                session=session,
+                client=client,
+                model="test-model",
+                system_prompt="You are a test.",
+                tools=_TOOLS,
+                prices={},
+                username="test-player",
+                game_log=game_log,
+            ),
+            timeout=2,
+        )
+
+    pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
+    assert pass_calls == [{}, {}, {}]
+    game_log.emit.assert_any_call("context_reset", reason="repeated_timeouts")
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_transient_error_reset_preserves_board_context():
+    """Transient LLM errors should keep the last board cursor for the next pass."""
+    session = MagicMock()
+    tool_calls: list[tuple[str, dict]] = []
+    pass_call_count = 0
+
+    async def fake_call_tool(name: str, args: dict) -> MagicMock:
+        nonlocal pass_call_count
+        tool_calls.append((name, dict(args)))
+        if name != "pass_priority":
+            return _mock_tool_result("{}")
+        pass_call_count += 1
+        if pass_call_count == 1:
+            return _mock_tool_result(
+                json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "board": [{"name": "You", "life": 20}],
+                        "board_cursor": 5,
+                    }
+                )
+            )
+        if pass_call_count == 2:
+            return _mock_tool_result('{"action_pending": false}')
+        return _mock_tool_result('{"game_over": true}')
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+    client = MagicMock()
+
+    async def fake_create(**_kwargs):
+        if fake_create.calls == 0:
+            fake_create.calls += 1
+            return _make_llm_response("pass_priority", "{}")
+        if fake_create.calls == 1:
+            fake_create.calls += 1
+            raise Exception("temporary upstream failure")
+        fake_create.calls += 1
+        return _make_llm_response("pass_priority", "{}")
+
+    fake_create.calls = 0
+    client.chat.completions.create = AsyncMock(side_effect=fake_create)
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock):
+        await asyncio.wait_for(
+            run_pilot_loop(
+                session=session,
+                client=client,
+                model="test-model",
+                system_prompt="You are a test.",
+                tools=_TOOLS,
+                prices={},
+                username="test-player",
+            ),
+            timeout=2,
+        )
+
+    pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
+    assert pass_calls == [{}, {}, {"board_cursor": 5}]
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_stall_recovery_preserves_board_context():
+    """Stall recovery should keep board cursor state for the next pilot turn."""
+    session = MagicMock()
+    tool_calls: list[tuple[str, dict]] = []
+    pass_call_count = 0
+
+    async def fake_call_tool(name: str, args: dict) -> MagicMock:
+        nonlocal pass_call_count
+        tool_calls.append((name, dict(args)))
+        if name == "send_chat_message":
+            return _mock_tool_result('{"success": true}')
+        if name != "pass_priority":
+            return _mock_tool_result("{}")
+        pass_call_count += 1
+        if pass_call_count == 1:
+            return _mock_tool_result(
+                json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "board": [{"name": "You", "life": 20}],
+                        "board_cursor": 9,
+                    }
+                )
+            )
+        if pass_call_count == 2:
+            return _mock_tool_result('{"action_pending": false}')
+        return _mock_tool_result('{"game_over": true}')
+
+    session.call_tool = AsyncMock(side_effect=fake_call_tool)
+    client = MagicMock()
+
+    async def fake_create(**_kwargs):
+        if fake_create.calls == 0:
+            fake_create.calls += 1
+            return _make_llm_response("pass_priority", "{}")
+        fake_create.calls += 1
+        return _make_llm_response("pass_priority", "{}")
+
+    fake_create.calls = 0
+    client.chat.completions.create = AsyncMock(side_effect=fake_create)
+    game_log = MagicMock()
+
+    with (
+        patch("puppeteer.pilot.MAX_TURNS_WITHOUT_PROGRESS", 1),
+        patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock),
+    ):
+        await asyncio.wait_for(
+            run_pilot_loop(
+                session=session,
+                client=client,
+                model="test-model",
+                system_prompt="You are a test.",
+                tools=_TOOLS,
+                prices={},
+                username="test-player",
+                game_log=game_log,
+            ),
+            timeout=2,
+        )
+
+    pass_calls = [args for name, args in tool_calls if name == "pass_priority"]
+    assert pass_calls == [{}, {}, {"board_cursor": 9}]
+    game_log.emit.assert_any_call("stall", turns_without_progress=1, last_tools=["pass_priority"])
+
+
 # --- Chat rate limiting tests ---
 
 
@@ -541,6 +824,8 @@ def _make_multi_tool_response(tool_calls_spec: list[tuple[str, str]]) -> MagicMo
     response = MagicMock()
     response.choices = [choice]
     response.usage = MagicMock(prompt_tokens=10, completion_tokens=5)
+    response.usage.prompt_tokens_details = None
+    response.usage.completion_tokens_details = None
     return response
 
 

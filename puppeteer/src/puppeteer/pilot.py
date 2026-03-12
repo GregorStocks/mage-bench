@@ -8,6 +8,7 @@ import re
 import sys
 import time
 from contextlib import ExitStack
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from mcp import ClientSession
@@ -46,6 +47,11 @@ LLM_REQUEST_TIMEOUT_SECS = 120
 MAX_CONSECUTIVE_TIMEOUTS = 3
 MAX_CONSECUTIVE_EMPTY_CHOICES = 5
 MAX_GAME_DURATION_SECS = 3 * 3600  # 3 hours absolute maximum
+MAX_TURNS_WITHOUT_PROGRESS = 20
+MAX_CONSECUTIVE_PASS_ERRORS = 3
+MAX_CONSECUTIVE_TRUNCATIONS = 3
+MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
+MAX_EMPTY_RESPONSES = 10
 
 # Context window management.
 # History is append-only; before each LLM call we render a bounded context
@@ -573,6 +579,445 @@ class BoardCursorTracker:
         self.cursor = None
 
 
+@dataclass
+class PilotLoopState:
+    """Mutable state for the pilot loop."""
+
+    history: list[dict]
+    state_summary: str = ""
+    cumulative_cost: float = 0.0
+    empty_responses: int = 0
+    last_was_empty: bool = False
+    consecutive_timeouts: int = 0
+    consecutive_empty_choices: int = 0
+    turns_without_progress: int = 0
+    consecutive_pass_errors: int = 0
+    last_pass_error_msg: str = ""
+    consecutive_truncations: int = 0
+    consecutive_empty_errors: int = 0
+    last_game_seq: int | None = None
+    board_tracker: BoardCursorTracker = field(default_factory=BoardCursorTracker)
+    last_board: list[dict] | None = None
+    current_game_turn: int = 0
+    last_chat_turn: int = 0
+    seen_oracle_cards: set[str] = field(default_factory=set)
+    cached_render: list[dict] | None = None
+    cached_history_len: int = 0
+    render_counter: int = 0
+
+
+@dataclass
+class PilotTurnState:
+    """Per-response tool execution state used for stall detection."""
+
+    had_successful_action: bool = False
+    had_actionable_opportunity: bool = False
+    tools_called: set[str] = field(default_factory=set)
+    chat_messages_this_turn: int = 0
+
+
+def _reset_render_cache(state: PilotLoopState) -> None:
+    """Drop the cached render prefix after a context reset."""
+    state.state_summary = ""
+    state.cached_render = None
+    state.cached_history_len = 0
+    state.render_counter = 0
+
+
+def _reset_context(
+    state: PilotLoopState,
+    base_text: str,
+    *,
+    reset_board_context: bool,
+) -> None:
+    """Reset the conversation while preserving the last assistant reasoning."""
+    last_reasoning = _extract_last_reasoning(state.history)
+    state.history = [
+        {
+            "role": "user",
+            "content": _build_reset_message(base_text, last_reasoning),
+        },
+    ]
+    _reset_render_cache(state)
+    state.seen_oracle_cards.clear()
+    if reset_board_context:
+        state.board_tracker.reset()
+        state.last_board = None
+
+
+async def _build_loop_messages(
+    state: PilotLoopState,
+    session: ClientSession,
+    system_prompt: str,
+    cache_control: dict | None,
+) -> list[dict]:
+    """Render the next LLM request, reusing cached context when possible."""
+    if len(state.history) > CONTEXT_RECENT_COUNT:
+        state.render_counter += 1
+        need_rerender = state.cached_render is None or state.render_counter % RENDER_INTERVAL == 0
+        if need_rerender:
+            state.state_summary = await _fetch_state_summary(session)
+            messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+            state.cached_render = list(messages)
+            state.cached_history_len = len(state.history)
+            state.render_counter = 0
+            return messages
+
+        assert state.cached_render is not None, "cached_render must be populated before reuse"
+        return list(state.cached_render) + state.history[state.cached_history_len :]
+
+    messages = _render_context(state.history, system_prompt, state.state_summary, cache_control)
+    state.cached_render = None
+    state.cached_history_len = 0
+    state.render_counter = 0
+    return messages
+
+
+def _mark_tail_cache_breakpoint(
+    messages: list[dict],
+    state: PilotLoopState,
+    cache_control: dict | None,
+) -> None:
+    """Mark the end of the stable prompt prefix for providers that cache it."""
+    if not cache_control or len(messages) <= 1:
+        return
+
+    tail_idx = len(state.cached_render) - 1 if state.cached_render else len(messages) - 1
+    marked = _with_cache_control(messages[tail_idx], cache_control)
+    if marked is not messages[tail_idx]:
+        messages[tail_idx] = marked
+
+
+def _build_assistant_tool_message(message) -> dict:
+    """Build a provider-safe assistant message from an SDK tool response."""
+    assistant_msg: dict = {"role": "assistant", "content": message.content}
+    if message.tool_calls:
+        assistant_msg["tool_calls"] = [
+            {
+                "id": tc.id,
+                "type": "function",
+                "function": {
+                    "name": tc.function.name,
+                    "arguments": tc.function.arguments,
+                },
+            }
+            for tc in message.tool_calls
+        ]
+    return assistant_msg
+
+
+def _maybe_extract_result_dict(result_text: str) -> dict | None:
+    """Parse a JSON tool result when it is a dict."""
+    try:
+        data = json.loads(result_text)
+    except (json.JSONDecodeError, TypeError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _handle_truncated_response(
+    state: PilotLoopState,
+    choice,
+    response,
+    game_log: GameLogWriter | None,
+) -> bool:
+    """Handle max-token truncation and reset context after repeated failures."""
+    if choice.finish_reason != "length":
+        state.consecutive_truncations = 0
+        return False
+
+    state.consecutive_truncations += 1
+    tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
+    logger.warning(
+        "[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens=%s/%s. "
+        "Model hit max_tokens cap before producing a tool call. [%d]",
+        tokens_used,
+        MAX_TOKENS,
+        state.consecutive_truncations,
+    )
+    if state.consecutive_truncations < MAX_CONSECUTIVE_TRUNCATIONS:
+        return False
+
+    logger.warning("[pilot] Repeated truncations, resetting conversation context")
+    if game_log:
+        game_log.emit("context_reset", reason="repeated_truncations")
+    _reset_context(
+        state,
+        "Continue playing. Be concise. Call pass_priority.",
+        reset_board_context=True,
+    )
+    state.consecutive_truncations = 0
+    return True
+
+
+async def _process_tool_calls(
+    session: ClientSession,
+    choice,
+    state: PilotLoopState,
+    username: str,
+    game_dir: Path | None,
+    game_log: GameLogWriter | None,
+) -> tuple[bool, set[str]]:
+    """Execute a single LLM tool-calling turn."""
+    turn_state = PilotTurnState()
+
+    if choice.message.content:
+        logger.info("[pilot] Thinking: %s", choice.message.content)
+    state.empty_responses = 0
+    state.last_was_empty = False
+    state.history.append(_build_assistant_tool_message(choice.message))
+
+    for tool_call in choice.message.tool_calls:
+        fn = tool_call.function
+        args = json.loads(fn.arguments) if fn.arguments else {}
+
+        state.board_tracker.inject(fn.name, args)
+        logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
+
+        if fn.name == "send_chat_message" and turn_state.chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
+            result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
+            tool_latency_ms = 0
+        else:
+            if fn.name == "send_chat_message":
+                turn_state.chat_messages_this_turn += 1
+            tool_start = time.monotonic()
+            result_text = await execute_tool(session, fn.name, args)
+            tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
+
+        result_data = _maybe_extract_result_dict(result_text)
+        if result_data and "game_seq" in result_data:
+            state.last_game_seq = result_data["game_seq"]
+        state.board_tracker.extract(result_text)
+
+        if game_log:
+            game_log.emit(
+                "tool_call",
+                call_id=tool_call.id,
+                tool=fn.name,
+                arguments=args,
+                result=result_text,
+                latency_ms=tool_latency_ms,
+                game_seq=state.last_game_seq,
+            )
+
+        if result_text == '{"error": ""}':
+            state.consecutive_empty_errors += 1
+            if state.consecutive_empty_errors >= MAX_CONSECUTIVE_EMPTY_ERRORS:
+                log_error(
+                    logger,
+                    game_dir,
+                    username,
+                    f"[pilot] {state.consecutive_empty_errors} consecutive empty errors — bridge is dead, exiting",
+                )
+                if game_log:
+                    game_log.emit(
+                        "auto_pilot_mode",
+                        reason="bridge_dead",
+                        consecutive_empty_errors=state.consecutive_empty_errors,
+                    )
+                return True, turn_state.tools_called
+        else:
+            state.consecutive_empty_errors = 0
+
+        turn_state.tools_called.add(fn.name)
+        if fn.name == "choose_action":
+            choice_result = json.loads(result_text)
+            action_taken = choice_result.get("action_taken", "")
+            success = choice_result.get("success", False)
+            if success:
+                logger.info("[pilot] Action: %s", action_taken)
+                turn_state.had_successful_action = True
+                state.turns_without_progress = 0
+            else:
+                logger.warning("[pilot] Action failed: %s", choice_result.get("error", ""))
+                turn_state.had_actionable_opportunity = True
+        elif fn.name == "get_action_choices":
+            choice_result = json.loads(result_text)
+            action_type = choice_result.get("action_type", "")
+            message = choice_result.get("message", "")
+            choices = choice_result.get("choices", [])
+            if choice_result.get("error"):
+                turn_state.had_actionable_opportunity = True
+            elif choices:
+                logger.info("[pilot] Choices for %s: %d options", action_type, len(choices))
+                turn_state.had_actionable_opportunity = True
+            else:
+                logger.info("[pilot] Action: %s - %s", action_type, message[:100])
+        elif fn.name == "pass_priority":
+            try:
+                pass_result = json.loads(result_text)
+                context = pass_result.get("context", "")
+                if context.startswith("T"):
+                    try:
+                        state.current_game_turn = int(context[1:].split()[0])
+                    except (ValueError, IndexError):
+                        pass
+                if pass_result.get("action_pending"):
+                    turn_state.had_actionable_opportunity = True
+                    state.consecutive_pass_errors = 0
+                    state.last_pass_error_msg = ""
+                if pass_result.get("error"):
+                    turn_state.had_actionable_opportunity = True
+                    err_msg = pass_result["error"]
+                    if err_msg == state.last_pass_error_msg:
+                        state.consecutive_pass_errors += 1
+                    else:
+                        state.consecutive_pass_errors = 1
+                        state.last_pass_error_msg = err_msg
+                    if state.consecutive_pass_errors >= MAX_CONSECUTIVE_PASS_ERRORS:
+                        logger.warning(
+                            "[pilot] %d consecutive identical pass_priority errors, forcing plain pass",
+                            state.consecutive_pass_errors,
+                        )
+                        if game_log:
+                            game_log.emit(
+                                "forced_pass",
+                                reason="repeated_pass_error",
+                                error=err_msg,
+                                count=state.consecutive_pass_errors,
+                            )
+                        result_text = await execute_tool(session, "pass_priority", {})
+                        state.consecutive_pass_errors = 0
+                        state.last_pass_error_msg = ""
+                else:
+                    state.consecutive_pass_errors = 0
+                    state.last_pass_error_msg = ""
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        if fn.name == "send_chat_message":
+            state.last_chat_turn = state.current_game_turn
+
+        result_data = _maybe_extract_result_dict(result_text)
+        if result_data:
+            if result_data.get("game_over"):
+                logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
+                if game_log:
+                    game_log.emit("auto_pilot_mode", reason="game_over")
+                await auto_pass_loop(session, game_dir, username, "pilot")
+                return True, turn_state.tools_called
+            if result_data.get("player_dead"):
+                logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
+                if game_log:
+                    game_log.emit("auto_pilot_mode", reason="player_dead")
+                await auto_pass_loop(session, game_dir, username, "pilot")
+                return True, turn_state.tools_called
+
+        display_text = result_text
+        if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
+            display_text, state.last_board = _render_for_pilot(result_text, state.last_board, state.seen_oracle_cards)
+            turns_since_chat = state.current_game_turn - state.last_chat_turn
+            chat_budget_left = turn_state.chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
+            if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
+                display_text += (
+                    f"\n\n[It's been {turns_since_chat} turns since you last "
+                    f"chatted — send a message to your opponent!]"
+                )
+
+        state.history.append(
+            {
+                "role": "tool",
+                "tool_call_id": tool_call.id,
+                "content": display_text,
+            }
+        )
+
+    if not turn_state.had_successful_action and (
+        turn_state.had_actionable_opportunity
+        or not turn_state.tools_called
+        or turn_state.tools_called <= INFO_ONLY_TOOLS
+    ):
+        state.turns_without_progress += 1
+    return False, turn_state.tools_called
+
+
+async def _recover_from_stall(
+    session: ClientSession,
+    state: PilotLoopState,
+    game_log: GameLogWriter | None,
+    turn_tools_called: set[str],
+) -> None:
+    """Auto-pass once, then reset conversation after a stalled turn sequence."""
+    last_tools = sorted(turn_tools_called)
+    logger.warning(
+        "[pilot] Stalled: %d turns without progress, last tools: %s, auto-passing until next event",
+        state.turns_without_progress,
+        last_tools or "none",
+    )
+    if game_log:
+        game_log.emit(
+            "stall",
+            turns_without_progress=state.turns_without_progress,
+            last_tools=last_tools,
+        )
+    try:
+        await execute_tool(
+            session,
+            "send_chat_message",
+            {"message": "Brain freeze! Auto-passing until next turn..."},
+        )
+    except Exception:
+        pass
+    try:
+        await execute_tool(session, "pass_priority", {})
+        logger.info("[pilot] Auto-passed stalled action")
+    except Exception as e:
+        logger.warning("[pilot] Auto-pass failed: %s", e)
+
+    state.turns_without_progress = 0
+    _reset_context(
+        state,
+        "A new turn has started. Call pass_priority to continue.",
+        reset_board_context=False,
+    )
+
+
+async def _handle_timeout(
+    session: ClientSession,
+    state: PilotLoopState,
+    game_log: GameLogWriter | None,
+) -> None:
+    """Keep the game moving across request timeouts and reset repeated failures."""
+    state.consecutive_timeouts += 1
+    logger.warning(
+        "[pilot] LLM request timed out after %ss [%d]",
+        LLM_REQUEST_TIMEOUT_SECS,
+        state.consecutive_timeouts,
+    )
+    if game_log:
+        game_log.emit(
+            "llm_error",
+            error_type="timeout",
+            error_message=f"Timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{state.consecutive_timeouts}]",
+        )
+    try:
+        await execute_tool(session, "pass_priority", {})
+    except Exception:
+        await asyncio.sleep(5)
+
+    if state.consecutive_timeouts < MAX_CONSECUTIVE_TIMEOUTS:
+        return
+
+    logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
+    if game_log:
+        game_log.emit("context_reset", reason="repeated_timeouts")
+    _reset_context(
+        state,
+        "Continue playing. Call pass_priority.",
+        reset_board_context=True,
+    )
+    state.consecutive_timeouts = 0
+
+
+def _classify_permanent_llm_failure(error_str: str) -> str | None:
+    """Return the permanent failure reason, if the error should abort the game."""
+    permanent_codes = {"401", "402", "403", "404"}
+    if not any(code in error_str for code in permanent_codes):
+        return None
+    is_not_found = "404" in error_str and "401" not in error_str
+    return "Model not found" if is_not_found else "Credits exhausted"
+
+
 def build_initial_message(pass_priority_result: dict) -> str:
     """Build the initial user message from a pass_priority result.
 
@@ -636,40 +1081,9 @@ async def run_pilot_loop(
     # Pre-fetch the first decision so the LLM knows what it's deciding
     # instead of blindly calling pass_priority with confusing yield params.
     initial_message = await _prefetch_first_action(session)
-    history: list[dict] = [
-        {"role": "user", "content": initial_message},
-    ]
-    state_summary = ""
+    state = PilotLoopState(history=[{"role": "user", "content": initial_message}])
     model_price = get_model_price(model, prices)
-    cumulative_cost = 0.0
-    empty_responses = 0  # consecutive LLM responses with no reasoning text
-    last_was_empty = False  # retry once on first empty response before counting
-    consecutive_timeouts = 0
-    consecutive_empty_choices = 0  # consecutive LLM responses with empty/null choices
-    turns_without_progress = 0  # LLM turns without a successful game action
-    MAX_TURNS_WITHOUT_PROGRESS = 20
-    consecutive_pass_errors = 0  # consecutive identical pass_priority errors
-    last_pass_error_msg = ""
-    MAX_CONSECUTIVE_PASS_ERRORS = 3
-    consecutive_truncations = 0  # consecutive finish_reason=length (model can't fit tool call)
-    MAX_CONSECUTIVE_TRUNCATIONS = 3
-    consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
-    MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
-    last_game_seq: int | None = None  # game-level seq from most recent tool result
-    board_tracker = BoardCursorTracker()
-    last_board: list[dict] | None = None  # last-known board for rendering when board_unchanged
     game_start = time.monotonic()
-    # Chat nudge tracking: encourage LLMs to chat regularly
-    current_game_turn: int = 0  # parsed from pass_priority context "T3 ..."
-    last_chat_turn: int = 0  # game turn when LLM last sent a chat message
-    # Oracle dedup: track which cards have had their oracle text included
-    # in a rendered tool result, so we don't repeat it on every message.
-    seen_oracle_cards: set[str] = set()
-    # Render caching: reuse rendered prefix between full re-renders to improve
-    # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
-    cached_render: list[dict] | None = None
-    cached_history_len: int = 0
-    render_counter: int = 0
 
     while True:
         if time.monotonic() - game_start > MAX_GAME_DURATION_SECS:
@@ -679,37 +1093,8 @@ async def run_pilot_loop(
             await auto_pass_loop(session, game_dir, username, "pilot")
             return
         try:
-            # Render context from history; use cached prefix when possible
-            if len(history) > CONTEXT_RECENT_COUNT:
-                render_counter += 1
-                need_rerender = cached_render is None or render_counter % RENDER_INTERVAL == 0
-                if need_rerender:
-                    state_summary = await _fetch_state_summary(session)
-                    messages = _render_context(history, system_prompt, state_summary, cache_control)
-                    cached_render = list(messages)
-                    cached_history_len = len(history)
-                    render_counter = 0
-                else:
-                    messages = list(cached_render) + history[cached_history_len:]
-            else:
-                messages = _render_context(history, system_prompt, state_summary, cache_control)
-                cached_render = None
-                render_counter = 0
-
-            # Tail cache breakpoint: mark the end of the stable prefix so
-            # Anthropic can cache it.  For long history, this is the boundary
-            # between cached_render and the dynamic tail (~50-80k tokens).
-            # For short history, this marks the last message so the entire
-            # growing prefix gets cached across iterations.  Uses a copy to
-            # avoid mutating the cached_render template or history dicts.
-            if cache_control and len(messages) > 1:
-                if cached_render is not None and len(cached_render) > 0:
-                    tail_idx = len(cached_render) - 1
-                else:
-                    tail_idx = len(messages) - 1
-                marked = _with_cache_control(messages[tail_idx], cache_control)
-                if marked is not messages[tail_idx]:
-                    messages[tail_idx] = marked
+            messages = await _build_loop_messages(state, session, system_prompt, cache_control)
+            _mark_tail_cache_breakpoint(messages, state, cache_control)
 
             create_kwargs: dict = dict(
                 model=model,
@@ -734,19 +1119,19 @@ async def run_pilot_loop(
                 client.chat.completions.create(**create_kwargs),
                 timeout=LLM_REQUEST_TIMEOUT_SECS,
             )
-            consecutive_timeouts = 0
+            state.consecutive_timeouts = 0
             if not response.choices:
-                consecutive_empty_choices += 1
+                state.consecutive_empty_choices += 1
                 logger.warning(
                     "[pilot] LLM returned empty/null choices, retrying... [%d]",
-                    consecutive_empty_choices,
+                    state.consecutive_empty_choices,
                 )
-                if consecutive_empty_choices >= MAX_CONSECUTIVE_EMPTY_CHOICES:
+                if state.consecutive_empty_choices >= MAX_CONSECUTIVE_EMPTY_CHOICES:
                     logger.warning("[pilot] LLM returning empty choices repeatedly, switching to auto-pass mode")
                     if game_log:
                         game_log.emit(
                             "auto_pilot_mode",
-                            reason=f"LLM degraded ({consecutive_empty_choices} consecutive empty choices)",
+                            reason=f"LLM degraded ({state.consecutive_empty_choices} consecutive empty choices)",
                         )
                     try:
                         await execute_tool(
@@ -759,47 +1144,10 @@ async def run_pilot_loop(
                     await auto_pass_loop(session, game_dir, username, "pilot")
                     return
                 continue
-            consecutive_empty_choices = 0
+            state.consecutive_empty_choices = 0
             choice = response.choices[0]
-
-            # Warn loudly if the response was truncated due to max_tokens.
-            # This means the model ran out of output budget (often reasoning
-            # models burning tokens on thinking) and couldn't emit a tool call.
-            if choice.finish_reason == "length":
-                consecutive_truncations += 1
-                tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
-                logger.warning(
-                    "[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens=%s/%s. "
-                    "Model hit max_tokens cap before producing a tool call. [%d]",
-                    tokens_used,
-                    MAX_TOKENS,
-                    consecutive_truncations,
-                )
-                if consecutive_truncations >= MAX_CONSECUTIVE_TRUNCATIONS:
-                    logger.warning("[pilot] Repeated truncations, resetting conversation context")
-                    if game_log:
-                        game_log.emit("context_reset", reason="repeated_truncations")
-                    last_reasoning = _extract_last_reasoning(history)
-                    history = [
-                        {
-                            "role": "user",
-                            "content": _build_reset_message(
-                                "Continue playing. Be concise. Call pass_priority.",
-                                last_reasoning,
-                            ),
-                        },
-                    ]
-                    state_summary = ""
-                    cached_render = None
-                    cached_history_len = 0
-                    render_counter = 0
-                    consecutive_truncations = 0
-                    board_tracker.reset()
-                    last_board = None
-                    seen_oracle_cards.clear()
-                    continue
-            else:
-                consecutive_truncations = 0
+            if _handle_truncated_response(state, choice, response, game_log):
+                continue
 
             # Log full LLM request/response to trace file
             if trace_log:
@@ -815,9 +1163,9 @@ async def run_pilot_loop(
                 input_cost = (response.usage.prompt_tokens or 0) * model_price[0] / 1_000_000
                 output_cost = (response.usage.completion_tokens or 0) * model_price[1] / 1_000_000
                 call_cost = input_cost + output_cost
-                cumulative_cost += call_cost
+                state.cumulative_cost += call_cost
                 if game_dir:
-                    write_cost_file(game_dir, username, cumulative_cost)
+                    write_cost_file(game_dir, username, state.cumulative_cost)
 
             # Log LLM response to JSONL
             if game_log:
@@ -857,247 +1205,44 @@ async def run_pilot_loop(
                         usage_dict["reasoning_tokens"] = ctd.reasoning_tokens
                     llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
-                llm_event["cumulative_cost_usd"] = round(cumulative_cost, 6)
-                if last_game_seq is not None:
-                    llm_event["game_seq"] = last_game_seq
+                llm_event["cumulative_cost_usd"] = round(state.cumulative_cost, 6)
+                if state.last_game_seq is not None:
+                    llm_event["game_seq"] = state.last_game_seq
                 game_log.emit("llm_response", **llm_event)
 
-            # If the LLM produced tool calls, process them
+            turn_tools_called: set[str] = set()
             if choice.message.tool_calls:
-                # Per-turn tracking for stall detection
-                turn_had_successful_action = False
-                turn_had_actionable_opportunity = False
-                turn_tools_called = set()
-                chat_messages_this_turn = 0
-
-                # Tool calls present = LLM is functioning, reset degradation counter.
-                # Gemini often omits reasoning text for obvious actions (like passing) -
-                # that's normal, not degradation.
-                if choice.message.content:
-                    logger.info("[pilot] Thinking: %s", choice.message.content)
-                empty_responses = 0
-                last_was_empty = False
-                # Build a clean assistant message dict for cross-provider
-                # compatibility.  The raw ChatCompletionMessage includes extra
-                # fields (refusal, annotations, audio, function_call) that
-                # some providers (notably xAI/Grok) reject with 422 errors.
-                assistant_msg: dict = {"role": "assistant", "content": choice.message.content}
-                if choice.message.tool_calls:
-                    assistant_msg["tool_calls"] = [
-                        {
-                            "id": tc.id,
-                            "type": "function",
-                            "function": {
-                                "name": tc.function.name,
-                                "arguments": tc.function.arguments,
-                            },
-                        }
-                        for tc in choice.message.tool_calls
-                    ]
-                history.append(assistant_msg)
-
-                for tool_call in choice.message.tool_calls:
-                    fn = tool_call.function
-                    args = json.loads(fn.arguments) if fn.arguments else {}
-
-                    board_tracker.inject(fn.name, args)
-                    logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
-
-                    # Rate-limit chat messages to prevent expressive models
-                    # from wasting entire LLM iterations on chat.
-                    if fn.name == "send_chat_message" and chat_messages_this_turn >= MAX_CHAT_MESSAGES_PER_TURN:
-                        result_text = json.dumps({"success": False, "error": "Chat limit reached — focus on gameplay."})
-                        tool_latency_ms = 0
-                    else:
-                        if fn.name == "send_chat_message":
-                            chat_messages_this_turn += 1
-                        tool_start = time.monotonic()
-                        result_text = await execute_tool(session, fn.name, args)
-                        tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
-
-                    # Extract game_seq from tool result for event ordering
-                    try:
-                        _result_data = json.loads(result_text)
-                        if isinstance(_result_data, dict) and "game_seq" in _result_data:
-                            last_game_seq = _result_data["game_seq"]
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-                    board_tracker.extract(result_text)
-
-                    # Log tool call to JSONL
-                    if game_log:
-                        game_log.emit(
-                            "tool_call",
-                            call_id=tool_call.id,
-                            tool=fn.name,
-                            arguments=args,
-                            result=result_text,
-                            latency_ms=tool_latency_ms,
-                            game_seq=last_game_seq,
-                        )
-
-                    # Detect dead bridge: all tools return {"error": ""}
-                    if result_text == '{"error": ""}':
-                        consecutive_empty_errors += 1
-                        if consecutive_empty_errors >= MAX_CONSECUTIVE_EMPTY_ERRORS:
-                            log_error(
-                                logger,
-                                game_dir,
-                                username,
-                                f"[pilot] {consecutive_empty_errors} consecutive empty errors "
-                                f"— bridge is dead, exiting",
-                            )
-                            if game_log:
-                                game_log.emit(
-                                    "auto_pilot_mode",
-                                    reason="bridge_dead",
-                                    consecutive_empty_errors=consecutive_empty_errors,
-                                )
-                            return
-                    else:
-                        consecutive_empty_errors = 0
-
-                    # Log interesting results and track for stall detection
-                    turn_tools_called.add(fn.name)
-                    if fn.name == "choose_action":
-                        result_data = json.loads(result_text)
-                        action_taken = result_data.get("action_taken", "")
-                        success = result_data.get("success", False)
-                        if success:
-                            logger.info("[pilot] Action: %s", action_taken)
-                            turn_had_successful_action = True
-                            turns_without_progress = 0
-                        else:
-                            logger.warning("[pilot] Action failed: %s", result_data.get("error", ""))
-                            turn_had_actionable_opportunity = True
-                    elif fn.name == "get_action_choices":
-                        result_data = json.loads(result_text)
-                        action_type = result_data.get("action_type", "")
-                        msg = result_data.get("message", "")
-                        choices = result_data.get("choices", [])
-                        if result_data.get("error"):
-                            turn_had_actionable_opportunity = True
-                        elif choices:
-                            logger.info("[pilot] Choices for %s: %d options", action_type, len(choices))
-                            turn_had_actionable_opportunity = True
-                        else:
-                            logger.info("[pilot] Action: %s - %s", action_type, msg[:100])
-                    elif fn.name == "pass_priority":
-                        try:
-                            result_data = json.loads(result_text)
-                            # Parse game turn from context for chat nudge tracking
-                            _ctx = result_data.get("context", "")
-                            if _ctx.startswith("T"):
-                                try:
-                                    current_game_turn = int(_ctx[1:].split()[0])
-                                except (ValueError, IndexError):
-                                    pass
-                            if result_data.get("action_pending"):
-                                turn_had_actionable_opportunity = True
-                                consecutive_pass_errors = 0
-                                last_pass_error_msg = ""
-                            if result_data.get("error"):
-                                turn_had_actionable_opportunity = True
-                                err_msg = result_data["error"]
-                                if err_msg == last_pass_error_msg:
-                                    consecutive_pass_errors += 1
-                                else:
-                                    consecutive_pass_errors = 1
-                                    last_pass_error_msg = err_msg
-                                if consecutive_pass_errors >= MAX_CONSECUTIVE_PASS_ERRORS:
-                                    logger.warning(
-                                        "[pilot] %d consecutive identical pass_priority errors, forcing plain pass",
-                                        consecutive_pass_errors,
-                                    )
-                                    if game_log:
-                                        game_log.emit(
-                                            "forced_pass",
-                                            reason="repeated_pass_error",
-                                            error=err_msg,
-                                            count=consecutive_pass_errors,
-                                        )
-                                    result_text = await execute_tool(session, "pass_priority", {})
-                                    consecutive_pass_errors = 0
-                                    last_pass_error_msg = ""
-                            else:
-                                consecutive_pass_errors = 0
-                                last_pass_error_msg = ""
-                        except (json.JSONDecodeError, TypeError):
-                            pass
-
-                    # Track chat sends for nudge system
-                    if fn.name == "send_chat_message":
-                        last_chat_turn = current_game_turn
-
-                    # Detect game_over/player_dead from ANY tool result
-                    try:
-                        _rd = json.loads(result_text)
-                        if isinstance(_rd, dict):
-                            if _rd.get("game_over"):
-                                logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
-                                if game_log:
-                                    game_log.emit("auto_pilot_mode", reason="game_over")
-                                await auto_pass_loop(session, game_dir, username, "pilot")
-                                return
-                            if _rd.get("player_dead"):
-                                logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
-                                if game_log:
-                                    game_log.emit("auto_pilot_mode", reason="player_dead")
-                                await auto_pass_loop(session, game_dir, username, "pilot")
-                                return
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-
-                    # Render action results for LLM display (all three return
-                    # the same ActionResult fields when a decision is pending)
-                    display_text = result_text
-                    if fn.name in ("pass_priority", "get_action_choices", "choose_action"):
-                        display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
-                        # Chat nudge: remind LLM to chat if it's been silent too long
-                        turns_since_chat = current_game_turn - last_chat_turn
-                        chat_budget_left = chat_messages_this_turn < MAX_CHAT_MESSAGES_PER_TURN
-                        if turns_since_chat >= 2 and display_text != result_text and chat_budget_left:
-                            display_text += (
-                                f"\n\n[It's been {turns_since_chat} turns since you last "
-                                f"chatted — send a message to your opponent!]"
-                            )
-
-                    history.append(
-                        {
-                            "role": "tool",
-                            "tool_call_id": tool_call.id,
-                            "content": display_text,
-                        }
-                    )
-
-                # Stall counter: only count turns where LLM had a real chance to act.
-                # When not turn_had_successful_action but the LLM is in a passive
-                # wait (pass_priority timeout), don't penalize.
-                if not turn_had_successful_action and (
-                    turn_had_actionable_opportunity or not turn_tools_called or turn_tools_called <= INFO_ONLY_TOOLS
-                ):
-                    turns_without_progress += 1
+                finished, turn_tools_called = await _process_tool_calls(
+                    session,
+                    choice,
+                    state,
+                    username,
+                    game_dir,
+                    game_log,
+                )
+                if finished:
+                    return
             else:
                 # LLM stopped calling tools — always counts as stalling
-                turns_without_progress += 1
+                state.turns_without_progress += 1
                 content = choice.message.content
                 if content:
                     content = content.strip()
                 if content:
                     logger.info("[pilot] Thinking: %s", content[:500])
-                    history.append({"role": "assistant", "content": content})
-                    empty_responses = 0
-                    last_was_empty = False
-                elif not last_was_empty:
+                    state.history.append({"role": "assistant", "content": content})
+                    state.empty_responses = 0
+                    state.last_was_empty = False
+                elif not state.last_was_empty:
                     # First empty response: retry immediately without counting
                     logger.warning("[pilot] Empty response from LLM, retrying...")
-                    last_was_empty = True
+                    state.last_was_empty = True
                     continue
                 else:
-                    last_was_empty = False
-                    empty_responses += 1
-                    logger.warning("[pilot] Empty response from LLM (no tools, no text) [%d]", empty_responses)
-                    if empty_responses >= 10:
+                    state.last_was_empty = False
+                    state.empty_responses += 1
+                    logger.warning("[pilot] Empty response from LLM (no tools, no text) [%d]", state.empty_responses)
+                    if state.empty_responses >= MAX_EMPTY_RESPONSES:
                         logger.warning("[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode")
                         if game_log:
                             game_log.emit("auto_pilot_mode", reason="LLM degraded (10+ empty responses)")
@@ -1111,103 +1256,27 @@ async def run_pilot_loop(
                             pass
                         await auto_pass_loop(session, game_dir, username, "pilot")
                         return
-                history.append(
+                state.history.append(
                     {
                         "role": "user",
                         "content": "Continue playing. Call pass_priority.",
                     }
                 )
 
-            # If the LLM is spinning without advancing game state, auto-pass
-            # until something interesting happens (new turn, new cards, etc.)
-            if turns_without_progress >= MAX_TURNS_WITHOUT_PROGRESS:
-                last_tools = sorted(turn_tools_called) if choice.message.tool_calls and turn_tools_called else []
-                logger.warning(
-                    "[pilot] Stalled: %d turns without progress, last tools: %s, auto-passing until next event",
-                    turns_without_progress,
-                    last_tools or "none",
+            if state.turns_without_progress >= MAX_TURNS_WITHOUT_PROGRESS:
+                await _recover_from_stall(
+                    session,
+                    state,
+                    game_log,
+                    turn_tools_called,
                 )
-                if game_log:
-                    game_log.emit(
-                        "stall",
-                        turns_without_progress=turns_without_progress,
-                        last_tools=last_tools,
-                    )
-                try:
-                    await execute_tool(
-                        session,
-                        "send_chat_message",
-                        {"message": "Brain freeze! Auto-passing until next turn..."},
-                    )
-                except Exception:
-                    pass
-                try:
-                    await execute_tool(session, "pass_priority", {})
-                    logger.info("[pilot] Auto-passed stalled action")
-                except Exception as e:
-                    logger.warning("[pilot] Auto-pass failed: %s", e)
-                turns_without_progress = 0
-                # Reset conversation so the LLM gets a fresh start
-                last_reasoning = _extract_last_reasoning(history)
-                history = [
-                    {
-                        "role": "user",
-                        "content": _build_reset_message(
-                            "A new turn has started. Call pass_priority to continue.",
-                            last_reasoning,
-                        ),
-                    },
-                ]
-                state_summary = ""
-                cached_render = None
-                cached_history_len = 0
-                render_counter = 0
-                seen_oracle_cards.clear()
                 continue
 
         except asyncio.TimeoutError:
-            consecutive_timeouts += 1
-            logger.warning(
-                "[pilot] LLM request timed out after %ss [%d]",
-                LLM_REQUEST_TIMEOUT_SECS,
-                consecutive_timeouts,
-            )
-            if game_log:
-                game_log.emit(
-                    "llm_error",
-                    error_type="timeout",
-                    error_message=f"Timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{consecutive_timeouts}]",
-                )
-            try:
-                await execute_tool(session, "pass_priority", {})
-            except Exception:
-                await asyncio.sleep(5)
-
-            if consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
-                logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
-                if game_log:
-                    game_log.emit("context_reset", reason="repeated_timeouts")
-                last_reasoning = _extract_last_reasoning(history)
-                history = [
-                    {
-                        "role": "user",
-                        "content": _build_reset_message(
-                            "Continue playing. Call pass_priority.",
-                            last_reasoning,
-                        ),
-                    },
-                ]
-                state_summary = ""
-                cached_render = None
-                cached_history_len = 0
-                render_counter = 0
-                consecutive_timeouts = 0
-                board_tracker.reset()
-                last_board = None
-                seen_oracle_cards.clear()
+            await _handle_timeout(session, state, game_log)
 
         except Exception as e:
-            consecutive_timeouts = 0
+            state.consecutive_timeouts = 0
             error_str = str(e)
             logger.warning("[pilot] LLM error: %s", e)
             if game_log:
@@ -1215,10 +1284,8 @@ async def run_pilot_loop(
 
             # Permanent failures - abort immediately to avoid wasting
             # API tokens on the other player(s).
-            permanent_codes = {"401", "402", "403", "404"}
-            if any(code in error_str for code in permanent_codes):
-                is_not_found = "404" in error_str and "401" not in error_str
-                reason = "Model not found" if is_not_found else "Credits exhausted"
+            reason = _classify_permanent_llm_failure(error_str)
+            if reason is not None:
                 logger.warning("[pilot] %s, aborting", reason)
                 if game_log:
                     game_log.emit("permanent_llm_failure", reason=reason)
@@ -1238,22 +1305,11 @@ async def run_pilot_loop(
             except Exception:
                 await asyncio.sleep(5)
 
-            # Reset conversation on error
-            last_reasoning = _extract_last_reasoning(history)
-            history = [
-                {
-                    "role": "user",
-                    "content": _build_reset_message(
-                        "Continue playing. Call pass_priority.",
-                        last_reasoning,
-                    ),
-                },
-            ]
-            state_summary = ""
-            cached_render = None
-            cached_history_len = 0
-            render_counter = 0
-            seen_oracle_cards.clear()
+            _reset_context(
+                state,
+                "Continue playing. Call pass_priority.",
+                reset_board_context=False,
+            )
 
 
 async def run_pilot(
