@@ -1,3 +1,8 @@
+---
+name: find-improvable-errors
+description: Analyze MCP tool errors across exports to find unhelpful error messages and recommend improvements.
+---
+
 # Find Improvable Error Messages
 
 Analyze MCP tool errors across game exports to find error messages that models struggle to recover from. Uses `scripts/analysis/mcp_errors.py`.

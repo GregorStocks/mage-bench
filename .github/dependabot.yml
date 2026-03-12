@@ -4,15 +4,27 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      all:
+        patterns: ['*']
   - package-ecosystem: 'maven'
     directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      all:
+        patterns: ['*']
   - package-ecosystem: 'npm'
     directory: '/website'
     schedule:
       interval: 'weekly'
+    groups:
+      all:
+        patterns: ['*']
   - package-ecosystem: 'uv'
-    directory: '/puppeteer'
+    directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      all:
+        patterns: ['*']

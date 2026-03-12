@@ -1,3 +1,8 @@
+---
+name: new-export-version
+description: Create a new game export schema version, migration module, and related tests.
+---
+
 # New Export Version
 
 Cut a new game export format version. This creates a standalone schema, migration module, and updates all references.

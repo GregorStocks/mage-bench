@@ -9,20 +9,20 @@ jobs:
   java:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: |
             /*
             !website/public/games
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.m2/build-cache
           key: build-cache-${{ github.sha }}
@@ -33,9 +33,9 @@ jobs:
   python:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
 
       - run: make lint
 
@@ -49,32 +49,32 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: |
             /*
             !website/public/games
           sparse-checkout-cone-mode: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.m2/build-cache
           key: build-cache-${{ github.sha }}
           restore-keys: build-cache-
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v7
 
       - run: sudo apt-get install -y xvfb
 
       - run: xvfb-run make test-golden
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: golden-test-logs
@@ -84,9 +84,9 @@ jobs:
   website:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '22'
 
