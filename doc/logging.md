@@ -5,7 +5,7 @@ All game logs live in `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`.
 ## Per-player log files
 
 | File pattern | Source | Contents |
-|---|---|---|
+| --- | --- | --- |
 | `{name}_pilot.log` | `pilot.py` stdout | LLM reasoning, tool calls, game actions, errors |
 | `{name}_mcp.log` | `sleepwalker.py` / potato stdout | Auto-play actions, game log excerpts |
 | `{name}_errors.log` | Python `_log_error()` + Java `logError()` | Errors only (written in real-time from both sides) |
@@ -16,7 +16,7 @@ All game logs live in `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`.
 Machine-readable JSONL files for post-game analysis. Each line is a compact JSON object with `ts`, `seq`, `type`, and event-specific fields.
 
 | File | Source | Contents |
-|---|---|---|
+| --- | --- | --- |
 | `game_meta.json` | `orchestrator.py` at game start | Decklists, models, system prompts, format, git info |
 | `game_events.jsonl` | Spectator (`ObserverGamePanel`) | Game actions, player chat, state snapshots (all hands visible), game over |
 | `{name}_llm.jsonl` | `pilot.py` per player | LLM reasoning, tool calls + results, costs, errors, stalls, context trims |
@@ -66,7 +66,7 @@ jq 'select(.type=="game_end") | {player, total_cost_usd}' game.jsonl
 ## Aggregated files
 
 | File | Created by | Contents |
-|---|---|---|
+| --- | --- | --- |
 | `errors.log` | `orchestrator.py` `_write_error_log()` | All `*_errors.log` files concatenated, prefixed with source |
 | `spectator.log` | Spectator | Game creation, table setup, recording |
 | `config.json` | `orchestrator.py` | Copy of the game config used |

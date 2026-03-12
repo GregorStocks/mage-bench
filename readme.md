@@ -73,7 +73,7 @@ Game logic and XMage workarounds live in the Java bridge layer. The puppeteer st
 ## Player types
 
 | Type | LLM? | Description |
-|------|------|-------------|
+| ------ | ------ | ------------- |
 | **Pilot** | Yes | Strategic LLM player — sees board state, chooses actions |
 | **Sleepwalker** | No | MCP auto-player with chat, no LLM |
 | **CPU** | No | XMage's built-in AI (COMPUTER_MAD) |

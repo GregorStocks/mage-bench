@@ -64,7 +64,7 @@ Oracle text is NOT stored in the export. The shared renderer (`decision_renderer
 Code that reads the export format and would need updating if the schema changes:
 
 | Consumer | Language | What it reads |
-|----------|----------|---------------|
+| ---------- | ---------- | --------------- |
 | `scripts/export_game.py` | Python | Raw logs -> export (producer) |
 | `website/src/pages/games/[...slug].astro` | Astro/JS | Full export for game replay |
 | `website/public/game-renderer.js` | JS | Snapshots, actions, llmEvents for rendering |
