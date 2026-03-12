@@ -66,15 +66,15 @@ def get_open_branch_pr(branch: str) -> dict[str, object] | None:
             "number,body,url",
         ]
     )
-    assert result.returncode == 0, (
-        f"gh pr list --head {branch} failed: {result.stderr}"
-    )
+    assert result.returncode == 0, f"gh pr list --head {branch} failed: {result.stderr}"
 
     prs = json.loads(result.stdout)
     if not prs:
         return None
 
-    assert len(prs) == 1, f"Expected at most one open PR for branch {branch}, got {len(prs)}"
+    assert len(prs) == 1, (
+        f"Expected at most one open PR for branch {branch}, got {len(prs)}"
+    )
     return prs[0]
 
 

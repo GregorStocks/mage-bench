@@ -203,9 +203,7 @@ class TestClaimIssue:
             claim_issue.main()
 
         mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
-        mock_subprocess.assert_called_once_with(
-            ["git", "push", "-u", "origin", "my-branch"], check=True
-        )
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
 
     def test_race_recheck_passes(self, tmp_path: Path) -> None:
         """Both checks return our PR as winner — claim succeeds, sleep is called."""
