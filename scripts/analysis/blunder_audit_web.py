@@ -39,14 +39,16 @@ from scripts.analysis.extract_decisions import extract_decisions
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 WEBSITE_PUBLIC = REPO_ROOT / "website" / "public"
+WEBSITE_SCRIPTS = REPO_ROOT / "website" / "src" / "scripts"
+WEBSITE_STYLES = REPO_ROOT / "website" / "src" / "styles"
 CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 
-# Files we serve from website/public/
+# Files the standalone audit UI serves directly from the website sources.
 STATIC_FILES: dict[str, Path] = {
-    "/game-renderer.js": WEBSITE_PUBLIC / "game-renderer.js",
-    "/game-renderer.css": WEBSITE_PUBLIC / "game-renderer.css",
-    "/game-viewer.js": WEBSITE_PUBLIC / "game-viewer.js",
-    "/game-viewer.css": WEBSITE_PUBLIC / "game-viewer.css",
+    "/game-renderer.js": WEBSITE_SCRIPTS / "game-renderer.js",
+    "/game-renderer.css": WEBSITE_STYLES / "game-renderer.css",
+    "/game-viewer.js": WEBSITE_SCRIPTS / "game-viewer.js",
+    "/game-viewer.css": WEBSITE_STYLES / "game-viewer.css",
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
 GAMES_DIR = WEBSITE_PUBLIC / "games"
