@@ -54,9 +54,7 @@ window.GameList = {
       if (typeof gameId !== "string" || gameId.length === 0) {
         throw new Error("Game is missing a valid id");
       }
-      el.pathname = "/games/" + encodeURIComponent(gameId);
-      el.search = "";
-      el.hash = "";
+      el.setAttribute("href", "/games/" + encodeURIComponent(gameId));
     }
 
     function parseHttpUrl(rawUrl, fieldName) {
