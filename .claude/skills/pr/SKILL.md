@@ -24,10 +24,11 @@ Create a pull request for the current branch's changes.
 3. **Merge in master** so you're testing against the latest code:
 
    ```bash
-   git merge origin/master
+   git merge --no-edit origin/master
    ```
 
-   Fix any merge conflicts before proceeding.
+   Fix any merge conflicts before proceeding. Use `--no-edit` so repo merge
+   settings do not drop you into an interactive editor mid-workflow.
 
 4. **Regenerate impacted goldens before validation.** If the diff changes prompt rendering, bridge responses, MCP tool output, replay behavior, or exported game data, search existing goldens for the affected behavior and regenerate every stale prompt/export now. Do not assume only newly added tests need updates, and do not wait for CI to remind you.
 
