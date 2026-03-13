@@ -1,29 +1,18 @@
-/* Shared game list logic for /games and /season/N/games pages.
- *
- * Usage:
- *   GameList.init({
- *     games: [...],
- *     minBlunderVersion: 11,
- *     showSeasonFilter: true,   // /games page only
- *     showSeasonBadge: true,    // /games page only
- *   });
- */
+/* Progressive enhancement for server-rendered game archive pages. */
 window.GameList = {
   init: function (config) {
-    var __games = config.games;
-    var MIN_BLUNDER_VERSION = config.minBlunderVersion;
-    var showSeasonFilter = config.showSeasonFilter || false;
-    var showSeasonBadge = config.showSeasonBadge || false;
-    var ratingsData = {};
+    var showSeasonFilter = !!(config && config.showSeasonFilter);
+    var list = document.getElementById("games-list");
+    if (!list) {
+      throw new Error("Missing #games-list");
+    }
 
-    var DECK_TYPE_FORMATS = {
-      "Constructed - Standard": "standard",
-      "Constructed - Modern": "modern",
-      "Constructed - Legacy": "legacy",
-      "Variant Magic - Freeform Commander": "commander",
-      "Variant Magic - Commander": "commander",
-      "Limited": "jumpstart",
-    };
+    var seasonFilterEl = document.getElementById("season-filter");
+    var formatTabsEl = document.getElementById("format-tabs");
+    var modelTabsEl = document.getElementById("model-tabs");
+    var filterBarEl = document.getElementById("filter-bar");
+    var emptyMessageEl = document.getElementById("games-empty-message");
+    var ratingsData = {};
 
     var FORMAT_DISPLAY = {
       "standard": "Standard",
@@ -33,36 +22,17 @@ window.GameList = {
       "jumpstart": "Jumpstart",
     };
 
-    function gameSeason(game) {
-      return game.season != null ? game.season : 0;
-    }
-
-    function getGameFormat(deckType) {
-      return DECK_TYPE_FORMATS[deckType] || "commander";
+    function clear(el) {
+      el.textContent = "";
     }
 
     function setCountedLabel(el, labelText, count) {
-      el.textContent = "";
+      clear(el);
       el.appendChild(document.createTextNode(labelText + " "));
       var countSpan = document.createElement("span");
       countSpan.className = "tab-count";
       countSpan.textContent = "(" + count + ")";
       el.appendChild(countSpan);
-    }
-
-    function setGameReplayHref(el, gameId) {
-      if (typeof gameId !== "string" || gameId.length === 0) {
-        throw new Error("Game is missing a valid id");
-      }
-      el.setAttribute("href", "/games/" + encodeURIComponent(gameId));
-    }
-
-    function parseHttpUrl(rawUrl, fieldName) {
-      var parsed = new URL(rawUrl, window.location.origin);
-      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-        throw new Error(fieldName + " must use http or https, got " + parsed.protocol);
-      }
-      return parsed.toString();
     }
 
     function getFilters() {
@@ -86,409 +56,241 @@ window.GameList = {
       history.replaceState(null, "", url);
     }
 
-    function filterGames(games, filters) {
-      return games.filter(function (game) {
-        if (filters.season !== "") {
-          if (String(gameSeason(game)) !== filters.season) return false;
+    function readModelEntries(card) {
+      var raw = card.dataset.modelEntries || "[]";
+      var parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) {
+        throw new Error("data-model-entries must be a JSON array");
+      }
+      return parsed.map(function (entry) {
+        if (!entry || typeof entry !== "object" || typeof entry.model !== "string") {
+          throw new Error("Invalid model entry on game card");
         }
-        if (filters.format) {
-          var fmt = getGameFormat(game.deckType);
-          if (fmt !== filters.format) return false;
-        }
-        if (filters.model) {
-          var hasModel = (game.players || []).some(function (p) {
-            if (p.model !== filters.model) return false;
-            if (filters.effort && (p.reasoningEffort || "") !== filters.effort) return false;
-            return true;
-          });
-          if (!hasModel) return false;
-        }
-        return true;
+        return {
+          model: entry.model,
+          effort: typeof entry.effort === "string" ? entry.effort : "",
+        };
       });
     }
 
+    var cards = Array.from(list.querySelectorAll(".game-card")).map(function (card) {
+      var gameId = card.dataset.gameId;
+      var format = card.dataset.format;
+      if (!gameId) {
+        throw new Error("Game card missing data-game-id");
+      }
+      if (!format) {
+        throw new Error("Game card missing data-format");
+      }
+      return {
+        el: card,
+        gameId: gameId,
+        season: card.dataset.season || "0",
+        format: format,
+        modelEntries: readModelEntries(card),
+      };
+    });
+
     function renderFilterBar(filters, totalCount, filteredCount) {
-      var bar = document.getElementById("filter-bar");
+      if (!filterBarEl) return;
       var hasFilters = filters.model || filters.format || filters.effort || filters.season;
+      filterBarEl.hidden = !hasFilters;
+      clear(filterBarEl);
       if (!hasFilters) {
-        bar.style.display = "none";
-        bar.innerHTML = "";
         return;
       }
-      bar.style.display = "";
-      bar.className = "filter-bar";
-      bar.innerHTML = "";
 
       var label = document.createElement("span");
       label.className = "filter-label";
       label.textContent = "Filtered:";
-      bar.appendChild(label);
+      filterBarEl.appendChild(label);
 
       if (filters.season) {
-        var chip = document.createElement("span");
-        chip.className = "filter-chip";
-        chip.textContent = "Season " + filters.season;
-        var btn = document.createElement("button");
-        btn.className = "filter-chip-remove";
-        btn.textContent = "×";
-        btn.onclick = function () {
-          var f = getFilters();
-          f.season = "";
-          setFilters(f);
+        var seasonChip = document.createElement("span");
+        seasonChip.className = "filter-chip";
+        seasonChip.textContent = "Season " + filters.season;
+        var seasonBtn = document.createElement("button");
+        seasonBtn.className = "filter-chip-remove";
+        seasonBtn.textContent = "×";
+        seasonBtn.onclick = function () {
+          var next = getFilters();
+          next.season = "";
+          setFilters(next);
           renderAll();
         };
-        chip.appendChild(btn);
-        bar.appendChild(chip);
+        seasonChip.appendChild(seasonBtn);
+        filterBarEl.appendChild(seasonChip);
       }
 
       if (filters.format) {
-        const formatChip = document.createElement("span");
+        var formatChip = document.createElement("span");
         formatChip.className = "filter-chip";
         formatChip.textContent = FORMAT_DISPLAY[filters.format] || filters.format;
-        const formatBtn = document.createElement("button");
+        var formatBtn = document.createElement("button");
         formatBtn.className = "filter-chip-remove";
         formatBtn.textContent = "×";
         formatBtn.onclick = function () {
-          var f = getFilters();
-          f.format = "";
-          setFilters(f);
+          var next = getFilters();
+          next.format = "";
+          setFilters(next);
           renderAll();
         };
         formatChip.appendChild(formatBtn);
-        bar.appendChild(formatChip);
+        filterBarEl.appendChild(formatChip);
       }
 
       if (filters.model) {
-        const modelChip = document.createElement("span");
+        var modelChip = document.createElement("span");
         modelChip.className = "filter-chip";
-        var modelDisplay = filters.model;
-        var slash = modelDisplay.indexOf("/");
-        if (slash !== -1) modelDisplay = modelDisplay.substring(slash + 1);
-        if (filters.effort) modelDisplay += " (" + filters.effort + ")";
-        modelChip.textContent = modelDisplay;
-        const modelBtn = document.createElement("button");
+        var displayName = filters.model;
+        var slash = displayName.indexOf("/");
+        if (slash !== -1) displayName = displayName.substring(slash + 1);
+        if (filters.effort) displayName += " (" + filters.effort + ")";
+        modelChip.textContent = displayName;
+        var modelBtn = document.createElement("button");
         modelBtn.className = "filter-chip-remove";
         modelBtn.textContent = "×";
         modelBtn.onclick = function () {
-          var f = getFilters();
-          f.model = "";
-          f.effort = "";
-          setFilters(f);
+          var next = getFilters();
+          next.model = "";
+          next.effort = "";
+          setFilters(next);
           renderAll();
         };
         modelChip.appendChild(modelBtn);
-        bar.appendChild(modelChip);
+        filterBarEl.appendChild(modelChip);
       }
 
       var activeFilterCount = (filters.model ? 1 : 0) + (filters.format ? 1 : 0) + (filters.season ? 1 : 0);
       if (activeFilterCount > 1) {
-        var clear = document.createElement("button");
-        clear.className = "filter-clear";
-        clear.textContent = "Clear all";
-        clear.onclick = function () {
+        var clearBtn = document.createElement("button");
+        clearBtn.className = "filter-clear";
+        clearBtn.textContent = "Clear all";
+        clearBtn.onclick = function () {
           setFilters({ model: "", format: "", effort: "", season: "" });
           renderAll();
         };
-        bar.appendChild(clear);
+        filterBarEl.appendChild(clearBtn);
       }
 
       var count = document.createElement("span");
       count.className = "filter-count";
       count.textContent = filteredCount + " of " + totalCount + " games";
-      bar.appendChild(count);
+      filterBarEl.appendChild(count);
     }
 
-    function renderGameCard(game) {
-      var a = document.createElement("a");
-      setGameReplayHref(a, game.id);
-      a.className = "game-card";
-
-      var ts = game.timestamp || "";
-      var dateStr = "";
-      if (ts.length >= 15) {
-        var year = ts.substring(0, 4);
-        var month = ts.substring(4, 6);
-        var day = ts.substring(6, 8);
-        var hour = ts.substring(9, 11);
-        var min = ts.substring(11, 13);
-        var d = new Date(year + "-" + month + "-" + day + "T" + hour + ":" + min);
-        if (!isNaN(d.getTime())) {
-          dateStr = d.toLocaleDateString("en-US", {
-            year: "numeric", month: "short", day: "numeric"
-          }) + " " + d.toLocaleTimeString("en-US", {
-            hour: "numeric", minute: "2-digit"
-          });
-        }
-      }
-
-      var header = document.createElement("div");
-      header.className = "game-header";
-
-      var dateEl = document.createElement("span");
-      dateEl.className = "game-date";
-      dateEl.textContent = dateStr || game.id;
-      header.appendChild(dateEl);
-
-      var formatKey = getGameFormat(game.deckType);
-      var formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
-      a.dataset.format = formatKey;
-      var fmtBadge = document.createElement("span");
-      fmtBadge.className = "format-badge format-" + formatLabel.toLowerCase();
-      fmtBadge.textContent = formatLabel;
-      header.appendChild(fmtBadge);
-
-      var turnsEl = document.createElement("span");
-      turnsEl.className = "game-turns";
-      turnsEl.textContent = game.totalTurns + " turns";
-      header.appendChild(turnsEl);
-
-      if (showSeasonBadge && gameSeason(game) === 0) {
-        var seasonBadge = document.createElement("span");
-        seasonBadge.className = "season-badge season-old";
-        seasonBadge.title = "Season 0 game \u2014 not included in Season 1 ratings";
-        seasonBadge.textContent = "Season 0";
-        header.appendChild(seasonBadge);
-      }
-
-      a.appendChild(header);
-
-      var grid = document.createElement("div");
-      grid.className = "game-players";
-
-      var totalCost = 0;
-      var hasCost = false;
-      var isCommander = getGameFormat(game.deckType) === "commander";
-
-      (game.players || []).forEach(function (p) {
-        var cell = document.createElement("div");
-        cell.className = "player-cell";
-        if (isCommander && p.placement != null) {
-          cell.classList.add("placement-" + p.placement);
-        } else if (game.winner && p.name === game.winner) {
-          cell.classList.add("is-winner");
-        }
-
-        var nameRow = document.createElement("div");
-        nameRow.className = "player-name";
-
-        if (isCommander && p.placement != null) {
-          var placeEl = document.createElement("span");
-          placeEl.className = "player-placement placement-" + p.placement;
-          var ordinals = ["", "1st", "2nd", "3rd", "4th"];
-          placeEl.textContent = ordinals[p.placement] || p.placement + "th";
-          nameRow.appendChild(placeEl);
-        }
-
-        var nameText = document.createTextNode(p.name);
-        nameRow.appendChild(nameText);
-
-        if (game.winner && p.name === game.winner) {
-          var badge = document.createElement("span");
-          badge.className = "winner-badge";
-          badge.textContent = "WINNER";
-          nameRow.appendChild(badge);
-        }
-
-        if (p.timedOut) {
-          var toBadge = document.createElement("span");
-          toBadge.className = "timeout-badge";
-          toBadge.textContent = "TIMEOUT";
-          nameRow.appendChild(toBadge);
-        }
-
-        if (p.model) {
-          var modelName = p.model;
-          var slash = modelName.indexOf("/");
-          if (slash !== -1) modelName = modelName.substring(slash + 1);
-          var modelSpan = document.createElement("span");
-          modelSpan.className = "player-model-inline";
-          modelSpan.textContent = "(" + modelName + ")";
-          nameRow.appendChild(modelSpan);
-        }
-
-        cell.appendChild(nameRow);
-
-        var cmdEl = document.createElement("div");
-        cmdEl.className = "player-commander";
-        cmdEl.textContent = p.deckName || p.commander || "";
-        cell.appendChild(cmdEl);
-
-        if (p.totalCostUsd != null) {
-          var costEl = document.createElement("div");
-          costEl.className = "player-cost";
-          costEl.textContent = "$" + p.totalCostUsd.toFixed(2);
-          cell.appendChild(costEl);
-          totalCost += p.totalCostUsd;
-          hasCost = true;
-        }
-
-        var playerScore = (game.blunderScoreByPlayer || {})[p.name];
-        if (playerScore != null) {
-          var scoreEl = document.createElement("div");
-          scoreEl.className = "player-blunder-score";
-          if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
-          else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
-          else scoreEl.classList.add("blunder-low");
-          var isOldAnalysis = !game.blunderScriptVersion || game.blunderScriptVersion < MIN_BLUNDER_VERSION;
-          scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2);
-          if (isOldAnalysis) {
-            var oldTag = document.createElement("span");
-            oldTag.className = "old-analysis-tag";
-            oldTag.textContent = "(older analysis)";
-            oldTag.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (min: v" + MIN_BLUNDER_VERSION + ")";
-            scoreEl.appendChild(document.createTextNode(" "));
-            scoreEl.appendChild(oldTag);
-          }
-          cell.appendChild(scoreEl);
-        }
-
-        var gameRatings = ratingsData[game.id];
-        var ratingKey = p.model;
-        if (ratingKey && p.reasoningEffort) ratingKey += "::" + p.reasoningEffort;
-        var playerRating = gameRatings && ratingKey ? gameRatings[ratingKey] : null;
-        if (playerRating) {
-          var ratingEl = document.createElement("div");
-          ratingEl.className = "player-rating";
-          var delta = playerRating.after - playerRating.before;
-          if (delta > 0) ratingEl.classList.add("rating-up");
-          else if (delta < 0) ratingEl.classList.add("rating-down");
-          ratingEl.textContent = playerRating.before + " \u2192 " + playerRating.after;
-          cell.appendChild(ratingEl);
-        }
-
-        grid.appendChild(cell);
-      });
-
-      a.appendChild(grid);
-
-      if (hasCost) {
-        var footer = document.createElement("div");
-        footer.className = "game-footer";
-        footer.textContent = "Total cost: $" + totalCost.toFixed(2);
-        a.appendChild(footer);
-      }
-      if (game.youtubeUrl) {
-        var ytLink = document.createElement("a");
-        ytLink.href = parseHttpUrl(game.youtubeUrl, "youtubeUrl");
-        ytLink.target = "_blank";
-        ytLink.rel = "noopener";
-        ytLink.className = "yt-link";
-        ytLink.textContent = "YouTube";
-        ytLink.onclick = function (e) { e.stopPropagation(); };
-        var footerEl = a.querySelector(".game-footer");
-        if (footerEl) {
-          footerEl.appendChild(ytLink);
-        } else {
-          var ytFooter = document.createElement("div");
-          ytFooter.className = "game-footer";
-          ytFooter.appendChild(ytLink);
-          a.appendChild(ytFooter);
-        }
-      }
-
-      return a;
-    }
-
-    function renderSeasonFilter(games) {
-      var el = document.getElementById("season-filter");
-      if (!el) return;
-      var counts = {};
-      games.forEach(function (game) {
-        var s = gameSeason(game);
-        counts[s] = (counts[s] || 0) + 1;
-      });
-      var seasons = Object.keys(counts).map(Number).sort().reverse();
-      if (seasons.length <= 1) {
-        el.style.display = "none";
+    function renderSeasonFilter() {
+      if (!showSeasonFilter || !seasonFilterEl) {
         return;
       }
-      el.innerHTML = "";
+
+      var counts = {};
+      cards.forEach(function (card) {
+        counts[card.season] = (counts[card.season] || 0) + 1;
+      });
+      var seasons = Object.keys(counts).map(Number).sort().reverse();
+      seasonFilterEl.hidden = seasons.length <= 1;
+      clear(seasonFilterEl);
+      if (seasons.length <= 1) {
+        return;
+      }
+
       var filters = getFilters();
 
       var label = document.createElement("span");
       label.className = "season-filter-label";
       label.textContent = "Season:";
-      el.appendChild(label);
+      seasonFilterEl.appendChild(label);
 
       var allBtn = document.createElement("button");
       allBtn.className = "season-filter-btn" + (!filters.season ? " active" : "");
       allBtn.textContent = "All";
       allBtn.onclick = function () {
-        var f = getFilters(); f.season = ""; setFilters(f); renderAll();
+        var next = getFilters();
+        next.season = "";
+        setFilters(next);
+        renderAll();
       };
-      el.appendChild(allBtn);
+      seasonFilterEl.appendChild(allBtn);
 
-      seasons.forEach(function (s) {
+      seasons.forEach(function (season) {
         var btn = document.createElement("button");
-        btn.className = "season-filter-btn" + (filters.season === String(s) ? " active" : "");
-        var seasonLabel = "Season " + s;
-        setCountedLabel(btn, seasonLabel, counts[s]);
-        btn.dataset.season = String(s);
+        btn.className = "season-filter-btn" + (filters.season === String(season) ? " active" : "");
+        btn.dataset.season = String(season);
+        setCountedLabel(btn, "Season " + season, counts[season]);
         btn.onclick = function () {
-          var f = getFilters(); f.season = String(s); setFilters(f); renderAll();
+          var next = getFilters();
+          next.season = String(season);
+          setFilters(next);
+          renderAll();
         };
-        el.appendChild(btn);
+        seasonFilterEl.appendChild(btn);
       });
     }
 
-    function renderFormatTabs(games) {
-      var tabsEl = document.getElementById("format-tabs");
-      if (!tabsEl) return;
+    function renderFormatTabs() {
+      if (!formatTabsEl) return;
+
       var counts = {};
-      games.forEach(function (game) {
-        var fmt = getGameFormat(game.deckType);
-        counts[fmt] = (counts[fmt] || 0) + 1;
+      cards.forEach(function (card) {
+        counts[card.format] = (counts[card.format] || 0) + 1;
       });
+
       var formats = ["standard", "modern", "legacy", "commander", "jumpstart"];
-      var activeFormats = formats.filter(function (f) { return counts[f] > 0; });
+      var activeFormats = formats.filter(function (format) { return counts[format] > 0; });
+      formatTabsEl.hidden = activeFormats.length <= 1;
+      clear(formatTabsEl);
       if (activeFormats.length <= 1) {
-        tabsEl.style.display = "none";
         return;
       }
-      tabsEl.innerHTML = "";
+
       var filters = getFilters();
 
       var allBtn = document.createElement("button");
       allBtn.className = "format-tab" + (!filters.format ? " active" : "");
       allBtn.textContent = "All";
       allBtn.onclick = function () {
-        var f = getFilters(); f.format = ""; setFilters(f); renderAll();
+        var next = getFilters();
+        next.format = "";
+        setFilters(next);
+        renderAll();
       };
-      tabsEl.appendChild(allBtn);
+      formatTabsEl.appendChild(allBtn);
 
-      activeFormats.forEach(function (fmt) {
+      activeFormats.forEach(function (format) {
         var btn = document.createElement("button");
-        btn.className = "format-tab" + (filters.format === fmt ? " active" : "");
-        setCountedLabel(btn, FORMAT_DISPLAY[fmt] || fmt, counts[fmt]);
+        btn.className = "format-tab" + (filters.format === format ? " active" : "");
+        btn.dataset.format = format;
+        setCountedLabel(btn, FORMAT_DISPLAY[format] || format, counts[format]);
         btn.onclick = function () {
-          var f = getFilters(); f.format = fmt; setFilters(f); renderAll();
+          var next = getFilters();
+          next.format = format;
+          setFilters(next);
+          renderAll();
         };
-        tabsEl.appendChild(btn);
+        formatTabsEl.appendChild(btn);
       });
     }
 
-    function renderModelTabs(games) {
-      var tabsEl = document.getElementById("model-tabs");
-      if (!tabsEl) return;
-      var filters = getFilters();
+    function renderModelTabs() {
+      if (!modelTabsEl) return;
 
+      var filters = getFilters();
       var counts = {};
       var tabMeta = {};
-      games.forEach(function (game) {
-        if (filters.format) {
-          var fmt = getGameFormat(game.deckType);
-          if (fmt !== filters.format) return;
+
+      cards.forEach(function (card) {
+        if (filters.format && card.format !== filters.format) {
+          return;
         }
         var seen = {};
-        (game.players || []).forEach(function (p) {
-          if (!p.model) return;
-          var key = p.model;
-          var effort = p.reasoningEffort || "";
-          if (effort) key += "::" + effort;
-          if (!seen[key]) {
-            seen[key] = true;
-            counts[key] = (counts[key] || 0) + 1;
-            if (!tabMeta[key]) tabMeta[key] = { model: p.model, effort: effort };
+        card.modelEntries.forEach(function (entry) {
+          var key = entry.model + "::" + entry.effort;
+          if (seen[key]) return;
+          seen[key] = true;
+          counts[key] = (counts[key] || 0) + 1;
+          if (!tabMeta[key]) {
+            tabMeta[key] = entry;
           }
         });
       });
@@ -497,16 +299,16 @@ window.GameList = {
         return counts[b] - counts[a] || a.localeCompare(b);
       });
 
+      clear(modelTabsEl);
+      modelTabsEl.hidden = keys.length === 0;
       if (keys.length === 0) {
-        tabsEl.innerHTML = "";
         return;
       }
 
-      tabsEl.innerHTML = "";
       var label = document.createElement("span");
       label.className = "model-tabs-label";
       label.textContent = "Model:";
-      tabsEl.appendChild(label);
+      modelTabsEl.appendChild(label);
 
       keys.forEach(function (key) {
         var meta = tabMeta[key];
@@ -519,59 +321,100 @@ window.GameList = {
         if (meta.effort) displayName += " (" + meta.effort + ")";
         setCountedLabel(btn, displayName, counts[key]);
         btn.onclick = function () {
-          var f = getFilters();
-          if (f.model === meta.model && (f.effort || "") === meta.effort) {
-            f.model = "";
-            f.effort = "";
+          var next = getFilters();
+          if (next.model === meta.model && (next.effort || "") === meta.effort) {
+            next.model = "";
+            next.effort = "";
           } else {
-            f.model = meta.model;
-            f.effort = meta.effort;
+            next.model = meta.model;
+            next.effort = meta.effort;
           }
-          setFilters(f);
+          setFilters(next);
           renderAll();
         };
-        tabsEl.appendChild(btn);
+        modelTabsEl.appendChild(btn);
+      });
+    }
+
+    function matchesFilters(card, filters) {
+      if (filters.season && card.season !== filters.season) {
+        return false;
+      }
+      if (filters.format && card.format !== filters.format) {
+        return false;
+      }
+      if (filters.model) {
+        return card.modelEntries.some(function (entry) {
+          return entry.model === filters.model && (!filters.effort || entry.effort === filters.effort);
+        });
+      }
+      return true;
+    }
+
+    function applyRatings() {
+      cards.forEach(function (card) {
+        var gameRatings = ratingsData[card.gameId];
+        if (!gameRatings || typeof gameRatings !== "object") {
+          return;
+        }
+
+        card.el.querySelectorAll(".player-cell[data-rating-key]").forEach(function (cell) {
+          if (cell.querySelector(".player-rating")) {
+            return;
+          }
+
+          var ratingKey = cell.dataset.ratingKey;
+          if (!ratingKey) {
+            return;
+          }
+
+          var playerRating = gameRatings[ratingKey];
+          if (!playerRating || typeof playerRating.before !== "number" || typeof playerRating.after !== "number") {
+            return;
+          }
+
+          var ratingEl = document.createElement("div");
+          ratingEl.className = "player-rating";
+          var delta = playerRating.after - playerRating.before;
+          if (delta > 0) ratingEl.classList.add("rating-up");
+          else if (delta < 0) ratingEl.classList.add("rating-down");
+          ratingEl.textContent = playerRating.before + " -> " + playerRating.after;
+          cell.appendChild(ratingEl);
+        });
       });
     }
 
     function renderAll() {
-      var games = __games;
-      var list = document.getElementById("games-list");
-      list.innerHTML = "";
+      renderSeasonFilter();
+      renderFormatTabs();
+      renderModelTabs();
 
-      if (!games || games.length === 0) {
-        renderFilterBar({ model: "", format: "", effort: "", season: "" }, 0, 0);
-        list.innerHTML = '<p class="no-games">No games exported yet.</p>';
-        return;
-      }
-
-      if (showSeasonFilter) renderSeasonFilter(games);
-      renderFormatTabs(games);
-      renderModelTabs(games);
       var filters = getFilters();
-      var filtered = filterGames(games, filters);
-      renderFilterBar(filters, games.length, filtered.length);
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<p class="no-games">No games match the current filters.</p>';
-        return;
-      }
-
-      filtered.forEach(function (game) {
-        list.appendChild(renderGameCard(game));
+      var filteredCount = 0;
+      cards.forEach(function (card) {
+        var visible = matchesFilters(card, filters);
+        card.el.hidden = !visible;
+        if (visible) filteredCount += 1;
       });
+
+      if (emptyMessageEl) {
+        emptyMessageEl.hidden = filteredCount !== 0;
+      }
+      renderFilterBar(filters, cards.length, filteredCount);
     }
 
-    fetch("/data/ratings.json").then(function (r) {
-      return r.ok ? r.json() : {};
-    }).catch(function () { return {}; })
-      .then(function (data) {
-        ratingsData = data;
-        renderAll();
+    renderAll();
+
+    fetch("/data/ratings.json")
+      .then(function (response) {
+        return response.ok ? response.json() : {};
       })
       .catch(function () {
-        var list = document.getElementById("games-list");
-        list.innerHTML = '<p class="no-games">No games exported yet.</p>';
+        return {};
+      })
+      .then(function (data) {
+        ratingsData = data && typeof data === "object" ? data : {};
+        applyRatings();
       });
-  }
+  },
 };

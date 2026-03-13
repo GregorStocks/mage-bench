@@ -1,33 +1,39 @@
 ---
+import GameListCard from './GameListCard.astro';
 import '../styles/game-list.css';
+import type { GameEntry } from '../utils/load-games';
 
 interface Props {
-  games: unknown[];
+  games: GameEntry[];
   minBlunderVersion: number;
   showSeasonFilter: boolean;
   showSeasonBadge: boolean;
 }
 
 const { games, minBlunderVersion, showSeasonFilter, showSeasonBadge } = Astro.props;
-const configJson = JSON.stringify({
-  games,
-  minBlunderVersion,
-  showSeasonFilter,
-  showSeasonBadge,
-}).replace(/</g, '\\u003c');
 ---
 
-<div data-game-list-root>
-  <div id="season-filter" class="season-filter"></div>
+<div data-game-list-root data-show-season-filter={showSeasonFilter ? "1" : "0"}>
+  {showSeasonFilter && <div id="season-filter" class="season-filter"></div>}
   <div id="format-tabs" class="format-tabs"></div>
   <div id="model-tabs" class="model-tabs"></div>
-  <div id="filter-bar" style="display:none"></div>
+  <div id="filter-bar" class="filter-bar" hidden></div>
   <div id="games-list">
-    {games.length > 0 && <p class="loading">Loading games...</p>}
+    {games.length === 0 ? (
+      <p class="no-games">No games exported yet.</p>
+    ) : (
+      games.map((game) => (
+        <GameListCard
+          game={game}
+          minBlunderVersion={minBlunderVersion}
+          showSeasonBadge={showSeasonBadge}
+        />
+      ))
+    )}
   </div>
+  {games.length > 0 && <p id="games-empty-message" class="no-games" hidden>No games match the current filters.</p>}
 </div>
 
-<script is:inline type="application/json" id="game-list-config" set:html={configJson}></script>
 <script>
   import { initGameListPage } from "../scripts/init-game-list.js";
 

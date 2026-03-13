@@ -1,0 +1,204 @@
+---
+import type { GameEntry } from "../utils/load-games";
+
+interface Props {
+  game: GameEntry;
+  minBlunderVersion: number;
+  showSeasonBadge: boolean;
+}
+
+const { game, minBlunderVersion, showSeasonBadge } = Astro.props;
+
+const DECK_TYPE_FORMATS: Record<string, string> = {
+  "Constructed - Standard": "standard",
+  "Constructed - Modern": "modern",
+  "Constructed - Legacy": "legacy",
+  "Variant Magic - Freeform Commander": "commander",
+  "Variant Magic - Commander": "commander",
+  "Limited": "jumpstart",
+};
+
+const FORMAT_DISPLAY: Record<string, string> = {
+  standard: "Standard",
+  modern: "Modern",
+  legacy: "Legacy",
+  commander: "Commander (Exhibition)",
+  jumpstart: "Jumpstart",
+};
+
+function getGameFormat(deckType: string): string {
+  return DECK_TYPE_FORMATS[deckType] || "commander";
+}
+
+function formatGameTimestamp(timestamp: string): string {
+  if (timestamp.length < 13) {
+    return timestamp;
+  }
+
+  const year = timestamp.substring(0, 4);
+  const month = timestamp.substring(4, 6);
+  const day = timestamp.substring(6, 8);
+  const hour = timestamp.substring(9, 11);
+  const minute = timestamp.substring(11, 13);
+  const parsed = new Date(`${year}-${month}-${day}T${hour}:${minute}`);
+  if (Number.isNaN(parsed.getTime())) {
+    return timestamp;
+  }
+
+  return `${parsed.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })} ${parsed.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  })}`;
+}
+
+function displayModelName(model: string): string {
+  const slash = model.indexOf("/");
+  return slash === -1 ? model : model.substring(slash + 1);
+}
+
+function safeHttpUrl(rawUrl: string): string {
+  const parsed = new URL(rawUrl);
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(`youtubeUrl must use http or https, got ${parsed.protocol}`);
+  }
+  return parsed.toString();
+}
+
+const formatKey = getGameFormat(game.deckType);
+const formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
+const dateStr = formatGameTimestamp(game.timestamp) || game.id;
+const isCommander = formatKey === "commander";
+
+const modelEntries = Array.from(
+  new Map(
+    (game.players || [])
+      .filter((player) => !!player.model)
+      .map((player) => {
+        const effort = player.reasoningEffort || "";
+        return [`${player.model}::${effort}`, { model: player.model!, effort }];
+      }),
+  ).values(),
+);
+
+const modelEntriesJson = JSON.stringify(modelEntries);
+const hasCost = (game.players || []).some((player) => player.totalCostUsd != null);
+const totalCost = (game.players || []).reduce(
+  (sum, player) => sum + (player.totalCostUsd ?? 0),
+  0,
+);
+const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
+---
+
+<article
+  class="game-card"
+  data-format={formatKey}
+  data-season={String(game.season ?? 0)}
+  data-model-entries={modelEntriesJson}
+  data-game-id={game.id}
+>
+  <a href={`/games/${encodeURIComponent(game.id)}`} class="game-card-main">
+    <div class="game-header">
+      <span class="game-date">{dateStr}</span>
+      <span class={`format-badge format-${formatKey}`}>{formatLabel}</span>
+      <span class="game-turns">{game.totalTurns} turns</span>
+      {showSeasonBadge && game.season === 0 && (
+        <span
+          class="season-badge season-old"
+          title="Season 0 game - not included in Season 1 ratings"
+        >
+          Season 0
+        </span>
+      )}
+    </div>
+
+    <div class="game-players">
+      {(game.players || []).map((player) => {
+        const ratingKey = player.model
+          ? `${player.model}${player.reasoningEffort ? `::${player.reasoningEffort}` : ""}`
+          : null;
+        const playerScore = (game.blunderScoreByPlayer || {})[player.name];
+        const isOldAnalysis =
+          !game.blunderScriptVersion || game.blunderScriptVersion < minBlunderVersion;
+        return (
+          <div
+            class:list={[
+              "player-cell",
+              {
+                [`placement-${player.placement}`]: isCommander && player.placement != null,
+                "is-winner": !isCommander && game.winner && player.name === game.winner,
+              },
+            ]}
+            data-player-name={player.name}
+            data-rating-key={ratingKey ?? undefined}
+          >
+            <div class="player-name">
+              {isCommander && player.placement != null && (
+                <span class={`player-placement placement-${player.placement}`}>
+                  {player.placement === 1 && "1st"}
+                  {player.placement === 2 && "2nd"}
+                  {player.placement === 3 && "3rd"}
+                  {player.placement === 4 && "4th"}
+                  {player.placement! > 4 && `${player.placement}th`}
+                </span>
+              )}
+              {player.name}
+              {!isCommander && game.winner && player.name === game.winner && (
+                <span class="winner-badge">WINNER</span>
+              )}
+              {player.timedOut && <span class="timeout-badge">TIMEOUT</span>}
+              {player.model && (
+                <span class="player-model-inline">({displayModelName(player.model)})</span>
+              )}
+            </div>
+
+            <div class="player-commander">{player.deckName || player.commander || ""}</div>
+
+            {player.totalCostUsd != null && (
+              <div class="player-cost">${player.totalCostUsd.toFixed(2)}</div>
+            )}
+
+            {playerScore != null && (
+              <div
+                class:list={[
+                  "player-blunder-score",
+                  {
+                    "blunder-high": playerScore >= 1.5,
+                    "blunder-med": playerScore >= 0.5 && playerScore < 1.5,
+                    "blunder-low": playerScore < 0.5,
+                  },
+                ]}
+              >
+                Blunder Index: {playerScore.toFixed(2)}
+                {isOldAnalysis && (
+                  <>
+                    {" "}
+                    <span
+                      class="old-analysis-tag"
+                      title={`Analyzed with blunder script v${game.blunderScriptVersion || 1} (min: v${minBlunderVersion})`}
+                    >
+                      (older analysis)
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+    {hasCost && <div class="game-footer">Total cost: ${totalCost.toFixed(2)}</div>}
+  </a>
+
+  {youtubeUrl && (
+    <div class="game-footer game-footer-secondary">
+      <a href={youtubeUrl} target="_blank" rel="noopener" class="yt-link">
+        YouTube
+      </a>
+    </div>
+  )}
+</article>

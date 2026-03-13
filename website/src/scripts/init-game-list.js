@@ -1,15 +1,8 @@
 import "./game-list.js";
 
-function readConfig() {
-  const configEl = document.getElementById("game-list-config");
-  if (!configEl) {
-    throw new Error("Missing #game-list-config script");
-  }
-  return JSON.parse(configEl.textContent || "null");
-}
-
 export function initGameListPage() {
-  if (!document.querySelector("[data-game-list-root]")) {
+  const root = document.querySelector("[data-game-list-root]");
+  if (!root) {
     return;
   }
 
@@ -18,5 +11,7 @@ export function initGameListPage() {
     throw new Error("game-list.js did not initialize window.GameList");
   }
 
-  gameList.init(readConfig());
+  gameList.init({
+    showSeasonFilter: root.dataset.showSeasonFilter === "1",
+  });
 }

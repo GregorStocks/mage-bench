@@ -116,13 +116,11 @@ describe("game pages", () => {
     expect(data.snapshots.length).toBeGreaterThan(0);
   });
 
-  test("games index embeds game data for client-side rendering", () => {
+  test("games index server-renders game cards", () => {
     const html = readPage("games");
-    const match = html.match(
-      /<script type="application\/json" id="game-list-config">([\s\S]*?)<\/script>/,
-    );
-    expect(match).not.toBeNull();
-    const config = JSON.parse(match[1]);
-    expect(config.games.length).toBeGreaterThan(0);
+    const gameCards = html.match(/class="game-card"/g);
+    expect(gameCards).not.toBeNull();
+    expect(gameCards.length).toBeGreaterThan(0);
+    expect(html).not.toContain("Loading games...");
   });
 });
