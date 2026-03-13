@@ -1,6 +1,7 @@
 ---
 import '../styles/game-renderer.css';
 import '../styles/game-viewer.css';
+import '../styles/game-header.css';
 import '../styles/audit-panel.css';
 
 interface Props {
@@ -52,25 +53,6 @@ const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g
   }
 
   #error {
-    color: #e94560;
-  }
-
-  #game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  #game-title {
-    font-size: 1rem;
-    font-weight: 600;
     color: #e94560;
   }
 
@@ -132,11 +114,5 @@ const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g
     border-radius: 8px;
     font-size: 0.8rem;
     margin-bottom: 0.75rem;
-  }
-
-  @media (max-width: 600px) {
-    #game-header {
-      flex-wrap: wrap;
-    }
   }
 </style>

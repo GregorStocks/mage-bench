@@ -1,3 +1,5 @@
+@import './format-tabs.css';
+
 /* Shared styles for game list pages (/games and /season/N/games) */
 
 .loading {
@@ -67,64 +69,6 @@
 .season-old {
   background: rgba(239, 68, 68, 0.15);
   color: #ef4444;
-}
-
-/* Format filter tabs */
-.format-tabs {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.format-tab {
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.4rem 1rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: 20px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.format-tab:hover {
-  border-color: var(--text-muted);
-  color: var(--text-primary);
-}
-
-.format-tab.active {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: #fff;
-}
-
-.format-tab.active[data-format="standard"] {
-  background: var(--format-standard);
-  border-color: var(--format-standard);
-}
-
-.format-tab.active[data-format="modern"] {
-  background: var(--format-modern);
-  border-color: var(--format-modern);
-}
-
-.format-tab.active[data-format="legacy"] {
-  background: var(--format-legacy);
-  border-color: var(--format-legacy);
-}
-
-.format-tab.active[data-format="commander"] {
-  background: var(--format-commander);
-  border-color: var(--format-commander);
-}
-
-.tab-count {
-  font-size: 0.8rem;
-  opacity: 0.6;
-  margin-left: 0.2rem;
 }
 
 /* Model filter tabs */

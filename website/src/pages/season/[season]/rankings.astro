@@ -7,6 +7,7 @@ import {
   loadSeasonBenchmark,
   loadTournament,
 } from '../../../utils/season-data';
+import '../../../styles/format-tabs.css';
 
 export function getStaticPaths() {
   return loadAvailableSeasons().map(s => ({ params: { season: String(s) } }));
@@ -430,67 +431,9 @@ const tournamentSize = tournament?.size ?? 0;
     color: var(--text-primary);
   }
 
-  .format-tabs {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .format-tab {
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.4rem 0.9rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .format-tab:hover {
-    border-color: var(--accent-primary);
-    color: var(--text-primary);
-  }
-
-  .format-tab.active {
-    background: var(--accent-primary);
-    border-color: var(--accent-primary);
-    color: #fff;
-    font-weight: 700;
-  }
-
-  .format-tab.active[data-format="standard"] {
-    background: var(--format-standard);
-    border-color: var(--format-standard);
-  }
-
-  .format-tab.active[data-format="modern"] {
-    background: var(--format-modern);
-    border-color: var(--format-modern);
-  }
-
-  .format-tab.active[data-format="legacy"] {
-    background: var(--format-legacy);
-    border-color: var(--format-legacy);
-  }
-
-  .format-tab.active[data-format="commander"] {
-    background: var(--format-commander);
-    border-color: var(--format-commander);
-  }
-
   .format-tab.active[data-format="combined"] {
     background: var(--accent-secondary);
     border-color: var(--accent-secondary);
-  }
-
-  .tab-count {
-    font-size: 0.75rem;
-    opacity: 0.7;
-    margin-left: 0.2rem;
   }
 
   .scoring-link {

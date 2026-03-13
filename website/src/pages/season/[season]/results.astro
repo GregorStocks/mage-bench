@@ -7,6 +7,7 @@ import {
   loadAvailableSeasons,
   loadTournament,
 } from '../../../utils/season-data';
+import '../../../styles/game-list.css';
 
 export function getStaticPaths() {
   return loadAvailableSeasons()
@@ -948,177 +949,8 @@ const hasDraft = !!tournament.draft;
   }
 </style>
 
-{/* Game card styles */}
+{/* Game card styles come from game-list.css import; only tournament-badge is unique */}
 <style is:global>
-  .game-card {
-    display: block;
-    margin-bottom: 1rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: border-color 0.2s, transform 0.2s;
-    overflow: hidden;
-  }
-
-  .game-card:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-1px);
-  }
-
-  .game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
-  .game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
-  .game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
-  .game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
-  .game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
-
-  .game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 1rem;
-    background: rgba(15, 52, 96, 0.3);
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
-    font-size: 0.85rem;
-  }
-
-  .game-date {
-    color: var(--text-secondary);
-  }
-
-  .format-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
-  }
-
-  .format-standard {
-    background: rgba(76, 175, 80, 0.15);
-    color: #66bb6a;
-  }
-
-  .format-modern {
-    background: rgba(33, 150, 243, 0.15);
-    color: #42a5f5;
-  }
-
-  .format-legacy {
-    background: rgba(156, 39, 176, 0.15);
-    color: #ab47bc;
-  }
-
-  .format-commander {
-    background: rgba(255, 152, 0, 0.15);
-    color: #ffa726;
-  }
-
-  .game-turns {
-    color: var(--text-secondary);
-  }
-
-  .winner-badge {
-    display: inline-block;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--bg-base);
-    background: var(--color-success);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-left: 0.4rem;
-  }
-
-  .timeout-badge {
-    display: inline-block;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--bg-base);
-    background: var(--color-warning);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-left: 0.4rem;
-  }
-
-  .yt-link {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-size: 0.75rem;
-    margin-left: 0.5rem;
-  }
-
-  .yt-link:hover {
-    text-decoration: underline;
-  }
-
-  .game-players {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .player-cell {
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.3);
-    border-right: 1px solid rgba(15, 52, 96, 0.3);
-  }
-
-  .player-cell:nth-child(2n) {
-    border-right: none;
-  }
-
-  .player-cell:nth-child(n+3) {
-    border-bottom: none;
-  }
-
-  .player-cell.is-winner {
-    box-shadow: inset 3px 0 0 var(--color-success);
-    background: rgba(168, 217, 165, 0.04);
-  }
-
-  .player-name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 0.15rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .player-model-inline {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 400;
-  }
-
-  .player-commander {
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .player-cost {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .game-footer {
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    text-align: right;
-    border-top: 1px solid rgba(15, 52, 96, 0.5);
-    font-variant-numeric: tabular-nums;
-  }
-
   .tournament-badge {
     font-size: 0.65rem;
     font-weight: 700;
@@ -1128,29 +960,6 @@ const hasDraft = !!tournament.draft;
     letter-spacing: 0.03em;
     background: rgba(20, 184, 166, 0.15);
     color: var(--accent-secondary);
-  }
-
-  @media (max-width: 500px) {
-    .game-players {
-      grid-template-columns: 1fr;
-    }
-
-    .player-cell:nth-child(2n) {
-      border-right: none;
-    }
-
-    .player-cell {
-      border-bottom: 1px solid rgba(15, 52, 96, 0.3);
-    }
-
-    .player-cell:last-child {
-      border-bottom: none;
-    }
-
-    .game-header {
-      flex-wrap: wrap;
-      gap: 0.25rem;
-    }
   }
 </style>
 
