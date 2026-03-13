@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import '../../styles/game-renderer.css';
+import '../../styles/game-viewer.css';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -189,44 +190,10 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     text-transform: capitalize;
   }
 
-  /* Transport */
   #transport {
-    display: flex;
-    align-items: center;
     gap: 0.75rem;
     padding: 0.5rem 1rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
     margin-bottom: 0.75rem;
-  }
-
-  .transport-buttons {
-    display: flex;
-    gap: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  .transport-buttons button {
-    background: var(--border-default);
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.35rem 0.6rem;
-    cursor: pointer;
-    font-family: monospace;
-    font-size: 0.85rem;
-    transition: background 0.15s;
-  }
-
-  .transport-buttons button:hover {
-    background: #1a4a8a;
-  }
-
-  .transport-buttons button.active {
-    background: #e94560;
-    border-color: #e94560;
-    color: #fff;
   }
 
   .turn-nav {
@@ -263,17 +230,6 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     cursor: pointer;
   }
 
-  #slider-container {
-    flex: 1;
-    min-width: 100px;
-    position: relative;
-  }
-
-  #slider {
-    width: 100%;
-    accent-color: #e94560;
-  }
-
   #snapshot-jump {
     width: 5rem;
     background: var(--border-default);
@@ -303,15 +259,6 @@ const scenarioTitle = slug.replace(/_/g, ' ');
   }
 
   @media (max-width: 600px) {
-    #transport {
-      flex-wrap: wrap;
-    }
-
-    #slider-container {
-      flex-basis: 100%;
-      order: 10;
-    }
-
     #snapshot-jump {
       width: 3.5rem;
     }
@@ -329,94 +276,34 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     }
   }
 
-  /* Two-column layout */
   #game-content {
-    display: flex;
     gap: 0.75rem;
-    align-items: flex-start;
   }
 
   #game-left {
-    flex: 1;
-    min-width: 0;
-    display: flex;
     gap: 0.75rem;
-    align-items: flex-start;
   }
 
   #game-right {
-    width: 420px;
-    flex-shrink: 0;
+    flex: 0 0 420px;
   }
 
-  @media (max-width: 900px) {
-    #game-content {
-      flex-direction: column;
-    }
-
-    #game-left {
-      width: 100%;
-    }
-
-    #game-right {
-      width: 100%;
-    }
-  }
-
-  /* Action log */
   #action-log {
     padding: 0.75rem 1rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    position: sticky;
-    top: 0.5rem;
   }
 
-  .action-log-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.4rem;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-  }
-
-  .log-filters {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  #player-filter, #event-type-filter {
-    background: var(--border-default);
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.2rem 0.3rem;
+  #player-filter,
+  #event-type-filter {
     font-size: 0.72rem;
-    cursor: pointer;
   }
 
   #llm-toggle-label {
     font-size: 0.72rem;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  #llm-toggle {
-    margin-right: 4px;
-    accent-color: #e94560;
   }
 
   #action-list {
-    overflow-y: auto;
-    overflow-x: hidden;
     font-size: 0.93rem;
     line-height: 1.5;
-    word-break: break-word;
   }
 
   /* MCP JSON panel */

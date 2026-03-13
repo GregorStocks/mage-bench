@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import '../../styles/game-renderer.css';
+import '../../styles/game-viewer.css';
 ---
 
 <Base title="Live Game" wide>
@@ -96,37 +97,6 @@ import '../../styles/game-renderer.css';
     font-size: 0.85rem;
     color: var(--text-muted);
     text-align: right;
-  }
-
-  /* Two-column layout */
-  #game-content {
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-
-  #game-left {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-
-  #game-right {
-    flex: 0 1 440px;
-    min-width: 0;
-  }
-
-  @media (max-width: 900px) {
-    #game-content {
-      flex-direction: column;
-    }
-
-    #game-right {
-      width: 100%;
-      flex-basis: auto;
-    }
   }
 </style>
 
