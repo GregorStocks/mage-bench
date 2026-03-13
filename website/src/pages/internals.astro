@@ -221,6 +221,16 @@ if (fs.existsSync(exportsDir)) {
   <!-- Chart.js trends -->
   <script>
     import { Chart, registerables } from 'chart.js';
+    import {
+      isInternalsTabName,
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
+    import {
+      parseInternalsTrendsModelFilterState,
+      syncInternalsTrendsModelFilterStateToUrl,
+    } from '../utils/internals-trends-model-filter-state';
+
     Chart.register(...registerables);
 
     // ─── Tab switching ───
@@ -233,18 +243,43 @@ if (fs.existsSync(exportsDir)) {
       document.getElementById(`tab-${tabName}`)!.classList.add('active');
     }
 
-    function syncTabToUrl(tabName: string) {
+    function getActiveTabName(): InternalsTabName {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (!activeTabName || !isInternalsTabName(activeTabName)) {
+        return 'trends';
+      }
+      return activeTabName;
+    }
+
+    const tabUrlSyncHandlers: Partial<Record<InternalsTabName, () => void>> = {
+      golden: () => {
+        const url = new URL(window.location.href);
+        syncInternalsTabToUrl(url, 'golden');
+        history.replaceState(null, '', url.toString());
+      },
+    };
+    (window as any).__internalsTabUrlSyncHandlers = tabUrlSyncHandlers;
+
+    function syncTabToUrl(tabName: InternalsTabName) {
       const url = new URL(window.location.href);
-      if (tabName !== 'trends') url.searchParams.set('tab', tabName);
-      else url.searchParams.delete('tab');
+      syncInternalsTabToUrl(url, tabName);
       history.replaceState(null, '', url.toString());
+    }
+
+    function syncActiveTabToUrl(tabName: InternalsTabName) {
+      const handler = tabUrlSyncHandlers[tabName];
+      if (handler) {
+        handler();
+        return;
+      }
+      syncTabToUrl(tabName);
     }
 
     document.querySelectorAll('.tab').forEach(btn => {
       btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab')!;
+        const target = btn.getAttribute('data-tab')! as InternalsTabName;
         switchTab(target);
-        syncTabToUrl(target);
+        syncActiveTabToUrl(target);
       });
     });
 
@@ -258,12 +293,12 @@ if (fs.existsSync(exportsDir)) {
       }
       // Legacy hash support
       const hash = location.hash.replace('#', '');
-      if (hash && document.querySelector(`.tab[data-tab="${hash}"]`)) {
+      if (isInternalsTabName(hash) && document.querySelector(`.tab[data-tab="${hash}"]`)) {
         switchTab(hash);
-        syncTabToUrl(hash);
       }
     }
     activateFromUrl();
+    syncTabToUrl(getActiveTabName());
     window.addEventListener('hashchange', activateFromUrl);
 
     // ─── Trend chart ───
@@ -321,6 +356,7 @@ if (fs.existsSync(exportsDir)) {
       }
     }
     const allModels = Array.from(modelMap.entries()).sort((a, b) => a[1].localeCompare(b[1]));
+    const allModelKeys = allModels.map(([key]) => key);
 
     // Color palette for lines — high-saturation, maximally distinct on dark bg
     const LINE_COLORS = [
@@ -336,13 +372,20 @@ if (fs.existsSync(exportsDir)) {
 
     let currentMetric = 'costPerGame';
     let currentFormat = 'all';
-    let selectedModels = new Set(allModels.map(m => m[0]));
+    let selectedModels = new Set(allModelKeys);
     let minEpochTrend = 1;
     let yScaleMode: YScaleMode = 'linear';
 
     const checkboxContainer = document.getElementById('model-checkboxes')!;
     const modelSearch = document.getElementById('model-search') as HTMLInputElement;
     const minEpochTrendInput = document.getElementById('trend-min-epoch') as HTMLInputElement;
+
+    {
+      const params = new URLSearchParams(window.location.search);
+      const filterState = parseInternalsTrendsModelFilterState(params, allModelKeys);
+      selectedModels = new Set(filterState.selectedModelKeys);
+      modelSearch.value = filterState.search;
+    }
 
     function withAlpha(color: string, alphaHex: string): string {
       return color.startsWith('#') && color.length === 7 ? color + alphaHex : color;
@@ -408,6 +451,7 @@ if (fs.existsSync(exportsDir)) {
           if (cb.checked) selectedModels.add(key);
           else selectedModels.delete(key);
           updateChart();
+          syncTrendsToUrl();
         });
         const colorIdx = allModels.findIndex(m => m[0] === key);
         const dot = document.createElement('span');
@@ -422,17 +466,22 @@ if (fs.existsSync(exportsDir)) {
       }
     }
     buildCheckboxes();
-    modelSearch.addEventListener('input', buildCheckboxes);
+    modelSearch.addEventListener('input', () => {
+      buildCheckboxes();
+      syncTrendsToUrl();
+    });
 
     document.getElementById('select-all-models')!.addEventListener('click', () => {
-      selectedModels = new Set(allModels.map(m => m[0]));
+      selectedModels = new Set(allModelKeys);
       buildCheckboxes();
       updateChart();
+      syncTrendsToUrl();
     });
     document.getElementById('select-none-models')!.addEventListener('click', () => {
       selectedModels.clear();
       buildCheckboxes();
       updateChart();
+      syncTrendsToUrl();
     });
 
     const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
@@ -773,7 +822,9 @@ if (fs.existsSync(exportsDir)) {
     }
 
     function syncTrendsToUrl() {
+      if (getActiveTabName() !== 'trends') return;
       const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'trends');
       if (currentMetric !== 'costPerGame') url.searchParams.set('metric', currentMetric);
       else url.searchParams.delete('metric');
       if (currentFormat !== 'all') url.searchParams.set('format', currentFormat);
@@ -782,11 +833,17 @@ if (fs.existsSync(exportsDir)) {
       else url.searchParams.delete('yscale');
       if (minEpochTrend !== 1) url.searchParams.set('minEpoch', String(minEpochTrend));
       else url.searchParams.delete('minEpoch');
+      syncInternalsTrendsModelFilterStateToUrl(url, {
+        selectedModelKeys: Array.from(selectedModels),
+        search: modelSearch.value,
+      }, allModelKeys);
       url.searchParams.delete('display');
       url.searchParams.delete('bucket');
       url.searchParams.delete('smoothing');
       history.replaceState(null, '', url.toString());
     }
+
+    tabUrlSyncHandlers.trends = syncTrendsToUrl;
 
     {
       const params = new URLSearchParams(window.location.search);
@@ -824,11 +881,25 @@ if (fs.existsSync(exportsDir)) {
       }
     }
 
+    syncTrendsToUrl();
     updateChart();
   </script>
 
   <!-- Model Stats logic (same as old model-stats.astro) -->
   <script>
+    import {
+      parseInternalsModelStatsSortState,
+      syncInternalsModelStatsSortStateToUrl,
+    } from '../utils/internals-model-stats-sort-state';
+    import {
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
+    import {
+      parseInternalsModelStatsSelectedModelKey,
+      syncInternalsModelStatsSelectedModelKeyToUrl,
+    } from '../utils/internals-model-stats-selection-state';
+
     // Models with known-unreliable cached_tokens data (upstream API bug).
     // Keys may have a ::effort suffix, so check the model ID prefix.
     const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
@@ -839,6 +910,7 @@ if (fs.existsSync(exportsDir)) {
 
     const rawData = JSON.parse(document.getElementById('model-stats-data')!.textContent!);
     const models = rawData.models as Record<string, any>;
+    const modelKeys = Object.keys(models);
     const minEpochInput = document.getElementById('min-epoch') as HTMLInputElement;
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     const tbody = document.getElementById('stats-body') as HTMLTableSectionElement;
@@ -848,6 +920,12 @@ if (fs.existsSync(exportsDir)) {
     const errorDetailHeading = document.getElementById('error-detail-heading') as HTMLElement;
     const errorDetailBody = document.getElementById('error-detail-body') as HTMLTableSectionElement;
     const headers = document.querySelectorAll('#stats-table th[data-sort]');
+    const sortTypes = Object.fromEntries(
+      Array.from(headers, (th) => {
+        const el = th as HTMLElement;
+        return [el.dataset.sort!, el.dataset.type!];
+      }),
+    ) as Record<string, 'string' | 'number'>;
 
     let currentSort = 'timeoutRate';
     let currentSortAsc = false;
@@ -948,6 +1026,38 @@ if (fs.existsSync(exportsDir)) {
       return 'rate-bad';
     }
 
+    function setSortedHeaderState(th: HTMLElement, ascending: boolean) {
+      headers.forEach(h => {
+        h.classList.remove('sorted', 'asc', 'desc');
+        const arrow = h.querySelector('.sort-arrow');
+        if (arrow) arrow.textContent = '';
+      });
+
+      th.classList.add('sorted', ascending ? 'asc' : 'desc');
+      let arrow = th.querySelector('.sort-arrow');
+      if (!arrow) {
+        arrow = document.createElement('span');
+        arrow.className = 'sort-arrow';
+        th.appendChild(arrow);
+      }
+      arrow.textContent = ascending ? '\u25B2' : '\u25BC';
+    }
+
+    function syncModelStatsStateToUrl() {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (activeTabName !== 'model-stats') return;
+      const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'model-stats');
+      syncInternalsModelStatsSortStateToUrl(url, {
+        column: currentSort,
+        ascending: currentSortAsc,
+      });
+      syncInternalsModelStatsSelectedModelKeyToUrl(url, selectedModelKey);
+      history.replaceState(null, '', url.toString());
+    }
+
+    ((window as any).__internalsTabUrlSyncHandlers as Partial<Record<InternalsTabName, () => void>>)['model-stats'] = syncModelStatsStateToUrl;
+
     function render() {
       const minEpoch = parseInt(minEpochInput.value) || 1;
       const searchTerm = searchInput.value.toLowerCase().trim();
@@ -1002,6 +1112,7 @@ if (fs.existsSync(exportsDir)) {
         } else {
           errorDetail.style.display = 'none';
           selectedModelKey = null;
+          syncModelStatsStateToUrl();
         }
       }
     }
@@ -1018,6 +1129,7 @@ if (fs.existsSync(exportsDir)) {
       const row = tbody.querySelector(`tr[data-key="${CSS.escape(s.key)}"]`);
       if (row) row.classList.add('selected');
       renderErrorDetail(s);
+      syncModelStatsStateToUrl();
     }
 
     function renderErrorDetail(s: AggregatedStats) {
@@ -1048,26 +1160,29 @@ if (fs.existsSync(exportsDir)) {
         const wasAsc = th.classList.contains('asc');
         const ascending = wasSorted ? !wasAsc : (type === 'string');
 
-        headers.forEach(h => {
-          h.classList.remove('sorted', 'asc', 'desc');
-          const arrow = h.querySelector('.sort-arrow');
-          if (arrow) arrow.textContent = '';
-        });
-
-        th.classList.add('sorted', ascending ? 'asc' : 'desc');
-        let arrow = th.querySelector('.sort-arrow');
-        if (!arrow) {
-          arrow = document.createElement('span');
-          arrow.className = 'sort-arrow';
-          th.appendChild(arrow);
-        }
-        arrow.textContent = ascending ? '\u25B2' : '\u25BC';
-
+        setSortedHeaderState(th as HTMLElement, ascending);
         currentSort = column;
         currentSortAsc = ascending;
+        syncModelStatsStateToUrl();
         render();
       });
     });
+
+    {
+      const params = new URLSearchParams(window.location.search);
+      const sortState = parseInternalsModelStatsSortState(params, sortTypes);
+      currentSort = sortState.column;
+      currentSortAsc = sortState.ascending;
+      selectedModelKey = parseInternalsModelStatsSelectedModelKey(params, modelKeys);
+      const sortHeader = document.querySelector(
+        `#stats-table th[data-sort="${sortState.column}"]`,
+      ) as HTMLElement | null;
+      if (!sortHeader) {
+        throw new Error(`Missing model-stats sort header for column: ${sortState.column}`);
+      }
+      setSortedHeaderState(sortHeader, sortState.ascending);
+      syncModelStatsStateToUrl();
+    }
 
     minEpochInput.addEventListener('input', render);
     searchInput.addEventListener('input', render);
@@ -1077,6 +1192,10 @@ if (fs.existsSync(exportsDir)) {
   <!-- Blunder Analysis chart -->
   <script>
     import { Chart, registerables } from 'chart.js';
+    import {
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
     Chart.register(...registerables);
 
     interface BlunderRun {
@@ -1130,13 +1249,18 @@ if (fs.existsSync(exportsDir)) {
     const blunderNote = document.getElementById('blunder-chart-note') as HTMLElement;
 
     function syncBlunderToUrl() {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (activeTabName !== 'blunder') return;
       const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'blunder');
       if (blunderMetric !== 'cacheRate') url.searchParams.set('bmetric', blunderMetric);
       else url.searchParams.delete('bmetric');
       if (blunderMinVersion !== 1) url.searchParams.set('bminVer', String(blunderMinVersion));
       else url.searchParams.delete('bminVer');
       history.replaceState(null, '', url.toString());
     }
+
+    ((window as any).__internalsTabUrlSyncHandlers as Partial<Record<InternalsTabName, () => void>>).blunder = syncBlunderToUrl;
 
     // Metric button switching
     document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(btn => {
@@ -1257,6 +1381,7 @@ if (fs.existsSync(exportsDir)) {
       }
     }
 
+    syncBlunderToUrl();
     updateBlunderChart();
   </script>
 </Base>

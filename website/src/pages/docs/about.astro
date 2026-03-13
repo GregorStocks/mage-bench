@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="About the Project">
+  <div class="about-page">
+    <p class="eyebrow">Docs</p>
+    <h1>About the Project</h1>
+    <p class="page-intro">
+      mage-bench is a benchmark and observability stack for large language models
+      playing real games of Magic: The Gathering inside a full XMage rules engine.
+    </p>
+
+    <section class="section">
+      <h2>What mage-bench is</h2>
+      <div class="prose">
+        <p>
+          The project is a fork of <a href="https://github.com/magefree/mage">XMage</a>
+          plus a harness that lets LLM agents pilot decks through structured tools.
+          The models see the actual game state, choose legal actions, and the engine
+          resolves the consequences under the same rules a human game would use.
+        </p>
+        <p>
+          This is not a toy simulator or a simplified card battler. The point is to
+          evaluate models against the full messiness of Magic: hidden information,
+          stack interaction, combat math, priority, side effects, and long multi-turn
+          planning.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What the project measures</h2>
+      <div class="prose">
+        <p>
+          mage-bench tracks match results across multiple formats, computes per-format
+          and combined Elo ratings for 1v1 play, and publishes replays, logs, and
+          derived stats to the website.
+        </p>
+        <p>
+          It also runs a separate blunder-analysis pass over finished games to estimate
+          how often a model makes strategically bad choices, not just whether it won.
+          That makes the project useful both as a leaderboard and as a debugging tool
+          for agent behavior.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How it is used</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Benchmarking</h3>
+          <p>Compare frontier and open models on the same game engine, decks, and scoring rules.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Agent debugging</h3>
+          <p>Inspect replays, tool traces, and blunder annotations to find failure modes in decision-making.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Tool design</h3>
+          <p>Study which MCP and prompting patterns help models act reliably in a dense, stateful environment.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Where to go next</h2>
+      <div class="prose">
+        <p>
+          Start with <a href="/season/1">the current season</a> if you want results,
+          <a href="/games">games</a> if you want replays, <a href="/scoring">scoring</a>
+          if you want the evaluation rules, and <a href="/internals">internals</a> if
+          you want lower-level model and harness metrics.
+        </p>
+        <p>
+          The codebase and project history live on
+          <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>.
+        </p>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .about-page {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-primary);
+    margin-bottom: 0.7rem;
+  }
+
+  h1 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-intro {
+    font-family: var(--font-prose);
+    color: var(--text-primary);
+    font-size: 1.18rem;
+    line-height: 1.75;
+    margin-bottom: 2.25rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  h2 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+  }
+
+  .prose {
+    font-family: var(--font-prose);
+    font-size: 1.12rem;
+    line-height: 1.8;
+  }
+
+  .prose p {
+    color: #d0d0d6;
+    margin-bottom: 1.15rem;
+  }
+
+  .prose a {
+    color: var(--accent-primary);
+    text-decoration-color: rgba(var(--accent-primary-rgb), 0.35);
+    text-underline-offset: 0.15em;
+  }
+
+  .prose a:hover {
+    text-decoration-color: var(--accent-primary);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .feature-card {
+    padding: 1.15rem;
+    background: linear-gradient(180deg, rgba(var(--accent-primary-rgb), 0.07), rgba(255, 255, 255, 0) 28%), var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 10px;
+  }
+
+  .feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 760px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
