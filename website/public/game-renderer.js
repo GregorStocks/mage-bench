@@ -152,8 +152,8 @@
     }
     // New format: has explicit source_card field
     if (cardObj && cardObj.source_card) {
-      var match = name.match(/^stack ability \((.+)\)$/);
-      var raw = match ? match[1] : (cardObj.ability_text || name);
+      var sourceMatch = name.match(/^stack ability \((.+)\)$/);
+      var raw = sourceMatch ? sourceMatch[1] : (cardObj.ability_text || name);
       return { isAbility: true, sourceCard: cardObj.source_card, abilityText: clean(raw, cardObj.source_card) };
     }
     // Live observer format: name = source card name, ability_text present
@@ -161,9 +161,9 @@
       return { isAbility: true, sourceCard: name, abilityText: clean(cardObj.ability_text, name) };
     }
     // Backward compat: parse from "stack ability (...)" name (old exports without source_card)
-    var match = name.match(/^stack ability \((.+)\)$/);
-    if (match) {
-      return { isAbility: true, sourceCard: null, abilityText: stripHtml(match[1]) };
+    var abilityMatch = name.match(/^stack ability \((.+)\)$/);
+    if (abilityMatch) {
+      return { isAbility: true, sourceCard: null, abilityText: stripHtml(abilityMatch[1]) };
     }
     return { isAbility: false };
   }
@@ -831,15 +831,15 @@
           applyDiffClasses(attEl, attName);
           group.appendChild(attEl);
         });
-        var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
-        el.classList.add("main-card");
-        applyDiffClasses(el, name);
-        group.appendChild(el);
+        var mainEl = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
+        mainEl.classList.add("main-card");
+        applyDiffClasses(mainEl, name);
+        group.appendChild(mainEl);
         container.appendChild(group);
       } else {
-        var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
-        applyDiffClasses(el, name);
-        container.appendChild(el);
+        var cardEl = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
+        applyDiffClasses(cardEl, name);
+        container.appendChild(cardEl);
       }
     }
 
@@ -1049,7 +1049,6 @@
       }
 
       // Zones
-      var zoneOpts = { cardImages: cardImages, previewEls: previewEls };
       var isCommander = opts.isCommander || false;
 
       var bfDiff = playerDiff ? {
@@ -1206,12 +1205,12 @@
       var newH = Math.max(minVisible * 2, maxHeight - (N - 1) * minVisible);
       var newW = Math.round(newH * 146 / 204);
       overlap = Math.max(0, newH - minVisible);
-      for (var i = 0; i < cards.length; i++) {
+      for (let i = 0; i < cards.length; i++) {
         cards[i].style.width = newW + "px";
         if (i > 0) cards[i].style.marginTop = "-" + overlap + "px";
       }
     } else {
-      for (var i = 1; i < cards.length; i++) {
+      for (let i = 1; i < cards.length; i++) {
         cards[i].style.marginTop = "-" + overlap + "px";
       }
     }
@@ -1423,9 +1422,9 @@
       var cc = currBag[name] || 0;
       var diff = cc - pc;
       if (diff > 0) {
-        for (var i = 0; i < diff; i++) entered.push(name);
+        for (let i = 0; i < diff; i++) entered.push(name);
       } else if (diff < 0) {
-        for (var i = 0; i < -diff; i++) {
+        for (let i = 0; i < -diff; i++) {
           var cardObj = prevCards.find(function (c) { return (c.name || "Unknown") === name; });
           left.push(cardObj || { name: name, tapped: false });
         }
@@ -1434,7 +1433,7 @@
         var minCount = Math.min(pc, cc);
         var pt = (prevTapped[name] || []).slice(0, minCount);
         var ct = (currTapped[name] || []).slice(0, minCount);
-        for (var i = 0; i < minCount; i++) {
+        for (let i = 0; i < minCount; i++) {
           if (pt[i] !== ct[i]) {
             tapChanged.push(name);
             break;
@@ -1702,14 +1701,14 @@
       var targetNames = (item.getAttribute("data-target-names") || "").split(",").filter(Boolean);
 
       if (targetIds.length > 0) {
-        for (var j = 0; j < targetIds.length; j++) {
-          var el = _findTargetElement(gameLeftEl, targetIds[j], targetNames[j] || "");
-          if (el) drawArrow(sourceThumb, el);
+        for (let j = 0; j < targetIds.length; j++) {
+          const targetEl = _findTargetElement(gameLeftEl, targetIds[j], targetNames[j] || "");
+          if (targetEl) drawArrow(sourceThumb, targetEl);
         }
       } else if (targetNames.length > 0) {
-        for (var j = 0; j < targetNames.length; j++) {
-          var el = _findTargetByName(gameLeftEl, targetNames[j]);
-          if (el) drawArrow(sourceThumb, el);
+        for (let j = 0; j < targetNames.length; j++) {
+          const targetEl = _findTargetByName(gameLeftEl, targetNames[j]);
+          if (targetEl) drawArrow(sourceThumb, targetEl);
         }
       }
     }

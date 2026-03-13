@@ -118,42 +118,42 @@ window.GameList = {
       }
 
       if (filters.format) {
-        var chip = document.createElement("span");
-        chip.className = "filter-chip";
-        chip.textContent = FORMAT_DISPLAY[filters.format] || filters.format;
-        var btn = document.createElement("button");
-        btn.className = "filter-chip-remove";
-        btn.innerHTML = "&times;";
-        btn.onclick = function () {
+        const formatChip = document.createElement("span");
+        formatChip.className = "filter-chip";
+        formatChip.textContent = FORMAT_DISPLAY[filters.format] || filters.format;
+        const formatBtn = document.createElement("button");
+        formatBtn.className = "filter-chip-remove";
+        formatBtn.innerHTML = "&times;";
+        formatBtn.onclick = function () {
           var f = getFilters();
           f.format = "";
           setFilters(f);
           renderAll();
         };
-        chip.appendChild(btn);
-        bar.appendChild(chip);
+        formatChip.appendChild(formatBtn);
+        bar.appendChild(formatChip);
       }
 
       if (filters.model) {
-        var chip = document.createElement("span");
-        chip.className = "filter-chip";
+        const modelChip = document.createElement("span");
+        modelChip.className = "filter-chip";
         var modelDisplay = filters.model;
         var slash = modelDisplay.indexOf("/");
         if (slash !== -1) modelDisplay = modelDisplay.substring(slash + 1);
         if (filters.effort) modelDisplay += " (" + filters.effort + ")";
-        chip.textContent = modelDisplay;
-        var btn = document.createElement("button");
-        btn.className = "filter-chip-remove";
-        btn.innerHTML = "&times;";
-        btn.onclick = function () {
+        modelChip.textContent = modelDisplay;
+        const modelBtn = document.createElement("button");
+        modelBtn.className = "filter-chip-remove";
+        modelBtn.innerHTML = "&times;";
+        modelBtn.onclick = function () {
           var f = getFilters();
           f.model = "";
           f.effort = "";
           setFilters(f);
           renderAll();
         };
-        chip.appendChild(btn);
-        bar.appendChild(chip);
+        modelChip.appendChild(modelBtn);
+        bar.appendChild(modelChip);
       }
 
       var activeFilterCount = (filters.model ? 1 : 0) + (filters.format ? 1 : 0) + (filters.season ? 1 : 0);

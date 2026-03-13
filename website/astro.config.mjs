@@ -82,7 +82,11 @@ function serveGzPlugin() {
           if (headers) {
             for (const [key, value] of Object.entries(headers)) {
               if (value !== undefined) {
-                try { res.setHeader(key, value); } catch {}
+                try {
+                  res.setHeader(key, value);
+                } catch {
+                  // Node rejects a few synthetic headers here; skip only those writes.
+                }
               }
             }
           }

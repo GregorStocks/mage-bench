@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "lint": "eslint \"src/**/*.{astro,ts}\" \"tests/**/*.js\" \"public/**/*.js\" \"*.{js,mjs,cjs}\"",
     "check": "astro check",
     "test": "vitest run"
   },
@@ -18,6 +19,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@eslint/js": "^10.0.1",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^10.0.3",
+    "eslint-plugin-astro": "^1.6.0",
+    "globals": "^17.4.0",
     "happy-dom": "^20.8.3",
     "json-schema-to-typescript": "^15.0.4",
     "markdownlint-cli2": "^0.21.0",

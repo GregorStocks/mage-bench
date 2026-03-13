@@ -444,7 +444,7 @@ if (fs.existsSync(exportsDir)) {
     type PerGameMetric = {
       label: string;
       unit: string;
-      compute: (p: PlayerRecord) => number | null;
+      compute: (_player: PlayerRecord) => number | null;
     };
 
     const METRICS: Record<string, PerGameMetric> = {
@@ -1098,7 +1098,7 @@ if (fs.existsSync(exportsDir)) {
     const BLUNDER_METRICS: Record<string, {
       label: string;
       unit: string;
-      compute: (r: BlunderRun) => number | null;
+      compute: (_run: BlunderRun) => number | null;
     }> = {
       cacheRate: {
         label: 'Cache Rate',

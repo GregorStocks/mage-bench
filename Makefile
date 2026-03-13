@@ -29,6 +29,10 @@ format:
 lint-md:
 	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && cd .. && website/node_modules/.bin/markdownlint-cli2
 
+.PHONY: lint-website
+lint-website:
+	cd website && npm install --prefer-offline --no-audit --no-fund && npm run lint
+
 .PHONY: astro-check
 astro-check:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npm run check

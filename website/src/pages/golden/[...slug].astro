@@ -665,7 +665,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     if (!str || typeof str !== "string") return str || "";
     try {
       return JSON.stringify(JSON.parse(str), null, 2);
-    } catch (e) {
+    } catch {
       return str;
     }
   }
@@ -699,7 +699,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
         }
       });
       return msgs;
-    } catch (ex) {
+    } catch {
       return [];
     }
   }
@@ -811,19 +811,19 @@ const scenarioTitle = slug.replace(/_/g, ' ');
 
         return div;
       } else if (hasToolResults) {
-        var div = document.createElement("div");
-        div.className = "llm-event llm-compact";
+        var compactDiv = document.createElement("div");
+        compactDiv.className = "llm-event llm-compact";
         var headerHtml = playerSpan(event.player);
         if (event.costUsd != null) {
           headerHtml += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + '</span>';
         }
-        var headerEl = document.createElement("span");
-        headerEl.innerHTML = headerHtml;
-        div.appendChild(headerEl);
+        var compactHeaderEl = document.createElement("span");
+        compactHeaderEl.innerHTML = headerHtml;
+        compactDiv.appendChild(compactHeaderEl);
         event.toolResults.forEach(function (tc) {
-          div.appendChild(renderToolResult(tc));
+          compactDiv.appendChild(renderToolResult(tc));
         });
-        return div;
+        return compactDiv;
       }
       return null;
     }
@@ -831,28 +831,28 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     if (type === "context_trim") return null;
 
     if (type === "system_message") {
-      var div = document.createElement("div");
-      div.className = "llm-event llm-system-message";
-      div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
-      return div;
+      var systemDiv = document.createElement("div");
+      systemDiv.className = "llm-event llm-system-message";
+      systemDiv.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+      return systemDiv;
     }
 
-    var div = document.createElement("div");
-    div.className = "llm-event llm-meta";
+    var metaDiv = document.createElement("div");
+    metaDiv.className = "llm-event llm-meta";
 
     if (type === "stall") {
-      div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+      metaDiv.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
     } else if (type === "llm_error") {
-      div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+      metaDiv.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
     } else if (type === "context_reset") {
-      div.textContent = event.player + " context reset: " + (event.reason || "");
+      metaDiv.textContent = event.player + " context reset: " + (event.reason || "");
     } else if (type === "auto_pilot_mode") {
-      div.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
+      metaDiv.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
     } else {
-      div.textContent = event.player + " " + type;
+      metaDiv.textContent = event.player + " " + type;
     }
 
-    return div;
+    return metaDiv;
   }
 
   function renderSnapshot(index) {
@@ -1023,13 +1023,13 @@ const scenarioTitle = slug.replace(/_/g, ' ');
         var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
         el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
       } else if (item.kind === "action") {
-        var a = item.data;
+        var action = item.data;
         el = document.createElement("div");
         el.className = "action-line";
-        if (a.seq > prevSeq) {
+        if (action.seq > prevSeq) {
           el.style.color = "#e0e0f0";
         }
-        el.innerHTML = colorizePlayerNames(a.message);
+        el.innerHTML = colorizePlayerNames(action.message);
       } else if (item.kind === "llm") {
         el = renderLlmEvent(item.data);
       } else if (item.kind === "turn-sep") {

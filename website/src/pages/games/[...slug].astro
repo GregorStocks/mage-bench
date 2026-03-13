@@ -22,7 +22,6 @@ export function getStaticPaths() {
   return [...slugs].map(s => ({ params: { slug: s } }));
 }
 
-const { slug } = Astro.params;
 ---
 
 <Base title="Game Replay" wide>
@@ -161,6 +160,10 @@ const { slug } = Astro.params;
 {auditMode && <script is:inline src="/audit-panel.js"></script>}
 <script is:inline define:vars={{ minBlunderVersion, auditMode }}>
   (function () {
+    var gameViewer = window.GameViewer;
+    if (!gameViewer) {
+      throw new Error("game-viewer.js did not initialize window.GameViewer");
+    }
     var slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
     if (!slug) {
       document.getElementById("loading").classList.add("hidden");
@@ -176,11 +179,7 @@ const { slug } = Astro.params;
     var viewerContainer = document.getElementById("viewer-container");
     var viewer = null;
 
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-    }
-
-    GameViewer.fetchGameData("", slug)
+    gameViewer.fetchGameData("", slug)
       .then(function (game) {
         if (!game.snapshots || game.snapshots.length === 0) {
           throw new Error("No snapshots in game data.");
@@ -286,7 +285,7 @@ const { slug } = Astro.params;
           }
         }
 
-        viewer = GameViewer.create(viewerContainer, game, {
+        viewer = gameViewer.create(viewerContainer, game, {
           initialSnapshot: initialSnapshot,
           onSnapshotChange: function (index) {
             var url = new URL(window.location);
@@ -300,9 +299,13 @@ const { slug } = Astro.params;
         });
 
         // Audit panel (when running with AUDIT_API_PORT)
-        if (auditMode && typeof AuditPanel !== "undefined") {
+        if (auditMode) {
+          var auditPanel = window.AuditPanel;
+          if (!auditPanel) {
+            throw new Error("audit-panel.js did not initialize window.AuditPanel");
+          }
           var auditContainer = document.getElementById("audit-container");
-          AuditPanel.create(auditContainer, viewer, slug, {
+          auditPanel.create(auditContainer, viewer, slug, {
             initialDecision: initialDecision,
             onDecisionChange: function (di) {
               var url = new URL(window.location);
