@@ -134,6 +134,11 @@ const tournamentSize = tournament?.size ?? 0;
 </script>
 
 <script>
+  import {
+    parseRankingsSortState,
+    syncRankingsSortStateToUrl,
+  } from '../../../utils/rankings-sort-state';
+
   const seasonNum = (window as any).__seasonNum;
   const tournamentSize: number = (window as any).__tournamentSize || 0;
   const table = document.getElementById('leaderboard-table') as HTMLTableElement | null;
@@ -141,11 +146,18 @@ const tournamentSize = tournament?.size ?? 0;
     // No data yet, nothing to make interactive
   } else {
   const headers = table.querySelectorAll('th[data-sort]');
+  const sortTypes = Object.fromEntries(
+    Array.from(headers, (th) => {
+      const el = th as HTMLElement;
+      return [el.dataset.sort!, el.dataset.type!];
+    }),
+  ) as Record<string, 'string' | 'number'>;
   const showInactiveCheckbox = document.getElementById('show-inactive') as HTMLInputElement;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
   let activeFormat = 'combined';
+  let suppressUrlSync = false;
 
   function getActiveTbody(): HTMLTableSectionElement {
     return table!.querySelector(`tbody[data-format="${activeFormat}"]`) as HTMLTableSectionElement;
@@ -187,6 +199,15 @@ const tournamentSize = tournament?.size ?? 0;
     return sortedHeader.dataset.sort === canonicalColumn && sortedHeader.classList.contains('desc');
   }
 
+  function getCurrentSortState() {
+    const sortedHeader = getSortedHeader();
+    if (!sortedHeader) return null;
+    return {
+      column: sortedHeader.dataset.sort!,
+      ascending: sortedHeader.classList.contains('asc'),
+    };
+  }
+
   function updateGamesLinks() {
     table!.querySelectorAll('tr[data-model-id]').forEach((row) => {
       const el = row as HTMLElement;
@@ -201,12 +222,17 @@ const tournamentSize = tournament?.size ?? 0;
     });
   }
 
-  function syncFiltersToUrl() {
+  function syncStateToUrl() {
+    if (suppressUrlSync) return;
     const url = new URL(window.location.href);
     if (activeFormat !== 'combined') url.searchParams.set('format', activeFormat);
     else url.searchParams.delete('format');
     if (showInactiveCheckbox.checked) url.searchParams.set('inactive', '1');
     else url.searchParams.delete('inactive');
+    const currentSort = getCurrentSortState();
+    if (currentSort) {
+      syncRankingsSortStateToUrl(url, currentSort, getActiveTbody().dataset.exhibition === 'true');
+    }
     history.replaceState(null, '', url.toString());
   }
 
@@ -244,7 +270,7 @@ const tournamentSize = tournament?.size ?? 0;
 
     updateGamesLinks();
     applyFilters();
-    syncFiltersToUrl();
+    syncStateToUrl();
   }
 
   // Format tab switching
@@ -294,6 +320,7 @@ const tournamentSize = tournament?.size ?? 0;
 
       applyActiveSort(el, ascending);
       updateRanks();
+      syncStateToUrl();
     });
   });
 
@@ -357,22 +384,35 @@ const tournamentSize = tournament?.size ?? 0;
 
   showInactiveCheckbox.addEventListener('change', () => {
     applyFilters();
-    syncFiltersToUrl();
+    syncStateToUrl();
   });
-  updateGamesLinks();
-  applyFilters();
 
   // On page load, apply format and inactive params
   {
-    const params = new URLSearchParams(window.location.search);
-    const formatParam = params.get('format');
-    if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
-      switchFormat(formatParam);
-    }
-    if (params.get('inactive') === '1') {
-      showInactiveCheckbox.checked = true;
+    suppressUrlSync = true;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const formatParam = params.get('format');
+      if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
+        switchFormat(formatParam);
+      }
+      if (params.get('inactive') === '1') {
+        showInactiveCheckbox.checked = true;
+      }
+
+      const sortState = parseRankingsSortState(
+        params,
+        getActiveTbody().dataset.exhibition === 'true',
+        sortTypes,
+      );
+      const sortHeader = table!.querySelector(`th[data-sort="${sortState.column}"]`) as HTMLElement;
+      applyActiveSort(sortHeader, sortState.ascending);
+      updateGamesLinks();
       applyFilters();
+    } finally {
+      suppressUrlSync = false;
     }
+    syncStateToUrl();
   }
 
   }

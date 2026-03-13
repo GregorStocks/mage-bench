@@ -1,0 +1,10 @@
+{
+  "title": "Persist internals model-stats sort state in the URL",
+  "description": "The model-stats table on `website/src/pages/internals.astro` supports interactive column sorting, but the selected sort column and direction are kept only in client memory. Reloading the page or sharing the URL loses that state.\n\nThis came up while fixing the same problem on the season rankings leaderboard. There is no shared enforcement today for the house rule that view state like tabs, filters, and sorts should be URL-addressable. The internals page still needs the same treatment so links remain reproducible and shareable.\n\nExpected behavior:\n- Selecting a model-stats sort writes query params for the column and direction.\n- Loading an `internals` URL with those params restores the same sort.\n- Invalid params are sanitized back to the page's default sort.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "internals"],
+  "created_at": "2026-03-12T17:21:12.368663-07:00",
+  "updated_at": "2026-03-12T17:21:12.368663-07:00"
+}
