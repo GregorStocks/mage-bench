@@ -134,6 +134,11 @@ const tournamentSize = tournament?.size ?? 0;
 </script>
 
 <script>
+  import {
+    parseRankingsSortState,
+    syncRankingsSortStateToUrl,
+  } from '../../../utils/rankings-sort-state';
+
   const seasonNum = (window as any).__seasonNum;
   const tournamentSize: number = (window as any).__tournamentSize || 0;
   const table = document.getElementById('leaderboard-table') as HTMLTableElement | null;
@@ -141,14 +146,66 @@ const tournamentSize = tournament?.size ?? 0;
     // No data yet, nothing to make interactive
   } else {
   const headers = table.querySelectorAll('th[data-sort]');
+  const sortTypes = Object.fromEntries(
+    Array.from(headers, (th) => {
+      const el = th as HTMLElement;
+      return [el.dataset.sort!, el.dataset.type!];
+    }),
+  ) as Record<string, 'string' | 'number'>;
   const showInactiveCheckbox = document.getElementById('show-inactive') as HTMLInputElement;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
   let activeFormat = 'combined';
+  let suppressUrlSync = false;
 
   function getActiveTbody(): HTMLTableSectionElement {
     return table!.querySelector(`tbody[data-format="${activeFormat}"]`) as HTMLTableSectionElement;
+  }
+
+  function getSortedHeader(): HTMLElement | null {
+    return table!.querySelector('th.sorted') as HTMLElement | null;
+  }
+
+  function setSortedHeaderState(th: HTMLElement, ascending: boolean) {
+    headers.forEach(h => {
+      h.classList.remove('sorted', 'asc', 'desc');
+      const arrow = h.querySelector('.sort-arrow');
+      if (arrow) arrow.textContent = '';
+    });
+
+    th.classList.add('sorted', ascending ? 'asc' : 'desc');
+    let arrow = th.querySelector('.sort-arrow');
+    if (!arrow) {
+      arrow = document.createElement('span');
+      arrow.className = 'sort-arrow';
+      th.appendChild(arrow);
+    }
+    arrow.textContent = ascending ? '\u25B2' : '\u25BC';
+  }
+
+  function applyActiveSort(th: HTMLElement, ascending: boolean) {
+    const column = th.dataset.sort!;
+    const type = th.dataset.type!;
+    setSortedHeaderState(th, ascending);
+    sortTable(column, type, ascending);
+  }
+
+  function isCanonicalSortActive(): boolean {
+    const sortedHeader = getSortedHeader();
+    if (!sortedHeader) return false;
+    const isExhibition = getActiveTbody().dataset.exhibition === 'true';
+    const canonicalColumn = isExhibition ? 'winRate' : 'rating';
+    return sortedHeader.dataset.sort === canonicalColumn && sortedHeader.classList.contains('desc');
+  }
+
+  function getCurrentSortState() {
+    const sortedHeader = getSortedHeader();
+    if (!sortedHeader) return null;
+    return {
+      column: sortedHeader.dataset.sort!,
+      ascending: sortedHeader.classList.contains('asc'),
+    };
   }
 
   function updateGamesLinks() {
@@ -165,12 +222,17 @@ const tournamentSize = tournament?.size ?? 0;
     });
   }
 
-  function syncFiltersToUrl() {
+  function syncStateToUrl() {
+    if (suppressUrlSync) return;
     const url = new URL(window.location.href);
     if (activeFormat !== 'combined') url.searchParams.set('format', activeFormat);
     else url.searchParams.delete('format');
     if (showInactiveCheckbox.checked) url.searchParams.set('inactive', '1');
     else url.searchParams.delete('inactive');
+    const currentSort = getCurrentSortState();
+    if (currentSort) {
+      syncRankingsSortStateToUrl(url, currentSort, getActiveTbody().dataset.exhibition === 'true');
+    }
     history.replaceState(null, '', url.toString());
   }
 
@@ -198,18 +260,17 @@ const tournamentSize = tournament?.size ?? 0;
     const isExhibition = newTbody?.dataset.exhibition === 'true';
     table!.classList.toggle('hide-rating-col', isExhibition);
 
-    // If sorted by rating and switching to exhibition, switch to winRate
-    if (isExhibition) {
-      const ratingTh = table!.querySelector('th[data-sort="rating"]');
-      if (ratingTh?.classList.contains('sorted')) {
-        const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
-        if (winRateTh) winRateTh.click();
-      }
+    const sortedHeader = getSortedHeader();
+    if (isExhibition && sortedHeader?.dataset.sort === 'rating') {
+      const winRateTh = table!.querySelector('th[data-sort="winRate"]') as HTMLElement;
+      applyActiveSort(winRateTh, false);
+    } else if (sortedHeader) {
+      applyActiveSort(sortedHeader, sortedHeader.classList.contains('asc'));
     }
 
     updateGamesLinks();
     applyFilters();
-    syncFiltersToUrl();
+    syncStateToUrl();
   }
 
   // Format tab switching
@@ -251,30 +312,15 @@ const tournamentSize = tournament?.size ?? 0;
   headers.forEach(th => {
     th.addEventListener('click', () => {
       const el = th as HTMLElement;
-      const column = el.dataset.sort!;
       const type = el.dataset.type!;
 
       const wasSorted = th.classList.contains('sorted');
       const wasAsc = th.classList.contains('asc');
       const ascending = wasSorted ? !wasAsc : (type === 'string');
 
-      headers.forEach(h => {
-        h.classList.remove('sorted', 'asc', 'desc');
-        const arrow = h.querySelector('.sort-arrow');
-        if (arrow) arrow.textContent = '';
-      });
-
-      th.classList.add('sorted', ascending ? 'asc' : 'desc');
-      let arrow = th.querySelector('.sort-arrow');
-      if (!arrow) {
-        arrow = document.createElement('span');
-        arrow.className = 'sort-arrow';
-        th.appendChild(arrow);
-      }
-      arrow.textContent = ascending ? '\u25B2' : '\u25BC';
-
-      sortTable(column, type, ascending);
+      applyActiveSort(el, ascending);
       updateRanks();
+      syncStateToUrl();
     });
   });
 
@@ -300,8 +346,10 @@ const tournamentSize = tournament?.size ?? 0;
   function updateRanks() {
     const tbody = getActiveTbody();
     if (!tbody) return;
+    const showRankingDecorations = isCanonicalSortActive();
+    table!.classList.toggle('canonical-sort', showRankingDecorations);
     let rank = 1;
-    const showCutoff = tournamentSize > 0 && activeFormat === 'combined';
+    const showCutoff = showRankingDecorations && tournamentSize > 0 && activeFormat === 'combined';
 
     // Remove any existing cutoff row
     tbody.querySelector('.cutoff-row')?.remove();
@@ -336,22 +384,35 @@ const tournamentSize = tournament?.size ?? 0;
 
   showInactiveCheckbox.addEventListener('change', () => {
     applyFilters();
-    syncFiltersToUrl();
+    syncStateToUrl();
   });
-  updateGamesLinks();
-  applyFilters();
 
   // On page load, apply format and inactive params
   {
-    const params = new URLSearchParams(window.location.search);
-    const formatParam = params.get('format');
-    if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
-      switchFormat(formatParam);
-    }
-    if (params.get('inactive') === '1') {
-      showInactiveCheckbox.checked = true;
+    suppressUrlSync = true;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const formatParam = params.get('format');
+      if (formatParam && table!.querySelector(`tbody[data-format="${formatParam}"]`)) {
+        switchFormat(formatParam);
+      }
+      if (params.get('inactive') === '1') {
+        showInactiveCheckbox.checked = true;
+      }
+
+      const sortState = parseRankingsSortState(
+        params,
+        getActiveTbody().dataset.exhibition === 'true',
+        sortTypes,
+      );
+      const sortHeader = table!.querySelector(`th[data-sort="${sortState.column}"]`) as HTMLElement;
+      applyActiveSort(sortHeader, sortState.ascending);
+      updateGamesLinks();
       applyFilters();
+    } finally {
+      suppressUrlSync = false;
     }
+    syncStateToUrl();
   }
 
   }
@@ -600,26 +661,26 @@ const tournamentSize = tournament?.size ?? 0;
   }
 
   /* Medal treatment for top 3 */
-  tbody tr[data-rank="1"] {
+  table.canonical-sort tbody tr[data-rank="1"] {
     background: linear-gradient(to right, rgba(255, 215, 0, 0.08), transparent 50%);
     box-shadow: inset 3px 0 0 #ffd700;
   }
 
-  tbody tr[data-rank="1"] .rank-cell { color: #ffd700; }
+  table.canonical-sort tbody tr[data-rank="1"] .rank-cell { color: #ffd700; }
 
-  tbody tr[data-rank="2"] {
+  table.canonical-sort tbody tr[data-rank="2"] {
     background: linear-gradient(to right, rgba(192, 192, 192, 0.06), transparent 50%);
     box-shadow: inset 3px 0 0 #c0c0c0;
   }
 
-  tbody tr[data-rank="2"] .rank-cell { color: #c0c0c0; }
+  table.canonical-sort tbody tr[data-rank="2"] .rank-cell { color: #c0c0c0; }
 
-  tbody tr[data-rank="3"] {
+  table.canonical-sort tbody tr[data-rank="3"] {
     background: linear-gradient(to right, rgba(205, 127, 50, 0.06), transparent 50%);
     box-shadow: inset 3px 0 0 #cd7f32;
   }
 
-  tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
+  table.canonical-sort tbody tr[data-rank="3"] .rank-cell { color: #cd7f32; }
 
   /* Championship cutoff divider */
   .cutoff-row td {
@@ -660,7 +721,11 @@ const tournamentSize = tournament?.size ?? 0;
     transition: background 0.15s, box-shadow 0.15s;
   }
 
-  tbody tr.stripe:not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
+  table.canonical-sort tbody tr.stripe:not([data-rank="1"]):not([data-rank="2"]):not([data-rank="3"]) {
+    background: rgba(22, 33, 62, 0.3);
+  }
+
+  table:not(.canonical-sort) tbody tr.stripe {
     background: rgba(22, 33, 62, 0.3);
   }
 

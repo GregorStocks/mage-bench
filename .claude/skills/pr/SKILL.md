@@ -33,6 +33,8 @@ Create a pull request for the current branch's changes.
 
 5. **Run `make check`** (lint, typecheck, tests). Fix any failures before proceeding. Do not create a PR with failing checks.
 
+   After validation, run `git status` again before pushing. Local test/build commands can dirty tracked files (for example `website/package-lock.json` metadata churn from npm). Commit intentional artifacts or clean incidental churn before you open the PR.
+
 6. **Write the PR title and body.** The PR description must explain **why** these changes exist, not just what they do. A reviewer can read the diff to see *what* changed — the PR body should tell them *why* it changed, what problem it solves, and any context they'd need to evaluate the approach.
 
    Bad (just restates the diff):
