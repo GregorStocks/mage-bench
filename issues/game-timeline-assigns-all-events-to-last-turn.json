@@ -1,0 +1,10 @@
+{
+  "title": "game_timeline assigns all events to the last turn",
+  "description": "The `scripts/analysis/game_timeline.py` helper is currently misleading even without `--turns` filtering. While fast-analyzing `game_20260309_162848`, the script printed the entire run with the prefix `T6 PRECOMBAT_MAIN (Opus Brewer)`, including the initial `=== GAME START ===`, mulligans, and early-turn actions.\n\nEvidence from local analysis on 2026-03-12:\n- `uv run python scripts/analysis/game_timeline.py website/public/games/game_20260309_162848.json` labeled the full output as `T6 PRECOMBAT_MAIN (Opus Brewer)`.\n- The existing fast-analysis skill note already documents that `find_turn_at_ts` breaks `--turns` filtering by mapping events to the last turn.\n- This run shows the same bug also contaminates the default unfiltered timeline, so analysts can misread which turn or player an event belongs to even when they avoid `--turns`.\n\nSuggested fix: make the timeline derive labels from the nearest preceding snapshot/decision context, or omit turn/phase labels when `find_turn_at_ts` cannot resolve them correctly instead of silently using the final turn.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["puppeteer"],
+  "created_at": "2026-03-12T21:05:32-07:00",
+  "updated_at": "2026-03-12T21:05:32-07:00"
+}
