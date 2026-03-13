@@ -222,6 +222,11 @@ if (fs.existsSync(exportsDir)) {
   <script>
     import { Chart, registerables } from 'chart.js';
     import {
+      isInternalsTabName,
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
+    import {
       parseInternalsTrendsModelFilterState,
       syncInternalsTrendsModelFilterStateToUrl,
     } from '../utils/internals-trends-model-filter-state';
@@ -238,18 +243,43 @@ if (fs.existsSync(exportsDir)) {
       document.getElementById(`tab-${tabName}`)!.classList.add('active');
     }
 
-    function syncTabToUrl(tabName: string) {
+    function getActiveTabName(): InternalsTabName {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (!activeTabName || !isInternalsTabName(activeTabName)) {
+        return 'trends';
+      }
+      return activeTabName;
+    }
+
+    const tabUrlSyncHandlers: Partial<Record<InternalsTabName, () => void>> = {
+      golden: () => {
+        const url = new URL(window.location.href);
+        syncInternalsTabToUrl(url, 'golden');
+        history.replaceState(null, '', url.toString());
+      },
+    };
+    (window as any).__internalsTabUrlSyncHandlers = tabUrlSyncHandlers;
+
+    function syncTabToUrl(tabName: InternalsTabName) {
       const url = new URL(window.location.href);
-      if (tabName !== 'trends') url.searchParams.set('tab', tabName);
-      else url.searchParams.delete('tab');
+      syncInternalsTabToUrl(url, tabName);
       history.replaceState(null, '', url.toString());
+    }
+
+    function syncActiveTabToUrl(tabName: InternalsTabName) {
+      const handler = tabUrlSyncHandlers[tabName];
+      if (handler) {
+        handler();
+        return;
+      }
+      syncTabToUrl(tabName);
     }
 
     document.querySelectorAll('.tab').forEach(btn => {
       btn.addEventListener('click', () => {
-        const target = btn.getAttribute('data-tab')!;
+        const target = btn.getAttribute('data-tab')! as InternalsTabName;
         switchTab(target);
-        syncTabToUrl(target);
+        syncActiveTabToUrl(target);
       });
     });
 
@@ -263,12 +293,12 @@ if (fs.existsSync(exportsDir)) {
       }
       // Legacy hash support
       const hash = location.hash.replace('#', '');
-      if (hash && document.querySelector(`.tab[data-tab="${hash}"]`)) {
+      if (isInternalsTabName(hash) && document.querySelector(`.tab[data-tab="${hash}"]`)) {
         switchTab(hash);
-        syncTabToUrl(hash);
       }
     }
     activateFromUrl();
+    syncTabToUrl(getActiveTabName());
     window.addEventListener('hashchange', activateFromUrl);
 
     // ─── Trend chart ───
@@ -792,7 +822,9 @@ if (fs.existsSync(exportsDir)) {
     }
 
     function syncTrendsToUrl() {
+      if (getActiveTabName() !== 'trends') return;
       const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'trends');
       if (currentMetric !== 'costPerGame') url.searchParams.set('metric', currentMetric);
       else url.searchParams.delete('metric');
       if (currentFormat !== 'all') url.searchParams.set('format', currentFormat);
@@ -810,6 +842,8 @@ if (fs.existsSync(exportsDir)) {
       url.searchParams.delete('smoothing');
       history.replaceState(null, '', url.toString());
     }
+
+    tabUrlSyncHandlers.trends = syncTrendsToUrl;
 
     {
       const params = new URLSearchParams(window.location.search);
@@ -857,6 +891,10 @@ if (fs.existsSync(exportsDir)) {
       parseInternalsModelStatsSortState,
       syncInternalsModelStatsSortStateToUrl,
     } from '../utils/internals-model-stats-sort-state';
+    import {
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
     import {
       parseInternalsModelStatsSelectedModelKey,
       syncInternalsModelStatsSelectedModelKeyToUrl,
@@ -1006,7 +1044,10 @@ if (fs.existsSync(exportsDir)) {
     }
 
     function syncModelStatsStateToUrl() {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (activeTabName !== 'model-stats') return;
       const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'model-stats');
       syncInternalsModelStatsSortStateToUrl(url, {
         column: currentSort,
         ascending: currentSortAsc,
@@ -1014,6 +1055,8 @@ if (fs.existsSync(exportsDir)) {
       syncInternalsModelStatsSelectedModelKeyToUrl(url, selectedModelKey);
       history.replaceState(null, '', url.toString());
     }
+
+    ((window as any).__internalsTabUrlSyncHandlers as Partial<Record<InternalsTabName, () => void>>)['model-stats'] = syncModelStatsStateToUrl;
 
     function render() {
       const minEpoch = parseInt(minEpochInput.value) || 1;
@@ -1149,6 +1192,10 @@ if (fs.existsSync(exportsDir)) {
   <!-- Blunder Analysis chart -->
   <script>
     import { Chart, registerables } from 'chart.js';
+    import {
+      syncInternalsTabToUrl,
+      type InternalsTabName,
+    } from '../utils/internals-tab-url-state';
     Chart.register(...registerables);
 
     interface BlunderRun {
@@ -1202,13 +1249,18 @@ if (fs.existsSync(exportsDir)) {
     const blunderNote = document.getElementById('blunder-chart-note') as HTMLElement;
 
     function syncBlunderToUrl() {
+      const activeTabName = (document.querySelector('.tab.active') as HTMLElement | null)?.dataset.tab;
+      if (activeTabName !== 'blunder') return;
       const url = new URL(window.location.href);
+      syncInternalsTabToUrl(url, 'blunder');
       if (blunderMetric !== 'cacheRate') url.searchParams.set('bmetric', blunderMetric);
       else url.searchParams.delete('bmetric');
       if (blunderMinVersion !== 1) url.searchParams.set('bminVer', String(blunderMinVersion));
       else url.searchParams.delete('bminVer');
       history.replaceState(null, '', url.toString());
     }
+
+    ((window as any).__internalsTabUrlSyncHandlers as Partial<Record<InternalsTabName, () => void>>).blunder = syncBlunderToUrl;
 
     // Metric button switching
     document.querySelectorAll('#blunder-metric-buttons .metric-btn').forEach(btn => {
@@ -1329,6 +1381,7 @@ if (fs.existsSync(exportsDir)) {
       }
     }
 
+    syncBlunderToUrl();
     updateBlunderChart();
   </script>
 </Base>
