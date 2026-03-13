@@ -184,7 +184,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=52 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat: Savannah Lions -> TestPlayer\n  Combat Phase: blockers\n  Incoming Attackers: Savannah Lions [id=p8, 2/1]\n  Message: Select blockers\n  Choices (1): Grizzly Bears [id=p16]\n  Respond: blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p12, land], Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land], Forest [id=p25, land], Forest [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -205,7 +205,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest] lib=52 bf=[Forest (tapped), Forest (tapped), Grizzly Bears 2/2 (sick)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat: Savannah Lions -> TestPlayer\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat Phase: declare_attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Grizzly Bears [id=p16], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -224,7 +224,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 18hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p12, land], Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land], Forest [id=p25, land], Forest [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat Phase: attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Grizzly Bears [id=p16], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -245,52 +245,7 @@
     ]
   },
   {
-    "content": {
-      "choices": [
-        {
-          "action": "land",
-          "id": "_",
-          "index": 0,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Forest"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 5,
-          "name": "Forest"
-        }
-      ],
-      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-      "error_code": "missing_param",
-      "game_seq": 86,
-      "retryable": true,
-      "success": false,
-      "warning": "Ignored attackers parameter (not in declare_attackers phase)"
-    },
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat: Grizzly Bears -> Opponent\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -309,7 +264,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - TestPlayer\n  Board: TestPlayer: 18hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat Phase: attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Grizzly Bears [id=p16], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - You\n  Board: TestPlayer: 20hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2 (tapped)] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1, Savannah Lions 2/1 (sick)]\n  Combat: Grizzly Bears blocked by Savannah Lions, Savannah Lions -> Opponent\n  Untapped lands: 2\n  Message: \n  Choices (0): \n  Respond: amounts=[N,N,...] — one per item, sum between total_min and total_max\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -333,29 +288,7 @@
     ]
   },
   {
-    "content": {
-      "choices": [
-        {
-          "choice_type": "attacker",
-          "id": "_",
-          "index": 0,
-          "name": "Grizzly Bears",
-          "power": 2,
-          "toughness": 2
-        },
-        {
-          "choice_type": "special",
-          "id": "all",
-          "index": 1,
-          "name": "All attack"
-        }
-      ],
-      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-      "error_code": "missing_param",
-      "game_seq": 88,
-      "retryable": true,
-      "success": false
-    },
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest] gy=[Grizzly Bears] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions, Savannah Lions]\n  Combat:  (blocked) -> Opponent\n  Untapped lands: 2\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -376,7 +309,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 COMBAT - You\n  Board: TestPlayer: 18hp hand=6 lib=51 bf=[Forest, Forest, Grizzly Bears 2/2] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains, Savannah Lions 2/1 (tapped), Savannah Lions 2/1 (sick)]\n  Combat Phase: attackers\n  Untapped lands: 2\n  Message: Select attackers\n  Choices (2): Grizzly Bears [id=p16], All attack [id=all]\n  Respond: attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Forest, Forest, Forest, Forest, Forest, Forest] lib=51 bf=[Forest, Forest] gy=[Grizzly Bears] | Opponent: 20hp hand=5 lib=51 bf=[Plains (tapped), Plains] gy=[Savannah Lions, Savannah Lions]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (6): Forest [id=p12, land], Forest [id=p13, land], Forest [id=p14, land], Forest [id=p15, land], Forest [id=p25, land], Forest [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -399,8 +332,8 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 88,
-      "phase": "Combat",
+      "game_seq": 103,
+      "phase": "Postcombat Main",
       "players": [
         {
           "battlefield": [
@@ -419,14 +352,12 @@
                 "{T}: Add {G}."
               ],
               "tapped": false
-            },
+            }
+          ],
+          "graveyard": [
             {
               "id": "_",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": false,
-              "toughness": 2
+              "name": "Grizzly Bears"
             }
           ],
           "hand": [
@@ -434,6 +365,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -442,6 +374,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -450,6 +383,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -458,6 +392,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -466,6 +401,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -474,6 +410,7 @@
               "id": "_",
               "is_land": true,
               "name": "Forest",
+              "playable": true,
               "rules": [
                 "{T}: Add {G}."
               ]
@@ -483,7 +420,7 @@
           "is_active": true,
           "is_you": true,
           "library_size": 51,
-          "life": 18,
+          "life": 20,
           "name": "TestPlayer"
         },
         {
@@ -503,22 +440,16 @@
                 "{T}: Add {W}."
               ],
               "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
             },
             {
               "id": "_",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "toughness": 1
-            },
-            {
-              "id": "_",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "toughness": 1
+              "name": "Savannah Lions"
             }
           ],
           "hand_size": 5,
@@ -531,7 +462,7 @@
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Declare Attackers",
+      "step": "Postcombat Main",
       "turn": 3
     },
     "role": "tool",

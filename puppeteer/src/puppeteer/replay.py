@@ -24,6 +24,8 @@ from puppeteer.log import get_logger, setup_logging
 from puppeteer.pilot import BoardCursorTracker, _render_context, _render_for_pilot, build_initial_message, execute_tool
 
 logger = get_logger(__name__)
+_ASSERT_ACTION_STEP = "assert_action"
+_ASSERT_ACTION_FIELDS = ("action_type", "response_type", "combat_phase", "stop_reason")
 
 
 def _load_default_system_prompt() -> str:
@@ -34,6 +36,55 @@ def _load_default_system_prompt() -> str:
 
 
 AsyncCallToolFn = Callable[[str, dict], Awaitable[str]]
+
+
+def _is_meta_script_step(step: dict) -> bool:
+    """Return True for replay-script steps that validate state instead of calling tools."""
+    return step.get("name") == _ASSERT_ACTION_STEP
+
+
+def _run_meta_script_step(step: dict, *, last_tool_name: str | None, last_result_text: str | None) -> None:
+    """Validate the latest tool result against an assertion-only script step."""
+    assert step.get("name") == _ASSERT_ACTION_STEP, f"Unknown meta script step: {step.get('name')!r}"
+    if last_result_text is None:
+        raise AssertionError("assert_action requires a preceding tool result")
+
+    try:
+        data = json.loads(last_result_text)
+    except (json.JSONDecodeError, TypeError) as exc:
+        raise AssertionError(
+            f"assert_action after {last_tool_name or '?'} requires a JSON object result, got: {last_result_text!r}"
+        ) from exc
+
+    if not isinstance(data, dict):
+        raise AssertionError(
+            f"assert_action after {last_tool_name or '?'} requires a JSON object result, got: {type(data).__name__}"
+        )
+    if not data.get("action_pending"):
+        raise AssertionError(
+            f"assert_action after {last_tool_name or '?'} expected action_pending=true, got: {last_result_text}"
+        )
+
+    arguments = dict(step.get("arguments", {}))
+    allowed = set(_ASSERT_ACTION_FIELDS) | {"message_contains"}
+    unknown = sorted(set(arguments) - allowed)
+    if unknown:
+        raise AssertionError(f"assert_action got unsupported arguments: {', '.join(unknown)}")
+
+    for field in _ASSERT_ACTION_FIELDS:
+        if field in arguments and data.get(field) != arguments[field]:
+            raise AssertionError(
+                f"assert_action after {last_tool_name or '?'} expected {field}={arguments[field]!r}, "
+                f"got {data.get(field)!r}"
+            )
+
+    if "message_contains" in arguments:
+        message = data.get("message")
+        expected = arguments["message_contains"]
+        if not isinstance(message, str) or expected not in message:
+            raise AssertionError(
+                f"assert_action after {last_tool_name or '?'} expected message containing {expected!r}, got {message!r}"
+            )
 
 
 async def execute_replay_script(
@@ -52,22 +103,32 @@ async def execute_replay_script(
     history: list[dict] = []
     board_tracker = BoardCursorTracker()
     last_board: list[dict] | None = None
+    last_result_text: str | None = None
+    last_tool_name: str | None = None
     seen_oracle_cards: set[str] = set()
+    tool_call_count = 0
 
     _RENDERED_TOOLS = frozenset({"pass_priority", "get_action_choices", "choose_action"})
 
-    for i, call in enumerate(script):
+    for call in script:
+        if _is_meta_script_step(call):
+            _run_meta_script_step(call, last_tool_name=last_tool_name, last_result_text=last_result_text)
+            continue
+
         name = call["name"]
         arguments = dict(call.get("arguments", {}))
+        tool_call_count += 1
         board_tracker.inject(name, arguments)
         result_text = await call_tool(name, arguments)
         board_tracker.extract(result_text)
+        last_tool_name = name
+        last_result_text = result_text
 
         if game_log:
             game_log.emit("tool_call", tool=name, arguments=arguments, result=result_text)
 
         # Build initial user message from first pass_priority result
-        if i == 0 and name == "pass_priority":
+        if tool_call_count == 1 and name == "pass_priority":
             try:
                 result_data = json.loads(result_text)
                 initial_message = build_initial_message(result_data)
@@ -82,7 +143,7 @@ async def execute_replay_script(
             display_text, last_board = _render_for_pilot(result_text, last_board, seen_oracle_cards)
 
         # Add assistant tool call + tool result to history
-        tool_call_id = f"call_{i + 1}"
+        tool_call_id = f"call_{tool_call_count}"
         history.append(
             {
                 "role": "assistant",
@@ -127,7 +188,7 @@ async def execute_replay_script(
         state_result = await call_tool("get_game_state", {})
         if game_log:
             game_log.emit("tool_call", tool="get_game_state", arguments={}, result=state_result)
-        state_call_id = f"call_{len(script) + 1}"
+        state_call_id = f"call_{tool_call_count + 1}"
         history.append(
             {
                 "role": "assistant",
@@ -155,7 +216,7 @@ async def execute_replay_script(
         history_result = await call_tool("get_game_history", {})
         if game_log:
             game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
-        history_call_id = f"call_{len(script) + 2}"
+        history_call_id = f"call_{tool_call_count + 2}"
         history.append(
             {
                 "role": "assistant",

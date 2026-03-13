@@ -36,7 +36,7 @@ from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
-from puppeteer.replay import execute_replay_script
+from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -63,6 +63,8 @@ class PhaseTiming:
 
 
 _all_timings: list[PhaseTiming] = []
+_OBJECT_ID_ATTR_RE = re.compile(r"""(object_id=)(['"])[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}\2""")
+_HTML_OBJECT_SUFFIX_RE = re.compile(r"(?<=</font> )\[[0-9a-fA-F]{3}\](?=,)")
 
 
 @contextmanager
@@ -675,8 +677,9 @@ def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
     ``_prefetch_first_action()``, so prompt goldens must drop that first
     scripted step to match production history exactly.
     """
-    assert script, "Golden pilot script must contain at least the initial pass_priority"
-    first = script[0]
+    tool_steps = [step for step in script if not _is_meta_script_step(step)]
+    assert tool_steps, "Golden pilot script must contain at least the initial pass_priority"
+    first = tool_steps[0]
     assert first.get("name") == "pass_priority", (
         "Golden pilot scripts must start with pass_priority so production prefetch can consume the opening decision."
     )
@@ -684,7 +687,7 @@ def _pilot_script_from_replay_script(script: list[dict]) -> list[dict]:
         "Golden pilot scripts must start with pass_priority({}) because the real "
         "pilot prefetch does not send arguments."
     )
-    return script[1:]
+    return tool_steps[1:]
 
 
 def _build_openai_tools_for_pilot(bridge: BridgeSession) -> list[dict]:
@@ -704,11 +707,15 @@ def _build_openai_tools_for_pilot(bridge: BridgeSession) -> list[dict]:
 class _AsyncBridgeSession:
     """Async adapter for the sync HTTP bridge wrapper used by golden tests."""
 
-    def __init__(self, bridge: BridgeSession) -> None:
+    def __init__(self, bridge: BridgeSession, execution_state: _ScriptedExecutionState | None = None) -> None:
         self._bridge = bridge
+        self._execution_state = execution_state
 
     async def call_tool(self, name: str, arguments: dict) -> SimpleNamespace:
         text = self._bridge.call_tool(name, arguments)
+        if self._execution_state is not None:
+            self._execution_state.last_tool_name = name
+            self._execution_state.last_result_text = text
         return SimpleNamespace(content=[SimpleNamespace(text=text)])
 
 
@@ -779,24 +786,51 @@ class _CapturedPilotRequest:
     post_script_messages: list[dict] | None = None
 
 
+@dataclasses.dataclass
+class _ScriptedExecutionState:
+    last_tool_name: str | None = None
+    last_result_text: str | None = None
+
+
 class _ScriptedChatCompletions:
-    def __init__(self, script: list[dict], capture: _CapturedPilotRequest) -> None:
+    def __init__(
+        self,
+        script: list[dict],
+        capture: _CapturedPilotRequest,
+        execution_state: _ScriptedExecutionState | None = None,
+    ) -> None:
         self._script = script
         self._capture = capture
+        self._execution_state = execution_state
+        self._step_index = 0
         self._call_index = 0
 
     async def create(self, **kwargs) -> _ScriptedResponse:
         self._capture.last_messages = json.loads(json.dumps(kwargs["messages"]))
-        self._call_index += 1
-        if self._call_index > len(self._script):
+        while self._step_index < len(self._script) and _is_meta_script_step(self._script[self._step_index]):
+            _run_meta_script_step(
+                self._script[self._step_index],
+                last_tool_name=self._execution_state.last_tool_name if self._execution_state else None,
+                last_result_text=self._execution_state.last_result_text if self._execution_state else None,
+            )
+            self._step_index += 1
+        if self._step_index >= len(self._script):
             self._capture.post_script_messages = self._capture.last_messages
             raise asyncio.CancelledError()
-        return _ScriptedResponse(self._script[self._call_index - 1], self._call_index)
+        self._call_index += 1
+        response = _ScriptedResponse(self._script[self._step_index], self._call_index)
+        self._step_index += 1
+        return response
 
 
 class _ScriptedOpenAIClient:
-    def __init__(self, script: list[dict], capture: _CapturedPilotRequest) -> None:
-        self.chat = SimpleNamespace(completions=_ScriptedChatCompletions(script, capture))
+    def __init__(
+        self,
+        script: list[dict],
+        capture: _CapturedPilotRequest,
+        execution_state: _ScriptedExecutionState | None = None,
+    ) -> None:
+        self.chat = SimpleNamespace(completions=_ScriptedChatCompletions(script, capture, execution_state))
 
 
 def _run_pilot_on_bridge(
@@ -817,8 +851,9 @@ def _run_pilot_on_bridge(
     tool_names = [tool["function"]["name"] for tool in openai_tools]
     pilot_script = _pilot_script_from_replay_script(script)
     capture = _CapturedPilotRequest()
-    client = _ScriptedOpenAIClient(pilot_script, capture)
-    session = _AsyncBridgeSession(bridge)
+    execution_state = _ScriptedExecutionState()
+    client = _ScriptedOpenAIClient(pilot_script, capture, execution_state)
+    session = _AsyncBridgeSession(bridge, execution_state)
 
     game_log = GameLogWriter(game_dir, player_name)
     game_log.__enter__()
@@ -1329,12 +1364,16 @@ def _normalize_embedded_json(obj: object) -> object:
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
-    if isinstance(obj, str) and obj.startswith(("{", "[")):
+    if isinstance(obj, str):
+        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2_\2", obj)
+        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[_]", normalized)
+        if not normalized.startswith(("{", "[")):
+            return normalized
         try:
-            parsed = json.loads(obj)
+            parsed = json.loads(normalized)
             return _normalize_embedded_json(parsed)
         except (json.JSONDecodeError, ValueError):
-            return obj
+            return normalized
     return obj
 
 

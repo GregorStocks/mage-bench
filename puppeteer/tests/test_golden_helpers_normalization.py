@@ -10,6 +10,7 @@ from tests.golden_helpers import (
     _normalize_prompt_for_golden,
     _pilot_script_from_replay_script,
     _ScriptedChatCompletions,
+    _ScriptedExecutionState,
     _strip_volatile,
 )
 
@@ -80,6 +81,19 @@ def test_normalize_embedded_json_handles_nested_json_strings():
     assert normalized["result"]["outer"] == {"id": "p9", "k": 2}
 
 
+def test_normalize_embedded_json_strips_object_id_uuid_from_strings():
+    payload = {
+        "description": (
+            "<font color='#F0E68C' object_id='12345678-1234-1234-1234-123456789abc'>"
+            "Savannah Lions</font> [7e2], P/T: 2/1"
+        )
+    }
+
+    normalized = _normalize_embedded_json(payload)
+
+    assert normalized["description"] == "<font color='#F0E68C' object_id='_'>Savannah Lions</font> [_], P/T: 2/1"
+
+
 def test_normalize_prompt_preserves_game_seq():
     payload = [{"content": '{"game_seq":77,"id":"p3","nested":{"game_seq":12}}'}]
 
@@ -106,6 +120,21 @@ def test_pilot_script_from_replay_script_requires_initial_plain_pass_priority():
         _pilot_script_from_replay_script([{"name": "pass_priority", "arguments": {"until": "my_turn"}}])
 
 
+def test_pilot_script_from_replay_script_filters_assert_action_steps():
+    script = [
+        {"name": "pass_priority", "arguments": {}},
+        {"name": "assert_action", "arguments": {"action_type": "GAME_SELECT"}},
+        {"name": "choose_action", "arguments": {"choice": "0"}},
+        {"name": "assert_action", "arguments": {"action_type": "GAME_ASK"}},
+        {"name": "get_game_state", "arguments": {}},
+    ]
+
+    assert _pilot_script_from_replay_script(script) == [
+        {"name": "choose_action", "arguments": {"choice": "0"}},
+        {"name": "get_game_state", "arguments": {}},
+    ]
+
+
 @pytest.mark.asyncio
 async def test_scripted_chat_completion_captures_terminal_request():
     capture = _CapturedPilotRequest()
@@ -124,6 +153,33 @@ async def test_scripted_chat_completion_captures_terminal_request():
 
     assert capture.last_messages == second_messages
     assert capture.post_script_messages == second_messages
+
+
+@pytest.mark.asyncio
+async def test_scripted_chat_completion_skips_assert_action_steps():
+    capture = _CapturedPilotRequest()
+    execution_state = _ScriptedExecutionState(
+        last_tool_name="pass_priority",
+        last_result_text=(
+            '{"action_pending": true, "action_type": "GAME_GET_MULTI_AMOUNT", "response_type": "multi_amount"}'
+        ),
+    )
+    completions = _ScriptedChatCompletions(
+        [
+            {
+                "name": "assert_action",
+                "arguments": {"action_type": "GAME_GET_MULTI_AMOUNT", "response_type": "multi_amount"},
+            },
+            {"name": "choose_action", "arguments": {"amounts": [1, 1]}},
+        ],
+        capture,
+        execution_state,
+    )
+
+    response = await completions.create(messages=[{"role": "user", "content": "before scripted tool call"}])
+
+    assert response.choices[0].message.tool_calls[0].function.name == "choose_action"
+    assert response.choices[0].message.tool_calls[0].function.arguments == '{"amounts": [1, 1]}'
 
 
 def test_strip_volatile_sorts_llm_events_by_seq_player():

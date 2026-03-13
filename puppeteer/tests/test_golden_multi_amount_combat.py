@@ -60,6 +60,10 @@ def test_multi_amount_combat(
             {"name": "choose_action", "arguments": {"attackers": "all"}},
             # Wait through blocking, then GAME_GET_MULTI_AMOUNT.
             {"name": "pass_priority", "arguments": {}},
+            {
+                "name": "assert_action",
+                "arguments": {"action_type": "GAME_GET_MULTI_AMOUNT", "response_type": "multi_amount"},
+            },
             {"name": "choose_action", "arguments": {"amounts": [1, 1]}},
             # Pass to postcombat main, capture final state.
             {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},
@@ -77,8 +81,13 @@ def test_multi_amount_combat(
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
+            # P2 T2: Explicitly skip the attack so P1 reaches the intended combat prompt on T3.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Wait for P1's T3 attack -> declare blockers.
             {"name": "pass_priority", "arguments": {}},
+            {"name": "assert_action", "arguments": {"message_contains": "Select blockers"}},
             # Block with both Savannah Lions against Grizzly Bears.
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},

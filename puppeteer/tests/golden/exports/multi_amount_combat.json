@@ -157,56 +157,92 @@
       "seq": 66
     },
     {
-      "message": "Opponent attacks TestPlayer with 1 creature",
-      "seq": 71
+      "message": "Opponent skip attack",
+      "seq": 70
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
-      "seq": 72,
+      "seq": 71,
       "step": "DECLARE_ATTACKERS",
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "message": "Attacker: Savannah Lions (2/1) unblocked",
-      "seq": 76
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "seq": 77,
-      "step": "DECLARE_BLOCKERS",
-      "turn": 4,
-      "type": "phase_change"
-    },
-    {
-      "message": "TestPlayer loses 2 life at combat from Savannah Lions",
+      "message": "TestPlayer attacks Opponent with 1 creature",
       "seq": 80
     },
     {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "seq": 81,
-      "step": "COMBAT_DAMAGE",
-      "turn": 4,
-      "type": "phase_change"
-    },
-    {
-      "message": "TestPlayer wants to concede",
-      "seq": 89
-    },
-    {
       "active_player": "TestPlayer",
-      "seq": 90,
+      "seq": 81,
       "turn": 5,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
-      "seq": 91,
+      "seq": 82,
       "step": "DECLARE_ATTACKERS",
+      "turn": 5,
+      "type": "phase_change"
+    },
+    {
+      "message": "Attacker: Grizzly Bears (2/2) blocked by Savannah Lions (2/1) Savannah Lions (2/1)",
+      "seq": 88
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 89,
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5,
+      "type": "phase_change"
+    },
+    {
+      "message": "Savannah Lions deals 2 damage to Grizzly Bears",
+      "seq": 93
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 94,
+      "step": "COMBAT_DAMAGE",
+      "turn": 5,
+      "type": "phase_change"
+    },
+    {
+      "message": "Savannah Lions deals 2 damage to Grizzly Bears",
+      "seq": 95
+    },
+    {
+      "message": "Grizzly Bears deals 1 damage to Savannah Lions",
+      "seq": 96
+    },
+    {
+      "message": "Grizzly Bears deals 1 damage to Savannah Lions",
+      "seq": 97
+    },
+    {
+      "message": "Savannah Lions died",
+      "seq": 98
+    },
+    {
+      "message": "Grizzly Bears died",
+      "seq": 99
+    },
+    {
+      "message": "Savannah Lions died",
+      "seq": 100
+    },
+    {
+      "message": "TestPlayer wants to concede",
+      "seq": 104
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "seq": 105,
+      "step": "POSTCOMBAT_MAIN",
       "turn": 5,
       "type": "phase_change"
     }
@@ -1091,7 +1127,7 @@
                 "rules": [
                   "{T}: Add {G}."
                 ],
-                "tapped": true
+                "tapped": false
               },
               {
                 "id": "p11",
@@ -1099,13 +1135,13 @@
                 "rules": [
                   "{T}: Add {G}."
                 ],
-                "tapped": true
+                "tapped": false
               },
               {
                 "id": "p16",
                 "name": "Grizzly Bears",
                 "power": "2",
-                "summoning_sick": true,
+                "summoning_sick": false,
                 "tapped": false,
                 "toughness": "2"
               }
@@ -1150,12 +1186,20 @@
                 "rules": [
                   "{T}: Add {G}."
                 ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
               }
             ],
-            "hand_size": 5,
-            "is_active": false,
+            "hand_size": 6,
+            "is_active": true,
             "is_you": true,
-            "library_size": 52,
+            "library_size": 51,
             "life": 20,
             "name": "TestPlayer"
           },
@@ -1182,7 +1226,7 @@
                 "name": "Savannah Lions",
                 "power": "2",
                 "summoning_sick": false,
-                "tapped": true,
+                "tapped": false,
                 "toughness": "1"
               },
               {
@@ -1195,46 +1239,78 @@
               }
             ],
             "hand_size": 5,
-            "is_active": true,
+            "is_active": false,
             "is_you": false,
             "library_size": 51,
             "life": 20,
             "name": "Opponent"
           }
         ],
-        "board_cursor": 8,
-        "combat": [
+        "board_cursor": 9,
+        "choices": [
           {
-            "attackers": [
-              {
-                "id": "p8",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              }
-            ],
-            "blocked": false,
-            "defending": "TestPlayer"
+            "choice_type": "attacker",
+            "id": "p16",
+            "index": 0,
+            "name": "Grizzly Bears",
+            "power": "2",
+            "toughness": "2"
+          },
+          {
+            "choice_type": "special",
+            "id": "all",
+            "index": 1,
+            "name": "All attack"
           }
         ],
-        "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 75,
-        "message": "Play instants and activated abilities",
-        "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "response_type": "boolean",
-        "success": true
+        "combat_phase": "declare_attackers",
+        "context": "T3 Combat/Declare Attackers (TestPlayer)",
+        "game_seq": 76,
+        "message": "Select attackers",
+        "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+        "response_type": "select",
+        "success": true,
+        "untapped_lands": 2
       },
-      "actionSeq": 75,
+      "actionSeq": 76,
       "actionType": "GAME_SELECT",
-      "choiceCount": 1,
+      "choiceCount": 6,
       "choices": [
         {
-          "choice_type": "blocker",
-          "id": "p16",
+          "action": "land",
+          "id": "p12",
           "index": 0,
-          "name": "Grizzly Bears",
-          "power": "2",
-          "toughness": "2"
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 1,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 2,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 3,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p25",
+          "index": 4,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 5,
+          "name": "Forest"
         }
       ],
       "chosen": false,
@@ -1248,32 +1324,48 @@
         19,
         20
       ],
-      "message": "Select blockers",
-      "phase": "COMBAT",
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
       "pilotContext": {
-        "combatPhase": "blockers",
-        "incomingAttackers": [
-          {
-            "id": "p8",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ]
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p25",
+          "p29"
+        ],
+        "untappedLands": 2
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 42,
-      "step": "DECLARE_BLOCKERS",
+      "snapshotIndex": 43,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
-      "turn": 4
+      "turn": 5
     },
     {
       "actionResult": {},
-      "actionSeq": 75,
+      "actionSeq": 76,
       "actionType": "GAME_SELECT",
-      "choiceCount": 0,
-      "choices": [],
+      "choiceCount": 2,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "p16",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
       "chosen": null,
       "chosenArgs": {},
       "index": 9,
@@ -1282,66 +1374,458 @@
         20,
         21
       ],
-      "message": "Play instants and activated abilities",
-      "phase": "COMBAT",
+      "message": "Select attackers",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "combatPhase": "declare_attackers",
+        "untappedLands": 2
+      },
       "player": "TestPlayer",
-      "responseType": "boolean",
-      "snapshotIndex": 42,
-      "step": "DECLARE_BLOCKERS",
-      "subsequentActions": [
-        "Attacker: Savannah Lions (2/1) unblocked",
-        "TestPlayer loses 2 life at combat from Savannah Lions"
-      ],
-      "turn": 4
+      "responseType": "select",
+      "snapshotIndex": 43,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 5
     },
     {
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_taken": "batch_attack",
+        "action_type": "GAME_SELECT",
+        "board": [
           {
-            "action": "land",
-            "id": "p12",
-            "index": 0,
-            "name": "Forest"
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p16",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": true,
+                "toughness": "2"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
           },
           {
-            "action": "land",
-            "id": "p13",
-            "index": 1,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p14",
-            "index": 2,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p15",
-            "index": 3,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p25",
-            "index": 4,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p29",
-            "index": 5,
-            "name": "Forest"
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p8",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
           }
         ],
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "game_seq": 86,
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)"
+        "board_cursor": 10,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "toughness": "2"
+              }
+            ],
+            "blocked": false,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T3 Combat/Declare Attackers (TestPlayer)",
+        "declared": [
+          {
+            "id": "all"
+          }
+        ],
+        "game_seq": 78,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 2
       },
-      "actionSeq": 86,
+      "actionSeq": 78,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "p16",
+          "index": 0,
+          "name": "Grizzly Bears",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": "all"
+      },
+      "index": 10,
+      "isForced": false,
+      "llmEventIndices": [
+        22,
+        23,
+        24
+      ],
+      "message": "Select attackers",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "combatPhase": "attackers",
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 45,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 78,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 11,
+      "isForced": false,
+      "llmEventIndices": [
+        24,
+        25
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 45,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [
+        "TestPlayer attacks Opponent with 1 creature",
+        "Attacker: Grizzly Bears (2/2) blocked by Savannah Lions (2/1) Savannah Lions (2/1)"
+      ],
+      "turn": 5
+    },
+    {
+      "actionResult": {
+        "action_pending": true,
+        "action_taken": "multi_amount",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p8",
+                "name": "Savannah Lions"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 11,
+        "combat": [
+          {
+            "attackers": [],
+            "blocked": true,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T3 Combat/Combat Damage (TestPlayer)",
+        "game_seq": 92,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 2
+      },
+      "actionSeq": 92,
+      "actionType": "GAME_GET_MULTI_AMOUNT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {
+        "amounts": [
+          1,
+          1
+        ]
+      },
+      "index": 12,
+      "isForced": true,
+      "llmEventIndices": [
+        26,
+        27,
+        28
+      ],
+      "message": "",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "multi_amount",
+      "snapshotIndex": 53,
+      "step": "COMBAT_DAMAGE",
+      "subsequentActions": [],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 92,
+      "actionType": "GAME_SELECT",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 13,
+      "isForced": false,
+      "llmEventIndices": [
+        28,
+        29
+      ],
+      "message": "Play instants and activated abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 53,
+      "step": "COMBAT_DAMAGE",
+      "subsequentActions": [
+        "Savannah Lions deals 2 damage to Grizzly Bears",
+        "Savannah Lions deals 2 damage to Grizzly Bears",
+        "Grizzly Bears deals 1 damage to Savannah Lions",
+        "Grizzly Bears deals 1 damage to Savannah Lions",
+        "Savannah Lions died"
+      ],
+      "turn": 5
+    },
+    {
+      "actionResult": {},
+      "actionSeq": 103,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -1383,18 +1867,15 @@
         }
       ],
       "chosen": null,
-      "chosenArgs": {
-        "attackers": "all"
-      },
-      "index": 10,
+      "chosenArgs": {},
+      "index": 14,
       "isForced": false,
       "llmEventIndices": [
-        22,
-        23,
-        24
+        30,
+        31
       ],
       "message": "Play spells and abilities",
-      "phase": "PRECOMBAT_MAIN",
+      "phase": "COMBAT",
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -1409,120 +1890,8 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 49,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
-      "turn": 5
-    },
-    {
-      "actionResult": {
-        "choices": [
-          {
-            "choice_type": "attacker",
-            "id": "p16",
-            "index": 0,
-            "name": "Grizzly Bears",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "choice_type": "special",
-            "id": "all",
-            "index": 1,
-            "name": "All attack"
-          }
-        ],
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "game_seq": 88,
-        "retryable": true,
-        "success": false
-      },
-      "actionSeq": 88,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "choice_type": "attacker",
-          "id": "p16",
-          "index": 0,
-          "name": "Grizzly Bears",
-          "power": "2",
-          "toughness": "2"
-        },
-        {
-          "choice_type": "special",
-          "id": "all",
-          "index": 1,
-          "name": "All attack"
-        }
-      ],
-      "chosen": null,
-      "chosenArgs": {
-        "amounts": [
-          1,
-          1
-        ]
-      },
-      "index": 11,
-      "isForced": false,
-      "llmEventIndices": [
-        26,
-        27,
-        28
-      ],
-      "message": "Select attackers",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "combatPhase": "attackers",
-        "untappedLands": 2
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 50,
-      "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
-      "turn": 5
-    },
-    {
-      "actionResult": {},
-      "actionSeq": 88,
-      "actionType": "GAME_SELECT",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "choice_type": "attacker",
-          "id": "p16",
-          "index": 0,
-          "name": "Grizzly Bears",
-          "power": "2",
-          "toughness": "2"
-        },
-        {
-          "choice_type": "special",
-          "id": "all",
-          "index": 1,
-          "name": "All attack"
-        }
-      ],
-      "chosen": null,
-      "chosenArgs": {},
-      "index": 12,
-      "isForced": false,
-      "llmEventIndices": [
-        30,
-        31
-      ],
-      "message": "Select attackers",
-      "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "combatPhase": "attackers",
-        "untappedLands": 2
-      },
-      "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 50,
-      "step": "PRECOMBAT_MAIN",
+      "snapshotIndex": 55,
+      "step": "COMBAT_DAMAGE",
       "subsequentActions": [
         "TestPlayer wants to concede"
       ],
@@ -1532,7 +1901,7 @@
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Opponent",
-    "seq": 92
+    "seq": 106
   },
   "gameType": "Two Player Duel",
   "harnessEpoch": 45,
@@ -2651,367 +3020,7 @@
       "args": {
         "board_cursor": 7
       },
-      "gameSeq": 75,
-      "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p11",
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Grizzly Bears",
-                "power": "2",
-                "summoning_sick": true,
-                "tapped": false,
-                "toughness": "2"
-              }
-            ],
-            "hand": [
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p25",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 52,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p3",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p4",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p8",
-                "name": "Savannah Lions",
-                "power": "2",
-                "summoning_sick": false,
-                "tapped": true,
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "name": "Savannah Lions",
-                "power": "2",
-                "summoning_sick": true,
-                "tapped": false,
-                "toughness": "1"
-              }
-            ],
-            "hand_size": 5,
-            "is_active": true,
-            "is_you": false,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 8,
-        "choices": [
-          {
-            "choice_type": "blocker",
-            "id": "p16",
-            "index": 0,
-            "name": "Grizzly Bears",
-            "power": "2",
-            "toughness": "2"
-          }
-        ],
-        "combat": [
-          {
-            "attackers": [
-              {
-                "id": "p8",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              }
-            ],
-            "blocked": false,
-            "defending": "TestPlayer"
-          }
-        ],
-        "combat_phase": "blockers",
-        "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 75,
-        "incoming_attackers": [
-          {
-            "id": "p8",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ],
-        "message": "Select blockers",
-        "respond_with": "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)",
-        "response_type": "select",
-        "stop_reason": "combat"
-      },
-      "seq": 19,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "costUsd": 0.0,
-      "gameSeq": 75,
-      "player": "TestPlayer",
-      "reasoning": null,
-      "seq": 20,
-      "toolCalls": [
-        {
-          "arguments": {
-            "choice": "no"
-          },
-          "name": "choose_action"
-        }
-      ],
-      "type": "llm_response"
-    },
-    {
-      "args": {
-        "choice": "no"
-      },
-      "gameSeq": 75,
-      "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
-        "action_taken": "passed_priority",
-        "action_type": "GAME_SELECT",
-        "board": [
-          {
-            "battlefield": [
-              {
-                "id": "p10",
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p11",
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p16",
-                "name": "Grizzly Bears",
-                "power": "2",
-                "summoning_sick": true,
-                "tapped": false,
-                "toughness": "2"
-              }
-            ],
-            "hand": [
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p25",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              }
-            ],
-            "hand_size": 5,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 52,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "battlefield": [
-              {
-                "id": "p3",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": true
-              },
-              {
-                "id": "p4",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p8",
-                "name": "Savannah Lions",
-                "power": "2",
-                "summoning_sick": false,
-                "tapped": true,
-                "toughness": "1"
-              },
-              {
-                "id": "p9",
-                "name": "Savannah Lions",
-                "power": "2",
-                "summoning_sick": true,
-                "tapped": false,
-                "toughness": "1"
-              }
-            ],
-            "hand_size": 5,
-            "is_active": true,
-            "is_you": false,
-            "library_size": 51,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "board_cursor": 8,
-        "combat": [
-          {
-            "attackers": [
-              {
-                "id": "p8",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              }
-            ],
-            "blocked": false,
-            "defending": "TestPlayer"
-          }
-        ],
-        "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 75,
-        "message": "Play instants and activated abilities",
-        "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "response_type": "boolean",
-        "success": true
-      },
-      "seq": 21,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "costUsd": 0.0,
-      "gameSeq": 75,
-      "player": "TestPlayer",
-      "reasoning": null,
-      "seq": 22,
-      "toolCalls": [
-        {
-          "arguments": {},
-          "name": "pass_priority"
-        }
-      ],
-      "type": "llm_response"
-    },
-    {
-      "args": {
-        "board_cursor": 8
-      },
-      "gameSeq": 86,
+      "gameSeq": 76,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3104,7 +3113,7 @@
             "is_active": true,
             "is_you": true,
             "library_size": 51,
-            "life": 18,
+            "life": 20,
             "name": "TestPlayer"
           },
           {
@@ -3130,7 +3139,7 @@
                 "name": "Savannah Lions",
                 "power": "2",
                 "summoning_sick": false,
-                "tapped": true,
+                "tapped": false,
                 "toughness": "1"
               },
               {
@@ -3150,7 +3159,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 9,
+        "board_cursor": 8,
         "choices": [
           {
             "action": "land",
@@ -3190,7 +3199,7 @@
           }
         ],
         "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 86,
+        "game_seq": 76,
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
@@ -3199,20 +3208,20 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
-      "seq": 23,
+      "seq": 19,
       "tool": "pass_priority",
       "type": "tool_call"
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 86,
+      "gameSeq": 76,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 24,
+      "seq": 20,
       "toolCalls": [
         {
           "arguments": {
-            "attackers": "all"
+            "choice": "no"
           },
           "name": "choose_action"
         }
@@ -3221,82 +3230,13 @@
     },
     {
       "args": {
-        "attackers": "all"
+        "choice": "no"
       },
-      "gameSeq": 86,
-      "player": "TestPlayer",
-      "result": {
-        "choices": [
-          {
-            "action": "land",
-            "id": "p12",
-            "index": 0,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p13",
-            "index": 1,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p14",
-            "index": 2,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p15",
-            "index": 3,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p25",
-            "index": 4,
-            "name": "Forest"
-          },
-          {
-            "action": "land",
-            "id": "p29",
-            "index": 5,
-            "name": "Forest"
-          }
-        ],
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "game_seq": 86,
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)"
-      },
-      "seq": 25,
-      "tool": "choose_action",
-      "type": "tool_call"
-    },
-    {
-      "costUsd": 0.0,
-      "gameSeq": 86,
-      "player": "TestPlayer",
-      "reasoning": null,
-      "seq": 26,
-      "toolCalls": [
-        {
-          "arguments": {},
-          "name": "pass_priority"
-        }
-      ],
-      "type": "llm_response"
-    },
-    {
-      "args": {
-        "board_cursor": 9
-      },
-      "gameSeq": 88,
+      "gameSeq": 76,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
+        "action_taken": "passed_priority",
         "action_type": "GAME_SELECT",
         "board": [
           {
@@ -3380,7 +3320,7 @@
             "is_active": true,
             "is_you": true,
             "library_size": 51,
-            "life": 18,
+            "life": 20,
             "name": "TestPlayer"
           },
           {
@@ -3406,7 +3346,7 @@
                 "name": "Savannah Lions",
                 "power": "2",
                 "summoning_sick": false,
-                "tapped": true,
+                "tapped": false,
                 "toughness": "1"
               },
               {
@@ -3426,7 +3366,7 @@
             "name": "Opponent"
           }
         ],
-        "board_cursor": 10,
+        "board_cursor": 9,
         "choices": [
           {
             "choice_type": "attacker",
@@ -3443,85 +3383,28 @@
             "name": "All attack"
           }
         ],
-        "combat_phase": "attackers",
+        "combat_phase": "declare_attackers",
         "context": "T3 Combat/Declare Attackers (TestPlayer)",
-        "game_seq": 88,
+        "game_seq": 76,
         "message": "Select attackers",
         "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
         "response_type": "select",
-        "stop_reason": "combat",
+        "success": true,
         "untapped_lands": 2
       },
-      "seq": 27,
-      "tool": "pass_priority",
-      "type": "tool_call"
-    },
-    {
-      "costUsd": 0.0,
-      "gameSeq": 88,
-      "player": "TestPlayer",
-      "reasoning": null,
-      "seq": 28,
-      "toolCalls": [
-        {
-          "arguments": {
-            "amounts": [
-              1,
-              1
-            ]
-          },
-          "name": "choose_action"
-        }
-      ],
-      "type": "llm_response"
-    },
-    {
-      "args": {
-        "amounts": [
-          1,
-          1
-        ]
-      },
-      "gameSeq": 88,
-      "player": "TestPlayer",
-      "result": {
-        "choices": [
-          {
-            "choice_type": "attacker",
-            "id": "p16",
-            "index": 0,
-            "name": "Grizzly Bears",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "choice_type": "special",
-            "id": "all",
-            "index": 1,
-            "name": "All attack"
-          }
-        ],
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "game_seq": 88,
-        "retryable": true,
-        "success": false
-      },
-      "seq": 29,
+      "seq": 21,
       "tool": "choose_action",
       "type": "tool_call"
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 88,
+      "gameSeq": 76,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 30,
+      "seq": 22,
       "toolCalls": [
         {
-          "arguments": {
-            "until": "postcombat_main"
-          },
+          "arguments": {},
           "name": "pass_priority"
         }
       ],
@@ -3529,15 +3412,14 @@
     },
     {
       "args": {
-        "board_cursor": 10,
-        "until": "postcombat_main"
+        "board_cursor": 9
       },
-      "gameSeq": 88,
+      "gameSeq": 78,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
         "action_type": "GAME_SELECT",
-        "board_cursor": 10,
+        "board_cursor": 9,
         "board_unchanged": true,
         "choices": [
           {
@@ -3557,42 +3439,44 @@
         ],
         "combat_phase": "attackers",
         "context": "T3 Combat/Declare Attackers (TestPlayer)",
-        "game_seq": 88,
+        "game_seq": 78,
         "message": "Select attackers",
         "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
         "response_type": "select",
         "stop_reason": "combat",
         "untapped_lands": 2
       },
-      "seq": 31,
+      "seq": 23,
       "tool": "pass_priority",
       "type": "tool_call"
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 88,
+      "gameSeq": 78,
       "player": "TestPlayer",
       "reasoning": null,
-      "seq": 32,
+      "seq": 24,
       "toolCalls": [
         {
-          "arguments": {},
-          "name": "get_game_state"
+          "arguments": {
+            "attackers": "all"
+          },
+          "name": "choose_action"
         }
       ],
       "type": "llm_response"
     },
     {
-      "args": {},
-      "gameSeq": 88,
+      "args": {
+        "attackers": "all"
+      },
+      "gameSeq": 78,
       "player": "TestPlayer",
       "result": {
-        "active_player": "TestPlayer",
-        "available": true,
-        "cursor": 1,
-        "game_seq": 88,
-        "phase": "Combat",
-        "players": [
+        "action_pending": true,
+        "action_taken": "batch_attack",
+        "action_type": "GAME_SELECT",
+        "board": [
           {
             "battlefield": [
               {
@@ -3616,7 +3500,7 @@
                 "name": "Grizzly Bears",
                 "power": "2",
                 "summoning_sick": false,
-                "tapped": false,
+                "tapped": true,
                 "toughness": "2"
               }
             ],
@@ -3674,7 +3558,7 @@
             "is_active": true,
             "is_you": true,
             "library_size": 51,
-            "life": 18,
+            "life": 20,
             "name": "TestPlayer"
           },
           {
@@ -3700,7 +3584,7 @@
                 "name": "Savannah Lions",
                 "power": "2",
                 "summoning_sick": false,
-                "tapped": true,
+                "tapped": false,
                 "toughness": "1"
               },
               {
@@ -3720,9 +3604,649 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 10,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "toughness": "2"
+              }
+            ],
+            "blocked": false,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T3 Combat/Declare Attackers (TestPlayer)",
+        "declared": [
+          {
+            "id": "all"
+          }
+        ],
+        "game_seq": 78,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 2
+      },
+      "seq": 25,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 78,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 26,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
+      "args": {
+        "board_cursor": 10
+      },
+      "gameSeq": 92,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_GET_MULTI_AMOUNT",
+        "board_cursor": 10,
+        "board_unchanged": true,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears",
+                "power": "2",
+                "toughness": "2"
+              }
+            ],
+            "blocked": true,
+            "blockers": [
+              {
+                "id": "p8",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T3 Combat/Combat Damage (TestPlayer)",
+        "game_seq": 92,
+        "items": [
+          {
+            "default": 1,
+            "description": "<font color='#F0E68C' object_id='_'>Savannah Lions</font> [_], P/T: 2/1",
+            "max": 2,
+            "min": 0
+          },
+          {
+            "default": 1,
+            "description": "<font color='#F0E68C' object_id='_'>Savannah Lions</font> [_], P/T: 2/1",
+            "max": 2,
+            "min": 0
+          }
+        ],
+        "message": "",
+        "respond_with": "amounts=[N,N,...] — one per item, sum between total_min and total_max",
+        "response_type": "multi_amount",
+        "stop_reason": "non_priority_action",
+        "total_max": 2,
+        "total_min": 2,
+        "untapped_lands": 2
+      },
+      "seq": 27,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 92,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 28,
+      "toolCalls": [
+        {
+          "arguments": {
+            "amounts": [
+              1,
+              1
+            ]
+          },
+          "name": "choose_action"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
+      "args": {
+        "amounts": [
+          1,
+          1
+        ]
+      },
+      "gameSeq": 92,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_taken": "multi_amount",
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p8",
+                "name": "Savannah Lions"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 11,
+        "combat": [
+          {
+            "attackers": [],
+            "blocked": true,
+            "defending": "Opponent"
+          }
+        ],
+        "context": "T3 Combat/Combat Damage (TestPlayer)",
+        "game_seq": 92,
+        "message": "Play instants and activated abilities",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "response_type": "boolean",
+        "success": true,
+        "untapped_lands": 2
+      },
+      "seq": 29,
+      "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 92,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 30,
+      "toolCalls": [
+        {
+          "arguments": {
+            "until": "postcombat_main"
+          },
+          "name": "pass_priority"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
+      "args": {
+        "board_cursor": 11,
+        "until": "postcombat_main"
+      },
+      "gameSeq": 103,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p8",
+                "name": "Savannah Lions"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "board_cursor": 12,
+        "choices": [
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 0,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 1,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 2,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 3,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p25",
+            "index": 4,
+            "name": "Forest"
+          },
+          {
+            "action": "land",
+            "id": "p29",
+            "index": 5,
+            "name": "Forest"
+          }
+        ],
+        "context": "T3 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "current_step": "Postcombat Main",
+        "game_seq": 103,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "response_type": "select",
+        "stop_reason": "reached_step",
+        "untapped_lands": 2
+      },
+      "seq": 31,
+      "tool": "pass_priority",
+      "type": "tool_call"
+    },
+    {
+      "costUsd": 0.0,
+      "gameSeq": 103,
+      "player": "TestPlayer",
+      "reasoning": null,
+      "seq": 32,
+      "toolCalls": [
+        {
+          "arguments": {},
+          "name": "get_game_state"
+        }
+      ],
+      "type": "llm_response"
+    },
+    {
+      "args": {},
+      "gameSeq": 103,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 103,
+        "phase": "Postcombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p16",
+                "name": "Grizzly Bears"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p25",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Forest",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p4",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p8",
+                "name": "Savannah Lions"
+              },
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
         "priority_player": "TestPlayer",
         "stack": [],
-        "step": "Declare Attackers",
+        "step": "Postcombat Main",
         "turn": 3
       },
       "seq": 33,
@@ -3734,8 +4258,8 @@
     {
       "deckName": "grizzly_bears",
       "name": "TestPlayer",
-      "toolCallsFailed": 2,
-      "toolCallsOk": 14,
+      "toolCallsFailed": 0,
+      "toolCallsOk": 16,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -9517,20 +10041,6 @@
     },
     {
       "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
       "phase": "COMBAT",
       "players": [
         {
@@ -9557,186 +10067,7 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 2
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 70,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
               "token": false,
               "toughness": 1
             },
@@ -9868,28 +10199,14 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 74,
+      "seq": 73,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 4
     },
     {
       "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
-      "phase": "COMBAT",
+      "phase": "POSTCOMBAT_MAIN",
       "players": [
         {
           "battlefield": [
@@ -9915,7 +10232,172 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
               "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 74,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
               "token": false,
               "toughness": 1
             },
@@ -10049,26 +10531,12 @@
       "priority_player": "TestPlayer",
       "seq": 75,
       "stack": [],
-      "step": "DECLARE_BLOCKERS",
+      "step": "POSTCOMBAT_MAIN",
       "turn": 4
     },
     {
-      "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
-      "phase": "COMBAT",
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [
@@ -10094,7 +10562,7 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false,
               "toughness": 1
             },
@@ -10159,15 +10627,15 @@
               "id": "p10",
               "name": "Forest",
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false
             },
             {
               "face_down": false,
               "id": "p11",
               "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
+              "summoning_sick": false,
+              "tapped": false,
               "token": false
             },
             {
@@ -10175,7 +10643,7 @@
               "id": "p16",
               "name": "Grizzly Bears",
               "power": 2,
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": false,
               "token": false,
               "toughness": 2
@@ -10218,35 +10686,200 @@
               "visible_to": [
                 "TestPlayer"
               ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
             }
           ],
-          "library_size": 52,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 76,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
           "life": 20,
           "name": "TestPlayer"
         }
       ],
       "priority_player": "Opponent",
-      "seq": 78,
+      "seq": 77,
       "stack": [],
-      "step": "DECLARE_BLOCKERS",
-      "turn": 4
+      "step": "PRECOMBAT_MAIN",
+      "turn": 5
     },
     {
-      "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
+      "active_player": "TestPlayer",
       "phase": "COMBAT",
       "players": [
         {
@@ -10273,7 +10906,7 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false,
               "toughness": 1
             },
@@ -10338,15 +10971,15 @@
               "id": "p10",
               "name": "Forest",
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false
             },
             {
               "face_down": false,
               "id": "p11",
               "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
+              "summoning_sick": false,
+              "tapped": false,
               "token": false
             },
             {
@@ -10354,7 +10987,7 @@
               "id": "p16",
               "name": "Grizzly Bears",
               "power": 2,
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": false,
               "token": false,
               "toughness": 2
@@ -10397,9 +11030,202 @@
               "visible_to": [
                 "TestPlayer"
               ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
             }
           ],
-          "library_size": 52,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 78,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
           "life": 20,
           "name": "TestPlayer"
         }
@@ -10407,23 +11233,23 @@
       "priority_player": "TestPlayer",
       "seq": 79,
       "stack": [],
-      "step": "DECLARE_BLOCKERS",
-      "turn": 4
+      "step": "DECLARE_ATTACKERS",
+      "turn": 5
     },
     {
-      "active_player": "Opponent",
+      "active_player": "TestPlayer",
       "combat": [
         {
           "attackers": [
             {
-              "id": "p8",
-              "name": "Savannah Lions",
+              "id": "p16",
+              "name": "Grizzly Bears",
               "power": 2,
-              "toughness": 1
+              "toughness": 2
             }
           ],
           "blockers": [],
-          "defender": "TestPlayer"
+          "defender": "Opponent"
         }
       ],
       "phase": "COMBAT",
@@ -10452,7 +11278,7 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false,
               "toughness": 1
             },
@@ -10517,15 +11343,15 @@
               "id": "p10",
               "name": "Forest",
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false
             },
             {
               "face_down": false,
               "id": "p11",
               "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
+              "summoning_sick": false,
+              "tapped": false,
               "token": false
             },
             {
@@ -10533,8 +11359,8 @@
               "id": "p16",
               "name": "Grizzly Bears",
               "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
+              "summoning_sick": false,
+              "tapped": true,
               "token": false,
               "toughness": 2
             }
@@ -10576,874 +11402,42 @@
               "visible_to": [
                 "TestPlayer"
               ]
-            }
-          ],
-          "library_size": 52,
-          "life": 18,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 82,
-      "stack": [],
-      "step": "COMBAT_DAMAGE",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "toughness": 1
-            }
-          ],
-          "blockers": [],
-          "defender": "TestPlayer"
-        }
-      ],
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
             },
             {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
+              "id": "p29",
+              "name": "Forest",
               "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
+                "TestPlayer"
               ]
             }
           ],
           "library_size": 51,
           "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 2
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 18,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 83,
-      "stack": [],
-      "step": "COMBAT_DAMAGE",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 2
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 18,
           "name": "TestPlayer"
         }
       ],
       "priority_player": "Opponent",
       "seq": 84,
       "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 2
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 18,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 85,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Grizzly Bears",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false,
-              "toughness": 2
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p29",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 18,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 86,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
+      "step": "DECLARE_ATTACKERS",
       "turn": 5
     },
     {
       "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
+      "combat": [
         {
-          "battlefield": [
+          "attackers": [
             {
-              "face_down": false,
-              "id": "p3",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p4",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p8",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false,
-              "toughness": 1
-            },
-            {
-              "face_down": false,
-              "id": "p9",
-              "name": "Savannah Lions",
-              "power": 2,
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false,
-              "toughness": 1
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p5",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p23",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p27",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
               "id": "p16",
               "name": "Grizzly Bears",
               "power": 2,
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false,
               "toughness": 2
             }
           ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p29",
-              "name": "Forest",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 18,
-          "name": "TestPlayer"
+          "blockers": [],
+          "defender": "Opponent"
         }
       ],
-      "priority_player": "Opponent",
-      "seq": 87,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
       "phase": "COMBAT",
       "players": [
         {
@@ -11470,7 +11464,7 @@
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false,
               "toughness": 1
             },
@@ -11552,23 +11546,1489 @@
               "name": "Grizzly Bears",
               "power": 2,
               "summoning_sick": false,
-              "tapped": false,
+              "tapped": true,
               "token": false,
               "toughness": 2
             }
           ],
           "exile": [],
           "graveyard": [],
-          "hand": [],
-          "library_size": 0,
-          "life": 18,
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 85,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 86,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 87,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 90,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 91,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "blockers": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p8",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            },
+            {
+              "face_down": false,
+              "id": "p9",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Grizzly Bears",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false,
+              "toughness": 2
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
           "name": "TestPlayer"
         }
       ],
       "priority_player": "TestPlayer",
       "seq": 92,
       "stack": [],
-      "step": "DECLARE_ATTACKERS",
+      "step": "COMBAT_DAMAGE",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions"
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 101,
+      "stack": [],
+      "step": "COMBAT_DAMAGE",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions"
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p16",
+              "name": "Grizzly Bears"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p29",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 102,
+      "stack": [],
+      "step": "COMBAT_DAMAGE",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p4",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p8",
+              "name": "Savannah Lions"
+            },
+            {
+              "id": "p9",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 106,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
       "turn": 5
     }
   ],
