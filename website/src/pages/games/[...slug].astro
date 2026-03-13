@@ -2,29 +2,26 @@
 import Base from '../../layouts/Base.astro';
 import GameReplayView from '../../components/GameReplayView.astro';
 import benchmarkData from '../../data/benchmark-results.json';
-import fs from 'node:fs';
-import path from 'node:path';
+import type { GameEntry } from '../../utils/load-games';
+import { loadAllGames } from '../../utils/load-games';
+
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 const auditMode = !!process.env.AUDIT_API_PORT;
 
-export function getStaticPaths() {
-  const gamesDir = path.join(process.cwd(), 'public', 'games');
-  if (!fs.existsSync(gamesDir)) {
-    return [];
-  }
-  const slugs = new Set<string>();
-  for (const f of fs.readdirSync(gamesDir)) {
-    if (f.startsWith('game_') && f.endsWith('.json') && !f.endsWith('.json.gz')) {
-      slugs.add(f.replace('.json', ''));
-    } else if (f.startsWith('game_') && f.endsWith('.json.gz')) {
-      slugs.add(f.replace('.json.gz', ''));
-    }
-  }
-  return [...slugs].map(s => ({ params: { slug: s } }));
+interface Props {
+  game: GameEntry;
 }
 
+export function getStaticPaths() {
+  return loadAllGames().map((game) => ({
+    params: { slug: game.id },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props as Props;
 ---
 
-<Base title="Game Replay" wide>
-  <GameReplayView minBlunderVersion={minBlunderVersion} auditMode={auditMode} />
+<Base title={game.replayTitle} wide>
+  <GameReplayView game={game} minBlunderVersion={minBlunderVersion} auditMode={auditMode} />
 </Base>

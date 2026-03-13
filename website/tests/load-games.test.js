@@ -64,7 +64,56 @@ describe("loadAllGames", () => {
   it("loads normalized v7 exports", async () => {
     clearGamesCache();
     mockGameFiles({
-      "game_20260301_120000.json": JSON.stringify(makeV7Export()),
+      "game_20260301_120000.json": JSON.stringify(
+        makeV7Export({
+          players: [
+            {
+              name: "Alice",
+              type: "pilot",
+              deckName: "Azorius Control",
+              toolCallsOk: 3,
+              toolCallsFailed: 1,
+              thinkingTimeSecs: 12.5,
+            },
+            {
+              name: "Bob",
+              type: "pilot",
+              commander: "Omnath, Locus of Creation",
+              toolCallsOk: 4,
+              toolCallsFailed: 0,
+              thinkingTimeSecs: 9.5,
+            },
+          ],
+          annotations: [
+            {
+              snapshotIndex: 1,
+              player: "Alice",
+              type: "blunder",
+              severity: "major",
+              description: "Missed lethal",
+              actionTaken: "Passed",
+              betterLine: "Attack",
+            },
+            {
+              snapshotIndex: 2,
+              player: "Bob",
+              type: "blunder",
+              severity: "minor",
+              description: "Tapped land suboptimally",
+              actionTaken: "Cast spell",
+              betterLine: "Use different land",
+            },
+          ],
+          errors: [
+            {
+              ts: "00:00:03",
+              player: "Alice",
+              source: "pilot",
+              message: "Tool call failed",
+            },
+          ],
+        }),
+      ),
     });
 
     const { loadAllGames } = await import("../src/utils/load-games.ts");
@@ -74,6 +123,26 @@ describe("loadAllGames", () => {
     expect(games[0].season).toBe(1);
     expect(games[0].players[0].toolCallsOk).toBe(3);
     expect(games[0].players[0].thinkingTimeSecs).toBe(12.5);
+    expect(games[0].replayTitle).toBe(
+      "Alice (Azorius Control) vs Bob (Omnath, Locus of Creation)",
+    );
+    expect(games[0].replayBlunderSummary).toEqual({
+      total: 2,
+      counts: {
+        questionable: 0,
+        minor: 1,
+        moderate: 0,
+        major: 1,
+      },
+    });
+    expect(games[0].errors).toEqual([
+      {
+        ts: "00:00:03",
+        player: "Alice",
+        source: "pilot",
+        message: "Tool call failed",
+      },
+    ]);
   });
 
   it("rejects exports missing normalized player stats", async () => {

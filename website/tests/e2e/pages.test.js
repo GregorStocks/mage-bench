@@ -1,7 +1,13 @@
 import { test, expect, describe } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
+import zlib from "node:zlib";
 import { loadLatestCompletedTournament } from "../../src/utils/season-data.ts";
+import {
+  buildReplayTitle,
+  formatReplayBlunderSummary,
+  summarizeReplayBlunders,
+} from "../../src/utils/replay-metadata.ts";
 
 const distDir = path.join(process.cwd(), "dist");
 
@@ -11,6 +17,29 @@ function readPage(pagePath) {
     ? path.join(distDir, "index.html")
     : path.join(distDir, pagePath, "index.html");
   return fs.readFileSync(filePath, "utf-8");
+}
+
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function readGameExport(slug) {
+  const publicGamesDir = path.join(process.cwd(), "public", "games");
+  const jsonPath = path.join(publicGamesDir, `${slug}.json`);
+  if (fs.existsSync(jsonPath)) {
+    return JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+  }
+
+  const gzPath = path.join(publicGamesDir, `${slug}.json.gz`);
+  if (fs.existsSync(gzPath)) {
+    return JSON.parse(zlib.gunzipSync(fs.readFileSync(gzPath)).toString("utf-8"));
+  }
+
+  throw new Error(`Missing game export for ${slug}`);
 }
 
 describe("static build exists", () => {
@@ -114,7 +143,43 @@ describe("game pages", () => {
     expect(html).toContain('id="viewer-container"');
     expect(html).toContain('id="game-replay-config"');
     expect(html).toContain("/_astro/");
-    expect(html).toContain("Game Replay");
+    expect(html).not.toContain('<div id="game-title"></div>');
+  });
+
+  test("first game page server-renders replay metadata", () => {
+    const gamesDir = path.join(distDir, "games");
+    const entries = fs.readdirSync(gamesDir, { withFileTypes: true });
+    const gameDirs = entries
+      .filter((e) => e.isDirectory() && e.name.startsWith("game_"))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    const firstGame = gameDirs[0].name;
+    const html = readPage(`games/${firstGame}`);
+    const game = readGameExport(firstGame);
+    const replayTitle = buildReplayTitle(game.players);
+    const escapedReplayTitle = escapeHtml(replayTitle);
+
+    expect(html).toContain(`<title>${escapedReplayTitle} | mage-bench</title>`);
+    expect(html).toContain(escapedReplayTitle);
+    expect(html).toContain(`Season ${game.season}`);
+
+    if (game.youtubeUrl) {
+      expect(html).toContain("Watch on YouTube");
+    }
+
+    const blunderSummary = summarizeReplayBlunders(game.annotations);
+    if (blunderSummary != null) {
+      expect(html).toContain(formatReplayBlunderSummary(blunderSummary));
+    }
+
+    if (game.errors && game.errors.length > 0) {
+      expect(html).toContain(
+        `${game.errors.length} critical error${game.errors.length === 1 ? "" : "s"}`,
+      );
+    }
+
+    if (game.season === 0) {
+      expect(html).toContain("This is a Season 0 game.");
+    }
   });
 
   test("first game JSON has turns", () => {

@@ -10,21 +10,13 @@ function readConfig() {
   return JSON.parse(configEl.textContent || "null");
 }
 
-function parseHttpUrl(rawUrl, fieldName) {
-  const parsed = new URL(rawUrl, window.location.origin);
-  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-    throw new Error(fieldName + " must use http or https, got " + parsed.protocol);
-  }
-  return parsed.toString();
-}
-
 export async function initGameReplayPage(options) {
   const visualizer = options && options.root ? options.root : document.getElementById("visualizer");
   if (!visualizer) {
     return;
   }
 
-  const { minBlunderVersion, auditMode } = readConfig();
+  const { auditMode } = readConfig();
   if (auditMode) {
     await import("./audit-panel.js");
   }
@@ -37,9 +29,6 @@ export async function initGameReplayPage(options) {
   const slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
   const loadingEl = getRequiredElement(visualizer, "#loading");
   const errorEl = getRequiredElement(visualizer, "#error");
-  const gameUI = getRequiredElement(visualizer, "#game-ui");
-  const gameTitleEl = getRequiredElement(visualizer, "#game-title");
-  const gameHeaderEl = getRequiredElement(visualizer, "#game-header");
   const viewerContainer = getRequiredElement(visualizer, "#viewer-container");
   if (!slug) {
     loadingEl.classList.add("hidden");
@@ -55,76 +44,7 @@ export async function initGameReplayPage(options) {
       }
 
       loadingEl.classList.add("hidden");
-      gameUI.classList.remove("hidden");
-
-      var playerNames = (game.players || []).map(function (p) {
-        var deck = p.deckName || p.commander || "";
-        return deck ? p.name + " (" + deck + ")" : p.name;
-      }).join(" vs ");
-      gameTitleEl.textContent = playerNames;
-
-      if (game.youtubeUrl) {
-        var ytLink = getRequiredElement(visualizer, "#youtube-link");
-        var ytUrl = getRequiredElement(visualizer, "#youtube-url");
-        ytUrl.href = parseHttpUrl(game.youtubeUrl, "youtubeUrl");
-        ytLink.classList.remove("hidden");
-      }
-
-      if (game.annotations && game.annotations.length > 0) {
-        var counts = { questionable: 0, minor: 0, moderate: 0, major: 0 };
-        game.annotations.forEach(function (a) { counts[a.severity] = (counts[a.severity] || 0) + 1; });
-        var summaryEl = document.createElement("div");
-        summaryEl.id = "blunder-summary";
-        var parts = [];
-        if (counts.major > 0) parts.push(counts.major + " major");
-        if (counts.moderate > 0) parts.push(counts.moderate + " moderate");
-        if (counts.minor > 0) parts.push(counts.minor + " minor");
-        if (counts.questionable > 0) parts.push(counts.questionable + " questionable");
-        var gameBlunderVersion = game.blunderScriptVersion || 1;
-        var isOldBlunderAnalysis = gameBlunderVersion < minBlunderVersion;
-        summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "");
-        if (isOldBlunderAnalysis) {
-          var oldTag = document.createElement("span");
-          oldTag.className = "old-analysis-tag";
-          oldTag.textContent = "(older analysis)";
-          oldTag.title = "Analyzed with blunder script v" + gameBlunderVersion + " (min: v" + minBlunderVersion + ")";
-          summaryEl.appendChild(document.createTextNode(" "));
-          summaryEl.appendChild(oldTag);
-        }
-        gameHeaderEl.appendChild(summaryEl);
-      }
-
-      if (game.errors && game.errors.length > 0) {
-        var errorSummaryEl = document.createElement("details");
-        errorSummaryEl.id = "error-summary";
-        var errorSummaryText = document.createElement("summary");
-        errorSummaryText.textContent = game.errors.length + " critical error" + (game.errors.length !== 1 ? "s" : "");
-        errorSummaryEl.appendChild(errorSummaryText);
-        var errorList = document.createElement("ul");
-        errorList.className = "error-list";
-        game.errors.forEach(function (err) {
-          var li = document.createElement("li");
-          var text = "[" + (err.ts || "?") + "] [" + (err.source || "?") + "] " + (err.player || "?") + ": " + (err.message || "?");
-          li.textContent = text;
-          errorList.appendChild(li);
-        });
-        errorSummaryEl.appendChild(errorList);
-        gameHeaderEl.appendChild(errorSummaryEl);
-      }
-
-      var gameSeason = game.season != null ? game.season : 0;
-      var seasonEl = document.createElement("div");
-      seasonEl.id = "season-info";
-      seasonEl.textContent = "Season " + gameSeason;
-      gameHeaderEl.appendChild(seasonEl);
-      if (gameSeason === 0) {
-        var seasonBanner = document.createElement("div");
-        seasonBanner.id = "season-banner";
-        seasonBanner.textContent =
-          "This is a Season 0 game. MCP tools and priority semantics have changed" +
-          " since this game was played, so its results are excluded from Season 1 ratings.";
-        gameHeaderEl.after(seasonBanner);
-      }
+      viewerContainer.classList.remove("hidden");
 
       var params = new URLSearchParams(window.location.search);
       var startSnap = params.get("s");

@@ -1,5 +1,6 @@
 ---
 import type { GameEntry } from "../utils/load-games";
+import { safeHttpUrl } from "../utils/safe-http-url";
 
 interface Props {
   game: GameEntry;
@@ -64,14 +65,6 @@ function formatGameTimestamp(timestamp: string): string {
 function displayModelName(model: string): string {
   const slash = model.indexOf("/");
   return slash === -1 ? model : model.substring(slash + 1);
-}
-
-function safeHttpUrl(rawUrl: string): string {
-  const parsed = new URL(rawUrl);
-  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-    throw new Error(`youtubeUrl must use http or https, got ${parsed.protocol}`);
-  }
-  return parsed.toString();
 }
 
 const formatKey = getGameFormat(game.deckType);

@@ -3,29 +3,80 @@ import '../styles/game-renderer.css';
 import '../styles/game-viewer.css';
 import '../styles/game-header.css';
 import '../styles/audit-panel.css';
+import type { GameEntry } from '../utils/load-games';
+import { safeHttpUrl } from '../utils/safe-http-url';
+import {
+  formatReplayBlunderSummary,
+  normalizedBlunderScriptVersion,
+} from '../utils/replay-metadata';
 
 interface Props {
+  game: GameEntry;
   minBlunderVersion: number;
   auditMode: boolean;
 }
 
-const { minBlunderVersion, auditMode } = Astro.props;
-const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g, '\\u003c');
+const { game, minBlunderVersion, auditMode } = Astro.props as Props;
+const configJson = JSON.stringify({ auditMode }).replace(/</g, '\\u003c');
+
+const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
+const blunderSummary = game.replayBlunderSummary
+  ? formatReplayBlunderSummary(game.replayBlunderSummary)
+  : null;
+const blunderScriptVersion = normalizedBlunderScriptVersion(game.blunderScriptVersion);
+const isOldBlunderAnalysis =
+  game.replayBlunderSummary != null && blunderScriptVersion < minBlunderVersion;
 ---
 
 <div id="visualizer" data-spectator-mode="replay">
-  <div id="loading">Loading game data...</div>
   <div id="error" class="hidden"></div>
 
-  <div id="game-ui" class="hidden">
+  <div id="game-ui">
     <div id="game-header">
-      <div id="game-title"></div>
-      <div id="youtube-link" class="hidden">
-        <a id="youtube-url" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
-      </div>
+      <div id="game-title">{game.replayTitle}</div>
+      {youtubeUrl && (
+        <div id="youtube-link">
+          <a id="youtube-url" href={youtubeUrl} target="_blank" rel="noopener">Watch on YouTube</a>
+        </div>
+      )}
+      {blunderSummary && (
+        <div id="blunder-summary">
+          {blunderSummary}
+          {isOldBlunderAnalysis && (
+            <>
+              {' '}
+              <span
+                class="old-analysis-tag"
+                title={`Analyzed with blunder script v${blunderScriptVersion} (min: v${minBlunderVersion})`}
+              >
+                (older analysis)
+              </span>
+            </>
+          )}
+        </div>
+      )}
+      {game.errors.length > 0 && (
+        <details id="error-summary">
+          <summary>{game.errors.length} critical error{game.errors.length === 1 ? '' : 's'}</summary>
+          <ul class="error-list">
+            {game.errors.map((error) => (
+              <li>[{error.ts || '?'}] [{error.source || '?'}] {error.player || '?'}: {error.message || '?'}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+      <div id="season-info">Season {game.season}</div>
     </div>
 
-    <div id="viewer-container"></div>
+    {game.season === 0 && (
+      <div id="season-banner">
+        This is a Season 0 game. MCP tools and priority semantics have changed since this
+        game was played, so its results are excluded from Season 1 ratings.
+      </div>
+    )}
+
+    <div id="loading">Loading game data...</div>
+    <div id="viewer-container" class="hidden"></div>
     {auditMode && <div id="audit-container"></div>}
   </div>
 </div>
@@ -48,7 +99,7 @@ const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g
 
   #loading, #error {
     text-align: center;
-    padding: 4rem 0;
+    padding: 1rem 0 2rem;
     color: var(--text-muted);
   }
 
@@ -69,37 +120,6 @@ const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g
   #youtube-link a:hover {
     background: #e94560;
     color: #fff;
-  }
-
-  #blunder-summary {
-    font-size: 0.8rem;
-    color: #e94560;
-    white-space: nowrap;
-  }
-
-  .old-analysis-tag {
-    font-size: 0.7rem;
-    color: #888;
-    font-style: italic;
-  }
-
-  #error-summary {
-    font-size: 0.8rem;
-    color: #e67e22;
-    cursor: pointer;
-  }
-
-  .error-list {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    padding-left: 1.2rem;
-    margin-top: 0.3rem;
-  }
-
-  .error-link {
-    color: #e67e22;
-    text-decoration: underline;
-    cursor: pointer;
   }
 
   #season-info {

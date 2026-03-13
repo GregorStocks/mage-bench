@@ -9,6 +9,8 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 
 import type { GameExportV7 } from '../types/game-export';
+import type { ReplayBlunderSummary } from './replay-metadata';
+import { buildReplayTitle, summarizeReplayBlunders } from './replay-metadata';
 
 export interface GameEntry {
   id: string;
@@ -23,6 +25,9 @@ export interface GameEntry {
   youtubeUrl?: string;
   blunderScoreByPlayer?: Record<string, number>;
   blunderScriptVersion?: number | null;
+  replayTitle: string;
+  replayBlunderSummary: ReplayBlunderSummary | null;
+  errors: NonNullable<GameExportV7['errors']>;
 }
 
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
@@ -104,6 +109,9 @@ function scanGames(): GameEntry[] {
       deckType: data.deckType,
       harnessEpoch: data.harnessEpoch,
       season: data.season,
+      replayTitle: buildReplayTitle(players),
+      replayBlunderSummary: summarizeReplayBlunders(data.annotations),
+      errors: data.errors ?? [],
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     if (data.tournament) entry.tournament = data.tournament;
