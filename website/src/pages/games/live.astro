@@ -155,7 +155,6 @@ import Base from '../../layouts/Base.astro';
     var statusEl = document.getElementById("connection-status");
     var gameUI = document.getElementById("game-ui");
     var turnInfoEl = document.getElementById("turn-info");
-    var gameTitleEl = document.getElementById("game-title");
     var playersGrid = document.getElementById("players-grid");
     var stackSection = document.getElementById("stack-section");
     var stackCards = document.getElementById("stack-cards");
@@ -214,17 +213,17 @@ import Base from '../../layouts/Base.astro';
     function appendEvent(evt) {
       if (evt.type !== "player_chat" && SPAM_RE.test(evt.message || "")) return;
       if (evt.type === "player_chat") {
-        var line = document.createElement("div");
-        line.className = "chat-line";
+        var chatLine = document.createElement("div");
+        chatLine.className = "chat-line";
         var fromIdx = playerColorMap[evt.from];
         var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
-        line.innerHTML = '<span class="chat-from ' + fromCls + '">' + escapeHtml(evt.from || "") + ':</span> ' + escapeHtml(evt.message || "");
-        logList.appendChild(line);
+        chatLine.innerHTML = '<span class="chat-from ' + fromCls + '">' + escapeHtml(evt.from || "") + ':</span> ' + escapeHtml(evt.message || "");
+        logList.appendChild(chatLine);
       } else {
-        var line = document.createElement("div");
-        line.className = "action-line";
-        line.innerHTML = colorizePlayerNames(evt.message || "");
-        logList.appendChild(line);
+        var actionLine = document.createElement("div");
+        actionLine.className = "action-line";
+        actionLine.innerHTML = colorizePlayerNames(evt.message || "");
+        logList.appendChild(actionLine);
       }
     }
 
@@ -349,7 +348,7 @@ import Base from '../../layouts/Base.astro';
         // Stack
         R.renderStack(stackSection, stackCards, state.stack, {}, previewEls);
 
-      } catch (err) {
+      } catch {
         statusEl.textContent = "Cannot reach game server at " + apiBase + " — retrying...";
         statusEl.classList.add("error");
         statusEl.classList.remove("hidden");

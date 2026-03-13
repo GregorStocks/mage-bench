@@ -110,7 +110,11 @@ const games = loadAllGames().filter(g => !g.tournament);
 
 <script is:inline src="/game-list.js"></script>
 <script is:inline define:vars={{ games, minBlunderVersion }}>
-  GameList.init({
+  var gameList = window.GameList;
+  if (!gameList) {
+    throw new Error("game-list.js did not initialize window.GameList");
+  }
+  gameList.init({
     games: games,
     minBlunderVersion: minBlunderVersion,
     showSeasonFilter: true,

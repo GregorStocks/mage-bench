@@ -12,7 +12,7 @@
 
   var R = (typeof root !== "undefined" && root !== null) ? root.GameRenderer : null;
   if (!R && typeof require !== "undefined") {
-    try { R = require("./game-renderer.js"); } catch (e) { /* ok in test */ }
+    try { R = require("./game-renderer.js"); } catch { /* ok in test */ }
   }
 
   // ── Helpers ──
@@ -39,26 +39,9 @@
     if (!str || typeof str !== "string") return str || "";
     try {
       return JSON.stringify(JSON.parse(str), null, 2);
-    } catch (e) {
+    } catch {
       return str;
     }
-  }
-
-  function formatTimestamp(ts) {
-    if (!ts) return null;
-    var match = ts.match(/T(\d{2}:\d{2}:\d{2})(\.\d+)?/);
-    if (!match) return null;
-    return { display: match[1], full: match[1] + (match[2] || "") };
-  }
-
-  function makeTimestampEl(ts) {
-    var parsed = formatTimestamp(ts);
-    if (!parsed) return null;
-    var span = document.createElement("span");
-    span.className = "entry-ts";
-    span.textContent = parsed.display;
-    span.title = parsed.full;
-    return span;
   }
 
   // ── Decision display ──
@@ -132,7 +115,7 @@
     if (chosenArgs.blockers) {
       var blockers = chosenArgs.blockers;
       if (typeof blockers === "string") {
-        try { blockers = JSON.parse(blockers); } catch (e) {
+        try { blockers = JSON.parse(blockers); } catch {
           blockers = blockers.split(",").map(function (s) { return s.trim(); });
         }
       }
@@ -222,7 +205,7 @@
         }
       });
       return msgs;
-    } catch (ex) {
+    } catch {
       return [];
     }
   }
@@ -559,18 +542,18 @@
 
           return div;
         } else if (hasToolResults) {
-          var div = document.createElement("div");
-          div.className = "llm-event llm-compact";
+          var compactDiv = document.createElement("div");
+          compactDiv.className = "llm-event llm-compact";
           var headerHtml = playerSpan(event.player);
-          var headerEl = document.createElement("span");
-          headerEl.innerHTML = headerHtml;
-          div.appendChild(headerEl);
+          var compactHeaderEl = document.createElement("span");
+          compactHeaderEl.innerHTML = headerHtml;
+          compactDiv.appendChild(compactHeaderEl);
           var hasVisible = false;
           event.toolResults.forEach(function (tc) {
-            var el = renderToolResult(tc); if (el) { div.appendChild(el); hasVisible = true; }
+            var el = renderToolResult(tc); if (el) { compactDiv.appendChild(el); hasVisible = true; }
           });
           if (!hasVisible) return null;
-          return div;
+          return compactDiv;
         }
         return null;
       }
@@ -578,15 +561,15 @@
       if (type === "context_trim") return null;
 
       if (type === "system_message") {
-        var div = document.createElement("div");
-        div.className = "llm-event llm-system-message";
-        div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
-        return div;
+        var systemDiv = document.createElement("div");
+        systemDiv.className = "llm-event llm-system-message";
+        systemDiv.innerHTML = '<span class="log-badge badge-llm">llm</span>' + playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+        return systemDiv;
       }
 
-      var div = document.createElement("div");
-      div.className = "llm-event llm-meta";
-      var metaText = "";
+      var metaDiv = document.createElement("div");
+      metaDiv.className = "llm-event llm-meta";
+      var metaText;
 
       if (type === "stall") {
         metaText = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
@@ -600,8 +583,8 @@
         metaText = event.player + " " + type;
       }
 
-      div.innerHTML = '<span class="log-badge badge-llm">llm</span>' + escapeHtml(metaText);
-      return div;
+      metaDiv.innerHTML = '<span class="log-badge badge-llm">llm</span>' + escapeHtml(metaText);
+      return metaDiv;
     }
 
     function renderAnnotation(ann) {
@@ -954,13 +937,13 @@
           var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
           el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
         } else if (item.kind === "action") {
-          var a = item.data;
+          var action = item.data;
           el = document.createElement("div");
           el.className = "action-line";
-          if (a.seq > prevSeq) {
+          if (action.seq > prevSeq) {
             el.style.color = "#e0e0f0";
           }
-          el.innerHTML = '<span class="log-badge badge-game">game</span>' + colorizePlayerNames(a.message);
+          el.innerHTML = '<span class="log-badge badge-game">game</span>' + colorizePlayerNames(action.message);
         } else if (item.kind === "llm") {
           el = renderLlmEvent(item.data);
         } else if (item.kind === "annotation") {
@@ -1236,25 +1219,25 @@
       if (e.key === "Escape") { R.hidePreview(dom.previewEls); }
       if (e.key === "[") {
         e.preventDefault();
-        for (var i = turnStartIndices.length - 1; i >= 0; i--) {
+        for (let i = turnStartIndices.length - 1; i >= 0; i--) {
           if (turnStartIndices[i].index < currentIndex) { goTo(turnStartIndices[i].index); break; }
         }
       }
       if (e.key === "]") {
         e.preventDefault();
-        for (var i = 0; i < turnStartIndices.length; i++) {
+        for (let i = 0; i < turnStartIndices.length; i++) {
           if (turnStartIndices[i].index > currentIndex) { goTo(turnStartIndices[i].index); break; }
         }
       }
       if (e.key === "{") {
         e.preventDefault();
-        for (var i = decisionSnapshotIndices.length - 1; i >= 0; i--) {
+        for (let i = decisionSnapshotIndices.length - 1; i >= 0; i--) {
           if (decisionSnapshotIndices[i] < currentIndex) { goTo(decisionSnapshotIndices[i]); break; }
         }
       }
       if (e.key === "}") {
         e.preventDefault();
-        for (var i = 0; i < decisionSnapshotIndices.length; i++) {
+        for (let i = 0; i < decisionSnapshotIndices.length; i++) {
           if (decisionSnapshotIndices[i] > currentIndex) { goTo(decisionSnapshotIndices[i]); break; }
         }
       }

@@ -118,7 +118,6 @@
     // ── Show/hide ──
 
     function show() { dom.panel.classList.remove("audit-hidden"); }
-    function hide() { dom.panel.classList.add("audit-hidden"); }
 
     function setVerdictEnabled(enabled) {
       dom.verdictButtons.forEach(function (b) { b.disabled = !enabled; });
