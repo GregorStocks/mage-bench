@@ -1,13 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import benchmarkData from '../data/benchmark-results.json';
-import seasonData from '../data/season.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+import { loadLatestCompletedTournament, loadSeasonState } from '../utils/season-data';
 
-const currentSeason = (seasonData as any).current_season;
-const seasonPhase = (seasonData as any).phase;
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) {
+    throw new Error(message);
+  }
+}
+
+const { currentSeason, phase: seasonPhase } = loadSeasonState();
 const PHASE_LABELS: Record<string, string> = {
   'regular-season': 'Regular Season',
   tournament: 'Tournament',
@@ -32,20 +37,34 @@ const FORMAT_DISPLAY: Record<string, string> = {
   jumpstart: "Jumpstart",
 };
 
-// Season 1 championship data
-const tournamentPath = path.join(process.cwd(), '..', 'data', 'tournaments', 'season-1.json');
-const tournament = JSON.parse(fs.readFileSync(tournamentPath, 'utf-8'));
-const entrantsBySeed: Record<number, any> = {};
-for (const e of tournament.entrants) {
-  entrantsBySeed[e.seed] = e;
+const latestCompletedTournament = loadLatestCompletedTournament();
+let championSeason: number | null = null;
+let champion: any = null;
+let runnerUp: any = null;
+let champWins = 0;
+let runnerUpWins = 0;
+
+if (latestCompletedTournament != null) {
+  championSeason = latestCompletedTournament.season;
+  const entrantsBySeed: Record<number, any> = {};
+  for (const entrant of latestCompletedTournament.tournament.entrants) {
+    entrantsBySeed[entrant.seed] = entrant;
+  }
+
+  const finalsRound =
+    latestCompletedTournament.tournament.rounds[latestCompletedTournament.tournament.rounds.length - 1];
+  assert(finalsRound != null, `Season ${championSeason} tournament is missing a finals round`);
+  const finalsMatch = finalsRound.matches[0];
+  assert(finalsMatch != null, `Season ${championSeason} tournament finals are missing the championship match`);
+  champion = entrantsBySeed[finalsMatch.winner_seed];
+  assert(champion != null, `Season ${championSeason} tournament is missing the recorded champion entrant`);
+  const runnerUpSeed =
+    finalsMatch.seed_a === finalsMatch.winner_seed ? finalsMatch.seed_b : finalsMatch.seed_a;
+  runnerUp = entrantsBySeed[runnerUpSeed];
+  assert(runnerUp != null, `Season ${championSeason} tournament is missing the finals runner-up entrant`);
+  champWins = finalsMatch.games.filter((game: any) => game.winner_seed === finalsMatch.winner_seed).length;
+  runnerUpWins = finalsMatch.games.filter((game: any) => game.winner_seed === runnerUpSeed).length;
 }
-const finalsRound = tournament.rounds[tournament.rounds.length - 1];
-const finalsMatch = finalsRound.matches[0];
-const champion = entrantsBySeed[finalsMatch.winner_seed];
-const runnerUpSeed = finalsMatch.seed_a === finalsMatch.winner_seed ? finalsMatch.seed_b : finalsMatch.seed_a;
-const runnerUp = entrantsBySeed[runnerUpSeed];
-const champWins = finalsMatch.games.filter((g: any) => g.winner_seed === finalsMatch.winner_seed).length;
-const runnerUpWins = finalsMatch.games.filter((g: any) => g.winner_seed === runnerUpSeed).length;
 
 // Stats
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {};
@@ -122,14 +141,16 @@ if (fs.existsSync(gamesDir)) {
     </a>
   </section>
 
-  <a href="/season/1/results" class="champ-banner">
-    <span class="champ-eyebrow">Season 1 Champion</span>
-    <span class="champ-name">{champion.display_name}</span>
-    <span class="champ-finals">
-      Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
-    </span>
-    <span class="champ-cta">View full bracket &rarr;</span>
-  </a>
+  {championSeason != null && (
+    <a href={`/season/${championSeason}/results`} class="champ-banner">
+      <span class="champ-eyebrow">Season {championSeason} Champion</span>
+      <span class="champ-name">{champion.display_name}</span>
+      <span class="champ-finals">
+        Finals: def. {runnerUp.display_name} ({champWins}–{runnerUpWins})
+      </span>
+      <span class="champ-cta">View full bracket &rarr;</span>
+    </a>
+  )}
 
   <section class="intro">
     <p>

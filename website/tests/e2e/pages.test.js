@@ -1,6 +1,7 @@
 import { test, expect, describe } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
+import { loadLatestCompletedTournament } from "../../src/utils/season-data.ts";
 
 const distDir = path.join(process.cwd(), "dist");
 
@@ -23,6 +24,19 @@ describe("top-level pages load with expected content", () => {
     const html = readPage("/");
     expect(html).toContain("mage-bench");
     expect(html).toContain("LLMs play Magic");
+  });
+
+  test("home page championship banner follows current season data", () => {
+    const html = readPage("/");
+    const championship = loadLatestCompletedTournament();
+
+    if (championship == null) {
+      expect(html).not.toContain('class="champ-banner"');
+      return;
+    }
+
+    expect(html).toContain(`/season/${championship.season}/results`);
+    expect(html).toContain(`Season ${championship.season} Champion`);
   });
 
   test("season rankings page", () => {
