@@ -63,27 +63,59 @@ def parse_turn_range(s: str) -> tuple[int, int]:
     return n, n
 
 
-def find_turn_at_ts(snapshots: list[dict], ts: str) -> int | None:
-    """Find the turn number at a given timestamp."""
-    best_turn = None
-    for snap in snapshots:
-        if snap.get("ts", "") <= ts:
-            best_turn = snap.get("turn")
+def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
+    """Find the nearest snapshot at or before a game sequence number."""
+    best: int | None = None
+    for i, snap in enumerate(snapshots):
+        snap_seq = snap.get("seq")
+        if snap_seq is None:
+            continue
+        if snap_seq <= seq:
+            best = i
         else:
             break
-    return best_turn
+    return best
 
 
-def find_context_at_ts(snapshots: list[dict], ts: str) -> str:
-    """Find turn/phase context at a given timestamp."""
-    best = None
-    for snap in snapshots:
-        if snap.get("ts", "") <= ts:
-            best = snap
+def _find_snapshot_index_by_ts(snapshots: list[dict], ts: str) -> int | None:
+    """Find the nearest snapshot at or before a timestamp."""
+    best: int | None = None
+    for i, snap in enumerate(snapshots):
+        snap_ts = snap.get("ts")
+        if not snap_ts:
+            continue
+        if snap_ts <= ts:
+            best = i
         else:
             break
-    if best is None:
+    return best
+
+
+def _find_snapshot_index_for_event(snapshots: list[dict], event: dict) -> int | None:
+    """Resolve the snapshot index for an event using the best available coordinate."""
+    game_seq = event.get("gameSeq")
+    if game_seq is not None:
+        return _find_snapshot_index_by_seq(snapshots, game_seq)
+    ts = event.get("ts", "")
+    if ts:
+        return _find_snapshot_index_by_ts(snapshots, ts)
+    return None
+
+
+def find_turn_for_event(snapshots: list[dict], event: dict) -> int | None:
+    """Find the turn number for an event."""
+    snap_idx = _find_snapshot_index_for_event(snapshots, event)
+    if snap_idx is None:
+        return None
+    return snapshots[snap_idx].get("turn")
+
+
+def find_context_for_event(snapshots: list[dict], event: dict) -> str:
+    """Find turn/phase context for an event."""
+    snap_idx = _find_snapshot_index_for_event(snapshots, event)
+    if snap_idx is None:
         return ""
+    best = snapshots[snap_idx]
     turn = best.get("turn", "?")
     phase = best.get("phase", "")
     active = best.get("active_player", "")
@@ -279,7 +311,7 @@ def print_event(
     player = event.get("player", "")
     # Short timestamp (just time portion)
     ts_short = ts.split("T")[-1][:12] if "T" in ts else ts[:12]
-    context = find_context_at_ts(snapshots, ts)
+    context = find_context_for_event(snapshots, event)
 
     is_mana = is_mana_event(event)
     if mana_only and not is_mana:
@@ -389,9 +421,10 @@ def main() -> None:
 
         # Turn filter
         if turn_range is not None:
-            ts = event.get("ts", "")
-            turn = find_turn_at_ts(snapshots, ts)
-            if turn is not None and (turn < turn_range[0] or turn > turn_range[1]):
+            turn = find_turn_for_event(snapshots, event)
+            if turn is None:
+                continue
+            if turn < turn_range[0] or turn > turn_range[1]:
                 continue
 
         if print_event(event, snapshots, mana_only=args.mana, verbose=args.verbose):
