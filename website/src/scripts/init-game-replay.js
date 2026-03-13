@@ -1,5 +1,6 @@
 import "./game-renderer.js";
 import "./game-viewer.js";
+import { getRequiredElement } from "./spectator-runtime.js";
 
 function readConfig() {
   const configEl = document.getElementById("game-replay-config");
@@ -17,8 +18,8 @@ function parseHttpUrl(rawUrl, fieldName) {
   return parsed.toString();
 }
 
-export async function initGameReplayPage() {
-  const visualizer = document.getElementById("visualizer");
+export async function initGameReplayPage(options) {
+  const visualizer = options && options.root ? options.root : document.getElementById("visualizer");
   if (!visualizer) {
     return;
   }
@@ -34,18 +35,18 @@ export async function initGameReplayPage() {
   }
 
   const slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
+  const loadingEl = getRequiredElement(visualizer, "#loading");
+  const errorEl = getRequiredElement(visualizer, "#error");
+  const gameUI = getRequiredElement(visualizer, "#game-ui");
+  const gameTitleEl = getRequiredElement(visualizer, "#game-title");
+  const gameHeaderEl = getRequiredElement(visualizer, "#game-header");
+  const viewerContainer = getRequiredElement(visualizer, "#viewer-container");
   if (!slug) {
-    document.getElementById("loading").classList.add("hidden");
-    document.getElementById("error").textContent = "No game ID in URL.";
-    document.getElementById("error").classList.remove("hidden");
+    loadingEl.classList.add("hidden");
+    errorEl.textContent = "No game ID in URL.";
+    errorEl.classList.remove("hidden");
     return;
   }
-
-  const loadingEl = document.getElementById("loading");
-  const errorEl = document.getElementById("error");
-  const gameUI = document.getElementById("game-ui");
-  const gameTitleEl = document.getElementById("game-title");
-  const viewerContainer = document.getElementById("viewer-container");
 
   gameViewer.fetchGameData("", slug)
     .then(function (game) {
@@ -63,8 +64,8 @@ export async function initGameReplayPage() {
       gameTitleEl.textContent = playerNames;
 
       if (game.youtubeUrl) {
-        var ytLink = document.getElementById("youtube-link");
-        var ytUrl = document.getElementById("youtube-url");
+        var ytLink = getRequiredElement(visualizer, "#youtube-link");
+        var ytUrl = getRequiredElement(visualizer, "#youtube-url");
         ytUrl.href = parseHttpUrl(game.youtubeUrl, "youtubeUrl");
         ytLink.classList.remove("hidden");
       }
@@ -90,7 +91,7 @@ export async function initGameReplayPage() {
           summaryEl.appendChild(document.createTextNode(" "));
           summaryEl.appendChild(oldTag);
         }
-        document.getElementById("game-header").appendChild(summaryEl);
+        gameHeaderEl.appendChild(summaryEl);
       }
 
       if (game.errors && game.errors.length > 0) {
@@ -108,21 +109,21 @@ export async function initGameReplayPage() {
           errorList.appendChild(li);
         });
         errorSummaryEl.appendChild(errorList);
-        document.getElementById("game-header").appendChild(errorSummaryEl);
+        gameHeaderEl.appendChild(errorSummaryEl);
       }
 
       var gameSeason = game.season != null ? game.season : 0;
       var seasonEl = document.createElement("div");
       seasonEl.id = "season-info";
       seasonEl.textContent = "Season " + gameSeason;
-      document.getElementById("game-header").appendChild(seasonEl);
+      gameHeaderEl.appendChild(seasonEl);
       if (gameSeason === 0) {
         var seasonBanner = document.createElement("div");
         seasonBanner.id = "season-banner";
         seasonBanner.textContent =
           "This is a Season 0 game. MCP tools and priority semantics have changed" +
           " since this game was played, so its results are excluded from Season 1 ratings.";
-        document.getElementById("game-header").after(seasonBanner);
+        gameHeaderEl.after(seasonBanner);
       }
 
       var params = new URLSearchParams(window.location.search);
@@ -162,7 +163,7 @@ export async function initGameReplayPage() {
         if (!auditPanel) {
           throw new Error("audit-panel.js did not initialize window.AuditPanel");
         }
-        var auditContainer = document.getElementById("audit-container");
+        var auditContainer = getRequiredElement(visualizer, "#audit-container");
         auditPanel.create(auditContainer, viewer, slug, {
           initialDecision: initialDecision,
           onDecisionChange: function (di) {
