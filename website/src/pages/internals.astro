@@ -829,6 +829,11 @@ if (fs.existsSync(exportsDir)) {
 
   <!-- Model Stats logic (same as old model-stats.astro) -->
   <script>
+    import {
+      parseInternalsModelStatsSortState,
+      syncInternalsModelStatsSortStateToUrl,
+    } from '../utils/internals-model-stats-sort-state';
+
     // Models with known-unreliable cached_tokens data (upstream API bug).
     // Keys may have a ::effort suffix, so check the model ID prefix.
     const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
@@ -848,6 +853,12 @@ if (fs.existsSync(exportsDir)) {
     const errorDetailHeading = document.getElementById('error-detail-heading') as HTMLElement;
     const errorDetailBody = document.getElementById('error-detail-body') as HTMLTableSectionElement;
     const headers = document.querySelectorAll('#stats-table th[data-sort]');
+    const sortTypes = Object.fromEntries(
+      Array.from(headers, (th) => {
+        const el = th as HTMLElement;
+        return [el.dataset.sort!, el.dataset.type!];
+      }),
+    ) as Record<string, 'string' | 'number'>;
 
     let currentSort = 'timeoutRate';
     let currentSortAsc = false;
@@ -946,6 +957,32 @@ if (fs.existsSync(exportsDir)) {
       if (rate < 0.02) return 'rate-good';
       if (rate < 0.10) return 'rate-ok';
       return 'rate-bad';
+    }
+
+    function setSortedHeaderState(th: HTMLElement, ascending: boolean) {
+      headers.forEach(h => {
+        h.classList.remove('sorted', 'asc', 'desc');
+        const arrow = h.querySelector('.sort-arrow');
+        if (arrow) arrow.textContent = '';
+      });
+
+      th.classList.add('sorted', ascending ? 'asc' : 'desc');
+      let arrow = th.querySelector('.sort-arrow');
+      if (!arrow) {
+        arrow = document.createElement('span');
+        arrow.className = 'sort-arrow';
+        th.appendChild(arrow);
+      }
+      arrow.textContent = ascending ? '\u25B2' : '\u25BC';
+    }
+
+    function syncModelStatsSortToUrl() {
+      const url = new URL(window.location.href);
+      syncInternalsModelStatsSortStateToUrl(url, {
+        column: currentSort,
+        ascending: currentSortAsc,
+      });
+      history.replaceState(null, '', url.toString());
     }
 
     function render() {
@@ -1048,26 +1085,28 @@ if (fs.existsSync(exportsDir)) {
         const wasAsc = th.classList.contains('asc');
         const ascending = wasSorted ? !wasAsc : (type === 'string');
 
-        headers.forEach(h => {
-          h.classList.remove('sorted', 'asc', 'desc');
-          const arrow = h.querySelector('.sort-arrow');
-          if (arrow) arrow.textContent = '';
-        });
-
-        th.classList.add('sorted', ascending ? 'asc' : 'desc');
-        let arrow = th.querySelector('.sort-arrow');
-        if (!arrow) {
-          arrow = document.createElement('span');
-          arrow.className = 'sort-arrow';
-          th.appendChild(arrow);
-        }
-        arrow.textContent = ascending ? '\u25B2' : '\u25BC';
-
+        setSortedHeaderState(th as HTMLElement, ascending);
         currentSort = column;
         currentSortAsc = ascending;
+        syncModelStatsSortToUrl();
         render();
       });
     });
+
+    {
+      const params = new URLSearchParams(window.location.search);
+      const sortState = parseInternalsModelStatsSortState(params, sortTypes);
+      currentSort = sortState.column;
+      currentSortAsc = sortState.ascending;
+      const sortHeader = document.querySelector(
+        `#stats-table th[data-sort="${sortState.column}"]`,
+      ) as HTMLElement | null;
+      if (!sortHeader) {
+        throw new Error(`Missing model-stats sort header for column: ${sortState.column}`);
+      }
+      setSortedHeaderState(sortHeader, sortState.ascending);
+      syncModelStatsSortToUrl();
+    }
 
     minEpochInput.addEventListener('input', render);
     searchInput.addEventListener('input', render);
