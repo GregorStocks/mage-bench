@@ -1,0 +1,10 @@
+{
+  "title": "Server-render game archive pages with Astro instead of building cards in the browser",
+  "description": "`/games` and `/season/[season]/games` are still using Astro mostly as a shell around a client-side mini app.\n\nCurrent shape:\n- `website/src/components/GameListView.astro` renders empty containers, a `Loading games...` placeholder, and a `<script type=\"application/json\" id=\"game-list-config\">` blob containing the full game list.\n- `website/src/scripts/game-list.js` is 577 lines of client-side DOM construction, filter state management, and card rendering.\n- The actual game cards do not exist in the HTML sent by Astro; they only appear after JS runs.\n\nThat leaves performance and consistency on the table:\n- Slower first paint / LCP on the main archive pages.\n- A loading state for content that is already fully known at build time.\n- More JS than necessary for a page that is mostly static markup.\n- Harder testing, because correctness depends on post-load DOM mutation.\n\nSuggested fix:\n1. Render the initial game cards in Astro on the server.\n2. Make filters either URL-driven server rendering or a small client island that progressively enhances already-rendered markup.\n3. Keep only the minimal interactive behavior hydrated on the client.\n\nA good outcome is that `/games` and `/season/[season]/games` still support the same filters, but the page HTML already contains the archive cards before any client JS runs.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["website", "astro", "performance"],
+  "created_at": "2026-03-13T00:16:21.155566-07:00",
+  "updated_at": "2026-03-13T00:16:21.155566-07:00"
+}

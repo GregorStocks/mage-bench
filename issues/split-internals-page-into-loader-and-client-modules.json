@@ -1,10 +1,10 @@
 {
-  "title": "Split the internals page into loader utilities and client modules",
-  "description": "`website/src/pages/internals.astro` is carrying too much responsibility in one file. It is 1786 lines long and mixes server-side file loading, Astro markup, CSS, and three separate chunks of client-side behavior: trends charting, model-stats table logic, and blunder-analysis charting.\n\nThere is already visible duplication inside the page: `UNRELIABLE_CACHE_MODELS` and `hasUnreliableCache` are defined twice, once for the trends chart and once for the model-stats table. The page also reaches directly into `../puppeteer/tests/golden/exports` and parses fixture files inline.\n\nClean this up by moving:\n1. Golden fixture discovery/loading into a server-side utility.\n2. Trends chart logic into a dedicated client module.\n3. Model-stats table logic into a dedicated client module.\n4. Blunder chart logic into a dedicated client module.\n5. Shared helpers like cache-model detection into a shared utility.\n\nThe goal is not cosmetic line-count reduction alone. The current shape makes it hard to test, reason about, or reuse any of the logic without reopening one giant page file.",
+  "title": "Split the internals dashboard into Astro loaders and client islands",
+  "description": "`website/src/pages/internals.astro` has grown into a single giant dashboard page instead of using Astro's strengths. It is now 1911 lines long and mixes server-side file loading, Astro markup, CSS, and multiple chunks of client-side behavior for the Trends, Model Stats, Blunder Analysis, and Golden Tests tabs.\n\nCurrent problems:\n- The page inlines large JSON payloads (`model-stats`, `internals-data`, `blunder-data`) into the HTML and hydrates substantial tab-specific logic in one file.\n- Golden fixture discovery and parsing happen inline in the page.\n- Shared helpers and constants are duplicated inside the page.\n- Every dashboard section ships together even though they are conceptually separate tools.\n\nSuggested cleanup:\n1. Move server-side loading and fixture discovery into dedicated loader utilities.\n2. Split each major dashboard area into its own client island or its own route if the UX still works as separate pages.\n3. Keep only the minimal routing/tab shell in the top-level page.\n4. Share helpers across the trends/model-stats/blunder views instead of redefining them per section.\n\nThis is the clearest case where the website is not making full use of Astro. The goal is to stop treating `/internals` as one monolithic JS dashboard embedded in a page file.",
   "status": "open",
   "priority": 3,
   "type": "task",
-  "labels": ["website", "internals"],
+  "labels": ["website", "internals", "astro"],
   "created_at": "2026-03-11T22:39:10.811128-07:00",
-  "updated_at": "2026-03-11T22:39:10.811128-07:00"
+  "updated_at": "2026-03-13T00:16:21.155566-07:00"
 }

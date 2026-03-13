@@ -1,0 +1,10 @@
+{
+  "title": "Split live, golden, and results page scripts into client modules",
+  "description": "Several website pages are still carrying large inline scripts directly inside `.astro` files instead of using smaller reusable client modules.\n\nCurrent hotspots:\n- `website/src/pages/season/[season]/results.astro` is 1353 lines and includes inline JS for bracket resizing plus a large tournament game-card renderer.\n- `website/src/pages/golden/[...slug].astro` is 1076 lines and contains a full standalone replay viewer bootstrap inline.\n- `website/src/pages/games/live.astro` is 349 lines and still inlines the polling/render loop for the live viewer.\n\nWhy this matters:\n- These pages are harder to review, test, and reuse because markup, CSS, data loading, and client behavior are interleaved.\n- Inline page scripts make it easier for behavior to drift between pages that should share the same viewer primitives.\n- Astro's bundling/module system is underused when large behavior blocks stay embedded in page files.\n\nSuggested fix:\n1. Move each large inline script into `website/src/scripts/` entry modules.\n2. Keep the `.astro` pages thin: load data, render structure, import a small bootstrap.\n3. Pull reusable DOM/viewer helpers into shared modules instead of leaving page-specific copies.\n\nThe goal is not just line-count reduction. The goal is to stop treating each page as a one-off JS app embedded in Astro.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "astro"],
+  "created_at": "2026-03-13T00:16:21.155566-07:00",
+  "updated_at": "2026-03-13T00:16:21.155566-07:00"
+}

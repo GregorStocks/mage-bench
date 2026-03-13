@@ -1,0 +1,10 @@
+{
+  "title": "Deduplicate website game cards and viewer bootstraps",
+  "description": "The website still has duplicated rendering logic in places that should be sharing a single source of truth.\n\nConcrete duplication today:\n- `website/src/scripts/game-list.js` and `website/src/pages/season/[season]/results.astro` both implement hand-built `renderGameCard()` logic for game archive cards.\n- Replay, golden, and live viewer pages still bootstrap similar viewer state through separate code paths instead of a unified configurable entrypoint.\n- Recent fixes already exposed the cost of this drift: link hardening and clickability had to be repaired in one path without automatically covering the others.\n\nWhy this matters:\n- Styling and behavior drift over time because each page evolves independently.\n- Security fixes have to be applied in multiple places.\n- The same UI concepts (game cards, replay header, viewer controls) are tested and maintained separately.\n\nSuggested fix:\n1. Introduce a single shared implementation for game cards, preferably an Astro component for server-rendered uses plus a small shared helper for any remaining client-rendered cases.\n2. Unify replay/golden/live viewer bootstrap logic behind shared modules with configuration rather than copy-pasted page scripts.\n3. Back the shared paths with focused tests so future fixes land once.\n\nThis is a consistency issue first, but it should also reduce JS size and bug surface area.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "astro", "spectator"],
+  "created_at": "2026-03-13T00:16:21.155566-07:00",
+  "updated_at": "2026-03-13T00:16:21.155566-07:00"
+}

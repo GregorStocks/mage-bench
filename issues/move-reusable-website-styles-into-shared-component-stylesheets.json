@@ -1,0 +1,10 @@
+{
+  "title": "Move reusable website styles into shared component stylesheets",
+  "description": "The website still spreads a lot of reusable UI styling across page-local `<style>` blocks instead of shared component-owned stylesheets.\n\nCurrent examples:\n- `website/src/components/GameReplayView.astro` still owns a sizeable local style block for replay header and metadata UI.\n- `website/src/pages/golden/[...slug].astro` and `website/src/pages/games/live.astro` both keep page-local style overrides around shared viewer structures.\n- Large pages like `website/src/pages/season/[season]/results.astro` and `website/src/pages/season/[season]/rankings.astro` continue to define substantial UI styles inline.\n\nWhy this matters:\n- Visual consistency drifts because similar controls and cards are styled in different files.\n- Refactors have to touch many pages to make one visual change.\n- It is harder to tell which styles belong to a reusable component versus a one-off page concern.\n\nSuggested fix:\n1. Identify the recurring UI primitives (header bars, control rows, badges, game cards, log panels, table controls).\n2. Move their styles into shared stylesheets or component-scoped CSS next to the owning component.\n3. Leave page-local styles only for truly page-specific layout.\n\nThe goal is a more consistent visual system and less CSS duplication, not a blind move of everything into one global file.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website", "css", "astro"],
+  "created_at": "2026-03-13T00:16:21.155566-07:00",
+  "updated_at": "2026-03-13T00:16:21.155566-07:00"
+}
