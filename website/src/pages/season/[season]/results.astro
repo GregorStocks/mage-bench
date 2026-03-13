@@ -1,6 +1,8 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import GameListCard from '../../../components/GameListCard.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
+import benchmarkData from '../../../data/benchmark-results.json';
 import { loadAllGames } from '../../../utils/load-games';
 import {
   hasTournament as seasonHasTournament,
@@ -16,6 +18,7 @@ export function getStaticPaths() {
 
 const { season } = Astro.params;
 const seasonNum = parseInt(season!, 10);
+const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 
 // Load tournament data
 const tournament = loadTournament(seasonNum);
@@ -429,7 +432,16 @@ const hasDraft = !!tournament.draft;
   {tournamentGames.length > 0 && (
     <section class="games-section">
       <h2>Tournament Games</h2>
-      <div id="tournament-games-list"></div>
+      <div id="tournament-games-list">
+        {tournamentGames.map((game) => (
+          <GameListCard
+            game={game}
+            minBlunderVersion={minBlunderVersion}
+            showSeasonBadge={false}
+            showBlunderScores={false}
+          />
+        ))}
+      </div>
     </section>
   )}
 </Base>
@@ -948,212 +960,6 @@ const hasDraft = !!tournament.draft;
   }
 </style>
 
-{/* Game card styles */}
-<style is:global>
-  .game-card {
-    display: block;
-    margin-bottom: 1rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: border-color 0.2s, transform 0.2s;
-    overflow: hidden;
-  }
-
-  .game-card:hover {
-    border-color: var(--accent-primary);
-    transform: translateY(-1px);
-  }
-
-  .game-card[data-format="standard"] { border-left: 3px solid var(--format-standard); }
-  .game-card[data-format="modern"] { border-left: 3px solid var(--format-modern); }
-  .game-card[data-format="legacy"] { border-left: 3px solid var(--format-legacy); }
-  .game-card[data-format="commander"] { border-left: 3px solid var(--format-commander); }
-  .game-card[data-format="jumpstart"] { border-left: 3px solid var(--format-jumpstart); }
-
-  .game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 1rem;
-    background: rgba(15, 52, 96, 0.3);
-    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
-    font-size: 0.85rem;
-  }
-
-  .game-date {
-    color: var(--text-secondary);
-  }
-
-  .format-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
-  }
-
-  .format-standard {
-    background: rgba(76, 175, 80, 0.15);
-    color: #66bb6a;
-  }
-
-  .format-modern {
-    background: rgba(33, 150, 243, 0.15);
-    color: #42a5f5;
-  }
-
-  .format-legacy {
-    background: rgba(156, 39, 176, 0.15);
-    color: #ab47bc;
-  }
-
-  .format-commander {
-    background: rgba(255, 152, 0, 0.15);
-    color: #ffa726;
-  }
-
-  .game-turns {
-    color: var(--text-secondary);
-  }
-
-  .winner-badge {
-    display: inline-block;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--bg-base);
-    background: var(--color-success);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-left: 0.4rem;
-  }
-
-  .timeout-badge {
-    display: inline-block;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--bg-base);
-    background: var(--color-warning);
-    padding: 0.05rem 0.35rem;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-left: 0.4rem;
-  }
-
-  .yt-link {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-size: 0.75rem;
-    margin-left: 0.5rem;
-  }
-
-  .yt-link:hover {
-    text-decoration: underline;
-  }
-
-  .game-players {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .player-cell {
-    padding: 0.6rem 1rem;
-    border-bottom: 1px solid rgba(15, 52, 96, 0.3);
-    border-right: 1px solid rgba(15, 52, 96, 0.3);
-  }
-
-  .player-cell:nth-child(2n) {
-    border-right: none;
-  }
-
-  .player-cell:nth-child(n+3) {
-    border-bottom: none;
-  }
-
-  .player-cell.is-winner {
-    box-shadow: inset 3px 0 0 var(--color-success);
-    background: rgba(168, 217, 165, 0.04);
-  }
-
-  .player-name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 0.15rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .player-model-inline {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 400;
-  }
-
-  .player-commander {
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .player-cost {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .game-footer {
-    padding: 0.4rem 1rem;
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    text-align: right;
-    border-top: 1px solid rgba(15, 52, 96, 0.5);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tournament-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
-    background: rgba(20, 184, 166, 0.15);
-    color: var(--accent-secondary);
-  }
-
-  @media (max-width: 500px) {
-    .game-players {
-      grid-template-columns: 1fr;
-    }
-
-    .player-cell:nth-child(2n) {
-      border-right: none;
-    }
-
-    .player-cell {
-      border-bottom: 1px solid rgba(15, 52, 96, 0.3);
-    }
-
-    .player-cell:last-child {
-      border-bottom: none;
-    }
-
-    .game-header {
-      flex-wrap: wrap;
-      gap: 0.25rem;
-    }
-  }
-</style>
-
 <script is:inline>
   (function() {
     var scroll = document.querySelector('.bracket-horizontal .bracket-scroll');
@@ -1174,180 +980,4 @@ const hasDraft = !!tournament.draft;
     }
     new ResizeObserver(update).observe(scroll);
   })();
-</script>
-
-<script is:inline define:vars={{ tournamentGames }}>
-  var DECK_TYPE_FORMATS = {
-    "Constructed - Standard": "standard",
-    "Constructed - Modern": "modern",
-    "Constructed - Legacy": "legacy",
-    "Variant Magic - Freeform Commander": "commander",
-    "Variant Magic - Commander": "commander",
-    "Limited": "jumpstart",
-  };
-
-  var FORMAT_DISPLAY = {
-    "standard": "Standard",
-    "modern": "Modern",
-    "legacy": "Legacy",
-    "commander": "Commander (Exhibition)",
-    "jumpstart": "Jumpstart",
-  };
-
-  function getGameFormat(deckType) {
-    return DECK_TYPE_FORMATS[deckType] || "commander";
-  }
-
-  function renderGameCard(game) {
-    var a = document.createElement("a");
-    a.href = "/games/" + game.id;
-    a.className = "game-card";
-
-    var ts = game.timestamp || "";
-    var dateStr = "";
-    if (ts.length >= 15) {
-      var year = ts.substring(0, 4);
-      var month = ts.substring(4, 6);
-      var day = ts.substring(6, 8);
-      var hour = ts.substring(9, 11);
-      var min = ts.substring(11, 13);
-      var d = new Date(year + "-" + month + "-" + day + "T" + hour + ":" + min);
-      if (!isNaN(d.getTime())) {
-        dateStr = d.toLocaleDateString("en-US", {
-          year: "numeric", month: "short", day: "numeric"
-        }) + " " + d.toLocaleTimeString("en-US", {
-          hour: "numeric", minute: "2-digit"
-        });
-      }
-    }
-
-    var header = document.createElement("div");
-    header.className = "game-header";
-
-    var dateEl = document.createElement("span");
-    dateEl.className = "game-date";
-    dateEl.textContent = dateStr || game.id;
-    header.appendChild(dateEl);
-
-    var formatKey = getGameFormat(game.deckType);
-    var formatLabel = FORMAT_DISPLAY[formatKey] || "Commander";
-    a.dataset.format = formatKey;
-    var fmtBadge = document.createElement("span");
-    fmtBadge.className = "format-badge format-" + formatLabel.toLowerCase();
-    fmtBadge.textContent = formatLabel;
-    header.appendChild(fmtBadge);
-
-    var turnsEl = document.createElement("span");
-    turnsEl.className = "game-turns";
-    turnsEl.textContent = game.totalTurns + " turns";
-    header.appendChild(turnsEl);
-
-    if (game.tournament) {
-      var tBadge = document.createElement("span");
-      tBadge.className = "tournament-badge";
-      tBadge.textContent = "Tournament";
-      header.appendChild(tBadge);
-    }
-
-    a.appendChild(header);
-
-    var grid = document.createElement("div");
-    grid.className = "game-players";
-
-    var totalCost = 0;
-    var hasCost = false;
-
-    (game.players || []).forEach(function (p) {
-      var cell = document.createElement("div");
-      cell.className = "player-cell";
-      if (game.winner && p.name === game.winner) {
-        cell.classList.add("is-winner");
-      }
-
-      var nameRow = document.createElement("div");
-      nameRow.className = "player-name";
-
-      var nameText = document.createTextNode(p.name);
-      nameRow.appendChild(nameText);
-
-      if (game.winner && p.name === game.winner) {
-        var badge = document.createElement("span");
-        badge.className = "winner-badge";
-        badge.textContent = "WINNER";
-        nameRow.appendChild(badge);
-      }
-
-      if (p.timedOut) {
-        var toBadge = document.createElement("span");
-        toBadge.className = "timeout-badge";
-        toBadge.textContent = "TIMEOUT";
-        nameRow.appendChild(toBadge);
-      }
-
-      if (p.model) {
-        var modelName = p.model;
-        var slash = modelName.indexOf("/");
-        if (slash !== -1) modelName = modelName.substring(slash + 1);
-        var modelSpan = document.createElement("span");
-        modelSpan.className = "player-model-inline";
-        modelSpan.textContent = "(" + modelName + ")";
-        nameRow.appendChild(modelSpan);
-      }
-
-      cell.appendChild(nameRow);
-
-      var cmdEl = document.createElement("div");
-      cmdEl.className = "player-commander";
-      cmdEl.textContent = p.deckName || p.commander || "";
-      cell.appendChild(cmdEl);
-
-      if (p.totalCostUsd != null) {
-        var costEl = document.createElement("div");
-        costEl.className = "player-cost";
-        costEl.textContent = "$" + p.totalCostUsd.toFixed(2);
-        cell.appendChild(costEl);
-        totalCost += p.totalCostUsd;
-        hasCost = true;
-      }
-
-      grid.appendChild(cell);
-    });
-
-    a.appendChild(grid);
-
-    if (hasCost) {
-      var footer = document.createElement("div");
-      footer.className = "game-footer";
-      footer.textContent = "Total cost: $" + totalCost.toFixed(2);
-      a.appendChild(footer);
-    }
-    if (game.youtubeUrl) {
-      var ytLink = document.createElement("a");
-      ytLink.href = game.youtubeUrl;
-      ytLink.target = "_blank";
-      ytLink.rel = "noopener";
-      ytLink.className = "yt-link";
-      ytLink.textContent = "YouTube";
-      ytLink.onclick = function (e) { e.stopPropagation(); };
-      var footerEl = a.querySelector(".game-footer");
-      if (footerEl) {
-        footerEl.appendChild(ytLink);
-      } else {
-        var ytFooter = document.createElement("div");
-        ytFooter.className = "game-footer";
-        ytFooter.appendChild(ytLink);
-        a.appendChild(ytFooter);
-      }
-    }
-
-    return a;
-  }
-
-  // Render tournament game cards
-  var list = document.getElementById("tournament-games-list");
-  if (list && tournamentGames && tournamentGames.length > 0) {
-    tournamentGames.forEach(function (game) {
-      list.appendChild(renderGameCard(game));
-    });
-  }
 </script>

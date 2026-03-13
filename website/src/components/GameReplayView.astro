@@ -12,7 +12,7 @@ const { minBlunderVersion, auditMode } = Astro.props;
 const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g, '\\u003c');
 ---
 
-<div id="visualizer">
+<div id="visualizer" data-spectator-mode="replay">
   <div id="loading">Loading game data...</div>
   <div id="error" class="hidden"></div>
 
@@ -31,9 +31,9 @@ const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g
 
 <script is:inline type="application/json" id="game-replay-config" set:html={configJson}></script>
 <script>
-  import { initGameReplayPage } from "../scripts/init-game-replay.js";
+  import { initSpectatorPage } from "../scripts/init-spectator-page.js";
 
-  initGameReplayPage();
+  void initSpectatorPage();
 </script>
 
 <style>

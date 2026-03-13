@@ -5,9 +5,15 @@ interface Props {
   game: GameEntry;
   minBlunderVersion: number;
   showSeasonBadge: boolean;
+  showBlunderScores?: boolean;
 }
 
-const { game, minBlunderVersion, showSeasonBadge } = Astro.props;
+const {
+  game,
+  minBlunderVersion,
+  showSeasonBadge,
+  showBlunderScores = true,
+} = Astro.props;
 
 const DECK_TYPE_FORMATS: Record<string, string> = {
   "Constructed - Standard": "standard",
@@ -105,6 +111,7 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
       <span class="game-date">{dateStr}</span>
       <span class={`format-badge format-${formatKey}`}>{formatLabel}</span>
       <span class="game-turns">{game.totalTurns} turns</span>
+      {game.tournament && <span class="tournament-badge">Tournament</span>}
       {showSeasonBadge && game.season === 0 && (
         <span
           class="season-badge season-old"
@@ -161,7 +168,7 @@ const youtubeUrl = game.youtubeUrl ? safeHttpUrl(game.youtubeUrl) : null;
               <div class="player-cost">${player.totalCostUsd.toFixed(2)}</div>
             )}
 
-            {playerScore != null && (
+            {showBlunderScores && playerScore != null && (
               <div
                 class:list={[
                   "player-blunder-score",

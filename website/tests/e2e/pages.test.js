@@ -96,6 +96,7 @@ describe("game pages", () => {
     const firstGame = gameDirs[0].name;
     const html = readPage(`games/${firstGame}`);
     expect(html).toContain('id="visualizer"');
+    expect(html).toContain('data-spectator-mode="replay"');
     expect(html).toContain('id="viewer-container"');
     expect(html).toContain('id="game-replay-config"');
     expect(html).toContain("/_astro/");
@@ -122,5 +123,13 @@ describe("game pages", () => {
     expect(gameCards).not.toBeNull();
     expect(gameCards.length).toBeGreaterThan(0);
     expect(html).not.toContain("Loading games...");
+  });
+
+  test("season results server-renders tournament game cards", () => {
+    const html = readPage("season/1/results");
+    expect(html).toContain("Tournament Games");
+    expect(html).toContain('id="tournament-games-list"');
+    expect(html).toContain("Tournament</span>");
+    expect(html).toContain('class="game-card"');
   });
 });

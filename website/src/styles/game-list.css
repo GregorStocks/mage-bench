@@ -313,6 +313,17 @@
   color: var(--text-secondary);
 }
 
+.tournament-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--accent-secondary);
+}
+
 .winner-badge {
   display: inline-block;
   font-size: 0.7rem;
