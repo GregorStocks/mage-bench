@@ -50,6 +50,23 @@ window.GameList = {
       el.appendChild(countSpan);
     }
 
+    function setGameReplayHref(el, gameId) {
+      if (typeof gameId !== "string" || gameId.length === 0) {
+        throw new Error("Game is missing a valid id");
+      }
+      el.pathname = "/games/" + encodeURIComponent(gameId);
+      el.search = "";
+      el.hash = "";
+    }
+
+    function parseHttpUrl(rawUrl, fieldName) {
+      var parsed = new URL(rawUrl, window.location.origin);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        throw new Error(fieldName + " must use http or https, got " + parsed.protocol);
+      }
+      return parsed.toString();
+    }
+
     function getFilters() {
       var params = new URLSearchParams(window.location.search);
       return {
@@ -185,7 +202,7 @@ window.GameList = {
 
     function renderGameCard(game) {
       var a = document.createElement("a");
-      a.href = "/games/" + game.id;
+      setGameReplayHref(a, game.id);
       a.className = "game-card";
 
       var ts = game.timestamp || "";
@@ -354,7 +371,7 @@ window.GameList = {
       }
       if (game.youtubeUrl) {
         var ytLink = document.createElement("a");
-        ytLink.href = game.youtubeUrl;
+        ytLink.href = parseHttpUrl(game.youtubeUrl, "youtubeUrl");
         ytLink.target = "_blank";
         ytLink.rel = "noopener";
         ytLink.className = "yt-link";

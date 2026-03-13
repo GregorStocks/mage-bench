@@ -9,6 +9,14 @@ function readConfig() {
   return JSON.parse(configEl.textContent || "null");
 }
 
+function parseHttpUrl(rawUrl, fieldName) {
+  const parsed = new URL(rawUrl, window.location.origin);
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    throw new Error(fieldName + " must use http or https, got " + parsed.protocol);
+  }
+  return parsed.toString();
+}
+
 export async function initGameReplayPage() {
   const visualizer = document.getElementById("visualizer");
   if (!visualizer) {
@@ -57,7 +65,7 @@ export async function initGameReplayPage() {
       if (game.youtubeUrl) {
         var ytLink = document.getElementById("youtube-link");
         var ytUrl = document.getElementById("youtube-url");
-        ytUrl.href = game.youtubeUrl;
+        ytUrl.href = parseHttpUrl(game.youtubeUrl, "youtubeUrl");
         ytLink.classList.remove("hidden");
       }
 
