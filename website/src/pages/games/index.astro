@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import GameListView from '../../components/GameListView.astro';
 import benchmarkData from '../../data/benchmark-results.json';
 import { loadAllGames } from '../../utils/load-games';
 const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
@@ -10,16 +11,13 @@ const games = loadAllGames().filter(g => !g.tournament);
 <Base title="Games">
   <h1>Games</h1>
   <p class="subtitle">Replay past mage-bench games.</p>
-  <div id="season-filter" class="season-filter"></div>
-  <div id="format-tabs" class="format-tabs"></div>
-  <div id="model-tabs" class="model-tabs"></div>
-  <div id="filter-bar" style="display:none"></div>
-  <div id="games-list">
-    <p class="loading">Loading games...</p>
-  </div>
+  <GameListView
+    games={games}
+    minBlunderVersion={minBlunderVersion}
+    showSeasonFilter={true}
+    showSeasonBadge={true}
+  />
 </Base>
-
-<link rel="stylesheet" href="/game-list.css" />
 
 <style>
   h1 {
@@ -35,89 +33,4 @@ const games = loadAllGames().filter(g => !g.tournament);
     font-size: 1.05rem;
     margin-bottom: 2rem;
   }
-
-  .loading {
-    color: var(--text-secondary);
-  }
 </style>
-
-<style is:global>
-  .season-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.15rem 0.45rem;
-    border-radius: 3px;
-    letter-spacing: 0.04em;
-  }
-
-  .season-filter {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-
-  .season-filter:empty {
-    display: none;
-  }
-
-  .season-filter-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-right: 0.2rem;
-  }
-
-  .season-filter-btn {
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.35rem 0.8rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 20px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .season-filter-btn:hover {
-    border-color: var(--accent-secondary);
-    color: var(--text-primary);
-  }
-
-  .season-filter-btn.active {
-    background: rgba(20, 184, 166, 0.15);
-    border-color: var(--accent-secondary);
-    color: var(--accent-secondary);
-  }
-
-  .season-filter-btn[data-season="0"] {
-    font-style: italic;
-    opacity: 0.8;
-  }
-
-  .season-filter-btn[data-season="0"]:hover,
-  .season-filter-btn[data-season="0"].active {
-    opacity: 1;
-  }
-
-  .season-old {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
-  }
-</style>
-
-<script is:inline src="/game-list.js"></script>
-<script is:inline define:vars={{ games, minBlunderVersion }}>
-  var gameList = window.GameList;
-  if (!gameList) {
-    throw new Error("game-list.js did not initialize window.GameList");
-  }
-  gameList.init({
-    games: games,
-    minBlunderVersion: minBlunderVersion,
-    showSeasonFilter: true,
-    showSeasonBadge: true,
-  });
-</script>

@@ -1,5 +1,74 @@
 /* Shared styles for game list pages (/games and /season/N/games) */
 
+.loading {
+  color: var(--text-secondary);
+}
+
+.season-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+
+.season-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.season-filter:empty {
+  display: none;
+}
+
+.season-filter-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-right: 0.2rem;
+}
+
+.season-filter-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.35rem 0.8rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.season-filter-btn:hover {
+  border-color: var(--accent-secondary);
+  color: var(--text-primary);
+}
+
+.season-filter-btn.active {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+.season-filter-btn[data-season="0"] {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.season-filter-btn[data-season="0"]:hover,
+.season-filter-btn[data-season="0"].active {
+  opacity: 1;
+}
+
+.season-old {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
 /* Format filter tabs */
 .format-tabs {
   display: flex;

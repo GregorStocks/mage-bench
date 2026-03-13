@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 
-const GV = await import("../public/game-viewer.js");
+const gameViewerModule = await import("../src/scripts/game-viewer.js");
+const GV = gameViewerModule.default ?? gameViewerModule.GameViewer ?? window.GameViewer;
 
 // ── chosenDisplayText ─────────────────────────────────────────
 

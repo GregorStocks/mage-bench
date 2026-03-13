@@ -1,9 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/game-renderer.css';
 ---
 
 <Base title="Live Game" wide>
-  <link rel="stylesheet" href="/game-renderer.css" />
   <div id="live-visualizer">
     <div id="connection-status">Connecting to game server...</div>
 
@@ -130,8 +130,10 @@ import Base from '../../layouts/Base.astro';
   }
 </style>
 
-<script is:inline src="/game-renderer.js"></script>
-<script is:inline>
+<script>
+  // @ts-nocheck
+  import "../../scripts/game-renderer.js";
+
   (function () {
     var R = window.GameRenderer;
     var params = new URLSearchParams(window.location.search);

@@ -1,5 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import GameListView from '../../../components/GameListView.astro';
 import SeasonNav from '../../../components/SeasonNav.astro';
 import benchmarkData from '../../../data/benchmark-results.json';
 import { loadAllGames } from '../../../utils/load-games';
@@ -29,50 +30,17 @@ const hasDraft = seasonHasDraft(seasonNum);
 <Base title={`Season ${seasonNum} - Regular Season Games`} wide>
   <SeasonNav season={seasonNum} active="games" hasTournament={hasTournament} hasDraft={hasDraft} />
   <div class="games-content">
-    <div id="format-tabs" class="format-tabs"></div>
-    <div id="model-tabs" class="model-tabs"></div>
-    <div id="filter-bar" style="display:none"></div>
-    <div id="games-list">
-      {games.length > 0 && <p class="loading">Loading games...</p>}
-    </div>
+    <GameListView
+      games={games}
+      minBlunderVersion={minBlunderVersion}
+      showSeasonFilter={false}
+      showSeasonBadge={false}
+    />
   </div>
 </Base>
-
-<link rel="stylesheet" href="/game-list.css" />
 
 <style>
   .games-content {
     max-width: 52rem;
   }
-
-  .loading {
-    color: var(--text-secondary);
-  }
 </style>
-
-<style is:global>
-  .tournament-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
-    background: rgba(20, 184, 166, 0.15);
-    color: var(--accent-secondary);
-  }
-</style>
-
-<script is:inline src="/game-list.js"></script>
-<script is:inline define:vars={{ games, minBlunderVersion }}>
-  var gameList = window.GameList;
-  if (!gameList) {
-    throw new Error("game-list.js did not initialize window.GameList");
-  }
-  gameList.init({
-    games: games,
-    minBlunderVersion: minBlunderVersion,
-    showSeasonFilter: false,
-    showSeasonBadge: false,
-  });
-</script>

@@ -97,7 +97,8 @@ describe("game pages", () => {
     const html = readPage(`games/${firstGame}`);
     expect(html).toContain('id="visualizer"');
     expect(html).toContain('id="viewer-container"');
-    expect(html).toContain("game-viewer.js");
+    expect(html).toContain('id="game-replay-config"');
+    expect(html).toContain("/_astro/");
     expect(html).toContain("Game Replay");
   });
 
@@ -117,10 +118,11 @@ describe("game pages", () => {
 
   test("games index embeds game data for client-side rendering", () => {
     const html = readPage("games");
-    // Astro define:vars creates `const games = [...]` then `var __games = games`
-    const match = html.match(/const games = (\[.*?\]);/s);
+    const match = html.match(
+      /<script type="application\/json" id="game-list-config">([\s\S]*?)<\/script>/,
+    );
     expect(match).not.toBeNull();
-    const games = JSON.parse(match[1]);
-    expect(games.length).toBeGreaterThan(0);
+    const config = JSON.parse(match[1]);
+    expect(config.games.length).toBeGreaterThan(0);
   });
 });

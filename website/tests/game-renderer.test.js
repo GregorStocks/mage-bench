@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest";
 
 // game-renderer.js uses `window` and `module.exports`; load it in happy-dom
-const R = await import("../public/game-renderer.js");
+const gameRendererModule = await import("../src/scripts/game-renderer.js");
+const R = gameRendererModule.default ?? gameRendererModule.GameRenderer ?? window.GameRenderer;
 
 // ── normalizeLiveState ──────────────────────────────────────────
 
@@ -967,4 +968,3 @@ describe("drawTargetArrows", () => {
     cleanup(gameLeft);
   });
 });
-

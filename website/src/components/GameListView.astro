@@ -1,0 +1,35 @@
+---
+import '../styles/game-list.css';
+
+interface Props {
+  games: unknown[];
+  minBlunderVersion: number;
+  showSeasonFilter: boolean;
+  showSeasonBadge: boolean;
+}
+
+const { games, minBlunderVersion, showSeasonFilter, showSeasonBadge } = Astro.props;
+const configJson = JSON.stringify({
+  games,
+  minBlunderVersion,
+  showSeasonFilter,
+  showSeasonBadge,
+}).replace(/</g, '\\u003c');
+---
+
+<div data-game-list-root>
+  <div id="season-filter" class="season-filter"></div>
+  <div id="format-tabs" class="format-tabs"></div>
+  <div id="model-tabs" class="model-tabs"></div>
+  <div id="filter-bar" style="display:none"></div>
+  <div id="games-list">
+    {games.length > 0 && <p class="loading">Loading games...</p>}
+  </div>
+</div>
+
+<script is:inline type="application/json" id="game-list-config" set:html={configJson}></script>
+<script>
+  import { initGameListPage } from "../scripts/init-game-list.js";
+
+  initGameListPage();
+</script>

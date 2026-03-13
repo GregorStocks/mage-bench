@@ -26,10 +26,10 @@ export default [
     rules: bugFinderRules,
   },
   {
-    files: ["public/**/*.js"],
+    files: ["src/scripts/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "script",
+      sourceType: "module",
       globals: {
         ...globals.browser,
         ...globals.commonjs,

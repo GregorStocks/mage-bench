@@ -1,12 +1,4 @@
-# Cache-bust unhashed static assets on every deploy.
 # Astro-built assets (under /_astro/) have content hashes and can be cached forever.
-# Files in public/ keep their original names so browsers may serve stale copies.
-
-/game-renderer.js
-  Cache-Control: public, max-age=0, must-revalidate
-
-/game-renderer.css
-  Cache-Control: public, max-age=0, must-revalidate
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable

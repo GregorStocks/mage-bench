@@ -1,0 +1,142 @@
+---
+import '../styles/game-renderer.css';
+import '../styles/game-viewer.css';
+import '../styles/audit-panel.css';
+
+interface Props {
+  minBlunderVersion: number;
+  auditMode: boolean;
+}
+
+const { minBlunderVersion, auditMode } = Astro.props;
+const configJson = JSON.stringify({ minBlunderVersion, auditMode }).replace(/</g, '\\u003c');
+---
+
+<div id="visualizer">
+  <div id="loading">Loading game data...</div>
+  <div id="error" class="hidden"></div>
+
+  <div id="game-ui" class="hidden">
+    <div id="game-header">
+      <div id="game-title"></div>
+      <div id="youtube-link" class="hidden">
+        <a id="youtube-url" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
+      </div>
+    </div>
+
+    <div id="viewer-container"></div>
+    {auditMode && <div id="audit-container"></div>}
+  </div>
+</div>
+
+<script is:inline type="application/json" id="game-replay-config" set:html={configJson}></script>
+<script>
+  import { initGameReplayPage } from "../scripts/init-game-replay.js";
+
+  initGameReplayPage();
+</script>
+
+<style>
+  :global(main.wide:has(#visualizer)) {
+    padding: 0.75rem 1rem;
+  }
+
+  #visualizer {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  #loading, #error {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--text-muted);
+  }
+
+  #error {
+    color: #e94560;
+  }
+
+  #game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  #game-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e94560;
+  }
+
+  #youtube-link a {
+    color: #e94560;
+    text-decoration: none;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid #e94560;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  #youtube-link a:hover {
+    background: #e94560;
+    color: #fff;
+  }
+
+  #blunder-summary {
+    font-size: 0.8rem;
+    color: #e94560;
+    white-space: nowrap;
+  }
+
+  .old-analysis-tag {
+    font-size: 0.7rem;
+    color: #888;
+    font-style: italic;
+  }
+
+  #error-summary {
+    font-size: 0.8rem;
+    color: #e67e22;
+    cursor: pointer;
+  }
+
+  .error-list {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .error-link {
+    color: #e67e22;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #season-info {
+    font-size: 0.7rem;
+    color: #666;
+  }
+
+  #season-banner {
+    background: #3d1a00;
+    color: #e67e22;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 600px) {
+    #game-header {
+      flex-wrap: wrap;
+    }
+  }
+</style>

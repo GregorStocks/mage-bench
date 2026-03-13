@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import '../../styles/game-renderer.css';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -58,7 +59,6 @@ const scenarioTitle = slug.replace(/_/g, ' ');
 ---
 
 <Base title={`Golden: ${scenarioTitle}`} wide>
-  <link rel="stylesheet" href="/game-renderer.css" />
   <div id="visualizer"
     data-game={JSON.stringify(exportData)}
     data-fixture={JSON.stringify({ mcp_game_state: fixture.gameState, mcp_pass_priority: fixture.passPriority })}
@@ -449,8 +449,10 @@ const scenarioTitle = slug.replace(/_/g, ' ');
   }
 </style>
 
-<script is:inline src="/game-renderer.js"></script>
-<script is:inline>
+<script>
+// @ts-nocheck
+import "../../scripts/game-renderer.js";
+
 (function () {
   var R = window.GameRenderer;
   if (!R) { console.error("GameRenderer not loaded"); return; }

@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint \"src/**/*.{astro,ts}\" \"tests/**/*.js\" \"public/**/*.js\" \"*.{js,mjs,cjs}\"",
+    "lint": "eslint \"src/**/*.{astro,ts,js}\" \"tests/**/*.js\" \"*.{js,mjs,cjs}\"",
     "check": "astro check",
     "test": "vitest run"
   },
