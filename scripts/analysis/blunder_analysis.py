@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from openai import OpenAI
+from openai import OpenAI, OpenAIError
 
 from puppeteer.decision_renderer import (
     _chosen_display as _renderer_chosen_display,
@@ -119,6 +119,11 @@ _LOG_TZ = ZoneInfo("America/Los_Angeles")
 # v32: fix chosen=None false positives — show actual attackers/blockers/text from
 #      chosenArgs instead of "?" for batch and text decisions
 BLUNDER_SCRIPT_VERSION = 32
+
+
+class BlunderAnalysisError(RuntimeError):
+    """Expected operational failure during blunder annotation."""
+
 
 # --- Prompt components ---
 
@@ -743,19 +748,19 @@ def _call_llm(
     import time
 
     for attempt in range(retries + 1):
+        # cache_control is an OpenRouter/Anthropic vendor extension
+        # not in OpenAI's type stubs — typed as Any to bypass
+        system_msg: Any = {
+            "role": "system",
+            "content": [
+                {
+                    "type": "text",
+                    "text": system,
+                    "cache_control": {"type": "ephemeral"},
+                }
+            ],
+        }
         try:
-            # cache_control is an OpenRouter/Anthropic vendor extension
-            # not in OpenAI's type stubs — typed as Any to bypass
-            system_msg: Any = {
-                "role": "system",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": system,
-                        "cache_control": {"type": "ephemeral"},
-                    }
-                ],
-            }
             response = client.chat.completions.create(
                 model=model,
                 messages=[
@@ -764,16 +769,7 @@ def _call_llm(
                 ],
                 max_tokens=16384,
             )
-            text = response.choices[0].message.content
-            assert text is not None, "LLM returned no content"
-            usage = response.usage
-            assert usage is not None, "API response missing usage data"
-            cached = 0
-            ptd = usage.prompt_tokens_details
-            if ptd is not None and ptd.cached_tokens is not None:
-                cached = ptd.cached_tokens
-            return text, usage.prompt_tokens, usage.completion_tokens, cached
-        except Exception as e:
+        except OpenAIError as e:
             err_str = str(e)
             retryable = (
                 "500" in err_str
@@ -786,6 +782,15 @@ def _call_llm(
                 time.sleep(2 ** (attempt + 1))
             else:
                 raise
+        text = response.choices[0].message.content
+        assert text is not None, "LLM returned no content"
+        usage = response.usage
+        assert usage is not None, "API response missing usage data"
+        cached = 0
+        ptd = usage.prompt_tokens_details
+        if ptd is not None and ptd.cached_tokens is not None:
+            cached = ptd.cached_tokens
+        return text, usage.prompt_tokens, usage.completion_tokens, cached
     raise AssertionError(
         f"unreachable: loop over {retries + 1} attempts completed without return or raise"
     )
@@ -1141,12 +1146,14 @@ def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
     Shared by blunder_analysis.main() and blunder_eval.py.
     """
     api_key = os.environ.get("OPENROUTER_API_KEY")
-    assert api_key, "OPENROUTER_API_KEY environment variable required"
+    if not api_key:
+        raise BlunderAnalysisError("OPENROUTER_API_KEY environment variable required")
 
     prices = fetch_openrouter_prices()
-    assert get_model_price(OPUS_MODEL, prices) is not None, (
-        f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
-    )
+    if get_model_price(OPUS_MODEL, prices) is None:
+        raise BlunderAnalysisError(
+            f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
+        )
 
     client = OpenAI(base_url=BASE_URL, api_key=api_key, timeout=300)
     return client, prices
@@ -1184,7 +1191,7 @@ def eval_decisions(
             idx = futures[fut]
             try:
                 results_by_idx[idx] = fut.result()
-            except Exception as e:  # noqa: BLE001 - keep the batch running when one decision eval fails
+            except OpenAIError as e:
                 print(f"  WARNING: decision_{idx} failed: {e}")
                 results_by_idx[idx] = ([], 0.0, False, {})
     except KeyboardInterrupt:
@@ -1333,7 +1340,7 @@ def main(gz_path: str) -> float:
             raw_records.append(raw)
 
     if parse_failures > len(non_forced) / 2:
-        raise RuntimeError(
+        raise BlunderAnalysisError(
             f"Too many parse failures: {parse_failures}/{len(non_forced)} decisions failed"
         )
 

@@ -5,6 +5,7 @@ import threading
 import time
 from http.server import HTTPServer
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import pytest
@@ -125,6 +126,58 @@ class TestHostnameConfig:
     def test_defaults_to_localhost(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(blunder_audit_web, "CONFIG_PATH", Path("/nonexistent/config.json"))
         assert blunder_audit_web._get_hostname() == "localhost"
+
+
+class TestExpectedApiErrors:
+    def test_find_decision_raises_audit_api_error(self) -> None:
+        with pytest.raises(blunder_audit_web.AuditApiError, match="Decision 9 not found"):
+            blunder_audit_web._find_decision([], 9)
+
+    def test_play_detail_returns_json_500(self, server_port: int, monkeypatch: pytest.MonkeyPatch) -> None:
+        def _raise(_game_id: str, _di: int) -> dict:
+            raise blunder_audit_web.AuditApiError("detail failed")
+
+        monkeypatch.setattr(blunder_audit_web, "_build_play_detail", _raise)
+
+        with pytest.raises(HTTPError) as excinfo:
+            urlopen(f"http://127.0.0.1:{server_port}/api/plays/game_test_001/0", timeout=5)
+
+        assert excinfo.value.code == 500
+        assert json.loads(excinfo.value.read()) == {"error": "detail failed"}
+
+    def test_post_invalid_json_returns_400(self, server_port: int) -> None:
+        req = Request(
+            f"http://127.0.0.1:{server_port}/api/plays/game_test_001/5/verdict",
+            data=b"{",
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+
+        with pytest.raises(HTTPError) as excinfo:
+            urlopen(req, timeout=5)
+
+        assert excinfo.value.code == 400
+        assert json.loads(excinfo.value.read()) == {
+            "error": "Invalid JSON: Expecting property name enclosed in double quotes"
+        }
+
+    def test_verdict_returns_json_500(self, server_port: int, monkeypatch: pytest.MonkeyPatch) -> None:
+        def _raise(_game_id: str, _di: int, _body: dict) -> dict:
+            raise blunder_audit_web.AuditApiError("save failed")
+
+        monkeypatch.setattr(blunder_audit_web, "_handle_verdict", _raise)
+        req = Request(
+            f"http://127.0.0.1:{server_port}/api/plays/game_test_001/5/verdict",
+            data=json.dumps({"verdict": "blunder"}).encode(),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+
+        with pytest.raises(HTTPError) as excinfo:
+            urlopen(req, timeout=5)
+
+        assert excinfo.value.code == 500
+        assert json.loads(excinfo.value.read()) == {"error": "save failed"}
 
 
 class TestNotFound:

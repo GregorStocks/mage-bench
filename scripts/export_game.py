@@ -59,6 +59,10 @@ _LLM_EVENT_TYPES = {
 _GZ_THRESHOLD = 25 * 1024 * 1024
 
 
+class GameExportError(RuntimeError):
+    """Operational export failure that callers may treat as non-fatal."""
+
+
 def _strip_html(message: str) -> str:
     """Remove <font> tags and [hex_id] suffixes from action messages."""
     message = FONT_TAG_RE.sub("", message)
@@ -1199,27 +1203,30 @@ def _validate_export(data: dict) -> None:
 
 def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     """Export a game directory to a website JSON file. Returns the output path."""
-    output = build_export(game_dir)
-    game_id = output["id"]
+    try:
+        output = build_export(game_dir)
+        game_id = output["id"]
 
-    website_games_dir.mkdir(parents=True, exist_ok=True)
+        website_games_dir.mkdir(parents=True, exist_ok=True)
 
-    json_str = json.dumps(output, indent=2, ensure_ascii=False)
-    json_bytes = json_str.encode()
-    if len(json_bytes) > _GZ_THRESHOLD:
-        output_path = website_games_dir / f"{game_id}.json.gz"
-        output_path.write_bytes(gzip.compress(json_bytes))
-        # Clean up uncompressed file if it exists
-        json_path = website_games_dir / f"{game_id}.json"
-        if json_path.exists():
-            json_path.unlink()
-    else:
-        output_path = website_games_dir / f"{game_id}.json"
-        output_path.write_bytes(json_bytes)
-        # Clean up compressed file if it exists
-        gz_path = website_games_dir / f"{game_id}.json.gz"
-        if gz_path.exists():
-            gz_path.unlink()
+        json_str = json.dumps(output, indent=2, ensure_ascii=False)
+        json_bytes = json_str.encode()
+        if len(json_bytes) > _GZ_THRESHOLD:
+            output_path = website_games_dir / f"{game_id}.json.gz"
+            output_path.write_bytes(gzip.compress(json_bytes))
+            # Clean up uncompressed file if it exists
+            json_path = website_games_dir / f"{game_id}.json"
+            if json_path.exists():
+                json_path.unlink()
+        else:
+            output_path = website_games_dir / f"{game_id}.json"
+            output_path.write_bytes(json_bytes)
+            # Clean up compressed file if it exists
+            gz_path = website_games_dir / f"{game_id}.json.gz"
+            if gz_path.exists():
+                gz_path.unlink()
+    except (AssertionError, OSError, json.JSONDecodeError) as exc:
+        raise GameExportError(str(exc)) from exc
 
     return output_path
 

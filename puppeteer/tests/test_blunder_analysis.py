@@ -6,10 +6,12 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
+from openai import OpenAIError
 
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     OPUS_MODEL,
+    BlunderAnalysisError,
     _card_names_in_decision,
     _card_reference_for_decision,
     _chosen_display,
@@ -20,6 +22,8 @@ from scripts.analysis.blunder_analysis import (
     _format_current_turn_actions,
     _format_decisions,
     _parse_annotation,
+    eval_decisions,
+    init_api,
     main,
 )
 
@@ -132,6 +136,17 @@ def _make_game() -> dict:
         ],
         "actions": [],
         "llmEvents": [],
+    }
+
+
+def _make_game_ctx() -> dict:
+    return {
+        "overview": "Test overview",
+        "oracle_texts": {},
+        "snapshots": [],
+        "actions_by_turn": {},
+        "num_players": 2,
+        "all_actions": [],
     }
 
 
@@ -891,7 +906,7 @@ class TestMainIntegration:
         # Return unparseable garbage for the single decision (1/1 = 100% failure)
         mock_client.chat.completions.create.return_value = _mock_response("not json at all {")
 
-        with pytest.raises(RuntimeError, match="Too many parse failures"):
+        with pytest.raises(BlunderAnalysisError, match="Too many parse failures"):
             main(str(gz_path))
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
@@ -993,3 +1008,53 @@ class TestMainIntegration:
 
         # Only 1 API call — the no-op decision was skipped
         assert mock_client.chat.completions.create.call_count == 1
+
+
+class TestOperationalFailures:
+    @patch(
+        "scripts.analysis.blunder_analysis._eval_one_decision",
+        side_effect=OpenAIError("temporary upstream failure"),
+    )
+    def test_eval_decisions_continues_on_openai_error(self, _mock_eval: MagicMock) -> None:
+        results = eval_decisions(
+            [_make_decision()],
+            _make_game_ctx(),
+            MagicMock(),
+            _TEST_PRICES,
+        )
+
+        assert results[0] == ([], 0.0, False, {})
+
+    @patch(
+        "scripts.analysis.blunder_analysis._eval_one_decision",
+        side_effect=AssertionError("unexpected bug"),
+    )
+    def test_eval_decisions_propagates_non_openai_error(self, _mock_eval: MagicMock) -> None:
+        with pytest.raises(AssertionError, match="unexpected bug"):
+            eval_decisions(
+                [_make_decision()],
+                _make_game_ctx(),
+                MagicMock(),
+                _TEST_PRICES,
+            )
+
+    def test_init_api_requires_api_key(self) -> None:
+        with (
+            patch.dict("os.environ", {}, clear=True),
+            pytest.raises(
+                BlunderAnalysisError,
+                match="OPENROUTER_API_KEY environment variable required",
+            ),
+        ):
+            init_api()
+
+    @patch("scripts.analysis.blunder_analysis.fetch_openrouter_prices", return_value={})
+    def test_init_api_requires_pricing(self, _mock_prices: MagicMock) -> None:
+        with (
+            patch.dict("os.environ", {"OPENROUTER_API_KEY": "sk-test"}, clear=True),
+            pytest.raises(
+                BlunderAnalysisError,
+                match="Could not fetch pricing",
+            ),
+        ):
+            init_api()

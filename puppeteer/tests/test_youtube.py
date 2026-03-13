@@ -5,8 +5,16 @@ import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 from puppeteer.orchestrator import _save_youtube_url, _update_website_youtube_url, upload_and_export
-from scripts.upload_youtube import _build_description, _build_title
+from scripts.export_game import GameExportError, export_game
+from scripts.upload_youtube import (
+    YouTubeUploadError,
+    _build_description,
+    _build_title,
+    upload_to_youtube,
+)
 
 
 def _make_meta(players=None):
@@ -160,6 +168,37 @@ def test_update_website_youtube_url_no_files():
         _update_website_youtube_url(game_dir, "https://youtu.be/xyz", project_root)
 
 
+def test_export_game_wraps_operational_errors():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir) / "game_20260210_120000"
+        website_games_dir = Path(tmpdir) / "website" / "public" / "games"
+
+        with (
+            patch(
+                "scripts.export_game.build_export",
+                side_effect=AssertionError("missing game_type"),
+            ),
+            pytest.raises(GameExportError, match="missing game_type"),
+        ):
+            export_game(game_dir, website_games_dir)
+
+
+def test_upload_to_youtube_wraps_operational_errors():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir) / "game_20260210_120000"
+        game_dir.mkdir()
+        (game_dir / "recording.mov").write_bytes(b"movie")
+
+        with (
+            patch(
+                "scripts.upload_youtube._get_authenticated_service",
+                side_effect=FileNotFoundError("missing client secrets"),
+            ),
+            pytest.raises(YouTubeUploadError, match="missing client secrets"),
+        ):
+            upload_to_youtube(game_dir)
+
+
 def test_upload_and_export_returns_zero_without_api_key():
     """Without OPENROUTER_API_KEY, should export without annotation and return 0.0."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -203,3 +242,55 @@ def test_upload_and_export_skips_youtube_without_recording():
             mock_export.return_value = export_path
             upload_and_export(game_dir, project_root)
         mock_yt.assert_not_called()
+
+
+def test_upload_and_export_continues_after_youtube_upload_error():
+    """A YouTube upload failure should still export the game."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_id = "game_20260210_120000"
+        game_dir = Path(tmpdir) / game_id
+        game_dir.mkdir()
+        (game_dir / "recording.mov").write_bytes(b"movie")
+        project_root = Path(tmpdir)
+        final_games_dir = project_root / "website" / "public" / "games"
+        final_games_dir.mkdir(parents=True)
+        (game_dir / "game_meta.json").write_text(json.dumps(_make_meta()))
+        (game_dir / "game_events.jsonl").write_text("")
+        with (
+            patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
+            patch(
+                "puppeteer.orchestrator._upload_to_youtube",
+                side_effect=YouTubeUploadError("auth failed"),
+            ),
+            patch("puppeteer.orchestrator._export_game") as mock_export,
+        ):
+            export_path = Path(tmpdir) / "export" / f"{game_id}.json"
+            export_path.parent.mkdir(parents=True)
+            export_path.write_text("{}")
+            mock_export.return_value = export_path
+
+            result = upload_and_export(game_dir, project_root)
+
+        assert result == 0.0
+        assert (final_games_dir / f"{game_id}.json").exists()
+
+
+def test_upload_and_export_returns_zero_on_export_error():
+    """A website export failure should be logged and skipped."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir) / "game_20260210_120000"
+        game_dir.mkdir()
+        project_root = Path(tmpdir)
+        (project_root / "website" / "public" / "games").mkdir(parents=True)
+        (game_dir / "game_meta.json").write_text(json.dumps(_make_meta()))
+        (game_dir / "game_events.jsonl").write_text("")
+        with (
+            patch.dict("os.environ", {"OPENROUTER_API_KEY": ""}, clear=False),
+            patch(
+                "puppeteer.orchestrator._export_game",
+                side_effect=GameExportError("bad export"),
+            ),
+        ):
+            result = upload_and_export(game_dir, project_root)
+
+        assert result == 0.0

@@ -69,7 +69,6 @@ ignore = [
 external = []
 
 [tool.ruff.lint.per-file-ignores]
-"src/puppeteer/orchestrator.py" = ["BLE001"]
 "tests/**/*.py" = ["BLE001"]
 
 [tool.ruff.lint.flake8-tidy-imports.banned-api]

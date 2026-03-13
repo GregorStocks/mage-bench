@@ -58,6 +58,10 @@ _game_data_cache: dict[str, dict] = {}
 _decisions_cache: dict[str, list[dict]] = {}
 
 
+class AuditApiError(RuntimeError):
+    """Expected request/data error that should become a JSON 500."""
+
+
 def _load_config() -> dict:
     """Load ~/.mage-bench/config.json if it exists."""
     if CONFIG_PATH.exists():
@@ -73,16 +77,32 @@ def _get_hostname() -> str:
 def _load_game_cached(game_id: str) -> dict:
     """Load game data with caching."""
     if game_id not in _game_data_cache:
-        gz_path = str(game_path_for_id(game_id))
-        _game_data_cache[game_id] = load_game(gz_path)
+        try:
+            gz_path = str(game_path_for_id(game_id))
+            _game_data_cache[game_id] = load_game(gz_path)
+        except (
+            AssertionError,
+            FileNotFoundError,
+            OSError,
+            json.JSONDecodeError,
+        ) as exc:
+            raise AuditApiError(str(exc)) from exc
     return _game_data_cache[game_id]
 
 
 def _load_decisions_cached(game_id: str) -> list[dict]:
     """Load decisions with caching."""
     if game_id not in _decisions_cache:
-        gz_path = str(game_path_for_id(game_id))
-        _decisions_cache[game_id] = extract_decisions(gz_path)
+        try:
+            gz_path = str(game_path_for_id(game_id))
+            _decisions_cache[game_id] = extract_decisions(gz_path)
+        except (
+            AssertionError,
+            FileNotFoundError,
+            OSError,
+            json.JSONDecodeError,
+        ) as exc:
+            raise AuditApiError(str(exc)) from exc
     return _decisions_cache[game_id]
 
 
@@ -91,7 +111,7 @@ def _find_decision(decisions: list[dict], di: int) -> dict:
     for d in decisions:
         if get_decision_index(d) == di:
             return d
-    raise AssertionError(f"Decision {di} not found in {len(decisions)} decisions")
+    raise AuditApiError(f"Decision {di} not found in {len(decisions)} decisions")
 
 
 def _recent_actions_before(
@@ -161,7 +181,10 @@ def _build_play_detail(game_id: str, di: int) -> dict:
             break
 
     # Get ground truth entry
-    gt_entries = load_game_ground_truth(game_id)
+    try:
+        gt_entries = load_game_ground_truth(game_id)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise AuditApiError(str(exc)) from exc
     gt_entry = None
     for e in gt_entries:
         if e["decision_index"] == di:
@@ -195,10 +218,15 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     """Process a verdict submission."""
     from scripts.analysis.blunder_audit import _get_current_annotation
 
-    verdict = body["verdict"]
-    assert verdict in ("blunder", "not_blunder", "questionable"), (
-        f"Invalid verdict: {verdict}"
-    )
+    if not isinstance(body, dict):
+        raise AuditApiError("Expected JSON object body")
+
+    try:
+        verdict = body["verdict"]
+    except KeyError as exc:
+        raise AuditApiError("Missing verdict") from exc
+    if verdict not in ("blunder", "not_blunder", "questionable"):
+        raise AuditApiError(f"Invalid verdict: {verdict}")
     notes = body.get("notes") or None
 
     game_data = _load_game_cached(game_id)
@@ -207,9 +235,12 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     snapshots = game_data.get("snapshots", [])
     gz_path = str(game_path_for_id(game_id))
 
-    annotation, ann_version = _get_current_annotation(
-        decision, game_data, snapshots, gz_path
-    )
+    try:
+        annotation, ann_version = _get_current_annotation(
+            decision, game_data, snapshots, gz_path
+        )
+    except (AssertionError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
+        raise AuditApiError(str(exc)) from exc
 
     audited_entry = make_audited_entry(
         decision_index=di,
@@ -221,7 +252,10 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     )
 
     # Replace in-place and save
-    game_entries = load_game_ground_truth(game_id)
+    try:
+        game_entries = load_game_ground_truth(game_id)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise AuditApiError(str(exc)) from exc
     replaced = False
     for idx, e in enumerate(game_entries):
         if e["decision_index"] == di:
@@ -230,7 +264,10 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
             break
     if not replaced:
         game_entries.append(audited_entry)
-    save_game_ground_truth(game_id, game_entries)
+    try:
+        save_game_ground_truth(game_id, game_entries)
+    except OSError as exc:
+        raise AuditApiError(str(exc)) from exc
 
     return audited_entry
 
@@ -381,7 +418,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 detail = _build_play_detail(game_id, di)
                 self._send_json(detail)
-            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
+            except AuditApiError as e:
                 self._send_error(500, str(e))
             return
 
@@ -403,7 +440,7 @@ class AuditHandler(BaseHTTPRequestHandler):
             try:
                 results = _find_decisions_at_snapshot(game_id, snap_idx)
                 self._send_json(results)
-            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
+            except AuditApiError as e:
                 self._send_error(500, str(e))
             return
 
@@ -433,12 +470,16 @@ class AuditHandler(BaseHTTPRequestHandler):
                 return
 
             content_length = int(self.headers.get("Content-Length", 0))
-            body = json.loads(self.rfile.read(content_length))
+            try:
+                body = json.loads(self.rfile.read(content_length))
+            except json.JSONDecodeError as exc:
+                self._send_error(400, f"Invalid JSON: {exc.msg}")
+                return
 
             try:
                 result = _handle_verdict(game_id, di, body)
                 self._send_json(result)
-            except Exception as e:  # noqa: BLE001 - request handlers should return a 500 instead of crashing the server
+            except AuditApiError as e:
                 self._send_error(500, str(e))
             return
 

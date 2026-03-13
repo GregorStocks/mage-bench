@@ -31,6 +31,10 @@ _DECK_TYPE_TO_FORMAT: dict[str, str] = {
 }
 
 
+class YouTubeUploadError(RuntimeError):
+    """Operational upload failure that callers may treat as non-fatal."""
+
+
 def _format_label(meta: dict) -> str:
     """Derive a human-readable format label from game metadata."""
     deck_type = meta.get("deck_type", "")
@@ -171,85 +175,97 @@ def upload_to_youtube(game_dir: Path) -> str | None:
 
     Returns the YouTube video URL on success, None if no recording exists.
     """
-    from googleapiclient.errors import HttpError
-    from googleapiclient.http import MediaFileUpload
+    try:
+        from googleapiclient.errors import HttpError
+        from googleapiclient.http import MediaFileUpload
+    except ImportError as exc:
+        raise YouTubeUploadError(str(exc)) from exc
 
     recording = game_dir / "recording.mov"
     if not recording.exists():
         print(f"  No recording.mov in {game_dir}, skipping YouTube upload")
         return None
 
-    meta_path = game_dir / "game_meta.json"
-    meta = {}
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text())
-
-    title = _build_title(meta)
-    description = _build_description(meta, game_dir)
-
-    print(f"  Uploading to YouTube: {title}")
-
-    youtube = _get_authenticated_service()
-
-    body = {
-        "snippet": {
-            "title": title,
-            "description": description,
-            "tags": [
-                "mage-bench",
-                "magic-the-gathering",
-                "xmage",
-                "ai",
-                "llm",
-                "commander",
-            ],
-            "categoryId": "20",  # Gaming
-        },
-        "status": {
-            "privacyStatus": "public",
-            "selfDeclaredMadeForKids": False,
-        },
-    }
-
-    media = MediaFileUpload(
-        str(recording),
-        mimetype="video/quicktime",
-        resumable=True,
-        chunksize=10 * 1024 * 1024,
-    )
-
-    request = youtube.videos().insert(
-        part="snippet,status", body=body, media_body=media
-    )
-
-    response = None
-    while response is None:
-        status, response = request.next_chunk()
-        if status:
-            pct = int(status.progress() * 100)
-            print(f"\r  Upload progress: {pct}%", end="", flush=True)
-
-    video_id = response["id"]
-    url = f"https://youtu.be/{video_id}"
-    print(f"\r  Upload complete: {url}  ")
-
-    # Add to playlist
     try:
-        youtube.playlistItems().insert(
-            part="snippet",
-            body={
-                "snippet": {
-                    "playlistId": PLAYLIST_ID,
-                    "resourceId": {
-                        "kind": "youtube#video",
-                        "videoId": video_id,
+        meta_path = game_dir / "game_meta.json"
+        meta = {}
+        if meta_path.exists():
+            meta = json.loads(meta_path.read_text())
+
+        title = _build_title(meta)
+        description = _build_description(meta, game_dir)
+
+        print(f"  Uploading to YouTube: {title}")
+
+        youtube = _get_authenticated_service()
+
+        body = {
+            "snippet": {
+                "title": title,
+                "description": description,
+                "tags": [
+                    "mage-bench",
+                    "magic-the-gathering",
+                    "xmage",
+                    "ai",
+                    "llm",
+                    "commander",
+                ],
+                "categoryId": "20",  # Gaming
+            },
+            "status": {
+                "privacyStatus": "public",
+                "selfDeclaredMadeForKids": False,
+            },
+        }
+
+        media = MediaFileUpload(
+            str(recording),
+            mimetype="video/quicktime",
+            resumable=True,
+            chunksize=10 * 1024 * 1024,
+        )
+
+        request = youtube.videos().insert(
+            part="snippet,status", body=body, media_body=media
+        )
+
+        response = None
+        while response is None:
+            status, response = request.next_chunk()
+            if status:
+                pct = int(status.progress() * 100)
+                print(f"\r  Upload progress: {pct}%", end="", flush=True)
+
+        video_id = response["id"]
+        url = f"https://youtu.be/{video_id}"
+        print(f"\r  Upload complete: {url}  ")
+
+        # Add to playlist
+        try:
+            youtube.playlistItems().insert(
+                part="snippet",
+                body={
+                    "snippet": {
+                        "playlistId": PLAYLIST_ID,
+                        "resourceId": {
+                            "kind": "youtube#video",
+                            "videoId": video_id,
+                        },
                     },
                 },
-            },
-        ).execute()
-        print("  Added to playlist")
-    except HttpError as e:
-        print(f"  Warning: failed to add to playlist: {e}")
+            ).execute()
+            print("  Added to playlist")
+        except HttpError as e:
+            print(f"  Warning: failed to add to playlist: {e}")
+    except (
+        ImportError,
+        FileNotFoundError,
+        OSError,
+        json.JSONDecodeError,
+        HttpError,
+    ) as exc:
+        raise YouTubeUploadError(str(exc)) from exc
 
     return url
 

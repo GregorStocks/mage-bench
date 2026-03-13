@@ -668,6 +668,50 @@ def test_finalize_game_writes_logs():
         assert any(json.loads(line).get("type") == "game_over" for line in lines)
 
 
+def test_finalize_game_tolerates_merge_io_error():
+    """I/O failures while merging logs should warn and continue."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        (game_dir / "alice_errors.log").write_text("Some error\n")
+        events_file = game_dir / "game_events.jsonl"
+        events_file.write_text(json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n")
+
+        config = Config()
+        config.skip_post_game_prompts = True
+        session = GameSession(index=0, game_dir=game_dir, config=config)
+
+        with (
+            patch("puppeteer.orchestrator.merge_game_log", side_effect=OSError("disk full")),
+            patch("puppeteer.orchestrator._print_game_summary", return_value=1.25),
+        ):
+            pilot_cost, blunder_cost = _finalize_game(session, Path("/fake/root"), spectator_rc=0)
+
+        assert pilot_cost == 1.25
+        assert blunder_cost == 0.0
+
+
+def test_finalize_game_propagates_unexpected_merge_error():
+    """Unexpected merge failures should still fail fast."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        (game_dir / "alice_errors.log").write_text("Some error\n")
+        events_file = game_dir / "game_events.jsonl"
+        events_file.write_text(json.dumps({"ts": "2024-01-01", "seq": 1, "type": "game_start"}) + "\n")
+
+        config = Config()
+        config.skip_post_game_prompts = True
+        session = GameSession(index=0, game_dir=game_dir, config=config)
+
+        with (
+            patch(
+                "puppeteer.orchestrator.merge_game_log",
+                side_effect=RuntimeError("unexpected merge bug"),
+            ),
+            pytest.raises(RuntimeError, match="unexpected merge bug"),
+        ):
+            _finalize_game(session, Path("/fake/root"), spectator_rc=0)
+
+
 # --- Config num_games tests ---
 
 

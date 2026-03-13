@@ -18,6 +18,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+from openai import OpenAIError
+
 from scripts.analysis.blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     MAX_WORKERS,
@@ -267,7 +269,7 @@ def main() -> None:
             pk = futures[fut]
             try:
                 anns, cost, parsed_ok, raw = fut.result()
-            except Exception as e:  # noqa: BLE001 - keep the eval running when one play crashes
+            except OpenAIError as e:
                 print(f"  WARNING: {pk} failed: {e}")
                 eval_results[pk] = {"detected": False}
                 continue

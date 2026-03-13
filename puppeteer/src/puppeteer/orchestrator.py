@@ -15,6 +15,8 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from openai import OpenAIError
+
 from puppeteer.config import Config, PilotPlayer
 from puppeteer.deck_choice import resolve_choice_decks
 from puppeteer.game_log import merge_game_log, read_decklist
@@ -25,10 +27,21 @@ from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import ProcessManager, kill_tree
 from puppeteer.xml_config import modify_server_config
-from scripts.analysis.blunder_analysis import main as _analyze_blunders
+from scripts.analysis.blunder_analysis import (
+    BlunderAnalysisError,
+)
+from scripts.analysis.blunder_analysis import (
+    main as _analyze_blunders,
+)
+from scripts.export_game import GameExportError
 from scripts.export_game import export_game as _export_game
 from scripts.generate_leaderboard import generate_all_website_data
-from scripts.upload_youtube import upload_to_youtube as _upload_to_youtube
+from scripts.upload_youtube import (
+    YouTubeUploadError,
+)
+from scripts.upload_youtube import (
+    upload_to_youtube as _upload_to_youtube,
+)
 
 logger = get_logger(__name__)
 
@@ -1020,7 +1033,7 @@ def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2)
         try:
             cost = _analyze_blunders(str(gz_path))
             return None, cost  # success
-        except Exception as e:
+        except (BlunderAnalysisError, OpenAIError) as e:
             last_error = str(e)
             if attempt < max_retries:
                 logger.warning("  Annotation attempt %d failed: %s", attempt + 1, e)
@@ -1110,7 +1123,7 @@ def upload_and_export(
                 logger.info("  YouTube: %s", url)
                 _save_youtube_url(game_dir, url)
                 _update_website_youtube_url(game_dir, url, project_root)
-        except Exception as e:
+        except (YouTubeUploadError, OSError, json.JSONDecodeError) as e:
             logger.warning("  YouTube upload failed: %s", e)
             if post_game_failures is not None:
                 post_game_failures.append(f"{game_id}: YouTube upload failed: {e}")
@@ -1129,7 +1142,7 @@ def upload_and_export(
             final_path = website_games_dir / tmp_export_path.name
             tmp_path = website_games_dir / f".tmp_{tmp_export_path.name}"
             shutil.move(str(tmp_export_path), str(tmp_path))
-    except Exception as e:
+    except (GameExportError, OSError) as e:
         logger.warning("  Website export failed: %s", e)
         if post_game_failures is not None:
             post_game_failures.append(f"{game_id}: Website export failed: {e}")
@@ -1460,7 +1473,7 @@ def _finalize_game(
     try:
         merge_game_log(session.game_dir)
         logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
-    except Exception as e:
+    except (OSError, UnicodeError) as e:
         logger.warning("  %sFailed to merge game log: %s", game_label, e)
     pilot_cost = _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
