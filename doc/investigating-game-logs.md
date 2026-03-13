@@ -235,6 +235,26 @@ grep "Unknown tool:" "$GAME_DIR"/*_errors.log
 grep -c "Unknown tool:" "$GAME_DIR"/*_errors.log
 ```
 
+## `game_timeline.py --turns` caveat
+
+Some v7 exports omit `snapshots[].ts`. When that happens,
+`scripts/analysis/game_timeline.py --turns ...` silently maps every `llmEvent`
+to the final turn because it falls back to `""` for missing snapshot timestamps.
+Sanity-check the export before trusting turn-range filters:
+
+```bash
+python - <<'PY'
+import json
+from pathlib import Path
+
+data = json.loads(Path("website/public/games/GAME_ID.json").read_text())
+print("snapshot_has_ts =", bool(data.get("snapshots")) and "ts" in data["snapshots"][0])
+PY
+```
+
+If that prints `False`, avoid `--turns` for now and use the full timeline plus
+`--player`, or inspect `llmEvents` / bridge logs directly.
+
 ## Verifying blunder annotations against decisions
 
 Batch attack/block decisions have `chosen=None` (the actual data is in `chosenArgs`).

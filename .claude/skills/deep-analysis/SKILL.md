@@ -81,7 +81,7 @@ uv run python scripts/list-issues.py
     - `choose_action out-of-range diagnostic` in `$GAME_DIR` with glob `*_mcp.log`
     - `Index .* out of range` in `$GAME_DIR` with glob `*_errors.log` or `*_pilot.log`
   - For output schema validation errors (OpenAI structured outputs), grep for `Invalid structured content returned by tool` in `*_pilot.log`. These mean the bridge returned data that doesn't match the tool's output schema — the action succeeds server-side but the model gets an error. See `doc/investigating-game-logs.md` for details.
-- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior.
+- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior. Caveat: some v7 exports omit `snapshots[].ts`, which currently makes `game_timeline.py --turns ...` misclassify every event as the final turn or print zero events. Sanity-check the output before relying on that filter.
 
 ### Step 6: Cross-reference findings
 
