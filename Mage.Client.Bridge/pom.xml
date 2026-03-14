@@ -61,14 +61,19 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <!-- Low-noise warning gate used by make lint-java. -->
-                            <showDeprecation>true</showDeprecation>
-                            <failOnWarning>true</failOnWarning>
-                            <compilerArgs>
-                                <arg>-Xlint:unchecked,deprecation</arg>
-                            </compilerArgs>
-                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <configuration>
+                                    <!-- Low-noise warning gate used by make lint-java. -->
+                                    <showDeprecation>true</showDeprecation>
+                                    <failOnWarning>true</failOnWarning>
+                                    <compilerArgs>
+                                        <arg>-Xlint:unchecked,deprecation</arg>
+                                    </compilerArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
