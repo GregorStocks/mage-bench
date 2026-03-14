@@ -26,7 +26,7 @@ def _write_issue(issues_dir: Path, name: str, data: dict) -> None:
 def test_passes_on_valid_issue(tmp_path: Path) -> None:
     issues_dir = tmp_path / "issues"
     issues_dir.mkdir()
-    _write_issue(issues_dir, "good-issue", _make_valid_issue())
+    _write_issue(issues_dir, "p2-good-issue", _make_valid_issue())
     assert lint_issues(tmp_path) == []
 
 
@@ -34,8 +34,8 @@ def test_passes_with_optional_fields(tmp_path: Path) -> None:
     issues_dir = tmp_path / "issues"
     issues_dir.mkdir()
     issue = _make_valid_issue()
-    issue["not_autoclaimable"] = True
-    _write_issue(issues_dir, "good-issue", issue)
+    issue["blocked"] = True
+    _write_issue(issues_dir, "blocked-good-issue", issue)
     assert lint_issues(tmp_path) == []
 
 
@@ -44,7 +44,7 @@ def test_catches_missing_field(tmp_path: Path) -> None:
     issues_dir.mkdir()
     issue = _make_valid_issue()
     del issue["title"]
-    _write_issue(issues_dir, "bad-issue", issue)
+    _write_issue(issues_dir, "p2-bad-issue", issue)
     errors = lint_issues(tmp_path)
     assert len(errors) == 1
     assert "missing fields" in errors[0]
@@ -56,7 +56,7 @@ def test_catches_unknown_field(tmp_path: Path) -> None:
     issues_dir.mkdir()
     issue = _make_valid_issue()
     issue["autograbbable"] = False
-    _write_issue(issues_dir, "bad-issue", issue)
+    _write_issue(issues_dir, "p2-bad-issue", issue)
     errors = lint_issues(tmp_path)
     assert len(errors) == 1
     assert "unknown fields" in errors[0]
@@ -68,9 +68,35 @@ def test_catches_id_field(tmp_path: Path) -> None:
     issues_dir.mkdir()
     issue = _make_valid_issue()
     issue["id"] = "should-not-exist"
-    _write_issue(issues_dir, "bad-issue", issue)
+    _write_issue(issues_dir, "p2-bad-issue", issue)
     errors = lint_issues(tmp_path)
     assert any("has 'id' field" in e for e in errors)
+
+
+def test_catches_priority_prefix_mismatch(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    _write_issue(issues_dir, "p3-bad-issue", _make_valid_issue())
+    errors = lint_issues(tmp_path)
+    assert any("filename prefix must be 'p2-'" in e for e in errors)
+
+
+def test_catches_blocked_prefix_mismatch(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    issue = _make_valid_issue()
+    issue["blocked"] = True
+    _write_issue(issues_dir, "p2-bad-issue", issue)
+    errors = lint_issues(tmp_path)
+    assert any("filename prefix must be 'blocked-'" in e for e in errors)
+
+
+def test_catches_missing_required_prefix(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    _write_issue(issues_dir, "bad-issue", _make_valid_issue())
+    errors = lint_issues(tmp_path)
+    assert any("filename must start with p1-/p2-/p3-/p4-/blocked-" in e for e in errors)
 
 
 def test_real_issues_directory() -> None:

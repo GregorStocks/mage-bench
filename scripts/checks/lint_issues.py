@@ -1,6 +1,7 @@
 """Validate issue JSON files in issues/ directory."""
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -15,9 +16,14 @@ REQUIRED_FIELDS = {
     "updated_at",
 }
 
-OPTIONAL_FIELDS = {"not_autoclaimable"}
+OPTIONAL_FIELDS = {"blocked"}
 
 KNOWN_FIELDS = REQUIRED_FIELDS | OPTIONAL_FIELDS
+FILENAME_RE = re.compile(r"^(p[1-4]|blocked)-[a-z0-9][a-z0-9-]*$")
+
+
+def _expected_filename_prefix(issue: dict) -> str:
+    return "blocked" if issue.get("blocked") else f"p{issue['priority']}"
 
 
 def lint_issues(project_root: Path) -> list[str]:
@@ -54,6 +60,18 @@ def lint_issues(project_root: Path) -> list[str]:
                 f"{issue_file.name}: unknown fields: {', '.join(sorted(unknown))}"
             )
 
+        if not FILENAME_RE.fullmatch(issue_file.stem):
+            errors.append(
+                f"{issue_file.name}: filename must start with p1-/p2-/p3-/p4-/blocked- and use kebab-case"
+            )
+        else:
+            expected_prefix = _expected_filename_prefix(issue)
+            actual_prefix = issue_file.stem.split("-", 1)[0]
+            if actual_prefix != expected_prefix:
+                errors.append(
+                    f"{issue_file.name}: filename prefix must be '{expected_prefix}-' for this issue"
+                )
+
         # Resolved/closed issues should be deleted
         if issue["status"] != "open":
             errors.append(
@@ -69,6 +87,9 @@ def lint_issues(project_root: Path) -> list[str]:
         # Labels should be a list
         if not isinstance(issue["labels"], list):
             errors.append(f"{issue_file.name}: labels must be an array")
+
+        if "blocked" in issue and not isinstance(issue["blocked"], bool):
+            errors.append(f"{issue_file.name}: blocked must be a boolean")
 
     return errors
 
