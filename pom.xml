@@ -245,30 +245,6 @@
         </pluginManagement>
     </build>
 
-    <profiles>
-        <profile>
-            <id>java-lint</id>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <configuration>
-                                <!-- Low-noise warning gate used by make lint-java. -->
-                                <showDeprecation>true</showDeprecation>
-                                <failOnWarning>true</failOnWarning>
-                                <compilerArgs>
-                                    <arg>-Xlint:unchecked,deprecation</arg>
-                                </compilerArgs>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-    </profiles>
-
     <modules>
         <module>Mage</module>
         <module>Mage.Common</module>
