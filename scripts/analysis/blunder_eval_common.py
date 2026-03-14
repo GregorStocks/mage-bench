@@ -6,9 +6,11 @@ audit, baseline, eval, and promote scripts.
 
 from __future__ import annotations
 
-import gzip
 import json
+from collections.abc import Mapping, Sequence
 from pathlib import Path
+
+from schemas.game_export_types import GameExport, JsonObject, load_game_export
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
@@ -23,12 +25,12 @@ TMP_DIR = REPO_ROOT / "tmp"
 # These helpers read either format.
 
 
-def is_canonical_decision(d: dict) -> bool:
+def is_canonical_decision(d: Mapping[str, object]) -> bool:
     """Check if a decision is in canonical (camelCase) format."""
     return "snapshotIndex" in d
 
 
-def decision_index(d: dict) -> int:
+def decision_index(d: Mapping[str, object]) -> int:
     """Get the decision index from either format."""
     value = d.get("index", d.get("decision_index", 0))
     assert isinstance(value, int) and not isinstance(value, bool), (
@@ -37,7 +39,7 @@ def decision_index(d: dict) -> int:
     return value
 
 
-def snapshot_index(d: dict) -> int:
+def snapshot_index(d: Mapping[str, object]) -> int:
     """Get the snapshot index from either format."""
     value = d.get("snapshotIndex", d.get("snapshot_index", 0))
     assert isinstance(value, int) and not isinstance(value, bool), (
@@ -46,35 +48,35 @@ def snapshot_index(d: dict) -> int:
     return value
 
 
-def is_forced(d: dict) -> bool:
+def is_forced(d: Mapping[str, object]) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
     value = d.get("isForced", d.get("is_forced", False))
     assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
     return value
 
 
-def action_result(d: dict) -> dict:
+def action_result(d: Mapping[str, object]) -> JsonObject:
     """Get the action result from either format."""
     value = d.get("actionResult", d.get("action_result", {}))
     assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
     return value
 
 
-def is_rolled_back(d: dict) -> bool:
+def is_rolled_back(d: Mapping[str, object]) -> bool:
     """Check if a decision was rolled back in either format."""
     value = d.get("rolled_back", False)
     assert isinstance(value, bool), f"rolled_back must be a bool, got {value!r}"
     return value
 
 
-def is_cast_rolled_back(d: dict) -> bool:
+def is_cast_rolled_back(d: Mapping[str, object]) -> bool:
     """Check if a cast was rolled back in either format."""
     value = d.get("castRolledBack", d.get("cast_rolled_back", False))
     assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
     return value
 
 
-def is_mana_ability_subdecision(d: dict) -> bool:
+def is_mana_ability_subdecision(d: Mapping[str, object]) -> bool:
     """Check if a decision is a mana ability sub-decision (picking which mana to produce).
 
     These are intermediate steps during mana payment or ability activation —
@@ -87,6 +89,7 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     # "Choose spell or ability to play" where ALL choices are mana abilities
     if msg.startswith(("Choose spell or ability", "Choose ability")):
         choices = d.get("choices", [])
+        assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
         if choices and all(
             isinstance(c, dict)
             and "Add {" in (c.get("name", "") + c.get("description", ""))
@@ -96,7 +99,7 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     return False
 
 
-def subsequent_actions(d: dict) -> list[str]:
+def subsequent_actions(d: Mapping[str, object]) -> list[str]:
     """Get subsequent actions from either format."""
     actions = d.get("subsequentActions", d.get("subsequent_actions", []))
     assert isinstance(actions, list), (
@@ -111,17 +114,9 @@ def subsequent_actions(d: dict) -> list[str]:
     return result
 
 
-def load_game(path: str | Path) -> dict:
+def load_game(path: str | Path) -> GameExport:
     """Load a game export file (.json or .json.gz)."""
-    path = str(path)
-    if path.endswith(".json.gz"):
-        with gzip.open(path, "rt") as f:
-            data = json.load(f)
-    else:
-        with open(path) as f:
-            data = json.load(f)
-    assert isinstance(data, dict), f"{path}: expected JSON object"
-    return data
+    return load_game_export(path)
 
 
 def glob_game_files(games_dir: Path) -> list[Path]:
@@ -248,7 +243,9 @@ def make_audited_entry(
 # --- Aftermath / reverse mapping ---
 
 
-def compute_aftermath_index(decision: dict, snapshots: list[dict]) -> int:
+def compute_aftermath_index(
+    decision: Mapping[str, object], snapshots: Sequence[Mapping[str, object]]
+) -> int:
     """Compute the aftermath snapshot index for a decision.
 
     Mirrors the logic in _eval_one_decision from blunder_analysis.py:
@@ -257,23 +254,37 @@ def compute_aftermath_index(decision: dict, snapshots: list[dict]) -> int:
     BEFORE the action processes, so we need > (not >=).
     """
     s_idx = snapshot_index(decision)
-    action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
-    action_ts = decision.get("action_ts", "")
+    action_seq_raw = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
+    action_seq = (
+        action_seq_raw
+        if isinstance(action_seq_raw, int) and not isinstance(action_seq_raw, bool)
+        else 0
+    )
+    action_ts_raw = decision.get("action_ts", "")
+    action_ts = action_ts_raw if isinstance(action_ts_raw, str) else ""
     if action_seq:
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("seq", 0) > action_seq:
+            snapshot_seq = snapshots[i].get("seq", 0)
+            assert isinstance(snapshot_seq, int), (
+                f"snapshot seq must be an int, got {snapshot_seq!r}"
+            )
+            if snapshot_seq > action_seq:
                 return i
     elif action_ts:
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("ts", "") > action_ts:
+            snapshot_ts = snapshots[i].get("ts", "")
+            assert isinstance(snapshot_ts, str), (
+                f"snapshot ts must be a string when present, got {snapshot_ts!r}"
+            )
+            if snapshot_ts > action_ts:
                 return i
     return min(s_idx + 1, len(snapshots) - 1)
 
 
 def reverse_map_annotations(
-    annotations: list[dict],
-    decisions: list[dict],
-    snapshots: list[dict],
+    annotations: Sequence[Mapping[str, object]],
+    decisions: Sequence[Mapping[str, object]],
+    snapshots: Sequence[Mapping[str, object]],
 ) -> dict[int, int]:
     """Map annotation list indices to decision indices.
 
@@ -293,6 +304,12 @@ def reverse_map_annotations(
     for ann_idx, ann in enumerate(annotations):
         ann_snap = ann["snapshotIndex"]
         ann_player = ann["player"]
+        assert isinstance(ann_snap, int) and not isinstance(ann_snap, bool), (
+            f"annotation snapshotIndex must be an int, got {ann_snap!r}"
+        )
+        assert isinstance(ann_player, str), (
+            f"annotation player must be a string, got {ann_player!r}"
+        )
 
         # Try exact match on aftermath index + player
         best_decision_idx: int | None = None
@@ -322,10 +339,10 @@ def reverse_map_annotations(
 
 
 def lookup_annotation_for_decision(
-    decision: dict,
-    annotations: list[dict],
-    snapshots: list[dict],
-) -> dict | None:
+    decision: Mapping[str, object],
+    annotations: Sequence[Mapping[str, object]],
+    snapshots: Sequence[Mapping[str, object]],
+) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any.
 
     Computes the decision's aftermath_index and scans annotations
@@ -339,10 +356,11 @@ def lookup_annotation_for_decision(
     return None
 
 
-def chosen_display(decision: dict) -> str:
+def chosen_display(decision: Mapping[str, object]) -> str:
     """Human-readable name of what was chosen in a decision."""
     chosen = decision.get("chosen")
     choices = decision.get("choices", [])
+    assert isinstance(choices, list), f"choices must be a list, got {choices!r}"
     if isinstance(chosen, bool):
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
@@ -365,6 +383,9 @@ def chosen_display(decision: dict) -> str:
     chosen_args = decision.get("chosenArgs") or decision.get("chosen_args")
     if not chosen_args:
         return "?"
+    assert isinstance(chosen_args, dict), (
+        f"chosenArgs must be an object when present, got {chosen_args!r}"
+    )
     if chosen_args.get("attackers"):
         return f"Attack with: {chosen_args['attackers']}"
     if chosen_args.get("blockers"):

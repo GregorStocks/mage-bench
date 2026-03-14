@@ -13,9 +13,11 @@ import json
 import os
 import sys
 from collections import Counter
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from schemas.game_export_types import JsonObject, LlmEvent
 from scripts.analysis.blunder_eval_common import load_game
 
 
@@ -29,14 +31,14 @@ class ErrorEvent:
     error_code: str  # machine-readable code or "exception" for RuntimeException
     error_message: str
     action_type: str  # GAME_ASK, GAME_SELECT, etc. or "" if unknown
-    args: dict
+    args: JsonObject
     retryable: bool
     had_choices: bool  # whether error response included choices
     retry_outcome: str  # "success", "different_error", "same_error", "no_retry"
     game_id: str
 
 
-def _parse_result(result_str: str) -> dict | None:
+def _parse_result(result_str: str) -> JsonObject | None:
     """Parse a tool result string into a dict, or None if not JSON."""
     try:
         r = json.loads(result_str)
@@ -65,7 +67,7 @@ def _infer_error_code(error_message: str) -> str:
     return "unknown"
 
 
-def _infer_action_type(events: list[dict], idx: int, player: str) -> str:
+def _infer_action_type(events: Sequence[LlmEvent], idx: int, player: str) -> str:
     """Look backward from a choose_action error to find the action_type from
     the preceding get_action_choices call."""
     for j in range(idx - 1, max(idx - 30, -1), -1):
@@ -87,7 +89,7 @@ def _infer_action_type(events: list[dict], idx: int, player: str) -> str:
 
 
 def _find_retry_outcome(
-    events: list[dict], idx: int, player: str, tool: str, error_code: str
+    events: Sequence[LlmEvent], idx: int, player: str, tool: str, error_code: str
 ) -> str:
     """Look forward from an error to see if the model retried and what happened."""
     for j in range(idx + 1, min(idx + 20, len(events))):
@@ -116,14 +118,14 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
     """Extract all MCP errors from a single game export."""
     data = load_game(gz_path)
 
-    game_id = data.get("id", os.path.basename(gz_path))
+    game_id = data["id"]
 
     # Build player -> model mapping
     player_models: dict[str, str] = {}
-    for p in data.get("players", []):
+    for p in data["players"]:
         player_models[p["name"]] = p.get("model", "?")
 
-    events = data.get("llmEvents", [])
+    events = data["llmEvents"]
     errors: list[ErrorEvent] = []
 
     for i, e in enumerate(events):
@@ -135,27 +137,42 @@ def analyze_game(gz_path: str) -> list[ErrorEvent]:
         model = player_models.get(player, "?")
         result_str = e.get("result", "")
         args = e.get("args", {})
+        assert isinstance(args, dict), (
+            f"{game_id}: llm event args must be an object, got {args!r}"
+        )
 
         r = _parse_result(result_str)
 
         if r is not None and r.get("success") is False:
             error_message = r.get("error", "")
-            error_code = r.get("error_code") or _infer_error_code(error_message)
+            assert isinstance(error_message, str), (
+                f"{game_id}: tool error message must be a string, got {error_message!r}"
+            )
+            error_code = r.get("error_code")
+            assert error_code is None or isinstance(error_code, str), (
+                f"{game_id}: tool error code must be a string when present, got {error_code!r}"
+            )
+            resolved_error_code = error_code or _infer_error_code(error_message)
             retryable = r.get("retryable", False)
+            assert isinstance(retryable, bool), (
+                f"{game_id}: tool retryable flag must be a bool, got {retryable!r}"
+            )
             had_choices = "choices" in r
 
             action_type = ""
             if tool == "choose_action":
                 action_type = _infer_action_type(events, i, player)
 
-            retry_outcome = _find_retry_outcome(events, i, player, tool, error_code)
+            retry_outcome = _find_retry_outcome(
+                events, i, player, tool, resolved_error_code
+            )
 
             errors.append(
                 ErrorEvent(
                     player=player,
                     model=model,
                     tool=tool,
-                    error_code=error_code,
+                    error_code=resolved_error_code,
                     error_message=error_message,
                     action_type=action_type,
                     args=args,

@@ -80,9 +80,12 @@ def main(gz_path: str) -> None:
         pr = [e for e in responses if e.get("player") == player]
         if not pr:
             continue
-        pt = sum(e["usage"].get("promptTokens", 0) for e in pr)
-        ct = sum(e["usage"].get("completionTokens", 0) for e in pr)
-        print(f"{player}: {len(pr)} responses, {pt:,} prompt, {ct:,} completion tokens")
+        prompt_tokens = sum(e["usage"].get("promptTokens", 0) for e in pr)
+        completion_tokens = sum(e["usage"].get("completionTokens", 0) for e in pr)
+        print(
+            f"{player}: {len(pr)} responses, "
+            f"{prompt_tokens:,} prompt, {completion_tokens:,} completion tokens"
+        )
 
     # Game-level errors from error logs
     errors = d.get("errors", [])

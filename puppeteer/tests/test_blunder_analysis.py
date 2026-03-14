@@ -75,24 +75,46 @@ def _make_decision(**overrides: object) -> dict:
 
 def _make_game() -> dict:
     return {
+        "version": 7,
         "id": "game_test_001",
+        "timestamp": "2026-01-01T00:00:00-08:00",
         "gameType": "Two Player Duel",
         "deckType": "Constructed - Standard",
         "totalTurns": 5,
         "winner": "Alice",
         "players": [
-            {"name": "Alice", "type": "pilot", "model": "test-model"},
-            {"name": "Bob", "type": "pilot", "model": "test-model"},
+            {
+                "name": "Alice",
+                "type": "pilot",
+                "model": "test-model",
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
+            },
+            {
+                "name": "Bob",
+                "type": "pilot",
+                "model": "test-model",
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
+            },
         ],
+        "cardImages": {},
         "snapshots": [
             {
+                "seq": 1,
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "active_player": "Alice",
+                "priority_player": "Alice",
                 "ts": "2026-01-01T00:00:01.000-08:00",
                 "players": [
                     {
                         "name": "Alice",
                         "life": 20,
+                        "library_size": 53,
                         "hand": [{"name": "Mountain"}],
                         "battlefield": [],
                         "graveyard": [],
@@ -101,6 +123,7 @@ def _make_game() -> dict:
                     {
                         "name": "Bob",
                         "life": 20,
+                        "library_size": 53,
                         "hand": [],
                         "battlefield": [{"name": "Grizzly Bears"}],
                         "graveyard": [],
@@ -110,13 +133,18 @@ def _make_game() -> dict:
                 "stack": [],
             },
             {
+                "seq": 2,
                 "turn": 1,
                 "phase": "COMBAT",
+                "step": "DECLARE_ATTACKERS",
+                "active_player": "Alice",
+                "priority_player": "Bob",
                 "ts": "2026-01-01T00:00:05.000-08:00",
                 "players": [
                     {
                         "name": "Alice",
                         "life": 20,
+                        "library_size": 52,
                         "hand": [],
                         "battlefield": [{"name": "Mountain"}],
                         "graveyard": [],
@@ -125,6 +153,7 @@ def _make_game() -> dict:
                     {
                         "name": "Bob",
                         "life": 20,
+                        "library_size": 53,
                         "hand": [],
                         "battlefield": [{"name": "Grizzly Bears"}],
                         "graveyard": [],
@@ -136,6 +165,13 @@ def _make_game() -> dict:
         ],
         "actions": [],
         "llmEvents": [],
+        "gameOver": None,
+        "annotations": [],
+        "blunderScriptVersion": 0,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "season": 1,
+        "tournament": None,
     }
 
 
@@ -829,7 +865,17 @@ class TestMainIntegration:
     @patch("scripts.analysis.blunder_analysis.OpenAI")
     def test_skips_current_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
-        game["annotations"] = [{"existing": True}]
+        game["annotations"] = [
+            {
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "type": "blunder",
+                "severity": "minor",
+                "description": "existing",
+                "actionTaken": "existing",
+                "betterLine": "existing",
+            }
+        ]
         game["blunderScriptVersion"] = BLUNDER_SCRIPT_VERSION
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -976,6 +1022,7 @@ class TestMainIntegration:
                 "actionResult": {},
                 "isForced": False,
                 "llmEventIndices": [],
+                "subsequentActions": [],
             },
             # Real decision: actual blocker assignment
             {
@@ -995,6 +1042,7 @@ class TestMainIntegration:
                 "actionResult": {"success": True},
                 "isForced": False,
                 "llmEventIndices": [],
+                "subsequentActions": [],
             },
         ]
         gz_path = tmp_path / "game.json.gz"

@@ -205,7 +205,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains] lib=53 bf=[Emancipation Angel 3/3 (sick), Plains (tapped)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=53\n  Stack: [Ability -> {'name': 'TestPlayer (you)', 'id': 'p2'}]\n  Land drops remaining: 0\n  Message: Select a permanent you control\n  Choices (2): Emancipation Angel [id=p11], Plains [id=p12]\n  Respond: choice=pN — must pick a target",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains] lib=53 bf=[Emancipation Angel 3/3 (sick), Plains (tapped)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=53\n  Stack: [Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand. -> TestPlayer (you)]\n  Land drops remaining: 0\n  Message: Select a permanent you control\n  Choices (2): Emancipation Angel [id=p11], Plains [id=p12]\n  Respond: choice=pN — must pick a target",
     "role": "tool",
     "tool_call_id": "call_10"
   }

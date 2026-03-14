@@ -4,18 +4,24 @@ import mage.client.bridge.tools.ActionResult;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
+import mage.view.CardView;
 import mage.view.CardsView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
+import mage.view.PlayerView;
+import mage.view.StackAbilityView;
 import org.junit.jupiter.api.Test;
 import sun.misc.Unsafe;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
@@ -195,6 +201,45 @@ class BridgeCallbackHandlerTest {
         }
     }
 
+    @Test
+    void stackAbilitySummaryIncludesSourceCardAbilityTextAndReadableTargets() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID stackObjectId = UUID.randomUUID();
+        CardView sourceCard = cardView(UUID.randomUUID(), "p11", "Emancipation Angel");
+        StackAbilityView stackAbility = stackAbilityView(
+            stackObjectId,
+            sourceCard,
+            "When Emancipation Angel enters, return a permanent you control to its owner's hand.",
+            playerId
+        );
+
+        CardsView stack = new CardsView();
+        stack.put(stackObjectId, stackAbility);
+        GameView view = gameView(7, List.of(playerView(playerId, "TestPlayer", "p2")), stack);
+        setField(handler, "currentGameId", gameId);
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        activeGames.put(gameId, playerId);
+
+        Map<String, Object> stackItem = invokeBuildStackItem(handler, stackAbility, view, false, false);
+        assertThat(stackItem)
+            .containsEntry("name", "Emancipation Angel")
+            .containsEntry("source_card", "Emancipation Angel")
+            .containsEntry(
+                "ability_text",
+                "When Emancipation Angel enters, return a permanent you control to its owner's hand."
+            );
+        @SuppressWarnings("unchecked")
+        List<Map<String, Object>> targets = (List<Map<String, Object>>) stackItem.get("targets");
+        assertThat(targets).singleElement().satisfies(target ->
+            assertThat((Map<String, Object>) target).containsEntry("name", "TestPlayer (you)")
+        );
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
@@ -226,6 +271,81 @@ class BridgeCallbackHandlerTest {
         setIntField(view, "turn", 1);
         setIntField(view, "gameSeq", gameSeq);
         return view;
+    }
+
+    private static GameView gameView(int gameSeq, List<PlayerView> players, CardsView stack) throws Exception {
+        GameView view = (GameView) UNSAFE.allocateInstance(GameView.class);
+        setField(view, "players", players);
+        setField(view, "myHand", new CardsView());
+        setField(view, "stack", stack);
+        setField(view, "exiles", List.of());
+        setField(view, "lookedAt", List.of());
+        setField(view, "activePlayerName", "TestPlayer");
+        setField(view, "priorityPlayerName", "TestPlayer");
+        setIntField(view, "turn", 1);
+        setIntField(view, "gameSeq", gameSeq);
+        return view;
+    }
+
+    private static PlayerView playerView(UUID playerId, String name, String shortId) throws Exception {
+        PlayerView view = (PlayerView) UNSAFE.allocateInstance(PlayerView.class);
+        setField(view, "playerId", playerId);
+        setField(view, "name", name);
+        setField(view, "shortId", shortId);
+        setField(view, "life", 20);
+        setField(view, "libraryCount", 53);
+        setField(view, "handCount", 0);
+        setField(view, "isActive", true);
+        setField(view, "battlefield", new LinkedHashMap<UUID, Object>());
+        setField(view, "graveyard", new CardsView());
+        setField(view, "exile", new CardsView());
+        setField(view, "commandList", List.of());
+        setField(view, "counters", List.of());
+        setField(view, "manaPool", null);
+        return view;
+    }
+
+    private static CardView cardView(UUID id, String shortId, String name) throws Exception {
+        CardView view = (CardView) UNSAFE.allocateInstance(CardView.class);
+        setField(view, "id", id);
+        setField(view, "shortId", shortId);
+        setField(view, "name", name);
+        setField(view, "displayName", name);
+        setField(view, "rules", List.of());
+        setField(view, "cardTypes", List.of());
+        return view;
+    }
+
+    private static StackAbilityView stackAbilityView(UUID id, CardView sourceCard, String rule, UUID targetId)
+            throws Exception {
+        StackAbilityView view = (StackAbilityView) UNSAFE.allocateInstance(StackAbilityView.class);
+        setField(view, "id", id);
+        setField(view, "name", "Ability");
+        setField(view, "displayName", "Ability");
+        setField(view, "sourceCard", sourceCard);
+        setField(view, "rules", List.of(rule));
+        setField(view, "targets", List.of(targetId));
+        setField(view, "cardTypes", List.of());
+        return view;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> invokeBuildStackItem(
+            BridgeCallbackHandler handler,
+            CardView card,
+            GameView view,
+            boolean includeId,
+            boolean includeRules
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "buildStackItem",
+            CardView.class,
+            GameView.class,
+            boolean.class,
+            boolean.class
+        );
+        method.setAccessible(true);
+        return (Map<String, Object>) method.invoke(handler, card, view, includeId, includeRules);
     }
 
     private static Session sessionProxy(CountDownLatch autoPassSent, AtomicInteger sendPlayerBooleanCalls) {
@@ -283,20 +403,32 @@ class BridgeCallbackHandlerTest {
     }
 
     private static Object getField(Object target, String name) throws Exception {
-        Field field = target.getClass().getDeclaredField(name);
+        Field field = findField(target.getClass(), name);
         field.setAccessible(true);
         return field.get(target);
     }
 
     private static void setField(Object target, String name, Object value) throws Exception {
-        Field field = target.getClass().getDeclaredField(name);
+        Field field = findField(target.getClass(), name);
         field.setAccessible(true);
         field.set(target, value);
     }
 
     private static void setIntField(Object target, String name, int value) throws Exception {
-        Field field = target.getClass().getDeclaredField(name);
+        Field field = findField(target.getClass(), name);
         field.setAccessible(true);
         field.setInt(target, value);
+    }
+
+    private static Field findField(Class<?> type, String name) throws NoSuchFieldException {
+        Class<?> current = type;
+        while (current != null) {
+            try {
+                return current.getDeclaredField(name);
+            } catch (NoSuchFieldException ignored) {
+                current = current.getSuperclass();
+            }
+        }
+        throw new NoSuchFieldException(name);
     }
 }

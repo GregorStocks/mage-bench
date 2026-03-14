@@ -3,10 +3,33 @@
 Full per-game validation is in test_weird_conventions.py::TestAllExportsValid.
 """
 
+import gzip
 import json
 from pathlib import Path
 
 import jsonschema
+import pytest
+
+from schemas.game_export_types import (
+    Action,
+    Annotation,
+    BuiltGameExport,
+    CardMetadata,
+    CombatGroup,
+    Decision,
+    GameError,
+    GameExport,
+    GameOver,
+    LlmEvent,
+    LlmUsage,
+    PilotContext,
+    Player,
+    Snapshot,
+    SnapshotPlayer,
+    load_built_game_export,
+    load_game_export,
+    require_built_game_export,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SCHEMA_DIR = REPO_ROOT / "schemas"
@@ -43,6 +66,23 @@ def _minimal_export(version: int, **overrides) -> dict:
         base["llmTrace"] = []
     base.update(overrides)
     return base
+
+
+def _typed_dict_keys(typed_dict_cls: object) -> set[str]:
+    return set(typed_dict_cls.__required_keys__) | set(typed_dict_cls.__optional_keys__)
+
+
+def _assert_typed_dict_matches_schema(
+    typed_dict_cls: object,
+    *,
+    schema: dict,
+    required_override: set[str] | None = None,
+) -> None:
+    expected_props = set(schema["properties"])
+    expected_required = required_override if required_override is not None else set(schema.get("required", []))
+    assert _typed_dict_keys(typed_dict_cls) == expected_props
+    assert set(typed_dict_cls.__required_keys__) == expected_required
+    assert set(typed_dict_cls.__optional_keys__) == expected_props - expected_required
 
 
 class TestExportSchema:
@@ -209,3 +249,171 @@ class TestExportSchema:
         bad = {"version": 5}
         errors = list(validator.iter_errors(bad))
         assert len(errors) > 0
+
+    def test_schema_backed_typed_dicts_match_v7_schema(self) -> None:
+        schema = _load_schema(7)
+        defs = schema["$defs"]
+
+        _assert_typed_dict_matches_schema(GameExport, schema=schema)
+        _assert_typed_dict_matches_schema(
+            BuiltGameExport,
+            schema=schema,
+            required_override=set(schema["required"]) - {"annotations", "blunderScriptVersion"},
+        )
+        _assert_typed_dict_matches_schema(Player, schema=defs["Player"])
+        _assert_typed_dict_matches_schema(Snapshot, schema=defs["Snapshot"])
+        _assert_typed_dict_matches_schema(SnapshotPlayer, schema=defs["SnapshotPlayer"])
+        _assert_typed_dict_matches_schema(CombatGroup, schema=defs["CombatGroup"])
+        _assert_typed_dict_matches_schema(Action, schema=defs["Action"])
+        _assert_typed_dict_matches_schema(LlmEvent, schema=defs["LlmEvent"])
+        _assert_typed_dict_matches_schema(LlmUsage, schema=defs["LlmUsage"])
+        _assert_typed_dict_matches_schema(GameOver, schema=defs["GameOver"])
+        _assert_typed_dict_matches_schema(Annotation, schema=defs["Annotation"])
+        _assert_typed_dict_matches_schema(Decision, schema=defs["Decision"])
+        _assert_typed_dict_matches_schema(PilotContext, schema=defs["PilotContext"])
+        _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
+        _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
+
+    def test_typed_loader_accepts_minimal_v7_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v7.json"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 3,
+                    "toolCallsFailed": 1,
+                    "thinkingTimeSecs": 12.5,
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        assert game["version"] == 7
+        assert game["players"][0]["toolCallsOk"] == 3
+        assert game["annotations"] == []
+
+    def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v7.json.gz"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+        )
+        path.write_bytes(gzip.compress(json.dumps(payload).encode("utf-8")))
+
+        game = load_game_export(path)
+
+        assert game["id"] == "test_v7"
+
+    def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v7.json"
+        payload = _minimal_export(7, season=1, tournament=None)
+        del payload["annotations"]
+        path.write_text(json.dumps(payload))
+
+        with pytest.raises(AssertionError, match="annotations"):
+            load_game_export(path)
+
+    def test_built_export_validator_allows_missing_annotation_fields(self) -> None:
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 1,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 2.0,
+                }
+            ],
+        )
+        del payload["annotations"]
+        del payload["blunderScriptVersion"]
+
+        built = require_built_game_export(payload, source="built export")
+
+        assert built["season"] == 1
+        assert "annotations" not in built
+
+    def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "built_v7.json"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 1,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 2.0,
+                }
+            ],
+        )
+        del payload["annotations"]
+        del payload["blunderScriptVersion"]
+        path.write_text(json.dumps(payload))
+
+        built = load_built_game_export(path)
+
+        assert built["version"] == 7
+        assert "annotations" not in built
+
+    def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
+        path = tmp_path / "empty_decision_strings.json"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": None,
+                    "actionType": "",
+                    "responseType": "",
+                    "message": "",
+                    "choices": [],
+                    "choiceCount": 0,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        assert game["decisions"][0]["actionType"] == ""
+        assert game["decisions"][0]["responseType"] == ""
+        assert game["decisions"][0]["message"] == ""

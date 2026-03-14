@@ -39,9 +39,12 @@ def main(gz_path: str) -> None:
             continue
         seen.add(turn)
         parts = []
-        for p in s.get("players", []):
-            bf = [c.get("name", "?") for c in p.get("battlefield", [])]
-            hand = p.get("hand_count", len(p.get("hand", [])))
+        for p in s["players"]:
+            bf = [
+                c.get("name", "?") if isinstance(c, dict) else str(c)
+                for c in p["battlefield"]
+            ]
+            hand = p.get("hand_count", len(p["hand"]))
             entry = f"{p['name']}: {p.get('life', '?')}hp hand={hand}"
             if bf:
                 entry += f" bf=[{', '.join(bf)}]"
@@ -53,6 +56,7 @@ def main(gz_path: str) -> None:
     # Key actions
     for a in actions:
         msg = a.get("message", "")
+        assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         is_key = any(kw in msg.lower() for kw in ACTION_KEYWORDS)
         is_chat = a.get("type") == "chat"
         if is_key or is_chat:

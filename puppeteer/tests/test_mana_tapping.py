@@ -17,19 +17,43 @@ spec.loader.exec_module(mana_tapping)
 
 def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = None) -> Path:
     """Create a minimal .json.gz file with given llmEvents."""
+    raw_players = players or [
+        {"name": "Alice", "model": "test/model-a", "totalCostUsd": 0.1},
+        {"name": "Bob", "model": "test/model-b", "totalCostUsd": 0.2},
+    ]
+    normalized_players = [
+        {
+            "name": player["name"],
+            "type": player.get("type", "pilot"),
+            "model": player.get("model", ""),
+            "totalCostUsd": player.get("totalCostUsd", 0.0),
+            "toolCallsOk": player.get("toolCallsOk", 0),
+            "toolCallsFailed": player.get("toolCallsFailed", 0),
+            "thinkingTimeSecs": player.get("thinkingTimeSecs", 0.0),
+            **({"timedOut": player["timedOut"]} if "timedOut" in player else {}),
+        }
+        for player in raw_players
+    ]
     data = {
+        "version": 7,
         "id": "test_game",
-        "timestamp": "20260213_120000",
+        "timestamp": "2026-02-13T12:00:00-08:00",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
         "totalTurns": 1,
         "winner": "Alice",
-        "players": players
-        or [
-            {"name": "Alice", "model": "test/model-a", "totalCostUsd": 0.1},
-            {"name": "Bob", "model": "test/model-b", "totalCostUsd": 0.2},
-        ],
+        "players": normalized_players,
+        "cardImages": {},
         "snapshots": [],
         "actions": [],
         "llmEvents": events,
+        "gameOver": None,
+        "annotations": [],
+        "blunderScriptVersion": 0,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "season": 1,
+        "tournament": None,
     }
     path = tmp_path / "test_game.json.gz"
     with gzip.open(path, "wt") as f:
@@ -243,9 +267,34 @@ class TestDirectoryMode:
             }
         ]
         data1 = {
+            "version": 7,
             "id": "g1",
-            "players": [{"name": "Alice", "model": "test/model-a"}],
+            "timestamp": "2026-02-13T12:00:00-08:00",
+            "gameType": "Two Player Duel",
+            "deckType": "Constructed - Standard",
+            "totalTurns": 1,
+            "winner": "Alice",
+            "players": [
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model-a",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            "cardImages": {},
+            "snapshots": [],
+            "actions": [],
             "llmEvents": events1,
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+            "harnessEpoch": 46,
+            "youtubeUrl": "",
+            "season": 1,
+            "tournament": None,
         }
         p1 = tmp_path / "game1.json.gz"
         with gzip.open(p1, "wt") as f:
@@ -262,9 +311,34 @@ class TestDirectoryMode:
             }
         ]
         data2 = {
+            "version": 7,
             "id": "g2",
-            "players": [{"name": "Alice", "model": "test/model-a"}],
+            "timestamp": "2026-02-13T12:00:00-08:00",
+            "gameType": "Two Player Duel",
+            "deckType": "Constructed - Standard",
+            "totalTurns": 1,
+            "winner": "Alice",
+            "players": [
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model-a",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            "cardImages": {},
+            "snapshots": [],
+            "actions": [],
             "llmEvents": events2,
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+            "harnessEpoch": 46,
+            "youtubeUrl": "",
+            "season": 1,
+            "tournament": None,
         }
         p2 = tmp_path / "game2.json.gz"
         with gzip.open(p2, "wt") as f:
@@ -292,9 +366,34 @@ class TestDirectoryMode:
             }
         ]
         data = {
+            "version": 7,
             "id": "g1",
-            "players": [{"name": "Alice", "model": "test/model"}],
+            "timestamp": "2026-02-13T12:00:00-08:00",
+            "gameType": "Two Player Duel",
+            "deckType": "Constructed - Standard",
+            "totalTurns": 1,
+            "winner": "Alice",
+            "players": [
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "test/model",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            "cardImages": {},
+            "snapshots": [],
+            "actions": [],
             "llmEvents": events,
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+            "harnessEpoch": 46,
+            "youtubeUrl": "",
+            "season": 1,
+            "tournament": None,
         }
         p = tmp_path / "game.json.gz"
         with gzip.open(p, "wt") as f:

@@ -28,7 +28,9 @@ import java.util.concurrent.TimeoutException;
  * <ul>
  *   <li>{@code GET /health?timeout=N} — blocks until lobby is initialized</li>
  *   <li>{@code POST /wait-for-ready} — blocks until a game table is created for
- *       the requested gameDir</li>
+ *       the requested gameDir and bridge clients can join it</li>
+ *   <li>{@code POST /wait-for-watching} — blocks until the spectator has attached
+ *       to the requested game's actual GameView</li>
  *   <li>{@code POST /wait-for-game-end} — blocks until a game's event files are
  *       fully written and closed for the requested gameDir</li>
  * </ul>
@@ -41,12 +43,14 @@ public class ObserverHealthServer {
     private final Gson gson = new Gson();
     private final CountDownLatch lobbyReady = new CountDownLatch(1);
     private final ConcurrentHashMap<String, CompletableFuture<String>> gameReadyFutures = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, CompletableFuture<Void>> gameWatchingFutures = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, CompletableFuture<Void>> gameEndFutures = new ConcurrentHashMap<>();
 
     public ObserverHealthServer(int port) throws IOException {
         httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
         httpServer.createContext("/health", this::handleHealth);
         httpServer.createContext("/wait-for-ready", this::handleWaitForReady);
+        httpServer.createContext("/wait-for-watching", this::handleWaitForWatching);
         httpServer.createContext("/wait-for-game-end", this::handleWaitForGameEnd);
     }
 
@@ -68,6 +72,12 @@ public class ObserverHealthServer {
     public void signalGameReady(String gameDir, String tableId) {
         CompletableFuture<String> future = gameReadyFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
         future.complete(tableId);
+    }
+
+    /** Signal that the spectator is actively watching the given gameDir. */
+    public void signalGameWatching(String gameDir) {
+        CompletableFuture<Void> future = gameWatchingFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
+        future.complete(null);
     }
 
     /** Signal that event files for the given gameDir are fully written and closed. */
@@ -120,6 +130,32 @@ public class ObserverHealthServer {
             sendJson(exchange, 500, "{\"ready\":false,\"error\":\"" + e.getMessage() + "\"}");
         } finally {
             gameReadyFutures.remove(gameDir);
+        }
+    }
+
+    private void handleWaitForWatching(HttpExchange exchange) throws IOException {
+        if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+            exchange.sendResponseHeaders(405, -1);
+            exchange.close();
+            return;
+        }
+
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject req = gson.fromJson(body, JsonObject.class);
+        String gameDir = req.get("gameDir").getAsString();
+        int timeout = req.has("timeout") ? req.get("timeout").getAsInt() : 240;
+
+        CompletableFuture<Void> future = gameWatchingFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
+
+        try {
+            future.get(timeout, TimeUnit.SECONDS);
+            sendJson(exchange, 200, "{\"watching\":true}");
+        } catch (TimeoutException e) {
+            sendJson(exchange, 408, "{\"watching\":false,\"error\":\"timeout\"}");
+        } catch (Exception e) {
+            sendJson(exchange, 500, "{\"watching\":false,\"error\":\"" + e.getMessage() + "\"}");
+        } finally {
+            gameWatchingFutures.remove(gameDir);
         }
     }
 

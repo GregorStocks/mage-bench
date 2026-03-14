@@ -16,8 +16,10 @@ import socket
 import subprocess
 import textwrap
 import time
+from collections.abc import Mapping, Sequence
 from urllib.parse import parse_qs, urlparse
 
+from schemas.game_export_types import Action, GameExport, Snapshot
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -118,14 +120,14 @@ def viewer_url(game_id: str, aftermath_index: int) -> str:
     return f"http://localhost:{port}/games/{game_id}?s={aftermath_index}"
 
 
-def _load_game_data(gz_path: str) -> dict:
+def _load_game_data(gz_path: str) -> GameExport:
     """Load a game's JSON data from a .json or .json.gz file."""
     from scripts.analysis.blunder_eval_common import load_game
 
     return load_game(gz_path)
 
 
-def _find_decision(decisions: list[dict], di: int) -> dict:
+def _find_decision(decisions: list[dict[str, object]], di: int) -> dict[str, object]:
     """Find a decision by index. Asserts if not found."""
     for d in decisions:
         if get_decision_index(d) == di:
@@ -134,22 +136,20 @@ def _find_decision(decisions: list[dict], di: int) -> dict:
 
 
 def _lookup_existing_annotation(
-    decision: dict,
-    game_data: dict,
-    snapshots: list[dict],
-) -> dict | None:
+    decision: Mapping[str, object],
+    game_data: GameExport,
+    snapshots: Sequence[Snapshot],
+) -> Mapping[str, object] | None:
     """Look up the annotation from the game file (may be stale). For display only."""
-    return lookup_annotation_for_decision(
-        decision, game_data.get("annotations", []), snapshots
-    )
+    return lookup_annotation_for_decision(decision, game_data["annotations"], snapshots)
 
 
 def _get_current_annotation(
-    decision: dict,
-    game_data: dict,
-    snapshots: list[dict],
+    decision: dict[str, object],
+    game_data: GameExport,
+    snapshots: Sequence[Snapshot],
     gz_path: str,
-) -> tuple[dict | None, int]:
+) -> tuple[Mapping[str, object] | None, int]:
     """Get the current-version annotation for a decision.
 
     If the game file is at the current BLUNDER_SCRIPT_VERSION, looks up
@@ -162,10 +162,10 @@ def _get_current_annotation(
     """
     from scripts.analysis.blunder_analysis import BLUNDER_SCRIPT_VERSION
 
-    game_version = game_data.get("blunderScriptVersion", 1)
+    game_version = game_data["blunderScriptVersion"]
     if game_version >= BLUNDER_SCRIPT_VERSION:
         ann = lookup_annotation_for_decision(
-            decision, game_data.get("annotations", []), snapshots
+            decision, game_data["annotations"], snapshots
         )
         return ann, BLUNDER_SCRIPT_VERSION
 
@@ -200,20 +200,29 @@ def _get_current_annotation(
 
 
 def _recent_actions_before(
-    game_actions: list[dict], snapshots: list[dict], snapshot_index: int, count: int = 5
+    game_actions: Sequence[Action],
+    snapshots: Sequence[Snapshot],
+    snapshot_index: int,
+    count: int = 5,
 ) -> list[str]:
     """Return the last `count` game action messages before a snapshot's timestamp."""
     if snapshot_index is None or snapshot_index < 0 or snapshot_index >= len(snapshots):
         return []
-    snap_ts = snapshots[snapshot_index].get("ts", "")
-    if not snap_ts:
+    snap_ts = snapshots[snapshot_index].get("ts")
+    if snap_ts is None:
         return []
     recent: list[str] = []
     for a in game_actions:
         a_ts = a.get("ts", "")
+        assert isinstance(a_ts, str), (
+            f"action ts must be a string when present, got {a_ts!r}"
+        )
         if a_ts > snap_ts:
             break
         msg = a.get("message", "")
+        assert isinstance(msg, str), (
+            f"action message must be a string when present, got {msg!r}"
+        )
         if msg:
             recent.append(msg)
     return recent[-count:]
@@ -221,30 +230,47 @@ def _recent_actions_before(
 
 def format_play_context(
     game_id: str,
-    decision: dict,
-    snapshots: list[dict],
-    annotation: dict | None,
-    game_actions: list[dict] | None = None,
+    decision: Mapping[str, object],
+    snapshots: Sequence[Snapshot],
+    annotation: Mapping[str, object] | None,
+    game_actions: Sequence[Action] | None = None,
 ) -> str:
     """Format a decision for display during auditing."""
     aftermath = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
-    snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
-    stack = snapshot.get("stack", [])
+    snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
+    stack = snapshot["stack"] if snapshot is not None else []
     stack_str = (
-        ", ".join(s if isinstance(s, str) else s.get("name", "?") for s in stack)
+        ", ".join(
+            s
+            if isinstance(s, str)
+            else s.get("name", "?")
+            if isinstance(s, dict)
+            else str(s)
+            for s in stack
+        )
         if stack
         else "(empty)"
     )
 
     # Find the current player's hand
     player_name = decision.get("player", "")
+    assert isinstance(player_name, str), (
+        f"decision player must be a string, got {player_name!r}"
+    )
     hand_str = "?"
-    for p in snapshot.get("players", []):
+    for p in snapshot["players"] if snapshot is not None else []:
         if p.get("name") == player_name:
-            hand = p.get("hand", [])
+            hand = p["hand"]
             hand_str = (
-                ", ".join(h if isinstance(h, str) else h.get("name", "?") for h in hand)
+                ", ".join(
+                    h
+                    if isinstance(h, str)
+                    else h.get("name", "?")
+                    if isinstance(h, dict)
+                    else str(h)
+                    for h in hand
+                )
                 if hand
                 else "(empty)"
             )
@@ -270,7 +296,7 @@ def format_play_context(
     if annotation:
         sev = annotation.get("severity")
         desc = annotation.get("description")
-        if sev and desc:
+        if isinstance(sev, str) and isinstance(desc, str):
             prefix = f"Annotator: {sev} - "
             wrapped = textwrap.fill(
                 f'"{desc}"',
@@ -355,8 +381,8 @@ def audit_plays(game_filter: str | None = None) -> None:
     print(f"{len(unaudited)} unaudited plays to review.\n")
 
     # Cache game data to avoid re-loading per entry
-    game_data_cache: dict[str, dict] = {}
-    decisions_cache: dict[str, list[dict]] = {}
+    game_data_cache: dict[str, GameExport] = {}
+    decisions_cache: dict[str, list[dict[str, object]]] = {}
 
     audited_count = 0
     skip_game_id: str | None = None
@@ -375,16 +401,17 @@ def audit_plays(game_filter: str | None = None) -> None:
 
         game_data = game_data_cache[game_id]
         decisions = decisions_cache[game_id]
-        snapshots = game_data.get("snapshots", [])
+        snapshots = game_data["snapshots"]
         gz_path = str(game_path_for_id(game_id))
 
         # Find the decision
         di = entry["decision_index"]
+        assert isinstance(di, int), f"decision_index must be an int, got {di!r}"
         decision = _find_decision(decisions, di)
 
         # Show existing annotation for context (may be stale)
         display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
-        game_actions = game_data.get("actions", [])
+        game_actions = game_data["actions"]
         print(
             format_play_context(
                 game_id, decision, snapshots, display_annotation, game_actions
@@ -407,13 +434,24 @@ def audit_plays(game_filter: str | None = None) -> None:
         )
 
         # Build and save full audited entry
+        annotation_severity = None
+        annotation_description = None
+        if annotation is not None:
+            severity = annotation.get("severity")
+            description = annotation.get("description")
+            assert isinstance(severity, str), (
+                f"annotation severity must be a string, got {severity!r}"
+            )
+            assert isinstance(description, str), (
+                f"annotation description must be a string, got {description!r}"
+            )
+            annotation_severity = severity
+            annotation_description = description
         audited_entry = make_audited_entry(
             decision_index=di,
             annotation_version=ann_version,
-            annotation_severity=annotation.get("severity") if annotation else None,
-            annotation_description=annotation.get("description")
-            if annotation
-            else None,
+            annotation_severity=annotation_severity,
+            annotation_description=annotation_description,
             verdict=verdict,
             human_notes=notes,
         )
@@ -469,7 +507,7 @@ def add_from_url(url: str) -> None:
     gz_path = str(game_path_for_id(game_id))
     game_data = _load_game_data(gz_path)
 
-    snapshots = game_data.get("snapshots", [])
+    snapshots = game_data["snapshots"]
     assert 0 <= snapshot < len(snapshots), (
         f"Snapshot {snapshot} out of range [0, {len(snapshots)})"
     )
@@ -511,7 +549,7 @@ def add_from_url(url: str) -> None:
     display_annotation = _lookup_existing_annotation(
         best_decision, game_data, snapshots
     )
-    game_actions = game_data.get("actions", [])
+    game_actions = game_data["actions"]
     print(
         format_play_context(
             game_id, best_decision, snapshots, display_annotation, game_actions
@@ -528,12 +566,25 @@ def add_from_url(url: str) -> None:
     annotation, ann_version = _get_current_annotation(
         best_decision, game_data, snapshots, gz_path
     )
+    annotation_severity = None
+    annotation_description = None
+    if annotation is not None:
+        severity = annotation.get("severity")
+        description = annotation.get("description")
+        assert isinstance(severity, str), (
+            f"annotation severity must be a string, got {severity!r}"
+        )
+        assert isinstance(description, str), (
+            f"annotation description must be a string, got {description!r}"
+        )
+        annotation_severity = severity
+        annotation_description = description
 
     audited_entry = make_audited_entry(
         decision_index=best_di,
         annotation_version=ann_version,
-        annotation_severity=annotation.get("severity") if annotation else None,
-        annotation_description=annotation.get("description") if annotation else None,
+        annotation_severity=annotation_severity,
+        annotation_description=annotation_description,
         verdict="blunder",
         human_notes=notes,
     )

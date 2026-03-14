@@ -23,7 +23,9 @@ game_timeline = _import_game_timeline()
 
 def _write_export(tmp_path: Path) -> Path:
     export = {
+        "version": 7,
         "id": "game_test",
+        "timestamp": "2026-03-01T00:00:00.000000Z",
         "deckType": "Limited",
         "gameType": "Two Player Duel",
         "totalTurns": 2,
@@ -31,31 +33,83 @@ def _write_export(tmp_path: Path) -> Path:
         "players": [
             {
                 "name": "Alice",
+                "type": "pilot",
                 "model": "model-a",
                 "deckName": "Deck A",
                 "totalCostUsd": 0.0,
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
             },
             {
                 "name": "Bob",
+                "type": "pilot",
                 "model": "model-b",
                 "deckName": "Deck B",
                 "totalCostUsd": 0.0,
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
             },
         ],
+        "cardImages": {},
         "snapshots": [
             {
                 "turn": 1,
                 "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
                 "active_player": "Alice",
+                "priority_player": "Alice",
                 "seq": 5,
+                "players": [
+                    {
+                        "name": "Alice",
+                        "life": 20,
+                        "library_size": 53,
+                        "battlefield": [],
+                        "graveyard": [],
+                        "hand": [],
+                    },
+                    {
+                        "name": "Bob",
+                        "life": 20,
+                        "library_size": 53,
+                        "battlefield": [],
+                        "graveyard": [],
+                        "hand": [],
+                    },
+                ],
+                "stack": [],
             },
             {
                 "turn": 2,
                 "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
                 "active_player": "Bob",
+                "priority_player": "Bob",
                 "seq": 10,
+                "players": [
+                    {
+                        "name": "Alice",
+                        "life": 20,
+                        "library_size": 53,
+                        "battlefield": [],
+                        "graveyard": [],
+                        "hand": [],
+                    },
+                    {
+                        "name": "Bob",
+                        "life": 20,
+                        "library_size": 53,
+                        "battlefield": [],
+                        "graveyard": [],
+                        "hand": [],
+                    },
+                ],
+                "stack": [],
             },
         ],
+        "actions": [],
         "llmEvents": [
             {
                 "type": "game_start",
@@ -81,6 +135,13 @@ def _write_export(tmp_path: Path) -> Path:
                 "gameSeq": 10,
             },
         ],
+        "gameOver": None,
+        "annotations": [],
+        "blunderScriptVersion": 0,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "season": 1,
+        "tournament": None,
     }
     path = tmp_path / "game_test.json"
     path.write_text(json.dumps(export))

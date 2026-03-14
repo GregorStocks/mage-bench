@@ -49,6 +49,7 @@ Pick and solve exactly **one** issue, then create a PR.
    Never pick a specific issue on your own — always use the auto-pick unless the user told you which issue to work on.
 
    - If the script **succeeds** (exit 0): immediately inspect the current branch PR (`gh pr view --json body,url`) and extract the `<!-- claim: ... -->` tag from that PR body. Treat that PR claim tag as the authoritative claimed issue for all later steps. If there is no open PR or the claim tag is missing/mismatched, **stop immediately** and tell the user the claim workflow is inconsistent.
+   - If you later merge `origin/master` and the claimed issue file was renamed (for example because issue filename prefixes changed), immediately update the PR body to use the new canonical `<!-- claim: ... -->` tag before continuing. `finalize-issue-pr.py` preserves the current PR tag verbatim.
    - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
 3. **Check if already fixed** — before planning anything, check whether the issue was already resolved and the issue file just wasn't cleaned up. Do this by:
    - Finding when the authoritative claimed issue file was created (`git log --diff-filter=A -- issues/<filename>.json`)

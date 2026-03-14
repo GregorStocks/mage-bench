@@ -2939,7 +2939,7 @@
     "seq": 175
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 46,
+  "harnessEpoch": 47,
   "llmEvents": [
     {
       "availableTools": [
@@ -5839,7 +5839,9 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ability"
+            "ability_text": "When the last time counter is removed from Crashing Footfalls, if it's exiled, ",
+            "name": "Crashing Footfalls",
+            "source_card": "Crashing Footfalls"
           }
         ],
         "stop_reason": "non_priority_action",

@@ -845,15 +845,44 @@ class TestGameGzBootstrap:
         game_dir = logs_dir / game_id
         export_path = games_dir / f"{game_id}.json"
         export_data = {
+            "version": 7,
             "id": game_id,
+            "timestamp": "2026-03-14T11:14:22-07:00",
+            "gameType": "Two Player Duel",
             "deckType": "jumpstart",
             "totalTurns": 7,
             "winner": "Alice",
+            "harnessEpoch": 1,
+            "youtubeUrl": "",
             "players": [
-                {"name": "Alice", "model": "model-a", "totalCostUsd": 0.25},
-                {"name": "Bob", "model": "model-b", "totalCostUsd": 0.0},
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "model": "model-a",
+                    "totalCostUsd": 0.25,
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                },
+                {
+                    "name": "Bob",
+                    "type": "pilot",
+                    "model": "model-b",
+                    "totalCostUsd": 0.0,
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                },
             ],
+            "cardImages": {},
+            "snapshots": [],
+            "actions": [],
             "llmEvents": [],
+            "gameOver": None,
+            "annotations": [],
+            "blunderScriptVersion": 0,
+            "season": 1,
+            "tournament": None,
         }
         games_dir.mkdir(parents=True)
         game_dir.mkdir(parents=True)

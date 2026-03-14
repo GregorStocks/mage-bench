@@ -17,6 +17,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from schemas.game_export_types import Action, GameExport, Snapshot
 from scripts.analysis.blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
@@ -54,8 +55,8 @@ STATIC_FILES: dict[str, Path] = {
 GAMES_DIR = WEBSITE_PUBLIC / "games"
 
 # In-memory caches (single-user tool, no concurrency concerns)
-_game_data_cache: dict[str, dict] = {}
-_decisions_cache: dict[str, list[dict]] = {}
+_game_data_cache: dict[str, GameExport] = {}
+_decisions_cache: dict[str, list[dict[str, object]]] = {}
 
 
 class AuditApiError(RuntimeError):
@@ -78,7 +79,7 @@ def _get_hostname() -> str:
     return hostname or "localhost"
 
 
-def _load_game_cached(game_id: str) -> dict:
+def _load_game_cached(game_id: str) -> GameExport:
     """Load game data with caching."""
     if game_id not in _game_data_cache:
         try:
@@ -94,7 +95,7 @@ def _load_game_cached(game_id: str) -> dict:
     return _game_data_cache[game_id]
 
 
-def _load_decisions_cached(game_id: str) -> list[dict]:
+def _load_decisions_cached(game_id: str) -> list[dict[str, object]]:
     """Load decisions with caching."""
     if game_id not in _decisions_cache:
         try:
@@ -110,7 +111,7 @@ def _load_decisions_cached(game_id: str) -> list[dict]:
     return _decisions_cache[game_id]
 
 
-def _find_decision(decisions: list[dict], di: int) -> dict:
+def _find_decision(decisions: list[dict[str, object]], di: int) -> dict[str, object]:
     """Find a decision by index."""
     for d in decisions:
         if get_decision_index(d) == di:
@@ -119,20 +120,29 @@ def _find_decision(decisions: list[dict], di: int) -> dict:
 
 
 def _recent_actions_before(
-    game_actions: list[dict], snapshots: list[dict], snapshot_idx: int, count: int = 5
+    game_actions: list[Action],
+    snapshots: list[Snapshot],
+    snapshot_idx: int,
+    count: int = 5,
 ) -> list[str]:
     """Return the last `count` game action messages before a snapshot's timestamp."""
     if snapshot_idx is None or snapshot_idx < 0 or snapshot_idx >= len(snapshots):
         return []
-    snap_ts = snapshots[snapshot_idx].get("ts", "")
-    if not snap_ts:
+    snap_ts = snapshots[snapshot_idx].get("ts")
+    if snap_ts is None:
         return []
     recent: list[str] = []
     for a in game_actions:
         a_ts = a.get("ts", "")
+        assert isinstance(a_ts, str), (
+            f"action ts must be a string when present, got {a_ts!r}"
+        )
         if a_ts > snap_ts:
             break
         msg = a.get("message", "")
+        assert isinstance(msg, str), (
+            f"action message must be a string when present, got {msg!r}"
+        )
         if msg:
             recent.append(msg)
     return recent[-count:]
@@ -154,31 +164,38 @@ def _build_play_detail(game_id: str, di: int) -> dict:
     game_data = _load_game_cached(game_id)
     decisions = _load_decisions_cached(game_id)
     decision = _find_decision(decisions, di)
-    snapshots = game_data.get("snapshots", [])
+    snapshots = game_data["snapshots"]
 
     aftermath_idx = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
 
     # Get the "before" snapshot for hand context
-    before_snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
+    before_snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else None
 
     # Look up annotation
     annotation = lookup_annotation_for_decision(
-        decision, game_data.get("annotations", []), snapshots
+        decision, game_data["annotations"], snapshots
     )
 
     # Recent actions
-    game_actions = game_data.get("actions", [])
+    game_actions = game_data["actions"]
     recent = _recent_actions_before(game_actions, snapshots, snap_idx)
 
     # Get hand from before-snapshot
     player_name = decision.get("player", "")
     hand_str = "?"
-    for p in before_snapshot.get("players", []):
+    for p in before_snapshot["players"] if before_snapshot is not None else []:
         if p.get("name") == player_name:
-            hand = p.get("hand", [])
+            hand = p["hand"]
             hand_str = (
-                ", ".join(h if isinstance(h, str) else h.get("name", "?") for h in hand)
+                ", ".join(
+                    h
+                    if isinstance(h, str)
+                    else h.get("name", "?")
+                    if isinstance(h, dict)
+                    else str(h)
+                    for h in hand
+                )
                 if hand
                 else "(empty)"
             )
@@ -236,7 +253,7 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     game_data = _load_game_cached(game_id)
     decisions = _load_decisions_cached(game_id)
     decision = _find_decision(decisions, di)
-    snapshots = game_data.get("snapshots", [])
+    snapshots = game_data["snapshots"]
     gz_path = str(game_path_for_id(game_id))
 
     try:
@@ -246,11 +263,24 @@ def _handle_verdict(game_id: str, di: int, body: dict) -> dict:
     except (AssertionError, FileNotFoundError, OSError, json.JSONDecodeError) as exc:
         raise AuditApiError(str(exc)) from exc
 
+    annotation_severity = None
+    annotation_description = None
+    if annotation is not None:
+        severity = annotation.get("severity")
+        description = annotation.get("description")
+        assert isinstance(severity, str), (
+            f"annotation severity must be a string, got {severity!r}"
+        )
+        assert isinstance(description, str), (
+            f"annotation description must be a string, got {description!r}"
+        )
+        annotation_severity = severity
+        annotation_description = description
     audited_entry = make_audited_entry(
         decision_index=di,
         annotation_version=ann_version,
-        annotation_severity=annotation.get("severity") if annotation else None,
-        annotation_description=annotation.get("description") if annotation else None,
+        annotation_severity=annotation_severity,
+        annotation_description=annotation_description,
         verdict=verdict,
         human_notes=notes,
     )

@@ -32,6 +32,7 @@ import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
 import mage.view.SimpleCardView;
+import mage.view.StackAbilityView;
 import mage.view.TableClientMessage;
 import mage.view.UserRequestMessage;
 import mage.players.PlayableObjectsList;
@@ -760,29 +761,8 @@ public class BridgeCallbackHandler {
             }
 
             // Stack summary — helps LLMs see what's pending before casting instants/counters
-            if (gameView.getStack() != null && !gameView.getStack().isEmpty()) {
-                var stackSummary = new ArrayList<Map<String, Object>>();
-                for (CardView card : gameView.getStack().values()) {
-                    var item = new HashMap<String, Object>();
-                    item.put("name", safeDisplayName(card));
-                    if (card.getId() != null) {
-                        String owner = castOwners.get(card.getId().toString());
-                        if (owner != null) {
-                            item.put("owner", owner);
-                        }
-                    }
-                    if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                        var targets = new ArrayList<Map<String, Object>>();
-                        for (UUID targetId : card.getTargets()) {
-                            var t = new HashMap<String, Object>();
-                            t.put("id", getStableShortId(targetId, findCardViewById(targetId, gameView)));
-                            t.put("name", describeTarget(targetId, null, gameView));
-                            targets.add(t);
-                        }
-                        item.put("targets", targets);
-                    }
-                    stackSummary.add(item);
-                }
+            List<Map<String, Object>> stackSummary = buildStackItems(gameView, false, false);
+            if (!stackSummary.isEmpty()) {
                 result.stack = stackSummary;
             }
 
@@ -2536,9 +2516,75 @@ public class BridgeCallbackHandler {
         return "";
     }
 
+    private List<Map<String, Object>> buildStackItems(GameView gameView, boolean includeIds, boolean includeRules) {
+        var stack = new ArrayList<Map<String, Object>>();
+        if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
+            return stack;
+        }
+        for (CardView card : gameView.getStack().values()) {
+            stack.add(buildStackItem(card, gameView, includeIds, includeRules));
+        }
+        return stack;
+    }
+
+    private Map<String, Object> buildStackItem(CardView card, GameView gameView, boolean includeId, boolean includeRules) {
+        var item = new HashMap<String, Object>();
+        if (includeId && card.getId() != null) {
+            item.put("id", getStableShortId(card.getId(), card));
+        }
+        item.put("name", safeDisplayName(card));
+        addStackAbilityContext(item, card);
+        if (includeRules) {
+            item.put("rules", stripHtmlList(card.getRules()));
+        }
+        if (card.getId() != null) {
+            String owner = castOwners.get(card.getId().toString());
+            if (owner != null) {
+                item.put("owner", owner);
+            }
+        }
+        if (card.getTargets() != null && !card.getTargets().isEmpty()) {
+            var targets = new ArrayList<Map<String, Object>>();
+            for (UUID targetId : card.getTargets()) {
+                var target = new HashMap<String, Object>();
+                target.put("id", getStableShortId(targetId, findCardViewById(targetId, gameView)));
+                target.put("name", describeTarget(targetId, null, gameView));
+                targets.add(target);
+            }
+            item.put("targets", targets);
+        }
+        return item;
+    }
+
+    private void addStackAbilityContext(Map<String, Object> item, CardView card) {
+        if (!(card instanceof StackAbilityView)) {
+            return;
+        }
+        CardView sourceCard = ((StackAbilityView) card).getSourceCard();
+        if (sourceCard != null) {
+            item.put("source_card", safeDisplayName(sourceCard));
+        }
+        List<String> rules = stripHtmlList(card.getRules());
+        if (rules != null && !rules.isEmpty()) {
+            item.put("ability_text", rules.get(0));
+        }
+    }
+
     private String safeDisplayName(CardView cv) {
+        if (cv instanceof StackAbilityView) {
+            CardView sourceCard = ((StackAbilityView) cv).getSourceCard();
+            if (sourceCard != null) {
+                String sourceName = sourceCard.getDisplayName();
+                if (sourceName == null || sourceName.isEmpty()) {
+                    sourceName = sourceCard.getName();
+                }
+                if (sourceName != null && !sourceName.isEmpty()) {
+                    return sourceName;
+                }
+            }
+        }
         String name = cv.getDisplayName();
-        if (name == null) {
+        if (name == null || name.isEmpty()) {
             name = cv.getName() != null ? cv.getName() : "Unknown";
         }
         return name;
@@ -3568,34 +3614,7 @@ public class BridgeCallbackHandler {
         state.players = buildPlayersArray(gameView);
 
         // Stack
-        var stack = new ArrayList<Map<String, Object>>();
-        if (gameView.getStack() != null) {
-            for (CardView card : gameView.getStack().values()) {
-                var stackItem = new HashMap<String, Object>();
-                if (card.getId() != null) {
-                    stackItem.put("id", getStableShortId(card.getId(), card));
-                }
-                stackItem.put("name", safeDisplayName(card));
-                stackItem.put("rules", stripHtmlList(card.getRules()));
-                if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                    var targets = new ArrayList<Map<String, Object>>();
-                    for (UUID targetId : card.getTargets()) {
-                        var t = new HashMap<String, Object>();
-                        t.put("id", getStableShortId(targetId));
-                        t.put("name", describeTarget(targetId, null, lastGameView));
-                        targets.add(t);
-                    }
-                    stackItem.put("targets", targets);
-                }
-                if (card.getId() != null) {
-                    String owner = castOwners.get(card.getId().toString());
-                    if (owner != null) {
-                        stackItem.put("owner", owner);
-                    }
-                }
-                stack.add(stackItem);
-            }
-        }
+        List<Map<String, Object>> stack = buildStackItems(gameView, true, true);
         state.stack = stack;
 
         // Combat
@@ -4288,10 +4307,6 @@ public class BridgeCallbackHandler {
 
     private CardView findCardViewById(UUID objectId) {
         return findCardViewById(objectId, lastGameView);
-    }
-
-    private String getStableShortId(UUID objectId) {
-        return getStableShortId(objectId, findCardViewById(objectId));
     }
 
     private String getStableShortId(UUID objectId, CardView cardView) {
