@@ -21,7 +21,7 @@ def test_make_check_routes_java_validation_through_lint_java() -> None:
     makefile = (project_root / "Makefile").read_text()
 
     assert ".PHONY: lint-java" in makefile
-    assert "mvn -q -pl Mage.Client.Bridge -DskipTests -Pjava-lint verify" in makefile
+    assert "mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify" in makefile
     assert "$(MAKE) verify-mcp-tools" in makefile
 
 

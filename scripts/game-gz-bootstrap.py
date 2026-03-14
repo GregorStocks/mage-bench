@@ -12,6 +12,7 @@ runs export_game.py to generate the export first.
 import json
 import subprocess
 import sys
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 
 from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
@@ -29,7 +30,7 @@ def _find_export(game_id: str) -> Path | None:
     return None
 
 
-def _parse_tool_result(event: dict) -> dict | None:
+def _parse_tool_result(event: Mapping[str, object]) -> dict | None:
     """Parse a tool_call result payload if it is structured JSON."""
     result = event.get("result")
     if isinstance(result, dict):
@@ -43,7 +44,7 @@ def _parse_tool_result(event: dict) -> dict | None:
     return parsed if isinstance(parsed, dict) else None
 
 
-def _is_failed_tool_call(event: dict) -> bool:
+def _is_failed_tool_call(event: Mapping[str, object]) -> bool:
     """Count only explicit tool error payloads, not arbitrary substrings."""
     if event.get("type") != "tool_call":
         return False
@@ -60,12 +61,14 @@ def _is_failed_tool_call(event: dict) -> bool:
     return error is not None
 
 
-def _failed_tool_calls(events: list[dict]) -> list[dict]:
+def _failed_tool_calls(
+    events: Sequence[Mapping[str, object]],
+) -> list[Mapping[str, object]]:
     """Return tool_call events with explicit structured failures."""
     return [event for event in events if _is_failed_tool_call(event)]
 
 
-def _format_result_preview(event: dict) -> str:
+def _format_result_preview(event: Mapping[str, object]) -> str:
     """Render a short preview of the raw result payload."""
     result = event.get("result", "")
     if isinstance(result, str):

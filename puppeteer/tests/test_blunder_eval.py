@@ -22,7 +22,27 @@ from scripts.analysis.blunder_eval_common import (
 
 
 def _write_export(path: Path) -> None:
-    data = {"id": "game_test_001", "players": [], "snapshots": []}
+    data = {
+        "version": 7,
+        "id": "game_test_001",
+        "timestamp": "2026-01-01T00:00:00Z",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed",
+        "totalTurns": 0,
+        "winner": None,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "players": [],
+        "cardImages": {},
+        "snapshots": [],
+        "actions": [],
+        "llmEvents": [],
+        "gameOver": None,
+        "annotations": [],
+        "blunderScriptVersion": 1,
+        "season": 1,
+        "tournament": None,
+    }
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.name.endswith(".json.gz"):
         with gzip.open(path, "wt") as f:

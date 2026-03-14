@@ -14,6 +14,7 @@ import sys
 
 from scripts.analysis.blunder_eval_common import (
     GAMES_DIR,
+    decision_index,
     load_game,
     make_seed_entry,
     merge_into_ground_truth,
@@ -57,7 +58,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
 
     entries: list[dict] = []
     for decision_idx in mapping.values():
-        entry = make_seed_entry(decisions[decision_idx]["decision_index"])
+        entry = make_seed_entry(decision_index(decisions[decision_idx]))
         entries.append(entry)
 
     return game_id, entries

@@ -8,11 +8,18 @@ what happened next. Designed to give Claude Code structured data for blunder ana
 
 import json
 import sys
+from collections.abc import Sequence
 
-from scripts.analysis.blunder_eval_common import load_game
+from schemas.game_export_types import (
+    BuiltGameExport,
+    JsonObject,
+    LlmEvent,
+    Snapshot,
+    load_built_game_export,
+)
 
 
-def _summarize_permanent(c: dict) -> str | dict:
+def _summarize_permanent(c: object) -> str | dict:
     """Summarize a battlefield permanent. Returns just the name if nothing
     interesting, or a dict with extra info when tapped/counters/sick."""
     if not isinstance(c, dict):
@@ -54,9 +61,9 @@ def _summarize_stack_item(item: object) -> str | dict:
     return name
 
 
-def _summarize_snapshot(snap: dict) -> dict:
+def _summarize_snapshot(snap: Snapshot) -> dict[str, object]:
     """Summarize a snapshot for decision context."""
-    summary = {
+    summary: dict[str, object] = {
         "turn": snap.get("turn"),
         "phase": snap.get("phase"),
         "step": snap.get("step"),
@@ -89,9 +96,9 @@ def _summarize_snapshot(snap: dict) -> dict:
                 ],
                 **({"counters": p["counters"]} if p.get("counters") else {}),
             }
-            for p in snap.get("players", [])
+            for p in snap["players"]
         ],
-        "stack": [_summarize_stack_item(item) for item in snap.get("stack", [])],
+        "stack": [_summarize_stack_item(item) for item in snap["stack"]],
     }
     # Combat groups (may be absent in old exports)
     combat = snap.get("combat")
@@ -100,7 +107,7 @@ def _summarize_snapshot(snap: dict) -> dict:
     return summary
 
 
-def _find_snapshot_index(snapshots: list[dict], ts: str) -> int | None:
+def _find_snapshot_index(snapshots: Sequence[Snapshot], ts: str) -> int | None:
     """Find the index of the nearest snapshot at or before the given timestamp.
 
     Returns None if no snapshot exists at or before the timestamp (e.g. for
@@ -116,7 +123,7 @@ def _find_snapshot_index(snapshots: list[dict], ts: str) -> int | None:
     return best
 
 
-def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
+def _find_snapshot_index_by_seq(snapshots: Sequence[Snapshot], seq: int) -> int | None:
     """Find the index of the nearest snapshot at or before the given game seq.
 
     Used for v2 games where snapshots have seq but no ts.
@@ -124,7 +131,7 @@ def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
     """
     best: int | None = None
     for i, snap in enumerate(snapshots):
-        snap_seq = snap.get("seq", 0)
+        snap_seq = snap["seq"]
         if snap_seq <= seq:
             best = i
         else:
@@ -132,7 +139,7 @@ def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
     return best
 
 
-def _parse_choices_result(result_str: str) -> dict:
+def _parse_choices_result(result_str: str) -> JsonObject:
     """Parse the result of a get_action_choices tool call."""
     try:
         parsed = json.loads(result_str)
@@ -144,7 +151,7 @@ def _parse_choices_result(result_str: str) -> dict:
     return parsed
 
 
-def _parse_action_result(result_str: str) -> dict:
+def _parse_action_result(result_str: str) -> JsonObject:
     """Parse the result of a choose_action tool call."""
     try:
         parsed = json.loads(result_str)
@@ -157,7 +164,7 @@ def _parse_action_result(result_str: str) -> dict:
 
 
 def _resolve_chosen_index(
-    chosen_args: dict, available_choices: list, action_result: dict
+    chosen_args: JsonObject, available_choices: list[object], action_result: JsonObject
 ) -> object | None:
     """Resolve chosen_index from choose_action args.
 
@@ -207,6 +214,9 @@ def _resolve_chosen_index(
     # Fallback: parse trailing integer from action_taken.
     # Handles selected_0, selected_target_1, selected_ability_0, etc.
     taken = action_result.get("action_taken", "")
+    assert isinstance(taken, str), (
+        f"action_taken must be a string when present, got {taken!r}"
+    )
     if taken.startswith("selected"):
         try:
             return int(taken.rsplit("_", 1)[1])
@@ -243,28 +253,28 @@ def _is_forced(response_type: str, message: str, choices: list) -> bool:
 
 def _build_decision(
     *,
-    decisions: list[dict],
+    decisions: list[dict[str, object]],
     snap_idx: int | None,
     action_ts: str,
     action_seq: int = 0,
     player: str,
-    game_state: dict,
+    game_state: dict[str, object],
     message: str,
     action_type: str,
     response_type: str,
-    available_choices: list,
+    available_choices: list[object],
     chosen_index: object | None,
-    chosen_args: dict,
-    action_result: dict,
+    chosen_args: JsonObject,
+    action_result: JsonObject,
     reasoning: str,
     combat_phase: str,
-    combat: list,
-    already_attacking: list,
-    incoming_attackers: list,
+    combat: list[object],
+    already_attacking: list[object],
+    incoming_attackers: list[object],
     subsequent: list[str],
-) -> dict:
+) -> dict[str, object]:
     """Build a decision dict with the canonical field set."""
-    d: dict = {
+    d: dict[str, object] = {
         "decision_index": len(decisions),
         "snapshot_index": snap_idx if snap_idx is not None else 0,
         "action_ts": action_ts,
@@ -293,18 +303,18 @@ def _build_decision(
     return d
 
 
-def _extract_decisions_v1(data: dict) -> list[dict]:
+def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     """Extract decisions from v1 format (harnessEpoch < 20).
 
     In v1, LLMs always call get_action_choices to get choices, then
     choose_action to respond. Decisions anchor on get_action_choices events.
     """
-    snapshots = data.get("snapshots", [])
-    actions = data.get("actions", [])
-    llm_events = data.get("llmEvents", [])
+    snapshots = data["snapshots"]
+    actions = data["actions"]
+    llm_events = data["llmEvents"]
 
     # Collect get_action_choices events with their indices
-    choices_events: list[tuple[int, dict]] = []
+    choices_events: list[tuple[int, LlmEvent]] = []
     for i, event in enumerate(llm_events):
         if (
             event.get("type") == "tool_call"
@@ -312,7 +322,7 @@ def _extract_decisions_v1(data: dict) -> list[dict]:
         ):
             choices_events.append((i, event))
 
-    decisions: list[dict] = []
+    decisions: list[dict[str, object]] = []
 
     for ce_idx, (event_idx, choices_event) in enumerate(choices_events):
         choices_result = _parse_choices_result(choices_event.get("result", ""))
@@ -320,23 +330,46 @@ def _extract_decisions_v1(data: dict) -> list[dict]:
             continue
 
         choices_ts = choices_event.get("ts", "")
-        player = choices_event.get("player", "")
+        assert isinstance(choices_ts, str), (
+            f"choices event ts must be a string when present, got {choices_ts!r}"
+        )
+        player = choices_event["player"]
 
         # Parse available choices
-        available_choices = choices_result.get("choices", [])
+        available_choices_raw = choices_result.get("choices", [])
+        available_choices = (
+            available_choices_raw if isinstance(available_choices_raw, list) else []
+        )
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
         combat_phase = choices_result.get("combat_phase", "")
-        combat = choices_result.get("combat", [])
-        already_attacking = choices_result.get("already_attacking", [])
-        incoming_attackers = choices_result.get("incoming_attackers", [])
+        combat_raw = choices_result.get("combat", [])
+        already_attacking_raw = choices_result.get("already_attacking", [])
+        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
+        assert isinstance(response_type, str), (
+            f"response_type must be a string, got {response_type!r}"
+        )
+        assert isinstance(action_type, str), (
+            f"action_type must be a string, got {action_type!r}"
+        )
+        assert isinstance(message, str), f"message must be a string, got {message!r}"
+        assert isinstance(combat_phase, str), (
+            f"combat_phase must be a string when present, got {combat_phase!r}"
+        )
+        combat = combat_raw if isinstance(combat_raw, list) else []
+        already_attacking = (
+            already_attacking_raw if isinstance(already_attacking_raw, list) else []
+        )
+        incoming_attackers = (
+            incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
+        )
 
         # Look forward for the next llm_response and choose_action from same player
         reasoning = ""
         chosen_index = None
-        chosen_args: dict = {}
-        action_result: dict = {}
+        chosen_args: JsonObject = {}
+        action_result: JsonObject = {}
         action_ts = ""
 
         for j in range(event_idx + 1, min(event_idx + 20, len(llm_events))):
@@ -345,15 +378,32 @@ def _extract_decisions_v1(data: dict) -> list[dict]:
                 continue
 
             if ev.get("type") == "llm_response" and not reasoning:
-                reasoning = ev.get("reasoning", "")
+                reasoning_raw = ev.get("reasoning", "")
+                assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
+                    f"reasoning must be a string when present, got {reasoning_raw!r}"
+                )
+                reasoning = reasoning_raw if reasoning_raw is not None else ""
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-                chosen_args = ev.get("args", {})
+                chosen_args_raw = ev.get("args")
+                if chosen_args_raw is None:
+                    chosen_args = {}
+                else:
+                    assert isinstance(chosen_args_raw, dict), (
+                        f"choose_action args must be an object, got {chosen_args_raw!r}"
+                    )
+                    chosen_args = chosen_args_raw
+                assert isinstance(chosen_args, dict), (
+                    f"choose_action args must be an object, got {chosen_args!r}"
+                )
                 action_result = _parse_action_result(ev.get("result", ""))
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
                 action_ts = ev.get("ts", "")
+                assert isinstance(action_ts, str), (
+                    f"choose_action ts must be a string when present, got {action_ts!r}"
+                )
                 break
 
             # If we hit another get_action_choices, stop
@@ -371,16 +421,26 @@ def _extract_decisions_v1(data: dict) -> list[dict]:
         next_choices_ts = ""
         if ce_idx + 1 < len(choices_events):
             next_choices_ts = choices_events[ce_idx + 1][1].get("ts", "")
+            assert isinstance(next_choices_ts, str), (
+                f"next choices ts must be a string when present, got {next_choices_ts!r}"
+            )
 
         subsequent: list[str] = []
         if action_ts:
             for a in actions:
                 a_ts = a.get("ts", "")
+                assert isinstance(a_ts, str), (
+                    f"action ts must be a string when present, got {a_ts!r}"
+                )
                 if a_ts <= (action_ts or choices_ts):
                     continue
                 if next_choices_ts and a_ts > next_choices_ts:
                     break
-                subsequent.append(a.get("message", ""))
+                message_raw = a.get("message", "")
+                assert isinstance(message_raw, str), (
+                    f"action message must be a string when present, got {message_raw!r}"
+                )
+                subsequent.append(message_raw)
                 if len(subsequent) >= 5:
                     break
 
@@ -410,7 +470,7 @@ def _extract_decisions_v1(data: dict) -> list[dict]:
     return decisions
 
 
-def _is_decision_source(event: dict) -> bool:
+def _is_decision_source(event: LlmEvent) -> bool:
     """Check if a tool_call event is a v2 decision source.
 
     A decision source is a pass_priority or get_action_choices tool_call
@@ -425,43 +485,63 @@ def _is_decision_source(event: dict) -> bool:
     return bool(result.get("action_pending"))
 
 
-def _extract_decisions_v2(data: dict) -> list[dict]:
+def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     """Extract decisions from v2 format (harnessEpoch >= 20).
 
     In v2, pass_priority returns choices inline when action_pending=true,
     so decisions anchor on pass_priority/get_action_choices events with
     action_pending=true instead of just get_action_choices.
     """
-    snapshots = data.get("snapshots", [])
-    actions = data.get("actions", [])
-    llm_events = data.get("llmEvents", [])
+    snapshots = data["snapshots"]
+    actions = data["actions"]
+    llm_events = data["llmEvents"]
 
     # Collect decision source events
-    decision_sources: list[tuple[int, dict]] = []
+    decision_sources: list[tuple[int, LlmEvent]] = []
     for i, event in enumerate(llm_events):
         if _is_decision_source(event):
             decision_sources.append((i, event))
 
-    decisions: list[dict] = []
+    decisions: list[dict[str, object]] = []
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
         choices_result = _parse_choices_result(source_event.get("result", ""))
-        player = source_event.get("player", "")
+        player = source_event["player"]
 
-        available_choices = choices_result.get("choices", [])
+        available_choices_raw = choices_result.get("choices", [])
+        available_choices = (
+            available_choices_raw if isinstance(available_choices_raw, list) else []
+        )
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
         combat_phase = choices_result.get("combat_phase", "")
-        combat = choices_result.get("combat", [])
-        already_attacking = choices_result.get("already_attacking", [])
-        incoming_attackers = choices_result.get("incoming_attackers", [])
+        combat_raw = choices_result.get("combat", [])
+        already_attacking_raw = choices_result.get("already_attacking", [])
+        incoming_attackers_raw = choices_result.get("incoming_attackers", [])
+        assert isinstance(response_type, str), (
+            f"response_type must be a string, got {response_type!r}"
+        )
+        assert isinstance(action_type, str), (
+            f"action_type must be a string, got {action_type!r}"
+        )
+        assert isinstance(message, str), f"message must be a string, got {message!r}"
+        assert isinstance(combat_phase, str), (
+            f"combat_phase must be a string when present, got {combat_phase!r}"
+        )
+        combat = combat_raw if isinstance(combat_raw, list) else []
+        already_attacking = (
+            already_attacking_raw if isinstance(already_attacking_raw, list) else []
+        )
+        incoming_attackers = (
+            incoming_attackers_raw if isinstance(incoming_attackers_raw, list) else []
+        )
 
         # Look forward for llm_response and choose_action from same player
         reasoning = ""
         chosen_index = None
-        chosen_args: dict = {}
-        action_result: dict = {}
+        chosen_args: JsonObject = {}
+        action_result: JsonObject = {}
         action_ts = ""
 
         for j in range(event_idx + 1, len(llm_events)):
@@ -470,15 +550,32 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
                 continue
 
             if ev.get("type") == "llm_response" and not reasoning:
-                reasoning = ev.get("reasoning", "")
+                reasoning_raw = ev.get("reasoning", "")
+                assert isinstance(reasoning_raw, str) or reasoning_raw is None, (
+                    f"reasoning must be a string when present, got {reasoning_raw!r}"
+                )
+                reasoning = reasoning_raw if reasoning_raw is not None else ""
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-                chosen_args = ev.get("args", {})
+                chosen_args_raw = ev.get("args")
+                if chosen_args_raw is None:
+                    chosen_args = {}
+                else:
+                    assert isinstance(chosen_args_raw, dict), (
+                        f"choose_action args must be an object, got {chosen_args_raw!r}"
+                    )
+                    chosen_args = chosen_args_raw
+                assert isinstance(chosen_args, dict), (
+                    f"choose_action args must be an object, got {chosen_args!r}"
+                )
                 action_result = _parse_action_result(ev.get("result", ""))
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
                 action_ts = ev.get("ts", "")
+                assert isinstance(action_ts, str), (
+                    f"choose_action ts must be a string when present, got {action_ts!r}"
+                )
                 break
 
             # Stop at next decision source for this player
@@ -488,11 +585,20 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
         # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts).
         # Fall back to timestamp if gameSeq is missing (e.g. discard-to-hand-size
         # events from older harness versions that didn't emit gameSeq).
-        choices_seq = source_event.get("gameSeq") or 0
+        choices_seq_raw = source_event.get("gameSeq", 0)
+        choices_seq = (
+            choices_seq_raw
+            if isinstance(choices_seq_raw, int)
+            and not isinstance(choices_seq_raw, bool)
+            else 0
+        )
         if choices_seq:
             snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         else:
             choices_ts = source_event.get("ts", "")
+            assert isinstance(choices_ts, str), (
+                f"source event ts must be a string when present, got {choices_ts!r}"
+            )
             snap_idx = (
                 _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
             )
@@ -511,22 +617,31 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
                     and ev.get("tool") == "choose_action"
                     and ev.get("player") == player
                 ):
-                    action_seq = ev.get("gameSeq", choices_seq)
+                    game_seq_raw = ev.get("gameSeq", choices_seq)
+                    if isinstance(game_seq_raw, int) and not isinstance(
+                        game_seq_raw, bool
+                    ):
+                        action_seq = game_seq_raw
                     break
 
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
-            next_choices_seq = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
+            next_game_seq_raw = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
+            if isinstance(next_game_seq_raw, int) and not isinstance(
+                next_game_seq_raw, bool
+            ):
+                next_choices_seq = next_game_seq_raw
 
         subsequent: list[str] = []
         for a in actions:
-            a_seq = a.get("seq", 0)
+            a_seq = a["seq"]
             if a_seq <= action_seq:
                 continue
             if next_choices_seq and a_seq > next_choices_seq:
                 break
-            if a.get("message"):
-                subsequent.append(a["message"])
+            message_raw = a.get("message")
+            if isinstance(message_raw, str) and message_raw:
+                subsequent.append(message_raw)
             if len(subsequent) >= 5:
                 break
 
@@ -557,37 +672,31 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
     return decisions
 
 
-def extract_decisions(gz_path: str) -> list[dict]:
+def extract_decisions(gz_path: str) -> list[dict[str, object]]:
     """Extract decision points from a game export file.
 
     Returns canonical decisions from the export's 'decisions' field when
     present (built by export_game._build_decisions). Falls back to legacy
     extraction from llmEvents for older exports without pre-built decisions.
     """
-    data = load_game(gz_path)
+    data = load_built_game_export(gz_path)
 
     # Use pre-built canonical decisions when available
     if "decisions" in data:
-        decisions = data["decisions"]
-        assert isinstance(decisions, list), f"{gz_path}: decisions must be a list"
-        typed_decisions: list[dict] = []
-        for index, decision in enumerate(decisions):
-            assert isinstance(decision, dict), (
-                f"{gz_path}: decisions[{index}] must be an object, got {decision!r}"
-            )
-            typed_decisions.append(decision)
+        typed_decisions: list[dict[str, object]] = []
+        for decision in data["decisions"]:
+            typed_decisions.append(dict(decision))
         return typed_decisions
 
     # Legacy: extract from llmEvents
-    is_v2 = "version" in data
-    if is_v2:
+    if data["harnessEpoch"] >= 20:
         decisions = _extract_decisions_v2(data)
     else:
         decisions = _extract_decisions_v1(data)
 
     # Detect rolled-back casts from [System] Spell cancelled messages
     # in ANY tool result (get_action_choices, choose_action, pass_priority)
-    llm_events = data.get("llmEvents", [])
+    llm_events = data["llmEvents"]
     cancelled = _find_spell_cancelled_events(llm_events)
     _mark_rolled_back_casts(decisions, cancelled)
 
@@ -600,7 +709,9 @@ _CAST_PROMPT_PREFIXES = (
 )
 
 
-def _find_spell_cancelled_events(llm_events: list[dict]) -> list[tuple[str, str]]:
+def _find_spell_cancelled_events(
+    llm_events: Sequence[LlmEvent],
+) -> list[tuple[str, str]]:
     """Find (player, timestamp) pairs for [System] Spell cancelled messages.
 
     These messages can appear in any tool result (get_action_choices,
@@ -616,28 +727,52 @@ def _find_spell_cancelled_events(llm_events: list[dict]) -> list[tuple[str, str]
     for ev in llm_events:
         if ev.get("type") != "tool_call":
             continue
-        player = ev.get("player", "")
+        player = ev["player"]
         result_str = ev.get("result", "")
+        assert isinstance(result_str, str), (
+            f"result must be a string when present, got {result_str!r}"
+        )
         if "[System] Spell cancelled" not in result_str:
-            last_ts[player] = ev.get("ts", "")
+            ts_raw = ev.get("ts", "")
+            assert isinstance(ts_raw, str), (
+                f"event ts must be a string when present, got {ts_raw!r}"
+            )
+            last_ts[player] = ts_raw
             continue
         try:
             result = json.loads(result_str)
         except (json.JSONDecodeError, TypeError):
-            last_ts[player] = ev.get("ts", "")
+            ts_raw = ev.get("ts", "")
+            assert isinstance(ts_raw, str), (
+                f"event ts must be a string when present, got {ts_raw!r}"
+            )
+            last_ts[player] = ts_raw
             continue
-        for msg in result.get("recent_chat", []):
+        if not isinstance(result, dict):
+            continue
+        recent_chat = result.get("recent_chat", [])
+        if not isinstance(recent_chat, list):
+            recent_chat = []
+        for msg in recent_chat:
             if "[System] Spell cancelled" in str(msg):
                 # Use the previous event's timestamp (when the cast was attempted)
-                ts = last_ts.get(player, ev.get("ts", ""))
+                ev_ts_raw = ev.get("ts", "")
+                assert isinstance(ev_ts_raw, str), (
+                    f"event ts must be a string when present, got {ev_ts_raw!r}"
+                )
+                ts = last_ts.get(player, ev_ts_raw)
                 cancelled.append((player, ts))
                 break
-        last_ts[player] = ev.get("ts", "")
+        ts_raw = ev.get("ts", "")
+        assert isinstance(ts_raw, str), (
+            f"event ts must be a string when present, got {ts_raw!r}"
+        )
+        last_ts[player] = ts_raw
     return cancelled
 
 
 def _mark_rolled_back_casts(
-    decisions: list[dict], cancelled_events: list[tuple[str, str]]
+    decisions: list[dict[str, object]], cancelled_events: list[tuple[str, str]]
 ) -> None:
     """Post-process decisions to mark rolled-back cast sequences.
 
@@ -655,12 +790,17 @@ def _mark_rolled_back_casts(
             if d["player"] != player:
                 continue
             # Skip decisions after the cancel event
-            if d.get("action_ts", "") > cancel_ts:
+            action_ts_raw = d.get("action_ts", "")
+            assert isinstance(action_ts_raw, str), (
+                f"action_ts must be a string when present, got {action_ts_raw!r}"
+            )
+            if action_ts_raw > cancel_ts:
                 continue
             # Already handled by a previous cancel event
             if d.get("rolled_back") or d.get("cast_rolled_back"):
                 break
             msg = d.get("message", "")
+            assert isinstance(msg, str), f"message must be a string, got {msg!r}"
             if msg.startswith(_CAST_PROMPT_PREFIXES):
                 d["cast_rolled_back"] = True
                 break

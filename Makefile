@@ -20,8 +20,7 @@ lint:
 
 .PHONY: lint-java
 lint-java:
-	mvn -q -pl Mage.Client.Bridge -am -DskipTests install
-	mvn -q -pl Mage.Client.Bridge -DskipTests -Pjava-lint verify
+	mvn -q -pl Mage.Client.Bridge -am -DskipTests -Pjava-lint verify
 	$(MAKE) verify-mcp-tools
 
 .PHONY: lint-fix
@@ -141,7 +140,8 @@ list-configs:
 # Compiles first to pick up any Java source changes.
 .PHONY: regen-mcp-tools
 regen-mcp-tools:
-	cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../website/src/data/mcp-tools.json
+	mvn -q -f Mage.Client.Bridge/pom.xml -am compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
+		| python3 scripts/extract_json_array.py > website/src/data/mcp-tools.json
 
 # Launch the desktop client (for image downloads, deck building, etc.)
 .PHONY: run-client
@@ -247,8 +247,9 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 # Verify mcp-tools.json is up to date with McpServer.java
 .PHONY: verify-mcp-tools
 verify-mcp-tools:
-	@cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| diff -q - ../website/src/data/mcp-tools.json > /dev/null 2>&1 \
+	@mvn -q -f Mage.Client.Bridge/pom.xml -am compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
+		| python3 scripts/extract_json_array.py \
+		| diff -q - website/src/data/mcp-tools.json > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate." && exit 1)
 
 .PHONY: list-games-to-analyze

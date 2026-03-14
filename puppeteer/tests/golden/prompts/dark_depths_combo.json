@@ -308,7 +308,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Black Lotus, Dark Depths (ice=10), Thespian's Stage] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Ability]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Select a land\n  Choices (2): Dark Depths [id=p11], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Black Lotus, Dark Depths (ice=10), Thespian's Stage] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Thespian's Stage - {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Select a land\n  Choices (2): Dark Depths [id=p11], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -327,7 +327,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=5 lib=52 bf=[Black Lotus, Dark Depths (ice=10), Thespian's Stage] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Ability]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Select a land\n  Choices (2): Dark Depths [id=p11], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=5 lib=52 bf=[Black Lotus, Dark Depths (ice=10), Thespian's Stage] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Thespian's Stage - {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.]\n  Untapped lands: 2, Land drops remaining: 0\n  Message: Select a land\n  Choices (2): Dark Depths [id=p11], Thespian's Stage [id=p16]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -348,7 +348,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Dark Depths (ice=10), Thespian's Stage (tapped)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Ability -> {'name': 'Dark Depths (yours)', 'id': 'p11'}]\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Dark Depths (ice=10), Thespian's Stage (tapped)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Thespian's Stage - {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability. -> Dark Depths (yours)]\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_17"
   },
@@ -388,7 +388,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Dark Depths (tapped, copy of Thespian's Stage)] gy=[Black Lotus, Dark Depths] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Ability]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Dark Depths (tapped, copy of Thespian's Stage)] gy=[Black Lotus, Dark Depths] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Stack: [Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.]\n  Land drops remaining: 0\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_19"
   },

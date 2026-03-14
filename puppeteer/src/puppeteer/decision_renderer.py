@@ -278,14 +278,35 @@ def _render_stack(stack: list) -> list[str]:
         if isinstance(item, str):
             parts.append(item)
         elif isinstance(item, dict):
-            desc = item.get("name", "?")
+            desc = _render_stack_item(item)
             targets = item.get("targets", [])
             if targets:
-                desc += " -> " + ", ".join(str(t) for t in targets)
+                desc += " -> " + ", ".join(_render_stack_target(t) for t in targets)
             parts.append(desc)
         else:
             parts.append(str(item))
     return parts
+
+
+def _render_stack_item(item: dict) -> str:
+    """Render a stack item name with triggered-ability context when available."""
+    source_card = item.get("source_card")
+    ability_text = item.get("ability_text")
+    if isinstance(source_card, str) and source_card and isinstance(ability_text, str) and ability_text:
+        return f"{source_card} - {ability_text}"
+    desc = item.get("name", "?")
+    if isinstance(desc, str):
+        return desc
+    return str(desc)
+
+
+def _render_stack_target(target: object) -> str:
+    """Render a stack target as a readable name instead of a raw dict repr."""
+    if isinstance(target, dict):
+        name = target.get("name")
+        if isinstance(name, str) and name:
+            return name
+    return str(target)
 
 
 def _render_combat(combat_groups: list) -> str:

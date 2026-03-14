@@ -165,7 +165,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain (tapped)] | Opponent: 20hp hand=8 lib=52\n  Stack: [Lightning Bolt -> {'name': 'Opponent', 'id': 'p1'}]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Badlands, Lightning Bolt, Memnite, Plateau, Taiga] lib=53 bf=[Mountain (tapped)] | Opponent: 20hp hand=8 lib=52\n  Stack: [Lightning Bolt -> Opponent]\n  Message: Play instants and activated abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)",
     "role": "tool",
     "tool_call_id": "call_8"
   },

@@ -369,7 +369,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 BEGINNING - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Boggart Bog (copy of Boggart Trawler), Forest, Plains, Plains, Plains] exile=[Crashing Footfalls] | Opponent: 20hp hand=7 lib=48 gy=[Mountain, Mountain, Mountain, Mountain, Mountain]\n  Stack: [Ability]\n  Untapped lands: 5\n  Message: Cast spell without paying its mana cost (Crashing Footfalls)?\n  Choices (0): \n  Respond: choice=yes or choice=no\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 6 BEGINNING - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=49 bf=[Boggart Bog (copy of Boggart Trawler), Forest, Plains, Plains, Plains] exile=[Crashing Footfalls] | Opponent: 20hp hand=7 lib=48 gy=[Mountain, Mountain, Mountain, Mountain, Mountain]\n  Stack: [Crashing Footfalls - When the last time counter is removed from Crashing Footfalls, if it's exiled, ]\n  Untapped lands: 5\n  Message: Cast spell without paying its mana cost (Crashing Footfalls)?\n  Choices (0): \n  Respond: choice=yes or choice=no\n\n[It's been 6 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_18"
   },

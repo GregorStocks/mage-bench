@@ -178,13 +178,20 @@ def check(command: str) -> None:
         )
 
     # --- Golden tests — use make targets ---
+    if re.search(r"(?:^|\s|[;&|])\s*make\s+regen-golden\b", stripped) and re.search(
+        r"\bK\s*=", stripped
+    ):
+        block(
+            "Blocked: never regenerate a single golden fixture.\n"
+            "Run 'make regen-golden' to regenerate all golden files together."
+        )
+
     if re.search(r"GOLDEN_INTEGRATION\s*=\s*1", stripped) or re.search(r"-m\s+golden", stripped):
         block(
             "Blocked: don't run golden tests directly. Use make targets instead:\n"
             "  make test-golden              # run all golden tests\n"
             "  make test-golden K=bolt       # run golden tests matching 'bolt'\n"
             "  make regen-golden             # regenerate all golden files\n"
-            "  make regen-golden K=bolt      # regenerate golden files matching 'bolt'"
         )
 
     if re.search(r"UPDATE_(?:BLUNDER_)?GOLDEN\s*=\s*1", stripped):

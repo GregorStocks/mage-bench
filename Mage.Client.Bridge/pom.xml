@@ -60,6 +60,23 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-compile</id>
+                                <configuration>
+                                    <!-- Low-noise warning gate used by make lint-java. -->
+                                    <showDeprecation>true</showDeprecation>
+                                    <failOnWarning>true</failOnWarning>
+                                    <compilerArgs>
+                                        <arg>-Xlint:unchecked,deprecation</arg>
+                                    </compilerArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
                         <version>3.28.0</version>
                         <configuration>

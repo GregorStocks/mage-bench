@@ -8,6 +8,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+from schemas.game_export_types import BuiltGameExport, require_built_game_export
+
 _ROOT = Path(__file__).resolve().parent.parent
 WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
 LOGS_DIR = Path.home() / ".mage-bench" / "logs"
@@ -998,7 +1000,7 @@ def _find_tournament_for_game(game_id: str) -> str | None:
     return None
 
 
-def build_export(game_dir: Path) -> dict:
+def build_export(game_dir: Path) -> BuiltGameExport:
     """Build the export data dict from a game directory.
 
     Reads server_game_events.jsonl (version 2 format).
@@ -1164,61 +1166,7 @@ def build_export(game_dir: Path) -> dict:
             _link_errors_to_decisions(errors, decisions, llm_events)
         output["errors"] = errors
 
-    _validate_export(output)
-    return output
-
-
-# Fields that build_export() always emits. annotations and
-# blunderScriptVersion are added by annotate_game.py after export. See
-# schemas/game-export-v7.schema.json for the full schema including those
-# downstream fields.
-_BUILD_EXPORT_REQUIRED = {
-    "version",
-    "id",
-    "timestamp",
-    "gameType",
-    "deckType",
-    "totalTurns",
-    "winner",
-    "players",
-    "cardImages",
-    "snapshots",
-    "actions",
-    "llmEvents",
-    "gameOver",
-    "harnessEpoch",
-    "youtubeUrl",
-    "season",
-    "tournament",
-}
-
-
-def _validate_export(data: dict) -> None:
-    """Assert the export has the expected top-level structure.
-
-    Lightweight runtime check — no jsonschema dependency. Catches missing
-    required fields and wrong version. The full JSON Schema validation
-    runs in tests (test_export_schema.py).
-    """
-    assert data.get("version") == 7, f"Expected version 7, got {data.get('version')}"
-    missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
-    assert not missing, f"Export missing required fields: {missing}"
-    assert isinstance(data["gameType"], str) and data["gameType"], (
-        "gameType must be a non-empty string"
-    )
-    assert isinstance(data["deckType"], str) and data["deckType"], (
-        "deckType must be a non-empty string"
-    )
-    assert isinstance(data["players"], list), "players must be a list"
-    assert isinstance(data["snapshots"], list), "snapshots must be a list"
-    assert isinstance(data["actions"], list), "actions must be a list"
-    assert isinstance(data["llmEvents"], list), "llmEvents must be a list"
-    for i, p in enumerate(data["players"]):
-        assert "name" in p, f"Player {i} missing 'name'"
-        assert "type" in p, f"Player {i} missing 'type'"
-        assert "toolCallsOk" in p, f"Player {i} missing 'toolCallsOk'"
-        assert "toolCallsFailed" in p, f"Player {i} missing 'toolCallsFailed'"
-        assert "thinkingTimeSecs" in p, f"Player {i} missing 'thinkingTimeSecs'"
+    return require_built_game_export(output, source=game_dir.name)
 
 
 def export_game(game_dir: Path, website_games_dir: Path) -> Path:

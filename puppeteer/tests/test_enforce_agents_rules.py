@@ -170,6 +170,19 @@ class TestBlockedCommands:
         assert result.returncode == 2
         assert "make" in result.stderr.lower()
 
+    @pytest.mark.parametrize(
+        "command",
+        [
+            "make regen-golden K=dark_depths",
+            'make regen-golden K="bolt"',
+            "FOO=1 make regen-golden K=emancipation_angel_trigger",
+        ],
+    )
+    def test_single_golden_regen_blocked(self, command: str) -> None:
+        result = _run_hook(command)
+        assert result.returncode == 2
+        assert "all golden" in result.stderr.lower()
+
 
 class TestAllowedCommands:
     """Commands that must be allowed (exit 0)."""
@@ -187,7 +200,6 @@ class TestAllowedCommands:
             "make test-golden",
             "make test-golden K=bolt",
             "make regen-golden",
-            "make regen-golden K=dark_depths",
             "git commit -m 'fix bug'",
             "git push origin HEAD",
             "git merge origin/master",

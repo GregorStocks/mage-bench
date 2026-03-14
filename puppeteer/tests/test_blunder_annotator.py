@@ -29,6 +29,7 @@ def _make_test_game(
                 {
                     "name": "Alice",
                     "life": 20,
+                    "library_size": 53,
                     "hand": [{"name": "Mountain"}, {"name": "Lightning Bolt"}],
                     "battlefield": [],
                     "graveyard": [],
@@ -37,6 +38,7 @@ def _make_test_game(
                 {
                     "name": "Bob",
                     "life": 20,
+                    "library_size": 53,
                     "hand": [],
                     "battlefield": [{"name": "Grizzly Bears"}],
                     "graveyard": [],
@@ -57,6 +59,7 @@ def _make_test_game(
                 {
                     "name": "Alice",
                     "life": 20,
+                    "library_size": 52,
                     "hand": [{"name": "Lightning Bolt"}],
                     "battlefield": [{"name": "Mountain"}],
                     "graveyard": [],
@@ -65,6 +68,7 @@ def _make_test_game(
                 {
                     "name": "Bob",
                     "life": 20,
+                    "library_size": 53,
                     "hand": [],
                     "battlefield": [{"name": "Grizzly Bears"}],
                     "graveyard": [],
@@ -117,6 +121,7 @@ def _make_test_game(
         llm_events.extend(extra_llm_events)
 
     return {
+        "version": 7,
         "id": "game_test_001",
         "timestamp": "20260101_120000",
         "gameType": "Two Player Duel",
@@ -124,8 +129,22 @@ def _make_test_game(
         "totalTurns": 2,
         "winner": "Alice",
         "players": [
-            {"name": "Alice", "type": "pilot", "model": "test-model"},
-            {"name": "Bob", "type": "pilot", "model": "test-model"},
+            {
+                "name": "Alice",
+                "type": "pilot",
+                "model": "test-model",
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
+            },
+            {
+                "name": "Bob",
+                "type": "pilot",
+                "model": "test-model",
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
+            },
         ],
         "cardImages": {},
         "snapshots": snapshots,
@@ -139,6 +158,12 @@ def _make_test_game(
         "llmEvents": llm_events,
         "llmTrace": [],
         "gameOver": {"seq": 100, "message": "Player Alice is the winner"},
+        "annotations": [],
+        "blunderScriptVersion": 0,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "season": 1,
+        "tournament": None,
     }
 
 

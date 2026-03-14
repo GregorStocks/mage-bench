@@ -383,7 +383,13 @@ def _v2_game_data(llm_events: list[dict]) -> dict:
     return {
         "version": 2,
         "snapshots": [
-            {"ts": "T00", "turn": 1, "phase": "PRECOMBAT_MAIN", "players": []},
+            {
+                "ts": "T00",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "players": [],
+                "stack": [],
+            },
         ],
         "actions": [],
         "llmEvents": llm_events,
@@ -718,7 +724,13 @@ class TestExtractDecisionsV1:
         ]
         data = {
             "snapshots": [
-                {"ts": "T00", "turn": 1, "phase": "PRECOMBAT_MAIN", "players": []},
+                {
+                    "ts": "T00",
+                    "turn": 1,
+                    "phase": "PRECOMBAT_MAIN",
+                    "players": [],
+                    "stack": [],
+                },
             ],
             "actions": [],
             "llmEvents": events,
