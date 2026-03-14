@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Dump a sample blunder analysis prompt to tmp/sample_prompt.txt for spot-checking."""
 
-import gzip
-import json
 from pathlib import Path
 
+from schemas.game_export_types import load_game_export
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
     _collect_card_names,
@@ -20,8 +19,7 @@ TMP_DIR = REPO_ROOT / "tmp"
 # Pick a game with enough turns
 gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz")
 
-with gzip.open(gz_path, "rt") as f:
-    data = json.load(f)
+data = load_game_export(gz_path)
 
 decisions = extract_decisions(gz_path)
 non_forced = [d for d in decisions if not d["is_forced"]]
@@ -60,10 +58,12 @@ out_path.write_text(output)
 sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
 print(f"Game: {data['id']}")
+message = decision.get("message", "")
+assert isinstance(message, str), f"decision message must be a string, got {message!r}"
 print(
     f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"
 )
-print(f"Message: {decision.get('message', '')[:80]}")
+print(f"Message: {message[:80]}")
 print(f"\nSystem prompt: ~{sys_tokens} tokens")
 print(f"User message:  ~{user_tokens} tokens")
 print(f"\nWritten to: {out_path}")

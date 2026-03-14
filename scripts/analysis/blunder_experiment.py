@@ -35,11 +35,13 @@ from pathlib import Path
 
 from openai import OpenAI
 
+from schemas.game_export_types import GameExport
 from scripts.analysis.blunder_analysis import (
     _format_decisions,
     _game_overview,
     _load_game,
 )
+from scripts.analysis.blunder_eval_common import decision_index, is_forced
 from scripts.analysis.extract_decisions import extract_decisions
 
 
@@ -379,11 +381,14 @@ Use the snapshot= number from the decision header as snapshotIndex."""
 
 
 def _approach_inline(
-    client: OpenAI, data: dict, decisions: list[dict], overview: str
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Approach A: Inline annotation — one Opus call, annotate each decision as you go."""
     result = ExperimentResult(approach="A_inline", game_id=data["id"], model=OPUS)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     # Format each decision with a clear separator
     parts: list[str] = []
@@ -477,8 +482,8 @@ def _eval_one_decision(
 
 def _approach_per_decision(
     client: OpenAI,
-    data: dict,
-    decisions: list[dict],
+    data: GameExport,
+    decisions: list[dict[str, object]],
     overview: str,
     model: str,
     approach_name: str,
@@ -486,12 +491,12 @@ def _approach_per_decision(
 ) -> ExperimentResult:
     """Per-decision approach: one API call per non-forced decision."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
-    def make_task(d: dict) -> tuple[str, str, str]:
+    def make_task(d: dict[str, object]) -> tuple[str, str, str]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-        label = f"decision_{d['decision_index']}"
+        label = f"decision_{decision_index(d)}"
         return user_msg, label, PER_DECISION_SYSTEM
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -501,7 +506,7 @@ def _approach_per_decision(
             fut = pool.submit(
                 _eval_one_decision, client, model, system, user_msg, label, thinking
             )
-            futures[fut] = d["decision_index"]
+            futures[fut] = decision_index(d)
 
         # Collect results, preserving decision order for deterministic output
         results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
@@ -510,7 +515,7 @@ def _approach_per_decision(
             results_by_idx[idx] = fut.result()
 
     for d in non_forced:
-        trace, anns = results_by_idx[d["decision_index"]]
+        trace, anns = results_by_idx[decision_index(d)]
         result.calls.append(trace)
         result.annotations.extend(anns)
 
@@ -521,11 +526,14 @@ def _approach_per_decision(
 
 
 def _approach_thinking(
-    client: OpenAI, data: dict, decisions: list[dict], overview: str
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Approach C: Current single-pass with extended thinking enabled."""
     result = ExperimentResult(approach="C_thinking", game_id=data["id"], model=OPUS)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = (
         f"## Game Overview\n{overview}\n\n"
@@ -550,11 +558,14 @@ def _approach_thinking(
 
 
 def _approach_baseline(
-    client: OpenAI, data: dict, decisions: list[dict], overview: str
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Baseline: Current single-pass Opus without thinking (v5 logic)."""
     result = ExperimentResult(approach="baseline", game_id=data["id"], model=OPUS)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     user_msg = (
         f"## Game Overview\n{overview}\n\n"
@@ -598,26 +609,26 @@ Use the snapshot= number from the decision header as snapshotIndex."""
 
 def _approach_per_decision_minimal(
     client: OpenAI,
-    data: dict,
-    decisions: list[dict],
+    data: GameExport,
+    decisions: list[dict[str, object]],
     overview: str,
     model: str,
     approach_name: str,
 ) -> ExperimentResult:
     """Per-decision with minimal context: no game overview, just the decision + board state."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futures = {}
         for d in non_forced:
             formatted = _format_decisions([d])
             user_msg = f"## Decision\n\n{formatted}"
-            label = f"decision_{d['decision_index']}"
+            label = f"decision_{decision_index(d)}"
             fut = pool.submit(
                 _eval_one_decision, client, model, MINIMAL_SYSTEM, user_msg, label
             )
-            futures[fut] = d["decision_index"]
+            futures[fut] = decision_index(d)
 
         results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
         for fut in as_completed(futures):
@@ -625,7 +636,7 @@ def _approach_per_decision_minimal(
             results_by_idx[idx] = fut.result()
 
     for d in non_forced:
-        trace, anns = results_by_idx[d["decision_index"]]
+        trace, anns = results_by_idx[decision_index(d)]
         result.calls.append(trace)
         result.annotations.extend(anns)
 
@@ -666,16 +677,19 @@ correct play. The expert review is cheap — your job is just to save time on th
 
 
 def _approach_flash_opus(
-    client: OpenAI, data: dict, decisions: list[dict], overview: str
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Two-phase: Flash screens each decision, Opus analyzes flagged ones."""
     result = ExperimentResult(
         approach="G_flash_opus", game_id=data["id"], model=f"{FLASH}+{OPUS}"
     )
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel)
-    def screen_one(d: dict) -> tuple[int, CallTrace, bool]:
+    def screen_one(d: dict[str, object]) -> tuple[int, CallTrace, bool]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         trace = _call_llm(
@@ -683,10 +697,10 @@ def _approach_flash_opus(
             FLASH,
             FLASH_SCREEN_SYSTEM,
             user_msg,
-            label=f"screen_{d['decision_index']}",
+            label=f"screen_{decision_index(d)}",
         )
         flagged = not trace.response_text.strip().upper().startswith("PASS")
-        return d["decision_index"], trace, flagged
+        return decision_index(d), trace, flagged
 
     screen_results: dict[int, tuple[CallTrace, bool]] = {}
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -695,9 +709,9 @@ def _approach_flash_opus(
             idx, trace, was_flagged = fut.result()
             screen_results[idx] = (trace, was_flagged)
 
-    flagged_decisions: list[dict] = []
+    flagged_decisions: list[dict[str, object]] = []
     for d in non_forced:
-        trace, was_flagged = screen_results[d["decision_index"]]
+        trace, was_flagged = screen_results[decision_index(d)]
         result.calls.append(trace)
         if was_flagged:
             flagged_decisions.append(d)
@@ -712,11 +726,11 @@ def _approach_flash_opus(
         for d in flagged_decisions:
             formatted = _format_decisions([d])
             user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-            label = f"opus_{d['decision_index']}"
+            label = f"opus_{decision_index(d)}"
             eval_fut = pool.submit(
                 _eval_one_decision, client, OPUS, PER_DECISION_SYSTEM, user_msg, label
             )
-            eval_futures[eval_fut] = d["decision_index"]
+            eval_futures[eval_fut] = decision_index(d)
 
         opus_results: dict[int, tuple[CallTrace, list[dict]]] = {}
         for eval_fut in as_completed(eval_futures):
@@ -724,7 +738,7 @@ def _approach_flash_opus(
             opus_results[idx] = eval_fut.result()
 
     for d in flagged_decisions:
-        trace, anns = opus_results[d["decision_index"]]
+        trace, anns = opus_results[decision_index(d)]
         result.calls.append(trace)
         result.annotations.extend(anns)
 
@@ -735,16 +749,19 @@ def _approach_flash_opus(
 
 
 def _approach_flash_sonnet(
-    client: OpenAI, data: dict, decisions: list[dict], overview: str
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Two-phase: sensitive Flash screens each decision, Sonnet+low analyzes flagged."""
     result = ExperimentResult(
         approach="Q_flash_sonnet", game_id=data["id"], model=f"{FLASH}+{SONNET}"
     )
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     # Phase 1: Flash screens each decision (parallel) with sensitive prompt
-    def screen_one(d: dict) -> tuple[int, CallTrace, bool]:
+    def screen_one(d: dict[str, object]) -> tuple[int, CallTrace, bool]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
         trace = _call_llm(
@@ -752,10 +769,10 @@ def _approach_flash_sonnet(
             FLASH,
             FLASH_SCREEN_SENSITIVE_SYSTEM,
             user_msg,
-            label=f"screen_{d['decision_index']}",
+            label=f"screen_{decision_index(d)}",
         )
         flagged = not trace.response_text.strip().upper().startswith("PASS")
-        return d["decision_index"], trace, flagged
+        return decision_index(d), trace, flagged
 
     screen_results: dict[int, tuple[CallTrace, bool]] = {}
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -764,9 +781,9 @@ def _approach_flash_sonnet(
             idx, trace, was_flagged = fut.result()
             screen_results[idx] = (trace, was_flagged)
 
-    flagged_decisions: list[dict] = []
+    flagged_decisions: list[dict[str, object]] = []
     for d in non_forced:
-        trace, was_flagged = screen_results[d["decision_index"]]
+        trace, was_flagged = screen_results[decision_index(d)]
         result.calls.append(trace)
         if was_flagged:
             flagged_decisions.append(d)
@@ -781,7 +798,7 @@ def _approach_flash_sonnet(
         for d in flagged_decisions:
             formatted = _format_decisions([d])
             user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-            label = f"sonnet_{d['decision_index']}"
+            label = f"sonnet_{decision_index(d)}"
             eval_fut = pool.submit(
                 _eval_one_decision,
                 client,
@@ -791,7 +808,7 @@ def _approach_flash_sonnet(
                 label,
                 "low",
             )
-            eval_futures[eval_fut] = d["decision_index"]
+            eval_futures[eval_fut] = decision_index(d)
 
         sonnet_results: dict[int, tuple[CallTrace, list[dict]]] = {}
         for eval_fut in as_completed(eval_futures):
@@ -799,7 +816,7 @@ def _approach_flash_sonnet(
             sonnet_results[idx] = eval_fut.result()
 
     for d in flagged_decisions:
-        trace, anns = sonnet_results[d["decision_index"]]
+        trace, anns = sonnet_results[decision_index(d)]
         result.calls.append(trace)
         result.annotations.extend(anns)
 
@@ -833,8 +850,8 @@ Use the snapshot= number from each decision header as snapshotIndex."""
 
 def _approach_batched(
     client: OpenAI,
-    data: dict,
-    decisions: list[dict],
+    data: GameExport,
+    decisions: list[dict[str, object]],
     overview: str,
     model: str,
     approach_name: str,
@@ -843,13 +860,13 @@ def _approach_batched(
 ) -> ExperimentResult:
     """Batched per-decision: send batch_size decisions per API call."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     # Build all batches
-    batches: list[tuple[list[dict], str, str]] = []
+    batches: list[tuple[list[dict[str, object]], str, str]] = []
     for batch_start in range(0, len(non_forced), batch_size):
         batch = non_forced[batch_start : batch_start + batch_size]
-        batch_indices = [d["decision_index"] for d in batch]
+        batch_indices = [decision_index(d) for d in batch]
 
         parts: list[str] = []
         for d in batch:
@@ -962,15 +979,15 @@ def _call_llm_messages(
 
 def _approach_conversation(
     client: OpenAI,
-    data: dict,
-    decisions: list[dict],
+    data: GameExport,
+    decisions: list[dict[str, object]],
     overview: str,
     model: str,
     approach_name: str,
 ) -> ExperimentResult:
     """Multi-turn conversation: send decisions one at a time, accumulate context."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     # Build conversation history incrementally
     messages: list[dict] = [
@@ -990,7 +1007,7 @@ def _approach_conversation(
             client,
             model,
             messages,
-            label=f"decision_{d['decision_index']}",
+            label=f"decision_{decision_index(d)}",
         )
         result.calls.append(trace)
 
@@ -1047,7 +1064,11 @@ APPROACHES: dict[str, tuple[str, object]] = {
 
 
 def run_approach(
-    approach: str, client: OpenAI, data: dict, decisions: list[dict], overview: str
+    approach: str,
+    client: OpenAI,
+    data: GameExport,
+    decisions: list[dict[str, object]],
+    overview: str,
 ) -> ExperimentResult:
     """Run a specific approach and return the result."""
     if approach == "baseline":
@@ -1164,9 +1185,9 @@ def _load_results(game_id: str) -> list[dict]:
     return results
 
 
-def _print_comparison(game_id: str, results: list[dict], data: dict) -> None:
+def _print_comparison(game_id: str, results: list[dict], data: GameExport) -> None:
     """Print a comparison table of approach results."""
-    num_snapshots = len(data.get("snapshots", []))
+    num_snapshots = len(data["snapshots"])
 
     print(f"\n{'=' * 80}")
     print(f"Comparison for {game_id}")
@@ -1217,11 +1238,11 @@ def _dry_run(gz_path: str) -> None:
     """Print formatted inputs without calling APIs."""
     data = _load_game(gz_path)
     decisions = extract_decisions(gz_path)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
     overview = _game_overview(data)
 
     print(f"Game: {data['id']}")
-    print(f"Snapshots: {len(data.get('snapshots', []))}")
+    print(f"Snapshots: {len(data['snapshots'])}")
     print(f"Decisions: {len(decisions)} total, {len(non_forced)} non-forced")
     print()
 
@@ -1242,7 +1263,7 @@ def _dry_run(gz_path: str) -> None:
         d = non_forced[0]
         formatted = _format_decisions([d])
         per_dec_user = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-        print(f"=== Per-decision input (decision {d['decision_index']}) ===")
+        print(f"=== Per-decision input (decision {decision_index(d)}) ===")
         print(
             f"System: {len(PER_DECISION_SYSTEM)} chars (~{len(PER_DECISION_SYSTEM) // 4} tokens)"
         )
@@ -1296,7 +1317,7 @@ def _dry_run(gz_path: str) -> None:
     )
 
     # Show existing annotations for comparison
-    existing = data.get("annotations", [])
+    existing = data["annotations"]
     if existing:
         print(f"\n=== Existing v5 annotations ({len(existing)}) ===")
         for a in existing:
@@ -1343,7 +1364,7 @@ def main() -> None:
     client = OpenAI(base_url=BASE_URL, api_key=api_key)
     decisions = extract_decisions(args.game)
     overview = _game_overview(data)
-    non_forced = [d for d in decisions if not d["is_forced"]]
+    non_forced = [d for d in decisions if not is_forced(d)]
 
     print(f"Game: {game_id}")
     print(f"Decisions: {len(decisions)} total, {len(non_forced)} non-forced")

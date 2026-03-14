@@ -26,6 +26,9 @@ def main(gz_path: str) -> None:
             if e.get("type") != "llm_response" or e.get("player") != player:
                 continue
             reasoning = e.get("reasoning", "") or e.get("thinking", "")
+            assert isinstance(reasoning, str), (
+                f"reasoning must be a string when present, got {reasoning!r}"
+            )
             if len(reasoning) > MIN_REASONING_LEN:
                 count += 1
                 print(f"--- Sample {count} ---")

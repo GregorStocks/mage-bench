@@ -19,6 +19,7 @@ import os
 import re
 import sys
 import tempfile
+from collections.abc import Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
@@ -49,6 +50,7 @@ from scripts.analysis.blunder_eval_common import (
     snapshot_index,
 )
 from scripts.analysis.extract_decisions import extract_decisions
+from schemas.game_export_types import Action, GameExport, Snapshot, SnapshotPlayer
 
 # Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
 logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -249,44 +251,64 @@ _extract_oracle_fields = scryfall.extract_oracle_fields
 _get_oracle_texts = scryfall.get_oracle_texts
 
 
-def _collect_card_names(data: dict) -> set[str]:
+def _snapshot_zone_cards(player: SnapshotPlayer, zone: str) -> list[object]:
+    """Return a snapshot player's cards for a supported public/private zone."""
+    if zone == "hand":
+        return player["hand"]
+    if zone == "battlefield":
+        return player["battlefield"]
+    if zone == "graveyard":
+        return player["graveyard"]
+    if zone == "exile":
+        return player.get("exile", [])
+    if zone == "commanders":
+        return player.get("commanders", [])
+    raise AssertionError(f"unexpected zone {zone!r}")
+
+
+def _collect_card_names(data: GameExport) -> set[str]:
     """Collect all unique card names from game snapshots and choices."""
     names: set[str] = set()
-    for snap in data.get("snapshots", []):
-        for p in snap.get("players", []):
+    for snap in data["snapshots"]:
+        for p in snap["players"]:
             for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
-                for c in p.get(zone, []):
+                for c in _snapshot_zone_cards(p, zone):
                     if isinstance(c, dict):
                         name = c.get("name", "")
-                        if name:
+                        if isinstance(name, str) and name:
                             names.add(name)
                     elif isinstance(c, str) and c:
                         names.add(c)
-        for item in snap.get("stack", []):
+        for item in snap["stack"]:
             if isinstance(item, dict):
                 name = item.get("name", "")
-                if name:
+                if isinstance(name, str) and name:
                     names.add(name)
             elif isinstance(item, str) and item:
                 names.add(item)
         for group in snap.get("combat", []):
             for a in group.get("attackers", []):
-                if isinstance(a, dict) and a.get("name"):
+                if isinstance(a, dict) and isinstance(a.get("name"), str) and a["name"]:
                     names.add(a["name"])
             for b in group.get("blockers", []):
-                if isinstance(b, dict) and b.get("name"):
+                if isinstance(b, dict) and isinstance(b.get("name"), str) and b["name"]:
                     names.add(b["name"])
     # Also from choice names and combat fields in llm events
-    for ev in data.get("llmEvents", []):
+    for ev in data["llmEvents"]:
         if ev.get("tool") == "get_action_choices":
             try:
                 result = json.loads(ev.get("result", ""))
+                if not isinstance(result, dict):
+                    continue
                 for c in result.get("choices", []):
+                    if not isinstance(c, dict):
+                        continue
                     name = c.get("name", "")
                     # Skip non-card choices: player targets, special actions,
                     # and entries without an id (e.g. mana ability descriptions)
                     if (
-                        not name
+                        not isinstance(name, str)
+                        or not name
                         or "target_type" in c
                         or c.get("choice_type") == "special"
                     ):
@@ -294,17 +316,35 @@ def _collect_card_names(data: dict) -> set[str]:
                     if "id" in c:
                         names.add(name)
                 for a in result.get("already_attacking", []):
-                    if isinstance(a, dict) and a.get("name"):
+                    if (
+                        isinstance(a, dict)
+                        and isinstance(a.get("name"), str)
+                        and a["name"]
+                    ):
                         names.add(a["name"])
                 for a in result.get("incoming_attackers", []):
-                    if isinstance(a, dict) and a.get("name"):
+                    if (
+                        isinstance(a, dict)
+                        and isinstance(a.get("name"), str)
+                        and a["name"]
+                    ):
                         names.add(a["name"])
                 for group in result.get("combat", []):
+                    if not isinstance(group, dict):
+                        continue
                     for a in group.get("attackers", []):
-                        if isinstance(a, dict) and a.get("name"):
+                        if (
+                            isinstance(a, dict)
+                            and isinstance(a.get("name"), str)
+                            and a["name"]
+                        ):
                             names.add(a["name"])
                     for b in group.get("blockers", []):
-                        if isinstance(b, dict) and b.get("name"):
+                        if (
+                            isinstance(b, dict)
+                            and isinstance(b.get("name"), str)
+                            and b["name"]
+                        ):
                             names.add(b["name"])
             except (json.JSONDecodeError, TypeError):
                 pass
@@ -411,7 +451,7 @@ _ACTION_NOISE = re.compile(
 )
 
 
-def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
+def _actions_by_turn(actions: Sequence[Action]) -> dict[int, list[str]]:
     """Split action log messages into per-turn buckets using TURN markers.
 
     Rewrites TURN headers from XMage's sequential numbering to per-player
@@ -423,6 +463,7 @@ def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
     player_turn_counts: dict[str, int] = {}
     for a in actions:
         msg = a.get("message", "")
+        assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
         # Skip chat messages — LLM personality flavor adds noise and can bias
         # the blunder annotator
         if a.get("type") == "chat":
@@ -443,17 +484,17 @@ def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
     return by_turn
 
 
-def _snapshot_for_turn(snapshots: list[dict], turn: int) -> dict | None:
+def _snapshot_for_turn(snapshots: Sequence[Snapshot], turn: int) -> Snapshot | None:
     """Find the first snapshot for a given turn number."""
     for snap in snapshots:
-        if snap.get("turn") == turn:
+        if snap["turn"] == turn:
             return snap
     return None
 
 
 def _format_prior_context(
     decision: dict,
-    snapshots: list[dict],
+    snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
 ) -> str:
@@ -463,6 +504,9 @@ def _format_prior_context(
     turn numbers back from the current turn.
     """
     current_turn = decision.get("turn")
+    assert isinstance(current_turn, int) or current_turn is None, (
+        f"decision turn must be an int when present, got {current_turn!r}"
+    )
     lookback = 2 * num_players
     if not current_turn or current_turn <= lookback:
         return ""
@@ -474,12 +518,12 @@ def _format_prior_context(
 
     # Format the reference snapshot using shared renderer display functions
     players_parts: list[str] = []
-    for p in ref_snap.get("players", []):
-        bf = p.get("battlefield", [])
+    for p in ref_snap["players"]:
+        bf = p["battlefield"]
         s = f"{p['name']}: {p['life']}hp"
         if bf:
             s += f" bf=[{', '.join(permanent_display(x) for x in bf)}]"
-        gy = p.get("graveyard", [])
+        gy = p["graveyard"]
         if gy:
             s += f" gy=[{', '.join(card_display(x) for x in gy)}]"
         players_parts.append(s)
@@ -497,7 +541,7 @@ def _format_prior_context(
 
 def _format_current_turn_actions(
     decision: dict,
-    all_actions: list[dict],
+    all_actions: Sequence[Action],
     cutoff_ts: str,
 ) -> str:
     """Format actions from the current turn before this decision.
@@ -506,6 +550,9 @@ def _format_current_turn_actions(
     e.g. whether a land was already played or spells were cast.
     """
     current_turn = decision.get("turn")
+    assert isinstance(current_turn, int) or current_turn is None, (
+        f"decision turn must be an int when present, got {current_turn!r}"
+    )
     if not current_turn or not cutoff_ts:
         return ""
 
@@ -514,6 +561,10 @@ def _format_current_turn_actions(
     for a in all_actions:
         msg = a.get("message", "")
         ts = a.get("ts", "")
+        assert isinstance(msg, str), f"action message must be a string, got {msg!r}"
+        assert isinstance(ts, str), (
+            f"action ts must be a string when present, got {ts!r}"
+        )
 
         # Track TURN markers to find current turn boundaries
         m = re.match(r"^TURN (\d+) for", msg)
@@ -553,10 +604,10 @@ def _format_current_turn_actions(
     return "## This Turn\n" + "\n".join(lines)
 
 
-def _game_overview(data: dict) -> str:
+def _game_overview(data: GameExport) -> str:
     lines = [
         f"Game: {data['id']}",
-        f"Format: {data.get('deckType', '?')} ({data.get('gameType', '?')})",
+        f"Format: {data['deckType']} ({data['gameType']})",
     ]
     for p in data["players"]:
         lines.append(f"  {p['name']} ({p.get('model', '?')})")
@@ -914,10 +965,10 @@ def build_decision_prompt(
     overview: str,
     decision: dict,
     oracle_texts: dict[str, dict],
-    snapshots: list[dict],
+    snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
-    all_actions: list[dict],
+    all_actions: Sequence[Action],
 ) -> tuple[str, str]:
     """Build the (system_prompt, user_message) pair for a single decision evaluation.
 
@@ -928,18 +979,21 @@ def build_decision_prompt(
     (snake_case, from extract_decisions) decision formats.
     """
     snap_idx = snapshot_index(decision)
-    snap = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
+    snap = snapshots[snap_idx] if snap_idx < len(snapshots) else None
 
     if is_canonical_decision(decision):
         # Canonical format: use shared renderer
+        assert snap is not None, (
+            f"canonical decision references missing snapshot index {snap_idx}"
+        )
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
         snap_ts = snap.get("ts", "")
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         formatted = render_decision(
-            decision,
-            snap,
+            dict(decision),
+            dict(snap),
             oracle_texts=oracle_texts,
             deciding_player=decision["player"],
             include_card_reference=True,
@@ -956,7 +1010,7 @@ def build_decision_prompt(
         prior_ctx = _format_prior_context(
             decision, snapshots, actions_by_turn, num_players
         )
-        snap_ts = snap.get("ts", "")
+        snap_ts = snap.get("ts", "") if snap is not None else ""
         turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
         user_msg = f"## Game Overview\n{overview}"
         if card_ref:
@@ -986,10 +1040,10 @@ def _eval_one_decision(
     overview: str,
     decision: dict,
     oracle_texts: dict[str, dict],
-    snapshots: list[dict],
+    snapshots: Sequence[Snapshot],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
-    all_actions: list[dict],
+    all_actions: Sequence[Action],
     label: str | None = None,
 ) -> tuple[list[dict], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
@@ -1217,9 +1271,9 @@ def eval_decisions(
 
 def _auto_ingest_ground_truth(
     game_id: str,
-    annotations: list[dict],
-    decisions: list[dict],
-    snapshots: list[dict],
+    annotations: Sequence[Mapping[str, object]],
+    decisions: Sequence[Mapping[str, object]],
+    snapshots: Sequence[Mapping[str, object]],
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""
     from scripts.analysis.blunder_eval_common import (
@@ -1305,6 +1359,9 @@ def main(gz_path: str) -> float:
                 if is_forced(decisions[j]):
                     continue
                 prev_msg = decisions[j].get("message", "")
+                assert isinstance(prev_msg, str), (
+                    f"decision message must be a string, got {prev_msg!r}"
+                )
                 if prev_msg.startswith(
                     (
                         "Play spells and abilities",

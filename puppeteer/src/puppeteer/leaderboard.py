@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-import gzip
 import json
 import math
 import re
+from collections.abc import Mapping
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, TypedDict
@@ -14,6 +14,7 @@ from zoneinfo import ZoneInfo
 from typing_extensions import NotRequired
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
+from schemas.game_export_types import GameExport, load_game_export
 
 _GENERATED_AT_RE = re.compile(r'"generatedAt":\s*"[^"]*",?\n?')
 _GAME_TIMESTAMP_TZ = ZoneInfo("America/Los_Angeles")
@@ -59,12 +60,9 @@ def _write_if_changed(path: Path, content: str) -> bool:
     return True
 
 
-def _load_game_file(path: Path) -> dict:
+def _load_game_file(path: Path) -> GameExport:
     """Load a game export file (.json or .json.gz)."""
-    game = json.loads(gzip.decompress(path.read_bytes())) if path.suffix == ".gz" else json.loads(path.read_text())
-    assert isinstance(game, dict), f"{path.name}: expected export object, got {type(game).__name__}"
-    _assert_game_export_v7(game, source=path.name)
-    return game
+    return load_game_export(path)
 
 
 def _assert_int(value: object, message: str) -> None:
@@ -75,7 +73,7 @@ def _assert_number(value: object, message: str) -> None:
     assert isinstance(value, (int, float)) and not isinstance(value, bool), message
 
 
-def _assert_player_summary_fields(player: dict, *, source: str, index: int) -> None:
+def _assert_player_summary_fields(player: Mapping[str, object], *, source: str, index: int) -> None:
     assert isinstance(player.get("name"), str), f"{source}: player {index} missing name"
     assert isinstance(player.get("type"), str), f"{source}: player {index} missing type"
     _assert_int(player.get("toolCallsOk"), f"{source}: player {index} missing toolCallsOk")
@@ -83,7 +81,7 @@ def _assert_player_summary_fields(player: dict, *, source: str, index: int) -> N
     _assert_number(player.get("thinkingTimeSecs"), f"{source}: player {index} missing thinkingTimeSecs")
 
 
-def _assert_game_summary_fields(game: dict, *, source: str) -> None:
+def _assert_game_summary_fields(game: Mapping[str, object], *, source: str) -> None:
     deck_type = game.get("deckType")
     assert isinstance(deck_type, str) and deck_type, f"{source}: missing deckType"
     players = game.get("players")
@@ -91,24 +89,6 @@ def _assert_game_summary_fields(game: dict, *, source: str) -> None:
     for index, player in enumerate(players):
         assert isinstance(player, dict), f"{source}: player {index} must be an object"
         _assert_player_summary_fields(player, source=source, index=index)
-
-
-def _assert_game_export_v7(game: dict, *, source: str) -> None:
-    assert isinstance(game, dict), f"{source}: export must be an object"
-    assert game.get("version") == 7, f"{source}: expected export version 7, got {game.get('version')}"
-    assert isinstance(game.get("id"), str), f"{source}: missing id"
-    assert isinstance(game.get("timestamp"), str), f"{source}: missing timestamp"
-    assert isinstance(game.get("gameType"), str), f"{source}: missing gameType"
-    _assert_number(game.get("totalTurns"), f"{source}: missing totalTurns")
-    winner = game.get("winner")
-    assert winner is None or isinstance(winner, str), f"{source}: invalid winner"
-    _assert_int(game.get("harnessEpoch"), f"{source}: missing harnessEpoch")
-    _assert_int(game.get("season"), f"{source}: missing season")
-    assert "tournament" in game, f"{source}: missing tournament"
-    tournament = game["tournament"]
-    assert tournament is None or isinstance(tournament, str), f"{source}: invalid tournament"
-    assert isinstance(game.get("llmEvents"), list), f"{source}: llmEvents must be a list"
-    _assert_game_summary_fields(game, source=source)
 
 
 def _glob_game_files(games_dir: Path) -> list[Path]:
@@ -182,7 +162,7 @@ FORMAT_LABELS: dict[str, str] = {
 }
 
 
-def derive_format(game: dict) -> str:
+def derive_format(game: Mapping[str, object]) -> str:
     """Derive canonical format name from game data.
 
     Requires deckType to be present on the normalized export shape.
@@ -220,7 +200,7 @@ def derive_display_name(model_id: str) -> str:
     return slug.replace("-", " ").title()
 
 
-def _player_key(player: dict) -> str:
+def _player_key(player: Mapping[str, object]) -> str:
     """Build aggregation key: 'model_id::effort' or just 'model_id'."""
     model_id = player.get("model", "")
     assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
@@ -283,7 +263,7 @@ def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     return statuses
 
 
-def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, int]:
+def extract_placements(game: Mapping[str, object], games_dir: Path | None = None) -> dict[str, int]:
     """Extract player placements from game data.
 
     Uses the 'placement' field if present on players. Otherwise, falls back
@@ -292,11 +272,27 @@ def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, i
 
     Returns {player_name: placement} where 1=winner, 2=2nd, etc.
     """
-    players = game.get("players", [])
+    players_obj = game.get("players", [])
+    assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
+    players: list[Mapping[str, object]] = []
+    for index, player in enumerate(players_obj):
+        assert isinstance(player, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
+        players.append(player)
 
     # Check if placements are already in the index data
     if any("placement" in p for p in players):
-        return {p["name"]: p["placement"] for p in players if "placement" in p}
+        existing_placements: dict[str, int] = {}
+        for index, player in enumerate(players):
+            if "placement" not in player:
+                continue
+            name = player.get("name")
+            placement = player.get("placement")
+            assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
+            assert isinstance(placement, int), (
+                f"game {game.get('id', '<unknown>')}: players[{index}] placement must be an int"
+            )
+            existing_placements[name] = placement
+        return existing_placements
 
     # Fall back to reading actions from the full game JSON
     if games_dir is None:
@@ -309,9 +305,16 @@ def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, i
         return _placements_from_winner(game)
 
     full_game = _load_game_file(game_path)
-    actions = full_game.get("actions", [])
-    player_names = [p.get("name", "?") for p in players]
+    actions = full_game["actions"]
+    player_names: list[str] = []
+    for index, player in enumerate(players):
+        name = player.get("name", "?")
+        assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
+        player_names.append(name)
     winner = game.get("winner")
+    assert winner is None or isinstance(winner, str), (
+        f"game {game.get('id', '<unknown>')}: winner must be a string or null"
+    )
 
     eliminations = []
     for a in actions:
@@ -334,14 +337,21 @@ def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, i
     return placements
 
 
-def _placements_from_winner(game: dict) -> dict[str, int]:
+def _placements_from_winner(game: Mapping[str, object]) -> dict[str, int]:
     """Minimal placement extraction using only winner field."""
     winner = game.get("winner")
+    assert winner is None or isinstance(winner, str), (
+        f"game {game.get('id', '<unknown>')}: winner must be a string or null"
+    )
     if not winner:
         return {}
     placements: dict[str, int] = {}
-    for p in game.get("players", []):
+    players_obj = game.get("players", [])
+    assert isinstance(players_obj, list), f"game {game.get('id', '<unknown>')}: players must be a list"
+    for index, p in enumerate(players_obj):
+        assert isinstance(p, dict), f"game {game.get('id', '<unknown>')}: players[{index}] must be an object"
         name = p.get("name", "?")
+        assert isinstance(name, str), f"game {game.get('id', '<unknown>')}: players[{index}] missing name"
         placements[name] = 1 if name == winner else 2
     return placements
 

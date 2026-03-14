@@ -16,6 +16,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from schemas.game_export_types import LlmEvent
 from scripts.analysis.blunder_eval_common import load_game
 
 
@@ -123,7 +124,7 @@ def analyze_game(gz_path: str) -> list[PlayerStats]:
 
 
 def _track_followup(
-    events: list[dict],
+    events: list[LlmEvent],
     start_idx: int,
     player: str,
     ps: PlayerStats,
