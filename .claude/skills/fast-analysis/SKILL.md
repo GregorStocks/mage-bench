@@ -133,6 +133,9 @@ Only file issues for bugs that appear to **still be present** on `origin/master`
 
 For each **code bug** found (not model behavior issues), create an issue in `issues/`:
 
+- Filename: `issues/p{priority}-short-kebab-summary.json`
+- Use `issues/blocked-short-kebab-summary.json` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
+
 ```json
 {
   "title": "Short summary",
