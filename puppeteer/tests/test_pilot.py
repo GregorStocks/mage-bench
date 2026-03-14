@@ -984,7 +984,7 @@ def _sample_pass_priority_result() -> dict:
         "context": "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN",
         "stop_reason": "playable_cards",
         "response_type": "select",
-        "respond_with": 'id="pN" or index=N to play, or answer=false to pass',
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "message": "Play spells and abilities",
         "land_drops_used": 0,
         "action_pending": True,

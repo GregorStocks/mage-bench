@@ -1,9 +1,12 @@
 """Tests for the blunder evaluation harness."""
 
+import gzip
+import json
 from pathlib import Path
 
 import pytest
 
+import scripts.analysis.blunder_eval_common as blunder_eval_common
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
@@ -17,6 +20,37 @@ from scripts.analysis.blunder_eval_common import (
     save_game_ground_truth,
 )
 
+
+def _write_export(path: Path) -> None:
+    data = {
+        "version": 7,
+        "id": "game_test_001",
+        "timestamp": "2026-01-01T00:00:00Z",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed",
+        "totalTurns": 0,
+        "winner": None,
+        "harnessEpoch": 46,
+        "youtubeUrl": "",
+        "players": [],
+        "cardImages": {},
+        "snapshots": [],
+        "actions": [],
+        "llmEvents": [],
+        "gameOver": None,
+        "annotations": [],
+        "blunderScriptVersion": 1,
+        "season": 1,
+        "tournament": None,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.name.endswith(".json.gz"):
+        with gzip.open(path, "wt") as f:
+            json.dump(data, f)
+        return
+    path.write_text(json.dumps(data))
+
+
 # --- play_key ---
 
 
@@ -26,6 +60,105 @@ class TestPlayKey:
 
     def test_zero_index(self) -> None:
         assert play_key("game_test_001", 0) == "game_test_001:0"
+
+
+class TestLoadGameValidation:
+    def test_loads_export_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        games_dir = tmp_path / "website" / "public" / "games"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(tmp_path / "system-temp"),
+        )
+        export_path = games_dir / "game_test_001.json.gz"
+        _write_export(export_path)
+
+        loaded = blunder_eval_common.load_game(export_path)
+
+        assert loaded["id"] == "game_test_001"
+
+    def test_loads_relative_repo_export_path(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        repo_root = tmp_path / "repo"
+        games_dir = repo_root / "website" / "public" / "games"
+        repo_root.mkdir(parents=True, exist_ok=True)
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(tmp_path / "system-temp"),
+        )
+        monkeypatch.chdir(repo_root)
+        export_path = games_dir / "game_test_001.json"
+        _write_export(export_path)
+
+        loaded = blunder_eval_common.load_game(Path("website/public/games/game_test_001.json"))
+
+        assert loaded["id"] == "game_test_001"
+
+    def test_loads_export_from_system_temp(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        temp_root = tmp_path / "system-temp"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", tmp_path / "repo-games")
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(temp_root),
+        )
+        export_path = temp_root / "pytest-of-gregor" / "game_test.json.gz"
+        _write_export(export_path)
+
+        loaded = blunder_eval_common.load_game(export_path)
+
+        assert loaded["id"] == "game_test_001"
+
+    def test_rejects_path_outside_allowed_roots(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", tmp_path / "repo-games")
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(tmp_path / "system-temp"),
+        )
+        export_path = tmp_path / "outside" / "game_test_001.json"
+        _write_export(export_path)
+
+        with pytest.raises(AssertionError, match="must live under one of"):
+            blunder_eval_common.load_game(export_path)
+
+    def test_rejects_unexpected_suffix_inside_allowed_root(
+        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    ) -> None:
+        games_dir = tmp_path / "website" / "public" / "games"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(tmp_path / "system-temp"),
+        )
+        export_path = games_dir / "game_test_001.txt"
+        _write_export(export_path)
+
+        with pytest.raises(
+            AssertionError,
+            match=r"filename must match game_\*\.json or game_\*\.json\.gz",
+        ):
+            blunder_eval_common.load_game(export_path)
+
+    def test_rejects_symlink_escape_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+        games_dir = tmp_path / "website" / "public" / "games"
+        outside_path = tmp_path / "outside" / "game_test_001.json.gz"
+        symlink_path = games_dir / "game_test_001.json.gz"
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+        monkeypatch.setattr(
+            blunder_eval_common.tempfile,
+            "gettempdir",
+            lambda: str(tmp_path / "system-temp"),
+        )
+        _write_export(outside_path)
+        symlink_path.parent.mkdir(parents=True, exist_ok=True)
+        symlink_path.symlink_to(outside_path)
+
+        with pytest.raises(AssertionError, match="must stay under"):
+            blunder_eval_common.load_game(symlink_path)
 
 
 # --- compute_aftermath_index ---

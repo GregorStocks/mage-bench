@@ -1,6 +1,8 @@
 package mage.client.bridge;
 
 import mage.client.bridge.tools.ActionResult;
+import mage.game.BridgeLogEntry;
+import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
 import mage.util.MultiAmountMessage;
@@ -199,6 +201,79 @@ class BridgeCallbackHandlerTest {
             executor.shutdownNow();
             executor.awaitTermination(1, TimeUnit.SECONDS);
         }
+    }
+
+    @Test
+    void gameOverKeepsPostgameHistoryAvailableWithoutBlockingCallbackThread() throws Exception {
+        UUID gameId = UUID.randomUUID();
+        UUID playerId = UUID.randomUUID();
+        UUID chatId = UUID.randomUUID();
+        AtomicInteger getBridgeEventsCalls = new AtomicInteger();
+        AtomicInteger leaveChatCalls = new AtomicInteger();
+        List<BridgeLogEntry> bridgeEvents = List.of(
+            new BridgeLogEntry(
+                0, 9, "LAND_PLAYED", 3, "PRECOMBAT_MAIN", "PRECOMBAT_MAIN",
+                "TestPlayer", "TestPlayer", "Island", null, 0, true
+            )
+        );
+
+        InvocationHandler sessionHandler = (proxy, method, args) -> {
+            switch (method.getName()) {
+                case "getBridgeEvents" -> {
+                    getBridgeEventsCalls.incrementAndGet();
+                    assertThat(args[0]).isEqualTo(gameId);
+                    assertThat(args[1]).isEqualTo(playerId);
+                    assertThat(args[2]).isEqualTo(0);
+                    return bridgeEvents;
+                }
+                case "leaveChat" -> {
+                    leaveChatCalls.incrementAndGet();
+                    assertThat(args[0]).isEqualTo(chatId);
+                    return true;
+                }
+                default -> {
+                    return defaultReturnValue(method.getReturnType());
+                }
+            }
+        };
+
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            sessionHandler
+        ));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+        handler.setKeepAliveAfterGame(true);
+
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> activeGames = (Map<UUID, UUID>) getField(handler, "activeGames");
+        @SuppressWarnings("unchecked")
+        Map<UUID, UUID> gameChatIds = (Map<UUID, UUID>) getField(handler, "gameChatIds");
+        activeGames.put(gameId, playerId);
+        gameChatIds.put(gameId, chatId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "currentPlayerId", playerId);
+
+        ClientCallback callback = new ClientCallback(
+            ClientCallbackMethod.GAME_OVER,
+            gameId,
+            new GameClientMessage(gameView(9), Collections.<String, Serializable>emptyMap(), "Player Opponent is the winner"),
+            false
+        );
+        handler.handleCallback(callback);
+
+        assertThat(handler.awaitGameFinished(100)).isTrue();
+        assertThat(getBridgeEventsCalls.get()).isZero();
+        assertThat(activeGames).doesNotContainKey(gameId);
+        assertThat(leaveChatCalls.get()).isEqualTo(1);
+
+        var history = handler.getGameHistory(null, null);
+        assertThat(getBridgeEventsCalls.get()).isEqualTo(1);
+        assertThat(history.cursor).isEqualTo(1);
+        assertThat(history.event_count).isEqualTo(1);
+        assertThat(history.history).contains("Turn 3 (TestPlayer):");
+        assertThat(history.history).contains("TestPlayer played Island");
     }
 
     @Test

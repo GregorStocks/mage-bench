@@ -1,0 +1,10 @@
+{
+  "title": "Observer keepAlive health server times out on cold golden startup",
+  "description": "A cold-start golden run can fail before any scenario logic executes because the session-scoped spectator observer does not open its keepAlive health endpoint within the fixed 120 second timeout. On this branch, `make regen-golden K='dark_depths_combo or mdfc_land_and_suspend'` failed in `tests/test_golden_dark_depths_combo.py` during `spectator_process` setup with `Observer health server did not start on port 20000 within 120s`.\n\nEvidence:\n- `tmp/golden-spectator/spectator.log` shows the observer spending more than two minutes on first-run startup work (`DB: need to add 570 new sets`, `DB: need to add 88288 new cards`, then `Loading plugins...`) without ever reaching `keepAlive: ready for commands` before pytest times out.\n- `puppeteer/tests/conftest.py:264-268` waits only 120 seconds for the health port before failing the whole golden session.\n- `Mage.Client.Observer/src/main/java/mage/client/observer/ObserverMain.java:150-153` starts `startKeepAliveLoop()` only after the observer frame finishes its broader startup path.\n- `Mage.Client.Observer/src/main/java/mage/client/observer/ObserverMageFrame.java:333-343` opens the health server inside `startKeepAliveLoop()`, so the health endpoint cannot come up until all earlier observer initialization has completed.\n\nThis means the readiness probe is tied to the slowest cold-start GUI/bootstrap path rather than to the narrower keepAlive control path. Suggested fix: start the observer health server earlier in startup, or make the readiness contract explicit enough that cold database/plugin initialization cannot trip the fixed spectator timeout.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["spectator", "golden"],
+  "created_at": "2026-03-14T14:54:56-07:00",
+  "updated_at": "2026-03-14T14:54:56-07:00"
+}
