@@ -222,7 +222,7 @@ nl -ba "$GAME_DIR"/*_llm.jsonl | rg "Choose spell or ability to play:|Index [0-9
 Then inspect `Mage.Common/src/main/java/mage/view/AbilityPickerView.java`
 and `Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java`
 together before blaming the model. `AbilityPickerView` may already have a
-`1. ` / `2. ` prefix baked into each label while the bridge still expects
+`1.` / `2.` prefix baked into each label while the bridge still expects
 zero-based `choice` indices.
 
 ## Generic `Ability -> player` stack summaries
