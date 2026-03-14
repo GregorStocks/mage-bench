@@ -510,80 +510,69 @@ public class BridgeClient {
     }
 
     public static DeckCardLists loadDeck(String deckPath) {
-        if (deckPath == null || deckPath.isEmpty()) {
-            logger.info("No deck path specified, using test deck");
-            return createTestDeck();
+        if (deckPath == null || deckPath.isBlank()) {
+            throw new IllegalArgumentException("Bridge deck path is required");
         }
 
         java.io.File deckFile = new java.io.File(deckPath);
         if (!deckFile.exists()) {
-            logger.warn("Deck file not found: " + deckPath + ", using test deck");
-            return createTestDeck();
+            throw new IllegalArgumentException("Deck file not found: " + deckPath);
+        }
+        if (!deckFile.isFile()) {
+            throw new IllegalArgumentException("Deck path is not a file: " + deckPath);
         }
 
-        try {
-            // Parse deck file directly without needing CardRepository
-            // Format: "count [SET:number] Card Name" or "SB: count [SET:number] Card Name"
-            DeckCardLists deck = new DeckCardLists();
-            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
-                "^(SB:\\s*)?(\\d+)\\s+\\[([^:]+):(\\d+)\\]\\s+(.+)$"
-            );
+        // Parse deck file directly without needing CardRepository.
+        // Format: "count [SET:number] Card Name" or "SB: count [SET:number] Card Name"
+        DeckCardLists deck = new DeckCardLists();
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+            "^(SB:\\s*)?(\\d+)\\s+\\[([^:]+):(\\d+)\\]\\s+(.+)$"
+        );
 
-            try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(deckFile))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if (line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
-                        continue;
-                    }
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.FileReader(deckFile))) {
+            String rawLine;
+            int lineNumber = 0;
+            while ((rawLine = reader.readLine()) != null) {
+                lineNumber++;
+                String line = rawLine.trim();
+                if (line.isEmpty() || line.startsWith("#") || line.startsWith("//")) {
+                    continue;
+                }
 
-                    java.util.regex.Matcher matcher = pattern.matcher(line);
-                    if (matcher.matches()) {
-                        boolean isSideboard = matcher.group(1) != null;
-                        int count = Integer.parseInt(matcher.group(2));
-                        String setCode = matcher.group(3);
-                        String cardNumber = matcher.group(4);
-                        String cardName = matcher.group(5).trim();
+                java.util.regex.Matcher matcher = pattern.matcher(line);
+                if (!matcher.matches()) {
+                    throw new IllegalArgumentException(
+                        "Invalid deck line " + lineNumber + " in " + deckPath + ": " + line
+                    );
+                }
 
-                        mage.cards.decks.DeckCardInfo cardInfo = new mage.cards.decks.DeckCardInfo(
-                            cardName, cardNumber, setCode, count
-                        );
+                boolean isSideboard = matcher.group(1) != null;
+                int count = Integer.parseInt(matcher.group(2));
+                String setCode = matcher.group(3);
+                String cardNumber = matcher.group(4);
+                String cardName = matcher.group(5).trim();
 
-                        if (isSideboard) {
-                            deck.getSideboard().add(cardInfo);
-                        } else {
-                            deck.getCards().add(cardInfo);
-                        }
-                    }
+                mage.cards.decks.DeckCardInfo cardInfo = new mage.cards.decks.DeckCardInfo(
+                    cardName, cardNumber, setCode, count
+                );
+
+                if (isSideboard) {
+                    deck.getSideboard().add(cardInfo);
+                } else {
+                    deck.getCards().add(cardInfo);
                 }
             }
-
-            if (deck.getCards().isEmpty() && deck.getSideboard().isEmpty()) {
-                logger.warn("Deck is empty after parsing: " + deckPath + ", using test deck");
-                return createTestDeck();
-            }
-
-            logger.info("Loaded deck from " + deckPath + " with " +
-                    deck.getCards().size() + " main deck cards and " +
-                    deck.getSideboard().size() + " sideboard cards");
-            return deck;
-        } catch (Exception e) {
-            logger.warn("Failed to load deck from " + deckPath + ", using test deck", e);
-            return createTestDeck();
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to read deck file: " + deckPath, e);
         }
-    }
 
-    private static DeckCardLists createTestDeck() {
-        // Simple test deck for Freeform Commander (99 cards + 1 commander)
-        DeckCardLists deck = new DeckCardLists();
-        // Add basic lands - 99 total for the main deck
-        deck.getCards().add(new mage.cards.decks.DeckCardInfo("Swamp", "1", "SLD", 20));
-        deck.getCards().add(new mage.cards.decks.DeckCardInfo("Forest", "1", "SLD", 20));
-        deck.getCards().add(new mage.cards.decks.DeckCardInfo("Island", "1", "SLD", 20));
-        deck.getCards().add(new mage.cards.decks.DeckCardInfo("Mountain", "1", "SLD", 20));
-        deck.getCards().add(new mage.cards.decks.DeckCardInfo("Plains", "1", "SLD", 19));
-        // Add a legendary creature as commander (Child of Alara - 5-color, from Conflux)
-        deck.getSideboard().add(new mage.cards.decks.DeckCardInfo("Child of Alara", "72", "CON", 1));
+        if (deck.getCards().isEmpty() && deck.getSideboard().isEmpty()) {
+            throw new IllegalStateException("Deck is empty after parsing: " + deckPath);
+        }
+
+        logger.info("Loaded deck from " + deckPath + " with " +
+                deck.getCards().size() + " main deck cards and " +
+                deck.getSideboard().size() + " sideboard cards");
         return deck;
     }
 

@@ -1,0 +1,96 @@
+package mage.client.bridge;
+
+import mage.cards.decks.DeckCardInfo;
+import mage.cards.decks.DeckCardLists;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+class BridgeClientTest {
+
+    @Test
+    void loadsValidDeckFile() throws IOException {
+        Path deckFile = writeDeck(
+            "# main deck",
+            "1 [9ED:41] Savannah Lions",
+            "",
+            "SB: 2 [M10:230] Plains"
+        );
+
+        DeckCardLists deck = BridgeClient.loadDeck(deckFile.toString());
+
+        assertThat(deck.getCards()).hasSize(1);
+        DeckCardInfo mainDeckCard = deck.getCards().get(0);
+        assertThat(mainDeckCard.getCardName()).isEqualTo("Savannah Lions");
+        assertThat(mainDeckCard.getSetCode()).isEqualTo("9ED");
+        assertThat(mainDeckCard.getCardNumber()).isEqualTo("41");
+        assertThat(mainDeckCard.getAmount()).isEqualTo(1);
+
+        assertThat(deck.getSideboard()).hasSize(1);
+        DeckCardInfo sideboardCard = deck.getSideboard().get(0);
+        assertThat(sideboardCard.getCardName()).isEqualTo("Plains");
+        assertThat(sideboardCard.getSetCode()).isEqualTo("M10");
+        assertThat(sideboardCard.getCardNumber()).isEqualTo("230");
+        assertThat(sideboardCard.getAmount()).isEqualTo(2);
+    }
+
+    @Test
+    void requiresDeckPath() {
+        assertThatThrownBy(() -> BridgeClient.loadDeck(null))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Bridge deck path is required");
+
+        assertThatThrownBy(() -> BridgeClient.loadDeck("   "))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Bridge deck path is required");
+    }
+
+    @Test
+    void requiresExistingDeckFile() throws IOException {
+        Path tempDir = Files.createTempDirectory("bridge-client-missing-");
+        tempDir.toFile().deleteOnExit();
+        Path missingDeck = tempDir.resolve("missing.dck");
+
+        assertThatThrownBy(() -> BridgeClient.loadDeck(missingDeck.toString()))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Deck file not found: " + missingDeck);
+    }
+
+    @Test
+    void rejectsMalformedDeckLines() throws IOException {
+        Path deckFile = writeDeck(
+            "1 [9ED:41] Savannah Lions",
+            "not a deck line"
+        );
+
+        assertThatThrownBy(() -> BridgeClient.loadDeck(deckFile.toString()))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("Invalid deck line 2 in " + deckFile + ": not a deck line");
+    }
+
+    @Test
+    void rejectsDecksWithoutCards() throws IOException {
+        Path deckFile = writeDeck(
+            "# no cards here",
+            "",
+            "// still no cards"
+        );
+
+        assertThatThrownBy(() -> BridgeClient.loadDeck(deckFile.toString()))
+            .isInstanceOf(IllegalStateException.class)
+            .hasMessage("Deck is empty after parsing: " + deckFile);
+    }
+
+    private static Path writeDeck(String... lines) throws IOException {
+        Path deckFile = Files.createTempFile("bridge-client-", ".dck");
+        deckFile.toFile().deleteOnExit();
+        Files.write(deckFile, List.of(lines));
+        return deckFile;
+    }
+}
