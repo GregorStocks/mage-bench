@@ -50,17 +50,17 @@ def required_api_key_env(base_url: str) -> str:
     """Infer the expected API key env var from an exact provider hostname."""
     url = base_url or DEFAULT_BASE_URL
     parsed = urlsplit(url)
-    host = (parsed.hostname or "").rstrip(".").lower()
-    if parsed.scheme not in ("http", "https") or not host:
+    hostname = parsed.hostname
+    if parsed.scheme not in ("http", "https") or hostname is None:
         raise ValueError(f"Invalid LLM base URL: {redact_base_url_for_log(url)}")
+    host = hostname.rstrip(".").lower()
 
     if host in _PROVIDER_API_KEY_ENVS:
         return _PROVIDER_API_KEY_ENVS[host]
 
     supported_hosts = ", ".join(sorted(_PROVIDER_API_KEY_ENVS))
     raise ValueError(
-        "Unsupported LLM base URL host for automatic API key lookup: "
-        f"{host}. Supported hosts: {supported_hosts}."
+        f"Unsupported LLM base URL host for automatic API key lookup: {host}. Supported hosts: {supported_hosts}."
     )
 
 

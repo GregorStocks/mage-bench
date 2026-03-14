@@ -43,10 +43,7 @@ def test_required_api_key_env_rejects_lookalike_host():
 
 
 def test_redact_base_url_for_log():
-    assert (
-        redact_base_url_for_log("https://user:secret@api.openai.com/v1?debug=1#frag")
-        == "https://api.openai.com/v1"
-    )
+    assert redact_base_url_for_log("https://user:secret@api.openai.com/v1?debug=1#frag") == "https://api.openai.com/v1"
 
 
 def test_get_model_price_exact():
