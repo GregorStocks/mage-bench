@@ -13,6 +13,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TARGETS = [
     "lint",
+    "lint-java",
     "lint-website",
     "lint-md",
     "astro-check",
@@ -22,7 +23,6 @@ TARGETS = [
     "test-js",
     "verify-decks",
     "verify-schema-types",
-    "verify-mcp-tools",
 ]
 
 

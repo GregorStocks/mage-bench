@@ -51,7 +51,6 @@ public class McpServer {
     private final BridgeMageClient client;
     private final Gson gson;
     private final AtomicBoolean running = new AtomicBoolean(false);
-    private boolean initialized = false;
     private final McpToolRegistry registry;
     private HttpServer httpServer;
 
@@ -132,7 +131,7 @@ public class McpServer {
 
             // Handle notifications (no id) — return 202 Accepted
             if (id == null) {
-                handleNotification(method, params);
+                handleNotification(method);
                 exchange.sendResponseHeaders(202, -1);
                 exchange.close();
                 return;
@@ -171,7 +170,7 @@ public class McpServer {
         }
     }
 
-    private void handleNotification(String method, JsonObject params) {
+    private void handleNotification(String method) {
         if ("notifications/initialized".equals(method)) {
             logger.info("MCP client sent initialized notification");
             // Client is ready, nothing to do
@@ -182,15 +181,14 @@ public class McpServer {
 
     private Object handleRequest(String method, JsonObject params) {
         return switch (method) {
-            case "initialize" -> handleInitialize(params);
-            case "tools/list" -> handleToolsList(params);
+            case "initialize" -> handleInitialize();
+            case "tools/list" -> handleToolsList();
             case "tools/call" -> handleToolsCall(params);
             default -> throw new RuntimeException("Unknown method: " + method);
         };
     }
 
-    private Map<String, Object> handleInitialize(JsonObject params) {
-        initialized = true;
+    private Map<String, Object> handleInitialize() {
         logger.info("MCP initialized with protocol version " + PROTOCOL_VERSION);
         return Map.of(
                 "protocolVersion", PROTOCOL_VERSION,
@@ -199,7 +197,7 @@ public class McpServer {
         );
     }
 
-    private Map<String, Object> handleToolsList(JsonObject params) {
+    private Map<String, Object> handleToolsList() {
         return Map.of("tools", registry.getDefinitions());
     }
 

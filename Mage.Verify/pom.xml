@@ -52,9 +52,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <!--                    <configuration>
-                        <compilerArgument>-Xlint:unchecked</compilerArgument>
-                    </configuration> -->
                 </plugin>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>

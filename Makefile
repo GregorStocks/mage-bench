@@ -17,6 +17,12 @@ lint:
 	uv run python scripts/checks/lint_no_fallback.py
 	uv run --project puppeteer ruff check puppeteer/ scripts/ schemas/
 
+.PHONY: lint-java
+lint-java:
+	mvn -q -pl Mage.Client.Bridge -am -DskipTests install
+	mvn -q -pl Mage.Client.Bridge -DskipTests -Pjava-lint verify
+	$(MAKE) verify-mcp-tools
+
 .PHONY: lint-fix
 lint-fix:
 	uv run --project puppeteer ruff check --fix puppeteer/ scripts/ schemas/
