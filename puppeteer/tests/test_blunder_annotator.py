@@ -195,7 +195,7 @@ def _run_annotate_game(gz_path: str, ann_path: str) -> subprocess.CompletedProce
 
 class TestExtractDecisions:
     def test_basic_extraction(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -216,7 +216,7 @@ class TestExtractDecisions:
     def test_empty_events(self, tmp_path: Path) -> None:
         game = _make_test_game()
         game["llmEvents"] = []
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -231,7 +231,7 @@ class TestExtractDecisions:
         choices_result["message"] = "Choose target creature"
         game["llmEvents"][0]["result"] = json.dumps(choices_result)
 
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -247,7 +247,7 @@ class TestExtractDecisions:
         choices_result["choices"] = [{"index": 0, "name": "Mountain"}]
         game["llmEvents"][0]["result"] = json.dumps(choices_result)
 
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -294,7 +294,7 @@ class TestExtractDecisions:
             },
         ]
         game = _make_test_game(extra_llm_events=bob_events)
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -317,7 +317,7 @@ class TestExtractDecisions:
         )
         game["llmEvents"][2]["args"] = {"answer": False}
 
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -329,7 +329,7 @@ class TestExtractDecisions:
     def test_subsequent_actions(self, tmp_path: Path) -> None:
         game = _make_test_game()
         # The existing action "Alice plays Mountain" has ts after the choose_action
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -338,7 +338,7 @@ class TestExtractDecisions:
         assert "Alice plays Mountain" in decisions[0]["subsequent_actions"]
 
     def test_game_state_summary(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         result = _run_script("extract_decisions.py", str(gz_path))
@@ -371,7 +371,7 @@ def _make_valid_annotation(snapshot_index: int = 0) -> dict:
 
 class TestAnnotateGame:
     def test_basic_annotation(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotations = [_make_valid_annotation()]
@@ -387,7 +387,7 @@ class TestAnnotateGame:
 
     def test_annotation_with_llm_reasoning(self, tmp_path: Path) -> None:
         """v5 annotations with llmReasoning still pass validation."""
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation()
@@ -404,7 +404,7 @@ class TestAnnotateGame:
     def test_replaces_existing(self, tmp_path: Path) -> None:
         game = _make_test_game()
         game["annotations"] = [_make_valid_annotation()]
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         new_annotation = _make_valid_annotation()
@@ -419,7 +419,7 @@ class TestAnnotateGame:
         assert data["annotations"][0]["severity"] == "major"
 
     def test_invalid_snapshot_index(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation(snapshot_index=999)
@@ -430,7 +430,7 @@ class TestAnnotateGame:
             _run_annotate_game(str(gz_path), str(ann_path))
 
     def test_invalid_severity(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation()
@@ -442,7 +442,7 @@ class TestAnnotateGame:
             _run_annotate_game(str(gz_path), str(ann_path))
 
     def test_invalid_player(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation()
@@ -455,7 +455,7 @@ class TestAnnotateGame:
 
     def test_preserves_other_data(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
         annotations = [_make_valid_annotation()]
@@ -472,7 +472,7 @@ class TestAnnotateGame:
         assert len(data["llmEvents"]) == 3
 
     def test_empty_annotations(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         ann_path = tmp_path / "annotations.json"
@@ -484,7 +484,7 @@ class TestAnnotateGame:
         assert data["annotations"] == []
 
     def test_missing_field(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation()

@@ -789,7 +789,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -845,7 +845,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -877,7 +877,7 @@ class TestMainIntegration:
             }
         ]
         game["blunderScriptVersion"] = BLUNDER_SCRIPT_VERSION
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         main(str(gz_path))
@@ -901,7 +901,7 @@ class TestMainIntegration:
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -943,7 +943,7 @@ class TestMainIntegration:
     ) -> None:
         """When >50% of decisions fail to parse, raises RuntimeError."""
         game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -973,7 +973,7 @@ class TestMainIntegration:
         game = self._make_game_with_decisions()
         game["annotations"] = []
         # Missing blunderScriptVersion → treated as v1, which is < current
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
@@ -1045,7 +1045,7 @@ class TestMainIntegration:
                 "subsequentActions": [],
             },
         ]
-        gz_path = tmp_path / "game.json.gz"
+        gz_path = tmp_path / "game_test.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
