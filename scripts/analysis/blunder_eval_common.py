@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import tempfile
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -111,10 +112,30 @@ def subsequent_actions(d: dict) -> list[str]:
     return result
 
 
+def _allowed_export_roots() -> tuple[Path, ...]:
+    """Directories that may contain analysis-ready game exports."""
+    return (GAMES_DIR.resolve(), Path(tempfile.gettempdir()).resolve())
+
+
+def _validate_export_path(path: str | Path) -> Path:
+    """Resolve and validate a game export path before opening it."""
+    resolved = Path(path).resolve()
+    assert resolved.exists(), f"Game export not found: {resolved}"
+    assert resolved.is_file(), f"Game export is not a file: {resolved}"
+    assert resolved.name.endswith((".json", ".json.gz")), (
+        f"Game export must end with .json or .json.gz: {resolved}"
+    )
+    allowed_roots = _allowed_export_roots()
+    assert any(resolved.is_relative_to(root) for root in allowed_roots), (
+        f"Game export must live under one of {allowed_roots}, got {resolved}"
+    )
+    return resolved
+
+
 def load_game(path: str | Path) -> dict:
     """Load a game export file (.json or .json.gz)."""
-    path = str(path)
-    if path.endswith(".json.gz"):
+    path = _validate_export_path(path)
+    if path.name.endswith(".json.gz"):
         with gzip.open(path, "rt") as f:
             data = json.load(f)
     else:
