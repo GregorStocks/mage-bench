@@ -110,6 +110,12 @@ def _branch_pr_lost_race(issue: str, pr_number: str) -> bool:
     return winner is not None and winner != pr_number
 
 
+def _issue_claimed_elsewhere(issue: str) -> str | None:
+    """Return the open PR number already claiming *issue*, if any."""
+    winner = _race_winner(issue)
+    return winner or None
+
+
 def replace_claim_tag(body: str, old_issue: str, new_issue: str) -> str:
     updated_body = re.sub(
         rf"<!-- claim: {re.escape(old_issue)} -->",
@@ -188,6 +194,13 @@ def main() -> None:
             sys.exit(2)
         if existing_claim != issue:
             if _branch_pr_lost_race(existing_claim, pr_number):
+                target_winner = _issue_claimed_elsewhere(issue)
+                if target_winner is not None:
+                    print(
+                        f"Lost race: PR #{target_winner} already claims {issue}",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
                 repurpose_branch_pr(
                     pr_number, branch_pr_body, existing_claim, issue, title
                 )

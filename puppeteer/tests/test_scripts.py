@@ -204,7 +204,13 @@ class TestClaimIssue:
 
         branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
 
-        bug_b_winners = iter([MagicMock(stdout="1059\n"), MagicMock(stdout="1059\n")])
+        bug_b_winners = iter(
+            [
+                MagicMock(stdout=""),  # target issue is unclaimed before retarget
+                MagicMock(stdout="1059\n"),  # first winner check after retarget
+                MagicMock(stdout="1059\n"),  # re-check after settle window
+            ]
+        )
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
@@ -245,6 +251,52 @@ class TestClaimIssue:
             ),
             call(["git", "push", "-u", "origin", "my-branch"], check=True),
         ]
+
+    def test_stale_branch_pr_does_not_hijack_existing_target_claim(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        stale_branch_pr = MagicMock()
+        stale_branch_pr.returncode = 0
+        stale_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": "<!-- claim: bug-a -->",
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return stale_branch_pr
+            if cmd[:3] == ["gh", "pr", "list"]:
+                jq = str(cmd[-1])
+                if "bug-a" in jq:
+                    return MagicMock(stdout="42\n")
+                if "bug-b" in jq:
+                    return MagicMock(stdout="2000\n")
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run") as mock_subprocess,
+            pytest.raises(SystemExit, match="1"),
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_not_called()
+        mock_subprocess.assert_not_called()
 
     def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
