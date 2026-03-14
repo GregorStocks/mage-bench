@@ -35,7 +35,7 @@ from puppeteer.game_log import GameLogWriter
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.pilot import DEFAULT_MODEL, mcp_tools_to_openai, run_pilot_loop
 from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import kill_tree
+from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.replay import _is_meta_script_step, _run_meta_script_step, execute_replay_script
 from scripts.analysis.blunder_analysis import (
     _actions_by_turn,
@@ -264,6 +264,7 @@ def compute_module_classpath(project_root: Path, module: str) -> str:
         cwd=module_dir,
         capture_output=True,
         text=True,
+        preexec_fn=jvm_oom_preexec_fn(),
     )
     assert result.returncode == 0, f"Failed to compute classpath for {module}: {result.stderr}"
     dep_classpath = cp_file.read_text().strip()
@@ -494,6 +495,7 @@ class BridgeManager:
             stdin=subprocess.PIPE,
             stdout=self._log_fh,
             stderr=subprocess.STDOUT,
+            preexec_fn=jvm_oom_preexec_fn(),
         )
 
         label = self._label.title()
