@@ -36,6 +36,8 @@ Create a pull request for the current branch's changes.
 
    After validation, run `git status` again before pushing. Local test/build commands can dirty tracked files (for example `website/package-lock.json` metadata churn from npm). Commit intentional artifacts or clean incidental churn before you open the PR.
 
+   Pitfall: if `make check` fails in website-related targets with `npm ERR! EEXIST` symlink errors, or `verify-schema-types` claims `website/src/types/game-export.d.ts` is stale on an otherwise clean tree, check whether parallel `npm install` runs are racing inside the website targets before assuming the generated types actually need regeneration.
+
 6. **Write the PR title and body.** The PR description must explain **why** these changes exist, not just what they do. A reviewer can read the diff to see *what* changed — the PR body should tell them *why* it changed, what problem it solves, and any context they'd need to evaluate the approach.
 
    Bad (just restates the diff):
