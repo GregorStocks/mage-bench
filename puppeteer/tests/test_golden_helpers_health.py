@@ -10,7 +10,12 @@ from pathlib import Path
 
 import pytest
 
-from tests.golden_helpers import _wait_for_game_end_http, _wait_for_game_ready, _wait_for_health
+from tests.golden_helpers import (
+    _wait_for_game_end_http,
+    _wait_for_game_ready,
+    _wait_for_game_watching,
+    _wait_for_health,
+)
 
 
 class _HealthHandler(BaseHTTPRequestHandler):
@@ -19,6 +24,7 @@ class _HealthHandler(BaseHTTPRequestHandler):
     # Class-level configuration set by tests
     lobby_ready_delay: float = 0
     game_ready_delay: float = 0
+    game_watching_delay: float = 0
     game_end_delay: float = 0
 
     def do_GET(self) -> None:
@@ -40,6 +46,16 @@ class _HealthHandler(BaseHTTPRequestHandler):
                     self._send_json(408, {"ready": False, "error": "timeout"})
                     return
             self._send_json(200, {"ready": True, "tableId": "test-table-id"})
+        elif self.path == "/wait-for-watching":
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length))
+            timeout = body.get("timeout", 240)
+            if self.game_watching_delay > 0:
+                time.sleep(min(self.game_watching_delay, timeout))
+                if self.game_watching_delay > timeout:
+                    self._send_json(408, {"watching": False, "error": "timeout"})
+                    return
+            self._send_json(200, {"watching": True})
         elif self.path == "/wait-for-game-end":
             length = int(self.headers.get("Content-Length", 0))
             body = json.loads(self.rfile.read(length))
@@ -71,6 +87,7 @@ def mock_health_server():
     # Reset delays
     _HealthHandler.lobby_ready_delay = 0
     _HealthHandler.game_ready_delay = 0
+    _HealthHandler.game_watching_delay = 0
     _HealthHandler.game_end_delay = 0
 
     server = HTTPServer(("127.0.0.1", 0), _HealthHandler)
@@ -117,6 +134,27 @@ class TestWaitForGameReady:
         _HealthHandler.game_ready_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-ready failed"):
             _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=1)
+
+
+class TestWaitForGameWatching:
+    def test_game_watching_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=5)
+
+    def test_game_watching_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _HealthHandler.game_watching_delay = 0.3
+        t0 = time.monotonic()
+        _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=5)
+        elapsed = time.monotonic() - t0
+        assert elapsed >= 0.2
+        assert elapsed < 2.0
+
+    def test_game_watching_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _HealthHandler.game_watching_delay = 10
+        with pytest.raises(RuntimeError, match="Wait-for-watching failed"):
+            _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=1)
 
 
 class TestWaitForGameEnd:

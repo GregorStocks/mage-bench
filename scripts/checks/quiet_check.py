@@ -2,10 +2,11 @@
 
 Pass -v for verbose (sequential) output.
 
-All targets run in parallel by default. Wall-clock time is dominated
-by the slowest target (usually `test`) rather than the sum of all targets.
+Independent targets run in parallel by default. Website/npm-backed targets run
+sequentially to avoid contending over `website/node_modules`.
 """
 
+import os
 import subprocess
 import sys
 import time
@@ -25,10 +26,59 @@ TARGETS = [
     "verify-schema-types",
 ]
 
+SERIAL_TARGETS = [
+    "lint-website",
+    "lint-md",
+    "astro-check",
+    "test-js",
+    "verify-schema-types",
+]
+
+PARALLEL_TARGETS = [target for target in TARGETS if target not in SERIAL_TARGETS]
+
+RECURSIVE_MAKE_ENV_VARS = (
+    "GNUMAKEFLAGS",
+    "MAKEFLAGS",
+    "MAKELEVEL",
+    "MAKEOVERRIDES",
+    "MAKE_TERMERR",
+    "MAKE_TERMOUT",
+    "MFLAGS",
+)
+
+
+def _make_env() -> dict[str, str]:
+    env = os.environ.copy()
+    for key in RECURSIVE_MAKE_ENV_VARS:
+        env.pop(key, None)
+    return env
+
+
+def _run_make(target: str, *, capture_output: bool) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        ["make", target],
+        capture_output=capture_output,
+        text=True,
+        env=_make_env(),
+    )
+
 
 def _run_target(target: str) -> tuple[str, subprocess.CompletedProcess]:
-    result = subprocess.run(["make", target], capture_output=True, text=True)
-    return target, result
+    return target, _run_make(target, capture_output=True)
+
+
+def _report_result(
+    target: str,
+    result: subprocess.CompletedProcess,
+    *,
+    elapsed: float,
+    failed: list[tuple[str, subprocess.CompletedProcess]],
+) -> None:
+    if result.returncode == 0:
+        print(f"  {target:<25} ok  ({elapsed:.1f}s)")
+    else:
+        print(f"  {target:<25} FAIL ({elapsed:.1f}s)")
+        failed.append((target, result))
 
 
 def main() -> None:
@@ -37,27 +87,29 @@ def main() -> None:
     if verbose:
         # Sequential with live output (for debugging)
         for target in TARGETS:
-            result = subprocess.run(["make", target])
+            result = _run_make(target, capture_output=False)
             if result.returncode != 0:
                 sys.exit(result.returncode)
         return
 
-    # Parallel execution
+    # Run independent targets in parallel, then website/npm-backed targets
+    # sequentially so `npm install` does not race with itself in node_modules.
     t0 = time.monotonic()
     futures = {}
-    with ThreadPoolExecutor(max_workers=len(TARGETS)) as pool:
-        for target in TARGETS:
+    with ThreadPoolExecutor(max_workers=len(PARALLEL_TARGETS)) as pool:
+        for target in PARALLEL_TARGETS:
             futures[pool.submit(_run_target, target)] = target
 
-        failed = []
+        failed: list[tuple[str, subprocess.CompletedProcess]] = []
         for future in as_completed(futures):
             target, result = future.result()
             elapsed = time.monotonic() - t0
-            if result.returncode == 0:
-                print(f"  {target:<25} ok  ({elapsed:.1f}s)")
-            else:
-                print(f"  {target:<25} FAIL ({elapsed:.1f}s)")
-                failed.append((target, result))
+            _report_result(target, result, elapsed=elapsed, failed=failed)
+
+    for target in SERIAL_TARGETS:
+        result = _run_make(target, capture_output=True)
+        elapsed = time.monotonic() - t0
+        _report_result(target, result, elapsed=elapsed, failed=failed)
 
     if failed:
         for target, result in failed:
