@@ -104,7 +104,10 @@ public class BridgeClient {
         java.io.File lockFile = new java.io.File("./db/cards.lock");
         lockFile.getParentFile().mkdirs();
         try (java.io.RandomAccessFile raf = new java.io.RandomAccessFile(lockFile, "rw");
-             java.nio.channels.FileLock lock = raf.getChannel().lock()) {
+             java.nio.channels.FileLock fileLock = raf.getChannel().lock()) {
+            if (!fileLock.isValid()) {
+                throw new IllegalStateException("Failed to lock card database");
+            }
             CardScanner.scan();
         }
         logger.info("Card database loaded.");
@@ -239,7 +242,9 @@ public class BridgeClient {
             Thread stdinThread = new Thread(() -> {
                 try {
                     // Block until stdin is closed
-                    while (System.in.read() != -1) { /* drain */ }
+                    for (int nextByte = System.in.read(); nextByte != -1; nextByte = System.in.read()) {
+                        continue;
+                    }
                 } catch (IOException ignored) {
                 }
                 stdinClosed.set(true);
@@ -389,7 +394,7 @@ public class BridgeClient {
                     System.out.println("POTATO_READY");
                     System.out.flush();
                 }
-            } catch (java.io.IOException e) {
+            } catch (IOException e) {
                 logger.info("keepAlive: stdin read error: " + e.getMessage());
             }
 
@@ -502,48 +507,6 @@ public class BridgeClient {
         }
 
         return null;
-    }
-
-    private static boolean waitAndStartMatch(Session session, UUID roomId, UUID tableId) {
-        long startTime = System.currentTimeMillis();
-
-        while (System.currentTimeMillis() - startTime < TABLE_POLL_TIMEOUT_MS) {
-            try {
-                Collection<TableView> tables = session.getTables(roomId);
-                if (tables != null) {
-                    for (TableView table : tables) {
-                        if (table.getTableId().equals(tableId)) {
-                            TableState state = table.getTableState();
-                            if (state == TableState.READY_TO_START) {
-                                logger.info("Table is ready, starting match...");
-                                if (session.startMatch(roomId, tableId)) {
-                                    logger.info("Match started successfully");
-                                    return true;
-                                } else {
-                                    logger.warn("Failed to start match, will retry...");
-                                }
-                            } else if (state == TableState.STARTING || state == TableState.DUELING) {
-                                logger.info("Match already starting/started");
-                                return true;
-                            } else {
-                                logger.debug("Table state: " + state + ", waiting...");
-                            }
-                            break;
-                        }
-                    }
-                }
-            } catch (MageRemoteException e) {
-                logger.warn("Error getting tables: " + e.getMessage());
-            }
-
-            try {
-                Thread.sleep(TABLE_POLL_INTERVAL_MS);
-            } catch (InterruptedException e) {
-                break;
-            }
-        }
-
-        return false;
     }
 
     public static DeckCardLists loadDeck(String deckPath) {
