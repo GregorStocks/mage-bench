@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p12"
           },
           "name": "choose_action"
         },
@@ -134,7 +134,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -214,7 +214,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p16"
           },
           "name": "choose_action"
         },
@@ -294,7 +294,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -399,7 +399,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "rules": [
                 "{T}: Add {U}."
@@ -408,7 +408,7 @@
             },
             {
               "copy": true,
-              "id": "_",
+              "id": "p11",
               "modified": true,
               "name": "Memnite",
               "original_card": "Clone",
@@ -418,7 +418,7 @@
               "toughness": 1
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "power": 1,
               "summoning_sick": true,
@@ -428,7 +428,7 @@
           ],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "rules": [
                 "{T}, Sacrifice {this}: Add three mana of any one color."
@@ -437,7 +437,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -446,7 +446,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -455,7 +455,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -464,7 +464,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -483,7 +483,7 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."

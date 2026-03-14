@@ -156,7 +156,6 @@ comparison:
 Removed entirely from export comparisons:
 
 - `timestamp` — wall-clock export time
-- `id` — export instance ID derived from the per-run game directory name
 - `ts` on `actions`, `errors`, `llmEvents`, and `llmTrace` — wall-clock timestamps
 - `thinkingTimeSecs` — LLM latency (irrelevant in replay mode)
 - `latencyMs` on `llmEvents` — provider/runtime timing noise
@@ -169,25 +168,17 @@ Sorting applied:
 
 Preserved intentionally:
 
+- top-level export `id` stays in the fixture — golden tests use fixed
+  per-scenario directory names, so this field is stable and meaningful
 - `errors` entries stay in export goldens after stripping `ts` — a new
   infrastructure error is a real regression and should fail the golden
 
-### Short ID normalization (`_normalize_prompt_for_golden`)
+### Prompt payload normalization (`_normalize_prompt_for_golden`)
 
-Short IDs (`p3`, `p14`, etc.) are assigned by the Java bridge's
-`ShortIdRegistry` in the order objects are first encountered. This order
-can vary if the bridge processes callbacks in slightly different order
-across runs. Rather than fighting this nondeterminism, the golden
-comparison replaces all short IDs with `_`.
-
-This means golden tests don't verify the exact ID assignments — they
-verify the structure and content of the prompt. ID correctness is covered
-by the replay script actually working (if the IDs were wrong, the script's
-`choose_action` calls would fail).
-
-This normalization is limited to prompt payload fields named `id` or
-`choice`. Export goldens keep literal MCP short IDs where they are part of
-the serialized game state.
+Prompt golden comparison keeps prompt payloads literal, including `id` and
+`choice` short IDs. The only normalization in this path is parsing embedded
+JSON strings and re-serializing them with sorted keys so semantically
+identical JSON compares identically.
 
 ### Embedded JSON normalization (`_normalize_embedded_json`)
 
@@ -196,8 +187,8 @@ key order within these strings can vary between runs
 (`{"blocks":"p10","id":"p7"}` vs `{"id":"p7","blocks":"p10"}`). The
 normalizer parses and re-serializes these with sorted keys.
 
-It also rewrites raw XMage HTML object handles that survive inside those
-strings:
+It also performs minimal redaction of raw XMage HTML object handles that
+survive inside those strings:
 
 - `object_id='123e4567-e89b-12d3-a456-426614174000'` -> `object_id='_'`
 - trailing `</font> [abc]` suffixes -> `</font> [_]`

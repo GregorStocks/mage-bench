@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p14"
           },
           "name": "choose_action"
         },
@@ -236,7 +236,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p14",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
@@ -246,7 +246,7 @@
           ],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Lightning Bolt",
               "rules": [
                 "{this} deals 3 damage to any target."
@@ -255,7 +255,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "is_land": true,
               "name": "Badlands",
               "playable": true,
@@ -265,7 +265,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "mana_cost": "{R}",
               "name": "Lightning Bolt",
               "playable": true,
@@ -274,7 +274,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "mana_cost": "{0}",
               "name": "Memnite",
               "playable": true,
@@ -282,7 +282,7 @@
               "toughness": 1
             },
             {
-              "id": "_",
+              "id": "p25",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -291,7 +291,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Plateau",
               "playable": true,
@@ -301,7 +301,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "is_land": true,
               "name": "Taiga",
               "playable": true,
@@ -321,7 +321,7 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."

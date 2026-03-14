@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p14"
           },
           "name": "choose_action"
         },
@@ -154,7 +154,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p14",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
@@ -164,7 +164,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "is_land": true,
               "name": "Badlands",
               "rules": [
@@ -173,7 +173,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "mana_cost": "{R}",
               "name": "Lightning Bolt",
               "playable": true,
@@ -182,7 +182,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "mana_cost": "{R}",
               "name": "Lightning Bolt",
               "playable": true,
@@ -191,14 +191,14 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "mana_cost": "{0}",
               "name": "Memnite",
               "power": 1,
               "toughness": 1
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Plateau",
               "rules": [
@@ -207,7 +207,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "is_land": true,
               "name": "Taiga",
               "rules": [

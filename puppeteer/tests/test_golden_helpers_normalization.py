@@ -4,7 +4,6 @@ import pytest
 
 from tests.golden_helpers import (
     _CapturedPilotRequest,
-    _is_short_id,
     _json_diff,
     _normalize_embedded_json,
     _normalize_prompt_for_golden,
@@ -15,35 +14,18 @@ from tests.golden_helpers import (
 )
 
 
-def test_is_short_id_server_prefix():
-    assert _is_short_id("p1")
-    assert _is_short_id("p99")
-    assert not _is_short_id("p")
-    assert not _is_short_id("")
-    assert not _is_short_id("x5")
-    assert not _is_short_id(42)
-
-
-def test_is_short_id_local_prefix():
-    assert _is_short_id("l1")
-    assert _is_short_id("l42")
-    assert not _is_short_id("l")
-
-
-def test_normalize_prompt_strips_local_short_ids():
-    """Local-prefix short IDs (lN) should be normalized the same as server ones (pN)."""
+def test_normalize_prompt_preserves_local_short_ids():
     payload = [{"content": '{"id":"l5","name":"Lotus Petal"}'}]
 
     normalized = _normalize_prompt_for_golden(payload)
-    assert normalized[0]["content"]["id"] == "_"
+    assert normalized[0]["content"]["id"] == "l5"
 
 
-def test_normalize_prompt_strips_choice_short_ids():
-    """The unified 'choice' field should normalize short IDs the same as 'id'."""
+def test_normalize_prompt_preserves_choice_short_ids():
     payload = [{"content": '{"choice":"p11","name":"Lightning Bolt"}'}]
 
     normalized = _normalize_prompt_for_golden(payload)
-    assert normalized[0]["content"]["choice"] == "_"
+    assert normalized[0]["content"]["choice"] == "p11"
 
 
 def test_normalize_prompt_preserves_choice_non_ids():
@@ -99,7 +81,7 @@ def test_normalize_prompt_preserves_game_seq():
 
     normalized = _normalize_prompt_for_golden(payload)
 
-    assert normalized[0]["content"] == {"game_seq": 77, "id": "_", "nested": {"game_seq": 12}}
+    assert normalized[0]["content"] == {"game_seq": 77, "id": "p3", "nested": {"game_seq": 12}}
 
 
 def test_pilot_script_from_replay_script_drops_initial_prefetch_call():
@@ -237,7 +219,7 @@ def test_strip_volatile_keeps_errors_but_strips_error_timestamps():
     _strip_volatile(data)
 
     assert "timestamp" not in data
-    assert "id" not in data
+    assert data["id"] == "game_20260314_190000"
     assert data["errors"] == [
         {
             "player": "Alice",

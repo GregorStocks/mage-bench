@@ -1459,24 +1459,13 @@ def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int 
     return diffs
 
 
-def _is_short_id(value: object) -> bool:
-    return isinstance(value, str) and len(value) > 1 and value[0] in ("p", "l") and value[1:].isdigit()
-
-
 def _normalize_prompt_for_golden(obj: object) -> object:
     """Normalize prompt payloads for deterministic golden comparisons.
 
-    - Replace prompt short IDs (pN/lN) with "_" to avoid non-semantic ID churn.
     - Parse embedded JSON strings and re-serialize with sorted keys.
     """
     if isinstance(obj, dict):
-        out: dict[str, object] = {}
-        for key, value in obj.items():
-            if key in ("id", "choice") and _is_short_id(value):
-                out[key] = "_"
-                continue
-            out[key] = _normalize_prompt_for_golden(value)
-        return out
+        return {key: _normalize_prompt_for_golden(value) for key, value in obj.items()}
     if isinstance(obj, list):
         return [_normalize_prompt_for_golden(item) for item in obj]
     if isinstance(obj, str):
@@ -1545,8 +1534,6 @@ def _strip_volatile(data: dict) -> None:
     """Remove only genuinely non-semantic run-to-run noise from export data."""
     # Top-level volatile fields
     data.pop("timestamp", None)
-    # Export IDs come from the per-run game directory name, not game semantics.
-    data.pop("id", None)
 
     # Keep critical errors visible in goldens; only strip their wall-clock time.
     for error in data.get("errors", []):

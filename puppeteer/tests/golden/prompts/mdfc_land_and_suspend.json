@@ -98,7 +98,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p12"
           },
           "name": "choose_action"
         },
@@ -138,7 +138,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -178,7 +178,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -438,7 +438,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p26",
               "name": "Boggart Bog",
               "original_card": "Boggart Trawler",
               "rules": [
@@ -448,7 +448,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Forest",
               "rules": [
                 "{T}: Add {G}."
@@ -456,7 +456,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "rules": [
                 "{T}: Add {W}."
@@ -464,7 +464,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "rules": [
                 "{T}: Add {W}."
@@ -472,7 +472,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "rules": [
                 "{T}: Add {W}."
@@ -480,7 +480,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p40",
               "name": "Rhino Token",
               "power": 4,
               "rules": [
@@ -492,7 +492,7 @@
               "toughness": 4
             },
             {
-              "id": "_",
+              "id": "p41",
               "name": "Rhino Token",
               "power": 4,
               "rules": [
@@ -506,7 +506,7 @@
           ],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Crashing Footfalls",
               "rules": [
                 "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
@@ -516,7 +516,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p16",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -525,7 +525,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -534,7 +534,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p29",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -543,7 +543,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p32",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -552,7 +552,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p35",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -561,7 +561,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p42",
               "is_land": true,
               "name": "Plains",
               "playable": true,
@@ -580,35 +580,35 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."

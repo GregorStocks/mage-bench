@@ -46,7 +46,7 @@ Rules:
 
 Predict short IDs in comments and replay scripts. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
 
-Prompt goldens intentionally normalize prompt `id`/`choice` short IDs to `_`, so the exact `pN` values matter for scripts and comments, not for the saved prompt fixture. Export goldens still keep literal MCP short IDs; only raw XMage HTML object handles (`object_id='UUID'`, `</font> [abc]`) are normalized away there.
+Prompt and export goldens now keep literal MCP short IDs. Only raw XMage HTML object handles (`object_id='UUID'`, `</font> [abc]`) are minimally redacted inside strings, and embedded JSON key order is normalized.
 
 ## Script Design
 

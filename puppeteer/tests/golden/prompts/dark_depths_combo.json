@@ -98,7 +98,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -138,7 +138,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p16"
           },
           "name": "choose_action"
         },
@@ -178,7 +178,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -258,7 +258,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p16"
           },
           "name": "choose_action"
         },
@@ -338,7 +338,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -477,7 +477,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p29",
               "name": "Marit Lage",
               "power": 20,
               "toughness": 20
@@ -494,7 +494,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p29",
               "name": "Marit Lage",
               "power": 20,
               "rules": [
@@ -509,14 +509,14 @@
           ],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "rules": [
                 "{T}, Sacrifice {this}: Add three mana of any one color."
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Dark Depths",
               "rules": [
                 "{this} enters with ten ice counters on it.",
@@ -525,7 +525,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Thespian's Stage",
               "rules": [
                 "{T}: Add {C}.",
@@ -535,7 +535,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p12",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -543,7 +543,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -551,7 +551,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -559,7 +559,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -567,7 +567,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -575,7 +575,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p31",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -593,14 +593,14 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."

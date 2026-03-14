@@ -1,6 +1,6 @@
 {
   "title": "Golden cleanup concede times out after successful replay",
-  "description": "During `make regen-golden` on 2026-03-14, `tests/test_golden_emancipation_angel_trigger.py::test_emancipation_angel_trigger` completed its replay, updated both prompt/export goldens, and then failed in `run_golden_scenario()` cleanup. The failure was a `TimeoutError` from `session.call_tool(\"concede\", timeout=10)` in the `finally` block at `puppeteer/tests/golden_helpers.py:1326`.\n\nRelevant behavior from the failing run:\n- The replay itself completed (`[emancipation_angel_trigger/replay] 120.2s`), `game_end_signal` completed, and both golden files were written.\n- A player-B cleanup timeout was already logged as \"likely benign\" during replay teardown.\n- The final defensive concede then timed out again and failed the whole regen run, which skipped the remaining golden tests.\n\nThis is a real golden-harness bug, not fixture drift. A finished scenario should not fail the suite because the cleanup concede RPC stops responding after game end. Investigate whether the bridge MCP server is shutting down too early, wedged after game over, or whether the cleanup path is issuing concede against a session that is already terminal in a nondeterministic way.",
+  "description": "During `make regen-golden` on 2026-03-14, two golden scenarios completed replay, wrote prompt/export fixtures, and then failed in `run_golden_scenario()` cleanup with `TimeoutError` from `session.call_tool(\"concede\", timeout=10)` in the `finally` block at `puppeteer/tests/golden_helpers.py:1326`.\n\nObserved failing scenarios:\n- `tests/test_golden_emancipation_angel_trigger.py::test_emancipation_angel_trigger`\n- `tests/test_golden_mana_drain_fact_or_fiction.py::test_mana_drain_into_fact_or_fiction`\n\nRelevant behavior from those failing runs:\n- Replay completed and fixture files were updated before the failure.\n- A player-B cleanup timeout was already logged as \"likely benign\" during replay teardown.\n- The final defensive concede then timed out again and failed the whole regen run, skipping later scenarios.\n\nA follow-up non-update run of those same two tests passed immediately afterward, so this currently looks intermittent rather than deterministic. That still makes it a real golden-harness bug: a finished scenario should not sporadically fail the suite because the cleanup concede RPC stops responding after game end. Investigate whether the bridge MCP server is shutting down too early, wedged after game over, or whether the cleanup path is issuing concede against a session that is already terminal in a racey way.",
   "status": "open",
   "priority": 3,
   "type": "task",
@@ -10,5 +10,5 @@
     "bridge"
   ],
   "created_at": "2026-03-14T14:58:23-07:00",
-  "updated_at": "2026-03-14T14:58:23-07:00"
+  "updated_at": "2026-03-14T15:21:00-07:00"
 }
