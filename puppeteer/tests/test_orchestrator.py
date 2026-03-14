@@ -56,6 +56,41 @@ def test_missing_llm_api_keys_present():
     assert errors == []
 
 
+def test_missing_llm_api_keys_redacts_base_url_credentials():
+    """Credential-bearing base URLs should be redacted in validation errors."""
+    config = Config()
+    config.pilot_players = [
+        PilotPlayer(
+            name="ace",
+            model="test/model",
+            base_url="https://user:secret@api.openai.com/v1?trace=1#frag",
+        )
+    ]
+    with patch.dict("os.environ", {}, clear=True):
+        errors = _missing_llm_api_keys(config)
+    assert len(errors) == 1
+    assert "https://api.openai.com/v1" in errors[0]
+    assert "secret" not in errors[0]
+    assert "user:" not in errors[0]
+
+
+def test_missing_llm_api_keys_reports_unsupported_host():
+    """Lookalike provider hosts should fail closed instead of selecting a key env."""
+    config = Config()
+    config.pilot_players = [
+        PilotPlayer(
+            name="ace",
+            model="test/model",
+            base_url="https://api.openai.com.evil.example/v1",
+        )
+    ]
+    with patch.dict("os.environ", {}, clear=True):
+        errors = _missing_llm_api_keys(config)
+    assert len(errors) == 1
+    assert "Unsupported LLM base URL host" in errors[0]
+    assert "OPENAI_API_KEY" not in errors[0]
+
+
 def test_parse_args_batch_manifest_sets_num_games(tmp_path: Path, monkeypatch):
     """Batch manifests should set num_games from the manifest length."""
     config_a = tmp_path / "a.json"

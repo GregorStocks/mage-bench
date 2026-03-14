@@ -23,6 +23,7 @@ from puppeteer.llm_cost import (
     DEFAULT_BASE_URL,
     get_model_price,
     load_prices,
+    redact_base_url_for_log,
     required_api_key_env,
     write_cost_file,
 )
@@ -1365,7 +1366,7 @@ async def run_pilot(
     """Run the pilot client."""
     logger.info("[pilot] Starting for %s@%s:%s", username, server, port)
     logger.info("[pilot] Model: %s", model)
-    logger.info("[pilot] Base URL: %s", base_url)
+    logger.info("[pilot] Base URL: %s", redact_base_url_for_log(base_url))
     if reasoning_effort:
         logger.info("[pilot] Reasoning effort: %s", reasoning_effort)
     if tools is not None:
@@ -1482,7 +1483,7 @@ def main() -> int:
     parser.add_argument("--username", default="Pilot", help="Player username")
     parser.add_argument("--project-root", type=Path, help="Project root directory")
     parser.add_argument("--deck", type=Path, help="Path to deck file (.dck)")
-    parser.add_argument("--api-key", default="", help="API key (prefer OPENROUTER_API_KEY env var)")
+    parser.add_argument("--api-key", default="", help="API key (prefer provider-specific env vars)")
     parser.add_argument("--model", default=DEFAULT_MODEL, help=f"LLM model (default: {DEFAULT_MODEL})")
     parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help=f"API base URL (default: {DEFAULT_BASE_URL})")
     parser.add_argument("--system-prompt", default="", help="Custom system prompt")
@@ -1506,10 +1507,17 @@ def main() -> int:
             project_root = project_root.parent
 
     # API key: CLI arg > provider-specific env var based on base URL.
-    required_key_env = required_api_key_env(args.base_url)
-    api_key = args.api_key or os.environ.get(required_key_env, "")
+    api_key = args.api_key
+    required_key_env = ""
     if not api_key.strip():
-        logger.error("[pilot] Missing API key for %s", args.base_url)
+        try:
+            required_key_env = required_api_key_env(args.base_url)
+        except ValueError as exc:
+            logger.error("[pilot] %s", exc)
+            return 2
+        api_key = os.environ.get(required_key_env, "")
+    if not api_key.strip():
+        logger.error("[pilot] Missing API key for %s", redact_base_url_for_log(args.base_url))
         logger.error("[pilot] Set %s or pass --api-key.", required_key_env)
         return 2
 

@@ -5,9 +5,12 @@ import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock
 
+import pytest
+
 from puppeteer.llm_cost import (
     fetch_openrouter_prices,
     get_model_price,
+    redact_base_url_for_log,
     required_api_key_env,
     write_cost_file,
 )
@@ -29,8 +32,21 @@ def test_required_api_key_env_google():
     assert required_api_key_env("https://generativelanguage.googleapis.com/v1") == "GEMINI_API_KEY"
 
 
-def test_required_api_key_env_default():
-    assert required_api_key_env("https://custom-llm-host.example.com/v1") == "OPENROUTER_API_KEY"
+def test_required_api_key_env_unknown_host_raises():
+    with pytest.raises(ValueError, match="Unsupported LLM base URL host"):
+        required_api_key_env("https://custom-llm-host.example.com/v1")
+
+
+def test_required_api_key_env_rejects_lookalike_host():
+    with pytest.raises(ValueError, match=r"api\.openai\.com\.evil\.example"):
+        required_api_key_env("https://api.openai.com.evil.example/v1")
+
+
+def test_redact_base_url_for_log():
+    assert (
+        redact_base_url_for_log("https://user:secret@api.openai.com/v1?debug=1#frag")
+        == "https://api.openai.com/v1"
+    )
 
 
 def test_get_model_price_exact():

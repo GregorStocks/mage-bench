@@ -7,6 +7,7 @@ helpers for cost estimation and file-based cost reporting.
 import json
 import urllib.request
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
 
 from puppeteer.log import get_logger
 
@@ -15,20 +16,52 @@ logger = get_logger(__name__)
 OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models"
 FETCH_TIMEOUT_SECS = 10
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
+_PROVIDER_API_KEY_ENVS = {
+    "openrouter.ai": "OPENROUTER_API_KEY",
+    "api.openai.com": "OPENAI_API_KEY",
+    "api.anthropic.com": "ANTHROPIC_API_KEY",
+    "generativelanguage.googleapis.com": "GEMINI_API_KEY",
+}
+
+
+def redact_base_url_for_log(base_url: str) -> str:
+    """Strip credentials and query or fragment data before logging a base URL."""
+    url = base_url or DEFAULT_BASE_URL
+    parsed = urlsplit(url)
+    if not parsed.scheme or not parsed.netloc:
+        return url.rsplit("@", 1)[-1].split("?", 1)[0].split("#", 1)[0]
+
+    netloc = parsed.netloc.rsplit("@", 1)[-1]
+    hostname = parsed.hostname
+    if hostname is not None:
+        host = hostname if ":" not in hostname else f"[{hostname}]"
+        netloc = host
+        try:
+            port = parsed.port
+        except ValueError:
+            port = None
+        if port is not None:
+            netloc = f"{netloc}:{port}"
+
+    return urlunsplit((parsed.scheme, netloc, parsed.path, "", ""))
 
 
 def required_api_key_env(base_url: str) -> str:
-    """Infer the expected API key env var from the configured base URL."""
-    host = (base_url or DEFAULT_BASE_URL).lower()
-    if "openrouter.ai" in host:
-        return "OPENROUTER_API_KEY"
-    if "api.openai.com" in host:
-        return "OPENAI_API_KEY"
-    if "anthropic.com" in host:
-        return "ANTHROPIC_API_KEY"
-    if "googleapis.com" in host or "generativelanguage.googleapis.com" in host:
-        return "GEMINI_API_KEY"
-    return "OPENROUTER_API_KEY"
+    """Infer the expected API key env var from an exact provider hostname."""
+    url = base_url or DEFAULT_BASE_URL
+    parsed = urlsplit(url)
+    host = (parsed.hostname or "").rstrip(".").lower()
+    if parsed.scheme not in ("http", "https") or not host:
+        raise ValueError(f"Invalid LLM base URL: {redact_base_url_for_log(url)}")
+
+    if host in _PROVIDER_API_KEY_ENVS:
+        return _PROVIDER_API_KEY_ENVS[host]
+
+    supported_hosts = ", ".join(sorted(_PROVIDER_API_KEY_ENVS))
+    raise ValueError(
+        "Unsupported LLM base URL host for automatic API key lookup: "
+        f"{host}. Supported hosts: {supported_hosts}."
+    )
 
 
 def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:

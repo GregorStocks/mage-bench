@@ -22,7 +22,7 @@ from puppeteer.deck_choice import resolve_choice_decks
 from puppeteer.game_log import merge_game_log, read_decklist
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
-from puppeteer.llm_cost import required_api_key_env
+from puppeteer.llm_cost import redact_base_url_for_log, required_api_key_env
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import ProcessManager, kill_tree
@@ -114,9 +114,14 @@ def _missing_llm_api_keys(config: Config) -> list[str]:
     llm_players = [*config.pilot_players]
     for player in llm_players:
         base_url = player.base_url or DEFAULT_LLM_BASE_URL
-        key_env = required_api_key_env(base_url)
+        safe_base_url = redact_base_url_for_log(base_url)
+        try:
+            key_env = required_api_key_env(base_url)
+        except ValueError as exc:
+            errors.append(f"{player.name} ({safe_base_url}): {exc}")
+            continue
         if not os.environ.get(key_env, "").strip():
-            errors.append(f"{player.name} ({base_url}) requires {key_env}")
+            errors.append(f"{player.name} ({safe_base_url}) requires {key_env}")
     return errors
 
 
