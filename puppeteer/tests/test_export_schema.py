@@ -26,6 +26,7 @@ from schemas.game_export_types import (
     Player,
     Snapshot,
     SnapshotPlayer,
+    load_built_game_export,
     load_game_export,
     require_built_game_export,
 )
@@ -349,4 +350,29 @@ class TestExportSchema:
         built = require_built_game_export(payload, source="built export")
 
         assert built["season"] == 1
+        assert "annotations" not in built
+
+    def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "built_v7.json"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 1,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 2.0,
+                }
+            ],
+        )
+        del payload["annotations"]
+        del payload["blunderScriptVersion"]
+        path.write_text(json.dumps(payload))
+
+        built = load_built_game_export(path)
+
+        assert built["version"] == 7
         assert "annotations" not in built

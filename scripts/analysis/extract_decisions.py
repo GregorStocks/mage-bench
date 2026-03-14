@@ -10,8 +10,13 @@ import json
 import sys
 from collections.abc import Sequence
 
-from schemas.game_export_types import GameExport, JsonObject, LlmEvent, Snapshot
-from scripts.analysis.blunder_eval_common import load_game
+from schemas.game_export_types import (
+    BuiltGameExport,
+    JsonObject,
+    LlmEvent,
+    Snapshot,
+    load_built_game_export,
+)
 
 
 def _summarize_permanent(c: object) -> str | dict:
@@ -298,7 +303,7 @@ def _build_decision(
     return d
 
 
-def _extract_decisions_v1(data: GameExport) -> list[dict[str, object]]:
+def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
     """Extract decisions from v1 format (harnessEpoch < 20).
 
     In v1, LLMs always call get_action_choices to get choices, then
@@ -480,7 +485,7 @@ def _is_decision_source(event: LlmEvent) -> bool:
     return bool(result.get("action_pending"))
 
 
-def _extract_decisions_v2(data: GameExport) -> list[dict[str, object]]:
+def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
     """Extract decisions from v2 format (harnessEpoch >= 20).
 
     In v2, pass_priority returns choices inline when action_pending=true,
@@ -674,7 +679,7 @@ def extract_decisions(gz_path: str) -> list[dict[str, object]]:
     present (built by export_game._build_decisions). Falls back to legacy
     extraction from llmEvents for older exports without pre-built decisions.
     """
-    data = load_game(gz_path)
+    data = load_built_game_export(gz_path)
 
     # Use pre-built canonical decisions when available
     if "decisions" in data:

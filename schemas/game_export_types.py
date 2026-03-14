@@ -59,7 +59,7 @@ class SnapshotPlayer(TypedDict):
     command_zone: NotRequired[list[object]]
     is_active: NotRequired[bool]
     has_left: NotRequired[bool]
-    mana_pool: NotRequired[list[object]]
+    mana_pool: NotRequired[JsonObject]
 
 
 class CombatGroup(TypedDict, total=False):
@@ -383,7 +383,7 @@ def _is_snapshot_player(value: object, source: str) -> TypeIs[SnapshotPlayer]:
     if "has_left" in obj:
         _require_bool(obj["has_left"], f"{source}.has_left")
     if "mana_pool" in obj:
-        _require_list(obj["mana_pool"], f"{source}.mana_pool")
+        _require_object(obj["mana_pool"], f"{source}.mana_pool")
     return True
 
 
@@ -729,6 +729,16 @@ def load_game_export(path: str | Path) -> GameExport:
     return require_game_export(json.loads(raw), source=export_path.name)
 
 
+def load_built_game_export(path: str | Path) -> BuiltGameExport:
+    export_path = Path(path)
+    raw = (
+        gzip.decompress(export_path.read_bytes())
+        if export_path.suffix == ".gz"
+        else export_path.read_text()
+    )
+    return require_built_game_export(json.loads(raw), source=export_path.name)
+
+
 __all__ = [
     "Action",
     "Annotation",
@@ -748,6 +758,7 @@ __all__ = [
     "SnapshotPlayer",
     "is_built_game_export",
     "is_game_export",
+    "load_built_game_export",
     "load_game_export",
     "require_built_game_export",
     "require_game_export",
