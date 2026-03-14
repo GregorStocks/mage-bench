@@ -53,6 +53,8 @@ Bootstrap caveat: `game-gz-bootstrap.py` currently overcounts failed tool calls 
 
 **Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
 
+Retry caveat: if an annotation claims a timeout/default choice on `GAME_CHOOSE_CHOICE`, verify it against raw `*_llm.jsonl`. `scripts/export_game.py` can currently record the first failed `choose_action` attempt and drop the later successful retry into a blank follow-up decision, which makes the annotation look like a timeout when the model actually recovered.
+
 **Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. Pass the export path, not just the game ID (for example: `uv run python scripts/analysis/extract_decisions.py website/public/games/${GAME_ID}.json`). This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
