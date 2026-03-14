@@ -17,6 +17,8 @@ def test_stack_resolved(xmage_server, tmp_path, project_root, bridge_session, op
     - Choose TestPlayer as starting player, keep hand
     - T1: Play Mountain, cast Lightning Bolt targeting Opponent
     - pass_priority(until="stack_resolved") — bolt resolves
+    - pass_priority(until="stack_resolved") again on an empty stack
+      behaves like a normal one-pass priority advance
     - get_game_state to verify Opponent at 17 life
     """
     server, port = xmage_server
@@ -43,6 +45,9 @@ def test_stack_resolved(xmage_server, tmp_path, project_root, bridge_session, op
             # Target Opponent.
             {"name": "choose_action", "arguments": {"choice": "1"}},
             # Let the stack resolve — bolt deals 3 damage.
+            {"name": "pass_priority", "arguments": {"until": "stack_resolved"}},
+            # Calling stack_resolved on an already empty stack should still pass
+            # priority once, not return immediately.
             {"name": "pass_priority", "arguments": {"until": "stack_resolved"}},
             {"name": "get_game_state", "arguments": {}},
         ],

@@ -3101,17 +3101,14 @@ public class BridgeCallbackHandler {
                     mergeActionChoices(result, boardCursorParam);
                     return result;
                 }
-                // For stack_resolved: if stack is already empty, return immediately
-                // only when we already have an actionable callback in hand.
+                // For stack_resolved: only arm the client-side yield when there
+                // is actually a stack object to watch. Otherwise this falls
+                // through to normal one-pass priority advancement.
                 boolean armedClientSideYield = false;
                 if ("stack_resolved".equals(until)) {
                     GameView gv = lastGameView;
                     UUID lowestStackObjectId = lowestStackObjectId(gv);
-                    if (lowestStackObjectId == null) {
-                        if (currentAction != null) {
-                            return stackResolvedResult(currentAction, boardCursorParam);
-                        }
-                    } else {
+                    if (lowestStackObjectId != null) {
                         yieldUntilStackResolved = true;
                         yieldUntilStackResolvedObjectId = lowestStackObjectId;
                         armedClientSideYield = true;

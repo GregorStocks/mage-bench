@@ -145,6 +145,56 @@ class BridgeCallbackHandlerTest {
         }
     }
 
+    @Test
+    void treatsEmptyStackResolvedAsSinglePass() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView emptyStack = gameView(7);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", emptyStack);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(emptyStack, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("stack_resolved", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            GameView nextActionView = gameView(8);
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_ASK,
+                new GameClientMessage(nextActionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?"),
+                "Mulligan hand?",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("non_priority_action");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_ASK");
+            assertThat(result.game_seq).isEqualTo(8);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
