@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claim an issue by creating a draft PR. Lowest PR number wins ties.
+"""Claim an issue by creating a draft PR. Earliest claim timestamp wins ties.
 
 Usage:
     claim-issue.py <issue-filename>   Claim an issue
@@ -16,10 +16,12 @@ import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 ISSUES_DIR = Path("issues")
 RACE_SETTLE_SECONDS = 5
+CLAIM_TS_RE = re.compile(r"<!-- claim-ts: (\d+) -->")
 
 
 def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
@@ -29,6 +31,22 @@ def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
 def extract_claim_tag(body: str) -> str | None:
     m = re.search(r"<!-- claim: (.+?) -->", body.replace("\r", ""))
     return m.group(1) if m else None
+
+
+def extract_claim_time_ns(body: str) -> int | None:
+    m = CLAIM_TS_RE.search(body.replace("\r", ""))
+    return int(m.group(1)) if m else None
+
+
+def claim_metadata(issue: str, claim_time_ns: int) -> str:
+    return f"<!-- claim: {issue} -->\n<!-- claim-ts: {claim_time_ns} -->"
+
+
+def _github_time_to_ns(created_at: str) -> int:
+    return int(
+        datetime.fromisoformat(created_at.replace("Z", "+00:00")).timestamp()
+        * 1_000_000_000
+    )
 
 
 def list_claimed() -> list[str]:
@@ -83,25 +101,47 @@ def get_open_branch_pr(branch: str) -> dict[str, object] | None:
     return pr
 
 
-def _race_winner(issue: str) -> str | None:
-    """Return the lowest PR number claiming *issue*, or None."""
+def _open_claims() -> list[dict[str, int | str]]:
+    """Return open PR claim records with explicit claim timestamps."""
     result = run(
-        [
-            "gh",
-            "pr",
-            "list",
-            "--state",
-            "open",
-            "--json",
-            "number,body",
-            "--jq",
-            f'[.[] | select(.body | test("<!-- claim: {issue} -->")) | .number] | sort | .[0]',
-        ]
+        ["gh", "pr", "list", "--state", "open", "--json", "number,body,createdAt"]
     )
-    winner = result.stdout.strip()
-    if winner and winner != "null":
-        return winner
-    return None
+    assert result.returncode == 0, f"gh pr list --state open failed: {result.stderr}"
+    prs = json.loads(result.stdout)
+    assert isinstance(prs, list), (
+        f"gh pr list returned non-list payload: {type(prs).__name__}"
+    )
+
+    claims: list[dict[str, int | str]] = []
+    for pr in prs:
+        assert isinstance(pr, dict), f"gh pr list returned non-object PR entry: {pr!r}"
+        body = str(pr["body"])
+        issue = extract_claim_tag(body)
+        if issue is None:
+            continue
+        claim_time_ns = extract_claim_time_ns(body)
+        if claim_time_ns is None:
+            claim_time_ns = _github_time_to_ns(str(pr["createdAt"]))
+        claims.append(
+            {
+                "issue": issue,
+                "number": int(pr["number"]),
+                "claim_time_ns": claim_time_ns,
+            }
+        )
+    return claims
+
+
+def _race_winner(issue: str) -> str | None:
+    """Return the earliest claim for *issue*, tie-broken by PR number."""
+    matches = [claim for claim in _open_claims() if claim["issue"] == issue]
+    if not matches:
+        return None
+    winner = min(
+        matches,
+        key=lambda claim: (int(claim["claim_time_ns"]), int(claim["number"])),
+    )
+    return str(winner["number"])
 
 
 def _branch_pr_lost_race(issue: str, pr_number: str) -> bool:
@@ -110,13 +150,9 @@ def _branch_pr_lost_race(issue: str, pr_number: str) -> bool:
     return winner is not None and winner != pr_number
 
 
-def _issue_claimed_elsewhere(issue: str) -> str | None:
-    """Return the open PR number already claiming *issue*, if any."""
-    winner = _race_winner(issue)
-    return winner or None
-
-
-def replace_claim_tag(body: str, old_issue: str, new_issue: str) -> str:
+def replace_claim_metadata(
+    body: str, old_issue: str, new_issue: str, claim_time_ns: int
+) -> str:
     updated_body = re.sub(
         rf"<!-- claim: {re.escape(old_issue)} -->",
         f"<!-- claim: {new_issue} -->",
@@ -124,11 +160,25 @@ def replace_claim_tag(body: str, old_issue: str, new_issue: str) -> str:
         count=1,
     )
     assert updated_body != body, f"PR body missing claim tag for {old_issue}:\n{body}"
-    return updated_body
+    updated_ts = CLAIM_TS_RE.sub(
+        f"<!-- claim-ts: {claim_time_ns} -->", updated_body, count=1
+    )
+    if updated_ts != updated_body:
+        return updated_ts
+    return updated_body.replace(
+        f"<!-- claim: {new_issue} -->",
+        claim_metadata(new_issue, claim_time_ns),
+        1,
+    )
 
 
 def repurpose_branch_pr(
-    pr_number: str, body: str, old_issue: str, new_issue: str, new_title: str
+    pr_number: str,
+    body: str,
+    old_issue: str,
+    new_issue: str,
+    new_title: str,
+    claim_time_ns: int,
 ) -> None:
     """Update the current branch PR in place to claim a different issue."""
     subprocess.run(
@@ -140,7 +190,7 @@ def repurpose_branch_pr(
             "--title",
             f"Solve: {new_title}",
             "--body",
-            replace_claim_tag(body, old_issue, new_issue),
+            replace_claim_metadata(body, old_issue, new_issue, claim_time_ns),
         ],
         check=True,
     )
@@ -162,6 +212,7 @@ def main() -> None:
         sys.exit(0)
 
     issue = sys.argv[1].removesuffix(".json")
+    claim_time_ns = time.time_ns()
 
     issue_path = ISSUES_DIR / f"{issue}.json"
     if not issue_path.exists():
@@ -194,15 +245,13 @@ def main() -> None:
             sys.exit(2)
         if existing_claim != issue:
             if _branch_pr_lost_race(existing_claim, pr_number):
-                target_winner = _issue_claimed_elsewhere(issue)
-                if target_winner is not None:
-                    print(
-                        f"Lost race: PR #{target_winner} already claims {issue}",
-                        file=sys.stderr,
-                    )
-                    sys.exit(1)
                 repurpose_branch_pr(
-                    pr_number, branch_pr_body, existing_claim, issue, title
+                    pr_number,
+                    branch_pr_body,
+                    existing_claim,
+                    issue,
+                    title,
+                    claim_time_ns,
                 )
                 branch_pr = get_open_branch_pr(branch)
                 assert branch_pr is not None, (
@@ -242,7 +291,7 @@ def main() -> None:
                 "--title",
                 f"Solve: {title}",
                 "--body",
-                f"<!-- claim: {issue} -->",
+                claim_metadata(issue, claim_time_ns),
             ]
         )
         assert result.returncode == 0, f"gh pr create failed: {result.stderr}"
@@ -252,7 +301,7 @@ def main() -> None:
         our_pr = m.group(1)
         print(f"Created draft PR #{our_pr}: {pr_url}")
 
-    # Race resolution: lowest PR number claiming this issue wins.
+    # Race resolution: earliest claim timestamp wins.
     # Two-phase check with a settle window to close the TOCTOU gap —
     # concurrent claims created within seconds of each other need time
     # to propagate through the GitHub API before both are visible.
