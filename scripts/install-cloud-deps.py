@@ -17,6 +17,7 @@ GH_VERSION = "2.67.0"
 def run(cmd: list[str], *, cwd: Path | None = None) -> None:
     subprocess.run(cmd, check=True, cwd=cwd)
 
+
 def main() -> None:
     # Fast path: if we've already run successfully, skip everything.
     if MARKER.exists():

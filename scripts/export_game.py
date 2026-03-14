@@ -277,7 +277,9 @@ def _deck_display_name(player_meta: dict, deck_type: str) -> str | None:
     # New: deck_name from registry
     if player_meta.get("deck_name"):
         deck_name = player_meta["deck_name"]
-        assert isinstance(deck_name, str), f"deck_name must be a string, got {deck_name!r}"
+        assert isinstance(deck_name, str), (
+            f"deck_name must be a string, got {deck_name!r}"
+        )
         return deck_name
     # Legacy fallback for old game_metas
     if deck_type in _COMMANDER_DECK_TYPES:

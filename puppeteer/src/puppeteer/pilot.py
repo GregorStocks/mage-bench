@@ -587,9 +587,7 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(
-    mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None
-) -> list[dict]:
+def mcp_tools_to_openai(mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format.
 
     Args:

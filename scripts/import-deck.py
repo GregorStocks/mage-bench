@@ -26,7 +26,9 @@ def download_deck_text(url: str) -> str:
     download_url = f"https://www.mtggoldfish.com/deck/download/{deck_id}"
     with urllib.request.urlopen(download_url) as resp:
         body = resp.read()
-    assert isinstance(body, bytes), f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
+    assert isinstance(body, bytes), (
+        f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
+    )
     return body.decode("utf-8")
 
 

@@ -69,7 +69,9 @@ def get_open_branch_pr(branch: str) -> dict[str, object] | None:
     assert result.returncode == 0, f"gh pr list --head {branch} failed: {result.stderr}"
 
     prs = json.loads(result.stdout)
-    assert isinstance(prs, list), f"gh pr list returned non-list payload: {type(prs).__name__}"
+    assert isinstance(prs, list), (
+        f"gh pr list returned non-list payload: {type(prs).__name__}"
+    )
     if not prs:
         return None
 

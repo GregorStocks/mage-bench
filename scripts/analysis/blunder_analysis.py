@@ -573,7 +573,11 @@ def _format_choice(c: dict) -> str:
         name = raw_name
     else:
         raw_description = c.get("description")
-        name = raw_description if isinstance(raw_description, str) and raw_description else f"option_{c.get('index', '?')}"
+        name = (
+            raw_description
+            if isinstance(raw_description, str) and raw_description
+            else f"option_{c.get('index', '?')}"
+        )
     extras: list[str] = []
     if c.get("id"):
         extras.append(f"id={c['id']}")

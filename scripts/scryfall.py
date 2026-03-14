@@ -29,10 +29,14 @@ _cache: dict[str, dict | str | None] | None = None
 
 
 def _dict_list(value: object, *, context: str) -> list[dict]:
-    assert isinstance(value, list), f"{context}: expected list, got {type(value).__name__}"
+    assert isinstance(value, list), (
+        f"{context}: expected list, got {type(value).__name__}"
+    )
     items: list[dict] = []
     for index, item in enumerate(value):
-        assert isinstance(item, dict), f"{context}[{index}]: expected object, got {type(item).__name__}"
+        assert isinstance(item, dict), (
+            f"{context}[{index}]: expected object, got {type(item).__name__}"
+        )
         items.append(item)
     return items
 
@@ -80,9 +84,9 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     with urllib.request.urlopen(req) as resp:
         data = json.loads(resp.read())
     assert isinstance(data, dict), "Scryfall collection returned non-object payload"
-    return _dict_list(data.get("data", []), context="Scryfall collection data"), _dict_list(
-        data.get("not_found", []), context="Scryfall collection not_found"
-    )
+    return _dict_list(
+        data.get("data", []), context="Scryfall collection data"
+    ), _dict_list(data.get("not_found", []), context="Scryfall collection not_found")
 
 
 def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
@@ -146,7 +150,9 @@ def named(name: str) -> dict | None:
     try:
         with urllib.request.urlopen(req) as resp:
             card = json.loads(resp.read())
-        assert isinstance(card, dict), f"Scryfall named({name!r}) returned non-object payload"
+        assert isinstance(card, dict), (
+            f"Scryfall named({name!r}) returned non-object payload"
+        )
         cache[name] = card
         _save_cache()
         return card
@@ -181,8 +187,12 @@ def search_token(token_name: str) -> str | None:
     try:
         with urllib.request.urlopen(req) as resp:
             data = json.loads(resp.read())
-        assert isinstance(data, dict), f"Scryfall token search for {token_name!r} returned non-object payload"
-        cards = _dict_list(data.get("data", []), context=f"Scryfall token search for {token_name!r}")
+        assert isinstance(data, dict), (
+            f"Scryfall token search for {token_name!r} returned non-object payload"
+        )
+        cards = _dict_list(
+            data.get("data", []), context=f"Scryfall token search for {token_name!r}"
+        )
         if cards:
             image_uris = cards[0].get("image_uris")
             url = image_uris.get("small") if image_uris else None
@@ -317,7 +327,9 @@ def search(query: str) -> list[dict]:
     try:
         with urllib.request.urlopen(req) as resp:
             data = json.loads(resp.read())
-        assert isinstance(data, dict), f"Scryfall search({query!r}) returned non-object payload"
+        assert isinstance(data, dict), (
+            f"Scryfall search({query!r}) returned non-object payload"
+        )
         return _dict_list(data.get("data", []), context=f"Scryfall search({query!r})")
     except urllib.error.HTTPError:
         return []

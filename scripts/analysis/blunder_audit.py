@@ -42,7 +42,9 @@ def _find_free_port() -> int:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
         sockname = s.getsockname()
-        assert isinstance(sockname, tuple) and len(sockname) >= 2, f"Unexpected socket name: {sockname!r}"
+        assert isinstance(sockname, tuple) and len(sockname) >= 2, (
+            f"Unexpected socket name: {sockname!r}"
+        )
         port = sockname[1]
         assert isinstance(port, int), f"Expected integer port, got {port!r}"
         return port
