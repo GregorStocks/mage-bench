@@ -211,7 +211,8 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
 def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
     if isinstance(c, dict):
-        return c.get("name", "?")
+        name = c.get("name")
+        return name if isinstance(name, str) and name else "?"
     return str(c)
 
 
@@ -219,7 +220,8 @@ def permanent_display(c: object) -> str:
     """Display a battlefield permanent with status annotations."""
     if not isinstance(c, dict):
         return str(c)
-    name = c.get("name", "?")
+    raw_name = c.get("name")
+    name = raw_name if isinstance(raw_name, str) and raw_name else "?"
     extras: list[str] = []
     if c.get("tapped"):
         extras.append("tapped")

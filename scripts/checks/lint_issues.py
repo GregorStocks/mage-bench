@@ -73,7 +73,7 @@ def lint_issues(project_root: Path) -> list[str]:
     return errors
 
 
-def main():
+def main() -> None:
     project_root = Path(__file__).resolve().parent.parent.parent
     errors = lint_issues(project_root)
 

@@ -17,6 +17,28 @@ GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
 
 
+def _coerce_int(value: object, *, default: int = 0) -> int:
+    if isinstance(value, int) and not isinstance(value, bool):
+        return value
+    return default
+
+
+def _coerce_bool(value: object, *, default: bool = False) -> bool:
+    if isinstance(value, bool):
+        return value
+    return default
+
+
+def _coerce_str(value: object, *, default: str = "") -> str:
+    if isinstance(value, str):
+        return value
+    return default
+
+
+def _coerce_dict(value: object) -> dict:
+    return value if isinstance(value, dict) else {}
+
+
 # --- Decision format compat helpers ---
 # Canonical decisions (from export's decisions[]) use camelCase.
 # Legacy decisions (from extract_decisions) use snake_case.
@@ -30,32 +52,32 @@ def is_canonical_decision(d: dict) -> bool:
 
 def decision_index(d: dict) -> int:
     """Get the decision index from either format."""
-    return d.get("index", d.get("decision_index", 0))
+    return _coerce_int(d.get("index", d.get("decision_index", 0)))
 
 
 def snapshot_index(d: dict) -> int:
     """Get the snapshot index from either format."""
-    return d.get("snapshotIndex", d.get("snapshot_index", 0))
+    return _coerce_int(d.get("snapshotIndex", d.get("snapshot_index", 0)))
 
 
 def is_forced(d: dict) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
-    return d.get("isForced", d.get("is_forced", False))
+    return _coerce_bool(d.get("isForced", d.get("is_forced", False)))
 
 
 def action_result(d: dict) -> dict:
     """Get the action result from either format."""
-    return d.get("actionResult", d.get("action_result", {}))
+    return _coerce_dict(d.get("actionResult", d.get("action_result", {})))
 
 
 def is_rolled_back(d: dict) -> bool:
     """Check if a decision was rolled back in either format."""
-    return d.get("rolled_back", False)
+    return _coerce_bool(d.get("rolled_back", False))
 
 
 def is_cast_rolled_back(d: dict) -> bool:
     """Check if a cast was rolled back in either format."""
-    return d.get("castRolledBack", d.get("cast_rolled_back", False))
+    return _coerce_bool(d.get("castRolledBack", d.get("cast_rolled_back", False)))
 
 
 def is_mana_ability_subdecision(d: dict) -> bool:
@@ -64,7 +86,7 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
-    msg = d.get("message", "")
+    msg = _coerce_str(d.get("message", ""))
     if msg.startswith("Choose which mana to produce from"):
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
@@ -81,7 +103,10 @@ def is_mana_ability_subdecision(d: dict) -> bool:
 
 def subsequent_actions(d: dict) -> list[str]:
     """Get subsequent actions from either format."""
-    return d.get("subsequentActions", d.get("subsequent_actions", []))
+    actions = d.get("subsequentActions", d.get("subsequent_actions", []))
+    if not isinstance(actions, list):
+        return []
+    return [action for action in actions if isinstance(action, str)]
 
 
 def load_game(path: str | Path) -> dict:
@@ -89,9 +114,12 @@ def load_game(path: str | Path) -> dict:
     path = str(path)
     if path.endswith(".json.gz"):
         with gzip.open(path, "rt") as f:
-            return json.load(f)
-    with open(path) as f:
-        return json.load(f)
+            data = json.load(f)
+    else:
+        with open(path) as f:
+            data = json.load(f)
+    assert isinstance(data, dict), f"{path}: expected JSON object"
+    return data
 
 
 def glob_game_files(games_dir: Path) -> list[Path]:
@@ -131,7 +159,9 @@ def load_ground_truth() -> dict[str, list[dict]]:
     for p in sorted(GROUND_TRUTH_DIR.glob("*.json")):
         game_id = p.stem
         with open(p) as f:
-            result[game_id] = json.load(f)
+            entries = json.load(f)
+        assert isinstance(entries, list), f"{p}: expected JSON array"
+        result[game_id] = [entry for entry in entries if isinstance(entry, dict)]
     return result
 
 
@@ -141,7 +171,9 @@ def load_game_ground_truth(game_id: str) -> list[dict]:
     if not path.exists():
         return []
     with open(path) as f:
-        return json.load(f)
+        entries = json.load(f)
+    assert isinstance(entries, list), f"{path}: expected JSON array"
+    return [entry for entry in entries if isinstance(entry, dict)]
 
 
 def save_game_ground_truth(game_id: str, entries: list[dict]) -> None:
@@ -158,7 +190,9 @@ def save_game_ground_truth(game_id: str, entries: list[dict]) -> None:
 def load_baseline() -> dict:
     """Load baseline from disk."""
     assert BASELINE_PATH.exists(), f"Baseline not found: {BASELINE_PATH}"
-    return json.loads(BASELINE_PATH.read_text())
+    baseline = json.loads(BASELINE_PATH.read_text())
+    assert isinstance(baseline, dict), f"{BASELINE_PATH}: expected JSON object"
+    return baseline
 
 
 def save_baseline(baseline: dict) -> None:
@@ -299,7 +333,14 @@ def chosen_display(decision: dict) -> str:
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
-        return c.get("name", c.get("description", f"option_{chosen}"))
+        if isinstance(c, dict):
+            name = c.get("name")
+            if isinstance(name, str) and name:
+                return name
+            description = c.get("description")
+            if isinstance(description, str) and description:
+                return description
+        return f"option_{chosen}"
     if chosen is not None:
         return str(chosen)
     # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen

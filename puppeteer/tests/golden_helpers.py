@@ -364,7 +364,7 @@ class BridgeSession:
         try:
             self._rpc("tools/list", {}, timeout=timeout)
             return True
-        except Exception:
+        except (RuntimeError, json.JSONDecodeError):
             return False
 
 
@@ -515,7 +515,7 @@ class BridgeManager:
             if self._proc.stdin:
                 try:
                     self._proc.stdin.close()
-                except Exception:
+                except (OSError, ValueError):
                     pass
             try:
                 self._proc.wait(timeout=5)
@@ -593,7 +593,7 @@ class SpectatorProcess:
     def close(self) -> None:
         try:
             self._stdin.close()
-        except Exception:
+        except (OSError, ValueError):
             pass
 
 
@@ -1067,7 +1067,7 @@ def run_golden_scenario(
                         "table_id": table_id,
                     },
                 )
-            except Exception as exc:
+            except (RuntimeError, json.JSONDecodeError) as exc:
                 join_errors.append(("bridge_a", exc))
 
         def _join_b() -> None:
@@ -1079,7 +1079,7 @@ def run_golden_scenario(
                         "table_id": table_id,
                     },
                 )
-            except Exception as exc:
+            except (RuntimeError, json.JSONDecodeError) as exc:
                 join_errors.append(("bridge_b", exc))
 
         with timed_phase(golden_name, "bridge_join"):
@@ -1109,7 +1109,7 @@ def run_golden_scenario(
                     player_a_name,
                     deck_a,
                 )
-            except Exception as exc:
+            except (AssertionError, RuntimeError, OSError, json.JSONDecodeError) as exc:
                 replay_errors.append(("player_a", exc))
 
         def _replay_b() -> None:
@@ -1126,7 +1126,7 @@ def run_golden_scenario(
                     )
                 else:
                     _run_opponent_autopass(session_b)
-            except Exception as exc:
+            except (AssertionError, RuntimeError, OSError, json.JSONDecodeError) as exc:
                 replay_errors.append(("player_b", exc))
 
         with timed_phase(golden_name, "replay"):
@@ -1165,7 +1165,7 @@ def run_golden_scenario(
         for session in [session_a, session_b]:
             try:
                 session.call_tool("concede", timeout=10)
-            except Exception:
+            except RuntimeError:
                 pass
 
 

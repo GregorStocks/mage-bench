@@ -75,7 +75,8 @@ def _infer_action_type(events: list[dict], idx: int, player: str) -> str:
         if ev.get("tool") == "get_action_choices":
             r = _parse_result(ev.get("result", ""))
             if r:
-                return r.get("action_type", "")
+                action_type = r.get("action_type")
+                return action_type if isinstance(action_type, str) else ""
         # Stop if we hit another choose_action from this player
         if ev.get("tool") == "choose_action":
             break

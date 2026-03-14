@@ -6,6 +6,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 MAGE_BENCH_DIR = Path.home() / ".mage-bench"
 CLIENT_SECRETS_FILE = MAGE_BENCH_DIR / "youtube-client-secrets.json"
@@ -132,7 +133,7 @@ def _build_description(meta: dict, game_dir: Path) -> str:
     return "\n".join(lines)
 
 
-def _get_authenticated_service():
+def _get_authenticated_service() -> Any:
     """Build an authenticated YouTube API service."""
     try:
         from google.auth.transport.requests import Request
@@ -270,7 +271,7 @@ def upload_to_youtube(game_dir: Path) -> str | None:
     return url
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <game_id>")
         print(f"  game_id: directory name under {LOGS_DIR}")

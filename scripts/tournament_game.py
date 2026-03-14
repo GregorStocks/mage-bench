@@ -53,6 +53,7 @@ def load_season(allowed_phases: Collection[str] | None = None) -> dict:
     """Load data/season.json, optionally asserting the current phase."""
     assert _SEASON_FILE.exists(), f"Season file not found: {_SEASON_FILE}"
     season_data = json.loads(_SEASON_FILE.read_text())
+    assert isinstance(season_data, dict), f"{_SEASON_FILE}: expected JSON object"
     if allowed_phases is not None:
         phase = season_data["phase"]
         assert phase in allowed_phases, (
@@ -79,6 +80,7 @@ def load_tournament(
     tournament_path = _ROOT / tournament_rel
     assert tournament_path.exists(), f"Tournament file not found: {tournament_path}"
     tournament = json.loads(tournament_path.read_text())
+    assert isinstance(tournament, dict), f"{tournament_path}: expected JSON object"
     return tournament, tournament_path
 
 
@@ -231,6 +233,9 @@ def get_tournament_champion_seed(tournament: dict) -> int | None:
     )
     champion_seed = final_round["matches"][0]["winner_seed"]
     assert champion_seed is not None, "Complete tournament is missing a finals winner"
+    assert isinstance(champion_seed, int) and not isinstance(champion_seed, bool), (
+        f"Champion seed must be an int, got {champion_seed!r}"
+    )
     return champion_seed
 
 

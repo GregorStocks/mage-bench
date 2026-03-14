@@ -25,7 +25,16 @@ _CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
 _last_request_time: float = 0.0
 
 # In-memory cache, lazily loaded from disk
-_cache: dict[str, dict | None] | None = None
+_cache: dict[str, dict | str | None] | None = None
+
+
+def _dict_list(value: object, *, context: str) -> list[dict]:
+    assert isinstance(value, list), f"{context}: expected list, got {type(value).__name__}"
+    items: list[dict] = []
+    for index, item in enumerate(value):
+        assert isinstance(item, dict), f"{context}[{index}]: expected object, got {type(item).__name__}"
+        items.append(item)
+    return items
 
 
 def _rate_limit() -> None:
@@ -38,12 +47,14 @@ def _rate_limit() -> None:
     _last_request_time = time.monotonic()
 
 
-def _load_cache() -> dict[str, dict | None]:
+def _load_cache() -> dict[str, dict | str | None]:
     """Load cache from disk, or return empty dict."""
     global _cache
     if _cache is None:
         if _CACHE_PATH.exists():
-            _cache = json.loads(_CACHE_PATH.read_text())
+            cached = json.loads(_CACHE_PATH.read_text())
+            assert isinstance(cached, dict), f"{_CACHE_PATH}: expected JSON object"
+            _cache = cached
         else:
             _cache = {}
     return _cache
@@ -68,7 +79,10 @@ def _fetch_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     )
     with urllib.request.urlopen(req) as resp:
         data = json.loads(resp.read())
-    return data.get("data", []), data.get("not_found", [])
+    assert isinstance(data, dict), "Scryfall collection returned non-object payload"
+    return _dict_list(data.get("data", []), context="Scryfall collection data"), _dict_list(
+        data.get("not_found", []), context="Scryfall collection not_found"
+    )
 
 
 def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
@@ -86,10 +100,12 @@ def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     for name in names:
         if name in cache:
             val = cache[name]
-            if val is not None:
+            if isinstance(val, dict):
                 found.append(val)
-            else:
+            elif val is None:
                 not_found.append({"name": name})
+            else:
+                uncached.append(name)
         else:
             uncached.append(name)
 
@@ -118,7 +134,8 @@ def named(name: str) -> dict | None:
     """
     cache = _load_cache()
     if name in cache:
-        return cache[name]
+        cached = cache[name]
+        return cached if isinstance(cached, dict) else None
 
     _rate_limit()
     qs = urllib.parse.urlencode({"exact": name})
@@ -129,6 +146,7 @@ def named(name: str) -> dict | None:
     try:
         with urllib.request.urlopen(req) as resp:
             card = json.loads(resp.read())
+        assert isinstance(card, dict), f"Scryfall named({name!r}) returned non-object payload"
         cache[name] = card
         _save_cache()
         return card
@@ -163,7 +181,8 @@ def search_token(token_name: str) -> str | None:
     try:
         with urllib.request.urlopen(req) as resp:
             data = json.loads(resp.read())
-        cards = data.get("data", [])
+        assert isinstance(data, dict), f"Scryfall token search for {token_name!r} returned non-object payload"
+        cards = _dict_list(data.get("data", []), context=f"Scryfall token search for {token_name!r}")
         if cards:
             image_uris = cards[0].get("image_uris")
             url = image_uris.get("small") if image_uris else None
@@ -298,6 +317,7 @@ def search(query: str) -> list[dict]:
     try:
         with urllib.request.urlopen(req) as resp:
             data = json.loads(resp.read())
-        return data.get("data", [])
+        assert isinstance(data, dict), f"Scryfall search({query!r}) returned non-object payload"
+        return _dict_list(data.get("data", []), context=f"Scryfall search({query!r})")
     except urllib.error.HTTPError:
         return []

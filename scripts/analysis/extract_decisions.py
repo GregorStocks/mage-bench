@@ -17,7 +17,8 @@ def _summarize_permanent(c: dict) -> str | dict:
     interesting, or a dict with extra info when tapped/counters/sick."""
     if not isinstance(c, dict):
         return str(c)
-    name = c.get("name", "?")
+    raw_name = c.get("name")
+    name = raw_name if isinstance(raw_name, str) and raw_name else "?"
     extras: dict = {}
     if c.get("tapped"):
         extras["tapped"] = True
@@ -45,7 +46,8 @@ def _summarize_stack_item(item: object) -> str | dict:
     or a dict with name + targets when targets are present."""
     if not isinstance(item, dict):
         return str(item)
-    name = item.get("name", "?")
+    raw_name = item.get("name")
+    name = raw_name if isinstance(raw_name, str) and raw_name else "?"
     targets = item.get("targets")
     if targets:
         return {"name": name, "targets": targets}
@@ -133,17 +135,19 @@ def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
 def _parse_choices_result(result_str: str) -> dict:
     """Parse the result of a get_action_choices tool call."""
     try:
-        return json.loads(result_str)
+        parsed = json.loads(result_str)
     except (json.JSONDecodeError, TypeError):
         return {}
+    return parsed if isinstance(parsed, dict) else {}
 
 
 def _parse_action_result(result_str: str) -> dict:
     """Parse the result of a choose_action tool call."""
     try:
-        return json.loads(result_str)
+        parsed = json.loads(result_str)
     except (json.JSONDecodeError, TypeError):
         return {}
+    return parsed if isinstance(parsed, dict) else {}
 
 
 def _resolve_chosen_index(
@@ -181,11 +185,14 @@ def _resolve_chosen_index(
                 if isinstance(c, dict) and c.get("id") == target_id:
                     return ci
             # id didn't match any choice; fall through to index
-        return chosen_args["index"]
+        chosen_index: object = chosen_args["index"]
+        return chosen_index
     if "answer" in chosen_args:
-        return chosen_args["answer"]
+        chosen_answer: object = chosen_args["answer"]
+        return chosen_answer
     if "amount" in chosen_args:
-        return chosen_args["amount"]
+        chosen_amount: object = chosen_args["amount"]
+        return chosen_amount
     if has_id:
         target_id = chosen_args["id"]
         for ci, c in enumerate(available_choices):
@@ -555,7 +562,9 @@ def extract_decisions(gz_path: str) -> list[dict]:
 
     # Use pre-built canonical decisions when available
     if "decisions" in data:
-        return data["decisions"]
+        decisions = data["decisions"]
+        assert isinstance(decisions, list), f"{gz_path}: decisions must be a list"
+        return [decision for decision in decisions if isinstance(decision, dict)]
 
     # Legacy: extract from llmEvents
     is_v2 = "version" in data
