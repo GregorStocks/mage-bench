@@ -31,7 +31,7 @@ def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = No
         "actions": [],
         "llmEvents": events,
     }
-    path = tmp_path / "test_game.json.gz"
+    path = tmp_path / "game_test.json.gz"
     with gzip.open(path, "wt") as f:
         json.dump(data, f)
     return str(path)
@@ -247,7 +247,7 @@ class TestDirectoryMode:
             "players": [{"name": "Alice", "model": "test/model-a"}],
             "llmEvents": events1,
         }
-        p1 = tmp_path / "game1.json.gz"
+        p1 = tmp_path / "game_1.json.gz"
         with gzip.open(p1, "wt") as f:
             json.dump(data1, f)
 
@@ -266,7 +266,7 @@ class TestDirectoryMode:
             "players": [{"name": "Alice", "model": "test/model-a"}],
             "llmEvents": events2,
         }
-        p2 = tmp_path / "game2.json.gz"
+        p2 = tmp_path / "game_2.json.gz"
         with gzip.open(p2, "wt") as f:
             json.dump(data2, f)
 
@@ -296,7 +296,7 @@ class TestDirectoryMode:
             "players": [{"name": "Alice", "model": "test/model"}],
             "llmEvents": events,
         }
-        p = tmp_path / "game.json.gz"
+        p = tmp_path / "game_test.json.gz"
         with gzip.open(p, "wt") as f:
             json.dump(data, f)
 
