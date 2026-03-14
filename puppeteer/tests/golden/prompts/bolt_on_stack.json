@@ -347,7 +347,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Lightning Bolt, Memnite, Plains, Plateau, Taiga] lib=52 bf=[Badlands, Mountain (tapped)] | Opponent: 20hp hand=8 lib=51 gy=[Mountain]\n  Stack: [Lightning Bolt -> {'name': 'Opponent', 'id': 'p1'}]\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (1): Lightning Bolt [id=p12, cast, {R}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Lightning Bolt, Memnite, Plains, Plateau, Taiga] lib=52 bf=[Badlands, Mountain (tapped)] | Opponent: 20hp hand=8 lib=51 gy=[Mountain]\n  Stack: [Lightning Bolt -> Opponent]\n  Untapped lands: 1\n  Message: Play instants and activated abilities\n  Choices (1): Lightning Bolt [id=p12, cast, {R}]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -368,7 +368,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Memnite, Plains, Plateau, Taiga] lib=52 bf=[Badlands, Mountain (tapped)] | Opponent: 20hp hand=8 lib=51 gy=[Mountain]\n  Stack: [Lightning Bolt, Lightning Bolt -> {'name': 'Opponent', 'id': 'p1'}]\n  Untapped lands: 1\n  Message: Select any target\n  Choices (2): TestPlayer [id=p2], Opponent [id=p1]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Memnite, Plains, Plateau, Taiga] lib=52 bf=[Badlands, Mountain (tapped)] | Opponent: 20hp hand=8 lib=51 gy=[Mountain]\n  Stack: [Lightning Bolt, Lightning Bolt -> Opponent]\n  Untapped lands: 1\n  Message: Select any target\n  Choices (2): TestPlayer [id=p2], Opponent [id=p1]\n  Respond: choice=pN, or choice=no to cancel\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_17"
   },
