@@ -33,6 +33,8 @@ jobs:
 
       - run: mvn install -q -DskipTests -T 1C
 
+      - run: make lint-java
+
   python:
     runs-on: ubuntu-latest
     steps:

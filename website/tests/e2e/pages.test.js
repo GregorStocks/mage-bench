@@ -19,6 +19,14 @@ function readPage(pagePath) {
   return fs.readFileSync(filePath, "utf-8");
 }
 
+function readBuiltFile(relativePath) {
+  return fs.readFileSync(path.join(distDir, relativePath), "utf-8");
+}
+
+function readBuiltJson(relativePath) {
+  return JSON.parse(readBuiltFile(relativePath));
+}
+
 function escapeHtml(text) {
   return text
     .replaceAll("&", "&amp;")
@@ -95,6 +103,24 @@ describe("top-level pages load with expected content", () => {
   test("internals page", () => {
     const html = readPage("internals");
     expect(html).toContain("Internals");
+    expect(html).toContain('data-data-url="/internals/data/trends.json"');
+    expect(html).toContain('data-data-url="/internals/data/model-stats.json"');
+    expect(html).toContain('data-data-url="/internals/data/blunder.json"');
+    expect(html).not.toContain('id="model-stats-data"');
+    expect(html).not.toContain('id="internals-data"');
+    expect(html).not.toContain('id="blunder-data"');
+  });
+});
+
+describe("internals data endpoints", () => {
+  test("internals dashboard JSON endpoints are prerendered", () => {
+    const trendData = readBuiltJson("internals/data/trends.json");
+    const modelStatsData = readBuiltJson("internals/data/model-stats.json");
+    const blunderData = readBuiltJson("internals/data/blunder.json");
+
+    expect(Array.isArray(trendData.games)).toBe(true);
+    expect(typeof modelStatsData.models).toBe("object");
+    expect(Array.isArray(blunderData.runs)).toBe(true);
   });
 });
 

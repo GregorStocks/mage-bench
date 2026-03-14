@@ -1,0 +1,33 @@
+---
+interface Props {
+  dataUrl: string;
+}
+
+const { dataUrl } = Astro.props as Props;
+---
+
+<div class="tab-content" id="tab-blunder" data-data-url={dataUrl}>
+  <div class="trends-controls">
+    <div class="metric-row">
+      <span class="control-label">Metric</span>
+      <div class="metric-buttons" id="blunder-metric-buttons">
+        <button class="metric-btn active" data-metric="cacheRate" title="Percentage of prompt tokens served from cache">Cache%</button>
+        <button class="metric-btn" data-metric="cost" title="Total API cost in USD">Cost</button>
+        <button class="metric-btn" data-metric="promptTokens" title="Total prompt tokens used">Prompt Tok</button>
+        <button class="metric-btn" data-metric="decisions" title="Number of decisions (action points) in the game">Decisions</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <label class="control-label">
+          Min Version
+          <input type="number" id="blunder-min-version" value="1" min="1" />
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="chart-container">
+    <canvas id="blunder-chart"></canvas>
+  </div>
+  <p class="chart-note" id="blunder-chart-note">Loading blunder analysis...</p>
+</div>

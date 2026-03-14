@@ -26,7 +26,7 @@ export default [
     rules: bugFinderRules,
   },
   {
-    files: ["src/scripts/**/*.js"],
+    files: ["src/scripts/**/*.{js,ts}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

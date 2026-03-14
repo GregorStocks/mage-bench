@@ -120,16 +120,16 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.15.0</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <release>${java.version}</release>
                         <encoding>UTF-8</encoding>
+                        <!-- Use the real javac binary; the in-process compiler rejects release 17 here. -->
+                        <fork>true</fork>
                         <!--
                         Because of known error in maven-compiler-plugin 3.2 useIncrementalCompilation is inverted
                         so remove this arg with update that fixes the problem
                         https://jira.codehaus.org/browse/MCOMPILER-209
                         -->
                         <useIncrementalCompilation>false</useIncrementalCompilation>
-                        <!--                    <compilerArgument>-Xlint:all</compilerArgument> -->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -244,6 +244,30 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>java-lint</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <configuration>
+                                <!-- Low-noise warning gate used by make lint-java. -->
+                                <showDeprecation>true</showDeprecation>
+                                <failOnWarning>true</failOnWarning>
+                                <compilerArgs>
+                                    <arg>-Xlint:unchecked,deprecation</arg>
+                                </compilerArgs>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 
     <modules>
         <module>Mage</module>

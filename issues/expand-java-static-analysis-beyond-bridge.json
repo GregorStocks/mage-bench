@@ -1,0 +1,10 @@
+{
+  "title": "Expand Java static analysis beyond bridge PMD",
+  "description": "Recent Java lint work on `origin/master` closed the original broad issue: the root build now enables `-Xlint:unchecked,deprecation`, and `Mage.Client.Bridge` has a PMD ruleset wired in. The remaining gap is narrower but still real:\n- Static analysis is still concentrated in the bridge module rather than the broader Java tree.\n- `make check` still does not run a repo-wide Java lint/static-analysis pass.\n- A fresh suppression scan still finds 98 `@SuppressWarnings(...)` annotations and 11 `//noinspection ...` comments across the Java sources.\n\nThat suggests a follow-up task rather than reopening the old issue. Suggested next steps:\n1. Measure warning volume module-by-module outside `Mage.Client.Bridge`, especially `Mage.Common`, `Mage.Client`, and `Mage.Server`.\n2. Decide whether PMD should expand to more modules or whether a different tool (SpotBugs / Error Prone / Checkstyle) is a better fit for the remaining problems.\n3. Add the chosen Java static-analysis step to normal validation once the false-positive rate is understood.\n\nThe goal is to build on the new bridge/root warning work instead of stopping after the first module got coverage.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["java", "build", "lint"],
+  "created_at": "2026-03-14T08:31:42-07:00",
+  "updated_at": "2026-03-14T08:31:42-07:00"
+}

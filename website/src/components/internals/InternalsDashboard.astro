@@ -1,0 +1,45 @@
+---
+import '../../styles/internals-dashboard.css';
+
+import type { GoldenTestScenario } from '../../utils/internals-types';
+import InternalsBlunderTab from './InternalsBlunderTab.astro';
+import InternalsGoldenTestsTab from './InternalsGoldenTestsTab.astro';
+import InternalsModelStatsTab from './InternalsModelStatsTab.astro';
+import InternalsTrendsTab from './InternalsTrendsTab.astro';
+
+interface Props {
+  blunderDataUrl: string;
+  goldenScenarios: GoldenTestScenario[];
+  modelStatsDataUrl: string;
+  trendsDataUrl: string;
+}
+
+const {
+  blunderDataUrl,
+  goldenScenarios,
+  modelStatsDataUrl,
+  trendsDataUrl,
+} = Astro.props as Props;
+---
+
+<div id="internals-dashboard">
+  <h1>Internals</h1>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="trends">Trends</button>
+    <button class="tab" data-tab="model-stats">Model Stats</button>
+    <button class="tab" data-tab="blunder">Blunder Analysis</button>
+    <button class="tab" data-tab="golden">Golden Tests</button>
+  </div>
+
+  <InternalsTrendsTab dataUrl={trendsDataUrl} />
+  <InternalsModelStatsTab dataUrl={modelStatsDataUrl} />
+  <InternalsBlunderTab dataUrl={blunderDataUrl} />
+  <InternalsGoldenTestsTab scenarios={goldenScenarios} />
+</div>
+
+<script>
+  import { initInternalsDashboard } from '../../scripts/init-internals-dashboard';
+
+  void initInternalsDashboard();
+</script>
