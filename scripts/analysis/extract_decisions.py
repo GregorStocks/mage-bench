@@ -19,7 +19,6 @@ def _summarize_permanent(c: dict) -> str | dict:
         return str(c)
     name = c.get("name", "?")
     assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
-    name = name or "?"
     extras: dict = {}
     if c.get("tapped"):
         extras["tapped"] = True
@@ -49,7 +48,6 @@ def _summarize_stack_item(item: object) -> str | dict:
         return str(item)
     name = item.get("name", "?")
     assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
-    name = name or "?"
     targets = item.get("targets")
     if targets:
         return {"name": name, "targets": targets}

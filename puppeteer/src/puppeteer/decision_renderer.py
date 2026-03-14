@@ -213,7 +213,7 @@ def card_display(c: object) -> str:
     if isinstance(c, dict):
         name = c.get("name", "?")
         assert isinstance(name, str), f"card name must be a string, got {name!r}"
-        return name or "?"
+        return name
     return str(c)
 
 
@@ -223,7 +223,6 @@ def permanent_display(c: object) -> str:
         return str(c)
     name = c.get("name", "?")
     assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
-    name = name or "?"
     extras: list[str] = []
     if c.get("tapped"):
         extras.append("tapped")
