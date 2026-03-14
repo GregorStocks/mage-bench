@@ -24,7 +24,7 @@ from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import ProcessManager, kill_tree
+from puppeteer.process_manager import ProcessManager, jvm_oom_preference_kwargs, kill_tree
 from puppeteer.xml_config import modify_server_config
 from scripts.analysis.blunder_analysis import (
     BlunderAnalysisError,
@@ -588,7 +588,11 @@ def compile_project(
         cmd.append("-Dmaven.build.cache.enabled=false")
     cmd.append("install")
 
-    result = subprocess.run(cmd, cwd=project_root)
+    result = subprocess.run(
+        cmd,
+        cwd=project_root,
+        **jvm_oom_preference_kwargs(),
+    )
     return result.returncode == 0
 
 
@@ -603,6 +607,7 @@ def refresh_observer_resources(project_root: Path) -> bool:
             "resources:resources",
         ],
         cwd=project_root,
+        **jvm_oom_preference_kwargs(),
     )
     return result.returncode == 0
 
@@ -645,6 +650,7 @@ def start_server(
         cwd=project_root / "Mage.Server",
         env=env,
         log_file=log_path,
+        prefer_oom_kill=True,
     )
 
 
@@ -696,6 +702,7 @@ def start_gui_client(
         cwd=project_root / "Mage.Client",
         env=env,
         log_file=log_path,
+        prefer_oom_kill=True,
     )
 
 
@@ -732,6 +739,7 @@ def start_potato_client(
         cwd=project_root / "Mage.Client.Bridge",
         env=env,
         log_file=log_path,
+        prefer_oom_kill=True,
     )
 
 
@@ -981,6 +989,7 @@ def start_observer_client(
         cwd=project_root / "Mage.Client.Observer",
         env=env,
         log_file=log_path,
+        prefer_oom_kill=True,
     )
 
 

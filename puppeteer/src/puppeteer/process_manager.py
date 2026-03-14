@@ -8,9 +8,29 @@ import sys
 import threading
 from pathlib import Path
 from types import FrameType
-from typing import IO
+from typing import IO, Any
 
 import psutil
+
+_PREFER_OOM_KILL_SCORE_ADJ = 500
+
+
+def _write_oom_score_adj(score_adj: int) -> None:
+    """Set the current process's Linux OOM score adjustment."""
+    assert -1000 <= score_adj <= 1000, f"oom_score_adj out of range: {score_adj}"
+    with open("/proc/self/oom_score_adj", "w", encoding="ascii") as fh:
+        fh.write(f"{score_adj}\n")
+
+
+def jvm_oom_preference_kwargs() -> dict[str, Any]:
+    """Return subprocess kwargs that bias Linux OOM killer toward launched JVMs."""
+    if sys.platform != "linux":
+        return {}
+
+    def _preexec() -> None:
+        _write_oom_score_adj(_PREFER_OOM_KILL_SCORE_ADJ)
+
+    return {"preexec_fn": _preexec}
 
 
 def kill_tree(pid: int) -> None:
@@ -102,6 +122,7 @@ class ProcessManager:
         cwd: Path | None = None,
         env: dict[str, str] | None = None,
         log_file: Path | None = None,
+        prefer_oom_kill: bool = False,
     ) -> subprocess.Popen:
         """Start a subprocess and track it for cleanup.
 
@@ -121,6 +142,8 @@ class ProcessManager:
             stdout = subprocess.PIPE
             stderr = subprocess.PIPE
 
+        popen_kwargs = jvm_oom_preference_kwargs() if prefer_oom_kill else {}
+
         try:
             proc = subprocess.Popen(
                 args,
@@ -128,6 +151,7 @@ class ProcessManager:
                 env=merged_env,
                 stdout=stdout,
                 stderr=stderr,
+                **popen_kwargs,
                 # Don't use start_new_session=True - keep processes in same group
                 # so they receive signals when parent is killed
             )

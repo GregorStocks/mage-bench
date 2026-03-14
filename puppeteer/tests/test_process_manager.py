@@ -2,10 +2,12 @@
 
 import signal
 import threading
+from unittest.mock import Mock
 
 import pytest
 
-from puppeteer.process_manager import ProcessManager
+from puppeteer import process_manager
+from puppeteer.process_manager import ProcessManager, jvm_oom_preference_kwargs
 
 
 @pytest.fixture(autouse=True)
@@ -56,3 +58,39 @@ def test_uses_reentrant_lock():
     """ProcessManager should use RLock to avoid deadlock in signal handlers."""
     pm = ProcessManager()
     assert isinstance(pm._lock, type(threading.RLock()))
+
+
+def test_jvm_oom_preference_kwargs_linux(monkeypatch: pytest.MonkeyPatch):
+    """Linux JVM launches should get a preexec hook that raises oom_score_adj."""
+    calls: list[int] = []
+    monkeypatch.setattr(process_manager.sys, "platform", "linux")
+    monkeypatch.setattr(process_manager, "_write_oom_score_adj", calls.append)
+
+    kwargs = jvm_oom_preference_kwargs()
+
+    assert "preexec_fn" in kwargs
+    kwargs["preexec_fn"]()
+    assert calls == [500]
+
+
+def test_jvm_oom_preference_kwargs_non_linux(monkeypatch: pytest.MonkeyPatch):
+    """Non-Linux platforms should not get Linux-specific subprocess hooks."""
+    monkeypatch.setattr(process_manager.sys, "platform", "darwin")
+    assert jvm_oom_preference_kwargs() == {}
+
+
+def test_start_process_passes_oom_preference_kwargs(monkeypatch: pytest.MonkeyPatch, tmp_path):
+    """ProcessManager should opt into the OOM-bias hook only when requested."""
+    popen = Mock()
+    popen.return_value = Mock()
+    marker = object()
+
+    monkeypatch.setattr(process_manager.subprocess, "Popen", popen)
+    monkeypatch.setattr(process_manager, "jvm_oom_preference_kwargs", lambda: {"preexec_fn": marker})
+
+    pm = ProcessManager()
+    pm.start_process(["echo", "hi"], cwd=tmp_path, prefer_oom_kill=True)
+    assert popen.call_args_list[0].kwargs["preexec_fn"] is marker
+
+    pm.start_process(["echo", "hi"], cwd=tmp_path, prefer_oom_kill=False)
+    assert "preexec_fn" not in popen.call_args_list[1].kwargs
