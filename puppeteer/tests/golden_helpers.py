@@ -589,6 +589,11 @@ class SpectatorProcess:
         assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
         return _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
 
+    def wait_for_watching(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+        """Wait for the spectator to open the game and request hand permissions."""
+        assert self.health_port > 0, "SpectatorProcess requires health_port for watching detection"
+        _wait_for_game_watching(self.health_port, game_dir, timeout=timeout)
+
     def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
         """Wait for the spectator to signal that event files are fully written."""
         assert self.health_port > 0, "SpectatorProcess requires health_port for game-end detection"
@@ -971,6 +976,21 @@ def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_REA
         raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
 
 
+def _wait_for_game_watching(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+    """Wait for observer to actively watch the game and request hand permissions."""
+    url = f"http://127.0.0.1:{port}/wait-for-watching"
+    body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read())
+            if not data.get("watching"):
+                raise RuntimeError(f"Wait-for-watching returned: {data}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        raise RuntimeError(f"Wait-for-watching failed (HTTP {e.code}): {error_body}") from e
+
+
 def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> None:
     """Wait for observer to signal game-end via long-poll HTTP endpoint.
 
@@ -1098,6 +1118,8 @@ def run_golden_scenario(
                 raise RuntimeError(f"Bridge join failed: {labels}")
         bridge_a.assert_clean_reconnect(f"{golden_name}/bridge_join")
         bridge_b.assert_clean_reconnect(f"{golden_name}/bridge_join")
+        with timed_phase(golden_name, "spectator_watch"):
+            spectator.wait_for_watching(game_dir)
 
         # Run player A's scripted production pilot and player B concurrently
         prompt_a: list[dict] | None = None
