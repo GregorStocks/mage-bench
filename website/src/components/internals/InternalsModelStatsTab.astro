@@ -1,0 +1,81 @@
+---
+interface Props {
+  dataUrl: string;
+}
+
+const { dataUrl } = Astro.props as Props;
+---
+
+<div class="tab-content" id="tab-model-stats" data-data-url={dataUrl}>
+  <div class="filters">
+    <label class="epoch-label">
+      Min Epoch
+      <input type="number" id="min-epoch" value={1} min="1" />
+    </label>
+    <input type="text" id="search-input" placeholder="Search model name..." autocomplete="off" />
+  </div>
+
+  <div class="table-wrap">
+    <table id="stats-table">
+      <colgroup>
+        <col style="width: 17%;" />
+        <col style="width: 7%;" />
+        <col style="width: 4%;" />
+        <col style="width: 6%;" />
+        <col style="width: 5%;" />
+        <col style="width: 4%;" />
+        <col style="width: 4%;" />
+        <col style="width: 8%;" />
+        <col style="width: 7%;" />
+        <col style="width: 6%;" />
+        <col style="width: 6%;" />
+        <col style="width: 6%;" />
+        <col style="width: 5%;" />
+        <col style="width: 5%;" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th data-sort="modelName" data-type="string">Model</th>
+          <th data-sort="provider" data-type="string">Provider</th>
+          <th data-sort="gamesPlayed" data-type="number" title="Total games played">Games</th>
+          <th data-sort="timeoutRate" data-type="number" class="sorted desc" title="Percentage of API calls that timed out">TO Rate <span class="sort-arrow">&#9660;</span></th>
+          <th data-sort="totalTimeouts" data-type="number" title="Total number of API call timeouts across all games">Timeouts</th>
+          <th data-sort="totalOtherErrors" data-type="number" title="Total non-timeout errors across all games">Errors</th>
+          <th data-sort="contextResets" data-type="number" title="Total context window resets across all games">Resets</th>
+          <th data-sort="avgPromptTokens" data-type="number" title="Average prompt tokens per API response">Avg Prompt</th>
+          <th data-sort="avgCompletionTokens" data-type="number" title="Average completion tokens per API response">Avg Compl</th>
+          <th data-sort="avgCost" data-type="number" title="Average API cost per game in USD">Avg Cost</th>
+          <th data-sort="cacheRate" data-type="number" title="Percentage of prompt tokens served from cache">Cache%</th>
+          <th data-sort="reasoningPct" data-type="number" title="Percentage of completion tokens that were reasoning/thinking tokens">Reasoning%</th>
+          <th data-sort="latencyP50" data-type="number" title="Median response latency in seconds">p50 (s)</th>
+          <th data-sort="latencyP95" data-type="number" title="95th percentile response latency in seconds">p95 (s)</th>
+        </tr>
+      </thead>
+      <tbody id="stats-body">
+        <tr>
+          <td colspan="14" class="empty">Loading model stats...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="footnote" id="token-detail-footnote" style="display: none;">
+    * Includes games from before epoch 18 when cache/reasoning tokens were not tracked. Percentages only reflect data from epoch 18+.
+  </p>
+  <p class="no-results" id="no-results" style="display: none;">
+    No models match your filters.
+  </p>
+
+  <div id="error-detail" class="error-detail" style="display: none;">
+    <h2 id="error-detail-heading"></h2>
+    <table id="error-detail-table">
+      <thead>
+        <tr>
+          <th>Error Type</th>
+          <th class="num">Count</th>
+        </tr>
+      </thead>
+      <tbody id="error-detail-body"></tbody>
+    </table>
+  </div>
+</div>

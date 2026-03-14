@@ -1,0 +1,70 @@
+---
+interface Props {
+  dataUrl: string;
+}
+
+const { dataUrl } = Astro.props as Props;
+---
+
+<div class="tab-content active" id="tab-trends" data-data-url={dataUrl}>
+  <div class="trends-controls">
+    <div class="metric-row">
+      <span class="control-label">Metric</span>
+      <div class="metric-buttons" id="metric-buttons">
+        <button class="metric-btn active" data-metric="costPerGame" title="Total API cost in USD per game">Cost/Game</button>
+        <button class="metric-btn" data-metric="winRate" title="Percentage of games won">Win Rate</button>
+        <button class="metric-btn" data-metric="toolFailRate" title="Percentage of tool calls that failed (failed / total tool calls)">Tool Fail%</button>
+        <button class="metric-btn" data-metric="errorRate" title="Percentage of responses that were errors (errors / total responses+timeouts+errors)">Error Rate</button>
+        <button class="metric-btn" data-metric="latencyP50" title="Median (p50) response latency in seconds">Latency p50</button>
+        <button class="metric-btn" data-metric="timerTimeoutRate" title="Percentage of games where the player timed out on the game clock">Timer TO%</button>
+        <button class="metric-btn" data-metric="timeoutRate" title="Percentage of individual API calls that timed out (timeouts / total responses+timeouts)">TO Rate</button>
+        <button class="metric-btn" data-metric="cacheRate" title="Percentage of prompt tokens served from cache (cached / total prompt tokens)">Cache%</button>
+        <button class="metric-btn" data-metric="toolCallsPerGame" title="Total tool calls (successful + failed) per game">Tools/Game</button>
+        <button class="metric-btn" data-metric="avgPromptTokens" title="Average prompt tokens per API response">Prompt Tok</button>
+        <button class="metric-btn" data-metric="avgCompletionTokens" title="Average completion tokens per API response">Compl Tok</button>
+        <button class="metric-btn" data-metric="resetsPerGame" title="Number of context window resets per game (when conversation exceeds token limit)">Resets/Game</button>
+        <button class="metric-btn" data-metric="thinkingTimePerGame" title="Total time spent in model thinking/reasoning per game, in seconds">Think Time</button>
+        <button class="metric-btn" data-metric="reasoningPct" title="Percentage of completion tokens that were reasoning/thinking tokens">Reasoning%</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <span class="control-label">Format</span>
+        <div class="toggle-buttons" id="format-buttons">
+          <button class="toggle-btn active" data-format="all">All</button>
+          <button class="toggle-btn" data-format="jumpstart">Jumpstart</button>
+          <button class="toggle-btn" data-format="standard">Standard</button>
+          <button class="toggle-btn" data-format="modern">Modern</button>
+          <button class="toggle-btn" data-format="legacy">Legacy</button>
+          <button class="toggle-btn" data-format="commander">Commander</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label class="control-label">
+          Min Epoch
+          <input type="number" id="trend-min-epoch" value={1} min="1" />
+        </label>
+      </div>
+      <div class="filter-group">
+        <span class="control-label">Y Scale</span>
+        <div class="toggle-buttons" id="y-scale-buttons">
+          <button class="toggle-btn active" data-scale="linear">Linear</button>
+          <button class="toggle-btn" data-scale="symlog">Symlog</button>
+        </div>
+      </div>
+    </div>
+    <div class="model-filter">
+      <div class="model-filter-header">
+        <span class="control-label">Models</span>
+        <input type="text" id="model-search" placeholder="Search..." autocomplete="off" />
+        <button class="small-btn" id="select-all-models">All</button>
+        <button class="small-btn" id="select-none-models">None</button>
+      </div>
+      <div class="model-checkboxes" id="model-checkboxes"></div>
+    </div>
+  </div>
+  <div class="chart-container">
+    <canvas id="trend-chart"></canvas>
+  </div>
+  <p class="chart-note" id="chart-note">Loading trend data...</p>
+</div>
