@@ -12,7 +12,7 @@ from typing import IO, Any
 
 import psutil
 
-_PREFER_OOM_KILL_SCORE_ADJ = 500
+_PREFER_OOM_KILL_SCORE_ADJ = 1000
 
 
 def _write_oom_score_adj(score_adj: int) -> None:

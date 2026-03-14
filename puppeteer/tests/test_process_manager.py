@@ -70,7 +70,7 @@ def test_jvm_oom_preference_kwargs_linux(monkeypatch: pytest.MonkeyPatch):
 
     assert "preexec_fn" in kwargs
     kwargs["preexec_fn"]()
-    assert calls == [500]
+    assert calls == [1000]
 
 
 def test_jvm_oom_preference_kwargs_non_linux(monkeypatch: pytest.MonkeyPatch):
