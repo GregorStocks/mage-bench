@@ -17,8 +17,9 @@ def _summarize_permanent(c: dict) -> str | dict:
     interesting, or a dict with extra info when tapped/counters/sick."""
     if not isinstance(c, dict):
         return str(c)
-    raw_name = c.get("name")
-    name = raw_name if isinstance(raw_name, str) and raw_name else "?"
+    name = c.get("name", "?")
+    assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
+    name = name or "?"
     extras: dict = {}
     if c.get("tapped"):
         extras["tapped"] = True
@@ -46,8 +47,9 @@ def _summarize_stack_item(item: object) -> str | dict:
     or a dict with name + targets when targets are present."""
     if not isinstance(item, dict):
         return str(item)
-    raw_name = item.get("name")
-    name = raw_name if isinstance(raw_name, str) and raw_name else "?"
+    name = item.get("name", "?")
+    assert isinstance(name, str), f"stack item name must be a string, got {name!r}"
+    name = name or "?"
     targets = item.get("targets")
     if targets:
         return {"name": name, "targets": targets}
@@ -138,7 +140,10 @@ def _parse_choices_result(result_str: str) -> dict:
         parsed = json.loads(result_str)
     except (json.JSONDecodeError, TypeError):
         return {}
-    return parsed if isinstance(parsed, dict) else {}
+    assert isinstance(parsed, dict), (
+        f"get_action_choices result must be a JSON object, got {parsed!r}"
+    )
+    return parsed
 
 
 def _parse_action_result(result_str: str) -> dict:
@@ -147,7 +152,10 @@ def _parse_action_result(result_str: str) -> dict:
         parsed = json.loads(result_str)
     except (json.JSONDecodeError, TypeError):
         return {}
-    return parsed if isinstance(parsed, dict) else {}
+    assert isinstance(parsed, dict), (
+        f"choose_action result must be a JSON object, got {parsed!r}"
+    )
+    return parsed
 
 
 def _resolve_chosen_index(
@@ -564,7 +572,13 @@ def extract_decisions(gz_path: str) -> list[dict]:
     if "decisions" in data:
         decisions = data["decisions"]
         assert isinstance(decisions, list), f"{gz_path}: decisions must be a list"
-        return [decision for decision in decisions if isinstance(decision, dict)]
+        typed_decisions: list[dict] = []
+        for index, decision in enumerate(decisions):
+            assert isinstance(decision, dict), (
+                f"{gz_path}: decisions[{index}] must be an object, got {decision!r}"
+            )
+            typed_decisions.append(decision)
+        return typed_decisions
 
     # Legacy: extract from llmEvents
     is_v2 = "version" in data

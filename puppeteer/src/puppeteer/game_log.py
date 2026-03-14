@@ -26,11 +26,13 @@ class GameLogWriter:
         ts = datetime.now(self._TZ).isoformat(timespec="microseconds")
         if "cumulative_cost_usd" in fields:
             cost_value = fields["cumulative_cost_usd"]
+            assert isinstance(cost_value, (str, int, float)) and not isinstance(cost_value, bool), (
+                f"cumulative_cost_usd must be a string or number, got {cost_value!r}"
+            )
             try:
-                if isinstance(cost_value, (str, int, float)) and not isinstance(cost_value, bool):
-                    self._last_cumulative_cost_usd = float(cost_value)
-            except (TypeError, ValueError):
-                pass
+                self._last_cumulative_cost_usd = float(cost_value)
+            except ValueError as exc:
+                raise AssertionError(f"cumulative_cost_usd must parse as a float, got {cost_value!r}") from exc
         event = {
             "ts": ts,
             "seq": self._seq,

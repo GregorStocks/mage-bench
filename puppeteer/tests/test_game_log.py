@@ -106,9 +106,11 @@ def test_game_log_writer_cost_tracking():
             writer.emit("llm_call", cumulative_cost_usd=0.12)
             assert writer.last_cumulative_cost_usd() == 0.12
 
-            # Non-numeric cost is ignored
-            writer.emit("llm_call", cumulative_cost_usd="bad")
-            assert writer.last_cumulative_cost_usd() == 0.12
+            with pytest.raises(
+                AssertionError,
+                match="cumulative_cost_usd must parse as a float",
+            ):
+                writer.emit("llm_call", cumulative_cost_usd="bad")
 
 
 def test_game_log_writer_custom_suffix():

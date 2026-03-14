@@ -104,12 +104,13 @@ def collection(names: list[str]) -> tuple[list[dict], list[dict]]:
     for name in names:
         if name in cache:
             val = cache[name]
+            assert val is None or isinstance(val, dict), (
+                f"Scryfall card cache entry for {name!r} must be an object or null, got {val!r}"
+            )
             if isinstance(val, dict):
                 found.append(val)
-            elif val is None:
-                not_found.append({"name": name})
             else:
-                uncached.append(name)
+                not_found.append({"name": name})
         else:
             uncached.append(name)
 
@@ -139,7 +140,10 @@ def named(name: str) -> dict | None:
     cache = _load_cache()
     if name in cache:
         cached = cache[name]
-        return cached if isinstance(cached, dict) else None
+        assert cached is None or isinstance(cached, dict), (
+            f"Scryfall card cache entry for {name!r} must be an object or null, got {cached!r}"
+        )
+        return cached
 
     _rate_limit()
     qs = urllib.parse.urlencode({"exact": name})
@@ -173,7 +177,10 @@ def search_token(token_name: str) -> str | None:
     cache = _load_cache()
     if cache_key in cache:
         cached = cache[cache_key]
-        return cached if isinstance(cached, str) else None
+        assert cached is None or isinstance(cached, str), (
+            f"Scryfall token cache entry for {cache_key!r} must be a string or null, got {cached!r}"
+        )
+        return cached
 
     _rate_limit()
     query = f'!"{base_name}" t:token'

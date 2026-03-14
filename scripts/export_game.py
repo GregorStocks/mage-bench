@@ -556,7 +556,10 @@ def _parse_json(s: str) -> dict:
         parsed = json.loads(s)
     except (json.JSONDecodeError, TypeError):
         return {}
-    return parsed if isinstance(parsed, dict) else {}
+    assert isinstance(parsed, dict), (
+        f"tool result must be a JSON object, got {parsed!r}"
+    )
+    return parsed
 
 
 def _is_decision_source(event: dict) -> bool:

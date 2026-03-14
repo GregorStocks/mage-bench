@@ -73,8 +73,9 @@ def _load_config() -> dict:
 
 def _get_hostname() -> str:
     """Get configured hostname, defaulting to 'localhost'."""
-    hostname = _load_config().get("hostname")
-    return hostname if isinstance(hostname, str) and hostname else "localhost"
+    hostname = _load_config().get("hostname", "localhost")
+    assert isinstance(hostname, str), f"hostname must be a string, got {hostname!r}"
+    return hostname or "localhost"
 
 
 def _load_game_cached(game_id: str) -> dict:

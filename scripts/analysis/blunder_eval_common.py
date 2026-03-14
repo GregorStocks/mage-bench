@@ -348,11 +348,15 @@ def chosen_display(decision: dict) -> str:
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
         if isinstance(c, dict):
-            name = c.get("name")
-            if isinstance(name, str) and name:
+            name = c.get("name", "")
+            assert isinstance(name, str), f"choice name must be a string, got {name!r}"
+            if name:
                 return name
-            description = c.get("description")
-            if isinstance(description, str) and description:
+            description = c.get("description", "")
+            assert isinstance(description, str), (
+                f"choice description must be a string, got {description!r}"
+            )
+            if description:
                 return description
         return f"option_{chosen}"
     if chosen is not None:
