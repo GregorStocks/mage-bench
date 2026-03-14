@@ -13,7 +13,7 @@ from puppeteer.config import (
     generate_dck_file,
     load_deck_registry,
 )
-from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
+from puppeteer.llm_cost import llm_base_url, required_api_key_env
 from puppeteer.log import get_logger
 
 logger = get_logger(__name__)
@@ -130,9 +130,9 @@ def choose_deck_for_player(
     already_chosen: list[tuple[str, str]],
 ) -> DeckEntry:
     """Ask one player's LLM to choose a deck. Returns the chosen DeckEntry."""
-    base_url = player.base_url or DEFAULT_BASE_URL
-    key_env = required_api_key_env(base_url)
+    key_env = required_api_key_env(player.provider)
     api_key = os.environ[key_env]
+    base_url = llm_base_url(player.provider)
 
     client = OpenAI(base_url=base_url, api_key=api_key)
     prompt = _build_choice_prompt(decks, player_name=player.name, already_chosen=already_chosen, deck_type=deck_type)

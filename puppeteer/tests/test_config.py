@@ -38,7 +38,7 @@ def test_config_load_players_from_json():
         "players": [
             {"type": "potato", "name": "spud"},
             {"type": "cpu", "name": "skynet"},
-            {"type": "pilot", "name": "ace", "preset": "test-preset"},
+            {"type": "pilot", "name": "ace", "preset": "test-preset", "provider": "openai"},
         ],
         "matchTimeLimit": "MIN__60",
         "gameType": "Two Player Duel",
@@ -70,8 +70,41 @@ def test_config_load_players_from_json():
         assert len(config.pilot_players) == 1
         assert isinstance(config.pilot_players[0], PilotPlayer)
         assert config.pilot_players[0].model == "test/model"
+        assert config.pilot_players[0].provider == "openai"
         assert config.match_time_limit == "MIN__60"
         assert config.game_type == "Two Player Duel"
+
+
+def test_config_rejects_base_url_field():
+    config_data = {
+        "players": [
+            {
+                "type": "pilot",
+                "name": "ace",
+                "preset": "test-preset",
+                "base_url": "https://api.openai.com/v1",
+            }
+        ],
+        "gameType": "Two Player Duel",
+    }
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        presets = {
+            "presets": {"test-preset": {"model": "test/model", "system_prompt": "default"}},
+            "gauntlet": [],
+        }
+        (tmpdir_path / "presets.json").write_text(json.dumps(presets))
+        (tmpdir_path / "prompts.json").write_text(json.dumps({"default": "You are a test player."}))
+        (tmpdir_path / "personalities.json").write_text("{}")
+        (tmpdir_path / "models.json").write_text('{"models": []}')
+
+        config_path = tmpdir_path / "config.json"
+        config_path.write_text(json.dumps(config_data))
+
+        config = Config(config_file=config_path)
+        with pytest.raises(AssertionError, match="provider"):
+            config.load_config()
 
 
 def test_player_dataclass_fields():

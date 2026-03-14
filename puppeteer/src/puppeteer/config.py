@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from puppeteer.jumpstart import create_random_jumpstart_deck
+from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, SUPPORTED_LLM_PROVIDERS
 from puppeteer.log import get_logger
 from puppeteer.matchmaker import get_active_presets, get_round_robin_matchup, pick_round_robin_format
 
@@ -62,7 +63,7 @@ class PilotPlayer:
     deck_strategy: str | None = None
     preset: str | None = None  # Named preset from presets.json
     model: str | None = None  # LLM model (resolved from preset)
-    base_url: str | None = None  # API base URL (e.g., "https://openrouter.ai/api/v1")
+    provider: str = DEFAULT_LLM_PROVIDER  # LLM API provider slug
     system_prompt: str | None = None  # System prompt (resolved from preset -> prompts.json)
     max_interactions_per_turn: int | None = None  # Loop detection threshold (default 25 in Java)
     reasoning_effort: str | None = None  # Reasoning effort (resolved from preset)
@@ -341,6 +342,14 @@ def _resolve_randoms(
                 player.provider_order = model_entry["provider_order"]
             if player.cache_control is None and "cache_control" in model_entry:
                 player.cache_control = model_entry["cache_control"]
+
+            if player.provider != DEFAULT_LLM_PROVIDER:
+                assert player.ignore_providers is None, (
+                    f"ignore_providers requires provider={DEFAULT_LLM_PROVIDER!r}, got {player.provider!r}"
+                )
+                assert player.provider_order is None, (
+                    f"provider_order requires provider={DEFAULT_LLM_PROVIDER!r}, got {player.provider!r}"
+                )
 
             # Re-roll expressive personality if model skips them (personality infection prevention)
             if was_random_personality and model_entry.get("skip_expressive_personalities"):
@@ -654,11 +663,18 @@ class Config:
                 if player_type == "sleepwalker":
                     self.sleepwalker_players.append(SleepwalkerPlayer(name=name, deck=deck))
                 elif player_type == "pilot":
+                    assert "base_url" not in player, (
+                        "players[].base_url is no longer supported; use players[].provider instead"
+                    )
+                    provider = player.get("provider", DEFAULT_LLM_PROVIDER)
+                    assert provider in SUPPORTED_LLM_PROVIDERS, (
+                        f"Unknown player provider {provider!r}. Supported providers: {SUPPORTED_LLM_PROVIDERS}"
+                    )
                     p = PilotPlayer(
                         name=name,
                         deck=deck,
                         preset=player.get("preset"),
-                        base_url=player.get("base_url"),
+                        provider=provider,
                         personality=player.get("personality"),
                         tools=player.get("tools"),
                     )

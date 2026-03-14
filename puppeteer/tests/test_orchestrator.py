@@ -56,38 +56,37 @@ def test_missing_llm_api_keys_present():
     assert errors == []
 
 
-def test_missing_llm_api_keys_redacts_base_url_credentials():
-    """Credential-bearing base URLs should be redacted in validation errors."""
+def test_missing_llm_api_keys_uses_provider_specific_env():
+    """Configured providers should map to their provider-specific env vars."""
     config = Config()
     config.pilot_players = [
         PilotPlayer(
             name="ace",
             model="test/model",
-            base_url="https://user:secret@api.openai.com/v1?trace=1#frag",
+            provider="openai",
         )
     ]
     with patch.dict("os.environ", {}, clear=True):
         errors = _missing_llm_api_keys(config)
     assert len(errors) == 1
-    assert "https://api.openai.com/v1" in errors[0]
-    assert "secret" not in errors[0]
-    assert "user:" not in errors[0]
+    assert "(openai)" in errors[0]
+    assert "OPENAI_API_KEY" in errors[0]
 
 
-def test_missing_llm_api_keys_reports_unsupported_host():
-    """Lookalike provider hosts should fail closed instead of selecting a key env."""
+def test_missing_llm_api_keys_reports_unknown_provider():
+    """Unknown providers should fail closed instead of selecting a key env."""
     config = Config()
     config.pilot_players = [
         PilotPlayer(
             name="ace",
             model="test/model",
-            base_url="https://api.openai.com.evil.example/v1",
+            provider="bogus",
         )
     ]
     with patch.dict("os.environ", {}, clear=True):
         errors = _missing_llm_api_keys(config)
     assert len(errors) == 1
-    assert "Unsupported LLM base URL host" in errors[0]
+    assert "Unknown LLM provider" in errors[0]
     assert "OPENAI_API_KEY" not in errors[0]
 
 

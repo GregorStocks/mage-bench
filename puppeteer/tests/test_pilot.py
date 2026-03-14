@@ -64,7 +64,7 @@ async def test_fetch_state_summary_raises_on_error_payload():
         await _fetch_state_summary(session)
 
 
-def test_main_accepts_explicit_api_key_for_custom_host():
+def test_main_accepts_explicit_api_key_for_non_default_provider():
     def fake_run_pilot(*_args, **_kwargs):
         return "run-pilot-sentinel"
 
@@ -76,8 +76,8 @@ def test_main_accepts_explicit_api_key_for_custom_host():
                 "pilot",
                 "--api-key",
                 "sk-test",
-                "--base-url",
-                "https://custom-llm-host.example.com/v1",
+                "--provider",
+                "openai",
             ],
         ),
         patch("puppeteer.pilot.setup_logging"),
@@ -91,7 +91,7 @@ def test_main_accepts_explicit_api_key_for_custom_host():
     run_mock.assert_called_once()
 
 
-def test_main_redacts_base_url_credentials_in_missing_key_log(caplog: pytest.LogCaptureFixture):
+def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixture):
     caplog.set_level(logging.ERROR)
 
     with (
@@ -100,8 +100,8 @@ def test_main_redacts_base_url_credentials_in_missing_key_log(caplog: pytest.Log
             "argv",
             [
                 "pilot",
-                "--base-url",
-                "https://user:secret@api.openai.com/v1?trace=1#frag",
+                "--provider",
+                "openai",
             ],
         ),
         patch("puppeteer.pilot.setup_logging"),
@@ -109,9 +109,8 @@ def test_main_redacts_base_url_credentials_in_missing_key_log(caplog: pytest.Log
     ):
         assert main() == 2
 
-    assert "https://api.openai.com/v1" in caplog.text
-    assert "secret" not in caplog.text
-    assert "user:" not in caplog.text
+    assert "Missing API key for provider openai" in caplog.text
+    assert "OPENAI_API_KEY" in caplog.text
 
 
 @pytest.fixture()
