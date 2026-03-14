@@ -5,17 +5,17 @@ Usage:
     game-gz-bootstrap.py <game_id>
 
 Looks for website/public/games/<game_id>.json.gz or .json. If neither exists
-but raw logs are available at ~/mage-bench-logs/<game_id>/game_events.jsonl,
+but raw logs are available at ~/.mage-bench/logs/<game_id>/game_events.jsonl,
 runs export_game.py to generate the export first.
 """
 
+import json
 import subprocess
 import sys
 from pathlib import Path
 
 from scripts.analysis.blunder_eval_common import GAMES_DIR, load_game
-
-LOGS_DIR = Path.home() / "mage-bench-logs"
+from scripts.export_game import LOGS_DIR
 
 _EXTENSIONS = (".json.gz", ".json")
 
@@ -27,6 +27,50 @@ def _find_export(game_id: str) -> Path | None:
         if p.exists():
             return p
     return None
+
+
+def _parse_tool_result(event: dict) -> dict | None:
+    """Parse a tool_call result payload if it is structured JSON."""
+    result = event.get("result")
+    if isinstance(result, dict):
+        return result
+    if not isinstance(result, str) or not result:
+        return None
+    try:
+        parsed = json.loads(result)
+    except (json.JSONDecodeError, TypeError):
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def _is_failed_tool_call(event: dict) -> bool:
+    """Count only explicit tool error payloads, not arbitrary substrings."""
+    if event.get("type") != "tool_call":
+        return False
+    result = _parse_tool_result(event)
+    if result is None:
+        return False
+    if result.get("success") is False:
+        return True
+    if result.get("success") is True:
+        return False
+    error = result.get("error")
+    if isinstance(error, str):
+        return bool(error.strip())
+    return error is not None
+
+
+def _failed_tool_calls(events: list[dict]) -> list[dict]:
+    """Return tool_call events with explicit structured failures."""
+    return [event for event in events if _is_failed_tool_call(event)]
+
+
+def _format_result_preview(event: dict) -> str:
+    """Render a short preview of the raw result payload."""
+    result = event.get("result", "")
+    if isinstance(result, str):
+        return result[:120]
+    return json.dumps(result)[:120]
 
 
 def main(game_id: str) -> None:
@@ -62,19 +106,12 @@ def main(game_id: str) -> None:
         print(f"  {p['name']} ({p.get('model', '?')}) ${cost:.2f}")
 
     events = d.get("llmEvents", [])
-    errors = [
-        e
-        for e in events
-        if e.get("type") == "tool_call"
-        and any(
-            x in str(e.get("result", "")).lower()
-            for x in ["error", "out of range", "required", "failed"]
-        )
-    ]
+    errors = _failed_tool_calls(events)
     print(f"LLM events: {len(events)} | Failed tool calls: {len(errors)}")
     for e in errors[:5]:
-        result_str = str(e.get("result", ""))[:120]
-        print(f"  {e.get('player', '?')} | {e.get('tool', '?')} | {result_str}")
+        print(
+            f"  {e.get('player', '?')} | {e.get('tool', '?')} | {_format_result_preview(e)}"
+        )
     if len(errors) > 5:
         print(f"  ... and {len(errors) - 5} more")
 

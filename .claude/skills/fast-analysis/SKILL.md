@@ -92,6 +92,8 @@ The scripts should cover:
 
 **Existing annotations**: Check whether the export already has an `annotations` array (added by `annotate_game.py`). If blunder annotations already exist, you can reference them directly rather than re-evaluating decisions from scratch. **Check annotations early** — they're free structured data with severity levels (major/moderate/minor/questionable) and are more reliable than re-evaluating decisions yourself.
 
+**Annotation caveat after retries**: If `llmEvents` show a failed `choose_action` followed by a successful retry on the same pending action, the exported `decisions`/`annotations` can sometimes stick to the failed attempt and drop the recovery into a blank follow-up decision. If an annotation claims a timeout, default choice, or other outcome that contradicts the later tool-call stream, trust `llmEvents`/tool results over the annotation and call out the mismatch explicitly.
+
 **Models with no reasoning**: Some models (Gemini Flash Lite, some GPT variants) produce no reasoning/thinking traces. `llm_reasoning.py` will return "(no reasoning samples)" — this is expected, not a bug. Don't waste time investigating empty reasoning output; just note it in the analysis and move on.
 
 ### Known model error patterns (not platform bugs)
