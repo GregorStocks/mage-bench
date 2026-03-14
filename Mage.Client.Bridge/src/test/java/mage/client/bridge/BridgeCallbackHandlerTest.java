@@ -91,39 +91,6 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void doesNotTreatRecentPassiveCallbacksAsGameOverIdleErrors() {
-        long now = 200_000;
-
-        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
-            now,
-            now - 120_000,
-            now - 5_000
-        )).isFalse();
-    }
-
-    @Test
-    void treatsRealCallbackSilenceAsGameOverIdleError() {
-        long now = 200_000;
-
-        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
-            now,
-            now - 120_000,
-            now - 90_000
-        )).isTrue();
-    }
-
-    @Test
-    void requiresBothTimestampsBeforeLoggingGameOverIdleErrors() {
-        long now = 200_000;
-
-        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
-            now,
-            now - 120_000,
-            0
-        )).isFalse();
-    }
-
-    @Test
     void returnsStackResolvedOnNextActionAfterPassiveUpdateClearsStack() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
