@@ -72,6 +72,39 @@ class BridgeCallbackHandlerTest {
             .hasMessage("GAME_GET_MULTI_AMOUNT is missing item metadata");
     }
 
+    @Test
+    void doesNotTreatRecentPassiveCallbacksAsGameOverIdleErrors() {
+        long now = 200_000;
+
+        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
+            now,
+            now - 120_000,
+            now - 5_000
+        )).isFalse();
+    }
+
+    @Test
+    void treatsRealCallbackSilenceAsGameOverIdleError() {
+        long now = 200_000;
+
+        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
+            now,
+            now - 120_000,
+            now - 90_000
+        )).isTrue();
+    }
+
+    @Test
+    void requiresBothTimestampsBeforeLoggingGameOverIdleErrors() {
+        long now = 200_000;
+
+        assertThat(BridgeCallbackHandler.shouldLogPassPriorityGameOverIdleError(
+            now,
+            now - 120_000,
+            0
+        )).isFalse();
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }

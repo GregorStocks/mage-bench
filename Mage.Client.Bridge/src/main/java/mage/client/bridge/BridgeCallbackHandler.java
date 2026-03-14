@@ -244,6 +244,9 @@ public class BridgeCallbackHandler {
         ClientCallbackMethod.GAME_PLAY_MANA, ClientCallbackMethod.GAME_PLAY_XMANA,
         ClientCallbackMethod.GAME_GET_AMOUNT, ClientCallbackMethod.GAME_GET_MULTI_AMOUNT);
     private volatile long lastActionableCallbackAt = 0;
+    // Only treat game-over exits as abnormal when the bridge has been totally silent.
+    // Long opponent-owned turns naturally leave the actionable timestamp stale.
+    private static final long GAME_OVER_IDLE_ERROR_THRESHOLD_MS = 60_000;
     // choose_action blocks indefinitely (like pass_priority) after taking an
     // action, waiting for the next callback so the LLM always wakes up to a
     // pending decision.  Terminated by game-over / zombie detection.
@@ -1482,6 +1485,15 @@ public class BridgeCallbackHandler {
             return Integer.toString(min);
         }
         return min + "-" + max;
+    }
+
+    static boolean shouldLogPassPriorityGameOverIdleError(
+            long now, long lastActionableCallbackAt, long lastCallbackReceivedAt) {
+        if (lastActionableCallbackAt <= 0 || lastCallbackReceivedAt <= 0) {
+            return false;
+        }
+        return now - lastActionableCallbackAt > GAME_OVER_IDLE_ERROR_THRESHOLD_MS
+            && now - lastCallbackReceivedAt > GAME_OVER_IDLE_ERROR_THRESHOLD_MS;
     }
 
     static String validateMultiAmountInput(GameClientMessage msg, int[] amounts) {
@@ -3432,13 +3444,17 @@ public class BridgeCallbackHandler {
 
             // Game over bail-out: don't block forever if the game ended
             if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
-                long elapsed = System.currentTimeMillis() - startTime;
-                long idleSinceCallback = lastActionableCallbackAt > 0
-                    ? System.currentTimeMillis() - lastActionableCallbackAt : 0;
-                if (idleSinceCallback > 60_000) {
-                    // Abnormal: server idle timeout auto-conceded or zombie game
+                long now = System.currentTimeMillis();
+                long elapsed = now - startTime;
+                long idleSinceActionableCallback = lastActionableCallbackAt > 0
+                    ? now - lastActionableCallbackAt : 0;
+                long idleSinceAnyCallback = lastCallbackReceivedAt > 0
+                    ? now - lastCallbackReceivedAt : 0;
+                if (shouldLogPassPriorityGameOverIdleError(now, lastActionableCallbackAt, lastCallbackReceivedAt)) {
+                    // Abnormal: passPriority saw no bridge callbacks at all before game over.
                     logError("passPriority game_over after " + elapsed + "ms idle"
-                        + " (lastActionableCallback " + idleSinceCallback + "ms ago)");
+                        + " (lastActionableCallback " + idleSinceActionableCallback + "ms ago"
+                        + ", lastCallbackReceived " + idleSinceAnyCallback + "ms ago)");
                 }
                 logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
                     + " elapsed=" + elapsed + "ms"
