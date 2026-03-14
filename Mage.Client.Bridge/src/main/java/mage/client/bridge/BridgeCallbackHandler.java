@@ -3002,6 +3002,22 @@ public class BridgeCallbackHandler {
         result.mergeFrom(choices);
     }
 
+    private ActionResult stackResolvedResult(GameView gameView, PendingAction action, Long boardCursorParam) {
+        var result = new ActionResult();
+        result.action_pending = action != null;
+        result.stop_reason = "stack_resolved";
+        attachUnseenChat(result);
+        if (action == null) {
+            if (gameView != null) {
+                result.game_seq = gameView.getGameSeq();
+            }
+            return result;
+        }
+        result.action_type = action.method().name();
+        mergeActionChoices(result, boardCursorParam);
+        return result;
+    }
+
     /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
@@ -3075,14 +3091,7 @@ public class BridgeCallbackHandler {
                 if ("stack_resolved".equals(until)) {
                     GameView gv = lastGameView;
                     if (gv != null && gv.getStack().isEmpty()) {
-                        var result = new ActionResult();
-                        result.action_pending = currentAction != null;
-                        result.stop_reason = "stack_resolved";
-                        attachUnseenChat(result);
-                        if (currentAction != null) {
-                            mergeActionChoices(result, boardCursorParam);
-                        }
-                        return result;
+                        return stackResolvedResult(gv, currentAction, boardCursorParam);
                     }
                     yieldUntilStackResolved = true;
                 } else if ("my_turn".equals(until)) {
@@ -3131,6 +3140,15 @@ public class BridgeCallbackHandler {
 
         while (true) {
             PendingAction action = pendingAction;
+            // Passive GAME_UPDATE callbacks can empty the stack after we already
+            // auto-passed the last actionable GAME_SELECT, so re-check the latest
+            // GameView even while the loop is otherwise idle.
+            if (action == null && yieldUntilStackResolved) {
+                GameView gv = lastGameView;
+                if (gv != null && gv.getStack().isEmpty()) {
+                    return stackResolvedResult(gv, null, boardCursorParam);
+                }
+            }
             if (action != null) {
                 ClientCallbackMethod method = action.method();
 
@@ -3309,13 +3327,7 @@ public class BridgeCallbackHandler {
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     if (gv != null && gv.getStack().isEmpty()) {
                         // Stack resolved — return to LLM
-                        var result = new ActionResult();
-                        result.action_pending = true;
-                        result.action_type = method.name();
-                        result.stop_reason = "stack_resolved";
-                        attachUnseenChat(result);
-                        mergeActionChoices(result, boardCursorParam);
-                        return result;
+                        return stackResolvedResult(gv, action, boardCursorParam);
                     }
                     // Stack still has items — fall through to playable-cards check
                 }
