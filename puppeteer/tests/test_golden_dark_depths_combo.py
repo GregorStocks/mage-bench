@@ -14,12 +14,12 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
     """Dark Depths + Thespian's Stage combo into Marit Lage lethal attack.
 
     Opponent's 7 Mountains = p3-p9. TestPlayer's hand (alphabetical):
-    Dark Depths=p10, Plains=p11..p15, Thespian's Stage=p16.
+    Black Lotus=p10, Dark Depths=p11, Plains=p12..p15, Thespian's Stage=p16.
 
-    Script: choose starting player, keep hand, play Plains T1/T2,
-    play Dark Depths T3, play Thespian's Stage T4, activate Stage
-    copying Dark Depths (legend rule + state trigger creates Marit Lage),
-    attack T5 for lethal.
+    Script: choose starting player, keep hand, play Dark Depths T1,
+    play Thespian's Stage + Black Lotus T2, activate Stage copying
+    Dark Depths (legend rule + state trigger creates Marit Lage),
+    then attack on the next turn.
     """
     server, port = xmage_server
     run_golden_scenario(
@@ -35,38 +35,36 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # Turn 1: Play Plains (p11).
+            # Turn 1: Play Dark Depths (p11, enters with 10 ice counters).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p11"}},
-            # Turn 2: Play Plains (p12).
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "p12"}},
-            # Turn 3: Play Dark Depths (p10, enters with 10 ice counters).
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "p10"}},
-            # Turn 4: Play Thespian's Stage (p16).
+            # Turn 2: Play Thespian's Stage (p16), then Black Lotus (p10)
+            # so the combo does not need extra land-drop turns.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p16"}},
-            # T4 combat: Activate Thespian's Stage.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            # Activate Thespian's Stage. Auto-tap spends Black Lotus for {2}.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p16"}, "golden_blunder": True},
             # GAME_CHOOSE_ABILITY: index 1 = "{2}, {T}: copy target land."
             # (index 0 is the mana ability "{T}: Add {C}.")
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "1"}},
-            # Target Dark Depths (p10) for the copy.
+            # Target the original Dark Depths (p11) for the copy.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             # Legend rule: "Select a Dark Depths to keep" — keep the copy
             # (index 1 = p9, 0 ice counters). State trigger then creates
             # Marit Lage (20/20 flying indestructible).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "1"}},
-            # Turn 5: pass precombat main to reach combat.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
-            # Declare Marit Lage as attacker for lethal (20 damage).
-            {"name": "pass_priority", "arguments": {}},
+            # Jump straight to the next attack step instead of spending a turn
+            # on extra Plains plays.
+            {"name": "pass_priority", "arguments": {"until": "my_turn"}},
+            {"name": "pass_priority", "arguments": {"until": "declare_attackers"}},
             {"name": "choose_action", "arguments": {"attackers": "all"}, "golden_blunder": True},
             # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},

@@ -907,10 +907,10 @@ def test_start_observer_xvfb_on_headless_linux(mock_which):
     """On headless Linux (no DISPLAY), observer args should be prefixed with xvfb-run."""
     with patch.dict("os.environ", {}, clear=True):
         pm = MagicMock()
-        pm.start_process.return_value = MagicMock()
+        pm.start_jvm_process.return_value = MagicMock()
         config = Config()
         start_observer_client(pm, Path("/fake/root"), config, Path("/tmp/test.log"))
-        args = pm.start_process.call_args.kwargs["args"]
+        args = pm.start_jvm_process.call_args.kwargs["args"]
         assert args[0] == "/usr/bin/xvfb-run"
         assert "--auto-servernum" in args
         assert "mvn" in args
@@ -921,10 +921,10 @@ def test_start_observer_no_xvfb_when_display_set():
     """With DISPLAY set, observer args should NOT be prefixed with xvfb-run."""
     with patch.dict("os.environ", {"DISPLAY": ":1"}, clear=True):
         pm = MagicMock()
-        pm.start_process.return_value = MagicMock()
+        pm.start_jvm_process.return_value = MagicMock()
         config = Config()
         start_observer_client(pm, Path("/fake/root"), config, Path("/tmp/test.log"))
-        args = pm.start_process.call_args.kwargs["args"]
+        args = pm.start_jvm_process.call_args.kwargs["args"]
         assert args[0] == "mvn"
 
 

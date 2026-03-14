@@ -1,0 +1,13 @@
+{
+  "title": "Audit manual-analysis scripts and move them into a dedicated directory",
+  "description": "`scripts/analysis/` currently mixes maintained analysis tooling with ad hoc/manual investigation scripts. That makes it hard to tell which entrypoints are part of the supported workflow, which ones are stale, and which ones still work on current real game logs.\n\nFollow-up scope:\n- Inventory the scripts that are only used for manual analysis/debugging and are not part of the normal build/test/export flows.\n- Move those manual-only entrypoints into a separate directory so the long-lived supported tooling is clearly separated from investigator scratch tools.\n- For each moved script, confirm it still works on at least one recent real game's logs/exports; fix or delete anything that has drifted out of date.\n- Update docs, help text, and imports/callers after the move so the new layout is explicit.\n- Consider adding a manual-only smoke test that exercises every script in that directory against a real game's logs. That test should be opt-in and must not run automatically in CI, because CI does not have real game logs available.\n\nThe goal is not just a directory shuffle; it is to make the manual-analysis surface area explicit and verified so we stop carrying mystery scripts that nobody trusts.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "analysis",
+    "repo-structure"
+  ],
+  "created_at": "2026-03-14T12:23:19.252798-07:00",
+  "updated_at": "2026-03-14T12:23:19.252798-07:00"
+}

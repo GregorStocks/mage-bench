@@ -1,171 +1,121 @@
 ---
 name: golden-test
-description: Create a new golden prompt test for a specific game scenario in puppeteer/tests.
+description: Write or update low-noise golden prompt tests in puppeteer/tests, including minimal decks, replay scripts, and golden regeneration.
 ---
 
-# Add a Golden Test
+# Golden Test Workflow
 
-Create a new golden prompt test that captures a specific game scenario.
+Use this when adding a new gameplay golden or tightening an existing one.
 
-## Background
+Read only what you need:
 
-Golden tests run real XMage games with scripted replay pilots, capture the exact messages array that would be sent to the LLM, and compare against golden files. They verify that the wire-format prompt the LLM receives is correct for a given game state.
+- `doc/golden-prompts.md` for the full model
+- `puppeteer/tests/golden_helpers.py` for deck constants and `run_golden_scenario`
+- One or two nearby examples such as `test_golden_bolt_on_stack.py`, `test_golden_clone_copies_memnite.py`, or `test_golden_dark_depths_combo.py`
 
-Each golden test has three components:
+## Goal
 
-1. **Deck file** (`puppeteer/tests/decks/<name>.dck`) — deterministic card draw order (skip-shuffling is enabled)
-2. **Test file** (`puppeteer/tests/test_golden_<name>.py`) — defines the scripted MCP tool call sequence
-3. **Golden file** (`puppeteer/tests/golden/prompts/<name>.json`) — the captured prompt (auto-generated)
+Capture the smallest realistic game history that still exercises the mechanic under test.
 
-Key files to understand:
+Golden tests get noisy fast. Prefer:
 
-- `puppeteer/tests/golden_helpers.py` — shared test infrastructure (`run_golden_scenario`, `assert_golden_prompt`, deck constants)
-- `puppeteer/tests/test_golden_bolt_on_stack.py` — example: two Lightning Bolts on the stack targeting different things
-- `puppeteer/tests/test_golden_clone_copies_memnite.py` — example: Clone copying a creature
-- `puppeteer/tests/test_golden_initial_decision.py` — example: simplest possible test (first decision point)
+- Fast mana (`Black Lotus`, `Lotus Petal`, cheap rocks) over waiting extra turns for lands
+- Zero-mana permanents over filler turns when you just need board presence
+- `pass_priority(until=...)` yields to jump over irrelevant phases
+- Opening-hand setup over draw-step setup when the draw itself is not the mechanic
 
-## Step 1: Interview the user
+Avoid:
 
-Ask the user what game state they want the golden test to capture. You need to understand:
+- Spending turns just to make mana if fast mana can do it
+- Extra land plays or combat skips after the interesting state already exists
+- Long scripts that only exist because the deck was not designed tightly enough
 
-1. **What cards are involved?** (names, quantities)
-2. **What's the desired end state?** (board state, stack, graveyard, etc.)
-3. **What game mechanic is being tested?** (targeting, combat, ETB triggers, copy effects, etc.)
+If the mechanic fundamentally requires time to pass, keep the script short anyway and make each turn do real work.
 
-If the user's description is vague, ask clarifying questions. You need enough detail to design the deck and script.
+## Deck Design
 
-## Step 2: Design the deck
+Golden decks are deterministic. The first 7 cards are the opening hand because shuffling is disabled.
 
-Design a 60-card deck where the first 7 cards (the opening hand with skip-shuffling) contain exactly what's needed. Fill the rest with Plains or basic lands.
+Rules:
 
-**Deck format:** `<count> [<SET>:<NUM>] <Card Name>` — one line per card/printing.
+- Exactly 60 cards
+- Put every setup piece needed for the scenario in the first 7 cards unless the draw itself matters
+- Put reveal targets, later draws, or pile-split cards immediately after the opening hand
+- Pad the rest with basics unless a later specific draw is required
+- Use real set codes and collector numbers from existing decks or `Mage.Sets`
 
-**Constraints:**
+Predict short IDs in comments. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
 
-- Exactly 60 cards total
-- All cards needed for the scenario must be in the first 7 positions (the opening hand)
-- Use real set codes and collector numbers (check existing decks for examples)
-- The 8th+ cards should be basic lands (these get drawn on subsequent turns)
+## Script Design
 
-**ID assignment:** IDs are assigned alphabetically by card name starting at p3 (p1=TestPlayer, p2=Opponent). Cards with the same name get consecutive IDs. Predict the IDs and note them in script comments.
-
-**Mana planning:** Count how many turns you need based on available mana sources. Remember:
-
-- T1 (on the play): no draw, one main phase, no combat
-- T2+: untap, draw, precombat main, combat, postcombat main
-- You need one untapped land producing the right color per spell
-
-## Step 3: Design the script
-
-The script is a list of MCP tool calls: `pass_priority`, `choose_action`, and `get_game_state`.
-
-**Standard preamble (every test starts with this):**
+Use the standard mulligan preamble:
 
 ```python
-# Choose TestPlayer as starting player, keep hand.
 {"name": "pass_priority", "arguments": {}},
-{"name": "choose_action", "arguments": {"index": 0}},
+{"name": "choose_action", "arguments": {"choice": "0"}},
 {"name": "pass_priority", "arguments": {}},
-{"name": "choose_action", "arguments": {"answer": False}},
+{"name": "choose_action", "arguments": {"choice": "no"}},
 ```
 
-**Bridge auto-pass behavior — critical to understand:**
+Prefer `choice="pN"` for stable card/permanent selection when you know the ID.
 
-The bridge has a "first pass" optimization: within each `pass_priority` call, the first callback with playable cards is auto-passed (skipped). The bridge stops on the second+ callback with playable cards. This means:
+Use `pass_priority` for phase advancement and `choose_action` for the decision itself.
 
-- After playing a land, the next `pass_priority` auto-passes the current main phase once. If there are sorcery-speed plays available (creatures, sorceries), it stops in main. If only instants, it advances to combat and stops there.
-- After casting a spell that resolves, the next `pass_priority` auto-passes once, then stops if there are still playable cards.
+Important patterns:
 
-**Keeping multiple spells on the stack simultaneously:**
+- After a land drop, the next `pass_priority` auto-passes once before stopping again
+- `choose_action` can chain through pending follow-up actions without running the auto-pass loop
+- Use chained `choose_action` calls when you need the stack to stay intact
+- Use `pass_priority(until="declare_attackers")`, `until="postcombat_main"`, `until="my_turn"`, etc. to skip irrelevant prompts cleanly
 
-Use **chained `choose_action` calls** (no `pass_priority` between casts). The `choose_action` method does NOT run the auto-pass loop — it handles the pending action directly and waits for the next server callback. This lets you:
+Low-noise heuristics:
 
-1. `pass_priority` — get the GAME_SELECT with castable spells
-2. `choose_action(index=0)` — cast spell #1 (response: next_action=GAME_TARGET)
-3. `choose_action(id="p2")` — choose target (response: next_action=GAME_SELECT)
-4. `choose_action(index=0)` — cast spell #2 without spell #1 resolving
-5. `choose_action(id="pN")` — choose target for spell #2
+- If a test takes multiple turns only to hit a mana threshold, redesign the deck
+- If the script ends with an unrelated land play, remove it and yield to the phase you actually need
+- If you need `Fact or Fiction`, put the split cards at positions 8-12 instead of drawing for several turns
+- If combat is not the mechanic, avoid creating creatures that force extra attacker prompts
 
-If you used `pass_priority` between steps 3 and 4, the auto-pass loop would pass priority, the opponent would pass, and spell #1 would resolve before you could cast spell #2.
+## File Changes
 
-**Combat with creatures on the battlefield:**
+Touch the minimum set of files:
 
-When you have creatures, `pass_priority` after a land play will hit the Declare Attackers combat selection (which always returns, even at actionsPassed=0). Handle it with `choose_action(answer=false)` to skip attacking, then `pass_priority` again to reach postcombat main.
+- Deck: `puppeteer/tests/decks/<name>.dck`
+- Test: `puppeteer/tests/test_golden_<name>.py`
+- Golden helper constant if adding a new deck path
+- Generated files under `puppeteer/tests/golden/`
 
-**Common patterns:**
+Mark gameplay goldens with `@pytest.mark.golden`.
 
-- Play a land: `choose_action(id="pN")` where pN is the land's ID
-- Cast a spell: `choose_action(index=N)` or `choose_action(id="pN")`
-- Target a player: `choose_action(id="p1")` (you) or `choose_action(id="p2")` (opponent)
-- Target a permanent: `choose_action(id="pN")` where pN is the permanent's ID (stable across zones)
-- Keep hand: `choose_action(answer=false)` (false=keep, true=mulligan)
-- Pass/decline: `choose_action(answer=false)`
-- Skip attacking: `choose_action(answer=false)` at declare_attackers
+## Regeneration And Validation
 
-**End with `get_game_state`** to capture the final board state in the golden prompt.
+Use the make targets only. Direct `pytest -m golden` is blocked.
 
-## Step 4: Write the files
+For focused iteration:
 
-1. **Create or update the deck file** in `puppeteer/tests/decks/`. If an existing deck works, use it. Add a constant in `golden_helpers.py` if creating a new deck.
+```bash
+make regen-golden K=<name>
+```
 
-2. **Create the test file** at `puppeteer/tests/test_golden_<name>.py`:
+Then inspect the generated prompt/export and confirm:
 
-   ```python
-   """Golden prompt test: <description>."""
+- The intended board or stack state is present
+- There are no `invalid_choice` or similar tool errors
+- The script did not take irrelevant actions after the scenario was already established
 
-   import pytest
+After the targeted goldens are right, run:
 
-   from tests.golden_helpers import (
-       DECK_YOUR_DECK,
-       DECK_FILLER,
-       assert_golden_prompt,
-       run_golden_scenario,
-   )
+```bash
+make test
+```
 
-   @pytest.mark.golden
-   def test_<name>(xmage_server, tmp_path, project_root):
-       """<One-line description of what this tests>."""
-       server, port = xmage_server
-       prompt = run_golden_scenario(
-           server=server,
-           port=port,
-           project_root=project_root,
-           game_dir=tmp_path / "<name>",
-           deck_a=DECK_YOUR_DECK,
-           deck_b=DECK_FILLER,
-           script=[
-               # ... scripted tool calls ...
-           ],
-       )
-       assert_golden_prompt("<name>", prompt)
-   ```
+`make check` also covers golden tests in CI, but for Python changes in `puppeteer/`, at minimum run `make test` locally.
 
-3. **Add the deck constant** to `puppeteer/tests/golden_helpers.py` if it's a new deck:
+## Failure Triage
 
-   ```python
-   DECK_MY_NEW_DECK = "puppeteer/tests/decks/my_new_deck.dck"
-   ```
+If regeneration fails:
 
-## Step 5: Generate and verify
+- Wrong IDs or choice indexes: re-check alphabetical ordering and the exact prompt you stopped on
+- Unexpected extra prompts: use `until=` yields or remove cards causing irrelevant actions
+- Needing too many turns: redesign the deck around faster mana instead of scripting around the slowness
 
-1. Run `make check` to verify lint/typecheck/unit tests pass.
-
-2. Run `make regen-golden` to generate the golden prompt JSON:
-
-   ```bash
-   make regen-golden
-   ```
-
-   This starts an XMage server, runs all golden tests, and writes the golden files. If the script has errors (wrong IDs, wrong indices), the test will fail with details about what went wrong. Fix the script and re-run.
-
-3. **Read the generated golden file** to verify the scenario played out correctly. Check:
-   - The stack contains what you expect
-   - The battlefield has the right permanents
-   - Targets are correct
-   - No error responses in the tool results
-
-4. If the script produced errors (e.g., `"error_code":"invalid_choice"`), examine the error to understand what choices were actually available, fix the script, and re-run `make regen-golden`.
-
-## Step 6: Commit and PR
-
-Commit the deck, test file, and generated golden JSON together. Use `/pr` to create the pull request.
+Do not paper over nondeterminism. If a golden is flaky, use the `investigate-golden-flake` skill and fix the root cause.
