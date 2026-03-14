@@ -23,6 +23,7 @@ from scripts.analysis.blunder_eval_common import (
 
 VALID_GAME_ID = "game_20260214_005111_g1"
 
+
 def _write_export(path: Path) -> None:
     data = {
         "version": 7,
@@ -51,6 +52,7 @@ def _write_export(path: Path) -> None:
             json.dump(data, f)
         return
     path.write_text(json.dumps(data))
+
 
 # --- play_key ---
 
