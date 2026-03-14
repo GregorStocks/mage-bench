@@ -66,9 +66,7 @@ Create a pull request for the current branch's changes.
    )"
    ```
 
-8. **Wait for CI or report its exact state.** Run `gh pr checks` (or `gh pr checks --watch` if you can wait). Do not say the PR is ready/green while required checks are still pending, and do not leave golden coverage to CI if you could have regenerated the affected files locally first.
-
-9. **Report the PR URL** to the user, along with whether checks passed or are still pending.
+8. **Report the PR URL** to the user. Do not wait for CI or summarize pending checks unless the user explicitly asks for CI status.
 
 ## Guidelines
 
