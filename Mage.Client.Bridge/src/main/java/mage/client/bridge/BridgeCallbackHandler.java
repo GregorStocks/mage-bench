@@ -124,6 +124,7 @@ public class BridgeCallbackHandler {
     private final StringBuilder gameLog = new StringBuilder();
     private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
+    private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
     private volatile boolean startGameArmed = false; // keepAlive join_table must arm the next START_GAME
     private volatile boolean superseded = false; // set when createFreshForNextGame() replaces this handler
@@ -384,7 +385,7 @@ public class BridgeCallbackHandler {
         if (gv.getPhase() != null) sb.append(" ").append(gv.getPhase());
         sb.append(" | ");
         UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
-        UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
+        UUID myPlayerId = playerIdForGame(gameId);
         for (PlayerView p : gv.getPlayers()) {
             boolean isMe = p.getPlayerId().equals(myPlayerId);
             sb.append(p.getName());
@@ -406,6 +407,17 @@ public class BridgeCallbackHandler {
             sb.append("]");
         }
         return sb.toString();
+    }
+
+    private UUID playerIdForGame(UUID gameId) {
+        if (gameId == null) {
+            return null;
+        }
+        UUID playerId = activeGames.get(gameId);
+        if (playerId != null) {
+            return playerId;
+        }
+        return gameId.equals(currentGameId) ? currentPlayerId : null;
     }
 
     public void setSession(Session session) {
@@ -519,6 +531,7 @@ public class BridgeCallbackHandler {
         gameChatIds.clear();
         pendingAction = null;
         currentGameId = null;
+        currentPlayerId = null;
         gameEverStarted = false;
         lastGameView = null;
         lastChoices = null;
@@ -1137,7 +1150,7 @@ public class BridgeCallbackHandler {
                     CardsView cardsView = msg.getCardsView1();
                     GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : lastGameView;
                     UUID gameId = currentGameId;
-                    UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
+                    UUID myPlayerId = playerIdForGame(gameId);
                     var targetChoices = new ArrayList<TargetChoice>();
                     for (UUID targetId : targets) {
                         var choiceEntry = new HashMap<String, Object>();
@@ -2423,7 +2436,7 @@ public class BridgeCallbackHandler {
         // Check if the target is a player
         if (view != null) {
             UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
-            UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
+            UUID myPlayerId = playerIdForGame(gameId);
             for (PlayerView player : view.getPlayers()) {
                 if (player.getPlayerId().equals(targetId)) {
                     String desc = player.getName();
@@ -2503,7 +2516,7 @@ public class BridgeCallbackHandler {
     private String controllerSuffix(UUID objectId, GameView gameView) {
         if (gameView == null) return "";
         UUID gameId = currentGameId;
-        UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
+        UUID myPlayerId = playerIdForGame(gameId);
         for (PlayerView player : gameView.getPlayers()) {
             if (player.getBattlefield().get(objectId) != null) {
                 if (player.getPlayerId().equals(myPlayerId)) {
@@ -2739,7 +2752,7 @@ public class BridgeCallbackHandler {
     private List<BridgeLogEntry> pullBridgeEvents() {
         UUID gameId = currentGameId;
         if (gameId == null) return List.of();
-        UUID playerId = activeGames.get(gameId);
+        UUID playerId = playerIdForGame(gameId);
         if (playerId == null) return List.of();
         try {
             List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
@@ -3654,7 +3667,7 @@ public class BridgeCallbackHandler {
     private List<Map<String, Object>> buildPlayersArray(GameView gameView) {
         var players = new ArrayList<Map<String, Object>>();
         UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
-        UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
+        UUID myPlayerId = playerIdForGame(gameId);
 
         for (PlayerView player : getStablePlayers(gameView, myPlayerId)) {
             var playerInfo = new HashMap<String, Object>();
@@ -4946,6 +4959,7 @@ public class BridgeCallbackHandler {
         UUID playerId = message.getPlayerId();
         activeGames.put(gameId, playerId);
         currentGameId = gameId;
+        currentPlayerId = playerId;
         gameEverStarted = true;
         shortIds.clear();
 
@@ -5337,7 +5351,7 @@ public class BridgeCallbackHandler {
                 return myPlayer.getPlayerId();
             }
         }
-        return activeGames.get(gameId);
+        return playerIdForGame(gameId);
     }
 
     /**
@@ -5586,39 +5600,9 @@ public class BridgeCallbackHandler {
         if (gv != null) {
             updateLastGameView(gv, "handleGameOver");
         }
-
-        // Pull bridge events one last time BEFORE removing from activeGames.
-        // This ensures cachedBridgeEvents is populated before passPriority
-        // sees the game as ended (via activeGames.isEmpty()) and returns
-        // game_over to Python — preventing a race where get_game_history
-        // finds both pullBridgeEvents() empty (game removed) and the cache
-        // still empty (not yet populated by handleGameOver).
-        UUID playerId = activeGames.get(gameId);
-        if (playerId != null) {
-            try {
-                int savedCursor = bridgeEventCursor;
-                bridgeEventCursor = 0; // Pull everything from the start
-                List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
-                if (events != null && !events.isEmpty()) {
-                    // Replace cache entirely — we pulled from cursor 0
-                    cachedBridgeEvents.clear();
-                    cachedBridgeEvents.addAll(events);
-                    bridgeEventCursor = events.get(events.size() - 1).index() + 1;
-                } else {
-                    bridgeEventCursor = savedCursor;
-                }
-            } catch (Exception e) {
-                logger.warn("[" + client.getUsername() + "] Failed to pull final bridge events on game over", e);
-            }
-        }
-
-        // Remove from activeGames so that concurrent MCP tool calls
-        // (pullBridgeEvents, passPriority, concede) see the game as ended.
-        // This also triggers passPriority's game-over bail-out
-        // (activeGames.isEmpty()), but now the cache is already populated.
-        // The remove must still happen before client.stop() to prevent
-        // concurrent pullBridgeEvents from calling session.getBridgeEvents()
-        // on a dead connection.
+        // Do not pull bridge events synchronously from the callback thread.
+        // The server caches them during removeGame(), and currentPlayerId lets
+        // postgame get_game_history calls fetch them after activeGames clears.
         activeGames.remove(gameId);
         synchronized (actionLock) {
             actionLock.notifyAll();

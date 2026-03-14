@@ -535,7 +535,7 @@ def _render_context(
         "Continue playing. Call pass_priority to get your next decision, "
         "then choose_action to respond. "
         "All cards listed are playable right now. "
-        "Play cards with id=pN, pass with answer=false."
+        "Play cards with choice=pN, pass with choice=no."
     )
     if cache_control:
         messages.append(

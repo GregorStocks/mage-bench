@@ -69,7 +69,7 @@
     "tool_call_id": "call_3"
   },
   {
-    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 1 permanents, 6 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 1 permanents, 6 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with choice=pN, pass with choice=no.",
     "role": "user"
   },
   {

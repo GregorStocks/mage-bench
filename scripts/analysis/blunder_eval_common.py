@@ -7,6 +7,8 @@ audit, baseline, eval, and promote scripts.
 from __future__ import annotations
 
 import json
+import re
+import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
@@ -17,6 +19,8 @@ GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
 BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
+_SAFE_EXPORT_COMPONENT_RE = re.compile(r"^[A-Za-z0-9._-]+$")
+_SAFE_EXPORT_FILENAME_RE = re.compile(r"^game_[A-Za-z0-9_]+\.json(?:\.gz)?$")
 
 
 # --- Decision format compat helpers ---
@@ -114,9 +118,62 @@ def subsequent_actions(d: Mapping[str, object]) -> list[str]:
     return result
 
 
+def _allowed_export_roots() -> tuple[Path, ...]:
+    """Directories that may contain analysis-ready game exports."""
+    return (GAMES_DIR.resolve(), Path(tempfile.gettempdir()).resolve())
+
+
+def _candidate_export_paths(path: str | Path) -> list[tuple[Path, Path]]:
+    """Map a user-supplied path onto allowed export roots without touching the filesystem."""
+    raw_path = Path(path)
+    allowed_roots = _allowed_export_roots()
+    if raw_path.is_absolute():
+        root_candidates = [(root, raw_path) for root in allowed_roots]
+    else:
+        cwd_path = Path.cwd().resolve() / raw_path
+        root_candidates = [(root, cwd_path) for root in allowed_roots]
+
+    matches: list[tuple[Path, Path]] = []
+    for root, candidate in root_candidates:
+        try:
+            relative = candidate.relative_to(root)
+        except ValueError:
+            continue
+        matches.append((root, relative))
+    return matches
+
+
+def _validate_export_path(path: str | Path) -> Path:
+    """Resolve and validate a game export path before opening it."""
+    matches = _candidate_export_paths(path)
+    allowed_roots = _allowed_export_roots()
+    assert matches, f"Game export must live under one of {allowed_roots}, got {path}"
+
+    root, relative = matches[0]
+    assert relative.parts, f"Game export path must include a filename: {path}"
+    for part in relative.parts[:-1]:
+        assert _SAFE_EXPORT_COMPONENT_RE.fullmatch(part), (
+            f"Game export path has invalid directory component {part!r}: {path}"
+        )
+
+    filename = relative.parts[-1]
+    assert _SAFE_EXPORT_FILENAME_RE.fullmatch(filename), (
+        f"Game export filename must match game_*.json or game_*.json.gz: {path}"
+    )
+
+    candidate = root.joinpath(*relative.parts)
+    resolved = candidate.resolve()
+    assert resolved.is_relative_to(root), (
+        f"Game export must stay under {root} after resolution, got {resolved}"
+    )
+    assert resolved.exists(), f"Game export not found: {resolved}"
+    assert resolved.is_file(), f"Game export is not a file: {resolved}"
+    return resolved
+
+
 def load_game(path: str | Path) -> GameExport:
     """Load a game export file (.json or .json.gz)."""
-    return load_game_export(path)
+    return load_game_export(_validate_export_path(path))
 
 
 def glob_game_files(games_dir: Path) -> list[Path]:
