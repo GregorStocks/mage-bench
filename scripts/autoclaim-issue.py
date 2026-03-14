@@ -2,11 +2,11 @@
 """Claim an issue — either a specific one or the highest-priority unclaimed one.
 
 Merges origin/master first, then either claims the named issue or picks the
-highest-priority unclaimed autoclaimable issue.
+highest-priority unclaimed non-blocked issue.
 
 Usage:
     autoclaim-issue.py                  Auto-pick highest priority issue
-    autoclaim-issue.py <issue-name>     Claim a specific issue (bypasses not_autoclaimable)
+    autoclaim-issue.py <issue-name>     Claim a specific issue (bypasses blocked)
 
 Exit codes:
     0  Claimed successfully (prints issue filename and PR number)
@@ -40,7 +40,7 @@ def load_issues() -> list[tuple[str, int, str]]:
     issues = []
     for f in sorted(ISSUES_DIR.glob("*.json")):
         data = json.loads(f.read_text())
-        if data.get("not_autoclaimable"):
+        if data.get("blocked"):
             continue
         issues.append((f.stem, data.get("priority", 999), data["title"]))
     issues.sort(key=lambda i: i[1])
@@ -90,7 +90,7 @@ def pick_unclaimed(issues: list[tuple[str, int, str]], claimed: set[str]) -> str
 
 
 def claim_specific(issue_name: str) -> None:
-    """Claim a specific issue by name, bypassing not_autoclaimable."""
+    """Claim a specific issue by name, bypassing blocked."""
     issue_stem = issue_name.removesuffix(".json")
     issue_path = ISSUES_DIR / f"{issue_stem}.json"
     assert issue_path.exists(), f"Issue file not found: {issue_path}"

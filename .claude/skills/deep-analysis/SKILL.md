@@ -122,6 +122,9 @@ If a commit clearly fixes the bug, skip filing the issue. If unsure, file it and
 
 Create issue files in `issues/`:
 
+- Filename: `issues/p{priority}-short-kebab-summary.json`
+- Use `issues/blocked-short-kebab-summary.json` only when Gregor explicitly says the issue has manual preconditions; those files should also include `"blocked": true`
+
 ```json
 {
   "title": "Short summary",
