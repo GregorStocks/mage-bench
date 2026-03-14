@@ -1,0 +1,10 @@
+{
+  "title": "quiet_check races parallel website npm installs",
+  "description": "`make check` runs `scripts/checks/quiet_check.py`, which fans out `lint-website`, `lint-md`, `astro-check`, `test-js`, and `verify-schema-types` in parallel. Each of those targets runs `cd website && npm install ...` against the same `website/node_modules` tree. On the merged `origin/master` branch this produced deterministic ENOENT / missing-module failures during a single `make check` run, including missing `eslint-visitor-keys`, missing `tinyglobby`, and broken `.bin/astro-check` symlinks. The root cause is the concurrent `npm install` mutation of the same directory, not the Java issue cleanup in this PR.\n\nRepro:\n1. Start from current `origin/master`.\n2. Run `make check`.\n3. Observe website-target failures from partially installed or concurrently rewritten `website/node_modules` contents.\n\nFix direction: serialize the website package install, or make the website checks share a single prepared install instead of each target running `npm install` independently.",
+  "status": "open",
+  "priority": 2,
+  "type": "bug",
+  "labels": ["build", "website", "ci"],
+  "created_at": "2026-03-14T11:25:12-07:00",
+  "updated_at": "2026-03-14T11:25:12-07:00"
+}
