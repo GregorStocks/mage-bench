@@ -60,7 +60,8 @@ epoch directly.
 #  45 - Write season to game_meta.json at run time (Mar 6)
 #  46 - Redefine stack_resolved to watch the current stack object and only wake on a later actionable callback (Mar 14)
 #  47 - Richer stack ability summaries in bridge tool results and rendered prompts (Mar 14)
-HARNESS_EPOCH = 47
+#  48 - State-bridge prompt teaches choose_action(choice=no) instead of answer=false (Mar 14)
+HARNESS_EPOCH = 48
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and
