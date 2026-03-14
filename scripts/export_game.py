@@ -476,7 +476,10 @@ def read_game_winner(game_dir: Path) -> str | None:
         assert isinstance(event, dict), f"{events_file}: expected JSON object per line"
         if event.get("type") == "game_end":
             winner = event.get("winner")
-            return winner if isinstance(winner, str) else None
+            assert winner is None or isinstance(winner, str), (
+                f"{events_file}: game_end winner must be a string or null, got {winner!r}"
+            )
+            return winner
     return None
 
 
@@ -586,7 +589,10 @@ def _is_v1_decision_source(event: dict) -> bool:
         return False
     result = _parse_json(event.get("result", ""))
     action_pending = result.get("action_pending", True)
-    return action_pending if isinstance(action_pending, bool) else True
+    assert isinstance(action_pending, bool), (
+        f"get_action_choices action_pending must be a bool, got {action_pending!r}"
+    )
+    return action_pending
 
 
 def _resolve_chosen_index(

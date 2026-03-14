@@ -17,28 +17,6 @@ GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
 
 
-def _coerce_int(value: object, *, default: int = 0) -> int:
-    if isinstance(value, int) and not isinstance(value, bool):
-        return value
-    return default
-
-
-def _coerce_bool(value: object, *, default: bool = False) -> bool:
-    if isinstance(value, bool):
-        return value
-    return default
-
-
-def _coerce_str(value: object, *, default: str = "") -> str:
-    if isinstance(value, str):
-        return value
-    return default
-
-
-def _coerce_dict(value: object) -> dict:
-    return value if isinstance(value, dict) else {}
-
-
 # --- Decision format compat helpers ---
 # Canonical decisions (from export's decisions[]) use camelCase.
 # Legacy decisions (from extract_decisions) use snake_case.
@@ -52,32 +30,48 @@ def is_canonical_decision(d: dict) -> bool:
 
 def decision_index(d: dict) -> int:
     """Get the decision index from either format."""
-    return _coerce_int(d.get("index", d.get("decision_index", 0)))
+    value = d.get("index", d.get("decision_index", 0))
+    assert isinstance(value, int) and not isinstance(value, bool), (
+        f"decision index must be an int, got {value!r}"
+    )
+    return value
 
 
 def snapshot_index(d: dict) -> int:
     """Get the snapshot index from either format."""
-    return _coerce_int(d.get("snapshotIndex", d.get("snapshot_index", 0)))
+    value = d.get("snapshotIndex", d.get("snapshot_index", 0))
+    assert isinstance(value, int) and not isinstance(value, bool), (
+        f"snapshot index must be an int, got {value!r}"
+    )
+    return value
 
 
 def is_forced(d: dict) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
-    return _coerce_bool(d.get("isForced", d.get("is_forced", False)))
+    value = d.get("isForced", d.get("is_forced", False))
+    assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
+    return value
 
 
 def action_result(d: dict) -> dict:
     """Get the action result from either format."""
-    return _coerce_dict(d.get("actionResult", d.get("action_result", {})))
+    value = d.get("actionResult", d.get("action_result", {}))
+    assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
+    return value
 
 
 def is_rolled_back(d: dict) -> bool:
     """Check if a decision was rolled back in either format."""
-    return _coerce_bool(d.get("rolled_back", False))
+    value = d.get("rolled_back", False)
+    assert isinstance(value, bool), f"rolled_back must be a bool, got {value!r}"
+    return value
 
 
 def is_cast_rolled_back(d: dict) -> bool:
     """Check if a cast was rolled back in either format."""
-    return _coerce_bool(d.get("castRolledBack", d.get("cast_rolled_back", False)))
+    value = d.get("castRolledBack", d.get("cast_rolled_back", False))
+    assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
+    return value
 
 
 def is_mana_ability_subdecision(d: dict) -> bool:
@@ -86,7 +80,8 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     These are intermediate steps during mana payment or ability activation —
     not strategically interesting for blunder annotation.
     """
-    msg = _coerce_str(d.get("message", ""))
+    msg = d.get("message", "")
+    assert isinstance(msg, str), f"message must be a string, got {msg!r}"
     if msg.startswith("Choose which mana to produce from"):
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
@@ -104,9 +99,16 @@ def is_mana_ability_subdecision(d: dict) -> bool:
 def subsequent_actions(d: dict) -> list[str]:
     """Get subsequent actions from either format."""
     actions = d.get("subsequentActions", d.get("subsequent_actions", []))
-    if not isinstance(actions, list):
-        return []
-    return [action for action in actions if isinstance(action, str)]
+    assert isinstance(actions, list), (
+        f"subsequentActions must be a list, got {actions!r}"
+    )
+    result: list[str] = []
+    for index, action in enumerate(actions):
+        assert isinstance(action, str), (
+            f"subsequentActions[{index}] must be a string, got {action!r}"
+        )
+        result.append(action)
+    return result
 
 
 def load_game(path: str | Path) -> dict:
@@ -161,7 +163,13 @@ def load_ground_truth() -> dict[str, list[dict]]:
         with open(p) as f:
             entries = json.load(f)
         assert isinstance(entries, list), f"{p}: expected JSON array"
-        result[game_id] = [entry for entry in entries if isinstance(entry, dict)]
+        typed_entries: list[dict] = []
+        for index, entry in enumerate(entries):
+            assert isinstance(entry, dict), (
+                f"{p}: entries[{index}] must be an object, got {entry!r}"
+            )
+            typed_entries.append(entry)
+        result[game_id] = typed_entries
     return result
 
 
@@ -173,7 +181,13 @@ def load_game_ground_truth(game_id: str) -> list[dict]:
     with open(path) as f:
         entries = json.load(f)
     assert isinstance(entries, list), f"{path}: expected JSON array"
-    return [entry for entry in entries if isinstance(entry, dict)]
+    typed_entries: list[dict] = []
+    for index, entry in enumerate(entries):
+        assert isinstance(entry, dict), (
+            f"{path}: entries[{index}] must be an object, got {entry!r}"
+        )
+        typed_entries.append(entry)
+    return typed_entries
 
 
 def save_game_ground_truth(game_id: str, entries: list[dict]) -> None:

@@ -117,9 +117,12 @@ _DISPATCHES = [
 
 def _player_key_from_dict(player: dict) -> str:
     """Build aggregation key from game player dict: 'model_id::effort' or 'model_id'."""
-    raw_model_id = player.get("model")
-    model_id = raw_model_id if isinstance(raw_model_id, str) else ""
-    effort = player.get("reasoningEffort") or player.get("reasoning_effort")
+    model_id = player.get("model", "")
+    assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
+    effort = player.get("reasoningEffort", player.get("reasoning_effort"))
+    assert effort is None or isinstance(effort, str), (
+        f"player reasoningEffort must be a string when present, got {effort!r}"
+    )
     if effort:
         return f"{model_id}::{effort}"
     return model_id
