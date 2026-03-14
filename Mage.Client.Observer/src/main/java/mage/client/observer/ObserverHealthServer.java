@@ -28,9 +28,9 @@ import java.util.concurrent.TimeoutException;
  * <ul>
  *   <li>{@code GET /health?timeout=N} — blocks until lobby is initialized</li>
  *   <li>{@code POST /wait-for-ready} — blocks until a game table is created for
- *       the requested gameDir</li>
- *   <li>{@code POST /wait-for-watching} — blocks until the spectator has opened
- *       the requested game and fired its initial permission requests</li>
+ *       the requested gameDir and bridge clients can join it</li>
+ *   <li>{@code POST /wait-for-watching} — blocks until the spectator has attached
+ *       to the requested game's actual GameView</li>
  *   <li>{@code POST /wait-for-game-end} — blocks until a game's event files are
  *       fully written and closed for the requested gameDir</li>
  * </ul>
@@ -74,7 +74,7 @@ public class ObserverHealthServer {
         future.complete(tableId);
     }
 
-    /** Signal that the spectator has opened the given game and is now watching it. */
+    /** Signal that the spectator is actively watching the given gameDir. */
     public void signalGameWatching(String gameDir) {
         CompletableFuture<Void> future = gameWatchingFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
         future.complete(null);
