@@ -6,11 +6,32 @@ import signal
 import subprocess
 import sys
 import threading
+from collections.abc import Callable
 from pathlib import Path
 from types import FrameType
 from typing import IO
 
 import psutil
+
+_PREFER_OOM_KILL_SCORE_ADJ = 1000
+
+
+def _write_oom_score_adj(score_adj: int) -> None:
+    """Set the current process's Linux OOM score adjustment."""
+    assert -1000 <= score_adj <= 1000, f"oom_score_adj out of range: {score_adj}"
+    with open("/proc/self/oom_score_adj", "w", encoding="ascii") as fh:
+        fh.write(f"{score_adj}\n")
+
+
+def jvm_oom_preexec_fn() -> Callable[[], object] | None:
+    """Return a Linux ``preexec_fn`` that biases OOM kills toward launched JVMs."""
+    if sys.platform != "linux":
+        return None
+
+    def _preexec() -> None:
+        _write_oom_score_adj(_PREFER_OOM_KILL_SCORE_ADJ)
+
+    return _preexec
 
 
 def kill_tree(pid: int) -> None:
@@ -96,14 +117,15 @@ class ProcessManager:
         self.cleanup()
         sys.exit(0)
 
-    def start_process(
+    def _start_tracked_process(
         self,
         args: list[str],
         cwd: Path | None = None,
         env: dict[str, str] | None = None,
         log_file: Path | None = None,
+        preexec_fn: Callable[[], object] | None = None,
     ) -> subprocess.Popen:
-        """Start a subprocess and track it for cleanup.
+        """Start a subprocess with an optional ``preexec_fn`` and track it for cleanup.
 
         Processes are kept in the same process group as the parent so they
         receive signals when the parent is killed.
@@ -122,15 +144,27 @@ class ProcessManager:
             stderr = subprocess.PIPE
 
         try:
-            proc = subprocess.Popen(
-                args,
-                cwd=cwd,
-                env=merged_env,
-                stdout=stdout,
-                stderr=stderr,
-                # Don't use start_new_session=True - keep processes in same group
-                # so they receive signals when parent is killed
-            )
+            if preexec_fn is None:
+                proc = subprocess.Popen(
+                    args,
+                    cwd=cwd,
+                    env=merged_env,
+                    stdout=stdout,
+                    stderr=stderr,
+                    # Don't use start_new_session=True - keep processes in same group
+                    # so they receive signals when parent is killed
+                )
+            else:
+                proc = subprocess.Popen(
+                    args,
+                    cwd=cwd,
+                    env=merged_env,
+                    stdout=stdout,
+                    stderr=stderr,
+                    preexec_fn=preexec_fn,
+                    # Don't use start_new_session=True - keep processes in same group
+                    # so they receive signals when parent is killed
+                )
         except Exception:
             if log_fh:
                 log_fh.close()
@@ -140,6 +174,37 @@ class ProcessManager:
             self._processes.append((proc, log_fh))
 
         return proc
+
+    def start_process(
+        self,
+        args: list[str],
+        cwd: Path | None = None,
+        env: dict[str, str] | None = None,
+        log_file: Path | None = None,
+    ) -> subprocess.Popen:
+        """Start a non-JVM subprocess and track it for cleanup."""
+        return self._start_tracked_process(
+            args=args,
+            cwd=cwd,
+            env=env,
+            log_file=log_file,
+        )
+
+    def start_jvm_process(
+        self,
+        args: list[str],
+        cwd: Path | None = None,
+        env: dict[str, str] | None = None,
+        log_file: Path | None = None,
+    ) -> subprocess.Popen:
+        """Start a JVM-launching subprocess and bias Linux OOM kills toward it."""
+        return self._start_tracked_process(
+            args=args,
+            cwd=cwd,
+            env=env,
+            log_file=log_file,
+            preexec_fn=jvm_oom_preexec_fn(),
+        )
 
     def _kill_tree(self, pid: int) -> None:
         """Kill a process and all its children."""

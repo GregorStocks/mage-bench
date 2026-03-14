@@ -24,7 +24,7 @@ from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import ProcessManager, kill_tree
+from puppeteer.process_manager import ProcessManager, jvm_oom_preexec_fn, kill_tree
 from puppeteer.xml_config import modify_server_config
 from scripts.analysis.blunder_analysis import (
     BlunderAnalysisError,
@@ -588,7 +588,7 @@ def compile_project(
         cmd.append("-Dmaven.build.cache.enabled=false")
     cmd.append("install")
 
-    result = subprocess.run(cmd, cwd=project_root)
+    result = subprocess.run(cmd, cwd=project_root, preexec_fn=jvm_oom_preexec_fn())
     return result.returncode == 0
 
 
@@ -603,6 +603,7 @@ def refresh_observer_resources(project_root: Path) -> bool:
             "resources:resources",
         ],
         cwd=project_root,
+        preexec_fn=jvm_oom_preexec_fn(),
     )
     return result.returncode == 0
 
@@ -640,7 +641,7 @@ def start_server(
         "MAVEN_OPTS": jvm_args,
     }
 
-    return pm.start_process(
+    return pm.start_jvm_process(
         args=["mvn", "-q", "exec:java"],
         cwd=project_root / "Mage.Server",
         env=env,
@@ -691,7 +692,7 @@ def start_gui_client(
     if config.skip_init_shuffling:
         env["XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING"] = "true"
 
-    return pm.start_process(
+    return pm.start_jvm_process(
         args=["mvn", "-q", "exec:java"],
         cwd=project_root / "Mage.Client",
         env=env,
@@ -727,7 +728,7 @@ def start_potato_client(
         mvn_args.append(f"-Dxmage.bridge.deck={resolved_path}")
     mvn_args.append("exec:java")
 
-    return pm.start_process(
+    return pm.start_jvm_process(
         args=mvn_args,
         cwd=project_root / "Mage.Client.Bridge",
         env=env,
@@ -976,7 +977,7 @@ def start_observer_client(
         args = [xvfb, "--auto-servernum", "--server-args=-screen 0 1920x1080x24", *args]
         logger.info("Headless environment detected — wrapping observer with xvfb-run")
 
-    return pm.start_process(
+    return pm.start_jvm_process(
         args=args,
         cwd=project_root / "Mage.Client.Observer",
         env=env,

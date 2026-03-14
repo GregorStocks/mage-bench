@@ -20,7 +20,7 @@ from mcp.client.streamable_http import streamable_http_client
 from mcp.shared._httpx_utils import create_mcp_http_client
 
 from puppeteer.port import PortReservation, find_available_port, wait_for_port
-from puppeteer.process_manager import kill_tree
+from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 
 # MCP HTTP ports start at 19000 to avoid overlap with XMage server ports (17171+)
 _MCP_PORT_START = 19000
@@ -77,6 +77,7 @@ async def spawn_bridge_http(
             stdout=log_fh or subprocess.DEVNULL,
             stderr=subprocess.STDOUT,
             env=env,
+            preexec_fn=jvm_oom_preexec_fn(),
         )
 
         # Wait for the HTTP server to start listening.
