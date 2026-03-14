@@ -176,24 +176,3 @@ class TestWaitForGameEnd:
         _HealthHandler.game_end_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-game-end failed"):
             _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=1)
-
-
-class TestWaitForGameWatching:
-    def test_game_watching_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
-        port, _server = mock_health_server
-        _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=5)
-
-    def test_game_watching_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
-        port, _server = mock_health_server
-        _HealthHandler.game_watching_delay = 0.3
-        t0 = time.monotonic()
-        _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=5)
-        elapsed = time.monotonic() - t0
-        assert elapsed >= 0.2
-        assert elapsed < 2.0
-
-    def test_game_watching_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
-        port, _server = mock_health_server
-        _HealthHandler.game_watching_delay = 10
-        with pytest.raises(RuntimeError, match="Wait-for-watching failed"):
-            _wait_for_game_watching(port, Path("/tmp/test-game"), timeout=1)

@@ -286,7 +286,6 @@ public class ObserverGamePanel extends GamePanel {
         requestHandPermissions(game);
         initCostPolling();
         initGameEventLog();
-        signalWatchingReady();
         // Build player color index map and apply per-player styling
         if (playerColorIndices.isEmpty() && game.getPlayers() != null) {
             int idx = 0;
@@ -337,7 +336,6 @@ public class ObserverGamePanel extends GamePanel {
         hideHandContainer();
         // Also try to request permissions on updates in case we missed init
         requestHandPermissions(game);
-        signalWatchingReady();
         // Distribute hands to each player's PlayAreaPanel
         distributeHands(game);
         // Inject observer zone panels (commander, graveyard, exile) into west panel
@@ -355,25 +353,6 @@ public class ObserverGamePanel extends GamePanel {
         updatePlayerHighlights(game);
         // Re-layout stack cards vertically (parent lays them out horizontally)
         relayoutStackVertically();
-    }
-
-    /**
-     * Tell the harness that the spectator has opened this game and already
-     * sent its initial hand-permission requests.
-     */
-    private void signalWatchingReady() {
-        if (healthServer == null) {
-            return;
-        }
-        if (gameDirPath == null) {
-            String gameDirStr = System.getProperty("xmage.observer.gameDir");
-            if (gameDirStr != null && !gameDirStr.isEmpty()) {
-                gameDirPath = Paths.get(gameDirStr);
-            }
-        }
-        if (gameDirPath != null) {
-            healthServer.signalGameWatching(gameDirPath.toString());
-        }
     }
 
     /**
