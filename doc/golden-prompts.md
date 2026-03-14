@@ -155,16 +155,22 @@ comparison:
 
 Removed entirely from export comparisons:
 
-- `timestamp`, `id` — wall-clock time and instance IDs
-- `errors` — error log entries contain timestamps in their text
-- `ts` on actions and events — wall-clock timestamps
+- `timestamp` — wall-clock export time
+- `id` — export instance ID derived from the per-run game directory name
+- `ts` on `actions`, `errors`, `llmEvents`, and `llmTrace` — wall-clock timestamps
 - `thinkingTimeSecs` — LLM latency (irrelevant in replay mode)
+- `latencyMs` on `llmEvents` — provider/runtime timing noise
 
 Sorting applied:
 
 - `llmEvents` and `llmTrace` sorted by `(seq, player)` — both players
   act at the same seq during mulligans, and thread interleaving order
   is nondeterministic
+
+Preserved intentionally:
+
+- `errors` entries stay in export goldens after stripping `ts` — a new
+  infrastructure error is a real regression and should fail the golden
 
 ### Short ID normalization (`_normalize_prompt_for_golden`)
 
@@ -179,12 +185,25 @@ verify the structure and content of the prompt. ID correctness is covered
 by the replay script actually working (if the IDs were wrong, the script's
 `choose_action` calls would fail).
 
+This normalization is limited to prompt payload fields named `id` or
+`choice`. Export goldens keep literal MCP short IDs where they are part of
+the serialized game state.
+
 ### Embedded JSON normalization (`_normalize_embedded_json`)
 
 MCP tool results are JSON strings embedded within the messages array. The
 key order within these strings can vary between runs
 (`{"blocks":"p10","id":"p7"}` vs `{"id":"p7","blocks":"p10"}`). The
 normalizer parses and re-serializes these with sorted keys.
+
+It also rewrites raw XMage HTML object handles that survive inside those
+strings:
+
+- `object_id='123e4567-e89b-12d3-a456-426614174000'` -> `object_id='_'`
+- trailing `</font> [abc]` suffixes -> `</font> [_]`
+
+Those UUID/hex handles are run-local presentation noise, not the MCP short
+IDs that replay scripts and tool calls use.
 
 ### Design principle: never strip to hide a bug
 

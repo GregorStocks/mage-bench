@@ -1466,7 +1466,7 @@ def _is_short_id(value: object) -> bool:
 def _normalize_prompt_for_golden(obj: object) -> object:
     """Normalize prompt payloads for deterministic golden comparisons.
 
-    - Strip short IDs (pN) to avoid non-semantic ID churn.
+    - Replace prompt short IDs (pN/lN) with "_" to avoid non-semantic ID churn.
     - Parse embedded JSON strings and re-serialize with sorted keys.
     """
     if isinstance(obj, dict):
@@ -1513,11 +1513,16 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
 
 
 def _normalize_embedded_json(obj: object) -> object:
-    """Recursively normalize embedded JSON strings for deterministic key order.
+    """Normalize embedded JSON strings and inline XMage object handles.
 
     MCP tool results are serialized as JSON strings within the export data.
     The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
     vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
+
+    Some strings also still contain raw XMage HTML object handles such as
+    object_id='UUID' and trailing [abc] suffixes after </font>. These UUID/hex
+    handles are run-local noise, so normalize them to "_" / "[_]" before
+    parsing embedded JSON.
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
@@ -1537,12 +1542,15 @@ def _normalize_embedded_json(obj: object) -> object:
 
 
 def _strip_volatile(data: dict) -> None:
-    """Remove fields that vary between test runs from export data, in place."""
+    """Remove only genuinely non-semantic run-to-run noise from export data."""
     # Top-level volatile fields
     data.pop("timestamp", None)
+    # Export IDs come from the per-run game directory name, not game semantics.
     data.pop("id", None)
-    # Error log entries contain wall-clock timestamps in message text
-    data.pop("errors", None)
+
+    # Keep critical errors visible in goldens; only strip their wall-clock time.
+    for error in data.get("errors", []):
+        error.pop("ts", None)
 
     # Strip volatile fields from player summaries
     for player in data.get("players", []):

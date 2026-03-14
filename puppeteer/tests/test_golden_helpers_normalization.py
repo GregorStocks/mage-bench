@@ -214,6 +214,44 @@ def test_strip_volatile_sorts_llm_events_by_seq_player():
     assert [(e["player"], e["seq"]) for e in trace] == [("A", 1), ("B", 1)]
 
 
+def test_strip_volatile_keeps_errors_but_strips_error_timestamps():
+    data = {
+        "timestamp": "2026-03-14T19:00:00Z",
+        "id": "game_20260314_190000",
+        "errors": [
+            {
+                "ts": "10:30:45",
+                "player": "Alice",
+                "source": "mcp",
+                "message": "Zombie game detected: no actionable callback for 15000ms",
+            },
+            {
+                "ts": "",
+                "player": "Bob",
+                "source": "unknown",
+                "message": "no timestamp here",
+            },
+        ],
+    }
+
+    _strip_volatile(data)
+
+    assert "timestamp" not in data
+    assert "id" not in data
+    assert data["errors"] == [
+        {
+            "player": "Alice",
+            "source": "mcp",
+            "message": "Zombie game detected: no actionable callback for 15000ms",
+        },
+        {
+            "player": "Bob",
+            "source": "unknown",
+            "message": "no timestamp here",
+        },
+    ]
+
+
 # --- _json_diff tests ---
 
 
