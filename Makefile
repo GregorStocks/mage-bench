@@ -5,6 +5,7 @@
 # TARGET_DIR=my_custom_directory make package
 # Alternatively, you can set this variable in the .env file
 TARGET_DIR ?= deploy/
+WEBSITE_NPM_STAMP := website/node_modules/.install-stamp
 
 .PHONY: clean
 clean:
@@ -32,16 +33,16 @@ format:
 	uv run --project puppeteer ruff format puppeteer/ scripts/ schemas/
 
 .PHONY: lint-md
-lint-md:
-	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && cd .. && website/node_modules/.bin/markdownlint-cli2
+lint-md: $(WEBSITE_NPM_STAMP)
+	website/node_modules/.bin/markdownlint-cli2
 
 .PHONY: lint-website
-lint-website:
-	cd website && npm install --prefer-offline --no-audit --no-fund && npm run lint
+lint-website: $(WEBSITE_NPM_STAMP)
+	cd website && npm run lint
 
 .PHONY: astro-check
-astro-check:
-	cd website && npm install --prefer-offline --no-audit --no-fund && npm run check
+astro-check: $(WEBSITE_NPM_STAMP)
+	cd website && npm run check
 
 .PHONY: format-check
 format-check:
@@ -56,12 +57,12 @@ test:
 	uv run --project puppeteer pytest puppeteer/ -n auto --dist=load
 
 .PHONY: test-js
-test-js:
-	cd website && npm install --prefer-offline --no-audit --no-fund && npx vitest run
+test-js: $(WEBSITE_NPM_STAMP)
+	cd website && npx vitest run
 
 .PHONY: test-e2e
-test-e2e:
-	cd website && npm install --prefer-offline --no-audit --no-fund && npm run build && npx vitest run --config vitest.e2e.config.js
+test-e2e: $(WEBSITE_NPM_STAMP)
+	cd website && npm run build && npx vitest run --config vitest.e2e.config.js
 
 .PHONY: check
 check:
@@ -109,8 +110,8 @@ leaderboard:
 # Build the website (Astro static site).
 # Only rebuilds when dist/ is missing; delete dist/ to force a rebuild.
 .PHONY: build-website
-build-website: leaderboard
-	@if [ ! -d website/dist ]; then echo "Building website..."; cd website && npm install --prefer-offline --no-audit --no-fund && npx astro build; fi
+build-website: leaderboard $(WEBSITE_NPM_STAMP)
+	@if [ ! -d website/dist ]; then echo "Building website..."; cd website && npx astro build; fi
 
 # Run a game. CONFIG selects a config from configs/ (or a path to a custom file).
 # Default: 2 CPU Jumpstart duel, no API keys needed.
@@ -150,11 +151,20 @@ run-client:
 # Run the website dev server (port is set per-worktree in .env by worktree-setup.py)
 WEBSITE_PORT ?= 4321
 .PHONY: website
-website: leaderboard
+website: leaderboard $(WEBSITE_NPM_STAMP)
 	@HOSTNAME=$$(python3 -c "import json; print(json.load(open('$(HOME)/.mage-bench/config.json'))['hostname'])"); \
 	echo "  http://$$HOSTNAME:$(WEBSITE_PORT)/"; \
 	echo ""
-	cd website && npm install && npx astro dev --host --port $(WEBSITE_PORT)
+	cd website && npx astro dev --host --port $(WEBSITE_PORT)
+
+$(WEBSITE_NPM_STAMP): website/package.json website/package-lock.json
+	@mkdir -p tmp website/node_modules
+	@flock tmp/website-npm-install.lock sh -c '\
+		cd website && \
+		if [ ! -f node_modules/.install-stamp ] || find package.json package-lock.json -newer node_modules/.install-stamp | grep -q .; then \
+			npm install --prefer-offline --no-audit --no-fund; \
+			touch node_modules/.install-stamp; \
+		fi'
 
 # Export a game log for the website visualizer
 # Usage: make export-game GAME=game_20260208_220934
@@ -225,13 +235,13 @@ blunder-baseline:
 
 # Generate TypeScript types from the JSON Schema
 .PHONY: regen-schema-types
-regen-schema-types:
-	cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v7.schema.json > src/types/game-export.d.ts
+regen-schema-types: $(WEBSITE_NPM_STAMP)
+	cd website && npx json2ts ../schemas/game-export-v7.schema.json > src/types/game-export.d.ts
 
 # Verify generated TypeScript types are up to date
 .PHONY: verify-schema-types
-verify-schema-types:
-	@cd website && npm install --prefer-offline --no-audit --no-fund > /dev/null 2>&1 && npx json2ts ../schemas/game-export-v7.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
+verify-schema-types: $(WEBSITE_NPM_STAMP)
+	@cd website && npx json2ts ../schemas/game-export-v7.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make regen-schema-types' to regenerate." && exit 1)
 
 # Verify mcp-tools.json is up to date with McpServer.java

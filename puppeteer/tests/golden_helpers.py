@@ -158,6 +158,7 @@ DECK_GOBLINS = "Mage.Client/release/sample-decks/Legacy/Goblins.dck"
 
 # Custom test decks (relative to project root)
 DECK_BOLT_AND_BURN = "puppeteer/tests/decks/bolt_and_burn.dck"
+DECK_BLACK_LOTUS_DIVINATION = "puppeteer/tests/decks/black_lotus_divination.dck"
 DECK_CLONE_AND_MEMNITE = "puppeteer/tests/decks/clone_and_memnite.dck"
 DECK_DARK_DEPTHS_COMBO = "puppeteer/tests/decks/dark_depths_combo.dck"
 DECK_EMANCIPATION_ANGEL = "puppeteer/tests/decks/emancipation_angel.dck"
