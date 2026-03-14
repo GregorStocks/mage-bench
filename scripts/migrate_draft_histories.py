@@ -7,6 +7,7 @@ Usage:
 
 import argparse
 import json
+from pathlib import Path
 
 from scripts.draft_history import (
     CURRENT_DRAFT_HISTORY_VERSION,
@@ -15,7 +16,9 @@ from scripts.draft_history import (
 )
 
 
-def migrate_tournament(path, target_version: int, dry_run: bool, force: bool) -> bool:
+def migrate_tournament(
+    path: Path, target_version: int, dry_run: bool, force: bool
+) -> bool:
     """Migrate one tournament file if needed. Returns True if it changed."""
     tournament = json.loads(path.read_text())
     draft = tournament.get("draft")

@@ -276,7 +276,11 @@ def _deck_display_name(player_meta: dict, deck_type: str) -> str | None:
     """
     # New: deck_name from registry
     if player_meta.get("deck_name"):
-        return player_meta["deck_name"]
+        deck_name = player_meta["deck_name"]
+        assert isinstance(deck_name, str), (
+            f"deck_name must be a string, got {deck_name!r}"
+        )
+        return deck_name
     # Legacy fallback for old game_metas
     if deck_type in _COMMANDER_DECK_TYPES:
         return _extract_commander(player_meta)
@@ -469,8 +473,13 @@ def read_game_winner(game_dir: Path) -> str | None:
         if not line:
             continue
         event = json.loads(line)
+        assert isinstance(event, dict), f"{events_file}: expected JSON object per line"
         if event.get("type") == "game_end":
-            return event.get("winner")
+            winner = event.get("winner")
+            assert winner is None or isinstance(winner, str), (
+                f"{events_file}: game_end winner must be a string or null, got {winner!r}"
+            )
+            return winner
     return None
 
 
@@ -544,9 +553,13 @@ def _read_server_events(
 def _parse_json(s: str) -> dict:
     """Parse a JSON string, returning {} on failure."""
     try:
-        return json.loads(s)
+        parsed = json.loads(s)
     except (json.JSONDecodeError, TypeError):
         return {}
+    assert isinstance(parsed, dict), (
+        f"tool result must be a JSON object, got {parsed!r}"
+    )
+    return parsed
 
 
 def _is_decision_source(event: dict) -> bool:
@@ -578,7 +591,11 @@ def _is_v1_decision_source(event: dict) -> bool:
     if event.get("tool") != "get_action_choices":
         return False
     result = _parse_json(event.get("result", ""))
-    return result.get("action_pending", True)
+    action_pending = result.get("action_pending", True)
+    assert isinstance(action_pending, bool), (
+        f"get_action_choices action_pending must be a bool, got {action_pending!r}"
+    )
+    return action_pending
 
 
 def _resolve_chosen_index(
@@ -616,11 +633,14 @@ def _resolve_chosen_index(
                 if isinstance(c, dict) and c.get("id") == target_id:
                     return ci
             # id didn't match any choice; fall through to index
-        return chosen_args["index"]
+        chosen_index: object = chosen_args["index"]
+        return chosen_index
     if "answer" in chosen_args:
-        return chosen_args["answer"]
+        chosen_answer: object = chosen_args["answer"]
+        return chosen_answer
     if "amount" in chosen_args:
-        return chosen_args["amount"]
+        chosen_amount: object = chosen_args["amount"]
+        return chosen_amount
     if has_id:
         target_id = chosen_args["id"]
         for ci, c in enumerate(available_choices):
@@ -1231,7 +1251,7 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     return output_path
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2:
         print(f"Usage: {sys.argv[0]} <game_id> [website_games_dir]")
         print(f"  game_id: directory name under {LOGS_DIR}")

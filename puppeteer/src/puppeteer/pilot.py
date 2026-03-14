@@ -10,6 +10,7 @@ import time
 from contextlib import ExitStack
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Protocol
 
 from mcp import ClientSession
 from openai import AsyncOpenAI, OpenAIError
@@ -20,8 +21,10 @@ from puppeteer.config import load_prompts
 from puppeteer.decision_renderer import BASIC_LAND_NAMES, render_decision
 from puppeteer.game_log import GameLogWriter
 from puppeteer.llm_cost import (
-    DEFAULT_BASE_URL,
+    DEFAULT_LLM_PROVIDER,
+    SUPPORTED_LLM_PROVIDERS,
     get_model_price,
+    llm_base_url,
     load_prices,
     required_api_key_env,
     write_cost_file,
@@ -63,6 +66,40 @@ CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
+
+
+class _McpToolLike(Protocol):
+    name: str
+    description: str | None
+    inputSchema: dict | None
+
+
+class _ToolFunctionLike(Protocol):
+    name: str
+    arguments: str
+
+
+class _ToolCallLike(Protocol):
+    id: str
+    function: _ToolFunctionLike
+
+
+class _AssistantMessageLike(Protocol):
+    content: str | None
+    tool_calls: list[_ToolCallLike] | None
+
+
+class _ChoiceLike(Protocol):
+    finish_reason: str | None
+    message: _AssistantMessageLike
+
+
+class _UsageLike(Protocol):
+    completion_tokens: int | None
+
+
+class _ResponseLike(Protocol):
+    usage: _UsageLike | None
 
 
 def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
@@ -285,8 +322,8 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             if msg and not choices:
                 parts.append(msg[:60])
             return "; ".join(parts)
-        stop = data.get("stop_reason", "")
-        if stop:
+        stop = data.get("stop_reason")
+        if isinstance(stop, str) and stop:
             return stop
         return "passed"
 
@@ -356,7 +393,11 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
         if msg.get("role") == "assistant":
             for tc in msg.get("tool_calls", []):
                 if tc.get("id") == tool_call_id:
-                    return tc.get("function", {}).get("name", "")
+                    function = tc.get("function", {})
+                    if isinstance(function, dict):
+                        name = function.get("name")
+                        if isinstance(name, str):
+                            return name
             break
     return ""
 
@@ -364,8 +405,10 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
 def _extract_last_reasoning(history: list[dict]) -> str:
     """Extract the last assistant reasoning text from history (for context resets)."""
     for msg in reversed(history):
-        if msg.get("role") == "assistant" and msg.get("content"):
-            return msg["content"][:300]
+        if msg.get("role") == "assistant":
+            content = msg.get("content")
+            if isinstance(content, str) and content:
+                return content[:300]
     return ""
 
 
@@ -546,7 +589,7 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(mcp_tools, allowed_tools: set[str] | None = None) -> list[dict]:
+def mcp_tools_to_openai(mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format.
 
     Args:
@@ -716,7 +759,7 @@ def _mark_tail_cache_breakpoint(
         messages[tail_idx] = marked
 
 
-def _build_assistant_tool_message(message) -> dict:
+def _build_assistant_tool_message(message: _AssistantMessageLike) -> dict:
     """Build a provider-safe assistant message from an SDK tool response."""
     assistant_msg: dict = {"role": "assistant", "content": message.content}
     if message.tool_calls:
@@ -745,8 +788,8 @@ def _maybe_extract_result_dict(result_text: str) -> dict | None:
 
 def _handle_truncated_response(
     state: PilotLoopState,
-    choice,
-    response,
+    choice: _ChoiceLike,
+    response: _ResponseLike,
     game_log: GameLogWriter | None,
 ) -> bool:
     """Handle max-token truncation and reset context after repeated failures."""
@@ -780,7 +823,7 @@ def _handle_truncated_response(
 
 async def _process_tool_calls(
     session: ClientSession,
-    choice,
+    choice: _ChoiceLike,
     state: PilotLoopState,
     username: str,
     game_dir: Path | None,
@@ -1352,7 +1395,7 @@ async def run_pilot(
     deck_path: Path | None = None,
     api_key: str = "",
     model: str = DEFAULT_MODEL,
-    base_url: str = DEFAULT_BASE_URL,
+    provider: str = DEFAULT_LLM_PROVIDER,
     system_prompt: str = "",
     game_dir: Path | None = None,
     max_interactions_per_turn: int | None = None,
@@ -1363,9 +1406,10 @@ async def run_pilot(
     cache_control: dict | None = None,
 ) -> None:
     """Run the pilot client."""
+    base_url = llm_base_url(provider)
     logger.info("[pilot] Starting for %s@%s:%s", username, server, port)
     logger.info("[pilot] Model: %s", model)
-    logger.info("[pilot] Base URL: %s", base_url)
+    logger.info("[pilot] Provider: %s", provider)
     if reasoning_effort:
         logger.info("[pilot] Reasoning effort: %s", reasoning_effort)
     if tools is not None:
@@ -1376,6 +1420,11 @@ async def run_pilot(
         logger.info("[pilot] Provider order: %s", provider_order)
     if cache_control:
         logger.debug("[pilot] Prompt cache_control: %s", cache_control)
+    if provider != DEFAULT_LLM_PROVIDER:
+        assert ignore_providers is None, (
+            f"ignore_providers requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
+        )
+        assert provider_order is None, f"provider_order requires provider={DEFAULT_LLM_PROVIDER!r}, got {provider!r}"
 
     # Initialize OpenAI-compatible client
     llm_client = AsyncOpenAI(
@@ -1482,9 +1531,9 @@ def main() -> int:
     parser.add_argument("--username", default="Pilot", help="Player username")
     parser.add_argument("--project-root", type=Path, help="Project root directory")
     parser.add_argument("--deck", type=Path, help="Path to deck file (.dck)")
-    parser.add_argument("--api-key", default="", help="API key (prefer OPENROUTER_API_KEY env var)")
+    parser.add_argument("--api-key", default="", help="API key (prefer provider-specific env vars)")
     parser.add_argument("--model", default=DEFAULT_MODEL, help=f"LLM model (default: {DEFAULT_MODEL})")
-    parser.add_argument("--base-url", default=DEFAULT_BASE_URL, help=f"API base URL (default: {DEFAULT_BASE_URL})")
+    parser.add_argument("--provider", choices=SUPPORTED_LLM_PROVIDERS, default=DEFAULT_LLM_PROVIDER)
     parser.add_argument("--system-prompt", default="", help="Custom system prompt")
     parser.add_argument("--game-dir", type=Path, help="Game directory for cost file output")
     parser.add_argument("--max-interactions-per-turn", type=int, help="Loop detection threshold (default 25)")
@@ -1505,11 +1554,14 @@ def main() -> int:
         elif project_root.name == "puppeteer":
             project_root = project_root.parent
 
-    # API key: CLI arg > provider-specific env var based on base URL.
-    required_key_env = required_api_key_env(args.base_url)
-    api_key = args.api_key or os.environ.get(required_key_env, "")
+    # API key: CLI arg > provider-specific env var based on provider.
+    api_key = args.api_key
+    required_key_env = ""
     if not api_key.strip():
-        logger.error("[pilot] Missing API key for %s", args.base_url)
+        required_key_env = required_api_key_env(args.provider)
+        api_key = os.environ.get(required_key_env, "")
+    if not api_key.strip():
+        logger.error("[pilot] Missing API key for provider %s", args.provider)
         logger.error("[pilot] Set %s or pass --api-key.", required_key_env)
         return 2
 
@@ -1524,6 +1576,13 @@ def main() -> int:
     ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
     provider_order = args.provider_order.split(",") if args.provider_order else None
     cache_control = json.loads(args.cache_control) if args.cache_control else None
+    if args.provider != DEFAULT_LLM_PROVIDER:
+        if ignore_providers:
+            logger.error("[pilot] --ignore-providers requires --provider=%s", DEFAULT_LLM_PROVIDER)
+            return 2
+        if provider_order:
+            logger.error("[pilot] --provider-order requires --provider=%s", DEFAULT_LLM_PROVIDER)
+            return 2
 
     try:
         asyncio.run(
@@ -1535,7 +1594,7 @@ def main() -> int:
                 deck_path=args.deck,
                 api_key=api_key,
                 model=args.model,
-                base_url=args.base_url,
+                provider=args.provider,
                 system_prompt=system_prompt,
                 game_dir=args.game_dir,
                 prices=prices,

@@ -27,7 +27,7 @@ def lint_scripts(project_root: Path) -> list[str]:
     return errors
 
 
-def main():
+def main() -> None:
     project_root = Path(__file__).resolve().parent.parent.parent
     errors = lint_scripts(project_root)
 

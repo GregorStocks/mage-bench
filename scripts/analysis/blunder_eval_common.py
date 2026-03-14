@@ -30,32 +30,48 @@ def is_canonical_decision(d: dict) -> bool:
 
 def decision_index(d: dict) -> int:
     """Get the decision index from either format."""
-    return d.get("index", d.get("decision_index", 0))
+    value = d.get("index", d.get("decision_index", 0))
+    assert isinstance(value, int) and not isinstance(value, bool), (
+        f"decision index must be an int, got {value!r}"
+    )
+    return value
 
 
 def snapshot_index(d: dict) -> int:
     """Get the snapshot index from either format."""
-    return d.get("snapshotIndex", d.get("snapshot_index", 0))
+    value = d.get("snapshotIndex", d.get("snapshot_index", 0))
+    assert isinstance(value, int) and not isinstance(value, bool), (
+        f"snapshot index must be an int, got {value!r}"
+    )
+    return value
 
 
 def is_forced(d: dict) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
-    return d.get("isForced", d.get("is_forced", False))
+    value = d.get("isForced", d.get("is_forced", False))
+    assert isinstance(value, bool), f"isForced must be a bool, got {value!r}"
+    return value
 
 
 def action_result(d: dict) -> dict:
     """Get the action result from either format."""
-    return d.get("actionResult", d.get("action_result", {}))
+    value = d.get("actionResult", d.get("action_result", {}))
+    assert isinstance(value, dict), f"actionResult must be an object, got {value!r}"
+    return value
 
 
 def is_rolled_back(d: dict) -> bool:
     """Check if a decision was rolled back in either format."""
-    return d.get("rolled_back", False)
+    value = d.get("rolled_back", False)
+    assert isinstance(value, bool), f"rolled_back must be a bool, got {value!r}"
+    return value
 
 
 def is_cast_rolled_back(d: dict) -> bool:
     """Check if a cast was rolled back in either format."""
-    return d.get("castRolledBack", d.get("cast_rolled_back", False))
+    value = d.get("castRolledBack", d.get("cast_rolled_back", False))
+    assert isinstance(value, bool), f"castRolledBack must be a bool, got {value!r}"
+    return value
 
 
 def is_mana_ability_subdecision(d: dict) -> bool:
@@ -65,6 +81,7 @@ def is_mana_ability_subdecision(d: dict) -> bool:
     not strategically interesting for blunder annotation.
     """
     msg = d.get("message", "")
+    assert isinstance(msg, str), f"message must be a string, got {msg!r}"
     if msg.startswith("Choose which mana to produce from"):
         return True
     # "Choose spell or ability to play" where ALL choices are mana abilities
@@ -81,7 +98,17 @@ def is_mana_ability_subdecision(d: dict) -> bool:
 
 def subsequent_actions(d: dict) -> list[str]:
     """Get subsequent actions from either format."""
-    return d.get("subsequentActions", d.get("subsequent_actions", []))
+    actions = d.get("subsequentActions", d.get("subsequent_actions", []))
+    assert isinstance(actions, list), (
+        f"subsequentActions must be a list, got {actions!r}"
+    )
+    result: list[str] = []
+    for index, action in enumerate(actions):
+        assert isinstance(action, str), (
+            f"subsequentActions[{index}] must be a string, got {action!r}"
+        )
+        result.append(action)
+    return result
 
 
 def load_game(path: str | Path) -> dict:
@@ -89,9 +116,12 @@ def load_game(path: str | Path) -> dict:
     path = str(path)
     if path.endswith(".json.gz"):
         with gzip.open(path, "rt") as f:
-            return json.load(f)
-    with open(path) as f:
-        return json.load(f)
+            data = json.load(f)
+    else:
+        with open(path) as f:
+            data = json.load(f)
+    assert isinstance(data, dict), f"{path}: expected JSON object"
+    return data
 
 
 def glob_game_files(games_dir: Path) -> list[Path]:
@@ -131,7 +161,15 @@ def load_ground_truth() -> dict[str, list[dict]]:
     for p in sorted(GROUND_TRUTH_DIR.glob("*.json")):
         game_id = p.stem
         with open(p) as f:
-            result[game_id] = json.load(f)
+            entries = json.load(f)
+        assert isinstance(entries, list), f"{p}: expected JSON array"
+        typed_entries: list[dict] = []
+        for index, entry in enumerate(entries):
+            assert isinstance(entry, dict), (
+                f"{p}: entries[{index}] must be an object, got {entry!r}"
+            )
+            typed_entries.append(entry)
+        result[game_id] = typed_entries
     return result
 
 
@@ -141,7 +179,15 @@ def load_game_ground_truth(game_id: str) -> list[dict]:
     if not path.exists():
         return []
     with open(path) as f:
-        return json.load(f)
+        entries = json.load(f)
+    assert isinstance(entries, list), f"{path}: expected JSON array"
+    typed_entries: list[dict] = []
+    for index, entry in enumerate(entries):
+        assert isinstance(entry, dict), (
+            f"{path}: entries[{index}] must be an object, got {entry!r}"
+        )
+        typed_entries.append(entry)
+    return typed_entries
 
 
 def save_game_ground_truth(game_id: str, entries: list[dict]) -> None:
@@ -158,7 +204,9 @@ def save_game_ground_truth(game_id: str, entries: list[dict]) -> None:
 def load_baseline() -> dict:
     """Load baseline from disk."""
     assert BASELINE_PATH.exists(), f"Baseline not found: {BASELINE_PATH}"
-    return json.loads(BASELINE_PATH.read_text())
+    baseline = json.loads(BASELINE_PATH.read_text())
+    assert isinstance(baseline, dict), f"{BASELINE_PATH}: expected JSON object"
+    return baseline
 
 
 def save_baseline(baseline: dict) -> None:
@@ -299,7 +347,18 @@ def chosen_display(decision: dict) -> str:
         return str(chosen)
     if isinstance(chosen, int) and 0 <= chosen < len(choices):
         c = choices[chosen]
-        return c.get("name", c.get("description", f"option_{chosen}"))
+        if isinstance(c, dict):
+            name = c.get("name", "")
+            assert isinstance(name, str), f"choice name must be a string, got {name!r}"
+            if name:
+                return name
+            description = c.get("description", "")
+            assert isinstance(description, str), (
+                f"choice description must be a string, got {description!r}"
+            )
+            if description:
+                return description
+        return f"option_{chosen}"
     if chosen is not None:
         return str(chosen)
     # Batch/text decisions store the response in chosenArgs/chosen_args, not chosen

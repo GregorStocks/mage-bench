@@ -80,7 +80,18 @@ def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
 def _load_model_names(models_path: Path) -> dict[str, str]:
     """Load model_id -> display name mapping."""
     data = json.loads(models_path.read_text())
-    return {m["id"]: m["name"] for m in data.get("models", [])}
+    assert isinstance(data, dict), f"{models_path}: expected JSON object"
+    models = data.get("models", [])
+    assert isinstance(models, list), f"{models_path}: models must be a list"
+    names: dict[str, str] = {}
+    for index, model in enumerate(models):
+        assert isinstance(model, dict), f"{models_path}: models[{index}] must be an object"
+        model_id = model.get("id")
+        model_name = model.get("name")
+        assert isinstance(model_id, str) and model_id, f"{models_path}: models[{index}] missing id"
+        assert isinstance(model_name, str) and model_name, f"{models_path}: models[{index}] missing name"
+        names[model_id] = model_name
+    return names
 
 
 def _display_key(key: str, model_names: dict[str, str]) -> str:
@@ -107,7 +118,11 @@ _DISPATCHES = [
 def _player_key_from_dict(player: dict) -> str:
     """Build aggregation key from game player dict: 'model_id::effort' or 'model_id'."""
     model_id = player.get("model", "")
-    effort = player.get("reasoningEffort") or player.get("reasoning_effort")
+    assert isinstance(model_id, str), f"player model must be a string, got {model_id!r}"
+    effort = player.get("reasoningEffort", player.get("reasoning_effort"))
+    assert effort is None or isinstance(effort, str), (
+        f"player reasoningEffort must be a string when present, got {effort!r}"
+    )
     if effort:
         return f"{model_id}::{effort}"
     return model_id

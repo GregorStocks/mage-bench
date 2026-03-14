@@ -69,13 +69,18 @@ def get_open_branch_pr(branch: str) -> dict[str, object] | None:
     assert result.returncode == 0, f"gh pr list --head {branch} failed: {result.stderr}"
 
     prs = json.loads(result.stdout)
+    assert isinstance(prs, list), (
+        f"gh pr list returned non-list payload: {type(prs).__name__}"
+    )
     if not prs:
         return None
 
     assert len(prs) == 1, (
         f"Expected at most one open PR for branch {branch}, got {len(prs)}"
     )
-    return prs[0]
+    pr = prs[0]
+    assert isinstance(pr, dict), f"gh pr list returned non-object PR entry: {pr!r}"
+    return pr
 
 
 def _race_winner(issue: str) -> str | None:

@@ -31,7 +31,7 @@ SLEEPY_NOISES = [
 ]
 
 
-def get_sleepy_noise():
+def get_sleepy_noise() -> str:
     """Return a random sleepy noise for chat messages."""
     return random.choice(SLEEPY_NOISES)
 

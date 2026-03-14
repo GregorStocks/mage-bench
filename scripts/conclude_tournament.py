@@ -22,6 +22,7 @@ _SEASON_FILE = _ROOT / "data" / "season.json"
 def _load_season() -> dict:
     assert _SEASON_FILE.exists(), f"Season file not found: {_SEASON_FILE}"
     season_data = json.loads(_SEASON_FILE.read_text())
+    assert isinstance(season_data, dict), f"{_SEASON_FILE}: expected JSON object"
     assert season_data["phase"] == BETWEEN_SEASONS_PHASE, (
         f"Season {season_data['current_season']} is in phase "
         f"'{season_data['phase']}', expected '{BETWEEN_SEASONS_PHASE}'"

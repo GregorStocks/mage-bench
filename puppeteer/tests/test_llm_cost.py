@@ -5,32 +5,49 @@ import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock
 
+import pytest
+
 from puppeteer.llm_cost import (
+    DEFAULT_LLM_PROVIDER,
     fetch_openrouter_prices,
     get_model_price,
+    llm_base_url,
     required_api_key_env,
     write_cost_file,
 )
 
 
+def test_default_provider():
+    assert DEFAULT_LLM_PROVIDER == "openrouter"
+
+
+def test_llm_base_url_openrouter():
+    assert llm_base_url("openrouter") == "https://openrouter.ai/api/v1"
+
+
+def test_llm_base_url_openai():
+    assert llm_base_url("openai") == "https://api.openai.com/v1"
+
+
 def test_required_api_key_env_openrouter():
-    assert required_api_key_env("https://openrouter.ai/api/v1") == "OPENROUTER_API_KEY"
+    assert required_api_key_env("openrouter") == "OPENROUTER_API_KEY"
 
 
 def test_required_api_key_env_openai():
-    assert required_api_key_env("https://api.openai.com/v1") == "OPENAI_API_KEY"
+    assert required_api_key_env("openai") == "OPENAI_API_KEY"
 
 
 def test_required_api_key_env_anthropic():
-    assert required_api_key_env("https://api.anthropic.com/v1") == "ANTHROPIC_API_KEY"
+    assert required_api_key_env("anthropic") == "ANTHROPIC_API_KEY"
 
 
 def test_required_api_key_env_google():
-    assert required_api_key_env("https://generativelanguage.googleapis.com/v1") == "GEMINI_API_KEY"
+    assert required_api_key_env("gemini") == "GEMINI_API_KEY"
 
 
-def test_required_api_key_env_default():
-    assert required_api_key_env("https://custom-llm-host.example.com/v1") == "OPENROUTER_API_KEY"
+def test_unknown_provider_raises():
+    with pytest.raises(ValueError, match="Unknown LLM provider"):
+        required_api_key_env("custom-llm-host")
 
 
 def test_get_model_price_exact():

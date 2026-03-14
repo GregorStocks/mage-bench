@@ -568,7 +568,16 @@ def _game_overview(data: dict) -> str:
 
 def _format_choice(c: dict) -> str:
     """Format a single choice with structured info when available."""
-    name = c.get("name", c.get("description", f"option_{c.get('index', '?')}"))
+    raw_name = c.get("name")
+    if isinstance(raw_name, str) and raw_name:
+        name = raw_name
+    else:
+        raw_description = c.get("description")
+        name = (
+            raw_description
+            if isinstance(raw_description, str) and raw_description
+            else f"option_{c.get('index', '?')}"
+        )
     extras: list[str] = []
     if c.get("id"):
         extras.append(f"id={c['id']}")

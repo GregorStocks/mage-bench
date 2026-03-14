@@ -20,6 +20,27 @@ GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-branch-GregorStoc
 ls -dt ~/.mage-bench/logs/game_* | head -5
 ```
 
+## Bootstrap caveats
+
+`game-gz-bootstrap.py` is still useful for a quick overview, but its failure count
+is currently only advisory:
+
+- it counts any tool result containing the substring `required` as a failed call,
+  so mandatory prompts can show up as bogus failures
+- its auto-export fallback still looks under `~/mage-bench-logs` instead of
+  `~/.mage-bench/logs`
+
+Sanity-check suspicious bootstrap output against the export before treating it as
+real runtime evidence:
+
+```bash
+# Compare bootstrap "failed tool calls" against the export summary
+jq '.players[] | {name, toolCallsFailed}' website/public/games/GAME_ID.json
+
+# If the export is missing, generate it manually from the real log root
+uv run python scripts/export_game.py GAME_ID
+```
+
 ## Chat messages
 
 Chat messages are the most human-readable signal. Always check them first.
@@ -221,6 +242,33 @@ for d in data['decisions']:
             has_ann = any(a['snapshotIndex'] == d.get('snapshotIndex') for a in data.get('annotations', []))
             print(f"Decision {d['index']}: GAME_CHOOSE_CHOICE text='{text}' chosen=None {'<-- FALSE POSITIVE annotation' if has_ann else ''}")
 ```
+
+## Exported decisions can stop at the first failed `choose_action`
+
+If a model retries the same pending action after an error, `scripts/export_game.py`
+can record the first failed `choose_action` as the decision and split the later
+successful retry into a blank follow-up decision. Symptoms:
+
+- decision N has `actionResult.error`
+- decision N+1 for the same player/snapshot has empty `chosenArgs` / `actionResult`
+- the board in decision N+1 already reflects the successful retry
+- an annotation claims timeout/default behavior that contradicts the raw logs
+
+```bash
+# Find suspicious adjacent decisions after a failed retry
+jq '.decisions[] | {index, player, snapshotIndex, actionType, message, chosenArgs, actionResult}' \
+  website/public/games/GAME_ID.json | less
+```
+
+Then confirm in the raw LLM log that the same pending action had a later successful retry:
+
+```bash
+nl -ba ~/.mage-bench/logs/GAME_ID/*_llm.jsonl | grep -n "selected_choice_text_\|Unknown short ID\|invalid_choice"
+```
+
+If the later raw log succeeds but the export still shows a failed choice plus a blank
+next decision, trust the raw `*_llm.jsonl` and inspect `scripts/export_game.py` /
+`scripts/analysis/extract_decisions.py` before trusting annotations.
 
 ## Ward / additional cost prompt confusion
 

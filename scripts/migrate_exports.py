@@ -64,8 +64,11 @@ def read_game(path: Path) -> dict:
     """Read a game export from .json or .json.gz."""
     if path.suffix == ".gz":
         raw = gzip.decompress(path.read_bytes())
-        return json.loads(raw)
-    return json.loads(path.read_text())
+        data = json.loads(raw)
+    else:
+        data = json.loads(path.read_text())
+    assert isinstance(data, dict), f"{path}: expected JSON object"
+    return data
 
 
 def write_game(path: Path, data: dict) -> None:

@@ -41,7 +41,13 @@ def _find_free_port() -> int:
     """Find a free TCP port."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
-        return s.getsockname()[1]
+        sockname = s.getsockname()
+        assert isinstance(sockname, tuple) and len(sockname) >= 2, (
+            f"Unexpected socket name: {sockname!r}"
+        )
+        port = sockname[1]
+        assert isinstance(port, int), f"Expected integer port, got {port!r}"
+        return port
 
 
 def _start_dev_server() -> int:

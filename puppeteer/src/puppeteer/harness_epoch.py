@@ -58,7 +58,8 @@ epoch directly.
 #  43 - Fix end_of_turn yield persisting across turns when server skips END_TURN callbacks (Mar 5)
 #  44 - Oracle text dedup: Card Reference only shows each card's oracle text once per conversation (Mar 5)
 #  45 - Write season to game_meta.json at run time (Mar 6)
-HARNESS_EPOCH = 45
+#  46 - Redefine stack_resolved to watch the current stack object and only wake on a later actionable callback (Mar 14)
+HARNESS_EPOCH = 46
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and

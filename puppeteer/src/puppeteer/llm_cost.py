@@ -14,21 +14,41 @@ logger = get_logger(__name__)
 
 OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models"
 FETCH_TIMEOUT_SECS = 10
+DEFAULT_LLM_PROVIDER = "openrouter"
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
+_PROVIDER_BASE_URLS = {
+    "openrouter": DEFAULT_BASE_URL,
+    "openai": "https://api.openai.com/v1",
+    "anthropic": "https://api.anthropic.com/v1",
+    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai",
+}
+_PROVIDER_API_KEY_ENVS = {
+    "openrouter": "OPENROUTER_API_KEY",
+    "openai": "OPENAI_API_KEY",
+    "anthropic": "ANTHROPIC_API_KEY",
+    "gemini": "GEMINI_API_KEY",
+}
+SUPPORTED_LLM_PROVIDERS = tuple(_PROVIDER_BASE_URLS)
 
 
-def required_api_key_env(base_url: str) -> str:
-    """Infer the expected API key env var from the configured base URL."""
-    host = (base_url or DEFAULT_BASE_URL).lower()
-    if "openrouter.ai" in host:
-        return "OPENROUTER_API_KEY"
-    if "api.openai.com" in host:
-        return "OPENAI_API_KEY"
-    if "anthropic.com" in host:
-        return "ANTHROPIC_API_KEY"
-    if "googleapis.com" in host or "generativelanguage.googleapis.com" in host:
-        return "GEMINI_API_KEY"
-    return "OPENROUTER_API_KEY"
+def _resolve_llm_provider(provider: str | None) -> str:
+    """Resolve a provider slug to a supported value."""
+    if provider is None:
+        return DEFAULT_LLM_PROVIDER
+    if provider in _PROVIDER_BASE_URLS:
+        return provider
+    supported = ", ".join(SUPPORTED_LLM_PROVIDERS)
+    raise ValueError(f"Unknown LLM provider: {provider!r}. Supported providers: {supported}.")
+
+
+def llm_base_url(provider: str | None) -> str:
+    """Map a provider slug to its OpenAI-compatible base URL."""
+    return _PROVIDER_BASE_URLS[_resolve_llm_provider(provider)]
+
+
+def required_api_key_env(provider: str | None) -> str:
+    """Infer the expected API key env var from the configured provider."""
+    return _PROVIDER_API_KEY_ENVS[_resolve_llm_provider(provider)]
 
 
 def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:

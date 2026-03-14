@@ -1,6 +1,6 @@
 # Issues
 
-Issues are stored as individual JSON files in the `issues/` directory. The filename serves as the issue ID (e.g., `commander-zone-gy-exile-layout.json`).
+Issues are stored as individual JSON files in the `issues/` directory. The filename serves as the issue ID and must start with `p1-`, `p2-`, `p3-`, `p4-`, or `blocked-` (e.g., `p3-commander-zone-gy-exile-layout.json`).
 
 Resolved issues should be deleted, not marked as resolved/closed.
 
@@ -33,7 +33,7 @@ Use real timestamps (the actual time you're creating the issue), not `00:00:00` 
 | `labels` | string[] | Tags like "spectator", "bridge", "puppeteer" |
 | `created_at` | string | ISO 8601 timestamp |
 | `updated_at` | string | ISO 8601 timestamp |
-| `not_autoclaimable` | bool? | If true, `autoclaim-issue.py` skips this issue (has preconditions). **Do NOT set this unless Gregor explicitly says to.** Most issues should be autoclaimable. |
+| `blocked` | bool? | If true, the filename must start with `blocked-` and `autoclaim-issue.py` skips this issue because it has manual preconditions. **Do NOT set this unless Gregor explicitly says to.** Most issues should be claimable. |
 
 ## Querying
 
@@ -46,7 +46,7 @@ ls issues/
 ### View an issue
 
 ```bash
-jq . issues/commander-zone-gy-exile-layout.json
+jq . issues/p3-commander-zone-gy-exile-layout.json
 ```
 
 ### List all issue titles with priority

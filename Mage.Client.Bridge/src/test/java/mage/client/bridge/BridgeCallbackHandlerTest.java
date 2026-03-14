@@ -1,12 +1,30 @@
 package mage.client.bridge;
 
+import mage.client.bridge.tools.ActionResult;
+import mage.interfaces.callback.ClientCallbackMethod;
+import mage.remote.Session;
 import mage.util.MultiAmountMessage;
+import mage.view.CardsView;
 import mage.view.GameClientMessage;
+import mage.view.GameView;
 import org.junit.jupiter.api.Test;
+import sun.misc.Unsafe;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeoutException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -72,7 +90,213 @@ class BridgeCallbackHandlerTest {
             .hasMessage("GAME_GET_MULTI_AMOUNT is missing item metadata");
     }
 
+    @Test
+    void returnsStackResolvedOnNextActionAfterPassiveUpdateClearsStack() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID watchedStackObjectId = UUID.randomUUID();
+        GameView stackOccupied = gameView(7, watchedStackObjectId);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", stackOccupied);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(stackOccupied, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("stack_resolved", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+
+            GameView stackCleared = gameView(8);
+            setField(handler, "lastGameView", stackCleared);
+            notifyActionLock(handler);
+
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(stackCleared, Collections.<String, Serializable>emptyMap(), "Pass after resolve"),
+                "Pass after resolve",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("stack_resolved");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(8);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void treatsEmptyStackResolvedAsSinglePass() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView emptyStack = gameView(7);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", emptyStack);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(emptyStack, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("stack_resolved", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            GameView nextActionView = gameView(8);
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_ASK,
+                new GameClientMessage(nextActionView, Collections.<String, Serializable>emptyMap(), "Mulligan hand?"),
+                "Mulligan hand?",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("non_priority_action");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_ASK");
+            assertThat(result.game_seq).isEqualTo(8);
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
+    }
+
+    @SuppressWarnings("removal")
+    private static final Unsafe UNSAFE = initUnsafe();
+
+    @SuppressWarnings("removal")
+    private static Unsafe initUnsafe() {
+        try {
+            Field field = Unsafe.class.getDeclaredField("theUnsafe");
+            field.setAccessible(true);
+            return (Unsafe) field.get(null);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Failed to access Unsafe", e);
+        }
+    }
+
+    private static GameView gameView(int gameSeq, UUID... stackObjectIds) throws Exception {
+        GameView view = (GameView) UNSAFE.allocateInstance(GameView.class);
+        CardsView stack = new CardsView();
+        for (UUID stackObjectId : stackObjectIds) {
+            stack.put(stackObjectId, null);
+        }
+        setField(view, "players", List.of());
+        setField(view, "lookedAt", List.of());
+        setField(view, "stack", stack);
+        setField(view, "activePlayerName", "TestPlayer");
+        setIntField(view, "turn", 1);
+        setIntField(view, "gameSeq", gameSeq);
+        return view;
+    }
+
+    private static Session sessionProxy(CountDownLatch autoPassSent, AtomicInteger sendPlayerBooleanCalls) {
+        InvocationHandler handler = (proxy, method, args) -> {
+            if ("sendPlayerBoolean".equals(method.getName())) {
+                sendPlayerBooleanCalls.incrementAndGet();
+                autoPassSent.countDown();
+                return true;
+            }
+            return defaultReturnValue(method.getReturnType());
+        };
+        return (Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            handler
+        );
+    }
+
+    private static Object defaultReturnValue(Class<?> returnType) {
+        if (returnType == Optional.class) {
+            return Optional.empty();
+        }
+        if (returnType == boolean.class) {
+            return false;
+        }
+        if (returnType == int.class) {
+            return 0;
+        }
+        if (returnType == long.class) {
+            return 0L;
+        }
+        if (returnType == double.class) {
+            return 0d;
+        }
+        if (returnType == float.class) {
+            return 0f;
+        }
+        if (returnType == short.class) {
+            return (short) 0;
+        }
+        if (returnType == byte.class) {
+            return (byte) 0;
+        }
+        if (returnType == char.class) {
+            return '\0';
+        }
+        return null;
+    }
+
+    private static void notifyActionLock(BridgeCallbackHandler handler) throws Exception {
+        Object actionLock = getField(handler, "actionLock");
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
+    }
+
+    private static Object getField(Object target, String name) throws Exception {
+        Field field = target.getClass().getDeclaredField(name);
+        field.setAccessible(true);
+        return field.get(target);
+    }
+
+    private static void setField(Object target, String name, Object value) throws Exception {
+        Field field = target.getClass().getDeclaredField(name);
+        field.setAccessible(true);
+        field.set(target, value);
+    }
+
+    private static void setIntField(Object target, String name, int value) throws Exception {
+        Field field = target.getClass().getDeclaredField(name);
+        field.setAccessible(true);
+        field.setInt(target, value);
     }
 }

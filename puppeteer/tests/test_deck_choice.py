@@ -234,7 +234,7 @@ def test_resolve_choice_decks_sets_player_deck():
             },
         )
 
-        player = PilotPlayer(name="TestBot", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
+        player = PilotPlayer(name="TestBot", deck="choice", model="test/model", provider="openrouter")
 
         mock_response = MagicMock()
         mock_response.choices = [MagicMock()]
@@ -268,8 +268,8 @@ def test_resolve_choice_decks_no_duplicates():
             },
         )
 
-        p1 = PilotPlayer(name="Bot1", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
-        p2 = PilotPlayer(name="Bot2", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
+        p1 = PilotPlayer(name="Bot1", deck="choice", model="test/model", provider="openrouter")
+        p2 = PilotPlayer(name="Bot2", deck="choice", model="test/model", provider="openrouter")
 
         def make_response(text):
             resp = MagicMock()

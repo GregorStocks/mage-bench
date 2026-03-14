@@ -38,8 +38,8 @@ from puppeteer.config import (
 from puppeteer.decision_renderer import BASIC_LAND_NAMES
 from puppeteer.jumpstart import HalfDeck, generate_dck, load_jumpstart_themes
 from puppeteer.llm_cost import (
-    DEFAULT_BASE_URL,
     get_model_price,
+    llm_base_url,
     load_prices,
     required_api_key_env,
 )
@@ -254,7 +254,7 @@ def _resolve_entrant_config(
     prompts: dict[str, str],
     toolsets: dict[str, list[str]],
 ) -> tuple[str, str, str | None, str | None]:
-    """Resolve an entrant's locked config to (model, base_url, reasoning_effort, personality_suffix).
+    """Resolve an entrant's locked config to (model, provider, reasoning_effort, personality_suffix).
 
     Uses the same preset resolution as the game pilot.
     """
@@ -278,7 +278,7 @@ def _resolve_entrant_config(
 
     return (
         player.model,
-        DEFAULT_BASE_URL,
+        player.provider,
         player.reasoning_effort,
         prompt_suffix,
     )
@@ -533,17 +533,17 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             entrant, presets_data, personalities, prompts, toolsets
         )
 
-    # Set up API clients (one per unique key+base_url)
+    # Set up API clients (one per unique key+provider)
     client_cache: dict[tuple[str, str], AsyncOpenAI] = {}
-    for model, base_url, _, _ in entrant_configs.values():
-        key_env = required_api_key_env(base_url)
+    for model, provider, _, _ in entrant_configs.values():
+        key_env = required_api_key_env(provider)
         api_key = os.environ.get(key_env, "")
         assert api_key, f"Missing API key: set {key_env} environment variable"
-        cache_key = (api_key, base_url)
+        cache_key = (api_key, provider)
         if cache_key not in client_cache:
             client_cache[cache_key] = AsyncOpenAI(
                 api_key=api_key,
-                base_url=base_url,
+                base_url=llm_base_url(provider),
                 timeout=LLM_TIMEOUT_SECS + 5,
                 max_retries=1,
             )
@@ -559,7 +559,7 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
             option_themes = sorted(available_packs.keys())
             options = [available_packs[t] for t in option_themes]
 
-            model, base_url, reasoning_effort, prompt_suffix = entrant_configs[seed]
+            model, provider, reasoning_effort, prompt_suffix = entrant_configs[seed]
 
             # Build prompts
             already_picked = entrant_picks[seed][0] if entrant_picks[seed] else None
@@ -568,9 +568,9 @@ async def run_draft(tournament: dict, tournament_path: Path) -> None:
                 round_num, options, oracle, already_picked
             )
 
-            key_env = required_api_key_env(base_url)
+            key_env = required_api_key_env(provider)
             api_key = os.environ.get(key_env, "")
-            client = client_cache[(api_key, base_url)]
+            client = client_cache[(api_key, provider)]
 
             print(
                 f"\nPick {pick_idx + 1}/{len(order)}: "

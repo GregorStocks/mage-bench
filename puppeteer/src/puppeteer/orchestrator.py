@@ -21,8 +21,7 @@ from puppeteer.config import Config, PilotPlayer
 from puppeteer.deck_choice import resolve_choice_decks
 from puppeteer.game_log import merge_game_log, read_decklist
 from puppeteer.harness_epoch import HARNESS_EPOCH
-from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
-from puppeteer.llm_cost import required_api_key_env
+from puppeteer.llm_cost import DEFAULT_LLM_PROVIDER, required_api_key_env
 from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import ProcessManager, kill_tree
@@ -113,10 +112,14 @@ def _missing_llm_api_keys(config: Config) -> list[str]:
     errors: list[str] = []
     llm_players = [*config.pilot_players]
     for player in llm_players:
-        base_url = player.base_url or DEFAULT_LLM_BASE_URL
-        key_env = required_api_key_env(base_url)
+        provider = player.provider
+        try:
+            key_env = required_api_key_env(provider)
+        except ValueError as exc:
+            errors.append(f"{player.name} ({provider}): {exc}")
+            continue
         if not os.environ.get(key_env, "").strip():
-            errors.append(f"{player.name} ({base_url}) requires {key_env}")
+            errors.append(f"{player.name} ({provider}) requires {key_env}")
     return errors
 
 
@@ -836,8 +839,8 @@ def start_pilot_client(
         "PYTHONUNBUFFERED": "1",
     }
 
-    # Pass the provider-specific API key based on player's base_url
-    key_env = required_api_key_env(player.base_url or DEFAULT_LLM_BASE_URL)
+    # Pass the provider-specific API key based on the player's configured provider.
+    key_env = required_api_key_env(player.provider)
     api_key = os.environ.get(key_env, "")
     if api_key:
         env[key_env] = api_key
@@ -860,8 +863,8 @@ def start_pilot_client(
         args.extend(["--deck", str(project_root / player.deck)])
     if player.model:
         args.extend(["--model", player.model])
-    if player.base_url:
-        args.extend(["--base-url", player.base_url])
+    if player.provider != DEFAULT_LLM_PROVIDER:
+        args.extend(["--provider", player.provider])
     # System prompt is resolved from preset and is always required.
     # Personality suffix is fenced to make clear it only affects chat/narration,
     # not gameplay decisions.

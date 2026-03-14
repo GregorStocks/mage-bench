@@ -2,6 +2,8 @@
 
 import asyncio
 import json
+import logging
+import sys
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -19,6 +21,7 @@ from puppeteer.pilot import (
     _prefetch_first_action,
     _render_for_pilot,
     execute_tool,
+    main,
     mcp_tools_to_openai,
     run_pilot_loop,
 )
@@ -59,6 +62,55 @@ async def test_fetch_state_summary_raises_on_error_payload():
 
     with pytest.raises(ToolExecutionError, match="get_game_state returned error: bridge died"):
         await _fetch_state_summary(session)
+
+
+def test_main_accepts_explicit_api_key_for_non_default_provider():
+    def fake_run_pilot(*_args, **_kwargs):
+        return "run-pilot-sentinel"
+
+    with (
+        patch.object(
+            sys,
+            "argv",
+            [
+                "pilot",
+                "--api-key",
+                "sk-test",
+                "--provider",
+                "openai",
+            ],
+        ),
+        patch("puppeteer.pilot.setup_logging"),
+        patch("puppeteer.pilot.load_prices", return_value={}),
+        patch("puppeteer.pilot._load_default_system_prompt", return_value="system"),
+        patch("puppeteer.pilot.run_pilot", new=fake_run_pilot),
+        patch("puppeteer.pilot.asyncio.run") as run_mock,
+    ):
+        assert main() == 0
+
+    run_mock.assert_called_once()
+
+
+def test_main_reports_provider_in_missing_key_log(caplog: pytest.LogCaptureFixture):
+    caplog.set_level(logging.ERROR)
+
+    with (
+        patch.object(
+            sys,
+            "argv",
+            [
+                "pilot",
+                "--provider",
+                "openai",
+            ],
+        ),
+        patch("puppeteer.pilot.setup_logging"),
+        patch.dict("os.environ", {}, clear=True),
+    ):
+        assert main() == 2
+
+    assert "Missing API key for provider openai" in caplog.text
+    assert "OPENAI_API_KEY" in caplog.text
 
 
 @pytest.fixture()

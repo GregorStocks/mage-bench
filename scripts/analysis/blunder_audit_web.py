@@ -65,13 +65,17 @@ class AuditApiError(RuntimeError):
 def _load_config() -> dict:
     """Load ~/.mage-bench/config.json if it exists."""
     if CONFIG_PATH.exists():
-        return json.loads(CONFIG_PATH.read_text())
+        data = json.loads(CONFIG_PATH.read_text())
+        assert isinstance(data, dict), f"{CONFIG_PATH}: expected JSON object"
+        return data
     return {}
 
 
 def _get_hostname() -> str:
     """Get configured hostname, defaulting to 'localhost'."""
-    return _load_config().get("hostname", "localhost")
+    hostname = _load_config().get("hostname", "localhost")
+    assert isinstance(hostname, str), f"hostname must be a string, got {hostname!r}"
+    return hostname or "localhost"
 
 
 def _load_game_cached(game_id: str) -> dict:
@@ -497,7 +501,13 @@ def _find_free_port() -> int:
     """Find a free TCP port."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(("", 0))
-        return s.getsockname()[1]
+        sockname = s.getsockname()
+        assert isinstance(sockname, tuple) and len(sockname) >= 2, (
+            f"Unexpected socket name: {sockname!r}"
+        )
+        port = sockname[1]
+        assert isinstance(port, int), f"Expected integer port, got {port!r}"
+        return port
 
 
 def main() -> None:

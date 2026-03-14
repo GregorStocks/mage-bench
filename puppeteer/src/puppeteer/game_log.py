@@ -14,21 +14,25 @@ class GameLogWriter:
 
     _TZ = ZoneInfo("America/Los_Angeles")
 
-    def __init__(self, game_dir: Path, player_name: str, suffix: str = "llm"):
+    def __init__(self, game_dir: Path, player_name: str, suffix: str = "llm") -> None:
         self._path = game_dir / f"{player_name}_{suffix}.jsonl"
         self._player = player_name
         self._seq = 0
         self._last_cumulative_cost_usd = 0.0
         self._file = open(self._path, "a")
 
-    def emit(self, event_type: str, **fields):
+    def emit(self, event_type: str, **fields: object) -> None:
         self._seq += 1
         ts = datetime.now(self._TZ).isoformat(timespec="microseconds")
         if "cumulative_cost_usd" in fields:
+            cost_value = fields["cumulative_cost_usd"]
+            assert isinstance(cost_value, (str, int, float)) and not isinstance(cost_value, bool), (
+                f"cumulative_cost_usd must be a string or number, got {cost_value!r}"
+            )
             try:
-                self._last_cumulative_cost_usd = float(fields["cumulative_cost_usd"])
-            except (TypeError, ValueError):
-                pass
+                self._last_cumulative_cost_usd = float(cost_value)
+            except ValueError as exc:
+                raise AssertionError(f"cumulative_cost_usd must parse as a float, got {cost_value!r}") from exc
         event = {
             "ts": ts,
             "seq": self._seq,
@@ -42,7 +46,7 @@ class GameLogWriter:
     def last_cumulative_cost_usd(self) -> float:
         return self._last_cumulative_cost_usd
 
-    def close(self):
+    def close(self) -> None:
         self._file.close()
 
     def __enter__(self) -> GameLogWriter:

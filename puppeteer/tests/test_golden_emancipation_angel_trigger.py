@@ -34,21 +34,18 @@ def test_emancipation_angel_trigger(
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # Opponent's opening hand is Mountain p3-p9.
-            # TestPlayer's opening hand alphabetical: Emancipation Angel=p10,
-            # Plains=p11-p16.
+            # TestPlayer's opening hand alphabetical: Black Lotus=p10,
+            # Emancipation Angel=p11, Plains=p12-p16.
             # T1: Play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "p11"}},
-            # T2: Play Plains.
-            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p12"}},
-            # T3: Play Plains.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "p13"}},
-            # T3: Cast Emancipation Angel, then pass so it resolves and the
-            # script stops on the trigger's target-selection prompt.
-            {"name": "pass_priority", "arguments": {}},
+            # Cast Black Lotus.
             {"name": "choose_action", "arguments": {"choice": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            {"name": "pass_priority", "arguments": {}},
+            # Cast Emancipation Angel, then pass so it resolves and the
+            # script stops on the trigger's target-selection prompt.
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="emancipation_angel_trigger",
