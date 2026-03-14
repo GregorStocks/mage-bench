@@ -20,17 +20,14 @@ GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-branch-GregorStoc
 ls -dt ~/.mage-bench/logs/game_* | head -5
 ```
 
-## Bootstrap caveats
+## Bootstrap notes
 
-`game-gz-bootstrap.py` is still useful for a quick overview, but its failure count
-is currently only advisory:
+`game-gz-bootstrap.py` is useful for a quick overview:
 
-- it counts any tool result containing the substring `required` as a failed call,
-  so mandatory prompts can show up as bogus failures
-- its auto-export fallback still looks under `~/mage-bench-logs` instead of
-  `~/.mage-bench/logs`
+- it auto-exports missing games from `~/.mage-bench/logs`
+- it only counts structured tool error payloads as failed calls
 
-Sanity-check suspicious bootstrap output against the export before treating it as
+For suspicious output, sanity-check against the export before treating it as
 real runtime evidence:
 
 ```bash
@@ -191,6 +188,39 @@ rg -n '"incoming_attackers"|Combat Phase: blockers' website/public/games/GAME_ID
 
 If the JSON has `incoming_attackers` or other blocker metadata but the prompt
 only shows attacker names, suspect `decision_renderer.py` instead of the model.
+
+## Stale state-bridge syntax
+
+If `*_llm_trace.jsonl` tells the model `Play cards with id=pN, pass with answer=false.`,
+that text is coming from the pilot's state-bridge prompt, not from the live
+bridge tool schema.
+
+```bash
+# Find stale bridge-text instructions in the rendered prompt history
+rg -n "pass with answer=false" "$GAME_DIR"/*_llm_trace.jsonl
+```
+
+If the same trace or the raw `*_llm.jsonl` results still render
+`choice=no` / `choice=yes`, localize the bug to
+`puppeteer/src/puppeteer/pilot.py` rather than `BridgeCallbackHandler`.
+
+## GAME_CHOOSE_ABILITY numbering mismatch
+
+If a `GAME_CHOOSE_ABILITY` prompt shows `Choices (1): 1. ...` but the
+`Respond` line still says `choice=0, choice=1, etc.`, the visible 1-based
+numbering is probably being baked into the choice text before the bridge
+serializes it.
+
+```bash
+# Find out-of-range retries on ability prompts
+nl -ba "$GAME_DIR"/*_llm.jsonl | rg "Choose spell or ability to play:|Index [0-9]+ is out of range"
+```
+
+Then inspect `Mage.Common/src/main/java/mage/view/AbilityPickerView.java`
+and `Mage.Client.Bridge/src/main/java/mage/client/bridge/BridgeCallbackHandler.java`
+together before blaming the model. `AbilityPickerView` may already have a
+`1.` / `2.` prefix baked into each label while the bridge still expects
+zero-based `choice` indices.
 
 ## Generic `Ability -> player` stack summaries
 
