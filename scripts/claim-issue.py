@@ -138,7 +138,10 @@ def repurpose_branch_pr(
         ],
         check=True,
     )
-    print(f"Updated PR #{pr_number} claim from {old_issue} to {new_issue}", file=sys.stderr)
+    print(
+        f"Updated PR #{pr_number} claim from {old_issue} to {new_issue}",
+        file=sys.stderr,
+    )
 
 
 def main() -> None:
@@ -185,7 +188,9 @@ def main() -> None:
             sys.exit(2)
         if existing_claim != issue:
             if _branch_pr_lost_race(existing_claim, pr_number):
-                repurpose_branch_pr(pr_number, branch_pr_body, existing_claim, issue, title)
+                repurpose_branch_pr(
+                    pr_number, branch_pr_body, existing_claim, issue, title
+                )
                 branch_pr = get_open_branch_pr(branch)
                 assert branch_pr is not None, (
                     f"PR #{pr_number} disappeared while repurposing branch {branch} to {issue}"
