@@ -20,17 +20,14 @@ GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-branch-GregorStoc
 ls -dt ~/.mage-bench/logs/game_* | head -5
 ```
 
-## Bootstrap caveats
+## Bootstrap notes
 
-`game-gz-bootstrap.py` is still useful for a quick overview, but its failure count
-is currently only advisory:
+`game-gz-bootstrap.py` is useful for a quick overview:
 
-- it counts any tool result containing the substring `required` as a failed call,
-  so mandatory prompts can show up as bogus failures
-- its auto-export fallback still looks under `~/mage-bench-logs` instead of
-  `~/.mage-bench/logs`
+- it auto-exports missing games from `~/.mage-bench/logs`
+- it only counts structured tool error payloads as failed calls
 
-Sanity-check suspicious bootstrap output against the export before treating it as
+For suspicious output, sanity-check against the export before treating it as
 real runtime evidence:
 
 ```bash
