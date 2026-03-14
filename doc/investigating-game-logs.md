@@ -243,6 +243,33 @@ for d in data['decisions']:
             print(f"Decision {d['index']}: GAME_CHOOSE_CHOICE text='{text}' chosen=None {'<-- FALSE POSITIVE annotation' if has_ann else ''}")
 ```
 
+## Exported decisions can stop at the first failed `choose_action`
+
+If a model retries the same pending action after an error, `scripts/export_game.py`
+can record the first failed `choose_action` as the decision and split the later
+successful retry into a blank follow-up decision. Symptoms:
+
+- decision N has `actionResult.error`
+- decision N+1 for the same player/snapshot has empty `chosenArgs` / `actionResult`
+- the board in decision N+1 already reflects the successful retry
+- an annotation claims timeout/default behavior that contradicts the raw logs
+
+```bash
+# Find suspicious adjacent decisions after a failed retry
+jq '.decisions[] | {index, player, snapshotIndex, actionType, message, chosenArgs, actionResult}' \
+  website/public/games/GAME_ID.json | less
+```
+
+Then confirm in the raw LLM log that the same pending action had a later successful retry:
+
+```bash
+nl -ba ~/.mage-bench/logs/GAME_ID/*_llm.jsonl | grep -n "selected_choice_text_\|Unknown short ID\|invalid_choice"
+```
+
+If the later raw log succeeds but the export still shows a failed choice plus a blank
+next decision, trust the raw `*_llm.jsonl` and inspect `scripts/export_game.py` /
+`scripts/analysis/extract_decisions.py` before trusting annotations.
+
 ## Ward / additional cost prompt confusion
 
 When a model casts a spell targeting a creature with ward, the game sends a
