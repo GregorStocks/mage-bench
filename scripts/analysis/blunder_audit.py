@@ -32,6 +32,7 @@ from scripts.analysis.blunder_eval_common import (
     make_audited_entry,
     save_game_ground_truth,
     snapshot_index as get_snapshot_index,
+    validate_game_id,
 )
 from scripts.analysis.extract_decisions import extract_decisions
 
@@ -117,6 +118,7 @@ def _stop_dev_server() -> None:
 def viewer_url(game_id: str, aftermath_index: int) -> str:
     """Generate a game viewer URL with snapshot parameter."""
     port = _dev_server_port or 4321
+    game_id = validate_game_id(game_id)
     return f"http://localhost:{port}/games/{game_id}?s={aftermath_index}"
 
 
@@ -480,15 +482,17 @@ def parse_viewer_url(url: str) -> tuple[str, int]:
     """
     parsed = urlparse(url)
     path = parsed.path.rstrip("/")
+    parts = [part for part in path.split("/") if part]
 
-    # Extract game_id from path
-    # Handle /games/{game_id} or just {game_id}
-    if "/games/" in path:
-        game_id = path.split("/games/")[-1]
+    if not parts:
+        raise AssertionError(f"Could not extract game_id from URL: {url}")
+    if len(parts) == 1:
+        raw_game_id = parts[0]
     else:
-        game_id = path.lstrip("/")
+        assert len(parts) == 2 and parts[0] == "games", f"Invalid viewer path: {url}"
+        raw_game_id = parts[1]
 
-    assert game_id, f"Could not extract game_id from URL: {url}"
+    game_id = validate_game_id(raw_game_id)
 
     # Extract snapshot from query params
     qs = parse_qs(parsed.query)

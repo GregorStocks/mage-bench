@@ -7,6 +7,7 @@ audit, baseline, eval, and promote scripts.
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
@@ -17,6 +18,11 @@ GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
 BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
+
+GAME_ID_PATTERN = re.compile(r"^game_\d{8}_\d{6}(?:_g\d+)?$")
+GAME_EXPORT_FILENAME_PATTERN = re.compile(
+    r"^(game_\d{8}_\d{6}(?:_g\d+)?)\.json(?:\.gz)?$"
+)
 
 
 # --- Decision format compat helpers ---
@@ -119,6 +125,22 @@ def load_game(path: str | Path) -> GameExport:
     return load_game_export(path)
 
 
+def validate_game_id(game_id: str) -> str:
+    """Validate a canonical game export identifier."""
+    assert isinstance(game_id, str), f"game_id must be a string, got {game_id!r}"
+    assert GAME_ID_PATTERN.fullmatch(game_id), f"Invalid game_id: {game_id!r}"
+    return game_id
+
+
+def validate_export_filename(filename: str) -> str:
+    """Validate a served export filename like game_...json(.gz)."""
+    assert isinstance(filename, str), f"filename must be a string, got {filename!r}"
+    assert GAME_EXPORT_FILENAME_PATTERN.fullmatch(filename), (
+        f"Invalid game export filename: {filename!r}"
+    )
+    return filename
+
+
 def glob_game_files(games_dir: Path) -> list[Path]:
     """Find all game export files (.json and .json.gz) in a directory, sorted."""
     gz_files = set(games_dir.glob("game_*.json.gz"))
@@ -134,6 +156,7 @@ def play_key(game_id: str, decision_index: int) -> str:
 
 def game_path_for_id(game_id: str) -> Path:
     """Resolve the export path for a game ID (.json.gz or .json)."""
+    game_id = validate_game_id(game_id)
     gz_path = GAMES_DIR / f"{game_id}.json.gz"
     if gz_path.exists():
         return gz_path
@@ -144,6 +167,7 @@ def game_path_for_id(game_id: str) -> Path:
 
 def _gt_path(game_id: str) -> Path:
     """Ground truth file path for a game."""
+    game_id = validate_game_id(game_id)
     return GROUND_TRUTH_DIR / f"{game_id}.json"
 
 
@@ -154,7 +178,7 @@ def load_ground_truth() -> dict[str, list[dict]]:
     """Load all ground truth files. Returns {game_id: [entries]}."""
     result: dict[str, list[dict]] = {}
     for p in sorted(GROUND_TRUTH_DIR.glob("*.json")):
-        game_id = p.stem
+        game_id = validate_game_id(p.stem)
         with open(p) as f:
             entries = json.load(f)
         assert isinstance(entries, list), f"{p}: expected JSON array"

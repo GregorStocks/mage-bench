@@ -1,0 +1,10 @@
+{
+  "title": "Make blunder audit web bind address explicit and configurable",
+  "description": "The broad blunder-audit path/file hardening work intentionally left `scripts/analysis/blunder_audit_web.py` bound to `0.0.0.0` because remote direct access from another machine is part of the current dev-server workflow. That means the remaining network-exposure question is now a focused product/configuration issue instead of an accidental side effect.\n\nCurrent state:\n- `blunder_audit_web.py` still binds the standalone audit server to all interfaces.\n- This is intentional for at least one real workflow (SSH into a dev server, then browse `http://devserver:PORT/` from another machine without port forwarding).\n- The threat model and scanner story are still unclear: CodeQL and human reviewers will continue to read this as an exposure unless the behavior is either configurable, documented, or explicitly justified.\n\nSuggested scope:\n- Add an explicit bind-host option/config for the audit web server instead of treating `0.0.0.0` as an undocumented constant.\n- Decide whether the default should remain `0.0.0.0` for convenience or switch to loopback with a documented opt-in for remote access.\n- Document the intended remote-access workflow and required network assumptions if all-interface binding remains supported.\n- Either implement the chosen behavior or dismiss the remaining scanner alert with a concise threat-model note.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["security", "analysis", "website"],
+  "created_at": "2026-03-14T15:09:49-07:00",
+  "updated_at": "2026-03-14T15:09:49-07:00"
+}
