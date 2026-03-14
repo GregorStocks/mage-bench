@@ -4,7 +4,7 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 
@@ -147,12 +147,16 @@ class TestClaimIssue:
                 }
             ]
         )
+        winner_result = MagicMock()
+        winner_result.stdout = "1059\n"
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
                 return branch_pr_result
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return winner_result
             raise AssertionError(f"unexpected run: {cmd}")
 
         with (
@@ -165,6 +169,82 @@ class TestClaimIssue:
             claim_issue.main()
 
         mock_subprocess.assert_not_called()
+
+    def test_stale_branch_pr_for_other_issue_is_retargeted(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        stale_branch_pr = MagicMock()
+        stale_branch_pr.returncode = 0
+        stale_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": "<!-- claim: bug-a -->",
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        retargeted_branch_pr = MagicMock()
+        retargeted_branch_pr.returncode = 0
+        retargeted_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": "<!-- claim: bug-b -->",
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
+
+        bug_b_winners = iter([MagicMock(stdout="1059\n"), MagicMock(stdout="1059\n")])
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return next(branch_pr_results)
+            if cmd[:3] == ["gh", "pr", "list"]:
+                jq = str(cmd[-1])
+                if "bug-a" in jq:
+                    return MagicMock(stdout="42\n")
+                if "bug-b" in jq:
+                    return next(bug_b_winners)
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run") as mock_subprocess,
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+        assert mock_subprocess.call_args_list == [
+            call(
+                [
+                    "gh",
+                    "pr",
+                    "edit",
+                    "1059",
+                    "--title",
+                    "Solve: Bug B",
+                    "--body",
+                    "<!-- claim: bug-b -->",
+                ],
+                check=True,
+            ),
+            call(["git", "push", "-u", "origin", "my-branch"], check=True),
+        ]
 
     def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
@@ -294,12 +374,13 @@ class TestClaimIssue:
             patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch("subprocess.run"),
+            patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="1"),
         ):
             claim_issue.main()
 
         mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
 
     def test_race_first_check_fails_no_sleep(self, tmp_path: Path) -> None:
         """First check already finds lower PR — exits 1 without sleeping."""
@@ -339,12 +420,13 @@ class TestClaimIssue:
             patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch("subprocess.run"),
+            patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="1"),
         ):
             claim_issue.main()
 
         mock_sleep.assert_not_called()
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
 
 
 # ===========================================================================

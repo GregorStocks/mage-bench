@@ -104,6 +104,43 @@ def _race_winner(issue: str) -> str | None:
     return None
 
 
+def _branch_pr_lost_race(issue: str, pr_number: str) -> bool:
+    """Return whether another open PR already owns this issue claim."""
+    winner = _race_winner(issue)
+    return winner is not None and winner != pr_number
+
+
+def replace_claim_tag(body: str, old_issue: str, new_issue: str) -> str:
+    updated_body = re.sub(
+        rf"<!-- claim: {re.escape(old_issue)} -->",
+        f"<!-- claim: {new_issue} -->",
+        body,
+        count=1,
+    )
+    assert updated_body != body, f"PR body missing claim tag for {old_issue}:\n{body}"
+    return updated_body
+
+
+def repurpose_branch_pr(
+    pr_number: str, body: str, old_issue: str, new_issue: str, new_title: str
+) -> None:
+    """Update the current branch PR in place to claim a different issue."""
+    subprocess.run(
+        [
+            "gh",
+            "pr",
+            "edit",
+            pr_number,
+            "--title",
+            f"Solve: {new_title}",
+            "--body",
+            replace_claim_tag(body, old_issue, new_issue),
+        ],
+        check=True,
+    )
+    print(f"Updated PR #{pr_number} claim from {old_issue} to {new_issue}", file=sys.stderr)
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: claim-issue.py <issue-filename>", file=sys.stderr)
@@ -135,7 +172,8 @@ def main() -> None:
 
     branch_pr = get_open_branch_pr(branch)
     if branch_pr is not None:
-        existing_claim = extract_claim_tag(str(branch_pr["body"]))
+        branch_pr_body = str(branch_pr["body"])
+        existing_claim = extract_claim_tag(branch_pr_body)
         pr_number = str(branch_pr["number"])
         pr_url = str(branch_pr["url"])
         if existing_claim is None:
@@ -146,16 +184,24 @@ def main() -> None:
             )
             sys.exit(2)
         if existing_claim != issue:
-            print(
-                f"Error: branch {branch} already has open PR #{pr_number} claiming "
-                f"{existing_claim}; refusing to also claim {issue} on the same branch",
-                file=sys.stderr,
-            )
-            sys.exit(2)
+            if _branch_pr_lost_race(existing_claim, pr_number):
+                repurpose_branch_pr(pr_number, branch_pr_body, existing_claim, issue, title)
+                branch_pr = get_open_branch_pr(branch)
+                assert branch_pr is not None, (
+                    f"PR #{pr_number} disappeared while repurposing branch {branch} to {issue}"
+                )
+            else:
+                print(
+                    f"Error: branch {branch} already has open PR #{pr_number} claiming "
+                    f"{existing_claim}; refusing to also claim {issue} on the same branch",
+                    file=sys.stderr,
+                )
+                sys.exit(2)
 
+    if branch_pr is not None:
+        print(f"Branch {branch} already has open PR #{pr_number} claiming {issue}")
         our_pr = pr_number
         subprocess.run(["git", "push", "-u", "origin", branch], check=True)
-        print(f"Branch {branch} already has open PR #{our_pr} claiming {issue}")
     else:
         # Ensure at least one commit ahead of master so the PR can be created
         log_result = run(["git", "log", "origin/master..HEAD", "--oneline"])
