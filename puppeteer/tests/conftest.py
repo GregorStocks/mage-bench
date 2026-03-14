@@ -1,4 +1,4 @@
-"""Shared fixtures for golden prompt integration tests."""
+"""Shared fixtures and hooks for puppeteer tests."""
 
 import gzip
 import json
@@ -7,7 +7,7 @@ import re
 import shutil
 import subprocess
 import sys
-from collections.abc import Iterator, Mapping
+from collections.abc import Generator, Iterator, Mapping
 from pathlib import Path
 
 import jsonschema
@@ -17,6 +17,7 @@ from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.xml_config import modify_server_config
+from tests.golden_fail_fast import GoldenFailureGate
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
@@ -32,6 +33,7 @@ from tests.golden_helpers import (
 )
 
 _SET_CODE_RE = re.compile(r"\[([A-Z0-9]+):")
+_GOLDEN_FAILURE_GATE_KEY: pytest.StashKey[GoldenFailureGate] = pytest.StashKey()
 
 
 def extract_golden_set_codes(project_root: Path) -> str:
@@ -335,6 +337,34 @@ def game_export_validator():
         validators[version] = jsonschema.Draft7Validator(schema)
     assert validators, "No game-export schemas found"
     return validators
+
+
+def _golden_failure_gate(config: pytest.Config) -> GoldenFailureGate:
+    gate = config.stash.get(_GOLDEN_FAILURE_GATE_KEY, None)
+    if gate is not None:
+        return gate
+    gate = GoldenFailureGate()
+    config.stash[_GOLDEN_FAILURE_GATE_KEY] = gate
+    return gate
+
+
+def pytest_runtest_setup(item: pytest.Item) -> None:
+    reason = _golden_failure_gate(item.config).skip_reason_for(
+        item.nodeid,
+        is_golden=item.get_closest_marker("golden") is not None,
+    )
+    if reason is not None:
+        pytest.skip(reason)
+
+
+@pytest.hookimpl(wrapper=True)
+def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[None]) -> Generator[None, object, object]:
+    report = yield
+    if item.get_closest_marker("golden") is None:
+        return report
+    if report.failed and not getattr(report, "wasxfail", False):
+        _golden_failure_gate(item.config).record_failure(item.nodeid, report.when)
+    return report
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
