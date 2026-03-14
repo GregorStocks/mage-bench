@@ -3,8 +3,8 @@
 import pytest
 
 from tests.golden_helpers import (
+    DECK_BLACK_LOTUS_DIVINATION,
     DECK_MANA_DRAIN_FOF,
-    DECK_PLAINS_LIONS,
     run_golden_scenario,
 )
 
@@ -18,13 +18,13 @@ def test_mana_drain_into_fact_or_fiction(
     opponent_session,
     spectator_process,
 ):
-    """Mana Drain counters Savannah Lions, then Fact or Fiction off the mana.
+    """Mana Drain counters a Black Lotus-powered Divination, then casts Fact or Fiction.
 
     Script:
-    - P1: Island, Island
-    - P2: Plains, cast Savannah Lions
+    - P1: Island, Black Lotus
+    - P2: Black Lotus, cast Divination
     - P1: Mana Drain it
-    - P1: Island, cast Fact or Fiction with Mana Drain mana
+    - P1: cast Fact or Fiction with Mana Drain mana next turn
     - P2: split piles 3/2
     - P1: choose the 3-card pile
     """
@@ -35,25 +35,28 @@ def test_mana_drain_into_fact_or_fiction(
         project_root=project_root,
         game_dir=tmp_path / "mana_drain_fact_or_fiction",
         deck_a=DECK_MANA_DRAIN_FOF,
-        deck_b=DECK_PLAINS_LIONS,
+        deck_b=DECK_BLACK_LOTUS_DIVINATION,
         script_a=[
             # Choose TestPlayer as starting player and keep opening hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # Play Island (only playable card).
+            # Opening hand (alphabetical): Black Lotus=p10, Fact or Fiction=p11,
+            # Island=p12..p15, Mana Drain=p16.
+            #
+            # Play Island and Black Lotus so Mana Drain is live on turn 1.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p12"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Cast Sol Ring.
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Turn 2: play second Island before opponent casts Savannah Lions.
-            {"name": "pass_priority", "arguments": {"until": "my_turn"}},
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Pass until opponent casts Savannah Lions (Mana Drain becomes playable).
+            # Move through our combat step, then stop when the opponent casts
+            # Divination and Mana Drain becomes playable.
             {"name": "pass_priority", "arguments": {}},
-            # Counter Savannah Lions with Mana Drain.
+            {"name": "choose_action", "arguments": {"choice": "no"}},
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # Skip to our next precombat main (Mana Drain mana available).
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
@@ -66,16 +69,17 @@ def test_mana_drain_into_fact_or_fiction(
             {"name": "get_game_state", "arguments": {}},
         ],
         script_b=[
-            # Keep opening hand.
+            # Keep opening hand. Opponent hand (alphabetical):
+            # Black Lotus=p3, Divination=p4, Plains=p5..p9.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # Turn 1: play Plains.
+            # Turn 1: cast Black Lotus, then Divination off the Lotus mana.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p3"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            # Turn 2: cast Savannah Lions (only playable card).
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
+            {"name": "choose_action", "arguments": {"choice": "p4"}},
             # Split piles 3/2 for Fact or Fiction (pick three cards for pile 1, then done).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
