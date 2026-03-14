@@ -117,7 +117,9 @@ def _load_json_file(name: str, config_file: Path | None) -> dict:
     for candidate in candidates:
         if candidate.exists():
             with open(candidate) as f:
-                return json.load(f)
+                data = json.load(f)
+            assert isinstance(data, dict), f"{candidate}: expected JSON object"
+            return data
     return {}
 
 

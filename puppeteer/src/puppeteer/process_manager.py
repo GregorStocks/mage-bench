@@ -7,12 +7,13 @@ import subprocess
 import sys
 import threading
 from pathlib import Path
+from types import FrameType
 from typing import IO
 
 import psutil
 
 
-def kill_tree(pid: int):
+def kill_tree(pid: int) -> None:
     """Kill a process and all its children."""
     try:
         parent = psutil.Process(pid)
@@ -62,7 +63,7 @@ class ProcessManager:
     - The parent exits due to an unhandled exception
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._processes: list[tuple[subprocess.Popen, IO | None]] = []
         self._lock = threading.RLock()
         self._cleaned_up = False
@@ -71,14 +72,14 @@ class ProcessManager:
         # Register atexit handler for cleanup on normal exit or unhandled exceptions
         atexit.register(self.cleanup)
 
-    def _setup_signal_handlers(self):
+    def _setup_signal_handlers(self) -> None:
         """Register signal handlers for SIGINT, SIGTERM, and SIGHUP."""
         signal.signal(signal.SIGINT, self._sigint_handler)
         signal.signal(signal.SIGTERM, self._fatal_signal_handler)
         if hasattr(signal, "SIGHUP"):
             signal.signal(signal.SIGHUP, self._fatal_signal_handler)
 
-    def _sigint_handler(self, signum, frame):
+    def _sigint_handler(self, signum: int, frame: FrameType | None) -> None:
         """Handle Ctrl-C: kill children but let the main flow continue.
 
         First Ctrl-C kills child processes and returns so the caller can
@@ -89,7 +90,7 @@ class ProcessManager:
         signal.signal(signal.SIGINT, signal.SIG_DFL)
         self.cleanup()
 
-    def _fatal_signal_handler(self, signum, frame):
+    def _fatal_signal_handler(self, signum: int, frame: FrameType | None) -> None:
         """Handle SIGTERM/SIGHUP: cleanup and exit immediately."""
         print(f"\nReceived signal {signum}, stopping all processes...")
         self.cleanup()
@@ -140,11 +141,11 @@ class ProcessManager:
 
         return proc
 
-    def _kill_tree(self, pid: int):
+    def _kill_tree(self, pid: int) -> None:
         """Kill a process and all its children."""
         kill_tree(pid)
 
-    def cleanup(self):
+    def cleanup(self) -> None:
         """Terminate all tracked processes and close log file handles."""
         with self._lock:
             if self._cleaned_up:

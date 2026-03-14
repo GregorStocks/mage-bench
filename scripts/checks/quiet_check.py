@@ -31,7 +31,7 @@ def _run_target(target: str) -> tuple[str, subprocess.CompletedProcess]:
     return target, result
 
 
-def main():
+def main() -> None:
     verbose = "-v" in sys.argv[1:]
 
     if verbose:

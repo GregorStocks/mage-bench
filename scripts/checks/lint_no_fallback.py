@@ -77,7 +77,7 @@ def lint_no_fallback(project_root: Path) -> list[str]:
     return errors
 
 
-def main():
+def main() -> None:
     errors = lint_no_fallback(REPO_ROOT)
 
     if errors:

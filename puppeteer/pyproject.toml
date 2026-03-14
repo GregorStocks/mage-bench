@@ -68,9 +68,6 @@ ignore = [
 ]
 external = []
 
-[tool.ruff.lint.per-file-ignores]
-"tests/**/*.py" = ["BLE001"]
-
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 "typing.cast".msg = "Don't use cast — fix the underlying types or use assert to narrow."
 
@@ -79,9 +76,11 @@ known-first-party = ["puppeteer", "scripts", "schemas"]
 
 [tool.mypy]
 python_version = "3.10"
-warn_return_any = false
+warn_return_any = true
 warn_unused_configs = true
-disallow_untyped_defs = false
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
 check_untyped_defs = true
 ignore_missing_imports = false
 

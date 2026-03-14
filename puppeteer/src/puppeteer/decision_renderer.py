@@ -211,7 +211,9 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
 def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
     if isinstance(c, dict):
-        return c.get("name", "?")
+        name = c.get("name", "?")
+        assert isinstance(name, str), f"card name must be a string, got {name!r}"
+        return name
     return str(c)
 
 
@@ -220,6 +222,7 @@ def permanent_display(c: object) -> str:
     if not isinstance(c, dict):
         return str(c)
     name = c.get("name", "?")
+    assert isinstance(name, str), f"permanent name must be a string, got {name!r}"
     extras: list[str] = []
     if c.get("tapped"):
         extras.append("tapped")

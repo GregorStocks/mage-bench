@@ -3456,13 +3456,6 @@ public class BridgeCallbackHandler {
             // Game over bail-out: don't block forever if the game ended
             if (superseded || playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 long elapsed = System.currentTimeMillis() - startTime;
-                long idleSinceCallback = lastActionableCallbackAt > 0
-                    ? System.currentTimeMillis() - lastActionableCallbackAt : 0;
-                if (idleSinceCallback > 60_000) {
-                    // Abnormal: server idle timeout auto-conceded or zombie game
-                    logError("passPriority game_over after " + elapsed + "ms idle"
-                        + " (lastActionableCallback " + idleSinceCallback + "ms ago)");
-                }
                 logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
                     + " elapsed=" + elapsed + "ms"
                     + " playerDead=" + playerDead

@@ -5,7 +5,7 @@ import threading
 import time
 from http.server import HTTPServer
 from pathlib import Path
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 import pytest
@@ -51,7 +51,7 @@ def server_port(_temp_ground_truth: Path) -> int:
         try:
             urlopen(f"http://127.0.0.1:{port}/api/stats", timeout=1)
             break
-        except Exception:
+        except URLError:
             time.sleep(0.1)
     yield port
     httpd.shutdown()
@@ -186,5 +186,5 @@ class TestNotFound:
         try:
             urlopen(req, timeout=5)
             pytest.fail("Expected 404")
-        except Exception as e:
-            assert "404" in str(e)
+        except HTTPError as e:
+            assert e.code == 404

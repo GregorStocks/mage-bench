@@ -25,7 +25,11 @@ def download_deck_text(url: str) -> str:
     deck_id = m.group(1)
     download_url = f"https://www.mtggoldfish.com/deck/download/{deck_id}"
     with urllib.request.urlopen(download_url) as resp:
-        return resp.read().decode()
+        body = resp.read()
+    assert isinstance(body, bytes), (
+        f"MTGGoldfish returned non-bytes response: {type(body).__name__}"
+    )
+    return body.decode("utf-8")
 
 
 def parse_deck_text(deck_text: str) -> dict[str, list[tuple[int, bool]]]:

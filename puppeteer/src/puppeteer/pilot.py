@@ -10,6 +10,7 @@ import time
 from contextlib import ExitStack
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Protocol
 
 from mcp import ClientSession
 from openai import AsyncOpenAI, OpenAIError
@@ -65,6 +66,40 @@ CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_SUMMARY_TRIGGER_CHARS = 200  # tool messages longer than this enter the summary path
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 MAX_CHAT_MESSAGES_PER_TURN = 2  # max send_chat_message calls per LLM iteration
+
+
+class _McpToolLike(Protocol):
+    name: str
+    description: str | None
+    inputSchema: dict | None
+
+
+class _ToolFunctionLike(Protocol):
+    name: str
+    arguments: str
+
+
+class _ToolCallLike(Protocol):
+    id: str
+    function: _ToolFunctionLike
+
+
+class _AssistantMessageLike(Protocol):
+    content: str | None
+    tool_calls: list[_ToolCallLike] | None
+
+
+class _ChoiceLike(Protocol):
+    finish_reason: str | None
+    message: _AssistantMessageLike
+
+
+class _UsageLike(Protocol):
+    completion_tokens: int | None
+
+
+class _ResponseLike(Protocol):
+    usage: _UsageLike | None
 
 
 def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
@@ -287,8 +322,8 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             if msg and not choices:
                 parts.append(msg[:60])
             return "; ".join(parts)
-        stop = data.get("stop_reason", "")
-        if stop:
+        stop = data.get("stop_reason")
+        if isinstance(stop, str) and stop:
             return stop
         return "passed"
 
@@ -358,7 +393,11 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
         if msg.get("role") == "assistant":
             for tc in msg.get("tool_calls", []):
                 if tc.get("id") == tool_call_id:
-                    return tc.get("function", {}).get("name", "")
+                    function = tc.get("function", {})
+                    if isinstance(function, dict):
+                        name = function.get("name")
+                        if isinstance(name, str):
+                            return name
             break
     return ""
 
@@ -366,8 +405,10 @@ def _find_tool_name(history: list[dict], tool_result_idx: int, tool_call_id: str
 def _extract_last_reasoning(history: list[dict]) -> str:
     """Extract the last assistant reasoning text from history (for context resets)."""
     for msg in reversed(history):
-        if msg.get("role") == "assistant" and msg.get("content"):
-            return msg["content"][:300]
+        if msg.get("role") == "assistant":
+            content = msg.get("content")
+            if isinstance(content, str) and content:
+                return content[:300]
     return ""
 
 
@@ -548,7 +589,7 @@ def _load_default_system_prompt() -> str:
     return prompts["default"]
 
 
-def mcp_tools_to_openai(mcp_tools, allowed_tools: set[str] | None = None) -> list[dict]:
+def mcp_tools_to_openai(mcp_tools: list[_McpToolLike], allowed_tools: set[str] | None = None) -> list[dict]:
     """Convert MCP tool definitions to OpenAI function calling format.
 
     Args:
@@ -718,7 +759,7 @@ def _mark_tail_cache_breakpoint(
         messages[tail_idx] = marked
 
 
-def _build_assistant_tool_message(message) -> dict:
+def _build_assistant_tool_message(message: _AssistantMessageLike) -> dict:
     """Build a provider-safe assistant message from an SDK tool response."""
     assistant_msg: dict = {"role": "assistant", "content": message.content}
     if message.tool_calls:
@@ -747,8 +788,8 @@ def _maybe_extract_result_dict(result_text: str) -> dict | None:
 
 def _handle_truncated_response(
     state: PilotLoopState,
-    choice,
-    response,
+    choice: _ChoiceLike,
+    response: _ResponseLike,
     game_log: GameLogWriter | None,
 ) -> bool:
     """Handle max-token truncation and reset context after repeated failures."""
@@ -782,7 +823,7 @@ def _handle_truncated_response(
 
 async def _process_tool_calls(
     session: ClientSession,
-    choice,
+    choice: _ChoiceLike,
     state: PilotLoopState,
     username: str,
     game_dir: Path | None,
