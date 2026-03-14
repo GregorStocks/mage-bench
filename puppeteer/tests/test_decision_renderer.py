@@ -147,6 +147,26 @@ class TestRenderDecision:
         text = render_decision(decision, snap)
         assert "Stack: [Lightning Bolt -> Bob]" in text
 
+    def test_triggered_ability_stack_rendering(self) -> None:
+        snap = _make_snapshot(
+            stack=[
+                {
+                    "name": "Ability",
+                    "source_card": "Emancipation Angel",
+                    "ability_text": (
+                        "When Emancipation Angel enters, return a permanent you control to its owner's hand."
+                    ),
+                    "targets": [{"name": "Alice (you)", "id": "p2"}],
+                }
+            ]
+        )
+        decision = _make_decision()
+        text = render_decision(decision, snap)
+        assert (
+            "Stack: [Emancipation Angel - When Emancipation Angel enters, return a permanent you control "
+            "to its owner's hand. -> Alice (you)]"
+        ) in text
+
     def test_combat_rendering(self) -> None:
         snap = _make_snapshot(
             combat=[
