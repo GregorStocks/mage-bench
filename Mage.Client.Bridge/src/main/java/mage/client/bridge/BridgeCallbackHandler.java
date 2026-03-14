@@ -2991,6 +2991,36 @@ public class BridgeCallbackHandler {
         result.mergeFrom(choices);
     }
 
+    private ActionResult stackResolvedResult(PendingAction action, Long boardCursorParam) {
+        var result = new ActionResult();
+        result.action_pending = true;
+        result.action_type = action.method().name();
+        result.stop_reason = "stack_resolved";
+        attachUnseenChat(result);
+        mergeActionChoices(result, boardCursorParam);
+        return result;
+    }
+
+    private UUID lowestStackObjectId(GameView gameView) {
+        if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
+            return null;
+        }
+        // SpellStack iterates top-first and CardsView preserves insertion order,
+        // so the last key is the lowest stack object present when the yield starts.
+        UUID lowest = null;
+        for (UUID stackObjectId : gameView.getStack().keySet()) {
+            lowest = stackObjectId;
+        }
+        return lowest;
+    }
+
+    private boolean stackContains(GameView gameView, UUID stackObjectId) {
+        return gameView != null
+            && gameView.getStack() != null
+            && stackObjectId != null
+            && gameView.getStack().containsKey(stackObjectId);
+    }
+
     /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
@@ -3020,6 +3050,7 @@ public class BridgeCallbackHandler {
         boolean yieldUntilMyTurn = false;
         boolean yieldUntilEndOfTurn = false;
         boolean yieldUntilStackResolved = false;
+        UUID yieldUntilStackResolvedObjectId = null;
         int yieldStartTurn = lastTurnNumber;
         if (until != null) {
             targetStep = STEP_PHASES.get(until);
@@ -3059,25 +3090,24 @@ public class BridgeCallbackHandler {
                     mergeActionChoices(result, boardCursorParam);
                     return result;
                 }
-                // For stack_resolved: if stack is already empty, return immediately
-                // (matching server-side behavior that does nothing on empty stack).
+                // For stack_resolved: only arm the client-side yield when there
+                // is actually a stack object to watch. Otherwise this falls
+                // through to normal one-pass priority advancement.
+                boolean armedClientSideYield = false;
                 if ("stack_resolved".equals(until)) {
                     GameView gv = lastGameView;
-                    if (gv != null && gv.getStack().isEmpty()) {
-                        var result = new ActionResult();
-                        result.action_pending = currentAction != null;
-                        result.stop_reason = "stack_resolved";
-                        attachUnseenChat(result);
-                        if (currentAction != null) {
-                            mergeActionChoices(result, boardCursorParam);
-                        }
-                        return result;
+                    UUID lowestStackObjectId = lowestStackObjectId(gv);
+                    if (lowestStackObjectId != null) {
+                        yieldUntilStackResolved = true;
+                        yieldUntilStackResolvedObjectId = lowestStackObjectId;
+                        armedClientSideYield = true;
                     }
-                    yieldUntilStackResolved = true;
                 } else if ("my_turn".equals(until)) {
                     yieldUntilMyTurn = true;
+                    armedClientSideYield = true;
                 } else if ("end_of_turn".equals(until)) {
                     yieldUntilEndOfTurn = true;
+                    armedClientSideYield = true;
                 }
                 // Auto-pass the current priority locally via sendPlayerBoolean
                 // instead of sendPlayerAction+skip().  This avoids the race where
@@ -3090,7 +3120,7 @@ public class BridgeCallbackHandler {
                 // XMage server consumes for the NEXT query — creating a one-response
                 // offset between bridge and server.  On slow CI machines this race
                 // causes golden test flakes (missing snapshots, timeouts).
-                if (currentAction != null) {
+                if (armedClientSideYield && currentAction != null) {
                     synchronized (actionLock) {
                         pendingAction = null;
                     }
@@ -3098,7 +3128,7 @@ public class BridgeCallbackHandler {
                     // The yield consumed the current priority — count it as a pass.
                     actionsPassed++;
                 }
-                yieldActive = true;
+                yieldActive = armedClientSideYield;
             } else {
                 var allValues = new ArrayList<>(STEP_PHASES.keySet());
                 allValues.addAll(CLIENT_SIDE_YIELDS);
@@ -3288,23 +3318,16 @@ public class BridgeCallbackHandler {
                 }
 
                 // Client-side cross-turn yield: stack_resolved
-                // Return when the stack becomes empty.  While the stack has items,
-                // fall through to the playable-cards check (so we stop for
-                // counterspells etc., and auto-pass when we have no responses).
+                // Watch the stack objects that existed when the yield started.
+                // Once the lowest of those objects is gone, the next actionable
+                // callback should wake the model instead of auto-passing again.
                 if (yieldUntilStackResolved) {
                     GameView gv = (action.data() instanceof GameClientMessage)
                         ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
-                    if (gv != null && gv.getStack().isEmpty()) {
-                        // Stack resolved — return to LLM
-                        var result = new ActionResult();
-                        result.action_pending = true;
-                        result.action_type = method.name();
-                        result.stop_reason = "stack_resolved";
-                        attachUnseenChat(result);
-                        mergeActionChoices(result, boardCursorParam);
-                        return result;
+                    if (!stackContains(gv, yieldUntilStackResolvedObjectId)) {
+                        return stackResolvedResult(action, boardCursorParam);
                     }
-                    // Stack still has items — fall through to playable-cards check
+                    // A watched stack object is still present — keep auto-passing.
                 }
 
                 // Step-specific yield: check if we've reached the target step

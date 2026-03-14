@@ -47,6 +47,8 @@ uv run python scripts/game-gz-bootstrap.py ${GAME_ID}
 
 This gives you a roadmap — you'll know which players had errors, roughly when, and what to look for in the raw logs.
 
+Bootstrap caveat: `game-gz-bootstrap.py` currently overcounts failed tool calls because it substring-matches normal fields like `required`, and its auto-export fallback still checks `~/mage-bench-logs` instead of `~/.mage-bench/logs`. Treat its failure count as advisory and run `uv run python scripts/export_game.py ${GAME_ID}` manually if the export is missing.
+
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
 
 **Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
