@@ -450,3 +450,27 @@ for player_data in data.get('players', []):
     if until_counts:
         print(f"{name}: {dict(until_counts.most_common(5))}")
 ```
+
+## Detecting stack_resolved hangs after passive resolution
+
+If `pass_priority(until="stack_resolved")` returns only at `game_over`, check whether
+the final stack item actually resolved on passive updates instead of a fresh `GAME_SELECT`.
+
+```bash
+# Find stack_resolved tool calls and their return latency
+grep -n '"until":"stack_resolved"' "$GAME_DIR"/*_llm.jsonl
+
+# Then inspect the bridge callbacks around the end of the sequence
+nl -ba "$GAME_DIR"/*_bridge.jsonl | tail -n 40
+```
+
+Look for this signature:
+
+- one last `GAME_SELECT` while the stack is still non-empty
+- then only `GAME_UPDATE` / `GAME_UPDATE_AND_INFORM` callbacks
+- `game_events.jsonl` or state snapshots showing `stack: []`
+- `*_mcp.log` `passPriority STILL WAITING` lines with `pendingAction=false`
+
+That pattern means the bridge auto-passed the last actionable priority window, the
+stack emptied on passive callbacks, and the `stack_resolved` waiter never noticed
+because it only checks stack emptiness while `pendingAction != null`.
