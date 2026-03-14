@@ -584,10 +584,15 @@ class SpectatorProcess:
         """Wait for the spectator to create the table and be ready for players.
 
         Uses the HTTP health endpoint for long-poll readiness detection.
-        Returns the tableId string from the spectator.
+        Returns the tableId string for bridge clients to join.
         """
         assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
         return _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
+
+    def wait_for_watching(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+        """Wait for the spectator to attach to the actual game before replay starts."""
+        assert self.health_port > 0, "SpectatorProcess requires health_port for watch detection"
+        _wait_for_game_watching(self.health_port, game_dir, timeout=timeout)
 
     def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
         """Wait for the spectator to signal that event files are fully written."""
@@ -955,7 +960,7 @@ def _wait_for_health(port: int, timeout: int = 120) -> None:
 def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
     """Wait for observer to create a game table via long-poll HTTP endpoint.
 
-    Returns the tableId string from the spectator.
+    Returns the tableId string once bridge clients can join the table.
     """
     url = f"http://127.0.0.1:{port}/wait-for-ready"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
@@ -969,6 +974,21 @@ def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_REA
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
         raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
+
+
+def _wait_for_game_watching(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+    """Wait for observer to attach to the game's actual GameView via HTTP endpoint."""
+    url = f"http://127.0.0.1:{port}/wait-for-watching"
+    body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read())
+            if not data.get("watching"):
+                raise RuntimeError(f"Wait-for-watching returned: {data}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        raise RuntimeError(f"Wait-for-watching failed (HTTP {e.code}): {error_body}") from e
 
 
 def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> None:
@@ -1098,6 +1118,8 @@ def run_golden_scenario(
                 raise RuntimeError(f"Bridge join failed: {labels}")
         bridge_a.assert_clean_reconnect(f"{golden_name}/bridge_join")
         bridge_b.assert_clean_reconnect(f"{golden_name}/bridge_join")
+        with timed_phase(golden_name, "spectator_watch"):
+            spectator.wait_for_watching(game_dir)
 
         # Run player A's scripted production pilot and player B concurrently
         prompt_a: list[dict] | None = None

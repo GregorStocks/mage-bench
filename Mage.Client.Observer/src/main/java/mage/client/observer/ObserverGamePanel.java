@@ -133,6 +133,7 @@ public class ObserverGamePanel extends GamePanel {
     private Path gameDirPath;
     private final Set<String> llmPlayerNames = new HashSet<>();
     private boolean costPollingInitialized = false;
+    private boolean watchingSignaled = false;
 
     // Cast owner tracking: objectId → playerName, parsed from game chat HTML
     private static final Pattern CAST_OWNER_PATTERN = Pattern.compile(
@@ -169,6 +170,21 @@ public class ObserverGamePanel extends GamePanel {
     /** Set the health server so game-end can be signaled via HTTP. */
     public void setHealthServer(ObserverHealthServer healthServer) {
         this.healthServer = healthServer;
+    }
+
+    private void signalWatchingReady() {
+        if (watchingSignaled || healthServer == null) {
+            return;
+        }
+        if (gameDirPath == null) {
+            String gameDirStr = System.getProperty("xmage.observer.gameDir");
+            if (gameDirStr == null || gameDirStr.isEmpty()) {
+                return;
+            }
+            gameDirPath = Paths.get(gameDirStr);
+        }
+        healthServer.signalGameWatching(gameDirPath.toString());
+        watchingSignaled = true;
     }
 
     @Override
@@ -283,6 +299,7 @@ public class ObserverGamePanel extends GamePanel {
         // Schedule auto-dismissal of any popup dialogs created during init
         schedulePopupDismissal();
         writeStateSnapshotIfChanged(game);
+        signalWatchingReady();
     }
 
     private void updateFrameGameName() {
