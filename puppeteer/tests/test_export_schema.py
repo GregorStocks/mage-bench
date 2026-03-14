@@ -376,3 +376,44 @@ class TestExportSchema:
 
         assert built["version"] == 7
         assert "annotations" not in built
+
+    def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
+        path = tmp_path / "empty_decision_strings.json"
+        payload = _minimal_export(
+            7,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 0,
+                    "toolCallsFailed": 0,
+                    "thinkingTimeSecs": 0.0,
+                }
+            ],
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": None,
+                    "actionType": "",
+                    "responseType": "",
+                    "message": "",
+                    "choices": [],
+                    "choiceCount": 0,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                }
+            ],
+        )
+        path.write_text(json.dumps(payload))
+
+        game = load_game_export(path)
+
+        assert game["decisions"][0]["actionType"] == ""
+        assert game["decisions"][0]["responseType"] == ""
+        assert game["decisions"][0]["message"] == ""

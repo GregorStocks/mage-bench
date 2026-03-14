@@ -327,8 +327,8 @@ def _require_object_list(value: object, source: str) -> None:
 
 def _is_player(value: object, source: str) -> TypeIs[Player]:
     obj = _require_object(value, source)
-    _require_non_empty_str(_require_key(obj, "name", source), f"{source}.name")
-    _require_non_empty_str(_require_key(obj, "type", source), f"{source}.type")
+    _require_str(_require_key(obj, "name", source), f"{source}.name")
+    _require_str(_require_key(obj, "type", source), f"{source}.type")
     _require_non_negative_int(
         _require_key(obj, "toolCallsOk", source), f"{source}.toolCallsOk"
     )
@@ -340,15 +340,15 @@ def _is_player(value: object, source: str) -> TypeIs[Player]:
         _require_key(obj, "thinkingTimeSecs", source), f"{source}.thinkingTimeSecs"
     )
     if "model" in obj:
-        _require_non_empty_str(obj["model"], f"{source}.model")
+        _require_str(obj["model"], f"{source}.model")
     if "deckName" in obj:
-        _require_non_empty_str(obj["deckName"], f"{source}.deckName")
+        _require_str(obj["deckName"], f"{source}.deckName")
     if "deckStrategy" in obj:
-        _require_non_empty_str(obj["deckStrategy"], f"{source}.deckStrategy")
+        _require_str(obj["deckStrategy"], f"{source}.deckStrategy")
     if "commander" in obj:
-        _require_non_empty_str(obj["commander"], f"{source}.commander")
+        _require_str(obj["commander"], f"{source}.commander")
     if "reasoningEffort" in obj:
-        _require_non_empty_str(obj["reasoningEffort"], f"{source}.reasoningEffort")
+        _require_str(obj["reasoningEffort"], f"{source}.reasoningEffort")
     if "totalCostUsd" in obj:
         _require_number(obj["totalCostUsd"], f"{source}.totalCostUsd")
     if "placement" in obj:
@@ -460,11 +460,11 @@ def _is_llm_usage(value: object, source: str) -> TypeIs[LlmUsage]:
 
 def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
     obj = _require_object(value, source)
-    _require_non_empty_str(_require_key(obj, "type", source), f"{source}.type")
+    _require_str(_require_key(obj, "type", source), f"{source}.type")
     assert obj["type"] in _LLM_EVENT_TYPES, (
         f"{source}.type: unexpected llm event type {obj['type']!r}"
     )
-    _require_non_empty_str(_require_key(obj, "player", source), f"{source}.player")
+    _require_str(_require_key(obj, "player", source), f"{source}.player")
     if "ts" in obj:
         _require_str(obj["ts"], f"{source}.ts")
     if "seq" in obj:
@@ -472,7 +472,7 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
     if "gameSeq" in obj:
         _require_int(obj["gameSeq"], f"{source}.gameSeq")
     if "model" in obj:
-        _require_non_empty_str(obj["model"], f"{source}.model")
+        _require_str(obj["model"], f"{source}.model")
     if "availableTools" in obj:
         _require_str_list(obj["availableTools"], f"{source}.availableTools")
     if "reasoning" in obj:
@@ -484,7 +484,7 @@ def _is_llm_event(value: object, source: str) -> TypeIs[LlmEvent]:
     if "costUsd" in obj:
         _require_number(obj["costUsd"], f"{source}.costUsd")
     if "tool" in obj:
-        _require_non_empty_str(obj["tool"], f"{source}.tool")
+        _require_str(obj["tool"], f"{source}.tool")
     if "args" in obj:
         _require_object(obj["args"], f"{source}.args")
     if "result" in obj:
@@ -520,7 +520,7 @@ def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
     _require_non_negative_int(
         _require_key(obj, "snapshotIndex", source), f"{source}.snapshotIndex"
     )
-    _require_non_empty_str(_require_key(obj, "player", source), f"{source}.player")
+    _require_str(_require_key(obj, "player", source), f"{source}.player")
     _require_str(_require_key(obj, "type", source), f"{source}.type")
     assert obj["type"] == "blunder", (
         f"{source}.type: expected 'blunder', got {obj['type']!r}"
@@ -560,15 +560,11 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
     _require_non_negative_int(
         _require_key(obj, "snapshotIndex", source), f"{source}.snapshotIndex"
     )
-    _require_non_empty_str(_require_key(obj, "player", source), f"{source}.player")
+    _require_str(_require_key(obj, "player", source), f"{source}.player")
     _require_non_negative_int(_require_key(obj, "turn", source), f"{source}.turn")
     _require_optional_str(_require_key(obj, "phase", source), f"{source}.phase")
-    _require_non_empty_str(
-        _require_key(obj, "actionType", source), f"{source}.actionType"
-    )
-    _require_non_empty_str(
-        _require_key(obj, "responseType", source), f"{source}.responseType"
-    )
+    _require_str(_require_key(obj, "actionType", source), f"{source}.actionType")
+    _require_str(_require_key(obj, "responseType", source), f"{source}.responseType")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
     _require_object_list(_require_key(obj, "choices", source), f"{source}.choices")
     _require_non_negative_int(
@@ -597,8 +593,8 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
 def _is_game_error(value: object, source: str) -> TypeIs[GameError]:
     obj = _require_object(value, source)
     _require_str(_require_key(obj, "ts", source), f"{source}.ts")
-    _require_non_empty_str(_require_key(obj, "player", source), f"{source}.player")
-    _require_non_empty_str(_require_key(obj, "source", source), f"{source}.source")
+    _require_str(_require_key(obj, "player", source), f"{source}.player")
+    _require_str(_require_key(obj, "source", source), f"{source}.source")
     _require_str(_require_key(obj, "message", source), f"{source}.message")
     if "decisionIndex" in obj:
         _require_non_negative_int(obj["decisionIndex"], f"{source}.decisionIndex")
