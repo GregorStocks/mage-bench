@@ -18,7 +18,7 @@ def test_clone_copies_memnite(
     opponent_session,
     spectator_process,
 ):
-    """Clone enters as a copy of Memnite — verifies copy effect representation."""
+    """Clone enters as a copy of Memnite without extra cleanup actions."""
     server, port = xmage_server
     run_golden_scenario(
         server=server,
@@ -33,28 +33,27 @@ def test_clone_copies_memnite(
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # Play Island.
+            # Opening hand (alphabetical): Black Lotus=p10, Clone=p11,
+            # Island=p12..p15, Memnite=p16.
+            #
+            # Play Island, then use Black Lotus to power out Clone.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "1"}},
-            # Next turn: cast Black Lotus then Memnite.
+            {"name": "choose_action", "arguments": {"choice": "p12"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "5"}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Cast Clone, choose to copy Memnite, let it resolve, then capture.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p16"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
+            # Cast Clone, accept the copy effect, and capture once the board
+            # reaches postcombat main. Avoid the old extra Island play.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "yes"}},
-            # Select Memnite as the copy target.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # Let Clone resolve (enters as a copy of Memnite).
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="clone_copies_memnite",

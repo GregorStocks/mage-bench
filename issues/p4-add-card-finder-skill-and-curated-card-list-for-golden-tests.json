@@ -1,0 +1,14 @@
+{
+  "title": "Add a card-finder skill and curated card list for golden tests",
+  "description": "The `golden-test` skill now pushes authors toward tighter, lower-noise scenarios, but it still assumes the author already knows which Magic cards best exercise a mechanic. In practice that means too much trial-and-error: finding the right fast mana, zero-mana permanents, clone targets, oddball timing cards, or compact combo pieces still depends on personal card knowledge instead of a repeatable workflow.\n\nThere is already usable Scryfall infrastructure in the repo (`scripts/scryfall.py`) plus existing skill/docs context for golden authoring, but nothing ties them together into a focused \"find me the right cards for this test\" workflow.\n\nFollow-up scope:\n- Create a dedicated skill for finding cards with particular properties for test construction, likely using Scryfall searches and/or small repo helpers around `scripts/scryfall.py`.\n- Make that skill explicitly useful for golden-test authors: given a mechanic like \"cheap clone target\", \"free mana\", \"forced trigger\", or \"single-card graveyard setup\", it should help surface a short list of good candidates quickly.\n- Add a convenient curated reference of high-value cards for golden tests in a repo-local place (doc, skill asset, or similar) so common patterns do not require a fresh search every time. That list should call out why each card is useful in tests, not just name cards.\n- Update the `golden-test` skill to point at the new card-finding workflow/reference so the two skills work together instead of living separately.\n\nThe goal is to make good golden-test deck design reproducible. We should not rely on the model or the author happening to remember that `Black Lotus`, `Lotus Petal`, `Memnite`, `Dark Depths`, or some weird one-off enabler exists when a compact scenario depends on it.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": [
+    "skills",
+    "golden",
+    "scryfall"
+  ],
+  "created_at": "2026-03-14T13:14:54.249967-07:00",
+  "updated_at": "2026-03-14T13:14:54.249967-07:00"
+}

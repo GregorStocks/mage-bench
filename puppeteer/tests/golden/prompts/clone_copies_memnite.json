@@ -29,10 +29,6 @@
     "tool_call_id": "call_1"
   },
   {
-    "content": "Current game state: Turn 3; Precombat Main; TestPlayer: 20hp, 4 permanents, 4 cards; Opponent: 20hp, 0 permanents, 7 cards. Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -98,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": 1
+            "choice": "_"
           },
           "name": "choose_action"
         },
@@ -138,7 +134,7 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "choice": "_"
           },
           "name": "choose_action"
         },
@@ -218,7 +214,7 @@
       {
         "function": {
           "arguments": {
-            "choice": 5
+            "choice": "_"
           },
           "name": "choose_action"
         },
@@ -298,7 +294,7 @@
       {
         "function": {
           "arguments": {
-            "choice": 0
+            "choice": "_"
           },
           "name": "choose_action"
         },
@@ -363,7 +359,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "until": "postcombat_main"
+          },
           "name": "pass_priority"
         },
         "id": "call_18",
@@ -382,50 +380,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {
-            "choice": 0
-          },
-          "name": "choose_action"
-        },
-        "id": "call_19",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island] lib=52 bf=[Island (tapped), Island, Memnite 1/1 (sick, copy of Clone), Memnite 1/1 (sick)] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Play spells and abilities\n  Choices (0): \n  Respond: choice=yes (confirm) or choice=no (pass)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
-    "role": "tool",
-    "tool_call_id": "call_19"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {},
-          "name": "pass_priority"
-        },
-        "id": "call_20",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 3 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Island, Island, Island, Island] lib=51 bf=[Island, Island, Memnite 1/1 (copy of Clone), Memnite 1/1] gy=[Black Lotus] | Opponent: 20hp hand=7 lib=51 gy=[Mountain, Mountain]\n  Untapped lands: 2, Land drops remaining: 1\n  Message: Play spells and abilities\n  Choices (4): Island [id=p14, land], Island [id=p15, land], Island [id=p24, land], Island [id=p29, land]\n  Respond: choice=pN to play, or choice=no to pass\n\n[It's been 3 turns since you last chatted — send a message to your opponent!]",
-    "role": "tool",
-    "tool_call_id": "call_20"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_21",
+        "id": "call_19",
         "type": "function"
       }
     ]
@@ -435,8 +393,8 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 81,
-      "phase": "Precombat Main",
+      "game_seq": 63,
+      "phase": "Postcombat Main",
       "players": [
         {
           "battlefield": [
@@ -446,15 +404,7 @@
               "rules": [
                 "{T}: Add {U}."
               ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ],
-              "tapped": false
+              "tapped": true
             },
             {
               "copy": true,
@@ -463,7 +413,7 @@
               "name": "Memnite",
               "original_card": "Clone",
               "power": 1,
-              "summoning_sick": false,
+              "summoning_sick": true,
               "tapped": false,
               "toughness": 1
             },
@@ -471,7 +421,7 @@
               "id": "_",
               "name": "Memnite",
               "power": 1,
-              "summoning_sick": false,
+              "summoning_sick": true,
               "tapped": false,
               "toughness": 1
             }
@@ -526,7 +476,7 @@
           "hand_size": 4,
           "is_active": true,
           "is_you": true,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "TestPlayer"
         },
@@ -538,29 +488,22 @@
               "rules": [
                 "{T}: Add {R}."
               ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
             }
           ],
           "hand_size": 7,
           "is_active": false,
           "is_you": false,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         }
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Precombat Main",
-      "turn": 3
+      "step": "Postcombat Main",
+      "turn": 2
     },
     "role": "tool",
-    "tool_call_id": "call_21"
+    "tool_call_id": "call_19"
   }
 ]

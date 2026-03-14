@@ -15,7 +15,7 @@ import pytest
 
 from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import kill_tree
+from puppeteer.process_manager import jvm_oom_preexec_fn, kill_tree
 from puppeteer.xml_config import modify_server_config
 from tests.golden_helpers import (
     DECK_GOBLINS,
@@ -123,6 +123,7 @@ def xmage_server(project_root, tmp_path_factory):
         env=env,
         stdout=server_log_fh,
         stderr=subprocess.STDOUT,
+        preexec_fn=jvm_oom_preexec_fn(),
     )
 
     try:
@@ -245,6 +246,7 @@ def spectator_process(xmage_server, project_root):
         stdout=spectator_log_fh,
         stderr=subprocess.STDOUT,
         env=env,
+        preexec_fn=jvm_oom_preexec_fn(),
     )
 
     with timed_phase("session", "spectator_jvm_startup"):
