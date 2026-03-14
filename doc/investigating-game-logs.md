@@ -171,6 +171,25 @@ rg -n '"incoming_attackers"|Combat Phase: blockers' website/public/games/GAME_ID
 If the JSON has `incoming_attackers` or other blocker metadata but the prompt
 only shows attacker names, suspect `decision_renderer.py` instead of the model.
 
+## Generic `Ability -> player` stack summaries
+
+When a triggered ability prompt degrades to something like
+`Stack: [Ability -> {'name': 'Player (you)', 'id': 'p2'}]`, compare the prompt
+stack summary against the export snapshot before blaming the model.
+
+```bash
+# What stack text did the model actually see?
+rg -n "Stack: \\[Ability" "$GAME_DIR"/*_llm_trace.jsonl
+
+# Does the export preserve the missing source card / ability text?
+rg -n '"source_card"|"ability_text"|stack ability \\(' website/public/games/GAME_ID.json
+```
+
+If the export has `source_card` / `ability_text` but `pass_priority` or
+`get_action_choices` only expose `name: "Ability"` plus raw target dicts, the
+bug is in bridge/prompt serialization (`BridgeCallbackHandler`,
+`decision_renderer.py`), not in XMage state collection.
+
 ## Blind index-0 targeting
 
 Weak models skip `get_action_choices` and default to `index:0` for targeting,
