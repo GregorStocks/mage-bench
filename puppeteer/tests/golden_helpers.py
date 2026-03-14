@@ -13,6 +13,7 @@ To update: make regen-golden
 from __future__ import annotations
 
 import asyncio
+import copy
 import dataclasses
 import io
 import json
@@ -25,10 +26,12 @@ import time
 import urllib.error
 import urllib.request
 from collections import defaultdict
-from collections.abc import Generator
+from collections.abc import Generator, Iterable, Mapping
 from contextlib import contextmanager
 from pathlib import Path
 from types import SimpleNamespace
+
+import psutil
 
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
@@ -63,6 +66,19 @@ class PhaseTiming:
 
 
 _all_timings: list[PhaseTiming] = []
+
+
+@dataclasses.dataclass
+class RssSnapshot:
+    """A single recorded process-tree RSS snapshot."""
+
+    label: str
+    total_rss_bytes: int
+    process_rss_bytes: dict[str, int]
+
+
+_rss_snapshots: list[RssSnapshot] = []
+_observed_process_pids: dict[str, int] = {}
 _OBJECT_ID_ATTR_RE = re.compile(r"""(object_id=)(['"])[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}\2""")
 _HTML_OBJECT_SUFFIX_RE = re.compile(r"(?<=</font> )\[[0-9a-fA-F]{3}\](?=,)")
 
@@ -87,6 +103,78 @@ def get_all_timings() -> list[PhaseTiming]:
 def clear_timings() -> None:
     """Clear all recorded timings (for testing)."""
     _all_timings.clear()
+
+
+def get_rss_snapshots() -> list[RssSnapshot]:
+    """Return all recorded RSS snapshots (for testing)."""
+    return list(_rss_snapshots)
+
+
+def clear_rss_snapshots() -> None:
+    """Clear all recorded RSS snapshots (for testing)."""
+    _rss_snapshots.clear()
+
+
+def _format_rss_bytes(num_bytes: int) -> str:
+    return f"{num_bytes / (1024 * 1024):.1f} MiB"
+
+
+def _process_tree_rss_bytes(pid: int) -> int:
+    """Return RSS for a process and all live descendants."""
+    try:
+        root = psutil.Process(pid)
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        return 0
+
+    total = 0
+    for proc in [root, *root.children(recursive=True)]:
+        try:
+            total += proc.memory_info().rss
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+    return total
+
+
+def register_observed_process(label: str, pid: int) -> None:
+    """Register a process tree for later RSS snapshots."""
+    _observed_process_pids[label] = pid
+
+
+def unregister_observed_process(label: str) -> None:
+    """Stop tracking a previously registered process."""
+    _observed_process_pids.pop(label, None)
+
+
+def record_rss_snapshot(label: str, processes: Mapping[str, int]) -> None:
+    """Capture and print process-tree RSS for the given processes."""
+    if not processes:
+        return
+
+    process_rss_bytes: dict[str, int] = {}
+    total_rss_bytes = 0
+    for process_label, pid in processes.items():
+        rss_bytes = _process_tree_rss_bytes(pid)
+        process_rss_bytes[process_label] = rss_bytes
+        total_rss_bytes += rss_bytes
+
+    _rss_snapshots.append(RssSnapshot(label, total_rss_bytes, process_rss_bytes))
+    breakdown = " ".join(
+        f"{process_label}:{_format_rss_bytes(rss_bytes)}" for process_label, rss_bytes in process_rss_bytes.items()
+    )
+    print(f"  [rss/{label}] total={_format_rss_bytes(total_rss_bytes)} [{breakdown}]", flush=True)
+
+
+def record_registered_rss_snapshot(label: str, process_labels: Iterable[str] | None = None) -> None:
+    """Capture RSS for a subset of registered processes, preserving label order."""
+    if process_labels is None:
+        selected = dict(_observed_process_pids)
+    else:
+        selected = {
+            process_label: _observed_process_pids[process_label]
+            for process_label in process_labels
+            if process_label in _observed_process_pids
+        }
+    record_rss_snapshot(label, selected)
 
 
 def print_timing_summary() -> None:
@@ -141,6 +229,30 @@ def print_timing_summary() -> None:
     for phase, duration in sorted(by_phase.items(), key=lambda x: -x[1]):
         pct = (duration / total * 100) if total > 0 else 0
         print(f"  {phase:<28s} {duration:>6.1f}s  ({pct:>4.1f}%)", flush=True)
+    print(flush=True)
+
+
+def print_rss_summary() -> None:
+    """Print all recorded RSS snapshots and the peak total RSS."""
+    if not _rss_snapshots:
+        return
+
+    print("\n=== Golden Test RSS Summary ===\n", flush=True)
+    peak_snapshot = max(_rss_snapshots, key=lambda snapshot: snapshot.total_rss_bytes)
+    print(
+        f"Peak total RSS: {_format_rss_bytes(peak_snapshot.total_rss_bytes)} at {peak_snapshot.label}",
+        flush=True,
+    )
+    print("Snapshots:", flush=True)
+    for snapshot in _rss_snapshots:
+        breakdown = " ".join(
+            f"{process_label}:{_format_rss_bytes(rss_bytes)}"
+            for process_label, rss_bytes in snapshot.process_rss_bytes.items()
+        )
+        print(
+            f"  {snapshot.label:<32s} {_format_rss_bytes(snapshot.total_rss_bytes):>10s}  [{breakdown}]",
+            flush=True,
+        )
     print(flush=True)
 
 
@@ -473,7 +585,8 @@ class BridgeManager:
         bridge_log = self._prepare_live_log_path()
         bridge_event_log = self._prepare_live_log_path("bridge-events.jsonl")
 
-        bridge_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
+        with timed_phase("session", f"{self._label}_classpath"):
+            bridge_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
         bridge_cmd = _build_java_cmd(
             bridge_cp,
             MAIN_CLASS_BRIDGE,
@@ -509,9 +622,13 @@ class BridgeManager:
         self.session = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
         self.session.initialize()
         print(f"{self._label.title()} MCP initialized via HTTP", flush=True)
+        assert self._proc is not None, "Bridge process must exist after successful start"
+        register_observed_process(self._label, self._proc.pid)
+        record_registered_rss_snapshot(f"{self._label}_ready", [self._label])
 
     def stop(self) -> None:
         """Kill the bridge JVM and clean up."""
+        unregister_observed_process(self._label)
         if self.session:
             self.session.close()
             self.session = None
@@ -1163,6 +1280,11 @@ def run_golden_scenario(
             t_a.join(timeout=180)
             t_b.join(timeout=180)
 
+        record_registered_rss_snapshot(
+            f"{golden_name}_post_replay",
+            ["server", bridge_a._label, bridge_b._label, "spectator"],
+        )
+
         # Player A errors are fatal; player B errors are usually benign
         # (game ended from player A's concede)
         for lbl, exc in replay_errors:
@@ -1177,10 +1299,21 @@ def run_golden_scenario(
         with timed_phase(golden_name, "game_end_signal"):
             spectator.wait_for_game_end(game_dir)
 
-        with timed_phase(golden_name, "golden_comparison"):
+        with timed_phase(golden_name, "prompt_compare"):
             assert_golden_prompt(golden_name, prompt_a)
-            assert_golden_export(golden_name, game_dir)
-            assert_golden_blunder_prompts(golden_name, game_dir, script_a)
+
+        with timed_phase(golden_name, "export_build"):
+            export_data = build_export(game_dir)
+
+        with timed_phase(golden_name, "export_compare"):
+            assert_golden_export(golden_name, export_data)
+
+        annotated_blunders = _script_blunder_indices(script_a)
+        if annotated_blunders:
+            with timed_phase(golden_name, "blunder_extract"):
+                decisions = extract_blunder_decisions(export_data, game_dir)
+            with timed_phase(golden_name, "blunder_prompt_compare"):
+                assert_golden_blunder_prompts(golden_name, export_data, annotated_blunders, decisions)
 
         return prompt_a
 
@@ -1433,12 +1566,17 @@ def _strip_volatile(data: dict) -> None:
     data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
 
-def assert_golden_export(name: str, game_dir: Path) -> None:
-    """Run export pipeline on game dir, compare against golden file."""
-    export_data = build_export(game_dir)
-    _strip_volatile(export_data)
-    export_data = _normalize_embedded_json(export_data)
-    actual_json = _to_sorted_json(export_data)
+def _normalize_export_for_golden(export_data: dict) -> dict:
+    """Return a deterministic export copy for golden comparison."""
+    normalized = copy.deepcopy(export_data)
+    _strip_volatile(normalized)
+    return _normalize_embedded_json(normalized)
+
+
+def assert_golden_export(name: str, export_data: dict) -> None:
+    """Compare export data against a golden file."""
+    normalized_export = _normalize_export_for_golden(export_data)
+    actual_json = _to_sorted_json(normalized_export)
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
 
     if UPDATE_MODE:
@@ -1452,7 +1590,7 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
         expected_obj = json.loads(expected)
-        diff_lines = _json_diff(expected_obj, export_data)
+        diff_lines = _json_diff(expected_obj, normalized_export)
         diff_text = "\n".join(diff_lines)
         raise AssertionError(
             f"Golden export mismatch: {name}.json\nRun 'make regen-golden' to regenerate.\n\n{diff_text}"
@@ -1497,25 +1635,30 @@ def _script_blunder_indices(script: list[dict]) -> list[int]:
     return indices
 
 
-def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict]) -> None:
-    """Check blunder analysis prompts for script steps annotated with ``golden_blunder``.
+def extract_blunder_decisions(export_data: dict, game_dir: Path) -> list[dict]:
+    """Extract decisions for golden blunder prompt comparisons."""
+    tmp_export = game_dir / "_blunder_export.json"
+    tmp_export.write_text(json.dumps(export_data))
+    try:
+        return extract_decisions(str(tmp_export))
+    finally:
+        tmp_export.unlink()
+
+
+def assert_golden_blunder_prompts(
+    name: str,
+    export_data: dict,
+    annotated: list[int],
+    decisions: list[dict],
+) -> None:
+    """Check blunder analysis prompts for annotated decision indices.
 
     For each annotated ``choose_action`` in the script, builds the blunder
     evaluation prompt (system + user) from the game export and compares against
     golden reference files.  Skips entirely if no script steps are annotated.
     """
-    annotated = _script_blunder_indices(script)
     if not annotated:
         return
-
-    # Build full (unstripped) export and extract decisions
-    export_data = build_export(game_dir)
-    tmp_export = game_dir / "_blunder_export.json"
-    tmp_export.write_text(json.dumps(export_data))
-    try:
-        decisions = extract_decisions(str(tmp_export))
-    finally:
-        tmp_export.unlink()
 
     # Build prompt context
     overview = _game_overview(export_data)

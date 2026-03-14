@@ -1,0 +1,10 @@
+{
+  "title": "Golden tests use shared Mage.Server/db and can fail before startup",
+  "description": "The golden integration harness starts XMage with `cwd=project_root / \"Mage.Server\"`, so the server uses the repo-local `Mage.Server/db` state instead of an isolated golden-test data directory. On March 14, 2026, `make test-golden` in `/home/gregor/code/mage-bench` spent 45.9s compiling, then 90.1s waiting for server startup before failing all 14 golden scenarios because H2 refused to open an old on-disk database: `The write format 1 is smaller than the supported format 3 [2.4.240/5]`.\n\nEvidence:\n- `puppeteer/tests/conftest.py` starts the golden server with `cwd=project_root / \"Mage.Server\"` and only writes the modified XML config under `tmp/golden-server/`; it does not isolate the server's database or working directory.\n- `Mage.Server/src/main/java/mage/server/AuthorizedUserRepository.java`, `UserStatsRepository.java`, and `TableRecordRepository.java` all create `new File(\"db\")`, so the server uses a working-directory-relative `db/`.\n- The repo-local `Mage.Server/db` directory in this worktree is 279 MB, so the harness is coupling golden startup to mutable shared state rather than per-run fixtures.\n- `tmp/golden-server/server.log` from the failed run shows the H2 format mismatch before the server bound its port.\n\nThis is both a reliability bug and a speed issue. A stale or incompatible repo-local DB can make every golden test fail before any scenario runs, and sharing a large mutable DB blocks cleaner startup optimizations such as a dedicated tiny golden-specific DB/cache snapshot.\n\nSuggested fix: make the golden server use an isolated data directory or working directory under `tmp/golden-server/` (or another dedicated test-only path), and only then consider caching a prebuilt minimal DB for the golden card pool.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["golden", "server", "puppeteer"],
+  "created_at": "2026-03-14T13:50:31-07:00",
+  "updated_at": "2026-03-14T13:50:31-07:00"
+}

@@ -28,8 +28,12 @@ from tests.golden_helpers import (
     _build_java_cmd,
     _wait_for_health,
     compute_module_classpath,
+    print_rss_summary,
     print_timing_summary,
+    record_registered_rss_snapshot,
+    register_observed_process,
     timed_phase,
+    unregister_observed_process,
 )
 
 _SET_CODE_RE = re.compile(r"\[([A-Z0-9]+):")
@@ -93,7 +97,8 @@ def xmage_server(project_root, tmp_path_factory):
     allowed_sets = extract_golden_set_codes(project_root)
 
     # Build java -cp command (server has no GUI; clients need AWT for Swing)
-    server_cp = compute_module_classpath(project_root, "Mage.Server")
+    with timed_phase("session", "server_classpath"):
+        server_cp = compute_module_classpath(project_root, "Mage.Server")
     server_cmd = _build_java_cmd(
         server_cp,
         MAIN_CLASS_SERVER,
@@ -132,8 +137,11 @@ def xmage_server(project_root, tmp_path_factory):
         with timed_phase("session", "server_startup"):
             assert wait_for_port("localhost", port, 90), f"XMage server failed to start within 90s — check {server_log}"
         port_res.release()
+        register_observed_process("server", server_proc.pid)
+        record_registered_rss_snapshot("server_ready", ["server"])
         yield "localhost", port
     finally:
+        unregister_observed_process("server")
         kill_tree(server_proc.pid)
         server_log_fh.close()
 
@@ -196,7 +204,8 @@ def spectator_process(xmage_server, project_root):
     health_port_res = find_available_port("localhost", 20000)
     health_port = health_port_res.port
 
-    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+    with timed_phase("session", "spectator_classpath"):
+        cp = compute_module_classpath(project_root, "Mage.Client.Observer")
     spectator_cmd = _build_java_cmd(
         cp,
         MAIN_CLASS_OBSERVER,
@@ -260,9 +269,12 @@ def spectator_process(xmage_server, project_root):
         health_port_res.release()
         _wait_for_health(health_port, timeout=120)
         print("Spectator keepAlive ready")
+        register_observed_process("spectator", proc.pid)
+        record_registered_rss_snapshot("spectator_ready", ["spectator"])
 
     yield spectator
 
+    unregister_observed_process("spectator")
     spectator.close()
     try:
         proc.wait(timeout=10)
@@ -370,3 +382,4 @@ def pytest_runtest_makereport(item: pytest.Item, call: pytest.CallInfo[None]) ->
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
     """Print aggregate golden test timing summary at session end."""
     print_timing_summary()
+    print_rss_summary()

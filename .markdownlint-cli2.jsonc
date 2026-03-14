@@ -11,6 +11,7 @@
     "**/*.md",
     "!doc/claudes/analyses/**",
     "!**/node_modules/**",
-    "!.venv/**"
+    "!.venv/**",
+    "!**/.venv/**"
   ]
 }
