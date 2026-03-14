@@ -28,6 +28,7 @@ import_deck = _import_script("import-deck")
 import_metagame = _import_script("import-metagame")
 conclude_season = _import_script("conclude_season")
 conclude_tournament = _import_script("conclude_tournament")
+game_gz_bootstrap = _import_script("game-gz-bootstrap")
 
 
 # ===========================================================================
@@ -829,3 +830,93 @@ class TestImportMetagame:
     def test_slug_to_title_case(self) -> None:
         assert import_metagame.slug_to_title_case("sneak-and-show") == "Sneak-And-Show"
         assert import_metagame.slug_to_title_case("4c-reanimator") == "4c-Reanimator"
+
+
+# ===========================================================================
+# game-gz-bootstrap
+# ===========================================================================
+
+
+class TestGameGzBootstrap:
+    def test_bootstraps_from_shared_logs_dir(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+        game_id = "game_20260314_111422_g1"
+        games_dir = tmp_path / "website" / "public" / "games"
+        logs_dir = tmp_path / ".mage-bench" / "logs"
+        game_dir = logs_dir / game_id
+        export_path = games_dir / f"{game_id}.json"
+        export_data = {
+            "id": game_id,
+            "deckType": "jumpstart",
+            "totalTurns": 7,
+            "winner": "Alice",
+            "players": [
+                {"name": "Alice", "model": "model-a", "totalCostUsd": 0.25},
+                {"name": "Bob", "model": "model-b", "totalCostUsd": 0.0},
+            ],
+            "llmEvents": [],
+        }
+        games_dir.mkdir(parents=True)
+        game_dir.mkdir(parents=True)
+        (game_dir / "game_events.jsonl").write_text("{}\n")
+
+        export_path.write_text(json.dumps(export_data))
+
+        def fake_run(cmd: list[str], check: bool) -> MagicMock:
+            assert cmd == ["uv", "run", "python", "scripts/export_game.py", game_id]
+            assert check is True
+            export_path.write_text(json.dumps(export_data))
+            return MagicMock()
+
+        export_path.unlink()
+        with (
+            patch.object(game_gz_bootstrap, "GAMES_DIR", games_dir),
+            patch.object(game_gz_bootstrap, "LOGS_DIR", logs_dir),
+            patch.object(game_gz_bootstrap.subprocess, "run", side_effect=fake_run) as mock_run,
+        ):
+            game_gz_bootstrap.main(game_id)
+
+        mock_run.assert_called_once()
+        out = capsys.readouterr().out
+        assert f"Game: {game_id} | jumpstart | 7 turns | Winner: Alice" in out
+
+    def test_failed_tool_call_detection_requires_explicit_errors(self) -> None:
+        events = [
+            {
+                "type": "tool_call",
+                "player": "Alice",
+                "tool": "get_action_choices",
+                "result": json.dumps({"required": True, "action_pending": True}),
+            },
+            {
+                "type": "tool_call",
+                "player": "Alice",
+                "tool": "choose_action",
+                "result": json.dumps(
+                    {
+                        "success": True,
+                        "failed": [{"id": "p1", "reason": "not a valid attacker"}],
+                    }
+                ),
+            },
+            {
+                "type": "tool_call",
+                "player": "Alice",
+                "tool": "choose_action",
+                "result": json.dumps(
+                    {"success": False, "error": "Index 0 out of range (call get_action_choices first)"}
+                ),
+            },
+            {
+                "type": "tool_call",
+                "player": "Bob",
+                "tool": "send_chat_message",
+                "result": json.dumps({"error": "Missing required 'message' parameter"}),
+            },
+        ]
+
+        failures = game_gz_bootstrap._failed_tool_calls(events)
+
+        assert [event["tool"] for event in failures] == [
+            "choose_action",
+            "send_chat_message",
+        ]
