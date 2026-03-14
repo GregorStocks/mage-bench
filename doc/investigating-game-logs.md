@@ -20,6 +20,27 @@ GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-branch-GregorStoc
 ls -dt ~/.mage-bench/logs/game_* | head -5
 ```
 
+## Bootstrap caveats
+
+`game-gz-bootstrap.py` is still useful for a quick overview, but its failure count
+is currently only advisory:
+
+- it counts any tool result containing the substring `required` as a failed call,
+  so mandatory prompts can show up as bogus failures
+- its auto-export fallback still looks under `~/mage-bench-logs` instead of
+  `~/.mage-bench/logs`
+
+Sanity-check suspicious bootstrap output against the export before treating it as
+real runtime evidence:
+
+```bash
+# Compare bootstrap "failed tool calls" against the export summary
+jq '.players[] | {name, toolCallsFailed}' website/public/games/GAME_ID.json
+
+# If the export is missing, generate it manually from the real log root
+uv run python scripts/export_game.py GAME_ID
+```
+
 ## Chat messages
 
 Chat messages are the most human-readable signal. Always check them first.
