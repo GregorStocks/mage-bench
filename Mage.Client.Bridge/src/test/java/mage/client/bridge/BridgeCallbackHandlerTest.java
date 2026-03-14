@@ -22,6 +22,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -90,7 +91,7 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
-    void returnsStackResolvedWhenPassiveUpdateClearsStack() throws Exception {
+    void returnsStackResolvedOnNextActionAfterPassiveUpdateClearsStack() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
         BridgeMageClient client = new BridgeMageClient("TestPlayer");
@@ -98,7 +99,8 @@ class BridgeCallbackHandlerTest {
         BridgeCallbackHandler handler = client.getCallbackHandler();
 
         UUID gameId = UUID.randomUUID();
-        GameView stackOccupied = gameView(7, false);
+        UUID watchedStackObjectId = UUID.randomUUID();
+        GameView stackOccupied = gameView(7, watchedStackObjectId);
         setField(handler, "currentGameId", gameId);
         setField(handler, "lastGameView", stackOccupied);
         setField(handler, "pendingAction", new PendingAction(
@@ -115,14 +117,27 @@ class BridgeCallbackHandlerTest {
 
             assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
 
-            GameView stackCleared = gameView(8, true);
+            GameView stackCleared = gameView(8);
             setField(handler, "lastGameView", stackCleared);
+            notifyActionLock(handler);
+
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(stackCleared, Collections.<String, Serializable>emptyMap(), "Pass after resolve"),
+                "Pass after resolve",
+                8
+            ));
             notifyActionLock(handler);
 
             ActionResult result = future.get(1, TimeUnit.SECONDS);
             assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
             assertThat(result.stop_reason).isEqualTo("stack_resolved");
-            assertThat(result.action_pending).isFalse();
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
             assertThat(result.game_seq).isEqualTo(8);
         } finally {
             executor.shutdownNow();
@@ -148,11 +163,11 @@ class BridgeCallbackHandlerTest {
         }
     }
 
-    private static GameView gameView(int gameSeq, boolean stackEmpty) throws Exception {
+    private static GameView gameView(int gameSeq, UUID... stackObjectIds) throws Exception {
         GameView view = (GameView) UNSAFE.allocateInstance(GameView.class);
         CardsView stack = new CardsView();
-        if (!stackEmpty) {
-            stack.put(UUID.randomUUID(), null);
+        for (UUID stackObjectId : stackObjectIds) {
+            stack.put(stackObjectId, null);
         }
         setField(view, "players", List.of());
         setField(view, "lookedAt", List.of());
