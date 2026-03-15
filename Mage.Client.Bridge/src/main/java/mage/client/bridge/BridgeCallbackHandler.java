@@ -144,7 +144,6 @@ public class BridgeCallbackHandler {
                 return;
             }
             lastGameView = gv;
-            registerNonCardViewShortIds(gv);
             roundTracker.update(gv);
             // Determinism debugging: log when game_seq changes and who changed it
             int oldSeq = old != null ? old.getGameSeq() : -1;
@@ -159,29 +158,6 @@ public class BridgeCallbackHandler {
         }
     }
 
-    /**
-     * Pre-register server-assigned short IDs for objects not found by findCardViewById.
-     * Called when a new GameView is received so that player UUIDs and lookedAt cards
-     * get p-prefix IDs instead of l-prefix fallbacks.
-     */
-    private void registerNonCardViewShortIds(GameView gv) {
-        // Players (PlayerView is not a CardView, so findCardViewById never finds them)
-        for (PlayerView pv : gv.getPlayers()) {
-            String serverShortId = pv.getShortId();
-            if (serverShortId != null && !serverShortId.isBlank()) {
-                shortIds.register(pv.getPlayerId(), serverShortId);
-            }
-        }
-        // LookedAt cards (SimpleCardView, not searchable by findCardViewById)
-        for (LookedAtView lv : gv.getLookedAt()) {
-            for (SimpleCardView sv : lv.getCards().values()) {
-                String serverShortId = sv.getShortId();
-                if (serverShortId != null && !serverShortId.isBlank()) {
-                    shortIds.register(sv.getId(), serverShortId);
-                }
-            }
-        }
-    }
 
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
@@ -233,7 +209,7 @@ public class BridgeCallbackHandler {
     private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
         ManaPlanEntry(String type, String value) { this(type, value, null); }
     }
-    private record TargetChoice(UUID targetId, Map<String, Object> entry) {
+    private record TargetChoice(UUID targetId, Map<String, Object> entry, CardView cardView) {
     }
     private enum DecisionBoundaryStatus {
         READY,
@@ -1253,8 +1229,8 @@ public class BridgeCallbackHandler {
                     for (UUID targetId : targets) {
                         var choiceEntry = new HashMap<String, Object>();
                         // ID assigned after sorting — see below
-                        buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
-                        targetChoices.add(new TargetChoice(targetId, choiceEntry));
+                        CardView resolvedCv = buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
+                        targetChoices.add(new TargetChoice(targetId, choiceEntry, resolvedCv));
                     }
 
                     // Sort all target choices deterministically: "you" first, then alphabetical.
@@ -1274,13 +1250,13 @@ public class BridgeCallbackHandler {
                             return nameCmp;
                         }
                         return Integer.compare(
-                            getStableShortIdSequence(a.targetId(), findCardViewById(a.targetId(), gv)),
-                            getStableShortIdSequence(b.targetId(), findCardViewById(b.targetId(), gv)));
+                            getStableShortIdSequence(a.targetId(), a.cardView()),
+                            getStableShortIdSequence(b.targetId(), b.cardView()));
                     });
 
                     int idx = 0;
                     for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", getStableShortId(tc.targetId(), findCardViewById(tc.targetId(), gameView)));
+                        tc.entry().put("id", getStableShortId(tc.targetId(), tc.cardView()));
                         tc.entry().put("index", idx);
                         choiceList.add(tc.entry());
                         indexToUuid.add(tc.targetId());
@@ -2684,7 +2660,8 @@ public class BridgeCallbackHandler {
      * Populate a choice entry map with structured target fields: name, target_type,
      * is_you, controller, power, toughness, tapped.
      */
-    private void buildTargetInfo(Map<String, Object> entry, UUID targetId,
+    /** Populate target info and return the resolved CardView (null if target is a player or unknown). */
+    private CardView buildTargetInfo(Map<String, Object> entry, UUID targetId,
                                   CardsView cardsView, GameView gameView, UUID myPlayerId) {
         // Try cardsView first (cards presented in the targeting UI)
         CardView cv = null;
@@ -2719,7 +2696,7 @@ public class BridgeCallbackHandler {
                     }
                 }
             }
-            return;
+            return cv;
         }
         // Check if the target is a player
         if (gameView != null) {
@@ -2730,12 +2707,13 @@ public class BridgeCallbackHandler {
                     if (player.getPlayerId().equals(myPlayerId)) {
                         entry.put("is_you", true);
                     }
-                    return;
+                    return null;
                 }
             }
         }
         entry.put("name", "Unknown (" + targetId.toString().substring(0, 8) + ")");
         entry.put("target_type", "card");
+        return null;
     }
 
     /**
@@ -4588,7 +4566,34 @@ public class BridgeCallbackHandler {
                 return serverShortId;
             }
         }
+        // Check non-CardView objects in the current GameView: players and lookedAt cards
+        // are SimpleCardView/PlayerView (not found by findCardViewById) but carry server short IDs.
+        String found = findNonCardViewShortId(objectId, lastGameView);
+        if (found != null) {
+            shortIds.register(objectId, found);
+            return found;
+        }
         return shortIds.getOrAssign(objectId);
+    }
+
+    /** Look up a server-assigned short ID for non-CardView objects (players, lookedAt cards). */
+    private String findNonCardViewShortId(UUID objectId, GameView gv) {
+        if (gv == null) return null;
+        for (PlayerView pv : gv.getPlayers()) {
+            if (pv.getPlayerId().equals(objectId)) {
+                String sid = pv.getShortId();
+                if (sid != null && !sid.isBlank()) return sid;
+            }
+        }
+        for (LookedAtView lv : gv.getLookedAt()) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                if (sv.getId().equals(objectId)) {
+                    String sid = sv.getShortId();
+                    if (sid != null && !sid.isBlank()) return sid;
+                }
+            }
+        }
+        return null;
     }
 
     private int getStableShortIdSequence(UUID objectId) {
@@ -5266,10 +5271,8 @@ public class BridgeCallbackHandler {
 
     // Passive callback: GAME_UPDATE / GAME_UPDATE_AND_INFORM
     // No state mutation — actionable callbacks provide fresh GameViews at decision time via
-    // storePendingAction(). Passive updates previously kept lastGameView/RoundTracker/shortIds
-    // fresh between decisions, but this caused nondeterministic ID registration order and was
-    // unnecessary after stack_resolved was redesigned to check actionable callback GameViews
-    // (PR #1106). Debug logging is retained for diagnostics.
+    // storePendingAction(). Short ID registration for non-CardView objects (players, lookedAt
+    // cards) happens in getStableShortId() which checks the GameView's lookedAt zone directly.
     private void logGameState(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof GameView gameView) {
