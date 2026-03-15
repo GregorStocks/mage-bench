@@ -248,7 +248,7 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 .PHONY: verify-mcp-tools
 verify-mcp-tools:
 	@mvn -q -pl Mage.Client.Bridge -am -DskipTests compile
-	@mkdir -p ../tmp && cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../tmp/mcp-tools-actual.json; \
+	@mkdir -p tmp && cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../tmp/mcp-tools-actual.json; \
 		diff ../tmp/mcp-tools-actual.json ../website/src/data/mcp-tools.json > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate."; echo "--- Diff (first 40 lines) ---"; diff ../tmp/mcp-tools-actual.json ../website/src/data/mcp-tools.json | head -40; echo "--- Actual output (first 10 lines) ---"; head -10 ../tmp/mcp-tools-actual.json; exit 1)
 
