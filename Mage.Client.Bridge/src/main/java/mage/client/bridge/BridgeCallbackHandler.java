@@ -98,8 +98,9 @@ public class BridgeCallbackHandler {
     private static final Pattern REGEX_COLORLESS = Pattern.compile("\\x7b.{0,2}C.{0,2}\\x7d");
     // Pattern to match "TURN <number> [extra] for <PlayerName> (<life>)" at the start of game log messages.
     // Captures the player name in group 1, allowing turn rewriting without depending on lastGameView.
+    // Uses greedy .+ so names containing parentheses (e.g. "Alice (Bot)") are not truncated.
     private static final Pattern TURN_MSG_PATTERN = Pattern.compile(
-            "^TURN \\d+(?:\\s+\\(extra\\))?\\s+for\\s+(.+?)\\s+\\(");
+            "^TURN \\d+(?:\\s+\\(extra\\))?\\s+for\\s+(.+)\\s+\\(");
     // Pattern to strip HTML tags from XMage messages before sending to LLMs
     private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
     // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
