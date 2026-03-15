@@ -14,7 +14,6 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +53,7 @@ public class McpToolRegistry {
 
     /** Build an example entry from a label and a value map (serialized to pretty JSON). */
     public static Map<String, Object> example(String label, Map<String, Object> value) {
-        var ex = new HashMap<String, Object>();
+        var ex = new LinkedHashMap<String, Object>();
         ex.put("label", label);
         ex.put("value", PRETTY_GSON.toJson(value));
         return ex;
@@ -169,7 +168,7 @@ public class McpToolRegistry {
 
     @SuppressWarnings("unchecked")
     private static Map<String, Object> buildDefinition(ToolEntry entry) {
-        var def = new HashMap<String, Object>();
+        var def = new LinkedHashMap<String, Object>();
         def.put("name", entry.annotation().name());
         def.put("description", entry.annotation().description());
         def.put("inputSchema", buildInputSchema(entry));
@@ -185,9 +184,9 @@ public class McpToolRegistry {
     }
 
     private static Map<String, Object> buildInputSchema(ToolEntry entry) {
-        var schema = new HashMap<String, Object>();
+        var schema = new LinkedHashMap<String, Object>();
         schema.put("type", "object");
-        var properties = new HashMap<String, Object>();
+        var properties = new LinkedHashMap<String, Object>();
         var required = new ArrayList<String>();
 
         for (Parameter p : entry.method().getParameters()) {
@@ -196,7 +195,7 @@ public class McpToolRegistry {
             if (param == null) continue;
 
             String name = p.getName();
-            var prop = new HashMap<String, Object>();
+            var prop = new LinkedHashMap<String, Object>();
             addJsonTypeForParam(prop, p.getType());
             prop.put("description", param.description());
             if (param.allowed_values().length > 0) {
@@ -228,12 +227,12 @@ public class McpToolRegistry {
             prop.put("type", "boolean");
         } else if (type == String[].class) {
             prop.put("type", "array");
-            var items = new HashMap<String, Object>();
+            var items = new LinkedHashMap<String, Object>();
             items.put("type", "string");
             prop.put("items", items);
         } else if (type == int[].class) {
             prop.put("type", "array");
-            var items = new HashMap<String, Object>();
+            var items = new LinkedHashMap<String, Object>();
             items.put("type", "integer");
             prop.put("items", items);
         } else {
@@ -245,12 +244,12 @@ public class McpToolRegistry {
      * Build the output schema from a result class's @ResultField-annotated fields.
      */
     private static Map<String, Object> buildOutputSchema(Class<?> resultClass) {
-        var schema = new HashMap<String, Object>();
+        var schema = new LinkedHashMap<String, Object>();
         schema.put("type", "object");
-        var properties = new HashMap<String, Object>();
+        var properties = new LinkedHashMap<String, Object>();
         for (Field f : getResultFields(resultClass)) {
             ResultField rf = f.getAnnotation(ResultField.class);
-            var prop = new HashMap<String, Object>();
+            var prop = new LinkedHashMap<String, Object>();
             addJsonTypeForField(prop, f);
             prop.put("description", rf.description());
             if (!rf.conditional().isEmpty()) {
@@ -277,7 +276,7 @@ public class McpToolRegistry {
             prop.put("type", "boolean");
         } else if (List.class.isAssignableFrom(type)) {
             prop.put("type", "array");
-            var items = new HashMap<String, Object>();
+            var items = new LinkedHashMap<String, Object>();
             items.put("type", getListItemType(f));
             prop.put("items", items);
         } else if (Map.class.isAssignableFrom(type)) {

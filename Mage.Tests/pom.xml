@@ -61,19 +61,6 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-        </dependency>
-        <dependency>
-            <!-- server xml config needs optional dependency for jaxb-impl -->
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>net.java.truevfs</groupId>
             <artifactId>truevfs-profile-base</artifactId>
         </dependency>

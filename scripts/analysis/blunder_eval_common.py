@@ -41,7 +41,7 @@ def is_canonical_decision(d: Mapping[str, object]) -> bool:
 
 def decision_index(d: Mapping[str, object]) -> int:
     """Get the decision index from either format."""
-    value = d.get("index", d.get("decision_index", 0))
+    value = d.get("index", d.get("decisionIndex", d.get("decision_index", 0)))
     assert isinstance(value, int) and not isinstance(value, bool), (
         f"decision index must be an int, got {value!r}"
     )

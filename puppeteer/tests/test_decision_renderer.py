@@ -502,6 +502,23 @@ class TestResolveManaplan:
         }
         assert _resolve_mana_plan("p1,RED", snapshot) == "Mountain (p1), RED"
 
+    def test_list_form_resolves_ids_to_names(self) -> None:
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
+            ]
+        }
+        assert _resolve_mana_plan(["p1", "p5:1"], snapshot) == "Mountain (p1), Forest (p5:1)"
+
+    def test_structured_entries_resolve_tap_and_pool(self) -> None:
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
+            ]
+        }
+        mana_plan = [{"tap": "p1"}, {"pool": "RED"}]
+        assert _resolve_mana_plan(mana_plan, snapshot) == "Mountain (p1), RED"
+
 
 class TestChosenBlockManaPlan:
     def test_shows_mana_plan(self) -> None:
@@ -520,6 +537,38 @@ class TestChosenBlockManaPlan:
         block = _render_chosen_block(decision, snapshot)
         assert "Chosen: Lightning Bolt" in block
         assert "Mana plan: Mountain (p1), Forest (p5)" in block
+
+    def test_shows_list_form_mana_plan(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": {"choice": "p3", "mana_plan": ["p1", "p5:1"]},
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}, {"name": "Forest", "id": "p5"}]},
+            ]
+        }
+        block = _render_chosen_block(decision, snapshot)
+        assert "Mana plan: Mountain (p1), Forest (p5:1)" in block
+
+    def test_shows_structured_mana_plan(self) -> None:
+        decision = {
+            "chosen": 0,
+            "chosenArgs": {"choice": "p3", "mana_plan": [{"tap": "p1"}, {"pool": "RED"}]},
+            "choices": [{"name": "Lightning Bolt", "id": "p3"}],
+            "player": "Alice",
+            "subsequentActions": [],
+        }
+        snapshot = {
+            "players": [
+                {"battlefield": [{"name": "Mountain", "id": "p1"}]},
+            ]
+        }
+        block = _render_chosen_block(decision, snapshot)
+        assert "Mana plan: Mountain (p1), RED" in block
 
     def test_shows_auto_tap_false(self) -> None:
         decision = {

@@ -13,6 +13,7 @@ sources:
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence
 
 BASIC_LAND_NAMES = frozenset(
     [
@@ -441,8 +442,8 @@ def _render_chosen_block(decision: dict, snapshot: dict | None = None) -> str:
     return "\n".join(lines)
 
 
-def _resolve_mana_plan(mana_plan: str, snapshot: dict | None) -> str:
-    """Resolve mana_plan permanent IDs to readable names using the snapshot."""
+def _resolve_mana_plan(mana_plan: object, snapshot: dict | None) -> str:
+    """Resolve mana_plan entries to readable names using the snapshot."""
     # Build ID -> name map from battlefield permanents
     id_to_name: dict[str, str] = {}
     if snapshot:
@@ -452,19 +453,55 @@ def _resolve_mana_plan(mana_plan: str, snapshot: dict | None) -> str:
                     id_to_name[perm["id"]] = perm.get("name") or perm["id"]
 
     parts: list[str] = []
-    for entry in mana_plan.split(","):
-        entry = entry.strip()
-        if not entry:
-            continue
-        # Format: "p1" or "p5:1" (ability selector) or "RED"/"BLUE" (pool color)
-        base_id = entry.split(":")[0]
-        name = id_to_name.get(base_id)
-        if name:
-            parts.append(f"{name} ({entry})")
-        else:
+    if isinstance(mana_plan, str):
+        raw_entries: Sequence[object] = mana_plan.split(",")
+    else:
+        assert isinstance(mana_plan, list), f"mana_plan must be a CSV string or list, got {mana_plan!r}"
+        raw_entries = mana_plan
+
+    for raw_entry in raw_entries:
+        entry = _render_mana_plan_entry(raw_entry, id_to_name)
+        if entry:
             parts.append(entry)
 
     return ", ".join(parts)
+
+
+def _render_mana_plan_entry(entry: object, id_to_name: dict[str, str]) -> str:
+    """Render one mana_plan entry from either flat or structured form."""
+    if isinstance(entry, str):
+        token = entry.strip()
+        if not token:
+            return ""
+        return _render_mana_plan_token(token, id_to_name)
+
+    assert isinstance(entry, dict), f"mana_plan entry must be str or dict, got {entry!r}"
+    keys = set(entry)
+    assert keys in ({"tap"}, {"pool"}), (
+        f"mana_plan dict entry must contain exactly one of 'tap' or 'pool', got {entry!r}"
+    )
+
+    if "tap" in entry:
+        tap = entry["tap"]
+        assert isinstance(tap, str), f"mana_plan tap target must be a string, got {tap!r}"
+        token = tap.strip()
+        assert token, f"mana_plan tap target must be non-empty, got {entry!r}"
+        return _render_mana_plan_token(token, id_to_name)
+
+    pool = entry["pool"]
+    assert isinstance(pool, str), f"mana_plan pool color must be a string, got {pool!r}"
+    token = pool.strip()
+    assert token, f"mana_plan pool color must be non-empty, got {entry!r}"
+    return token
+
+
+def _render_mana_plan_token(token: str, id_to_name: dict[str, str]) -> str:
+    """Resolve a flat mana_plan token like 'p1', 'p5:1', or 'RED'."""
+    base_id = token.split(":")[0]
+    name = id_to_name.get(base_id)
+    if name:
+        return f"{name} ({token})"
+    return token
 
 
 def _chosen_display(

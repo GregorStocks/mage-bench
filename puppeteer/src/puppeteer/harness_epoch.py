@@ -64,7 +64,8 @@ epoch directly.
 #  49 - Strip synthetic AbilityPicker ordinals from GAME_CHOOSE_ABILITY labels (Mar 14)
 #  50 - Stop step yields on same-turn overshoot and any later-turn callback (Mar 15)
 #  51 - Render multi-amount item descriptions in pilot prompts (Mar 15)
-HARNESS_EPOCH = 51
+#  52 - Surface MultiAmountType header as message for GAME_GET_MULTI_AMOUNT decisions (Mar 15)
+HARNESS_EPOCH = 52
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and

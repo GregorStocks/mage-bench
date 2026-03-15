@@ -1,0 +1,10 @@
+{
+  "title": "Use Java 21 virtual threads for bridge I/O threads",
+  "description": "Now that we're on Java 21, the 3 daemon threads in BridgeClient.java (MCP-Server, Stdin-Watcher, Potato-Ping) can use Thread.ofVirtual() instead of manual Thread + setDaemon(true). Virtual threads are always daemon-like, so setDaemon calls go away too.\n\nExample:\n```java\n// Before\nThread mcpThread = new Thread(() -> mcpServer.start(mcpPort), \"MCP-Server\");\nmcpThread.setDaemon(true);\nmcpThread.start();\n\n// After\nThread.ofVirtual().name(\"MCP-Server\").start(() -> mcpServer.start(mcpPort));\n```\n\nSmall change, 3 sites in BridgeClient.java. Low risk.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["bridge", "java21"],
+  "created_at": "2026-03-15T09:51:00.000000-07:00",
+  "updated_at": "2026-03-15T09:51:00.000000-07:00"
+}

@@ -799,8 +799,8 @@ public class BridgeCallbackHandler {
         // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
         // can overwrite lastGameView with a view from a different phase (race condition).
         GameView gameView = null;
-        if (action != null && action.data() instanceof GameClientMessage) {
-            gameView = ((GameClientMessage) action.data()).getGameView();
+        if (action != null && action.data() instanceof GameClientMessage gcm) {
+            gameView = gcm.getGameView();
         }
         if (gameView == null) {
             gameView = lastGameView;
@@ -1017,8 +1017,7 @@ public class BridgeCallbackHandler {
                 }
 
                 // Check for combat selections (declare attackers / declare blockers)
-                if (data instanceof GameClientMessage) {
-                    GameClientMessage gcm = (GameClientMessage) data;
+                if (data instanceof GameClientMessage gcm) {
                     Map<String, Serializable> options = gcm.getOptions();
                     if (options != null) {
                         @SuppressWarnings("unchecked")
@@ -1478,6 +1477,17 @@ public class BridgeCallbackHandler {
                     }
                 }
                 result.items = items;
+                // The multi-amount GameClientMessage constructor doesn't set
+                // the message field; the useful context ("Assign combat damage
+                // among creatures blocking X" etc.) lives in options.header
+                // from MultiAmountType.
+                if ((result.message == null || result.message.isEmpty())
+                        && msg.getOptions() != null) {
+                    Object header = msg.getOptions().get("header");
+                    if (header instanceof String) {
+                        result.message = stripHtml((String) header);
+                    }
+                }
                 lastChoices = null;
                 break;
             }
@@ -1865,7 +1875,7 @@ public class BridgeCallbackHandler {
                             }
                         } else {
                             Object chosen = choices.get(index);
-                            if (chosen instanceof UUID) {
+                            if (chosen instanceof UUID chosenUuid) {
                                 // Validate mana plan before sending spell to server —
                                 // once sent, cancellation is async and confuses the model
                                 if (manaPlanArray != null) {
@@ -1895,12 +1905,12 @@ public class BridgeCallbackHandler {
                                     manaPlanAbilityIndex = null;
                                     manaPlanAutoTapFallback = true;
                                 }
-                                session.sendPlayerUUID(gameId, (UUID) chosen);
+                                session.sendPlayerUUID(gameId, chosenUuid);
                                 result.action_taken = "selected_" + index;
                                 usedIndex = true;
-                            } else if (chosen instanceof String) {
-                                session.sendPlayerString(gameId, (String) chosen);
-                                result.action_taken = "special_" + chosen;
+                            } else if (chosen instanceof String chosenStr) {
+                                session.sendPlayerString(gameId, chosenStr);
+                                result.action_taken = "special_" + chosenStr;
                                 usedIndex = true;
                             } else {
                                 return buildError(result, "internal_error",
@@ -1942,17 +1952,16 @@ public class BridgeCallbackHandler {
                             }
                         } else {
                             Object manaChoice = choices.get(index);
-                            if (manaChoice instanceof UUID) {
-                                session.sendPlayerUUID(gameId, (UUID) manaChoice);
+                            if (manaChoice instanceof UUID manaUuid) {
+                                session.sendPlayerUUID(gameId, manaUuid);
                                 result.action_taken = "tapped_mana_" + index;
                                 usedManaIndex = true;
-                            } else if (manaChoice instanceof ManaType) {
+                            } else if (manaChoice instanceof ManaType manaType) {
                                 UUID manaPlayerId = getManaPoolPlayerId(gameId, lastGameView);
                                 if (manaPlayerId == null) {
                                     return buildError(result, "internal_error",
                                         "Could not resolve player ID for mana pool selection", false, action);
                                 }
-                                ManaType manaType = (ManaType) manaChoice;
                                 session.sendPlayerManaType(gameId, manaPlayerId, manaType);
                                 result.action_taken = "used_pool_" + manaType.toString();
                                 usedManaIndex = true;
@@ -2403,8 +2412,7 @@ public class BridgeCallbackHandler {
                 break;
             }
             // Update possibleAttackers from the new callback for validation
-            if (next.data() instanceof GameClientMessage) {
-                GameClientMessage nextGcm = (GameClientMessage) next.data();
+            if (next.data() instanceof GameClientMessage nextGcm) {
                 Map<String, Serializable> nextOptions = nextGcm.getOptions();
                 if (nextOptions != null && nextOptions.containsKey("possibleAttackers")) {
                     possibleAttackerUuids = (List<UUID>) nextOptions.get("possibleAttackers");
@@ -2556,8 +2564,7 @@ public class BridgeCallbackHandler {
                 }
 
                 // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage) {
-                    GameClientMessage nextGcm = (GameClientMessage) next.data();
+                if (next.data() instanceof GameClientMessage nextGcm) {
                     Map<String, Serializable> nextOptions = nextGcm.getOptions();
                     if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
                         possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
@@ -2568,9 +2575,8 @@ public class BridgeCallbackHandler {
                 declared.add(Map.of("id", blockerShortId, "blocks", attackerShortId));
 
                 // Update possibleBlockers from the new callback
-                if (next.data() instanceof GameClientMessage) {
-                    GameClientMessage nextGcm = (GameClientMessage) next.data();
-                    Map<String, Serializable> nextOptions = nextGcm.getOptions();
+                if (next.data() instanceof GameClientMessage nextGcm2) {
+                    Map<String, Serializable> nextOptions = nextGcm2.getOptions();
                     if (nextOptions != null && nextOptions.containsKey("possibleBlockers")) {
                         possibleBlockerUuids = (List<UUID>) nextOptions.get("possibleBlockers");
                     }
@@ -2690,9 +2696,8 @@ public class BridgeCallbackHandler {
         }
         if (cv != null) {
             entry.put("name", safeDisplayName(cv));
-            if (cv instanceof PermanentView) {
+            if (cv instanceof PermanentView pv) {
                 entry.put("target_type", "permanent");
-                PermanentView pv = (PermanentView) cv;
                 if (pv.isCreature() && cv.getPower() != null) {
                     entry.put("power", cv.getPower());
                     entry.put("toughness", cv.getToughness());
@@ -2794,10 +2799,10 @@ public class BridgeCallbackHandler {
     }
 
     private void addStackAbilityContext(Map<String, Object> item, CardView card) {
-        if (!(card instanceof StackAbilityView)) {
+        if (!(card instanceof StackAbilityView sav)) {
             return;
         }
-        CardView sourceCard = ((StackAbilityView) card).getSourceCard();
+        CardView sourceCard = sav.getSourceCard();
         if (sourceCard != null) {
             item.put("source_card", safeDisplayName(sourceCard));
         }
@@ -2808,8 +2813,8 @@ public class BridgeCallbackHandler {
     }
 
     private String safeDisplayName(CardView cv) {
-        if (cv instanceof StackAbilityView) {
-            CardView sourceCard = ((StackAbilityView) cv).getSourceCard();
+        if (cv instanceof StackAbilityView sav) {
+            CardView sourceCard = sav.getSourceCard();
             if (sourceCard != null) {
                 String sourceName = sourceCard.getDisplayName();
                 if (sourceName == null || sourceName.isEmpty()) {
@@ -2858,8 +2863,7 @@ public class BridgeCallbackHandler {
             displayName = cv.getName() != null ? cv.getName() : "Unknown";
         }
         var sb = new StringBuilder(displayName);
-        if (cv instanceof PermanentView) {
-            PermanentView pv = (PermanentView) cv;
+        if (cv instanceof PermanentView pv) {
             if (pv.isCreature() && cv.getPower() != null && cv.getToughness() != null) {
                 sb.append(" (").append(cv.getPower()).append("/").append(cv.getToughness()).append(")");
             }
@@ -3474,8 +3478,8 @@ public class BridgeCallbackHandler {
                 // counter never resets, permanently disabling the player.
                 // Check any callback carrying GameView, not just GAME_SELECT —
                 // a new turn can start with upkeep triggers (GAME_TARGET, GAME_ASK, etc.).
-                if (action.data() instanceof GameClientMessage) {
-                    GameView gv = ((GameClientMessage) action.data()).getGameView();
+                if (action.data() instanceof GameClientMessage gcm) {
+                    GameView gv = gcm.getGameView();
                     if (gv != null) {
                         updateLastGameView(gv, "passPriority:" + action.method().name());
                         int turn = gv.getTurn();
@@ -3491,8 +3495,8 @@ public class BridgeCallbackHandler {
                     }
                 }
 
-                GameView actionView = (action.data() instanceof GameClientMessage)
-                    ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                GameView actionView = (action.data() instanceof GameClientMessage gcm2)
+                    ? gcm2.getGameView() : lastGameView;
 
                 // Step-specific yield: stop on any later turn, even if the target
                 // step was skipped by auto-passes or never arrived as a callback.
@@ -4182,9 +4186,9 @@ public class BridgeCallbackHandler {
         if (value == null) {
             return "null";
         }
-        if (value instanceof Map<?, ?>) {
+        if (value instanceof Map<?, ?> map) {
             var sorted = new TreeMap<String, Object>();
-            for (Map.Entry<?, ?> entry : ((Map<?, ?>) value).entrySet()) {
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
                 sorted.put(String.valueOf(entry.getKey()), entry.getValue());
             }
             var sb = new StringBuilder("{");
@@ -4197,10 +4201,10 @@ public class BridgeCallbackHandler {
             sb.append("}");
             return sb.toString();
         }
-        if (value instanceof List<?>) {
+        if (value instanceof List<?> list) {
             var sb = new StringBuilder("[");
             boolean first = true;
-            for (Object item : (List<?>) value) {
+            for (Object item : list) {
                 if (!first) sb.append(",");
                 sb.append(buildStateSignature(item));
                 first = false;
@@ -4643,8 +4647,8 @@ public class BridgeCallbackHandler {
 
             // Check command zone (commanders castable from command zone)
             for (CommandObjectView cmd : player.getCommandObjectList()) {
-                if (cmd instanceof CommanderView && cmd.getId().equals(objectId)) {
-                    return (CommanderView) cmd;
+                if (cmd instanceof CommanderView cv && cmd.getId().equals(objectId)) {
+                    return cv;
                 }
             }
         }
@@ -4680,8 +4684,8 @@ public class BridgeCallbackHandler {
             return null;
         }
         Object data = action.data();
-        if (data instanceof GameClientMessage) {
-            Map<String, Serializable> options = ((GameClientMessage) data).getOptions();
+        if (data instanceof GameClientMessage gcm) {
+            Map<String, Serializable> options = gcm.getOptions();
             if (options != null) {
                 if (options.containsKey("possibleAttackers")) {
                     return "attackers";
@@ -4731,8 +4735,7 @@ public class BridgeCallbackHandler {
                     summary = buildBridgeStateSummary();
                 } else if (method == ClientCallbackMethod.CHATMESSAGE) {
                     Object chatData = callback.getData();
-                    if (chatData instanceof ChatMessage) {
-                        ChatMessage chatMsg = (ChatMessage) chatData;
+                    if (chatData instanceof ChatMessage chatMsg) {
                         summary = chatMsg.getMessageType() + ": " + chatMsg.getMessage();
                     }
                 } else if (method == ClientCallbackMethod.GAME_OVER) {
@@ -5018,26 +5021,24 @@ public class BridgeCallbackHandler {
     }
 
     private static GameView extractGameView(Object data) {
-        if (data instanceof GameClientMessage) {
-            return ((GameClientMessage) data).getGameView();
+        if (data instanceof GameClientMessage gcm) {
+            return gcm.getGameView();
         }
-        if (data instanceof AbilityPickerView) {
-            return ((AbilityPickerView) data).getGameView();
+        if (data instanceof AbilityPickerView apv) {
+            return apv.getGameView();
         }
         return null;
     }
 
     private String extractMessage(Object data) {
-        if (data instanceof GameClientMessage) {
-            GameClientMessage msg = (GameClientMessage) data;
+        if (data instanceof GameClientMessage msg) {
             if (msg.getMessage() != null) {
                 return msg.getMessage();
             }
             if (msg.getChoice() != null && msg.getChoice().getMessage() != null) {
                 return msg.getChoice().getMessage();
             }
-        } else if (data instanceof AbilityPickerView) {
-            AbilityPickerView picker = (AbilityPickerView) data;
+        } else if (data instanceof AbilityPickerView picker) {
             return picker.getMessage();
         }
         return "";
@@ -5153,8 +5154,7 @@ public class BridgeCallbackHandler {
     //  REMOVED   – actionLock.notifyAll(): spurious wakeup (PR #1168)
     private void handleChatMessage(ClientCallback callback) {
         Object data = callback.getData();
-        if (data instanceof ChatMessage) {
-            ChatMessage chatMsg = (ChatMessage) data;
+        if (data instanceof ChatMessage chatMsg) {
             String logEntry = null;
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
                 logEntry = chatMsg.getMessage();
@@ -5270,12 +5270,10 @@ public class BridgeCallbackHandler {
     // (PR #1106). Debug logging is retained for diagnostics.
     private void logGameState(ClientCallback callback) {
         Object data = callback.getData();
-        if (data instanceof GameView) {
-            GameView gameView = (GameView) data;
+        if (data instanceof GameView gameView) {
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
-        } else if (data instanceof GameClientMessage) {
-            GameClientMessage message = (GameClientMessage) data;
+        } else if (data instanceof GameClientMessage message) {
             logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
         }
     }
@@ -5329,8 +5327,9 @@ public class BridgeCallbackHandler {
         Map<String, Serializable> options = message.getOptions();
         if (options != null) {
             Object possibleTargets = options.get("possibleTargets");
-            if (possibleTargets instanceof Set) {
-                Set<UUID> possible = (Set<UUID>) possibleTargets;
+            if (possibleTargets instanceof Set<?> possibleSet) {
+                @SuppressWarnings("unchecked")
+                Set<UUID> possible = (Set<UUID>) possibleSet;
                 if (!possible.isEmpty()) {
                     return possible;
                 }
@@ -5369,11 +5368,8 @@ public class BridgeCallbackHandler {
 
         if (choices != null && !choices.isEmpty()) {
             for (Object choice : choices) {
-                if (choice instanceof UUID) {
-                    UUID candidate = (UUID) choice;
-                    if (targets.contains(candidate)) {
-                        return candidate;
-                    }
+                if (choice instanceof UUID candidate && targets.contains(candidate)) {
+                    return candidate;
                 }
             }
         }
