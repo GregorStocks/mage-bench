@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -80,6 +81,13 @@ public class McpServer {
 
         try {
             httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
+            // Use a virtual-thread executor so blocking tool calls (e.g.
+            // pass_priority spinning for callbacks) don't prevent concurrent
+            // requests (e.g. concede) from being handled.  The default
+            // single-thread executor caused golden test timeouts: a stuck
+            // pass_priority blocked the only handler thread, making the
+            // subsequent concede unreachable until the HTTP socket timed out.
+            httpServer.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
             httpServer.createContext("/mcp", this::handleHttpRequest);
             httpServer.start();
             logger.info("MCP HTTP server started on port " + port);
