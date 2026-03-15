@@ -806,7 +806,7 @@
     "seq": 38
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 54,
+  "harnessEpoch": 55,
   "id": "chat_between_players",
   "llmEvents": [
     {
@@ -1822,9 +1822,9 @@
       "gameSeq": 36,
       "player": "TestPlayer",
       "result": {
-        "cursor": 1956,
-        "log": ": Match score::    Opponent - 0 wins:    TestPlayer - 0 wins:    Range: ALL:    Mulligan type: Game Default:    Free mulligans: 0: : Match is not rated: You have to win 1 game to win the complete match: : Game has started: : \nTestPlayer chooses that they take the first turn\nTestPlayer draws seven cards\nOpponent draws seven cards\nTestPlayer keeps hand\nOpponent keeps hand\nTestPlayer turn 1 (20 - 20)\nTestPlayer skips Draw step\nTestPlayer skip attack\nTestPlayer puts Mountain from hand onto the Battlefield\nTestPlayer plays Mountain\nOpponent turn 1 (20 - 20)\nOpponent draws a card\n[Chat] TestPlayer: Good luck have fun!\nOpponent puts Mountain from hand onto the Battlefield\nOpponent plays Mountain\n[Chat] Opponent: You too, glhf!\nOpponent skip attack\nTestPlayer turn 2 (20 - 20)\nTestPlayer draws a card\nTestPlayer puts Mountain from hand onto the Battlefield\nTestPlayer plays Mountain",
-        "total_length": 1956,
+        "cursor": 22,
+        "log": "[Chat] TestPlayer: Good luck have fun!\n[Chat] Opponent: You too, glhf!\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nTestPlayer drew Mountain\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nOpponent drew a card\nTestPlayer turn 1:\nTestPlayer played Mountain\nOpponent turn 1:\nOpponent drew a card\nOpponent played Mountain\nTestPlayer turn 2:\nTestPlayer drew Mountain\nTestPlayer played Mountain",
+        "total_length": 572,
         "truncated": false
       },
       "seq": 19,

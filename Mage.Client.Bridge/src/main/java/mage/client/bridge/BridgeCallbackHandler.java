@@ -71,7 +71,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -85,7 +84,8 @@ public class BridgeCallbackHandler {
 
     private static final Logger logger = Logger.getLogger(BridgeCallbackHandler.class);
     private static final int DEFAULT_ACTION_DELAY_MS = 500;
-    private static final int MAX_GAME_LOG_CHARS = 5 * 1024 * 1024; // 5MB cap on in-memory game log buffer
+    /** Chat message captured for interleaving with bridge events in game log rendering. */
+    private record ChatLogEntry(int eventCursor, String text) {}
 
     // Regex patterns to detect colored mana symbols inside braces, including hybrid/phyrexian variants.
     // Same approach as ManaUtil.java — \x7b = {, \x7d = }, .{0,2} allows up to 2 chars on each side.
@@ -96,10 +96,6 @@ public class BridgeCallbackHandler {
     private static final Pattern REGEX_RED = Pattern.compile("\\x7b.{0,2}R.{0,2}\\x7d");
     private static final Pattern REGEX_GREEN = Pattern.compile("\\x7b.{0,2}G.{0,2}\\x7d");
     private static final Pattern REGEX_COLORLESS = Pattern.compile("\\x7b.{0,2}C.{0,2}\\x7d");
-    // Pattern to match "TURN <number> [extra] for <PlayerName> (<life>)" at the start of game log messages.
-    // Captures the player name in group 1, allowing turn rewriting without depending on lastGameView.
-    private static final Pattern TURN_MSG_PATTERN = Pattern.compile(
-            "^TURN \\d+(?:\\s+\\(extra\\))?\\s+for\\s+(.+?)\\s+\\(");
     // Pattern to strip HTML tags from XMage messages before sending to LLMs
     private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
     // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
@@ -120,8 +116,6 @@ public class BridgeCallbackHandler {
     private volatile boolean gameEverStarted = false;
     private volatile PendingAction pendingAction = null;
     private final Object actionLock = new Object(); // For wait_for_action blocking
-    private final StringBuilder gameLog = new StringBuilder();
-    private int gameLogTrimmedChars = 0; // tracks chars trimmed from front so offset-based access stays valid
     private volatile UUID currentGameId = null;
     private volatile UUID currentPlayerId = null; // retained after GAME_OVER for postgame fetches
     private volatile UUID expectedStartTableId = null; // keepAlive join_table guard
@@ -187,7 +181,7 @@ public class BridgeCallbackHandler {
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
-    private final Map<String, Integer> playerTurnCounts = new ConcurrentHashMap<>(); // playerName → per-player turn count (read from MCP tool thread)
+    private final List<ChatLogEntry> chatLog = new ArrayList<>(); // Chat messages interleaved with bridge events at render time
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
@@ -606,9 +600,8 @@ public class BridgeCallbackHandler {
         lastActionableCallbackAt = 0;
         cachedBridgeEvents.clear();
         bridgeEventCursor = 0;
-        synchronized (gameLog) {
-            gameLog.setLength(0);
-            gameLogTrimmedChars = 0;
+        synchronized (chatLog) {
+            chatLog.clear();
         }
     }
 
@@ -2852,102 +2845,114 @@ public class BridgeCallbackHandler {
         return sb.toString();
     }
 
-    public String getGameLog(int maxChars) {
-        synchronized (gameLog) {
-            if (maxChars <= 0 || maxChars >= gameLog.length()) {
-                return gameLog.toString();
-            }
-            return gameLog.substring(gameLog.length() - maxChars);
-        }
-    }
-
-    public int getGameLogLength() {
-        synchronized (gameLog) {
-            return gameLog.length() + gameLogTrimmedChars;
-        }
-    }
-
-    private int getGameLogOldestOffset() {
-        synchronized (gameLog) {
-            return gameLogTrimmedChars;
-        }
-    }
-
     public GetGameLogTool.Result getGameLogChunk(int maxChars, Integer cursor) {
-        var result = new GetGameLogTool.Result();
-        int totalLength = getGameLogLength();
+        // Ensure cache is up to date
+        pullBridgeEvents();
+
+        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        List<BridgeLogEntry> responseEvents;
+
         if (cursor != null) {
-            int oldestOffset = getGameLogOldestOffset();
-            int requestedOffset = cursor;
-            int effectiveOffset = Math.max(requestedOffset, oldestOffset);
-            effectiveOffset = Math.min(effectiveOffset, totalLength);
-            result.log = stripHtml(getGameLogSince(effectiveOffset));
-            result.total_length = totalLength;
-            result.truncated = requestedOffset < oldestOffset;
-            result.cursor = totalLength;
-            if (requestedOffset < oldestOffset) {
-                result.cursor_reset = true;
-            }
-            return result;
+            final int c = cursor;
+            responseEvents = allEvents.stream()
+                    .filter(e -> e.index() >= c)
+                    .toList();
+        } else {
+            responseEvents = allEvents;
         }
 
-        String rawLog = getGameLog(maxChars);
-        result.log = stripHtml(rawLog);
-        result.total_length = totalLength;
-        result.truncated = rawLog.length() < totalLength;
-        result.cursor = totalLength;
+        var result = new GetGameLogTool.Result();
+        String allRendered = renderGameLogFlat(allEvents);
+        String rendered = (cursor != null) ? renderGameLogFlat(responseEvents) : allRendered;
+
+        result.total_length = allRendered.length();
+
+        // Apply max_chars truncation from the front (keep most recent)
+        if (maxChars > 0 && rendered.length() > maxChars) {
+            String truncatedText = rendered.substring(rendered.length() - maxChars);
+            // Trim to next newline boundary to avoid cutting mid-line
+            int nl = truncatedText.indexOf('\n');
+            if (nl >= 0 && nl < truncatedText.length() - 1) {
+                truncatedText = truncatedText.substring(nl + 1);
+            }
+            result.log = truncatedText;
+            result.truncated = true;
+        } else {
+            result.log = rendered;
+            result.truncated = cursor != null && cursor > 0;
+        }
+
+        int newCursor = allEvents.isEmpty() ? 0
+                : allEvents.get(allEvents.size() - 1).index() + 1;
+        result.cursor = newCursor;
+
+        if (cursor != null && !responseEvents.isEmpty() && responseEvents.get(0).index() > cursor) {
+            result.cursor_reset = true;
+        }
+
         return result;
     }
 
     /**
-     * Return game log entries starting from a specific player's Nth turn.
-     * Scans for "{player} turn {sinceTurn}" marker in the log.
+     * Return game log entries starting from a specific player's Nth per-player turn.
+     * Computes per-player turn numbers from BEGIN_TURN bridge events at read time.
      * If player is null, defaults to this client's player name.
      */
     public GetGameLogTool.Result getGameLogSinceTurn(String player, int sinceTurn) {
         if (player == null) {
             player = client.getUsername();
         }
-        var result = new GetGameLogTool.Result();
-        int totalLength = getGameLogLength();
-        String marker = player + " turn " + sinceTurn;
 
-        synchronized (gameLog) {
-            String logStr = gameLog.toString();
-            // Search for the marker at start of line (after newline or at position 0)
-            int startPos = -1;
-            if (logStr.startsWith(marker)) {
-                startPos = 0;
-            } else {
-                int idx = logStr.indexOf("\n" + marker);
-                if (idx >= 0) {
-                    startPos = idx + 1; // skip the newline
+        // Ensure cache is up to date
+        pullBridgeEvents();
+
+        List<BridgeLogEntry> allEvents = new ArrayList<>(cachedBridgeEvents);
+        var result = new GetGameLogTool.Result();
+
+        String allRendered = renderGameLogFlat(allEvents);
+        result.total_length = allRendered.length();
+
+        // Find the event index where the player's Nth per-player turn starts
+        int playerTurnCount = 0;
+        int startIdx = -1;
+        for (int i = 0; i < allEvents.size(); i++) {
+            BridgeLogEntry e = allEvents.get(i);
+            if ("BEGIN_TURN".equals(e.type()) && player.equals(e.activePlayer())) {
+                playerTurnCount++;
+                if (playerTurnCount == sinceTurn) {
+                    startIdx = i;
+                    break;
                 }
             }
+        }
 
-            if (startPos >= 0) {
-                result.log = stripHtml(logStr.substring(startPos));
-                result.truncated = false;
-                result.since_turn = sinceTurn;
+        if (startIdx >= 0) {
+            List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
+            result.log = renderGameLogFlat(subset);
+            result.truncated = false;
+            result.since_turn = sinceTurn;
+            result.since_player = player;
+        } else {
+            // Count total per-player turns to distinguish "trimmed" vs "hasn't happened"
+            int totalPlayerTurns = 0;
+            for (BridgeLogEntry e : allEvents) {
+                if ("BEGIN_TURN".equals(e.type()) && player.equals(e.activePlayer())) {
+                    totalPlayerTurns++;
+                }
+            }
+            if (totalPlayerTurns > 0 && sinceTurn <= totalPlayerTurns) {
+                result.log = allRendered;
+                result.truncated = true;
                 result.since_player = player;
             } else {
-                // Marker not found: either trimmed (too old) or hasn't happened yet
-                Integer currentTurn = playerTurnCounts.get(player);
-                if (currentTurn != null && sinceTurn <= currentTurn && !logStr.isEmpty()) {
-                    // Turn existed but was trimmed from the buffer
-                    result.log = stripHtml(logStr);
-                    result.truncated = true;
-                    result.since_player = player;
-                } else {
-                    // Turn hasn't happened yet or player not found
-                    result.log = "";
-                    result.truncated = false;
-                }
+                result.log = "";
+                result.truncated = false;
             }
-
-            result.total_length = totalLength;
-            result.cursor = totalLength;
         }
+
+        int newCursor = allEvents.isEmpty() ? 0
+                : allEvents.get(allEvents.size() - 1).index() + 1;
+        result.cursor = newCursor;
         return result;
     }
 
@@ -3120,6 +3125,60 @@ public class BridgeCallbackHandler {
             default -> entry.type() + (player != null ? " by " + player : "")
                     + (card != null ? " (" + card + ")" : "");
         };
+    }
+
+    /**
+     * Render bridge events as flat text with per-player turn headers, interleaved
+     * with chat messages captured during gameplay. Used by GetGameLogTool.
+     * Distinct from getGameHistory() which uses phase sub-headers and global turn numbers.
+     */
+    private String renderGameLogFlat(List<BridgeLogEntry> events) {
+        StringBuilder sb = new StringBuilder();
+        Map<String, Integer> perPlayerTurns = new HashMap<>();
+        String lastTurnHeader = null;
+
+        // Snapshot chatLog for interleaving
+        List<ChatLogEntry> chats;
+        synchronized (chatLog) {
+            chats = new ArrayList<>(chatLog);
+        }
+        int chatIdx = 0;
+
+        for (BridgeLogEntry entry : events) {
+            // Insert chat messages that arrived before this event
+            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() <= entry.index()) {
+                if (sb.length() > 0) sb.append("\n");
+                sb.append(chats.get(chatIdx).text());
+                chatIdx++;
+            }
+
+            if ("BEGIN_TURN".equals(entry.type())) {
+                String active = entry.activePlayer();
+                int playerTurn = perPlayerTurns.merge(active, 1, Integer::sum);
+                String header = active + " turn " + playerTurn + ":";
+                if (!header.equals(lastTurnHeader)) {
+                    if (sb.length() > 0) sb.append("\n");
+                    sb.append(header);
+                    lastTurnHeader = header;
+                }
+                continue;
+            }
+
+            String desc = formatBridgeEvent(entry);
+            if (desc != null) {
+                if (sb.length() > 0) sb.append("\n");
+                sb.append(desc);
+            }
+        }
+
+        // Append any remaining chat messages
+        while (chatIdx < chats.size()) {
+            if (sb.length() > 0) sb.append("\n");
+            sb.append(chats.get(chatIdx).text());
+            chatIdx++;
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -3793,16 +3852,6 @@ public class BridgeCallbackHandler {
         return passPriority(until, boardCursorParam);
     }
 
-    private String getGameLogSince(int offset) {
-        synchronized (gameLog) {
-            int adjustedOffset = offset - gameLogTrimmedChars;
-            if (adjustedOffset >= gameLog.length()) return "";
-            // If the caller's reference point was trimmed away, return from the
-            // start of the current buffer (oldest surviving entry).
-            if (adjustedOffset < 0) adjustedOffset = 0;
-            return gameLog.substring(adjustedOffset);
-        }
-    }
 
     public GetGameStateTool.Result getGameState(Long cursor) {
         GetGameStateTool.Result fullState = getGameState();
@@ -5152,67 +5201,32 @@ public class BridgeCallbackHandler {
     // Remaining effects after passive-state audit (see issue: minimize-bridge-passive-callback-state):
     //  REQUIRED  – playerDead detection: early bail-out prevents bridge hangs after elimination
     //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat + system messages via attachUnseenChat()
-    //  REQUIRED  – gameLog accumulation + capping: sole data source for GetGameLogTool (migrate to server-side
-    //              bridge events tracked in issue: migrate-gamelog-to-server-side-bridge-events)
-    //  REMOVED   – castOwners HTML-regex tracking: CardView now carries controllerId from GameView
-    //  REMOVED   – lastGameView dependency in turn rewriting: player name extracted from message directly
-    //  REMOVED   – actionLock.notifyAll(): spurious wakeup (PR #1168)
+    //  REQUIRED  – chatLog capture: TALK messages interleaved with bridge events by renderGameLogFlat()
+    //  DONE      – gameLog accumulation: migrated to server-side bridge events (epoch 55)
     private void handleChatMessage(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof ChatMessage chatMsg) {
-            String logEntry = null;
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
-                logEntry = chatMsg.getMessage();
+                String msg = chatMsg.getMessage();
                 // Detect when our player has lost the game
-                if (!playerDead && logEntry != null && logEntry.contains("has lost the game")
-                        && logEntry.contains(client.getUsername())) {
+                if (!playerDead && msg != null && msg.contains("has lost the game")
+                        && msg.contains(client.getUsername())) {
                     playerDead = true;
                     logger.info("[" + client.getUsername() + "] Player death detected from game log");
                 }
             } else if (chatMsg.getMessageType() == ChatMessage.MessageType.TALK) {
-                // Include player chat so LLM pilots can see each other's messages
                 String user = chatMsg.getUsername();
                 String msg = chatMsg.getMessage();
                 if (user != null && msg != null && !msg.isEmpty()) {
-                    logEntry = "[Chat] " + user + ": " + msg;
+                    // Capture chat for game log rendering (interleaved with bridge events)
+                    synchronized (chatLog) {
+                        chatLog.add(new ChatLogEntry(bridgeEventCursor, "[Chat] " + user + ": " + msg));
+                    }
                     // Buffer chat from other players so pass_priority can surface it
                     if (!user.equals(client.getUsername())) {
                         synchronized (unseenChat) {
                             unseenChat.add(user + ": " + msg);
                         }
-                    }
-                }
-            }
-            if (logEntry != null && !logEntry.isEmpty()) {
-                // Rewrite "TURN X for <Player> (lives)" to per-player turn numbers: "Player turn N (lives)"
-                // Player name is extracted directly from the message, no lastGameView dependency.
-                Matcher turnMatcher = TURN_MSG_PATTERN.matcher(logEntry);
-                if (turnMatcher.find()) {
-                    // Player name from turn message is HTML-wrapped (<font>...</font>); strip to plain text
-                    // so playerTurnCounts keys match the plain names used by getGameLogSinceTurn.
-                    String activePlayer = stripHtml(turnMatcher.group(1));
-                    int playerTurn = playerTurnCounts.merge(activePlayer, 1, Integer::sum);
-                    // turnMatcher.end() points just past the '(' that the regex matched (life totals)
-                    String lifePart = stripHtml(logEntry.substring(turnMatcher.end() - 1));
-                    logEntry = activePlayer + " turn " + playerTurn + " " + lifePart;
-                }
-                synchronized (gameLog) {
-                    if (gameLog.length() > 0) {
-                        gameLog.append("\n");
-                    }
-                    gameLog.append(logEntry);
-                    // Cap buffer size to prevent unbounded heap growth in long games
-                    if (gameLog.length() > MAX_GAME_LOG_CHARS) {
-                        int excess = gameLog.length() - MAX_GAME_LOG_CHARS;
-                        // Trim from front at a newline boundary to avoid cutting mid-line
-                        int trimTo = gameLog.indexOf("\n", excess);
-                        if (trimTo > 0) {
-                            trimTo++; // include the newline itself
-                        } else {
-                            trimTo = excess;
-                        }
-                        gameLog.delete(0, trimTo);
-                        gameLogTrimmedChars += trimTo;
                     }
                 }
             }

@@ -67,7 +67,8 @@ epoch directly.
 #  52 - Surface MultiAmountType header as message for GAME_GET_MULTI_AMOUNT decisions (Mar 15)
 #  53 - Simplify multi-amount total display: total=N when min==max; consistent respond text (Mar 15)
 #  54 - Stop passive GAME_UPDATE state mutation; stack owner from CardView.controllerId (Mar 15)
-HARNESS_EPOCH = 54
+#  55 - Migrate GetGameLogTool from client-side chat accumulation to server-side bridge events (Mar 15)
+HARNESS_EPOCH = 55
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and

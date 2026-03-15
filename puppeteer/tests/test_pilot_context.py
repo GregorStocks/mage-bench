@@ -193,26 +193,26 @@ def test_summarize_get_game_state():
 def test_summarize_get_game_log_basic():
     content = json.dumps(
         {
-            "log": "Alice turn 3 (20 - 15)\nAlice casts Sol Ring",
-            "total_length": 5234,
+            "log": "Alice turn 3:\nAlice cast Sol Ring",
+            "total_length": 523,
             "truncated": False,
-            "cursor": 5234,
+            "cursor": 42,
         }
     )
     result = _summarize_tool_result("get_game_log", content)
     assert "log(" in result
-    assert "5234 chars" in result
+    assert "523 chars" in result
     assert "Alice turn 3" in result
-    assert "Alice casts Sol Ring" in result
+    assert "Alice cast Sol Ring" in result
 
 
 def test_summarize_get_game_log_since_turn():
     content = json.dumps(
         {
-            "log": "Bob turn 2 (20 - 18)\nBob casts Sol Ring\nAlice turn 3 (20 - 18)\nAlice plays Forest",
-            "total_length": 5400,
+            "log": "Bob turn 2:\nBob cast Sol Ring\nAlice turn 3:\nAlice played Forest",
+            "total_length": 540,
             "truncated": False,
-            "cursor": 5400,
+            "cursor": 50,
             "since_turn": 2,
             "since_player": "Bob",
         }
@@ -220,17 +220,17 @@ def test_summarize_get_game_log_since_turn():
     result = _summarize_tool_result("get_game_log", content)
     assert "since_turn=2" in result
     assert "Bob turn 2" in result
-    assert "Bob casts Sol Ring" in result
-    assert "Alice plays Forest" in result
+    assert "Bob cast Sol Ring" in result
+    assert "Alice played Forest" in result
 
 
 def test_summarize_get_game_log_truncated():
     content = json.dumps(
         {
-            "log": "Alice turn 2 (20 - 18)\nAlice attacks with Goblin Guide",
-            "total_length": 10000,
+            "log": "Alice turn 2:\nAlice attacked with Goblin Guide",
+            "total_length": 1000,
             "truncated": True,
-            "cursor": 10000,
+            "cursor": 30,
             "since_turn": 1,
             "since_player": "Alice",
         }
@@ -238,7 +238,7 @@ def test_summarize_get_game_log_truncated():
     result = _summarize_tool_result("get_game_log", content)
     assert "truncated" in result
     assert "since_turn=1" in result
-    assert "Alice attacks with Goblin Guide" in result
+    assert "Alice attacked with Goblin Guide" in result
 
 
 def test_summarize_get_game_log_empty():
@@ -370,15 +370,15 @@ def test_render_long_history_summarizes_old():
         json.dumps(
             {
                 "log": (
-                    "Alice turn 3 (20 - 15)\n"
-                    "Alice casts Sol Ring\n"
-                    "Alice attacks with Goblin Guide\n"
-                    "Bob blocks with Ornithopter\n"
-                    "Bob takes 2"
+                    "Alice turn 3:\n"
+                    "Alice cast Sol Ring\n"
+                    "Alice attacked with Goblin Guide\n"
+                    "Bob blocked Goblin Guide with Ornithopter\n"
+                    "Bob lost 2 life"
                 ),
-                "total_length": 5234,
+                "total_length": 523,
                 "truncated": False,
-                "cursor": 5234,
+                "cursor": 42,
                 "detail": "x" * 100,
             }
         ),
@@ -402,7 +402,7 @@ def test_render_long_history_summarizes_old():
     summary_tool = next(msg for msg in summarised_section if msg["role"] == "tool" and msg["tool_call_id"] == "call_4")
     assert summary_tool["content"].startswith("log(")
     assert "Alice turn 3" in summary_tool["content"]
-    assert "Bob blocks with Ornithopter" in summary_tool["content"]
+    assert "Bob blocked Goblin Guide with Ornithopter" in summary_tool["content"]
     assert summary_tool["content"].endswith(" / ...")
 
 
