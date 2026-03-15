@@ -24,11 +24,18 @@ class _FakeSession:
 
 
 class _FakeBridgeManager:
-    def __init__(self, session: _FakeSession, label: str) -> None:
+    def __init__(
+        self,
+        session: _FakeSession,
+        label: str,
+        *,
+        restart_error: RuntimeError | None = None,
+    ) -> None:
         self.session = session
         self._label = label
         self.restart_calls = 0
         self.reconnect_checks: list[str] = []
+        self._restart_error = restart_error
 
     def is_healthy(self) -> bool:
         return True
@@ -41,6 +48,8 @@ class _FakeBridgeManager:
 
     def restart(self) -> None:
         self.restart_calls += 1
+        if self._restart_error is not None:
+            raise self._restart_error
 
 
 class _FakeSpectator:
@@ -200,3 +209,79 @@ def test_run_golden_scenario_preserves_setup_failure_and_still_cleans_up(
     assert [call[0] for call in player_b.calls] == ["concede"]
     assert bridge_a.restart_calls == 0
     assert bridge_b.restart_calls == 0
+
+
+def test_run_golden_scenario_preserves_primary_failure_when_restart_fails(
+    monkeypatch: pytest.MonkeyPatch, stubbed_golden: Path, tmp_path: Path
+) -> None:
+    player_a = _FakeSession(concede_error=RuntimeError("cleanup timed out"))
+    player_b = _FakeSession()
+    bridge_a = _FakeBridgeManager(
+        player_a,
+        "bridge",
+        restart_error=RuntimeError("restart failed"),
+    )
+    bridge_b = _FakeBridgeManager(player_b, "opponent")
+    spectator = _FakeSpectator()
+
+    monkeypatch.setattr(
+        golden_helpers,
+        "_run_pilot_on_bridge",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("player A replay failed")),
+    )
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
+
+    with pytest.raises(RuntimeError, match="player A replay failed") as excinfo:
+        golden_helpers.run_golden_scenario(
+            server="localhost",
+            port=17171,
+            project_root=tmp_path,
+            game_dir=stubbed_golden,
+            deck_a="puppeteer/tests/decks/bolt_and_burn.dck",
+            deck_b="puppeteer/tests/decks/filler_opponent.dck",
+            script_a=[{"name": "pass_priority"}],
+            golden_name="cleanup_recovery",
+            bridge_a=bridge_a,
+            bridge_b=bridge_b,
+            spectator=spectator,
+        )
+
+    notes = getattr(excinfo.value, "__notes__", [])
+    assert any("restart failed" in note for note in notes)
+    assert bridge_a.restart_calls == 1
+    assert bridge_b.restart_calls == 0
+
+
+def test_run_golden_scenario_fails_successful_scenario_when_restart_fails(
+    monkeypatch: pytest.MonkeyPatch, stubbed_golden: Path, tmp_path: Path
+) -> None:
+    player_a = _FakeSession()
+    player_b = _FakeSession(concede_error=RuntimeError("cleanup timed out"))
+    bridge_a = _FakeBridgeManager(player_a, "bridge")
+    bridge_b = _FakeBridgeManager(
+        player_b,
+        "opponent",
+        restart_error=RuntimeError("restart failed"),
+    )
+    spectator = _FakeSpectator()
+
+    monkeypatch.setattr(golden_helpers, "_run_opponent_autopass", lambda *_args, **_kwargs: None)
+
+    with pytest.raises(RuntimeError, match="Golden cleanup restart failed after scenario success") as excinfo:
+        golden_helpers.run_golden_scenario(
+            server="localhost",
+            port=17171,
+            project_root=tmp_path,
+            game_dir=stubbed_golden,
+            deck_a="puppeteer/tests/decks/bolt_and_burn.dck",
+            deck_b="puppeteer/tests/decks/filler_opponent.dck",
+            script_a=[{"name": "pass_priority"}],
+            golden_name="cleanup_recovery",
+            bridge_a=bridge_a,
+            bridge_b=bridge_b,
+            spectator=spectator,
+        )
+
+    assert "opponent: restart failed" in str(excinfo.value)
+    assert bridge_a.restart_calls == 0
+    assert bridge_b.restart_calls == 1

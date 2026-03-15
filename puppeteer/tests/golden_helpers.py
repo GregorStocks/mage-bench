@@ -1340,7 +1340,9 @@ def run_golden_scenario(
         # If a replay worker or cleanup RPC already left a keepAlive bridge in a
         # terminal state, restart it so the cleanup path does not mask the real
         # scenario outcome or poison the next test.
+        primary_exc = sys.exc_info()[1]
         cleanup_restarts: list[BridgeManager] = []
+        cleanup_restart_failures: list[tuple[str, Exception]] = []
         replay_error_by_label = {label: exc for label, exc in replay_errors}
         for label, session, bridge in [
             ("player_a", session_a, bridge_a),
@@ -1366,7 +1368,28 @@ def run_golden_scenario(
                 cleanup_restarts.append(bridge)
 
         for bridge in cleanup_restarts:
-            bridge.restart()
+            try:
+                bridge.restart()
+            except Exception as exc:
+                print(
+                    f"  [{golden_name}] Restart failed for {bridge._label}: {exc}",
+                    flush=True,
+                )
+                cleanup_restart_failures.append((bridge._label, exc))
+
+        if cleanup_restart_failures:
+            details = "; ".join(
+                f"{label}: {exc}" for label, exc in cleanup_restart_failures
+            )
+            if primary_exc is not None:
+                primary_exc.add_note(
+                    "Cleanup restart failures while preserving the primary "
+                    f"scenario exception: {details}"
+                )
+            else:
+                raise RuntimeError(
+                    f"Golden cleanup restart failed after scenario success: {details}"
+                ) from cleanup_restart_failures[0][1]
 
 
 def _write_game_meta(
