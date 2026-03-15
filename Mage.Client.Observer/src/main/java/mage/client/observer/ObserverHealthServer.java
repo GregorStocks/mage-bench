@@ -63,6 +63,10 @@ public class ObserverHealthServer {
         httpServer.stop(2);
     }
 
+    int getPort() {
+        return httpServer.getAddress().getPort();
+    }
+
     /** Signal that the lobby is initialized and ready for commands. */
     public void signalLobbyReady() {
         lobbyReady.countDown();
