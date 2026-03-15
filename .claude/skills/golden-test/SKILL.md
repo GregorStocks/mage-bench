@@ -48,8 +48,9 @@ If you know the mechanic but not the exact cards, use `card-finder` before
 inventing a deck from memory. Start with
 `.claude/skills/card-finder/references/golden-test-cards.md`, then use
 `uv run python scripts/find-test-cards.py --list-recipes` or a targeted
-`--query` search. Prefer cards already proven in repo goldens when they cover
-the mechanic.
+`--query` search. Prefer reusable utility cards from that reference first, then
+use the helper to find narrower one-off cards when the scenario really needs
+them.
 
 Predict short IDs in comments and replay scripts. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
 

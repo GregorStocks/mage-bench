@@ -14,8 +14,9 @@ Read only what you need:
 
 ## Workflow
 
-1. Start with the curated reference. Prefer cards already used in repo goldens
-   when they cover the mechanic.
+1. Start with the curated reference. It is intentionally biased toward reusable,
+   general-purpose test cards, not every niche card that happens to appear in a
+   current golden.
 2. If the mechanic is not covered there, run the helper script:
 
    ```bash
@@ -28,8 +29,9 @@ Read only what you need:
 3. Bias toward cards that reduce turns, prompts, and unrelated board text:
    fast mana, zero-mana bodies, single-card setup, and deterministic triggers.
 4. When giving recommendations, return a short list with "why this is useful in
-   a golden" and "what noise it adds." If an existing repo golden already uses a
-   card for the same job, say that first.
+   a golden" and "what noise it adds." Use existing repo goldens as evidence for
+   what works, but do not turn the curated list into an index of one-off
+   scenario cards.
 
 ## Query Patterns
 

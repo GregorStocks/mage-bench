@@ -1,20 +1,46 @@
 # Golden-Test Card Reference
 
-Start here before a fresh Scryfall search. The first sections are anchored in
-current repo goldens. The later sections are adjacent cards found with the same
-search patterns when the proven package is close but not exact.
+Start here before a fresh Scryfall search. This file is for reusable building
+blocks you are likely to want across many goldens, not an index of every narrow
+card that appears in the current suite.
 
-## Repo-proven packages
+Current repo goldens are still the evidence for what earns inclusion here. If a
+card only exists to satisfy one specific scenario, prefer rediscovering it with
+the helper script instead of memorizing it as a staple.
+
+## Core utility cards
 
 ### Fast mana and compressed setup
 
 - `Black Lotus`
   Why: jumps from a one-land opening hand straight into a 3- or 4-mana test
   state. It is the main reason several goldens avoid filler turns.
-  Used in: `test_golden_dark_depths_combo.py`, `test_golden_clone_copies_memnite.py`,
+  Used in: `test_golden_dark_depths_combo.py`,
+  `test_golden_clone_copies_memnite.py`,
   `test_golden_mana_drain_fact_or_fiction.py`, and
   `test_golden_emancipation_angel_trigger.py`.
   Search nearby: `game:paper unique:cards order:edhrec (t:artifact or t:creature) mv<=1 (o:"Add one mana of any color" or o:"Add three mana of any one color" or o:"Add {C}{C}")`
+
+- `Lotus Petal`
+  Why: same role as `Black Lotus`, but less explosive and often cleaner when
+  you only need one extra mana.
+  Search nearby: `game:paper unique:cards order:edhrec mv<=1 o:"Add one mana of any color"`
+
+- `Simian Spirit Guide`
+  Why: instant-speed red burst without adding a permanent or extra battlefield
+  text.
+  Search nearby: `game:paper unique:cards order:edhrec mv<=3 o:"Add {R}"`
+
+- `Elvish Spirit Guide`
+  Why: green version of the same trick for suspend, self-mill, or creature
+  setup tests.
+  Search nearby: `game:paper unique:cards order:edhrec mv<=3 o:"Add {G}"`
+
+- `Dark Ritual`
+  Why: the cleanest one-card jump from one black mana to three.
+  Search nearby: `game:paper unique:cards order:edhrec mv=1 o:"Add {B}{B}{B}"`
+
+### Free and low-noise bodies
 
 - `Memnite`
   Why: the cleanest free permanent for copy tests, combat setup, or stack
@@ -23,7 +49,22 @@ search patterns when the proven package is close but not exact.
   `test_golden_bolt_on_stack.py`.
   Search nearby: `game:paper unique:cards order:cmc direction:asc t:creature mv=0`
 
-### Stack interaction and explicit spell choices
+- `Ornithopter`
+  Why: still free, but flying matters when you want evasion or an obvious
+  non-ground blocker.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc t:creature mv=0`
+
+- `Phyrexian Walker`
+  Why: free and almost textless. Good when even flying on `Ornithopter` is more
+  rules text than you want.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc t:creature mv=0`
+
+- `Shield Sphere`
+  Why: free body that naturally stays defensive if you want a blocker and not a
+  credible attacker.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc t:creature mv=0`
+
+### Clean combat and targeting pieces
 
 - `Lightning Bolt`
   Why: one mana, one target, clean damage math. Ideal for stack rendering,
@@ -31,54 +72,6 @@ search patterns when the proven package is close but not exact.
   Used in: `test_golden_bolt_on_stack.py`, `test_golden_stack_resolved.py`,
   and indirectly the board-cursor / end-of-turn goldens built on the same deck.
   Search nearby: `game:paper unique:cards order:cmc direction:asc is:spell mv<=2 function:removal`
-
-- `Mana Drain`
-  Why: compact counterspell coverage that also creates next-turn mana, so one
-  card exercises both stack interaction and future resource carry-over.
-  Used in: `test_golden_mana_drain_fact_or_fiction.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc is:spell mv<=2 function:counterspell`
-
-- `Fact or Fiction`
-  Why: a single spell creates pile splitting, hidden-zone reveal, and a crisp
-  follow-up decision without needing a long setup.
-  Used in: `test_golden_mana_drain_fact_or_fiction.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc (o:"separate those cards into two piles" or o:"into two piles")`
-
-### Trigger prompts and unusual card presentation
-
-- `Emancipation Angel`
-  Why: straightforward enters-the-battlefield trigger that asks for a target
-  immediately after resolution.
-  Used in: `test_golden_emancipation_angel_trigger.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
-
-- `Crashing Footfalls`
-  Why: suspend gives a clean delayed-cast prompt from exile and creates a
-  visible token payoff.
-  Used in: `test_golden_mdfc_land_and_suspend.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc o:suspend`
-
-- `Boggart Trawler // Boggart Bog`
-  Why: MDFC land-mode play plus an enters-tapped rider creates a compact
-  rendering test for alternative play modes.
-  Used in: `test_golden_mdfc_land_and_suspend.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc is:mdfc`
-
-### Land combos and zone oddities
-
-- `Dark Depths` plus `Thespian's Stage`
-  Why: extremely compact land combo that stresses copying, legend rule choices,
-  counters, token creation, and a fast lethal attack.
-  Used in: `test_golden_dark_depths_combo.py`.
-  Search nearby: `game:paper unique:cards order:edhrec t:land (o:"copy target land" or o:"ice counter")`
-
-- `Ancient Stirrings`
-  Why: looked-at zone selection with a colorless filter catches short-id and
-  temporary-zone bugs without needing many game actions.
-  Used in: `test_golden_ancient_stirrings_conflict.py`.
-  Search nearby: `game:paper unique:cards order:cmc direction:asc is:spell mv=1 o:"look at the top" o:"colorless"`
-
-### Deterministic combat bodies
 
 - `Savannah Lions`
   Why: cheap 2/1 body with essentially no rules baggage. Good for attack/block
@@ -93,64 +86,50 @@ search patterns when the proven package is close but not exact.
   Used in: `test_golden_multi_amount_combat.py`.
   Search nearby: `game:paper unique:cards order:cmc direction:asc t:creature mv=2 pow=2 tou=2 -o:/^When/ -o:/^Whenever/`
 
-## Adjacent cards worth trying next
+### Simple prompt generators
 
-These are not the source of the current goldens, but they come from the same
-query families and solve similar problems.
+- `Emancipation Angel`
+  Why: straightforward enters-the-battlefield trigger that asks for a target
+  immediately after resolution.
+  Used in: `test_golden_emancipation_angel_trigger.py`.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
 
-### More fast mana
+- `Kor Skyfisher`
+  Why: cheaper self-bounce cousin to `Emancipation Angel` for the same class of
+  ETB prompt.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
 
-- `Lotus Petal`: single-shot colored mana when `Black Lotus` is more explosive
-  than the test needs.
-- `Simian Spirit Guide`: instant-speed red burst without creating a battlefield
-  permanent.
-- `Elvish Spirit Guide`: same idea for green tests.
+- `Thraben Inspector`
+  Why: compact ETB token creation with very little surrounding noise.
+  Search nearby: `game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
 
-Suggested query:
-`game:paper unique:cards order:edhrec mv<=1 (o:"Add one mana of any color" or o:"Add {R}" or o:"Add {G}")`
+## Useful search buckets
 
-### More zero-mana bodies or clone fodder
+- Fast mana:
+  `game:paper unique:cards order:edhrec (t:artifact or t:creature or t:instant) mv<=1 (o:"Add one mana of any color" or o:"Add three mana of any one color" or o:"Add {C}{C}" or o:"Add {B}{B}{B}")`
 
-- `Ornithopter`: still free, but flying matters if you want evasion text.
-- `Phyrexian Walker`: free, colorless, and nearly textless.
-- `Shield Sphere`: free wall if you want a blocker that should not attack.
+- Zero-mana bodies:
+  `game:paper unique:cards order:cmc direction:asc t:creature mv=0`
 
-Suggested query:
-`game:paper unique:cards order:cmc direction:asc t:creature mv=0`
+- Clean removal / stack tests:
+  `game:paper unique:cards order:cmc direction:asc is:spell mv<=2 function:removal`
 
-### More triggered permanents
+- Clean counterspells:
+  `game:paper unique:cards order:cmc direction:asc is:spell mv<=2 function:counterspell`
 
-- `Kor Skyfisher`: cheaper self-bounce cousin to `Emancipation Angel`.
-- `Spirited Companion`: simple ETB card draw.
-- `Thraben Inspector`: clean ETB token creation.
+- ETB trigger prompts:
+  `game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
 
-Suggested query:
-`game:paper unique:cards order:cmc direction:asc is:permanent mv<=4 (o:/^When/ or o:/^Whenever/)`
+- Graveyard setup:
+  `game:paper unique:cards order:cmc direction:asc mv<=3 (o:"mill" or o:"discard" or o:"into your graveyard")`
 
-### Graveyard setup
+- UI-heavy special cards:
+  `game:paper unique:cards order:cmc direction:asc (is:mdfc or is:split or is:transform or o:suspend)`
 
-- `Faithless Looting`: single spell, immediate discard, very compact.
-- `Stitcher's Supplier`: mills on ETB and death, useful when you want two
-  trigger windows from one card.
-- `Satyr Wayfinder`: self-mill plus a guaranteed hand update.
+## Existing goldens also prove niche cards
 
-Suggested query:
-`game:paper unique:cards order:cmc direction:asc mv<=3 (o:"mill" or o:"discard" or o:"into your graveyard")`
-
-## Scryfall notes that matter for this repo
-
-- Keep `game:paper` in the baseline query. That avoids Arena- or MTGO-only
-  answers for cards XMage will not model the same way.
-- Prefer `unique:cards` while exploring. Switch to `unique:prints` only when
-  you already picked a card and want set / collector-number options.
-- `order:cmc direction:asc` is usually better than popularity sorts for golden
-  design because compact setup is more important than general play rate.
-- `function:` tags are useful for broad roles, especially `function:clone`,
-  `function:removal`, and `function:counterspell`.
-- Regex Oracle queries are worth using. `o:/^When/` and `o:/^Whenever/` find
-  explicit trigger prompts quickly; `o:/^{T}:/` finds tap abilities with no
-  extra payment.
-- Use `fo:` instead of `o:` when reminder text matters for the scenario, such
-  as keyword cards where the reminder text is the only obvious description.
-- Use `is:mdfc`, `is:split`, `is:transform`, and `o:suspend` when you want to
-  stress UI presentation, alternate play modes, or exile-cast flows.
+Current goldens include scenario-specific packages such as `Dark Depths` plus
+`Thespian's Stage`, `Ancient Stirrings`, `Mana Drain` plus `Fact or Fiction`,
+`Crashing Footfalls`, and `Boggart Trawler // Boggart Bog`. Those are useful
+when you need exactly that mechanic, but they are intentionally not part of the
+main staple list above.
