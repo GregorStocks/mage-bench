@@ -5144,6 +5144,14 @@ public class BridgeCallbackHandler {
         return result;
     }
 
+    // Passive callback side-effect classification (see issue: minimize-bridge-passive-callback-state):
+    //  REQUIRED  – castOwners tracking: CardView lacks controllerId, HTML-regex is the only source
+    //  REQUIRED  – playerDead detection: early bail-out prevents bridge hangs after elimination
+    //  REQUIRED  – unseenChat buffering: surfaces player-to-player chat via attachUnseenChat()
+    //  REQUIRED  – gameLog accumulation + capping: sole data source for GetGameLogTool/GetGameHistoryTool
+    //  USES lastGameView – turn message rewriting depends on passive lastGameView for active player name
+    //  REMOVED   – actionLock.notifyAll() was spurious: all wait loops gate on pendingAction, which
+    //              CHATMESSAGE never sets, so the wakeup only caused needless thread contention
     private void handleChatMessage(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof ChatMessage) {
@@ -5212,9 +5220,6 @@ public class BridgeCallbackHandler {
                         gameLogTrimmedChars += trimTo;
                     }
                 }
-                synchronized (actionLock) {
-                    actionLock.notifyAll();
-                }
             }
             logger.debug("[" + client.getUsername() + "] Chat: " + chatMsg.getMessage());
         } else {
@@ -5269,6 +5274,11 @@ public class BridgeCallbackHandler {
         logger.info("[" + client.getUsername() + "] Game initialized: " + gameView.getPlayers().size() + " players");
     }
 
+    // Passive callback: GAME_UPDATE / GAME_UPDATE_AND_INFORM
+    // All effects are REQUIRED — keeps lastGameView (and thus getGameState()) fresh between
+    // decisions.  The monotonic game_seq guard in updateLastGameView() prevents backward
+    // overwrites from out-of-order callbacks.  Actionable callbacks also call
+    // updateLastGameView(), but passive updates fill the gaps.
     private void logGameState(ClientCallback callback) {
         Object data = callback.getData();
         if (data instanceof GameView) {
