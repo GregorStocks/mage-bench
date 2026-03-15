@@ -40902,21 +40902,24 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "id": "p3"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         39,
         40,
         42,
-        43
+        43,
+        44,
+        45
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -40977,21 +40980,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p3",
-        "mana_plan": "p9"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         52,
         54,
-        55
+        55,
+        57,
+        58
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -41759,42 +41764,31 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p3",
-        "mana_plan": "p9"
+        "id": "p5",
+        "mana_plan": [
+          "p6",
+          "p4"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{G}",
-            "name": "Formidable Speaker",
-            "index": 0,
-            "action": "cast",
-            "id": "p5",
-            "power": "2",
-            "toughness": "4"
-          },
-          {
-            "mana_cost": "{4}{U/B}{U/B}",
-            "name": "Deceit",
-            "index": 1,
-            "action": "cast",
-            "id": "p14",
-            "power": "5",
-            "toughness": "5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         218,
         220,
         223,
-        224
+        224,
+        226,
+        229,
+        230
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -41832,36 +41826,33 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p3",
-        "mana_plan": "p9"
+        "id": "p8"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "recent_chat": [
-          "[System] Spell cancelled — mana plan was incorrect or incomplete."
-        ],
-        "error": "Object p3 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{4}{U/B}{U/B}",
-            "name": "Deceit",
-            "index": 0,
-            "action": "cast",
-            "id": "p14",
-            "power": "5",
-            "toughness": "5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         233,
         235,
         238,
-        239
+        239,
+        241,
+        244,
+        247,
+        250,
+        253,
+        279,
+        285,
+        351,
+        357,
+        360,
+        361
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -43548,7 +43539,7 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p50"
       },
@@ -43838,7 +43829,9 @@
         589,
         591,
         594,
-        595
+        595,
+        597,
+        600
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -45113,13 +45106,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "id": "p11"
+        "id": "p60"
       },
       "actionResult": {
         "retryable": true,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p11 not found in current choices",
+        "error": "Object p60 not found in current choices",
         "choices": [
           {
             "name": "Formidable Speaker",
@@ -45136,7 +45129,14 @@
         862,
         864,
         870,
-        871
+        871,
+        873,
+        874,
+        876,
+        879,
+        881,
+        883,
+        886
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -46009,7 +46009,12 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p4,p60,p8,p46"
+        "mana_plan": [
+          "p4",
+          "p60",
+          "p8",
+          "p46"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -46554,25 +46559,16 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p8:1,p4:0"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {G}. Activate only if you control a Forest or an Island."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1234,
@@ -46582,7 +46578,9 @@
         1244,
         1246,
         1249,
-        1250
+        1250,
+        1252,
+        1253
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -46621,7 +46619,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p46:0",
+        "mana_plan": [
+          "p46:0"
+        ],
         "index": 1
       },
       "actionResult": {
@@ -46974,7 +46974,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47342,30 +47344,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p8:1,p46:1,p4:0,p60:0,p15:1"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {G}. Activate only if you control a Forest or an Island."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1547,
         1549,
-        1550
+        1550,
+        1552,
+        1553
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -47502,7 +47497,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p11"
+        "attackers": [
+          "p24",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47630,42 +47628,16 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "p8:0,p46:0,p4,p60"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{3}{G/U}{G/U}",
-            "name": "Wistfulness",
-            "index": 0,
-            "action": "cast",
-            "id": "p37",
-            "power": "6",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{2}{U}{B}",
-            "name": "Superior Spider-Man",
-            "index": 1,
-            "action": "cast",
-            "id": "p42",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "mana_cost": "{B}{G}{U}",
-            "name": "Awaken the Honored Dead",
-            "index": 2,
-            "action": "cast",
-            "id": "p67"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1657,
@@ -47675,7 +47647,10 @@
         1766,
         1768,
         1774,
-        1775
+        1775,
+        1777,
+        1780,
+        1781
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -48174,7 +48149,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24,p11,p28"
+        "attackers": [
+          "p24",
+          "p11",
+          "p28"
+        ]
       },
       "actionResult": {
         "declared": [

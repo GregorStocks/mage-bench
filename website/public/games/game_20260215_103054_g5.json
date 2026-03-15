@@ -18600,29 +18600,20 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p6"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p6 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Get Lost",
-            "index": 0,
-            "action": "cast",
-            "id": "p8"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         176,
         178,
-        179
+        179,
+        181,
+        188
       ],
       "subsequentActions": [
         "has started watching",
@@ -19319,7 +19310,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -20497,7 +20490,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -20944,17 +20939,24 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "blockers": "{'id': 'p10', 'blocks': 'p30'}"
+        "index": 1
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         580,
         582,
-        583
+        583,
+        585,
+        586,
+        588,
+        589
       ],
       "subsequentActions": [
         "has started watching",

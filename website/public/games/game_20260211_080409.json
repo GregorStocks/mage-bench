@@ -30013,7 +30013,9 @@
       "llmEventIndices": [
         95,
         96,
-        97
+        97,
+        98,
+        100
       ],
       "subsequentActions": [
         "has started watching",
@@ -30094,13 +30096,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -30115,7 +30117,11 @@
       "llmEventIndices": [
         113,
         115,
-        116
+        116,
+        118,
+        121,
+        122,
+        124
       ],
       "subsequentActions": [
         "has started watching",
@@ -31386,13 +31392,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -31407,7 +31413,12 @@
       "llmEventIndices": [
         344,
         346,
-        347
+        347,
+        349,
+        350,
+        352,
+        353,
+        355
       ],
       "subsequentActions": [
         "has started watching",
@@ -32954,28 +32965,20 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "text": "Willowrush Verge"
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Abandon Attachments {1}{U/R} [Cast]"
-          },
-          {
-            "index": 1,
-            "description": "It'll Quench Ya! {1}{U} [Cast]"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         638,
         640,
-        641
+        641,
+        643,
+        644
       ],
       "subsequentActions": [
         "has started watching",
@@ -34600,13 +34603,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -34621,7 +34624,10 @@
       "llmEventIndices": [
         947,
         949,
-        950
+        950,
+        952,
+        953,
+        955
       ],
       "subsequentActions": [
         "has started watching",
@@ -34988,19 +34994,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": true,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": true
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": []
       },
       "llmEventIndices": [
         1031,
         1033,
-        1034
+        1034,
+        1036,
+        1037,
+        1039
       ],
       "subsequentActions": [
         "has started watching",
@@ -35027,19 +35036,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": true,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": true
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": []
       },
       "llmEventIndices": [
         1040,
         1042,
-        1043
+        1043,
+        1045,
+        1046,
+        1048,
+        1051
       ],
       "subsequentActions": [
         "has started watching",

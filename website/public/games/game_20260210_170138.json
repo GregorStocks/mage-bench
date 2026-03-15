@@ -170235,18 +170235,21 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY"
+        "error": "Index 0 out of range (call get_action_choices first)"
       },
       "llmEventIndices": [
         2319,
         2320,
-        2321
+        2321,
+        2322,
+        2323,
+        2324
       ],
       "subsequentActions": [
         "has started watching",
@@ -177292,18 +177295,21 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY"
+        "error": "Index 1 out of range (call get_action_choices first)"
       },
       "llmEventIndices": [
         3192,
         3193,
-        3194
+        3194,
+        3195,
+        3196,
+        3198
       ],
       "subsequentActions": [
         "has started watching",
@@ -180050,18 +180056,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": false,
+      "chosen": null,
       "chosenArgs": {
-        "answer": false
+        "amounts": [
+          1,
+          1
+        ]
       },
       "actionResult": {
-        "success": false,
-        "error": "Array 'amounts' required for GAME_GET_MULTI_AMOUNT"
+        "success": true,
+        "action_taken": "multi_amount"
       },
       "llmEventIndices": [
         3510,
         3511,
-        3512
+        3512,
+        3513,
+        3514
       ],
       "subsequentActions": [
         "has started watching",

@@ -92493,7 +92493,8 @@
       "llmEventIndices": [
         500,
         502,
-        503
+        503,
+        505
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -92997,7 +92998,8 @@
       "llmEventIndices": [
         578,
         580,
-        581
+        581,
+        583
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -93038,7 +93040,8 @@
       "llmEventIndices": [
         584,
         586,
-        587
+        587,
+        589
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -93136,7 +93139,8 @@
       "llmEventIndices": [
         615,
         617,
-        618
+        618,
+        620
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -93501,7 +93505,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94011,7 +94017,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -94024,7 +94032,8 @@
         841,
         843,
         846,
-        847
+        847,
+        849
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -94406,7 +94415,8 @@
         935,
         940,
         943,
-        944
+        944,
+        946
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -94467,7 +94477,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p34,p26"
+        "attackers": [
+          "p10",
+          "p34",
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94591,7 +94605,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p26"
+        "attackers": [
+          "p34",
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94714,7 +94731,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26"
+        "attackers": [
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -95316,7 +95335,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -96298,16 +96319,31 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p44', 'blocks': 'p40'}"
+        "blockers": [
+          "p44:p40"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p44\",\"blocks\":\"p40\"}]). Check the tool schema for correct parameter types."
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "reason": "not a valid blocker",
+            "id": "p44"
+          }
+        ]
       },
       "llmEventIndices": [
         1254,
         1256,
         1351,
-        1352
+        1352,
+        1354,
+        1361
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -96665,7 +96701,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p34,p26,p23"
+        "attackers": [
+          "p10",
+          "p34",
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -96792,7 +96833,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p26,p23"
+        "attackers": [
+          "p34",
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -96919,7 +96964,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26,p23"
+        "attackers": [
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -97044,7 +97092,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23"
+        "attackers": [
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -100273,7 +100323,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34"
+        "attackers": [
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -101148,7 +101200,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

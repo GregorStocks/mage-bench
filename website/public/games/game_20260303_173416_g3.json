@@ -106582,31 +106582,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 327,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {W}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         253,
         254,
-        255
+        255,
+        256,
+        257
       ],
       "subsequentActions": [
         "Gem31P Tactic casts Agonizing Syphon targeting GPT53C Libby from hand"

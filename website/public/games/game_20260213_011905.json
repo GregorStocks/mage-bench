@@ -58681,20 +58681,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "index": 0
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 0 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         92,
         94,
-        95
+        95,
+        97,
+        98,
+        100,
+        101
       ],
       "subsequentActions": [
         "has started watching",
@@ -59005,7 +59007,8 @@
       "llmEventIndices": [
         187,
         192,
-        193
+        193,
+        195
       ],
       "subsequentActions": [
         "has started watching",
@@ -66083,7 +66086,8 @@
         1909,
         1916,
         1918,
-        1919
+        1919,
+        1922
       ],
       "subsequentActions": [
         "has started watching",
@@ -69447,20 +69451,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 1,
+      "chosen": true,
       "chosenArgs": {
-        "index": 1
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         2684,
         2686,
-        2687
+        2687,
+        2689,
+        2690
       ],
       "subsequentActions": [
         "has started watching",

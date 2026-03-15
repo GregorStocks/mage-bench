@@ -31394,15 +31394,15 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "amount": 2
+        "index": 1
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error_code": "index_out_of_range",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -31417,7 +31417,10 @@
       "llmEventIndices": [
         1135,
         1156,
-        1157
+        1157,
+        1160,
+        1161,
+        1163
       ],
       "subsequentActions": [
         "has started watching",

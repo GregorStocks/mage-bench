@@ -69149,10 +69149,8 @@
         6,
         14
       ],
-      "subsequentActions": [
-        "GPT54 Sport chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -69525,10 +69523,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -69655,7 +69651,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -69824,12 +69820,8 @@
         17,
         18
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled",
-        "Gem3P Coach puts a card from hand to the bottom of their library",
-        "GPT54 Sport skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69973,10 +69965,8 @@
         19,
         20
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 15,
+      "subsequentActions": [],
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -70120,7 +70110,7 @@
         25
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70290,11 +70280,8 @@
         26,
         27
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Thraben Inspector from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 21,
+      "subsequentActions": [],
+      "actionSeq": 25,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70436,10 +70423,8 @@
         28,
         29
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Clue Token token"
-      ],
-      "actionSeq": 25,
+      "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70582,10 +70567,8 @@
         30,
         31
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 28
+      "subsequentActions": [],
+      "actionSeq": 32
     },
     {
       "index": 12,
@@ -70739,7 +70722,7 @@
         43
       ],
       "subsequentActions": [],
-      "actionSeq": 32,
+      "actionSeq": 34,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71120,7 +71103,7 @@
         37
       ],
       "subsequentActions": [],
-      "actionSeq": 36,
+      "actionSeq": 37,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71162,18 +71145,150 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "Black"
+        "text": "Black"
       },
       "actionResult": {
-        "error": "Unknown short ID: Black"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T1 Precombat Main/Precombat Main (Gem3P Coach) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 33,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{2}{W}{W}",
+                "name": "Basri's Acolyte",
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control."
+                ],
+                "power": "2",
+                "id": "p10",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p14"
+              },
+              {
+                "mana_cost": "{2}",
+                "name": "Guardian Idol",
+                "rules": [
+                  "{this} enters tapped.",
+                  "{T}: Add {C}.",
+                  "{2}: {this} becomes a 2/2 Golem artifact creature until end of turn."
+                ],
+                "id": "p17"
+              },
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Mesa Unicorn",
+                "rules": [
+                  "Lifelink"
+                ],
+                "power": "2",
+                "id": "p18",
+                "toughness": "2"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p15"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Clue Token",
+                "rules": [
+                  "{2}, Sacrifice this artifact: Draw a card."
+                ],
+                "id": "p29",
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": false,
+                "name": "Thraben Inspector",
+                "rules": [
+                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
+                ],
+                "id": "p8",
+                "power": "1",
+                "toughness": "2",
+                "summoning_sick": true
+              }
+            ],
+            "name": "GPT54 Sport",
+            "library_size": 33,
+            "life": 20
+          }
+        ],
+        "board_cursor": 6,
+        "game_seq": 38,
+        "land_drops_used": 1,
+        "action_taken": "selected_choice_text_Black",
+        "success": true
       },
       "llmEventIndices": [
         37,
         38,
-        39
+        39,
+        40,
+        41
       ],
       "subsequentActions": [],
-      "actionSeq": 37,
+      "actionSeq": 38,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71185,32 +71300,6 @@
     },
     {
       "index": 16,
-      "snapshotIndex": 17,
-      "player": "Gem3P Coach",
-      "turn": 2,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play spells and abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        41,
-        42
-      ],
-      "subsequentActions": [],
-      "actionSeq": 38,
-      "pilotContext": {
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 17,
       "snapshotIndex": 15,
       "player": "GPT54 Sport",
       "turn": 1,
@@ -71360,14 +71449,11 @@
         44,
         45
       ],
-      "subsequentActions": [
-        "Thriving Heath: Gem3P Coach has chosen Black",
-        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 34
+      "subsequentActions": [],
+      "actionSeq": 44
     },
     {
-      "index": 18,
+      "index": 17,
       "snapshotIndex": 19,
       "player": "GPT54 Sport",
       "turn": 2,
@@ -71517,13 +71603,11 @@
         46,
         47
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 44
+      "subsequentActions": [],
+      "actionSeq": 48
     },
     {
-      "index": 19,
+      "index": 18,
       "snapshotIndex": 21,
       "player": "GPT54 Sport",
       "turn": 2,
@@ -71546,7 +71630,7 @@
       "actionSeq": 48
     },
     {
-      "index": 20,
+      "index": 19,
       "snapshotIndex": 24,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -71753,7 +71837,7 @@
       }
     },
     {
-      "index": 21,
+      "index": 20,
       "snapshotIndex": 24,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -71942,17 +72026,15 @@
         54,
         55
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 22,
+      "index": 21,
       "snapshotIndex": 25,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -72160,14 +72242,14 @@
         57
       ],
       "subsequentActions": [],
-      "actionSeq": 55,
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 23,
+      "index": 22,
       "snapshotIndex": 27,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -72364,16 +72446,14 @@
         58,
         59
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 57,
+      "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 24,
+      "index": 23,
       "snapshotIndex": 28,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -72570,16 +72650,14 @@
         60,
         61
       ],
-      "subsequentActions": [
-        "Attacker: Thraben Inspector (1/2) unblocked"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 25,
+      "index": 24,
       "snapshotIndex": 30,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -72763,16 +72841,14 @@
         62,
         63
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 1 life at combat from Thraben Inspector"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 26,
+      "index": 25,
       "snapshotIndex": 32,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -72969,14 +73045,14 @@
         74
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 27,
+      "index": 26,
       "snapshotIndex": 36,
       "player": "Gem3P Coach",
       "turn": 4,
@@ -73199,7 +73275,7 @@
       }
     },
     {
-      "index": 28,
+      "index": 27,
       "snapshotIndex": 36,
       "player": "Gem3P Coach",
       "turn": 4,
@@ -73392,10 +73468,8 @@
         69,
         70
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 73,
+      "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -73406,7 +73480,7 @@
       }
     },
     {
-      "index": 29,
+      "index": 28,
       "snapshotIndex": 37,
       "player": "Gem3P Coach",
       "turn": 4,
@@ -73581,14 +73655,14 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 77,
+      "actionSeq": 79,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 30,
+      "index": 29,
       "snapshotIndex": 38,
       "player": "Gem3P Coach",
       "turn": 4,
@@ -73614,7 +73688,7 @@
       }
     },
     {
-      "index": 31,
+      "index": 30,
       "snapshotIndex": 34,
       "player": "GPT54 Sport",
       "turn": 3,
@@ -73815,17 +73889,14 @@
         75,
         76
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Guardian Idol from hand"
-      ],
-      "actionSeq": 71,
+      "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 32,
+      "index": 31,
       "snapshotIndex": 41,
       "player": "GPT54 Sport",
       "turn": 4,
@@ -74026,16 +74097,14 @@
         77,
         78
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Guardian Idol from stack onto the Battlefield"
-      ],
-      "actionSeq": 83,
+      "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 33,
+      "index": 32,
       "snapshotIndex": 43,
       "player": "GPT54 Sport",
       "turn": 4,
@@ -74236,16 +74305,14 @@
         79,
         80
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 86,
+      "subsequentActions": [],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 34,
+      "index": 33,
       "snapshotIndex": 45,
       "player": "GPT54 Sport",
       "turn": 4,
@@ -74281,7 +74348,7 @@
       }
     },
     {
-      "index": 35,
+      "index": 34,
       "snapshotIndex": 48,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -74527,7 +74594,7 @@
       }
     },
     {
-      "index": 36,
+      "index": 35,
       "snapshotIndex": 48,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -74730,10 +74797,8 @@
         85,
         86
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 93,
+      "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -74743,7 +74808,7 @@
       }
     },
     {
-      "index": 37,
+      "index": 36,
       "snapshotIndex": 49,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -74939,16 +75004,14 @@
         87,
         88
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Inspiring Overseer from hand"
-      ],
-      "actionSeq": 97,
+      "subsequentActions": [],
+      "actionSeq": 102,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 38,
+      "index": 37,
       "snapshotIndex": 53,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -75147,17 +75210,14 @@
         89,
         90
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Inspiring Overseer from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 102,
+      "subsequentActions": [],
+      "actionSeq": 106,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 39,
+      "index": 38,
       "snapshotIndex": 55,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -75372,16 +75432,14 @@
         91,
         92
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Inspiring Overseer)"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 40,
+      "index": 39,
       "snapshotIndex": 57,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -75614,13 +75672,13 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 109,
+      "actionSeq": 111,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 41,
+      "index": 40,
       "snapshotIndex": 59,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -75832,13 +75890,11 @@
         95,
         96
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 111
+      "subsequentActions": [],
+      "actionSeq": 115
     },
     {
-      "index": 42,
+      "index": 41,
       "snapshotIndex": 60,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -76050,13 +76106,11 @@
         97,
         98
       ],
-      "subsequentActions": [
-        "Attacker: Thraben Inspector (1/2) unblocked"
-      ],
-      "actionSeq": 115
+      "subsequentActions": [],
+      "actionSeq": 119
     },
     {
-      "index": 43,
+      "index": 42,
       "snapshotIndex": 62,
       "player": "GPT54 Sport",
       "turn": 5,
@@ -76081,7 +76135,7 @@
       "actionSeq": 119
     },
     {
-      "index": 44,
+      "index": 43,
       "snapshotIndex": 68,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -76362,7 +76416,7 @@
       }
     },
     {
-      "index": 45,
+      "index": 44,
       "snapshotIndex": 68,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -76593,10 +76647,8 @@
         103,
         104
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 127,
+      "subsequentActions": [],
+      "actionSeq": 131,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -76607,7 +76659,7 @@
       }
     },
     {
-      "index": 46,
+      "index": 45,
       "snapshotIndex": 69,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -76809,14 +76861,14 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 131,
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 47,
+      "index": 46,
       "snapshotIndex": 70,
       "player": "Gem3P Coach",
       "turn": 6,
@@ -76847,7 +76899,7 @@
       }
     },
     {
-      "index": 48,
+      "index": 47,
       "snapshotIndex": 84,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -77156,7 +77208,7 @@
       }
     },
     {
-      "index": 49,
+      "index": 48,
       "snapshotIndex": 84,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -77411,10 +77463,8 @@
         116,
         117
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 153,
+      "subsequentActions": [],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -77426,7 +77476,7 @@
       }
     },
     {
-      "index": 50,
+      "index": 49,
       "snapshotIndex": 85,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -77654,16 +77704,14 @@
         118,
         119
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Inspiring Unicorn from hand"
-      ],
-      "actionSeq": 157,
+      "subsequentActions": [],
+      "actionSeq": 163,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 51,
+      "index": 50,
       "snapshotIndex": 90,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -77915,16 +77963,14 @@
         120,
         121
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Inspiring Unicorn from stack onto the Battlefield"
-      ],
-      "actionSeq": 163,
+      "subsequentActions": [],
+      "actionSeq": 166,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 52,
+      "index": 51,
       "snapshotIndex": 92,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -78194,13 +78240,13 @@
         123
       ],
       "subsequentActions": [],
-      "actionSeq": 166,
+      "actionSeq": 168,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 53,
+      "index": 52,
       "snapshotIndex": 94,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -78441,13 +78487,11 @@
         124,
         128
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 168
+      "subsequentActions": [],
+      "actionSeq": 172
     },
     {
-      "index": 54,
+      "index": 53,
       "snapshotIndex": 97,
       "player": "Gem3P Coach",
       "turn": 7,
@@ -78702,7 +78746,7 @@
       }
     },
     {
-      "index": 55,
+      "index": 54,
       "snapshotIndex": 95,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -78944,10 +78988,10 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 172
+      "actionSeq": 177
     },
     {
-      "index": 56,
+      "index": 55,
       "snapshotIndex": 97,
       "player": "Gem3P Coach",
       "turn": 7,
@@ -78972,7 +79016,7 @@
       "actionSeq": 174
     },
     {
-      "index": 57,
+      "index": 56,
       "snapshotIndex": 98,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -78997,7 +79041,7 @@
       "actionSeq": 177
     },
     {
-      "index": 58,
+      "index": 57,
       "snapshotIndex": 102,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -79244,7 +79288,7 @@
       }
     },
     {
-      "index": 59,
+      "index": 58,
       "snapshotIndex": 104,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -79570,7 +79614,7 @@
       }
     },
     {
-      "index": 60,
+      "index": 59,
       "snapshotIndex": 104,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -79838,10 +79882,8 @@
         139,
         140
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -79853,7 +79895,7 @@
       }
     },
     {
-      "index": 61,
+      "index": 60,
       "snapshotIndex": 105,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -80106,7 +80148,7 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 189,
+      "actionSeq": 191,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -80116,7 +80158,7 @@
       }
     },
     {
-      "index": 62,
+      "index": 61,
       "snapshotIndex": 106,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -80393,7 +80435,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 191,
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -80403,7 +80445,7 @@
       }
     },
     {
-      "index": 63,
+      "index": 62,
       "snapshotIndex": 102,
       "player": "GPT54 Sport",
       "turn": 7,
@@ -80653,14 +80695,11 @@
         145,
         150
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Griffin Aerie from hand"
-      ],
-      "actionSeq": 183
+      "subsequentActions": [],
+      "actionSeq": 195
     },
     {
-      "index": 64,
+      "index": 63,
       "snapshotIndex": 108,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -80911,10 +80950,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Griffin Aerie from stack onto the Battlefield"
-      ],
-      "actionSeq": 194,
+      "subsequentActions": [],
+      "actionSeq": 197,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -80925,7 +80962,7 @@
       }
     },
     {
-      "index": 65,
+      "index": 64,
       "snapshotIndex": 110,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -81157,14 +81194,14 @@
         152
       ],
       "subsequentActions": [],
-      "actionSeq": 197,
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 66,
+      "index": 65,
       "snapshotIndex": 109,
       "player": "GPT54 Sport",
       "turn": 8,
@@ -81420,14 +81457,11 @@
         151,
         154
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Griffin Aerie from stack onto the Battlefield",
-        "Gem3P Coach casts Mesa Unicorn from hand"
-      ],
-      "actionSeq": 195
+      "subsequentActions": [],
+      "actionSeq": 202
     },
     {
-      "index": 67,
+      "index": 66,
       "snapshotIndex": 113,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -81675,14 +81709,14 @@
         156
       ],
       "subsequentActions": [],
-      "actionSeq": 201,
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 68,
+      "index": 67,
       "snapshotIndex": 114,
       "player": "GPT54 Sport",
       "turn": 8,
@@ -81938,13 +81972,11 @@
         155,
         160
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Mesa Unicorn from stack onto the Battlefield"
-      ],
-      "actionSeq": 202
+      "subsequentActions": [],
+      "actionSeq": 205
     },
     {
-      "index": 69,
+      "index": 68,
       "snapshotIndex": 115,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -82190,14 +82222,14 @@
         158
       ],
       "subsequentActions": [],
-      "actionSeq": 204,
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 70,
+      "index": 69,
       "snapshotIndex": 117,
       "player": "Gem3P Coach",
       "turn": 8,
@@ -82223,7 +82255,7 @@
       }
     },
     {
-      "index": 71,
+      "index": 70,
       "snapshotIndex": 116,
       "player": "GPT54 Sport",
       "turn": 8,
@@ -82479,13 +82511,11 @@
         161,
         162
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 205
+      "subsequentActions": [],
+      "actionSeq": 210
     },
     {
-      "index": 72,
+      "index": 71,
       "snapshotIndex": 118,
       "player": "GPT54 Sport",
       "turn": 8,
@@ -82508,7 +82538,7 @@
       "actionSeq": 210
     },
     {
-      "index": 73,
+      "index": 72,
       "snapshotIndex": 121,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -82862,7 +82892,7 @@
       }
     },
     {
-      "index": 74,
+      "index": 73,
       "snapshotIndex": 121,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -83199,14 +83229,14 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 213,
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 75,
+      "index": 74,
       "snapshotIndex": 123,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -83523,10 +83553,8 @@
         171,
         175
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 215,
+      "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -83535,7 +83563,7 @@
       }
     },
     {
-      "index": 76,
+      "index": 75,
       "snapshotIndex": 126,
       "player": "Gem3P Coach",
       "turn": 9,
@@ -83812,7 +83840,7 @@
       }
     },
     {
-      "index": 77,
+      "index": 76,
       "snapshotIndex": 124,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -84130,7 +84158,7 @@
         179
       ],
       "subsequentActions": [],
-      "actionSeq": 220,
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -84139,7 +84167,7 @@
       }
     },
     {
-      "index": 78,
+      "index": 77,
       "snapshotIndex": 126,
       "player": "Gem3P Coach",
       "turn": 9,
@@ -84167,7 +84195,7 @@
       }
     },
     {
-      "index": 79,
+      "index": 78,
       "snapshotIndex": 127,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -84215,7 +84243,7 @@
       }
     },
     {
-      "index": 80,
+      "index": 79,
       "snapshotIndex": 131,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -84583,7 +84611,7 @@
       }
     },
     {
-      "index": 81,
+      "index": 80,
       "snapshotIndex": 131,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -84886,10 +84914,8 @@
         184,
         185
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 231,
+      "subsequentActions": [],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -84902,7 +84928,7 @@
       }
     },
     {
-      "index": 82,
+      "index": 81,
       "snapshotIndex": 132,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -85175,16 +85201,14 @@
         186,
         187
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Valorous Steed from hand"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 241,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 83,
+      "index": 82,
       "snapshotIndex": 138,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -85464,17 +85488,14 @@
         188,
         189
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Valorous Steed from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Valorous Steed - When Valorous Steed enters, create a 2/2 white Knight creature token with vigilance."
-      ],
-      "actionSeq": 241,
+      "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 84,
+      "index": 83,
       "snapshotIndex": 140,
       "player": "GPT54 Sport",
       "turn": 9,
@@ -85502,7 +85523,7 @@
       }
     },
     {
-      "index": 85,
+      "index": 84,
       "snapshotIndex": 144,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -85834,7 +85855,7 @@
       }
     },
     {
-      "index": 86,
+      "index": 85,
       "snapshotIndex": 144,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -86146,10 +86167,8 @@
         194,
         195
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 250,
+      "subsequentActions": [],
+      "actionSeq": 254,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -86159,7 +86178,7 @@
       }
     },
     {
-      "index": 87,
+      "index": 86,
       "snapshotIndex": 145,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -86209,7 +86228,7 @@
       }
     },
     {
-      "index": 88,
+      "index": 87,
       "snapshotIndex": 147,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -86548,7 +86567,7 @@
       }
     },
     {
-      "index": 89,
+      "index": 88,
       "snapshotIndex": 147,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -86868,10 +86887,8 @@
         201,
         206
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks GPT54 Sport with 1 creature"
-      ],
-      "actionSeq": 256,
+      "subsequentActions": [],
+      "actionSeq": 260,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -86880,7 +86897,7 @@
       }
     },
     {
-      "index": 90,
+      "index": 89,
       "snapshotIndex": 150,
       "player": "GPT54 Sport",
       "turn": 10,
@@ -86947,7 +86964,7 @@
       }
     },
     {
-      "index": 91,
+      "index": 90,
       "snapshotIndex": 150,
       "player": "GPT54 Sport",
       "turn": 10,
@@ -87307,7 +87324,7 @@
       }
     },
     {
-      "index": 92,
+      "index": 91,
       "snapshotIndex": 148,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -87626,10 +87643,8 @@
         207,
         208
       ],
-      "subsequentActions": [
-        "Attacker: Basri's Acolyte (2/3) unblocked"
-      ],
-      "actionSeq": 260,
+      "subsequentActions": [],
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -87638,7 +87653,7 @@
       }
     },
     {
-      "index": 93,
+      "index": 92,
       "snapshotIndex": 151,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -87954,13 +87969,13 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 265,
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 94,
+      "index": 93,
       "snapshotIndex": 152,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -88268,13 +88283,13 @@
         212
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 95,
+      "index": 94,
       "snapshotIndex": 153,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -88310,7 +88325,7 @@
       }
     },
     {
-      "index": 96,
+      "index": 95,
       "snapshotIndex": 150,
       "player": "GPT54 Sport",
       "turn": 10,
@@ -88625,14 +88640,12 @@
         227
       ],
       "subsequentActions": [
-        "Attacker: Basri's Acolyte (2/3) unblocked",
-        "Gem3P Coach casts Feat of Resistance targeting Basri's Acolyte from hand",
         "Feat of Resistance: Gem3P Coach puts 1 +1/+1 counters on Basri's Acolyte"
       ],
-      "actionSeq": 262
+      "actionSeq": 272
     },
     {
-      "index": 97,
+      "index": 96,
       "snapshotIndex": 157,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -88680,7 +88693,7 @@
       }
     },
     {
-      "index": 98,
+      "index": 97,
       "snapshotIndex": 157,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -88713,43 +88726,296 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p10"
+        "choice": "0"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T5 Combat/Declare Blockers (Gem3P Coach)",
+        "board": [
           {
-            "index": 0,
-            "description": "White"
+            "hand_size": 1,
+            "graveyard": [
+              {
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p14"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Basri's Acolyte",
+                "modified": true,
+                "rules": [
+                  "Lifelink",
+                  "When {this} enters, put a +1/+1 counter on each of up to two other target creatures you control.",
+                  "Protection from White"
+                ],
+                "id": "p10",
+                "power": "3",
+                "toughness": "4",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Griffin Aerie",
+                "modified": true,
+                "rules": [
+                  "At the beginning of your end step, if you gained 3 or more life this turn, create a 2/2 white Griffin creature token with flying.",
+                  ": ",
+                  "Life gained this turn: 0"
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": false,
+                "name": "Guardian Idol",
+                "rules": [
+                  "{this} enters tapped.",
+                  "{T}: Add {C}.",
+                  "{2}: {this} becomes a 2/2 Golem artifact creature until end of turn."
+                ],
+                "id": "p17"
+              },
+              {
+                "tapped": false,
+                "name": "Mesa Unicorn",
+                "rules": [
+                  "Lifelink"
+                ],
+                "id": "p18",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p16"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p31"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 29,
+            "life": 14,
+            "hand": [
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p49"
+              }
+            ]
           },
           {
-            "index": 1,
-            "description": "Blue"
-          },
-          {
-            "index": 2,
-            "description": "Black"
-          },
-          {
-            "index": 3,
-            "description": "Red"
-          },
-          {
-            "index": 4,
-            "description": "Green"
+            "hand_size": 3,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Clue Token",
+                "rules": [
+                  "{2}, Sacrifice this artifact: Draw a card."
+                ],
+                "id": "p29",
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Inspiring Overseer",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you gain 1 life and draw a card."
+                ],
+                "id": "p30",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Inspiring Unicorn",
+                "rules": [
+                  "Whenever {this} attacks, creatures you control get +1/+1 until end of turn."
+                ],
+                "id": "p34",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Knight Token",
+                "rules": [
+                  "Vigilance"
+                ],
+                "id": "p48",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p40"
+              },
+              {
+                "tapped": false,
+                "name": "Thraben Inspector",
+                "rules": [
+                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
+                ],
+                "id": "p8",
+                "power": "1",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Valorous Steed",
+                "rules": [
+                  "Vigilance",
+                  "When {this} enters, create a 2/2 white Knight creature token with vigilance."
+                ],
+                "id": "p9",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": true
+              }
+            ],
+            "name": "GPT54 Sport",
+            "library_size": 28,
+            "life": 21
           }
         ],
+        "board_cursor": 31,
+        "choices": [
+          {
+            "name": "Guardian Idol",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{2}: {this} becomes a 2/2 Golem artifact creature..."
+            ],
+            "id": "p17"
+          }
+        ],
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "GPT54 Sport",
+            "attackers": [
+              {
+                "name": "Basri's Acolyte",
+                "id": "p10",
+                "power": "3",
+                "toughness": "4"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 3,
         "game_seq": 274,
-        "error": "Object p10 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "action_taken": "selected_choice_0",
+        "success": true
       },
       "llmEventIndices": [
         221,
         222,
-        223
+        223,
+        224,
+        225
       ],
       "subsequentActions": [],
       "actionSeq": 274,
@@ -88758,7 +89024,7 @@
       }
     },
     {
-      "index": 99,
+      "index": 98,
       "snapshotIndex": 157,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -89070,13 +89336,13 @@
         229
       ],
       "subsequentActions": [],
-      "actionSeq": 274,
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 100,
+      "index": 99,
       "snapshotIndex": 156,
       "player": "GPT54 Sport",
       "turn": 10,
@@ -89103,7 +89369,7 @@
       "actionSeq": 272
     },
     {
-      "index": 101,
+      "index": 100,
       "snapshotIndex": 158,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -89401,17 +89667,14 @@
         230,
         231
       ],
-      "subsequentActions": [
-        "GPT54 Sport loses 3 life at combat from Basri's Acolyte",
-        "Gem3P Coach gains 3 life"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 102,
+      "index": 101,
       "snapshotIndex": 160,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -89720,14 +89983,14 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 282,
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 103,
+      "index": 102,
       "snapshotIndex": 162,
       "player": "Gem3P Coach",
       "turn": 10,
@@ -89766,7 +90029,7 @@
       }
     },
     {
-      "index": 104,
+      "index": 103,
       "snapshotIndex": 166,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -90153,7 +90416,7 @@
       }
     },
     {
-      "index": 105,
+      "index": 104,
       "snapshotIndex": 166,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -90500,7 +90763,7 @@
         239
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -90510,7 +90773,7 @@
       }
     },
     {
-      "index": 106,
+      "index": 105,
       "snapshotIndex": 167,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -90875,7 +91138,7 @@
         241
       ],
       "subsequentActions": [],
-      "actionSeq": 292,
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -90885,7 +91148,7 @@
       }
     },
     {
-      "index": 107,
+      "index": 106,
       "snapshotIndex": 167,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -91284,7 +91547,7 @@
         243
       ],
       "subsequentActions": [],
-      "actionSeq": 293,
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -91294,7 +91557,7 @@
       }
     },
     {
-      "index": 108,
+      "index": 107,
       "snapshotIndex": 167,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -91667,7 +91930,7 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 294,
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -91677,7 +91940,7 @@
       }
     },
     {
-      "index": 109,
+      "index": 108,
       "snapshotIndex": 167,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -92001,16 +92264,14 @@
         246,
         251
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Settle Beyond Reality (mode 1) targeting Mesa Unicorn (mode 2) targeting Valorous Steed from hand"
-      ],
-      "actionSeq": 295,
+      "subsequentActions": [],
+      "actionSeq": 304,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 110,
+      "index": 109,
       "snapshotIndex": 174,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -92047,7 +92308,7 @@
       }
     },
     {
-      "index": 111,
+      "index": 110,
       "snapshotIndex": 173,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -92378,20 +92639,14 @@
         252,
         255
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Mesa Unicorn from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Sport moves Valorous Steed from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Sport puts Valorous Steed from exile zone onto the Battlefield (source: Settle Beyond Reality)",
-        "GPT54 Sport puts Settle Beyond Reality from stack into their graveyard",
-        "GPT54 Sport - Ability triggers: Valorous Steed - When Valorous Steed enters, create a 2/2 white Knight creature token with vigilance."
-      ],
-      "actionSeq": 304,
+      "subsequentActions": [],
+      "actionSeq": 311,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 112,
+      "index": 111,
       "snapshotIndex": 176,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -92724,7 +92979,7 @@
       }
     },
     {
-      "index": 113,
+      "index": 112,
       "snapshotIndex": 175,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -93096,13 +93351,13 @@
         259
       ],
       "subsequentActions": [],
-      "actionSeq": 311,
+      "actionSeq": 314,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 114,
+      "index": 113,
       "snapshotIndex": 176,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -93483,16 +93738,14 @@
         258,
         263
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Knight Token token"
-      ],
-      "actionSeq": 312,
+      "subsequentActions": [],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 115,
+      "index": 114,
       "snapshotIndex": 177,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -93931,13 +94184,13 @@
         261
       ],
       "subsequentActions": [],
-      "actionSeq": 314,
+      "actionSeq": 316,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 116,
+      "index": 115,
       "snapshotIndex": 179,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -94318,10 +94571,10 @@
         265
       ],
       "subsequentActions": [],
-      "actionSeq": 316
+      "actionSeq": 324
     },
     {
-      "index": 117,
+      "index": 116,
       "snapshotIndex": 178,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -94697,17 +94950,14 @@
         264,
         267
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 4 creatures",
-        "GPT54 Sport - Ability triggers: Inspiring Unicorn - Whenever Inspiring Unicorn attacks, creatures you control get +1/+1 until end of turn."
-      ],
-      "actionSeq": 315,
+      "subsequentActions": [],
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 118,
+      "index": 117,
       "snapshotIndex": 184,
       "player": "GPT54 Sport",
       "turn": 11,
@@ -94730,7 +94980,7 @@
       "actionSeq": 324
     },
     {
-      "index": 119,
+      "index": 118,
       "snapshotIndex": 185,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -95106,13 +95356,13 @@
         269
       ],
       "subsequentActions": [],
-      "actionSeq": 325,
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 120,
+      "index": 119,
       "snapshotIndex": 187,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -95493,13 +95743,13 @@
         271
       ],
       "subsequentActions": [],
-      "actionSeq": 327,
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 121,
+      "index": 120,
       "snapshotIndex": 187,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -95878,16 +96128,14 @@
         272,
         273
       ],
-      "subsequentActions": [
-        "Gem3P Coach activates: Guardian Idol becomes a 2/2 Golem artifact creature until end of turn. from Guardian Idol"
-      ],
-      "actionSeq": 328,
+      "subsequentActions": [],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 122,
+      "index": 121,
       "snapshotIndex": 190,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -96310,13 +96558,13 @@
         275
       ],
       "subsequentActions": [],
-      "actionSeq": 332,
+      "actionSeq": 335,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 123,
+      "index": 122,
       "snapshotIndex": 193,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -96726,7 +96974,7 @@
         277
       ],
       "subsequentActions": [],
-      "actionSeq": 335,
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -96759,7 +97007,7 @@
       }
     },
     {
-      "index": 124,
+      "index": 123,
       "snapshotIndex": 194,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -97123,19 +97371,14 @@
         278,
         279
       ],
-      "subsequentActions": [
-        "Attacker: Thraben Inspector (2/3) blocked by Guardian Idol (2/2)",
-        "Attacker: Inspiring Overseer (3/2) unblocked",
-        "Attacker: Inspiring Unicorn (3/3) unblocked",
-        "Attacker: Knight Token (3/3) unblocked"
-      ],
-      "actionSeq": 336,
+      "subsequentActions": [],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 125,
+      "index": 124,
       "snapshotIndex": 197,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -97439,20 +97682,14 @@
         280,
         281
       ],
-      "subsequentActions": [
-        "Guardian Idol deals 2 damage to Thraben Inspector",
-        "Thraben Inspector deals 2 damage to Guardian Idol",
-        "Gem3P Coach loses 3 life at combat from Inspiring Overseer",
-        "Gem3P Coach loses 3 life at combat from Inspiring Unicorn",
-        "Gem3P Coach loses 3 life at combat from Knight Token"
-      ],
-      "actionSeq": 345,
+      "subsequentActions": [],
+      "actionSeq": 354,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 126,
+      "index": 125,
       "snapshotIndex": 199,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -97782,13 +98019,13 @@
         283
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 127,
+      "index": 126,
       "snapshotIndex": 201,
       "player": "Gem3P Coach",
       "turn": 11,
@@ -98115,7 +98352,7 @@
         285
       ],
       "subsequentActions": [],
-      "actionSeq": 356,
+      "actionSeq": 357,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -98126,7 +98363,7 @@
       }
     },
     {
-      "index": 128,
+      "index": 127,
       "snapshotIndex": 202,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -98463,17 +98700,15 @@
         286,
         287
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 357,
+      "subsequentActions": [],
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 129,
+      "index": 128,
       "snapshotIndex": 203,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -98840,14 +99075,14 @@
         289
       ],
       "subsequentActions": [],
-      "actionSeq": 361,
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 130,
+      "index": 129,
       "snapshotIndex": 205,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -99199,16 +99434,14 @@
         290,
         295
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks GPT54 Sport with 2 creatures"
-      ],
-      "actionSeq": 363,
+      "subsequentActions": [],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 131,
+      "index": 130,
       "snapshotIndex": 208,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -99642,7 +99875,7 @@
       }
     },
     {
-      "index": 132,
+      "index": 131,
       "snapshotIndex": 206,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -100011,13 +100244,13 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 367,
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 133,
+      "index": 132,
       "snapshotIndex": 208,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -100363,14 +100596,11 @@
         300,
         305
       ],
-      "subsequentActions": [
-        "Attacker: Basri's Acolyte (3/4) blocked by Knight Token (2/2) Knight Token (2/2)",
-        "Attacker: Griffin Token (2/2) unblocked"
-      ],
-      "actionSeq": 369
+      "subsequentActions": [],
+      "actionSeq": 376
     },
     {
-      "index": 134,
+      "index": 133,
       "snapshotIndex": 211,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -100694,13 +100924,13 @@
         303
       ],
       "subsequentActions": [],
-      "actionSeq": 375,
+      "actionSeq": 377,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 135,
+      "index": 134,
       "snapshotIndex": 213,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -100995,13 +101225,13 @@
         307
       ],
       "subsequentActions": [],
-      "actionSeq": 377,
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 136,
+      "index": 135,
       "snapshotIndex": 212,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -101319,17 +101549,11 @@
         306,
         309
       ],
-      "subsequentActions": [
-        "Knight Token deals 2 damage to Basri's Acolyte",
-        "Knight Token deals 2 damage to Basri's Acolyte",
-        "Basri's Acolyte deals 3 damage to Knight Token",
-        "GPT54 Sport loses 2 life at combat from Griffin Token",
-        "Gem3P Coach gains 3 life"
-      ],
-      "actionSeq": 376
+      "subsequentActions": [],
+      "actionSeq": 387
     },
     {
-      "index": 137,
+      "index": 136,
       "snapshotIndex": 214,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -101634,14 +101858,14 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 386,
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 138,
+      "index": 137,
       "snapshotIndex": 215,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -101971,10 +102195,10 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 387
+      "actionSeq": 389
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 216,
       "player": "Gem3P Coach",
       "turn": 12,
@@ -102001,7 +102225,7 @@
       }
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 217,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -102385,13 +102609,11 @@
         316,
         317
       ],
-      "subsequentActions": [
-        "Gem3P Coach - Ability triggers: Griffin Aerie - At the beginning of your end step, if you gained 3 or more life this turn, create a 2/2 white Griffin creature token with flying."
-      ],
-      "actionSeq": 389
+      "subsequentActions": [],
+      "actionSeq": 393
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 219,
       "player": "GPT54 Sport",
       "turn": 12,
@@ -102785,10 +103007,8 @@
         320,
         321
       ],
-      "subsequentActions": [
-        "Gem3P Coach creates a Griffin Token token"
-      ],
-      "actionSeq": 393,
+      "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -102801,7 +103021,7 @@
       }
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 220,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -103236,10 +103456,8 @@
         322,
         323
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Brightmare from hand"
-      ],
-      "actionSeq": 395,
+      "subsequentActions": [],
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -103249,7 +103467,7 @@
       }
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 224,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -103688,10 +103906,8 @@
         324,
         325
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Brightmare from stack onto the Battlefield"
-      ],
-      "actionSeq": 402,
+      "subsequentActions": [],
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -103701,7 +103917,7 @@
       }
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 226,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -104085,10 +104301,8 @@
         326,
         327
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Brightmare - When Brightmare enters, tap up to one target creature. You gain life equal to that creature's power. - targeting Griffin Token"
-      ],
-      "actionSeq": 405,
+      "subsequentActions": [],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -104098,7 +104312,7 @@
       }
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 227,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -104481,10 +104695,8 @@
         328,
         329
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 2 life (source: Brightmare)"
-      ],
-      "actionSeq": 407,
+      "subsequentActions": [],
+      "actionSeq": 410,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -104495,7 +104707,7 @@
       }
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 229,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -104544,7 +104756,7 @@
       }
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 232,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -105042,7 +105254,7 @@
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 232,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -105480,11 +105692,8 @@
         334,
         335
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 5 creatures",
-        "GPT54 Sport - Ability triggers: Inspiring Unicorn - Whenever Inspiring Unicorn attacks, creatures you control get +1/+1 until end of turn."
-      ],
-      "actionSeq": 414,
+      "subsequentActions": [],
+      "actionSeq": 423,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -105493,7 +105702,7 @@
       }
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 238,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -105932,7 +106141,7 @@
         337
       ],
       "subsequentActions": [],
-      "actionSeq": 423,
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -105941,7 +106150,7 @@
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 240,
       "player": "GPT54 Sport",
       "turn": 13,
@@ -105993,7 +106202,7 @@
       }
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 242,
       "player": "GPT54 Sport",
       "turn": 13,

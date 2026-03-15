@@ -47492,7 +47492,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47698,7 +47700,7 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p17",
         "index": 2
@@ -48031,7 +48033,12 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p1",
-        "mana_plan": "p14:1,p2,p4,p12"
+        "mana_plan": [
+          "p14:1",
+          "p2",
+          "p4",
+          "p12"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -48374,20 +48381,24 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p7"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p7 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         473,
         475,
-        476
+        476,
+        478,
+        480,
+        481
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -50098,7 +50109,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -50611,7 +50624,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "id": "p32"
       },
@@ -50769,7 +50782,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p13"
+        "attackers": [
+          "p5",
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -51367,7 +51383,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -52477,34 +52495,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p33"
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p33 not found in current choices",
-        "choices": [
-          {
-            "name": "Blue",
-            "count": 2,
-            "index": 0,
-            "choice_type": "pool_mana"
-          },
-          {
-            "name": "Colorless",
-            "count": 1,
-            "index": 1,
-            "choice_type": "pool_mana"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "used_pool_colorless"
       },
       "llmEventIndices": [
         1097,
         1099,
-        1100
+        1100,
+        1102,
+        1103
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -52881,7 +52888,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -53553,7 +53562,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55096,7 +55107,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

@@ -23615,20 +23615,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p3' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p3'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 86
       },
       "llmEventIndices": [
         78,
         79,
-        80
+        80,
+        81,
+        82,
+        83
       ],
-      "subsequentActions": [
-        "MiniMx Johnny attacks MstLg Stoic with 1 creature"
-      ],
-      "actionSeq": 82,
+      "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -24454,7 +24460,8 @@
       "llmEventIndices": [
         150,
         151,
-        152
+        152,
+        153
       ],
       "subsequentActions": [],
       "actionSeq": 168,
@@ -24665,37 +24672,21 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p24"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p24 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
-        "game_seq": 183,
-        "choices": [
-          {
-            "mana_cost": "{2}{W}",
-            "name": "Dauntless Onslaught",
-            "index": 0,
-            "action": "cast",
-            "id": "p12"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Moment of Heroism",
-            "index": 1,
-            "action": "cast",
-            "id": "p13"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 183
       },
       "llmEventIndices": [
         170,
         171,
-        172
+        172,
+        173,
+        175
       ],
       "subsequentActions": [],
       "actionSeq": 183,

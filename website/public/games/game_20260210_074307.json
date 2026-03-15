@@ -332115,7 +332115,7 @@
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
-        "answer": true,
+        "answer": false,
         "amounts": [],
         "pile": 0,
         "index": 0,
@@ -332128,7 +332128,11 @@
       "llmEventIndices": [
         357,
         358,
-        359
+        359,
+        360,
+        361,
+        362,
+        364
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332168,7 +332172,9 @@
       "llmEventIndices": [
         365,
         366,
-        367
+        367,
+        368,
+        370
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332208,7 +332214,10 @@
       "llmEventIndices": [
         371,
         372,
-        373
+        373,
+        375,
+        378,
+        380
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332248,7 +332257,9 @@
       "llmEventIndices": [
         381,
         382,
-        383
+        383,
+        385,
+        388
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332288,7 +332299,9 @@
       "llmEventIndices": [
         389,
         391,
-        392
+        392,
+        393,
+        395
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332328,7 +332341,10 @@
       "llmEventIndices": [
         396,
         397,
-        398
+        398,
+        400,
+        402,
+        404
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332368,7 +332384,9 @@
       "llmEventIndices": [
         405,
         406,
-        407
+        407,
+        408,
+        410
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -332408,7 +332426,9 @@
       "llmEventIndices": [
         411,
         412,
-        413
+        413,
+        415,
+        417
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -334254,7 +334274,11 @@
       "llmEventIndices": [
         651,
         652,
-        653
+        653,
+        654,
+        655,
+        656,
+        658
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",
@@ -334284,20 +334308,29 @@
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
-        "answer": true,
+        "answer": false,
         "amounts": [],
         "pile": 0,
         "index": 0,
         "text": ""
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 0 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
       },
       "llmEventIndices": [
         659,
         660,
-        661
+        661,
+        662,
+        663,
+        664,
+        666,
+        667,
+        669,
+        671,
+        672
       ],
       "subsequentActions": [
         "Gem3Flash draws seven cards",

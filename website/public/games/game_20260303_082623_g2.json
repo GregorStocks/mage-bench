@@ -71147,36 +71147,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "p23"
+        "choice": "p2"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 189,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p23 not found in current choices",
-        "choices": [
-          {
-            "is_you": true,
-            "name": "GptOSS Sport",
-            "target_type": "player",
-            "index": 0,
-            "id": "p1"
-          },
-          {
-            "name": "QwCdr Story",
-            "target_type": "player",
-            "index": 1,
-            "id": "p2"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1",
+        "next_action_message": "Select targets (selected 2 of 2, min 1) to divide 2 damage"
       },
       "llmEventIndices": [
         231,
         232,
-        233
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240
       ],
       "subsequentActions": [],
       "actionSeq": 189,
@@ -72398,7 +72392,9 @@
         358,
         359,
         360,
-        361
+        361,
+        362,
+        363
       ],
       "subsequentActions": [],
       "actionSeq": 297,
@@ -72539,31 +72535,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 297,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Select a card (discard cost)"
       },
       "llmEventIndices": [
         373,
         374,
-        375
+        375,
+        376,
+        377
       ],
       "subsequentActions": [
         "GptOSS Sport discards Supply Runners (source: Thrill of Possibility)",
@@ -73226,19 +73216,24 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p52"
+        "choice": "p11"
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 356,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p52 not found in current choices"
+        "error": "Object p11 not found in current choices"
       },
       "llmEventIndices": [
         447,
         448,
-        449
+        449,
+        450,
+        451,
+        452,
+        453,
+        454
       ],
       "subsequentActions": [],
       "actionSeq": 356,
@@ -73299,7 +73294,12 @@
       "llmEventIndices": [
         457,
         458,
-        459
+        459,
+        460,
+        461,
+        462,
+        463,
+        464
       ],
       "subsequentActions": [],
       "actionSeq": 356,
@@ -73322,19 +73322,25 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p10"
+        "choice": "p11"
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 356,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices"
+        "error": "Object p11 not found in current choices"
       },
       "llmEventIndices": [
         465,
         466,
-        467
+        467,
+        468,
+        469,
+        470,
+        472,
+        473,
+        474
       ],
       "subsequentActions": [],
       "actionSeq": 356,

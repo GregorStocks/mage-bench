@@ -133704,7 +133704,8 @@
         51,
         52,
         59,
-        60
+        60,
+        61
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -134077,7 +134078,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p5:1,p3"
+        "mana_plan": [
+          "p5:1",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -134750,7 +134754,10 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p1:1,p3",
+        "mana_plan": [
+          "p1:1",
+          "p3"
+        ],
         "id": "p7"
       },
       "actionResult": {
@@ -135798,7 +135805,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p17",
-        "mana_plan": "p21,p3,p9,p1"
+        "mana_plan": [
+          "p21",
+          "p3",
+          "p9",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -137003,7 +137015,10 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p21:0,p1:0",
+        "mana_plan": [
+          "p21:0",
+          "p1:0"
+        ],
         "id": "p32"
       },
       "actionResult": {
@@ -137129,7 +137144,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p3:0,p9:0"
+        "mana_plan": [
+          "p3:0",
+          "p9:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -137297,7 +137315,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -137840,7 +137860,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29"
+        "attackers": [
+          "p29"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -138273,7 +138295,12 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p6,p7,p30,p3:1",
+        "mana_plan": [
+          "p6",
+          "p7",
+          "p30",
+          "p3:1"
+        ],
         "id": "p23"
       },
       "actionResult": {
@@ -138323,7 +138350,12 @@
       "chosen": 3,
       "chosenArgs": {
         "amount": 3,
-        "mana_plan": "p6,p7,p30,p3:1"
+        "mana_plan": [
+          "p6",
+          "p7",
+          "p30",
+          "p3:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -138852,7 +138884,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p4"
+        "mana_plan": [
+          "p4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -139003,7 +139037,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p15"
+        "attackers": [
+          "p29",
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -139121,7 +139158,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -139473,16 +139512,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p45', 'id': 'p15'}"
+        "blockers": [
+          "p15:p45"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p45\",\"id\":\"p15\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p15",
+            "blocks": "p45"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         1204,
         1206,
         1267,
-        1269
+        1269,
+        1271,
+        1272
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -139936,7 +139989,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -140756,7 +140811,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p16"
+        "attackers": [
+          "p29",
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -140872,7 +140930,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16"
+        "attackers": [
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -141779,7 +141839,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -142747,7 +142809,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p16,p17"
+        "attackers": [
+          "p29",
+          "p16",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -142870,7 +142936,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16,p17"
+        "attackers": [
+          "p16",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -142993,7 +143062,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -143420,7 +143491,17 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p2,p1,p4,p25,p33,p44,p55,p69,p34"
+        "mana_plan": [
+          "p2",
+          "p1",
+          "p4",
+          "p25",
+          "p33",
+          "p44",
+          "p55",
+          "p69",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -144119,7 +144200,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -144559,7 +144642,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -144828,7 +144913,14 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p50",
-        "mana_plan": "p4,p44,p55,p33,p25,p34"
+        "mana_plan": [
+          "p4",
+          "p44",
+          "p55",
+          "p33",
+          "p25",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -145322,225 +145414,24 @@
       ],
       "choiceCount": 28,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p29"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p29 not found in current choices",
-        "choices": [
-          {
-            "name": "Saproling Token",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p89",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "controller": "Sonnet Vorthos",
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p76"
-          },
-          {
-            "name": "Galea, Kindler of Hope",
-            "target_type": "permanent",
-            "index": 2,
-            "id": "p17",
-            "power": "7",
-            "toughness": "7"
-          },
-          {
-            "tapped": true,
-            "controller": "Qwen3 Spike",
-            "name": "Command Tower",
-            "target_type": "permanent",
-            "index": 3,
-            "id": "p44"
-          },
-          {
-            "name": "Forest",
-            "target_type": "permanent",
-            "index": 4,
-            "id": "p2"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Command Tower",
-            "target_type": "permanent",
-            "index": 5,
-            "id": "p39"
-          },
-          {
-            "name": "Saproling Token",
-            "target_type": "permanent",
-            "index": 6,
-            "id": "p88",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Choked Estuary",
-            "target_type": "permanent",
-            "index": 7,
-            "id": "p58"
-          },
-          {
-            "name": "Saproling Token",
-            "target_type": "permanent",
-            "index": 8,
-            "id": "p87",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "controller": "Qwen3 Spike",
-            "name": "Dawnhart Wardens",
-            "target_type": "permanent",
-            "index": 9,
-            "id": "p92",
-            "power": "3",
-            "toughness": "3"
-          },
-          {
-            "name": "Exotic Orchard",
-            "target_type": "permanent",
-            "index": 10,
-            "id": "p1"
-          },
-          {
-            "name": "Saproling Token",
-            "target_type": "permanent",
-            "index": 11,
-            "id": "p86",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 12,
-            "id": "p30"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Swamp",
-            "target_type": "permanent",
-            "index": 13,
-            "id": "p22"
-          },
-          {
-            "controller": "Qwen3 Spike",
-            "name": "Sungrass Prairie",
-            "target_type": "permanent",
-            "index": 14,
-            "id": "p51"
-          },
-          {
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 15,
-            "id": "p46"
-          },
-          {
-            "name": "Forest",
-            "target_type": "permanent",
-            "index": 16,
-            "id": "p3"
-          },
-          {
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 17,
-            "id": "p4"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Sunken Hollow",
-            "target_type": "permanent",
-            "index": 18,
-            "id": "p15"
-          },
-          {
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 19,
-            "id": "p54"
-          },
-          {
-            "tapped": true,
-            "controller": "Qwen3 Spike",
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 20,
-            "id": "p13"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 21,
-            "id": "p10"
-          },
-          {
-            "name": "Forest",
-            "target_type": "permanent",
-            "index": 22,
-            "id": "p82"
-          },
-          {
-            "tapped": true,
-            "controller": "Sonnet Vorthos",
-            "name": "Swamp",
-            "target_type": "permanent",
-            "index": 23,
-            "id": "p47"
-          },
-          {
-            "name": "Command Tower",
-            "target_type": "permanent",
-            "index": 24,
-            "id": "p21"
-          },
-          {
-            "name": "Thriving Isle",
-            "target_type": "permanent",
-            "index": 25,
-            "id": "p5"
-          },
-          {
-            "tapped": true,
-            "controller": "Qwen3 Spike",
-            "name": "Fortified Village",
-            "target_type": "permanent",
-            "index": 26,
-            "id": "p72"
-          },
-          {
-            "name": "Sungrass Prairie",
-            "target_type": "permanent",
-            "index": 27,
-            "id": "p85"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         2222,
         2224,
-        2225
+        2225,
+        2227,
+        2230,
+        2231
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -145666,7 +145557,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86,p87,p88,p17"
+        "attackers": [
+          "p86",
+          "p87",
+          "p88",
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -146695,7 +146591,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -147782,7 +147680,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86"
+        "attackers": [
+          "p86"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -147937,7 +147837,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -148402,7 +148304,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -148649,17 +148553,42 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p29', 'id': 'p17'},{'blocks': 'p68', 'id': 'p97'},{'blocks': 'p50', 'id': 'p102'}"
+        "blockers": [
+          "p17:p29",
+          "p97:p68",
+          "p102:p50"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p29\",\"id\":\"p17\"},{\"blocks\":\"p68\",\"id\":\"p97\"},{\"blocks\":\"p50\",\"id\":\"p...). Check the tool schema for correct parameter types."
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "reason": "attacker p29 is not a valid block target",
+            "id": "p17"
+          },
+          {
+            "reason": "attacker p68 is not a valid block target",
+            "id": "p97"
+          },
+          {
+            "reason": "attacker p50 is not a valid block target",
+            "id": "p102"
+          }
+        ]
       },
       "llmEventIndices": [
         2596,
         2598,
         2603,
         2609,
-        2610
+        2610,
+        2613,
+        2614
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -148845,7 +148774,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -149233,7 +149164,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p29",
-        "mana_plan": "p46,p4,p82"
+        "mana_plan": [
+          "p46",
+          "p4",
+          "p82"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -149400,7 +149335,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p68",
-        "mana_plan": "p21,p3"
+        "mana_plan": [
+          "p21",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -150177,7 +150115,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -150321,15 +150261,29 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p16', 'blocks': 'p25'}"
+        "blockers": [
+          "p16:p25"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p16\",\"blocks\":\"p25\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p16",
+            "blocks": "p25"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         2800,
         2805,
-        2806
+        2806,
+        2808,
+        2809
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -151154,7 +151108,8 @@
       "llmEventIndices": [
         2893,
         2897,
-        2898
+        2898,
+        2903
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -151192,7 +151147,7 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p118"
       },
@@ -151463,7 +151418,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -152659,7 +152616,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -152837,16 +152796,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p120', 'blocks': 'p25'}"
+        "blockers": [
+          "p120:p25"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p120\",\"blocks\":\"p25\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p120",
+            "blocks": "p25"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         3084,
         3087,
         3090,
-        3091
+        3091,
+        3093,
+        3094
       ],
       "subsequentActions": [
         "spectator1 has started watching",

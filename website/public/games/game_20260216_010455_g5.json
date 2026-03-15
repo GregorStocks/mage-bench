@@ -75025,7 +75025,9 @@
       "isForced": false,
       "chosen": true,
       "chosenArgs": {
-        "mana_plan": "p7",
+        "mana_plan": [
+          "p7"
+        ],
         "answer": true
       },
       "actionResult": {
@@ -75699,7 +75701,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -76125,7 +76129,8 @@
       "llmEventIndices": [
         545,
         547,
-        548
+        548,
+        550
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -76595,7 +76600,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16"
+        "attackers": [
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -76779,7 +76786,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16"
+        "attackers": [
+          "p16"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -77280,7 +77289,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p51",
-        "mana_plan": "p27"
+        "mana_plan": [
+          "p27"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -77699,7 +77710,14 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p20",
-        "mana_plan": "p14:1,p9:0,p18:1,p27:0,p33:0,p19:0"
+        "mana_plan": [
+          "p14:1",
+          "p9:0",
+          "p18:1",
+          "p27:0",
+          "p33:0",
+          "p19:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -77992,7 +78010,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -78560,7 +78580,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": "p27,p14,RED"
+        "mana_plan": [
+          "p27",
+          "p14",
+          "RED"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -79003,7 +79027,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": "p27,p14"
+        "mana_plan": [
+          "p27",
+          "p14"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -79380,7 +79407,17 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": "p27,p14,p33,p18,p19,p43,p9,U,U"
+        "mana_plan": [
+          "p27",
+          "p14",
+          "p33",
+          "p18",
+          "p19",
+          "p43",
+          "p9",
+          "U",
+          "U"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -79730,21 +79767,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p32,p38,p41"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1654,
         1656,
-        1657
+        1657,
+        1659,
+        1663
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -80555,30 +80594,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p9"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{R}",
-            "name": "Torch the Tower",
-            "index": 0,
-            "action": "cast",
-            "id": "p61"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1840,
         1842,
-        1843
+        1843,
+        1848,
+        1852
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -81138,7 +81170,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p80",
-        "mana_plan": "p14:1,p19"
+        "mana_plan": [
+          "p14:1",
+          "p19"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -81712,7 +81747,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p73,p79"
+        "attackers": [
+          "p73",
+          "p79"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81905,18 +81943,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "{'id': 'p64', 'blocks': 'p95'}"
+        "answer": false
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p64\",\"blocks\":\"p95\"}]). Check the tool schema for correct parameter types."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2194,
         2196,
         2199,
-        2200
+        2200,
+        2202,
+        2204,
+        2206,
+        2207,
+        2209,
+        2210,
+        2212,
+        2213
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -81973,7 +82023,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p64:p96"
+        "blockers": [
+          "p64:p96"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -82368,7 +82420,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p2",
-        "mana_plan": "p27,p14:1,p19"
+        "mana_plan": [
+          "p27",
+          "p14:1",
+          "p19"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -82446,7 +82502,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p91",
-        "mana_plan": "p33,p18,p9,p75"
+        "mana_plan": [
+          "p33",
+          "p18",
+          "p9",
+          "p75"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -83000,42 +83061,17 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 3,
       "chosenArgs": {
-        "id": "p8"
+        "id": "p1",
+        "auto_tap": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Get Lost",
-            "index": 0,
-            "action": "cast",
-            "id": "p80"
-          },
-          {
-            "name": "Cori Mountain Monastery",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}{R}, {T}: Exile the top card of your library. ..."
-            ],
-            "id": "p71"
-          },
-          {
-            "name": "Mistrise Village",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{U}, {T}: The next spell you cast this turn can't..."
-            ],
-            "id": "p13"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_3"
       },
       "llmEventIndices": [
         2499,
@@ -83047,7 +83083,32 @@
         2512,
         2515,
         2518,
-        2519
+        2519,
+        2521,
+        2524,
+        2527,
+        2529,
+        2531,
+        2533,
+        2536,
+        2539,
+        2542,
+        2545,
+        2548,
+        2551,
+        2587,
+        2595,
+        2598,
+        2600,
+        2602,
+        2604,
+        2606,
+        2608,
+        2610,
+        2612,
+        2614,
+        2616,
+        2617
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -83146,30 +83207,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {U}. Activate only if you control an Island or a Mountain."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_1"
       },
       "llmEventIndices": [
         2573,
         2575,
-        2576
+        2576,
+        2578,
+        2579,
+        2581,
+        2582
       ],
       "subsequentActions": [
         "spectator5 has started watching",

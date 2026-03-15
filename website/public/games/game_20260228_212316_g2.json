@@ -66742,7 +66742,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p10:1"
+        "mana_plan": [
+          "p10:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -67320,7 +67322,9 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p10:1",
+        "mana_plan": [
+          "p10:1"
+        ],
         "id": "p8"
       },
       "actionResult": {
@@ -67551,7 +67555,9 @@
       "chosen": null,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p35:1"
+        "mana_plan": [
+          "p35:1"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -67587,7 +67593,8 @@
         192,
         193,
         195,
-        196
+        196,
+        197
       ],
       "subsequentActions": [],
       "actionSeq": 110,
@@ -67634,7 +67641,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p35:1",
+        "mana_plan": [
+          "p35:1"
+        ],
         "id": "p41"
       },
       "actionResult": {
@@ -68290,7 +68299,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p35:1",
+        "mana_plan": [
+          "p35:1"
+        ],
         "id": "p8"
       },
       "actionResult": {
@@ -68562,7 +68573,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p41"
+        "attackers": [
+          "p41"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -69818,7 +69831,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p40,p38,p44"
+        "attackers": [
+          "p40",
+          "p38",
+          "p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -70028,7 +70045,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p8:p38"
+        "blockers": [
+          "p8:p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -70253,7 +70272,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p55",
-        "mana_plan": "p35:1,p19"
+        "mana_plan": [
+          "p35:1",
+          "p19"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -71071,7 +71093,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p40,p44"
+        "attackers": [
+          "p40",
+          "p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -71197,7 +71222,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p41:p59"
+        "blockers": [
+          "p41:p59"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -71337,15 +71364,14 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p41:p44"
+        "id": "p41"
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 324,
         "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "invalid_choice",
+        "error": "Object p41 not found in current choices",
         "choices": [
           {
             "mana_cost": "{1}{G}",
@@ -71369,7 +71395,10 @@
         454,
         455,
         459,
-        460
+        460,
+        461,
+        462,
+        463
       ],
       "subsequentActions": [],
       "actionSeq": 324,
@@ -71675,7 +71704,14 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p50",
-        "mana_plan": "p5,p7,p21:1,p9,p19,p55"
+        "mana_plan": [
+          "p5",
+          "p7",
+          "p21:1",
+          "p9",
+          "p19",
+          "p55"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -72109,7 +72145,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p40,p44"
+        "attackers": [
+          "p40",
+          "p44"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -72212,7 +72251,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p35:p44,p50:p59"
+        "blockers": [
+          "p35:p44",
+          "p50:p59"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -72681,7 +72723,8 @@
       "llmEventIndices": [
         551,
         552,
-        553
+        553,
+        554
       ],
       "subsequentActions": [],
       "actionSeq": 393,
@@ -72719,7 +72762,8 @@
       "llmEventIndices": [
         555,
         556,
-        557
+        557,
+        558
       ],
       "subsequentActions": [],
       "actionSeq": 393,

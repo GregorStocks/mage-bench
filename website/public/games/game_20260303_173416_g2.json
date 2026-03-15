@@ -55134,19 +55134,22 @@
       "chosen": 2,
       "chosenArgs": {
         "choice": "p15",
-        "mana_plan": "p42,p26"
+        "mana_plan": "p41,p26"
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 246,
         "success": false,
         "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p42'. Check the board state for correct permanent IDs."
+        "error": "Mana plan references unknown permanent 'p41'. Check the board state for correct permanent IDs."
       },
       "llmEventIndices": [
         221,
         222,
-        223
+        223,
+        224,
+        225,
+        226
       ],
       "subsequentActions": [],
       "actionSeq": 246,

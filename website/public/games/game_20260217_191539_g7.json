@@ -91616,7 +91616,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p3",
-        "mana_plan": "p3"
+        "mana_plan": [
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -91932,17 +91934,34 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p6,mana_plan:[\"p1:1\"]"
+        "id": "p6",
+        "mana_plan": [
+          "p1:1"
+        ]
       },
       "actionResult": {
-        "error": "Unknown short ID: p6,mana_plan:[\"p1:1\"]"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         51,
         52,
-        53
+        53,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -92570,7 +92589,9 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": "p1:0",
+        "mana_plan": [
+          "p1:0"
+        ],
         "id": "p18"
       },
       "actionResult": {
@@ -97551,7 +97572,9 @@
       "llmEventIndices": [
         616,
         617,
-        618
+        618,
+        619,
+        621
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -97671,7 +97694,10 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p3:0,p48:0",
+        "mana_plan": [
+          "p3:0",
+          "p48:0"
+        ],
         "id": "p40"
       },
       "actionResult": {
@@ -98677,7 +98703,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p40",
-        "mana_plan": "p3:0,p48:0"
+        "mana_plan": [
+          "p3:0",
+          "p48:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -98903,7 +98932,8 @@
         766,
         767,
         769,
-        770
+        770,
+        771
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -99120,7 +99150,8 @@
       "llmEventIndices": [
         796,
         797,
-        798
+        798,
+        799
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -99181,7 +99212,8 @@
         803,
         805,
         807,
-        808
+        808,
+        809
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -100422,7 +100454,12 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p75:1,p3:0,BLUE,p46:0",
+        "mana_plan": [
+          "p75:1",
+          "p3:0",
+          "BLUE",
+          "p46:0"
+        ],
         "id": "p49"
       },
       "actionResult": {
@@ -100542,7 +100579,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p76",
-        "mana_plan": "p75:1,p46:0,p54:0"
+        "mana_plan": [
+          "p75:1",
+          "p46:0",
+          "p54:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -100879,7 +100920,9 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p42",
-        "mana_plan": "p54:0"
+        "mana_plan": [
+          "p54:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -102139,7 +102182,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -103117,16 +103162,21 @@
       "isForced": false,
       "chosen": 4,
       "chosenArgs": {
-        "id": "p57_target_player_p107",
-        "index": 4
+        "id": "p57"
       },
       "actionResult": {
-        "error": "Unknown short ID: p57_target_player_p107"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
       },
       "llmEventIndices": [
         1266,
         1267,
-        1268
+        1268,
+        1269,
+        1270
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -103171,7 +103221,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p54:0"
+        "mana_plan": [
+          "p54:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -103413,7 +103465,7 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 3,
       "chosenArgs": {
         "id": "p69",
         "index": 1

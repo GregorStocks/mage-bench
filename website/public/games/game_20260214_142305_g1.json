@@ -47266,7 +47266,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47318,18 +47320,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": ":[{"
+        "blockers": "[{\"id\":\"p31\",\"blocks\":\"p23\"}]"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Invalid blockers JSON: blockers must be a JSON array"
+        "declared": [
+          {
+            "blocks": "p23",
+            "id": "p31"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         377,
         379,
-        380
+        380,
+        382,
+        383
       ],
       "subsequentActions": [
         "has started watching",
@@ -51503,7 +51513,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -52075,7 +52087,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p24"
+        "attackers": [
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -52954,7 +52968,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17,p34"
+        "attackers": [
+          "p17",
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55703,7 +55720,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [

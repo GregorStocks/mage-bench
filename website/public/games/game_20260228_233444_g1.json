@@ -59696,7 +59696,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -60175,7 +60177,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -60679,7 +60683,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -60764,7 +60770,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p7:p3"
+        "blockers": [
+          "p7:p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -61126,7 +61134,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p7"
+        "attackers": [
+          "p4",
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -62707,7 +62718,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7"
+        "attackers": [
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -64122,7 +64135,8 @@
       "llmEventIndices": [
         467,
         468,
-        469
+        469,
+        470
       ],
       "subsequentActions": [],
       "actionSeq": 328,
@@ -64285,7 +64299,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p7,p45,p46"
+        "attackers": [
+          "p7",
+          "p45",
+          "p46"
+        ]
       },
       "actionResult": {
         "declared": [

@@ -33346,9 +33346,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -33391,9 +33391,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -33480,9 +33480,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -33604,7 +33604,8 @@
         24,
         25,
         27,
-        28
+        28,
+        29
       ],
       "subsequentActions": [],
       "actionSeq": 17,
@@ -33669,12 +33670,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p13",
         "index": 2,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -33805,33 +33806,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": true,
-        "blockers": "",
-        "id": "p16",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 21,
-        "success": false,
-        "warning": "Both id and index provided; used id=p16, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p16 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
       },
       "llmEventIndices": [
         48,
         49,
         51,
-        52
+        52,
+        53,
+        54
       ],
       "subsequentActions": [],
       "actionSeq": 21,
@@ -33882,12 +33875,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p16",
         "index": 3,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -34020,12 +34013,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -34078,12 +34071,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p26",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -34150,9 +34143,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p6",
         "text": ""
       },
@@ -34252,12 +34245,14 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "p26",
+        "attackers": [
+          "p26"
+        ],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -34380,7 +34375,7 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
@@ -34388,9 +34383,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p6",
         "text": ""
       },
@@ -34465,9 +34460,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -34560,82 +34555,32 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
-        "answer": false,
+        "answer": true,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
-        "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p1",
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 77,
-        "success": false,
-        "warning": "Both id and index provided; used id=p1, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p1 not found in current choices",
-        "choices": [
-          {
-            "name": "Batterskull",
-            "target_type": "card",
-            "index": 0,
-            "id": "p3"
-          },
-          {
-            "name": "Cryptic Coat",
-            "target_type": "card",
-            "index": 1,
-            "id": "p4"
-          },
-          {
-            "name": "Quantum Riddler",
-            "target_type": "card",
-            "index": 2,
-            "id": "p30"
-          },
-          {
-            "name": "Scalding Tarn",
-            "target_type": "card",
-            "index": 3,
-            "id": "p33"
-          },
-          {
-            "name": "Stifle",
-            "target_type": "card",
-            "index": 4,
-            "id": "p7"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 5,
-            "id": "p8"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 6,
-            "id": "p9"
-          },
-          {
-            "name": "Swords to Plowshares",
-            "target_type": "card",
-            "index": 7,
-            "id": "p27"
-          }
-        ]
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p4, ignored index=1"
       },
       "llmEventIndices": [
         115,
         116,
-        117
+        117,
+        118,
+        120
       ],
       "subsequentActions": [
         "GPT5n Vet discards Cryptic Coat",
@@ -34673,7 +34618,10 @@
       "chosenArgs": {
         "id": "p15",
         "index": 0,
-        "mana_plan": "p26,p13"
+        "mana_plan": [
+          "p26",
+          "p13"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -34745,54 +34693,26 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p35"
+        "id": "p36"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
         "game_seq": 84,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices",
-        "choices": [
-          {
-            "name": "Lavaspur Boots",
-            "target_type": "card",
-            "index": 0,
-            "id": "p38"
-          },
-          {
-            "name": "Mox Diamond",
-            "target_type": "card",
-            "index": 1,
-            "id": "p36"
-          },
-          {
-            "name": "Mox Diamond",
-            "target_type": "card",
-            "index": 2,
-            "id": "p37"
-          },
-          {
-            "name": "Mox Diamond",
-            "target_type": "card",
-            "index": 3,
-            "id": "p40"
-          },
-          {
-            "name": "Pithing Needle",
-            "target_type": "card",
-            "index": 4,
-            "id": "p39"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         127,
         129,
         132,
-        133
+        133,
+        134,
+        136,
+        137
       ],
       "subsequentActions": [],
       "actionSeq": 84,
@@ -35047,12 +34967,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p23",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -35117,7 +35037,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26"
+        "attackers": [
+          "p26"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -35175,17 +35097,17 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p14",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -35260,9 +35182,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -35355,82 +35277,32 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
-        "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p5",
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p33",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 119,
-        "success": false,
-        "warning": "Both id and index provided; used id=p5, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p5 not found in current choices",
-        "choices": [
-          {
-            "name": "Batterskull",
-            "target_type": "card",
-            "index": 0,
-            "id": "p3"
-          },
-          {
-            "name": "Quantum Riddler",
-            "target_type": "card",
-            "index": 1,
-            "id": "p30"
-          },
-          {
-            "name": "Scalding Tarn",
-            "target_type": "card",
-            "index": 2,
-            "id": "p33"
-          },
-          {
-            "name": "Stifle",
-            "target_type": "card",
-            "index": 3,
-            "id": "p7"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 4,
-            "id": "p8"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 5,
-            "id": "p9"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 6,
-            "id": "p40"
-          },
-          {
-            "name": "Swords to Plowshares",
-            "target_type": "card",
-            "index": 7,
-            "id": "p27"
-          }
-        ]
+        "success": true,
+        "action_taken": "selected_target_2",
+        "warning": "Both id and index provided; used id=p33, ignored index=2"
       },
       "llmEventIndices": [
         202,
         203,
-        204
+        204,
+        205,
+        212
       ],
       "subsequentActions": [
         "GPT5n Vet discards Scalding Tarn",
@@ -35480,7 +35352,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p26,p23"
+        "attackers": [
+          "p26",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -35559,9 +35434,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p43",
         "text": ""
       },
@@ -35687,17 +35562,17 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 4,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p12",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -35759,12 +35634,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p46",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -35980,7 +35855,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23"
+        "attackers": [
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -36102,9 +35979,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p27",
         "text": ""
       },
@@ -36197,7 +36074,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 7,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
@@ -36205,9 +36082,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p27",
         "text": ""
       },
@@ -36309,12 +36186,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "p50",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -36455,7 +36332,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p28"
+        "attackers": [
+          "p23",
+          "p28"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -36596,12 +36476,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": true,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": -1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 0,
         "text": ""
       },
@@ -36658,27 +36538,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 4,
       "chosenArgs": {
         "amount": 0,
-        "answer": false,
+        "answer": true,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
-        "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p27",
+        "index": 4,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
         "text": ""
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 203,
         "success": false,
-        "warning": "Both id and index provided; used id=p27, ignored index=2",
+        "warning": "Both id and index provided; used id=p8, ignored index=4",
         "error_code": "invalid_choice",
-        "error": "Object p27 not found in current choices",
+        "error": "Object p8 not found in current choices",
         "choices": [
           {
             "name": "Flooded Strand",
@@ -36703,7 +36583,10 @@
       "llmEventIndices": [
         316,
         317,
-        318
+        318,
+        319,
+        320,
+        321
       ],
       "subsequentActions": [
         "GPT5n Vet skip attack",
@@ -36930,7 +36813,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 4,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
@@ -36938,74 +36821,24 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p5",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 208,
-        "success": false,
-        "warning": "Both id and index provided; used id=p5, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p5 not found in current choices",
-        "choices": [
-          {
-            "name": "Batterskull",
-            "target_type": "card",
-            "index": 0,
-            "id": "p3"
-          },
-          {
-            "name": "Ponder",
-            "target_type": "card",
-            "index": 1,
-            "id": "p54"
-          },
-          {
-            "name": "Quantum Riddler",
-            "target_type": "card",
-            "index": 2,
-            "id": "p30"
-          },
-          {
-            "name": "Stifle",
-            "target_type": "card",
-            "index": 3,
-            "id": "p7"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 4,
-            "id": "p8"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 5,
-            "id": "p9"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 6,
-            "id": "p40"
-          },
-          {
-            "name": "Stoneforge Mystic",
-            "target_type": "card",
-            "index": 7,
-            "id": "p48"
-          }
-        ]
+        "success": true,
+        "action_taken": "selected_target_4",
+        "warning": "Both id and index provided; used id=p8, ignored index=0"
       },
       "llmEventIndices": [
         329,
         330,
-        331
+        331,
+        332,
+        334
       ],
       "subsequentActions": [
         "GPT5n Vet discards Stoneforge Mystic"
@@ -37302,7 +37135,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p28"
+        "attackers": [
+          "p23",
+          "p28"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -37461,9 +37297,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -37637,9 +37473,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -37704,7 +37540,9 @@
       "llmEventIndices": [
         375,
         376,
-        377
+        377,
+        378,
+        379
       ],
       "subsequentActions": [],
       "actionSeq": 246,
@@ -37782,9 +37620,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p5",
         "text": ""
       },
@@ -37849,7 +37687,9 @@
       "llmEventIndices": [
         380,
         381,
-        382
+        382,
+        383,
+        384
       ],
       "subsequentActions": [],
       "actionSeq": 247,
@@ -37919,7 +37759,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
@@ -37927,9 +37767,9 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p54",
         "text": ""
       },
@@ -38074,7 +37914,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

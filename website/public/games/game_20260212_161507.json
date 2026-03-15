@@ -27103,13 +27103,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -27124,7 +27124,12 @@
       "llmEventIndices": [
         183,
         185,
-        186
+        186,
+        188,
+        189,
+        194,
+        195,
+        197
       ],
       "subsequentActions": [
         "has started watching",

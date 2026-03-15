@@ -38389,7 +38389,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": ":[],",
         "id": "",
         "text": ""
@@ -38403,7 +38403,26 @@
       "llmEventIndices": [
         15,
         16,
-        17
+        17,
+        18,
+        19,
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
       ],
       "subsequentActions": [
         "has started watching",
@@ -38430,13 +38449,13 @@
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
-        "answer": false,
+        "answer": true,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": ":[],",
         "id": "",
         "text": ""
@@ -38450,7 +38469,14 @@
       "llmEventIndices": [
         39,
         40,
-        41
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        49
       ],
       "subsequentActions": [
         "has started watching",
@@ -38483,7 +38509,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": ":[],",
         "id": "",
         "text": ""
@@ -38497,7 +38523,8 @@
       "llmEventIndices": [
         50,
         51,
-        52
+        52,
+        54
       ],
       "subsequentActions": [
         "has started watching",
@@ -38530,7 +38557,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": ":[],",
         "id": "",
         "text": ""
@@ -38544,7 +38571,9 @@
       "llmEventIndices": [
         55,
         57,
-        58
+        58,
+        60,
+        63
       ],
       "subsequentActions": [
         "has started watching",
@@ -38577,7 +38606,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": ":[],",
         "id": "",
         "text": ""
@@ -38591,7 +38620,9 @@
       "llmEventIndices": [
         64,
         66,
-        67
+        67,
+        69,
+        81
       ],
       "subsequentActions": [
         "has started watching",
@@ -38801,30 +38832,30 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 0,
+        "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p8",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_2"
       },
       "llmEventIndices": [
         94,
         95,
-        96
+        96,
+        97,
+        107
       ],
       "subsequentActions": [
         "has started watching",
@@ -39668,7 +39699,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p1",
         "text": ""
@@ -39682,7 +39713,17 @@
       "llmEventIndices": [
         214,
         215,
-        216
+        216,
+        217,
+        218,
+        219,
+        221,
+        222,
+        223,
+        225,
+        227,
+        228,
+        231
       ],
       "subsequentActions": [
         "has started watching",
@@ -39767,21 +39808,23 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p6",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         232,
         234,
-        235
+        235,
+        237,
+        238,
+        240,
+        246
       ],
       "subsequentActions": [
         "has started watching",
@@ -40349,7 +40392,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p1",
         "text": ""
@@ -40363,7 +40406,15 @@
       "llmEventIndices": [
         325,
         327,
-        328
+        328,
+        330,
+        331,
+        333,
+        336,
+        337,
+        339,
+        341,
+        344
       ],
       "subsequentActions": [
         "has started watching",
@@ -40439,30 +40490,32 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 2,
+        "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p13",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         345,
         347,
-        348
+        348,
+        350,
+        351,
+        353,
+        359
       ],
       "subsequentActions": [
         "has started watching",
@@ -40539,7 +40592,12 @@
         357,
         361,
         367,
-        368
+        368,
+        370,
+        373,
+        376,
+        379,
+        382
       ],
       "subsequentActions": [
         "has started watching",
@@ -40704,30 +40762,32 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "answer": true,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 1,
+        "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p13",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         389,
         391,
-        392
+        392,
+        394,
+        395,
+        397,
+        409
       ],
       "subsequentActions": [
         "has started watching",
@@ -40896,7 +40956,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p13",
         "text": ""
@@ -40910,7 +40970,10 @@
       "llmEventIndices": [
         418,
         420,
-        421
+        421,
+        423,
+        425,
+        428
       ],
       "subsequentActions": [
         "has started watching",
@@ -41072,7 +41135,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -41308,21 +41371,21 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p21",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         469,
         471,
-        472
+        472,
+        474,
+        480
       ],
       "subsequentActions": [
         "has started watching",
@@ -41551,7 +41614,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p23",
         "text": ""
@@ -41565,7 +41628,10 @@
       "llmEventIndices": [
         528,
         530,
-        531
+        531,
+        533,
+        535,
+        540
       ],
       "subsequentActions": [
         "has started watching",
@@ -41647,7 +41713,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p23",
         "text": ""
@@ -41661,7 +41727,10 @@
       "llmEventIndices": [
         541,
         543,
-        544
+        544,
+        547,
+        549,
+        552
       ],
       "subsequentActions": [
         "has started watching",
@@ -41743,7 +41812,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p23",
         "text": ""
@@ -41757,7 +41826,10 @@
       "llmEventIndices": [
         553,
         555,
-        556
+        556,
+        558,
+        560,
+        563
       ],
       "subsequentActions": [
         "has started watching",
@@ -41839,7 +41911,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p23",
         "text": ""
@@ -41853,7 +41925,10 @@
       "llmEventIndices": [
         564,
         566,
-        567
+        567,
+        569,
+        571,
+        574
       ],
       "subsequentActions": [
         "has started watching",
@@ -41935,7 +42010,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "p23",
         "text": ""
@@ -41949,7 +42024,9 @@
       "llmEventIndices": [
         575,
         577,
-        578
+        578,
+        582,
+        600
       ],
       "subsequentActions": [
         "has started watching",
@@ -42184,21 +42261,21 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p23",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         601,
         602,
-        603
+        603,
+        604,
+        625
       ],
       "subsequentActions": [
         "has started watching",
@@ -42239,7 +42316,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42496,21 +42575,21 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p25",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         653,
         654,
-        655
+        655,
+        656,
+        668
       ],
       "subsequentActions": [
         "has started watching",
@@ -42766,7 +42845,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -43235,7 +43316,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -43371,21 +43452,21 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p38",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         802,
         804,
-        805
+        805,
+        807,
+        818
       ],
       "subsequentActions": [
         "has started watching",
@@ -43426,7 +43507,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43806,21 +43889,23 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p29",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         901,
         903,
-        904
+        904,
+        906,
+        907
       ],
       "subsequentActions": [
         "has started watching",
@@ -43964,7 +44049,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -44597,21 +44682,23 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p2",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         1017,
         1019,
-        1020
+        1020,
+        1022,
+        1023
       ],
       "subsequentActions": [
         "has started watching",
@@ -44874,7 +44961,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""

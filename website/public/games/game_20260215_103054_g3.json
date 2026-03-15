@@ -12712,7 +12712,7 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -13046,7 +13046,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3"
+        "attackers": [
+          "p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -13409,7 +13411,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3"
+        "attackers": [
+          "p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -13626,28 +13630,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": false,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p19",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p19"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         147,
         149,
-        150
+        150,
+        152,
+        153
       ],
       "subsequentActions": [
         "HOTKEYS:<br/>Turn mousewheel up (ALT-e) - enlarge image of card the mousepointer hovers over<br/>Turn mousewheel down (ALT-s) - enlarge original/alternate image of card the mousepointer hovers over<br/><b>F2</b> - Confirm \"Ok\", \"Yes\" or \"Done\" button<br/><b>F4</b> - Skip current turn but stop on declare attackers/blockers and something on the stack<br/><b>F5</b> - Skip to next end step but stop on declare attackers/blockers and something on the stack<br/><b>F6</b> - Skip current turn but stop on declare attackers/blockers<br/><b>F7</b> - Skip to next main phase but stop on declare attackers/blockers and something on the stack<br/><b>F9</b> - Skip everything until your next turn<br/><b>F11</b> - Skip everything until the end step just prior to your turn<br/><b>F3</b> - Undo F4/F5/F7/F9/F11<br/><b>F12</b> - Switch in/out to chat text field<br/><b>ALT + D</b> - show/hide panel with big card from the right side<br/><b>Hold ALT + E</b> - force to show card popup in image mode<br/><br/>CHAT COMMANDS:<br/><b>/h username </b> - show player's stats (history)<br/><b>/w username message</b> - send private message to player (whisper)<br/><b>/pings</b> - show players and watchers ping<br/><b>/fix</b> - fix frozen game<br/><b>[[card name]]</b> - insert card with popup info",
@@ -13881,7 +13877,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3,p23"
+        "attackers": [
+          "p3",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -14113,7 +14112,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3,p23,p19"
+        "attackers": [
+          "p3",
+          "p23",
+          "p19"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -14490,7 +14493,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

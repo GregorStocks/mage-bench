@@ -33657,7 +33657,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "p17"
+        "mana_plan": [
+          "p17"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -33699,20 +33701,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "COLORLESS,p5"
+        "id": "p16"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         108,
         109,
-        110
+        110,
+        111,
+        160,
+        164,
+        165
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -33768,7 +33775,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p24",
-        "mana_plan": "p17"
+        "mana_plan": [
+          "p17"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -33953,7 +33962,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -34334,7 +34345,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p30",
-        "mana_plan": "p8"
+        "mana_plan": [
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -34757,7 +34770,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": "p8"
+        "mana_plan": [
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

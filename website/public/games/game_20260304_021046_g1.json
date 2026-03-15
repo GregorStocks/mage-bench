@@ -45385,21 +45385,38 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p30"
+        "attackers": "p23"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p30' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p30'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 147,
+        "choices": [
+          {
+            "name": "Weaselback Redcap",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}{R}: {this} gets +2/+0 until end of turn."
+            ],
+            "id": "p30"
+          }
+        ]
       },
       "llmEventIndices": [
         111,
         112,
         114,
-        115
+        115,
+        116,
+        117,
+        118
       ],
-      "subsequentActions": [
-        "GptOSS Lucky attacks GPT53C Detect with 2 creatures"
-      ],
-      "actionSeq": 141,
+      "subsequentActions": [],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -45428,32 +45445,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p12"
+        "choice": "p30"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p12 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_0",
         "game_seq": 147,
-        "choices": [
-          {
-            "name": "Weaselback Redcap",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{R}: {this} gets +2/+0 until end of turn."
-            ],
-            "id": "p30"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         119,
         120,
-        121
+        121,
+        122,
+        123
       ],
       "subsequentActions": [
         "GptOSS Lucky activates: Weaselback Redcap gets +2/+0 until end of turn. from Weaselback Redcap"
@@ -45821,26 +45831,44 @@
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "all",
+        "attackers": "p24,p3,p7",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 182,
+        "choices": [
+          {
+            "name": "Mistwalker",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}{U}: {this} gets +1/-1 until end of turn."
+            ],
+            "id": "p7"
+          }
+        ]
       },
       "llmEventIndices": [
         149,
         150,
-        151
+        151,
+        152,
+        153,
+        154
       ],
       "subsequentActions": [
-        "GPT53C Detect attacks GptOSS Lucky with 3 creatures",
         "Attacker: Wight of Precinct Six (2/2) unblocked",
         "Attacker: Bloodline Pretender (3/3) unblocked",
         "Attacker: Mistwalker (1/4) unblocked"
       ],
-      "actionSeq": 178,
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"

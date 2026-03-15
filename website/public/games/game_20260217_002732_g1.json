@@ -293218,7 +293218,10 @@
       "chosen": true,
       "chosenArgs": {
         "answer": true,
-        "mana_plan": "p1,p4"
+        "mana_plan": [
+          "p1",
+          "p4"
+        ]
       },
       "actionResult": {
         "success": true,
@@ -293758,7 +293761,9 @@
       "chosen": true,
       "chosenArgs": {
         "answer": true,
-        "mana_plan": "p1"
+        "mana_plan": [
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -293824,22 +293829,26 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p15",
-        "mana_plan": "p1:RED,p28:RED,p4:WHITE"
+        "id": "p7"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "action_taken": "selected_1",
-        "error_code": "invalid_mana_plan",
-        "error": "Invalid mana_plan: For input string: \"RED\". Expected: [{\"tap\":\"p1\"},{\"pool\":\"RED\"}]"
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         389,
         392,
-        393
+        393,
+        394,
+        395,
+        396,
+        398,
+        399
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -294822,52 +294831,23 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p5:p25"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Mazemind Tome",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Put a page counter on {this}: Draw a ca...",
-              "{T}, Put a page counter on {this}: Scry 1."
-            ],
-            "id": "p50"
-          },
-          {
-            "name": "Blast Zone",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}, {T}, Sacrifice {this}: Destroy each nonland ...",
-              "{X}{X}, {T}: Put X charge counters on {this}."
-            ],
-            "id": "p55"
-          },
-          {
-            "name": "Suspicious Bookcase",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}, {T}: Target creature can't be blocked this t..."
-            ],
-            "id": "p5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         646,
         650,
-        651
+        651,
+        652,
+        653
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -295041,29 +295021,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "p16,p31"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{U}",
-            "name": "Blustersquall",
-            "index": 0,
-            "action": "cast",
-            "id": "p3"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         676,
         678,
-        679
+        679,
+        680,
+        681
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -295149,7 +295123,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p56",
-        "mana_plan": "p2,p30"
+        "mana_plan": [
+          "p2",
+          "p30"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -296456,7 +296433,11 @@
       "chosen": true,
       "chosenArgs": {
         "answer": true,
-        "mana_plan": "p3,p9,p55"
+        "mana_plan": [
+          "p3",
+          "p9",
+          "p55"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -296512,7 +296493,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -298731,7 +298714,9 @@
       "chosen": 10,
       "chosenArgs": {
         "index": 10,
-        "mana_plan": "p1"
+        "mana_plan": [
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -298946,7 +298931,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -299104,7 +299091,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p101",
-        "mana_plan": "p16,p72,p103"
+        "mana_plan": [
+          "p16",
+          "p72",
+          "p103"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -299553,25 +299544,16 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p66"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p66 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}, {T}: Add one mana of any color. When you spend this mana to cast your commander, scry X, where X is the number of times it's been cast from the command zone this game."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1842,
@@ -299579,7 +299561,9 @@
         1844,
         1845,
         1847,
-        1848
+        1848,
+        1849,
+        1850
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -301475,84 +301459,23 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": null,
+      "chosen": 6,
       "chosenArgs": {
-        "id": "p37"
+        "id": "p7"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p37 not found in current choices",
-        "choices": [
-          {
-            "name": "Arch of Orazca",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{5}, {T}: Draw a card. Activate only if you have ..."
-            ],
-            "id": "p69"
-          },
-          {
-            "mana_cost": "{6}",
-            "name": "Soul of New Phyrexia",
-            "index": 1,
-            "action": "cast",
-            "id": "p87",
-            "power": "6",
-            "toughness": "6"
-          },
-          {
-            "mana_cost": "{6}",
-            "name": "Dreamstone Hedron",
-            "index": 2,
-            "action": "cast",
-            "id": "p60"
-          },
-          {
-            "name": "Bonders' Enclave",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}, {T}: Draw a card. Activate only if you contr..."
-            ],
-            "id": "p92"
-          },
-          {
-            "name": "Tomb of the Spirit Dragon",
-            "index": 4,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}: You gain 1 life for each colorless crea..."
-            ],
-            "id": "p125"
-          },
-          {
-            "name": "Blast Zone",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}, {T}, Sacrifice {this}: Destroy each nonland ...",
-              "{X}{X}, {T}: Put X charge counters on {this}."
-            ],
-            "id": "p55"
-          },
-          {
-            "mana_cost": "{6}",
-            "name": "Steel Hellkite",
-            "index": 6,
-            "action": "cast",
-            "id": "p7",
-            "power": "5",
-            "toughness": "5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_6"
       },
       "llmEventIndices": [
         2450,
         2452,
-        2453
+        2453,
+        2454,
+        2455
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -302026,7 +301949,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p40,p120"
+        "attackers": [
+          "p40",
+          "p120"
+        ]
       },
       "actionResult": {
         "declared": [

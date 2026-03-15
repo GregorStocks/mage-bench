@@ -19504,7 +19504,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p2"
+        "mana_plan": [
+          "p2"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -19804,7 +19806,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p4",
-        "mana_plan": "p2,p1"
+        "mana_plan": [
+          "p2",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

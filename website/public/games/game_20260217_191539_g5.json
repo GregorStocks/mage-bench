@@ -15285,58 +15285,20 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p11"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p11 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{5}{G}",
-            "name": "Generous Ent",
-            "index": 0,
-            "action": "cast",
-            "id": "p10",
-            "power": "5",
-            "toughness": "7"
-          },
-          {
-            "mana_cost": "{4}{U/B}{U/B}",
-            "name": "Deceit",
-            "index": 1,
-            "action": "cast",
-            "id": "p12",
-            "power": "5",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{3}{B}{B}",
-            "name": "Street Wraith",
-            "index": 2,
-            "action": "cast",
-            "id": "p13",
-            "power": "3",
-            "toughness": "4"
-          },
-          {
-            "mana_cost": "{2}{U}{U}",
-            "name": "Subtlety",
-            "index": 3,
-            "action": "cast",
-            "id": "p14",
-            "power": "3",
-            "toughness": "3"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         225,
         226,
-        227
+        227,
+        228,
+        230
       ],
       "subsequentActions": [
         "spectator5 has started watching",

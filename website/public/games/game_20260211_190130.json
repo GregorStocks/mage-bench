@@ -79903,7 +79903,9 @@
         1071,
         1074,
         1077,
-        1078
+        1078,
+        1080,
+        1085
       ],
       "subsequentActions": [
         "has started watching",
@@ -83534,32 +83536,20 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thoughtseize"
-          },
-          {
-            "index": 1,
-            "description": "Kozilek's Command"
-          },
-          {
-            "index": 2,
-            "description": "Kozilek's Command"
-          }
-        ]
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         1803,
         1805,
-        1806
+        1806,
+        1808,
+        1809
       ],
       "subsequentActions": [
         "has started watching",
@@ -216458,13 +216448,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -216479,7 +216469,10 @@
       "llmEventIndices": [
         3163,
         3165,
-        3166
+        3166,
+        3171,
+        3172,
+        3174
       ],
       "subsequentActions": [
         "has started watching",
@@ -217538,13 +217531,13 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -217563,7 +217556,10 @@
       "llmEventIndices": [
         3385,
         3388,
-        3389
+        3389,
+        3391,
+        3392,
+        3394
       ],
       "subsequentActions": [
         "has started watching",
@@ -218192,18 +218188,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "index": 0
+        "answer": true
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 0 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         3514,
         3516,
-        3517
+        3517,
+        3519,
+        3520
       ],
       "subsequentActions": [
         "has started watching",
@@ -218483,13 +218481,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -218504,7 +218502,10 @@
       "llmEventIndices": [
         3574,
         3576,
-        3577
+        3577,
+        3579,
+        3580,
+        3582
       ],
       "subsequentActions": [
         "has started watching",

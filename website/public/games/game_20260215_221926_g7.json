@@ -191428,7 +191428,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": "p2,p8"
+        "mana_plan": [
+          "p2",
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -191470,7 +191473,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": 8,
       "chosenArgs": {
         "id": "p8"
       },
@@ -193176,7 +193179,8 @@
       "llmEventIndices": [
         683,
         685,
-        686
+        686,
+        688
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -193751,20 +193755,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "p5,p4"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         797,
         799,
-        800
+        800,
+        802,
+        803
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -194623,7 +194630,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p45"
+        "attackers": [
+          "p45"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -195576,7 +195585,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1"
+        "attackers": [
+          "p1"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -195864,7 +195875,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p45"
+        "attackers": [
+          "p45"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -197475,30 +197488,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {R}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1421,
         1423,
-        1424
+        1424,
+        1426,
+        1427,
+        1429,
+        1430
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -197885,7 +197893,8 @@
         1520,
         1525,
         1530,
-        1531
+        1531,
+        1533
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -201235,7 +201244,8 @@
         2175,
         2178,
         2181,
-        2182
+        2182,
+        2184
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -202086,7 +202096,9 @@
       "llmEventIndices": [
         2283,
         2285,
-        2286
+        2286,
+        2288,
+        2291
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -203125,20 +203137,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "auto_tap": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2420,
         2422,
-        2423
+        2423,
+        2425,
+        2426
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -205292,7 +205307,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p74"
+        "attackers": [
+          "p74"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -205802,7 +205819,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86"
+        "attackers": [
+          "p86"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -205814,7 +205833,14 @@
       "llmEventIndices": [
         3047,
         3049,
-        3050
+        3050,
+        3052,
+        3053,
+        3055,
+        3056,
+        3058,
+        3059,
+        3061
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -207009,7 +207035,8 @@
       "llmEventIndices": [
         3357,
         3359,
-        3360
+        3360,
+        3362
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -207142,7 +207169,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p86"
+        "attackers": [
+          "p86"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -207329,61 +207358,16 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p32"
+        "id": "p83"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p32 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{B}",
-            "name": "Curse of Shallow Graves",
-            "index": 0,
-            "action": "cast",
-            "id": "p157"
-          },
-          {
-            "name": "Temple Bell",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: Each player draws a card."
-            ],
-            "id": "p81"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Swiftfoot Boots",
-            "index": 2,
-            "action": "cast",
-            "id": "p83"
-          },
-          {
-            "mana_cost": "{1}{B}{B}",
-            "name": "Infest",
-            "index": 3,
-            "action": "cast",
-            "id": "p46"
-          },
-          {
-            "name": "Unknown (07125454)",
-            "index": 4,
-            "id": "p45"
-          },
-          {
-            "name": "Evolving Wilds",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Sacrifice {this}: Search your library for a ..."
-            ],
-            "id": "p103"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         3396,
@@ -207391,7 +207375,11 @@
         3401,
         3404,
         3407,
-        3408
+        3408,
+        3410,
+        3413,
+        3416,
+        3417
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -211175,39 +211163,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p3"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices",
-        "choices": [
-          {
-            "name": "Temple Bell",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: Each player draws a card."
-            ],
-            "id": "p81"
-          },
-          {
-            "mana_cost": "{2}{R}{R}",
-            "name": "Wild Ricochet",
-            "index": 1,
-            "action": "cast",
-            "id": "p138"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         3929,
         3931,
         3934,
-        3935
+        3935,
+        3937,
+        3938
       ],
       "subsequentActions": [
         "spectator7 has started watching",

@@ -65312,30 +65312,24 @@
         "mana_plan": "",
         "attackers": "",
         "blockers": "",
-        "text": "Red",
+        "text": "",
         "choice": "1"
       },
       "actionResult": {
-        "success": false,
-        "error": "'Red' is not a valid choice",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_choice_1",
         "game_seq": 135,
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Heath: Thriving Heath enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Heath: As Thriving Heath enters, choose a color other than white."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_message": "Choose color",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         99,
         100,
-        101
+        101,
+        102,
+        103
       ],
       "subsequentActions": [],
       "actionSeq": 135,
@@ -66655,7 +66649,8 @@
       "llmEventIndices": [
         183,
         217,
-        218
+        218,
+        219
       ],
       "subsequentActions": [],
       "actionSeq": 294,
@@ -67277,23 +67272,29 @@
         "auto_tap": true,
         "pile": 1,
         "mana_plan": "",
-        "attackers": "p71,p77,p81,p64",
+        "attackers": "all",
         "blockers": "",
         "text": "",
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p64' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][3]:\n    'p64'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 302
       },
       "llmEventIndices": [
         220,
         221,
-        222
+        222,
+        223,
+        224,
+        225
       ],
-      "subsequentActions": [
-        "GPT54 Villain attacks GPT5 Valley with 4 creatures"
-      ],
-      "actionSeq": 295,
+      "subsequentActions": [],
+      "actionSeq": 302,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -68072,7 +68073,8 @@
       "llmEventIndices": [
         267,
         268,
-        269
+        269,
+        270
       ],
       "subsequentActions": [
         "GPT54 Villain attacks GPT5 Valley with 6 creatures",

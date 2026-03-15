@@ -21608,7 +21608,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p4"
+        "mana_plan": [
+          "p4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -22534,28 +22536,23 @@
       ],
       "choiceCount": 1,
       "isForced": true,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_TARGET requires index=N to select a target, or answer=false to cancel targeting. Call get_action_choices first to see available targets.",
-        "choices": [
-          {
-            "name": "Hollow One",
-            "target_type": "card",
-            "index": 0,
-            "id": "p12"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         157,
         158,
-        159
+        159,
+        160,
+        161
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -23865,7 +23862,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [

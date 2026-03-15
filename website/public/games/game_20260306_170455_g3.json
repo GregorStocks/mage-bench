@@ -116680,10 +116680,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "G31FL Pessim chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -116984,10 +116982,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "G31FL Pessim skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -117122,10 +117118,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 11,
+      "subsequentActions": [],
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -117264,7 +117258,7 @@
         18
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117414,12 +117408,8 @@
         17,
         20
       ],
-      "subsequentActions": [
-        "G31FL Pessim skips Draw step",
-        "G31FL Pessim puts Swamp from hand onto the Battlefield",
-        "G31FL Pessim casts Thieves' Guild Enforcer from hand"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 7,
@@ -117563,7 +117553,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 17,
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117725,11 +117715,8 @@
         21,
         24
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Thieves' Guild Enforcer from stack onto the Battlefield",
-        "G31FL Pessim - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 22
     },
     {
       "index": 9,
@@ -117914,11 +117901,8 @@
         25,
         26
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Primeval Herald from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Gem31P Minimal puts Phyrexian Reclamation from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 22
+      "subsequentActions": [],
+      "actionSeq": 26
     },
     {
       "index": 11,
@@ -118077,10 +118061,8 @@
         27,
         28
       ],
-      "subsequentActions": [
-        "G31FL Pessim skip attack"
-      ],
-      "actionSeq": 26
+      "subsequentActions": [],
+      "actionSeq": 30
     },
     {
       "index": 12,
@@ -118282,7 +118264,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 30
+      "actionSeq": 32
     },
     {
       "index": 13,
@@ -118482,7 +118464,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 32,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -118664,10 +118646,8 @@
         33,
         34
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 33,
+      "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118845,10 +118825,8 @@
         35,
         36
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 37,
+      "subsequentActions": [],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119038,7 +119016,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -119426,10 +119404,8 @@
         43,
         44
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 45,
+      "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -119610,7 +119586,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -119809,11 +119785,8 @@
         47,
         52
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Swamp from hand onto the Battlefield",
-        "G31FL Pessim casts Scroll of Avacyn from hand"
-      ],
-      "actionSeq": 43,
+      "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119993,10 +119966,8 @@
         49,
         50
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Scroll of Avacyn from stack onto the Battlefield"
-      ],
-      "actionSeq": 52,
+      "subsequentActions": [],
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -120175,7 +120146,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 55,
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120368,12 +120339,8 @@
         53,
         56
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Scroll of Avacyn from stack onto the Battlefield",
-        "G31FL Pessim sacrificed Scroll of Avacyn (source: Scroll of Avacyn)",
-        "G31FL Pessim activates: draw a card. If you control an Angel, you gain 5 life. from Scroll of Avacyn"
-      ],
-      "actionSeq": 53,
+      "subsequentActions": [],
+      "actionSeq": 60,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -120607,7 +120574,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 60,
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -121009,7 +120976,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 63
+      "actionSeq": 67
     },
     {
       "index": 28,
@@ -121213,10 +121180,8 @@
         63,
         66
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 1 creature"
-      ],
-      "actionSeq": 62,
+      "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -121407,7 +121372,7 @@
         68
       ],
       "subsequentActions": [],
-      "actionSeq": 67
+      "actionSeq": 71
     },
     {
       "index": 30,
@@ -121611,10 +121576,8 @@
         67,
         70
       ],
-      "subsequentActions": [
-        "Attacker: Thieves' Guild Enforcer (1/1) unblocked"
-      ],
-      "actionSeq": 68,
+      "subsequentActions": [],
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -121792,7 +121755,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 71
+      "actionSeq": 75
     },
     {
       "index": 32,
@@ -121982,10 +121945,8 @@
         71,
         74
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 1 life at combat from Thieves' Guild Enforcer"
-      ],
-      "actionSeq": 72,
+      "subsequentActions": [],
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -122244,7 +122205,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 76,
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -122484,7 +122445,7 @@
         78
       ],
       "subsequentActions": [],
-      "actionSeq": 78,
+      "actionSeq": 79,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -122697,10 +122658,8 @@
         79,
         80
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 79,
+      "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -122906,10 +122865,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Perilous Myr from hand"
-      ],
-      "actionSeq": 83,
+      "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123110,10 +123067,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Perilous Myr from stack onto the Battlefield"
-      ],
-      "actionSeq": 87,
+      "subsequentActions": [],
+      "actionSeq": 90,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123315,10 +123270,8 @@
         85,
         86
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 90
+      "subsequentActions": [],
+      "actionSeq": 94
     },
     {
       "index": 40,
@@ -123530,7 +123483,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 96,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123998,10 +123951,8 @@
         91,
         92
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 98,
+      "subsequentActions": [],
+      "actionSeq": 102,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -124217,7 +124168,7 @@
         96
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 106,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -124445,11 +124396,8 @@
         95,
         98
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Swamp from hand onto the Battlefield",
-        "G31FL Pessim casts Oona's Blackguard from hand"
-      ],
-      "actionSeq": 96
+      "subsequentActions": [],
+      "actionSeq": 107
     },
     {
       "index": 45,
@@ -124667,7 +124615,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 106,
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -124904,11 +124852,8 @@
         99,
         102
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Oona's Blackguard from stack onto the Battlefield",
-        "G31FL Pessim - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 107
+      "subsequentActions": [],
+      "actionSeq": 111
     },
     {
       "index": 47,
@@ -125182,11 +125127,8 @@
         103,
         108
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Myr Sire from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Gem31P Minimal puts Douse in Gloom from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 111
+      "subsequentActions": [],
+      "actionSeq": 115
     },
     {
       "index": 49,
@@ -125680,7 +125622,7 @@
         112
       ],
       "subsequentActions": [],
-      "actionSeq": 116,
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -125949,10 +125891,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 1 creature"
-      ],
-      "actionSeq": 115
+      "subsequentActions": [],
+      "actionSeq": 121
     },
     {
       "index": 52,
@@ -126223,7 +126163,7 @@
         114
       ],
       "subsequentActions": [],
-      "actionSeq": 121,
+      "actionSeq": 122,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -126460,7 +126400,7 @@
         118
       ],
       "subsequentActions": [],
-      "actionSeq": 120,
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -126726,10 +126666,8 @@
         115,
         116
       ],
-      "subsequentActions": [
-        "Attacker: Thieves' Guild Enforcer (1/1) blocked by Perilous Myr (1/1)"
-      ],
-      "actionSeq": 122
+      "subsequentActions": [],
+      "actionSeq": 127
     },
     {
       "index": 55,
@@ -126996,7 +126934,7 @@
         120
       ],
       "subsequentActions": [],
-      "actionSeq": 127
+      "actionSeq": 133
     },
     {
       "index": 56,
@@ -127206,13 +127144,8 @@
         119,
         122
       ],
-      "subsequentActions": [
-        "Perilous Myr deals 1 damage to Thieves' Guild Enforcer",
-        "Thieves' Guild Enforcer deals 1 damage to Perilous Myr",
-        "Thieves' Guild Enforcer died",
-        "Perilous Myr died"
-      ],
-      "actionSeq": 126,
+      "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -127443,10 +127376,8 @@
         121,
         124
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Perilous Myr - When Perilous Myr dies, it deals 2 damage to any target. - targeting Oona's Blackguard"
-      ],
-      "actionSeq": 133
+      "subsequentActions": [],
+      "actionSeq": 136
     },
     {
       "index": 58,
@@ -127693,11 +127624,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "Perilous Myr deals 2 damage to Oona's Blackguard",
-        "Oona's Blackguard died"
-      ],
-      "actionSeq": 136
+      "subsequentActions": [],
+      "actionSeq": 140
     },
     {
       "index": 60,
@@ -127954,7 +127882,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 140
+      "actionSeq": 142
     },
     {
       "index": 61,
@@ -128219,7 +128147,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 142,
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -128465,10 +128393,8 @@
         131,
         132
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 143,
+      "subsequentActions": [],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -128713,10 +128639,8 @@
         133,
         134
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Phyrexian Rager from hand"
-      ],
-      "actionSeq": 147,
+      "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -128964,11 +128888,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Phyrexian Rager from stack onto the Battlefield",
-        "Gem31P Minimal - Ability triggers: Phyrexian Rager - When Phyrexian Rager enters, you draw a card and you lose 1 life."
-      ],
-      "actionSeq": 152,
+      "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129215,10 +129136,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 1 life from Phyrexian Rager"
-      ],
-      "actionSeq": 156,
+      "subsequentActions": [],
+      "actionSeq": 159,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129466,10 +129385,8 @@
         139,
         140
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 159
+      "subsequentActions": [],
+      "actionSeq": 163
     },
     {
       "index": 67,
@@ -129714,7 +129631,7 @@
         144
       ],
       "subsequentActions": [],
-      "actionSeq": 163,
+      "actionSeq": 165,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -130228,7 +130145,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 165
+      "actionSeq": 168
     },
     {
       "index": 70,
@@ -130480,10 +130397,8 @@
         147,
         153
       ],
-      "subsequentActions": [
-        "G31FL Pessim skip attack"
-      ],
-      "actionSeq": 168
+      "subsequentActions": [],
+      "actionSeq": 173
     },
     {
       "index": 71,
@@ -130795,10 +130710,8 @@
         154,
         155
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 173
+      "subsequentActions": [],
+      "actionSeq": 178
     },
     {
       "index": 73,
@@ -131092,7 +131005,7 @@
         157
       ],
       "subsequentActions": [],
-      "actionSeq": 178,
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -131389,10 +131302,8 @@
         158,
         159
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 179,
+      "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -131676,7 +131587,7 @@
         161
       ],
       "subsequentActions": [],
-      "actionSeq": 183,
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -131954,10 +131865,8 @@
         162,
         163
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -132245,7 +132154,7 @@
         171
       ],
       "subsequentActions": [],
-      "actionSeq": 188,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -132848,10 +132757,8 @@
         168,
         169
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 192,
+      "subsequentActions": [],
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -133128,7 +133035,7 @@
         173
       ],
       "subsequentActions": [],
-      "actionSeq": 196,
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -133424,11 +133331,8 @@
         172,
         179
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield",
-        "G31FL Pessim casts Gonti, Lord of Luxury from hand"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -133446,24 +133350,291 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "choice": "p2"
+        "choice": "yes"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "message": "Select a card to exile",
+        "response_type": "index",
+        "respond_with": "choice=pN — must pick a target",
+        "context": "T5 Precombat Main/Precombat Main (G31FL Pessim) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Oona's Blackguard",
+                "rules": [
+                  "Flying",
+                  "Each other Rogue creature you control enters with an additional +1/+1 counter on it.",
+                  "Whenever a creature you control with a +1/+1 counter on it deals combat damage to a player, that player discards a card."
+                ],
+                "id": "p31"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p28"
+              },
+              {
+                "name": "Thieves' Guild Enforcer",
+                "rules": [
+                  "Flash",
+                  "Whenever {this} or another Rogue you control enters, each opponent mills two cards.",
+                  "As long as an opponent has eight or more cards in their graveyard, {this} gets +2/+1 and has deathtouch.",
+                  ": ",
+                  "ICON_BADOpponent graveyard size: 5 (need: 8)"
+                ],
+                "id": "p9"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Gonti, Lord of Luxury",
+                "rules": [
+                  "Deathtouch",
+                  "When {this} enters, look at the top four cards of target opponent's library, exile one of them face down, then put the rest on the bottom of that library in a random order. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast it."
+                ],
+                "id": "p46",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "name": "G31FL Pessim",
+            "library_size": 28,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{3}{W}{W}",
+                "name": "Baneslayer Angel",
+                "rules": [
+                  "Flying",
+                  "First strike",
+                  "Lifelink",
+                  "Protection from Demons and from Dragons"
+                ],
+                "power": "5",
+                "id": "p44",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{1}{W}{W}",
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "power": "3",
+                "id": "p3",
+                "toughness": "3"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p6"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Douse in Gloom",
+                "rules": [
+                  "{this} deals 2 damage to target creature and you gain 2 life."
+                ],
+                "id": "p37"
+              },
+              {
+                "name": "Myr Sire",
+                "rules": [
+                  "When {this} dies, create a 1/1 colorless Phyrexian Myr artifact creature token."
+                ],
+                "id": "p38"
+              },
+              {
+                "name": "Perilous Myr",
+                "rules": [
+                  "When {this} dies, it deals 2 damage to any target."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Phyrexian Reclamation",
+                "rules": [
+                  "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand."
+                ],
+                "id": "p25"
+              },
+              {
+                "name": "Primeval Herald",
+                "rules": [
+                  "Trample",
+                  "Whenever {this} enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p26"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p10"
+              },
+              {
+                "tapped": false,
+                "name": "Phyrexian Rager",
+                "rules": [
+                  "When {this} enters, you draw a card and you lose 1 life."
+                ],
+                "id": "p40",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "Gem31P Minimal",
+            "library_size": 24,
+            "life": 18
+          }
+        ],
+        "board_cursor": 29,
+        "choices": [
+          {
+            "name": "Malefic Scythe",
+            "target_type": "card",
+            "index": 0,
+            "id": "l49"
+          },
+          {
+            "name": "Phyrexian Gargantua",
+            "target_type": "card",
+            "index": 1,
+            "id": "l50"
+          },
+          {
+            "name": "Snapping Gnarlid",
+            "target_type": "card",
+            "index": 2,
+            "id": "l51"
+          },
+          {
+            "name": "Turntimber Basilisk",
+            "target_type": "card",
+            "index": 3,
+            "id": "l52"
+          }
+        ],
+        "stack": [
+          {
+            "name": "Ability",
+            "targets": [
+              {
+                "name": "Gem31P Minimal",
+                "id": "p2"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 1,
         "game_seq": 207,
-        "error": "Object p2 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 1,
+        "required": true,
+        "can_cancel": false,
+        "action_taken": "confirmed",
+        "success": true
       },
       "llmEventIndices": [
         173,
         174,
-        175
+        175,
+        176,
+        178,
+        181
       ],
       "subsequentActions": [],
-      "actionSeq": 202,
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -133754,11 +133925,8 @@
         180,
         185
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Gonti, Lord of Luxury from stack onto the Battlefield",
-        "G31FL Pessim - Ability triggers: Gonti, Lord of Luxury - When Gonti, Lord of Luxury enters, look at the top four cards of target opponent's library, exile one of them face down, then put the rest on the bottom of that library in a random order. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast it. - targeting Gem31P Minimal"
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134050,7 +134218,7 @@
         183
       ],
       "subsequentActions": [],
-      "actionSeq": 207,
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -134368,13 +134536,8 @@
         186,
         187
       ],
-      "subsequentActions": [
-        "G31FL Pessim moves a face down object from library to the exile zone (source: Gonti, Lord of Luxury)",
-        "G31FL Pessim puts a card from library to the bottom of Gem31P Minimal's library (source: Gonti, Lord of Luxury)",
-        "G31FL Pessim puts a card from library to the bottom of Gem31P Minimal's library (source: Gonti, Lord of Luxury)",
-        "G31FL Pessim puts a card from library to the bottom of Gem31P Minimal's library (source: Gonti, Lord of Luxury)"
-      ],
-      "actionSeq": 208,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134664,10 +134827,8 @@
         188,
         189
       ],
-      "subsequentActions": [
-        "G31FL Pessim skip attack"
-      ],
-      "actionSeq": 215,
+      "subsequentActions": [],
+      "actionSeq": 219,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135005,7 +135166,7 @@
         191
       ],
       "subsequentActions": [],
-      "actionSeq": 219,
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135378,7 +135539,7 @@
         193
       ],
       "subsequentActions": [],
-      "actionSeq": 221,
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -135716,10 +135877,8 @@
         194,
         195
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 222,
+      "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -136030,10 +136189,8 @@
         196,
         199
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Courser of Kruphix from hand"
-      ],
-      "actionSeq": 226,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -136373,10 +136530,8 @@
         200,
         201
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Courser of Kruphix from stack onto the Battlefield"
-      ],
-      "actionSeq": 233,
+      "subsequentActions": [],
+      "actionSeq": 236,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -136692,7 +136847,7 @@
         203
       ],
       "subsequentActions": [],
-      "actionSeq": 236,
+      "actionSeq": 238,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -136993,10 +137148,8 @@
         204,
         205
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 238
+      "subsequentActions": [],
+      "actionSeq": 241
     },
     {
       "index": 96,
@@ -137307,7 +137460,7 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 241,
+      "actionSeq": 243,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -138049,10 +138202,8 @@
         214,
         215
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 245,
+      "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -138357,7 +138508,7 @@
         219
       ],
       "subsequentActions": [],
-      "actionSeq": 249,
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -138680,11 +138831,8 @@
         218,
         221
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield",
-        "G31FL Pessim casts Baneslayer Angel from hand"
-      ],
-      "actionSeq": 243
+      "subsequentActions": [],
+      "actionSeq": 257
     },
     {
       "index": 102,
@@ -139044,10 +139192,8 @@
         222,
         227
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Baneslayer Angel from stack onto the Battlefield"
-      ],
-      "actionSeq": 257
+      "subsequentActions": [],
+      "actionSeq": 260
     },
     {
       "index": 104,
@@ -139766,10 +139912,8 @@
         228,
         229
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 1 creature"
-      ],
-      "actionSeq": 260
+      "subsequentActions": [],
+      "actionSeq": 266
     },
     {
       "index": 107,
@@ -140120,7 +140264,7 @@
         231
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 267,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -140464,10 +140608,8 @@
         232,
         233
       ],
-      "subsequentActions": [
-        "Attacker: Gonti, Lord of Luxury (2/3) unblocked"
-      ],
-      "actionSeq": 267
+      "subsequentActions": [],
+      "actionSeq": 271
     },
     {
       "index": 109,
@@ -140786,10 +140928,8 @@
         234,
         235
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 2 life at combat from Gonti, Lord of Luxury"
-      ],
-      "actionSeq": 271
+      "subsequentActions": [],
+      "actionSeq": 275
     },
     {
       "index": 110,
@@ -141163,7 +141303,7 @@
         237
       ],
       "subsequentActions": [],
-      "actionSeq": 275
+      "actionSeq": 277
     },
     {
       "index": 111,
@@ -141527,7 +141667,7 @@
         239
       ],
       "subsequentActions": [],
-      "actionSeq": 277,
+      "actionSeq": 278,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -141882,10 +142022,8 @@
         240,
         241
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Zendikar's Roil from hand"
-      ],
-      "actionSeq": 278,
+      "subsequentActions": [],
+      "actionSeq": 287,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -142246,10 +142384,8 @@
         242,
         243
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Zendikar's Roil from stack onto the Battlefield"
-      ],
-      "actionSeq": 287,
+      "subsequentActions": [],
+      "actionSeq": 290,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -142617,10 +142753,8 @@
         244,
         245
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Evolving Wilds from hand onto the Battlefield"
-      ],
-      "actionSeq": 290,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -142979,11 +143113,8 @@
         246,
         247
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token.",
-        "Gem31P Minimal - Ability triggers: Courser of Kruphix - Landfall — Whenever a land you control enters, you gain 1 life."
-      ],
-      "actionSeq": 292,
+      "subsequentActions": [],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -143346,10 +143477,8 @@
         248,
         249
       ],
-      "subsequentActions": [
-        "Gem31P Minimal gains 1 life (source: Courser of Kruphix)"
-      ],
-      "actionSeq": 295,
+      "subsequentActions": [],
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -143707,10 +143836,8 @@
         250,
         251
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Elemental Token token"
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -144061,7 +144188,7 @@
         253
       ],
       "subsequentActions": [],
-      "actionSeq": 301,
+      "actionSeq": 302,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -144452,11 +144579,8 @@
         254,
         255
       ],
-      "subsequentActions": [
-        "Gem31P Minimal sacrificed Evolving Wilds (source: Evolving Wilds)",
-        "Gem31P Minimal activates: search your library for a basic land card, put it onto the battlefield tapped, then shuffle. from Evolving Wilds"
-      ],
-      "actionSeq": 302,
+      "subsequentActions": [],
+      "actionSeq": 305,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -144862,10 +144986,8 @@
         256,
         257
       ],
-      "subsequentActions": [
-        "Gem31P Minimal searches their library (source: Evolving Wilds)"
-      ],
-      "actionSeq": 305,
+      "subsequentActions": [],
+      "actionSeq": 308,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145233,11 +145355,8 @@
         258,
         259
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from library onto the Battlefield (source: Evolving Wilds)",
-        "Gem31P Minimal's library is shuffled (source: Evolving Wilds)"
-      ],
-      "actionSeq": 308,
+      "subsequentActions": [],
+      "actionSeq": 311,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145589,11 +145708,8 @@
         260,
         261
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token.",
-        "Gem31P Minimal - Ability triggers: Courser of Kruphix - Landfall — Whenever a land you control enters, you gain 1 life."
-      ],
-      "actionSeq": 311,
+      "subsequentActions": [],
+      "actionSeq": 314,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145949,10 +146065,8 @@
         262,
         263
       ],
-      "subsequentActions": [
-        "Gem31P Minimal gains 1 life (source: Courser of Kruphix)"
-      ],
-      "actionSeq": 314,
+      "subsequentActions": [],
+      "actionSeq": 317,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -146332,10 +146446,8 @@
         264,
         265
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Elemental Token token"
-      ],
-      "actionSeq": 317,
+      "subsequentActions": [],
+      "actionSeq": 320,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -146714,7 +146826,7 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 320,
+      "actionSeq": 322,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -147070,10 +147182,8 @@
         268,
         269
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 322
+      "subsequentActions": [],
+      "actionSeq": 325
     },
     {
       "index": 127,
@@ -147446,7 +147556,7 @@
         279
       ],
       "subsequentActions": [],
-      "actionSeq": 325,
+      "actionSeq": 327,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148249,10 +148359,8 @@
         274,
         275
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 329,
+      "subsequentActions": [],
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -148602,10 +148710,8 @@
         276,
         277
       ],
-      "subsequentActions": [
-        "G31FL Pessim casts Emancipation Angel from hand"
-      ],
-      "actionSeq": 333,
+      "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -148954,7 +149060,7 @@
         281
       ],
       "subsequentActions": [],
-      "actionSeq": 340,
+      "actionSeq": 345,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -149338,12 +149444,8 @@
         280,
         283
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield",
-        "G31FL Pessim casts Emancipation Angel from hand",
-        "G31FL Pessim casts Masked Blackguard from hand"
-      ],
-      "actionSeq": 327
+      "subsequentActions": [],
+      "actionSeq": 346
     },
     {
       "index": 133,
@@ -149697,7 +149799,7 @@
         285
       ],
       "subsequentActions": [],
-      "actionSeq": 345,
+      "actionSeq": 348,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -150093,10 +150195,8 @@
         284,
         287
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Masked Blackguard from stack onto the Battlefield"
-      ],
-      "actionSeq": 346
+      "subsequentActions": [],
+      "actionSeq": 349
     },
     {
       "index": 135,
@@ -150541,7 +150641,7 @@
         289
       ],
       "subsequentActions": [],
-      "actionSeq": 348,
+      "actionSeq": 352,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -150924,11 +151024,8 @@
         288,
         295
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Emancipation Angel from stack onto the Battlefield",
-        "G31FL Pessim - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand."
-      ],
-      "actionSeq": 349
+      "subsequentActions": [],
+      "actionSeq": 353
     },
     {
       "index": 137,
@@ -151025,140 +151122,352 @@
       ],
       "choiceCount": 11,
       "isForced": false,
-      "chosen": null,
+      "chosen": 6,
       "chosenArgs": {
-        "choice": "p1"
+        "choice": "p6"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T7 Precombat Main/Precombat Main (G31FL Pessim) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 1,
+            "graveyard": [
+              {
+                "name": "Oona's Blackguard",
+                "rules": [
+                  "Flying",
+                  "Each other Rogue creature you control enters with an additional +1/+1 counter on it.",
+                  "Whenever a creature you control with a +1/+1 counter on it deals combat damage to a player, that player discards a card."
+                ],
+                "id": "p31"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p28"
+              },
+              {
+                "name": "Thieves' Guild Enforcer",
+                "rules": [
+                  "Flash",
+                  "Whenever {this} or another Rogue you control enters, each opponent mills two cards.",
+                  "As long as an opponent has eight or more cards in their graveyard, {this} gets +2/+1 and has deathtouch.",
+                  ": ",
+                  "ICON_BADOpponent graveyard size: 6 (need: 8)"
+                ],
+                "id": "p9"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Baneslayer Angel",
+                "rules": [
+                  "Flying",
+                  "First strike",
+                  "Lifelink",
+                  "Protection from Demons and from Dragons"
+                ],
+                "id": "p44",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "id": "p3",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Gonti, Lord of Luxury",
+                "rules": [
+                  "Deathtouch",
+                  "When {this} enters, look at the top four cards of target opponent's library, exile one of them face down, then put the rest on the bottom of that library in a random order. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast it."
+                ],
+                "id": "p46",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Masked Blackguard",
+                "rules": [
+                  "Flash",
+                  "{2}{B}: {this} gets +1/+1 until end of turn."
+                ],
+                "id": "p56",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p85"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "name": "G31FL Pessim",
+            "library_size": 26,
+            "mana_pool": {
+              "B": 1,
+              "W": 1
+            },
+            "life": 20,
+            "hand": [
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p6"
+              }
+            ]
+          },
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Douse in Gloom",
+                "rules": [
+                  "{this} deals 2 damage to target creature and you gain 2 life."
+                ],
+                "id": "p37"
+              },
+              {
+                "name": "Evolving Wilds",
+                "rules": [
+                  "{T}, Sacrifice {this}: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p55"
+              },
+              {
+                "name": "Myr Sire",
+                "rules": [
+                  "When {this} dies, create a 1/1 colorless Phyrexian Myr artifact creature token."
+                ],
+                "id": "p38"
+              },
+              {
+                "name": "Perilous Myr",
+                "rules": [
+                  "When {this} dies, it deals 2 damage to any target."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Phyrexian Reclamation",
+                "rules": [
+                  "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand."
+                ],
+                "id": "p25"
+              },
+              {
+                "name": "Primeval Herald",
+                "rules": [
+                  "Trample",
+                  "Whenever {this} enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p26"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Courser of Kruphix",
+                "rules": [
+                  "Play with the top card of your library revealed.",
+                  "You may play lands from the top of your library.",
+                  "Landfall &mdash; Whenever a land you control enters, you gain 1 life."
+                ],
+                "id": "p43",
+                "power": "2",
+                "toughness": "4",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p62",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p84",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p10"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p32"
+              },
+              {
+                "tapped": false,
+                "name": "Phyrexian Rager",
+                "rules": [
+                  "When {this} enters, you draw a card and you lose 1 life."
+                ],
+                "id": "p40",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p77"
+              },
+              {
+                "tapped": false,
+                "name": "Zendikar's Roil",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, create a 2/2 green Elemental creature token."
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "Gem31P Minimal",
+            "exile": [
+              {
+                "name": "Face Down",
+                "id": "p49"
+              }
+            ],
+            "library_size": 20,
+            "life": 18
+          }
+        ],
+        "board_cursor": 43,
         "choices": [
           {
-            "name": "Baneslayer Angel",
-            "target_type": "permanent",
+            "name": "Face Down",
             "index": 0,
-            "power": "5",
-            "id": "p44",
-            "toughness": "5"
-          },
-          {
-            "name": "Emancipation Angel",
-            "target_type": "permanent",
-            "index": 1,
-            "power": "3",
-            "id": "p3",
-            "toughness": "3"
-          },
-          {
-            "name": "Gonti, Lord of Luxury",
-            "target_type": "permanent",
-            "index": 2,
-            "power": "2",
-            "id": "p46",
-            "toughness": "3"
-          },
-          {
-            "name": "Masked Blackguard",
-            "target_type": "permanent",
-            "index": 3,
-            "power": "2",
-            "id": "p56",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 4,
-            "id": "p4"
-          },
-          {
-            "tapped": true,
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 5,
-            "id": "p5"
-          },
-          {
-            "tapped": true,
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 6,
-            "id": "p6"
-          },
-          {
-            "tapped": true,
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 7,
-            "id": "p85"
-          },
-          {
-            "tapped": true,
-            "name": "Swamp",
-            "target_type": "permanent",
-            "index": 8,
-            "id": "p7"
-          },
-          {
-            "tapped": true,
-            "name": "Swamp",
-            "target_type": "permanent",
-            "index": 9,
-            "id": "p8"
-          },
-          {
-            "tapped": true,
-            "name": "Swamp",
-            "target_type": "permanent",
-            "index": 10,
-            "id": "p34"
+            "action": "activate",
+            "playable_abilities": [
+              "Cast Malefic Scythe"
+            ],
+            "id": "p49"
           }
         ],
         "game_seq": 354,
-        "error": "Object p1 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "selected_target_6",
+        "success": true
       },
       "llmEventIndices": [
         289,
         290,
-        291
-      ],
-      "subsequentActions": [],
-      "actionSeq": 352,
-      "pilotContext": {
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 138,
-      "snapshotIndex": 207,
-      "player": "G31FL Pessim",
-      "turn": 13,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "select",
-      "message": "Play spells and abilities",
-      "choices": [
-        {
-          "name": "Face Down",
-          "index": 0,
-          "action": "activate",
-          "playable_abilities": [
-            "Cast Malefic Scythe"
-          ],
-          "id": "p49"
-        }
-      ],
-      "choiceCount": 1,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        293,
-        294
+        291,
+        292,
+        293
       ],
       "subsequentActions": [],
       "actionSeq": 354,
@@ -151167,7 +151476,7 @@
       }
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 206,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -151554,13 +151863,11 @@
         296,
         301
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from battlefield into their hand"
-      ],
-      "actionSeq": 353
+      "subsequentActions": [],
+      "actionSeq": 357
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 210,
       "player": "G31FL Pessim",
       "turn": 13,
@@ -151950,7 +152257,7 @@
       }
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 210,
       "player": "G31FL Pessim",
       "turn": 13,
@@ -151973,7 +152280,7 @@
       "actionSeq": 358
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 209,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -152403,13 +152710,11 @@
         302,
         303
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 1 creature"
-      ],
-      "actionSeq": 357
+      "subsequentActions": [],
+      "actionSeq": 363
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 212,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -152830,7 +153135,7 @@
         305
       ],
       "subsequentActions": [],
-      "actionSeq": 363,
+      "actionSeq": 364,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -152844,7 +153149,7 @@
       }
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 213,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -153231,13 +153536,11 @@
         306,
         307
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) unblocked"
-      ],
-      "actionSeq": 364
+      "subsequentActions": [],
+      "actionSeq": 368
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 215,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -153624,14 +153927,11 @@
         308,
         309
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 5 life at combat from Baneslayer Angel",
-        "G31FL Pessim gains 5 life"
-      ],
-      "actionSeq": 368
+      "subsequentActions": [],
+      "actionSeq": 373
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 217,
       "player": "Gem31P Minimal",
       "turn": 13,
@@ -153659,10 +153959,10 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 373
+      "actionSeq": 375
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 222,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -154101,7 +154401,7 @@
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 222,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -154508,16 +154808,14 @@
         316,
         317
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Rampaging Baloths from hand"
-      ],
-      "actionSeq": 378,
+      "subsequentActions": [],
+      "actionSeq": 388,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 229,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -154944,10 +155242,8 @@
         318,
         319
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Rampaging Baloths from stack onto the Battlefield"
-      ],
-      "actionSeq": 388,
+      "subsequentActions": [],
+      "actionSeq": 391,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -154957,7 +155253,7 @@
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 231,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -155384,17 +155680,15 @@
         320,
         321
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 391,
+      "subsequentActions": [],
+      "actionSeq": 393,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 232,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -155805,17 +156099,15 @@
         322,
         323
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Courser of Kruphix - Landfall — Whenever a land you control enters, you gain 1 life."
-      ],
-      "actionSeq": 393,
+      "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 152,
+      "index": 151,
       "snapshotIndex": 233,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -156219,18 +156511,15 @@
         324,
         325
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
-        "Gem31P Minimal - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 395,
+      "subsequentActions": [],
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 153,
+      "index": 152,
       "snapshotIndex": 234,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -156640,17 +156929,15 @@
         326,
         327
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Elemental Token token"
-      ],
-      "actionSeq": 398,
+      "subsequentActions": [],
+      "actionSeq": 401,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 154,
+      "index": 153,
       "snapshotIndex": 236,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -157055,17 +157342,15 @@
         328,
         329
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Beast Token token"
-      ],
-      "actionSeq": 401,
+      "subsequentActions": [],
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 155,
+      "index": 154,
       "snapshotIndex": 238,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -157510,17 +157795,15 @@
         330,
         331
       ],
-      "subsequentActions": [
-        "Gem31P Minimal gains 1 life (source: Courser of Kruphix)"
-      ],
-      "actionSeq": 404,
+      "subsequentActions": [],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 156,
+      "index": 155,
       "snapshotIndex": 240,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -157964,14 +158247,14 @@
         333
       ],
       "subsequentActions": [],
-      "actionSeq": 407,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 157,
+      "index": 156,
       "snapshotIndex": 242,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -158376,16 +158659,14 @@
         334,
         335
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 409,
+      "subsequentActions": [],
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 158,
+      "index": 157,
       "snapshotIndex": 242,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -158803,14 +159084,14 @@
         345
       ],
       "subsequentActions": [],
-      "actionSeq": 412,
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 159,
+      "index": 158,
       "snapshotIndex": 246,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -159278,7 +159559,7 @@
       }
     },
     {
-      "index": 160,
+      "index": 159,
       "snapshotIndex": 246,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -159691,10 +159972,8 @@
         342,
         343
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 416,
+      "subsequentActions": [],
+      "actionSeq": 420,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -159704,7 +159983,7 @@
       }
     },
     {
-      "index": 161,
+      "index": 160,
       "snapshotIndex": 247,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -160107,14 +160386,14 @@
         351
       ],
       "subsequentActions": [],
-      "actionSeq": 420,
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 162,
+      "index": 161,
       "snapshotIndex": 244,
       "player": "Gem31P Minimal",
       "turn": 14,
@@ -160564,17 +160843,14 @@
         346,
         347
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield",
-        "G31FL Pessim casts Mausoleum Turnkey from hand"
-      ],
-      "actionSeq": 414,
+      "subsequentActions": [],
+      "actionSeq": 427,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 163,
+      "index": 162,
       "snapshotIndex": 253,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -161029,13 +161305,13 @@
         357
       ],
       "subsequentActions": [],
-      "actionSeq": 427,
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 164,
+      "index": 163,
       "snapshotIndex": 252,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -161047,33 +161323,408 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "choice": "p38"
+        "choice": "yes"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T8 Precombat Main/Precombat Main (G31FL Pessim) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 0,
+            "graveyard": [
+              {
+                "name": "Oona's Blackguard",
+                "rules": [
+                  "Flying",
+                  "Each other Rogue creature you control enters with an additional +1/+1 counter on it.",
+                  "Whenever a creature you control with a +1/+1 counter on it deals combat damage to a player, that player discards a card."
+                ],
+                "id": "p31"
+              },
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p28"
+              },
+              {
+                "name": "Thieves' Guild Enforcer",
+                "rules": [
+                  "Flash",
+                  "Whenever {this} or another Rogue you control enters, each opponent mills two cards.",
+                  "As long as an opponent has eight or more cards in their graveyard, {this} gets +2/+1 and has deathtouch.",
+                  ": ",
+                  "ICON_BADOpponent graveyard size: 6 (need: 8)"
+                ],
+                "id": "p9"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Baneslayer Angel",
+                "rules": [
+                  "Flying",
+                  "First strike",
+                  "Lifelink",
+                  "Protection from Demons and from Dragons"
+                ],
+                "id": "p44",
+                "power": "5",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Emancipation Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, return a permanent you control to its owner's hand."
+                ],
+                "id": "p3",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Gonti, Lord of Luxury",
+                "rules": [
+                  "Deathtouch",
+                  "When {this} enters, look at the top four cards of target opponent's library, exile one of them face down, then put the rest on the bottom of that library in a random order. You may cast that card for as long as it remains exiled, and mana of any type can be spent to cast it."
+                ],
+                "id": "p46",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Masked Blackguard",
+                "rules": [
+                  "Flash",
+                  "{2}{B}: {this} gets +1/+1 until end of turn."
+                ],
+                "id": "p56",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Mausoleum Turnkey",
+                "rules": [
+                  "When {this} enters, return target creature card of an opponent's choice from your graveyard to your hand."
+                ],
+                "id": "p95",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p85"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "name": "G31FL Pessim",
+            "library_size": 25,
+            "life": 25,
+            "hand": []
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Douse in Gloom",
+                "rules": [
+                  "{this} deals 2 damage to target creature and you gain 2 life."
+                ],
+                "id": "p37"
+              },
+              {
+                "name": "Evolving Wilds",
+                "rules": [
+                  "{T}, Sacrifice {this}: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p55"
+              },
+              {
+                "name": "Myr Sire",
+                "rules": [
+                  "When {this} dies, create a 1/1 colorless Phyrexian Myr artifact creature token."
+                ],
+                "id": "p38"
+              },
+              {
+                "name": "Perilous Myr",
+                "rules": [
+                  "When {this} dies, it deals 2 damage to any target."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Phyrexian Reclamation",
+                "rules": [
+                  "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand."
+                ],
+                "id": "p25"
+              },
+              {
+                "name": "Primeval Herald",
+                "rules": [
+                  "Trample",
+                  "Whenever {this} enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p26"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Beast Token",
+                "id": "p94",
+                "power": "4",
+                "toughness": "4",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Courser of Kruphix",
+                "rules": [
+                  "Play with the top card of your library revealed.",
+                  "You may play lands from the top of your library.",
+                  "Landfall &mdash; Whenever a land you control enters, you gain 1 life."
+                ],
+                "id": "p43",
+                "power": "2",
+                "toughness": "4",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p62",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p84",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p93",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p10"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p32"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p45"
+              },
+              {
+                "tapped": false,
+                "name": "Phyrexian Rager",
+                "rules": [
+                  "When {this} enters, you draw a card and you lose 1 life."
+                ],
+                "id": "p40",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Rampaging Baloths",
+                "rules": [
+                  "Trample",
+                  "Landfall &mdash; Whenever a land you control enters, create a 4/4 green Beast creature token."
+                ],
+                "id": "p27",
+                "power": "6",
+                "toughness": "6",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p14"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p77"
+              },
+              {
+                "tapped": false,
+                "name": "Zendikar's Roil",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, create a 2/2 green Elemental creature token."
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "Gem31P Minimal",
+            "exile": [
+              {
+                "name": "Face Down",
+                "id": "p49"
+              }
+            ],
+            "library_size": 19,
+            "life": 14
+          }
+        ],
+        "board_cursor": 49,
+        "choices": [
+          {
+            "name": "Face Down",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "Cast Malefic Scythe"
+            ],
+            "id": "p49"
+          }
+        ],
+        "untapped_lands": 3,
         "game_seq": 431,
-        "error": "Object p38 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "confirmed",
+        "success": true
       },
       "llmEventIndices": [
         351,
         352,
-        353
+        353,
+        354,
+        356,
+        359
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Mausoleum Turnkey from stack onto the Battlefield"
-      ],
-      "actionSeq": 426,
+      "subsequentActions": [],
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 165,
+      "index": 164,
       "snapshotIndex": 254,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -161093,7 +161744,8 @@
         358
       ],
       "subsequentActions": [
-        "G31FL Pessim - Ability triggers: Mausoleum Turnkey - When Mausoleum Turnkey enters, return target creature card of an opponent's choice from your graveyard to your hand. - targeting Myr Sire"
+        "G31FL Pessim - Ability triggers: Mausoleum Turnkey - When Mausoleum Turnkey enters, return target creature card of an opponent's choice from your graveyard to your hand. - targeting Myr Sire",
+        "Ability has been fizzled: When {this} enters, return target creature card of an opponent's choice from your graveyard to your hand."
       ],
       "actionSeq": 429,
       "pilotContext": {
@@ -161101,46 +161753,7 @@
       }
     },
     {
-      "index": 166,
-      "snapshotIndex": 255,
-      "player": "G31FL Pessim",
-      "turn": 15,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "select",
-      "message": "Play spells and abilities",
-      "choices": [
-        {
-          "name": "Face Down",
-          "index": 0,
-          "action": "activate",
-          "playable_abilities": [
-            "Cast Malefic Scythe"
-          ],
-          "id": "p49"
-        }
-      ],
-      "choiceCount": 1,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        359,
-        360
-      ],
-      "subsequentActions": [
-        "Ability has been fizzled: When {this} enters, return target creature card of an opponent's choice from your graveyard to your hand."
-      ],
-      "actionSeq": 431,
-      "pilotContext": {
-        "untappedLands": 3,
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 167,
+      "index": 165,
       "snapshotIndex": 259,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -161596,7 +162209,7 @@
       }
     },
     {
-      "index": 168,
+      "index": 166,
       "snapshotIndex": 259,
       "player": "G31FL Pessim",
       "turn": 15,
@@ -161624,7 +162237,7 @@
       }
     },
     {
-      "index": 169,
+      "index": 167,
       "snapshotIndex": 262,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -162134,7 +162747,7 @@
       }
     },
     {
-      "index": 170,
+      "index": 168,
       "snapshotIndex": 262,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -162571,16 +163184,14 @@
         368,
         369
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) unblocked"
-      ],
-      "actionSeq": 442,
+      "subsequentActions": [],
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 171,
+      "index": 169,
       "snapshotIndex": 264,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -163017,17 +163628,14 @@
         370,
         371
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 5 life at combat from Baneslayer Angel",
-        "G31FL Pessim gains 5 life"
-      ],
-      "actionSeq": 446,
+      "subsequentActions": [],
+      "actionSeq": 451,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 172,
+      "index": 170,
       "snapshotIndex": 266,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -163451,13 +164059,13 @@
         373
       ],
       "subsequentActions": [],
-      "actionSeq": 451,
+      "actionSeq": 453,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 173,
+      "index": 171,
       "snapshotIndex": 268,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -163931,13 +164539,13 @@
         375
       ],
       "subsequentActions": [],
-      "actionSeq": 453,
+      "actionSeq": 455,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 174,
+      "index": 172,
       "snapshotIndex": 270,
       "player": "Gem31P Minimal",
       "turn": 15,
@@ -164430,7 +165038,7 @@
         377
       ],
       "subsequentActions": [],
-      "actionSeq": 455,
+      "actionSeq": 456,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -164443,7 +165051,7 @@
       }
     },
     {
-      "index": 175,
+      "index": 173,
       "snapshotIndex": 271,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -164915,10 +165523,8 @@
         378,
         379
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 456,
+      "subsequentActions": [],
+      "actionSeq": 460,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -164929,7 +165535,7 @@
       }
     },
     {
-      "index": 176,
+      "index": 174,
       "snapshotIndex": 272,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -165385,17 +165991,15 @@
         380,
         381
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Courser of Kruphix - Landfall — Whenever a land you control enters, you gain 1 life."
-      ],
-      "actionSeq": 460,
+      "subsequentActions": [],
+      "actionSeq": 462,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 177,
+      "index": 175,
       "snapshotIndex": 273,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -165844,18 +166448,15 @@
         382,
         383
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
-        "Gem31P Minimal - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 462,
+      "subsequentActions": [],
+      "actionSeq": 465,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 178,
+      "index": 176,
       "snapshotIndex": 274,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -166310,17 +166911,15 @@
         384,
         385
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Elemental Token token"
-      ],
-      "actionSeq": 465,
+      "subsequentActions": [],
+      "actionSeq": 468,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 179,
+      "index": 177,
       "snapshotIndex": 276,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -166792,17 +167391,15 @@
         386,
         387
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Beast Token token"
-      ],
-      "actionSeq": 468,
+      "subsequentActions": [],
+      "actionSeq": 471,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 180,
+      "index": 178,
       "snapshotIndex": 278,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -167266,10 +167863,8 @@
         390,
         391
       ],
-      "subsequentActions": [
-        "Gem31P Minimal gains 1 life (source: Courser of Kruphix)"
-      ],
-      "actionSeq": 471,
+      "subsequentActions": [],
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -167280,7 +167875,7 @@
       }
     },
     {
-      "index": 181,
+      "index": 179,
       "snapshotIndex": 280,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -167743,17 +168338,15 @@
         392,
         393
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Phyrexian Debaser from hand"
-      ],
-      "actionSeq": 474,
+      "subsequentActions": [],
+      "actionSeq": 480,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 182,
+      "index": 180,
       "snapshotIndex": 285,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -168278,10 +168871,8 @@
         394,
         395
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Phyrexian Debaser from stack onto the Battlefield"
-      ],
-      "actionSeq": 480,
+      "subsequentActions": [],
+      "actionSeq": 483,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -168291,7 +168882,7 @@
       }
     },
     {
-      "index": 183,
+      "index": 181,
       "snapshotIndex": 287,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -168805,14 +169396,14 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 483,
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 184,
+      "index": 182,
       "snapshotIndex": 289,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -169275,16 +169866,14 @@
         398,
         399
       ],
-      "subsequentActions": [
-        "Gem31P Minimal skip attack"
-      ],
-      "actionSeq": 485,
+      "subsequentActions": [],
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 185,
+      "index": 183,
       "snapshotIndex": 289,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -169753,7 +170342,7 @@
         405
       ],
       "subsequentActions": [],
-      "actionSeq": 488,
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -169763,7 +170352,7 @@
       }
     },
     {
-      "index": 186,
+      "index": 184,
       "snapshotIndex": 293,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -170256,7 +170845,7 @@
       }
     },
     {
-      "index": 187,
+      "index": 185,
       "snapshotIndex": 293,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -170302,7 +170891,7 @@
       }
     },
     {
-      "index": 188,
+      "index": 186,
       "snapshotIndex": 291,
       "player": "Gem31P Minimal",
       "turn": 16,
@@ -170827,16 +171416,14 @@
         406,
         413
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 490,
+      "subsequentActions": [],
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 189,
+      "index": 187,
       "snapshotIndex": 296,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -171405,7 +171992,7 @@
       }
     },
     {
-      "index": 190,
+      "index": 188,
       "snapshotIndex": 296,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -171918,16 +172505,14 @@
         410,
         411
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 5 creatures"
-      ],
-      "actionSeq": 498,
+      "subsequentActions": [],
+      "actionSeq": 502,
       "pilotContext": {
         "untappedLands": 8
       }
     },
     {
-      "index": 191,
+      "index": 189,
       "snapshotIndex": 297,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -172426,13 +173011,13 @@
         415
       ],
       "subsequentActions": [],
-      "actionSeq": 502,
+      "actionSeq": 507,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 192,
+      "index": 190,
       "snapshotIndex": 295,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -172952,17 +173537,14 @@
         414,
         417
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 5 creatures",
-        "G31FL Pessim activates: Masked Blackguard gets +1/+1 until end of turn. from Masked Blackguard"
-      ],
-      "actionSeq": 497,
+      "subsequentActions": [],
+      "actionSeq": 508,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 193,
+      "index": 191,
       "snapshotIndex": 301,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -173485,13 +174067,13 @@
         425
       ],
       "subsequentActions": [],
-      "actionSeq": 507,
+      "actionSeq": 509,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 194,
+      "index": 192,
       "snapshotIndex": 302,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -174127,13 +174709,13 @@
         419
       ],
       "subsequentActions": [],
-      "actionSeq": 508,
+      "actionSeq": 510,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 195,
+      "index": 193,
       "snapshotIndex": 304,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -174775,7 +175357,7 @@
         427
       ],
       "subsequentActions": [],
-      "actionSeq": 510,
+      "actionSeq": 511,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_blockers",
@@ -174814,7 +175396,7 @@
       }
     },
     {
-      "index": 196,
+      "index": 194,
       "snapshotIndex": 303,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -175337,13 +175919,13 @@
         429
       ],
       "subsequentActions": [],
-      "actionSeq": 509,
+      "actionSeq": 524,
       "pilotContext": {
         "untappedLands": 5
       }
     },
     {
-      "index": 197,
+      "index": 195,
       "snapshotIndex": 305,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -175887,20 +176469,14 @@
         428,
         431
       ],
-      "subsequentActions": [
-        "Attacker: Gonti, Lord of Luxury (2/3) blocked by Elemental Token (2/2)",
-        "Attacker: Baneslayer Angel (5/5) unblocked",
-        "Attacker: Masked Blackguard (3/2) blocked by Elemental Token (2/2)",
-        "Attacker: Emancipation Angel (3/3) unblocked",
-        "Attacker: Mausoleum Turnkey (3/2) blocked by Elemental Token (2/2)"
-      ],
-      "actionSeq": 511,
+      "subsequentActions": [],
+      "actionSeq": 525,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 198,
+      "index": 196,
       "snapshotIndex": 309,
       "player": "G31FL Pessim",
       "turn": 17,
@@ -175926,7 +176502,7 @@
       }
     },
     {
-      "index": 199,
+      "index": 197,
       "snapshotIndex": 310,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -176397,17 +176973,14 @@
         432,
         433
       ],
-      "subsequentActions": [
-        "Gem31P Minimal loses 5 life at combat from Baneslayer Angel",
-        "G31FL Pessim gains 5 life"
-      ],
-      "actionSeq": 525,
+      "subsequentActions": [],
+      "actionSeq": 530,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 200,
+      "index": 198,
       "snapshotIndex": 312,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -176830,20 +177403,14 @@
         434,
         435
       ],
-      "subsequentActions": [
-        "Elemental Token deals 2 damage to Gonti, Lord of Luxury",
-        "Gonti, Lord of Luxury deals 2 damage to Elemental Token",
-        "Elemental Token deals 2 damage to Masked Blackguard",
-        "Masked Blackguard deals 3 damage to Elemental Token",
-        "Gem31P Minimal loses 3 life at combat from Emancipation Angel"
-      ],
-      "actionSeq": 530,
+      "subsequentActions": [],
+      "actionSeq": 545,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 201,
+      "index": 199,
       "snapshotIndex": 314,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -177311,13 +177878,13 @@
         437
       ],
       "subsequentActions": [],
-      "actionSeq": 545,
+      "actionSeq": 547,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 202,
+      "index": 200,
       "snapshotIndex": 316,
       "player": "Gem31P Minimal",
       "turn": 17,
@@ -177804,7 +178371,7 @@
         439
       ],
       "subsequentActions": [],
-      "actionSeq": 547,
+      "actionSeq": 548,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -177816,7 +178383,7 @@
       }
     },
     {
-      "index": 203,
+      "index": 201,
       "snapshotIndex": 317,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -178288,10 +178855,8 @@
         440,
         441
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 548,
+      "subsequentActions": [],
+      "actionSeq": 552,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -178301,7 +178866,7 @@
       }
     },
     {
-      "index": 204,
+      "index": 202,
       "snapshotIndex": 318,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -178768,17 +179333,15 @@
         442,
         443
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Courser of Kruphix - Landfall — Whenever a land you control enters, you gain 1 life."
-      ],
-      "actionSeq": 552,
+      "subsequentActions": [],
+      "actionSeq": 554,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 205,
+      "index": 203,
       "snapshotIndex": 319,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -179248,18 +179811,15 @@
         444,
         445
       ],
-      "subsequentActions": [
-        "Gem31P Minimal - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
-        "Gem31P Minimal - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 554,
+      "subsequentActions": [],
+      "actionSeq": 557,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 206,
+      "index": 204,
       "snapshotIndex": 320,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -179735,17 +180295,15 @@
         446,
         447
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Elemental Token token"
-      ],
-      "actionSeq": 557,
+      "subsequentActions": [],
+      "actionSeq": 560,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 207,
+      "index": 205,
       "snapshotIndex": 322,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -180226,17 +180784,15 @@
         448,
         449
       ],
-      "subsequentActions": [
-        "Gem31P Minimal creates a Beast Token token"
-      ],
-      "actionSeq": 560,
+      "subsequentActions": [],
+      "actionSeq": 563,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 208,
+      "index": 206,
       "snapshotIndex": 324,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -180769,10 +181325,8 @@
         450,
         451
       ],
-      "subsequentActions": [
-        "Gem31P Minimal gains 1 life (source: Courser of Kruphix)"
-      ],
-      "actionSeq": 563,
+      "subsequentActions": [],
+      "actionSeq": 566,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -180782,7 +181336,7 @@
       }
     },
     {
-      "index": 209,
+      "index": 207,
       "snapshotIndex": 326,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -181400,14 +181954,14 @@
         453
       ],
       "subsequentActions": [],
-      "actionSeq": 566,
+      "actionSeq": 568,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 210,
+      "index": 208,
       "snapshotIndex": 328,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -181951,16 +182505,14 @@
         454,
         455
       ],
-      "subsequentActions": [
-        "Gem31P Minimal attacks G31FL Pessim with 6 creatures"
-      ],
-      "actionSeq": 568,
+      "subsequentActions": [],
+      "actionSeq": 577,
       "pilotContext": {
         "untappedLands": 9
       }
     },
     {
-      "index": 211,
+      "index": 209,
       "snapshotIndex": 334,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -182504,20 +183056,14 @@
         456,
         457
       ],
-      "subsequentActions": [
-        "Attacker: Phyrexian Rager (2/2) unblocked",
-        "Attacker: Courser of Kruphix (2/4) unblocked",
-        "Attacker: Rampaging Baloths (6/6) unblocked",
-        "Attacker: Beast Token (4/4) unblocked",
-        "Attacker: Elemental Token (2/2) unblocked"
-      ],
-      "actionSeq": 577,
+      "subsequentActions": [],
+      "actionSeq": 586,
       "pilotContext": {
         "untappedLands": 9
       }
     },
     {
-      "index": 212,
+      "index": 210,
       "snapshotIndex": 336,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -182998,20 +183544,14 @@
         458,
         459
       ],
-      "subsequentActions": [
-        "G31FL Pessim loses 2 life at combat from Phyrexian Rager",
-        "G31FL Pessim loses 2 life at combat from Courser of Kruphix",
-        "G31FL Pessim loses 6 life at combat from Rampaging Baloths",
-        "G31FL Pessim loses 4 life at combat from Beast Token",
-        "G31FL Pessim loses 2 life at combat from Elemental Token"
-      ],
-      "actionSeq": 586,
+      "subsequentActions": [],
+      "actionSeq": 595,
       "pilotContext": {
         "untappedLands": 9
       }
     },
     {
-      "index": 213,
+      "index": 211,
       "snapshotIndex": 338,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -183487,7 +184027,7 @@
         461
       ],
       "subsequentActions": [],
-      "actionSeq": 595,
+      "actionSeq": 597,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -183497,7 +184037,7 @@
       }
     },
     {
-      "index": 214,
+      "index": 212,
       "snapshotIndex": 340,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -183978,17 +184518,15 @@
         462,
         463
       ],
-      "subsequentActions": [
-        "Gem31P Minimal casts Phyrexian Broodlings from hand"
-      ],
-      "actionSeq": 597,
+      "subsequentActions": [],
+      "actionSeq": 603,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 215,
+      "index": 213,
       "snapshotIndex": 344,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -184482,17 +185020,15 @@
         464,
         471
       ],
-      "subsequentActions": [
-        "Gem31P Minimal puts Phyrexian Broodlings from stack onto the Battlefield"
-      ],
-      "actionSeq": 603,
+      "subsequentActions": [],
+      "actionSeq": 606,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 216,
+      "index": 214,
       "snapshotIndex": 348,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -184965,7 +185501,7 @@
       }
     },
     {
-      "index": 217,
+      "index": 215,
       "snapshotIndex": 348,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -185435,14 +185971,14 @@
         473
       ],
       "subsequentActions": [],
-      "actionSeq": 608,
+      "actionSeq": 614,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 218,
+      "index": 216,
       "snapshotIndex": 346,
       "player": "Gem31P Minimal",
       "turn": 18,
@@ -185941,16 +186477,14 @@
         472,
         475
       ],
-      "subsequentActions": [
-        "G31FL Pessim casts Guardian Idol from hand"
-      ],
-      "actionSeq": 606,
+      "subsequentActions": [],
+      "actionSeq": 615,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 219,
+      "index": 217,
       "snapshotIndex": 351,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -185996,7 +186530,7 @@
       }
     },
     {
-      "index": 220,
+      "index": 218,
       "snapshotIndex": 352,
       "player": "Gem31P Minimal",
       "turn": 19,
@@ -186533,16 +187067,14 @@
         476,
         481
       ],
-      "subsequentActions": [
-        "G31FL Pessim puts Guardian Idol from stack onto the Battlefield"
-      ],
-      "actionSeq": 615,
+      "subsequentActions": [],
+      "actionSeq": 618,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 221,
+      "index": 219,
       "snapshotIndex": 355,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -187089,7 +187621,7 @@
       }
     },
     {
-      "index": 222,
+      "index": 220,
       "snapshotIndex": 355,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -187597,13 +188129,13 @@
         487
       ],
       "subsequentActions": [],
-      "actionSeq": 619,
+      "actionSeq": 625,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 223,
+      "index": 221,
       "snapshotIndex": 354,
       "player": "Gem31P Minimal",
       "turn": 19,
@@ -188193,16 +188725,14 @@
         482,
         483
       ],
-      "subsequentActions": [
-        "G31FL Pessim attacks Gem31P Minimal with 3 creatures"
-      ],
-      "actionSeq": 618,
+      "subsequentActions": [],
+      "actionSeq": 626,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 224,
+      "index": 222,
       "snapshotIndex": 359,
       "player": "Gem31P Minimal",
       "turn": 19,
@@ -188773,7 +189303,7 @@
         489
       ],
       "subsequentActions": [],
-      "actionSeq": 626,
+      "actionSeq": 627,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_blockers",
@@ -188800,7 +189330,7 @@
       }
     },
     {
-      "index": 225,
+      "index": 223,
       "snapshotIndex": 358,
       "player": "G31FL Pessim",
       "turn": 19,
@@ -188841,13 +189371,13 @@
         493
       ],
       "subsequentActions": [],
-      "actionSeq": 625,
+      "actionSeq": 632,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 226,
+      "index": 224,
       "snapshotIndex": 360,
       "player": "Gem31P Minimal",
       "turn": 19,
@@ -188897,13 +189427,11 @@
         491
       ],
       "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) unblocked",
-        "Attacker: Emancipation Angel (3/3) unblocked",
-        "Attacker: Gonti, Lord of Luxury (2/3) unblocked",
         "Gem31P Minimal loses 5 life at combat from Baneslayer Angel",
-        "G31FL Pessim gains 5 life"
+        "G31FL Pessim gains 5 life",
+        "Gem31P Minimal has lost the game."
       ],
-      "actionSeq": 627,
+      "actionSeq": 633,
       "pilotContext": {
         "untappedLands": 6
       }

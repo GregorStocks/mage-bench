@@ -21019,7 +21019,8 @@
       "llmEventIndices": [
         126,
         128,
-        129
+        129,
+        131
       ],
       "subsequentActions": [
         "has started watching",
@@ -21610,15 +21611,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "id": "p2"
+        "index": 0
       },
       "actionResult": {
-        "error": "Unknown short ID: p2"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         231,
         233,
-        234
+        234,
+        236,
+        237
       ],
       "subsequentActions": [
         "has started watching",
@@ -22952,15 +22958,15 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": ""
+        "index": 0
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "index_out_of_range",
+        "error": "Index 0 is out of range (no choices loaded). Call get_action_choices to see current options.",
         "choices": [
           {
             "mana_value": 2,
@@ -22985,7 +22991,10 @@
       "llmEventIndices": [
         425,
         442,
-        443
+        443,
+        446,
+        447,
+        449
       ],
       "subsequentActions": [
         "has started watching",
@@ -24317,7 +24326,9 @@
       "llmEventIndices": [
         662,
         674,
-        675
+        675,
+        678,
+        681
       ],
       "subsequentActions": [
         "has started watching",
@@ -24463,7 +24474,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -25430,7 +25443,9 @@
       "llmEventIndices": [
         848,
         865,
-        866
+        866,
+        868,
+        873
       ],
       "subsequentActions": [
         "has started watching",

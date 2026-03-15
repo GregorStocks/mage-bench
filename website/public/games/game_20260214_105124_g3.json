@@ -22765,7 +22765,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -22776,7 +22778,8 @@
       "llmEventIndices": [
         242,
         244,
-        245
+        245,
+        247
       ],
       "subsequentActions": [
         "has started watching",
@@ -23705,7 +23708,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -23938,21 +23943,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "[{\"id\": \"p14\", \"blocks\": \"p26\"}]"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         382,
         390,
         393,
-        394
+        394,
+        396,
+        397
       ],
       "subsequentActions": [
         "has started watching",
@@ -24213,7 +24220,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15,p14"
+        "attackers": [
+          "p15",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -25038,7 +25048,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -25430,7 +25442,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15,p14"
+        "attackers": [
+          "p15",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -26523,7 +26538,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15,p14"
+        "attackers": [
+          "p15",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
