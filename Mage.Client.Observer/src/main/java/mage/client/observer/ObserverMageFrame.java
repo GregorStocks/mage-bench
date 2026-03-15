@@ -346,6 +346,9 @@ public class ObserverMageFrame extends MageFrame {
                     "Observer health server must be initialized before keepAlive startup on port " + healthPort
             );
         }
+        if (healthServer != null) {
+            healthServer.signalKeepAliveReady();
+        }
 
         LOGGER.info("keepAlive: ready for commands");
 

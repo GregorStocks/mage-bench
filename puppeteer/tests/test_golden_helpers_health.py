@@ -11,6 +11,7 @@ from pathlib import Path
 import pytest
 
 from tests.golden_helpers import (
+    _wait_for_commands,
     _wait_for_game_end_http,
     _wait_for_game_ready,
     _wait_for_game_watching,
@@ -22,13 +23,18 @@ class _HealthHandler(BaseHTTPRequestHandler):
     """Mock observer health server for testing."""
 
     # Class-level configuration set by tests
+    commands_ready_delay: float = 0
     lobby_ready_delay: float = 0
     game_ready_delay: float = 0
     game_watching_delay: float = 0
     game_end_delay: float = 0
 
     def do_GET(self) -> None:
-        if self.path.startswith("/health"):
+        if self.path.startswith("/wait-for-commands"):
+            if self.commands_ready_delay > 0:
+                time.sleep(self.commands_ready_delay)
+            self._send_json(200, {"status": "ready"})
+        elif self.path.startswith("/health"):
             if self.lobby_ready_delay > 0:
                 time.sleep(self.lobby_ready_delay)
             self._send_json(200, {"status": "ready"})
@@ -85,6 +91,7 @@ class _HealthHandler(BaseHTTPRequestHandler):
 def mock_health_server():
     """Start a mock health server and yield its port."""
     # Reset delays
+    _HealthHandler.commands_ready_delay = 0
     _HealthHandler.lobby_ready_delay = 0
     _HealthHandler.game_ready_delay = 0
     _HealthHandler.game_watching_delay = 0
@@ -99,6 +106,19 @@ def mock_health_server():
 
 
 class TestWaitForHealth:
+    def test_commands_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _wait_for_commands(port, timeout=5)
+
+    def test_commands_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _HealthHandler.commands_ready_delay = 0.3
+        t0 = time.monotonic()
+        _wait_for_commands(port, timeout=5)
+        elapsed = time.monotonic() - t0
+        assert elapsed >= 0.2
+        assert elapsed < 2.0
+
     def test_lobby_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _wait_for_health(port, timeout=5)

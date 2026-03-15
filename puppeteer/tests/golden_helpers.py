@@ -1074,6 +1074,16 @@ def _wait_for_health(port: int, timeout: int = 120) -> None:
             raise RuntimeError(f"Observer health returned unexpected status: {data}")
 
 
+def _wait_for_commands(port: int, timeout: int = 120) -> None:
+    """Wait for observer startup to reach the keepAlive command-loop phase."""
+    url = f"http://127.0.0.1:{port}/wait-for-commands?timeout={timeout}"
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+        data = json.loads(resp.read())
+        if data.get("status") != "ready":
+            raise RuntimeError(f"Observer wait-for-commands returned unexpected status: {data}")
+
+
 def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
     """Wait for observer to create a game table via long-poll HTTP endpoint.
 

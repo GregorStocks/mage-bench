@@ -26,6 +26,7 @@ from tests.golden_helpers import (
     BridgeManager,
     SpectatorProcess,
     _build_java_cmd,
+    _wait_for_commands,
     _wait_for_health,
     compute_module_classpath,
     print_rss_summary,
@@ -267,6 +268,7 @@ def spectator_process(xmage_server, project_root):
             f"Observer health server did not start on port {health_port} within 120s — check {spectator_log}"
         )
         health_port_res.release()
+        _wait_for_commands(health_port, timeout=120)
         _wait_for_health(health_port, timeout=120)
         print("Spectator keepAlive ready")
         register_observed_process("spectator", proc.pid)
