@@ -285,6 +285,15 @@ def _render_for_pilot(
     resp_type = data.get("response_type", "")
     respond_with = data.get("respond_with", "")
     if respond_with:
+        # When total_min == total_max, the Items header shows "total=N" instead
+        # of "total_min=N, total_max=N", so adjust the respond_with text to match.
+        total_min = data.get("total_min")
+        total_max = data.get("total_max")
+        if total_min is not None and total_max is not None and total_min == total_max:
+            respond_with = respond_with.replace(
+                "sum between total_min and total_max",
+                f"sum must equal total ({total_min})",
+            )
         lines.append(f"  Respond: {respond_with}")
     elif resp_type:
         lines.append(f"  Response type: {resp_type}")
