@@ -16,6 +16,7 @@ from tests.golden_helpers import (
     _wait_for_game_ready,
     _wait_for_game_watching,
     _wait_for_health,
+    read_health_port_file,
 )
 
 
@@ -196,3 +197,29 @@ class TestWaitForGameEnd:
         _HealthHandler.game_end_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-game-end failed"):
             _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=1)
+
+
+class TestReadHealthPortFile:
+    def test_reads_port_immediately(self, tmp_path: Path) -> None:
+        port_file = tmp_path / "health_port"
+        port_file.write_text("12345\n")
+        assert read_health_port_file(port_file, timeout=1) == 12345
+
+    def test_waits_for_file_creation(self, tmp_path: Path) -> None:
+        port_file = tmp_path / "health_port"
+
+        def write_later() -> None:
+            time.sleep(0.3)
+            port_file.write_text("54321\n")
+
+        threading.Thread(target=write_later, daemon=True).start()
+        t0 = time.monotonic()
+        assert read_health_port_file(port_file, timeout=5) == 54321
+        elapsed = time.monotonic() - t0
+        assert elapsed >= 0.2
+        assert elapsed < 2.0
+
+    def test_timeout_raises(self, tmp_path: Path) -> None:
+        port_file = tmp_path / "health_port"
+        with pytest.raises(RuntimeError, match="not written within"):
+            read_health_port_file(port_file, timeout=0.3)

@@ -1128,6 +1128,22 @@ def _run_opponent_autopass(bridge: BridgeSession) -> None:
 # ---------------------------------------------------------------------------
 
 
+def read_health_port_file(path: Path, timeout: float = 30.0) -> int:
+    """Poll for a health port file written by the Java observer and return the port.
+
+    The file is written atomically (rename) by the observer after successfully
+    binding the health HTTP server.
+    """
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if path.exists():
+            text = path.read_text().strip()
+            if text:
+                return int(text)
+        time.sleep(0.1)
+    raise RuntimeError(f"Health port file {path} was not written within {timeout}s")
+
+
 def _wait_for_health(port: int, timeout: int = 120) -> None:
     """Wait for observer health endpoint to report lobby ready (long-poll)."""
     url = f"http://127.0.0.1:{port}/health?timeout={timeout}"

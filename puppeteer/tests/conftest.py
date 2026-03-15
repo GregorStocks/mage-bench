@@ -31,6 +31,7 @@ from tests.golden_helpers import (
     compute_module_classpath,
     print_rss_summary,
     print_timing_summary,
+    read_health_port_file,
     record_registered_rss_snapshot,
     register_observed_process,
     timed_phase,
@@ -201,9 +202,10 @@ def spectator_process(xmage_server, project_root):
 
     allowed_sets = extract_golden_set_codes(project_root)
 
-    # Allocate a port for the observer health HTTP server
-    health_port_res = find_available_port("localhost", 20000)
-    health_port = health_port_res.port
+    # Health port file: Java will bind with retry and write the actual port here
+    health_port_file = tmp_dir / "health_port"
+    if health_port_file.exists():
+        health_port_file.unlink()
 
     with timed_phase("session", "spectator_classpath"):
         cp = compute_module_classpath(project_root, "Mage.Client.Observer")
@@ -215,7 +217,8 @@ def spectator_process(xmage_server, project_root):
             "xmage.aiPuppeteer.disableWhatsNew": "true",
             "xmage.observer.noWindow": "true",
             "xmage.observer.keepAlive": "true",
-            "xmage.observer.healthPort": str(health_port),
+            "xmage.observer.healthPort": "20000",
+            "xmage.observer.healthPortFile": str(health_port_file),
             "xmage.aiPuppeteer.server": server,
             "xmage.aiPuppeteer.port": str(port),
             "xmage.aiPuppeteer.user": "spectator",
@@ -262,12 +265,10 @@ def spectator_process(xmage_server, project_root):
     )
 
     with timed_phase("session", "spectator_jvm_startup"):
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for health port file...")
+        health_port = read_health_port_file(health_port_file, timeout=120)
+        print(f"Observer health server bound to port {health_port}")
         spectator = SpectatorProcess(proc, spectator_log, health_port=health_port)
-        print(f"Spectator JVM started (pid={proc.pid}), waiting for health endpoint on port {health_port}...")
-        assert wait_for_port("127.0.0.1", health_port, 120), (
-            f"Observer health server did not start on port {health_port} within 120s — check {spectator_log}"
-        )
-        health_port_res.release()
         _wait_for_commands(health_port, timeout=120)
         _wait_for_health(health_port, timeout=120)
         print("Spectator keepAlive ready")

@@ -9,6 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Entry point for the observer-optimized XMage client.
@@ -41,7 +46,29 @@ public class ObserverMain {
         if (healthPort <= 0) {
             return null;
         }
-        return startHealthServer(healthPort);
+        String healthPortFile = System.getProperty("xmage.observer.healthPortFile");
+        int maxRetries = 100;
+        IOException lastException = null;
+        for (int i = 0; i < maxRetries; i++) {
+            int candidatePort = healthPort + i;
+            try {
+                ObserverHealthServer server = new ObserverHealthServer(candidatePort);
+                server.start();
+                if (candidatePort != healthPort) {
+                    LOGGER.info("Health port " + healthPort + " was busy, bound to " + candidatePort + " instead");
+                }
+                if (healthPortFile != null) {
+                    writePortFile(healthPortFile, server.getPort());
+                }
+                return server;
+            } catch (IOException e) {
+                lastException = e;
+                LOGGER.debug("Port " + candidatePort + " busy, trying next");
+            }
+        }
+        throw new RuntimeException(
+                "Failed to bind observer health server on any port in range "
+                        + healthPort + "-" + (healthPort + maxRetries - 1), lastException);
     }
 
     static ObserverHealthServer startHealthServer(int healthPort) {
@@ -51,6 +78,17 @@ public class ObserverMain {
             return healthServer;
         } catch (IOException e) {
             throw new RuntimeException("Failed to start observer health server on port " + healthPort, e);
+        }
+    }
+
+    private static void writePortFile(String path, int port) {
+        Path target = Paths.get(path);
+        Path tmp = target.resolveSibling(target.getFileName() + ".tmp");
+        try {
+            Files.writeString(tmp, Integer.toString(port) + "\n", StandardCharsets.UTF_8);
+            Files.move(tmp, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write health port file: " + path, e);
         }
     }
 

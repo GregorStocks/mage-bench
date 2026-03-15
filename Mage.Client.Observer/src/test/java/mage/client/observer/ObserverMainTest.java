@@ -11,6 +11,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,14 +22,18 @@ import static org.junit.Assert.assertTrue;
 public class ObserverMainTest {
 
     private static final String HEALTH_PORT_PROP = "xmage.observer.healthPort";
+    private static final String HEALTH_PORT_FILE_PROP = "xmage.observer.healthPortFile";
 
     private String originalHealthPort;
+    private String originalHealthPortFile;
     private ObserverHealthServer healthServer;
 
     @Before
     public void setUp() {
         originalHealthPort = System.getProperty(HEALTH_PORT_PROP);
+        originalHealthPortFile = System.getProperty(HEALTH_PORT_FILE_PROP);
         System.clearProperty(HEALTH_PORT_PROP);
+        System.clearProperty(HEALTH_PORT_FILE_PROP);
     }
 
     @After
@@ -40,6 +46,11 @@ public class ObserverMainTest {
             System.clearProperty(HEALTH_PORT_PROP);
         } else {
             System.setProperty(HEALTH_PORT_PROP, originalHealthPort);
+        }
+        if (originalHealthPortFile == null) {
+            System.clearProperty(HEALTH_PORT_FILE_PROP);
+        } else {
+            System.setProperty(HEALTH_PORT_FILE_PROP, originalHealthPortFile);
         }
     }
 
@@ -60,12 +71,33 @@ public class ObserverMainTest {
         }
     }
 
-    @Test(expected = RuntimeException.class)
-    public void startConfiguredHealthServerFailsWhenPortIsBusy() throws Exception {
+    @Test
+    public void startConfiguredHealthServerRetriesWhenPortIsBusy() throws Exception {
         try (ServerSocket busySocket = new ServerSocket()) {
             busySocket.bind(new InetSocketAddress("127.0.0.1", 0));
-            System.setProperty(HEALTH_PORT_PROP, Integer.toString(busySocket.getLocalPort()));
-            ObserverMain.startConfiguredHealthServer();
+            int busyPort = busySocket.getLocalPort();
+            System.setProperty(HEALTH_PORT_PROP, Integer.toString(busyPort));
+            healthServer = ObserverMain.startConfiguredHealthServer();
+            assertNotNull(healthServer);
+            assertTrue("Should bind to a port after the busy one",
+                    healthServer.getPort() > busyPort);
+        }
+    }
+
+    @Test
+    public void startConfiguredHealthServerWritesPortFile() throws Exception {
+        Path tmpFile = Files.createTempFile("health-port-", ".txt");
+        Files.delete(tmpFile);
+        try {
+            System.setProperty(HEALTH_PORT_PROP, "20000");
+            System.setProperty(HEALTH_PORT_FILE_PROP, tmpFile.toString());
+            healthServer = ObserverMain.startConfiguredHealthServer();
+            assertNotNull(healthServer);
+            assertTrue("Port file should be created", Files.exists(tmpFile));
+            int writtenPort = Integer.parseInt(Files.readString(tmpFile).trim());
+            assertEquals(healthServer.getPort(), writtenPort);
+        } finally {
+            Files.deleteIfExists(tmpFile);
         }
     }
 
