@@ -1,8 +1,8 @@
 {
-  "blunder_script_version": 31,
-  "cost": "$1.01",
-  "cost_usd": 1.010785,
-  "generated_at": "2026-03-04T04:36:45.081988+00:00",
+  "blunder_script_version": 33,
+  "cost": "$1.07",
+  "cost_usd": 1.0721299999999998,
+  "generated_at": "2026-03-15T16:59:24.634140+00:00",
   "results": {
     "game_20260217_075450_g6:0": {
       "detected": false
@@ -26,25 +26,29 @@
       "detected": false
     },
     "game_20260217_223017_g8:11": {
-      "description": "At 2 life against an opponent at 16 life with a 4/3 Enduring Curiosity on board, copying Oblivious Bookworm gives a ground 4/4 with incremental card draw. Deep-Cavern Bat would give a 4/4 with flying (can block Enduring Curiosity) and lifelink (desperately needed at 2 life), plus hand disruption against the opponent's 7-card hand.",
+      "description": "At 2 life facing a 4/3 Enduring Curiosity, choosing Oblivious Bookworm (ground creature with card draw) over Deep-Cavern Bat (4/4 flying lifelink that also strips a card from opponent's 7-card hand). The lifelink and evasion from Deep-Cavern Bat are critical for survival at such low life. A 4/4 flyer with lifelink can gain 4 life per attack, block flyers, and the ETB strips a key card from opponent's hand.",
       "detected": true,
       "severity": "moderate"
     },
     "game_20260217_223017_g8:24": {
-      "detected": false
+      "description": "Attempted to cast Shoot the Sheriff but failed the mana payment, resulting in no action taken during the combat phase while facing lethal or near-lethal attackers (Formidable Speaker 2/4 + Superior Spider-Man 4/4 = 6 damage against 14 life). While not immediately lethal, failing to remove the 4/4 Spider-Man or flash in a blocker when the opponent is at 2 HP is a significant missed opportunity. The mana was available (Fountainport for {C} + Watery Grave or Gloomlake Verge for {B}), so the mana plan specification was likely incorrect.",
+      "detected": true,
+      "severity": "moderate"
     },
     "game_20260217_223017_g8:3": {
-      "detected": false
+      "description": "Cast Enduring Curiosity during own postcombat main phase, tapping out, despite it having flash. This wastes the flash advantage - deploying it at end of opponent's turn would give the same attack clock while keeping mana open for Shoot the Sheriff (to kill Oblivious Bookworm if needed) or Tishana's Tidebinder during opponent's turn.",
+      "detected": true,
+      "severity": "minor"
     },
     "game_20260217_223017_g8:7": {
-      "description": "Chose to copy Wistfulness with Superior Spider-Man, which results in a vanilla 4/4 body (the ETB abilities won't trigger since {G}{G}/{U}{U} wasn't spent to cast Spider-Man). Copying Oblivious Bookworm would have given the same 4/4 body but with repeatable end-step card draw, which is extremely valuable given the player's near-empty hand (only Terror of the Peaks and Requiting Hex).",
+      "description": "Chose to copy Wistfulness with Superior Spider-Man, but since no {G}{G} or {U}{U} was spent casting Spider-Man ({2}{U}{B}), neither of Wistfulness's ETB abilities trigger. The result is just a vanilla 4/4. Oblivious Bookworm would have been a 4/4 with a repeatable end-step draw ability, which is extremely valuable when the player has only 1 card left in hand.",
       "detected": true,
       "severity": "moderate"
     },
     "game_20260219_091818_g6:43": {
-      "description": "Cast Young Wolf before playing a land drop. With 1 untapped Forest and 1 land drop remaining, playing a land first (Wooded Foothills \u2192 fetch, or Forest) would give 2 mana, enabling alternatives like Badgermole Cub or Young Wolf + Walking Ballista (X=0, which dies and goes to graveyard as a future Soul Cauldron exile target for the ping ability - a key combo piece with Yawgmoth). By casting Young Wolf first, they lose the option to make a more impactful play this turn.",
+      "description": "Cast Young Wolf (1/1) when they could have played Wooded Foothills, fetched a Forest, and cast Badgermole Cub (2/2 + earthbend a land into a creature + mana ramp). Against two 4/4 Territorial Kavus, Badgermole Cub provides better board presence and helps cast Yawgmoth sooner.",
       "detected": true,
-      "severity": "minor"
+      "severity": "questionable"
     },
     "game_20260219_091818_g6:53": {
       "detected": false
@@ -53,9 +57,7 @@
       "detected": false
     },
     "game_20260219_091818_g7:27": {
-      "description": "Playing Ba Sing Se (nonbasic) instead of Forest (basic) when both enter untapped and produce the same mana. Against an R/W opponent who could have Magmatic Hellkite (which destroys nonbasic lands), playing the basic Forest is safer. Additionally, the player already has a Ba Sing Se on the battlefield, so having more basics provides better protection for future nonbasic lands.",
-      "detected": true,
-      "severity": "minor"
+      "detected": false
     },
     "game_20260219_091818_g8:42": {
       "detected": false
@@ -76,7 +78,7 @@
       "detected": false
     },
     "game_20260226_003306_g4:14": {
-      "description": "Played Boseiju, Who Endures instead of Eldrazi Temple. Both enable casting Glaring Fleshraker this turn, but Eldrazi Temple provides significantly more value in an Eldrazi deck by offering {C}{C} for future Eldrazi spells like Kozilek's Command, while Boseiju's Channel ability is wasted when played as a land early.",
+      "description": "Playing Boseiju, Who Endures as a land instead of Eldrazi Temple wastes Boseiju's valuable Channel ability (destroy artifact/enchantment/nonbasic land). Eldrazi Temple provides more mana for the Eldrazi-heavy deck and leaves Boseiju available as removal. Both lands allow casting Glaring Fleshraker this turn, but Eldrazi Temple even provides an extra mana.",
       "detected": true,
       "severity": "minor"
     },
@@ -87,9 +89,9 @@
       "detected": false
     },
     "game_20260226_003306_g4:3": {
-      "description": "Bottomed Hollow One when the hand contains Burning Inquiry, which enables a free Hollow One on turn 1. With Burning Inquiry discarding 3 cards, Hollow One's cost is reduced by 6, making it free. This allows a turn 1 4/4 alongside Marauding Mako getting +1/+1 counters from the discards. Removing Hollow One eliminates the deck's most explosive opening.",
+      "description": "Bottomed Hollow One, which is a key payoff that becomes free (0 mana) after casting Burning Inquiry (discarding 3 cards = 6 mana discount). With Burning Inquiry already in hand, this removes the potential for a free 4/4 on turn 1.",
       "detected": true,
-      "severity": "major"
+      "severity": "moderate"
     },
     "game_20260226_003306_g4:32": {
       "detected": false
@@ -101,7 +103,7 @@
       "detected": false
     },
     "game_20260226_003306_g4:6": {
-      "description": "Chose Walking Ballista over Eldrazi Temple from Devourer of Destiny's look-at-top-4 ability. With a hand that already has Ugin's Labyrinth and one Eldrazi Temple, putting a second Eldrazi Temple on top would guarantee the turn 3 land drop and provide additional Eldrazi mana acceleration. The deck is mana-hungry with Kozilek's Command and Devourer of Destiny in hand.",
+      "description": "Put Walking Ballista on top instead of Eldrazi Temple. With Ugin's Labyrinth, Eldrazi Temple, and Forest already in hand, a second Eldrazi Temple on top would enable a much faster curve - potentially casting Glaring Fleshraker on turn 2 with double Temple mana, or accelerating toward Kozilek's Command/Devourer of Destiny. Walking Ballista is flexible but doesn't provide the same mana acceleration in the critical early turns.",
       "detected": true,
       "severity": "minor"
     },
@@ -121,34 +123,47 @@
       "detected": false
     },
     "game_20260228_010846_g4:4": {
-      "description": "Bottomed Hunter's Insight instead of a redundant Island. The remaining hand of Chilling Trap, Crashing Tide, Forest, Island, Island, Island has 4 lands and only 2 spells - a very land-heavy 6-card hand. Keeping Hunter's Insight and bottoming a third Island would give a 3-land, 3-spell hand with better card quality and still adequate mana.",
-      "detected": true,
-      "severity": "minor"
+      "detected": false
     },
     "game_20260228_172012_g4:1": {
-      "description": "Mulliganed a keepable 2-land hand that had a 1-drop (Infantry Veteran) and 2-drop (Daybreak Charger) with a combat trick. While land-light, the hand has early plays and two draw steps to find a third land before needing it.",
+      "description": "Mulliganed a 2-land hand that had a solid early curve (turn 1 Infantry Veteran, turn 2 Daybreak Charger) plus a combat trick. While 2 lands is risky, the hand has functional plays on turns 1-2 and only needs one more land to keep developing. Going to 6 cards loses card advantage and risks getting a worse hand.",
       "detected": true,
       "severity": "minor"
     },
     "game_20260228_172012_g4:12": {
-      "detected": false
+      "description": "Oathsworn Vampire enters tapped, meaning it can't block or attack next turn. Uktabi Orangutan would enter untapped as a 2/2 ready to contest the board immediately. While the Orangutan's artifact-destruction ETB is wasted here, the tempo advantage of an untapped creature seems more valuable, especially with Angelic Cub threatening to grow.",
+      "detected": true,
+      "severity": "questionable"
     },
     "game_20260228_172012_g4:4": {
       "detected": false
     },
     "game_20260228_172012_g4:7": {
-      "detected": false
-    },
-    "game_20260228_233444_g4:42": {
-      "description": "Casting Domesticated Hydra uses all mana for a single 3/3, when casting Fertilid (2G) + Dragon Fodder (1R) would deploy three creatures (2/2 + two 1/1s) and set up Volley Veteran next turn to deal 3 damage ETB (counting itself as a Goblin). Fertilid also provides ramp for future turns.",
+      "description": "Playing Forest instead of Swamp means GPT5n Perfect cannot cast Oathsworn Vampire this turn. With Swamp + existing Forest, they could deploy a 2/2 creature on turn 3. Playing Forest gives 2 green mana with nothing to cast for GG in hand. The curve-out plan is clearly Swamp now \u2192 Oathsworn Vampire, then Forest/land next turn for Uktabi Orangutan.",
       "detected": true,
       "severity": "minor"
+    },
+    "game_20260228_233444_g4:42": {
+      "detected": false
     },
     "game_20260303_163336_g4:17": {
       "detected": false
     },
     "game_20260303_163336_g4:78": {
-      "description": "Failed to block Stalking Drone (2/2) with Basri's Acolyte (2/3 lifelink). The block would kill the Drone, keep the Acolyte alive as a 2/1, and gain 2 life from lifelink. The opponent cannot pump the Drone with +1/+2 because they have no source of colorless mana untapped. Instead, GPT52 took 2 damage unnecessarily and left the Drone alive.",
+      "description": "Failed to block Stalking Drone (2/2) with Basri's Acolyte (2/3, lifelink). The Acolyte would have survived the block at 2/1, gained 2 life from lifelink, and prevented 2 damage \u2014 a 4-point life swing with no downside. The player timed out instead of making the block.",
+      "detected": true,
+      "severity": "minor"
+    },
+    "game_20260305_183202_g2:17": {
+      "detected": false
+    },
+    "game_20260305_183202_g2:33": {
+      "description": "GPT54 Villain declined to attack with the non-sick 2/2 Elemental Token when the opponent has no untapped creatures (Brightmare is summoning sick) and all lands are tapped. This is 2 free damage with zero risk of being blocked or punished by combat tricks.",
+      "detected": true,
+      "severity": "minor"
+    },
+    "game_20260305_183202_g2:8": {
+      "description": "Opponent has no creatures and only 1 untapped Plains, making them essentially unable to interact. Elemental Uprising would create a 4/4 hasty attacker for 4 uncontested damage. After combat, GPT54 Villain could still play a land from hand (Forest or Swamp) and cast Blood Artist with the remaining lands. There's virtually no downside to attacking here.",
       "detected": true,
       "severity": "moderate"
     }
