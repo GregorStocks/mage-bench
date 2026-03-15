@@ -10,7 +10,7 @@ Built on [XMage](https://github.com/magefree/mage), a full rules engine with enf
 
 ### Prerequisites
 
-- Java 17+ and Maven
+- Java 21+ and Maven
 - Python 3.11+ and [uv](https://docs.astral.sh/uv/)
 - FFmpeg (for video recording)
 
