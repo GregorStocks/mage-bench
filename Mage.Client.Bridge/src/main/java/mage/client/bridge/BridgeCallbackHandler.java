@@ -4952,7 +4952,7 @@ public class BridgeCallbackHandler {
                     break;
 
                 case END_GAME_INFO:
-                    logger.info("[" + client.getUsername() + "] End game info received");
+                    handleEndGameInfo(objectId);
                     break;
 
                 case CHATMESSAGE:
@@ -5927,6 +5927,44 @@ public class BridgeCallbackHandler {
             client.stop();
         } else if (activeGames.isEmpty()) {
             logger.info("[" + client.getUsername() + "] No more active games, stopping client");
+            client.stop();
+        }
+    }
+
+    /**
+     * Safety net for dropped GAME_OVER callbacks.
+     *
+     * The server dispatches END_GAME_INFO after GAME_OVER (via
+     * GameController.endGame → tableManager.endGame → match.endGame →
+     * fireGameEndInfo).  In the normal case handleGameOver() already cleaned
+     * up and every operation below is an idempotent no-op.
+     *
+     * If GAME_OVER was lost (Session lock timeout, callback delivery failure),
+     * this ensures the bridge still detects the game ended instead of spinning
+     * in passPriority indefinitely.
+     */
+    private void handleEndGameInfo(UUID gameId) {
+        boolean wasActive = activeGames.remove(gameId) != null;
+        if (wasActive) {
+            logger.warn("[" + client.getUsername() + "] END_GAME_INFO cleaning up game " + gameId
+                + " (GAME_OVER was likely dropped)");
+        } else {
+            logger.info("[" + client.getUsername() + "] End game info received for game " + gameId);
+        }
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
+        UUID chatId = gameChatIds.remove(gameId);
+        if (chatId != null) {
+            session.leaveChat(chatId);
+        }
+        if (keepAliveAfterGame) {
+            gameFinishedLatch.countDown();
+        } else if (mcpMode && wasActive) {
+            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (MCP mode, missed GAME_OVER)");
+            client.stop();
+        } else if (wasActive && activeGames.isEmpty() && gameEverStarted) {
+            logger.info("[" + client.getUsername() + "] END_GAME_INFO stopping client (no more active games, missed GAME_OVER)");
             client.stop();
         }
     }
