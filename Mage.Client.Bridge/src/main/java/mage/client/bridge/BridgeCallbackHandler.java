@@ -1472,7 +1472,7 @@ public class BridgeCallbackHandler {
                 if (msg.getMessages() != null) {
                     for (MultiAmountMessage mam : msg.getMessages()) {
                         var item = new HashMap<String, Object>();
-                        item.put("description", mam.message);
+                        item.put("description", stripHtml(mam.message));
                         item.put("min", mam.min);
                         item.put("max", mam.max);
                         item.put("default", mam.defaultValue);
