@@ -97,7 +97,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -113,11 +113,9 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -247,14 +245,14 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true
       },
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -280,7 +278,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -330,7 +328,7 @@
         7
       ],
       "message": "Play spells and abilities",
-      "phase": null,
+      "phase": "PRECOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -344,10 +342,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 1,
-      "step": null,
+      "snapshotIndex": 2,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer skips Draw step",
         "TestPlayer skip attack"
       ],
       "turn": 1
@@ -447,7 +444,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -455,7 +452,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -596,7 +593,7 @@
         ],
         "board_cursor": 5,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 18,
+        "game_seq": 21,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -608,7 +605,7 @@
         ],
         "success": true
       },
-      "actionSeq": 18,
+      "actionSeq": 21,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -642,14 +639,14 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 1
     },
     {
       "actionResult": {},
-      "actionSeq": 18,
+      "actionSeq": 21,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -668,11 +665,9 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 7,
+      "snapshotIndex": 9,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer casts Ancient Stirrings from hand"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -785,7 +780,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 23,
+        "game_seq": 24,
         "land_drops_used": 1,
         "message": "Select a colorless card (to put into your hand)",
         "required": true,
@@ -798,7 +793,7 @@
         ],
         "success": true
       },
-      "actionSeq": 23,
+      "actionSeq": 24,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -939,7 +934,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 24,
+        "game_seq": 27,
         "land_drops_used": 1,
         "message": "Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)",
         "required": true,
@@ -952,7 +947,7 @@
         ],
         "success": true
       },
-      "actionSeq": 24,
+      "actionSeq": 27,
       "actionType": "GAME_TARGET",
       "choiceCount": 5,
       "choices": [
@@ -1012,7 +1007,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 24,
+      "actionSeq": 27,
       "actionType": "GAME_TARGET",
       "choiceCount": 4,
       "choices": [
@@ -1059,8 +1054,6 @@
       "snapshotIndex": 11,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
-        "TestPlayer puts a card from library into their hand",
         "TestPlayer wants to concede"
       ],
       "turn": 1
@@ -1111,7 +1104,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1195,7 +1188,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -1258,7 +1251,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
@@ -1363,7 +1356,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1491,7 +1484,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -1504,7 +1497,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
@@ -1598,7 +1591,7 @@
       "args": {
         "choice": "p11"
       },
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1694,7 +1687,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -1708,7 +1701,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
@@ -1726,7 +1719,7 @@
       "args": {
         "choice": "p10"
       },
-      "gameSeq": 18,
+      "gameSeq": 21,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1804,7 +1797,7 @@
         ],
         "board_cursor": 5,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 18,
+        "game_seq": 21,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -1822,7 +1815,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 18,
+      "gameSeq": 21,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 14,
@@ -1882,7 +1875,7 @@
       "args": {
         "choice": "yes"
       },
-      "gameSeq": 23,
+      "gameSeq": 24,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1993,7 +1986,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 23,
+        "game_seq": 24,
         "land_drops_used": 1,
         "message": "Select a colorless card (to put into your hand)",
         "required": true,
@@ -2012,7 +2005,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 23,
+      "gameSeq": 24,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 18,
@@ -2030,7 +2023,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 24,
+      "gameSeq": 27,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2145,7 +2138,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 24,
+        "game_seq": 27,
         "land_drops_used": 1,
         "message": "Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)",
         "required": true,
@@ -2164,7 +2157,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 24,
+      "gameSeq": 27,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,

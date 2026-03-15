@@ -197,7 +197,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 6,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -213,11 +213,9 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that Opponent take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -302,13 +300,13 @@
         ],
         "board_cursor": 3,
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 6,
+        "game_seq": 10,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 6,
+      "actionSeq": 10,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -334,7 +332,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 6,
+      "actionSeq": 10,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -347,13 +345,12 @@
         7
       ],
       "message": "Play instants and activated abilities",
-      "phase": null,
+      "phase": "PRECOMBAT_MAIN",
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 1,
-      "step": null,
+      "snapshotIndex": 3,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "Opponent skips Draw step",
         "Opponent skip attack",
         "Opponent puts Plains from hand onto the Battlefield",
         "Opponent casts Savannah Lions from hand",
@@ -483,7 +480,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 26,
+        "game_seq": 30,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -491,7 +488,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 26,
+      "actionSeq": 30,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -673,7 +670,7 @@
         ],
         "board_cursor": 6,
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 30,
+        "game_seq": 33,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -685,7 +682,7 @@
         ],
         "success": true
       },
-      "actionSeq": 30,
+      "actionSeq": 33,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -721,14 +718,14 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 13,
+      "snapshotIndex": 14,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [],
       "turn": 2
     },
     {
       "actionResult": {},
-      "actionSeq": 30,
+      "actionSeq": 33,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -747,10 +744,9 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 14,
+      "snapshotIndex": 16,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer casts Savannah Lions from hand",
         "TestPlayer puts Savannah Lions from stack onto the Battlefield",
         "TestPlayer skip attack",
         "Opponent puts Plains from hand onto the Battlefield",
@@ -899,13 +895,13 @@
           }
         ],
         "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 56,
+        "game_seq": 57,
         "message": "Select blockers",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 56,
+      "actionSeq": 57,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1090,13 +1086,13 @@
           }
         ],
         "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 57,
+        "game_seq": 61,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 57,
+      "actionSeq": 61,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -1115,14 +1111,14 @@
       "phase": "COMBAT",
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "step": "DECLARE_BLOCKERS",
       "subsequentActions": [],
       "turn": 3
     },
     {
       "actionResult": {},
-      "actionSeq": 57,
+      "actionSeq": 61,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -1138,10 +1134,9 @@
       "phase": "COMBAT",
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 31,
+      "snapshotIndex": 33,
       "step": "DECLARE_BLOCKERS",
       "subsequentActions": [
-        "Attacker: Savannah Lions (2/1) blocked by Savannah Lions (2/1)",
         "Savannah Lions deals 2 damage to Savannah Lions",
         "Savannah Lions deals 2 damage to Savannah Lions",
         "Savannah Lions died",
@@ -1220,7 +1215,7 @@
       "args": {
         "choice": "1"
       },
-      "gameSeq": 1,
+      "gameSeq": 6,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1303,7 +1298,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 6,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -1365,7 +1360,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 6,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
@@ -1469,7 +1464,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 6,
+      "gameSeq": 10,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1552,7 +1547,7 @@
         ],
         "board_cursor": 3,
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 6,
+        "game_seq": 10,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -1564,7 +1559,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 6,
+      "gameSeq": 10,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
@@ -1771,7 +1766,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 26,
+      "gameSeq": 30,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -1894,7 +1889,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 26,
+        "game_seq": 30,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -1908,7 +1903,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 26,
+      "gameSeq": 30,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
@@ -1926,7 +1921,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 30,
+      "gameSeq": 33,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2030,7 +2025,7 @@
         ],
         "board_cursor": 6,
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 30,
+        "game_seq": 33,
         "land_drops_used": 1,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -2048,7 +2043,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 30,
+      "gameSeq": 33,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 14,
@@ -2246,7 +2241,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 56,
+      "gameSeq": 57,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2388,7 +2383,7 @@
           }
         ],
         "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 56,
+        "game_seq": 57,
         "message": "Select blockers",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -2400,7 +2395,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 56,
+      "gameSeq": 57,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 18,
@@ -2418,7 +2413,7 @@
       "args": {
         "choice": "yes"
       },
-      "gameSeq": 57,
+      "gameSeq": 61,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -2560,7 +2555,7 @@
           }
         ],
         "context": "T2 Combat/Declare Blockers (Opponent)",
-        "game_seq": 57,
+        "game_seq": 61,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -2572,7 +2567,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 57,
+      "gameSeq": 61,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,

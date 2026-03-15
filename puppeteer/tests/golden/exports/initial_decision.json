@@ -44,7 +44,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -62,9 +62,7 @@
       "responseType": "boolean",
       "snapshotIndex": 0,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -171,7 +169,7 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -255,7 +253,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -319,7 +317,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,

@@ -38,6 +38,16 @@ Identify from the logs:
 - **Never modify test scripts to work around nondeterminism.** Changing `pass_priority()` to `pass_priority(until="precombat_main")` or adding `my_turn` yields to "make it deterministic" is papering over a bug. The plain `pass_priority()` should already be deterministic because only one bridge processes callbacks at a time.
 - **The fix is always in the Java bridge.** If the `firstPass` logic, `actionsPassed` counter, or auto-pass loop produces different results across runs, something is violating the priority serialization invariant. Find where and fix it.
 
+## Bridge contract: block for decisions, not callbacks
+
+**Every MCP tool call should block until the bridge reaches a real player decision point (or a terminal condition like game over), not merely until the next callback arrives.** Treat this as the external contract even if the current implementation uses `pendingAction` internally.
+
+- **`pendingAction` is an implementation detail, not the semantic boundary.** Do not describe or "fix" the system as if "next callback" and "next decision" were equivalent.
+- **A callback can be transient.** The callback thread may emit a follow-up callback that is immediately auto-resolved, merged into a later prompt, or replaced by a more meaningful decision before the model should act.
+- **"I observed a callback" is not success.** `choose_action()` and `pass_priority()` are only behaving correctly if they return at a stable prompt the player should answer next.
+- **When debugging hangs or prompt drift, ask this first:** "Did the bridge block/return on a callback boundary, or on a true decision boundary?" If the answer is "callback boundary," that is likely the root cause.
+- **A warning like `Action changed before choices were fetched` is not harmless churn.** It is evidence that the bridge detected a callback but lost the stable decision handoff that the MCP contract actually requires.
+
 ## Step 2: Classify the failure
 
 Golden flakes fall into a few known categories. Match the diff against these patterns:
@@ -112,6 +122,7 @@ Common fix patterns:
 - **Use the authoritative callback**: The XMage server sends specific callbacks (game-over, game-update) with authoritative state. Use that state instead of racing with asynchronous pushes.
 - **Wait for the spectator to actually watch before replay starts**: `wait-for-ready` only proves the table exists. If the observer auto-watches later, it can inject hand-permission dialogs mid-combat and strand both bridges in `passPriority`. The correct barrier belongs **after `bridge_join` and before replay**, using an explicit "spectator is watching" signal from the observer.
 - **Fix the bridge's callback handling**: If the auto-pass loop sees different numbers of callbacks across runs, the bridge is violating the priority serialization invariant. Look for places where callbacks are dropped, duplicated, or processed out of order (e.g., `pendingAction` being overwritten, `actionLock` contention, `GAME_UPDATE` callbacks interfering with priority callbacks).
+- **Preserve the decision boundary across follow-up callbacks**: If a tool waits for a callback and then re-reads live bridge state later, it can lose the actual prompt the player should answer. Carry the exact observed decision forward, or explicitly skip transient auto-resolved callbacks, instead of assuming the next callback is the next decision.
 - **Do not reintroduce fixed post-action waits in `choose_action` as a hang workaround**: A bounded wait can make a replay hang disappear locally, but it also causes real prompt regressions when the next legitimate decision arrives just after the timeout. If the CI failure is a `concede` / `game_end_signal` timeout, investigate concede wakeup and end-game ordering first instead of changing `choose_action` blocking behavior.
 
 **Never work around nondeterminism by modifying test scripts.** If `pass_priority()` is nondeterministic, the fix is in the Java bridge, not in switching to `pass_priority(until="precombat_main")`. See "Key invariant: priority serialization" above.

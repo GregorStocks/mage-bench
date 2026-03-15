@@ -498,7 +498,7 @@
   "decisions": [
     {
       "actionResult": {},
-      "actionSeq": 1,
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -514,11 +514,9 @@
       "phase": null,
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "step": null,
-      "subsequentActions": [
-        "TestPlayer chooses that they take the first turn"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -662,14 +660,14 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true
       },
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -695,7 +693,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 5,
+      "actionSeq": 9,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -757,7 +755,7 @@
         7
       ],
       "message": "Play spells and abilities",
-      "phase": null,
+      "phase": "PRECOMBAT_MAIN",
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -771,10 +769,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 1,
-      "step": null,
+      "snapshotIndex": 2,
+      "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer skips Draw step",
         "TestPlayer skip attack"
       ],
       "turn": 1
@@ -875,7 +872,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -883,7 +880,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -961,7 +958,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -991,10 +988,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Forest from hand onto the Battlefield",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain"
@@ -1163,14 +1159,14 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 40,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "success": true
       },
-      "actionSeq": 33,
+      "actionSeq": 40,
       "actionType": "GAME_SELECT",
       "choiceCount": 8,
       "choices": [
@@ -1264,7 +1260,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 33,
+      "actionSeq": 40,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -1340,12 +1336,9 @@
       },
       "player": "TestPlayer",
       "responseType": "select",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer activates: Suspend 4. from Crashing Footfalls",
-        "TestPlayer moves Crashing Footfalls from hand to the exile zone",
-        "TestPlayer suspends (4) Crashing Footfalls",
         "TestPlayer skip attack"
       ],
       "turn": 3
@@ -1468,14 +1461,14 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 46,
+        "game_seq": 47,
         "land_drops_used": 0,
         "message": "Choose spell or ability to play: Boggart Trawler",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
         "response_type": "index",
         "success": true
       },
-      "actionSeq": 46,
+      "actionSeq": 47,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -1663,14 +1656,14 @@
         ],
         "board_cursor": 6,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 47,
+        "game_seq": 48,
         "land_drops_used": 0,
         "message": "pay 3 life? (otherwise Boggart Bog becomes tapped)",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 47,
+      "actionSeq": 48,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 1,
       "choices": [
@@ -1816,14 +1809,14 @@
         ],
         "board_cursor": 7,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 48,
+        "game_seq": 51,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 48,
+      "actionSeq": 51,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -1860,7 +1853,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 48,
+      "actionSeq": 51,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -1879,14 +1872,14 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 21,
+      "snapshotIndex": 22,
       "step": "POSTCOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Boggart Bog from hand onto the Battlefield",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
         "Opponent discards Mountain",
-        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
+        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
+        "Removed 1 time counter from Crashing Footfalls (3 left)"
       ],
       "turn": 3
     },
@@ -2011,7 +2004,7 @@
         ],
         "board_cursor": 9,
         "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 72,
+        "game_seq": 75,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -2019,7 +2012,7 @@
         "success": true,
         "untapped_lands": 3
       },
-      "actionSeq": 72,
+      "actionSeq": 75,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -2094,7 +2087,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 72,
+      "actionSeq": 75,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2114,14 +2107,14 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
+        "Opponent discards Mountain",
+        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
       ],
       "turn": 5
     },
@@ -2261,7 +2254,7 @@
         ],
         "board_cursor": 11,
         "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 102,
+        "game_seq": 105,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -2269,7 +2262,7 @@
         "success": true,
         "untapped_lands": 4
       },
-      "actionSeq": 102,
+      "actionSeq": 105,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -2344,7 +2337,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 102,
+      "actionSeq": 105,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2364,14 +2357,14 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
+        "Opponent discards Mountain",
+        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
       ],
       "turn": 7
     },
@@ -2526,7 +2519,7 @@
         ],
         "board_cursor": 13,
         "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 132,
+        "game_seq": 135,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -2534,7 +2527,7 @@
         "success": true,
         "untapped_lands": 5
       },
-      "actionSeq": 132,
+      "actionSeq": 135,
       "actionType": "GAME_SELECT",
       "choiceCount": 6,
       "choices": [
@@ -2609,7 +2602,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 132,
+      "actionSeq": 135,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2629,14 +2622,14 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 65,
+      "snapshotIndex": 66,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield",
         "TestPlayer skip attack",
         "Opponent skip attack",
         "Opponent discards down to 7 hand cards",
-        "Opponent discards Mountain"
+        "Opponent discards Mountain",
+        "TestPlayer - Ability triggers: Crashing Footfalls - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
       ],
       "turn": 9
     },
@@ -2788,7 +2781,7 @@
         ],
         "board_cursor": 15,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
-        "game_seq": 165,
+        "game_seq": 167,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -2800,7 +2793,7 @@
         "success": true,
         "untapped_lands": 5
       },
-      "actionSeq": 165,
+      "actionSeq": 167,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -2829,7 +2822,7 @@
     },
     {
       "actionResult": {},
-      "actionSeq": 165,
+      "actionSeq": 167,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -2848,10 +2841,9 @@
       },
       "player": "TestPlayer",
       "responseType": "boolean",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "step": "UPKEEP",
       "subsequentActions": [
-        "TestPlayer casts Crashing Footfalls from exile zone",
         "TestPlayer creates a Rhino Token token",
         "TestPlayer creates a Rhino Token token",
         "TestPlayer puts Crashing Footfalls from stack into their graveyard"
@@ -2978,7 +2970,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3064,7 +3056,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 1,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
@@ -3129,7 +3121,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 1,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 4,
@@ -3236,7 +3228,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3378,7 +3370,7 @@
           }
         ],
         "context": "T1 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 5,
+        "game_seq": 9,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3391,7 +3383,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 5,
+      "gameSeq": 9,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 8,
@@ -3497,7 +3489,7 @@
       "args": {
         "choice": "p12"
       },
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3594,7 +3586,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 15,
+        "game_seq": 18,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -3608,7 +3600,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 15,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 12,
@@ -3824,7 +3816,7 @@
       "args": {
         "choice": "p11"
       },
-      "gameSeq": 33,
+      "gameSeq": 40,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -3987,7 +3979,7 @@
           }
         ],
         "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 33,
+        "game_seq": 40,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
         "respond_with": "choice=pN to play, or choice=no to pass",
@@ -4000,7 +3992,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 33,
+      "gameSeq": 40,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 16,
@@ -4106,7 +4098,7 @@
       "args": {
         "choice": "p10"
       },
-      "gameSeq": 46,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4225,7 +4217,7 @@
           }
         ],
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 46,
+        "game_seq": 47,
         "land_drops_used": 0,
         "message": "Choose spell or ability to play: Boggart Trawler",
         "respond_with": "choice=0, choice=1, etc. (not yes/no)",
@@ -4238,7 +4230,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 46,
+      "gameSeq": 47,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 20,
@@ -4256,7 +4248,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 47,
+      "gameSeq": 48,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4369,7 +4361,7 @@
         ],
         "board_cursor": 6,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 47,
+        "game_seq": 48,
         "land_drops_used": 0,
         "message": "pay 3 life? (otherwise Boggart Bog becomes tapped)",
         "respond_with": "choice=yes or choice=no",
@@ -4382,7 +4374,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 47,
+      "gameSeq": 48,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 22,
@@ -4400,7 +4392,7 @@
       "args": {
         "choice": "no"
       },
-      "gameSeq": 48,
+      "gameSeq": 51,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4507,7 +4499,7 @@
         ],
         "board_cursor": 7,
         "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 48,
+        "game_seq": 51,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -4520,7 +4512,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 48,
+      "gameSeq": 51,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 24,
@@ -4734,7 +4726,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 72,
+      "gameSeq": 75,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -4856,7 +4848,7 @@
         ],
         "board_cursor": 9,
         "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 72,
+        "game_seq": 75,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -4870,7 +4862,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 72,
+      "gameSeq": 75,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 28,
@@ -5099,7 +5091,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 102,
+      "gameSeq": 105,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5236,7 +5228,7 @@
         ],
         "board_cursor": 11,
         "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 102,
+        "game_seq": 105,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -5250,7 +5242,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 102,
+      "gameSeq": 105,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 32,
@@ -5494,7 +5486,7 @@
       "args": {
         "choice": "0"
       },
-      "gameSeq": 132,
+      "gameSeq": 135,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -5646,7 +5638,7 @@
         ],
         "board_cursor": 13,
         "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 132,
+        "game_seq": 135,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
@@ -5660,7 +5652,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 132,
+      "gameSeq": 135,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 36,
@@ -5872,7 +5864,7 @@
       "args": {
         "choice": "yes"
       },
-      "gameSeq": 165,
+      "gameSeq": 167,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -6021,7 +6013,7 @@
         ],
         "board_cursor": 15,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
-        "game_seq": 165,
+        "game_seq": 167,
         "message": "Play instants and activated abilities",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
         "response_type": "boolean",
@@ -6039,7 +6031,7 @@
     },
     {
       "costUsd": 0.0,
-      "gameSeq": 165,
+      "gameSeq": 167,
       "player": "TestPlayer",
       "reasoning": null,
       "seq": 40,
