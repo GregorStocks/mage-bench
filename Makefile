@@ -249,8 +249,8 @@ verify-schema-types: $(WEBSITE_NPM_STAMP)
 verify-mcp-tools:
 	@mvn -q -pl Mage.Client.Bridge -am -DskipTests compile
 	@cd Mage.Client.Bridge && mvn -q exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
-		| diff -q - ../website/src/data/mcp-tools.json > /dev/null 2>&1 \
-		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate." && exit 1)
+		| diff --unified - ../website/src/data/mcp-tools.json > /tmp/mcp-tools-diff.txt 2>&1 \
+		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make regen-mcp-tools' to regenerate." && head -60 /tmp/mcp-tools-diff.txt && exit 1)
 
 .PHONY: list-games-to-analyze
 list-games-to-analyze:
