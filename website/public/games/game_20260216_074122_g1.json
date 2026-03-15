@@ -32507,7 +32507,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8"
+        "attackers": [
+          "p8"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -33825,7 +33827,9 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p5:0",
+        "mana_plan": [
+          "p5:0"
+        ],
         "id": "p9"
       },
       "actionResult": {
@@ -33901,7 +33905,9 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": "p3:0",
+        "mana_plan": [
+          "p3:0"
+        ],
         "id": "p10"
       },
       "actionResult": {
@@ -34404,24 +34410,16 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p12"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p12 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{U}",
-            "name": "Spider-Sense",
-            "index": 0,
-            "action": "cast",
-            "id": "p24"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         466,
@@ -34429,7 +34427,10 @@
         548,
         550,
         552,
-        553
+        553,
+        555,
+        560,
+        561
       ],
       "subsequentActions": [
         "spectator1 has started watching",

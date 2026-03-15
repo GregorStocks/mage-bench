@@ -727,7 +727,8 @@
       "llmEventIndices": [
         12,
         13,
-        14
+        14,
+        15
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
@@ -1771,7 +1772,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 46,
+      "actionSeq": 47,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -1941,7 +1942,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 47,
+      "actionSeq": 52,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -1976,9 +1977,7 @@
       "responseType": "select",
       "snapshotIndex": 25,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer casts Lightning Bolt targeting Opponent from hand"
-      ],
+      "subsequentActions": [],
       "turn": 4
     },
     {
@@ -2004,7 +2003,7 @@
         "retryable": true,
         "success": false
       },
-      "actionSeq": 52,
+      "actionSeq": 53,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -2031,7 +2030,8 @@
       "llmEventIndices": [
         34,
         35,
-        36
+        36,
+        37
       ],
       "message": "Select any target",
       "phase": "PRECOMBAT_MAIN",

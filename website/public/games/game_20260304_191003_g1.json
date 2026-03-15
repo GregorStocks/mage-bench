@@ -70325,15 +70325,22 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "Kibo, Uktabi Prince"
+        "choice": "p24"
       },
       "actionResult": {
-        "error": "Unknown short ID: Kibo, Uktabi Prince"
+        "success": false,
+        "error": "Object p24 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 74
       },
       "llmEventIndices": [
         81,
         82,
-        83
+        83,
+        84,
+        85,
+        86
       ],
       "subsequentActions": [],
       "actionSeq": 74,
@@ -70495,32 +70502,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p36"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p36 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 88,
-        "choices": [
-          {
-            "name": "Portcullis Vine",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice a creature with defender: Dra..."
-            ],
-            "id": "p19"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         96,
         97,
-        98
+        98,
+        99,
+        100
       ],
       "subsequentActions": [
         "GptOSS Nature puts Wall of Blossoms from stack onto the Battlefield",
@@ -71212,20 +71212,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p39"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 144
       },
       "llmEventIndices": [
         171,
         172,
-        173
+        173,
+        174,
+        175,
+        176,
+        177,
+        178
       ],
-      "subsequentActions": [
-        "GptOSS Nature attacks MstMed Trash with 1 creature"
-      ],
-      "actionSeq": 140,
+      "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -71436,31 +71444,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_ability_0",
         "game_seq": 162,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {G}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_message": "Choose spell or ability to play: Thriving Moor",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         192,
         193,
-        194
+        194,
+        195,
+        196
       ],
       "subsequentActions": [],
       "actionSeq": 162,
@@ -71948,20 +71950,19 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p25"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p25 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 205
       },
       "llmEventIndices": [
         234,
-        235
+        235,
+        245
       ],
       "subsequentActions": [
         "MstMed Trash creates a Banana token",
@@ -72273,22 +72274,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p48"
+        "choice": "p48"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p48' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p48'"
+        "success": true,
+        "action_taken": "selected_0",
+        "game_seq": 222,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_message": "Choose spell or ability to play: Thriving Moor",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         253,
         254,
-        255
+        255,
+        256,
+        257,
+        258,
+        259
       ],
-      "subsequentActions": [
-        "MstMed Trash attacks GptOSS Nature with 1 creature"
-      ],
-      "actionSeq": 218,
+      "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -72318,13 +72327,17 @@
       "isForced": false,
       "chosen": false,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "no",
+        "attackers": [
+          "p48"
+        ]
       },
       "actionResult": {
         "success": false,
         "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
         "error_code": "missing_param",
         "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
         "game_seq": 224,
         "choices": [
           {
@@ -72340,7 +72353,10 @@
       "llmEventIndices": [
         263,
         264,
-        265
+        265,
+        266,
+        267,
+        268
       ],
       "subsequentActions": [],
       "actionSeq": 224,
@@ -72394,7 +72410,8 @@
       "llmEventIndices": [
         269,
         270,
-        271
+        271,
+        272
       ],
       "subsequentActions": [],
       "actionSeq": 224,
@@ -72518,7 +72535,8 @@
       "llmEventIndices": [
         277,
         278,
-        279
+        279,
+        280
       ],
       "subsequentActions": [],
       "actionSeq": 224,
@@ -73325,32 +73343,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p39:p25"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "error_code": "missing_param",
-        "retryable": true,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 271,
-        "choices": [
-          {
-            "name": "Portcullis Vine",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice a creature with defender: Dra..."
-            ],
-            "id": "p19"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         320,
-        321
+        321,
+        326
       ],
       "subsequentActions": [
         "MstMed Trash puts Uktabi Orangutan from stack onto the Battlefield"
@@ -73743,14 +73752,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p42,p45"
+        "choice": "p42"
       },
       "actionResult": {
         "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
+        "error": "Object p42 not found in current choices",
+        "error_code": "invalid_choice",
         "retryable": true,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
         "game_seq": 303,
         "choices": [
           {
@@ -73765,7 +73773,8 @@
       },
       "llmEventIndices": [
         346,
-        347
+        347,
+        348
       ],
       "subsequentActions": [],
       "actionSeq": 303,
@@ -73904,14 +73913,14 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p46"
+        "choice": "no"
       },
       "actionResult": {
         "success": false,
-        "error": "Object p46 not found in current choices",
-        "error_code": "invalid_choice",
+        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
+        "error_code": "missing_param",
         "retryable": true,
         "game_seq": 303,
         "choices": [
@@ -73927,7 +73936,8 @@
       },
       "llmEventIndices": [
         353,
-        354
+        354,
+        355
       ],
       "subsequentActions": [],
       "actionSeq": 303,
@@ -73958,16 +73968,15 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p42,p45"
+        "choice": "no"
       },
       "actionResult": {
         "success": false,
         "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
         "error_code": "missing_param",
         "retryable": true,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
         "game_seq": 303,
         "choices": [
           {
@@ -73982,7 +73991,9 @@
       },
       "llmEventIndices": [
         356,
-        357
+        357,
+        358,
+        359
       ],
       "subsequentActions": [],
       "actionSeq": 303,
@@ -74036,7 +74047,9 @@
       },
       "llmEventIndices": [
         360,
-        361
+        361,
+        363,
+        364
       ],
       "subsequentActions": [],
       "actionSeq": 303,
@@ -74091,7 +74104,9 @@
       "llmEventIndices": [
         365,
         368,
-        369
+        369,
+        370,
+        371
       ],
       "subsequentActions": [],
       "actionSeq": 303,
@@ -74217,25 +74232,15 @@
         "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "error_code": "missing_param",
-        "retryable": true,
-        "game_seq": 303,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {G}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn.",
+        "game_seq": 303
       },
       "llmEventIndices": [
         375,
-        376
+        376,
+        377
       ],
       "subsequentActions": [
         "GptOSS Nature casts Ghirapur Guide from hand"
@@ -74285,7 +74290,8 @@
       "llmEventIndices": [
         380,
         381,
-        382
+        382,
+        383
       ],
       "subsequentActions": [
         "GptOSS Nature puts Ghirapur Guide from stack onto the Battlefield",
@@ -74342,7 +74348,8 @@
       "llmEventIndices": [
         384,
         385,
-        386
+        386,
+        387
       ],
       "subsequentActions": [],
       "actionSeq": 316,
@@ -74484,7 +74491,8 @@
       "llmEventIndices": [
         390,
         391,
-        392
+        392,
+        393
       ],
       "subsequentActions": [],
       "actionSeq": 319
@@ -74599,23 +74607,38 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "attackers": "all"
+        "choice": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "\"all\" is not available in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 327,
+        "choices": [
+          {
+            "name": "Treetop Village",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}{G}: {this} becomes a 3/3 green Ape creature w..."
+            ],
+            "id": "p48"
+          }
+        ]
       },
       "llmEventIndices": [
         396,
         397,
-        398
+        398,
+        399,
+        400,
+        401
       ],
-      "subsequentActions": [
-        "MstMed Trash attacks GptOSS Nature with 2 creatures",
-        "MstMed Trash - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
-      ],
-      "actionSeq": 321,
+      "subsequentActions": [],
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -75519,44 +75542,26 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p5"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p5 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 376,
-        "choices": [
-          {
-            "name": "Elvish Archdruid",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p39",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "Ghirapur Guide",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p45",
-            "power": "4",
-            "toughness": "3"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         456,
-        457
+        457,
+        458,
+        459,
+        460,
+        461
       ],
       "subsequentActions": [
         "GptOSS Nature skip attack",
@@ -75712,21 +75717,39 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p24,p27,p12,p48"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 394,
+        "choices": [
+          {
+            "name": "Treetop Village",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}{G}: {this} becomes a 3/3 green Ape creature w..."
+            ],
+            "id": "p48"
+          }
+        ]
       },
       "llmEventIndices": [
         476,
         477,
-        478
+        478,
+        479,
+        480,
+        481,
+        482,
+        483
       ],
-      "subsequentActions": [
-        "MstMed Trash attacks GptOSS Nature with 3 creatures",
-        "MstMed Trash - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
-      ],
-      "actionSeq": 388,
+      "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -75934,64 +75957,23 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p72"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p72 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "passed_priority",
         "game_seq": 402,
-        "choices": [
-          {
-            "name": "Ghirapur Guide",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{G}: Target creature you control can't be bloc..."
-            ],
-            "id": "p45"
-          },
-          {
-            "name": "Portcullis Vine",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice a creature with defender: Dra..."
-            ],
-            "id": "p19"
-          },
-          {
-            "name": "Portcullis Vine",
-            "index": 2,
-            "choice_type": "blocker",
-            "id": "p19",
-            "power": "0",
-            "toughness": "3"
-          },
-          {
-            "name": "Elvish Archdruid",
-            "index": 3,
-            "choice_type": "blocker",
-            "id": "p39",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "Ghirapur Guide",
-            "index": 4,
-            "choice_type": "blocker",
-            "id": "p45",
-            "power": "4",
-            "toughness": "3"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         500,
-        501
+        501,
+        504
       ],
       "subsequentActions": [
         "Attacker: Kibo, Uktabi Prince (4/4) unblocked",

@@ -22455,7 +22455,11 @@
       "llmEventIndices": [
         26,
         27,
-        28
+        28,
+        29,
+        30,
+        32,
+        33
       ],
       "subsequentActions": [
         "has started watching",
@@ -22661,61 +22665,15 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p2"
+        "id": "p4"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p2 not found in current choices",
-        "choices": [
-          {
-            "mana_value": 1,
-            "mana_cost": "{B}",
-            "name": "Dark Ritual",
-            "index": 0,
-            "action": "cast",
-            "id": "p4"
-          },
-          {
-            "mana_value": 3,
-            "mana_cost": "{2}{B}",
-            "name": "Undercity Informer",
-            "index": 1,
-            "action": "cast",
-            "id": "p7",
-            "power": "2",
-            "toughness": "3"
-          },
-          {
-            "mana_value": 1,
-            "mana_cost": "{B}",
-            "name": "Cabal Therapy",
-            "index": 2,
-            "action": "cast",
-            "id": "p3"
-          },
-          {
-            "mana_value": 1,
-            "mana_cost": "{B}",
-            "name": "Thoughtseize",
-            "index": 3,
-            "action": "cast",
-            "id": "p5"
-          },
-          {
-            "mana_value": 3,
-            "mana_cost": "{2}{G}",
-            "name": "Elvish Spirit Guide",
-            "index": 4,
-            "action": "cast",
-            "id": "p6",
-            "power": "2",
-            "toughness": "2"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         51,
@@ -22723,7 +22681,12 @@
         55,
         58,
         60,
-        61
+        61,
+        63,
+        65,
+        67,
+        69,
+        70
       ],
       "subsequentActions": [
         "has started watching",
@@ -23410,7 +23373,8 @@
         189,
         192,
         194,
-        195
+        195,
+        197
       ],
       "subsequentActions": [
         "has started watching",
@@ -23714,7 +23678,8 @@
         227,
         231,
         234,
-        235
+        235,
+        237
       ],
       "subsequentActions": [
         "has started watching",
@@ -23751,7 +23716,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "{'tap': 'p6'}"
+        "mana_plan": [
+          {
+            "tap": "p6"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -23760,7 +23729,8 @@
         238,
         240,
         242,
-        243
+        243,
+        245
       ],
       "subsequentActions": [
         "has started watching",
@@ -24224,7 +24194,9 @@
       "llmEventIndices": [
         345,
         347,
-        348
+        348,
+        350,
+        353
       ],
       "subsequentActions": [
         "has started watching",
@@ -26602,7 +26574,8 @@
       "llmEventIndices": [
         823,
         825,
-        826
+        826,
+        828
       ],
       "subsequentActions": [
         "has started watching",
@@ -26636,7 +26609,9 @@
       "llmEventIndices": [
         829,
         831,
-        832
+        832,
+        834,
+        837
       ],
       "subsequentActions": [
         "has started watching",
@@ -26670,7 +26645,9 @@
       "llmEventIndices": [
         838,
         840,
-        841
+        841,
+        843,
+        845
       ],
       "subsequentActions": [
         "has started watching",
@@ -26704,7 +26681,9 @@
       "llmEventIndices": [
         846,
         848,
-        849
+        849,
+        851,
+        854
       ],
       "subsequentActions": [
         "has started watching",
@@ -26738,7 +26717,9 @@
       "llmEventIndices": [
         855,
         857,
-        858
+        858,
+        860,
+        863
       ],
       "subsequentActions": [
         "has started watching",
@@ -26772,7 +26753,9 @@
       "llmEventIndices": [
         864,
         866,
-        867
+        867,
+        869,
+        872
       ],
       "subsequentActions": [
         "has started watching",
@@ -26835,7 +26818,8 @@
       "llmEventIndices": [
         876,
         878,
-        879
+        879,
+        881
       ],
       "subsequentActions": [
         "has started watching",
@@ -26869,7 +26853,8 @@
       "llmEventIndices": [
         882,
         884,
-        885
+        885,
+        887
       ],
       "subsequentActions": [
         "has started watching",
@@ -26903,7 +26888,9 @@
       "llmEventIndices": [
         888,
         890,
-        891
+        891,
+        893,
+        896
       ],
       "subsequentActions": [
         "has started watching",
@@ -26937,7 +26924,9 @@
       "llmEventIndices": [
         897,
         899,
-        900
+        900,
+        902,
+        905
       ],
       "subsequentActions": [
         "has started watching",
@@ -26971,7 +26960,9 @@
       "llmEventIndices": [
         906,
         908,
-        909
+        909,
+        911,
+        914
       ],
       "subsequentActions": [
         "has started watching",
@@ -27006,7 +26997,9 @@
         915,
         917,
         919,
-        920
+        920,
+        922,
+        925
       ],
       "subsequentActions": [
         "has started watching",
@@ -27040,7 +27033,9 @@
       "llmEventIndices": [
         926,
         928,
-        929
+        929,
+        931,
+        934
       ],
       "subsequentActions": [
         "has started watching",
@@ -27074,7 +27069,9 @@
       "llmEventIndices": [
         935,
         937,
-        938
+        938,
+        940,
+        943
       ],
       "subsequentActions": [
         "has started watching",
@@ -27138,7 +27135,9 @@
       "llmEventIndices": [
         950,
         952,
-        953
+        953,
+        955,
+        958
       ],
       "subsequentActions": [
         "has started watching",
@@ -27172,7 +27171,9 @@
       "llmEventIndices": [
         959,
         961,
-        962
+        962,
+        964,
+        967
       ],
       "subsequentActions": [
         "has started watching",
@@ -27206,7 +27207,12 @@
       "llmEventIndices": [
         968,
         970,
-        971
+        971,
+        973,
+        975,
+        977,
+        979,
+        981
       ],
       "subsequentActions": [
         "has started watching",
@@ -27328,7 +27334,9 @@
       "llmEventIndices": [
         991,
         992,
-        993
+        993,
+        994,
+        996
       ],
       "subsequentActions": [
         "has started watching",
@@ -27449,7 +27457,8 @@
       "llmEventIndices": [
         1003,
         1004,
-        1005
+        1005,
+        1006
       ],
       "subsequentActions": [
         "has started watching",

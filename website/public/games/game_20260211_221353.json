@@ -32412,13 +32412,13 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": true,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": true
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -32445,7 +32445,10 @@
       "llmEventIndices": [
         147,
         149,
-        150
+        150,
+        152,
+        153,
+        155
       ],
       "subsequentActions": [
         "has started watching",
@@ -32755,7 +32758,8 @@
       "llmEventIndices": [
         189,
         193,
-        194
+        194,
+        196
       ],
       "subsequentActions": [
         "has started watching",
@@ -34625,24 +34629,20 @@
       ],
       "choiceCount": 1,
       "isForced": true,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Sacred Foundry"
-          }
-        ]
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         554,
         556,
-        557
+        557,
+        559,
+        560
       ],
       "subsequentActions": [
         "has started watching",
@@ -35753,7 +35753,8 @@
       "llmEventIndices": [
         763,
         766,
-        767
+        767,
+        769
       ],
       "subsequentActions": [
         "has started watching",
@@ -36664,18 +36665,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "index": 0
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Boolean 'answer' required for GAME_ASK"
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         914,
         916,
-        917
+        917,
+        919,
+        920
       ],
       "subsequentActions": [
         "has started watching",

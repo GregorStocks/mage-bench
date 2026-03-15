@@ -29639,31 +29639,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p2"
+        "id": "p1"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p2 not found in current choices",
-        "choices": [
-          {
-            "name": "Flooded Strand",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p1"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         32,
         33,
-        34
+        34,
+        35,
+        36,
+        37,
+        38
       ],
       "subsequentActions": [
         "has started watching",
@@ -30607,7 +30600,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30881,7 +30876,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31521,7 +31518,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31833,7 +31832,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31889,7 +31890,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31942,15 +31945,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p32', 'blocks': 'p20'}"
+        "blockers": "[{\"id\":\"p32\",\"blocks\":\"p20\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "blocks": "p20",
+            "id": "p32"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         338,
         340,
-        341
+        341,
+        343,
+        344,
+        346,
+        347
       ],
       "subsequentActions": [
         "has started watching",
@@ -32186,7 +32202,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -32333,7 +32351,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p6"
+        "attackers": [
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -32386,15 +32406,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p10', 'blocks': 'p20'}"
+        "blockers": "[{\"id\":\"p10\",\"blocks\":\"p20\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "blocks": "p20",
+            "id": "p10"
+          }
+        ],
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         416,
         418,
-        419
+        419,
+        421,
+        422,
+        424,
+        436
       ],
       "subsequentActions": [
         "has started watching",
@@ -33569,7 +33600,8 @@
         566,
         568,
         571,
-        572
+        572,
+        574
       ],
       "subsequentActions": [
         "has started watching",
@@ -34957,7 +34989,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -36054,7 +36088,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

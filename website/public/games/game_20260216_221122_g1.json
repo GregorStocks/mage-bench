@@ -38935,7 +38935,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p9",
-        "mana_plan": "p4,p12"
+        "mana_plan": [
+          "p4",
+          "p12"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -39314,7 +39317,11 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p4,p3,p12"
+        "mana_plan": [
+          "p4",
+          "p3",
+          "p12"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -39502,7 +39509,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p19",
-        "mana_plan": "p3"
+        "mana_plan": [
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -39779,7 +39788,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p3:1,p5,p4"
+        "mana_plan": [
+          "p3:1",
+          "p5",
+          "p4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -40030,7 +40043,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p12,p29,p4,p3"
+        "mana_plan": [
+          "p12",
+          "p29",
+          "p4",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

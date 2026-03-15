@@ -5,7 +5,7 @@ Serves a single-page app with an embedded game board renderer and
 JSON API endpoints for listing plays, viewing details, and submitting verdicts.
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/blunder_audit_web.py [--port PORT]
+    uv run --project puppeteer python scripts/analysis/blunder_audit_web.py [--port PORT] [--bind-host HOST]
     make blunder-audit-web
 """
 
@@ -46,6 +46,11 @@ WEBSITE_SCRIPTS = REPO_ROOT / "website" / "src" / "scripts"
 WEBSITE_STYLES = REPO_ROOT / "website" / "src" / "styles"
 CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 
+# Remote audit sessions often run on a dev server and are browsed from a second
+# machine, so wildcard binding remains the default. Use --bind-host 127.0.0.1
+# for local-only access.
+DEFAULT_BIND_HOST = "0.0.0.0"
+
 # Files the standalone audit UI serves directly from the website sources.
 STATIC_FILES: dict[str, Path] = {
     "/game-renderer.js": WEBSITE_SCRIPTS / "game-renderer.js",
@@ -79,6 +84,22 @@ def _get_hostname() -> str:
     hostname = _load_config().get("hostname", "localhost")
     assert isinstance(hostname, str), f"hostname must be a string, got {hostname!r}"
     return hostname or "localhost"
+
+
+def _format_url_host(host: str) -> str:
+    """Format a host for use in an HTTP URL."""
+    if ":" in host and not host.startswith("["):
+        return f"[{host}]"
+    return host
+
+
+def _viewer_url(bind_host: str, port: int, game_id: str | None = None) -> str:
+    """Return the URL users should browse to for the current binding."""
+    browse_host = _get_hostname() if bind_host == DEFAULT_BIND_HOST else bind_host
+    url = f"http://{_format_url_host(browse_host)}:{port}/"
+    if game_id:
+        url += f"?game={game_id}"
+    return url
 
 
 def _load_game_cached(game_id: str) -> GameExport:
@@ -567,13 +588,21 @@ def _find_free_port() -> int:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Blunder audit web UI")
     parser.add_argument("--port", type=int, default=0, help="Port (0 = auto)")
+    parser.add_argument(
+        "--bind-host",
+        default=DEFAULT_BIND_HOST,
+        help=(
+            "Host/interface to bind "
+            f"(default: {DEFAULT_BIND_HOST} for remote-access dev servers; "
+            "use 127.0.0.1 for local-only access)"
+        ),
+    )
     parser.add_argument("--game", help="Filter to a specific game ID")
     args = parser.parse_args()
 
     port = args.port or _find_free_port()
-    hostname = _get_hostname()
 
-    server = HTTPServer(("0.0.0.0", port), AuditHandler)
+    server = HTTPServer((args.bind_host, port), AuditHandler)
 
     # Pre-load ground truth to report stats at startup
     all_gt = load_ground_truth()
@@ -582,10 +611,8 @@ def main() -> None:
         1 for entries in all_gt.values() for e in entries if e.get("verdict") is None
     )
 
-    url = f"http://{hostname}:{port}/"
-    if args.game:
-        url += f"?game={args.game}"
-
+    url = _viewer_url(args.bind_host, port, args.game)
+    print(f"Listening on {args.bind_host}:{port}")
     print(f"Blunder audit UI: {url}")
     print(f"{unaudited}/{total} plays unaudited across {len(all_gt)} games")
     print("Press Ctrl+C to stop.\n")

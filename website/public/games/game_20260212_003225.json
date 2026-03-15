@@ -85509,7 +85509,9 @@
       "llmEventIndices": [
         1786,
         1789,
-        1790
+        1790,
+        1792,
+        1794
       ],
       "subsequentActions": [
         "has started watching",
@@ -85971,7 +85973,11 @@
       "llmEventIndices": [
         1893,
         1895,
-        1896
+        1896,
+        1903,
+        1905,
+        1907,
+        1910
       ],
       "subsequentActions": [
         "has started watching",
@@ -87567,44 +87573,20 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": 6,
+      "chosen": false,
       "chosenArgs": {
-        "index": 6
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 6 out of range (call get_action_choices first)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Song of Creation {1}{G}{U}{R} [Cast]"
-          },
-          {
-            "index": 1,
-            "description": "Burning Wish {1}{R} [Cast]"
-          },
-          {
-            "index": 2,
-            "description": "Gamble {R} [Cast]"
-          },
-          {
-            "index": 3,
-            "description": "Dark Ritual {B} [Cast]"
-          },
-          {
-            "index": 4,
-            "description": "Dark Ritual {B} [Cast]"
-          },
-          {
-            "index": 5,
-            "description": "Gamble {R} [Cast]"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2194,
         2197,
-        2198
+        2198,
+        2200,
+        2201
       ],
       "subsequentActions": [
         "has started watching",

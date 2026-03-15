@@ -39945,13 +39945,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -39966,7 +39966,10 @@
       "llmEventIndices": [
         672,
         674,
-        675
+        675,
+        677,
+        678,
+        680
       ],
       "subsequentActions": [
         "has started watching",
@@ -41322,13 +41325,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -41343,7 +41346,10 @@
       "llmEventIndices": [
         947,
         949,
-        950
+        950,
+        952,
+        953,
+        955
       ],
       "subsequentActions": [
         "has started watching",
@@ -42987,13 +42993,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -43008,7 +43014,11 @@
       "llmEventIndices": [
         1236,
         1239,
-        1240
+        1240,
+        1242,
+        1243,
+        1245,
+        1248
       ],
       "subsequentActions": [
         "has started watching",

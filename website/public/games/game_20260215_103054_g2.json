@@ -13367,7 +13367,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -13449,7 +13449,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -13509,21 +13509,25 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p1",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         39,
         40,
-        41
+        41,
+        42,
+        43,
+        44,
+        45
       ],
       "subsequentActions": [
         "has started watching",
@@ -13827,7 +13831,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -13982,7 +13986,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -14282,7 +14286,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -14645,7 +14649,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -14854,7 +14858,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p15"
+        "attackers": [
+          "p5",
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -15093,7 +15100,7 @@
         "pile": 0,
         "index": 4,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -16115,7 +16122,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5,p15,p6"
+        "attackers": [
+          "p5",
+          "p15",
+          "p6"
+        ]
       },
       "actionResult": {
         "declared": [

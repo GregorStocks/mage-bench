@@ -86102,28 +86102,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "choice": "pN",
-        "mana_plan": "p1,p5:1",
-        "pile": 1,
-        "text": "option text"
+        "choice": "p32"
       },
       "actionResult": {
-        "error": "Unknown short ID: pN"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 83,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         70,
         71,
-        72
+        72,
+        73,
+        74
       ],
       "subsequentActions": [
         "Qwen3L Philo puts Forest from hand onto the Battlefield"
@@ -87066,41 +87063,23 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          2
-        ],
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "choice": "1",
-        "mana_plan": "p1,p5:1",
-        "pile": 1,
-        "text": "option text"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 180,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "invalid_choice",
-        "error": "'option text' is not a valid choice",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Grove: Thriving Grove enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Grove: As Thriving Grove enters, choose a color other than green."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_1",
+        "next_action_message": "Choose color"
       },
       "llmEventIndices": [
         150,
         151,
-        152
+        152,
+        153,
+        154
       ],
       "subsequentActions": [
         "Thriving Grove: Qwen3L Philo has chosen Blue",
@@ -88003,7 +87982,7 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -88012,30 +87991,24 @@
         "mana_plan": "",
         "attackers": "",
         "blockers": "",
-        "text": "Thriving Grove: As Thriving Grove enters, choose a color other than green.",
-        "choice": ""
+        "text": "",
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 272,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "'Thriving Grove: As Thriving Grove enters, choose a color other than green.' is not a valid choice",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Grove: Thriving Grove enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Grove: As Thriving Grove enters, choose a color other than green."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_1",
+        "next_action_message": "Choose color"
       },
       "llmEventIndices": [
         234,
         235,
-        236
+        236,
+        237,
+        238
       ],
       "subsequentActions": [],
       "actionSeq": 272,
@@ -89204,7 +89177,8 @@
         340,
         341,
         343,
-        344
+        344,
+        345
       ],
       "subsequentActions": [
         "Qwen3L Philo puts Soul Read from stack into their graveyard"

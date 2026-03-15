@@ -29771,7 +29771,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p31"
+        "attackers": [
+          "p31"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30327,7 +30329,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p23"
+        "attackers": [
+          "p10",
+          "p23"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -31360,15 +31365,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p4', 'blocks': 'p34'},{'id': 'p31', 'blocks': 'p24'}"
+        "blockers": [
+          {
+            "blocks": "p24",
+            "id": "p31"
+          }
+        ]
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "error": "JsonObject"
       },
       "llmEventIndices": [
         771,
         773,
-        774
+        774,
+        776,
+        777,
+        779,
+        780,
+        782,
+        785
       ],
       "subsequentActions": [
         "has started watching",

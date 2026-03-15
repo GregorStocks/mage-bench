@@ -30289,17 +30289,22 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "{'tap': 'p4'}",
+        "auto_tap": true,
         "id": "p7"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         130,
         132,
         135,
-        136
+        136,
+        138,
+        139
       ],
       "subsequentActions": [
         "has started watching",
@@ -30630,31 +30635,18 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "amount": 3,
-        "answer": false,
-        "amounts": [
-          0,
-          1
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 3,
-        "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"toughness\":1,\"tapped\":false}]}\n\nWe haven't take any mulligans. We started with 7 cards and we are now on turn 2.",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p4",
-        "text": "Plains"
+        "index": 3
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "success": true,
+        "action_taken": "selected_target_3"
       },
       "llmEventIndices": [
         177,
         178,
-        179
+        179,
+        183,
+        192
       ],
       "subsequentActions": [
         "has started watching",
@@ -31312,31 +31304,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          1,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"toughness\":1,\"tapped\":false}]}\n\nThis is our second turn. We are playing a land and activating Marsh Flats.",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p3",
-        "text": "Plains"
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         253,
         255,
-        256
+        256,
+        258,
+        259
       ],
       "subsequentActions": [
         "has started watching",
@@ -32180,7 +32161,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p17"
+        "attackers": [
+          "p17"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -34834,7 +34817,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -36000,40 +35985,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
-        "choices": [
-          {
-            "name": "Devourer of Destiny",
-            "target_type": "card",
-            "index": 0,
-            "id": "p55"
-          },
-          {
-            "name": "World Breaker",
-            "target_type": "card",
-            "index": 1,
-            "id": "p63"
-          },
-          {
-            "name": "Eldrazi Temple",
-            "target_type": "card",
-            "index": 2,
-            "id": "p37"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         685,
         687,
-        688
+        688,
+        690,
+        691
       ],
       "subsequentActions": [
         "has started watching",
@@ -36370,32 +36337,21 @@
       "isForced": false,
       "chosen": 7,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          1,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 7,
-        "mana_plan": "{\"planeswalkers\":[{\"id\":\"p2\",\"counters\":4}],\"creatures\":[{\"id\":\"p1\",\"name\":\"Elite Vanguard\",\"power\":2,\"tough游戏副本\":\"1\",\"tapped\":false}]}\n\nThis is turn 3, we need to play a land.",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p28",
-        "text": "Urborg, Tomb of Yawgmoth"
+        "id": "p28"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_7"
       },
       "llmEventIndices": [
         715,
         720,
         722,
-        723
+        723,
+        725,
+        726
       ],
       "subsequentActions": [
         "has started watching",
@@ -37223,7 +37179,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p25"
+        "attackers": [
+          "p23",
+          "p25"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -37879,7 +37838,8 @@
         863,
         865,
         868,
-        869
+        869,
+        871
       ],
       "subsequentActions": [
         "has started watching",
@@ -38385,33 +38345,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          2,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p2",
-        "text": "Kozilek's Command"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         937,
         939,
-        940
+        940,
+        942,
+        943
       ],
       "subsequentActions": [
         "has started watching",
@@ -38665,31 +38614,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          2,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p2",
-        "text": "Kozilek's Command"
+        "id": "p2"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         973,
         978,
-        979
+        979,
+        981,
+        982
       ],
       "subsequentActions": [
         "has started watching",
@@ -38841,33 +38779,20 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          2,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p2",
-        "text": "Kozilek's Command"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1003,
         1005,
-        1006
+        1006,
+        1008,
+        1017
       ],
       "subsequentActions": [
         "has started watching",
@@ -38967,7 +38892,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p25,p2"
+        "attackers": [
+          "p23",
+          "p25",
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -39216,31 +39145,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          2,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\":\"p7\"},{\"tap\":\"p10\"}]",
-        "attackers": "p1",
-        "blockers": "{\"id\":\"p4\",\"blocks\":\"p1\"}",
-        "id": "p2",
-        "text": "Kozilek's Command"
+        "id": "p2"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         1039,
         1041,
-        1042
+        1042,
+        1052,
+        1053
       ],
       "subsequentActions": [
         "has started watching",

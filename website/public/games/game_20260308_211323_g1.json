@@ -58195,10 +58195,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "Opus Brewer chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -58537,10 +58535,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "Opus Brewer's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -58675,10 +58671,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "Opus Brewer puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -58812,10 +58806,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step"
-      ],
-      "actionSeq": 12,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -58938,7 +58930,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59075,13 +59067,8 @@
         19,
         22
       ],
-      "subsequentActions": [
-        "Opus Brewer's library is shuffled",
-        "Opus Brewer puts a card from hand to the bottom of their library",
-        "Opus Brewer skips Draw step",
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -59197,7 +59184,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -59333,10 +59320,8 @@
         23,
         26
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 19
+      "subsequentActions": [],
+      "actionSeq": 23
     },
     {
       "index": 10,
@@ -59451,7 +59436,7 @@
         29
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59600,7 +59585,7 @@
         31
       ],
       "subsequentActions": [],
-      "actionSeq": 23
+      "actionSeq": 26
     },
     {
       "index": 12,
@@ -59794,10 +59779,8 @@
         32,
         33
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 26
+      "subsequentActions": [],
+      "actionSeq": 31
     },
     {
       "index": 14,
@@ -59975,7 +59958,7 @@
         35
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60135,10 +60118,8 @@
         36,
         37
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 33,
+      "subsequentActions": [],
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -60289,10 +60270,8 @@
         38,
         39
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Commune with Dinosaurs from hand"
-      ],
-      "actionSeq": 36,
+      "subsequentActions": [],
+      "actionSeq": 39,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -60481,7 +60460,7 @@
         41
       ],
       "subsequentActions": [],
-      "actionSeq": 39,
+      "actionSeq": 41,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -60689,11 +60668,8 @@
         44,
         45
       ],
-      "subsequentActions": [
-        "Grk41F Timmy reveals Ornery Dilophosaur (source: Commune with Dinosaurs)",
-        "Grk41F Timmy puts a card from library into their hand"
-      ],
-      "actionSeq": 41,
+      "subsequentActions": [],
+      "actionSeq": 44,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -60888,10 +60864,8 @@
         46,
         47
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Commune with Dinosaurs)"
-      ],
-      "actionSeq": 44,
+      "subsequentActions": [],
+      "actionSeq": 46,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61068,10 +61042,8 @@
         48,
         49
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Commune with Dinosaurs)"
-      ],
-      "actionSeq": 46,
+      "subsequentActions": [],
+      "actionSeq": 48,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61247,12 +61219,8 @@
         50,
         58
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Commune with Dinosaurs)",
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Commune with Dinosaurs)",
-        "Grk41F Timmy puts Commune with Dinosaurs from stack into their graveyard"
-      ],
-      "actionSeq": 48,
+      "subsequentActions": [],
+      "actionSeq": 52,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61576,10 +61544,8 @@
         55,
         56
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 54,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -61729,7 +61695,7 @@
         60
       ],
       "subsequentActions": [],
-      "actionSeq": 58,
+      "actionSeq": 62,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61912,11 +61878,8 @@
         59,
         62
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Elvish Warmaster from hand"
-      ],
-      "actionSeq": 52
+      "subsequentActions": [],
+      "actionSeq": 63
     },
     {
       "index": 26,
@@ -62122,10 +62085,8 @@
         63,
         64
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elvish Warmaster from stack onto the Battlefield"
-      ],
-      "actionSeq": 63
+      "subsequentActions": [],
+      "actionSeq": 66
     },
     {
       "index": 28,
@@ -62305,10 +62266,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 66
+      "subsequentActions": [],
+      "actionSeq": 70
     },
     {
       "index": 29,
@@ -62755,7 +62714,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 72,
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -62953,10 +62912,8 @@
         73,
         74
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 73,
+      "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -63150,10 +63107,8 @@
         75,
         76
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 77,
+      "subsequentActions": [],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -63359,7 +63314,7 @@
         85
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -63735,10 +63690,8 @@
         82,
         83
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 85,
+      "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -63985,11 +63938,8 @@
         86,
         87
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Ghirapur Guide from hand"
-      ],
-      "actionSeq": 83,
+      "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64209,11 +64159,8 @@
         88,
         89
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Ghirapur Guide from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elvish Warmaster - Whenever one or more other Elves you control enter, create a 1/1 green Elf Warrior creature token. This ability triggers only once each turn."
-      ],
-      "actionSeq": 95,
+      "subsequentActions": [],
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64447,10 +64394,8 @@
         90,
         95
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 102,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64912,10 +64857,8 @@
         96,
         97
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 1 creature"
-      ],
-      "actionSeq": 102,
+      "subsequentActions": [],
+      "actionSeq": 108,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -65149,10 +65092,8 @@
         98,
         99
       ],
-      "subsequentActions": [
-        "Attacker: Elvish Warmaster (2/2) unblocked"
-      ],
-      "actionSeq": 108,
+      "subsequentActions": [],
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -65372,10 +65313,8 @@
         100,
         101
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 2 life at combat from Elvish Warmaster"
-      ],
-      "actionSeq": 112,
+      "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -65629,7 +65568,7 @@
         104
       ],
       "subsequentActions": [],
-      "actionSeq": 116,
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -65892,7 +65831,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 118,
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -66159,7 +66098,7 @@
         108
       ],
       "subsequentActions": [],
-      "actionSeq": 119,
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -66424,7 +66363,7 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 120,
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -66677,11 +66616,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "Thriving Grove: Grk41F Timmy has chosen Red",
-        "Grk41F Timmy puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 121,
+      "subsequentActions": [],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -66933,10 +66869,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 126,
+      "subsequentActions": [],
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -67187,7 +67121,7 @@
         119
       ],
       "subsequentActions": [],
-      "actionSeq": 130,
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -67685,7 +67619,7 @@
         121
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -67994,7 +67928,7 @@
         126
       ],
       "subsequentActions": [],
-      "actionSeq": 135,
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -68349,10 +68283,8 @@
         127,
         128
       ],
-      "subsequentActions": [
-        "Grk41F Timmy searches their library (source: Ash Barrens)"
-      ],
-      "actionSeq": 141,
+      "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -68628,12 +68560,8 @@
         129,
         134
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library into their hand",
-        "Grk41F Timmy reveals Forest",
-        "Grk41F Timmy's library is shuffled (source: Ash Barrens)"
-      ],
-      "actionSeq": 144,
+      "subsequentActions": [],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -69211,7 +69139,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 150,
+      "actionSeq": 154,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -69490,10 +69418,8 @@
         135,
         138
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 3 creatures"
-      ],
-      "actionSeq": 149,
+      "subsequentActions": [],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -69772,7 +69698,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 154,
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -70051,12 +69977,8 @@
         139,
         142
       ],
-      "subsequentActions": [
-        "Attacker: Elvish Warmaster (2/2) unblocked",
-        "Attacker: Ghirapur Guide (3/2) unblocked",
-        "Attacker: Elf Warrior Token (1/1) unblocked"
-      ],
-      "actionSeq": 155,
+      "subsequentActions": [],
+      "actionSeq": 161,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70340,12 +70262,8 @@
         143,
         146
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 2 life at combat from Elvish Warmaster",
-        "Grk41F Timmy loses 3 life at combat from Ghirapur Guide",
-        "Grk41F Timmy loses 1 life at combat from Elf Warrior Token"
-      ],
-      "actionSeq": 161,
+      "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70879,7 +70797,7 @@
         148
       ],
       "subsequentActions": [],
-      "actionSeq": 167,
+      "actionSeq": 169,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71168,7 +71086,7 @@
         154
       ],
       "subsequentActions": [],
-      "actionSeq": 169,
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -71429,7 +71347,7 @@
         157
       ],
       "subsequentActions": [],
-      "actionSeq": 170,
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71697,7 +71615,7 @@
         163
       ],
       "subsequentActions": [],
-      "actionSeq": 174,
+      "actionSeq": 178,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -72010,10 +71928,8 @@
         164,
         165
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Thrashing Brontodon from stack onto the Battlefield"
-      ],
-      "actionSeq": 178,
+      "subsequentActions": [],
+      "actionSeq": 181,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -72267,10 +72183,8 @@
         167,
         168
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 181,
+      "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72522,10 +72436,8 @@
         169,
         170
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 183,
+      "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -72781,7 +72693,7 @@
         176
       ],
       "subsequentActions": [],
-      "actionSeq": 187,
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -73361,10 +73273,9 @@
         182
       ],
       "subsequentActions": [
-        "Opus Brewer casts Dwynen's Elite from hand",
         "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield"
       ],
-      "actionSeq": 189,
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73948,12 +73859,8 @@
         184,
         185
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Dwynen's Elite - When Dwynen's Elite enters, if you control another Elf, create a 1/1 green Elf Warrior creature token.",
-        "Opus Brewer - Ability triggers: Elvish Warmaster - Whenever one or more other Elves you control enter, create a 1/1 green Elf Warrior creature token. This ability triggers only once each turn."
-      ],
-      "actionSeq": 198,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -74232,10 +74139,8 @@
         186,
         187
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -74563,10 +74468,8 @@
         188,
         198
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 207,
+      "subsequentActions": [],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -75269,10 +75172,8 @@
         192,
         193
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 3 creatures"
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -75629,7 +75530,7 @@
         195
       ],
       "subsequentActions": [],
-      "actionSeq": 217,
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -75978,11 +75879,8 @@
         199,
         200
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 3 creatures",
-        "Opus Brewer casts Might of the Masses targeting Ghirapur Guide from hand"
-      ],
-      "actionSeq": 210,
+      "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -76339,10 +76237,8 @@
         201,
         202
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Might of the Masses from stack into their graveyard"
-      ],
-      "actionSeq": 222,
+      "subsequentActions": [],
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -76692,7 +76588,7 @@
         204
       ],
       "subsequentActions": [],
-      "actionSeq": 225,
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -77035,12 +76931,8 @@
         205,
         206
       ],
-      "subsequentActions": [
-        "Attacker: Elvish Warmaster (2/2) unblocked",
-        "Attacker: Ghirapur Guide (9/8) blocked by Thrashing Brontodon (3/4)",
-        "Attacker: Elf Warrior Token (1/1) unblocked"
-      ],
-      "actionSeq": 226,
+      "subsequentActions": [],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -77324,14 +77216,8 @@
         207,
         208
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 2 life at combat from Elvish Warmaster",
-        "Thrashing Brontodon deals 3 damage to Ghirapur Guide",
-        "Ghirapur Guide deals 9 damage to Thrashing Brontodon",
-        "Grk41F Timmy loses 1 life at combat from Elf Warrior Token",
-        "Thrashing Brontodon died"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -77672,7 +77558,7 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -78056,7 +77942,7 @@
         213
       ],
       "subsequentActions": [],
-      "actionSeq": 244,
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -78403,10 +78289,8 @@
         215,
         216
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Warped Landscape from hand onto the Battlefield"
-      ],
-      "actionSeq": 245,
+      "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -78708,7 +78592,7 @@
         218
       ],
       "subsequentActions": [],
-      "actionSeq": 249,
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -79004,10 +78888,8 @@
         219,
         220
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Ornery Dilophosaur from hand"
-      ],
-      "actionSeq": 253,
+      "subsequentActions": [],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79302,10 +79184,8 @@
         221,
         222
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Ornery Dilophosaur from stack onto the Battlefield"
-      ],
-      "actionSeq": 256,
+      "subsequentActions": [],
+      "actionSeq": 259,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79601,10 +79481,8 @@
         224,
         225
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 259,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -79904,7 +79782,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80550,10 +80428,9 @@
         241
       ],
       "subsequentActions": [
-        "Opus Brewer casts Silhana Wayfinder from hand",
         "Opus Brewer puts Silhana Wayfinder from stack onto the Battlefield"
       ],
-      "actionSeq": 265,
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81197,12 +81074,8 @@
         243,
         250
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Silhana Wayfinder from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elvish Warmaster - Whenever one or more other Elves you control enter, create a 1/1 green Elf Warrior creature token. This ability triggers only once each turn.",
-        "Opus Brewer - Ability triggers: Silhana Wayfinder - When Silhana Wayfinder enters, look at the top four cards of your library. You may reveal a creature or land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
-      ],
-      "actionSeq": 274,
+      "subsequentActions": [],
+      "actionSeq": 280,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81839,7 +81712,7 @@
         248
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -82181,14 +82054,8 @@
         251,
         252
       ],
-      "subsequentActions": [
-        "Opus Brewer reveals Forest (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the top of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)"
-      ],
-      "actionSeq": 280,
+      "subsequentActions": [],
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -82576,10 +82443,8 @@
         253,
         259
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 289,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -83470,10 +83335,8 @@
         260,
         261
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 6 creatures"
-      ],
-      "actionSeq": 292,
+      "subsequentActions": [],
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -83885,7 +83748,7 @@
         263
       ],
       "subsequentActions": [],
-      "actionSeq": 298,
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -84296,14 +84159,8 @@
         264,
         265
       ],
-      "subsequentActions": [
-        "Attacker: Elvish Warmaster (2/2) unblocked",
-        "Attacker: Ghirapur Guide (3/2) blocked by Ornery Dilophosaur (2/2)",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Dwynen's Elite (2/2) unblocked",
-        "Attacker: Elf Warrior Token (1/1) unblocked"
-      ],
-      "actionSeq": 299,
+      "subsequentActions": [],
+      "actionSeq": 310,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -84608,14 +84465,8 @@
         266,
         267
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 2 life at combat from Elvish Warmaster",
-        "Ornery Dilophosaur deals 2 damage to Ghirapur Guide",
-        "Ghirapur Guide deals 3 damage to Ornery Dilophosaur",
-        "Grk41F Timmy loses 1 life at combat from Elf Warrior Token",
-        "Grk41F Timmy loses 2 life at combat from Dwynen's Elite"
-      ],
-      "actionSeq": 310,
+      "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -84971,7 +84822,7 @@
         269
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -85332,7 +85183,7 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 324,
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -85661,10 +85512,8 @@
         275,
         276
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Ancient Stirrings from hand"
-      ],
-      "actionSeq": 325,
+      "subsequentActions": [],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -86013,7 +85862,7 @@
         278
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -86399,7 +86248,7 @@
         282
       ],
       "subsequentActions": [],
-      "actionSeq": 332,
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -86771,11 +86620,8 @@
         283,
         284
       ],
-      "subsequentActions": [
-        "Grk41F Timmy reveals Brood Monitor (source: Ancient Stirrings)",
-        "Grk41F Timmy puts a card from library into their hand"
-      ],
-      "actionSeq": 333,
+      "subsequentActions": [],
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -87135,10 +86981,8 @@
         285,
         286
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Ancient Stirrings)"
-      ],
-      "actionSeq": 336,
+      "subsequentActions": [],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -87509,10 +87353,8 @@
         287,
         288
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Ancient Stirrings)"
-      ],
-      "actionSeq": 338,
+      "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -87872,12 +87714,8 @@
         291,
         292
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Ancient Stirrings)",
-        "Grk41F Timmy puts a card from library to the bottom of their library (source: Ancient Stirrings)",
-        "Grk41F Timmy puts Ancient Stirrings from stack into their graveyard"
-      ],
-      "actionSeq": 340,
+      "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -88211,7 +88049,7 @@
         295
       ],
       "subsequentActions": [],
-      "actionSeq": 344,
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -88538,10 +88376,8 @@
         296,
         297
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Warden of Geometries from hand"
-      ],
-      "actionSeq": 347,
+      "subsequentActions": [],
+      "actionSeq": 351,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -88866,10 +88702,8 @@
         298,
         299
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Warden of Geometries from stack onto the Battlefield"
-      ],
-      "actionSeq": 351,
+      "subsequentActions": [],
+      "actionSeq": 354,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -89195,10 +89029,8 @@
         301,
         302
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 354
+      "subsequentActions": [],
+      "actionSeq": 358
     },
     {
       "index": 131,
@@ -89534,7 +89366,7 @@
         310
       ],
       "subsequentActions": [],
-      "actionSeq": 358,
+      "actionSeq": 360,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90186,10 +90018,8 @@
         307,
         308
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 362,
+      "subsequentActions": [],
+      "actionSeq": 366,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -90568,11 +90398,8 @@
         311,
         312
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Wildheart Invoker from hand"
-      ],
-      "actionSeq": 360
+      "subsequentActions": [],
+      "actionSeq": 373
     },
     {
       "index": 136,
@@ -90922,11 +90749,8 @@
         314,
         315
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Wildheart Invoker from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elvish Warmaster - Whenever one or more other Elves you control enter, create a 1/1 green Elf Warrior creature token. This ability triggers only once each turn."
-      ],
-      "actionSeq": 373
+      "subsequentActions": [],
+      "actionSeq": 377
     },
     {
       "index": 137,
@@ -91362,10 +91186,8 @@
         316,
         322
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 377
+      "subsequentActions": [],
+      "actionSeq": 380
     },
     {
       "index": 138,
@@ -92354,10 +92176,8 @@
         323,
         324
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Grk41F Timmy with 7 creatures"
-      ],
-      "actionSeq": 380
+      "subsequentActions": [],
+      "actionSeq": 386
     },
     {
       "index": 141,
@@ -92818,7 +92638,7 @@
         329
       ],
       "subsequentActions": [],
-      "actionSeq": 386,
+      "actionSeq": 387,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -92903,13 +92723,13 @@
         331
       ],
       "subsequentActions": [
-        "Attacker: Elvish Warmaster (2/2) blocked by Warden of Geometries (2/3)",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Dwynen's Elite (2/2) unblocked",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Elf Warrior Token (1/1) unblocked"
+        "Warden of Geometries deals 2 damage to Elvish Warmaster",
+        "Elvish Warmaster deals 2 damage to Warden of Geometries",
+        "Grk41F Timmy loses 1 life at combat from Elf Warrior Token",
+        "Grk41F Timmy loses 2 life at combat from Dwynen's Elite",
+        "Grk41F Timmy loses 1 life at combat from Elf Warrior Token"
       ],
-      "actionSeq": 387
+      "actionSeq": 399
     }
   ]
 }

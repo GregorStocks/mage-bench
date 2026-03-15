@@ -34221,15 +34221,15 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 5,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 5
+        "index": 0
       },
       "actionResult": {
         "retryable": true,
         "success": false,
         "error_code": "index_out_of_range",
-        "error": "Index 5 is out of range (valid: 0-4). Call get_action_choices to see current targets.",
+        "error": "Index 0 is out of range (no choices loaded). Call get_action_choices to see current targets.",
         "choices": [
           {
             "name": "Force of Will",
@@ -34266,7 +34266,10 @@
       "llmEventIndices": [
         387,
         389,
-        390
+        390,
+        392,
+        393,
+        395
       ],
       "subsequentActions": [
         "has started watching",
@@ -34448,15 +34451,15 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 3,
+      "chosen": 2,
       "chosenArgs": {
-        "index": 3
+        "index": 2
       },
       "actionResult": {
         "retryable": true,
         "success": false,
         "error_code": "index_out_of_range",
-        "error": "Index 3 is out of range (valid: 0-2). Call get_action_choices to see current targets.",
+        "error": "Index 2 is out of range (no choices loaded). Call get_action_choices to see current targets.",
         "choices": [
           {
             "name": "Force of Will",
@@ -34481,7 +34484,10 @@
       "llmEventIndices": [
         408,
         410,
-        411
+        411,
+        413,
+        414,
+        416
       ],
       "subsequentActions": [
         "has started watching",
@@ -38840,7 +38846,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p51"
+        "attackers": [
+          "p51"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -39808,7 +39816,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p80"
+        "attackers": [
+          "p80"
+        ]
       },
       "actionResult": {
         "declared": [

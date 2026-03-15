@@ -37423,7 +37423,9 @@
         132,
         134,
         136,
-        137
+        137,
+        139,
+        142
       ],
       "subsequentActions": [
         "has started watching",
@@ -37450,20 +37452,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "index": 0
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 0 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         143,
         145,
-        146
+        146,
+        148,
+        149
       ],
       "subsequentActions": [
         "has started watching",
@@ -41421,16 +41423,20 @@
         "auto_tap": false,
         "pile": 1,
         "index": 0,
-        "mana_plan": "{\"foo\":\"bar\"}",
+        "mana_plan": "[{\"tap\":\"a1b2c3\"}]",
         "text": "string"
       },
       "actionResult": {
-        "error": "mana_plan must be a JSON array, got: {\"foo\":\"bar\"}"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
       },
       "llmEventIndices": [
         1066,
         1068,
-        1069
+        1069,
+        1071,
+        1072
       ],
       "subsequentActions": [
         "has started watching",

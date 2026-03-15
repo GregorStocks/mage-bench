@@ -220,12 +220,12 @@ blunder-audit:
 	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
 
 AUDIT_API_PORT ?= $(shell expr $(WEBSITE_PORT) + 100)
+AUDIT_BIND_HOST ?= 0.0.0.0
 
 .PHONY: blunder-audit-web
 blunder-audit-web: leaderboard
-	@HOSTNAME=$$(python3 -c "import json; print(json.load(open('$(HOME)/.mage-bench/config.json'))['hostname'])"); \
-	echo "  Audit API: http://$$HOSTNAME:$(AUDIT_API_PORT)/"
-	@uv run --project puppeteer python scripts/analysis/blunder_audit_web.py --port $(AUDIT_API_PORT) $(ARGS) &
+	@echo "  Audit API bind: $(AUDIT_BIND_HOST):$(AUDIT_API_PORT)"
+	@uv run --project puppeteer python scripts/analysis/blunder_audit_web.py --port $(AUDIT_API_PORT) --bind-host $(AUDIT_BIND_HOST) $(ARGS) &
 	@sleep 1
 	AUDIT_API_PORT=$(AUDIT_API_PORT) $(MAKE) website
 

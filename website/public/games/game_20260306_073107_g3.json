@@ -41300,10 +41300,8 @@
         6,
         20
       ],
-      "subsequentActions": [
-        "G31FL Tactic chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -41680,10 +41678,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "GPT52 Analyst's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -41857,10 +41853,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -42063,10 +42057,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "GPT52 Analyst's library is shuffled"
-      ],
-      "actionSeq": 12
+      "subsequentActions": [],
+      "actionSeq": 14
     },
     {
       "index": 6,
@@ -42254,10 +42246,8 @@
         17,
         18
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 14
+      "subsequentActions": [],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -42381,7 +42371,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 16
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -42529,14 +42519,8 @@
         21,
         22
       ],
-      "subsequentActions": [
-        "GPT52 Analyst's library is shuffled",
-        "GPT52 Analyst puts a card from hand to the bottom of their library",
-        "GPT52 Analyst's library is shuffled",
-        "GPT52 Analyst puts a card from hand to the bottom of their library",
-        "GPT52 Analyst puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -42695,7 +42679,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -42846,7 +42830,7 @@
         26
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -42979,7 +42963,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 23,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43105,12 +43089,8 @@
         29,
         32
       ],
-      "subsequentActions": [
-        "G31FL Tactic skips Draw step",
-        "Thriving Isle: G31FL Tactic has chosen White",
-        "G31FL Tactic puts Thriving Isle from hand onto the Battlefield"
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 28
     },
     {
       "index": 13,
@@ -43237,7 +43217,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 27
+      "actionSeq": 31
     },
     {
       "index": 14,
@@ -43360,10 +43340,8 @@
         33,
         36
       ],
-      "subsequentActions": [
-        "G31FL Tactic skip attack"
-      ],
-      "actionSeq": 28
+      "subsequentActions": [],
+      "actionSeq": 32
     },
     {
       "index": 15,
@@ -43504,7 +43482,7 @@
         44
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43663,7 +43641,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 32
+      "actionSeq": 34
     },
     {
       "index": 17,
@@ -43830,7 +43808,7 @@
         40
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 35,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -43977,10 +43955,8 @@
         41,
         42
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 35,
+      "subsequentActions": [],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -44123,7 +44099,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 39,
+      "actionSeq": 42,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44287,10 +44263,8 @@
         49,
         50
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Triton Shorestalker from stack onto the Battlefield"
-      ],
-      "actionSeq": 42,
+      "subsequentActions": [],
+      "actionSeq": 45,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44428,10 +44402,8 @@
         51,
         52
       ],
-      "subsequentActions": [
-        "GPT52 Analyst skip attack"
-      ],
-      "actionSeq": 45
+      "subsequentActions": [],
+      "actionSeq": 49
     },
     {
       "index": 23,
@@ -44579,7 +44551,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 51,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44941,10 +44913,8 @@
         57,
         58
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 53,
+      "subsequentActions": [],
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -45130,11 +45100,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Island from hand onto the Battlefield",
-        "G31FL Tactic casts Chromatic Sphere from hand"
-      ],
-      "actionSeq": 51
+      "subsequentActions": [],
+      "actionSeq": 61
     },
     {
       "index": 28,
@@ -45284,10 +45251,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Chromatic Sphere from stack onto the Battlefield"
-      ],
-      "actionSeq": 61
+      "subsequentActions": [],
+      "actionSeq": 64
     },
     {
       "index": 29,
@@ -45437,10 +45402,8 @@
         69,
         70
       ],
-      "subsequentActions": [
-        "G31FL Tactic skip attack"
-      ],
-      "actionSeq": 64
+      "subsequentActions": [],
+      "actionSeq": 68
     },
     {
       "index": 30,
@@ -45624,7 +45587,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 68
+      "actionSeq": 70
     },
     {
       "index": 31,
@@ -45824,7 +45787,7 @@
         74
       ],
       "subsequentActions": [],
-      "actionSeq": 70,
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -46004,10 +45967,8 @@
         75,
         76
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 71,
+      "subsequentActions": [],
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -46180,10 +46141,8 @@
         77,
         78
       ],
-      "subsequentActions": [
-        "GPT52 Analyst casts Bloodrage Brawler from hand"
-      ],
-      "actionSeq": 75,
+      "subsequentActions": [],
+      "actionSeq": 79,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46373,11 +46332,8 @@
         79,
         80
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Bloodrage Brawler from stack onto the Battlefield",
-        "GPT52 Analyst - Ability triggers: Bloodrage Brawler - When Bloodrage Brawler enters, discard a card."
-      ],
-      "actionSeq": 79,
+      "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46561,7 +46517,7 @@
         82
       ],
       "subsequentActions": [],
-      "actionSeq": 83,
+      "actionSeq": 85,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46965,10 +46921,8 @@
         89,
         90
       ],
-      "subsequentActions": [
-        "GPT52 Analyst attacks G31FL Tactic with 1 creature"
-      ],
-      "actionSeq": 89
+      "subsequentActions": [],
+      "actionSeq": 93
     },
     {
       "index": 39,
@@ -47595,10 +47549,8 @@
         99,
         100
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 114,
+      "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -47842,7 +47794,7 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 118,
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -48059,10 +48011,8 @@
         103,
         104
       ],
-      "subsequentActions": [
-        "GPT52 Analyst attacks G31FL Tactic with 2 creatures"
-      ],
-      "actionSeq": 120,
+      "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -48390,25 +48340,228 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "choice": "p40",
-        "mana_plan": "p41,p42,p43:1"
+        "mana_plan": "p5,p7,p9:1",
+        "choice": "p40"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_CHOOSE_CHOICE",
+        "message": "Select a color of mana to add 1 of it",
+        "response_type": "index",
+        "respond_with": "choice=0, choice=1, etc. or text=Name (not yes/no)",
+        "context": "T4 Precombat Main/Precombat Main (G31FL Tactic) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Chromatic Sphere",
+                "rules": [
+                  "{1}, {T}, Sacrifice {this}: Add one mana of any color. Draw a card."
+                ],
+                "id": "p5"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": false,
+                "name": "Thriving Isle",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: White"
+                ],
+                "id": "p9"
+              }
+            ],
+            "name": "G31FL Tactic",
+            "library_size": 30,
+            "life": 14,
+            "hand": [
+              {
+                "mana_cost": "{2}{W}",
+                "name": "Acrobatic Maneuver",
+                "rules": [
+                  "Exile target creature you control, then return that card to the battlefield under its owner's control. : Draw a card."
+                ],
+                "id": "p3"
+              },
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Archaeomender",
+                "rules": [
+                  "When {this} enters, return target artifact card from your graveyard to your hand."
+                ],
+                "power": "2",
+                "id": "p4",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}",
+                "name": "Hedron Archive",
+                "rules": [
+                  "{T}: Add {C}{C}.",
+                  "{2}, {T}, Sacrifice {this}: Draw two cards."
+                ],
+                "id": "p6"
+              },
+              {
+                "mana_cost": "{5}{U}{U}",
+                "name": "Scholar of the Lost Trove",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may cast target instant, sorcery, or artifact card from your graveyard without paying its mana cost. If an instant or sorcery spell cast this way would be put into your graveyard, exile it instead."
+                ],
+                "power": "5",
+                "id": "p8",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p36",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Bloodrage Brawler",
+                "rules": [
+                  "When {this} enters, discard a card."
+                ],
+                "id": "p23",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p41"
+              },
+              {
+                "tapped": true,
+                "name": "Triton Shorestalker",
+                "rules": [
+                  "{this} can't be blocked."
+                ],
+                "id": "p27",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false
+              }
+            ],
+            "name": "GPT52 Analyst",
+            "library_size": 32,
+            "life": 20
+          }
+        ],
+        "board_cursor": 11,
+        "choices": [
+          {
+            "index": 0,
+            "description": "White"
+          },
+          {
+            "index": 1,
+            "description": "Blue"
+          },
+          {
+            "index": 2,
+            "description": "Black"
+          },
+          {
+            "index": 3,
+            "description": "Red"
+          },
+          {
+            "index": 4,
+            "description": "Green"
+          }
+        ],
+        "stack": [
+          {
+            "name": "Thirst for Knowledge"
+          }
+        ],
+        "untapped_lands": 2,
         "game_seq": 143,
-        "error": "Mana plan references unknown permanent 'p43'. Check the board state for correct permanent IDs.",
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "selected_1",
+        "success": true,
+        "mana_plan_set": true,
+        "mana_plan_size": 3
       },
       "llmEventIndices": [
         108,
         109,
-        110
+        110,
+        111,
+        113,
+        114
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 139,
+      "subsequentActions": [],
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -48653,10 +48806,8 @@
         115,
         116
       ],
-      "subsequentActions": [
-        "G31FL Tactic sacrificed Chromatic Sphere (source: Chromatic Sphere)"
-      ],
-      "actionSeq": 143,
+      "subsequentActions": [],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49367,10 +49518,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "G31FL Tactic did not pay for Thirst for Knowledge - Discard an artifact card instead of discarding two cards?"
-      ],
-      "actionSeq": 154,
+      "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -49666,7 +49815,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 156,
+      "actionSeq": 157,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50141,10 +50290,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "G31FL Tactic skip attack"
-      ],
-      "actionSeq": 162,
+      "subsequentActions": [],
+      "actionSeq": 166,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -50740,10 +50887,8 @@
         143,
         144
       ],
-      "subsequentActions": [
-        "GPT52 Analyst attacks G31FL Tactic with 2 creatures"
-      ],
-      "actionSeq": 171,
+      "subsequentActions": [],
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -51000,11 +51145,8 @@
         145,
         146
       ],
-      "subsequentActions": [
-        "Attacker: Bloodrage Brawler (4/3) unblocked",
-        "Attacker: Triton Shorestalker (1/1) unblocked"
-      ],
-      "actionSeq": 177,
+      "subsequentActions": [],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -51250,11 +51392,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "G31FL Tactic loses 4 life at combat from Bloodrage Brawler",
-        "G31FL Tactic loses 1 life at combat from Triton Shorestalker"
-      ],
-      "actionSeq": 182,
+      "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -51669,25 +51808,242 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "p44,p45,p46,p47:1",
-        "choice": "p46"
+        "choice": "p46",
+        "mana_plan": "p7,p42,p50,p9:1"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T5 Precombat Main/Precombat Main (G31FL Tactic) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Chromatic Sphere",
+                "rules": [
+                  "{1}, {T}, Sacrifice {this}: Add one mana of any color. Draw a card."
+                ],
+                "id": "p5"
+              },
+              {
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p47"
+              },
+              {
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p48"
+              },
+              {
+                "name": "Thirst for Knowledge",
+                "rules": [
+                  "Draw three cards. Then discard two cards unless you discard an artifact card."
+                ],
+                "id": "p40"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p50"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Isle",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: White"
+                ],
+                "id": "p9"
+              }
+            ],
+            "name": "G31FL Tactic",
+            "library_size": 25,
+            "life": 9,
+            "hand": [
+              {
+                "mana_cost": "{2}{W}",
+                "name": "Acrobatic Maneuver",
+                "rules": [
+                  "Exile target creature you control, then return that card to the battlefield under its owner's control. : Draw a card."
+                ],
+                "id": "p3"
+              },
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Archaeomender",
+                "rules": [
+                  "When {this} enters, return target artifact card from your graveyard to your hand."
+                ],
+                "power": "2",
+                "id": "p4",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}",
+                "name": "Hedron Archive",
+                "rules": [
+                  "{T}: Add {C}{C}.",
+                  "{2}, {T}, Sacrifice {this}: Draw two cards."
+                ],
+                "id": "p6"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p44"
+              },
+              {
+                "mana_cost": "{5}{U}{U}",
+                "name": "Scholar of the Lost Trove",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may cast target instant, sorcery, or artifact card from your graveyard without paying its mana cost. If an instant or sorcery spell cast this way would be put into your graveyard, exile it instead."
+                ],
+                "power": "5",
+                "id": "p8",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p36",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Bloodrage Brawler",
+                "rules": [
+                  "When {this} enters, discard a card."
+                ],
+                "id": "p23",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p41"
+              },
+              {
+                "tapped": true,
+                "name": "Triton Shorestalker",
+                "rules": [
+                  "{this} can't be blocked."
+                ],
+                "id": "p27",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false
+              }
+            ],
+            "name": "GPT52 Analyst",
+            "library_size": 31,
+            "life": 20
+          }
+        ],
+        "board_cursor": 17,
+        "stack": [
+          {
+            "name": "Gallant Cavalry"
+          }
+        ],
         "game_seq": 195,
-        "error": "Mana plan references unknown permanent 'p45'. Check the board state for correct permanent IDs.",
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "selected_1",
+        "success": true,
+        "mana_plan_set": true,
+        "mana_plan_size": 4
       },
       "llmEventIndices": [
         152,
         153,
-        154
+        154,
+        155,
+        157,
+        158
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 191,
+      "subsequentActions": [],
+      "actionSeq": 195,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -51953,10 +52309,8 @@
         159,
         162
       ],
-      "subsequentActions": [
-        "G31FL Tactic casts Gallant Cavalry from hand"
-      ],
-      "actionSeq": 195,
+      "subsequentActions": [],
+      "actionSeq": 202,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52499,11 +52853,8 @@
         165,
         166
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Gallant Cavalry from stack onto the Battlefield",
-        "G31FL Tactic - Ability triggers: Gallant Cavalry - When Gallant Cavalry enters, create a 2/2 white Knight creature token with vigilance."
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -52752,10 +53103,8 @@
         167,
         168
       ],
-      "subsequentActions": [
-        "G31FL Tactic creates a Knight Token token"
-      ],
-      "actionSeq": 207,
+      "subsequentActions": [],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -53050,7 +53399,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -53348,7 +53697,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 211,
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -53588,10 +53937,8 @@
         173,
         174
       ],
-      "subsequentActions": [
-        "GPT52 Analyst casts Burst Lightning targeting Gallant Cavalry from hand"
-      ],
-      "actionSeq": 212,
+      "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -54715,10 +55062,8 @@
         187,
         188
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 229,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -54970,10 +55315,8 @@
         189,
         190
       ],
-      "subsequentActions": [
-        "GPT52 Analyst casts Tectonic Giant from hand"
-      ],
-      "actionSeq": 233,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55245,10 +55588,8 @@
         191,
         192
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Tectonic Giant from stack onto the Battlefield"
-      ],
-      "actionSeq": 239,
+      "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55553,7 +55894,7 @@
         194
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 244,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -55834,10 +56175,8 @@
         195,
         198
       ],
-      "subsequentActions": [
-        "GPT52 Analyst attacks G31FL Tactic with 2 creatures"
-      ],
-      "actionSeq": 244
+      "subsequentActions": [],
+      "actionSeq": 249
     },
     {
       "index": 86,
@@ -56449,7 +56788,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 249
+      "actionSeq": 256
     },
     {
       "index": 88,
@@ -56749,11 +57088,8 @@
         201,
         204
       ],
-      "subsequentActions": [
-        "Attacker: Bloodrage Brawler (4/3) blocked by Knight Token (2/2)",
-        "Attacker: Triton Shorestalker (1/1) unblocked"
-      ],
-      "actionSeq": 251
+      "subsequentActions": [],
+      "actionSeq": 257
     },
     {
       "index": 89,
@@ -56987,7 +57323,7 @@
         206
       ],
       "subsequentActions": [],
-      "actionSeq": 256
+      "actionSeq": 263
     },
     {
       "index": 90,
@@ -57725,10 +58061,8 @@
         213,
         214
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 267,
+      "subsequentActions": [],
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -58031,7 +58365,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 271,
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -58346,10 +58680,8 @@
         217,
         218
       ],
-      "subsequentActions": [
-        "G31FL Tactic casts Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 275,
+      "subsequentActions": [],
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -58657,10 +58989,8 @@
         219,
         220
       ],
-      "subsequentActions": [
-        "G31FL Tactic puts Distinguished Conjurer from stack onto the Battlefield"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 280,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -59341,10 +59671,8 @@
         232,
         233
       ],
-      "subsequentActions": [
-        "GPT52 Analyst puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 288,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -59709,7 +60037,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 292,
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -60042,10 +60370,8 @@
         236,
         237
       ],
-      "subsequentActions": [
-        "GPT52 Analyst attacks G31FL Tactic with 3 creatures"
-      ],
-      "actionSeq": 294,
+      "subsequentActions": [],
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -60370,10 +60696,8 @@
         238,
         239
       ],
-      "subsequentActions": [
-        "GPT52 Analyst - Ability triggers: Tectonic Giant - Whenever Tectonic Giant attacks or becomes the target of a spell an opponent controls, choose one — &bull Tectonic Giant deals 3 damage to each opponent. &bull Exile the top two cards of your library. Choose one of them. Until the end of your next turn, you may play that card."
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 300,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -60722,10 +61046,8 @@
         240,
         241
       ],
-      "subsequentActions": [
-        "G31FL Tactic loses 3 life from Tectonic Giant"
-      ],
-      "actionSeq": 300,
+      "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -61070,7 +61392,7 @@
         243
       ],
       "subsequentActions": [],
-      "actionSeq": 303,
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -61369,10 +61691,8 @@
         244,
         245
       ],
-      "subsequentActions": [
-        "GPT52 Analyst casts Crashing Tide targeting Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 304,
+      "subsequentActions": [],
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 2
       }

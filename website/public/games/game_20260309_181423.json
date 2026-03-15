@@ -77062,10 +77062,8 @@
         6,
         12
       ],
-      "subsequentActions": [
-        "Gem3P Coach chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -77350,10 +77348,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "Gem3P Coach skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -77487,10 +77483,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 11,
+      "subsequentActions": [],
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -77665,12 +77659,8 @@
         19,
         20
       ],
-      "subsequentActions": [
-        "Gem3P Coach skips Draw step",
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Scroll of Avacyn from hand"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 7,
@@ -77811,10 +77801,8 @@
         21,
         22
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Scroll of Avacyn from stack onto the Battlefield"
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 21
     },
     {
       "index": 8,
@@ -78206,7 +78194,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 28,
+      "actionSeq": 29,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -78387,7 +78375,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 29,
+      "actionSeq": 30,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -78549,11 +78537,8 @@
         31,
         32
       ],
-      "subsequentActions": [
-        "Thriving Grove: Opus Brewer has chosen Black",
-        "Opus Brewer puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 30,
+      "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -79260,10 +79245,8 @@
         43,
         44
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 55,
+      "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -79450,7 +79433,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 59,
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -79632,10 +79615,8 @@
         47,
         50
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Silhana Wayfinder from hand"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 64,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -79852,11 +79833,8 @@
         51,
         54
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Silhana Wayfinder from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Silhana Wayfinder - When Silhana Wayfinder enters, look at the top four cards of your library. You may reveal a creature or land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
-      ],
-      "actionSeq": 64,
+      "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80070,7 +80048,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 68,
+      "actionSeq": 70,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80247,14 +80225,8 @@
         63,
         66
       ],
-      "subsequentActions": [
-        "Opus Brewer reveals Elvish Rejuvenator (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the top of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)"
-      ],
-      "actionSeq": 70,
+      "subsequentActions": [],
+      "actionSeq": 76,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80746,10 +80718,8 @@
         71,
         72
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 84,
+      "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -81563,10 +81533,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 109,
+      "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -81785,7 +81753,7 @@
         85
       ],
       "subsequentActions": [],
-      "actionSeq": 113,
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -81998,10 +81966,8 @@
         86,
         87
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Dwynen's Elite from hand"
-      ],
-      "actionSeq": 115,
+      "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -82228,11 +82194,8 @@
         88,
         89
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Dwynen's Elite - When Dwynen's Elite enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
-      ],
-      "actionSeq": 118,
+      "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -82451,10 +82414,8 @@
         90,
         91
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 122,
+      "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -82678,10 +82639,8 @@
         92,
         93
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Elven Bow from hand"
-      ],
-      "actionSeq": 125,
+      "subsequentActions": [],
+      "actionSeq": 128,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82901,11 +82860,8 @@
         94,
         95
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elven Bow from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elven Bow - When Elven Bow enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it."
-      ],
-      "actionSeq": 128,
+      "subsequentActions": [],
+      "actionSeq": 132,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83121,7 +83077,7 @@
         97
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 134,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83352,10 +83308,8 @@
         98,
         99
       ],
-      "subsequentActions": [
-        "Opus Brewer did not pay for Elven Bow - Pay {2} and create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it?"
-      ],
-      "actionSeq": 134,
+      "subsequentActions": [],
+      "actionSeq": 136,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83585,7 +83539,7 @@
         101
       ],
       "subsequentActions": [],
-      "actionSeq": 136,
+      "actionSeq": 138,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -84154,10 +84108,8 @@
         107,
         108
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 145,
+      "subsequentActions": [],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -85418,10 +85370,8 @@
         121,
         122
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 166,
+      "subsequentActions": [],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -85675,7 +85625,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 170,
+      "actionSeq": 172,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -85920,7 +85870,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 172,
+      "actionSeq": 177,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -86234,10 +86184,8 @@
         129,
         130
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Wildheart Invoker from stack onto the Battlefield"
-      ],
-      "actionSeq": 177,
+      "subsequentActions": [],
+      "actionSeq": 180,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -86511,7 +86459,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 180,
+      "actionSeq": 182,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -88247,7 +88195,7 @@
         154
       ],
       "subsequentActions": [],
-      "actionSeq": 213,
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -88515,10 +88463,8 @@
         156,
         157
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Ivy Lane Denizen from hand"
-      ],
-      "actionSeq": 215,
+      "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -88825,10 +88771,8 @@
         158,
         159
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Ivy Lane Denizen from stack onto the Battlefield"
-      ],
-      "actionSeq": 222,
+      "subsequentActions": [],
+      "actionSeq": 225,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -89189,7 +89133,7 @@
         161
       ],
       "subsequentActions": [],
-      "actionSeq": 225,
+      "actionSeq": 227,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -89521,10 +89465,8 @@
         162,
         167
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Gem3P Coach with 4 creatures"
-      ],
-      "actionSeq": 227
+      "subsequentActions": [],
+      "actionSeq": 231
     },
     {
       "index": 73,
@@ -90320,7 +90262,7 @@
         180
       ],
       "subsequentActions": [],
-      "actionSeq": 231
+      "actionSeq": 243
     },
     {
       "index": 75,
@@ -90721,13 +90663,8 @@
         170,
         171
       ],
-      "subsequentActions": [
-        "Attacker: Silhana Wayfinder (2/1) blocked by Celestial Enforcer (2/3)",
-        "Attacker: Dwynen's Elite (2/2) blocked by Brightmare (2/3)",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Wildheart Invoker (4/3) unblocked"
-      ],
-      "actionSeq": 233,
+      "subsequentActions": [],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -91114,7 +91051,7 @@
         172
       ],
       "subsequentActions": [],
-      "actionSeq": 244,
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -91150,12 +91087,11 @@
       "llmEventIndices": [
         172,
         173,
-        174
+        174,
+        175
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Swift Response targeting Wildheart Invoker from hand"
-      ],
-      "actionSeq": 245
+      "subsequentActions": [],
+      "actionSeq": 249
     },
     {
       "index": 78,
@@ -91170,21 +91106,317 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p24"
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T5 Combat/Declare Blockers (Opus Brewer)",
+        "board": [
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Scroll of Avacyn",
+                "rules": [
+                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
+                ],
+                "id": "p7"
+              },
+              {
+                "name": "Swift Response",
+                "rules": [
+                  "Destroy target tapped creature."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Anointed Chorister",
+                "rules": [
+                  "Lifelink",
+                  "{4}{W}: {this} gets +3/+3 until end of turn."
+                ],
+                "id": "p46",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Brightmare",
+                "rules": [
+                  "When {this} enters, tap up to one target creature. You gain life equal to that creature's power."
+                ],
+                "id": "p3",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Celestial Enforcer",
+                "rules": [
+                  "{1}{W}, {T}: Tap target creature. Activate only if you control a creature with flying."
+                ],
+                "id": "p4",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p34"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 28,
+            "life": 22,
+            "hand": [
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p42"
+              },
+              {
+                "mana_cost": "{W}",
+                "name": "Take Heart",
+                "rules": [
+                  "Target creature gets +2/+2 until end of turn. You gain 1 life for each attacking creature you control."
+                ],
+                "id": "p49"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Voice of the Provinces",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, create a 1/1 white Human creature token."
+                ],
+                "power": "3",
+                "id": "p9",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Wildheart Invoker",
+                "rules": [
+                  "{8}: Target creature gets +5/+5 and gains trample until end of turn."
+                ],
+                "id": "p24"
+              }
+            ],
+            "is_active": true,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Dwynen's Elite",
+                "rules": [
+                  "When {this} enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p10",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Elf Warrior Token",
+                "id": "p39",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elven Bow",
+                "rules": [
+                  "When {this} enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach {this} to it.",
+                  "Equipped creature gets +1/+2 and has reach.",
+                  "Equip {3}"
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p26"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p44"
+              },
+              {
+                "tapped": false,
+                "name": "Ivy Lane Denizen",
+                "rules": [
+                  "Whenever another green creature you control enters, put a +1/+1 counter on target creature."
+                ],
+                "id": "p50",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Silhana Wayfinder",
+                "rules": [
+                  "When {this} enters, look at the top four cards of your library. You may reveal a creature or land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
+                ],
+                "id": "p15",
+                "power": "2",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Grove",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "Opus Brewer",
+            "library_size": 28,
+            "life": 20
+          }
+        ],
+        "board_cursor": 29,
+        "combat": [
+          {
+            "blocked": true,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Silhana Wayfinder",
+                "id": "p15",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "blockers": [
+              {
+                "name": "Celestial Enforcer",
+                "id": "p4",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "blocked": true,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Dwynen's Elite",
+                "id": "p10",
+                "power": "2",
+                "toughness": "2"
+              }
+            ],
+            "blockers": [
+              {
+                "name": "Brightmare",
+                "id": "p3",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Gem3P Coach",
+            "attackers": [
+              {
+                "name": "Elf Warrior Token",
+                "id": "p39",
+                "power": "1",
+                "toughness": "1"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Gem3P Coach",
+            "attackers": []
+          }
+        ],
         "game_seq": 249,
-        "error": "Object p24 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         176,
         177,
-        178
+        178,
+        179,
+        186
       ],
       "subsequentActions": [],
       "actionSeq": 249
@@ -91515,10 +91747,8 @@
         183,
         184
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Swift Response targeting Wildheart Invoker from hand"
-      ],
-      "actionSeq": 243
+      "subsequentActions": [],
+      "actionSeq": 250
     },
     {
       "index": 80,
@@ -91824,7 +92054,7 @@
         189
       ],
       "subsequentActions": [],
-      "actionSeq": 250
+      "actionSeq": 253
     },
     {
       "index": 81,
@@ -92127,11 +92357,8 @@
         187,
         191
       ],
-      "subsequentActions": [
-        "Wildheart Invoker died by Swift Response",
-        "Gem3P Coach puts Swift Response from stack into their graveyard"
-      ],
-      "actionSeq": 249
+      "subsequentActions": [],
+      "actionSeq": 254
     },
     {
       "index": 82,
@@ -92393,7 +92620,7 @@
         193
       ],
       "subsequentActions": [],
-      "actionSeq": 253
+      "actionSeq": 263
     },
     {
       "index": 83,
@@ -92651,14 +92878,8 @@
         192,
         195
       ],
-      "subsequentActions": [
-        "Celestial Enforcer deals 2 damage to Silhana Wayfinder",
-        "Silhana Wayfinder deals 2 damage to Celestial Enforcer",
-        "Brightmare deals 2 damage to Dwynen's Elite",
-        "Dwynen's Elite deals 2 damage to Brightmare",
-        "Gem3P Coach loses 1 life at combat from Elf Warrior Token"
-      ],
-      "actionSeq": 254
+      "subsequentActions": [],
+      "actionSeq": 264
     },
     {
       "index": 84,
@@ -92980,7 +93201,7 @@
         197
       ],
       "subsequentActions": [],
-      "actionSeq": 264
+      "actionSeq": 266
     },
     {
       "index": 86,
@@ -94562,7 +94783,7 @@
         209
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -94900,7 +95121,7 @@
         215
       ],
       "subsequentActions": [],
-      "actionSeq": 284,
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -95220,13 +95441,8 @@
         214,
         218
       ],
-      "subsequentActions": [
-        "Attacker: Brightmare (2/3) unblocked",
-        "Attacker: Celestial Enforcer (2/3) unblocked",
-        "Attacker: Anointed Chorister (1/1) blocked by Ivy Lane Denizen (2/3)",
-        "Gem3P Coach casts Take Heart targeting Anointed Chorister from hand"
-      ],
-      "actionSeq": 276
+      "subsequentActions": [],
+      "actionSeq": 288
     },
     {
       "index": 94,
@@ -95546,7 +95762,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 287,
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -95853,11 +96069,8 @@
         219,
         222
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 3 life (source: Take Heart)",
-        "Gem3P Coach puts Take Heart from stack into their graveyard"
-      ],
-      "actionSeq": 288
+      "subsequentActions": [],
+      "actionSeq": 292
     },
     {
       "index": 96,
@@ -96148,7 +96361,7 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 300,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -96428,14 +96641,8 @@
         223,
         230
       ],
-      "subsequentActions": [
-        "Opus Brewer loses 2 life at combat from Brightmare",
-        "Opus Brewer loses 2 life at combat from Celestial Enforcer",
-        "Ivy Lane Denizen deals 2 damage to Anointed Chorister",
-        "Anointed Chorister deals 3 damage to Ivy Lane Denizen",
-        "Gem3P Coach gains 3 life"
-      ],
-      "actionSeq": 292
+      "subsequentActions": [],
+      "actionSeq": 301
     },
     {
       "index": 98,
@@ -96753,7 +96960,7 @@
         226
       ],
       "subsequentActions": [],
-      "actionSeq": 300,
+      "actionSeq": 302,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -97065,7 +97272,7 @@
         228
       ],
       "subsequentActions": [],
-      "actionSeq": 302,
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -97372,10 +97579,8 @@
         233,
         234
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Light of Promise targeting Anointed Chorister from hand"
-      ],
-      "actionSeq": 301
+      "subsequentActions": [],
+      "actionSeq": 310
     },
     {
       "index": 102,
@@ -97709,10 +97914,8 @@
         235,
         236
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Light of Promise from stack onto the Battlefield"
-      ],
-      "actionSeq": 310
+      "subsequentActions": [],
+      "actionSeq": 313
     },
     {
       "index": 103,
@@ -98048,7 +98251,7 @@
         240
       ],
       "subsequentActions": [],
-      "actionSeq": 313,
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -98348,7 +98551,7 @@
         242
       ],
       "subsequentActions": [],
-      "actionSeq": 314,
+      "actionSeq": 316,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -98660,10 +98863,8 @@
         243,
         244
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Reclamation Sage from hand"
-      ],
-      "actionSeq": 316,
+      "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -98978,10 +99179,8 @@
         245,
         246
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Reclamation Sage from stack onto the Battlefield"
-      ],
-      "actionSeq": 322,
+      "subsequentActions": [],
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -99282,10 +99481,8 @@
         247,
         248
       ],
-      "subsequentActions": [
-        "Opus Brewer - Ability triggers: Reclamation Sage - When Reclamation Sage enters, you may destroy target artifact or enchantment. - targeting Light of Promise"
-      ],
-      "actionSeq": 325,
+      "subsequentActions": [],
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -99574,7 +99771,7 @@
         250
       ],
       "subsequentActions": [],
-      "actionSeq": 327,
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -99878,10 +100075,8 @@
         251,
         252
       ],
-      "subsequentActions": [
-        "Light of Promise was destroyed by Reclamation Sage"
-      ],
-      "actionSeq": 329,
+      "subsequentActions": [],
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -100203,7 +100398,7 @@
         254
       ],
       "subsequentActions": [],
-      "actionSeq": 331,
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -101004,10 +101199,8 @@
         263,
         266
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Opus Brewer with 2 creatures"
-      ],
-      "actionSeq": 351,
+      "subsequentActions": [],
+      "actionSeq": 357,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -101339,7 +101532,8 @@
       "llmEventIndices": [
         264,
         265,
-        268
+        268,
+        269
       ],
       "subsequentActions": [],
       "actionSeq": 359,
@@ -102024,10 +102218,8 @@
         274,
         279
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Emancipation Angel from hand"
-      ],
-      "actionSeq": 372,
+      "subsequentActions": [],
+      "actionSeq": 378,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -102699,7 +102891,7 @@
         283
       ],
       "subsequentActions": [],
-      "actionSeq": 378,
+      "actionSeq": 382,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -102991,11 +103183,8 @@
         282,
         289
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Emancipation Angel from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand."
-      ],
-      "actionSeq": 379,
+      "subsequentActions": [],
+      "actionSeq": 383,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -103358,7 +103547,7 @@
         285
       ],
       "subsequentActions": [],
-      "actionSeq": 382,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -103650,10 +103839,8 @@
         286,
         287
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Anointed Chorister from battlefield into their hand"
-      ],
-      "actionSeq": 384,
+      "subsequentActions": [],
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -103946,7 +104133,7 @@
         291
       ],
       "subsequentActions": [],
-      "actionSeq": 386,
+      "actionSeq": 389,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -104244,11 +104431,8 @@
         290,
         293
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Anointed Chorister from battlefield into their hand",
-        "Gem3P Coach casts Anointed Chorister from hand"
-      ],
-      "actionSeq": 383,
+      "subsequentActions": [],
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -104541,7 +104725,7 @@
         303
       ],
       "subsequentActions": [],
-      "actionSeq": 389,
+      "actionSeq": 392,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -105246,7 +105430,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 394,
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -105566,7 +105750,7 @@
         307
       ],
       "subsequentActions": [],
-      "actionSeq": 396,
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -105871,10 +106055,8 @@
         306,
         309
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Elvish Rejuvenator from hand"
-      ],
-      "actionSeq": 392
+      "subsequentActions": [],
+      "actionSeq": 403
     },
     {
       "index": 134,
@@ -106190,7 +106372,7 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 402,
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -106497,11 +106679,8 @@
         310,
         317
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elvish Rejuvenator from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elvish Rejuvenator - When Elvish Rejuvenator enters, look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order."
-      ],
-      "actionSeq": 403
+      "subsequentActions": [],
+      "actionSeq": 407
     },
     {
       "index": 136,
@@ -106845,7 +107024,7 @@
         313
       ],
       "subsequentActions": [],
-      "actionSeq": 406,
+      "actionSeq": 408,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -107193,7 +107372,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 408,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -107540,7 +107719,7 @@
         319
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 415,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -107861,14 +108040,8 @@
         318,
         323
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from library onto the Battlefield (source: Elvish Rejuvenator)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Elvish Rejuvenator)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Elvish Rejuvenator)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Elvish Rejuvenator)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Elvish Rejuvenator)"
-      ],
-      "actionSeq": 407
+      "subsequentActions": [],
+      "actionSeq": 416
     },
     {
       "index": 140,
@@ -108228,7 +108401,7 @@
         321
       ],
       "subsequentActions": [],
-      "actionSeq": 415,
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -108602,10 +108775,8 @@
         324,
         325
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 416
+      "subsequentActions": [],
+      "actionSeq": 422
     },
     {
       "index": 143,
@@ -108940,7 +109111,7 @@
         327
       ],
       "subsequentActions": [],
-      "actionSeq": 422,
+      "actionSeq": 423,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -109268,10 +109439,8 @@
         328,
         329
       ],
-      "subsequentActions": [
-        "Attacker: Elf Warrior Token (1/1) unblocked"
-      ],
-      "actionSeq": 423
+      "subsequentActions": [],
+      "actionSeq": 427
     },
     {
       "index": 145,
@@ -109574,10 +109743,8 @@
         330,
         333
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 1 life at combat from Elf Warrior Token"
-      ],
-      "actionSeq": 427
+      "subsequentActions": [],
+      "actionSeq": 431
     },
     {
       "index": 146,
@@ -109950,7 +110117,7 @@
         335
       ],
       "subsequentActions": [],
-      "actionSeq": 431
+      "actionSeq": 433
     },
     {
       "index": 148,
@@ -110816,10 +110983,8 @@
         344,
         347
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Opus Brewer with 4 creatures"
-      ],
-      "actionSeq": 436,
+      "subsequentActions": [],
+      "actionSeq": 441,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -111221,7 +111386,8 @@
       "llmEventIndices": [
         345,
         346,
-        349
+        349,
+        350
       ],
       "subsequentActions": [],
       "actionSeq": 443,
@@ -111638,7 +111804,7 @@
         351
       ],
       "subsequentActions": [],
-      "actionSeq": 441,
+      "actionSeq": 453,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -112019,14 +112185,8 @@
         352,
         353
       ],
-      "subsequentActions": [
-        "Opus Brewer loses 2 life at combat from Brightmare",
-        "Opus Brewer loses 2 life at combat from Celestial Enforcer",
-        "Opus Brewer loses 3 life at combat from Emancipation Angel",
-        "Opus Brewer loses 1 life at combat from Anointed Chorister",
-        "Gem3P Coach gains 1 life"
-      ],
-      "actionSeq": 453,
+      "subsequentActions": [],
+      "actionSeq": 461,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -112370,7 +112530,7 @@
         355
       ],
       "subsequentActions": [],
-      "actionSeq": 461,
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -112713,10 +112873,8 @@
         356,
         357
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Anointed Chorister from hand"
-      ],
-      "actionSeq": 463,
+      "subsequentActions": [],
+      "actionSeq": 467,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -113062,10 +113220,8 @@
         358,
         367
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Anointed Chorister from stack onto the Battlefield"
-      ],
-      "actionSeq": 467,
+      "subsequentActions": [],
+      "actionSeq": 470,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -113808,7 +113964,7 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 472,
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -114159,7 +114315,7 @@
         369
       ],
       "subsequentActions": [],
-      "actionSeq": 474,
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -114552,11 +114708,8 @@
         370,
         372
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elderleaf Mentor from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elderleaf Mentor - When Elderleaf Mentor enters, create a 1/1 green Elf Warrior creature token."
-      ],
-      "actionSeq": 481,
+      "subsequentActions": [],
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -114942,10 +115095,8 @@
         373,
         377
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 485,
+      "subsequentActions": [],
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -115691,7 +115842,7 @@
         379
       ],
       "subsequentActions": [],
-      "actionSeq": 488,
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -116075,10 +116226,8 @@
         382,
         383
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 489,
+      "subsequentActions": [],
+      "actionSeq": 494,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -116467,7 +116616,7 @@
         385
       ],
       "subsequentActions": [],
-      "actionSeq": 494,
+      "actionSeq": 496,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -116857,7 +117006,7 @@
         387
       ],
       "subsequentActions": [],
-      "actionSeq": 496,
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -117243,7 +117392,7 @@
         389
       ],
       "subsequentActions": [],
-      "actionSeq": 497,
+      "actionSeq": 498,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -117638,7 +117787,7 @@
         391
       ],
       "subsequentActions": [],
-      "actionSeq": 498,
+      "actionSeq": 499,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -118061,11 +118210,8 @@
         392,
         393
       ],
-      "subsequentActions": [
-        "Thriving Heath: Gem3P Coach has chosen Black",
-        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 499,
+      "subsequentActions": [],
+      "actionSeq": 504,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -118558,7 +118704,7 @@
         395
       ],
       "subsequentActions": [],
-      "actionSeq": 504,
+      "actionSeq": 506,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -118991,10 +119137,8 @@
         396,
         399
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Opus Brewer with 5 creatures"
-      ],
-      "actionSeq": 506,
+      "subsequentActions": [],
+      "actionSeq": 514,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -119056,442 +119200,25 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p72:p44,p56:p45,p39:p45,p75:p42,p31:p71"
+        "choice": "no"
       },
       "actionResult": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "message": "Play instants and activated abilities",
-        "response_type": "boolean",
-        "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "context": "T9 Combat/Declare Blockers (Gem3P Coach)",
-        "board": [
-          {
-            "hand_size": 3,
-            "graveyard": [
-              {
-                "name": "Dwynen's Elite",
-                "rules": [
-                  "When {this} enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
-                ],
-                "id": "p10"
-              },
-              {
-                "name": "Ivy Lane Denizen",
-                "rules": [
-                  "Whenever another green creature you control enters, put a +1/+1 counter on target creature."
-                ],
-                "id": "p50"
-              },
-              {
-                "name": "Silhana Wayfinder",
-                "rules": [
-                  "When {this} enters, look at the top four cards of your library. You may reveal a creature or land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
-                ],
-                "id": "p15"
-              },
-              {
-                "name": "Wildheart Invoker",
-                "rules": [
-                  "{8}: Target creature gets +5/+5 and gains trample until end of turn."
-                ],
-                "id": "p24"
-              }
-            ],
-            "is_active": false,
-            "is_you": true,
-            "battlefield": [
-              {
-                "tapped": false,
-                "name": "Elderleaf Mentor",
-                "rules": [
-                  "When {this} enters, create a 1/1 green Elf Warrior creature token."
-                ],
-                "id": "p72",
-                "power": "3",
-                "toughness": "2",
-                "summoning_sick": true
-              },
-              {
-                "tapped": false,
-                "name": "Elf Warrior Token",
-                "id": "p39",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false,
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Elf Warrior Token",
-                "id": "p75",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": true,
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Elven Bow",
-                "rules": [
-                  "When {this} enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach {this} to it.",
-                  "Equipped creature gets +1/+2 and has reach.",
-                  "Equip {3}"
-                ],
-                "id": "p11"
-              },
-              {
-                "tapped": false,
-                "name": "Elvish Rejuvenator",
-                "rules": [
-                  "When {this} enters, look at the top five cards of your library. You may put a land card from among them onto the battlefield tapped. Put the rest on the bottom of your library in a random order."
-                ],
-                "id": "p31",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "id": "p12"
-              },
-              {
-                "tapped": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "id": "p26"
-              },
-              {
-                "tapped": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "id": "p44"
-              },
-              {
-                "tapped": false,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ],
-                "id": "p65"
-              },
-              {
-                "tapped": false,
-                "name": "Reclamation Sage",
-                "rules": [
-                  "When {this} enters, you may destroy target artifact or enchantment."
-                ],
-                "id": "p56",
-                "power": "2",
-                "toughness": "1",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Thriving Grove",
-                "modified": true,
-                "rules": [
-                  "{this} enters tapped.",
-                  "As {this} enters, choose a color other than green.",
-                  "{T}: Add {G}.",
-                  "{T}: Add one mana of the chosen color.",
-                  "Chosen color: Black"
-                ],
-                "id": "p16"
-              }
-            ],
-            "name": "Opus Brewer",
-            "library_size": 24,
-            "life": 4,
-            "hand": [
-              {
-                "mana_cost": "{5}{G}{G}{G}",
-                "name": "Craterhoof Behemoth",
-                "rules": [
-                  "Haste",
-                  "When {this} enters, creatures you control gain trample and get +X/+X until end of turn, where X is the number of creatures you control.",
-                  ": ",
-                  "Creatures you control: 5"
-                ],
-                "power": "5",
-                "id": "p62",
-                "toughness": "5"
-              },
-              {
-                "mana_cost": "{2}{G}",
-                "name": "Ghirapur Guide",
-                "rules": [
-                  "{2}{G}: Target creature you control can't be blocked this turn by creatures with power 2 or less."
-                ],
-                "power": "3",
-                "id": "p13",
-                "toughness": "2"
-              },
-              {
-                "mana_cost": "{1}{G}",
-                "name": "Roots of Wisdom",
-                "rules": [
-                  "Mill three cards, then return a land card or Elf card from your graveyard to your hand. If you can't, draw a card."
-                ],
-                "id": "p14"
-              }
-            ]
-          },
-          {
-            "hand_size": 2,
-            "graveyard": [
-              {
-                "name": "Light of Promise",
-                "rules": [
-                  "Enchant creature",
-                  "Enchanted creature has \"Whenever you gain life, put that many +1/+1 counters on this creature.\""
-                ],
-                "id": "p53"
-              },
-              {
-                "name": "Scroll of Avacyn",
-                "rules": [
-                  "{1}, Sacrifice {this}: Draw a card. If you control an Angel, you gain 5 life."
-                ],
-                "id": "p7"
-              },
-              {
-                "name": "Swift Response",
-                "rules": [
-                  "Destroy target tapped creature."
-                ],
-                "id": "p8"
-              },
-              {
-                "name": "Take Heart",
-                "rules": [
-                  "Target creature gets +2/+2 until end of turn. You gain 1 life for each attacking creature you control."
-                ],
-                "id": "p49"
-              }
-            ],
-            "is_active": true,
-            "is_you": false,
-            "battlefield": [
-              {
-                "tapped": true,
-                "name": "Anointed Chorister",
-                "rules": [
-                  "Lifelink",
-                  "{4}{W}: {this} gets +3/+3 until end of turn."
-                ],
-                "id": "p46",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Anointed Chorister",
-                "rules": [
-                  "Lifelink",
-                  "{4}{W}: {this} gets +3/+3 until end of turn."
-                ],
-                "id": "p70",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Brightmare",
-                "rules": [
-                  "When {this} enters, tap up to one target creature. You gain life equal to that creature's power."
-                ],
-                "id": "p3",
-                "power": "2",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Celestial Enforcer",
-                "rules": [
-                  "{1}{W}, {T}: Tap target creature. Activate only if you control a creature with flying."
-                ],
-                "id": "p4",
-                "power": "2",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Emancipation Angel",
-                "rules": [
-                  "Flying",
-                  "When {this} enters, return a permanent you control to its owner's hand."
-                ],
-                "id": "p59",
-                "power": "3",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p5"
-              },
-              {
-                "tapped": false,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p6"
-              },
-              {
-                "tapped": false,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p25"
-              },
-              {
-                "tapped": false,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p34"
-              },
-              {
-                "tapped": true,
-                "name": "Thriving Heath",
-                "rules": [
-                  "{this} enters tapped.",
-                  "As {this} enters, choose a color other than white.",
-                  "{T}: Add {W}.",
-                  "{T}: Add one mana of the chosen color.",
-                  "Chosen color: Black"
-                ],
-                "id": "p76"
-              }
-            ],
-            "name": "Gem3P Coach",
-            "library_size": 24,
-            "life": 26
-          }
-        ],
-        "board_cursor": 63,
-        "combat": [
-          {
-            "blocked": false,
-            "defending": "Opus Brewer",
-            "attackers": [
-              {
-                "name": "Brightmare",
-                "id": "p3",
-                "power": "2",
-                "toughness": "3"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Opus Brewer",
-            "attackers": [
-              {
-                "name": "Celestial Enforcer",
-                "id": "p4",
-                "power": "2",
-                "toughness": "3"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Opus Brewer",
-            "attackers": [
-              {
-                "name": "Emancipation Angel",
-                "id": "p59",
-                "power": "3",
-                "toughness": "3"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Opus Brewer",
-            "attackers": [
-              {
-                "name": "Anointed Chorister",
-                "id": "p46",
-                "power": "1",
-                "toughness": "1"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Opus Brewer",
-            "attackers": [
-              {
-                "name": "Anointed Chorister",
-                "id": "p70",
-                "power": "1",
-                "toughness": "1"
-              }
-            ]
-          }
-        ],
-        "untapped_lands": 1,
-        "game_seq": 516,
-        "error": "p72: attacker p44 is not a valid block target; p56: unknown attacker ID: p45; p39: unknown attacker ID: p45; p75: unknown attacker ID: p42; p31: unknown attacker ID: p71",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
-          {
-            "id": "p72",
-            "reason": "attacker p44 is not a valid block target"
-          },
-          {
-            "id": "p56",
-            "reason": "unknown attacker ID: p45"
-          },
-          {
-            "id": "p39",
-            "reason": "unknown attacker ID: p45"
-          },
-          {
-            "id": "p75",
-            "reason": "unknown attacker ID: p42"
-          },
-          {
-            "id": "p31",
-            "reason": "unknown attacker ID: p71"
-          }
-        ]
+        "game_seq": 534,
+        "player_dead": true,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         397,
         398,
-        401
+        401,
+        402,
+        403
       ],
       "subsequentActions": [],
-      "actionSeq": 516,
+      "actionSeq": 534,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -119595,13 +119322,13 @@
         403
       ],
       "subsequentActions": [
-        "Attacker: Brightmare (2/3) unblocked",
-        "Attacker: Celestial Enforcer (2/3) unblocked",
-        "Attacker: Emancipation Angel (3/3) unblocked",
-        "Attacker: Anointed Chorister (1/1) unblocked",
-        "Attacker: Anointed Chorister (1/1) unblocked"
+        "Opus Brewer loses 2 life at combat from Brightmare",
+        "Opus Brewer loses 2 life at combat from Celestial Enforcer",
+        "Opus Brewer loses 3 life at combat from Emancipation Angel",
+        "Opus Brewer loses 1 life at combat from Anointed Chorister",
+        "Opus Brewer loses 1 life at combat from Anointed Chorister"
       ],
-      "actionSeq": 516,
+      "actionSeq": 534,
       "pilotContext": {
         "untappedLands": 1
       }

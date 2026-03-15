@@ -91407,10 +91407,8 @@
         7,
         17
       ],
-      "subsequentActions": [
-        "Gem3F Tinker chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -91775,10 +91773,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -91898,7 +91894,7 @@
         21
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -92048,12 +92044,8 @@
         18,
         19
       ],
-      "subsequentActions": [
-        "Gem3P Coach's library is shuffled",
-        "Gem3P Coach puts a card from hand to the bottom of their library",
-        "Gem3F Tinker skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -92187,7 +92179,7 @@
         25
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -92343,10 +92335,8 @@
         26,
         27
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 18,
+      "subsequentActions": [],
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -92488,7 +92478,7 @@
         37
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -92824,7 +92814,7 @@
         33
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -92984,7 +92974,7 @@
         35
       ],
       "subsequentActions": [],
-      "actionSeq": 27,
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -93156,11 +93146,8 @@
         38,
         39
       ],
-      "subsequentActions": [
-        "Thriving Heath: Gem3P Coach has chosen Black",
-        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93301,10 +93288,8 @@
         40,
         41
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93485,7 +93470,7 @@
         43
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93661,7 +93646,7 @@
         45
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -93817,10 +93802,8 @@
         46,
         47
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 41,
+      "subsequentActions": [],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93971,10 +93954,8 @@
         48,
         49
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 45,
+      "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -94132,7 +94113,7 @@
         56
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -94488,7 +94469,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -94649,10 +94630,8 @@
         57,
         60
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -94825,7 +94804,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 57,
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -94985,10 +94964,8 @@
         61,
         64
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -95173,7 +95150,7 @@
         73
       ],
       "subsequentActions": [],
-      "actionSeq": 61,
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -95369,7 +95346,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -95587,7 +95564,7 @@
         68
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -95781,10 +95758,8 @@
         69,
         71
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -95959,7 +95934,7 @@
         77
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -96167,10 +96142,8 @@
         78,
         79
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Watertrap Weaver from stack onto the Battlefield"
-      ],
-      "actionSeq": 74,
+      "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -96338,10 +96311,8 @@
         80,
         81
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 77
+      "subsequentActions": [],
+      "actionSeq": 81
     },
     {
       "index": 34,
@@ -96519,7 +96490,7 @@
         91
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -96970,10 +96941,8 @@
         86,
         87
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 85,
+      "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -97164,7 +97133,7 @@
         89
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -97381,11 +97350,8 @@
         94,
         95
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Celestial Enforcer from hand"
-      ],
-      "actionSeq": 83
+      "subsequentActions": [],
+      "actionSeq": 96
     },
     {
       "index": 40,
@@ -97568,10 +97534,8 @@
         96,
         97
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Celestial Enforcer from stack onto the Battlefield"
-      ],
-      "actionSeq": 96
+      "subsequentActions": [],
+      "actionSeq": 99
     },
     {
       "index": 41,
@@ -97754,10 +97718,8 @@
         98,
         99
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 99
+      "subsequentActions": [],
+      "actionSeq": 103
     },
     {
       "index": 42,
@@ -97995,7 +97957,7 @@
         101
       ],
       "subsequentActions": [],
-      "actionSeq": 103
+      "actionSeq": 105
     },
     {
       "index": 43,
@@ -98265,7 +98227,7 @@
         103
       ],
       "subsequentActions": [],
-      "actionSeq": 105,
+      "actionSeq": 106,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -98495,10 +98457,8 @@
         104,
         106
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -98704,10 +98664,8 @@
         107,
         108
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Littjara Kinseekers from hand"
-      ],
-      "actionSeq": 110,
+      "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -98922,10 +98880,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Littjara Kinseekers from stack onto the Battlefield"
-      ],
-      "actionSeq": 116,
+      "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -99139,7 +99095,7 @@
         112
       ],
       "subsequentActions": [],
-      "actionSeq": 119,
+      "actionSeq": 121,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -99338,10 +99294,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 121
+      "subsequentActions": [],
+      "actionSeq": 124
     },
     {
       "index": 49,
@@ -99550,7 +99504,7 @@
         125
       ],
       "subsequentActions": [],
-      "actionSeq": 124,
+      "actionSeq": 126,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -100078,10 +100032,8 @@
         120,
         121
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 128,
+      "subsequentActions": [],
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -100304,7 +100256,7 @@
         123
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -100566,11 +100518,9 @@
         133
       ],
       "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Brightmare from hand",
         "Gem3P Coach puts Brightmare from stack onto the Battlefield"
       ],
-      "actionSeq": 126
+      "actionSeq": 139
     },
     {
       "index": 55,
@@ -101072,11 +101022,8 @@
         134,
         135
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Brightmare from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Brightmare - When Brightmare enters, tap up to one target creature. You gain life equal to that creature's power. - targeting Watertrap Weaver"
-      ],
-      "actionSeq": 139
+      "subsequentActions": [],
+      "actionSeq": 144
     },
     {
       "index": 58,
@@ -101304,10 +101251,8 @@
         136,
         141
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 2 life (source: Brightmare)"
-      ],
-      "actionSeq": 144
+      "subsequentActions": [],
+      "actionSeq": 147
     },
     {
       "index": 59,
@@ -101828,10 +101773,8 @@
         142,
         143
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 1 creature"
-      ],
-      "actionSeq": 147
+      "subsequentActions": [],
+      "actionSeq": 153
     },
     {
       "index": 62,
@@ -102069,7 +102012,7 @@
         145
       ],
       "subsequentActions": [],
-      "actionSeq": 153,
+      "actionSeq": 154,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -102308,10 +102251,8 @@
         146,
         147
       ],
-      "subsequentActions": [
-        "Attacker: Celestial Enforcer (2/3) unblocked"
-      ],
-      "actionSeq": 154
+      "subsequentActions": [],
+      "actionSeq": 158
     },
     {
       "index": 64,
@@ -102525,10 +102466,8 @@
         148,
         149
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 2 life at combat from Celestial Enforcer"
-      ],
-      "actionSeq": 158
+      "subsequentActions": [],
+      "actionSeq": 162
     },
     {
       "index": 65,
@@ -102801,7 +102740,7 @@
         151
       ],
       "subsequentActions": [],
-      "actionSeq": 162
+      "actionSeq": 164
     },
     {
       "index": 66,
@@ -103106,7 +103045,7 @@
         153
       ],
       "subsequentActions": [],
-      "actionSeq": 164,
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -103381,10 +103320,8 @@
         154,
         156
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 165,
+      "subsequentActions": [],
+      "actionSeq": 169,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -103640,10 +103577,8 @@
         157,
         158
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Merrow Reejerey from hand"
-      ],
-      "actionSeq": 169,
+      "subsequentActions": [],
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -103910,10 +103845,8 @@
         159,
         160
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Merrow Reejerey from stack onto the Battlefield"
-      ],
-      "actionSeq": 174,
+      "subsequentActions": [],
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -104215,7 +104148,7 @@
         162
       ],
       "subsequentActions": [],
-      "actionSeq": 177,
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -104490,10 +104423,8 @@
         163,
         166
       ],
-      "subsequentActions": [
-        "Gem3F Tinker attacks Gem3P Coach with 2 creatures"
-      ],
-      "actionSeq": 179,
+      "subsequentActions": [],
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -105054,7 +104985,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 184,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -105335,11 +105266,8 @@
         171,
         172
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 3 life at combat from Littjara Kinseekers",
-        "Gem3P Coach loses 3 life at combat from Watertrap Weaver"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 195,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -105604,7 +105532,7 @@
         182
       ],
       "subsequentActions": [],
-      "actionSeq": 195,
+      "actionSeq": 197,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -106199,10 +106127,8 @@
         177,
         178
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 199,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -106456,7 +106382,7 @@
         180
       ],
       "subsequentActions": [],
-      "actionSeq": 203,
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -106758,11 +106684,8 @@
         185,
         186
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Baneslayer Angel from hand"
-      ],
-      "actionSeq": 197,
+      "subsequentActions": [],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -107061,10 +106984,8 @@
         187,
         192
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Baneslayer Angel from stack onto the Battlefield"
-      ],
-      "actionSeq": 212,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -107712,10 +107633,8 @@
         193,
         194
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 2 creatures"
-      ],
-      "actionSeq": 215,
+      "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -108023,7 +107942,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 222,
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -108337,11 +108256,8 @@
         197,
         198
       ],
-      "subsequentActions": [
-        "Attacker: Celestial Enforcer (2/3) unblocked",
-        "Attacker: Brightmare (2/3) unblocked"
-      ],
-      "actionSeq": 223,
+      "subsequentActions": [],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -108614,11 +108530,8 @@
         199,
         200
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 2 life at combat from Celestial Enforcer",
-        "Gem3F Tinker loses 2 life at combat from Brightmare"
-      ],
-      "actionSeq": 228,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -108931,7 +108844,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -109263,7 +109176,7 @@
         205
       ],
       "subsequentActions": [],
-      "actionSeq": 235,
+      "actionSeq": 236,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -109574,7 +109487,7 @@
         207
       ],
       "subsequentActions": [],
-      "actionSeq": 236,
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -109884,10 +109797,8 @@
         208,
         209
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 238,
+      "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -110181,7 +110092,7 @@
         211
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -110445,10 +110356,8 @@
         212,
         213
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Pirated Copy from hand"
-      ],
-      "actionSeq": 244,
+      "subsequentActions": [],
+      "actionSeq": 252,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110763,7 +110672,7 @@
         215
       ],
       "subsequentActions": [],
-      "actionSeq": 252,
+      "actionSeq": 254,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111088,7 +110997,7 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 254,
+      "actionSeq": 255,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111376,10 +111285,8 @@
         218,
         230
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Baneslayer Angel from stack onto the Battlefield"
-      ],
-      "actionSeq": 255,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112095,10 +112002,8 @@
         223,
         224
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 259,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -112452,7 +112357,7 @@
         226
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -112741,7 +112646,7 @@
         228
       ],
       "subsequentActions": [],
-      "actionSeq": 264,
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -113050,11 +112955,8 @@
         231,
         232
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield",
-        "Gem3P Coach casts Angelic Edict targeting Baneslayer Angel from hand"
-      ],
-      "actionSeq": 257
+      "subsequentActions": [],
+      "actionSeq": 273
     },
     {
       "index": 104,
@@ -113342,11 +113244,8 @@
         233,
         239
       ],
-      "subsequentActions": [
-        "Gem3P Coach moves Pirated Copy from battlefield to the exile zone (source: Angelic Edict)",
-        "Gem3P Coach puts Angelic Edict from stack into their graveyard"
-      ],
-      "actionSeq": 273
+      "subsequentActions": [],
+      "actionSeq": 277
     },
     {
       "index": 105,
@@ -113938,7 +113837,7 @@
         243
       ],
       "subsequentActions": [],
-      "actionSeq": 278,
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -114264,10 +114163,8 @@
         240,
         241
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 1 creature"
-      ],
-      "actionSeq": 277
+      "subsequentActions": [],
+      "actionSeq": 283
     },
     {
       "index": 108,
@@ -114581,7 +114478,7 @@
         246
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 284,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -114906,10 +114803,8 @@
         247,
         248
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) unblocked"
-      ],
-      "actionSeq": 284
+      "subsequentActions": [],
+      "actionSeq": 288
     },
     {
       "index": 111,
@@ -115197,11 +115092,8 @@
         249,
         250
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 5 life at combat from Baneslayer Angel",
-        "Gem3P Coach gains 5 life"
-      ],
-      "actionSeq": 288
+      "subsequentActions": [],
+      "actionSeq": 293
     },
     {
       "index": 112,
@@ -115476,7 +115368,7 @@
         252
       ],
       "subsequentActions": [],
-      "actionSeq": 293
+      "actionSeq": 295
     },
     {
       "index": 113,
@@ -115801,7 +115693,7 @@
         254
       ],
       "subsequentActions": [],
-      "actionSeq": 295
+      "actionSeq": 297
     },
     {
       "index": 114,
@@ -116256,7 +116148,7 @@
         258
       ],
       "subsequentActions": [],
-      "actionSeq": 297,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -116700,10 +116592,8 @@
         262,
         263
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Shaper Apprentice from hand"
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117009,10 +116899,8 @@
         264,
         265
       ],
-      "subsequentActions": [
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Island"
-      ],
-      "actionSeq": 304,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117312,7 +117200,7 @@
         269
       ],
       "subsequentActions": [],
-      "actionSeq": 306,
+      "actionSeq": 308,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117645,7 +117533,7 @@
         271
       ],
       "subsequentActions": [],
-      "actionSeq": 308,
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117959,10 +117847,8 @@
         272,
         273
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Shaper Apprentice from stack onto the Battlefield"
-      ],
-      "actionSeq": 309,
+      "subsequentActions": [],
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -118254,10 +118140,8 @@
         274,
         275
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Mirror Image from hand"
-      ],
-      "actionSeq": 312,
+      "subsequentActions": [],
+      "actionSeq": 317,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -118580,7 +118464,7 @@
         277
       ],
       "subsequentActions": [],
-      "actionSeq": 317,
+      "actionSeq": 319,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -118910,7 +118794,7 @@
         279
       ],
       "subsequentActions": [],
-      "actionSeq": 319,
+      "actionSeq": 320,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -119238,10 +119122,8 @@
         280,
         281
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Merrow Reejerey from stack onto the Battlefield"
-      ],
-      "actionSeq": 320,
+      "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -119611,7 +119493,7 @@
         283
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 324,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -119958,10 +119840,8 @@
         284,
         289
       ],
-      "subsequentActions": [
-        "Gem3F Tinker attacks Gem3P Coach with 3 creatures"
-      ],
-      "actionSeq": 324
+      "subsequentActions": [],
+      "actionSeq": 328
     },
     {
       "index": 126,
@@ -120713,7 +120593,7 @@
         293
       ],
       "subsequentActions": [],
-      "actionSeq": 328
+      "actionSeq": 339
     },
     {
       "index": 128,
@@ -121032,12 +120912,8 @@
         292,
         297
       ],
-      "subsequentActions": [
-        "Attacker: Watertrap Weaver (4/4) unblocked",
-        "Attacker: Littjara Kinseekers (4/6) unblocked",
-        "Attacker: Merrow Reejerey (3/3) blocked by Celestial Enforcer (2/3) Brightmare (2/3)"
-      ],
-      "actionSeq": 330,
+      "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -121368,11 +121244,8 @@
         294,
         295
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 4 life at combat from Watertrap Weaver",
-        "Gem3P Coach loses 4 life at combat from Littjara Kinseekers"
-      ],
-      "actionSeq": 339
+      "subsequentActions": [],
+      "actionSeq": 344
     },
     {
       "index": 130,
@@ -121660,7 +121533,7 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 344
+      "actionSeq": 350
     },
     {
       "index": 131,
@@ -121984,7 +121857,7 @@
         307
       ],
       "subsequentActions": [],
-      "actionSeq": 350,
+      "actionSeq": 352,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -122633,7 +122506,7 @@
         305
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -122967,7 +122840,7 @@
         309
       ],
       "subsequentActions": [],
-      "actionSeq": 356,
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123277,10 +123150,8 @@
         308,
         313
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Mesa Unicorn from hand"
-      ],
-      "actionSeq": 352
+      "subsequentActions": [],
+      "actionSeq": 362
     },
     {
       "index": 137,
@@ -123594,10 +123465,8 @@
         310,
         311
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Mesa Unicorn from stack onto the Battlefield"
-      ],
-      "actionSeq": 361,
+      "subsequentActions": [],
+      "actionSeq": 364,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123930,7 +123799,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 364,
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -124249,11 +124118,8 @@
         314,
         319
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Mesa Unicorn from stack onto the Battlefield",
-        "Gem3P Coach casts Revitalize from hand"
-      ],
-      "actionSeq": 362
+      "subsequentActions": [],
+      "actionSeq": 369
     },
     {
       "index": 140,
@@ -124576,11 +124442,8 @@
         316,
         317
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 3 life (source: Revitalize)",
-        "Gem3P Coach puts Revitalize from stack into their graveyard"
-      ],
-      "actionSeq": 368,
+      "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -124920,7 +124783,7 @@
         321
       ],
       "subsequentActions": [],
-      "actionSeq": 372,
+      "actionSeq": 374,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -125265,12 +125128,8 @@
         320,
         325
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 3 life (source: Revitalize)",
-        "Gem3P Coach puts Revitalize from stack into their graveyard",
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 369
+      "subsequentActions": [],
+      "actionSeq": 375
     },
     {
       "index": 143,
@@ -125636,7 +125495,7 @@
         323
       ],
       "subsequentActions": [],
-      "actionSeq": 374,
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -125983,7 +125842,7 @@
         331
       ],
       "subsequentActions": [],
-      "actionSeq": 376,
+      "actionSeq": 381,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -126360,10 +126219,8 @@
         326,
         327
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 2 creatures"
-      ],
-      "actionSeq": 375
+      "subsequentActions": [],
+      "actionSeq": 382
     },
     {
       "index": 146,
@@ -126720,7 +126577,7 @@
         333
       ],
       "subsequentActions": [],
-      "actionSeq": 382,
+      "actionSeq": 383,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -127080,7 +126937,7 @@
         335
       ],
       "subsequentActions": [],
-      "actionSeq": 381,
+      "actionSeq": 387,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -127424,11 +127281,8 @@
         334,
         337
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) unblocked",
-        "Attacker: Brightmare (2/3) unblocked"
-      ],
-      "actionSeq": 383
+      "subsequentActions": [],
+      "actionSeq": 388
     },
     {
       "index": 149,
@@ -127771,7 +127625,7 @@
         339
       ],
       "subsequentActions": [],
-      "actionSeq": 387,
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -128115,11 +127969,8 @@
         338,
         341
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 5 life at combat from Baneslayer Angel",
-        "Gem3P Coach gains 5 life"
-      ],
-      "actionSeq": 388
+      "subsequentActions": [],
+      "actionSeq": 393
     },
     {
       "index": 151,
@@ -128437,7 +128288,7 @@
         343
       ],
       "subsequentActions": [],
-      "actionSeq": 392,
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -128755,10 +128606,8 @@
         342,
         345
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 2 life at combat from Brightmare"
-      ],
-      "actionSeq": 393
+      "subsequentActions": [],
+      "actionSeq": 397
     },
     {
       "index": 153,
@@ -129089,7 +128938,7 @@
         355
       ],
       "subsequentActions": [],
-      "actionSeq": 396,
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -129451,7 +129300,7 @@
         347
       ],
       "subsequentActions": [],
-      "actionSeq": 397
+      "actionSeq": 399
     },
     {
       "index": 155,
@@ -129951,7 +129800,7 @@
         351
       ],
       "subsequentActions": [],
-      "actionSeq": 399,
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -130446,10 +130295,8 @@
         352,
         353
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Bloodline Pretender from hand"
-      ],
-      "actionSeq": 400,
+      "subsequentActions": [],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -130794,7 +130641,7 @@
         358
       ],
       "subsequentActions": [],
-      "actionSeq": 407,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -131122,11 +130969,8 @@
         356,
         378
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Bloodline Pretender from hand",
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Mesa Unicorn"
-      ],
-      "actionSeq": 398,
+      "subsequentActions": [],
+      "actionSeq": 410,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -131170,10 +131014,11 @@
       "llmEventIndices": [
         358,
         359,
-        360
+        360,
+        361
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -132248,7 +132093,7 @@
         380
       ],
       "subsequentActions": [],
-      "actionSeq": 412,
+      "actionSeq": 413,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -132586,7 +132431,7 @@
         384
       ],
       "subsequentActions": [],
-      "actionSeq": 410,
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -132941,7 +132786,7 @@
         382
       ],
       "subsequentActions": [],
-      "actionSeq": 413,
+      "actionSeq": 415,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -133326,7 +133171,7 @@
         386
       ],
       "subsequentActions": [],
-      "actionSeq": 415,
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -133663,11 +133508,8 @@
         385,
         390
       ],
-      "subsequentActions": [
-        "Bloodline Pretender: Gem3F Tinker has chosen Merfolk",
-        "Gem3F Tinker puts Bloodline Pretender from stack onto the Battlefield"
-      ],
-      "actionSeq": 414,
+      "subsequentActions": [],
+      "actionSeq": 419,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -134051,7 +133893,7 @@
         388
       ],
       "subsequentActions": [],
-      "actionSeq": 418,
+      "actionSeq": 420,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -134403,7 +134245,7 @@
         392
       ],
       "subsequentActions": [],
-      "actionSeq": 420,
+      "actionSeq": 423,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -134739,10 +134581,8 @@
         391,
         394
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 419,
+      "subsequentActions": [],
+      "actionSeq": 424,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -135100,7 +134940,7 @@
         402
       ],
       "subsequentActions": [],
-      "actionSeq": 423,
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -135460,7 +135300,7 @@
         396
       ],
       "subsequentActions": [],
-      "actionSeq": 424,
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -135813,7 +135653,7 @@
         398
       ],
       "subsequentActions": [],
-      "actionSeq": 426,
+      "actionSeq": 427,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -136159,7 +135999,7 @@
         400
       ],
       "subsequentActions": [],
-      "actionSeq": 427,
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -136510,7 +136350,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 429,
+      "actionSeq": 434,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -136876,10 +136716,8 @@
         405,
         408
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Angelic Page from hand"
-      ],
-      "actionSeq": 425,
+      "subsequentActions": [],
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -137251,7 +137089,7 @@
         410
       ],
       "subsequentActions": [],
-      "actionSeq": 434,
+      "actionSeq": 437,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -137630,10 +137468,8 @@
         409,
         414
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Angelic Page from stack onto the Battlefield"
-      ],
-      "actionSeq": 435,
+      "subsequentActions": [],
+      "actionSeq": 438,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -138024,7 +137860,7 @@
         412
       ],
       "subsequentActions": [],
-      "actionSeq": 437,
+      "actionSeq": 439,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -138396,7 +138232,7 @@
         424
       ],
       "subsequentActions": [],
-      "actionSeq": 439,
+      "actionSeq": 443,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -138840,10 +138676,8 @@
         415,
         416
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 1 creature"
-      ],
-      "actionSeq": 438,
+      "subsequentActions": [],
+      "actionSeq": 444,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -139283,7 +139117,7 @@
         418
       ],
       "subsequentActions": [],
-      "actionSeq": 444,
+      "actionSeq": 445,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -139729,10 +139563,8 @@
         425,
         426
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Chilling Trap targeting Baneslayer Angel from hand"
-      ],
-      "actionSeq": 443,
+      "subsequentActions": [],
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -140250,69 +140082,344 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": false,
+      "chosen": null,
       "chosenArgs": {
-        "choice": "no"
+        "text": "White"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T8 Combat/Declare Attackers (Gem3P Coach)",
+        "board": [
           {
-            "index": 0,
-            "description": "White"
+            "hand_size": 0,
+            "graveyard": [
+              {
+                "name": "Angelic Edict",
+                "rules": [
+                  "Exile target creature or enchantment."
+                ],
+                "id": "p17"
+              },
+              {
+                "name": "Celestial Enforcer",
+                "rules": [
+                  "{1}{W}, {T}: Tap target creature. Activate only if you control a creature with flying."
+                ],
+                "id": "p18"
+              },
+              {
+                "name": "Feat of Resistance",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. It gains protection from the color of your choice until end of turn."
+                ],
+                "id": "p30"
+              },
+              {
+                "name": "Revitalize",
+                "rules": [
+                  "You gain 3 life. : Draw a card."
+                ],
+                "id": "p20"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Angelic Page",
+                "rules": [
+                  "Flying",
+                  "{T}: Target attacking or blocking creature gets +1/+1 until end of turn."
+                ],
+                "id": "p60",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Baneslayer Angel",
+                "modified": true,
+                "rules": [
+                  "Flying",
+                  "First strike",
+                  "Lifelink",
+                  "Protection from Demons and from Dragons",
+                  "Protection from White"
+                ],
+                "id": "p43",
+                "power": "6",
+                "toughness": "6",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Brightmare",
+                "rules": [
+                  "When {this} enters, tap up to one target creature. You gain life equal to that creature's power."
+                ],
+                "id": "p28",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Mesa Unicorn",
+                "rules": [
+                  "Lifelink"
+                ],
+                "id": "p53",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p33"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p38"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p47"
+              },
+              {
+                "tapped": false,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p56"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Black"
+                ],
+                "id": "p21"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 25,
+            "life": 21,
+            "hand": []
           },
           {
-            "index": 1,
-            "description": "Blue"
-          },
-          {
-            "index": 2,
-            "description": "Black"
-          },
-          {
-            "index": 3,
-            "description": "Red"
-          },
-          {
-            "index": 4,
-            "description": "Green"
+            "hand_size": 1,
+            "graveyard": [
+              {
+                "name": "Merrow Reejerey",
+                "rules": [
+                  "Other Merfolk creatures you control get +1/+1.",
+                  "Whenever you cast a Merfolk spell, you may tap or untap target permanent."
+                ],
+                "id": "p41"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Bloodline Pretender",
+                "rules": [
+                  "Changeling (This card is every creature type.)",
+                  "As {this} enters, choose a creature type.",
+                  "Whenever another creature you control of the chosen type enters, put a +1/+1 counter on {this}.",
+                  "Chosen type: Merfolk"
+                ],
+                "id": "p57",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p3"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p4"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": false,
+                "name": "Littjara Kinseekers",
+                "rules": [
+                  "Changeling (This card is every creature type.)",
+                  "When {this} enters, if you control three or more creatures that share a creature type, put a +1/+1 counter on {this}, then scry 1. (Look at the top one cards of your library, then put any number of them on the bottom and the rest on top in any order.)",
+                  ": ",
+                  "Greatest number of creatures you control that share a creature type: 5"
+                ],
+                "id": "p7",
+                "power": "3",
+                "toughness": "5",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Merrow Reejerey",
+                "rules": [
+                  "Other Merfolk creatures you control get +1/+1.",
+                  "Whenever you cast a Merfolk spell, you may tap or untap target permanent."
+                ],
+                "id": "p8",
+                "power": "2",
+                "copy": true,
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Shaper Apprentice",
+                "rules": [
+                  "{this} has flying as long as you control another Merfolk.",
+                  "Flying"
+                ],
+                "id": "p49",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Watertrap Weaver",
+                "rules": [
+                  "When {this} enters, tap target creature an opponent controls. That creature doesn't untap during its controller's next untap step."
+                ],
+                "id": "p9",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              }
+            ],
+            "name": "Gem3F Tinker",
+            "exile": [
+              {
+                "name": "Pirated Copy",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield, except it's a Pirate in addition to its other types and it has \"Whenever this creature or another creature with the same name deals combat damage to a player, you draw a card.\""
+                ],
+                "id": "p45"
+              }
+            ],
+            "library_size": 26,
+            "life": 2
           }
         ],
+        "board_cursor": 60,
+        "combat": [
+          {
+            "blocked": false,
+            "defending": "Gem3F Tinker",
+            "attackers": [
+              {
+                "name": "Baneslayer Angel",
+                "id": "p43",
+                "power": "6",
+                "toughness": "6"
+              }
+            ]
+          }
+        ],
+        "stack": [
+          {
+            "name": "Chilling Trap",
+            "targets": [
+              {
+                "name": "Baneslayer Angel (6/6) [tapped] (yours)",
+                "id": "p43"
+              }
+            ]
+          }
+        ],
+        "untapped_lands": 3,
         "game_seq": 457,
-        "error": "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "action_taken": "selected_choice_text_White",
+        "success": true
       },
       "llmEventIndices": [
         433,
         434,
-        435
-      ],
-      "subsequentActions": [],
-      "actionSeq": 457,
-      "pilotContext": {
-        "untappedLands": 3
-      }
-    },
-    {
-      "index": 191,
-      "snapshotIndex": 268,
-      "player": "Gem3P Coach",
-      "turn": 16,
-      "phase": "COMBAT",
-      "step": "DECLARE_ATTACKERS",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play instants and activated abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        437,
-        438
+        435,
+        436,
+        437
       ],
       "subsequentActions": [
         "Feat of Resistance: Gem3P Coach has chosen protection from White",
@@ -140325,7 +140432,7 @@
       }
     },
     {
-      "index": 192,
+      "index": 191,
       "snapshotIndex": 273,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -140765,7 +140872,7 @@
       }
     },
     {
-      "index": 193,
+      "index": 192,
       "snapshotIndex": 273,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -141128,16 +141235,14 @@
         442,
         443
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (2/6) blocked by Shaper Apprentice (3/2)"
-      ],
-      "actionSeq": 465,
+      "subsequentActions": [],
+      "actionSeq": 470,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 194,
+      "index": 193,
       "snapshotIndex": 276,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -141500,18 +141605,14 @@
         444,
         445
       ],
-      "subsequentActions": [
-        "Baneslayer Angel deals 2 damage to Shaper Apprentice",
-        "Gem3P Coach gains 2 life",
-        "Shaper Apprentice died"
-      ],
-      "actionSeq": 470,
+      "subsequentActions": [],
+      "actionSeq": 476,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 195,
+      "index": 194,
       "snapshotIndex": 278,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -141861,13 +141962,13 @@
         447
       ],
       "subsequentActions": [],
-      "actionSeq": 476,
+      "actionSeq": 478,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 196,
+      "index": 195,
       "snapshotIndex": 280,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -142249,13 +142350,13 @@
         449
       ],
       "subsequentActions": [],
-      "actionSeq": 478,
+      "actionSeq": 480,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 197,
+      "index": 196,
       "snapshotIndex": 282,
       "player": "Gem3F Tinker",
       "turn": 16,
@@ -142643,7 +142744,7 @@
         451
       ],
       "subsequentActions": [],
-      "actionSeq": 480,
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -142655,7 +142756,7 @@
       }
     },
     {
-      "index": 198,
+      "index": 197,
       "snapshotIndex": 283,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -143015,10 +143116,8 @@
         452,
         453
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 481,
+      "subsequentActions": [],
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -143028,7 +143127,7 @@
       }
     },
     {
-      "index": 199,
+      "index": 198,
       "snapshotIndex": 284,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -143396,17 +143495,15 @@
         454,
         455
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Heirloom Blade from hand"
-      ],
-      "actionSeq": 485,
+      "subsequentActions": [],
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 200,
+      "index": 199,
       "snapshotIndex": 288,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -143814,17 +143911,15 @@
         456,
         457
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Heirloom Blade from stack onto the Battlefield"
-      ],
-      "actionSeq": 490,
+      "subsequentActions": [],
+      "actionSeq": 493,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 201,
+      "index": 200,
       "snapshotIndex": 290,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -144226,14 +144321,14 @@
         459
       ],
       "subsequentActions": [],
-      "actionSeq": 493,
+      "actionSeq": 494,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 202,
+      "index": 201,
       "snapshotIndex": 291,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -144262,7 +144357,7 @@
       }
     },
     {
-      "index": 203,
+      "index": 202,
       "snapshotIndex": 293,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -144290,7 +144385,7 @@
       }
     },
     {
-      "index": 204,
+      "index": 203,
       "snapshotIndex": 295,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -144705,7 +144800,7 @@
       }
     },
     {
-      "index": 205,
+      "index": 204,
       "snapshotIndex": 295,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -145101,14 +145196,14 @@
         469
       ],
       "subsequentActions": [],
-      "actionSeq": 499,
+      "actionSeq": 501,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 206,
+      "index": 205,
       "snapshotIndex": 297,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -145476,16 +145571,14 @@
         470,
         471
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 501,
+      "subsequentActions": [],
+      "actionSeq": 504,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 207,
+      "index": 206,
       "snapshotIndex": 297,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -145894,14 +145987,14 @@
         473
       ],
       "subsequentActions": [],
-      "actionSeq": 504,
+      "actionSeq": 506,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 208,
+      "index": 207,
       "snapshotIndex": 299,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -146303,14 +146396,14 @@
         475
       ],
       "subsequentActions": [],
-      "actionSeq": 506,
+      "actionSeq": 507,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 209,
+      "index": 208,
       "snapshotIndex": 300,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -146339,7 +146432,7 @@
       }
     },
     {
-      "index": 210,
+      "index": 209,
       "snapshotIndex": 302,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -146367,7 +146460,7 @@
       }
     },
     {
-      "index": 211,
+      "index": 210,
       "snapshotIndex": 304,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -146750,7 +146843,7 @@
       }
     },
     {
-      "index": 212,
+      "index": 211,
       "snapshotIndex": 306,
       "player": "Gem3P Coach",
       "turn": 18,
@@ -147121,7 +147214,7 @@
       }
     },
     {
-      "index": 213,
+      "index": 212,
       "snapshotIndex": 306,
       "player": "Gem3P Coach",
       "turn": 18,
@@ -147515,14 +147608,14 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 515,
+      "actionSeq": 519,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 214,
+      "index": 213,
       "snapshotIndex": 304,
       "player": "Gem3F Tinker",
       "turn": 17,
@@ -147900,16 +147993,14 @@
         491,
         496
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 513,
+      "subsequentActions": [],
+      "actionSeq": 520,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 215,
+      "index": 214,
       "snapshotIndex": 307,
       "player": "Gem3P Coach",
       "turn": 18,
@@ -148331,14 +148422,14 @@
         494
       ],
       "subsequentActions": [],
-      "actionSeq": 519,
+      "actionSeq": 521,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 216,
+      "index": 215,
       "snapshotIndex": 309,
       "player": "Gem3P Coach",
       "turn": 18,
@@ -148726,13 +148817,13 @@
         502
       ],
       "subsequentActions": [],
-      "actionSeq": 521,
+      "actionSeq": 525,
       "pilotContext": {
         "untappedLands": 8
       }
     },
     {
-      "index": 217,
+      "index": 216,
       "snapshotIndex": 308,
       "player": "Gem3F Tinker",
       "turn": 18,
@@ -149153,16 +149244,14 @@
         497,
         498
       ],
-      "subsequentActions": [
-        "Gem3P Coach attacks Gem3F Tinker with 1 creature"
-      ],
-      "actionSeq": 520,
+      "subsequentActions": [],
+      "actionSeq": 526,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 218,
+      "index": 217,
       "snapshotIndex": 311,
       "player": "Gem3F Tinker",
       "turn": 18,
@@ -149575,7 +149664,7 @@
         504
       ],
       "subsequentActions": [],
-      "actionSeq": 526,
+      "actionSeq": 527,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -149590,7 +149679,7 @@
       }
     },
     {
-      "index": 219,
+      "index": 218,
       "snapshotIndex": 310,
       "player": "Gem3P Coach",
       "turn": 18,
@@ -149631,13 +149720,13 @@
         508
       ],
       "subsequentActions": [],
-      "actionSeq": 525,
+      "actionSeq": 530,
       "pilotContext": {
         "untappedLands": 8
       }
     },
     {
-      "index": 220,
+      "index": 219,
       "snapshotIndex": 312,
       "player": "Gem3F Tinker",
       "turn": 18,
@@ -149668,12 +149757,11 @@
         506
       ],
       "subsequentActions": [
-        "Attacker: Baneslayer Angel (6/6) unblocked",
         "Gem3F Tinker loses 6 life at combat from Baneslayer Angel",
         "Gem3P Coach gains 6 life",
         "Gem3F Tinker has lost the game."
       ],
-      "actionSeq": 527,
+      "actionSeq": 531,
       "pilotContext": {
         "untappedLands": 1
       }

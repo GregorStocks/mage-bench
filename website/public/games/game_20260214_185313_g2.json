@@ -37312,7 +37312,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p61"
+        "attackers": [
+          "p61"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -37728,7 +37730,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -38200,7 +38204,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p61"
+        "attackers": [
+          "p9",
+          "p61"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -38603,7 +38610,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -38764,7 +38773,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p11', 'blocks': 'p17'}"
+        "blockers": [
+          {
+            "id": "p11",
+            "blocks": "p17"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -38772,7 +38786,9 @@
       "llmEventIndices": [
         782,
         784,
-        785
+        785,
+        787,
+        790
       ],
       "subsequentActions": [
         "has started watching",
@@ -38828,15 +38844,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p11', 'blocks': 'p17'}"
+        "blockers": "[{\"id\":\"p11\",\"blocks\":\"p17\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "id": "p11",
+            "blocks": "p17"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         791,
         793,
-        794
+        794,
+        796,
+        797,
+        799,
+        800
       ],
       "subsequentActions": [
         "has started watching",
@@ -39395,7 +39424,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "{'id': 'p9'}"
+        "attackers": [
+          {
+            "id": "p9"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -39403,7 +39436,9 @@
       "llmEventIndices": [
         866,
         868,
-        869
+        869,
+        871,
+        874
       ],
       "subsequentActions": [
         "has started watching",
@@ -39456,15 +39491,25 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "{'id': 'p9'}"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          "p9"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         875,
         877,
-        878
+        878,
+        880,
+        881
       ],
       "subsequentActions": [
         "has started watching",
@@ -40019,7 +40064,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p61,p9"
+        "attackers": [
+          "p61",
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [

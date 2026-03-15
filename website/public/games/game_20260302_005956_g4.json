@@ -107600,31 +107600,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 134,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {B}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         117,
         118,
-        119
+        119,
+        120,
+        121
       ],
       "subsequentActions": [
         "MiniMx Proud casts Ashmouth Hound from hand",
@@ -109509,21 +109503,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p10"
+        "choice": "no"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 340,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         340,
         341,
-        342
+        342,
+        343,
+        344
       ],
       "subsequentActions": [
         "MiniMx Proud discards Bloodrock Cyclops (source: Crypt Lurker)",
@@ -110151,45 +110149,25 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 2,
+      "chosen": null,
       "chosenArgs": {
-        "choice": "p62"
+        "choice": "all"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 423,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p62 not found in current choices",
-        "choices": [
-          {
-            "name": "Archfiend's Vessel",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p10",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "name": "Crypt Lurker",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p13",
-            "power": "3",
-            "toughness": "4"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "special_special",
+        "next_action_message": "Select a player, planeswalker, or battle to attack"
       },
       "llmEventIndices": [
         440,
         445,
-        446
+        446,
+        447,
+        448
       ],
       "subsequentActions": [],
       "actionSeq": 423,
@@ -111848,46 +111826,29 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": 9,
+      "chosen": null,
       "chosenArgs": {
-        "choice": "p69"
+        "attackers": "all"
       },
       "actionResult": {
-        "retryable": true,
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 631,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p69 not found in current choices",
-        "choices": [
-          {
-            "name": "Basri's Acolyte",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p4",
-            "power": "5",
-            "toughness": "6"
-          },
-          {
-            "name": "Spectral Sailor",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p47",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         612,
         613,
         617,
-        618
+        618,
+        619,
+        620
       ],
       "subsequentActions": [
         "Grok4F Valley attacks MiniMx Proud with 2 creatures",

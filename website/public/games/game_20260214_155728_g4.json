@@ -44173,7 +44173,8 @@
       "llmEventIndices": [
         68,
         69,
-        70
+        70,
+        71
       ],
       "subsequentActions": [
         "has started watching",
@@ -44347,32 +44348,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p4"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p4 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{U}{U}",
-            "name": "Subtlety",
-            "index": 0,
-            "action": "cast",
-            "id": "p1",
-            "power": "3",
-            "toughness": "3"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         80,
         81,
         84,
-        85
+        85,
+        87,
+        88,
+        90,
+        91
       ],
       "subsequentActions": [
         "has started watching",
@@ -47166,7 +47160,8 @@
       "llmEventIndices": [
         462,
         464,
-        465
+        465,
+        467
       ],
       "subsequentActions": [
         "has started watching",
@@ -47337,7 +47332,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -47348,7 +47345,8 @@
       "llmEventIndices": [
         482,
         484,
-        485
+        485,
+        487
       ],
       "subsequentActions": [
         "has started watching",
@@ -47563,7 +47561,8 @@
       "llmEventIndices": [
         516,
         518,
-        519
+        519,
+        521
       ],
       "subsequentActions": [
         "has started watching",
@@ -47754,7 +47753,8 @@
         533,
         535,
         538,
-        539
+        539,
+        541
       ],
       "subsequentActions": [
         "has started watching",
@@ -47793,7 +47793,7 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": ""
+        "attackers": []
       },
       "actionResult": {
         "retryable": true,
@@ -47815,7 +47815,8 @@
       "llmEventIndices": [
         543,
         545,
-        546
+        546,
+        548
       ],
       "subsequentActions": [
         "has started watching",
@@ -48590,7 +48591,9 @@
       "llmEventIndices": [
         650,
         652,
-        653
+        653,
+        655,
+        658
       ],
       "subsequentActions": [
         "has started watching",
@@ -48679,32 +48682,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p7"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p7 not found in current choices",
-        "choices": [
-          {
-            "name": "Field of Ruin",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Destroy target nonbas..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         663,
         668,
         671,
-        672
+        672,
+        674,
+        675,
+        677,
+        678
       ],
       "subsequentActions": [
         "has started watching",
@@ -48808,7 +48804,8 @@
       },
       "llmEventIndices": [
         687,
-        688
+        688,
+        690
       ],
       "subsequentActions": [
         "has started watching",
@@ -48870,7 +48867,8 @@
       "llmEventIndices": [
         691,
         693,
-        694
+        694,
+        696
       ],
       "subsequentActions": [
         "has started watching",
@@ -51054,15 +51052,15 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": null,
       "chosenArgs": {
-        "index": 1
+        "id": "p7"
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
+        "error_code": "invalid_choice",
+        "error": "Object p7 not found in current choices",
         "choices": [
           {
             "name": "Field of Ruin",
@@ -51078,7 +51076,9 @@
       "llmEventIndices": [
         986,
         988,
-        989
+        989,
+        990,
+        992
       ],
       "subsequentActions": [
         "has started watching",
@@ -51116,31 +51116,21 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p2"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p2 not found in current choices",
-        "choices": [
-          {
-            "name": "Field of Ruin",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Destroy target nonbas..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         993,
         995,
-        996
+        996,
+        997
       ],
       "subsequentActions": [
         "has started watching",
@@ -52141,7 +52131,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

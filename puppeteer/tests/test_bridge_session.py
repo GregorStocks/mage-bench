@@ -77,6 +77,17 @@ class TestBridgeSession:
         assert tool_defs == tools_result["tools"]
 
     @patch("urllib.request.urlopen")
+    def test_call_tool_uses_explicit_timeout(self, mock_urlopen):
+        tool_result = {"content": [{"type": "text", "text": '{"success":true}'}], "isError": False}
+        response = {"jsonrpc": "2.0", "id": 1, "result": tool_result}
+        mock_urlopen.return_value = _mock_http_response(response)
+
+        bridge = BridgeSession("http://localhost:9999/mcp")
+        bridge.call_tool("concede", {}, timeout=20)
+
+        assert mock_urlopen.call_args.kwargs["timeout"] == 20
+
+    @patch("urllib.request.urlopen")
     def test_rpc_error_raises(self, mock_urlopen):
         response = {"jsonrpc": "2.0", "id": 1, "error": {"code": -32603, "message": "boom"}}
         mock_urlopen.return_value = _mock_http_response(response)

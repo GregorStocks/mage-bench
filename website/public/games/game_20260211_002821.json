@@ -306393,13 +306393,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -306422,7 +306422,10 @@
       "llmEventIndices": [
         129,
         130,
-        131
+        131,
+        132,
+        133,
+        136
       ],
       "subsequentActions": [
         "has started watching",
@@ -306621,13 +306624,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": 4,
+      "chosen": 1,
       "chosenArgs": {
-        "index": 4
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Index 4 out of range (call get_action_choices first)",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -306650,7 +306653,10 @@
       "llmEventIndices": [
         166,
         168,
-        169
+        169,
+        171,
+        172,
+        174
       ],
       "subsequentActions": [
         "has started watching",
@@ -312137,24 +312143,21 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": false,
       "chosenArgs": {
-        "index": 1
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 1 out of range (call get_action_choices first)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Grave Endeavor {5}{B}{B} [Cast]"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1315,
         1318,
-        1319
+        1319,
+        1321,
+        1324,
+        1325
       ],
       "subsequentActions": [
         "has started watching",
@@ -315172,11 +315175,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": 2,
+      "chosenArgs": {
+        "index": 2
+      },
       "actionResult": {
         "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
+        "error": "Index 2 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -315199,7 +315204,10 @@
       "llmEventIndices": [
         2012,
         2018,
-        2019
+        2019,
+        2021,
+        2022,
+        2024
       ],
       "subsequentActions": [
         "has started watching",
@@ -324836,13 +324844,13 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -324865,7 +324873,10 @@
       "llmEventIndices": [
         3850,
         3857,
-        3858
+        3858,
+        3863,
+        3864,
+        3867
       ],
       "subsequentActions": [
         "has started watching",
@@ -325383,13 +325394,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -325404,7 +325415,10 @@
       "llmEventIndices": [
         3969,
         3974,
-        3975
+        3975,
+        3984,
+        3985,
+        3987
       ],
       "subsequentActions": [
         "has started watching",
@@ -354927,7 +354941,8 @@
       "llmEventIndices": [
         7798,
         7799,
-        7800
+        7800,
+        7801
       ],
       "subsequentActions": [
         "has started watching",
@@ -354994,7 +355009,8 @@
         7806,
         7807,
         7809,
-        7810
+        7810,
+        7813
       ],
       "subsequentActions": [
         "has started watching",
@@ -355059,7 +355075,8 @@
       "llmEventIndices": [
         7817,
         7818,
-        7819
+        7819,
+        7822
       ],
       "subsequentActions": [
         "has started watching",
@@ -355210,7 +355227,8 @@
         7833,
         7835,
         7838,
-        7839
+        7839,
+        7841
       ],
       "subsequentActions": [
         "has started watching",
@@ -355685,13 +355703,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_CHOOSE_ABILITY",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -355706,7 +355724,10 @@
       "llmEventIndices": [
         7914,
         7916,
-        7917
+        7917,
+        7919,
+        7920,
+        7922
       ],
       "subsequentActions": [
         "has started watching",
@@ -356026,18 +356047,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Provide 'index' to choose mana source/pool, or 'answer: false' to cancel"
+        "success": true,
+        "action_taken": "cancelled_spell"
       },
       "llmEventIndices": [
         7977,
         7979,
-        7980
+        7980,
+        7982,
+        7983
       ],
       "subsequentActions": [
         "has started watching",
@@ -368573,18 +368596,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Provide 'index' to choose mana source/pool, or 'answer: false' to cancel"
+        "success": true,
+        "action_taken": "cancelled_spell"
       },
       "llmEventIndices": [
         11117,
         11119,
-        11120
+        11120,
+        11122,
+        11123
       ],
       "subsequentActions": [
         "has started watching",

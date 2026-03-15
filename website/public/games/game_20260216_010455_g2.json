@@ -60450,7 +60450,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p4",
-        "mana_plan": "p2,p3"
+        "mana_plan": [
+          "p2",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -60643,7 +60646,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -61066,7 +61071,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p22",
-        "mana_plan": "p10"
+        "mana_plan": [
+          "p10"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61158,7 +61165,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p1:0,p3"
+        "mana_plan": [
+          "p1:0",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61638,7 +61648,13 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": "p3,p15,p1:0,p2,p9"
+        "mana_plan": [
+          "p3",
+          "p15",
+          "p1:0",
+          "p2",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61829,7 +61845,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p29",
-        "mana_plan": "p10:0,p32:0,p25:1"
+        "mana_plan": [
+          "p10:0",
+          "p32:0",
+          "p25:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61874,7 +61894,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p15",
-        "mana_plan": "p10:0,p25:0,p32:0"
+        "mana_plan": [
+          "p10:0",
+          "p25:0",
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -61970,7 +61994,10 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p15:1,p3",
+        "mana_plan": [
+          "p15:1",
+          "p3"
+        ],
         "id": "p6"
       },
       "actionResult": {
@@ -62226,7 +62253,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p18",
-        "mana_plan": "p36:0,p32:0"
+        "mana_plan": [
+          "p36:0",
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -62464,7 +62494,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p36:0"
+        "mana_plan": [
+          "p36:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -62517,7 +62549,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p36:0,p25:0,p9:0"
+        "mana_plan": [
+          "p36:0",
+          "p25:0",
+          "p9:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -62579,7 +62615,10 @@
         863,
         866,
         869,
-        870
+        870,
+        872,
+        874,
+        876
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -62915,7 +62954,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p27",
-        "mana_plan": "p32:0"
+        "mana_plan": [
+          "p32:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -63019,7 +63060,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p10:0"
+        "mana_plan": [
+          "p10:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -63138,7 +63181,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -63156,7 +63201,8 @@
         1103,
         1105,
         1108,
-        1109
+        1109,
+        1111
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -63458,7 +63504,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p10:0"
+        "mana_plan": [
+          "p10:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -64001,7 +64049,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p25:0,p9"
+        "mana_plan": [
+          "p25:0",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -64201,7 +64252,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p63",
-        "mana_plan": "p32:0,p36:0"
+        "mana_plan": [
+          "p32:0",
+          "p36:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -64835,7 +64889,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p73",
-        "mana_plan": "p9,p25:1"
+        "mana_plan": [
+          "p9",
+          "p25:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -65209,21 +65266,27 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p84"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p84 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         1624,
         1626,
         1629,
-        1630
+        1630,
+        1632,
+        1635,
+        1638,
+        1641,
+        1642
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -65251,20 +65314,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "id": "p35"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p35 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "yes"
       },
       "llmEventIndices": [
         1651,
         1653,
-        1654
+        1654,
+        1656,
+        1659,
+        1662,
+        1665,
+        1666
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -65465,31 +65534,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {U}. Activate only if you control an Island or a Mountain."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1736,
         1738,
         1741,
-        1742
+        1742,
+        1744,
+        1745
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -65517,7 +65579,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": 8,
       "chosenArgs": {
         "id": "p4"
       },
@@ -65631,33 +65693,25 @@
       ],
       "choiceCount": 1,
       "isForced": true,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p18",
-        "mana_plan": "p9"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices",
-        "choices": [
-          {
-            "name": "Toph, Hardheaded Teacher",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p80",
-            "power": "3",
-            "toughness": "4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         1777,
         1779,
         1781,
         1784,
-        1785
+        1785,
+        1787,
+        1788
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -65703,7 +65757,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p36,p9"
+        "mana_plan": [
+          "p36",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -65943,7 +66000,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p88"
+        "mana_plan": [
+          "p88"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -66564,52 +66623,16 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "id": "p106"
+        "answer": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "recent_chat": [
-          "[System] Spell cancelled — mana plan was incorrect or incomplete."
-        ],
-        "error": "Object p106 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{U}",
-            "name": "Boomerang Basics",
-            "index": 0,
-            "action": "cast",
-            "id": "p18"
-          },
-          {
-            "mana_cost": "{U}",
-            "name": "Boomerang Basics",
-            "index": 1,
-            "action": "cast",
-            "id": "p118"
-          },
-          {
-            "name": "Artist's Talent",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{R}: Level 2"
-            ],
-            "id": "p50"
-          },
-          {
-            "name": "Stormchaser's Talent",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}{U}: Level 2"
-            ],
-            "id": "p90"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         2061,
@@ -66617,7 +66640,9 @@
         2066,
         2069,
         2072,
-        2073
+        2073,
+        2075,
+        2076
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -66663,7 +66688,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [

@@ -48061,20 +48061,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p10' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p10'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 100
       },
       "llmEventIndices": [
         68,
         69,
-        70
+        70,
+        71,
+        72,
+        73,
+        75
       ],
-      "subsequentActions": [
-        "MiniMx Valley attacks Gem31P Contra with 1 creature"
-      ],
-      "actionSeq": 96,
+      "subsequentActions": [],
+      "actionSeq": 100,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -48307,31 +48314,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "Thriving Moor: As Thriving Moor enters, choose a color other than black."
+        "choice": "1"
       },
       "actionResult": {
-        "success": false,
-        "error": "'Thriving Moor: As Thriving Moor enters, choose a color other than black.' is not a valid choice",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_choice_1",
         "game_seq": 132,
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Moor: Thriving Moor enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Moor: As Thriving Moor enters, choose a color other than black."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "next_action_message": "Choose color",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         91,
         92,
-        93
+        93,
+        94,
+        95
       ],
       "subsequentActions": [
         "Thriving Moor: MiniMx Valley has chosen Blue",
@@ -48449,7 +48450,9 @@
       "llmEventIndices": [
         105,
         106,
-        107
+        107,
+        108,
+        110
       ],
       "subsequentActions": [
         "MiniMx Valley attacks Gem31P Contra with 2 creatures"
@@ -48953,7 +48956,8 @@
       "llmEventIndices": [
         142,
         143,
-        144
+        144,
+        145
       ],
       "subsequentActions": [
         "MiniMx Valley attacks Gem31P Contra with 2 creatures"

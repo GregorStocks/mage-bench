@@ -65992,7 +65992,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -69210,7 +69212,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -69802,7 +69806,8 @@
       "llmEventIndices": [
         1008,
         1010,
-        1011
+        1011,
+        1013
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -72088,7 +72093,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p53"
+        "attackers": [
+          "p53"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -72480,15 +72487,15 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": true,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": true
+        "index": 0
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error_code": "index_out_of_range",
+        "error": "Index 0 is out of range (no choices loaded). Call get_action_choices to see current targets.",
         "choices": [
           {
             "name": "Essence Scatter",
@@ -72513,7 +72520,10 @@
       "llmEventIndices": [
         1345,
         1347,
-        1348
+        1348,
+        1350,
+        1351,
+        1353
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -72593,7 +72603,10 @@
       "llmEventIndices": [
         1354,
         1356,
-        1357
+        1357,
+        1359,
+        1362,
+        1365
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -72722,7 +72735,8 @@
         1372,
         1374,
         1377,
-        1378
+        1378,
+        1380
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -74385,7 +74399,8 @@
       "llmEventIndices": [
         1591,
         1593,
-        1594
+        1594,
+        1596
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -74742,7 +74757,8 @@
       "llmEventIndices": [
         1636,
         1638,
-        1639
+        1639,
+        1641
       ],
       "subsequentActions": [
         "Gem3F Valley chooses that they take the first turn",
@@ -80341,7 +80357,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p82"
+        "attackers": [
+          "p82"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -81383,7 +81401,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p82"
+        "attackers": [
+          "p82"
+        ]
       },
       "actionResult": {
         "declared": [

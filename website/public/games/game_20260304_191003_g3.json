@@ -48918,20 +48918,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p23' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p23'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 87
       },
       "llmEventIndices": [
         82,
         83,
-        84
+        84,
+        85,
+        86,
+        87
       ],
-      "subsequentActions": [
-        "QwCdr Dreamer attacks GPT5 Spike with 1 creature"
-      ],
-      "actionSeq": 82,
+      "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -50229,17 +50235,25 @@
         "choice": ""
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p28' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p28'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 215
       },
       "llmEventIndices": [
         190,
         191,
-        192
+        192,
+        193,
+        194,
+        195,
+        196,
+        197
       ],
-      "subsequentActions": [
-        "GPT5 Spike attacks QwCdr Dreamer with 1 creature"
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -50339,7 +50353,9 @@
       "llmEventIndices": [
         200,
         201,
-        205
+        205,
+        206,
+        208
       ],
       "subsequentActions": [
         "Attacker: Faerie Seer (1/1) unblocked"
@@ -50784,20 +50800,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p15"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p15' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p15'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 262
       },
       "llmEventIndices": [
         238,
         239,
-        240
+        240,
+        241,
+        242,
+        243
       ],
-      "subsequentActions": [
-        "QwCdr Dreamer attacks GPT5 Spike with 2 creatures"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -51090,20 +51112,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p23,p15,p46"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 293
       },
       "llmEventIndices": [
         271,
         272,
-        273
+        273,
+        274,
+        275,
+        276
       ],
-      "subsequentActions": [
-        "QwCdr Dreamer attacks GPT5 Spike with 3 creatures"
-      ],
-      "actionSeq": 288,
+      "subsequentActions": [],
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -51666,22 +51694,44 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": "0",
       "chosenArgs": {
-        "attackers": "all"
+        "index": "0"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "game_seq": 351,
+        "choices": [
+          {
+            "index": 0,
+            "description": "1. Tectonic Giant deals 3 damage to each opponent."
+          },
+          {
+            "index": 1,
+            "description": "2. Exile the top two cards of your library. Choose one of them. Until the end of your next turn, you may play that card."
+          },
+          {
+            "index": 2,
+            "description": "Cancel"
+          }
+        ]
       },
       "llmEventIndices": [
         321,
         322,
-        323
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329
       ],
-      "subsequentActions": [
-        "QwCdr Dreamer attacks GPT5 Spike with 3 creatures"
-      ],
-      "actionSeq": 346,
+      "subsequentActions": [],
+      "actionSeq": 351,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"

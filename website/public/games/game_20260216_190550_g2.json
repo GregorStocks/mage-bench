@@ -173874,7 +173874,9 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p14",
-        "mana_plan": "p10"
+        "mana_plan": [
+          "p10"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -175346,7 +175348,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p70,p71"
+        "attackers": [
+          "p70",
+          "p71"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -175968,68 +175973,24 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p47"
+        "id": "p21"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p47 not found in current choices",
-        "choices": [
-          {
-            "name": "Omen of the Sun",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{W}, Sacrifice {this}: Scry 2. <i>(Look at the..."
-            ],
-            "id": "p58"
-          },
-          {
-            "mana_cost": "{4}{G}{G}",
-            "name": "Greater Tanuki",
-            "index": 1,
-            "action": "cast",
-            "id": "p6",
-            "power": "6",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{2}{G}",
-            "name": "Setessan Champion",
-            "index": 2,
-            "action": "cast",
-            "id": "p21",
-            "power": "1",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{2}{G}{G}",
-            "name": "Arasta of the Endless Web",
-            "index": 3,
-            "action": "cast",
-            "id": "p64",
-            "power": "3",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Spirited Companion",
-            "index": 4,
-            "action": "cast",
-            "id": "p11",
-            "power": "1",
-            "toughness": "1"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         788,
         789,
         791,
-        792
+        792,
+        793,
+        794
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -176700,7 +176661,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -176960,7 +176923,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p32,p38"
+        "attackers": [
+          "p32",
+          "p38"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -177102,7 +177068,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177567,7 +177535,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177850,7 +177820,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21,p96"
+        "attackers": [
+          "p21",
+          "p96"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177980,7 +177953,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p96"
+        "attackers": [
+          "p96"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -178905,7 +178880,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p38"
+        "attackers": [
+          "p38"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -179497,7 +179474,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p110",
-        "mana_plan": "p12,p1"
+        "mana_plan": [
+          "p12",
+          "p1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -179633,7 +179613,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -180066,53 +180048,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 6,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 1,
-        "answer": true,
-        "amounts": [
-          1
-        ],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 6,
-        "mana_plan": "p52",
-        "attackers": "all",
-        "blockers": "p5:p1,p6:p2",
-        "id": "p52",
-        "text": "Island"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p52, ignored index=6",
-        "error_code": "invalid_choice",
-        "error": "Object p52 not found in current choices",
-        "choices": [
-          {
-            "name": "Vitu-Ghazi, the City-Tree",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{G}{W}, {T}: Create a 1/1 green Saproling crea..."
-            ],
-            "id": "p29"
-          },
-          {
-            "name": "Lumbering Falls",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}{G}{U}: {this} becomes a 3/3 green and blue El..."
-            ],
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1540,
         1541,
-        1542
+        1542,
+        1543,
+        1544,
+        1545,
+        1546
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -180704,7 +180658,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p64:p79,p11:p133"
+        "blockers": [
+          "p64:p79",
+          "p11:p133"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -182479,7 +182436,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -182747,7 +182706,7 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p53"
       },
@@ -182800,7 +182759,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p120:p79"
+        "blockers": [
+          "p120:p79"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -183059,7 +183020,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p140",
-        "mana_plan": "p149:0,p31,p38,p32"
+        "mana_plan": [
+          "p149:0",
+          "p31",
+          "p38",
+          "p32"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -183134,54 +183100,19 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p120:p79,p64:p78,p11:p49,p152:p125"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Arasta of the Endless Web",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p64",
-            "power": "3",
-            "toughness": "5"
-          },
-          {
-            "name": "Spirited Companion",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p11",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "name": "Ondu Spiritdancer",
-            "index": 2,
-            "choice_type": "attacker",
-            "id": "p120",
-            "power": "3",
-            "toughness": "3"
-          },
-          {
-            "name": "Spider Token",
-            "index": 3,
-            "choice_type": "attacker",
-            "id": "p152",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "name": "All attack",
-            "index": 4,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         2017,
@@ -183190,7 +183121,9 @@
         2023,
         2025,
         2027,
-        2028
+        2028,
+        2029,
+        2030
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -183910,62 +183843,23 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p140",
-        "mana_plan": "p15,p2:0,p37,p25"
+        "id": "p149"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "recent_chat": [
-          "[System] Spell cancelled — mana plan was incorrect or incomplete."
-        ],
-        "error": "Object p140 not found in current choices",
-        "choices": [
-          {
-            "name": "Sandsteppe Citadel",
-            "index": 0,
-            "action": "land",
-            "id": "p149"
-          },
-          {
-            "name": "Plains",
-            "index": 1,
-            "action": "land",
-            "id": "p31"
-          },
-          {
-            "name": "Plains",
-            "index": 2,
-            "action": "land",
-            "id": "p13"
-          },
-          {
-            "name": "Command Tower",
-            "index": 3,
-            "action": "land",
-            "id": "p14"
-          },
-          {
-            "name": "Plains",
-            "index": 4,
-            "action": "land",
-            "id": "p35"
-          },
-          {
-            "name": "Exotic Orchard",
-            "index": 5,
-            "action": "land",
-            "id": "p153"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         2190,
         2191,
-        2192
+        2192,
+        2193,
+        2194
       ],
       "subsequentActions": [
         "spectator2 has started watching",
@@ -184334,9 +184228,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "all",
-        "blockers": "p5:p1",
+        "mana_plan": [],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [
+          "p5:p1"
+        ],
         "id": "p136",
         "text": "Sram, Senior Edificer"
       },

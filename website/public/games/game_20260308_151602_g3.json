@@ -139480,10 +139480,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "GPT52 Nature chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -139864,7 +139862,7 @@
         14
       ],
       "subsequentActions": [],
-      "actionSeq": 7
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -140071,10 +140069,8 @@
         13,
         16
       ],
-      "subsequentActions": [
-        "GPT52 Nature's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 13
     },
     {
       "index": 5,
@@ -140254,11 +140250,8 @@
         15,
         18
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from hand to the bottom of their library",
-        "Gem31P Hype's library is shuffled"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 15
     },
     {
       "index": 6,
@@ -140385,10 +140378,8 @@
         17,
         34
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 13
+      "subsequentActions": [],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -140595,10 +140586,8 @@
         19,
         20
       ],
-      "subsequentActions": [
-        "GPT52 Nature's library is shuffled"
-      ],
-      "actionSeq": 15
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -140796,10 +140785,8 @@
         21,
         22
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 20
     },
     {
       "index": 9,
@@ -140933,10 +140920,8 @@
         23,
         24
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 20
+      "subsequentActions": [],
+      "actionSeq": 22
     },
     {
       "index": 10,
@@ -141082,10 +141067,8 @@
         25,
         26
       ],
-      "subsequentActions": [
-        "GPT52 Nature skips Draw step"
-      ],
-      "actionSeq": 22,
+      "subsequentActions": [],
+      "actionSeq": 25,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -141227,10 +141210,8 @@
         27,
         28
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 25,
+      "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -141356,7 +141337,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 28,
+      "actionSeq": 29,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -141475,7 +141456,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 29,
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -141597,7 +141578,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 33,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -141734,14 +141715,8 @@
         35,
         40
       ],
-      "subsequentActions": [
-        "GPT52 Nature's library is shuffled",
-        "GPT52 Nature puts a card from hand to the bottom of their library",
-        "GPT52 Nature puts a card from hand to the bottom of their library",
-        "GPT52 Nature skips Draw step",
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 16
+      "subsequentActions": [],
+      "actionSeq": 34
     },
     {
       "index": 16,
@@ -141859,7 +141834,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 33,
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -141996,11 +141971,8 @@
         41,
         44
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Walking Ballista from stack onto the Battlefield",
-        "Walking Ballista is put into graveyard from battlefield"
-      ],
-      "actionSeq": 34
+      "subsequentActions": [],
+      "actionSeq": 38
     },
     {
       "index": 18,
@@ -142118,7 +142090,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 37,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -142254,10 +142226,8 @@
         45,
         48
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 38
+      "subsequentActions": [],
+      "actionSeq": 42
     },
     {
       "index": 20,
@@ -142384,7 +142354,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -142542,7 +142512,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 42
+      "actionSeq": 44
     },
     {
       "index": 22,
@@ -142697,7 +142667,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 44,
+      "actionSeq": 45,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -142850,7 +142820,7 @@
         56
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -142980,10 +142950,8 @@
         55,
         58
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 43,
+      "subsequentActions": [],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -143134,7 +143102,7 @@
         60
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -143263,10 +143231,8 @@
         59,
         62
       ],
-      "subsequentActions": [
-        "Gem31P Hype skip attack"
-      ],
-      "actionSeq": 50,
+      "subsequentActions": [],
+      "actionSeq": 54,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -143416,7 +143382,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -143593,7 +143559,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 55,
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -143742,10 +143708,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -143907,7 +143871,7 @@
         70
       ],
       "subsequentActions": [],
-      "actionSeq": 63,
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -144068,7 +144032,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 65,
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -144230,10 +144194,8 @@
         73,
         74
       ],
-      "subsequentActions": [
-        "Gem31P Hype skip attack"
-      ],
-      "actionSeq": 66,
+      "subsequentActions": [],
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -144399,7 +144361,7 @@
         82
       ],
       "subsequentActions": [],
-      "actionSeq": 71,
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -144706,7 +144668,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 75,
+      "actionSeq": 80,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -144874,10 +144836,8 @@
         83,
         86
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Expedition Map from hand"
-      ],
-      "actionSeq": 73,
+      "subsequentActions": [],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -145024,7 +144984,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 80,
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145192,10 +145152,8 @@
         87,
         90
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Expedition Map from stack onto the Battlefield"
-      ],
-      "actionSeq": 81,
+      "subsequentActions": [],
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -145343,7 +145301,7 @@
         92
       ],
       "subsequentActions": [],
-      "actionSeq": 83
+      "actionSeq": 87
     },
     {
       "index": 41,
@@ -145508,10 +145466,8 @@
         91,
         94
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 84,
+      "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -145658,7 +145614,7 @@
         98
       ],
       "subsequentActions": [],
-      "actionSeq": 87,
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145838,7 +145794,7 @@
         96
       ],
       "subsequentActions": [],
-      "actionSeq": 88,
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -146017,7 +145973,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 90,
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -146707,10 +146663,8 @@
         107,
         108
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Mine from hand onto the Battlefield"
-      ],
-      "actionSeq": 104,
+      "subsequentActions": [],
+      "actionSeq": 108,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -146882,7 +146836,7 @@
         114
       ],
       "subsequentActions": [],
-      "actionSeq": 108,
+      "actionSeq": 112,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -147081,12 +147035,8 @@
         113,
         116
       ],
-      "subsequentActions": [
-        "Gem31P Hype discards Parasitic Implant",
-        "GPT52 Nature puts Urza's Mine from hand onto the Battlefield",
-        "GPT52 Nature casts Runed Servitor from hand"
-      ],
-      "actionSeq": 102,
+      "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -147594,10 +147544,8 @@
         121,
         122
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 123,
+      "subsequentActions": [],
+      "actionSeq": 127,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -147813,10 +147761,8 @@
         123,
         126
       ],
-      "subsequentActions": [
-        "Gem31P Hype casts Planar Atlas from hand"
-      ],
-      "actionSeq": 127,
+      "subsequentActions": [],
+      "actionSeq": 131,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148050,11 +147996,8 @@
         127,
         128
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Planar Atlas from stack onto the Battlefield",
-        "Gem31P Hype - Ability triggers: Planar Atlas - When Planar Atlas enters, you may look at the top four cards of your library. You may reveal a land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
-      ],
-      "actionSeq": 131,
+      "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148266,7 +148209,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 135,
+      "actionSeq": 137,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148506,7 +148449,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 137,
+      "actionSeq": 138,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148738,7 +148681,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 138,
+      "actionSeq": 139,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148944,14 +148887,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "Gem31P Hype reveals Island (source: Planar Atlas)",
-        "Gem31P Hype puts a card from library to the top of their library (source: Planar Atlas)",
-        "Gem31P Hype puts a card from library to the bottom of their library (source: Planar Atlas)",
-        "Gem31P Hype puts a card from library to the bottom of their library (source: Planar Atlas)",
-        "Gem31P Hype puts a card from library to the bottom of their library (source: Planar Atlas)"
-      ],
-      "actionSeq": 139,
+      "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -149382,7 +149319,7 @@
         144
       ],
       "subsequentActions": [],
-      "actionSeq": 150
+      "actionSeq": 152
     },
     {
       "index": 66,
@@ -149949,11 +149886,8 @@
         151,
         152
       ],
-      "subsequentActions": [
-        "GPT52 Nature sacrificed Expedition Map (source: Expedition Map)",
-        "GPT52 Nature activates: search your library for a land card, reveal it, put it into your hand, then shuffle. from Expedition Map"
-      ],
-      "actionSeq": 153,
+      "subsequentActions": [],
+      "actionSeq": 160,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -150248,10 +150182,8 @@
         153,
         154
       ],
-      "subsequentActions": [
-        "GPT52 Nature searches their library (source: Expedition Map)"
-      ],
-      "actionSeq": 160,
+      "subsequentActions": [],
+      "actionSeq": 163,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -150460,12 +150392,8 @@
         155,
         156
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from library into their hand",
-        "GPT52 Nature reveals Urza's Tower",
-        "GPT52 Nature's library is shuffled (source: Expedition Map)"
-      ],
-      "actionSeq": 163,
+      "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -150686,10 +150614,8 @@
         157,
         158
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Tower from hand onto the Battlefield"
-      ],
-      "actionSeq": 167,
+      "subsequentActions": [],
+      "actionSeq": 169,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -150926,7 +150852,7 @@
         160
       ],
       "subsequentActions": [],
-      "actionSeq": 169,
+      "actionSeq": 171,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -151142,10 +151068,8 @@
         161,
         162
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 1 creature"
-      ],
-      "actionSeq": 171,
+      "subsequentActions": [],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -151966,7 +151890,7 @@
         175
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -152221,10 +152145,8 @@
         176,
         177
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 194,
+      "subsequentActions": [],
+      "actionSeq": 197,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -152458,10 +152380,8 @@
         178,
         179
       ],
-      "subsequentActions": [
-        "Gem31P Hype casts Whirler Rogue from hand"
-      ],
-      "actionSeq": 197,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -152718,11 +152638,8 @@
         180,
         181
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Whirler Rogue from stack onto the Battlefield",
-        "Gem31P Hype - Ability triggers: Whirler Rogue - When Whirler Rogue enters, create two 1/1 colorless Thopter artifact creature tokens with flying."
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -152994,11 +152911,8 @@
         184,
         191
       ],
-      "subsequentActions": [
-        "Gem31P Hype creates a Thopter Token token",
-        "Gem31P Hype creates a Thopter Token token"
-      ],
-      "actionSeq": 207,
+      "subsequentActions": [],
+      "actionSeq": 211,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -153567,7 +153481,7 @@
         193
       ],
       "subsequentActions": [],
-      "actionSeq": 213,
+      "actionSeq": 219,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -153905,11 +153819,8 @@
         194,
         195
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Alchemist's Vial from stack onto the Battlefield",
-        "GPT52 Nature - Ability triggers: Alchemist's Vial - When Alchemist's Vial enters, draw a card."
-      ],
-      "actionSeq": 219,
+      "subsequentActions": [],
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -154221,7 +154132,7 @@
         197
       ],
       "subsequentActions": [],
-      "actionSeq": 223,
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -154515,10 +154426,8 @@
         198,
         199
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Tower from hand onto the Battlefield"
-      ],
-      "actionSeq": 225,
+      "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -154808,10 +154717,8 @@
         200,
         201
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Locthwain Gargoyle from hand"
-      ],
-      "actionSeq": 227,
+      "subsequentActions": [],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -155103,10 +155010,8 @@
         202,
         203
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Locthwain Gargoyle from stack onto the Battlefield"
-      ],
-      "actionSeq": 230,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -155768,10 +155673,8 @@
         210,
         213
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 1 creature"
-      ],
-      "actionSeq": 235,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -156485,10 +156388,8 @@
         214,
         215
       ],
-      "subsequentActions": [
-        "Attacker: Runed Servitor (2/2) blocked by Whirler Rogue (2/2)"
-      ],
-      "actionSeq": 239,
+      "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -156829,7 +156730,7 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 245,
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -157117,7 +157018,7 @@
         221
       ],
       "subsequentActions": [],
-      "actionSeq": 246
+      "actionSeq": 250
     },
     {
       "index": 98,
@@ -157433,12 +157334,8 @@
         220,
         223
       ],
-      "subsequentActions": [
-        "Attacker: Runed Servitor (2/2) blocked by Whirler Rogue (2/2)",
-        "GPT52 Nature sacrificed Alchemist's Vial (source: Alchemist's Vial)",
-        "GPT52 Nature activates: target creature can't attack or block this turn. from Alchemist's Vial targeting Whirler Rogue"
-      ],
-      "actionSeq": 241
+      "subsequentActions": [],
+      "actionSeq": 251
     },
     {
       "index": 99,
@@ -157747,7 +157644,7 @@
         229
       ],
       "subsequentActions": [],
-      "actionSeq": 251
+      "actionSeq": 253
     },
     {
       "index": 101,
@@ -158023,14 +157920,8 @@
         230,
         231
       ],
-      "subsequentActions": [
-        "Whirler Rogue deals 2 damage to Runed Servitor",
-        "Runed Servitor deals 2 damage to Whirler Rogue",
-        "Runed Servitor died",
-        "Whirler Rogue died",
-        "GPT52 Nature - Ability triggers: Runed Servitor - When Runed Servitor dies, each player draws a card."
-      ],
-      "actionSeq": 253
+      "subsequentActions": [],
+      "actionSeq": 261
     },
     {
       "index": 102,
@@ -158300,7 +158191,7 @@
         237
       ],
       "subsequentActions": [],
-      "actionSeq": 261
+      "actionSeq": 263
     },
     {
       "index": 103,
@@ -158884,7 +158775,7 @@
         239
       ],
       "subsequentActions": [],
-      "actionSeq": 263
+      "actionSeq": 265
     },
     {
       "index": 105,
@@ -159222,7 +159113,7 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 265,
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -159608,7 +159499,7 @@
         247
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -159951,10 +159842,8 @@
         248,
         251
       ],
-      "subsequentActions": [
-        "Gem31P Hype attacks GPT52 Nature with 2 creatures"
-      ],
-      "actionSeq": 268,
+      "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -160615,7 +160504,7 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 273,
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -160909,11 +160798,8 @@
         254,
         257
       ],
-      "subsequentActions": [
-        "Attacker: Thopter Token (1/1) unblocked",
-        "Attacker: Thopter Token (1/1) unblocked"
-      ],
-      "actionSeq": 275
+      "subsequentActions": [],
+      "actionSeq": 280
     },
     {
       "index": 112,
@@ -161246,7 +161132,7 @@
         259
       ],
       "subsequentActions": [],
-      "actionSeq": 279,
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -161587,7 +161473,7 @@
         261
       ],
       "subsequentActions": [],
-      "actionSeq": 284,
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -161884,10 +161770,8 @@
         262,
         263
       ],
-      "subsequentActions": [
-        "Gem31P Hype casts Aviation Pioneer from hand"
-      ],
-      "actionSeq": 286,
+      "subsequentActions": [],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -162185,11 +162069,8 @@
         264,
         265
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Aviation Pioneer from stack onto the Battlefield",
-        "Gem31P Hype - Ability triggers: Aviation Pioneer - When Aviation Pioneer enters, create a 1/1 colorless Thopter artifact creature token with flying."
-      ],
-      "actionSeq": 292,
+      "subsequentActions": [],
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -162491,10 +162372,8 @@
         266,
         277
       ],
-      "subsequentActions": [
-        "Gem31P Hype creates a Thopter Token token"
-      ],
-      "actionSeq": 296,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -162563,26 +162442,281 @@
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
-        "auto_tap": false,
+        "auto_tap": true,
         "pile": 0,
-        "mana_plan": "p23,p24,p69",
+        "mana_plan": "",
         "attackers": "",
         "blockers": "",
         "text": "",
         "choice": "p8"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T7 Precombat Main/Precombat Main (GPT52 Nature) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Alchemist's Vial",
+                "rules": [
+                  "When {this} enters, draw a card.",
+                  "{1}, {T}, Sacrifice {this}: Target creature can't attack or block this turn."
+                ],
+                "id": "p17"
+              },
+              {
+                "name": "Expedition Map",
+                "rules": [
+                  "{2}, {T}, Sacrifice {this}: Search your library for a land card, reveal it, put it into your hand, then shuffle."
+                ],
+                "id": "p40"
+              },
+              {
+                "name": "Runed Servitor",
+                "rules": [
+                  "When {this} dies, each player draws a card."
+                ],
+                "id": "p22"
+              },
+              {
+                "name": "Walking Ballista",
+                "rules": [
+                  "{this} enters with X +1/+1 counters on it.",
+                  "{4}: Put a +1/+1 counter on {this}.",
+                  "Remove a +1/+1 counter from {this}: It deals 1 damage to any target."
+                ],
+                "id": "p30"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p28"
+              },
+              {
+                "tapped": false,
+                "name": "Locthwain Gargoyle",
+                "rules": [
+                  "{4}: {this} gets +2/+0 and gains flying until end of turn."
+                ],
+                "id": "p61",
+                "power": "0",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Urza's Mine",
+                "rules": [
+                  "{T}: Add {C}. If you control an Urza's Power-Plant and an Urza's Tower, add {C}{C} instead."
+                ],
+                "id": "p43"
+              },
+              {
+                "tapped": true,
+                "name": "Urza's Tower",
+                "rules": [
+                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
+                ],
+                "id": "p68"
+              },
+              {
+                "tapped": false,
+                "name": "Urza's Tower",
+                "rules": [
+                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
+                ],
+                "id": "p70"
+              }
+            ],
+            "name": "GPT52 Nature",
+            "library_size": 26,
+            "life": 18,
+            "hand": [
+              {
+                "mana_cost": "{3}{U}",
+                "name": "Drownyard Explorers",
+                "rules": [
+                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
+                ],
+                "power": "2",
+                "id": "p39",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{2}{U}{U}",
+                "name": "Filigree Attendant",
+                "rules": [
+                  "Flying",
+                  "{this}'s power is equal to the number of artifacts you control."
+                ],
+                "power": "1",
+                "id": "p53",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{U}",
+                "name": "Floodhound",
+                "rules": [
+                  "{3}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
+                ],
+                "power": "1",
+                "id": "p51",
+                "toughness": "2"
+              },
+              {
+                "mana_cost": "{2}",
+                "name": "Manakin",
+                "rules": [
+                  "{T}: Add {C}."
+                ],
+                "power": "1",
+                "id": "p5",
+                "toughness": "1"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Parasitic Implant",
+                "rules": [
+                  "Enchant creature",
+                  "At the beginning of your upkeep, enchanted creature's controller sacrifices it and you create a 1/1 colorless Phyrexian Myr artifact creature token."
+                ],
+                "id": "p27"
+              },
+              {
+                "name": "Whirler Rogue",
+                "rules": [
+                  "When {this} enters, create two 1/1 colorless Thopter artifact creature tokens with flying.",
+                  "Tap two untapped artifacts you control: Target creature can't be blocked this turn."
+                ],
+                "id": "p16"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Aviation Pioneer",
+                "rules": [
+                  "When {this} enters, create a 1/1 colorless Thopter artifact creature token with flying."
+                ],
+                "id": "p25",
+                "power": "1",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p13"
+              },
+              {
+                "tapped": true,
+                "name": "Planar Atlas",
+                "rules": [
+                  "{this} enters tapped.",
+                  "When {this} enters, you may look at the top four cards of your library. You may reveal a land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order.",
+                  "{T}: Add {C}."
+                ],
+                "id": "p38"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p45"
+              },
+              {
+                "tapped": true,
+                "name": "Thopter Token",
+                "rules": [
+                  "Flying"
+                ],
+                "id": "p74",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Thopter Token",
+                "rules": [
+                  "Flying"
+                ],
+                "id": "p75",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Thopter Token",
+                "rules": [
+                  "Flying"
+                ],
+                "id": "p84",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": true,
+                "token": true
+              }
+            ],
+            "name": "Gem31P Hype",
+            "library_size": 27,
+            "life": 18
+          }
+        ],
+        "board_cursor": 44,
+        "stack": [
+          {
+            "name": "Thaumaturge's Familiar"
+          }
+        ],
+        "untapped_lands": 1,
         "game_seq": 301,
-        "error": "Mana plan references unknown permanent 'p24'. Check the board state for correct permanent IDs.",
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "selected_4",
+        "success": true
       },
       "llmEventIndices": [
         267,
         268,
         270,
-        271
+        271,
+        272,
+        274,
+        275
       ],
       "subsequentActions": [],
       "actionSeq": 301,
@@ -162899,7 +163033,7 @@
         279
       ],
       "subsequentActions": [],
-      "actionSeq": 301,
+      "actionSeq": 308,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -163244,11 +163378,8 @@
         280,
         281
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Thaumaturge's Familiar from stack onto the Battlefield",
-        "GPT52 Nature - Ability triggers: Thaumaturge's Familiar - When Thaumaturge's Familiar enters, scry 1."
-      ],
-      "actionSeq": 308,
+      "subsequentActions": [],
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -163558,10 +163689,8 @@
         284,
         285
       ],
-      "subsequentActions": [
-        "GPT52 Nature scries 1 (source: Thaumaturge's Familiar)"
-      ],
-      "actionSeq": 312,
+      "subsequentActions": [],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -163879,10 +164008,8 @@
         286,
         287
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from library to the top of their library (source: Thaumaturge's Familiar)"
-      ],
-      "actionSeq": 315,
+      "subsequentActions": [],
+      "actionSeq": 317,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -164199,7 +164326,7 @@
         289
       ],
       "subsequentActions": [],
-      "actionSeq": 317,
+      "actionSeq": 319,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -164501,10 +164628,8 @@
         290,
         291
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 319,
+      "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -164805,7 +164930,7 @@
         295
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -165713,10 +165838,8 @@
         300,
         305
       ],
-      "subsequentActions": [
-        "Gem31P Hype attacks GPT52 Nature with 3 creatures"
-      ],
-      "actionSeq": 328,
+      "subsequentActions": [],
+      "actionSeq": 335,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -166489,7 +166612,7 @@
         309
       ],
       "subsequentActions": [],
-      "actionSeq": 335,
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -166820,12 +166943,8 @@
         308,
         311
       ],
-      "subsequentActions": [
-        "Attacker: Thopter Token (1/1) unblocked",
-        "Attacker: Thopter Token (1/1) unblocked",
-        "Attacker: Thopter Token (1/1) blocked by Thaumaturge's Familiar (1/3)"
-      ],
-      "actionSeq": 337,
+      "subsequentActions": [],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -167180,7 +167299,7 @@
         313
       ],
       "subsequentActions": [],
-      "actionSeq": 344,
+      "actionSeq": 352,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -167545,7 +167664,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 354,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -167871,10 +167990,8 @@
         316,
         317
       ],
-      "subsequentActions": [
-        "Gem31P Hype casts Malefic Scythe from hand"
-      ],
-      "actionSeq": 354,
+      "subsequentActions": [],
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -168197,10 +168314,8 @@
         318,
         325
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Malefic Scythe from stack onto the Battlefield"
-      ],
-      "actionSeq": 359,
+      "subsequentActions": [],
+      "actionSeq": 362,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -168874,7 +168989,7 @@
         329
       ],
       "subsequentActions": [],
-      "actionSeq": 364,
+      "actionSeq": 372,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -169226,11 +169341,8 @@
         330,
         331
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Drownyard Explorers from stack onto the Battlefield",
-        "GPT52 Nature - Ability triggers: Drownyard Explorers - When Drownyard Explorers enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 372,
+      "subsequentActions": [],
+      "actionSeq": 376,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -169577,10 +169689,8 @@
         332,
         333
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token"
-      ],
-      "actionSeq": 376,
+      "subsequentActions": [],
+      "actionSeq": 379,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -169945,7 +170055,7 @@
         335
       ],
       "subsequentActions": [],
-      "actionSeq": 379,
+      "actionSeq": 381,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -170281,10 +170391,8 @@
         336,
         339
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 1 creature"
-      ],
-      "actionSeq": 381
+      "subsequentActions": [],
+      "actionSeq": 385
     },
     {
       "index": 146,
@@ -171005,10 +171113,8 @@
         342,
         343
       ],
-      "subsequentActions": [
-        "Attacker: Thaumaturge's Familiar (1/3) unblocked"
-      ],
-      "actionSeq": 387,
+      "subsequentActions": [],
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -171335,10 +171441,8 @@
         344,
         347
       ],
-      "subsequentActions": [
-        "Gem31P Hype loses 1 life at combat from Thaumaturge's Familiar"
-      ],
-      "actionSeq": 391,
+      "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -172033,7 +172137,7 @@
         349
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 397,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -172891,10 +172995,8 @@
         356,
         357
       ],
-      "subsequentActions": [
-        "Gem31P Hype skip attack"
-      ],
-      "actionSeq": 400,
+      "subsequentActions": [],
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -173294,7 +173396,7 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 404,
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -174122,7 +174224,7 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 408,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -174462,7 +174564,7 @@
         369
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 417,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -174846,10 +174948,8 @@
         368,
         371
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Hold for Questioning targeting Thopter Token from hand"
-      ],
-      "actionSeq": 406,
+      "subsequentActions": [],
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -175196,7 +175296,7 @@
         373
       ],
       "subsequentActions": [],
-      "actionSeq": 417,
+      "actionSeq": 421,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -175583,11 +175683,8 @@
         372,
         375
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Hold for Questioning from stack onto the Battlefield",
-        "GPT52 Nature - Ability triggers: Hold for Questioning - When Hold for Questioning enters, tap enchanted permanent and investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 418,
+      "subsequentActions": [],
+      "actionSeq": 422,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -176030,10 +176127,8 @@
         376,
         381
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token"
-      ],
-      "actionSeq": 422,
+      "subsequentActions": [],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -176820,7 +176915,7 @@
         385
       ],
       "subsequentActions": [],
-      "actionSeq": 426
+      "actionSeq": 431
     },
     {
       "index": 167,
@@ -177261,10 +177356,8 @@
         382,
         383
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 2 creatures"
-      ],
-      "actionSeq": 425,
+      "subsequentActions": [],
+      "actionSeq": 432,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -177712,7 +177805,7 @@
         387
       ],
       "subsequentActions": [],
-      "actionSeq": 432,
+      "actionSeq": 433,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -178095,7 +178188,7 @@
         389
       ],
       "subsequentActions": [],
-      "actionSeq": 431
+      "actionSeq": 438
     },
     {
       "index": 170,
@@ -178501,11 +178594,8 @@
         388,
         391
       ],
-      "subsequentActions": [
-        "Attacker: Thaumaturge's Familiar (1/3) unblocked",
-        "Attacker: Drownyard Explorers (2/4) blocked by Aviation Pioneer (1/2)"
-      ],
-      "actionSeq": 433,
+      "subsequentActions": [],
+      "actionSeq": 439,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -178915,13 +179005,8 @@
         392,
         395
       ],
-      "subsequentActions": [
-        "Gem31P Hype loses 1 life at combat from Thaumaturge's Familiar",
-        "Aviation Pioneer deals 1 damage to Drownyard Explorers",
-        "Drownyard Explorers deals 2 damage to Aviation Pioneer",
-        "Aviation Pioneer died"
-      ],
-      "actionSeq": 439,
+      "subsequentActions": [],
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -179696,7 +179781,7 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 446,
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -180098,10 +180183,8 @@
         398,
         399
       ],
-      "subsequentActions": [
-        "Hold for Questioning: Thopter Token doesn't untap during its controller's untap step (Hold for Questioning)"
-      ],
-      "actionSeq": 448,
+      "subsequentActions": [],
+      "actionSeq": 452,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -180488,7 +180571,7 @@
         403
       ],
       "subsequentActions": [],
-      "actionSeq": 452,
+      "actionSeq": 459,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -180842,11 +180925,8 @@
         402,
         405
       ],
-      "subsequentActions": [
-        "Hold for Questioning: Thopter Token doesn't untap during its controller's untap step (Hold for Questioning)",
-        "Gem31P Hype casts Gearseeker Serpent from hand"
-      ],
-      "actionSeq": 447
+      "subsequentActions": [],
+      "actionSeq": 460
     },
     {
       "index": 178,
@@ -181235,7 +181315,7 @@
         407
       ],
       "subsequentActions": [],
-      "actionSeq": 459,
+      "actionSeq": 462,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -181659,7 +181739,7 @@
         409
       ],
       "subsequentActions": [],
-      "actionSeq": 462,
+      "actionSeq": 464,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -182037,10 +182117,8 @@
         410,
         415
       ],
-      "subsequentActions": [
-        "Gem31P Hype attacks GPT52 Nature with 1 creature"
-      ],
-      "actionSeq": 464
+      "subsequentActions": [],
+      "actionSeq": 468
     },
     {
       "index": 182,
@@ -182800,7 +182878,7 @@
         419
       ],
       "subsequentActions": [],
-      "actionSeq": 468
+      "actionSeq": 473
     },
     {
       "index": 184,
@@ -183187,10 +183265,8 @@
         420,
         421
       ],
-      "subsequentActions": [
-        "GPT52 Nature loses 1 life at combat from Thopter Token"
-      ],
-      "actionSeq": 473
+      "subsequentActions": [],
+      "actionSeq": 477
     },
     {
       "index": 186,
@@ -183565,7 +183641,7 @@
         431
       ],
       "subsequentActions": [],
-      "actionSeq": 477,
+      "actionSeq": 479,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -184495,10 +184571,8 @@
         428,
         429
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 481,
+      "subsequentActions": [],
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -184917,7 +184991,7 @@
         433
       ],
       "subsequentActions": [],
-      "actionSeq": 485,
+      "actionSeq": 489,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -185351,10 +185425,8 @@
         434,
         435
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Manakin from stack onto the Battlefield"
-      ],
-      "actionSeq": 489,
+      "subsequentActions": [],
+      "actionSeq": 492,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -185762,10 +185834,8 @@
         436,
         437
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Floodhound from hand"
-      ],
-      "actionSeq": 492,
+      "subsequentActions": [],
+      "actionSeq": 497,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -186178,10 +186248,8 @@
         438,
         439
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Floodhound from stack onto the Battlefield"
-      ],
-      "actionSeq": 497,
+      "subsequentActions": [],
+      "actionSeq": 500,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -186593,7 +186661,7 @@
         441
       ],
       "subsequentActions": [],
-      "actionSeq": 500,
+      "actionSeq": 502,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -186968,10 +187036,8 @@
         442,
         445
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 1 creature"
-      ],
-      "actionSeq": 502
+      "subsequentActions": [],
+      "actionSeq": 506
     },
     {
       "index": 196,
@@ -188786,7 +188852,7 @@
         459
       ],
       "subsequentActions": [],
-      "actionSeq": 522,
+      "actionSeq": 524,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -189261,10 +189327,8 @@
         460,
         463
       ],
-      "subsequentActions": [
-        "Gem31P Hype attacks GPT52 Nature with 2 creatures"
-      ],
-      "actionSeq": 524,
+      "subsequentActions": [],
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -190180,7 +190244,7 @@
         467
       ],
       "subsequentActions": [],
-      "actionSeq": 529,
+      "actionSeq": 536,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -190567,11 +190631,8 @@
         466,
         469
       ],
-      "subsequentActions": [
-        "Attacker: Thopter Token (1/1) unblocked",
-        "Attacker: Gearseeker Serpent (5/6) blocked by Floodhound (1/2)"
-      ],
-      "actionSeq": 531
+      "subsequentActions": [],
+      "actionSeq": 537
     },
     {
       "index": 207,
@@ -191992,11 +192053,8 @@
         477,
         478
       ],
-      "subsequentActions": [
-        "Gem31P Hype discards down to 7 hand cards",
-        "Gem31P Hype discards Phyrexian Broodlings"
-      ],
-      "actionSeq": 546,
+      "subsequentActions": [],
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -192420,7 +192478,7 @@
         484
       ],
       "subsequentActions": [],
-      "actionSeq": 551,
+      "actionSeq": 560,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -192869,11 +192927,8 @@
         483,
         488
       ],
-      "subsequentActions": [
-        "Gem31P Hype discards Phyrexian Broodlings",
-        "GPT52 Nature casts Filigree Attendant from hand"
-      ],
-      "actionSeq": 549,
+      "subsequentActions": [],
+      "actionSeq": 561,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -193269,10 +193324,8 @@
         485,
         486
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Filigree Attendant from stack onto the Battlefield"
-      ],
-      "actionSeq": 560,
+      "subsequentActions": [],
+      "actionSeq": 563,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -193648,7 +193701,7 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 563,
+      "actionSeq": 568,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -194085,12 +194138,8 @@
         491,
         494
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Filigree Attendant from stack onto the Battlefield",
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 561,
+      "subsequentActions": [],
+      "actionSeq": 569,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -194502,7 +194551,7 @@
         496
       ],
       "subsequentActions": [],
-      "actionSeq": 568,
+      "actionSeq": 570,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -194965,7 +195014,7 @@
         502
       ],
       "subsequentActions": [],
-      "actionSeq": 569,
+      "actionSeq": 571,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -195410,7 +195459,7 @@
         500
       ],
       "subsequentActions": [],
-      "actionSeq": 570,
+      "actionSeq": 572,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -195811,7 +195860,7 @@
         504
       ],
       "subsequentActions": [],
-      "actionSeq": 572
+      "actionSeq": 577
     },
     {
       "index": 221,
@@ -196270,10 +196319,8 @@
         503,
         506
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 2 creatures"
-      ],
-      "actionSeq": 571,
+      "subsequentActions": [],
+      "actionSeq": 578,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -196762,11 +196809,8 @@
         507,
         508
       ],
-      "subsequentActions": [
-        "Attacker: Drownyard Explorers (2/4) unblocked",
-        "Attacker: Thaumaturge's Familiar (1/3) unblocked"
-      ],
-      "actionSeq": 578,
+      "subsequentActions": [],
+      "actionSeq": 583,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -197206,11 +197250,8 @@
         509,
         512
       ],
-      "subsequentActions": [
-        "Gem31P Hype loses 2 life at combat from Drownyard Explorers",
-        "Gem31P Hype loses 1 life at combat from Thaumaturge's Familiar"
-      ],
-      "actionSeq": 583,
+      "subsequentActions": [],
+      "actionSeq": 588,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -198074,7 +198115,7 @@
         514
       ],
       "subsequentActions": [],
-      "actionSeq": 588,
+      "actionSeq": 590,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -198544,10 +198585,8 @@
         515,
         516
       ],
-      "subsequentActions": [
-        "Hold for Questioning: Thopter Token doesn't untap during its controller's untap step (Hold for Questioning)"
-      ],
-      "actionSeq": 590,
+      "subsequentActions": [],
+      "actionSeq": 594,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -199001,7 +199040,7 @@
         518
       ],
       "subsequentActions": [],
-      "actionSeq": 594,
+      "actionSeq": 595,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -199478,7 +199517,7 @@
         520
       ],
       "subsequentActions": [],
-      "actionSeq": 595,
+      "actionSeq": 596,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -199958,7 +199997,7 @@
         528
       ],
       "subsequentActions": [],
-      "actionSeq": 596,
+      "actionSeq": 600,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -200352,12 +200391,8 @@
         527,
         532
       ],
-      "subsequentActions": [
-        "Hold for Questioning: Thopter Token doesn't untap during its controller's untap step (Hold for Questioning)",
-        "Thriving Isle: Gem31P Hype has chosen Black",
-        "Gem31P Hype puts Thriving Isle from hand onto the Battlefield"
-      ],
-      "actionSeq": 589
+      "subsequentActions": [],
+      "actionSeq": 601
     },
     {
       "index": 232,
@@ -200812,7 +200847,7 @@
         530
       ],
       "subsequentActions": [],
-      "actionSeq": 600,
+      "actionSeq": 602,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -201281,7 +201316,7 @@
         534
       ],
       "subsequentActions": [],
-      "actionSeq": 602,
+      "actionSeq": 605,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -201787,7 +201822,7 @@
         550
       ],
       "subsequentActions": [],
-      "actionSeq": 605,
+      "actionSeq": 607,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -202802,7 +202837,7 @@
         548
       ],
       "subsequentActions": [],
-      "actionSeq": 609,
+      "actionSeq": 610,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -203257,7 +203292,7 @@
         554
       ],
       "subsequentActions": [],
-      "actionSeq": 610,
+      "actionSeq": 616,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -203720,10 +203755,8 @@
         553,
         558
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Press for Answers targeting Gearseeker Serpent from hand"
-      ],
-      "actionSeq": 607,
+      "subsequentActions": [],
+      "actionSeq": 617,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -204167,11 +204200,8 @@
         555,
         556
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token",
-        "GPT52 Nature puts Press for Answers from stack into their graveyard"
-      ],
-      "actionSeq": 616,
+      "subsequentActions": [],
+      "actionSeq": 620,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -204605,7 +204635,7 @@
         560
       ],
       "subsequentActions": [],
-      "actionSeq": 620,
+      "actionSeq": 625,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -205066,13 +205096,8 @@
         559,
         568
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token",
-        "GPT52 Nature puts Press for Answers from stack into their graveyard",
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 617,
+      "subsequentActions": [],
+      "actionSeq": 626,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -205983,10 +206008,8 @@
         565,
         566
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield"
-      ],
-      "actionSeq": 627,
+      "subsequentActions": [],
+      "actionSeq": 629,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -206393,7 +206416,7 @@
         570
       ],
       "subsequentActions": [],
-      "actionSeq": 629,
+      "actionSeq": 634,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -206849,12 +206872,8 @@
         569,
         572
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield",
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 626,
+      "subsequentActions": [],
+      "actionSeq": 635,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -207379,7 +207398,7 @@
         578
       ],
       "subsequentActions": [],
-      "actionSeq": 635,
+      "actionSeq": 637,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -208320,7 +208339,7 @@
         582
       ],
       "subsequentActions": [],
-      "actionSeq": 638,
+      "actionSeq": 644,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -208842,10 +208861,8 @@
         579,
         580
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 3 creatures"
-      ],
-      "actionSeq": 637,
+      "subsequentActions": [],
+      "actionSeq": 645,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -208890,9 +208907,9 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p75:p106"
+        "choice": "no"
       },
       "actionResult": {
         "action_pending": true,
@@ -208900,7 +208917,7 @@
         "message": "Play instants and activated abilities",
         "response_type": "select",
         "respond_with": "choice=pN to play, or choice=no to pass",
-        "context": "T12 Combat/Declare Blockers (GPT52 Nature)",
+        "context": "T12 Combat/Combat Damage (GPT52 Nature)",
         "board": [
           {
             "hand_size": 7,
@@ -209052,7 +209069,7 @@
             ],
             "name": "Gem31P Hype",
             "library_size": 22,
-            "life": 12,
+            "life": 5,
             "hand": [
               {
                 "mana_cost": "{2}{U}",
@@ -209285,7 +209302,7 @@
             "life": 14
           }
         ],
-        "board_cursor": 88,
+        "board_cursor": 89,
         "choices": [
           {
             "mana_cost": "{2}{U}",
@@ -209341,27 +209358,19 @@
           }
         ],
         "untapped_lands": 3,
-        "game_seq": 646,
-        "error": "p75: attacker p106 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
-          {
-            "reason": "attacker p106 is not a valid block target",
-            "id": "p75"
-          }
-        ]
+        "game_seq": 654,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         580,
         581,
-        586
+        586,
+        587,
+        588
       ],
       "subsequentActions": [],
-      "actionSeq": 645,
+      "actionSeq": 654,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -209935,12 +209944,8 @@
         587,
         588
       ],
-      "subsequentActions": [
-        "Attacker: Filigree Attendant (4/3) unblocked",
-        "Attacker: Drownyard Explorers (2/4) unblocked",
-        "Attacker: Thaumaturge's Familiar (1/3) unblocked"
-      ],
-      "actionSeq": 646,
+      "subsequentActions": [],
+      "actionSeq": 654,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -210399,12 +210404,8 @@
         589,
         590
       ],
-      "subsequentActions": [
-        "Gem31P Hype loses 4 life at combat from Filigree Attendant",
-        "Gem31P Hype loses 2 life at combat from Drownyard Explorers",
-        "Gem31P Hype loses 1 life at combat from Thaumaturge's Familiar"
-      ],
-      "actionSeq": 654,
+      "subsequentActions": [],
+      "actionSeq": 660,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -210925,7 +210926,7 @@
         592
       ],
       "subsequentActions": [],
-      "actionSeq": 660,
+      "actionSeq": 662,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -211494,11 +211495,8 @@
         593,
         594
       ],
-      "subsequentActions": [
-        "Hold for Questioning: Thopter Token doesn't untap during its controller's untap step (Hold for Questioning)",
-        "Press for Answers: Gearseeker Serpent doesn't untap (Press for Answers)"
-      ],
-      "actionSeq": 662,
+      "subsequentActions": [],
+      "actionSeq": 667,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -212007,10 +212005,8 @@
         595,
         596
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 667,
+      "subsequentActions": [],
+      "actionSeq": 670,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -212453,7 +212449,7 @@
         598
       ],
       "subsequentActions": [],
-      "actionSeq": 670,
+      "actionSeq": 676,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -212919,10 +212915,8 @@
         599,
         604
       ],
-      "subsequentActions": [
-        "Gem31P Hype casts Tezzeret, Artifice Master from hand"
-      ],
-      "actionSeq": 676,
+      "subsequentActions": [],
+      "actionSeq": 678,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -213829,10 +213823,8 @@
         605,
         606
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Tezzeret, Artifice Master from stack onto the Battlefield"
-      ],
-      "actionSeq": 678,
+      "subsequentActions": [],
+      "actionSeq": 681,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -214287,7 +214279,7 @@
         608
       ],
       "subsequentActions": [],
-      "actionSeq": 681,
+      "actionSeq": 682,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -214759,7 +214751,7 @@
         612
       ],
       "subsequentActions": [],
-      "actionSeq": 682,
+      "actionSeq": 684,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -215200,11 +215192,8 @@
         611,
         614
       ],
-      "subsequentActions": [
-        "Gem31P Hype puts Tezzeret, Artifice Master from stack onto the Battlefield",
-        "Gem31P Hype activates: create a 1/1 colorless Thopter artifact creature token with flying. from Tezzeret, Artifice Master"
-      ],
-      "actionSeq": 679,
+      "subsequentActions": [],
+      "actionSeq": 685,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -215686,7 +215675,7 @@
         616
       ],
       "subsequentActions": [],
-      "actionSeq": 684,
+      "actionSeq": 687,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -216181,7 +216170,7 @@
         618
       ],
       "subsequentActions": [],
-      "actionSeq": 687,
+      "actionSeq": 689,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -216649,10 +216638,8 @@
         619,
         620
       ],
-      "subsequentActions": [
-        "Gem31P Hype skip attack"
-      ],
-      "actionSeq": 689,
+      "subsequentActions": [],
+      "actionSeq": 692,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -217133,7 +217120,7 @@
         632
       ],
       "subsequentActions": [],
-      "actionSeq": 692,
+      "actionSeq": 694,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -218265,10 +218252,8 @@
         629,
         630
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield"
-      ],
-      "actionSeq": 696,
+      "subsequentActions": [],
+      "actionSeq": 700,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -218778,7 +218763,7 @@
         634
       ],
       "subsequentActions": [],
-      "actionSeq": 700,
+      "actionSeq": 705,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -219254,11 +219239,8 @@
         633,
         638
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield",
-        "GPT52 Nature casts Golem Artisan from hand"
-      ],
-      "actionSeq": 694,
+      "subsequentActions": [],
+      "actionSeq": 706,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -219754,10 +219736,8 @@
         635,
         636
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Golem Artisan from stack onto the Battlefield"
-      ],
-      "actionSeq": 705,
+      "subsequentActions": [],
+      "actionSeq": 708,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -220263,7 +220243,7 @@
         640
       ],
       "subsequentActions": [],
-      "actionSeq": 708,
+      "actionSeq": 714,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -220759,11 +220739,8 @@
         639,
         648
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Golem Artisan from stack onto the Battlefield",
-        "GPT52 Nature casts Karn Liberated from hand"
-      ],
-      "actionSeq": 706,
+      "subsequentActions": [],
+      "actionSeq": 715,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -221261,10 +221238,8 @@
         641,
         642
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Karn Liberated from stack onto the Battlefield"
-      ],
-      "actionSeq": 714,
+      "subsequentActions": [],
+      "actionSeq": 717,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -221953,7 +221928,7 @@
         644
       ],
       "subsequentActions": [],
-      "actionSeq": 717,
+      "actionSeq": 718,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -222648,7 +222623,7 @@
         646
       ],
       "subsequentActions": [],
-      "actionSeq": 718,
+      "actionSeq": 719,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223137,7 +223112,7 @@
         650
       ],
       "subsequentActions": [],
-      "actionSeq": 719,
+      "actionSeq": 721,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223629,11 +223604,8 @@
         649,
         660
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Karn Liberated from stack onto the Battlefield",
-        "GPT52 Nature activates: exile target permanent. from Karn Liberated targeting Tezzeret, Artifice Master"
-      ],
-      "actionSeq": 715,
+      "subsequentActions": [],
+      "actionSeq": 722,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -224119,10 +224091,8 @@
         653,
         654
       ],
-      "subsequentActions": [
-        "GPT52 Nature moves Tezzeret, Artifice Master from battlefield to the exile zone (source: Karn Liberated)"
-      ],
-      "actionSeq": 721,
+      "subsequentActions": [],
+      "actionSeq": 724,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -224668,7 +224638,7 @@
         656
       ],
       "subsequentActions": [],
-      "actionSeq": 724,
+      "actionSeq": 725,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -225207,7 +225177,7 @@
         658
       ],
       "subsequentActions": [],
-      "actionSeq": 725,
+      "actionSeq": 726,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -225687,7 +225657,7 @@
         662
       ],
       "subsequentActions": [],
-      "actionSeq": 726,
+      "actionSeq": 729,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -226168,11 +226138,8 @@
         661,
         666
       ],
-      "subsequentActions": [
-        "GPT52 Nature moves Tezzeret, Artifice Master from battlefield to the exile zone (source: Karn Liberated)",
-        "GPT52 Nature activates: target artifact creature gains your choice of flying, trample, or haste until end of turn. from Golem Artisan targeting Filigree Attendant"
-      ],
-      "actionSeq": 722,
+      "subsequentActions": [],
+      "actionSeq": 730,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -226641,7 +226608,7 @@
         664
       ],
       "subsequentActions": [],
-      "actionSeq": 729,
+      "actionSeq": 731,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -227134,7 +227101,7 @@
         668
       ],
       "subsequentActions": [],
-      "actionSeq": 731,
+      "actionSeq": 732,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -227651,7 +227618,7 @@
         672
       ],
       "subsequentActions": [],
-      "actionSeq": 730,
+      "actionSeq": 733,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -228191,7 +228158,7 @@
         670
       ],
       "subsequentActions": [],
-      "actionSeq": 732,
+      "actionSeq": 734,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -228689,7 +228656,7 @@
         676
       ],
       "subsequentActions": [],
-      "actionSeq": 734
+      "actionSeq": 740
     },
     {
       "index": 296,
@@ -229241,10 +229208,8 @@
         673,
         674
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks Gem31P Hype with 3 creatures"
-      ],
-      "actionSeq": 733,
+      "subsequentActions": [],
+      "actionSeq": 741,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -229279,529 +229244,29 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p75:p53,p113:p82"
+        "choice": "no"
       },
       "actionResult": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "message": "Play instants and activated abilities",
-        "response_type": "boolean",
-        "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "context": "T13 Combat/Declare Blockers (GPT52 Nature)",
-        "board": [
-          {
-            "hand_size": 6,
-            "graveyard": [
-              {
-                "name": "Aviation Pioneer",
-                "rules": [
-                  "When {this} enters, create a 1/1 colorless Thopter artifact creature token with flying."
-                ],
-                "id": "p25"
-              },
-              {
-                "name": "Parasitic Implant",
-                "rules": [
-                  "Enchant creature",
-                  "At the beginning of your upkeep, enchanted creature's controller sacrifices it and you create a 1/1 colorless Phyrexian Myr artifact creature token."
-                ],
-                "id": "p27"
-              },
-              {
-                "name": "Phyrexian Broodlings",
-                "rules": [
-                  "{1}, Sacrifice a creature: Put a +1/+1 counter on {this}."
-                ],
-                "id": "p81"
-              },
-              {
-                "name": "Whirler Rogue",
-                "rules": [
-                  "When {this} enters, create two 1/1 colorless Thopter artifact creature tokens with flying.",
-                  "Tap two untapped artifacts you control: Target creature can't be blocked this turn."
-                ],
-                "id": "p16"
-              }
-            ],
-            "is_active": false,
-            "is_you": true,
-            "battlefield": [
-              {
-                "tapped": true,
-                "name": "Gearseeker Serpent",
-                "modified": true,
-                "rules": [
-                  "Affinity for artifacts (This spell costs {1} less to cast for each artifact you control.)",
-                  "{5}{U}: {this} can't be blocked this turn.",
-                  ": ",
-                  "Artifacts you control: 5"
-                ],
-                "id": "p96",
-                "power": "5",
-                "toughness": "6",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "name": "Hold for Questioning",
-                "rules": [
-                  "Enchant creature or planeswalker",
-                  "When {this} enters, tap enchanted permanent and investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")",
-                  "Enchanted permanent doesn't untap during its controller's untap step and its activated abilities can't be activated."
-                ],
-                "id": "p54"
-              },
-              {
-                "tapped": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p12"
-              },
-              {
-                "tapped": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p13"
-              },
-              {
-                "tapped": false,
-                "counters": {
-                  "soul": 1
-                },
-                "name": "Malefic Scythe",
-                "rules": [
-                  "{this} enters with a soul counter on it.",
-                  "Equipped creature gets +1/+1 for each soul counter on {this}.",
-                  "Whenever equipped creature dies, put a soul counter on {this}.",
-                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
-                ],
-                "id": "p26"
-              },
-              {
-                "tapped": true,
-                "name": "Planar Atlas",
-                "rules": [
-                  "{this} enters tapped.",
-                  "When {this} enters, you may look at the top four cards of your library. You may reveal a land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order.",
-                  "{T}: Add {C}."
-                ],
-                "id": "p38"
-              },
-              {
-                "tapped": true,
-                "name": "Swamp",
-                "rules": [
-                  "{T}: Add {B}."
-                ],
-                "id": "p45"
-              },
-              {
-                "tapped": false,
-                "name": "Swamp",
-                "rules": [
-                  "{T}: Add {B}."
-                ],
-                "id": "p108"
-              },
-              {
-                "tapped": true,
-                "name": "Thopter Token",
-                "rules": [
-                  "Flying"
-                ],
-                "id": "p74",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false,
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Thopter Token",
-                "rules": [
-                  "Flying"
-                ],
-                "id": "p75",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false,
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Thopter Token",
-                "rules": [
-                  "Flying"
-                ],
-                "id": "p113",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": true,
-                "token": true
-              },
-              {
-                "tapped": true,
-                "name": "Thriving Isle",
-                "modified": true,
-                "rules": [
-                  "{this} enters tapped.",
-                  "As {this} enters, choose a color other than blue.",
-                  "{T}: Add {U}.",
-                  "{T}: Add one mana of the chosen color.",
-                  "Chosen color: Black"
-                ],
-                "id": "p103"
-              }
-            ],
-            "name": "Gem31P Hype",
-            "exile": [
-              {
-                "name": "Tezzeret, Artifice Master",
-                "rules": [
-                  "+1: Create a 1/1 colorless Thopter artifact creature token with flying.",
-                  "0: Draw a card. If you control three or more artifacts, draw two cards instead.",
-                  "-9: You get an emblem with \"At the beginning of your end step, search your library for a permanent card, put it onto the battlefield, then shuffle.\"",
-                  ": ",
-                  "ICON_GOODYou control three or more artifacts (current: 5)"
-                ],
-                "id": "p100"
-              }
-            ],
-            "library_size": 21,
-            "life": 5,
-            "hand": [
-              {
-                "mana_cost": "{2}{U}",
-                "name": "Artificer's Epiphany",
-                "rules": [
-                  "Draw two cards. If you control no artifacts, discard a card."
-                ],
-                "id": "p24"
-              },
-              {
-                "mana_cost": "{2}{B}",
-                "name": "Douse in Gloom",
-                "rules": [
-                  "{this} deals 2 damage to target creature and you gain 2 life."
-                ],
-                "id": "p10"
-              },
-              {
-                "mana_cost": "{2}{B}{B}",
-                "name": "Entomber Exarch",
-                "rules": [
-                  "When {this} enters, choose one &mdash;: &bull Return target creature card from your graveyard to your hand.: &bull Target opponent reveals their hand. You choose a card from it. That player discards that card.: "
-                ],
-                "power": "2",
-                "id": "p11",
-                "toughness": "2"
-              },
-              {
-                "mana_cost": "{5}",
-                "name": "Gearsmith Guardian",
-                "rules": [
-                  "{this} gets +2/+0 as long as you control a blue creature."
-                ],
-                "power": "3",
-                "id": "p42",
-                "toughness": "5"
-              },
-              {
-                "mana_cost": "{2}{U}",
-                "name": "Launch Mishap",
-                "rules": [
-                  "Counter target creature or planeswalker spell. Create a 1/1 colorless Thopter artifact creature token with flying."
-                ],
-                "id": "p92"
-              },
-              {
-                "mana_cost": "{B}",
-                "name": "Phyrexian Reclamation",
-                "rules": [
-                  "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand."
-                ],
-                "id": "p87"
-              }
-            ]
-          },
-          {
-            "hand_size": 2,
-            "graveyard": [
-              {
-                "name": "Alchemist's Vial",
-                "rules": [
-                  "When {this} enters, draw a card.",
-                  "{1}, {T}, Sacrifice {this}: Target creature can't attack or block this turn."
-                ],
-                "id": "p17"
-              },
-              {
-                "name": "Expedition Map",
-                "rules": [
-                  "{2}, {T}, Sacrifice {this}: Search your library for a land card, reveal it, put it into your hand, then shuffle."
-                ],
-                "id": "p40"
-              },
-              {
-                "name": "Floodhound",
-                "rules": [
-                  "{3}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p51"
-              },
-              {
-                "name": "Press for Answers",
-                "rules": [
-                  "Tap target creature. It doesn't untap during its controller's next untap step. : Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p21"
-              },
-              {
-                "name": "Runed Servitor",
-                "rules": [
-                  "When {this} dies, each player draws a card."
-                ],
-                "id": "p22"
-              },
-              {
-                "name": "Walking Ballista",
-                "rules": [
-                  "{this} enters with X +1/+1 counters on it.",
-                  "{4}: Put a +1/+1 counter on {this}.",
-                  "Remove a +1/+1 counter from {this}: It deals 1 damage to any target."
-                ],
-                "id": "p30"
-              }
-            ],
-            "is_active": true,
-            "is_you": false,
-            "battlefield": [
-              {
-                "tapped": true,
-                "name": "Drownyard Explorers",
-                "rules": [
-                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p39",
-                "power": "2",
-                "toughness": "4",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Filigree Attendant",
-                "rules": [
-                  "Flying",
-                  "{this}'s power is equal to the number of artifacts you control.",
-                  "Trample"
-                ],
-                "id": "p53",
-                "power": "5",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "name": "Golem Artisan",
-                "rules": [
-                  "{2}: Target artifact creature gets +1/+1 until end of turn.",
-                  "{2}: Target artifact creature gains your choice of flying, trample, or haste until end of turn."
-                ],
-                "id": "p18",
-                "power": "3",
-                "toughness": "3",
-                "summoning_sick": true
-              },
-              {
-                "tapped": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p28"
-              },
-              {
-                "tapped": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p58"
-              },
-              {
-                "tapped": false,
-                "counters": {
-                  "loyalty": 3
-                },
-                "loyalty": "3",
-                "name": "Karn Liberated",
-                "rules": [
-                  "+4: Target player exiles a card from their hand.",
-                  "-3: Exile target permanent.",
-                  "-14: Restart the game, leaving in exile all non-Aura permanent cards exiled with {this}. Then put those cards onto the battlefield under your control."
-                ],
-                "id": "p29"
-              },
-              {
-                "tapped": false,
-                "name": "Locthwain Gargoyle",
-                "rules": [
-                  "{4}: {this} gets +2/+0 and gains flying until end of turn."
-                ],
-                "id": "p61",
-                "power": "0",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Manakin",
-                "rules": [
-                  "{T}: Add {C}."
-                ],
-                "id": "p5",
-                "power": "1",
-                "toughness": "1",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Thaumaturge's Familiar",
-                "rules": [
-                  "Flying",
-                  "When {this} enters, scry 1."
-                ],
-                "id": "p8",
-                "power": "1",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Mine",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Power-Plant and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p43"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Power Plant",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p9"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Power Plant",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p67"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Tower",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
-                ],
-                "id": "p68"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Tower",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
-                ],
-                "id": "p70"
-              }
-            ],
-            "name": "GPT52 Nature",
-            "library_size": 17,
-            "life": 14
-          }
+        "game_seq": 752,
+        "player_dead": true,
+        "recent_chat": [
+          "GPT52 Nature: That Serpent is really dominating the shoreline&mdash;going to try to put it in a temporary hibernation so the rest of my little artifact-biome can keep evolving.",
+          "GPT52 Nature: Karn just introduced Tezzeret to a more&hellip; sterile habitat. Now let&rsquo;s see if these birds can finish the job through the thopter swarm."
         ],
-        "board_cursor": 104,
-        "combat": [
-          {
-            "blocked": true,
-            "defending": "Gem31P Hype",
-            "attackers": [
-              {
-                "name": "Filigree Attendant",
-                "id": "p53",
-                "power": "5",
-                "toughness": "3"
-              }
-            ],
-            "blockers": [
-              {
-                "name": "Thopter Token",
-                "id": "p75",
-                "power": "1",
-                "toughness": "1"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Gem31P Hype",
-            "attackers": [
-              {
-                "name": "Drownyard Explorers",
-                "id": "p39",
-                "power": "2",
-                "toughness": "4"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "Gem31P Hype",
-            "attackers": [
-              {
-                "name": "Thaumaturge's Familiar",
-                "id": "p8",
-                "power": "1",
-                "toughness": "3"
-              }
-            ]
-          }
-        ],
-        "untapped_lands": 1,
-        "game_seq": 742,
-        "error": "p113: attacker p82 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [
-          {
-            "blocks": "p53",
-            "id": "p75"
-          }
-        ],
-        "failed": [
-          {
-            "reason": "attacker p82 is not a valid block target",
-            "id": "p113"
-          }
-        ]
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         674,
         675,
-        678
+        678,
+        679,
+        700
       ],
       "subsequentActions": [],
-      "actionSeq": 741,
+      "actionSeq": 752,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -229882,12 +229347,8 @@
         679,
         700
       ],
-      "subsequentActions": [
-        "Attacker: Filigree Attendant (5/3) blocked by Thopter Token (1/1)",
-        "Attacker: Drownyard Explorers (2/4) unblocked",
-        "Attacker: Thaumaturge's Familiar (1/3) unblocked"
-      ],
-      "actionSeq": 742,
+      "subsequentActions": [],
+      "actionSeq": 752,
       "pilotContext": {
         "untappedLands": 1
       }

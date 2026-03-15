@@ -163278,64 +163278,23 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p4"
+        "auto_tap": true,
+        "id": "p17"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p4 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{G}{G}",
-            "name": "Harmonize",
-            "index": 0,
-            "action": "cast",
-            "id": "p15"
-          },
-          {
-            "mana_cost": "{2}{G}",
-            "name": "Kodama's Reach",
-            "index": 1,
-            "action": "cast",
-            "id": "p17"
-          },
-          {
-            "mana_cost": "{G}{U}",
-            "name": "Simic Charm",
-            "index": 2,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{1}{G}",
-            "name": "Khalni Heart Expedition",
-            "index": 3,
-            "action": "cast",
-            "id": "p16"
-          },
-          {
-            "mana_cost": "{1}",
-            "name": "Sol Ring",
-            "index": 4,
-            "action": "cast",
-            "id": "p26"
-          },
-          {
-            "mana_cost": "{4}",
-            "name": "Seer's Sundial",
-            "index": 5,
-            "action": "cast",
-            "id": "p18"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         374,
         376,
-        377
+        377,
+        382,
+        383
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -165381,24 +165340,16 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "text": "Artisan of Kozilek"
+        "id": "p21",
+        "auto_tap": true
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{R}{G}",
-            "name": "Colossal Might",
-            "index": 0,
-            "action": "cast",
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         600,
@@ -165406,7 +165357,9 @@
         605,
         611,
         614,
-        615
+        615,
+        617,
+        618
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -167755,7 +167708,9 @@
       "llmEventIndices": [
         898,
         900,
-        901
+        901,
+        903,
+        906
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -169703,20 +169658,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "attackers": "p41"
+        "answer": true
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         1166,
         1170,
-        1171
+        1171,
+        1173,
+        1174
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -169858,7 +169815,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -170101,15 +170060,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p66', 'id': 'p90'}"
+        "blockers": "[{\"id\":\"p90\",\"blocks\":\"p66\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "blocks": "p66",
+            "id": "p90"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         1216,
         1218,
-        1219
+        1219,
+        1221,
+        1222
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -170248,7 +170218,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -170711,7 +170683,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -171612,7 +171586,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -172329,20 +172305,21 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N."
       },
       "llmEventIndices": [
         1510,
         1519,
-        1520
+        1520,
+        1522,
+        1540
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -172650,39 +172627,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p87"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p87 not found in current choices",
-        "choices": [
-          {
-            "name": "Memorial to Genius",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}{U}, {T}, Sacrifice {this}: Draw two cards."
-            ],
-            "id": "p5"
-          },
-          {
-            "mana_cost": "{G}{U}",
-            "name": "Simic Charm",
-            "index": 1,
-            "action": "cast",
-            "id": "p9"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1571,
         1573,
         1576,
-        1577
+        1577,
+        1579,
+        1580
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -174123,7 +174084,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p41,p75"
+        "attackers": [
+          "p41",
+          "p75"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -174183,7 +174147,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p75"
+        "attackers": [
+          "p75"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -174577,7 +174543,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -174926,15 +174894,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p91', 'blocks': 'p30'},{'id': 'p92', 'blocks': 'p66'}"
+        "blockers": "[{\"id\": \"p91\", \"blocks\": \"p66\"}]"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "declared": [
+          {
+            "blocks": "p66",
+            "id": "p91"
+          }
+        ],
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         1861,
         1866,
-        1867
+        1867,
+        1869,
+        1870,
+        1872,
+        1875,
+        1893
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -175260,7 +175240,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -176000,7 +175982,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -176725,7 +176709,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p41,p75"
+        "attackers": [
+          "p41",
+          "p75"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -176838,7 +176825,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p75"
+        "attackers": [
+          "p75"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177147,7 +177136,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177574,7 +177565,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p68,p25"
+        "attackers": [
+          "p68",
+          "p25"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -184356,17 +184350,26 @@
       ],
       "choiceCount": 11,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "blockers": "{'id': 'p91', 'blocks': 'p101'}"
+        "index": 2
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         2548,
         2550,
-        2551
+        2551,
+        2553,
+        2554,
+        2556,
+        2557,
+        2559,
+        2560
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -184844,7 +184847,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -186803,7 +186808,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -188224,7 +188231,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -189274,7 +189283,14 @@
       "llmEventIndices": [
         3117,
         3119,
-        3120
+        3120,
+        3122,
+        3124,
+        3125,
+        3127,
+        3130,
+        3133,
+        3136
       ],
       "subsequentActions": [
         "spectator3 has started watching",

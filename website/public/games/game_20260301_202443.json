@@ -89966,30 +89966,22 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p22"
+        "choice": "no"
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 178,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p22 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{U}",
-            "name": "Befuddle",
-            "index": 0,
-            "action": "cast",
-            "id": "p41"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         139,
         140,
-        141
+        141,
+        142,
+        144,
+        145
       ],
       "subsequentActions": [
         "GPT5 Teach loses 2 life at combat from Vodalian Arcanist"

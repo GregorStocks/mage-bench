@@ -21185,15 +21185,16 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "auto_tap": true
+        "field": "index",
+        "index": 2
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "index_out_of_range",
+        "error": "Index 2 is out of range (no choices loaded). Call get_action_choices to see current options.",
         "choices": [
           {
             "name": "Urza's Saga",
@@ -21228,7 +21229,10 @@
         309,
         311,
         314,
-        315
+        315,
+        317,
+        318,
+        320
       ],
       "subsequentActions": [
         "has started watching",
@@ -23217,7 +23221,9 @@
         540,
         542,
         545,
-        546
+        546,
+        548,
+        551
       ],
       "subsequentActions": [
         "has started watching",

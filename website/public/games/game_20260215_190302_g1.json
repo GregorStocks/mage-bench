@@ -182316,7 +182316,8 @@
         132,
         134,
         137,
-        138
+        138,
+        140
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -184712,7 +184713,9 @@
       "chosen": true,
       "chosenArgs": {
         "answer": true,
-        "mana_plan": "p18"
+        "mana_plan": [
+          "p18"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -186590,7 +186593,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "RED,p20:0"
+        "mana_plan": [
+          "RED",
+          "p20:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -186736,21 +186742,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p34",
-        "mana_plan": "p20:1"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p34 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         843,
         845,
-        846
+        846,
+        848,
+        850,
+        852,
+        853
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -187368,7 +187378,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4"
+        "attackers": [
+          "p4"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -187721,17 +187733,23 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p56-p58"
+        "id": "p56"
       },
       "actionResult": {
-        "error": "Unknown short ID: p56-p58"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         1041,
         1043,
-        1044
+        1044,
+        1046,
+        1047
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -188333,17 +188351,23 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p56-p57-p58"
+        "id": "p56"
       },
       "actionResult": {
-        "error": "Unknown short ID: p56-p57-p58"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         1101,
         1103,
-        1104
+        1104,
+        1106,
+        1107
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -189699,59 +189723,23 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p8"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{3}{W}",
-            "name": "Windborn Muse",
-            "index": 0,
-            "action": "cast",
-            "id": "p14",
-            "power": "2",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{3}{W}",
-            "name": "Crescendo of War",
-            "index": 1,
-            "action": "cast",
-            "id": "p10"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Goblin Cadets",
-            "index": 2,
-            "action": "cast",
-            "id": "p34",
-            "power": "2",
-            "toughness": "1"
-          },
-          {
-            "name": "Unknown (2b3f7a66)",
-            "index": 3,
-            "id": "p44"
-          },
-          {
-            "mana_cost": "{W}",
-            "name": "Soul Snare",
-            "index": 4,
-            "action": "cast",
-            "id": "p62"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1291,
         1293,
-        1294
+        1294,
+        1296,
+        1315
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -190191,7 +190179,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p34",
-        "mana_plan": "p18,RED"
+        "mana_plan": [
+          "p18",
+          "RED"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -190333,7 +190324,8 @@
         1435,
         1437,
         1442,
-        1443
+        1443,
+        1445
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -192849,7 +192841,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -192978,7 +192972,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34"
+        "attackers": [
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -193149,31 +193145,32 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p65"
+        "id": "p77",
+        "mana_plan": [
+          "p9",
+          "p18",
+          "p60"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p65 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{W}",
-            "name": "Oblation",
-            "index": 0,
-            "action": "cast",
-            "id": "p77"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
       },
       "llmEventIndices": [
         1985,
         1987,
         1990,
         1993,
-        1994
+        1994,
+        1996,
+        1997
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -196005,7 +196002,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p35",
-        "mana_plan": "p18,p9"
+        "mana_plan": [
+          "p18",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -196769,7 +196769,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p90",
-        "mana_plan": "p20,p8"
+        "mana_plan": [
+          "p20",
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -197170,7 +197173,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p92",
-        "mana_plan": "p8,p20,p9"
+        "mana_plan": [
+          "p8",
+          "p20",
+          "p9"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -198008,56 +198015,23 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "p2,p26"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Myriad Landscape",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}, Sacrifice {this}: Search your library f..."
-            ],
-            "id": "p37"
-          },
-          {
-            "name": "Mind Stone",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}, {T}, Sacrifice {this}: Draw a card."
-            ],
-            "id": "p5"
-          },
-          {
-            "name": "Drana, Kalastria Bloodchief",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{X}{B}{B}: Target creature gets -0/-X until end o..."
-            ],
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{X}{B}",
-            "name": "Skeletal Scrying",
-            "index": 3,
-            "action": "cast",
-            "id": "p18"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2788,
         2790,
-        2791
+        2791,
+        2793,
+        2794
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -198200,7 +198174,8 @@
         2799,
         2843,
         2845,
-        2846
+        2846,
+        2848
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -198667,7 +198642,12 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p41",
-        "mana_plan": "p1,p26,p25,p3"
+        "mana_plan": [
+          "p1",
+          "p26",
+          "p25",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -200455,7 +200435,12 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p13",
-        "mana_plan": "p28:1,p18:0,p11:0,p1:0"
+        "mana_plan": [
+          "p28:1",
+          "p18:0",
+          "p11:0",
+          "p1:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -201271,7 +201256,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 8,
+      "chosen": 6,
       "chosenArgs": {
         "index": 8,
         "id": "p76"
@@ -202248,7 +202233,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p14",
-        "mana_plan": "p9,p18,p20,p75"
+        "mana_plan": [
+          "p9",
+          "p18",
+          "p20",
+          "p75"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -202298,31 +202288,28 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "id": "p93"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p93 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{U}",
-            "name": "Repulse",
-            "index": 0,
-            "action": "cast",
-            "id": "p105"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         3342,
         3344,
         3347,
         3350,
-        3351
+        3351,
+        3353,
+        3356,
+        3358,
+        3360,
+        3361
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -202445,7 +202432,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p92",
-        "mana_plan": "p60,p8,p75"
+        "mana_plan": [
+          "p60",
+          "p8",
+          "p75"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -203109,63 +203100,34 @@
       ],
       "choiceCount": 13,
       "isForced": false,
-      "chosen": 3,
+      "chosen": null,
       "chosenArgs": {
-        "id": "p7",
-        "mana_plan": "p1,p2,p37"
+        "attackers": [
+          "p4",
+          "p58",
+          "p9",
+          "p75"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p7 not found in current choices",
-        "choices": [
-          {
-            "name": "Skirsdag High Priest",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p4",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "name": "Demon Token",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p58",
-            "power": "5",
-            "toughness": "5"
-          },
-          {
-            "name": "Drana, Kalastria Bloodchief",
-            "index": 2,
-            "choice_type": "attacker",
-            "id": "p9",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "name": "Gray Merchant of Asphodel",
-            "index": 3,
-            "choice_type": "attacker",
-            "id": "p75",
-            "power": "2",
-            "toughness": "4"
-          },
-          {
-            "name": "All attack",
-            "index": 4,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "p4"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_attack",
+        "interrupted": true
       },
       "llmEventIndices": [
         3499,
         3503,
         3506,
         3508,
-        3509
+        3509,
+        3511,
+        3512
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -203251,7 +203213,10 @@
       "chosen": "true",
       "chosenArgs": {
         "answer": "true",
-        "mana_plan": "p26,p48"
+        "mana_plan": [
+          "p26",
+          "p48"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -203902,7 +203867,13 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p56",
-        "mana_plan": "p10,p61,p5,p7,C"
+        "mana_plan": [
+          "p10",
+          "p61",
+          "p5",
+          "p7",
+          "C"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -204057,7 +204028,9 @@
       "isForced": false,
       "chosen": 5,
       "chosenArgs": {
-        "mana_plan": "p8",
+        "mana_plan": [
+          "p8"
+        ],
         "id": "p38"
       },
       "actionResult": {
@@ -204151,7 +204124,7 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
         "id": "p94"
       },
@@ -204383,7 +204356,9 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p108",
-        "mana_plan": "p93"
+        "mana_plan": [
+          "p93"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -204595,7 +204570,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p9:p93"
+        "blockers": [
+          "p9:p93"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -205898,7 +205875,10 @@
       "chosen": 5,
       "chosenArgs": {
         "id": "p49",
-        "mana_plan": "p28,p7"
+        "mana_plan": [
+          "p28",
+          "p7"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -206206,7 +206186,13 @@
       "chosen": 6,
       "chosenArgs": {
         "id": "p22",
-        "mana_plan": "p10,p89,p7,p8,p97"
+        "mana_plan": [
+          "p10",
+          "p89",
+          "p7",
+          "p8",
+          "p97"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -208873,7 +208859,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p49",
-        "mana_plan": "p28,p61"
+        "mana_plan": [
+          "p28",
+          "p61"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -208945,53 +208934,30 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "id": "p38"
+        "mana_plan": [
+          "p97",
+          "p10"
+        ],
+        "id": "p22"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p38 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Chaos Warp",
-            "index": 0,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{B}",
-            "name": "Blood Pact",
-            "index": 1,
-            "action": "cast",
-            "id": "p107"
-          },
-          {
-            "mana_cost": "{B}{B}{R}",
-            "name": "Bedevil",
-            "index": 2,
-            "action": "cast",
-            "id": "p65"
-          },
-          {
-            "name": "Syr Konrad, the Grim",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}{B}: Each player mills a card."
-            ],
-            "id": "p22"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_3",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         4253,
         4255,
         4258,
-        4259
+        4259,
+        4261,
+        4262
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -209052,7 +209018,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p22",
-        "mana_plan": "p8,p10"
+        "mana_plan": [
+          "p8",
+          "p10"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -209486,7 +209455,10 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": "p28,p61",
+        "mana_plan": [
+          "p28",
+          "p61"
+        ],
         "id": "p49"
       },
       "actionResult": {
@@ -209550,44 +209522,31 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p16"
+        "mana_plan": [
+          "p49"
+        ],
+        "id": "p114"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p16 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Chaos Warp",
-            "index": 0,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{B}",
-            "name": "Blood Pact",
-            "index": 1,
-            "action": "cast",
-            "id": "p107"
-          },
-          {
-            "mana_cost": "{B}{B}{R}",
-            "name": "Bedevil",
-            "index": 2,
-            "action": "cast",
-            "id": "p65"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         4372,
         4374,
         4377,
-        4378
+        4378,
+        4380,
+        4400,
+        4403,
+        4404
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -209682,7 +209641,14 @@
       "chosen": 7,
       "chosenArgs": {
         "id": "p113",
-        "mana_plan": "p28,p37,p90,p89,p7,p8"
+        "mana_plan": [
+          "p28",
+          "p37",
+          "p90",
+          "p89",
+          "p7",
+          "p8"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -209746,45 +209712,33 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "auto_tap": true,
-        "id": "p38"
+        "id": "p56",
+        "mana_plan": [
+          "p10",
+          "p5",
+          "p37",
+          "p61"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p38 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{B}{B}{R}",
-            "name": "Bedevil",
-            "index": 0,
-            "action": "cast",
-            "id": "p65"
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Chaos Warp",
-            "index": 1,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{B}",
-            "name": "Blood Pact",
-            "index": 2,
-            "action": "cast",
-            "id": "p107"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 4
       },
       "llmEventIndices": [
         4416,
         4418,
         4424,
-        4425
+        4425,
+        4430,
+        4455,
+        4456
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -210052,29 +210006,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p108"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p108 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{2}{U}",
-            "name": "Repulse",
-            "index": 0,
-            "action": "cast",
-            "id": "p105"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         4488,
         4490,
-        4491
+        4491,
+        4493,
+        4494
       ],
       "subsequentActions": [
         "Gem3P Johnny chooses that they take the first turn",
@@ -210856,7 +210804,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p54,p113"
+        "attackers": [
+          "p29",
+          "p54",
+          "p113"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -211014,7 +210966,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p29,p54,p113",
+        "attackers": [
+          "p29",
+          "p54",
+          "p113"
+        ],
         "auto_tap": true
       },
       "actionResult": {
@@ -211577,7 +211533,14 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p149",
-        "mana_plan": "p9,p93,p18,p95,p75,p116"
+        "mana_plan": [
+          "p9",
+          "p93",
+          "p18",
+          "p95",
+          "p75",
+          "p116"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -211870,7 +211833,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p142",
-        "mana_plan": "p60,RED"
+        "mana_plan": [
+          "p60",
+          "RED"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,

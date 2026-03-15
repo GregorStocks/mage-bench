@@ -24813,7 +24813,8 @@
       "llmEventIndices": [
         283,
         285,
-        286
+        286,
+        288
       ],
       "subsequentActions": [
         "has started watching",
@@ -25048,7 +25049,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21"
+        "attackers": [
+          "p21"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -25513,7 +25516,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p21"
+        "attackers": [
+          "p21"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -26872,7 +26877,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

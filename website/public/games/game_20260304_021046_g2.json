@@ -92549,19 +92549,28 @@
         "attackers": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 95
       },
       "llmEventIndices": [
         117,
         118,
-        119
+        119,
+        120,
+        121,
+        122,
+        123,
+        124
       ],
       "subsequentActions": [
-        "MstLg Fate attacks QwCdr Optim with 1 creature",
         "Attacker: Departed Deckhand (2/2) unblocked",
         "QwCdr Optim loses 2 life at combat from Departed Deckhand"
       ],
-      "actionSeq": 91,
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -93100,17 +93109,23 @@
         "attackers": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 153
       },
       "llmEventIndices": [
         168,
         169,
-        170
+        170,
+        171,
+        172,
+        173
       ],
-      "subsequentActions": [
-        "MstLg Fate attacks QwCdr Optim with 1 creature"
-      ],
-      "actionSeq": 149,
+      "subsequentActions": [],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -93590,20 +93605,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p36,p37"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 187
       },
       "llmEventIndices": [
         206,
         207,
-        208
+        208,
+        209,
+        210,
+        211
       ],
-      "subsequentActions": [
-        "QwCdr Optim attacks MstLg Fate with 2 creatures"
-      ],
-      "actionSeq": 183,
+      "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -94144,22 +94165,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p18"
+        "choice": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "Object p18 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 237
       },
       "llmEventIndices": [
         252,
         253,
-        254
+        254,
+        255,
+        256,
+        257
       ],
-      "subsequentActions": [
-        "MstLg Fate attacks QwCdr Optim with 1 creature"
-      ],
-      "actionSeq": 233,
+      "subsequentActions": [],
+      "actionSeq": 237,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -94801,21 +94827,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p36,p37,p43"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p43' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p43'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 286
       },
       "llmEventIndices": [
         306,
         307,
-        308
+        308,
+        309,
+        310,
+        311
       ],
-      "subsequentActions": [
-        "QwCdr Optim attacks MstLg Fate with 3 creatures",
-        "QwCdr Optim - Ability triggers: Siege Striker - Whenever Siege Striker attacks, you may tap any number of untapped creatures you control. Siege Striker gets +1/+1 until end of turn for each creature tapped this way."
-      ],
-      "actionSeq": 279,
+      "subsequentActions": [],
+      "actionSeq": 286,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -95125,22 +95156,31 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p18,p33"
+        "choice": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": false,
+        "error": "Object p18 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 331
       },
       "llmEventIndices": [
         338,
         339,
-        340
+        340,
+        341,
+        342,
+        343,
+        344,
+        345,
+        346,
+        347
       ],
-      "subsequentActions": [
-        "MstLg Fate attacks QwCdr Optim with 1 creature"
-      ],
-      "actionSeq": 327,
+      "subsequentActions": [],
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -95630,21 +95670,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p36,p37,p43"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p43' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p43'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 372
       },
       "llmEventIndices": [
         384,
         385,
-        386
+        386,
+        387,
+        388,
+        389
       ],
-      "subsequentActions": [
-        "QwCdr Optim attacks MstLg Fate with 3 creatures",
-        "QwCdr Optim - Ability triggers: Siege Striker - Whenever Siege Striker attacks, you may tap any number of untapped creatures you control. Siege Striker gets +1/+1 until end of turn for each creature tapped this way."
-      ],
-      "actionSeq": 365,
+      "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -96224,15 +96269,23 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p64"
+        "choice": "p66"
       },
       "actionResult": {
-        "error": "Unknown short ID: p64"
+        "success": false,
+        "error": "Object p66 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 418
       },
       "llmEventIndices": [
         439,
         440,
-        441
+        441,
+        442,
+        444,
+        445,
+        446
       ],
       "subsequentActions": [],
       "actionSeq": 418,
@@ -96715,19 +96768,28 @@
         "attackers": "p18"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p18' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p18'"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "game_seq": 441,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Select attackers",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         491,
         492,
-        493
+        493,
+        494,
+        495
       ],
       "subsequentActions": [
         "MstLg Fate attacks QwCdr Optim with 1 creature",
         "Attacker: Departed Deckhand (2/2) unblocked",
         "QwCdr Optim loses 2 life at combat from Departed Deckhand"
       ],
-      "actionSeq": 440,
+      "actionSeq": 441,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -96834,19 +96896,26 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p61",
-        "mana_plan": "p67,p68"
+        "mana_plan": "p13,p14"
       },
       "actionResult": {
-        "success": false,
-        "error": "Mana plan references unknown permanent 'p68'. Check the board state for correct permanent IDs.",
-        "error_code": "invalid_mana_plan",
-        "retryable": true,
-        "game_seq": 457
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2,
+        "game_seq": 457,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_message": "Select a nonland permanent",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         503,
         504,
-        505
+        505,
+        506,
+        508,
+        509
       ],
       "subsequentActions": [],
       "actionSeq": 457,
@@ -97333,21 +97402,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p36,p37,p43"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 489
       },
       "llmEventIndices": [
         545,
         546,
-        547
+        547,
+        548,
+        549,
+        550
       ],
-      "subsequentActions": [
-        "QwCdr Optim attacks MstLg Fate with 3 creatures",
-        "QwCdr Optim - Ability triggers: Siege Striker - Whenever Siege Striker attacks, you may tap any number of untapped creatures you control. Siege Striker gets +1/+1 until end of turn for each creature tapped this way."
-      ],
-      "actionSeq": 484,
+      "subsequentActions": [],
+      "actionSeq": 489,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"

@@ -27835,20 +27835,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 1,
+      "chosen": false,
       "chosenArgs": {
-        "index": 1
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         671,
         673,
-        674
+        674,
+        676,
+        677
       ],
       "subsequentActions": [
         "has started watching",

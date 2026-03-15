@@ -53318,17 +53318,26 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p8"
+        "choice": "p10"
       },
       "actionResult": {
-        "error": "Unknown short ID: p8"
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 80,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         116,
         117,
-        118
+        118,
+        119,
+        120,
+        121
       ],
       "subsequentActions": [],
       "actionSeq": 80,
@@ -53364,31 +53373,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 82,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         123,
         124,
-        125
+        125,
+        126,
+        127
       ],
       "subsequentActions": [],
       "actionSeq": 82,
@@ -53419,31 +53422,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 84,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         129,
         130,
-        131
+        131,
+        132,
+        133
       ],
       "subsequentActions": [
         "Llama4 Rookie casts Chandra's Magmutt from hand",
@@ -53627,31 +53624,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 111,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         151,
         152,
-        153
+        153,
+        154,
+        155
       ],
       "subsequentActions": [
         "Gem31P Analyst casts Aether Spellbomb from hand",
@@ -53741,38 +53732,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "p11"
+        "choice": "p24"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 119,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p11 not found in current choices",
-        "choices": [
-          {
-            "name": "Chandra's Magmutt",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: {this} deals 1 damage to target player or pl..."
-            ],
-            "id": "p10"
-          },
-          {
-            "name": "Mountain",
-            "index": 1,
-            "action": "land",
-            "id": "p24"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "next_action_message": "Play spells and abilities"
       },
       "llmEventIndices": [
         163,
         164,
-        166
+        166,
+        167,
+        168
       ],
       "subsequentActions": [
         "Llama4 Rookie puts Mountain from hand onto the Battlefield"
@@ -53991,32 +53969,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p12"
+        "choice": "p11"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 141,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p12 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{4}",
-            "name": "Dragonloft Idol",
-            "index": 0,
-            "action": "cast",
-            "id": "p11",
-            "power": "3",
-            "toughness": "3"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         187,
         188,
-        189
+        189,
+        190,
+        192
       ],
       "subsequentActions": [],
       "actionSeq": 141,
@@ -54050,31 +54021,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 143,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         194,
         195,
-        196
+        196,
+        197,
+        198
       ],
       "subsequentActions": [
         "Llama4 Rookie casts Dragonloft Idol from hand",
@@ -54315,31 +54280,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 171,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         230,
         231,
-        232
+        232,
+        233,
+        234
       ],
       "subsequentActions": [],
       "actionSeq": 171,
@@ -54370,31 +54329,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 173,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         236,
         237,
-        238
+        238,
+        239,
+        240
       ],
       "subsequentActions": [
         "Llama4 Rookie casts Rapacious Dragon from hand",
@@ -54432,14 +54385,14 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p15"
+        "choice": "p29"
       },
       "actionResult": {
         "retryable": true,
         "game_seq": 182,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p15 not found in current choices",
+        "error": "Object p29 not found in current choices",
         "choices": [
           {
             "name": "Chandra's Magmutt",
@@ -54455,7 +54408,12 @@
       "llmEventIndices": [
         245,
         246,
-        247
+        247,
+        248,
+        249,
+        250,
+        252,
+        253
       ],
       "subsequentActions": [],
       "actionSeq": 182,
@@ -54985,31 +54943,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
         "game_seq": 225,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Choose spell or ability to play: Thriving Bluff"
       },
       "llmEventIndices": [
         299,
         300,
-        301
+        301,
+        302,
+        303
       ],
       "subsequentActions": [],
       "actionSeq": 225,
@@ -55040,31 +54992,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 227,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         305,
         306,
-        307
+        307,
+        308
       ],
       "subsequentActions": [
         "Llama4 Rookie sacrificed Treasure Token (source: Treasure Token)",
@@ -55722,31 +55667,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 286,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {R}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         363,
         364,
-        365
+        365,
+        366,
+        367
       ],
       "subsequentActions": [
         "Llama4 Rookie casts Dragon Hatchling from hand"

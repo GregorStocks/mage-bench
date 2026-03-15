@@ -72113,10 +72113,8 @@
         9,
         10
       ],
-      "subsequentActions": [
-        "o3 Memoir chooses that GPT53C Teach take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -72329,10 +72327,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "o3 Memoir's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -72463,7 +72459,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -72613,12 +72609,8 @@
         17,
         18
       ],
-      "subsequentActions": [
-        "o3 Memoir's library is shuffled",
-        "o3 Memoir puts a card from hand to the bottom of their library",
-        "GPT53C Teach skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -72761,7 +72753,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72895,11 +72887,8 @@
         21,
         24
       ],
-      "subsequentActions": [
-        "GPT53C Teach skips Draw step",
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 12
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -73036,7 +73025,7 @@
         26
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73169,10 +73158,8 @@
         25,
         28
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 19
+      "subsequentActions": [],
+      "actionSeq": 23
     },
     {
       "index": 10,
@@ -73322,7 +73309,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -73489,7 +73476,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 23
+      "actionSeq": 25
     },
     {
       "index": 12,
@@ -73661,7 +73648,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 25,
+      "actionSeq": 26,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -73839,7 +73826,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -73890,19 +73877,127 @@
         "mana_plan": "",
         "attackers": "",
         "blockers": "",
-        "text": "",
-        "choice": "Green"
+        "text": "Green",
+        "choice": ""
       },
       "actionResult": {
-        "error": "Unknown short ID: Green"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T1 Precombat Main/Precombat Main (o3 Memoir) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Thriving Bluff",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than red.",
+                  "{T}: Add {R}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Green"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "o3 Memoir",
+            "library_size": 33,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{2}{R}",
+                "name": "Blindblast",
+                "rules": [
+                  "{this} deals 1 damage to target creature. That creature can't block this turn. : Draw a card."
+                ],
+                "id": "p10"
+              },
+              {
+                "mana_cost": "{1}{R}",
+                "name": "Chandra's Pyreling",
+                "rules": [
+                  "Whenever a source you control deals noncombat damage to an opponent, this creature gets +1/+0 and gains double strike until end of turn."
+                ],
+                "power": "1",
+                "id": "p11",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{3}{R}",
+                "name": "Goblin Wizardry",
+                "rules": [
+                  "Create two 1/1 red Goblin Wizard creature tokens with prowess."
+                ],
+                "id": "p27"
+              },
+              {
+                "name": "Mountain",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p17"
+              },
+              {
+                "name": "Mountain",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p18"
+              },
+              {
+                "mana_cost": "{1}{R}",
+                "name": "Thrill of Possibility",
+                "rules": [
+                  "As an additional cost to cast this spell, discard a card.: ",
+                  "Draw two cards."
+                ],
+                "id": "p20"
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p4"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 33,
+            "life": 20
+          }
+        ],
+        "board_cursor": 7,
+        "game_seq": 28,
+        "land_drops_used": 1,
+        "action_taken": "selected_choice_text_Green",
+        "success": true
       },
       "llmEventIndices": [
         34,
         35,
-        36
+        36,
+        37,
+        38
       ],
       "subsequentActions": [],
-      "actionSeq": 27,
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -73914,33 +74009,6 @@
     },
     {
       "index": 15,
-      "snapshotIndex": 11,
-      "player": "o3 Memoir",
-      "turn": 2,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play spells and abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        38,
-        39,
-        41
-      ],
-      "subsequentActions": [],
-      "actionSeq": 28,
-      "pilotContext": {
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 16,
       "snapshotIndex": 9,
       "player": "GPT53C Teach",
       "turn": 1,
@@ -74086,17 +74154,14 @@
         43,
         44
       ],
-      "subsequentActions": [
-        "Thriving Bluff: o3 Memoir has chosen Green",
-        "o3 Memoir puts Thriving Bluff from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 17,
+      "index": 16,
       "snapshotIndex": 13,
       "player": "GPT53C Teach",
       "turn": 2,
@@ -74242,16 +74307,14 @@
         45,
         46
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 18,
+      "index": 17,
       "snapshotIndex": 15,
       "player": "GPT53C Teach",
       "turn": 2,
@@ -74423,13 +74486,13 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 19,
+      "index": 18,
       "snapshotIndex": 17,
       "player": "GPT53C Teach",
       "turn": 2,
@@ -74598,7 +74661,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -74609,7 +74672,7 @@
       }
     },
     {
-      "index": 20,
+      "index": 19,
       "snapshotIndex": 18,
       "player": "GPT53C Teach",
       "turn": 3,
@@ -74763,17 +74826,15 @@
         51,
         52
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 41,
+      "subsequentActions": [],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 21,
+      "index": 20,
       "snapshotIndex": 19,
       "player": "GPT53C Teach",
       "turn": 3,
@@ -74928,16 +74989,14 @@
         53,
         54
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 45,
+      "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 22,
+      "index": 21,
       "snapshotIndex": 21,
       "player": "GPT53C Teach",
       "turn": 3,
@@ -75105,14 +75164,14 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 23,
+      "index": 22,
       "snapshotIndex": 25,
       "player": "o3 Memoir",
       "turn": 4,
@@ -75321,7 +75380,7 @@
       }
     },
     {
-      "index": 24,
+      "index": 23,
       "snapshotIndex": 25,
       "player": "o3 Memoir",
       "turn": 4,
@@ -75501,10 +75560,8 @@
         59,
         60
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 53,
+      "subsequentActions": [],
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -75515,7 +75572,7 @@
       }
     },
     {
-      "index": 25,
+      "index": 24,
       "snapshotIndex": 26,
       "player": "o3 Memoir",
       "turn": 4,
@@ -75676,7 +75733,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 57,
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -75686,7 +75743,7 @@
       }
     },
     {
-      "index": 26,
+      "index": 25,
       "snapshotIndex": 27,
       "player": "o3 Memoir",
       "turn": 4,
@@ -75845,13 +75902,13 @@
         68
       ],
       "subsequentActions": [],
-      "actionSeq": 59,
+      "actionSeq": 62,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 27,
+      "index": 26,
       "snapshotIndex": 23,
       "player": "GPT53C Teach",
       "turn": 3,
@@ -76024,17 +76081,14 @@
         67,
         70
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield",
-        "o3 Memoir casts Chandra's Pyreling from hand"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 28,
+      "index": 27,
       "snapshotIndex": 29,
       "player": "o3 Memoir",
       "turn": 4,
@@ -76191,13 +76245,13 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 65,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 29,
+      "index": 28,
       "snapshotIndex": 30,
       "player": "GPT53C Teach",
       "turn": 4,
@@ -76370,16 +76424,14 @@
         71,
         74
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Chandra's Pyreling from stack onto the Battlefield"
-      ],
-      "actionSeq": 63,
+      "subsequentActions": [],
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 30,
+      "index": 29,
       "snapshotIndex": 31,
       "player": "o3 Memoir",
       "turn": 4,
@@ -76537,10 +76589,10 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 65
+      "actionSeq": 69
     },
     {
-      "index": 31,
+      "index": 30,
       "snapshotIndex": 32,
       "player": "GPT53C Teach",
       "turn": 4,
@@ -76713,16 +76765,14 @@
         75,
         78
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 66,
+      "subsequentActions": [],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 32,
+      "index": 31,
       "snapshotIndex": 33,
       "player": "o3 Memoir",
       "turn": 4,
@@ -76892,13 +76942,13 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 71,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 33,
+      "index": 32,
       "snapshotIndex": 34,
       "player": "GPT53C Teach",
       "turn": 4,
@@ -77097,13 +77147,13 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 70,
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 34,
+      "index": 33,
       "snapshotIndex": 36,
       "player": "GPT53C Teach",
       "turn": 4,
@@ -77320,7 +77370,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 72,
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -77331,7 +77381,7 @@
       }
     },
     {
-      "index": 35,
+      "index": 34,
       "snapshotIndex": 37,
       "player": "GPT53C Teach",
       "turn": 5,
@@ -77523,10 +77573,8 @@
         85,
         86
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 73,
+      "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -77537,7 +77585,7 @@
       }
     },
     {
-      "index": 36,
+      "index": 35,
       "snapshotIndex": 38,
       "player": "GPT53C Teach",
       "turn": 5,
@@ -77720,13 +77768,13 @@
         90
       ],
       "subsequentActions": [],
-      "actionSeq": 77,
+      "actionSeq": 82,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 37,
+      "index": 36,
       "snapshotIndex": 35,
       "player": "o3 Memoir",
       "turn": 4,
@@ -77902,14 +77950,11 @@
         89,
         92
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 71
+      "subsequentActions": [],
+      "actionSeq": 83
     },
     {
-      "index": 38,
+      "index": 37,
       "snapshotIndex": 42,
       "player": "GPT53C Teach",
       "turn": 5,
@@ -78091,13 +78136,13 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 82,
+      "actionSeq": 85,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 39,
+      "index": 38,
       "snapshotIndex": 43,
       "player": "o3 Memoir",
       "turn": 5,
@@ -78273,13 +78318,11 @@
         93,
         96
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Turntimber Basilisk from stack onto the Battlefield"
-      ],
-      "actionSeq": 83
+      "subsequentActions": [],
+      "actionSeq": 86
     },
     {
-      "index": 40,
+      "index": 39,
       "snapshotIndex": 44,
       "player": "GPT53C Teach",
       "turn": 5,
@@ -78462,10 +78505,10 @@
         98
       ],
       "subsequentActions": [],
-      "actionSeq": 85
+      "actionSeq": 89
     },
     {
-      "index": 41,
+      "index": 40,
       "snapshotIndex": 45,
       "player": "o3 Memoir",
       "turn": 5,
@@ -78641,13 +78684,11 @@
         97,
         100
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 86
+      "subsequentActions": [],
+      "actionSeq": 90
     },
     {
-      "index": 42,
+      "index": 41,
       "snapshotIndex": 46,
       "player": "GPT53C Teach",
       "turn": 5,
@@ -78673,7 +78714,7 @@
       }
     },
     {
-      "index": 43,
+      "index": 42,
       "snapshotIndex": 47,
       "player": "o3 Memoir",
       "turn": 5,
@@ -78891,10 +78932,10 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 90
+      "actionSeq": 92
     },
     {
-      "index": 44,
+      "index": 43,
       "snapshotIndex": 49,
       "player": "o3 Memoir",
       "turn": 5,
@@ -79125,7 +79166,7 @@
         104
       ],
       "subsequentActions": [],
-      "actionSeq": 92,
+      "actionSeq": 93,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -79138,7 +79179,7 @@
       }
     },
     {
-      "index": 45,
+      "index": 44,
       "snapshotIndex": 50,
       "player": "o3 Memoir",
       "turn": 6,
@@ -79355,10 +79396,8 @@
         105,
         106
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 93,
+      "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -79369,7 +79408,7 @@
       }
     },
     {
-      "index": 46,
+      "index": 45,
       "snapshotIndex": 51,
       "player": "o3 Memoir",
       "turn": 6,
@@ -79588,14 +79627,14 @@
         108
       ],
       "subsequentActions": [],
-      "actionSeq": 97,
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 47,
+      "index": 46,
       "snapshotIndex": 53,
       "player": "o3 Memoir",
       "turn": 6,
@@ -79814,10 +79853,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 102,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -79827,7 +79864,7 @@
       }
     },
     {
-      "index": 48,
+      "index": 47,
       "snapshotIndex": 53,
       "player": "o3 Memoir",
       "turn": 6,
@@ -80066,7 +80103,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -80077,7 +80114,7 @@
       }
     },
     {
-      "index": 49,
+      "index": 48,
       "snapshotIndex": 57,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -80338,7 +80375,7 @@
       }
     },
     {
-      "index": 50,
+      "index": 49,
       "snapshotIndex": 57,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -80576,10 +80613,8 @@
         121,
         122
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -80589,7 +80624,7 @@
       }
     },
     {
-      "index": 51,
+      "index": 50,
       "snapshotIndex": 58,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -80809,7 +80844,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 110,
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -80819,7 +80854,7 @@
       }
     },
     {
-      "index": 52,
+      "index": 51,
       "snapshotIndex": 55,
       "player": "o3 Memoir",
       "turn": 6,
@@ -81051,11 +81086,8 @@
         127,
         134
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Chandra's Pyreling"
-      ],
-      "actionSeq": 104,
+      "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -81065,7 +81097,7 @@
       }
     },
     {
-      "index": 53,
+      "index": 52,
       "snapshotIndex": 59,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -81293,7 +81325,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 112,
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -81303,7 +81335,7 @@
       }
     },
     {
-      "index": 54,
+      "index": 53,
       "snapshotIndex": 61,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -81520,7 +81552,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -81532,7 +81564,7 @@
       }
     },
     {
-      "index": 55,
+      "index": 54,
       "snapshotIndex": 62,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -81734,13 +81766,13 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 115,
+      "actionSeq": 121,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 56,
+      "index": 55,
       "snapshotIndex": 60,
       "player": "o3 Memoir",
       "turn": 7,
@@ -81970,10 +82002,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Primeval Herald from hand"
-      ],
-      "actionSeq": 113,
+      "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -81983,7 +82013,7 @@
       }
     },
     {
-      "index": 57,
+      "index": 56,
       "snapshotIndex": 68,
       "player": "o3 Memoir",
       "turn": 7,
@@ -82212,7 +82242,7 @@
         138
       ],
       "subsequentActions": [],
-      "actionSeq": 122,
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -82221,7 +82251,7 @@
       }
     },
     {
-      "index": 58,
+      "index": 57,
       "snapshotIndex": 69,
       "player": "o3 Memoir",
       "turn": 7,
@@ -82429,7 +82459,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 123,
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -82438,7 +82468,7 @@
       }
     },
     {
-      "index": 59,
+      "index": 58,
       "snapshotIndex": 70,
       "player": "o3 Memoir",
       "turn": 7,
@@ -82645,10 +82675,10 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 125
+      "actionSeq": 129
     },
     {
-      "index": 60,
+      "index": 59,
       "snapshotIndex": 67,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -82847,16 +82877,14 @@
         143,
         144
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Blindblast targeting Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 121,
+      "subsequentActions": [],
+      "actionSeq": 130,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 61,
+      "index": 60,
       "snapshotIndex": 74,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -83068,13 +83096,13 @@
         148
       ],
       "subsequentActions": [],
-      "actionSeq": 130,
+      "actionSeq": 134,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 62,
+      "index": 61,
       "snapshotIndex": 73,
       "player": "o3 Memoir",
       "turn": 7,
@@ -83292,15 +83320,11 @@
         147,
         150
       ],
-      "subsequentActions": [
-        "Blindblast deals 1 damage to Turntimber Basilisk",
-        "o3 Memoir puts Blindblast from stack into their graveyard",
-        "Turntimber Basilisk died"
-      ],
-      "actionSeq": 129
+      "subsequentActions": [],
+      "actionSeq": 135
     },
     {
-      "index": 63,
+      "index": 62,
       "snapshotIndex": 75,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -83512,13 +83536,13 @@
         152
       ],
       "subsequentActions": [],
-      "actionSeq": 134,
+      "actionSeq": 138,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 64,
+      "index": 63,
       "snapshotIndex": 76,
       "player": "o3 Memoir",
       "turn": 7,
@@ -83739,14 +83763,11 @@
         151,
         158
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Primeval Herald from stack onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Primeval Herald - Whenever Primeval Herald enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
-      ],
-      "actionSeq": 135
+      "subsequentActions": [],
+      "actionSeq": 139
     },
     {
-      "index": 65,
+      "index": 64,
       "snapshotIndex": 77,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -84016,13 +84037,13 @@
         154
       ],
       "subsequentActions": [],
-      "actionSeq": 138,
+      "actionSeq": 140,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 66,
+      "index": 65,
       "snapshotIndex": 79,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -84291,16 +84312,14 @@
         155,
         156
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Primeval Herald)"
-      ],
-      "actionSeq": 140,
+      "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 67,
+      "index": 66,
       "snapshotIndex": 79,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -84514,13 +84533,13 @@
         160
       ],
       "subsequentActions": [],
-      "actionSeq": 142,
+      "actionSeq": 145,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 68,
+      "index": 67,
       "snapshotIndex": 78,
       "player": "o3 Memoir",
       "turn": 7,
@@ -84741,15 +84760,11 @@
         159,
         162
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Primeval Herald)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Primeval Herald)",
-        "GPT53C Teach's library is shuffled (source: Primeval Herald)"
-      ],
-      "actionSeq": 139
+      "subsequentActions": [],
+      "actionSeq": 146
     },
     {
-      "index": 69,
+      "index": 68,
       "snapshotIndex": 80,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -84964,10 +84979,10 @@
         164
       ],
       "subsequentActions": [],
-      "actionSeq": 145
+      "actionSeq": 149
     },
     {
-      "index": 70,
+      "index": 69,
       "snapshotIndex": 81,
       "player": "o3 Memoir",
       "turn": 7,
@@ -85188,13 +85203,11 @@
         163,
         166
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 146
+      "subsequentActions": [],
+      "actionSeq": 150
     },
     {
-      "index": 71,
+      "index": 70,
       "snapshotIndex": 82,
       "player": "GPT53C Teach",
       "turn": 7,
@@ -85220,7 +85233,7 @@
       }
     },
     {
-      "index": 72,
+      "index": 71,
       "snapshotIndex": 83,
       "player": "o3 Memoir",
       "turn": 7,
@@ -85243,7 +85256,7 @@
       "actionSeq": 150
     },
     {
-      "index": 73,
+      "index": 72,
       "snapshotIndex": 86,
       "player": "o3 Memoir",
       "turn": 8,
@@ -85538,7 +85551,7 @@
       }
     },
     {
-      "index": 74,
+      "index": 73,
       "snapshotIndex": 86,
       "player": "o3 Memoir",
       "turn": 8,
@@ -85802,10 +85815,8 @@
         173,
         174
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 153,
+      "subsequentActions": [],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -85817,7 +85828,7 @@
       }
     },
     {
-      "index": 75,
+      "index": 74,
       "snapshotIndex": 87,
       "player": "o3 Memoir",
       "turn": 8,
@@ -86054,7 +86065,7 @@
         176
       ],
       "subsequentActions": [],
-      "actionSeq": 157,
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -86065,7 +86076,7 @@
       }
     },
     {
-      "index": 76,
+      "index": 75,
       "snapshotIndex": 88,
       "player": "o3 Memoir",
       "turn": 8,
@@ -86298,16 +86309,14 @@
         177,
         178
       ],
-      "subsequentActions": [
-        "o3 Memoir casts Living Lightning from hand"
-      ],
-      "actionSeq": 159,
+      "subsequentActions": [],
+      "actionSeq": 164,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 77,
+      "index": 76,
       "snapshotIndex": 92,
       "player": "o3 Memoir",
       "turn": 8,
@@ -86556,16 +86565,14 @@
         179,
         180
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Living Lightning from stack onto the Battlefield"
-      ],
-      "actionSeq": 164,
+      "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 78,
+      "index": 77,
       "snapshotIndex": 94,
       "player": "o3 Memoir",
       "turn": 8,
@@ -86832,13 +86839,13 @@
         182
       ],
       "subsequentActions": [],
-      "actionSeq": 167,
+      "actionSeq": 169,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 79,
+      "index": 78,
       "snapshotIndex": 96,
       "player": "o3 Memoir",
       "turn": 8,
@@ -87092,13 +87099,11 @@
         183,
         186
       ],
-      "subsequentActions": [
-        "o3 Memoir attacks GPT53C Teach with 1 creature"
-      ],
-      "actionSeq": 169
+      "subsequentActions": [],
+      "actionSeq": 173
     },
     {
-      "index": 80,
+      "index": 79,
       "snapshotIndex": 99,
       "player": "GPT53C Teach",
       "turn": 8,
@@ -87382,7 +87387,7 @@
       }
     },
     {
-      "index": 81,
+      "index": 80,
       "snapshotIndex": 97,
       "player": "o3 Memoir",
       "turn": 8,
@@ -87614,10 +87619,10 @@
         190
       ],
       "subsequentActions": [],
-      "actionSeq": 173
+      "actionSeq": 179
     },
     {
-      "index": 82,
+      "index": 81,
       "snapshotIndex": 99,
       "player": "GPT53C Teach",
       "turn": 8,
@@ -87848,13 +87853,11 @@
         189,
         192
       ],
-      "subsequentActions": [
-        "Attacker: Chandra's Pyreling (1/3) blocked by Primeval Herald (3/1)"
-      ],
-      "actionSeq": 175
+      "subsequentActions": [],
+      "actionSeq": 180
     },
     {
-      "index": 83,
+      "index": 82,
       "snapshotIndex": 101,
       "player": "o3 Memoir",
       "turn": 8,
@@ -88080,10 +88083,10 @@
         194
       ],
       "subsequentActions": [],
-      "actionSeq": 179
+      "actionSeq": 186
     },
     {
-      "index": 84,
+      "index": 83,
       "snapshotIndex": 102,
       "player": "GPT53C Teach",
       "turn": 8,
@@ -88307,16 +88310,11 @@
         193,
         196
       ],
-      "subsequentActions": [
-        "Primeval Herald deals 3 damage to Chandra's Pyreling",
-        "Chandra's Pyreling deals 1 damage to Primeval Herald",
-        "Chandra's Pyreling died",
-        "Primeval Herald died"
-      ],
-      "actionSeq": 180
+      "subsequentActions": [],
+      "actionSeq": 187
     },
     {
-      "index": 85,
+      "index": 84,
       "snapshotIndex": 103,
       "player": "o3 Memoir",
       "turn": 8,
@@ -88554,13 +88552,13 @@
         206
       ],
       "subsequentActions": [],
-      "actionSeq": 186,
+      "actionSeq": 188,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 86,
+      "index": 85,
       "snapshotIndex": 104,
       "player": "GPT53C Teach",
       "turn": 8,
@@ -88827,10 +88825,10 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 187
+      "actionSeq": 189
     },
     {
-      "index": 87,
+      "index": 86,
       "snapshotIndex": 106,
       "player": "GPT53C Teach",
       "turn": 8,
@@ -89121,7 +89119,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 189,
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -89134,7 +89132,7 @@
       }
     },
     {
-      "index": 88,
+      "index": 87,
       "snapshotIndex": 107,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -89386,10 +89384,8 @@
         203,
         204
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -89401,7 +89397,7 @@
       }
     },
     {
-      "index": 89,
+      "index": 88,
       "snapshotIndex": 108,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -89647,13 +89643,13 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 194,
+      "actionSeq": 202,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 90,
+      "index": 89,
       "snapshotIndex": 105,
       "player": "o3 Memoir",
       "turn": 8,
@@ -89907,14 +89903,11 @@
         207,
         210
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Affectionate Indrik from hand"
-      ],
-      "actionSeq": 188
+      "subsequentActions": [],
+      "actionSeq": 203
     },
     {
-      "index": 91,
+      "index": 90,
       "snapshotIndex": 115,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -90160,13 +90153,13 @@
         212
       ],
       "subsequentActions": [],
-      "actionSeq": 202,
+      "actionSeq": 206,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 92,
+      "index": 91,
       "snapshotIndex": 116,
       "player": "o3 Memoir",
       "turn": 9,
@@ -90416,14 +90409,11 @@
         211,
         216
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Affectionate Indrik from stack onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Affectionate Indrik - When Affectionate Indrik enters, you may have it fight target creature you don't control. (Each deals damage equal to its power to the other.) - targeting Living Lightning"
-      ],
-      "actionSeq": 203
+      "subsequentActions": [],
+      "actionSeq": 207
     },
     {
-      "index": 93,
+      "index": 92,
       "snapshotIndex": 117,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -90665,13 +90655,13 @@
         214
       ],
       "subsequentActions": [],
-      "actionSeq": 206,
+      "actionSeq": 208,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 94,
+      "index": 93,
       "snapshotIndex": 119,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -90895,13 +90885,13 @@
         218
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 213,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 95,
+      "index": 94,
       "snapshotIndex": 118,
       "player": "o3 Memoir",
       "turn": 9,
@@ -90929,7 +90919,7 @@
       "actionSeq": 207
     },
     {
-      "index": 96,
+      "index": 95,
       "snapshotIndex": 120,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -91152,16 +91142,14 @@
         221,
         222
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Blindblast from graveyard into their hand"
-      ],
-      "actionSeq": 213,
+      "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 97,
+      "index": 96,
       "snapshotIndex": 122,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -91384,13 +91372,11 @@
         223,
         224
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 216
+      "subsequentActions": [],
+      "actionSeq": 220
     },
     {
-      "index": 98,
+      "index": 97,
       "snapshotIndex": 124,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -91626,13 +91612,13 @@
         234
       ],
       "subsequentActions": [],
-      "actionSeq": 220,
+      "actionSeq": 222,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 99,
+      "index": 98,
       "snapshotIndex": 128,
       "player": "o3 Memoir",
       "turn": 10,
@@ -91977,7 +91963,7 @@
       }
     },
     {
-      "index": 100,
+      "index": 99,
       "snapshotIndex": 128,
       "player": "o3 Memoir",
       "turn": 10,
@@ -92275,10 +92261,8 @@
         229,
         230
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 224,
+      "subsequentActions": [],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -92292,7 +92276,7 @@
       }
     },
     {
-      "index": 101,
+      "index": 100,
       "snapshotIndex": 129,
       "player": "o3 Memoir",
       "turn": 10,
@@ -92547,7 +92531,7 @@
         232
       ],
       "subsequentActions": [],
-      "actionSeq": 228,
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -92560,7 +92544,7 @@
       }
     },
     {
-      "index": 102,
+      "index": 101,
       "snapshotIndex": 130,
       "player": "o3 Memoir",
       "turn": 10,
@@ -92812,13 +92796,13 @@
         236
       ],
       "subsequentActions": [],
-      "actionSeq": 230,
+      "actionSeq": 236,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 103,
+      "index": 102,
       "snapshotIndex": 126,
       "player": "GPT53C Teach",
       "turn": 9,
@@ -93059,14 +93043,11 @@
         235,
         238
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Mountain from hand onto the Battlefield",
-        "o3 Memoir casts Pyroclastic Elemental from hand"
-      ],
-      "actionSeq": 222
+      "subsequentActions": [],
+      "actionSeq": 237
     },
     {
-      "index": 104,
+      "index": 103,
       "snapshotIndex": 135,
       "player": "o3 Memoir",
       "turn": 10,
@@ -93317,13 +93298,13 @@
         240
       ],
       "subsequentActions": [],
-      "actionSeq": 236,
+      "actionSeq": 239,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 105,
+      "index": 104,
       "snapshotIndex": 136,
       "player": "GPT53C Teach",
       "turn": 10,
@@ -93348,7 +93329,7 @@
       "actionSeq": 237
     },
     {
-      "index": 106,
+      "index": 105,
       "snapshotIndex": 137,
       "player": "o3 Memoir",
       "turn": 10,
@@ -93599,13 +93580,11 @@
         241,
         242
       ],
-      "subsequentActions": [
-        "o3 Memoir skip attack"
-      ],
-      "actionSeq": 239
+      "subsequentActions": [],
+      "actionSeq": 243
     },
     {
-      "index": 107,
+      "index": 106,
       "snapshotIndex": 139,
       "player": "o3 Memoir",
       "turn": 10,
@@ -93869,13 +93848,13 @@
         252
       ],
       "subsequentActions": [],
-      "actionSeq": 243,
+      "actionSeq": 245,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 108,
+      "index": 107,
       "snapshotIndex": 143,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -94186,7 +94165,7 @@
       }
     },
     {
-      "index": 109,
+      "index": 108,
       "snapshotIndex": 143,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -94455,10 +94434,8 @@
         249,
         250
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 247,
+      "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -94469,7 +94446,7 @@
       }
     },
     {
-      "index": 110,
+      "index": 109,
       "snapshotIndex": 144,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -94747,7 +94724,7 @@
         254
       ],
       "subsequentActions": [],
-      "actionSeq": 251,
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -94757,7 +94734,7 @@
       }
     },
     {
-      "index": 111,
+      "index": 110,
       "snapshotIndex": 141,
       "player": "o3 Memoir",
       "turn": 10,
@@ -95033,14 +95010,11 @@
         253,
         256
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach casts Garruk's Uprising from hand"
-      ],
-      "actionSeq": 245
+      "subsequentActions": [],
+      "actionSeq": 257
     },
     {
-      "index": 112,
+      "index": 111,
       "snapshotIndex": 148,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -95329,7 +95303,7 @@
         258
       ],
       "subsequentActions": [],
-      "actionSeq": 256,
+      "actionSeq": 260,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -95339,7 +95313,7 @@
       }
     },
     {
-      "index": 113,
+      "index": 112,
       "snapshotIndex": 149,
       "player": "o3 Memoir",
       "turn": 11,
@@ -95365,7 +95339,7 @@
       "actionSeq": 257
     },
     {
-      "index": 114,
+      "index": 113,
       "snapshotIndex": 150,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -95639,7 +95613,7 @@
         260
       ],
       "subsequentActions": [],
-      "actionSeq": 260,
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -95650,7 +95624,7 @@
       }
     },
     {
-      "index": 115,
+      "index": 114,
       "snapshotIndex": 152,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -95948,16 +95922,14 @@
         261,
         262
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rampaging Growth from hand"
-      ],
-      "actionSeq": 262,
+      "subsequentActions": [],
+      "actionSeq": 268,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 116,
+      "index": 115,
       "snapshotIndex": 157,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -96270,16 +96242,14 @@
         263,
         264
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)"
-      ],
-      "actionSeq": 268,
+      "subsequentActions": [],
+      "actionSeq": 271,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 117,
+      "index": 116,
       "snapshotIndex": 159,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -96579,19 +96549,15 @@
         265,
         266
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard"
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 118,
+      "index": 117,
       "snapshotIndex": 160,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -96890,14 +96856,14 @@
         268
       ],
       "subsequentActions": [],
-      "actionSeq": 275,
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 119,
+      "index": 118,
       "snapshotIndex": 162,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -97173,16 +97139,14 @@
         269,
         270
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 280,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 120,
+      "index": 119,
       "snapshotIndex": 162,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -97456,14 +97420,14 @@
         280
       ],
       "subsequentActions": [],
-      "actionSeq": 280,
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 121,
+      "index": 120,
       "snapshotIndex": 166,
       "player": "o3 Memoir",
       "turn": 12,
@@ -97833,7 +97797,7 @@
       }
     },
     {
-      "index": 122,
+      "index": 121,
       "snapshotIndex": 166,
       "player": "o3 Memoir",
       "turn": 12,
@@ -98171,7 +98135,7 @@
         278
       ],
       "subsequentActions": [],
-      "actionSeq": 284,
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -98184,7 +98148,7 @@
       }
     },
     {
-      "index": 123,
+      "index": 122,
       "snapshotIndex": 167,
       "player": "o3 Memoir",
       "turn": 12,
@@ -98247,7 +98211,7 @@
       }
     },
     {
-      "index": 124,
+      "index": 123,
       "snapshotIndex": 164,
       "player": "GPT53C Teach",
       "turn": 11,
@@ -98527,16 +98491,15 @@
         284
       ],
       "subsequentActions": [
-        "o3 Memoir casts Chandra's Magmutt from hand",
         "o3 Memoir puts Chandra's Magmutt from stack onto the Battlefield"
       ],
-      "actionSeq": 282,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 125,
+      "index": 124,
       "snapshotIndex": 171,
       "player": "o3 Memoir",
       "turn": 12,
@@ -98895,7 +98858,7 @@
       }
     },
     {
-      "index": 126,
+      "index": 125,
       "snapshotIndex": 170,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -98923,7 +98886,7 @@
       }
     },
     {
-      "index": 127,
+      "index": 126,
       "snapshotIndex": 171,
       "player": "o3 Memoir",
       "turn": 12,
@@ -99291,14 +99254,14 @@
         288
       ],
       "subsequentActions": [],
-      "actionSeq": 294,
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 128,
+      "index": 127,
       "snapshotIndex": 173,
       "player": "o3 Memoir",
       "turn": 12,
@@ -99362,7 +99325,7 @@
       }
     },
     {
-      "index": 129,
+      "index": 128,
       "snapshotIndex": 176,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -99680,7 +99643,7 @@
       }
     },
     {
-      "index": 130,
+      "index": 129,
       "snapshotIndex": 176,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -99973,16 +99936,14 @@
         293,
         294
       ],
-      "subsequentActions": [
-        "Attacker: Pyroclastic Elemental (5/4) unblocked"
-      ],
-      "actionSeq": 302,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 131,
+      "index": 130,
       "snapshotIndex": 178,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -100261,16 +100222,14 @@
         295,
         296
       ],
-      "subsequentActions": [
-        "GPT53C Teach loses 5 life at combat from Pyroclastic Elemental"
-      ],
-      "actionSeq": 306,
+      "subsequentActions": [],
+      "actionSeq": 310,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 132,
+      "index": 131,
       "snapshotIndex": 180,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -100589,13 +100548,13 @@
         298
       ],
       "subsequentActions": [],
-      "actionSeq": 310,
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 133,
+      "index": 132,
       "snapshotIndex": 182,
       "player": "GPT53C Teach",
       "turn": 12,
@@ -100904,7 +100863,7 @@
         300
       ],
       "subsequentActions": [],
-      "actionSeq": 312,
+      "actionSeq": 313,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -100916,7 +100875,7 @@
       }
     },
     {
-      "index": 134,
+      "index": 133,
       "snapshotIndex": 183,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -101213,17 +101172,15 @@
         301,
         304
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rampaging Baloths from hand"
-      ],
-      "actionSeq": 313,
+      "subsequentActions": [],
+      "actionSeq": 323,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 135,
+      "index": 134,
       "snapshotIndex": 191,
       "player": "o3 Memoir",
       "turn": 13,
@@ -101246,7 +101203,7 @@
       "actionSeq": 324
     },
     {
-      "index": 136,
+      "index": 135,
       "snapshotIndex": 190,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -101562,18 +101519,15 @@
         305,
         306
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Rampaging Baloths from stack onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Garruk's Uprising - Whenever a creature you control with power 4 or greater enters, draw a card."
-      ],
-      "actionSeq": 323,
+      "subsequentActions": [],
+      "actionSeq": 327,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 137,
+      "index": 136,
       "snapshotIndex": 192,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -101903,7 +101857,7 @@
         308
       ],
       "subsequentActions": [],
-      "actionSeq": 327,
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -101914,7 +101868,7 @@
       }
     },
     {
-      "index": 138,
+      "index": 137,
       "snapshotIndex": 194,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -102253,18 +102207,15 @@
         309,
         310
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Evolving Wilds from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token."
-      ],
-      "actionSeq": 329,
+      "subsequentActions": [],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 195,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -102606,18 +102557,15 @@
         311,
         312
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Beast Token token",
-        "GPT53C Teach - Ability triggers: Garruk's Uprising - Whenever a creature you control with power 4 or greater enters, draw a card."
-      ],
-      "actionSeq": 332,
+      "subsequentActions": [],
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 197,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -102965,14 +102913,14 @@
         314
       ],
       "subsequentActions": [],
-      "actionSeq": 336,
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 199,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -103338,14 +103286,14 @@
         316
       ],
       "subsequentActions": [],
-      "actionSeq": 338,
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 201,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -103700,16 +103648,14 @@
         317,
         322
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 1 creature"
-      ],
-      "actionSeq": 340,
+      "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 204,
       "player": "o3 Memoir",
       "turn": 13,
@@ -104150,7 +104096,7 @@
       }
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 202,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -104506,13 +104452,13 @@
         326
       ],
       "subsequentActions": [],
-      "actionSeq": 344,
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 204,
       "player": "o3 Memoir",
       "turn": 13,
@@ -104923,10 +104869,8 @@
         325,
         328
       ],
-      "subsequentActions": [
-        "Attacker: Affectionate Indrik (4/4) unblocked"
-      ],
-      "actionSeq": 346,
+      "subsequentActions": [],
+      "actionSeq": 350,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -104937,7 +104881,7 @@
       }
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 205,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -105280,13 +105224,13 @@
         330
       ],
       "subsequentActions": [],
-      "actionSeq": 349,
+      "actionSeq": 353,
       "pilotContext": {
         "untappedLands": 3
       }
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 206,
       "player": "o3 Memoir",
       "turn": 13,
@@ -105350,7 +105294,7 @@
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 207,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -105689,14 +105633,14 @@
         334
       ],
       "subsequentActions": [],
-      "actionSeq": 353,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 209,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -106027,14 +105971,14 @@
         336
       ],
       "subsequentActions": [],
-      "actionSeq": 355,
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 209,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -106381,18 +106325,15 @@
         337,
         338
       ],
-      "subsequentActions": [
-        "GPT53C Teach sacrificed Evolving Wilds (source: Evolving Wilds)",
-        "GPT53C Teach activates: search your library for a basic land card, put it onto the battlefield tapped, then shuffle. from Evolving Wilds"
-      ],
-      "actionSeq": 356,
+      "subsequentActions": [],
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 210,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -106744,17 +106685,15 @@
         339,
         340
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Evolving Wilds)"
-      ],
-      "actionSeq": 360,
+      "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 152,
+      "index": 151,
       "snapshotIndex": 212,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -107100,19 +107039,15 @@
         341,
         342
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Evolving Wilds)",
-        "GPT53C Teach's library is shuffled (source: Evolving Wilds)",
-        "GPT53C Teach - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token."
-      ],
-      "actionSeq": 363,
+      "subsequentActions": [],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 153,
+      "index": 152,
       "snapshotIndex": 213,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -107471,18 +107406,15 @@
         343,
         344
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Beast Token token",
-        "GPT53C Teach - Ability triggers: Garruk's Uprising - Whenever a creature you control with power 4 or greater enters, draw a card."
-      ],
-      "actionSeq": 367,
+      "subsequentActions": [],
+      "actionSeq": 371,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 154,
+      "index": 153,
       "snapshotIndex": 215,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -107854,7 +107786,7 @@
         352
       ],
       "subsequentActions": [],
-      "actionSeq": 371,
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -107864,7 +107796,7 @@
       }
     },
     {
-      "index": 155,
+      "index": 154,
       "snapshotIndex": 219,
       "player": "o3 Memoir",
       "turn": 14,
@@ -108308,7 +108240,7 @@
       }
     },
     {
-      "index": 156,
+      "index": 155,
       "snapshotIndex": 219,
       "player": "o3 Memoir",
       "turn": 14,
@@ -108689,7 +108621,7 @@
         350
       ],
       "subsequentActions": [],
-      "actionSeq": 375,
+      "actionSeq": 377,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -108701,7 +108633,7 @@
       }
     },
     {
-      "index": 157,
+      "index": 156,
       "snapshotIndex": 220,
       "player": "o3 Memoir",
       "turn": 14,
@@ -108738,7 +108670,7 @@
       }
     },
     {
-      "index": 158,
+      "index": 157,
       "snapshotIndex": 217,
       "player": "GPT53C Teach",
       "turn": 13,
@@ -109141,12 +109073,11 @@
         358
       ],
       "subsequentActions": [
-        "o3 Memoir casts Goblin Wizardry from hand",
         "o3 Memoir creates a Goblin Wizard Token token",
         "o3 Memoir creates a Goblin Wizard Token token",
         "o3 Memoir puts Goblin Wizardry from stack into their graveyard"
       ],
-      "actionSeq": 373,
+      "actionSeq": 385,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -109155,7 +109086,7 @@
       }
     },
     {
-      "index": 159,
+      "index": 158,
       "snapshotIndex": 226,
       "player": "o3 Memoir",
       "turn": 14,
@@ -109575,7 +109506,7 @@
       }
     },
     {
-      "index": 160,
+      "index": 159,
       "snapshotIndex": 226,
       "player": "o3 Memoir",
       "turn": 14,
@@ -109611,7 +109542,7 @@
       }
     },
     {
-      "index": 161,
+      "index": 160,
       "snapshotIndex": 225,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -110021,13 +109952,9 @@
         362
       ],
       "subsequentActions": [
-        "o3 Memoir creates a Goblin Wizard Token token",
-        "o3 Memoir creates a Goblin Wizard Token token",
-        "o3 Memoir puts Goblin Wizardry from stack into their graveyard",
-        "o3 Memoir casts Fanatical Firebrand from hand",
         "o3 Memoir puts Fanatical Firebrand from stack onto the Battlefield"
       ],
-      "actionSeq": 385,
+      "actionSeq": 393,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -110036,7 +109963,7 @@
       }
     },
     {
-      "index": 162,
+      "index": 161,
       "snapshotIndex": 230,
       "player": "o3 Memoir",
       "turn": 14,
@@ -110480,7 +110407,7 @@
       }
     },
     {
-      "index": 163,
+      "index": 162,
       "snapshotIndex": 229,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -110927,10 +110854,8 @@
         363,
         368
       ],
-      "subsequentActions": [
-        "o3 Memoir puts Fanatical Firebrand from stack onto the Battlefield"
-      ],
-      "actionSeq": 393,
+      "subsequentActions": [],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -110939,7 +110864,7 @@
       }
     },
     {
-      "index": 164,
+      "index": 163,
       "snapshotIndex": 230,
       "player": "o3 Memoir",
       "turn": 14,
@@ -111405,13 +111330,13 @@
         366
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 397,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 165,
+      "index": 164,
       "snapshotIndex": 232,
       "player": "o3 Memoir",
       "turn": 14,
@@ -111859,10 +111784,10 @@
         376
       ],
       "subsequentActions": [],
-      "actionSeq": 397
+      "actionSeq": 403
     },
     {
-      "index": 166,
+      "index": 165,
       "snapshotIndex": 231,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -112354,10 +112279,8 @@
         369,
         370
       ],
-      "subsequentActions": [
-        "o3 Memoir attacks GPT53C Teach with 3 creatures"
-      ],
-      "actionSeq": 396,
+      "subsequentActions": [],
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -112366,7 +112289,7 @@
       }
     },
     {
-      "index": 167,
+      "index": 166,
       "snapshotIndex": 236,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -112448,7 +112371,7 @@
       }
     },
     {
-      "index": 168,
+      "index": 167,
       "snapshotIndex": 237,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -112986,7 +112909,7 @@
       }
     },
     {
-      "index": 169,
+      "index": 168,
       "snapshotIndex": 235,
       "player": "o3 Memoir",
       "turn": 14,
@@ -113401,10 +113324,10 @@
         380
       ],
       "subsequentActions": [],
-      "actionSeq": 403
+      "actionSeq": 416
     },
     {
-      "index": 170,
+      "index": 169,
       "snapshotIndex": 237,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -113842,12 +113765,8 @@
         379,
         382
       ],
-      "subsequentActions": [
-        "Attacker: Pyroclastic Elemental (5/4) blocked by Rampaging Baloths (6/6)",
-        "Attacker: Chandra's Magmutt (2/2) blocked by Beast Token (4/4)",
-        "Attacker: Fanatical Firebrand (1/1) blocked by Beast Token (4/4)"
-      ],
-      "actionSeq": 405,
+      "subsequentActions": [],
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -113856,7 +113775,7 @@
       }
     },
     {
-      "index": 171,
+      "index": 170,
       "snapshotIndex": 241,
       "player": "o3 Memoir",
       "turn": 14,
@@ -114231,10 +114150,10 @@
         384
       ],
       "subsequentActions": [],
-      "actionSeq": 416
+      "actionSeq": 428
     },
     {
-      "index": 172,
+      "index": 171,
       "snapshotIndex": 242,
       "player": "GPT53C Teach",
       "turn": 14,
@@ -114277,7 +114196,7 @@
       }
     },
     {
-      "index": 173,
+      "index": 172,
       "snapshotIndex": 243,
       "player": "o3 Memoir",
       "turn": 14,
@@ -114651,13 +114570,13 @@
         390
       ],
       "subsequentActions": [],
-      "actionSeq": 428,
+      "actionSeq": 430,
       "pilotContext": {
         "landDropsUsed": 0
       }
     },
     {
-      "index": 174,
+      "index": 173,
       "snapshotIndex": 247,
       "player": "GPT53C Teach",
       "turn": 15,
@@ -115135,7 +115054,7 @@
       }
     },
     {
-      "index": 175,
+      "index": 174,
       "snapshotIndex": 245,
       "player": "o3 Memoir",
       "turn": 14,
@@ -115559,10 +115478,10 @@
         396
       ],
       "subsequentActions": [],
-      "actionSeq": 430
+      "actionSeq": 433
     },
     {
-      "index": 176,
+      "index": 175,
       "snapshotIndex": 247,
       "player": "GPT53C Teach",
       "turn": 15,
@@ -116062,14 +115981,14 @@
         394
       ],
       "subsequentActions": [],
-      "actionSeq": 432,
+      "actionSeq": 434,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 177,
+      "index": 176,
       "snapshotIndex": 249,
       "player": "GPT53C Teach",
       "turn": 15,
@@ -116540,7 +116459,7 @@
         400
       ],
       "subsequentActions": [],
-      "actionSeq": 434,
+      "actionSeq": 439,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -116550,7 +116469,7 @@
       }
     },
     {
-      "index": 178,
+      "index": 177,
       "snapshotIndex": 248,
       "player": "o3 Memoir",
       "turn": 15,
@@ -117018,13 +116937,11 @@
         397,
         398
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks o3 Memoir with 4 creatures"
-      ],
-      "actionSeq": 433
+      "subsequentActions": [],
+      "actionSeq": 440
     },
     {
-      "index": 179,
+      "index": 178,
       "snapshotIndex": 251,
       "player": "o3 Memoir",
       "turn": 15,
@@ -117465,7 +117382,7 @@
         402
       ],
       "subsequentActions": [],
-      "actionSeq": 440,
+      "actionSeq": 441,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -117497,7 +117414,7 @@
       }
     },
     {
-      "index": 180,
+      "index": 179,
       "snapshotIndex": 250,
       "player": "GPT53C Teach",
       "turn": 15,
@@ -117548,7 +117465,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 439,
+      "actionSeq": 447,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -117558,7 +117475,7 @@
       }
     },
     {
-      "index": 181,
+      "index": 180,
       "snapshotIndex": 252,
       "player": "o3 Memoir",
       "turn": 15,
@@ -117599,13 +117516,13 @@
         404
       ],
       "subsequentActions": [
-        "Attacker: Affectionate Indrik (4/4) unblocked",
-        "Attacker: Rampaging Baloths (6/6) unblocked",
-        "Attacker: Beast Token (4/4) unblocked",
-        "Attacker: Beast Token (4/4) unblocked",
-        "o3 Memoir loses 4 life at combat from Affectionate Indrik"
+        "o3 Memoir loses 4 life at combat from Affectionate Indrik",
+        "o3 Memoir loses 6 life at combat from Rampaging Baloths",
+        "o3 Memoir loses 4 life at combat from Beast Token",
+        "o3 Memoir loses 4 life at combat from Beast Token",
+        "o3 Memoir has lost the game."
       ],
-      "actionSeq": 441
+      "actionSeq": 448
     }
   ]
 }

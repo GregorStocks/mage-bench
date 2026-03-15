@@ -47298,7 +47298,8 @@
       "llmEventIndices": [
         277,
         278,
-        279
+        279,
+        280
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -47834,7 +47835,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -48711,32 +48714,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "answer": true,
-        "amounts": [
-          1,
-          1
-        ],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "p9,p39,BLACK",
-        "attackers": "all",
-        "blockers": "",
-        "id": "p54",
-        "text": "Orcish Bowmasters"
+        "id": "p54"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "warning": "Both id and index provided; used id=p54, ignored index=0",
-        "error_code": "missing_param",
-        "error": "mana_plan and auto_tap are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         485,
         486,
-        487
+        487,
+        488,
+        489
       ],
       "subsequentActions": [
         "spectator4 has started watching",
@@ -49057,7 +49049,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49727,7 +49721,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

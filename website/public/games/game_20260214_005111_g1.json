@@ -26204,22 +26204,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 0,
-        "index": 0,
-        "mana_plan": "{  \"tap\": \"\"}",
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "error": "mana_plan must be a JSON array, got: {  \"tap\": \"\"}"
+        "retryable": true,
+        "success": false,
+        "error_code": "index_out_of_range",
+        "error": "Index 0 out of range (call get_action_choices first)"
       },
       "llmEventIndices": [
         104,
         105,
-        106
+        106,
+        107,
+        108,
+        115
       ],
       "subsequentActions": [
         "has started watching",
@@ -30009,24 +30008,21 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 2,
-        "index": 0,
-        "mana_plan": "{\"test\": 1}",
-        "text": "test"
+        "answer": false
       },
       "actionResult": {
-        "error": "mana_plan must be a JSON array, got: {\"test\": 1}"
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
       },
       "llmEventIndices": [
         679,
         681,
-        682
+        682,
+        684,
+        685
       ],
       "subsequentActions": [
         "has started watching",
@@ -30956,24 +30952,20 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 2,
-        "index": 0,
-        "mana_plan": "[{}]",
-        "text": "test"
+        "answer": false
       },
       "actionResult": {
-        "error": "Invalid mana_plan entry: "
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         806,
         808,
-        809
+        809,
+        811,
+        812
       ],
       "subsequentActions": [
         "has started watching",

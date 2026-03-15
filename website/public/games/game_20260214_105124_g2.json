@@ -70656,31 +70656,22 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p1"
+        "id": "p13"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p1 not found in current choices",
-        "choices": [
-          {
-            "name": "Wooded Foothills",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p13"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         808,
         810,
-        811
+        811,
+        813,
+        814
       ],
       "subsequentActions": [
         "has started watching",
@@ -71876,7 +71867,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -72902,7 +72895,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p7"
+        "attackers": [
+          "p4",
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -75764,7 +75760,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p73"
+        "attackers": [
+          "p73"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -77573,7 +77571,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p63"
+        "attackers": [
+          "p4",
+          "p63"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -80870,7 +80871,8 @@
       "llmEventIndices": [
         2100,
         2102,
-        2103
+        2103,
+        2105
       ],
       "subsequentActions": [
         "has started watching",
@@ -81295,7 +81297,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

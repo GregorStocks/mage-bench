@@ -136505,7 +136505,8 @@
       "llmEventIndices": [
         545,
         547,
-        548
+        548,
+        550
       ],
       "subsequentActions": [
         "has started watching",
@@ -136540,7 +136541,8 @@
       "llmEventIndices": [
         551,
         553,
-        554
+        554,
+        564
       ],
       "subsequentActions": [
         "has started watching",
@@ -136564,18 +136566,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Provide 'index' to choose mana source/pool, or 'answer: false' to cancel"
+        "success": true,
+        "action_taken": "cancelled_spell"
       },
       "llmEventIndices": [
         565,
         571,
-        572
+        572,
+        579,
+        580
       ],
       "subsequentActions": [
         "has started watching",
@@ -138652,7 +138656,8 @@
       "llmEventIndices": [
         1001,
         1003,
-        1004
+        1004,
+        1011
       ],
       "subsequentActions": [
         "has started watching",
@@ -141447,18 +141452,21 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": true,
+      "chosen": 3,
       "chosenArgs": {
-        "answer": true
+        "index": 3
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)"
+        "error": "Index 3 out of range (call get_action_choices first)"
       },
       "llmEventIndices": [
         1585,
         1587,
-        1588
+        1588,
+        1590,
+        1591,
+        1593
       ],
       "subsequentActions": [
         "has started watching",
@@ -141563,18 +141571,20 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)"
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         1600,
         1604,
-        1605
+        1605,
+        1613,
+        1614
       ],
       "subsequentActions": [
         "has started watching",

@@ -22191,41 +22191,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\": \"p5\"}, {\"tap\": \"p3\"}, {\"tap\": \"p4\"}]",
-        "id": "p2"
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p2 not found in current choices",
-        "choices": [
-          {
-            "name": "Watery Grave",
-            "index": 0,
-            "action": "land",
-            "id": "p3"
-          },
-          {
-            "name": "Island",
-            "index": 1,
-            "action": "land",
-            "id": "p4"
-          },
-          {
-            "name": "Polluted Delta",
-            "index": 2,
-            "action": "land",
-            "id": "p5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         33,
         34,
-        35
+        35,
+        36,
+        37
       ],
       "subsequentActions": [
         "has started watching",
@@ -25118,7 +25099,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p4', 'blocks': 'p65'}"
+        "blockers": [
+          {
+            "id": "p4",
+            "blocks": "p65"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -25126,7 +25112,8 @@
       "llmEventIndices": [
         532,
         534,
-        536
+        536,
+        541
       ],
       "subsequentActions": [
         "has started watching",
@@ -26376,7 +26363,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

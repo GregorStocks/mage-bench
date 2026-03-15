@@ -37645,7 +37645,8 @@
       },
       "llmEventIndices": [
         391,
-        392
+        392,
+        394
       ],
       "subsequentActions": [
         "has started watching",
@@ -37685,7 +37686,8 @@
       "llmEventIndices": [
         395,
         397,
-        398
+        398,
+        400
       ],
       "subsequentActions": [
         "has started watching",
@@ -37725,7 +37727,8 @@
       "llmEventIndices": [
         401,
         403,
-        404
+        404,
+        406
       ],
       "subsequentActions": [
         "has started watching",
@@ -38764,7 +38767,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -39214,7 +39219,8 @@
       "llmEventIndices": [
         633,
         635,
-        637
+        637,
+        639
       ],
       "subsequentActions": [
         "has started watching",
@@ -39251,7 +39257,8 @@
       "llmEventIndices": [
         640,
         642,
-        643
+        643,
+        645
       ],
       "subsequentActions": [
         "has started watching",
@@ -39385,7 +39392,9 @@
       "llmEventIndices": [
         670,
         672,
-        673
+        673,
+        675,
+        679
       ],
       "subsequentActions": [
         "has started watching",
@@ -39439,20 +39448,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 4,
+      "chosen": false,
       "chosenArgs": {
-        "index": 4
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 4 is out of range (no choices loaded). Call get_action_choices to see current options."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         686,
         688,
-        689
+        689,
+        691,
+        695
       ],
       "subsequentActions": [
         "has started watching",
@@ -39985,7 +39996,8 @@
         779,
         781,
         784,
-        785
+        785,
+        787
       ],
       "subsequentActions": [
         "has started watching",
@@ -40009,20 +40021,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 4,
+      "chosen": false,
       "chosenArgs": {
-        "index": 4
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 4 is out of range (no choices loaded). Call get_action_choices to see current options."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         788,
         790,
-        791
+        791,
+        793,
+        794
       ],
       "subsequentActions": [
         "has started watching",
@@ -40615,7 +40629,8 @@
       "llmEventIndices": [
         868,
         870,
-        871
+        871,
+        873
       ],
       "subsequentActions": [
         "has started watching",
@@ -40693,7 +40708,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -41514,7 +41531,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42400,7 +42419,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43154,7 +43175,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43779,7 +43802,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p18"
+        "attackers": [
+          "p18"
+        ]
       },
       "actionResult": {
         "declared": [

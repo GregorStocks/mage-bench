@@ -131714,27 +131714,41 @@
           3,
           4
         ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": true,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p3",
+        "answer": false,
+        "attackers": [
+          "all"
+        ],
+        "auto_tap": false,
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
+        "id": "",
         "index": 0,
-        "mana_plan": "p1,p5:1,RED",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p3, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority",
+        "warning": "Ignored blockers parameter (not in declare_blockers phase)"
       },
       "llmEventIndices": [
         113,
         114,
-        115
+        115,
+        117,
+        118,
+        119,
+        120,
+        122,
+        123,
+        124,
+        125
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -131768,12 +131782,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -131924,12 +131943,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132155,12 +132179,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132282,12 +132311,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132352,12 +132386,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132419,12 +132458,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132477,12 +132521,17 @@
           4
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132533,12 +132582,17 @@
           4
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132590,12 +132644,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -132737,12 +132796,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133142,12 +133206,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p8",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133209,12 +133278,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133267,12 +133341,17 @@
           4
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133351,12 +133430,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p8",
         "index": 2,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133427,12 +133511,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p23",
         "index": 1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -133484,12 +133573,17 @@
           4
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "example"
       },
@@ -134184,7 +134278,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -134636,7 +134732,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -135275,7 +135373,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8,p14"
+        "attackers": [
+          "p8",
+          "p14"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -135342,12 +135443,19 @@
           3
         ],
         "answer": false,
-        "attackers": "p8,p14",
+        "attackers": [
+          "p8",
+          "p14"
+        ],
         "auto_tap": true,
-        "blockers": "string",
+        "blockers": [
+          "string"
+        ],
         "id": "string",
         "index": 0,
-        "mana_plan": "string",
+        "mana_plan": [
+          "string"
+        ],
         "pile": 0,
         "text": "string"
       },
@@ -135593,31 +135701,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 155793719020162,
-        "amounts": [
-          1,
-          2,
-          3
-        ],
-        "answer": false,
-        "attackers": "p8,p14,p7",
-        "auto_tap": true,
-        "blockers": "string",
-        "id": "string",
-        "index": 0,
-        "mana_plan": "string",
-        "pile": 0,
-        "text": "string"
+        "answer": false
       },
       "actionResult": {
-        "error": "Unknown short ID: string"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         1268,
         1269,
-        1270
+        1270,
+        1271,
+        1272
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -135684,12 +135784,20 @@
           3
         ],
         "answer": false,
-        "attackers": "p8,p14,p7",
+        "attackers": [
+          "p8",
+          "p14",
+          "p7"
+        ],
         "auto_tap": true,
-        "blockers": "string",
+        "blockers": [
+          "string"
+        ],
         "id": "string",
         "index": 0,
-        "mana_plan": "string",
+        "mana_plan": [
+          "string"
+        ],
         "pile": 0,
         "text": "string"
       },
@@ -135854,31 +135962,25 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 155793719020162,
-        "amounts": [
-          1,
-          2,
-          3
-        ],
-        "answer": false,
-        "attackers": "p8,p14,p7",
-        "auto_tap": true,
-        "blockers": "string",
-        "id": "string",
-        "index": 0,
-        "mana_plan": "string",
-        "pile": 0,
-        "text": "string"
+        "answer": false
       },
       "actionResult": {
-        "error": "Unknown short ID: string"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1292,
         1295,
-        1296
+        1296,
+        1297,
+        1298,
+        1299,
+        1302
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -136329,29 +136431,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 155793719020162,
-        "amounts": [
-          1,
-          2,
-          3
-        ],
-        "answer": false,
-        "attackers": "p8,p14,p7",
-        "auto_tap": true,
-        "blockers": "string",
-        "id": "string",
-        "index": 0,
-        "mana_plan": "string",
-        "pile": 0,
-        "text": "string"
+        "index": 0
       },
       "actionResult": {
-        "error": "Unknown short ID: string"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1545,
         1546,
-        1547
+        1547,
+        1548,
+        1549
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -136388,29 +136482,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 155793719020162,
-        "amounts": [
-          1,
-          2,
-          3
-        ],
-        "answer": false,
-        "attackers": "p8,p14,p7",
-        "auto_tap": true,
-        "blockers": "string",
-        "id": "string",
-        "index": 0,
-        "mana_plan": "string",
-        "pile": 0,
-        "text": "string"
+        "index": 0
       },
       "actionResult": {
-        "error": "Unknown short ID: string"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         1551,
         1552,
-        1553
+        1553,
+        1554,
+        1555
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -136562,33 +136648,28 @@
         "auto_tap": true,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p6",
-        "attackers": "all",
-        "blockers": "",
-        "id": "p6",
+        "mana_plan": [],
+        "attackers": [
+          "all"
+        ],
+        "blockers": [],
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p6, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p6 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {W}{U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)"
       },
       "llmEventIndices": [
         1590,
         1593,
-        1594
+        1594,
+        1595,
+        1596
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -136692,7 +136773,7 @@
       "chosen": 7,
       "chosenArgs": {
         "id": "p28",
-        "mana_plan": ""
+        "mana_plan": []
       },
       "actionResult": {
         "next_action_pending": true,
@@ -136817,56 +136898,24 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p40",
-        "mana_plan": ""
+        "id": "p28",
+        "mana_plan": []
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p40 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{U}",
-            "name": "Brainstorm",
-            "index": 0,
-            "action": "cast",
-            "id": "p107"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Darkblast",
-            "index": 1,
-            "action": "cast",
-            "id": "p39"
-          },
-          {
-            "name": "Sensei's Divining Top",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: Look at the top three cards of your library,...",
-              "{T}: Draw a card, then put {this} on top of its o..."
-            ],
-            "id": "p28"
-          },
-          {
-            "name": "Cephalid Coliseum",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "<i>Threshold</i> &mdash; {U}, {T}, Sacrifice {thi..."
-            ],
-            "id": "p7"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         1627,
         1628,
-        1629
+        1629,
+        1630,
+        1631
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -137174,7 +137223,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p107",
-        "mana_plan": "p104"
+        "mana_plan": [
+          "p104"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -138450,7 +138501,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -139044,7 +139097,8 @@
       "llmEventIndices": [
         2012,
         2013,
-        2014
+        2014,
+        2015
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -139430,94 +139484,23 @@
       ],
       "choiceCount": 9,
       "isForced": false,
-      "chosen": null,
+      "chosen": 4,
       "chosenArgs": {
-        "id": "p98"
+        "id": "p95"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p98 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{3}{G}{W}{U}",
-            "name": "Skyward Eye Prophets",
-            "index": 0,
-            "action": "cast",
-            "id": "p89",
-            "power": "3",
-            "toughness": "3"
-          },
-          {
-            "mana_cost": "{1}{W}",
-            "name": "Flickerform",
-            "index": 1,
-            "action": "cast",
-            "id": "p74"
-          },
-          {
-            "name": "Hada Spy Patrol",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "Level up {2}{U} <i>({2}{U}: Put a level counter o..."
-            ],
-            "id": "p2"
-          },
-          {
-            "mana_cost": "{3}{G}{G}",
-            "name": "Acidic Slime",
-            "index": 3,
-            "action": "cast",
-            "id": "p4",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{2}",
-            "name": "Swiftfoot Boots",
-            "index": 4,
-            "action": "cast",
-            "id": "p95"
-          },
-          {
-            "mana_cost": "{3}",
-            "name": "Darksteel Ingot",
-            "index": 5,
-            "action": "cast",
-            "id": "p77"
-          },
-          {
-            "name": "Saltcrusted Steppe",
-            "index": 6,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}, {T}: Put a storage counter on {this}."
-            ],
-            "id": "p34"
-          },
-          {
-            "name": "Unknown (23587855)",
-            "index": 7,
-            "id": "p30"
-          },
-          {
-            "name": "Sword of the Paruns",
-            "index": 8,
-            "action": "activate",
-            "playable_abilities": [
-              "Equip {3}",
-              "{3}: You may tap or untap equipped creature."
-            ],
-            "id": "p18"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
       },
       "llmEventIndices": [
         2089,
         2090,
-        2091
+        2091,
+        2092,
+        2093
       ],
       "subsequentActions": [
         "spectator7 has started watching",
@@ -139554,30 +139537,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}, Remove X storage counters from Saltcrusted Steppe: Add X mana in any combination of {G} and/or {W}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         2095,
         2096,
-        2097
+        2097,
+        2098,
+        2099
       ],
       "subsequentActions": [
         "spectator7 has started watching",

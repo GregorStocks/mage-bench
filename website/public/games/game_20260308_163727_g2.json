@@ -111115,10 +111115,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "GPT54 Sport chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -111419,10 +111417,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "GPT54 Sport skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -111567,10 +111563,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 11,
+      "subsequentActions": [],
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -111716,7 +111710,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -111865,12 +111859,8 @@
         19,
         22
       ],
-      "subsequentActions": [
-        "GPT54 Sport skips Draw step",
-        "GPT54 Sport puts Plains from hand onto the Battlefield",
-        "GPT54 Sport casts Thraben Inspector from hand"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 7,
@@ -112013,7 +112003,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 17,
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -112166,11 +112156,8 @@
         23,
         26
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Thraben Inspector from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 22
     },
     {
       "index": 9,
@@ -112312,7 +112299,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -112465,10 +112452,8 @@
         27,
         30
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Clue Token token"
-      ],
-      "actionSeq": 22
+      "subsequentActions": [],
+      "actionSeq": 25
     },
     {
       "index": 11,
@@ -112611,7 +112596,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 24
+      "actionSeq": 28
     },
     {
       "index": 12,
@@ -112761,10 +112746,8 @@
         31,
         34
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 25
+      "subsequentActions": [],
+      "actionSeq": 29
     },
     {
       "index": 13,
@@ -112918,7 +112901,7 @@
         40
       ],
       "subsequentActions": [],
-      "actionSeq": 28,
+      "actionSeq": 30,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -113121,7 +113104,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 29
+      "actionSeq": 31
     },
     {
       "index": 15,
@@ -113317,7 +113300,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 31,
+      "actionSeq": 32,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -113491,7 +113474,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 32,
+      "actionSeq": 36,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -113647,10 +113630,8 @@
         41,
         44
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Mortuary Mire from hand onto the Battlefield"
-      ],
-      "actionSeq": 30
+      "subsequentActions": [],
+      "actionSeq": 37
     },
     {
       "index": 18,
@@ -113815,7 +113796,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 36
+      "actionSeq": 40
     },
     {
       "index": 19,
@@ -113968,10 +113949,8 @@
         45,
         48
       ],
-      "subsequentActions": [
-        "Haiku Villain skip attack"
-      ],
-      "actionSeq": 37
+      "subsequentActions": [],
+      "actionSeq": 41
     },
     {
       "index": 20,
@@ -114143,7 +114122,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 42,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114326,7 +114305,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 41
+      "actionSeq": 43
     },
     {
       "index": 22,
@@ -114522,7 +114501,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 43,
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -114727,7 +114706,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 44,
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -115022,7 +115001,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 48,
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -115238,10 +115217,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 1 creature"
-      ],
-      "actionSeq": 50,
+      "subsequentActions": [],
+      "actionSeq": 54,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115459,10 +115436,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "Attacker: Thraben Inspector (1/2) unblocked"
-      ],
-      "actionSeq": 54,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115667,10 +115642,8 @@
         69,
         70
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 1 life at combat from Thraben Inspector"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -116177,7 +116150,7 @@
         78
       ],
       "subsequentActions": [],
-      "actionSeq": 66,
+      "actionSeq": 67,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -116389,7 +116362,7 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 67,
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -116582,11 +116555,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "Thriving Moor: Haiku Villain has chosen White",
-        "Haiku Villain puts Thriving Moor from hand onto the Battlefield"
-      ],
-      "actionSeq": 68,
+      "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -116773,10 +116743,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "Haiku Villain skip attack"
-      ],
-      "actionSeq": 73,
+      "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -116975,7 +116943,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 77,
+      "actionSeq": 79,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -117452,10 +117420,8 @@
         91,
         92
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 81,
+      "subsequentActions": [],
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117653,7 +117619,7 @@
         96
       ],
       "subsequentActions": [],
-      "actionSeq": 85,
+      "actionSeq": 90,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117863,11 +117829,8 @@
         95,
         98
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield",
-        "GPT54 Sport casts Inspiring Overseer from hand"
-      ],
-      "actionSeq": 79,
+      "subsequentActions": [],
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118065,7 +118028,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 90,
+      "actionSeq": 94,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -118270,11 +118233,8 @@
         99,
         102
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Inspiring Overseer from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 91,
+      "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118488,7 +118448,7 @@
         104
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 97,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -118747,7 +118707,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 97,
+      "actionSeq": 99,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -118957,10 +118917,8 @@
         107,
         108
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 1 creature"
-      ],
-      "actionSeq": 99
+      "subsequentActions": [],
+      "actionSeq": 103
     },
     {
       "index": 48,
@@ -119167,10 +119125,8 @@
         109,
         112
       ],
-      "subsequentActions": [
-        "Attacker: Thraben Inspector (1/2) unblocked"
-      ],
-      "actionSeq": 103
+      "subsequentActions": [],
+      "actionSeq": 107
     },
     {
       "index": 49,
@@ -119585,7 +119541,7 @@
         116
       ],
       "subsequentActions": [],
-      "actionSeq": 107
+      "actionSeq": 111
     },
     {
       "index": 51,
@@ -119787,10 +119743,8 @@
         115,
         118
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 1 life at combat from Thraben Inspector"
-      ],
-      "actionSeq": 108,
+      "subsequentActions": [],
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119998,7 +119952,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 111,
+      "actionSeq": 113,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120250,7 +120204,7 @@
         120
       ],
       "subsequentActions": [],
-      "actionSeq": 112,
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -120511,7 +120465,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 114,
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -120760,7 +120714,7 @@
         126
       ],
       "subsequentActions": [],
-      "actionSeq": 115,
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -120986,7 +120940,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 116,
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -121229,7 +121183,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 119,
+      "actionSeq": 123,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -121457,10 +121411,8 @@
         131,
         132
       ],
-      "subsequentActions": [
-        "Haiku Villain casts Diabolic Edict targeting GPT54 Sport from hand"
-      ],
-      "actionSeq": 113
+      "subsequentActions": [],
+      "actionSeq": 124
     },
     {
       "index": 59,
@@ -121692,7 +121644,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 124
+      "actionSeq": 125
     },
     {
       "index": 60,
@@ -121938,11 +121890,8 @@
         135,
         136
       ],
-      "subsequentActions": [
-        "GPT54 Sport sacrificed Thraben Inspector (source: Diabolic Edict)",
-        "Haiku Villain puts Diabolic Edict from stack into their graveyard"
-      ],
-      "actionSeq": 123,
+      "subsequentActions": [],
+      "actionSeq": 128,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -122160,10 +122109,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 128,
+      "subsequentActions": [],
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -122381,7 +122328,7 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 130,
+      "actionSeq": 133,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -122607,13 +122554,8 @@
         141,
         144
       ],
-      "subsequentActions": [
-        "GPT54 Sport sacrificed Thraben Inspector (source: Diabolic Edict)",
-        "Haiku Villain puts Diabolic Edict from stack into their graveyard",
-        "Haiku Villain puts Swamp from hand onto the Battlefield",
-        "Haiku Villain casts Bone Picker from hand"
-      ],
-      "actionSeq": 125
+      "subsequentActions": [],
+      "actionSeq": 134
     },
     {
       "index": 64,
@@ -122823,7 +122765,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 133,
+      "actionSeq": 136,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123061,10 +123003,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "Haiku Villain skip attack"
-      ],
-      "actionSeq": 136
+      "subsequentActions": [],
+      "actionSeq": 140
     },
     {
       "index": 67,
@@ -123293,7 +123233,7 @@
         160
       ],
       "subsequentActions": [],
-      "actionSeq": 140,
+      "actionSeq": 142,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -123989,10 +123929,8 @@
         155,
         156
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 144,
+      "subsequentActions": [],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -124309,7 +124247,7 @@
         158
       ],
       "subsequentActions": [],
-      "actionSeq": 148,
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -124557,7 +124495,7 @@
         162
       ],
       "subsequentActions": [],
-      "actionSeq": 149,
+      "actionSeq": 155,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -124820,11 +124758,8 @@
         163,
         164
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Faith's Fetters from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Faith's Fetters - When Faith's Fetters enters, you gain 4 life."
-      ],
-      "actionSeq": 155,
+      "subsequentActions": [],
+      "actionSeq": 159,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -125077,10 +125012,8 @@
         165,
         166
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 4 life (source: Faith's Fetters)"
-      ],
-      "actionSeq": 159,
+      "subsequentActions": [],
+      "actionSeq": 162,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -125351,7 +125284,7 @@
         168
       ],
       "subsequentActions": [],
-      "actionSeq": 162,
+      "actionSeq": 164,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -125601,10 +125534,8 @@
         169,
         174
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 1 creature"
-      ],
-      "actionSeq": 164
+      "subsequentActions": [],
+      "actionSeq": 168
     },
     {
       "index": 77,
@@ -126117,7 +126048,7 @@
         178
       ],
       "subsequentActions": [],
-      "actionSeq": 168
+      "actionSeq": 173
     },
     {
       "index": 79,
@@ -126360,10 +126291,8 @@
         177,
         180
       ],
-      "subsequentActions": [
-        "Attacker: Inspiring Overseer (2/1) unblocked"
-      ],
-      "actionSeq": 170
+      "subsequentActions": [],
+      "actionSeq": 174
     },
     {
       "index": 80,
@@ -126598,7 +126527,7 @@
         182
       ],
       "subsequentActions": [],
-      "actionSeq": 173
+      "actionSeq": 177
     },
     {
       "index": 81,
@@ -126827,10 +126756,8 @@
         181,
         184
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 2 life at combat from Inspiring Overseer"
-      ],
-      "actionSeq": 174
+      "subsequentActions": [],
+      "actionSeq": 178
     },
     {
       "index": 82,
@@ -127072,7 +126999,7 @@
         192
       ],
       "subsequentActions": [],
-      "actionSeq": 177,
+      "actionSeq": 179,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -127345,7 +127272,7 @@
         186
       ],
       "subsequentActions": [],
-      "actionSeq": 178
+      "actionSeq": 180
     },
     {
       "index": 84,
@@ -127610,7 +127537,7 @@
         188
       ],
       "subsequentActions": [],
-      "actionSeq": 180,
+      "actionSeq": 181,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -127890,10 +127817,8 @@
         195,
         196
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 179
+      "subsequentActions": [],
+      "actionSeq": 186
     },
     {
       "index": 87,
@@ -128134,10 +128059,8 @@
         197,
         198
       ],
-      "subsequentActions": [
-        "Haiku Villain skip attack"
-      ],
-      "actionSeq": 186
+      "subsequentActions": [],
+      "actionSeq": 190
     },
     {
       "index": 88,
@@ -128716,10 +128639,8 @@
         203,
         204
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Preston, the Vanisher from hand"
-      ],
-      "actionSeq": 193,
+      "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -128989,10 +128910,8 @@
         205,
         206
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Preston, the Vanisher from stack onto the Battlefield"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -129280,7 +129199,7 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 204,
+      "actionSeq": 206,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -129547,10 +129466,8 @@
         209,
         212
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 1 creature"
-      ],
-      "actionSeq": 206
+      "subsequentActions": [],
+      "actionSeq": 210
     },
     {
       "index": 94,
@@ -130101,7 +130018,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 210
+      "actionSeq": 215
     },
     {
       "index": 96,
@@ -130365,10 +130282,8 @@
         215,
         218
       ],
-      "subsequentActions": [
-        "Attacker: Inspiring Overseer (2/1) unblocked"
-      ],
-      "actionSeq": 212,
+      "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -130623,7 +130538,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 215
+      "actionSeq": 219
     },
     {
       "index": 98,
@@ -130873,10 +130788,8 @@
         219,
         222
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 2 life at combat from Inspiring Overseer"
-      ],
-      "actionSeq": 216,
+      "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131193,7 +131106,7 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 220,
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131500,7 +131413,7 @@
         226
       ],
       "subsequentActions": [],
-      "actionSeq": 222,
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -131798,10 +131711,8 @@
         227,
         228
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 223,
+      "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -132080,7 +131991,7 @@
         230
       ],
       "subsequentActions": [],
-      "actionSeq": 227,
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -132348,10 +132259,8 @@
         231,
         232
       ],
-      "subsequentActions": [
-        "Haiku Villain casts Renegade Demon from hand"
-      ],
-      "actionSeq": 230,
+      "subsequentActions": [],
+      "actionSeq": 235,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132617,10 +132526,8 @@
         233,
         234
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Renegade Demon from stack onto the Battlefield"
-      ],
-      "actionSeq": 235,
+      "subsequentActions": [],
+      "actionSeq": 238,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132887,10 +132794,8 @@
         235,
         236
       ],
-      "subsequentActions": [
-        "Haiku Villain skip attack"
-      ],
-      "actionSeq": 238
+      "subsequentActions": [],
+      "actionSeq": 242
     },
     {
       "index": 107,
@@ -133154,7 +133059,7 @@
         243
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 244,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -133898,7 +133803,7 @@
         247
       ],
       "subsequentActions": [],
-      "actionSeq": 246,
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -134260,10 +134165,8 @@
         248,
         253
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 1 creature"
-      ],
-      "actionSeq": 248,
+      "subsequentActions": [],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -134937,7 +134840,7 @@
         257
       ],
       "subsequentActions": [],
-      "actionSeq": 253,
+      "actionSeq": 258,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -135222,10 +135125,8 @@
         256,
         259
       ],
-      "subsequentActions": [
-        "Attacker: Inspiring Overseer (2/1) unblocked"
-      ],
-      "actionSeq": 255
+      "subsequentActions": [],
+      "actionSeq": 259
     },
     {
       "index": 115,
@@ -135588,7 +135489,7 @@
         261
       ],
       "subsequentActions": [],
-      "actionSeq": 258,
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -135882,10 +135783,8 @@
         260,
         288
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 2 life at combat from Inspiring Overseer"
-      ],
-      "actionSeq": 259
+      "subsequentActions": [],
+      "actionSeq": 263
     },
     {
       "index": 117,
@@ -136226,7 +136125,7 @@
         263
       ],
       "subsequentActions": [],
-      "actionSeq": 262,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -136550,7 +136449,7 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 264,
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -136911,7 +136810,7 @@
         282
       ],
       "subsequentActions": [],
-      "actionSeq": 265,
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -137263,11 +137162,8 @@
         283,
         284
       ],
-      "subsequentActions": [
-        "Thriving Heath: GPT54 Sport has chosen Blue",
-        "GPT54 Sport puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 266,
+      "subsequentActions": [],
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -137607,7 +137503,7 @@
         286
       ],
       "subsequentActions": [],
-      "actionSeq": 270,
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -137939,7 +137835,7 @@
         290
       ],
       "subsequentActions": [],
-      "actionSeq": 271,
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -138308,12 +138204,8 @@
         291,
         292
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Inspiring Overseer from battlefield to the exile zone (source: Cloudshift)",
-        "GPT54 Sport puts Inspiring Overseer from exile zone onto the Battlefield (source: Cloudshift)",
-        "GPT54 Sport puts Cloudshift from stack into their graveyard"
-      ],
-      "actionSeq": 274,
+      "subsequentActions": [],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -138680,11 +138572,8 @@
         293,
         294
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 279,
+      "subsequentActions": [],
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -139039,10 +138928,8 @@
         295,
         296
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Inspiring Overseer)"
-      ],
-      "actionSeq": 282,
+      "subsequentActions": [],
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -139368,7 +139255,7 @@
         298
       ],
       "subsequentActions": [],
-      "actionSeq": 285,
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -139694,10 +139581,8 @@
         299,
         300
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Acrobatic Maneuver targeting Inspiring Overseer from hand"
-      ],
-      "actionSeq": 286,
+      "subsequentActions": [],
+      "actionSeq": 291,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -140027,12 +139912,8 @@
         301,
         302
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Inspiring Overseer from battlefield to the exile zone (source: Acrobatic Maneuver)",
-        "GPT54 Sport puts Inspiring Overseer from exile zone onto the Battlefield (source: Acrobatic Maneuver)",
-        "GPT54 Sport puts Acrobatic Maneuver from stack into their graveyard"
-      ],
-      "actionSeq": 291,
+      "subsequentActions": [],
+      "actionSeq": 296,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -140354,11 +140235,8 @@
         303,
         304
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 296,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -140687,10 +140565,8 @@
         305,
         306
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Inspiring Overseer)"
-      ],
-      "actionSeq": 299,
+      "subsequentActions": [],
+      "actionSeq": 302,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -141026,11 +140902,8 @@
         307,
         308
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Inspiring Overseer token",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 302,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -141379,10 +141252,8 @@
         309,
         310
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Inspiring Overseer)"
-      ],
-      "actionSeq": 306,
+      "subsequentActions": [],
+      "actionSeq": 309,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -141734,11 +141605,8 @@
         311,
         312
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Inspiring Overseer token",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 309,
+      "subsequentActions": [],
+      "actionSeq": 313,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -142473,7 +142341,7 @@
         318
       ],
       "subsequentActions": [],
-      "actionSeq": 318,
+      "actionSeq": 321,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -142821,10 +142689,8 @@
         319,
         320
       ],
-      "subsequentActions": [
-        "Haiku Villain casts Disciple of Perdition from hand"
-      ],
-      "actionSeq": 321,
+      "subsequentActions": [],
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -143169,10 +143035,8 @@
         321,
         322
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Disciple of Perdition from stack onto the Battlefield"
-      ],
-      "actionSeq": 325,
+      "subsequentActions": [],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -143524,10 +143388,8 @@
         323,
         324
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 328,
+      "subsequentActions": [],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -143893,7 +143755,7 @@
         326
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -144246,10 +144108,8 @@
         327,
         330
       ],
-      "subsequentActions": [
-        "Haiku Villain attacks GPT54 Sport with 1 creature"
-      ],
-      "actionSeq": 332,
+      "subsequentActions": [],
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -145021,7 +144881,7 @@
         334
       ],
       "subsequentActions": [],
-      "actionSeq": 336,
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -145392,10 +145252,8 @@
         333,
         336
       ],
-      "subsequentActions": [
-        "Attacker: Renegade Demon (5/3) blocked by Inspiring Overseer (0/1)"
-      ],
-      "actionSeq": 338
+      "subsequentActions": [],
+      "actionSeq": 343
     },
     {
       "index": 146,
@@ -145711,7 +145569,7 @@
         338
       ],
       "subsequentActions": [],
-      "actionSeq": 342,
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -146068,11 +145926,8 @@
         337,
         340
       ],
-      "subsequentActions": [
-        "Renegade Demon deals 5 damage to Inspiring Overseer",
-        "Inspiring Overseer died"
-      ],
-      "actionSeq": 343
+      "subsequentActions": [],
+      "actionSeq": 348
     },
     {
       "index": 148,
@@ -146395,7 +146250,7 @@
         351
       ],
       "subsequentActions": [],
-      "actionSeq": 347,
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -146848,7 +146703,7 @@
         344
       ],
       "subsequentActions": [],
-      "actionSeq": 348
+      "actionSeq": 350
     },
     {
       "index": 150,
@@ -147355,7 +147210,7 @@
         349
       ],
       "subsequentActions": [],
-      "actionSeq": 350,
+      "actionSeq": 351,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -147828,7 +147683,7 @@
         353
       ],
       "subsequentActions": [],
-      "actionSeq": 351,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -148341,7 +148196,7 @@
         355
       ],
       "subsequentActions": [],
-      "actionSeq": 355,
+      "actionSeq": 357,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -148807,10 +148662,8 @@
         356,
         359
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 3 creatures"
-      ],
-      "actionSeq": 357,
+      "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -149696,7 +149549,7 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 363,
+      "actionSeq": 371,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -150071,12 +149924,8 @@
         362,
         365
       ],
-      "subsequentActions": [
-        "Attacker: Preston, the Vanisher (2/5) blocked by Disciple of Perdition (1/3)",
-        "Attacker: Inspiring Overseer (2/1) unblocked",
-        "Attacker: Inspiring Overseer (0/1) unblocked"
-      ],
-      "actionSeq": 365,
+      "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -150537,7 +150386,7 @@
         367
       ],
       "subsequentActions": [],
-      "actionSeq": 371,
+      "actionSeq": 377,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -150871,12 +150720,8 @@
         366,
         373
       ],
-      "subsequentActions": [
-        "Disciple of Perdition deals 1 damage to Preston, the Vanisher",
-        "Preston, the Vanisher deals 2 damage to Disciple of Perdition",
-        "Haiku Villain loses 2 life at combat from Inspiring Overseer"
-      ],
-      "actionSeq": 372,
+      "subsequentActions": [],
+      "actionSeq": 378,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -151328,7 +151173,7 @@
         371
       ],
       "subsequentActions": [],
-      "actionSeq": 377,
+      "actionSeq": 379,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -151779,7 +151624,7 @@
         375
       ],
       "subsequentActions": [],
-      "actionSeq": 379,
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -152263,10 +152108,8 @@
         376,
         385
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Emiel the Blessed from stack onto the Battlefield"
-      ],
-      "actionSeq": 386,
+      "subsequentActions": [],
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -153067,10 +152910,8 @@
         380,
         381
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 391,
+      "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -153426,7 +153267,7 @@
         383
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -153778,7 +153619,7 @@
         387
       ],
       "subsequentActions": [],
-      "actionSeq": 398,
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -154221,11 +154062,8 @@
         386,
         389
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield",
-        "Haiku Villain casts Reaper from the Abyss from hand"
-      ],
-      "actionSeq": 389,
+      "subsequentActions": [],
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -154591,7 +154429,7 @@
         399
       ],
       "subsequentActions": [],
-      "actionSeq": 404,
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -155019,10 +154857,8 @@
         390,
         391
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Reaper from the Abyss from stack onto the Battlefield"
-      ],
-      "actionSeq": 405,
+      "subsequentActions": [],
+      "actionSeq": 408,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -155459,7 +155295,7 @@
         393
       ],
       "subsequentActions": [],
-      "actionSeq": 408,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -155895,7 +155731,7 @@
         395
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 410,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -156301,7 +156137,7 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 410,
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -156690,7 +156526,7 @@
         405
       ],
       "subsequentActions": [],
-      "actionSeq": 412
+      "actionSeq": 415
     },
     {
       "index": 175,
@@ -157040,10 +156876,8 @@
         402,
         403
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Valorous Stance (mode 2) targeting Reaper from the Abyss from hand"
-      ],
-      "actionSeq": 407,
+      "subsequentActions": [],
+      "actionSeq": 416,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -157421,7 +157255,7 @@
         407
       ],
       "subsequentActions": [],
-      "actionSeq": 416,
+      "actionSeq": 419,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -157857,7 +157691,7 @@
         409
       ],
       "subsequentActions": [],
-      "actionSeq": 419,
+      "actionSeq": 421,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -158749,13 +158583,12 @@
         419
       ],
       "subsequentActions": [
-        "Attacker: Renegade Demon (5/3) unblocked",
-        "Attacker: Disciple of Perdition (1/3) blocked by Emiel the Blessed (4/4)",
         "GPT54 Sport loses 5 life at combat from Renegade Demon",
         "Emiel the Blessed deals 4 damage to Disciple of Perdition",
-        "Disciple of Perdition deals 1 damage to Emiel the Blessed"
+        "Disciple of Perdition deals 1 damage to Emiel the Blessed",
+        "Disciple of Perdition died"
       ],
-      "actionSeq": 428
+      "actionSeq": 435
     },
     {
       "index": 182,
@@ -159532,7 +159365,7 @@
         421
       ],
       "subsequentActions": [],
-      "actionSeq": 441,
+      "actionSeq": 443,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -159940,14 +159773,8 @@
         420,
         423
       ],
-      "subsequentActions": [
-        "GPT54 Sport loses 5 life at combat from Renegade Demon",
-        "Emiel the Blessed deals 4 damage to Disciple of Perdition",
-        "Disciple of Perdition deals 1 damage to Emiel the Blessed",
-        "Disciple of Perdition died",
-        "Haiku Villain - Ability triggers: Disciple of Perdition - When Disciple of Perdition dies, choose one. If you have exactly 13 life, you may choose both instead. &bull You draw a card and you lose 1 life. &bull Exile target opponent's graveyard. That player loses 1 life."
-      ],
-      "actionSeq": 435
+      "subsequentActions": [],
+      "actionSeq": 444
     },
     {
       "index": 185,
@@ -160305,7 +160132,7 @@
         425
       ],
       "subsequentActions": [],
-      "actionSeq": 443,
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -160686,10 +160513,8 @@
         424,
         427
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 1 life from Disciple of Perdition"
-      ],
-      "actionSeq": 444
+      "subsequentActions": [],
+      "actionSeq": 447
     },
     {
       "index": 187,
@@ -161180,7 +161005,7 @@
         429
       ],
       "subsequentActions": [],
-      "actionSeq": 447
+      "actionSeq": 449
     },
     {
       "index": 189,
@@ -162304,10 +162129,8 @@
         442,
         445
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 4 creatures"
-      ],
-      "actionSeq": 452,
+      "subsequentActions": [],
+      "actionSeq": 460,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -163254,7 +163077,7 @@
         451
       ],
       "subsequentActions": [],
-      "actionSeq": 460,
+      "actionSeq": 468,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -163667,13 +163490,8 @@
         450,
         453
       ],
-      "subsequentActions": [
-        "Attacker: Preston, the Vanisher (2/5) unblocked",
-        "Attacker: Inspiring Overseer (2/1) unblocked",
-        "Attacker: Inspiring Overseer (0/1) unblocked",
-        "Attacker: Emiel the Blessed (4/4) unblocked"
-      ],
-      "actionSeq": 462,
+      "subsequentActions": [],
+      "actionSeq": 469,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -164166,7 +163984,7 @@
         455
       ],
       "subsequentActions": [],
-      "actionSeq": 468,
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -164541,12 +164359,8 @@
         454,
         461
       ],
-      "subsequentActions": [
-        "Haiku Villain loses 2 life at combat from Preston, the Vanisher",
-        "Haiku Villain loses 2 life at combat from Inspiring Overseer",
-        "Haiku Villain loses 4 life at combat from Emiel the Blessed"
-      ],
-      "actionSeq": 469,
+      "subsequentActions": [],
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -165064,7 +164878,7 @@
         457
       ],
       "subsequentActions": [],
-      "actionSeq": 474,
+      "actionSeq": 476,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -165543,10 +165357,8 @@
         458,
         459
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 476,
+      "subsequentActions": [],
+      "actionSeq": 479,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -166023,7 +165835,7 @@
         465
       ],
       "subsequentActions": [],
-      "actionSeq": 479,
+      "actionSeq": 483,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -166417,11 +166229,8 @@
         464,
         467
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield",
-        "GPT54 Sport casts Ronom Unicorn from hand"
-      ],
-      "actionSeq": 475,
+      "subsequentActions": [],
+      "actionSeq": 484,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -166864,7 +166673,7 @@
         469
       ],
       "subsequentActions": [],
-      "actionSeq": 483,
+      "actionSeq": 487,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -167249,11 +167058,8 @@
         468,
         473
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Ronom Unicorn from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 484,
+      "subsequentActions": [],
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -167709,7 +167515,7 @@
         471
       ],
       "subsequentActions": [],
-      "actionSeq": 487,
+      "actionSeq": 489,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -168220,7 +168026,7 @@
         485
       ],
       "subsequentActions": [],
-      "actionSeq": 489,
+      "actionSeq": 492,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -169196,10 +169002,8 @@
         478,
         479
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 494,
+      "subsequentActions": [],
+      "actionSeq": 498,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -169675,7 +169479,7 @@
         481
       ],
       "subsequentActions": [],
-      "actionSeq": 498,
+      "actionSeq": 499,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -170079,7 +169883,7 @@
         483
       ],
       "subsequentActions": [],
-      "actionSeq": 499,
+      "actionSeq": 502,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -170483,7 +170287,7 @@
         493
       ],
       "subsequentActions": [],
-      "actionSeq": 502,
+      "actionSeq": 507,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -171003,11 +170807,8 @@
         486,
         487
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Swamp from hand onto the Battlefield",
-        "Haiku Villain casts Demon's Grasp targeting Emiel the Blessed from hand"
-      ],
-      "actionSeq": 492,
+      "subsequentActions": [],
+      "actionSeq": 508,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -171508,7 +171309,7 @@
         489
       ],
       "subsequentActions": [],
-      "actionSeq": 508,
+      "actionSeq": 509,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -171955,7 +171756,7 @@
         491
       ],
       "subsequentActions": [],
-      "actionSeq": 509,
+      "actionSeq": 512,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -172419,7 +172220,7 @@
         499
       ],
       "subsequentActions": [],
-      "actionSeq": 512,
+      "actionSeq": 514,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -172829,10 +172630,8 @@
         496,
         497
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Flicker of Fate targeting Emiel the Blessed from hand"
-      ],
-      "actionSeq": 507,
+      "subsequentActions": [],
+      "actionSeq": 515,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -173243,7 +173042,7 @@
         503
       ],
       "subsequentActions": [],
-      "actionSeq": 515,
+      "actionSeq": 520,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -173711,13 +173510,8 @@
         500,
         501
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Emiel the Blessed from battlefield to the exile zone (source: Flicker of Fate)",
-        "GPT54 Sport puts Emiel the Blessed from exile zone onto the Battlefield (source: Flicker of Fate)",
-        "GPT54 Sport puts Flicker of Fate from stack into their graveyard",
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion."
-      ],
-      "actionSeq": 514,
+      "subsequentActions": [],
+      "actionSeq": 521,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -174179,7 +173973,7 @@
         505
       ],
       "subsequentActions": [],
-      "actionSeq": 521,
+      "actionSeq": 523,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -174579,10 +174373,8 @@
         504,
         509
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Emiel the Blessed token"
-      ],
-      "actionSeq": 520,
+      "subsequentActions": [],
+      "actionSeq": 526,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -175026,11 +174818,8 @@
         506,
         507
       ],
-      "subsequentActions": [
-        "Emiel the Blessed is put into graveyard from battlefield",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 523,
+      "subsequentActions": [],
+      "actionSeq": 527,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -175457,7 +175246,7 @@
         511
       ],
       "subsequentActions": [],
-      "actionSeq": 527,
+      "actionSeq": 528,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -175876,7 +175665,7 @@
         513
       ],
       "subsequentActions": [],
-      "actionSeq": 526,
+      "actionSeq": 531,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -176314,10 +176103,8 @@
         512,
         517
       ],
-      "subsequentActions": [
-        "GPT54 Sport paid for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 528,
+      "subsequentActions": [],
+      "actionSeq": 532,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -176726,11 +176513,8 @@
         514,
         515
       ],
-      "subsequentActions": [
-        "Demon's Grasp has been fizzled.",
-        "Haiku Villain puts Demon's Grasp from stack into their graveyard"
-      ],
-      "actionSeq": 531,
+      "subsequentActions": [],
+      "actionSeq": 535,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -177132,7 +176916,7 @@
         522
       ],
       "subsequentActions": [],
-      "actionSeq": 535,
+      "actionSeq": 540,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -177576,12 +177360,8 @@
         521,
         524
       ],
-      "subsequentActions": [
-        "Demon's Grasp has been fizzled.",
-        "Haiku Villain puts Demon's Grasp from stack into their graveyard",
-        "Haiku Villain casts Takenuma Bleeder from hand"
-      ],
-      "actionSeq": 532,
+      "subsequentActions": [],
+      "actionSeq": 541,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -177994,7 +177774,7 @@
         526
       ],
       "subsequentActions": [],
-      "actionSeq": 540,
+      "actionSeq": 543,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -178451,10 +178231,8 @@
         525,
         530
       ],
-      "subsequentActions": [
-        "Haiku Villain puts Takenuma Bleeder from stack onto the Battlefield"
-      ],
-      "actionSeq": 541,
+      "subsequentActions": [],
+      "actionSeq": 544,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -178884,7 +178662,7 @@
         528
       ],
       "subsequentActions": [],
-      "actionSeq": 543,
+      "actionSeq": 545,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -179294,7 +179072,7 @@
         534
       ],
       "subsequentActions": [],
-      "actionSeq": 545
+      "actionSeq": 549
     },
     {
       "index": 231,
@@ -179773,10 +179551,8 @@
         531,
         532
       ],
-      "subsequentActions": [
-        "Haiku Villain attacks GPT54 Sport with 1 creature"
-      ],
-      "actionSeq": 544,
+      "subsequentActions": [],
+      "actionSeq": 550,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -180250,7 +180026,7 @@
         536
       ],
       "subsequentActions": [],
-      "actionSeq": 550,
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -180669,7 +180445,7 @@
         538
       ],
       "subsequentActions": [],
-      "actionSeq": 549
+      "actionSeq": 554
     },
     {
       "index": 234,
@@ -181123,10 +180899,8 @@
         537,
         540
       ],
-      "subsequentActions": [
-        "Attacker: Renegade Demon (5/3) unblocked"
-      ],
-      "actionSeq": 551,
+      "subsequentActions": [],
+      "actionSeq": 555,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -181523,7 +181297,7 @@
         542
       ],
       "subsequentActions": [],
-      "actionSeq": 554
+      "actionSeq": 558
     },
     {
       "index": 236,
@@ -181954,7 +181728,7 @@
         548
       ],
       "subsequentActions": [],
-      "actionSeq": 558,
+      "actionSeq": 560,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -183178,10 +182952,8 @@
         553,
         558
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Haiku Villain with 4 creatures"
-      ],
-      "actionSeq": 564,
+      "subsequentActions": [],
+      "actionSeq": 572,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -183741,7 +183513,7 @@
         568
       ],
       "subsequentActions": [],
-      "actionSeq": 572,
+      "actionSeq": 580,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -183777,13 +183549,13 @@
         566
       ],
       "subsequentActions": [
-        "Attacker: Preston, the Vanisher (2/5) unblocked",
-        "Attacker: Inspiring Overseer (2/1) unblocked",
-        "Attacker: Ronom Unicorn (4/4) unblocked",
-        "Attacker: Emiel the Blessed (4/4) unblocked",
-        "Haiku Villain loses 2 life at combat from Preston, the Vanisher"
+        "Haiku Villain loses 2 life at combat from Preston, the Vanisher",
+        "Haiku Villain loses 2 life at combat from Inspiring Overseer",
+        "Haiku Villain loses 4 life at combat from Ronom Unicorn",
+        "Haiku Villain loses 4 life at combat from Emiel the Blessed",
+        "Haiku Villain has lost the game."
       ],
-      "actionSeq": 574
+      "actionSeq": 581
     }
   ]
 }

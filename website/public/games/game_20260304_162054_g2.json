@@ -62785,19 +62785,29 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p15",
-        "mana_plan": "p11:U, p12:R"
+        "mana_plan": "p11:0, p12:1"
       },
       "actionResult": {
-        "success": false,
-        "error": "Invalid mana_plan: For input string: \"U\". Expected: [\"p1\",\"p2:0\",\"RED\"]",
-        "error_code": "invalid_mana_plan",
-        "retryable": true,
-        "game_seq": 127
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2,
+        "game_seq": 127,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         100,
         101,
-        102
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108
       ],
       "subsequentActions": [
         "MstMed Folksy casts Voyage's End targeting Keen Glidemaster from hand",
@@ -63226,20 +63236,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p40,p41"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 190
       },
       "llmEventIndices": [
         136,
         137,
-        138
+        138,
+        139,
+        140,
+        141
       ],
-      "subsequentActions": [
-        "MstMed Folksy attacks GPT53C Trash with 2 creatures"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -63875,17 +63891,25 @@
         "attackers": "p40,p41"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p41' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p41'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 275
       },
       "llmEventIndices": [
         184,
         185,
-        186
+        186,
+        187,
+        188,
+        189,
+        190,
+        191
       ],
-      "subsequentActions": [
-        "MstMed Folksy attacks GPT53C Trash with 2 creatures"
-      ],
-      "actionSeq": 269,
+      "subsequentActions": [],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -64440,17 +64464,27 @@
         "attackers": "p40,p41"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p41' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p41'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 326
       },
       "llmEventIndices": [
         222,
         223,
-        224
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231
       ],
-      "subsequentActions": [
-        "MstMed Folksy attacks GPT53C Trash with 2 creatures"
-      ],
-      "actionSeq": 320,
+      "subsequentActions": [],
+      "actionSeq": 326,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -64549,61 +64583,28 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p13",
-        "mana_plan": "+1"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p13 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
-        "game_seq": 338,
-        "choices": [
-          {
-            "mana_cost": "{U}",
-            "name": "Aegis Turtle",
-            "index": 0,
-            "action": "cast",
-            "id": "p67",
-            "power": "0",
-            "toughness": "5"
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Dragon Egg",
-            "index": 1,
-            "action": "cast",
-            "id": "p29",
-            "power": "0",
-            "toughness": "2"
-          },
-          {
-            "name": "Island",
-            "index": 2,
-            "action": "land",
-            "id": "p46"
-          },
-          {
-            "name": "Island",
-            "index": 3,
-            "action": "land",
-            "id": "p74"
-          },
-          {
-            "mana_cost": "{1}{U}{U}",
-            "name": "Waterknot",
-            "index": 4,
-            "action": "cast",
-            "id": "p16"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 338
       },
       "llmEventIndices": [
         236,
         237,
-        238
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        245,
+        246,
+        247,
+        249
       ],
       "subsequentActions": [
         "GPT53C Trash - Ability triggers: Teferi's Tutelage - Whenever you draw a card, target opponent mills two cards. - targeting MstMed Folksy"
@@ -64915,17 +64916,28 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": null,
+      "chosen": 4,
       "chosenArgs": {
-        "choice": "p13:0"
+        "choice": "p13",
+        "mana_plan": "p11:0, p12:1, p13:1, p15:1, p46:0"
       },
       "actionResult": {
-        "error": "Unknown short ID: p13:0"
+        "success": true,
+        "action_taken": "selected_4",
+        "mana_plan_set": true,
+        "mana_plan_size": 5,
+        "game_seq": 360,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play spells and abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         261,
         262,
-        263
+        263,
+        265,
+        266
       ],
       "subsequentActions": [],
       "actionSeq": 360,
@@ -64985,17 +64997,36 @@
         "attackers": "p40,p41"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p41' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p41'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 371,
+        "choices": [
+          {
+            "mana_cost": "{5}{U}{U}",
+            "name": "Waker of Waves",
+            "index": 0,
+            "action": "cast",
+            "id": "p79",
+            "power": "7",
+            "toughness": "7"
+          }
+        ]
       },
       "llmEventIndices": [
         268,
         269,
-        270
+        270,
+        271,
+        272,
+        273,
+        274,
+        275
       ],
-      "subsequentActions": [
-        "MstMed Folksy attacks GPT53C Trash with 2 creatures"
-      ],
-      "actionSeq": 365,
+      "subsequentActions": [],
+      "actionSeq": 371,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"

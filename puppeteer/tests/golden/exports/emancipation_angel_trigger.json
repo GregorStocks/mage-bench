@@ -645,7 +645,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 15,
+      "actionSeq": 18,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -681,9 +681,7 @@
       "responseType": "select",
       "snapshotIndex": 6,
       "step": "POSTCOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield"
-      ],
+      "subsequentActions": [],
       "turn": 1
     },
     {
@@ -779,7 +777,7 @@
         "success": true,
         "untapped_lands": 1
       },
-      "actionSeq": 18,
+      "actionSeq": 19,
       "actionType": "GAME_CHOOSE_ABILITY",
       "choiceCount": 1,
       "choices": [

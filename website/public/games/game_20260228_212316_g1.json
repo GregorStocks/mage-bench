@@ -58304,7 +58304,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16,p24"
+        "attackers": [
+          "p16",
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -58603,7 +58606,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -58820,31 +58825,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p16:p17,p24:p12"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 308,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{R}",
-            "name": "Rush of Adrenaline",
-            "index": 0,
-            "action": "cast",
-            "id": "p41"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         240,
         241,
-        242
+        242,
+        243,
+        244
       ],
       "subsequentActions": [
         "Qwen3 Sarge loses 3 life at combat from Takenuma Bleeder",
@@ -59030,7 +59029,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16,p24"
+        "attackers": [
+          "p16",
+          "p24"
+        ]
       },
       "actionResult": {
         "declared": [

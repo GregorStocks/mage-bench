@@ -56096,15 +56096,23 @@
       "choiceCount": 0,
       "isForced": true,
       "chosen": null,
-      "chosenArgs": {},
+      "chosenArgs": {
+        "amounts": [
+          1,
+          1,
+          2
+        ]
+      },
       "actionResult": {
-        "success": false,
-        "error": "Array 'amounts' required for GAME_GET_MULTI_AMOUNT"
+        "success": true,
+        "action_taken": "multi_amount"
       },
       "llmEventIndices": [
         1413,
         1415,
-        1416
+        1416,
+        1418,
+        1419
       ],
       "subsequentActions": [
         "has started watching",

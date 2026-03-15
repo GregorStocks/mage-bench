@@ -15068,7 +15068,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -15633,7 +15635,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -15686,15 +15690,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p4', 'blocks': 'p9'}"
+        "blockers": "[{\"id\": \"p4\", \"blocks\": \"p9\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "id": "p4",
+            "blocks": "p9"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         166,
         167,
-        168
+        168,
+        170,
+        171,
+        173,
+        174,
+        176,
+        177
       ],
       "subsequentActions": [
         "has started watching",
@@ -16089,7 +16108,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -16408,7 +16429,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -16887,7 +16910,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

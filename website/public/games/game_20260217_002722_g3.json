@@ -66807,7 +66807,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p3,p7"
+        "mana_plan": [
+          "p3",
+          "p7"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -67745,7 +67748,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3"
+        "attackers": [
+          "p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -68409,30 +68414,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {W}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         295,
         296,
-        297
+        297,
+        298,
+        299
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -68620,7 +68618,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p8,p19"
+        "attackers": [
+          "p8",
+          "p19"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -69104,7 +69105,12 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": "p6,p7:1,p12:0,p3:0"
+        "mana_plan": [
+          "p6",
+          "p7:1",
+          "p12:0",
+          "p3:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -69275,30 +69281,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {W}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         404,
         405,
-        406
+        406,
+        407,
+        408,
+        409,
+        410
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -69673,7 +69674,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -71395,7 +71398,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -73695,7 +73700,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

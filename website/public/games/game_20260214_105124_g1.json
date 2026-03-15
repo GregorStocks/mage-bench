@@ -39263,20 +39263,22 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p18,p29"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         154,
         156,
-        157
+        157,
+        159,
+        160
       ],
       "subsequentActions": [
         "has started watching",
@@ -39490,20 +39492,25 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 3,
+      "chosen": 1,
       "chosenArgs": {
-        "amount": 3
+        "amount": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "amount_1"
       },
       "llmEventIndices": [
         212,
         214,
-        215
+        215,
+        217,
+        220,
+        226,
+        229,
+        230
       ],
       "subsequentActions": [
         "has started watching",
@@ -39987,7 +39994,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -41149,7 +41158,8 @@
       "llmEventIndices": [
         527,
         529,
-        530
+        530,
+        532
       ],
       "subsequentActions": [
         "has started watching",
@@ -42993,7 +43003,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p36"
+        "attackers": [
+          "p36"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -44690,27 +44702,15 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p38",
-        "mana_plan": "[{\"tap\":\"p3\"},{\"tap\":\"p20\"}]"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p38 not found in current choices",
-        "choices": [
-          {
-            "name": "Seasoned Pyromancer",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{3}{R}{R}, Exile this card from your graveyard: C..."
-            ],
-            "id": "p12"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1155,
@@ -44732,7 +44732,9 @@
         1193,
         1195,
         1198,
-        1199
+        1199,
+        1201,
+        1208
       ],
       "subsequentActions": [
         "has started watching",
@@ -44917,15 +44919,15 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1272,
@@ -44933,7 +44935,9 @@
         1280,
         1283,
         1285,
-        1286
+        1286,
+        1288,
+        1298
       ],
       "subsequentActions": [
         "has started watching",
@@ -47188,7 +47192,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

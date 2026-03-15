@@ -44877,16 +44877,65 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "id": "p8",
-        "mana_plan": "[{\"tap\":\"p3\"}, {\"id\":\"p7\", \"action\":\"exile\"}]"
+        "id": "p8"
       },
       "actionResult": {
-        "error": "Unknown mana_plan entry type: id (expected 'tap' or 'pool')"
+        "retryable": true,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p8 not found in current choices",
+        "choices": [
+          {
+            "mana_value": 3,
+            "mana_cost": "{2}{R}",
+            "name": "Simian Spirit Guide",
+            "index": 0,
+            "action": "cast",
+            "id": "p7",
+            "power": "2",
+            "toughness": "2"
+          },
+          {
+            "mana_value": 5,
+            "mana_cost": "{3}{R}{R}",
+            "name": "Fury",
+            "index": 1,
+            "action": "cast",
+            "id": "p2",
+            "power": "3",
+            "toughness": "3"
+          },
+          {
+            "name": "Mountain",
+            "index": 2,
+            "action": "land",
+            "id": "p4"
+          },
+          {
+            "mana_value": 0,
+            "mana_cost": "{X}{X}",
+            "name": "Chalice of the Void",
+            "index": 3,
+            "action": "cast",
+            "id": "p5"
+          },
+          {
+            "mana_value": 0,
+            "mana_cost": "{X}{X}",
+            "name": "Chalice of the Void",
+            "index": 4,
+            "action": "cast",
+            "id": "p6"
+          }
+        ]
       },
       "llmEventIndices": [
         91,
         96,
-        97
+        97,
+        105,
+        106,
+        108
       ],
       "subsequentActions": [
         "has started watching",
@@ -45435,7 +45484,8 @@
       "llmEventIndices": [
         180,
         183,
-        184
+        184,
+        186
       ],
       "subsequentActions": [
         "has started watching",
@@ -45744,17 +45794,66 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\": \"p3\"}, {\"id\": \"p7\", \"action\": \"exile\", \"type\": \"mana\"}]",
         "id": "p13"
       },
       "actionResult": {
-        "error": "Unknown mana_plan entry type: id (expected 'tap' or 'pool')"
+        "retryable": true,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p13 not found in current choices",
+        "choices": [
+          {
+            "mana_value": 3,
+            "mana_cost": "{2}{R}",
+            "name": "Simian Spirit Guide",
+            "index": 0,
+            "action": "cast",
+            "id": "p7",
+            "power": "2",
+            "toughness": "2"
+          },
+          {
+            "mana_value": 5,
+            "mana_cost": "{3}{R}{R}",
+            "name": "Fury",
+            "index": 1,
+            "action": "cast",
+            "id": "p2",
+            "power": "3",
+            "toughness": "3"
+          },
+          {
+            "name": "Mountain",
+            "index": 2,
+            "action": "land",
+            "id": "p4"
+          },
+          {
+            "mana_value": 3,
+            "mana_cost": "{2}{R}",
+            "name": "Blood Moon",
+            "index": 3,
+            "action": "cast",
+            "id": "p8"
+          },
+          {
+            "mana_value": 0,
+            "mana_cost": "{X}{X}",
+            "name": "Chalice of the Void",
+            "index": 4,
+            "action": "cast",
+            "id": "p6"
+          }
+        ]
       },
       "llmEventIndices": [
         229,
         233,
         238,
-        239
+        239,
+        244,
+        245,
+        248
       ],
       "subsequentActions": [
         "has started watching",
@@ -47153,40 +47252,26 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p9"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p9 not found in current choices",
-        "choices": [
-          {
-            "mana_value": 5,
-            "mana_cost": "{3}{R}{R}",
-            "name": "Fury",
-            "index": 0,
-            "action": "cast",
-            "id": "p2",
-            "power": "3",
-            "toughness": "3"
-          },
-          {
-            "mana_value": 0,
-            "mana_cost": "{X}{X}",
-            "name": "Chalice of the Void",
-            "index": 1,
-            "action": "cast",
-            "id": "p6"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         417,
         422,
-        423
+        423,
+        425,
+        427,
+        430,
+        431,
+        433,
+        435,
+        438,
+        439
       ],
       "subsequentActions": [
         "has started watching",
@@ -47974,7 +48059,11 @@
       "llmEventIndices": [
         561,
         563,
-        564
+        564,
+        566,
+        568,
+        571,
+        577
       ],
       "subsequentActions": [
         "has started watching",
@@ -50811,16 +50900,19 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "id": "p1"
+        "index": 0
       },
       "actionResult": {
-        "error": "Unknown short ID: p1"
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         999,
         1002,
         1005,
-        1006
+        1006,
+        1008,
+        1009
       ],
       "subsequentActions": [
         "has started watching",
@@ -53162,16 +53254,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "id": "p1"
+        "index": 0
       },
       "actionResult": {
-        "error": "Unknown short ID: p1"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         1287,
         1289,
         1292,
-        1293
+        1293,
+        1295,
+        1296
       ],
       "subsequentActions": [
         "has started watching",
@@ -53784,7 +53881,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55587,7 +55686,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p15"
+        "attackers": [
+          "p15"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -57171,7 +57272,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p25"
+        "attackers": [
+          "p25"
+        ]
       },
       "actionResult": {
         "declared": [

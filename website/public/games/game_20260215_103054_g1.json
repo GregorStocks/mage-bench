@@ -47618,7 +47618,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47984,7 +47986,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49019,7 +49023,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9,p11"
+        "attackers": [
+          "p9",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49703,17 +49710,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "blockers": "{'id': 'p9', 'blocks': 'p25'}"
+        "index": 0
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         471,
         473,
-        474
+        474,
+        476,
+        477
       ],
       "subsequentActions": [
         "DSV3 Libby chooses that they take the first turn",
@@ -50432,7 +50444,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -50785,20 +50799,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p11"
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         611,
         615,
-        616
+        616,
+        618,
+        619
       ],
       "subsequentActions": [
         "DSV3 Libby chooses that they take the first turn",
@@ -50966,7 +50982,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -52188,7 +52206,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -53358,7 +53378,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p23,p32"
+        "attackers": [
+          "p23",
+          "p32"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -54112,7 +54135,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p9,p32"
+        "attackers": [
+          "p11",
+          "p9",
+          "p32"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -54423,7 +54450,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -54676,7 +54705,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55382,7 +55413,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -55532,7 +55565,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -56214,7 +56249,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

@@ -333913,7 +333913,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
         "pile": 2
       },
@@ -346800,11 +346800,13 @@
       ],
       "choiceCount": 13,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": 3,
+      "chosenArgs": {
+        "index": 3
+      },
       "actionResult": {
         "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
+        "error": "Index 3 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -346863,7 +346865,10 @@
       "llmEventIndices": [
         5259,
         5266,
-        5267
+        5267,
+        5269,
+        5270,
+        5274
       ],
       "subsequentActions": [
         "has started watching",
@@ -358087,7 +358092,11 @@
       "llmEventIndices": [
         7335,
         7337,
-        7338
+        7338,
+        7340,
+        7343,
+        7346,
+        7349
       ],
       "subsequentActions": [
         "has started watching",
@@ -361083,24 +361092,20 @@
       ],
       "choiceCount": 1,
       "isForced": true,
-      "chosen": true,
+      "chosen": false,
       "chosenArgs": {
-        "answer": true
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Gravedigger"
-          }
-        ]
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         7906,
         7908,
-        7909
+        7909,
+        7911,
+        7912
       ],
       "subsequentActions": [
         "has started watching",
@@ -364133,11 +364138,13 @@
       ],
       "choiceCount": 13,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": 11,
+      "chosenArgs": {
+        "index": 11
+      },
       "actionResult": {
         "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
+        "error": "Index 11 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -364203,7 +364210,10 @@
         8679,
         8690,
         8726,
-        8727
+        8727,
+        8735,
+        8736,
+        8744
       ],
       "subsequentActions": [
         "has started watching",
