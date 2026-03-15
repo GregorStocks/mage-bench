@@ -90041,42 +90041,24 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "id": "p14"
+        "id": "p12"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 38,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p14 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}",
-            "name": "Adventuring Gear",
-            "index": 0,
-            "action": "cast",
-            "id": "p31"
-          },
-          {
-            "name": "Mountain",
-            "index": 1,
-            "action": "land",
-            "id": "p12"
-          },
-          {
-            "name": "Mountain",
-            "index": 2,
-            "action": "land",
-            "id": "p13"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         45,
         46,
-        47
+        47,
+        48,
+        49
       ],
       "subsequentActions": [
         "Kimi25 Philo puts Mountain from hand onto the Battlefield"
@@ -90130,7 +90112,10 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p11",
-        "mana_plan": "p10,p22"
+        "mana_plan": [
+          "p10",
+          "p22"
+        ]
       },
       "actionResult": {
         "game_seq": 42,
@@ -90759,7 +90744,11 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p19,p21,p22",
+        "mana_plan": [
+          "p19",
+          "p21",
+          "p22"
+        ],
         "id": "p35"
       },
       "actionResult": {
@@ -90947,7 +90936,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p15",
-        "mana_plan": "p22,p20"
+        "mana_plan": [
+          "p22",
+          "p20"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -91358,7 +91350,11 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p41",
-        "mana_plan": "p19,p21,p22"
+        "mana_plan": [
+          "p19",
+          "p21",
+          "p22"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -91547,7 +91543,11 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p19,p21,p22",
+        "mana_plan": [
+          "p19",
+          "p21",
+          "p22"
+        ],
         "id": "p41"
       },
       "actionResult": {
@@ -91754,7 +91754,10 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p19,p22",
+        "mana_plan": [
+          "p19",
+          "p22"
+        ],
         "id": "p3"
       },
       "actionResult": {
@@ -91805,27 +91808,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 168,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Thrill of Possibility",
-            "index": 0,
-            "action": "cast",
-            "id": "p15"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         181,
-        182
+        182,
+        185,
+        186,
+        187
       ],
       "subsequentActions": [
         "Kimi25 Philo skip attack"
@@ -92043,7 +92043,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -92541,7 +92543,12 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": "p19,p39,p22,p23",
+        "mana_plan": [
+          "p19",
+          "p39",
+          "p22",
+          "p23"
+        ],
         "id": "p30"
       },
       "actionResult": {
@@ -92606,7 +92613,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -92714,7 +92723,7 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "id": "p30",
         "index": 0
@@ -93041,7 +93050,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p47",
-        "mana_plan": "p10,p40"
+        "mana_plan": [
+          "p10",
+          "p40"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -93222,7 +93234,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -93754,7 +93768,14 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p14",
-        "mana_plan": "p10,p40,p54,p13,p12,p34"
+        "mana_plan": [
+          "p10",
+          "p40",
+          "p54",
+          "p13",
+          "p12",
+          "p34"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -93801,19 +93822,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 319,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         345,
         346,
-        347
+        347,
+        348
       ],
       "subsequentActions": [],
       "actionSeq": 319,
@@ -93891,7 +93916,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p47"
+        "attackers": [
+          "p47"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94181,7 +94208,12 @@
       "isForced": false,
       "chosen": 4,
       "chosenArgs": {
-        "mana_plan": "p20,p21,p22,p23",
+        "mana_plan": [
+          "p20",
+          "p21",
+          "p22",
+          "p23"
+        ],
         "id": "p46"
       },
       "actionResult": {
@@ -94307,7 +94339,11 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p22,p24,p25",
+        "mana_plan": [
+          "p22",
+          "p24",
+          "p25"
+        ],
         "id": "p60"
       },
       "actionResult": {
@@ -94436,7 +94472,11 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p60",
-        "mana_plan": "p22,p24,p25"
+        "mana_plan": [
+          "p22",
+          "p24",
+          "p25"
+        ]
       },
       "actionResult": {
         "game_seq": 366,
@@ -94652,33 +94692,22 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "id": "p65"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 377,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p65 not found in current choices",
-        "choices": [
-          {
-            "name": "Ability",
-            "target_type": "card",
-            "index": 0,
-            "id": "p65"
-          },
-          {
-            "name": "Ability",
-            "target_type": "card",
-            "index": 1,
-            "id": "p66"
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         413,
         414,
-        415
+        415,
+        416,
+        417
       ],
       "subsequentActions": [
         "Kimi25 Philo - Ability triggers: Snapping Gnarlid - Landfall — Whenever a land you control enters, Snapping Gnarlid gets +1/+1 until end of turn.",
@@ -94820,7 +94849,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p47,p14"
+        "attackers": [
+          "p47",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -94927,7 +94959,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -95074,15 +95108,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p41', 'blocks': 'p14'}"
+        "blockers": [
+          "p41:p14"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p41\",\"blocks\":\"p14\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "blocks": "p14",
+            "id": "p41"
+          }
+        ],
+        "game_seq": 399,
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         451,
         452,
-        453
+        453,
+        454,
+        456
       ],
       "subsequentActions": [
         "Attacker: Snapping Gnarlid (3/3) unblocked",
@@ -95180,20 +95226,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": false,
+      "chosen": null,
       "chosenArgs": {
-        "answer": false
+        "amounts": [
+          3,
+          2
+        ]
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_MULTI_AMOUNT",
         "game_seq": 409,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Array 'amounts' required for GAME_GET_MULTI_AMOUNT"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "multi_amount"
       },
       "llmEventIndices": [
         462,
-        463
+        463,
+        467,
+        468
       ],
       "subsequentActions": [],
       "actionSeq": 409,
@@ -95313,7 +95365,12 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p46",
-        "mana_plan": "p20,p21,p22,p23"
+        "mana_plan": [
+          "p20",
+          "p21",
+          "p22",
+          "p23"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -95522,27 +95579,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 1
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 433,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. Remove three quest counters from Khalni Heart Expedition and sacrifice it: Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         494,
         495,
-        496
+        496,
+        497,
+        498
       ],
       "subsequentActions": [
         "Kimi25 Philo sacrificed Khalni Heart Expedition (source: Khalni Heart Expedition)",
@@ -95957,57 +96011,28 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "id": "p46",
-        "mana_plan": "p20,p21,p22,p24"
+        "mana_plan": [
+          "p22",
+          "p24",
+          "p25"
+        ],
+        "id": "p60"
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 461,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p46 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{G}",
-            "name": "Brushstrider",
-            "index": 0,
-            "action": "cast",
-            "id": "p3",
-            "power": "3",
-            "toughness": "1"
-          },
-          {
-            "mana_cost": "{2}{U}",
-            "name": "Crashing Tide",
-            "index": 1,
-            "action": "cast",
-            "id": "p18"
-          },
-          {
-            "name": "Garruk, Unleashed",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "+1: Up to one target creature gets +3/+3 and gain...",
-              "-2: Create a 3/3 green Beast creature token. Then..."
-            ],
-            "id": "p30"
-          },
-          {
-            "mana_cost": "{3}",
-            "name": "Heirloom Blade",
-            "index": 3,
-            "action": "cast",
-            "id": "p60"
-          }
-        ]
+        "success": true,
+        "action_taken": "selected_3",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
       },
       "llmEventIndices": [
         526,
         527,
-        528
+        528,
+        530,
+        532
       ],
       "subsequentActions": [
         "Gem25F Lucky skip attack"
@@ -96351,7 +96376,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

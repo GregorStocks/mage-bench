@@ -685,7 +685,7 @@
         ],
         "success": true
       },
-      "actionSeq": 26,
+      "actionSeq": 30,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -723,9 +723,7 @@
       "responseType": "select",
       "snapshotIndex": 13,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [
-        "TestPlayer puts Plains from hand onto the Battlefield"
-      ],
+      "subsequentActions": [],
       "turn": 2
     },
     {
@@ -1098,7 +1096,7 @@
         "response_type": "boolean",
         "success": true
       },
-      "actionSeq": 56,
+      "actionSeq": 57,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],

@@ -600,6 +600,92 @@ def _is_v1_decision_source(event: dict) -> bool:
     return action_pending
 
 
+def _is_failed_choose_action_result(result: dict) -> bool:
+    """Return True when choose_action did not resolve the pending action."""
+    success = result.get("success")
+    if success is False:
+        return True
+    return "error" in result or "error_code" in result
+
+
+def _has_followup_choose_action(
+    llm_events: list[dict], event_idx: int, player: str, is_v2: bool
+) -> bool:
+    """Return True if the source is followed by another choose_action response."""
+    for j in range(event_idx + 1, len(llm_events)):
+        ev = llm_events[j]
+        if ev.get("player") != player:
+            continue
+        if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+            return True
+        if is_v2 and _is_decision_source(ev):
+            return False
+        if not is_v2 and _is_v1_decision_source(ev):
+            return False
+    return False
+
+
+def _follows_failed_choose_action_retry(
+    llm_events: list[dict],
+    decision_sources: list[tuple[int, dict]],
+    source_idx: int,
+    is_v2: bool,
+) -> bool:
+    """Return True when a choose_action source only exists after a failed retry."""
+    event_idx, source_event = decision_sources[source_idx]
+    if source_event.get("tool") != "choose_action":
+        return False
+
+    player = source_event.get("player", "")
+    scan_start = 0
+    for prev_idx in range(source_idx - 1, -1, -1):
+        prev_event_idx, prev_source = decision_sources[prev_idx]
+        if prev_source.get("player") == player:
+            scan_start = prev_event_idx + 1
+            break
+
+    for j in range(scan_start, event_idx):
+        ev = llm_events[j]
+        if ev.get("player") != player:
+            continue
+        if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+            if _is_failed_choose_action_result(_parse_json(ev.get("result", ""))):
+                return True
+        if is_v2 and _is_decision_source(ev):
+            break
+        if not is_v2 and _is_v1_decision_source(ev):
+            break
+    return False
+
+
+def _collect_decision_sources(
+    llm_events: list[dict], harness_epoch: int
+) -> list[tuple[int, dict]]:
+    """Collect decision sources, dropping synthetic blanks after failed retries."""
+    is_v2 = harness_epoch >= 20
+    candidate_sources: list[tuple[int, dict]] = []
+    for i, event in enumerate(llm_events):
+        if is_v2:
+            if _is_decision_source(event):
+                candidate_sources.append((i, event))
+        else:
+            if _is_v1_decision_source(event):
+                candidate_sources.append((i, event))
+
+    decision_sources: list[tuple[int, dict]] = []
+    for source_idx, (event_idx, source_event) in enumerate(candidate_sources):
+        if source_event.get("tool") != "choose_action":
+            decision_sources.append((event_idx, source_event))
+            continue
+        player = source_event.get("player", "")
+        if _follows_failed_choose_action_retry(
+            llm_events, candidate_sources, source_idx, is_v2
+        ) and not _has_followup_choose_action(llm_events, event_idx, player, is_v2):
+            continue
+        decision_sources.append((event_idx, source_event))
+    return decision_sources
+
+
 def _resolve_chosen_index(
     chosen_args: dict, available_choices: list, action_result: dict
 ) -> object | None:
@@ -813,15 +899,7 @@ def _build_decisions(
     """
     is_v2 = harness_epoch >= 20
 
-    # Collect decision source events with their indices
-    decision_sources: list[tuple[int, dict]] = []
-    for i, event in enumerate(llm_events):
-        if is_v2:
-            if _is_decision_source(event):
-                decision_sources.append((i, event))
-        else:
-            if _is_v1_decision_source(event):
-                decision_sources.append((i, event))
+    decision_sources = _collect_decision_sources(llm_events, harness_epoch)
 
     decisions: list[dict] = []
 
@@ -839,6 +917,7 @@ def _build_decisions(
         chosen_index = None
         chosen_args: dict = {}
         action_result: dict = {}
+        action_seq = source_event.get("gameSeq") or 0
 
         for j in range(event_idx + 1, len(llm_events)):
             ev = llm_events[j]
@@ -855,6 +934,11 @@ def _build_decisions(
                 chosen_index = _resolve_chosen_index(
                     chosen_args, available_choices, action_result
                 )
+                game_seq_raw = ev.get("gameSeq", action_seq)
+                if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
+                    action_seq = game_seq_raw
+                if _is_failed_choose_action_result(action_result):
+                    continue
                 break
 
             # Stop at next decision source for this player
@@ -880,14 +964,6 @@ def _build_decisions(
         snap_idx_val = snap_idx if snap_idx is not None else 0
 
         # Collect subsequent game actions
-        action_seq = choices_seq
-        # Find the gameSeq of the choose_action event if present
-        for j in llm_event_indices:
-            ev = llm_events[j]
-            if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
-                action_seq = ev.get("gameSeq", choices_seq)
-                break
-
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
             next_choices_seq = decision_sources[ds_idx + 1][1].get("gameSeq", 0)

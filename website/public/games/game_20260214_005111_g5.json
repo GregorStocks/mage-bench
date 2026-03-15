@@ -49654,7 +49654,8 @@
       "llmEventIndices": [
         220,
         222,
-        223
+        223,
+        225
       ],
       "subsequentActions": [
         "has started watching",
@@ -49940,7 +49941,8 @@
       "llmEventIndices": [
         269,
         271,
-        272
+        272,
+        277
       ],
       "subsequentActions": [
         "has started watching",
@@ -53864,7 +53866,16 @@
       "llmEventIndices": [
         903,
         905,
-        906
+        906,
+        908,
+        911,
+        913,
+        915,
+        917,
+        919,
+        921,
+        926,
+        929
       ],
       "subsequentActions": [
         "has started watching",
@@ -58387,7 +58398,8 @@
       "llmEventIndices": [
         1587,
         1589,
-        1590
+        1590,
+        1592
       ],
       "subsequentActions": [
         "has started watching",
@@ -60318,7 +60330,9 @@
         1899,
         1901,
         1904,
-        1905
+        1905,
+        1907,
+        1909
       ],
       "subsequentActions": [
         "has started watching",
@@ -63852,15 +63866,15 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 0,
       "chosenArgs": {
-        "index": 2
+        "index": 0
       },
       "actionResult": {
         "retryable": true,
         "success": false,
         "error_code": "index_out_of_range",
-        "error": "Index 2 out of range (call get_action_choices first)",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "name": "Psychic Frog",
@@ -63876,7 +63890,10 @@
         2451,
         2453,
         2455,
-        2456
+        2456,
+        2458,
+        2459,
+        2461
       ],
       "subsequentActions": [
         "has started watching",

@@ -14,7 +14,8 @@ from schemas.migrations import (
     v5_to_v6,
     v6_to_v7,
 )
-from scripts.export_game import _collect_card_names, _trim_card
+from scripts.backfill_decisions import backfill_game
+from scripts.export_game import _build_decisions, _collect_card_names, _trim_card
 from scripts.migrate_exports import find_migration_path
 
 
@@ -416,6 +417,240 @@ class TestExportGameHelpers:
         assert "Shock" in real_cards
         assert "Goblin Token" in tokens
         assert "Goblin Token" not in real_cards
+
+    def test_build_decisions_keeps_successful_retry_and_skips_blank_follow_up(self) -> None:
+        snapshots = [
+            {
+                "seq": 10,
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "players": [],
+                "stack": [],
+            },
+            {
+                "seq": 11,
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "players": [],
+                "stack": [],
+            },
+            {
+                "seq": 12,
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "players": [],
+                "stack": [],
+            },
+        ]
+        llm_events = [
+            {
+                "type": "tool_call",
+                "tool": "pass_priority",
+                "player": "Alice",
+                "ts": "T01",
+                "gameSeq": 10,
+                "args": {},
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "response_type": "index",
+                        "message": "Choose replacement effect",
+                        "choices": [{"index": 0, "description": "Pick effect"}],
+                    }
+                ),
+            },
+            {
+                "type": "llm_response",
+                "player": "Alice",
+                "ts": "T02",
+                "reasoning": "pick the effect",
+            },
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T03",
+                "gameSeq": 11,
+                "args": {"choice": "0"},
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_CHOOSE_CHOICE",
+                        "response_type": "index",
+                        "message": "Choose color",
+                        "choices": [
+                            {"index": 0, "description": "Blue"},
+                            {"index": 1, "description": "Black"},
+                        ],
+                        "success": True,
+                        "action_taken": "selected_0",
+                    }
+                ),
+            },
+            {
+                "type": "llm_response",
+                "player": "Alice",
+                "ts": "T04",
+                "reasoning": "black",
+            },
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T05",
+                "gameSeq": 11,
+                "args": {"choice": "Black"},
+                "result": json.dumps({"error": "Unknown short ID: Black"}),
+            },
+            {
+                "type": "llm_response",
+                "player": "Alice",
+                "ts": "T06",
+                "reasoning": "use text",
+            },
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T07",
+                "gameSeq": 12,
+                "args": {"text": "Black"},
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "response_type": "boolean",
+                        "message": "Play spells and abilities",
+                        "choices": [],
+                        "success": True,
+                        "action_taken": "selected_choice_text_Black",
+                    }
+                ),
+            },
+        ]
+
+        decisions = _build_decisions(snapshots, [], llm_events, harness_epoch=40)
+
+        assert len(decisions) == 2
+        assert decisions[1]["message"] == "Choose color"
+        assert decisions[1]["chosenArgs"] == {"text": "Black"}
+        assert decisions[1]["actionResult"]["action_taken"] == "selected_choice_text_Black"
+        assert decisions[1]["actionSeq"] == 12
+        assert decisions[1]["llmEventIndices"] == [2, 3, 4, 5, 6]
+
+    def test_backfill_game_force_rebuilds_existing_decisions(self, tmp_path) -> None:
+        path = tmp_path / "game_retry.json"
+        payload = _make_v6_export()
+        payload["snapshots"] = [
+            {
+                "seq": 10,
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "active_player": "Alice",
+                "priority_player": "Alice",
+                "players": [],
+                "stack": [],
+            },
+            {
+                "seq": 11,
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "active_player": "Alice",
+                "priority_player": "Alice",
+                "players": [],
+                "stack": [],
+            },
+        ]
+        payload["actions"] = []
+        payload["llmEvents"] = [
+            {
+                "type": "tool_call",
+                "tool": "pass_priority",
+                "player": "Alice",
+                "ts": "T01",
+                "gameSeq": 10,
+                "args": {},
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_CHOOSE_CHOICE",
+                        "response_type": "index",
+                        "message": "Choose color",
+                        "choices": [
+                            {"index": 0, "description": "Blue"},
+                            {"index": 1, "description": "Black"},
+                        ],
+                    }
+                ),
+            },
+            {
+                "type": "llm_response",
+                "player": "Alice",
+                "ts": "T02",
+                "reasoning": "black",
+            },
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T03",
+                "gameSeq": 10,
+                "args": {"choice": "Black"},
+                "result": json.dumps({"error": "Unknown short ID: Black"}),
+            },
+            {
+                "type": "llm_response",
+                "player": "Alice",
+                "ts": "T04",
+                "reasoning": "use text",
+            },
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T05",
+                "gameSeq": 11,
+                "args": {"text": "Black"},
+                "result": json.dumps({"success": True, "action_taken": "selected_choice_text_Black"}),
+            },
+        ]
+        payload["decisions"] = [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "GAME_CHOOSE_CHOICE",
+                "responseType": "index",
+                "message": "Choose color",
+                "choices": [],
+                "choiceCount": 0,
+                "isForced": True,
+                "chosenArgs": {"choice": "Black"},
+                "actionResult": {"error": "Unknown short ID: Black"},
+                "llmEventIndices": [0, 1, 2],
+                "subsequentActions": [],
+            }
+        ]
+        path.write_text(json.dumps(payload))
+
+        status, count = backfill_game(path, force=True)
+
+        assert status == "updated"
+        assert count == 1
+        updated = json.loads(path.read_text())
+        assert updated["decisions"][0]["chosenArgs"] == {"text": "Black"}
+        assert updated["decisions"][0]["actionResult"] == {
+            "success": True,
+            "action_taken": "selected_choice_text_Black",
+        }
 
 
 def _make_v5_export() -> dict:

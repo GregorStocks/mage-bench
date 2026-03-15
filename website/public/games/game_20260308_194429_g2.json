@@ -70867,10 +70867,8 @@
         6,
         11
       ],
-      "subsequentActions": [
-        "GLM47 Humble chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -71200,10 +71198,8 @@
         12,
         13
       ],
-      "subsequentActions": [
-        "GLM47 Humble's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -71340,10 +71336,8 @@
         14,
         15
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -71478,10 +71472,8 @@
         16,
         17
       ],
-      "subsequentActions": [
-        "GLM47 Humble skips Draw step"
-      ],
-      "actionSeq": 12,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71600,7 +71592,7 @@
         23
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71765,10 +71757,8 @@
         24,
         25
       ],
-      "subsequentActions": [
-        "GLM47 Humble skip attack"
-      ],
-      "actionSeq": 18,
+      "subsequentActions": [],
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71895,7 +71885,7 @@
         35
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72261,7 +72251,7 @@
         31
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -72436,7 +72426,7 @@
         33
       ],
       "subsequentActions": [],
-      "actionSeq": 27,
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -72593,7 +72583,7 @@
         37
       ],
       "subsequentActions": [],
-      "actionSeq": 28,
+      "actionSeq": 33,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72719,11 +72709,8 @@
         36,
         39
       ],
-      "subsequentActions": [
-        "Thriving Isle: Gem3F Tinker has chosen Green",
-        "Gem3F Tinker puts Thriving Isle from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -72876,7 +72863,7 @@
         41
       ],
       "subsequentActions": [],
-      "actionSeq": 33
+      "actionSeq": 37
     },
     {
       "index": 17,
@@ -72999,10 +72986,8 @@
         40,
         43
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73162,7 +73147,7 @@
         49
       ],
       "subsequentActions": [],
-      "actionSeq": 37,
+      "actionSeq": 39,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73328,7 +73313,7 @@
         45
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73489,7 +73474,7 @@
         47
       ],
       "subsequentActions": [],
-      "actionSeq": 40,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -73631,7 +73616,7 @@
         55
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -73794,10 +73779,8 @@
         56,
         57
       ],
-      "subsequentActions": [
-        "GLM47 Humble skip attack"
-      ],
-      "actionSeq": 45,
+      "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -73940,7 +73923,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 49,
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -74298,7 +74281,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -74441,10 +74424,8 @@
         65,
         68
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74614,7 +74595,7 @@
         70
       ],
       "subsequentActions": [],
-      "actionSeq": 57,
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74756,10 +74737,8 @@
         69,
         72
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 58,
+      "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74941,7 +74920,7 @@
         80
       ],
       "subsequentActions": [],
-      "actionSeq": 61,
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -75120,7 +75099,7 @@
         74
       ],
       "subsequentActions": [],
-      "actionSeq": 62,
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -75316,7 +75295,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -75488,10 +75467,8 @@
         77,
         78
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -75651,7 +75628,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 69,
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -75840,11 +75817,8 @@
         83,
         86
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield",
-        "GLM47 Humble casts Siege Striker from hand"
-      ],
-      "actionSeq": 63,
+      "subsequentActions": [],
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -75998,7 +75972,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 74,
+      "actionSeq": 77,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -76180,10 +76154,8 @@
         89,
         90
       ],
-      "subsequentActions": [
-        "GLM47 Humble skip attack"
-      ],
-      "actionSeq": 77
+      "subsequentActions": [],
+      "actionSeq": 81
     },
     {
       "index": 39,
@@ -76347,7 +76319,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 81,
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -76820,10 +76792,8 @@
         95,
         96
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 85,
+      "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -77032,7 +77002,7 @@
         98
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -77238,7 +77208,7 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 91,
+      "actionSeq": 95,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -77411,11 +77381,8 @@
         101,
         104
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield",
-        "Gem3F Tinker casts Merrow Reejerey from hand"
-      ],
-      "actionSeq": 83
+      "subsequentActions": [],
+      "actionSeq": 96
     },
     {
       "index": 45,
@@ -77613,7 +77580,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 95,
+      "actionSeq": 98,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -77786,10 +77753,8 @@
         105,
         108
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Merrow Reejerey from stack onto the Battlefield"
-      ],
-      "actionSeq": 96
+      "subsequentActions": [],
+      "actionSeq": 99
     },
     {
       "index": 47,
@@ -77988,7 +77953,7 @@
         110
       ],
       "subsequentActions": [],
-      "actionSeq": 98
+      "actionSeq": 102
     },
     {
       "index": 48,
@@ -78158,10 +78123,8 @@
         109,
         112
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 99
+      "subsequentActions": [],
+      "actionSeq": 103
     },
     {
       "index": 49,
@@ -78372,7 +78335,7 @@
         120
       ],
       "subsequentActions": [],
-      "actionSeq": 102,
+      "actionSeq": 104,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78582,7 +78545,7 @@
         114
       ],
       "subsequentActions": [],
-      "actionSeq": 103
+      "actionSeq": 105
     },
     {
       "index": 51,
@@ -78797,7 +78760,7 @@
         116
       ],
       "subsequentActions": [],
-      "actionSeq": 105,
+      "actionSeq": 106,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -78991,10 +78954,8 @@
         117,
         118
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -79183,7 +79144,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 110,
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79404,11 +79365,8 @@
         123,
         126
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield",
-        "GLM47 Humble casts Makeshift Battalion from hand"
-      ],
-      "actionSeq": 104
+      "subsequentActions": [],
+      "actionSeq": 116
     },
     {
       "index": 55,
@@ -79606,7 +79564,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 115,
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79831,7 +79789,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 118,
+      "actionSeq": 120,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -80016,10 +79974,8 @@
         131,
         132
       ],
-      "subsequentActions": [
-        "GLM47 Humble skip attack"
-      ],
-      "actionSeq": 120,
+      "subsequentActions": [],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -80208,7 +80164,7 @@
         143
       ],
       "subsequentActions": [],
-      "actionSeq": 123,
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80715,7 +80671,7 @@
         141
       ],
       "subsequentActions": [],
-      "actionSeq": 127,
+      "actionSeq": 129,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -80947,7 +80903,7 @@
         147
       ],
       "subsequentActions": [],
-      "actionSeq": 129,
+      "actionSeq": 135,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -81144,10 +81100,8 @@
         146,
         153
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Mirror Image from hand"
-      ],
-      "actionSeq": 125,
+      "subsequentActions": [],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81183,7 +81137,7 @@
       "subsequentActions": [
         "Gem3F Tinker puts Merrow Reejerey from stack onto the Battlefield"
       ],
-      "actionSeq": 135,
+      "actionSeq": 137,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -81631,10 +81585,8 @@
         154,
         159
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Merrow Reejerey from stack onto the Battlefield"
-      ],
-      "actionSeq": 136,
+      "subsequentActions": [],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81884,7 +81836,7 @@
         157
       ],
       "subsequentActions": [],
-      "actionSeq": 140,
+      "actionSeq": 142,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -82120,7 +82072,7 @@
         161
       ],
       "subsequentActions": [],
-      "actionSeq": 142
+      "actionSeq": 145
     },
     {
       "index": 69,
@@ -82313,10 +82265,8 @@
         160,
         163
       ],
-      "subsequentActions": [
-        "Gem3F Tinker skip attack"
-      ],
-      "actionSeq": 141,
+      "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -82564,7 +82514,7 @@
         171
       ],
       "subsequentActions": [],
-      "actionSeq": 145,
+      "actionSeq": 147,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -82786,7 +82736,7 @@
         165
       ],
       "subsequentActions": [],
-      "actionSeq": 146,
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -83015,7 +82965,7 @@
         167
       ],
       "subsequentActions": [],
-      "actionSeq": 148,
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -83229,10 +83179,8 @@
         168,
         169
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 149,
+      "subsequentActions": [],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -83441,7 +83389,7 @@
         175
       ],
       "subsequentActions": [],
-      "actionSeq": 153,
+      "actionSeq": 160,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83692,11 +83640,8 @@
         174,
         177
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield",
-        "GLM47 Humble casts Cathars' Crusade from hand"
-      ],
-      "actionSeq": 147
+      "subsequentActions": [],
+      "actionSeq": 161
     },
     {
       "index": 76,
@@ -83922,7 +83867,7 @@
         179
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 163,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -84172,10 +84117,8 @@
         178,
         183
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Cathars' Crusade from stack onto the Battlefield"
-      ],
-      "actionSeq": 161
+      "subsequentActions": [],
+      "actionSeq": 164
     },
     {
       "index": 78,
@@ -84399,7 +84342,7 @@
         181
       ],
       "subsequentActions": [],
-      "actionSeq": 163,
+      "actionSeq": 165,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -84604,7 +84547,7 @@
         185
       ],
       "subsequentActions": [],
-      "actionSeq": 165
+      "actionSeq": 168
     },
     {
       "index": 80,
@@ -84851,10 +84794,8 @@
         184,
         187
       ],
-      "subsequentActions": [
-        "GLM47 Humble skip attack"
-      ],
-      "actionSeq": 164
+      "subsequentActions": [],
+      "actionSeq": 169
     },
     {
       "index": 81,
@@ -85066,7 +85007,7 @@
         199
       ],
       "subsequentActions": [],
-      "actionSeq": 168,
+      "actionSeq": 170,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -85347,7 +85288,7 @@
         189
       ],
       "subsequentActions": [],
-      "actionSeq": 169
+      "actionSeq": 171
     },
     {
       "index": 83,
@@ -85658,7 +85599,7 @@
         193
       ],
       "subsequentActions": [],
-      "actionSeq": 171,
+      "actionSeq": 172,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -85974,7 +85915,7 @@
         195
       ],
       "subsequentActions": [],
-      "actionSeq": 172,
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -86251,7 +86192,7 @@
         197
       ],
       "subsequentActions": [],
-      "actionSeq": 173,
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -86524,7 +86465,7 @@
         201
       ],
       "subsequentActions": [],
-      "actionSeq": 175,
+      "actionSeq": 181,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -86745,10 +86686,8 @@
         200,
         205
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Crashing Tide targeting Siege Striker from hand"
-      ],
-      "actionSeq": 170
+      "subsequentActions": [],
+      "actionSeq": 182
     },
     {
       "index": 88,
@@ -87011,11 +86950,8 @@
         202,
         203
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Siege Striker from battlefield into its owner's hand (source: Crashing Tide)",
-        "Gem3F Tinker puts Crashing Tide from stack into their graveyard"
-      ],
-      "actionSeq": 181,
+      "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -87302,7 +87238,7 @@
         207
       ],
       "subsequentActions": [],
-      "actionSeq": 185,
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -87550,12 +87486,8 @@
         206,
         211
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Siege Striker from battlefield into its owner's hand (source: Crashing Tide)",
-        "Gem3F Tinker puts Crashing Tide from stack into their graveyard",
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 182
+      "subsequentActions": [],
+      "actionSeq": 188
     },
     {
       "index": 91,
@@ -87865,7 +87797,7 @@
         209
       ],
       "subsequentActions": [],
-      "actionSeq": 187,
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -88151,7 +88083,7 @@
         215
       ],
       "subsequentActions": [],
-      "actionSeq": 189,
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88423,10 +88355,8 @@
         212,
         213
       ],
-      "subsequentActions": [
-        "Gem3F Tinker attacks GLM47 Humble with 2 creatures"
-      ],
-      "actionSeq": 188
+      "subsequentActions": [],
+      "actionSeq": 194
     },
     {
       "index": 94,
@@ -88680,7 +88610,7 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 194,
+      "actionSeq": 195,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -88979,7 +88909,7 @@
         219
       ],
       "subsequentActions": [],
-      "actionSeq": 193,
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -89226,11 +89156,8 @@
         218,
         221
       ],
-      "subsequentActions": [
-        "Attacker: Merrow Reejerey (3/3) unblocked",
-        "Attacker: Merrow Reejerey (3/3) unblocked"
-      ],
-      "actionSeq": 195
+      "subsequentActions": [],
+      "actionSeq": 200
     },
     {
       "index": 97,
@@ -89487,7 +89414,7 @@
         223
       ],
       "subsequentActions": [],
-      "actionSeq": 199,
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -89708,11 +89635,8 @@
         222,
         225
       ],
-      "subsequentActions": [
-        "GLM47 Humble loses 3 life at combat from Merrow Reejerey",
-        "GLM47 Humble loses 3 life at combat from Merrow Reejerey"
-      ],
-      "actionSeq": 200
+      "subsequentActions": [],
+      "actionSeq": 205
     },
     {
       "index": 99,
@@ -89981,7 +89905,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 204,
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -90235,7 +90159,7 @@
         227
       ],
       "subsequentActions": [],
-      "actionSeq": 205
+      "actionSeq": 207
     },
     {
       "index": 101,
@@ -90505,7 +90429,7 @@
         231
       ],
       "subsequentActions": [],
-      "actionSeq": 207,
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -90756,10 +90680,8 @@
         232,
         233
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 208,
+      "subsequentActions": [],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -91014,7 +90936,7 @@
         239
       ],
       "subsequentActions": [],
-      "actionSeq": 212,
+      "actionSeq": 220,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -91300,11 +91222,8 @@
         238,
         243
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Plains from hand onto the Battlefield",
-        "GLM47 Humble casts Bulwark Giant from hand"
-      ],
-      "actionSeq": 206,
+      "subsequentActions": [],
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -91558,10 +91477,8 @@
         240,
         241
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Bulwark Giant from stack onto the Battlefield"
-      ],
-      "actionSeq": 220,
+      "subsequentActions": [],
+      "actionSeq": 223,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -91800,7 +91717,7 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 223,
+      "actionSeq": 226,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -92082,12 +91999,8 @@
         244,
         247
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Bulwark Giant from stack onto the Battlefield",
-        "GLM47 Humble - Ability triggers: Cathars' Crusade - Whenever a creature you control enters, put a +1/+1 counter on each creature you control.",
-        "GLM47 Humble - Ability triggers: Bulwark Giant - When Bulwark Giant enters, you gain 5 life."
-      ],
-      "actionSeq": 221,
+      "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -92327,7 +92240,7 @@
         249
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 229,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -92610,10 +92523,8 @@
         248,
         251
       ],
-      "subsequentActions": [
-        "GLM47 Humble gains 5 life (source: Bulwark Giant)"
-      ],
-      "actionSeq": 227,
+      "subsequentActions": [],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -92869,7 +92780,7 @@
         253
       ],
       "subsequentActions": [],
-      "actionSeq": 229,
+      "actionSeq": 233,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -93166,11 +93077,8 @@
         252,
         257
       ],
-      "subsequentActions": [
-        "Cathars' Crusade: GLM47 Humble puts 1 +1/+1 counter on Makeshift Battalion",
-        "Cathars' Crusade: GLM47 Humble puts 1 +1/+1 counter on Bulwark Giant"
-      ],
-      "actionSeq": 230,
+      "subsequentActions": [],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93443,7 +93351,7 @@
         255
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 235,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -93696,7 +93604,7 @@
         259
       ],
       "subsequentActions": [],
-      "actionSeq": 235
+      "actionSeq": 239
     },
     {
       "index": 114,
@@ -93990,10 +93898,8 @@
         258,
         261
       ],
-      "subsequentActions": [
-        "GLM47 Humble attacks Gem3F Tinker with 1 creature"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -94246,7 +94152,7 @@
         263
       ],
       "subsequentActions": [],
-      "actionSeq": 239
+      "actionSeq": 243
     },
     {
       "index": 116,
@@ -94540,10 +94446,8 @@
         262,
         265
       ],
-      "subsequentActions": [
-        "Attacker: Makeshift Battalion (4/3) unblocked"
-      ],
-      "actionSeq": 240,
+      "subsequentActions": [],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -94783,7 +94687,7 @@
         267
       ],
       "subsequentActions": [],
-      "actionSeq": 243
+      "actionSeq": 247
     },
     {
       "index": 118,
@@ -95063,10 +94967,8 @@
         266,
         269
       ],
-      "subsequentActions": [
-        "Gem3F Tinker loses 4 life at combat from Makeshift Battalion"
-      ],
-      "actionSeq": 244,
+      "subsequentActions": [],
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -95336,7 +95238,7 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 247,
+      "actionSeq": 249,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -95674,7 +95576,7 @@
         271
       ],
       "subsequentActions": [],
-      "actionSeq": 248,
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -96055,7 +95957,7 @@
         275
       ],
       "subsequentActions": [],
-      "actionSeq": 250,
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -96405,10 +96307,8 @@
         276,
         277
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 251,
+      "subsequentActions": [],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -96844,7 +96744,7 @@
         279
       ],
       "subsequentActions": [],
-      "actionSeq": 255,
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -97403,10 +97303,8 @@
         282,
         283
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Seafloor Oracle from hand"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -97837,10 +97735,8 @@
         284,
         285
       ],
-      "subsequentActions": [
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Bulwark Giant"
-      ],
-      "actionSeq": 262,
+      "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -97902,7 +97798,8 @@
       "llmEventIndices": [
         287,
         288,
-        289
+        289,
+        290
       ],
       "subsequentActions": [],
       "actionSeq": 266,
@@ -97939,7 +97836,8 @@
         291,
         292,
         294,
-        295
+        295,
+        296
       ],
       "subsequentActions": [],
       "actionSeq": 266,
@@ -98230,13 +98128,8 @@
         300,
         321
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield",
-        "Gem3F Tinker casts Seafloor Oracle from hand",
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Bulwark Giant",
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Bulwark Giant"
-      ],
-      "actionSeq": 249
+      "subsequentActions": [],
+      "actionSeq": 267
     },
     {
       "index": 131,
@@ -98278,21 +98171,294 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "choice": "0"
+        "choice": "yes"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "message": "Tap that permanent?",
+        "response_type": "boolean",
+        "respond_with": "choice=yes or choice=no",
+        "context": "T6 Precombat Main/Precombat Main (Gem3F Tinker) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Crashing Tide",
+                "rules": [
+                  "This spell has flash as long as you control a Merfolk.",
+                  "Return target creature to its owner's hand. : Draw a card.",
+                  "Flash"
+                ],
+                "id": "p10"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p45"
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p50"
+              },
+              {
+                "tapped": false,
+                "name": "Merrow Reejerey",
+                "rules": [
+                  "Other Merfolk creatures you control get +1/+1.",
+                  "Whenever you cast a Merfolk spell, you may tap or untap target permanent."
+                ],
+                "id": "p14",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "original_card": "Mirror Image",
+                "name": "Merrow Reejerey",
+                "modified": true,
+                "rules": [
+                  "Other Merfolk creatures you control get +1/+1.",
+                  "Whenever you cast a Merfolk spell, you may tap or untap target permanent."
+                ],
+                "id": "p15",
+                "power": "3",
+                "copy": true,
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Isle",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than blue.",
+                  "{T}: Add {U}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Green"
+                ],
+                "id": "p16"
+              }
+            ],
+            "name": "Gem3F Tinker",
+            "library_size": 26,
+            "life": 16,
+            "hand": [
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Crashing Tide",
+                "rules": [
+                  "This spell has flash as long as you control a Merfolk.",
+                  "Return target creature to its owner's hand. : Draw a card.",
+                  "Flash"
+                ],
+                "id": "p39"
+              },
+              {
+                "mana_cost": "{2}{U}",
+                "name": "Lookout's Dispersal",
+                "rules": [
+                  "This spell costs {1} less to cast if you control a Pirate.",
+                  "Counter target spell unless its controller pays {4}.",
+                  ": ",
+                  "ICON_BADYou control a Pirate"
+                ],
+                "id": "p13"
+              },
+              {
+                "mana_cost": "{4}{U}",
+                "name": "Sage of the Falls",
+                "rules": [
+                  "Whenever {this} or another non-Human creature you control enters, you may draw a card. If you do, discard a card."
+                ],
+                "power": "2",
+                "id": "p43",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{3}{U}",
+                "name": "Soul Read",
+                "rules": [
+                  "Choose one &mdash;: &bull Counter target spell unless its controller pays {4}.: &bull Draw two cards.: "
+                ],
+                "id": "p31"
+              },
+              {
+                "mana_cost": "{3}{U}",
+                "name": "Storm Sculptor",
+                "rules": [
+                  "{this} can't be blocked.",
+                  "When {this} enters, return a creature you control to its owner's hand."
+                ],
+                "power": "3",
+                "id": "p34",
+                "toughness": "2"
+              }
+            ]
+          },
+          {
+            "hand_size": 2,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Bulwark Giant",
+                "rules": [
+                  "When {this} enters, you gain 5 life."
+                ],
+                "id": "p46",
+                "power": "4",
+                "toughness": "7",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Cathars' Crusade",
+                "rules": [
+                  "Whenever a creature you control enters, put a +1/+1 counter on each creature you control."
+                ],
+                "id": "p37"
+              },
+              {
+                "tapped": true,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Makeshift Battalion",
+                "rules": [
+                  "Battalion &mdash; Whenever {this} and at least two other creatures attack, put a +1/+1 counter on {this}."
+                ],
+                "id": "p17",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p18"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p21"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p30"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p41"
+              }
+            ],
+            "name": "GLM47 Humble",
+            "library_size": 29,
+            "life": 19
+          }
+        ],
+        "board_cursor": 39,
+        "stack": [
+          {
+            "name": "Ability",
+            "targets": [
+              {
+                "name": "Bulwark Giant (4/7) (GLM47 Humble's)",
+                "id": "p46"
+              }
+            ]
+          },
+          {
+            "name": "Ability",
+            "targets": [
+              {
+                "name": "Bulwark Giant (4/7) (GLM47 Humble's)",
+                "id": "p46"
+              }
+            ]
+          },
+          {
+            "name": "Seafloor Oracle"
+          }
+        ],
+        "untapped_lands": 1,
         "game_seq": 268,
-        "error": "GAME_ASK requires choice=\"yes\" or choice=\"no\". This is a yes/no question.",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "yes",
+        "success": true
       },
       "llmEventIndices": [
         303,
         304,
-        305
+        305,
+        306,
+        307
       ],
       "subsequentActions": [],
       "actionSeq": 268,
@@ -98303,33 +98469,6 @@
     },
     {
       "index": 133,
-      "snapshotIndex": 155,
-      "player": "Gem3F Tinker",
-      "turn": 12,
-      "phase": "PRECOMBAT_MAIN",
-      "step": "PRECOMBAT_MAIN",
-      "actionType": "GAME_ASK",
-      "responseType": "boolean",
-      "message": "Tap that permanent?",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        307,
-        308
-      ],
-      "subsequentActions": [],
-      "actionSeq": 268,
-      "pilotContext": {
-        "untappedLands": 1,
-        "landDropsUsed": 1
-      }
-    },
-    {
-      "index": 134,
       "snapshotIndex": 155,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -98627,7 +98766,7 @@
       }
     },
     {
-      "index": 135,
+      "index": 134,
       "snapshotIndex": 155,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -98654,7 +98793,7 @@
       }
     },
     {
-      "index": 136,
+      "index": 135,
       "snapshotIndex": 156,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -98681,7 +98820,8 @@
         313,
         314,
         316,
-        317
+        317,
+        318
       ],
       "subsequentActions": [],
       "actionSeq": 270,
@@ -98691,7 +98831,7 @@
       }
     },
     {
-      "index": 137,
+      "index": 136,
       "snapshotIndex": 156,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -98989,7 +99129,7 @@
       }
     },
     {
-      "index": 138,
+      "index": 137,
       "snapshotIndex": 154,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -99235,10 +99375,10 @@
         335
       ],
       "subsequentActions": [],
-      "actionSeq": 267
+      "actionSeq": 271
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 156,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -99265,7 +99405,7 @@
       }
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 158,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -99293,7 +99433,7 @@
       }
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 158,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -99582,7 +99722,7 @@
       }
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 158,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -99871,14 +100011,14 @@
         337
       ],
       "subsequentActions": [],
-      "actionSeq": 272,
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 157,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -100130,10 +100270,10 @@
         339
       ],
       "subsequentActions": [],
-      "actionSeq": 271
+      "actionSeq": 274
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 159,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -100445,14 +100585,14 @@
         341
       ],
       "subsequentActions": [],
-      "actionSeq": 273,
+      "actionSeq": 276,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 160,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -100729,13 +100869,11 @@
         340,
         345
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Seafloor Oracle from stack onto the Battlefield"
-      ],
-      "actionSeq": 274
+      "subsequentActions": [],
+      "actionSeq": 277
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 161,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -101076,14 +101214,14 @@
         343
       ],
       "subsequentActions": [],
-      "actionSeq": 276,
+      "actionSeq": 278,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 163,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -101396,13 +101534,13 @@
         349
       ],
       "subsequentActions": [],
-      "actionSeq": 278,
+      "actionSeq": 282,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 162,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -101704,13 +101842,11 @@
         346,
         347
       ],
-      "subsequentActions": [
-        "Gem3F Tinker attacks GLM47 Humble with 2 creatures"
-      ],
-      "actionSeq": 277
+      "subsequentActions": [],
+      "actionSeq": 283
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 165,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -101731,9 +101867,9 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p46:p1"
+        "choice": "no"
       },
       "actionResult": {
         "action_pending": true,
@@ -101741,7 +101877,7 @@
         "message": "Play instants and activated abilities",
         "response_type": "boolean",
         "respond_with": "choice=yes (confirm) or choice=no (pass)",
-        "context": "T6 Combat/Declare Blockers (Gem3F Tinker)",
+        "context": "T6 Combat/Combat Damage (Gem3F Tinker)",
         "board": [
           {
             "hand_size": 2,
@@ -101835,7 +101971,7 @@
             ],
             "name": "GLM47 Humble",
             "library_size": 29,
-            "life": 19,
+            "life": 13,
             "hand": [
               {
                 "mana_cost": "{2}{W}",
@@ -101960,7 +102096,7 @@
             "life": 16
           }
         ],
-        "board_cursor": 41,
+        "board_cursor": 42,
         "combat": [
           {
             "blocked": false,
@@ -101987,27 +102123,27 @@
             ]
           }
         ],
-        "game_seq": 284,
-        "error": "p46: attacker p1 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
+        "stack": [
           {
-            "reason": "attacker p1 is not a valid block target",
-            "id": "p46"
+            "name": "Ability"
+          },
+          {
+            "name": "Ability"
           }
-        ]
+        ],
+        "game_seq": 291,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         347,
         348,
-        351
+        351,
+        352,
+        355
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 291,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -102027,7 +102163,7 @@
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 164,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -102348,13 +102484,13 @@
         353
       ],
       "subsequentActions": [],
-      "actionSeq": 282,
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 166,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -102639,14 +102775,11 @@
         352,
         355
       ],
-      "subsequentActions": [
-        "Attacker: Merrow Reejerey (3/3) unblocked",
-        "Attacker: Merrow Reejerey (3/3) unblocked"
-      ],
-      "actionSeq": 284
+      "subsequentActions": [],
+      "actionSeq": 291
     },
     {
-      "index": 152,
+      "index": 151,
       "snapshotIndex": 167,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -102974,13 +103107,13 @@
         357
       ],
       "subsequentActions": [],
-      "actionSeq": 290,
+      "actionSeq": 297,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 153,
+      "index": 152,
       "snapshotIndex": 168,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -103262,16 +103395,11 @@
         356,
         359
       ],
-      "subsequentActions": [
-        "GLM47 Humble loses 3 life at combat from Merrow Reejerey",
-        "GLM47 Humble loses 3 life at combat from Merrow Reejerey",
-        "Gem3F Tinker - Ability triggers: Seafloor Oracle - Whenever a Merfolk you control deals combat damage to a player, draw a card.",
-        "Gem3F Tinker - Ability triggers: Seafloor Oracle - Whenever a Merfolk you control deals combat damage to a player, draw a card."
-      ],
-      "actionSeq": 291
+      "subsequentActions": [],
+      "actionSeq": 298
     },
     {
-      "index": 154,
+      "index": 153,
       "snapshotIndex": 169,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -103604,13 +103732,13 @@
         361
       ],
       "subsequentActions": [],
-      "actionSeq": 297,
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 155,
+      "index": 154,
       "snapshotIndex": 170,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -103888,10 +104016,10 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 298
+      "actionSeq": 300
     },
     {
-      "index": 156,
+      "index": 155,
       "snapshotIndex": 171,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -104211,13 +104339,13 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 299,
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 157,
+      "index": 156,
       "snapshotIndex": 172,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -104492,10 +104620,10 @@
         380
       ],
       "subsequentActions": [],
-      "actionSeq": 300
+      "actionSeq": 302
     },
     {
-      "index": 158,
+      "index": 157,
       "snapshotIndex": 173,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -104949,7 +105077,7 @@
         367
       ],
       "subsequentActions": [],
-      "actionSeq": 301,
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -104959,7 +105087,7 @@
       }
     },
     {
-      "index": 159,
+      "index": 158,
       "snapshotIndex": 175,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -105547,16 +105675,14 @@
         368,
         369
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Triton Shorestalker from hand"
-      ],
-      "actionSeq": 303,
+      "subsequentActions": [],
+      "actionSeq": 307,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 160,
+      "index": 159,
       "snapshotIndex": 177,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -105720,7 +105846,7 @@
       }
     },
     {
-      "index": 161,
+      "index": 160,
       "snapshotIndex": 178,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -106183,7 +106309,7 @@
       }
     },
     {
-      "index": 162,
+      "index": 161,
       "snapshotIndex": 178,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -106211,7 +106337,7 @@
       }
     },
     {
-      "index": 163,
+      "index": 162,
       "snapshotIndex": 179,
       "player": "Gem3F Tinker",
       "turn": 12,
@@ -106245,7 +106371,7 @@
       }
     },
     {
-      "index": 164,
+      "index": 163,
       "snapshotIndex": 174,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -106510,15 +106636,11 @@
         381,
         383
       ],
-      "subsequentActions": [
-        "Gem3F Tinker casts Triton Shorestalker from hand",
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Merrow Reejerey",
-        "Gem3F Tinker - Ability triggers: Merrow Reejerey - Whenever you cast a Merfolk spell, you may tap or untap target permanent. - targeting Merrow Reejerey"
-      ],
-      "actionSeq": 302
+      "subsequentActions": [],
+      "actionSeq": 312
     },
     {
-      "index": 165,
+      "index": 164,
       "snapshotIndex": 180,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -106775,10 +106897,10 @@
         385
       ],
       "subsequentActions": [],
-      "actionSeq": 312
+      "actionSeq": 315
     },
     {
-      "index": 166,
+      "index": 165,
       "snapshotIndex": 183,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -107041,10 +107163,10 @@
         387
       ],
       "subsequentActions": [],
-      "actionSeq": 315
+      "actionSeq": 318
     },
     {
-      "index": 167,
+      "index": 166,
       "snapshotIndex": 186,
       "player": "GLM47 Humble",
       "turn": 12,
@@ -107071,13 +107193,11 @@
         388,
         389
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Triton Shorestalker from stack onto the Battlefield"
-      ],
-      "actionSeq": 318
+      "subsequentActions": [],
+      "actionSeq": 321
     },
     {
-      "index": 168,
+      "index": 167,
       "snapshotIndex": 191,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -107416,7 +107536,7 @@
       }
     },
     {
-      "index": 169,
+      "index": 168,
       "snapshotIndex": 191,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -107724,16 +107844,14 @@
         394,
         399
       ],
-      "subsequentActions": [
-        "GLM47 Humble attacks Gem3F Tinker with 2 creatures"
-      ],
-      "actionSeq": 324,
+      "subsequentActions": [],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 170,
+      "index": 169,
       "snapshotIndex": 195,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -108118,7 +108236,7 @@
       }
     },
     {
-      "index": 171,
+      "index": 170,
       "snapshotIndex": 193,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -108415,13 +108533,13 @@
         403
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 172,
+      "index": 171,
       "snapshotIndex": 195,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -108749,14 +108867,11 @@
         402,
         405
       ],
-      "subsequentActions": [
-        "Attacker: Makeshift Battalion (4/3) blocked by Seafloor Oracle (4/5)",
-        "Attacker: Bulwark Giant (4/7) unblocked"
-      ],
-      "actionSeq": 332
+      "subsequentActions": [],
+      "actionSeq": 339
     },
     {
-      "index": 173,
+      "index": 172,
       "snapshotIndex": 197,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -109057,13 +109172,13 @@
         407
       ],
       "subsequentActions": [],
-      "actionSeq": 338,
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 174,
+      "index": 173,
       "snapshotIndex": 198,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -109369,16 +109484,11 @@
         406,
         413
       ],
-      "subsequentActions": [
-        "Seafloor Oracle deals 4 damage to Makeshift Battalion",
-        "Makeshift Battalion deals 4 damage to Seafloor Oracle",
-        "Gem3F Tinker loses 4 life at combat from Bulwark Giant",
-        "Makeshift Battalion died"
-      ],
-      "actionSeq": 339
+      "subsequentActions": [],
+      "actionSeq": 346
     },
     {
-      "index": 175,
+      "index": 174,
       "snapshotIndex": 199,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -109670,7 +109780,7 @@
         411
       ],
       "subsequentActions": [],
-      "actionSeq": 345,
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -109682,7 +109792,7 @@
       }
     },
     {
-      "index": 176,
+      "index": 175,
       "snapshotIndex": 201,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -109970,14 +110080,14 @@
         415
       ],
       "subsequentActions": [],
-      "actionSeq": 347,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 177,
+      "index": 176,
       "snapshotIndex": 200,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -110298,13 +110408,11 @@
         414,
         419
       ],
-      "subsequentActions": [
-        "GLM47 Humble casts Patron of the Valiant from hand"
-      ],
-      "actionSeq": 346
+      "subsequentActions": [],
+      "actionSeq": 356
     },
     {
-      "index": 178,
+      "index": 177,
       "snapshotIndex": 207,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -110596,17 +110704,15 @@
         416,
         417
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Patron of the Valiant from stack onto the Battlefield"
-      ],
-      "actionSeq": 355,
+      "subsequentActions": [],
+      "actionSeq": 358,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 179,
+      "index": 178,
       "snapshotIndex": 209,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -110883,14 +110989,14 @@
         421
       ],
       "subsequentActions": [],
-      "actionSeq": 358,
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 180,
+      "index": 179,
       "snapshotIndex": 208,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -111208,15 +111314,11 @@
         420,
         423
       ],
-      "subsequentActions": [
-        "GLM47 Humble puts Patron of the Valiant from stack onto the Battlefield",
-        "GLM47 Humble - Ability triggers: Cathars' Crusade - Whenever a creature you control enters, put a +1/+1 counter on each creature you control.",
-        "GLM47 Humble - Ability triggers: Patron of the Valiant - When Patron of the Valiant enters, put a +1/+1 counter on each creature you control with a +1/+1 counter on it."
-      ],
-      "actionSeq": 356
+      "subsequentActions": [],
+      "actionSeq": 362
     },
     {
-      "index": 181,
+      "index": 180,
       "snapshotIndex": 210,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -111491,14 +111593,14 @@
         425
       ],
       "subsequentActions": [],
-      "actionSeq": 361,
+      "actionSeq": 364,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 182,
+      "index": 181,
       "snapshotIndex": 211,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -111814,13 +111916,11 @@
         424,
         427
       ],
-      "subsequentActions": [
-        "Patron of the Valiant: GLM47 Humble puts 1 +1/+1 counter on Bulwark Giant"
-      ],
-      "actionSeq": 362
+      "subsequentActions": [],
+      "actionSeq": 365
     },
     {
-      "index": 183,
+      "index": 182,
       "snapshotIndex": 212,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -112107,14 +112207,14 @@
         439
       ],
       "subsequentActions": [],
-      "actionSeq": 364,
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 184,
+      "index": 183,
       "snapshotIndex": 213,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -112493,14 +112593,11 @@
         428,
         429
       ],
-      "subsequentActions": [
-        "Cathars' Crusade: GLM47 Humble puts 1 +1/+1 counter on Bulwark Giant",
-        "Cathars' Crusade: GLM47 Humble puts 1 +1/+1 counter on Patron of the Valiant"
-      ],
-      "actionSeq": 365
+      "subsequentActions": [],
+      "actionSeq": 369
     },
     {
-      "index": 185,
+      "index": 184,
       "snapshotIndex": 215,
       "player": "Gem3F Tinker",
       "turn": 13,
@@ -112919,7 +113016,7 @@
         431
       ],
       "subsequentActions": [],
-      "actionSeq": 369,
+      "actionSeq": 370,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -112934,7 +113031,7 @@
       }
     },
     {
-      "index": 186,
+      "index": 185,
       "snapshotIndex": 216,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -113309,10 +113406,8 @@
         434,
         435
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 370,
+      "subsequentActions": [],
+      "actionSeq": 374,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -113326,7 +113421,7 @@
       }
     },
     {
-      "index": 187,
+      "index": 186,
       "snapshotIndex": 217,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -113675,7 +113770,7 @@
         437
       ],
       "subsequentActions": [],
-      "actionSeq": 374,
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -113687,7 +113782,7 @@
       }
     },
     {
-      "index": 188,
+      "index": 187,
       "snapshotIndex": 218,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -114048,7 +114143,7 @@
         441
       ],
       "subsequentActions": [],
-      "actionSeq": 376,
+      "actionSeq": 380,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -114059,7 +114154,7 @@
       }
     },
     {
-      "index": 189,
+      "index": 188,
       "snapshotIndex": 214,
       "player": "GLM47 Humble",
       "turn": 13,
@@ -114361,17 +114456,14 @@
         440,
         451
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Island from hand onto the Battlefield",
-        "Gem3F Tinker casts Heirloom Blade from hand"
-      ],
-      "actionSeq": 368,
+      "subsequentActions": [],
+      "actionSeq": 381,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 190,
+      "index": 189,
       "snapshotIndex": 221,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -114756,10 +114848,8 @@
         442,
         443
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Heirloom Blade from stack onto the Battlefield"
-      ],
-      "actionSeq": 380,
+      "subsequentActions": [],
+      "actionSeq": 383,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -114769,7 +114859,7 @@
       }
     },
     {
-      "index": 191,
+      "index": 190,
       "snapshotIndex": 223,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -115140,7 +115230,7 @@
         445
       ],
       "subsequentActions": [],
-      "actionSeq": 383,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115150,7 +115240,7 @@
       }
     },
     {
-      "index": 192,
+      "index": 191,
       "snapshotIndex": 224,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -115179,7 +115269,7 @@
       }
     },
     {
-      "index": 193,
+      "index": 192,
       "snapshotIndex": 226,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -115525,7 +115615,7 @@
       }
     },
     {
-      "index": 194,
+      "index": 193,
       "snapshotIndex": 222,
       "player": "GLM47 Humble",
       "turn": 14,
@@ -115816,17 +115906,14 @@
         452,
         455
       ],
-      "subsequentActions": [
-        "Gem3F Tinker puts Heirloom Blade from stack onto the Battlefield",
-        "Gem3F Tinker activates: Equip. from Heirloom Blade targeting Triton Shorestalker"
-      ],
-      "actionSeq": 381,
+      "subsequentActions": [],
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 195,
+      "index": 194,
       "snapshotIndex": 226,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -116203,14 +116290,14 @@
         457
       ],
       "subsequentActions": [],
-      "actionSeq": 387,
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 196,
+      "index": 195,
       "snapshotIndex": 227,
       "player": "GLM47 Humble",
       "turn": 14,
@@ -116552,13 +116639,13 @@
         461
       ],
       "subsequentActions": [],
-      "actionSeq": 388,
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 197,
+      "index": 196,
       "snapshotIndex": 228,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -116978,14 +117065,14 @@
         459
       ],
       "subsequentActions": [],
-      "actionSeq": 389,
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 198,
+      "index": 197,
       "snapshotIndex": 230,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -117369,13 +117456,13 @@
         465
       ],
       "subsequentActions": [],
-      "actionSeq": 391,
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 199,
+      "index": 198,
       "snapshotIndex": 229,
       "player": "GLM47 Humble",
       "turn": 14,
@@ -117753,16 +117840,14 @@
         462,
         463
       ],
-      "subsequentActions": [
-        "Gem3F Tinker attacks GLM47 Humble with 4 creatures"
-      ],
-      "actionSeq": 390,
+      "subsequentActions": [],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 1
       }
     },
     {
-      "index": 200,
+      "index": 199,
       "snapshotIndex": 232,
       "player": "GLM47 Humble",
       "turn": 14,
@@ -118127,7 +118212,7 @@
         467
       ],
       "subsequentActions": [],
-      "actionSeq": 396,
+      "actionSeq": 397,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -118160,7 +118245,7 @@
       }
     },
     {
-      "index": 201,
+      "index": 200,
       "snapshotIndex": 231,
       "player": "Gem3F Tinker",
       "turn": 14,
@@ -118188,13 +118273,13 @@
         471
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 202,
+      "index": 201,
       "snapshotIndex": 233,
       "player": "GLM47 Humble",
       "turn": 14,
@@ -118226,13 +118311,13 @@
         469
       ],
       "subsequentActions": [
-        "Attacker: Merrow Reejerey (3/3) blocked by Patron of the Valiant (5/5)",
-        "Attacker: Merrow Reejerey (3/3) unblocked",
-        "Attacker: Seafloor Oracle (4/5) unblocked",
-        "Attacker: Triton Shorestalker (6/4) unblocked",
-        "Patron of the Valiant deals 5 damage to Merrow Reejerey"
+        "Patron of the Valiant deals 5 damage to Merrow Reejerey",
+        "Merrow Reejerey deals 3 damage to Patron of the Valiant",
+        "GLM47 Humble loses 3 life at combat from Merrow Reejerey",
+        "GLM47 Humble loses 4 life at combat from Seafloor Oracle",
+        "GLM47 Humble loses 6 life at combat from Triton Shorestalker"
       ],
-      "actionSeq": 397,
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 1
       }

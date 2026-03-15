@@ -37178,33 +37178,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 2,
-        "answer": false,
-        "amounts": [
-          1,
-          2
-        ],
-        "auto_tap": true,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "[{\"tap\": \"p2\"}]",
-        "attackers": "all",
-        "blockers": "[{\"blocks\": \"p1\", \"id\": \"p2\"}]",
-        "id": "p2",
-        "text": "pass"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         41,
         42,
-        43
+        43,
+        44,
+        45
       ],
       "subsequentActions": [
         "has started watching",
@@ -37480,7 +37469,9 @@
       },
       "llmEventIndices": [
         59,
-        60
+        60,
+        62,
+        64
       ],
       "subsequentActions": [
         "has started watching",
@@ -39169,68 +39160,22 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "id": "p14"
+        "index": 2
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p14 not found in current choices",
-        "choices": [
-          {
-            "mana_value": 1,
-            "mana_cost": "{R}",
-            "name": "Shock",
-            "index": 0,
-            "action": "cast",
-            "id": "p15"
-          },
-          {
-            "mana_value": 5,
-            "mana_cost": "{3}{R}{R}",
-            "name": "Nova Hellkite",
-            "index": 1,
-            "action": "cast",
-            "id": "p6",
-            "power": "4",
-            "toughness": "5"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{R}",
-            "name": "Lightning Strike",
-            "index": 2,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_value": 5,
-            "mana_cost": "{3}{R}{R}",
-            "name": "Nova Hellkite",
-            "index": 3,
-            "action": "cast",
-            "id": "p8",
-            "power": "4",
-            "toughness": "5"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{R}",
-            "name": "Hexing Squelcher",
-            "index": 4,
-            "action": "cast",
-            "id": "p7",
-            "power": "2",
-            "toughness": "2"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_2"
       },
       "llmEventIndices": [
         346,
         348,
-        349
+        349,
+        351,
+        352
       ],
       "subsequentActions": [
         "has started watching",
@@ -42571,7 +42516,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43415,31 +43362,22 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          0,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 1,
-        "mana_plan": "[{\"tap\": \"p6\"}, {\"pool\": \"RED\"}]",
-        "attackers": "p6",
-        "blockers": "[{\"id\": \"p6\", \"blocks\": \"p1\"}]",
-        "id": "p18",
-        "text": "text"
+        "index": 1
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_target_1"
       },
       "llmEventIndices": [
         886,
         894,
-        895
+        895,
+        897,
+        898,
+        900,
+        901
       ],
       "subsequentActions": [
         "has started watching",
@@ -44306,7 +44244,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45139,20 +45079,23 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "id": "p30",
         "index": 0,
         "mana_plan": "[{\"tap\": \"p1\"}, {\"tap\": \"p2\"}, {\"tap\": \"p3\"}]"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
       },
       "llmEventIndices": [
         1076,
         1077,
-        1078
+        1078,
+        1081,
+        1082
       ],
       "subsequentActions": [
         "has started watching",
@@ -46248,7 +46191,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47103,7 +47048,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47602,7 +47549,11 @@
         1371,
         1373,
         1376,
-        1377
+        1377,
+        1379,
+        1382,
+        1384,
+        1387
       ],
       "subsequentActions": [
         "has started watching",
@@ -47833,7 +47784,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

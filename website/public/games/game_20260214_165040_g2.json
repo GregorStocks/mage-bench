@@ -21385,33 +21385,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          0,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "[]",
-        "id": "p1",
-        "text": ""
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "subsequentActions": [
         "has started watching",
@@ -21470,33 +21459,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "amount": 0,
-        "answer": true,
-        "amounts": [
-          0,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 0,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "[]",
-        "id": "p1",
-        "text": ""
+        "answer": true
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "yes"
       },
       "llmEventIndices": [
         17,
         18,
-        19
+        19,
+        22,
+        23
       ],
       "subsequentActions": [
         "has started watching",
@@ -21908,7 +21886,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -21971,7 +21951,7 @@
         "pile": 1,
         "index": 0,
         "mana_plan": "{}",
-        "attackers": "",
+        "attackers": [],
         "blockers": "[]",
         "id": "p4",
         "text": ""
@@ -22420,7 +22400,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p5"
+        "attackers": [
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -22481,15 +22463,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p4', 'blocks': 'p12'}"
+        "blockers": "[{\"id\": \"p4\", \"blocks\": \"p12\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "id": "p4",
+            "blocks": "p12"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         176,
         178,
-        179
+        179,
+        181,
+        182
       ],
       "subsequentActions": [
         "has started watching",
@@ -22768,32 +22761,21 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [
-          0,
-          0
-        ],
-        "auto_tap": false,
-        "pile": 1,
-        "index": 1,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "[]",
-        "id": "p6",
-        "text": ""
+        "id": "p6"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         226,
         228,
         231,
-        232
+        232,
+        234,
+        235
       ],
       "subsequentActions": [
         "has started watching",
@@ -23085,7 +23067,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -23263,7 +23247,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p5"
+        "attackers": [
+          "p4",
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -23608,7 +23595,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -23949,7 +23938,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p5"
+        "attackers": [
+          "p4",
+          "p5"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -24058,7 +24050,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -24310,28 +24304,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 0,
-        "index": 1,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "{}",
-        "id": "",
-        "text": ""
+        "index": 1
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "special_special"
       },
       "llmEventIndices": [
         486,
         488,
-        489
+        489,
+        491,
+        492
       ],
       "subsequentActions": [
         "has started watching",
@@ -24412,7 +24398,8 @@
       "llmEventIndices": [
         513,
         515,
-        516
+        516,
+        518
       ],
       "subsequentActions": [
         "has started watching",
@@ -24560,7 +24547,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -24699,17 +24688,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "blockers": "{'id': 'p7', 'blocks': 'p3'}"
+        "index": 0
       },
       "actionResult": {
-        "error": "JsonObject"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         550,
         555,
-        556
+        556,
+        561,
+        562,
+        564,
+        565
       ],
       "subsequentActions": [
         "has started watching",
@@ -24753,28 +24749,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 0,
-        "index": 1,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "{}",
-        "id": "p29",
-        "text": ""
+        "id": "p29"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         568,
         570,
-        571
+        571,
+        573,
+        574
       ],
       "subsequentActions": [
         "has started watching",
@@ -25113,28 +25101,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 0,
-        "index": 0,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "{}",
-        "id": "p7",
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         618,
         620,
-        621
+        621,
+        623,
+        624
       ],
       "subsequentActions": [
         "has started watching",
@@ -25158,30 +25138,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "amount": 0,
-        "answer": false,
-        "amounts": [],
-        "auto_tap": false,
-        "pile": 0,
-        "index": 0,
-        "mana_plan": "{}",
-        "attackers": "",
-        "blockers": "{}",
-        "id": "p7",
-        "text": ""
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "blockers parameter only valid during declare_blockers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "no"
       },
       "llmEventIndices": [
         627,
         629,
-        630
+        630,
+        632,
+        633
       ],
       "subsequentActions": [
         "has started watching",
@@ -25267,7 +25239,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p4,p7"
+        "attackers": [
+          "p4",
+          "p7"
+        ]
       },
       "actionResult": {
         "declared": [

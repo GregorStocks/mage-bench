@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from tests import golden_helpers
-from tests.golden_helpers import BridgeManager
+from tests.golden_helpers import BridgeLogOffsets, BridgeManager
 
 GAME_START_1 = "[08:00:00] INFO [TestPlayer] Game started: gameId=11111111-1111-1111-1111-111111111111, playerId=p1"
 GAME_START_2 = "[08:00:01] INFO [TestPlayer] Game started: gameId=22222222-2222-2222-2222-222222222222, playerId=p2"
@@ -160,3 +160,67 @@ class TestReconnectValidation:
         manager.ensure_healthy()
 
         assert manager._needs_reconnect_validation is True
+
+
+class TestPerTestSnapshots:
+    def test_capture_log_offsets_tracks_live_log_sizes(self, tmp_path: Path) -> None:
+        manager = _make_manager(tmp_path)
+        log_dir = tmp_path / "tmp" / "golden-bridge"
+        log_dir.mkdir(parents=True)
+        bridge_log = log_dir / "bridge.log"
+        event_log = log_dir / "bridge-events.jsonl"
+        bridge_log.write_text("session start\n", encoding="utf-8")
+        event_log.write_text('{"method":"GAME_SELECT"}\n', encoding="utf-8")
+        manager._current_log_path = bridge_log
+        manager._current_event_log_path = event_log
+
+        offsets = manager.capture_log_offsets()
+
+        assert offsets == BridgeLogOffsets(
+            bridge_log_path=bridge_log,
+            bridge_log_offset=len(b"session start\n"),
+            bridge_event_log_path=event_log,
+            bridge_event_log_offset=len(b'{"method":"GAME_SELECT"}\n'),
+        )
+
+    def test_write_test_log_snapshots_slices_only_current_test_bytes(self, tmp_path: Path) -> None:
+        manager = _make_manager(tmp_path)
+        log_dir = tmp_path / "tmp" / "golden-bridge"
+        log_dir.mkdir(parents=True)
+        bridge_log = log_dir / "bridge.log"
+        event_log = log_dir / "bridge-events.jsonl"
+        bridge_log.write_text("before\n", encoding="utf-8")
+        event_log.write_text('{"method":"OLD"}\n', encoding="utf-8")
+        manager._current_log_path = bridge_log
+        manager._current_event_log_path = event_log
+
+        offsets = manager.capture_log_offsets()
+        bridge_log.write_text("before\nafter\n", encoding="utf-8")
+        event_log.write_text('{"method":"OLD"}\n{"method":"NEW"}\n', encoding="utf-8")
+
+        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots("mana drain/fact or fiction", offsets)
+
+        assert bridge_snapshot == log_dir / "mana_drain_fact_or_fiction.bridge.log"
+        assert bridge_snapshot.read_text(encoding="utf-8") == "after\n"
+        assert event_snapshot == log_dir / "mana_drain_fact_or_fiction.bridge-events.jsonl"
+        assert event_snapshot.read_text(encoding="utf-8") == '{"method":"NEW"}\n'
+
+    def test_write_test_log_snapshots_sanitizes_names_and_handles_missing_event_log(self, tmp_path: Path) -> None:
+        manager = _make_manager(tmp_path)
+        log_dir = tmp_path / "tmp" / "golden-bridge"
+        log_dir.mkdir(parents=True)
+        bridge_log = log_dir / "bridge.log"
+        event_log = log_dir / "bridge-events.jsonl"
+        bridge_log.write_text("current\n", encoding="utf-8")
+        manager._current_log_path = bridge_log
+        manager._current_event_log_path = event_log
+
+        offsets = manager.capture_log_offsets()
+        bridge_log.write_text("current\nnext\n", encoding="utf-8")
+
+        bridge_snapshot, event_snapshot = manager.write_test_log_snapshots("!combat??", offsets)
+
+        assert bridge_snapshot.name == "combat.bridge.log"
+        assert bridge_snapshot.read_text(encoding="utf-8") == "next\n"
+        assert event_snapshot.name == "combat.bridge-events.jsonl"
+        assert event_snapshot.read_text(encoding="utf-8") == ""

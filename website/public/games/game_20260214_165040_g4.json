@@ -24977,7 +24977,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -25417,7 +25419,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -26365,33 +26369,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 0,
       "chosenArgs": {
+        "id": "p7",
         "index": 2
       },
       "actionResult": {
-        "retryable": true,
+        "retryable": false,
         "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "name": "Kaito, Bane of Nightmares",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "+1: You get an emblem with \"Ninjas you control ge...",
-              "-2: Tap target creature. Put two stun counters on...",
-              "0: Surveil 2. <i>(Look at the top two cards of yo..."
-            ],
-            "id": "p7"
-          }
-        ]
+        "error_code": "missing_param",
+        "error": "id and index are mutually exclusive"
       },
       "llmEventIndices": [
         546,
         548,
-        549
+        549,
+        551,
+        554,
+        555,
+        557
       ],
       "subsequentActions": [
         "has started watching",
@@ -26672,7 +26668,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -27197,35 +27195,27 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": false,
       "chosenArgs": {
-        "index": 1
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "name": "Kaito, Bane of Nightmares",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "+1: You get an emblem with \"Ninjas you control ge...",
-              "-2: Tap target creature. Put two stun counters on...",
-              "0: Surveil 2. <i>(Look at the top two cards of yo..."
-            ],
-            "id": "p7"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         681,
         683,
         686,
         689,
-        690
+        690,
+        692,
+        695,
+        696,
+        698,
+        699
       ],
       "subsequentActions": [
         "has started watching",

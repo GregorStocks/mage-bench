@@ -99549,22 +99549,25 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p12",
-        "mana_plan": "p10:U"
+        "mana_plan": "p10:1"
       },
       "actionResult": {
-        "success": false,
-        "error": "Invalid mana_plan: For input string: \"U\". Expected: [\"p1\",\"p2:0\",\"RED\"]",
-        "error_code": "invalid_mana_plan",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1,
         "game_seq": 50,
-        "recent_chat": [
-          "Gem31P Vorthos: The frozen shores of Kaldheim greet you, traveler. Our journey begins."
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         70,
         71,
-        72
+        72,
+        73,
+        74
       ],
       "subsequentActions": [
         "QwCdr Sarge casts Merfolk Pupil from hand"
@@ -100349,20 +100352,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p12"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 95
       },
       "llmEventIndices": [
         138,
         139,
-        140
+        140,
+        141,
+        142,
+        143
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 1 creature"
-      ],
-      "actionSeq": 91,
+      "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -100950,22 +100959,27 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "p12"
+        "choice": "p12"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p12' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p12'"
+        "success": false,
+        "error": "Object p12 not found in current choices",
+        "error_code": "invalid_choice",
+        "retryable": true,
+        "game_seq": 135
       },
       "llmEventIndices": [
         198,
         199,
-        200
+        200,
+        201,
+        202,
+        203
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 1 creature"
-      ],
-      "actionSeq": 131,
+      "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -101827,20 +101841,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12,p28"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p28' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p28'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 183
       },
       "llmEventIndices": [
         272,
         273,
-        274
+        274,
+        275,
+        276,
+        277
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 2 creatures"
-      ],
-      "actionSeq": 178,
+      "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -102095,23 +102115,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p12"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p12' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p12'"
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 228,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         297,
         298,
-        299
+        299,
+        300,
+        301
       ],
       "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 1 creature",
         "Attacker: Merfolk Pupil (1/1) unblocked"
       ],
-      "actionSeq": 223,
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -103600,20 +103627,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12,p14"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p14' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p14'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 336
       },
       "llmEventIndices": [
         415,
         416,
-        417
+        417,
+        418,
+        419,
+        420
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 2 creatures"
-      ],
-      "actionSeq": 331,
+      "subsequentActions": [],
+      "actionSeq": 336,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -103697,7 +103730,8 @@
       "llmEventIndices": [
         423,
         424,
-        429
+        429,
+        430
       ],
       "subsequentActions": [
         "Attacker: Merfolk Pupil (2/2) unblocked",
@@ -104006,18 +104040,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p31"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "game_seq": 360,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Select attackers",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         448,
         449,
-        450
+        450,
+        451,
+        452
       ],
       "subsequentActions": [],
-      "actionSeq": 359,
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -104797,20 +104840,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p12' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p12'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 428
       },
       "llmEventIndices": [
         504,
         505,
-        506
+        506,
+        507,
+        508,
+        509
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 1 creature"
-      ],
-      "actionSeq": 424,
+      "subsequentActions": [],
+      "actionSeq": 428,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -105185,18 +105234,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p31,p3"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "game_seq": 451,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Select attackers",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         532,
         533,
-        534
+        534,
+        535,
+        536
       ],
       "subsequentActions": [],
-      "actionSeq": 450,
+      "actionSeq": 451,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "attackers"
@@ -105295,7 +105353,8 @@
       "llmEventIndices": [
         544,
         545,
-        546
+        546,
+        547
       ],
       "subsequentActions": [
         "Attacker: Phyrexian Gargantua (4/4) unblocked",
@@ -105849,22 +105908,30 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p14,p30,p50"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p50' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][2]:\n    'p50'"
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 500,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         576,
         577,
-        578
+        578,
+        579,
+        580,
+        581,
+        584
       ],
-      "subsequentActions": [
-        "QwCdr Sarge attacks Gem31P Vorthos with 3 creatures"
-      ],
-      "actionSeq": 494,
+      "subsequentActions": [],
+      "actionSeq": 500,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -106264,20 +106331,29 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p31,p3,p35"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p31' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p31'"
+        "success": true,
+        "action_taken": "auto_selected_required_target",
+        "warning": "Required target auto-selected. Use get_action_choices first, then index=N.",
+        "game_seq": 524,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Select attackers",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         604,
         605,
-        606
+        606,
+        607,
+        608
       ],
       "subsequentActions": [],
-      "actionSeq": 523,
+      "actionSeq": 524,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "attackers"

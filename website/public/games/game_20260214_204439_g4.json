@@ -57642,28 +57642,20 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p15",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p15"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         71,
         75,
-        76
+        76,
+        78,
+        79
       ],
       "subsequentActions": [
         "has started watching",
@@ -57741,29 +57733,19 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p15",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         82,
         84,
         87,
-        88
+        88,
+        90,
+        96
       ],
       "subsequentActions": [
         "has started watching",
@@ -58309,29 +58291,37 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p5",
-        "index": 1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         143,
         150,
         154,
-        155
+        155,
+        157,
+        158,
+        160,
+        161,
+        166,
+        167,
+        169,
+        170,
+        172,
+        173,
+        175,
+        176,
+        178,
+        179,
+        181,
+        182,
+        184,
+        185
       ],
       "subsequentActions": [
         "has started watching",
@@ -58443,28 +58433,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p5",
-        "index": 1,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         188,
         190,
-        191
+        191,
+        193,
+        194
       ],
       "subsequentActions": [
         "has started watching",
@@ -58572,20 +58554,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p13"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         203,
         205,
-        206
+        206,
+        210,
+        212
       ],
       "subsequentActions": [
         "has started watching",
@@ -58648,20 +58632,22 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": null,
+      "chosen": 3,
       "chosenArgs": {
-        "attackers": "p13"
+        "id": "p6"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_3"
       },
       "llmEventIndices": [
         215,
         217,
-        218
+        218,
+        220,
+        221
       ],
       "subsequentActions": [
         "has started watching",
@@ -59060,21 +59046,24 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "index": 2,
         "mana_plan": "[{\"tap\": \"p16\"}, {\"tap\": \"p6\"}]",
-        "id": "p6"
+        "index": 2
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_2",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         269,
         271,
         274,
-        275
+        275,
+        277,
+        278
       ],
       "subsequentActions": [
         "has started watching",
@@ -59842,72 +59831,25 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\": \"p16\"}, {\"tap\": \"p5\"}]",
-        "id": "p10"
+        "mana_plan": "[{\"tap\": \"p16\"}]",
+        "id": "p12"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices",
-        "choices": [
-          {
-            "name": "Soul-Guide Lantern",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}, {T}, Sacrifice {this}: Draw a card.",
-              "{T}, Sacrifice {this}: Exile each opponent's grav..."
-            ],
-            "id": "p30"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 1,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Goblin Welder",
-            "index": 2,
-            "action": "cast",
-            "id": "p12",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 3,
-            "action": "cast",
-            "id": "p21"
-          },
-          {
-            "mana_cost": "{1}",
-            "name": "Lavaspur Boots",
-            "index": 4,
-            "action": "cast",
-            "id": "p24"
-          },
-          {
-            "name": "Bloodstained Mire",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p5"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_2",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         360,
         362,
-        363
+        363,
+        365,
+        366
       ],
       "subsequentActions": [
         "has started watching",
@@ -60732,22 +60674,25 @@
       "isForced": false,
       "chosen": 6,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\": \"p17\"}]",
-        "target": "p12",
         "index": 6,
-        "id": "p24"
+        "target": "p12",
+        "mana_plan": "[{\"tap\": \"p17\"}]"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_6",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         461,
         463,
         465,
-        466
+        466,
+        468,
+        469
       ],
       "subsequentActions": [
         "has started watching",
@@ -61229,28 +61174,20 @@
       "isForced": false,
       "chosen": 4,
       "chosenArgs": {
-        "amount": 0,
-        "amounts": [],
-        "answer": true,
-        "attackers": "",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "p32",
-        "index": 4,
-        "mana_plan": "",
-        "pile": 0,
-        "text": ""
+        "id": "p32"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_4"
       },
       "llmEventIndices": [
         511,
         513,
-        514
+        514,
+        516,
+        517
       ],
       "subsequentActions": [
         "has started watching",
@@ -63682,7 +63619,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p22"
+        "attackers": [
+          "p11",
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -64397,81 +64337,26 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "text": "Ensnaring Bridge"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{1}{R}",
-            "name": "Goblin Engineer",
-            "index": 0,
-            "action": "cast",
-            "id": "p11",
-            "power": "1",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{3}",
-            "name": "Phyrexian Dragon Engine",
-            "index": 1,
-            "action": "cast",
-            "id": "p34",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "Urza's Saga",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}: Create a 0/0 colorless Construct artifa..."
-            ],
-            "id": "p49"
-          },
-          {
-            "mana_cost": "{1}",
-            "name": "Grindstone",
-            "index": 3,
-            "action": "cast",
-            "id": "p28"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 4,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Simian Spirit Guide",
-            "index": 5,
-            "action": "cast",
-            "id": "p42",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 6,
-            "action": "cast",
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         820,
         822,
         825,
         827,
-        828
+        828,
+        830,
+        833,
+        836,
+        837
       ],
       "subsequentActions": [
         "has started watching",
@@ -64721,45 +64606,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "text": "Ensnaring Bridge"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Urza's Saga",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}: Create a 0/0 colorless Construct artifa..."
-            ],
-            "id": "p49"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 1,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 2,
-            "action": "cast",
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         858,
         860,
-        861
+        861,
+        863,
+        864
       ],
       "subsequentActions": [
         "has started watching",
@@ -65741,7 +65603,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -65943,7 +65807,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p47'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p47"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -65951,7 +65820,8 @@
       "llmEventIndices": [
         972,
         976,
-        977
+        977,
+        992
       ],
       "subsequentActions": [
         "has started watching",
@@ -66152,7 +66022,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p22', 'blocks': 'p47'}"
+        "blockers": [
+          {
+            "id": "p22",
+            "blocks": "p47"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
@@ -66160,7 +66035,8 @@
       "llmEventIndices": [
         993,
         997,
-        998
+        998,
+        1010
       ],
       "subsequentActions": [
         "has started watching",
@@ -66480,7 +66356,8 @@
       "llmEventIndices": [
         1017,
         1019,
-        1020
+        1020,
+        1022
       ],
       "subsequentActions": [
         "has started watching",
@@ -66554,7 +66431,7 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 8,
+      "chosen": 3,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -66562,7 +66439,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p39,p45",
+        "attackers": [
+          "p39",
+          "p45"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p2",
@@ -66580,7 +66460,8 @@
       "llmEventIndices": [
         1023,
         1025,
-        1026
+        1026,
+        1028
       ],
       "subsequentActions": [
         "has started watching",
@@ -66680,7 +66561,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 8,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -66688,7 +66569,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p39,p45",
+        "attackers": [
+          "p39",
+          "p45"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p36",
@@ -66706,7 +66590,8 @@
       "llmEventIndices": [
         1035,
         1037,
-        1038
+        1038,
+        1042
       ],
       "subsequentActions": [
         "has started watching",
@@ -66817,7 +66702,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p10",
@@ -66965,7 +66852,7 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 8,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -66973,7 +66860,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p4",
@@ -66991,7 +66880,8 @@
       "llmEventIndices": [
         1065,
         1067,
-        1068
+        1068,
+        1070
       ],
       "subsequentActions": [
         "has started watching",
@@ -67149,7 +67039,10 @@
           1
         ],
         "answer": true,
-        "attackers": "p22,p16",
+        "attackers": [
+          "p22",
+          "p16"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p47",
@@ -67167,7 +67060,8 @@
       "llmEventIndices": [
         1080,
         1082,
-        1083
+        1083,
+        1085
       ],
       "subsequentActions": [
         "has started watching",
@@ -67231,7 +67125,7 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -67239,7 +67133,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "cjson_string",
         "id": "p4",
@@ -67257,7 +67153,8 @@
       "llmEventIndices": [
         1086,
         1088,
-        1089
+        1089,
+        1091
       ],
       "subsequentActions": [
         "has started watching",
@@ -67701,7 +67598,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 3,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -67710,7 +67607,11 @@
           1
         ],
         "answer": true,
-        "attackers": "p22,p16,p2",
+        "attackers": [
+          "p22",
+          "p16",
+          "p2"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p3",
@@ -67728,7 +67629,8 @@
       "llmEventIndices": [
         1125,
         1127,
-        1128
+        1128,
+        1132
       ],
       "subsequentActions": [
         "has started watching",
@@ -67780,7 +67682,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12,p11"
+        "attackers": [
+          "p12",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -68055,7 +67960,7 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 2,
       "chosenArgs": {
         "amount": 4,
         "amounts": [
@@ -68063,7 +67968,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p3",
@@ -68081,7 +67988,8 @@
       "llmEventIndices": [
         1164,
         1166,
-        1167
+        1167,
+        1169
       ],
       "subsequentActions": [
         "has started watching",
@@ -68136,14 +68044,16 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 1,
         "amounts": [
           6
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p16",
@@ -68161,7 +68071,8 @@
       "llmEventIndices": [
         1170,
         1174,
-        1175
+        1175,
+        1178
       ],
       "subsequentActions": [
         "has started watching",
@@ -68225,7 +68136,9 @@
           1
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p16",
@@ -68243,7 +68156,8 @@
       "llmEventIndices": [
         1179,
         1181,
-        1182
+        1182,
+        1184
       ],
       "subsequentActions": [
         "has started watching",
@@ -68305,7 +68219,9 @@
           4
         ],
         "answer": true,
-        "attackers": "p22",
+        "attackers": [
+          "p22"
+        ],
         "auto_tap": true,
         "blockers": "json_string",
         "id": "p2",
@@ -68323,7 +68239,8 @@
       "llmEventIndices": [
         1185,
         1187,
-        1188
+        1188,
+        1190
       ],
       "subsequentActions": [
         "has started watching",
@@ -68846,21 +68763,20 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 2,
+      "chosen": null,
       "chosenArgs": {
-        "id": "p3",
-        "index": 2
+        "id": "p"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "error": "Unknown short ID: p"
       },
       "llmEventIndices": [
         1233,
         1235,
-        1236
+        1236,
+        1238,
+        1239,
+        1241
       ],
       "subsequentActions": [
         "has started watching",
@@ -69274,7 +69190,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p22"
+        "attackers": [
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -70126,37 +70044,22 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p10",
-        "mana_plan": "[{\"pool\": \"COLORLESS\"}, {\"tap\": \"p16\"}]"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 0,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 1,
-            "action": "cast",
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1365,
         1367,
-        1368
+        1368,
+        1370,
+        1371
       ],
       "subsequentActions": [
         "has started watching",
@@ -70468,7 +70371,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -71026,7 +70931,9 @@
           1
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
         "blockers": "",
         "id": "",
@@ -71586,7 +71493,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p22"
+        "attackers": [
+          "p22"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -71856,19 +71765,20 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "id": "p5",
-        "index": 1
+        "id": "p5"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1554,
         1555,
-        1556
+        1556,
+        1557,
+        1558
       ],
       "subsequentActions": [
         "has started watching",
@@ -72440,70 +72350,22 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\":\"p16\"}]"
+        "id": "p79"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{3}",
-            "name": "Phyrexian Dragon Engine",
-            "index": 0,
-            "action": "cast",
-            "id": "p34",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 1,
-            "action": "cast",
-            "id": "p79"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 2,
-            "action": "cast",
-            "id": "p9"
-          },
-          {
-            "mana_cost": "{2}{R}",
-            "name": "Simian Spirit Guide",
-            "index": 3,
-            "action": "cast",
-            "id": "p42",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "Goblin Welder",
-            "index": 4,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: Choose target artifact a player controls and..."
-            ],
-            "id": "p12"
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Pyroblast",
-            "index": 5,
-            "action": "cast",
-            "id": "p21"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1612,
         1614,
-        1615
+        1615,
+        1617,
+        1618
       ],
       "subsequentActions": [
         "has started watching",
@@ -72706,16 +72568,49 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "[{\"exile\":\"p42\"},{\"tap\":\"p75\"}]",
-        "id": "p34"
+        "id": "p34",
+        "mana_plan": "[{\"pool\": \"COLORLESS\"}, {\"pool\": \"COLORLESS\"}, {\"tap\":\"p75\"}]"
       },
       "actionResult": {
-        "error": "Unknown mana_plan entry type: exile (expected 'tap' or 'pool')"
+        "retryable": true,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p34 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{R}",
+            "name": "Pyroblast",
+            "index": 0,
+            "action": "cast",
+            "id": "p9"
+          },
+          {
+            "name": "Goblin Welder",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}: Choose target artifact a player controls and..."
+            ],
+            "id": "p12"
+          },
+          {
+            "mana_cost": "{R}",
+            "name": "Pyroblast",
+            "index": 2,
+            "action": "cast",
+            "id": "p21"
+          }
+        ]
       },
       "llmEventIndices": [
         1648,
         1650,
-        1651
+        1651,
+        1653,
+        1654,
+        1656,
+        1657,
+        1659
       ],
       "subsequentActions": [
         "has started watching",
@@ -73211,7 +73106,8 @@
       "llmEventIndices": [
         1714,
         1716,
-        1717
+        1717,
+        1719
       ],
       "subsequentActions": [
         "has started watching",
@@ -73358,21 +73254,11 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": 0,
+      "chosen": null,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "answer": true,
-        "attackers": "p22",
-        "auto_tap": false,
-        "blockers": "",
-        "id": "",
-        "index": 0,
-        "mana_plan": "",
-        "pile": 1,
-        "text": ""
+        "attackers": [
+          "p22"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -73384,7 +73270,10 @@
         1747,
         1748,
         1751,
-        1752
+        1752,
+        1754,
+        1755,
+        1757
       ],
       "subsequentActions": [
         "has started watching",
@@ -73422,31 +73311,20 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p78"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p78 not found in current choices",
-        "choices": [
-          {
-            "name": "Goblin Welder",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}: Choose target artifact a player controls and..."
-            ],
-            "id": "p12"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1764,
         1766,
-        1767
+        1767,
+        1769,
+        1772
       ],
       "subsequentActions": [
         "has started watching",

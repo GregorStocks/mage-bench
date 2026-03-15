@@ -106679,10 +106679,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "Gem3P Fate chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -107052,7 +107050,7 @@
         14
       ],
       "subsequentActions": [],
-      "actionSeq": 7
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -107253,10 +107251,8 @@
         13,
         16
       ],
-      "subsequentActions": [
-        "Gem3P Fate's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 13
     },
     {
       "index": 5,
@@ -107389,11 +107385,8 @@
         15,
         18
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts a card from hand to the bottom of their library",
-        "GPT54 Coach's library is shuffled"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 15
     },
     {
       "index": 6,
@@ -107518,10 +107511,8 @@
         17,
         23
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 13
+      "subsequentActions": [],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -107653,10 +107644,8 @@
         19,
         21
       ],
-      "subsequentActions": [
-        "Gem3P Fate skips Draw step"
-      ],
-      "actionSeq": 15,
+      "subsequentActions": [],
+      "actionSeq": 19,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -107817,11 +107806,8 @@
         26,
         27
       ],
-      "subsequentActions": [
-        "Gem3P Fate skips Draw step",
-        "Gem3P Fate puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 16
+      "subsequentActions": [],
+      "actionSeq": 23
     },
     {
       "index": 10,
@@ -107946,10 +107932,8 @@
         28,
         29
       ],
-      "subsequentActions": [
-        "Gem3P Fate skip attack"
-      ],
-      "actionSeq": 23
+      "subsequentActions": [],
+      "actionSeq": 27
     },
     {
       "index": 11,
@@ -108116,7 +108100,7 @@
         31
       ],
       "subsequentActions": [],
-      "actionSeq": 27
+      "actionSeq": 29
     },
     {
       "index": 12,
@@ -108281,7 +108265,7 @@
         33
       ],
       "subsequentActions": [],
-      "actionSeq": 29,
+      "actionSeq": 30,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -108428,10 +108412,8 @@
         34,
         35
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 30,
+      "subsequentActions": [],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108574,10 +108556,8 @@
         36,
         37
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -108735,7 +108715,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109055,10 +109035,8 @@
         42,
         44
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 42,
+      "subsequentActions": [],
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -109251,11 +109229,9 @@
         54
       ],
       "subsequentActions": [
-        "Gem3P Fate puts Island from hand onto the Battlefield",
-        "Gem3P Fate casts Preordain from hand",
         "Gem3P Fate scries 2 (source: Preordain)"
       ],
-      "actionSeq": 40,
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -109583,7 +109559,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 54,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -109767,13 +109743,8 @@
         55,
         56
       ],
-      "subsequentActions": [
-        "Gem3P Fate scries 2 (source: Preordain)",
-        "Gem3P Fate puts a card from library to the top of their library (source: Preordain)",
-        "Gem3P Fate puts a card from library to the top of their library (source: Preordain)",
-        "Gem3P Fate puts Preordain from stack into their graveyard"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -109931,10 +109902,8 @@
         57,
         58
       ],
-      "subsequentActions": [
-        "Gem3P Fate skip attack"
-      ],
-      "actionSeq": 59,
+      "subsequentActions": [],
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -110330,10 +110299,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 66,
+      "subsequentActions": [],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -110506,10 +110473,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 70,
+      "subsequentActions": [],
+      "actionSeq": 74,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -110905,10 +110870,8 @@
         73,
         74
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 78,
+      "subsequentActions": [],
+      "actionSeq": 82,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -111427,10 +111390,8 @@
         79,
         80
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 97,
+      "subsequentActions": [],
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -111642,10 +111603,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "GPT54 Coach casts Spiteful Prankster from hand"
-      ],
-      "actionSeq": 101,
+      "subsequentActions": [],
+      "actionSeq": 106,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -111850,10 +111809,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Spiteful Prankster from stack onto the Battlefield"
-      ],
-      "actionSeq": 106,
+      "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -112351,10 +112308,8 @@
         89,
         91
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 117,
+      "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -113252,10 +113207,8 @@
         105,
         106
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 145,
+      "subsequentActions": [],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -113568,7 +113521,7 @@
         108
       ],
       "subsequentActions": [],
-      "actionSeq": 149,
+      "actionSeq": 151,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -113855,10 +113808,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 151,
+      "subsequentActions": [],
+      "actionSeq": 154,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -114152,10 +114103,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "GPT54 Coach casts Forge Devil from hand"
-      ],
-      "actionSeq": 154,
+      "subsequentActions": [],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -114451,10 +114400,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Forge Devil from stack onto the Battlefield"
-      ],
-      "actionSeq": 157,
+      "subsequentActions": [],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -114736,10 +114683,8 @@
         115,
         116
       ],
-      "subsequentActions": [
-        "GPT54 Coach - Ability triggers: Forge Devil - When Forge Devil enters, it deals 1 damage to target creature and 1 damage to you. - targeting Crypt Lurker"
-      ],
-      "actionSeq": 160,
+      "subsequentActions": [],
+      "actionSeq": 162,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115041,11 +114986,8 @@
         117,
         118
       ],
-      "subsequentActions": [
-        "Forge Devil deals 1 damage to Crypt Lurker",
-        "GPT54 Coach loses 1 life from Forge Devil"
-      ],
-      "actionSeq": 162,
+      "subsequentActions": [],
+      "actionSeq": 166,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115350,7 +115292,7 @@
         120
       ],
       "subsequentActions": [],
-      "actionSeq": 166,
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115629,7 +115571,7 @@
         122
       ],
       "subsequentActions": [],
-      "actionSeq": 167,
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -115902,11 +115844,8 @@
         123,
         124
       ],
-      "subsequentActions": [
-        "GPT54 Coach sacrificed Forge Devil (source: Heartfire)",
-        "GPT54 Coach casts Heartfire targeting Crypt Lurker from hand"
-      ],
-      "actionSeq": 170,
+      "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116164,10 +116103,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "GPT54 Coach - Ability triggers: Spiteful Prankster - Whenever another creature dies, Spiteful Prankster deals 1 damage to target player or planeswalker. - targeting Gem3P Fate"
-      ],
-      "actionSeq": 173,
+      "subsequentActions": [],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116431,10 +116368,8 @@
         127,
         128
       ],
-      "subsequentActions": [
-        "Gem3P Fate loses 1 life from Spiteful Prankster"
-      ],
-      "actionSeq": 175,
+      "subsequentActions": [],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116702,12 +116637,8 @@
         129,
         130
       ],
-      "subsequentActions": [
-        "Heartfire deals 4 damage to Crypt Lurker",
-        "GPT54 Coach puts Heartfire from stack into their graveyard",
-        "Crypt Lurker died"
-      ],
-      "actionSeq": 178,
+      "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116958,10 +116889,8 @@
         131,
         132
       ],
-      "subsequentActions": [
-        "GPT54 Coach - Ability triggers: Spiteful Prankster - Whenever another creature dies, Spiteful Prankster deals 1 damage to target player or planeswalker. - targeting Gem3P Fate"
-      ],
-      "actionSeq": 183,
+      "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -117223,10 +117152,8 @@
         133,
         140
       ],
-      "subsequentActions": [
-        "Gem3P Fate loses 1 life from Spiteful Prankster"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -117757,10 +117684,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 190,
+      "subsequentActions": [],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -118061,11 +117986,9 @@
         145
       ],
       "subsequentActions": [
-        "Gem3P Fate puts Island from hand onto the Battlefield",
-        "Gem3P Fate casts Bone Picker from hand",
         "Gem3P Fate puts Bone Picker from stack onto the Battlefield"
       ],
-      "actionSeq": 188,
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -118578,10 +118501,8 @@
         146,
         147
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Bone Picker from stack onto the Battlefield"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -118865,7 +118786,7 @@
         149
       ],
       "subsequentActions": [],
-      "actionSeq": 204,
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119148,7 +119069,7 @@
         151
       ],
       "subsequentActions": [],
-      "actionSeq": 205,
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -119415,7 +119336,7 @@
         155
       ],
       "subsequentActions": [],
-      "actionSeq": 206
+      "actionSeq": 209
     },
     {
       "index": 69,
@@ -119710,12 +119631,8 @@
         156,
         157
       ],
-      "subsequentActions": [
-        "Burst Lightning deals 2 damage to Bone Picker",
-        "GPT54 Coach puts Burst Lightning from stack into their graveyard",
-        "Bone Picker died"
-      ],
-      "actionSeq": 209
+      "subsequentActions": [],
+      "actionSeq": 214
     },
     {
       "index": 71,
@@ -119956,10 +119873,8 @@
         158,
         159
       ],
-      "subsequentActions": [
-        "GPT54 Coach - Ability triggers: Spiteful Prankster - Whenever another creature dies, Spiteful Prankster deals 1 damage to target player or planeswalker. - targeting Gem3P Fate"
-      ],
-      "actionSeq": 214
+      "subsequentActions": [],
+      "actionSeq": 217
     },
     {
       "index": 72,
@@ -120200,10 +120115,8 @@
         160,
         161
       ],
-      "subsequentActions": [
-        "Gem3P Fate loses 1 life from Spiteful Prankster"
-      ],
-      "actionSeq": 217
+      "subsequentActions": [],
+      "actionSeq": 220
     },
     {
       "index": 73,
@@ -120444,10 +120357,8 @@
         162,
         163
       ],
-      "subsequentActions": [
-        "Gem3P Fate skip attack"
-      ],
-      "actionSeq": 220
+      "subsequentActions": [],
+      "actionSeq": 224
     },
     {
       "index": 74,
@@ -120720,7 +120631,7 @@
         165
       ],
       "subsequentActions": [],
-      "actionSeq": 224
+      "actionSeq": 226
     },
     {
       "index": 75,
@@ -121007,7 +120918,7 @@
         169
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -121313,7 +121224,7 @@
         171
       ],
       "subsequentActions": [],
-      "actionSeq": 227,
+      "actionSeq": 229,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -121602,10 +121513,8 @@
         172,
         173
       ],
-      "subsequentActions": [
-        "GPT54 Coach attacks Gem3P Fate with 1 creature"
-      ],
-      "actionSeq": 229,
+      "subsequentActions": [],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -121896,10 +121805,8 @@
         174,
         175
       ],
-      "subsequentActions": [
-        "Attacker: Spiteful Prankster (3/2) unblocked"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -122190,10 +122097,8 @@
         176,
         177
       ],
-      "subsequentActions": [
-        "Gem3P Fate loses 3 life at combat from Spiteful Prankster"
-      ],
-      "actionSeq": 238,
+      "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -122480,7 +122385,7 @@
         179
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -122777,7 +122682,7 @@
         194
       ],
       "subsequentActions": [],
-      "actionSeq": 244,
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123332,7 +123237,7 @@
         188
       ],
       "subsequentActions": [],
-      "actionSeq": 248,
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -123374,18 +123279,246 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "Blue"
+        "text": "Blue"
       },
       "actionResult": {
-        "error": "Unknown short ID: Blue"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T6 Precombat Main/Precombat Main (Gem3P Fate) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Bone Picker",
+                "rules": [
+                  "This spell costs {3} less to cast if a creature died this turn.",
+                  "Flying",
+                  "Deathtouch",
+                  ": ",
+                  "ICON_BADA creature died this turn"
+                ],
+                "id": "p37"
+              },
+              {
+                "name": "Crypt Lurker",
+                "rules": [
+                  "When {this} enters, you may sacrifice a creature or discard a creature card. If you do, draw a card."
+                ],
+                "id": "p11"
+              },
+              {
+                "name": "Preordain",
+                "rules": [
+                  "Scry 2, then draw a card. (To scry 2, look at the top two cards of your library, then put any number of them on the bottom of your library and the rest on top in any order.)"
+                ],
+                "id": "p35"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p17"
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p38"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "soul": 1
+                },
+                "name": "Malefic Scythe",
+                "rules": [
+                  "{this} enters with a soul counter on it.",
+                  "Equipped creature gets +1/+1 for each soul counter on {this}.",
+                  "Whenever equipped creature dies, put a soul counter on {this}.",
+                  "Equip {1} ({1}: Attach to target creature you control. Equip only as a sorcery.)"
+                ],
+                "id": "p18"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p21"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Moor",
+                "modified": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than black.",
+                  "{T}: Add {B}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p51"
+              }
+            ],
+            "name": "Gem3P Fate",
+            "library_size": 28,
+            "life": 14,
+            "hand": [
+              {
+                "mana_cost": "{2}{U}",
+                "name": "No Escape",
+                "rules": [
+                  "Counter target creature or planeswalker spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard. : Scry 1."
+                ],
+                "id": "p56"
+              },
+              {
+                "mana_cost": "{1}{U}",
+                "name": "Perilous Voyage",
+                "rules": [
+                  "Return target nonland permanent you don't control to its owner's hand. If its mana value was 2 or less, scry 2."
+                ],
+                "id": "p19",
+                "playable": true
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Burst Lightning",
+                "rules": [
+                  "Kicker {4} (You may pay an additional {4} as you cast this spell.)",
+                  "{this} deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+                ],
+                "id": "p45"
+              },
+              {
+                "name": "Forge Devil",
+                "rules": [
+                  "When {this} enters, it deals 1 damage to target creature and 1 damage to you."
+                ],
+                "id": "p40"
+              },
+              {
+                "name": "Heartfire",
+                "rules": [
+                  "As an additional cost to cast this spell, sacrifice a creature or planeswalker.: ",
+                  "{this} deals 4 damage to any target."
+                ],
+                "id": "p23"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p8"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p24"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p25"
+              },
+              {
+                "tapped": false,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "id": "p26"
+              },
+              {
+                "tapped": true,
+                "name": "Spiteful Prankster",
+                "rules": [
+                  "During your turn, {this} has first strike.",
+                  "Whenever another creature dies, {this} deals 1 damage to target player or planeswalker.",
+                  ": ",
+                  "ICON_BADIt's your turn"
+                ],
+                "id": "p9",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": false
+              }
+            ],
+            "name": "GPT54 Coach",
+            "library_size": 29,
+            "life": 19
+          }
+        ],
+        "board_cursor": 24,
+        "choices": [
+          {
+            "mana_cost": "{1}{U}",
+            "name": "Perilous Voyage",
+            "index": 0,
+            "action": "cast",
+            "id": "p19"
+          }
+        ],
+        "untapped_lands": 5,
+        "game_seq": 250,
+        "land_drops_used": 1,
+        "action_taken": "selected_choice_text_Blue",
+        "success": true
       },
       "llmEventIndices": [
         188,
         189,
-        190
+        190,
+        191,
+        192
       ],
       "subsequentActions": [],
-      "actionSeq": 249,
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -123654,7 +123787,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 250,
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -123943,11 +124076,8 @@
         195,
         198
       ],
-      "subsequentActions": [
-        "Thriving Moor: Gem3P Fate has chosen Blue",
-        "Gem3P Fate puts Thriving Moor from hand onto the Battlefield"
-      ],
-      "actionSeq": 246,
+      "subsequentActions": [],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -124898,7 +125028,7 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 260,
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -125228,7 +125358,7 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 262,
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -125552,7 +125682,7 @@
         214
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 267,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -125918,7 +126048,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 267,
+      "actionSeq": 269,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -126227,10 +126357,8 @@
         217,
         220
       ],
-      "subsequentActions": [
-        "GPT54 Coach attacks Gem3P Fate with 1 creature"
-      ],
-      "actionSeq": 269,
+      "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -126832,7 +126960,7 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 273,
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -127182,10 +127310,8 @@
         225,
         227
       ],
-      "subsequentActions": [
-        "Gem3P Fate loses 3 life at combat from Spiteful Prankster"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -127502,7 +127628,7 @@
         231
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -128090,7 +128216,7 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -128377,7 +128503,7 @@
         239
       ],
       "subsequentActions": [],
-      "actionSeq": 285,
+      "actionSeq": 293,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -128662,10 +128788,8 @@
         236,
         237
       ],
-      "subsequentActions": [
-        "GPT54 Coach casts Pitchburn Devils from hand"
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -128955,7 +129079,7 @@
         241
       ],
       "subsequentActions": [],
-      "actionSeq": 294,
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -129240,10 +129364,8 @@
         240,
         243
       ],
-      "subsequentActions": [
-        "Gem3P Fate casts No Escape targeting Pitchburn Devils from hand"
-      ],
-      "actionSeq": 293,
+      "subsequentActions": [],
+      "actionSeq": 300,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129523,7 +129645,7 @@
         245
       ],
       "subsequentActions": [],
-      "actionSeq": 299,
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -129811,12 +129933,8 @@
         244,
         252
       ],
-      "subsequentActions": [
-        "Gem3P Fate moves Pitchburn Devils from stack to the exile zone (source: No Escape)",
-        "Pitchburn Devils is countered by No Escape",
-        "Gem3P Fate scries 1 (source: No Escape)"
-      ],
-      "actionSeq": 300,
+      "subsequentActions": [],
+      "actionSeq": 307,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -130112,11 +130230,8 @@
         246,
         248
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts a card from library to the top of their library (source: No Escape)",
-        "Gem3P Fate puts No Escape from stack into their graveyard"
-      ],
-      "actionSeq": 304,
+      "subsequentActions": [],
+      "actionSeq": 308,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -130412,7 +130527,7 @@
         250
       ],
       "subsequentActions": [],
-      "actionSeq": 308,
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -130691,7 +130806,7 @@
         254
       ],
       "subsequentActions": [],
-      "actionSeq": 309,
+      "actionSeq": 317,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -130977,10 +131092,8 @@
         253,
         257
       ],
-      "subsequentActions": [
-        "Gem3P Fate casts Barter in Blood from hand"
-      ],
-      "actionSeq": 307
+      "subsequentActions": [],
+      "actionSeq": 318
     },
     {
       "index": 114,
@@ -131684,7 +131797,7 @@
         263
       ],
       "subsequentActions": [],
-      "actionSeq": 330,
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -132016,7 +132129,7 @@
         269
       ],
       "subsequentActions": [],
-      "actionSeq": 331,
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -132321,11 +132434,8 @@
         270,
         271
       ],
-      "subsequentActions": [
-        "Thriving Bluff: GPT54 Coach has chosen Black",
-        "GPT54 Coach puts Thriving Bluff from hand onto the Battlefield"
-      ],
-      "actionSeq": 332,
+      "subsequentActions": [],
+      "actionSeq": 337,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -132627,10 +132737,8 @@
         272,
         273
       ],
-      "subsequentActions": [
-        "GPT54 Coach casts Furious Rise from hand"
-      ],
-      "actionSeq": 337,
+      "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -132928,10 +133036,8 @@
         274,
         277
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Furious Rise from stack onto the Battlefield"
-      ],
-      "actionSeq": 342,
+      "subsequentActions": [],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -133570,10 +133676,8 @@
         280,
         281
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 346,
+      "subsequentActions": [],
+      "actionSeq": 350,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -133903,7 +134007,7 @@
         283
       ],
       "subsequentActions": [],
-      "actionSeq": 350,
+      "actionSeq": 352,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -134226,7 +134330,7 @@
         285
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 353,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -134566,10 +134670,8 @@
         286,
         287
       ],
-      "subsequentActions": [
-        "Gem3P Fate casts Fetid Imp from hand"
-      ],
-      "actionSeq": 353,
+      "subsequentActions": [],
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -134928,10 +135030,8 @@
         288,
         289
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Fetid Imp from stack onto the Battlefield"
-      ],
-      "actionSeq": 359,
+      "subsequentActions": [],
+      "actionSeq": 362,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -135279,10 +135379,8 @@
         290,
         295
       ],
-      "subsequentActions": [
-        "Gem3P Fate activates: Equip. from Malefic Scythe targeting Fetid Imp"
-      ],
-      "actionSeq": 362,
+      "subsequentActions": [],
+      "actionSeq": 365,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -135962,7 +136060,7 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 365,
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -136294,7 +136392,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 366,
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -136642,7 +136740,7 @@
         303
       ],
       "subsequentActions": [],
-      "actionSeq": 367,
+      "actionSeq": 371,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -137028,7 +137126,7 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 371,
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -137744,7 +137842,7 @@
         315
       ],
       "subsequentActions": [],
-      "actionSeq": 373,
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -138085,7 +138183,7 @@
         317
       ],
       "subsequentActions": [],
-      "actionSeq": 375,
+      "actionSeq": 380,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -138422,10 +138520,8 @@
         316,
         319
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 376,
+      "subsequentActions": [],
+      "actionSeq": 381,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -138773,7 +138869,7 @@
         325
       ],
       "subsequentActions": [],
-      "actionSeq": 380,
+      "actionSeq": 382,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -139137,7 +139233,7 @@
         321
       ],
       "subsequentActions": [],
-      "actionSeq": 381,
+      "actionSeq": 383,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -139508,7 +139604,7 @@
         323
       ],
       "subsequentActions": [],
-      "actionSeq": 383,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -139863,7 +139959,7 @@
         327
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -140225,10 +140321,8 @@
         326,
         331
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 382,
+      "subsequentActions": [],
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -140591,7 +140685,7 @@
         329
       ],
       "subsequentActions": [],
-      "actionSeq": 388,
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -140949,7 +141043,7 @@
         333
       ],
       "subsequentActions": [],
-      "actionSeq": 390,
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -141310,10 +141404,8 @@
         332,
         335
       ],
-      "subsequentActions": [
-        "Gem3P Fate attacks GPT54 Coach with 1 creature"
-      ],
-      "actionSeq": 389,
+      "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -141673,7 +141765,7 @@
         337
       ],
       "subsequentActions": [],
-      "actionSeq": 394,
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -142034,10 +142126,8 @@
         336,
         339
       ],
-      "subsequentActions": [
-        "Attacker: Fetid Imp (2/3) unblocked"
-      ],
-      "actionSeq": 395,
+      "subsequentActions": [],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -142393,7 +142483,7 @@
         341
       ],
       "subsequentActions": [],
-      "actionSeq": 398,
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -142740,10 +142830,8 @@
         340,
         343
       ],
-      "subsequentActions": [
-        "GPT54 Coach loses 2 life at combat from Fetid Imp"
-      ],
-      "actionSeq": 399,
+      "subsequentActions": [],
+      "actionSeq": 403,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -143106,7 +143194,7 @@
         349
       ],
       "subsequentActions": [],
-      "actionSeq": 402,
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -143471,7 +143559,7 @@
         345
       ],
       "subsequentActions": [],
-      "actionSeq": 403,
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -143834,7 +143922,7 @@
         347
       ],
       "subsequentActions": [],
-      "actionSeq": 405,
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -144228,10 +144316,9 @@
         353
       ],
       "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield",
         "GPT54 Coach skip attack"
       ],
-      "actionSeq": 404,
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -144618,10 +144705,8 @@
         354,
         357
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 411,
+      "subsequentActions": [],
+      "actionSeq": 415,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -145037,7 +145122,7 @@
         359
       ],
       "subsequentActions": [],
-      "actionSeq": 415,
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -145414,7 +145499,7 @@
         361
       ],
       "subsequentActions": [],
-      "actionSeq": 417,
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -145804,7 +145889,7 @@
         363
       ],
       "subsequentActions": [],
-      "actionSeq": 418,
+      "actionSeq": 420,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -146193,10 +146278,8 @@
         364,
         365
       ],
-      "subsequentActions": [
-        "Gem3P Fate attacks GPT54 Coach with 1 creature"
-      ],
-      "actionSeq": 420,
+      "subsequentActions": [],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -146588,10 +146671,8 @@
         366,
         367
       ],
-      "subsequentActions": [
-        "Attacker: Fetid Imp (2/3) unblocked"
-      ],
-      "actionSeq": 425,
+      "subsequentActions": [],
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -146979,10 +147060,8 @@
         368,
         369
       ],
-      "subsequentActions": [
-        "GPT54 Coach loses 2 life at combat from Fetid Imp"
-      ],
-      "actionSeq": 429,
+      "subsequentActions": [],
+      "actionSeq": 433,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -147378,7 +147457,7 @@
         379
       ],
       "subsequentActions": [],
-      "actionSeq": 433,
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -148119,7 +148198,7 @@
         381
       ],
       "subsequentActions": [],
-      "actionSeq": 437,
+      "actionSeq": 441,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -148505,10 +148584,8 @@
         380,
         383
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 435,
+      "subsequentActions": [],
+      "actionSeq": 442,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -148874,7 +148951,7 @@
         385
       ],
       "subsequentActions": [],
-      "actionSeq": 441,
+      "actionSeq": 445,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -149259,10 +149336,8 @@
         384,
         387
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 442,
+      "subsequentActions": [],
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -149635,7 +149710,7 @@
         393
       ],
       "subsequentActions": [],
-      "actionSeq": 445,
+      "actionSeq": 447,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -150047,7 +150122,7 @@
         389
       ],
       "subsequentActions": [],
-      "actionSeq": 446,
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -150467,7 +150542,7 @@
         391
       ],
       "subsequentActions": [],
-      "actionSeq": 448,
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -150863,7 +150938,7 @@
         395
       ],
       "subsequentActions": [],
-      "actionSeq": 449,
+      "actionSeq": 453,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -151250,10 +151325,8 @@
         394,
         399
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 447,
+      "subsequentActions": [],
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -151657,7 +151730,7 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 453,
+      "actionSeq": 455,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -152063,7 +152136,7 @@
         403
       ],
       "subsequentActions": [],
-      "actionSeq": 455,
+      "actionSeq": 459,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -152894,7 +152967,7 @@
         409
       ],
       "subsequentActions": [],
-      "actionSeq": 459,
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -153721,7 +153794,7 @@
         413
       ],
       "subsequentActions": [],
-      "actionSeq": 463,
+      "actionSeq": 467,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -154172,7 +154245,7 @@
         419
       ],
       "subsequentActions": [],
-      "actionSeq": 467,
+      "actionSeq": 469,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -154943,7 +155016,7 @@
         421
       ],
       "subsequentActions": [],
-      "actionSeq": 471,
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -155345,10 +155418,8 @@
         420,
         427
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 469,
+      "subsequentActions": [],
+      "actionSeq": 476,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -156201,10 +156272,8 @@
         428,
         431
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 476,
+      "subsequentActions": [],
+      "actionSeq": 480,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -156585,7 +156654,7 @@
         437
       ],
       "subsequentActions": [],
-      "actionSeq": 479,
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1,
@@ -157019,7 +157088,7 @@
         433
       ],
       "subsequentActions": [],
-      "actionSeq": 480,
+      "actionSeq": 482,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -157442,7 +157511,7 @@
         439
       ],
       "subsequentActions": [],
-      "actionSeq": 482,
+      "actionSeq": 483,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -157839,7 +157908,7 @@
         443
       ],
       "subsequentActions": [],
-      "actionSeq": 481,
+      "actionSeq": 484,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -158272,7 +158341,7 @@
         441
       ],
       "subsequentActions": [],
-      "actionSeq": 483,
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -158716,7 +158785,7 @@
         445
       ],
       "subsequentActions": [],
-      "actionSeq": 485,
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -159111,10 +159180,8 @@
         444,
         448
       ],
-      "subsequentActions": [
-        "Gem3P Fate attacks GPT54 Coach with 1 creature"
-      ],
-      "actionSeq": 484,
+      "subsequentActions": [],
+      "actionSeq": 491,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -159560,7 +159627,7 @@
         452
       ],
       "subsequentActions": [],
-      "actionSeq": 490,
+      "actionSeq": 494,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -159956,10 +160023,8 @@
         451,
         454
       ],
-      "subsequentActions": [
-        "Attacker: Fetid Imp (2/3) unblocked"
-      ],
-      "actionSeq": 491,
+      "subsequentActions": [],
+      "actionSeq": 495,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -160401,7 +160466,7 @@
         456
       ],
       "subsequentActions": [],
-      "actionSeq": 494,
+      "actionSeq": 498,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -160782,10 +160847,8 @@
         455,
         458
       ],
-      "subsequentActions": [
-        "GPT54 Coach loses 2 life at combat from Fetid Imp"
-      ],
-      "actionSeq": 495,
+      "subsequentActions": [],
+      "actionSeq": 499,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -161237,7 +161300,7 @@
         464
       ],
       "subsequentActions": [],
-      "actionSeq": 498,
+      "actionSeq": 500,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -161637,7 +161700,7 @@
         460
       ],
       "subsequentActions": [],
-      "actionSeq": 499,
+      "actionSeq": 501,
       "pilotContext": {
         "untappedLands": 9,
         "playableCards": [
@@ -162036,7 +162099,7 @@
         462
       ],
       "subsequentActions": [],
-      "actionSeq": 501,
+      "actionSeq": 502,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0,
@@ -162422,7 +162485,7 @@
         470
       ],
       "subsequentActions": [],
-      "actionSeq": 502,
+      "actionSeq": 510,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -162837,10 +162900,8 @@
         465,
         466
       ],
-      "subsequentActions": [
-        "GPT54 Coach casts Traitorous Greed targeting Fetid Imp from hand"
-      ],
-      "actionSeq": 500,
+      "subsequentActions": [],
+      "actionSeq": 511,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -163238,7 +163299,7 @@
         468
       ],
       "subsequentActions": [],
-      "actionSeq": 511,
+      "actionSeq": 513,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -163639,7 +163700,7 @@
         474
       ],
       "subsequentActions": [],
-      "actionSeq": 513,
+      "actionSeq": 517,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -164012,12 +164073,8 @@
         471,
         472
       ],
-      "subsequentActions": [
-        "Gem3P Fate sacrificed Fetid Imp (source: Village Rites)",
-        "Gem3P Fate casts Village Rites from hand",
-        "Gem3P Fate - Ability triggers: Malefic Scythe - Whenever equipped creature dies, put a soul counter on Malefic Scythe."
-      ],
-      "actionSeq": 510,
+      "subsequentActions": [],
+      "actionSeq": 518,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -164393,7 +164450,7 @@
         476
       ],
       "subsequentActions": [],
-      "actionSeq": 518,
+      "actionSeq": 519,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -164812,7 +164869,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 517,
+      "actionSeq": 520,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -165187,7 +165244,7 @@
         480
       ],
       "subsequentActions": [],
-      "actionSeq": 519,
+      "actionSeq": 522,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -165601,10 +165658,8 @@
         479,
         482
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Village Rites from stack into their graveyard"
-      ],
-      "actionSeq": 520,
+      "subsequentActions": [],
+      "actionSeq": 523,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -165984,7 +166039,7 @@
         486
       ],
       "subsequentActions": [],
-      "actionSeq": 522,
+      "actionSeq": 526,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -166382,11 +166437,8 @@
         483,
         484
       ],
-      "subsequentActions": [
-        "Traitorous Greed has been fizzled.",
-        "GPT54 Coach puts Traitorous Greed from stack into their graveyard"
-      ],
-      "actionSeq": 523,
+      "subsequentActions": [],
+      "actionSeq": 527,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -166791,7 +166843,7 @@
         490
       ],
       "subsequentActions": [],
-      "actionSeq": 527,
+      "actionSeq": 532,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -167191,10 +167243,8 @@
         487,
         488
       ],
-      "subsequentActions": [
-        "Gem3P Fate casts Liliana's Standard Bearer from hand"
-      ],
-      "actionSeq": 526,
+      "subsequentActions": [],
+      "actionSeq": 533,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -167596,7 +167646,7 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 533,
+      "actionSeq": 536,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -168003,11 +168053,8 @@
         491,
         497
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Liliana's Standard Bearer from stack onto the Battlefield",
-        "Gem3P Fate - Ability triggers: Liliana's Standard Bearer - When Liliana's Standard Bearer enters, draw X cards, where X is the number of creatures that died under your control this turn."
-      ],
-      "actionSeq": 532,
+      "subsequentActions": [],
+      "actionSeq": 537,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -168411,7 +168458,7 @@
         499
       ],
       "subsequentActions": [],
-      "actionSeq": 536,
+      "actionSeq": 538,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -168819,7 +168866,7 @@
         501
       ],
       "subsequentActions": [],
-      "actionSeq": 537,
+      "actionSeq": 539,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -169223,7 +169270,7 @@
         503
       ],
       "subsequentActions": [],
-      "actionSeq": 538,
+      "actionSeq": 542,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -169629,10 +169676,8 @@
         502,
         505
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 539,
+      "subsequentActions": [],
+      "actionSeq": 543,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -170128,7 +170173,7 @@
         507
       ],
       "subsequentActions": [],
-      "actionSeq": 543,
+      "actionSeq": 545,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -170593,7 +170638,7 @@
         509
       ],
       "subsequentActions": [],
-      "actionSeq": 545,
+      "actionSeq": 546,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -171055,10 +171100,8 @@
         510,
         511
       ],
-      "subsequentActions": [
-        "Gem3P Fate activates: Equip. from Malefic Scythe targeting Liliana's Standard Bearer"
-      ],
-      "actionSeq": 546,
+      "subsequentActions": [],
+      "actionSeq": 551,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -171508,7 +171551,7 @@
         513
       ],
       "subsequentActions": [],
-      "actionSeq": 551,
+      "actionSeq": 553,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -171936,10 +171979,8 @@
         514,
         515
       ],
-      "subsequentActions": [
-        "Gem3P Fate casts Sage's Row Savant from hand"
-      ],
-      "actionSeq": 553,
+      "subsequentActions": [],
+      "actionSeq": 557,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -172370,11 +172411,8 @@
         516,
         517
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts Sage's Row Savant from stack onto the Battlefield",
-        "Gem3P Fate - Ability triggers: Sage's Row Savant - When Sage's Row Savant enters, scry 2. (Look at the top two cards of your library, then put any number of them on the bottom and the rest on top in any order.)"
-      ],
-      "actionSeq": 557,
+      "subsequentActions": [],
+      "actionSeq": 561,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -172805,10 +172843,8 @@
         520,
         521
       ],
-      "subsequentActions": [
-        "Gem3P Fate scries 2 (source: Sage's Row Savant)"
-      ],
-      "actionSeq": 561,
+      "subsequentActions": [],
+      "actionSeq": 564,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -173257,7 +173293,7 @@
         523
       ],
       "subsequentActions": [],
-      "actionSeq": 564,
+      "actionSeq": 565,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -173709,11 +173745,8 @@
         524,
         525
       ],
-      "subsequentActions": [
-        "Gem3P Fate puts a card from library to the bottom of their library (source: Sage's Row Savant)",
-        "Gem3P Fate puts a card from library to the top of their library (source: Sage's Row Savant)"
-      ],
-      "actionSeq": 565,
+      "subsequentActions": [],
+      "actionSeq": 568,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -174161,7 +174194,7 @@
         527
       ],
       "subsequentActions": [],
-      "actionSeq": 568,
+      "actionSeq": 570,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -174590,10 +174623,8 @@
         528,
         529
       ],
-      "subsequentActions": [
-        "Gem3P Fate attacks GPT54 Coach with 1 creature"
-      ],
-      "actionSeq": 570,
+      "subsequentActions": [],
+      "actionSeq": 574,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -175024,10 +175055,8 @@
         530,
         531
       ],
-      "subsequentActions": [
-        "Attacker: Liliana's Standard Bearer (5/3) unblocked"
-      ],
-      "actionSeq": 574,
+      "subsequentActions": [],
+      "actionSeq": 578,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -175475,10 +175504,8 @@
         532,
         533
       ],
-      "subsequentActions": [
-        "GPT54 Coach loses 5 life at combat from Liliana's Standard Bearer"
-      ],
-      "actionSeq": 578,
+      "subsequentActions": [],
+      "actionSeq": 582,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -175931,7 +175958,7 @@
         541
       ],
       "subsequentActions": [],
-      "actionSeq": 582,
+      "actionSeq": 584,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -176789,7 +176816,7 @@
         543
       ],
       "subsequentActions": [],
-      "actionSeq": 586,
+      "actionSeq": 590,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1,
@@ -177215,10 +177242,8 @@
         542,
         545
       ],
-      "subsequentActions": [
-        "GPT54 Coach puts Mountain from hand onto the Battlefield"
-      ],
-      "actionSeq": 584,
+      "subsequentActions": [],
+      "actionSeq": 591,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -177641,7 +177666,7 @@
         547
       ],
       "subsequentActions": [],
-      "actionSeq": 590,
+      "actionSeq": 594,
       "pilotContext": {
         "untappedLands": 10,
         "playableCards": [
@@ -178066,10 +178091,8 @@
         546,
         549
       ],
-      "subsequentActions": [
-        "GPT54 Coach skip attack"
-      ],
-      "actionSeq": 591,
+      "subsequentActions": [],
+      "actionSeq": 595,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -178491,7 +178514,7 @@
         552
       ],
       "subsequentActions": [],
-      "actionSeq": 594,
+      "actionSeq": 596,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1,
@@ -178977,7 +179000,7 @@
         559
       ],
       "subsequentActions": [],
-      "actionSeq": 596,
+      "actionSeq": 599,
       "pilotContext": {
         "untappedLands": 10,
         "playableCards": [
@@ -179921,7 +179944,7 @@
         563
       ],
       "subsequentActions": [],
-      "actionSeq": 600,
+      "actionSeq": 605,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -180450,7 +180473,7 @@
         569
       ],
       "subsequentActions": [],
-      "actionSeq": 605,
+      "actionSeq": 610,
       "pilotContext": {
         "untappedLands": 8,
         "playableCards": [
@@ -180503,13 +180526,11 @@
         567
       ],
       "subsequentActions": [
-        "Attacker: Liliana's Standard Bearer (5/3) unblocked",
-        "Attacker: Sage's Row Savant (2/1) unblocked",
         "GPT54 Coach loses 5 life at combat from Liliana's Standard Bearer",
         "GPT54 Coach loses 2 life at combat from Sage's Row Savant",
         "GPT54 Coach has lost the game."
       ],
-      "actionSeq": 606,
+      "actionSeq": 611,
       "pilotContext": {
         "untappedLands": 10,
         "playableCards": [

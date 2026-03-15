@@ -75188,31 +75188,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "text": "Thriving Moor enters tapped."
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 68,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "'Thriving Moor enters tapped.' is not a valid choice",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Moor: Thriving Moor enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Moor: As Thriving Moor enters, choose a color other than black."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0",
+        "next_action_message": "Choose color"
       },
       "llmEventIndices": [
         65,
         66,
-        67
+        67,
+        68,
+        69
       ],
       "subsequentActions": [],
       "actionSeq": 68,
@@ -75872,31 +75866,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 109,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {B}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         129,
         130,
-        131
+        131,
+        132,
+        133
       ],
       "subsequentActions": [
         "QwCdr Philo casts Wolfwillow Haven targeting Forest from hand"
@@ -77110,31 +77098,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "2"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 217,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {B}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         248,
         249,
-        250
+        250,
+        251,
+        252
       ],
       "subsequentActions": [
         "QwCdr Philo casts Fierce Witchstalker from hand"
@@ -80064,27 +80046,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": 1
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 459,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. -2: Create a 2/2 green Wolf creature token."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         511,
         512,
-        513
+        513,
+        514,
+        515
       ],
       "subsequentActions": [
         "QwCdr Philo activates: create a 2/2 green Wolf creature token. from Arlinn, Voice of the Pack"

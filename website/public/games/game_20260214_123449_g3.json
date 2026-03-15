@@ -38059,7 +38059,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3"
+        "attackers": [
+          "p3"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -39457,7 +39459,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3,p4,p10"
+        "attackers": [
+          "p3",
+          "p4",
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -39511,15 +39517,42 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p9', 'blocks': 'p13'}"
+        "blockers": "[{\"id\":\"p9\",\"blocks\":\"p19\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "blocks": "p19",
+            "id": "p9"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         319,
         321,
-        322
+        322,
+        324,
+        325,
+        327,
+        328,
+        330,
+        331,
+        333,
+        334,
+        336,
+        337,
+        342,
+        343,
+        345,
+        346,
+        348,
+        349,
+        351,
+        352
       ],
       "subsequentActions": [
         "has started watching",
@@ -40150,7 +40183,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p9"
+        "attackers": [
+          "p9"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -40288,7 +40323,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p3,p4,p13"
+        "attackers": [
+          "p3",
+          "p4",
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -40343,15 +40382,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p10', 'blocks': 'p13'},{'id': 'p10', 'blocks': 'p15'},{'id': 'p10', 'blocks': 'p18'}"
+        "blockers": "[{\"id\":\"p10\",\"blocks\":\"p13\"}]"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 3"
+        "declared": [
+          {
+            "blocks": "p13",
+            "id": "p10"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         462,
         464,
-        465
+        465,
+        467,
+        468,
+        470,
+        471
       ],
       "subsequentActions": [
         "has started watching",
@@ -41687,7 +41739,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p1,p4,p31"
+        "attackers": [
+          "p1",
+          "p4",
+          "p31"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -41742,15 +41798,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p11', 'blocks': 'p12'}"
+        "blockers": "[{\"id\":\"p11\",\"blocks\":\"p12\"}]"
       },
       "actionResult": {
-        "error": "JsonObject"
+        "declared": [
+          {
+            "blocks": "p12",
+            "id": "p11"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         667,
         669,
-        670
+        670,
+        672,
+        673
       ],
       "subsequentActions": [
         "has started watching",
@@ -42239,7 +42306,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11"
+        "attackers": [
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42418,7 +42487,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -42565,7 +42636,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p11"
+        "attackers": [
+          "p10",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43348,7 +43422,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p11"
+        "attackers": [
+          "p10",
+          "p11"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -43700,7 +43777,8 @@
         974,
         979,
         991,
-        992
+        992,
+        1010
       ],
       "subsequentActions": [
         "has started watching",
@@ -44964,7 +45042,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45076,15 +45156,53 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p36', 'blocks': 'p14'},{'id': 'p36', 'blocks': 'p17'}"
+        "blockers": "[{"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "retryable": false,
+        "success": false,
+        "error_code": "missing_param",
+        "error": "Invalid blockers JSON: blockers must be a JSON array"
       },
       "llmEventIndices": [
         1155,
         1157,
-        1158
+        1158,
+        1160,
+        1161,
+        1163,
+        1164,
+        1166,
+        1167,
+        1169,
+        1170,
+        1175,
+        1176,
+        1178,
+        1179,
+        1181,
+        1182,
+        1184,
+        1185,
+        1187,
+        1188,
+        1190,
+        1191,
+        1193,
+        1194,
+        1196,
+        1197,
+        1199,
+        1200,
+        1203,
+        1204,
+        1206,
+        1207,
+        1209,
+        1210,
+        1212,
+        1213,
+        1215
       ],
       "subsequentActions": [
         "has started watching",

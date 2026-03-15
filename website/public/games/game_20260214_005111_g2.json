@@ -49073,16 +49073,22 @@
       "chosen": 0,
       "chosenArgs": {
         "index": 0,
-        "mana_plan": "[{\"tap\": \"28184784-da9f-4b82-a3c9-3e3a6cd91713\"}"
+        "mana_plan": "[{\"tap\": \"28184784-da9f-4b82-a3c9-3e3a6cd91713\"}]"
       },
       "actionResult": {
-        "error": "mana_plan must be a JSON array, got: [{\"tap\": \"28184784-da9f-4b82-a3c9-3e3a6cd91713\"}"
+        "retryable": true,
+        "success": false,
+        "error_code": "index_out_of_range",
+        "error": "Index 0 out of range (call get_action_choices first)"
       },
       "llmEventIndices": [
         681,
         682,
         684,
-        685
+        685,
+        686,
+        687,
+        688
       ],
       "subsequentActions": [
         "has started watching",

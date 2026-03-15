@@ -163,6 +163,14 @@ def _parse_action_result(result_str: str) -> JsonObject:
     return parsed
 
 
+def _is_failed_choose_action_result(result: JsonObject) -> bool:
+    """Return True when choose_action did not resolve the pending action."""
+    success = result.get("success")
+    if success is False:
+        return True
+    return "error" in result or "error_code" in result
+
+
 def _resolve_chosen_index(
     chosen_args: JsonObject, available_choices: list[object], action_result: JsonObject
 ) -> object | None:
@@ -404,6 +412,8 @@ def _extract_decisions_v1(data: BuiltGameExport) -> list[dict[str, object]]:
                 assert isinstance(action_ts, str), (
                     f"choose_action ts must be a string when present, got {action_ts!r}"
                 )
+                if _is_failed_choose_action_result(action_result):
+                    continue
                 break
 
             # If we hit another get_action_choices, stop
@@ -543,6 +553,7 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         chosen_args: JsonObject = {}
         action_result: JsonObject = {}
         action_ts = ""
+        action_seq = 0
 
         for j in range(event_idx + 1, len(llm_events)):
             ev = llm_events[j]
@@ -576,6 +587,11 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
                 assert isinstance(action_ts, str), (
                     f"choose_action ts must be a string when present, got {action_ts!r}"
                 )
+                game_seq_raw = ev.get("gameSeq", action_seq)
+                if isinstance(game_seq_raw, int) and not isinstance(game_seq_raw, bool):
+                    action_seq = game_seq_raw
+                if _is_failed_choose_action_result(action_result):
+                    continue
                 break
 
             # Stop at next decision source for this player
@@ -607,22 +623,8 @@ def _extract_decisions_v2(data: BuiltGameExport) -> list[dict[str, object]]:
         )
 
         # Collect subsequent game actions using seq
-        action_seq = choices_seq
-        if action_ts:
-            # Find the gameSeq of the choose_action event
-            for j in range(event_idx + 1, len(llm_events)):
-                ev = llm_events[j]
-                if (
-                    ev.get("type") == "tool_call"
-                    and ev.get("tool") == "choose_action"
-                    and ev.get("player") == player
-                ):
-                    game_seq_raw = ev.get("gameSeq", choices_seq)
-                    if isinstance(game_seq_raw, int) and not isinstance(
-                        game_seq_raw, bool
-                    ):
-                        action_seq = game_seq_raw
-                    break
+        if not action_seq:
+            action_seq = choices_seq
 
         next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):

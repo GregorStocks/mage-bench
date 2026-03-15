@@ -79587,19 +79587,27 @@
       "chosen": 1,
       "chosenArgs": {
         "choice": "p76",
-        "mana_plan": "p1,p2,p3,p4,p5:1"
+        "mana_plan": "p1,p2,p4,p6:1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 388,
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p3'. Check the board state for correct permanent IDs."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 4,
+        "next_action_message": "Select a creature or planeswalker"
       },
       "llmEventIndices": [
         294,
         295,
-        296
+        296,
+        297,
+        298,
+        299,
+        300
       ],
       "subsequentActions": [],
       "actionSeq": 388,
@@ -80187,19 +80195,25 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p76",
-        "mana_plan": "p1,p2,p3,p4,p5:1"
+        "mana_plan": "p1,p2,p3,p4:1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 441,
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p5'. Check the board state for correct permanent IDs."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 4,
+        "next_action_message": "Select a creature or planeswalker"
       },
       "llmEventIndices": [
         342,
         343,
-        344
+        344,
+        345,
+        346
       ],
       "subsequentActions": [],
       "actionSeq": 441,

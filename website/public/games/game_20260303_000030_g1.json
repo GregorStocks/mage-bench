@@ -67179,30 +67179,26 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1
-        ],
-        "attackers": "p36",
-        "auto_tap": true,
-        "blockers": "p36:p1",
         "choice": "p36",
-        "mana_plan": "p36:1 spend GREEN",
-        "pile": 1,
-        "text": "draw a card"
+        "mana_plan": "p2"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
         "game_seq": 219,
-        "success": false,
-        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
-        "error_code": "invalid_mana_plan",
-        "error": "Invalid mana_plan: For input string: \"1 spend GREEN\". Expected: [\"p1\",\"p2:0\",\"RED\"]"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1,
+        "next_action_message": "Select a creature"
       },
       "llmEventIndices": [
         265,
         268,
-        269
+        269,
+        270,
+        271
       ],
       "subsequentActions": [],
       "actionSeq": 219,
@@ -69476,31 +69472,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "no"
+        "choice": "0"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 370,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {G}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add one mana of the chosen color."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0",
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         456,
         457,
-        458
+        458,
+        459,
+        460
       ],
       "subsequentActions": [
         "Qwen3L Rivals sacrificed Lightning-Core Excavator (source: Lightning-Core Excavator)",

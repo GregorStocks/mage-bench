@@ -53352,20 +53352,23 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p10",
-        "mana_plan": "p3:1,p4:1"
+        "mana_plan": "p13:1,p41:1"
       },
       "actionResult": {
-        "retryable": true,
         "game_seq": 267,
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p3'. Check the board state for correct permanent IDs."
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         193,
         195,
         197,
-        198
+        198,
+        199,
+        201,
+        204
       ],
       "subsequentActions": [],
       "actionSeq": 267,

@@ -165844,7 +165844,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -165858,7 +165858,10 @@
       "llmEventIndices": [
         12,
         19,
-        20
+        20,
+        28,
+        29,
+        45
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -166163,27 +166166,43 @@
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
-        "answer": false,
+        "answer": true,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p3",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         59,
         60,
-        61
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        83
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -166613,7 +166632,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -167088,7 +167107,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -167683,7 +167702,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -168574,7 +168593,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -168653,7 +168672,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -168801,7 +168820,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -169012,16 +169031,22 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "mana_plan": "[{'tap': 'p20'}, {'tap': 'p21'}, {'tap': 'p2'}, {'tap': 'p3'}]",
-        "id": "p22"
+        "id": "p22",
+        "mana_plan": "[{\"tap\": \"p20\"}, {\"tap\": \"p21\"}, {\"tap\": \"p2\"}, {\"tap\": \"p3\"}]"
       },
       "actionResult": {
-        "error": "Unknown mana_plan entry type: 'tap' (expected 'tap' or 'pool')"
+        "retryable": true,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p22 not found in current choices"
       },
       "llmEventIndices": [
         477,
         479,
-        480
+        480,
+        482,
+        483,
+        485
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -170105,7 +170130,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -170331,7 +170358,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -171396,41 +171423,22 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "auto_tap": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
-        "choices": [
-          {
-            "is_you": true,
-            "name": "Grok4F Analyst",
-            "target_type": "player",
-            "index": 0,
-            "id": "p1"
-          },
-          {
-            "name": "GPT5m Timmy",
-            "target_type": "player",
-            "index": 1,
-            "id": "p2"
-          },
-          {
-            "name": "Sonnet Gramps",
-            "target_type": "player",
-            "index": 2,
-            "id": "p3"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         789,
         791,
-        792
+        792,
+        794,
+        795
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -171536,7 +171544,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -171995,7 +172005,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -172726,21 +172736,23 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
-        "id": "p9",
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "id and index are mutually exclusive"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         1007,
         1009,
-        1010
+        1010,
+        1012,
+        1013
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -174997,7 +175009,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10"
+        "attackers": [
+          "p10"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -175181,7 +175195,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "[{\"id\":\"p9\",\"blocks\":\"p26\"}]",
         "id": "",
         "text": ""
@@ -175602,7 +175616,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -177500,7 +177514,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -177613,7 +177630,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -178290,7 +178309,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -178389,7 +178408,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -178702,13 +178721,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "id": "p43"
+        "id": "p64"
       },
       "actionResult": {
         "retryable": true,
         "success": false,
         "error_code": "invalid_choice",
-        "error": "Object p43 not found in current choices",
+        "error": "Object p64 not found in current choices",
         "choices": [
           {
             "name": "Myriad Landscape",
@@ -178740,7 +178759,10 @@
       "llmEventIndices": [
         1730,
         1732,
-        1733
+        1733,
+        1735,
+        1736,
+        1738
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -178868,7 +178890,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -180257,7 +180281,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -180371,7 +180398,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -180928,7 +180957,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -181027,7 +181056,7 @@
         "pile": 0,
         "index": 2,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -182023,7 +182052,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -182295,7 +182326,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -182408,7 +182442,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p65"
+        "attackers": [
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -183586,7 +183622,7 @@
         "pile": 0,
         "index": 6,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -184259,7 +184295,8 @@
       "llmEventIndices": [
         2448,
         2450,
-        2451
+        2451,
+        2453
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -184438,16 +184475,23 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "id": "p64",
-        "mana_plan": "{'tap': 'p3'},{'tap': 'p7'}"
+        "mana_plan": "[{\"tap\": \"p3\"}, {\"tap\": \"p7\"}]",
+        "id": "p64"
       },
       "actionResult": {
-        "error": "Array must have size 1, but has size 2"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         2466,
         2468,
-        2469
+        2469,
+        2471,
+        2472
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -184598,7 +184642,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -184724,7 +184770,7 @@
         "pile": 0,
         "index": 5,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -184805,7 +184851,7 @@
         "pile": 0,
         "index": 3,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -184880,7 +184926,7 @@
         "pile": 0,
         "index": 0,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -184949,7 +184995,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -185012,7 +185058,7 @@
         "pile": 0,
         "index": 1,
         "mana_plan": "",
-        "attackers": "",
+        "attackers": [],
         "blockers": "",
         "id": "",
         "text": ""
@@ -185874,17 +185920,19 @@
         "index": 0
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "no_pending_action",
-        "error": "No pending action"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         2652,
         2654,
         2680,
         2699,
-        2700
+        2700,
+        2743,
+        2744
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -185911,7 +185959,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
         "pile": 2
       },
@@ -186728,7 +186776,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p11,p65"
+        "attackers": [
+          "p11",
+          "p65"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -187646,7 +187697,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": 2,
       "chosenArgs": {
         "pile": 2
       },
@@ -189075,7 +189126,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -189679,7 +189732,8 @@
       "llmEventIndices": [
         3069,
         3071,
-        3072
+        3072,
+        3074
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -191757,7 +191811,8 @@
         3285,
         3287,
         3290,
-        3291
+        3291,
+        3293
       ],
       "subsequentActions": [
         "spectator5 has started watching",
@@ -192730,7 +192785,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

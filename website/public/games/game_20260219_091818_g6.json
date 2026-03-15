@@ -26628,7 +26628,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p12",
-        "mana_plan": "p7,p18"
+        "mana_plan": [
+          "p7",
+          "p18"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -27149,7 +27152,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p20",
-        "mana_plan": "p7,p18"
+        "mana_plan": [
+          "p7",
+          "p18"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -27211,7 +27217,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -28422,20 +28430,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": "false",
+      "chosen": "0",
       "chosenArgs": {
-        "answer": "false"
+        "amount": "0"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'amount' required for GAME_GET_AMOUNT"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "amount_0"
       },
       "llmEventIndices": [
         221,
         222,
-        223
+        223,
+        224,
+        225
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -28628,7 +28639,11 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p25",
-        "mana_plan": "p7,p6,p18"
+        "mana_plan": [
+          "p7",
+          "p6",
+          "p18"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -28853,7 +28868,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30274,7 +30291,10 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p8",
-        "mana_plan": "p7,p16"
+        "mana_plan": [
+          "p7",
+          "p16"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -30347,7 +30367,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30535,15 +30557,39 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p28', 'blocks': 'p18'},{'id': 'p41', 'blocks': 'p18'},{'id': 'p2', 'blocks': 'p21'}"
+        "blockers": [
+          "p28:p18",
+          "p41:p18",
+          "p2:p21"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p28\",\"blocks\":\"p18\"},{\"id\":\"p41\",\"blocks\":\"p18\"},{\"id\":\"p2\",\"blocks\":\"p2...). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p28",
+            "blocks": "p18"
+          },
+          {
+            "id": "p41",
+            "blocks": "p18"
+          },
+          {
+            "id": "p2",
+            "blocks": "p21"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         373,
         377,
-        378
+        378,
+        379,
+        380
       ],
       "subsequentActions": [
         "spectator6 has started watching",

@@ -45353,18 +45353,26 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p32"
+        "choice": "p33"
       },
       "actionResult": {
-        "error": "Unknown short ID: p32"
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "next_action_message": "Announce the value for {X} (source: Benevolent Hydra)"
       },
       "llmEventIndices": [
         193,
         194,
         196,
-        197
+        197,
+        198,
+        199
       ],
       "subsequentActions": [
         "Haiku Sport announces a value of 1 for {X} (source: Benevolent Hydra)",

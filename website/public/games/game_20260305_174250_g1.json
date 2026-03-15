@@ -33316,19 +33316,18 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p22"
+        "choice": "Warden of Evos Isle"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p22 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
-        "game_seq": 52
+        "error": "Unknown short ID: Warden of Evos Isle"
       },
       "llmEventIndices": [
         58,
         59,
-        60
+        60,
+        61,
+        62,
+        63
       ],
       "subsequentActions": [],
       "actionSeq": 52,
@@ -33704,17 +33703,23 @@
         "attackers": "p25"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p25' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p25'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 97
       },
       "llmEventIndices": [
         96,
         97,
-        98
+        98,
+        99,
+        100,
+        101
       ],
-      "subsequentActions": [
-        "G31FL Humble attacks MstMed Spike with 1 creature"
-      ],
-      "actionSeq": 93,
+      "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -33887,17 +33892,27 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "choice": "Tide Skimmer"
+        "choice": "yes"
       },
       "actionResult": {
-        "error": "Unknown short ID: Tide Skimmer"
+        "success": true,
+        "action_taken": "confirmed",
+        "game_seq": 123,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         114,
         115,
-        116
+        116,
+        117,
+        118,
+        119,
+        120
       ],
       "subsequentActions": [
         "MstMed Spike skip attack"
@@ -33946,21 +33961,27 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p24,p25"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 138
       },
       "llmEventIndices": [
         124,
         125,
         127,
-        128
+        128,
+        129,
+        130,
+        131
       ],
-      "subsequentActions": [
-        "G31FL Humble attacks MstMed Spike with 2 creatures"
-      ],
-      "actionSeq": 133,
+      "subsequentActions": [],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -34127,17 +34148,30 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": true,
       "chosenArgs": {
-        "choice": "Inniaz, the Gale Force"
+        "choice": "yes",
+        "mana_plan": "p1,p2,p3:U,U"
       },
       "actionResult": {
-        "error": "Unknown short ID: Inniaz, the Gale Force"
+        "success": true,
+        "action_taken": "confirmed",
+        "game_seq": 156,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         142,
         143,
-        144
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150
       ],
       "subsequentActions": [
         "MstMed Spike skip attack"
@@ -34293,17 +34327,23 @@
         "attackers": "p24,p25"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p25' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p25'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 172
       },
       "llmEventIndices": [
         160,
         161,
-        162
+        162,
+        163,
+        164,
+        165
       ],
-      "subsequentActions": [
-        "G31FL Humble attacks MstMed Spike with 2 creatures"
-      ],
-      "actionSeq": 166,
+      "subsequentActions": [],
+      "actionSeq": 172,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -34676,7 +34716,8 @@
         190,
         191,
         193,
-        194
+        194,
+        195
       ],
       "subsequentActions": [
         "G31FL Humble attacks MstMed Spike with 2 creatures"
@@ -34993,7 +35034,8 @@
       "llmEventIndices": [
         218,
         219,
-        220
+        220,
+        221
       ],
       "subsequentActions": [
         "G31FL Humble attacks MstMed Spike with 2 creatures"

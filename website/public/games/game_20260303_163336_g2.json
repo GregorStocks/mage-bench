@@ -62508,17 +62508,26 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p30,p34"
+        "choice": "p30",
+        "choice2": "p34"
       },
       "actionResult": {
-        "error": "Unknown short ID: p30,p34"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 194,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "next_action_message": "Select attackers"
       },
       "llmEventIndices": [
         136,
         137,
-        138
+        138,
+        139,
+        140
       ],
       "subsequentActions": [
         "MstMed Rookie attacks Gem31P Memoir with 2 creatures"
@@ -62970,7 +62979,8 @@
       "llmEventIndices": [
         162,
         163,
-        164
+        164,
+        165
       ],
       "subsequentActions": [],
       "actionSeq": 219,

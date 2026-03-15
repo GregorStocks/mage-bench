@@ -39477,28 +39477,20 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 5,
+      "chosen": false,
       "chosenArgs": {
-        "index": 5
+        "answer": false
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 5 out of range (call get_action_choices first)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Aether Vial — {T}: You may put a creature card with mana value ... [Activate]"
-          },
-          {
-            "index": 1,
-            "description": "Aether Vial {1} [Cast]"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         341,
         345,
-        346
+        346,
+        349,
+        350
       ],
       "subsequentActions": [
         "has started watching",
@@ -44978,37 +44970,21 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": -1,
+      "chosen": 0,
       "chosenArgs": {
-        "index": -1,
-        "text": "Thalia, Guardian of Thraben"
+        "answer": true,
+        "index": 0
       },
       "actionResult": {
-        "success": false,
-        "error": "Index -1 out of range (call get_action_choices first)",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Aether Vial — {T}: You may put a creature card with mana value ... [Activate]"
-          },
-          {
-            "index": 1,
-            "description": "Wasteland — {T}, Sacrifice {this}: Destroy target nonbasic la... [Activate]"
-          },
-          {
-            "index": 2,
-            "description": "Wasteland — {T}, Sacrifice {this}: Destroy target nonbasic la... [Activate]"
-          },
-          {
-            "index": 3,
-            "description": "Batterskull — {3}: Return {this} to its owner's hand. [Activate]"
-          }
-        ]
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         1794,
         1796,
-        1797
+        1797,
+        1799,
+        1800
       ],
       "subsequentActions": [
         "has started watching",

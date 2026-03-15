@@ -133172,10 +133172,8 @@
         7,
         15
       ],
-      "subsequentActions": [
-        "Gem3P Coach chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -133565,10 +133563,8 @@
         12,
         13
       ],
-      "subsequentActions": [
-        "GPT54 Sport's library is shuffled"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -133703,7 +133699,7 @@
         23
       ],
       "subsequentActions": [],
-      "actionSeq": 10
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -133868,12 +133864,8 @@
         16,
         17
       ],
-      "subsequentActions": [
-        "GPT54 Sport's library is shuffled",
-        "GPT54 Sport puts a card from hand to the bottom of their library",
-        "Gem3P Coach skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -134040,7 +134032,7 @@
         19
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 16,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -134197,7 +134189,7 @@
         21
       ],
       "subsequentActions": [],
-      "actionSeq": 16,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -134367,12 +134359,8 @@
         26,
         27
       ],
-      "subsequentActions": [
-        "Gem3P Coach skips Draw step",
-        "Thriving Heath: Gem3P Coach has chosen Blue",
-        "Gem3P Coach puts Thriving Heath from hand onto the Battlefield"
-      ],
-      "actionSeq": 12
+      "subsequentActions": [],
+      "actionSeq": 22
     },
     {
       "index": 10,
@@ -134506,10 +134494,8 @@
         28,
         29
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 22
+      "subsequentActions": [],
+      "actionSeq": 26
     },
     {
       "index": 11,
@@ -134851,10 +134837,8 @@
         34,
         35
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 29,
+      "subsequentActions": [],
+      "actionSeq": 33,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -135004,10 +134988,8 @@
         36,
         37
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 33,
+      "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -135403,10 +135385,8 @@
         42,
         44
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 41,
+      "subsequentActions": [],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -135567,7 +135547,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -136008,10 +135988,8 @@
         53,
         54
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -136205,10 +136183,8 @@
         55,
         56
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Daybreak Charger from hand"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 69,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -136386,11 +136362,8 @@
         57,
         58
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Daybreak Charger from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Daybreak Charger - When Daybreak Charger enters, target creature gets +2/+0 until end of turn. - targeting Daybreak Charger"
-      ],
-      "actionSeq": 69,
+      "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -136408,33 +136381,169 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p17",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T2 Combat/Declare Attackers (GPT54 Sport)",
+        "board": [
+          {
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Daybreak Charger",
+                "rules": [
+                  "When {this} enters, target creature gets +2/+0 until end of turn."
+                ],
+                "id": "p17",
+                "power": "5",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "GPT54 Sport",
+            "library_size": 32,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{2}{W}{W}",
+                "name": "Emiel the Blessed",
+                "rules": [
+                  "{3}: Exile another target creature you control, then return it to the battlefield under its owner's control.",
+                  "Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
+                ],
+                "power": "4",
+                "id": "p18",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Flicker of Fate",
+                "rules": [
+                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
+                ],
+                "id": "p19"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p29"
+              },
+              {
+                "mana_cost": "{3}{W}",
+                "name": "Preston, the Vanisher",
+                "rules": [
+                  "Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
+                  "{1}{W}, Sacrifice five Illusions: Exile target nonland permanent."
+                ],
+                "power": "2",
+                "id": "p21",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p9",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Griffin Aerie",
+                "rules": [
+                  "At the beginning of your end step, if you gained 3 or more life this turn, create a 2/2 white Griffin creature token with flying.",
+                  ": ",
+                  "Life gained this turn: 0"
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 32,
+            "life": 20
+          }
+        ],
+        "board_cursor": 11,
         "game_seq": 75,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         58,
         59,
-        60
+        60,
+        61,
+        62
       ],
       "subsequentActions": [],
-      "actionSeq": 73,
+      "actionSeq": 75,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -136452,35 +136561,170 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "auto_tap": true,
         "pile": 0,
         "mana_plan": "",
-        "attackers": "p17",
+        "attackers": "",
         "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "no"
       },
       "actionResult": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play spells and abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T2 Postcombat Main/Postcombat Main (GPT54 Sport) YOUR_MAIN",
+        "board": [
+          {
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Daybreak Charger",
+                "rules": [
+                  "When {this} enters, target creature gets +2/+0 until end of turn."
+                ],
+                "id": "p17",
+                "power": "5",
+                "toughness": "1",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p20"
+              }
+            ],
+            "name": "GPT54 Sport",
+            "library_size": 32,
+            "life": 20,
+            "hand": [
+              {
+                "mana_cost": "{2}{W}{W}",
+                "name": "Emiel the Blessed",
+                "rules": [
+                  "{3}: Exile another target creature you control, then return it to the battlefield under its owner's control.",
+                  "Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
+                ],
+                "power": "4",
+                "id": "p18",
+                "toughness": "4"
+              },
+              {
+                "mana_cost": "{1}{W}",
+                "name": "Flicker of Fate",
+                "rules": [
+                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
+                ],
+                "id": "p19"
+              },
+              {
+                "name": "Plains",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p29"
+              },
+              {
+                "mana_cost": "{3}{W}",
+                "name": "Preston, the Vanisher",
+                "rules": [
+                  "Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
+                  "{1}{W}, Sacrifice five Illusions: Exile target nonland permanent."
+                ],
+                "power": "2",
+                "id": "p21",
+                "toughness": "5"
+              },
+              {
+                "mana_cost": "{4}{W}{W}",
+                "name": "Wispweaver Angel",
+                "rules": [
+                  "Flying",
+                  "When {this} enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control."
+                ],
+                "power": "4",
+                "id": "p9",
+                "toughness": "4"
+              }
+            ]
+          },
+          {
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Griffin Aerie",
+                "rules": [
+                  "At the beginning of your end step, if you gained 3 or more life this turn, create a 2/2 white Griffin creature token with flying.",
+                  ": ",
+                  "Life gained this turn: 0"
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": true,
+                "name": "Thriving Heath",
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than white.",
+                  "{T}: Add {W}.",
+                  "{T}: Add one mana of the chosen color.",
+                  "Chosen color: Blue"
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "Gem3P Coach",
+            "library_size": 32,
+            "life": 20
+          }
+        ],
+        "board_cursor": 11,
         "game_seq": 79,
-        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "success": false,
-        "error_code": "missing_param",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         62,
         63,
-        64
+        64,
+        65,
+        66
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 75
+      "subsequentActions": [],
+      "actionSeq": 79
     },
     {
       "index": 26,
@@ -136663,7 +136907,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 79,
+      "actionSeq": 81,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -137113,7 +137357,7 @@
         74
       ],
       "subsequentActions": [],
-      "actionSeq": 83,
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -137882,7 +138126,7 @@
         84
       ],
       "subsequentActions": [],
-      "actionSeq": 95,
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -138181,7 +138425,7 @@
         86
       ],
       "subsequentActions": [],
-      "actionSeq": 99,
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -138423,10 +138667,8 @@
         87,
         88
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 101,
+      "subsequentActions": [],
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -138671,10 +138913,8 @@
         89,
         92
       ],
-      "subsequentActions": [
-        "Attacker: Daybreak Charger (3/1) unblocked"
-      ],
-      "actionSeq": 105,
+      "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -139186,10 +139426,8 @@
         95,
         98
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 3 life at combat from Daybreak Charger"
-      ],
-      "actionSeq": 110,
+      "subsequentActions": [],
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -139965,7 +140203,7 @@
         105
       ],
       "subsequentActions": [],
-      "actionSeq": 117,
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -140221,7 +140459,7 @@
         107
       ],
       "subsequentActions": [],
-      "actionSeq": 118,
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -140473,7 +140711,7 @@
         111
       ],
       "subsequentActions": [],
-      "actionSeq": 119,
+      "actionSeq": 124,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -140773,10 +141011,8 @@
         112,
         113
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 124,
+      "subsequentActions": [],
+      "actionSeq": 128,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -141016,7 +141252,7 @@
         115
       ],
       "subsequentActions": [],
-      "actionSeq": 128,
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -141232,7 +141468,7 @@
         117
       ],
       "subsequentActions": [],
-      "actionSeq": 130,
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -142175,10 +142411,8 @@
         130,
         133
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 155,
+      "subsequentActions": [],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -142730,7 +142964,7 @@
         137
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 166,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -143013,13 +143247,8 @@
         138,
         139
       ],
-      "subsequentActions": [
-        "Griffin Token deals 2 damage to Daybreak Charger",
-        "Daybreak Charger deals 3 damage to Griffin Token",
-        "Daybreak Charger died",
-        "Griffin Token died"
-      ],
-      "actionSeq": 166,
+      "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -143276,7 +143505,7 @@
         143
       ],
       "subsequentActions": [],
-      "actionSeq": 173,
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -144219,10 +144448,9 @@
         160
       ],
       "subsequentActions": [
-        "Gem3P Coach attacks GPT54 Sport with 1 creature",
         "Attacker: Anointed Chorister (1/1) unblocked"
       ],
-      "actionSeq": 178,
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -145063,7 +145291,7 @@
         168
       ],
       "subsequentActions": [],
-      "actionSeq": 195,
+      "actionSeq": 197,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -145295,7 +145523,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 197,
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -145539,10 +145767,8 @@
         171,
         172
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Basri's Acolyte from hand"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145788,10 +146014,8 @@
         173,
         174
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Basri's Acolyte from stack onto the Battlefield"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -146449,10 +146673,8 @@
         181,
         182
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 214,
+      "subsequentActions": [],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -146718,10 +146940,8 @@
         183,
         184
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Preston, the Vanisher from hand"
-      ],
-      "actionSeq": 218,
+      "subsequentActions": [],
+      "actionSeq": 224,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -146979,10 +147199,8 @@
         185,
         186
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Preston, the Vanisher from stack onto the Battlefield"
-      ],
-      "actionSeq": 224,
+      "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -147241,10 +147459,8 @@
         187,
         188
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 227
+      "subsequentActions": [],
+      "actionSeq": 231
     },
     {
       "index": 83,
@@ -147513,7 +147729,7 @@
         200
       ],
       "subsequentActions": [],
-      "actionSeq": 231,
+      "actionSeq": 233,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -148134,10 +148350,8 @@
         193,
         194
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 235,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -148413,7 +148627,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 239,
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -148675,7 +148889,7 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 241,
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -148937,7 +149151,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 245,
+      "actionSeq": 248,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -150103,10 +150317,8 @@
         214,
         215
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 260,
+      "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -150528,7 +150740,7 @@
         217
       ],
       "subsequentActions": [],
-      "actionSeq": 264,
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -150849,10 +151061,8 @@
         218,
         219
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Faith's Fetters targeting Baneslayer Angel from hand"
-      ],
-      "actionSeq": 265,
+      "subsequentActions": [],
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -151167,11 +151377,8 @@
         220,
         221
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Faith's Fetters from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Faith's Fetters - When Faith's Fetters enters, you gain 4 life."
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -151845,10 +152052,8 @@
         226,
         227
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 280,
+      "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -152167,7 +152372,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -152814,7 +153019,7 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 287,
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -153134,7 +153339,7 @@
         237
       ],
       "subsequentActions": [],
-      "actionSeq": 289,
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -153465,10 +153670,8 @@
         236,
         239
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Emancipation Angel from hand"
-      ],
-      "actionSeq": 285,
+      "subsequentActions": [],
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -153859,7 +154062,7 @@
         241
       ],
       "subsequentActions": [],
-      "actionSeq": 295,
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -154167,11 +154370,8 @@
         240,
         264
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Emancipation Angel from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Emancipation Angel - When Emancipation Angel enters, return a permanent you control to its owner's hand."
-      ],
-      "actionSeq": 296,
+      "subsequentActions": [],
+      "actionSeq": 300,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -154665,15 +154865,96 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "p53"
+        "choice": "p2"
       },
       "actionResult": {
-        "error": "Unknown short ID: p53"
+        "choices": [
+          {
+            "name": "Anointed Chorister",
+            "target_type": "permanent",
+            "index": 0,
+            "power": "2",
+            "id": "p39",
+            "toughness": "2"
+          },
+          {
+            "name": "Baneslayer Angel",
+            "target_type": "permanent",
+            "index": 1,
+            "power": "5",
+            "id": "p10",
+            "toughness": "5"
+          },
+          {
+            "name": "Basri's Acolyte",
+            "target_type": "permanent",
+            "index": 2,
+            "power": "2",
+            "id": "p44",
+            "toughness": "3"
+          },
+          {
+            "name": "Emancipation Angel",
+            "target_type": "permanent",
+            "index": 3,
+            "power": "3",
+            "id": "p55",
+            "toughness": "3"
+          },
+          {
+            "name": "Griffin Aerie",
+            "target_type": "permanent",
+            "index": 4,
+            "id": "p11"
+          },
+          {
+            "tapped": true,
+            "name": "Plains",
+            "target_type": "permanent",
+            "index": 5,
+            "id": "p12"
+          },
+          {
+            "tapped": true,
+            "name": "Plains",
+            "target_type": "permanent",
+            "index": 6,
+            "id": "p13"
+          },
+          {
+            "name": "Plains",
+            "target_type": "permanent",
+            "index": 7,
+            "id": "p50"
+          },
+          {
+            "tapped": true,
+            "name": "Thriving Heath",
+            "target_type": "permanent",
+            "index": 8,
+            "id": "p15"
+          },
+          {
+            "name": "Thriving Heath",
+            "target_type": "permanent",
+            "index": 9,
+            "id": "p16"
+          }
+        ],
+        "game_seq": 301,
+        "error": "Object p2 not found in current choices",
+        "success": false,
+        "error_code": "invalid_choice",
+        "retryable": true
       },
       "llmEventIndices": [
         250,
         251,
-        252
+        252,
+        253,
+        255,
+        256,
+        258
       ],
       "subsequentActions": [],
       "actionSeq": 301,
@@ -155385,7 +155666,7 @@
         266
       ],
       "subsequentActions": [],
-      "actionSeq": 301,
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -155694,11 +155975,8 @@
         265,
         270
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Baneslayer Angel from battlefield into their hand",
-        "Faith's Fetters is put into graveyard from battlefield"
-      ],
-      "actionSeq": 300,
+      "subsequentActions": [],
+      "actionSeq": 305,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -156020,7 +156298,7 @@
         268
       ],
       "subsequentActions": [],
-      "actionSeq": 304,
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -156336,7 +156614,7 @@
         272
       ],
       "subsequentActions": [],
-      "actionSeq": 306,
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -156687,7 +156965,7 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 309,
+      "actionSeq": 311,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -156981,7 +157259,7 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 311,
+      "actionSeq": 313,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -157271,10 +157549,8 @@
         277,
         278
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Angelic Page from hand"
-      ],
-      "actionSeq": 313,
+      "subsequentActions": [],
+      "actionSeq": 317,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -157572,10 +157848,8 @@
         279,
         288
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Angelic Page from stack onto the Battlefield"
-      ],
-      "actionSeq": 317,
+      "subsequentActions": [],
+      "actionSeq": 320,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -158292,10 +158566,8 @@
         285,
         286
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 322,
+      "subsequentActions": [],
+      "actionSeq": 326,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -158621,7 +158893,7 @@
         290
       ],
       "subsequentActions": [],
-      "actionSeq": 326,
+      "actionSeq": 334,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -158937,11 +159209,8 @@
         289,
         292
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield",
-        "GPT54 Sport casts Wispweaver Angel from hand"
-      ],
-      "actionSeq": 320
+      "subsequentActions": [],
+      "actionSeq": 335
     },
     {
       "index": 127,
@@ -159257,7 +159526,7 @@
         295
       ],
       "subsequentActions": [],
-      "actionSeq": 334,
+      "actionSeq": 339,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -159562,11 +159831,8 @@
         293,
         299
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Wispweaver Angel from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Wispweaver Angel - When Wispweaver Angel enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control. - targeting Preston, the Vanisher"
-      ],
-      "actionSeq": 335
+      "subsequentActions": [],
+      "actionSeq": 340
     },
     {
       "index": 129,
@@ -159871,7 +160137,7 @@
         297
       ],
       "subsequentActions": [],
-      "actionSeq": 339,
+      "actionSeq": 341,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -160195,7 +160461,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 341,
+      "actionSeq": 342,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -160501,7 +160767,7 @@
         307
       ],
       "subsequentActions": [],
-      "actionSeq": 340
+      "actionSeq": 343
     },
     {
       "index": 132,
@@ -161189,10 +161455,8 @@
         308,
         309
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 343
+      "subsequentActions": [],
+      "actionSeq": 348
     },
     {
       "index": 136,
@@ -161542,7 +161806,7 @@
         311
       ],
       "subsequentActions": [],
-      "actionSeq": 348
+      "actionSeq": 350
     },
     {
       "index": 137,
@@ -161892,7 +162156,7 @@
         314
       ],
       "subsequentActions": [],
-      "actionSeq": 350,
+      "actionSeq": 351,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -162227,7 +162491,7 @@
         316
       ],
       "subsequentActions": [],
-      "actionSeq": 351,
+      "actionSeq": 353,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -162548,7 +162812,7 @@
         318
       ],
       "subsequentActions": [],
-      "actionSeq": 353,
+      "actionSeq": 357,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -162868,10 +163132,8 @@
         319,
         320
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Baneslayer Angel from hand"
-      ],
-      "actionSeq": 357,
+      "subsequentActions": [],
+      "actionSeq": 362,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -163226,10 +163488,8 @@
         321,
         322
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Baneslayer Angel from stack onto the Battlefield"
-      ],
-      "actionSeq": 362,
+      "subsequentActions": [],
+      "actionSeq": 365,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -163583,7 +163843,7 @@
         324
       ],
       "subsequentActions": [],
-      "actionSeq": 365,
+      "actionSeq": 367,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -163898,10 +164158,8 @@
         325,
         326
       ],
-      "subsequentActions": [
-        "Gem3P Coach skip attack"
-      ],
-      "actionSeq": 367
+      "subsequentActions": [],
+      "actionSeq": 370
     },
     {
       "index": 144,
@@ -164218,7 +164476,7 @@
         336
       ],
       "subsequentActions": [],
-      "actionSeq": 370,
+      "actionSeq": 372,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -164984,7 +165242,7 @@
         338
       ],
       "subsequentActions": [],
-      "actionSeq": 374,
+      "actionSeq": 380,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -165326,10 +165584,8 @@
         337,
         344
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 372
+      "subsequentActions": [],
+      "actionSeq": 381
     },
     {
       "index": 148,
@@ -165710,10 +165966,8 @@
         339,
         340
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Distinguished Conjurer from stack onto the Battlefield"
-      ],
-      "actionSeq": 380,
+      "subsequentActions": [],
+      "actionSeq": 383,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -166092,7 +166346,7 @@
         342
       ],
       "subsequentActions": [],
-      "actionSeq": 383,
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -166461,7 +166715,7 @@
         346
       ],
       "subsequentActions": [],
-      "actionSeq": 384,
+      "actionSeq": 387,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -166821,11 +167075,8 @@
         345,
         362
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Distinguished Conjurer from stack onto the Battlefield",
-        "GPT54 Sport casts Cloudshift targeting Wispweaver Angel from hand"
-      ],
-      "actionSeq": 381
+      "subsequentActions": [],
+      "actionSeq": 388
     },
     {
       "index": 152,
@@ -167644,10 +167895,8 @@
         357,
         358
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion."
-      ],
-      "actionSeq": 392,
+      "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -168034,10 +168283,8 @@
         359,
         360
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 394,
+      "subsequentActions": [],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -168407,7 +168654,7 @@
         365
       ],
       "subsequentActions": [],
-      "actionSeq": 396,
+      "actionSeq": 398,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -168761,14 +169008,8 @@
         363,
         369
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Wispweaver Angel from battlefield to the exile zone (source: Cloudshift)",
-        "GPT54 Sport puts Wispweaver Angel from exile zone onto the Battlefield (source: Cloudshift)",
-        "GPT54 Sport puts Cloudshift from stack into their graveyard",
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 388
+      "subsequentActions": [],
+      "actionSeq": 399
     },
     {
       "index": 158,
@@ -169126,7 +169367,7 @@
         367
       ],
       "subsequentActions": [],
-      "actionSeq": 398,
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -169496,7 +169737,7 @@
         371
       ],
       "subsequentActions": [],
-      "actionSeq": 400,
+      "actionSeq": 404,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -169847,12 +170088,8 @@
         370,
         373
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Preston, the Vanisher from battlefield to the exile zone (source: Wispweaver Angel)",
-        "GPT54 Sport puts Preston, the Vanisher from exile zone onto the Battlefield (source: Wispweaver Angel)",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 399
+      "subsequentActions": [],
+      "actionSeq": 405
     },
     {
       "index": 161,
@@ -170212,7 +170449,7 @@
         375
       ],
       "subsequentActions": [],
-      "actionSeq": 404,
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -170560,10 +170797,8 @@
         374,
         377
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 405
+      "subsequentActions": [],
+      "actionSeq": 408
     },
     {
       "index": 163,
@@ -170932,7 +171167,7 @@
         379
       ],
       "subsequentActions": [],
-      "actionSeq": 407,
+      "actionSeq": 410,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -171296,10 +171531,8 @@
         378,
         386
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 408
+      "subsequentActions": [],
+      "actionSeq": 411
     },
     {
       "index": 165,
@@ -171689,10 +171922,8 @@
         380,
         381
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Wispweaver Angel token"
-      ],
-      "actionSeq": 410,
+      "subsequentActions": [],
+      "actionSeq": 413,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -172093,7 +172324,7 @@
         384
       ],
       "subsequentActions": [],
-      "actionSeq": 413,
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -172473,7 +172704,7 @@
         388
       ],
       "subsequentActions": [],
-      "actionSeq": 414,
+      "actionSeq": 417,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -172834,12 +173065,8 @@
         387,
         390
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Wispweaver Angel token",
-        "GPT54 Sport - Ability triggers: Wispweaver Angel - When Wispweaver Angel enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control. - targeting Wispweaver Angel",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 411
+      "subsequentActions": [],
+      "actionSeq": 418
     },
     {
       "index": 169,
@@ -173243,10 +173470,8 @@
         391,
         402
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 418
+      "subsequentActions": [],
+      "actionSeq": 421
     },
     {
       "index": 171,
@@ -174007,11 +174232,8 @@
         395,
         396
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Wispweaver Angel from battlefield to the exile zone (source: Wispweaver Angel)",
-        "GPT54 Sport puts Wispweaver Angel from exile zone onto the Battlefield (source: Wispweaver Angel)"
-      ],
-      "actionSeq": 422,
+      "subsequentActions": [],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -174420,10 +174642,8 @@
         397,
         398
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion."
-      ],
-      "actionSeq": 425,
+      "subsequentActions": [],
+      "actionSeq": 427,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -174831,10 +175051,8 @@
         399,
         400
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 427,
+      "subsequentActions": [],
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -175217,7 +175435,7 @@
         404
       ],
       "subsequentActions": [],
-      "actionSeq": 429,
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -175590,14 +175808,8 @@
         403,
         408
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Wispweaver Angel from battlefield to the exile zone (source: Wispweaver Angel)",
-        "GPT54 Sport puts Wispweaver Angel from exile zone onto the Battlefield (source: Wispweaver Angel)",
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Wispweaver Angel - When Wispweaver Angel enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control. - targeting Distinguished Conjurer"
-      ],
-      "actionSeq": 421
+      "subsequentActions": [],
+      "actionSeq": 432
     },
     {
       "index": 177,
@@ -175974,7 +176186,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 431,
+      "actionSeq": 433,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -176393,13 +176605,10 @@
         417
       ],
       "subsequentActions": [
-        "GPT54 Sport moves Distinguished Conjurer from battlefield to the exile zone (source: Wispweaver Angel)",
-        "GPT54 Sport puts Distinguished Conjurer from exile zone onto the Battlefield (source: Wispweaver Angel)",
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion.",
         "GPT54 Sport creates a Distinguished Conjurer token",
         "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
       ],
-      "actionSeq": 432
+      "actionSeq": 438
     },
     {
       "index": 180,
@@ -176809,11 +177018,8 @@
         418,
         419
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Distinguished Conjurer token",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 438
+      "subsequentActions": [],
+      "actionSeq": 442
     },
     {
       "index": 182,
@@ -177180,10 +177386,8 @@
         420,
         421
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 442
+      "subsequentActions": [],
+      "actionSeq": 445
     },
     {
       "index": 183,
@@ -177569,10 +177773,8 @@
         422,
         423
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 445
+      "subsequentActions": [],
+      "actionSeq": 448
     },
     {
       "index": 184,
@@ -177949,13 +178151,8 @@
         424,
         425
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Wispweaver Angel token",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Wispweaver Angel - When Wispweaver Angel enters, you may exile another target creature you control, then return that card to the battlefield under its owner's control. - targeting Distinguished Conjurer"
-      ],
-      "actionSeq": 448
+      "subsequentActions": [],
+      "actionSeq": 457
     },
     {
       "index": 185,
@@ -178940,7 +179137,7 @@
         434
       ],
       "subsequentActions": [],
-      "actionSeq": 474,
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -179323,10 +179520,8 @@
         435,
         446
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Flicker of Fate targeting Wispweaver Angel from hand"
-      ],
-      "actionSeq": 475,
+      "subsequentActions": [],
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -180349,7 +180544,7 @@
         442
       ],
       "subsequentActions": [],
-      "actionSeq": 482,
+      "actionSeq": 483,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -180769,7 +180964,7 @@
         444
       ],
       "subsequentActions": [],
-      "actionSeq": 483,
+      "actionSeq": 485,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -181202,7 +181397,7 @@
         448
       ],
       "subsequentActions": [],
-      "actionSeq": 485,
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -181603,10 +181798,8 @@
         447,
         450
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Angelic Ascension targeting Wispweaver Angel from hand"
-      ],
-      "actionSeq": 481,
+      "subsequentActions": [],
+      "actionSeq": 489,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -182032,7 +182225,7 @@
         452
       ],
       "subsequentActions": [],
-      "actionSeq": 488,
+      "actionSeq": 495,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -182490,10 +182683,8 @@
         453,
         454
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 495,
+      "subsequentActions": [],
+      "actionSeq": 498,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -182925,10 +183116,8 @@
         455,
         456
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 498,
+      "subsequentActions": [],
+      "actionSeq": 501,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -183397,11 +183586,8 @@
         457,
         460
       ],
-      "subsequentActions": [
-        "Flicker of Fate has been fizzled.",
-        "GPT54 Sport puts Flicker of Fate from stack into their graveyard"
-      ],
-      "actionSeq": 501,
+      "subsequentActions": [],
+      "actionSeq": 505,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -184293,7 +184479,7 @@
         462
       ],
       "subsequentActions": [],
-      "actionSeq": 505,
+      "actionSeq": 507,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -184744,7 +184930,7 @@
         468
       ],
       "subsequentActions": [],
-      "actionSeq": 507,
+      "actionSeq": 511,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -185685,7 +185871,7 @@
         474
       ],
       "subsequentActions": [],
-      "actionSeq": 511,
+      "actionSeq": 516,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -186568,7 +186754,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 516,
+      "actionSeq": 521,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -187038,7 +187224,7 @@
         480
       ],
       "subsequentActions": [],
-      "actionSeq": 521,
+      "actionSeq": 523,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -187479,7 +187665,7 @@
         482
       ],
       "subsequentActions": [],
-      "actionSeq": 523,
+      "actionSeq": 525,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -187919,10 +188105,9 @@
         488
       ],
       "subsequentActions": [
-        "Gem3P Coach - Ability triggers: Griffin Aerie - At the beginning of your end step, if you gained 3 or more life this turn, create a 2/2 white Griffin creature token with flying.",
         "Gem3P Coach creates a Griffin Token token"
       ],
-      "actionSeq": 525,
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -188792,7 +188977,7 @@
         490
       ],
       "subsequentActions": [],
-      "actionSeq": 532,
+      "actionSeq": 540,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -189242,11 +189427,8 @@
         489,
         492
       ],
-      "subsequentActions": [
-        "Gem3P Coach creates a Griffin Token token",
-        "GPT54 Sport casts Emiel the Blessed from hand"
-      ],
-      "actionSeq": 529,
+      "subsequentActions": [],
+      "actionSeq": 541,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -189722,12 +189904,8 @@
         493,
         494
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Emiel the Blessed from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 541,
+      "subsequentActions": [],
+      "actionSeq": 546,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -190177,10 +190355,9 @@
         500
       ],
       "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)",
         "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
       ],
-      "actionSeq": 546,
+      "actionSeq": 549,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -191043,7 +191220,7 @@
         502
       ],
       "subsequentActions": [],
-      "actionSeq": 551,
+      "actionSeq": 554,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -191516,11 +191693,8 @@
         501,
         522
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)",
-        "GPT54 Sport casts Thraben Inspector from hand"
-      ],
-      "actionSeq": 549,
+      "subsequentActions": [],
+      "actionSeq": 555,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -191986,10 +192160,8 @@
         503,
         504
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Thraben Inspector from stack onto the Battlefield"
-      ],
-      "actionSeq": 554,
+      "subsequentActions": [],
+      "actionSeq": 557,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -192949,10 +193121,8 @@
         519,
         520
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 559,
+      "subsequentActions": [],
+      "actionSeq": 561,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -193458,14 +193628,8 @@
         523,
         524
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Thraben Inspector from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 555,
+      "subsequentActions": [],
+      "actionSeq": 565,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -193943,10 +194107,8 @@
         525,
         526
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Clue Token token"
-      ],
-      "actionSeq": 565,
+      "subsequentActions": [],
+      "actionSeq": 568,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -194418,10 +194580,8 @@
         527,
         532
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 568,
+      "subsequentActions": [],
+      "actionSeq": 571,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -195344,10 +195504,9 @@
         536
       ],
       "subsequentActions": [
-        "GPT54 Sport paid for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?",
         "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
       ],
-      "actionSeq": 571,
+      "actionSeq": 576,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -196316,10 +196475,8 @@
         537,
         547
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 576,
+      "subsequentActions": [],
+      "actionSeq": 579,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -196819,7 +196976,7 @@
         543
       ],
       "subsequentActions": [],
-      "actionSeq": 578,
+      "actionSeq": 580,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -197388,10 +197545,8 @@
         548,
         549
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks Gem3P Coach with 1 creature"
-      ],
-      "actionSeq": 579,
+      "subsequentActions": [],
+      "actionSeq": 585,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -197933,7 +198088,7 @@
       "subsequentActions": [
         "Attacker: Angel Token (4/4) unblocked"
       ],
-      "actionSeq": 585,
+      "actionSeq": 586,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -198874,10 +199029,8 @@
         554,
         557
       ],
-      "subsequentActions": [
-        "Attacker: Angel Token (4/4) unblocked"
-      ],
-      "actionSeq": 586,
+      "subsequentActions": [],
+      "actionSeq": 590,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -199376,10 +199529,8 @@
         558,
         559
       ],
-      "subsequentActions": [
-        "Gem3P Coach loses 4 life at combat from Angel Token"
-      ],
-      "actionSeq": 590,
+      "subsequentActions": [],
+      "actionSeq": 594,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -199882,7 +200033,7 @@
         561
       ],
       "subsequentActions": [],
-      "actionSeq": 594,
+      "actionSeq": 596,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -202169,12 +202320,8 @@
         576,
         586
       ],
-      "subsequentActions": [
-        "Attacker: Baneslayer Angel (5/5) blocked by Wispweaver Angel (0/1)",
-        "Attacker: Emancipation Angel (3/3) blocked by Wispweaver Angel (0/1)",
-        "Attacker: Griffin Token (2/2) unblocked"
-      ],
-      "actionSeq": 608
+      "subsequentActions": [],
+      "actionSeq": 618
     },
     {
       "index": 249,
@@ -202691,12 +202838,8 @@
         578,
         579
       ],
-      "subsequentActions": [
-        "Baneslayer Angel deals 5 damage to Wispweaver Angel",
-        "Gem3P Coach gains 5 life",
-        "Wispweaver Angel died"
-      ],
-      "actionSeq": 617,
+      "subsequentActions": [],
+      "actionSeq": 623,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -203238,7 +203381,7 @@
         581
       ],
       "subsequentActions": [],
-      "actionSeq": 623,
+      "actionSeq": 624,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -203796,7 +203939,7 @@
         583
       ],
       "subsequentActions": [],
-      "actionSeq": 624,
+      "actionSeq": 625,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -204323,7 +204466,7 @@
         588
       ],
       "subsequentActions": [],
-      "actionSeq": 625,
+      "actionSeq": 627,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -204780,13 +204923,8 @@
         587,
         590
       ],
-      "subsequentActions": [
-        "Baneslayer Angel deals 5 damage to Wispweaver Angel",
-        "Gem3P Coach gains 5 life",
-        "Wispweaver Angel died",
-        "Gem3P Coach activates: target attacking or blocking creature gets +1/+1 until end of turn. from Angelic Page targeting Griffin Token"
-      ],
-      "actionSeq": 618
+      "subsequentActions": [],
+      "actionSeq": 628
     },
     {
       "index": 254,
@@ -205286,7 +205424,7 @@
         592
       ],
       "subsequentActions": [],
-      "actionSeq": 627,
+      "actionSeq": 629,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -205794,12 +205932,8 @@
         593,
         594
       ],
-      "subsequentActions": [
-        "Emancipation Angel deals 3 damage to Wispweaver Angel",
-        "GPT54 Sport loses 3 life at combat from Griffin Token",
-        "Wispweaver Angel died"
-      ],
-      "actionSeq": 629,
+      "subsequentActions": [],
+      "actionSeq": 635,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -206303,7 +206437,7 @@
         596
       ],
       "subsequentActions": [],
-      "actionSeq": 635,
+      "actionSeq": 637,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -206779,10 +206913,8 @@
         597,
         598
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 637,
+      "subsequentActions": [],
+      "actionSeq": 640,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -207233,7 +207365,7 @@
         600
       ],
       "subsequentActions": [],
-      "actionSeq": 640,
+      "actionSeq": 642,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -207670,7 +207802,7 @@
         602
       ],
       "subsequentActions": [],
-      "actionSeq": 642,
+      "actionSeq": 646,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -208108,10 +208240,8 @@
         603,
         604
       ],
-      "subsequentActions": [
-        "Gem3P Coach casts Bulwark Giant from hand"
-      ],
-      "actionSeq": 646,
+      "subsequentActions": [],
+      "actionSeq": 650,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -208540,11 +208670,8 @@
         605,
         606
       ],
-      "subsequentActions": [
-        "Gem3P Coach puts Bulwark Giant from stack onto the Battlefield",
-        "Gem3P Coach - Ability triggers: Bulwark Giant - When Bulwark Giant enters, you gain 5 life."
-      ],
-      "actionSeq": 650,
+      "subsequentActions": [],
+      "actionSeq": 654,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -208983,10 +209110,8 @@
         607,
         608
       ],
-      "subsequentActions": [
-        "Gem3P Coach gains 5 life (source: Bulwark Giant)"
-      ],
-      "actionSeq": 654,
+      "subsequentActions": [],
+      "actionSeq": 657,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -210553,10 +210678,8 @@
         619,
         620
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 674,
+      "subsequentActions": [],
+      "actionSeq": 676,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -211162,10 +211285,8 @@
         621,
         622
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 676,
+      "subsequentActions": [],
+      "actionSeq": 678,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -211785,7 +211906,7 @@
         624
       ],
       "subsequentActions": [],
-      "actionSeq": 678,
+      "actionSeq": 679,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -212325,11 +212446,8 @@
         625,
         626
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Brightmare - When Brightmare enters, tap up to one target creature. You gain life equal to that creature's power. - targeting Baneslayer Angel",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 679,
+      "subsequentActions": [],
+      "actionSeq": 682,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -212853,7 +212971,7 @@
         628
       ],
       "subsequentActions": [],
-      "actionSeq": 682,
+      "actionSeq": 683,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -213346,10 +213464,8 @@
         629,
         630
       ],
-      "subsequentActions": [
-        "GPT54 Sport activates: exile another target creature you control, then return it to the battlefield under its owner's control. from Emiel the Blessed targeting Brightmare"
-      ],
-      "actionSeq": 683,
+      "subsequentActions": [],
+      "actionSeq": 688,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -213876,11 +213992,8 @@
         633,
         634
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Brightmare from battlefield to the exile zone (source: Emiel the Blessed)",
-        "GPT54 Sport puts Brightmare from exile zone onto the Battlefield (source: Emiel the Blessed)"
-      ],
-      "actionSeq": 688,
+      "subsequentActions": [],
+      "actionSeq": 692,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -214397,10 +214510,8 @@
         635,
         636
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Preston, the Vanisher - Whenever another nontoken creature you control enters, if it wasn't cast, create a token that's a copy of that creature, except it's a 0/1 white Illusion."
-      ],
-      "actionSeq": 692,
+      "subsequentActions": [],
+      "actionSeq": 694,
       "pilotContext": {
         "landDropsUsed": 0
       }

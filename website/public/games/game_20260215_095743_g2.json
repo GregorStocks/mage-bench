@@ -29662,7 +29662,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30701,7 +30703,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -30993,48 +30997,23 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "[{\"tap\":\"p3\"}]"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{2}{U}",
-            "name": "Metallic Rebuke",
-            "index": 0,
-            "action": "cast",
-            "id": "p22"
-          },
-          {
-            "name": "Welding Jar",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "Sacrifice {this}: Regenerate target artifact."
-            ],
-            "id": "p2"
-          },
-          {
-            "name": "Claws of Gix",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}, Sacrifice a permanent: You gain 1 life."
-            ],
-            "id": "p17"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         574,
         576,
         579,
-        580
+        580,
+        582,
+        583
       ],
       "subsequentActions": [
         "has started watching",
@@ -31258,7 +31237,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p12"
+        "attackers": [
+          "p12"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -32680,7 +32661,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -33261,7 +33244,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

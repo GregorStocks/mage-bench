@@ -79410,10 +79410,8 @@
         9,
         18
       ],
-      "subsequentActions": [
-        "Grk41F Timmy chooses that Kimi25 Tactic take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -79620,10 +79618,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -79761,10 +79757,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -79901,10 +79895,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic skips Draw step"
-      ],
-      "actionSeq": 12,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80030,7 +80022,7 @@
         20
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80161,13 +80153,8 @@
         19,
         22
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic's library is shuffled",
-        "Kimi25 Tactic puts a card from hand to the bottom of their library",
-        "Kimi25 Tactic skips Draw step",
-        "Kimi25 Tactic puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -80286,7 +80273,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -80416,10 +80403,8 @@
         23,
         26
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic skip attack"
-      ],
-      "actionSeq": 19
+      "subsequentActions": [],
+      "actionSeq": 23
     },
     {
       "index": 10,
@@ -80547,7 +80532,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80718,7 +80703,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 23
+      "actionSeq": 25
     },
     {
       "index": 12,
@@ -80892,7 +80877,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 25,
+      "actionSeq": 26,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81056,7 +81041,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -81190,10 +81175,8 @@
         33,
         36
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81352,7 +81335,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -81485,10 +81468,8 @@
         37,
         40
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 31,
+      "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81659,7 +81640,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -81822,7 +81803,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 35,
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81990,7 +81971,7 @@
         44
       ],
       "subsequentActions": [],
-      "actionSeq": 37,
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -82138,10 +82119,8 @@
         45,
         46
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 38,
+      "subsequentActions": [],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -82292,7 +82271,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 42,
+      "actionSeq": 46,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82456,11 +82435,8 @@
         49,
         50
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Swamp from hand onto the Battlefield",
-        "Kimi25 Tactic casts Brineborn Cutthroat from hand"
-      ],
-      "actionSeq": 36,
+      "subsequentActions": [],
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -82685,7 +82661,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 47
+      "actionSeq": 51
     },
     {
       "index": 24,
@@ -82825,11 +82801,8 @@
         53,
         56
       ],
-      "subsequentActions": [
-        "Grk41F Timmy discards Ash Barrens (source: Ash Barrens)",
-        "Grk41F Timmy activates: search your library for a basic land card, reveal it, put it into your hand, then shuffle. from Ash Barrens"
-      ],
-      "actionSeq": 46,
+      "subsequentActions": [],
+      "actionSeq": 52,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83053,7 +83026,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 51
+      "actionSeq": 54
     },
     {
       "index": 26,
@@ -83203,10 +83176,8 @@
         57,
         60
       ],
-      "subsequentActions": [
-        "Grk41F Timmy searches their library (source: Ash Barrens)"
-      ],
-      "actionSeq": 52,
+      "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83377,12 +83348,8 @@
         59,
         62
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts a card from library into their hand",
-        "Grk41F Timmy reveals Forest",
-        "Grk41F Timmy's library is shuffled (source: Ash Barrens)"
-      ],
-      "actionSeq": 54
+      "subsequentActions": [],
+      "actionSeq": 59
     },
     {
       "index": 28,
@@ -83532,7 +83499,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 58,
+      "actionSeq": 61,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83703,10 +83670,8 @@
         63,
         66
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Brineborn Cutthroat from stack onto the Battlefield"
-      ],
-      "actionSeq": 59
+      "subsequentActions": [],
+      "actionSeq": 62
     },
     {
       "index": 30,
@@ -83857,7 +83822,7 @@
         68
       ],
       "subsequentActions": [],
-      "actionSeq": 61
+      "actionSeq": 65
     },
     {
       "index": 31,
@@ -84025,10 +83990,8 @@
         67,
         70
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic skip attack"
-      ],
-      "actionSeq": 62
+      "subsequentActions": [],
+      "actionSeq": 66
     },
     {
       "index": 32,
@@ -84191,7 +84154,7 @@
         79
       ],
       "subsequentActions": [],
-      "actionSeq": 65,
+      "actionSeq": 67,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -84399,7 +84362,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 66
+      "actionSeq": 68
     },
     {
       "index": 34,
@@ -84612,7 +84575,7 @@
         74
       ],
       "subsequentActions": [],
-      "actionSeq": 68,
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -84805,10 +84768,8 @@
         76,
         77
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 69,
+      "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -84997,7 +84958,7 @@
         81
       ],
       "subsequentActions": [],
-      "actionSeq": 73,
+      "actionSeq": 77,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -85169,11 +85130,8 @@
         80,
         83
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield",
-        "Grk41F Timmy casts Drover of the Mighty from hand"
-      ],
-      "actionSeq": 67
+      "subsequentActions": [],
+      "actionSeq": 78
     },
     {
       "index": 38,
@@ -85354,7 +85312,7 @@
         85
       ],
       "subsequentActions": [],
-      "actionSeq": 77,
+      "actionSeq": 80,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -85526,10 +85484,8 @@
         84,
         87
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Drover of the Mighty from stack onto the Battlefield"
-      ],
-      "actionSeq": 78
+      "subsequentActions": [],
+      "actionSeq": 81
     },
     {
       "index": 40,
@@ -85711,7 +85667,7 @@
         89
       ],
       "subsequentActions": [],
-      "actionSeq": 80
+      "actionSeq": 84
     },
     {
       "index": 41,
@@ -85880,10 +85836,8 @@
         88,
         91
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 81
+      "subsequentActions": [],
+      "actionSeq": 85
     },
     {
       "index": 42,
@@ -86072,7 +86026,7 @@
         97
       ],
       "subsequentActions": [],
-      "actionSeq": 84,
+      "actionSeq": 86,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -86280,7 +86234,7 @@
         93
       ],
       "subsequentActions": [],
-      "actionSeq": 85
+      "actionSeq": 87
     },
     {
       "index": 44,
@@ -86494,7 +86448,7 @@
         95
       ],
       "subsequentActions": [],
-      "actionSeq": 87,
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -86714,7 +86668,7 @@
         99
       ],
       "subsequentActions": [],
-      "actionSeq": 88,
+      "actionSeq": 92,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -86923,10 +86877,8 @@
         98,
         103
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Swamp from hand onto the Battlefield"
-      ],
-      "actionSeq": 86
+      "subsequentActions": [],
+      "actionSeq": 93
     },
     {
       "index": 47,
@@ -87157,7 +87109,7 @@
         101
       ],
       "subsequentActions": [],
-      "actionSeq": 92,
+      "actionSeq": 94,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -87382,7 +87334,7 @@
         107
       ],
       "subsequentActions": [],
-      "actionSeq": 94,
+      "actionSeq": 98,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -87609,10 +87561,8 @@
         104,
         105
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic attacks Grk41F Timmy with 1 creature"
-      ],
-      "actionSeq": 93
+      "subsequentActions": [],
+      "actionSeq": 99
     },
     {
       "index": 50,
@@ -87824,7 +87774,7 @@
         109
       ],
       "subsequentActions": [],
-      "actionSeq": 99,
+      "actionSeq": 100,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -88056,7 +88006,7 @@
         111
       ],
       "subsequentActions": [],
-      "actionSeq": 98,
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -88264,10 +88214,8 @@
         110,
         113
       ],
-      "subsequentActions": [
-        "Attacker: Brineborn Cutthroat (2/1) unblocked"
-      ],
-      "actionSeq": 100
+      "subsequentActions": [],
+      "actionSeq": 104
     },
     {
       "index": 53,
@@ -88475,7 +88423,7 @@
         115
       ],
       "subsequentActions": [],
-      "actionSeq": 103,
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -88669,10 +88617,8 @@
         114,
         117
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 2 life at combat from Brineborn Cutthroat"
-      ],
-      "actionSeq": 104
+      "subsequentActions": [],
+      "actionSeq": 108
     },
     {
       "index": 55,
@@ -88884,7 +88830,7 @@
         123
       ],
       "subsequentActions": [],
-      "actionSeq": 107,
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -89139,7 +89085,7 @@
         119
       ],
       "subsequentActions": [],
-      "actionSeq": 108
+      "actionSeq": 110
     },
     {
       "index": 57,
@@ -89376,7 +89322,7 @@
         121
       ],
       "subsequentActions": [],
-      "actionSeq": 110,
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -89592,7 +89538,7 @@
         127
       ],
       "subsequentActions": [],
-      "actionSeq": 111,
+      "actionSeq": 118,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -89845,11 +89791,8 @@
         128,
         129
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic casts Thieves' Guild Enforcer from hand",
-        "Kimi25 Tactic - Ability triggers: Brineborn Cutthroat - Whenever you cast a spell during an opponent's turn, put a +1/+1 counter on Brineborn Cutthroat."
-      ],
-      "actionSeq": 118,
+      "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90071,7 +90014,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 125,
+      "actionSeq": 126,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90306,11 +90249,8 @@
         135,
         138
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Thieves' Guild Enforcer from stack onto the Battlefield",
-        "Kimi25 Tactic - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 126,
+      "subsequentActions": [],
+      "actionSeq": 130,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90597,11 +90537,8 @@
         139,
         142
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts World Breaker from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Thrashing Brontodon from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 130,
+      "subsequentActions": [],
+      "actionSeq": 134,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90931,10 +90868,8 @@
         143,
         144
       ],
-      "subsequentActions": [
-        "Grk41F Timmy searches their library (source: Cultivate)"
-      ],
-      "actionSeq": 134,
+      "subsequentActions": [],
+      "actionSeq": 137,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91229,7 +91164,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 137,
+      "actionSeq": 138,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91525,10 +91460,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "Grk41F Timmy reveals Forest, Forest"
-      ],
-      "actionSeq": 138,
+      "subsequentActions": [],
+      "actionSeq": 140,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91807,13 +91740,8 @@
         149,
         150
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from library onto the Battlefield (source: Cultivate)",
-        "Grk41F Timmy puts Forest from library into their hand",
-        "Grk41F Timmy's library is shuffled (source: Cultivate)",
-        "Grk41F Timmy puts Cultivate from stack into their graveyard"
-      ],
-      "actionSeq": 140,
+      "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -92069,10 +91997,8 @@
         151,
         152
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 145,
+      "subsequentActions": [],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -92324,10 +92250,8 @@
         153,
         154
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 147,
+      "subsequentActions": [],
+      "actionSeq": 151,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -92578,7 +92502,7 @@
         158
       ],
       "subsequentActions": [],
-      "actionSeq": 151,
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -92855,7 +92779,7 @@
         170
       ],
       "subsequentActions": [],
-      "actionSeq": 153,
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93420,10 +93344,8 @@
         163,
         164
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic attacks Grk41F Timmy with 2 creatures"
-      ],
-      "actionSeq": 157,
+      "subsequentActions": [],
+      "actionSeq": 163,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -93663,13 +93585,8 @@
         166,
         168
       ],
-      "subsequentActions": [
-        "Attacker: Brineborn Cutthroat (3/2) unblocked",
-        "Attacker: Thieves' Guild Enforcer (1/1) unblocked",
-        "Grk41F Timmy loses 3 life at combat from Brineborn Cutthroat",
-        "Grk41F Timmy loses 1 life at combat from Thieves' Guild Enforcer"
-      ],
-      "actionSeq": 163,
+      "subsequentActions": [],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -93924,7 +93841,7 @@
         175
       ],
       "subsequentActions": [],
-      "actionSeq": 175,
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -94217,7 +94134,7 @@
         173
       ],
       "subsequentActions": [],
-      "actionSeq": 177,
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -94491,7 +94408,7 @@
         177
       ],
       "subsequentActions": [],
-      "actionSeq": 179,
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -94745,10 +94662,8 @@
         176,
         179
       ],
-      "subsequentActions": [
-        "Grk41F Timmy attacks Kimi25 Tactic with 1 creature"
-      ],
-      "actionSeq": 178,
+      "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -95021,7 +94936,7 @@
         181
       ],
       "subsequentActions": [],
-      "actionSeq": 184,
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -95275,10 +95190,8 @@
         180,
         183
       ],
-      "subsequentActions": [
-        "Attacker: Drover of the Mighty (1/1) unblocked"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -95586,7 +95499,7 @@
         185
       ],
       "subsequentActions": [],
-      "actionSeq": 188,
+      "actionSeq": 192,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -95831,10 +95744,8 @@
         184,
         189
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic loses 1 life at combat from Drover of the Mighty"
-      ],
-      "actionSeq": 189,
+      "subsequentActions": [],
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -96133,7 +96044,7 @@
         187
       ],
       "subsequentActions": [],
-      "actionSeq": 192,
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -96433,7 +96344,7 @@
         195
       ],
       "subsequentActions": [],
-      "actionSeq": 194,
+      "actionSeq": 200,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -96703,10 +96614,8 @@
         194,
         203
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Orazca Frillback from hand"
-      ],
-      "actionSeq": 193,
+      "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -97001,10 +96910,8 @@
         196,
         197
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Orazca Frillback from stack onto the Battlefield"
-      ],
-      "actionSeq": 200,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -97295,10 +97202,8 @@
         198,
         199
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -97581,7 +97486,7 @@
         201
       ],
       "subsequentActions": [],
-      "actionSeq": 205,
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -97851,7 +97756,7 @@
         205
       ],
       "subsequentActions": [],
-      "actionSeq": 206,
+      "actionSeq": 210,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -98125,12 +98030,8 @@
         204,
         207
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Orazca Frillback from stack onto the Battlefield",
-        "Grk41F Timmy puts Forest from hand onto the Battlefield",
-        "Grk41F Timmy casts Setessan Training targeting Orazca Frillback from hand"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -98405,7 +98306,7 @@
         209
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 214,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -98674,11 +98575,8 @@
         208,
         211
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Setessan Training from stack onto the Battlefield",
-        "Grk41F Timmy - Ability triggers: Setessan Training - When Setessan Training enters, draw a card."
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -98952,7 +98850,7 @@
         215
       ],
       "subsequentActions": [],
-      "actionSeq": 214,
+      "actionSeq": 216,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -99254,7 +99152,7 @@
         213
       ],
       "subsequentActions": [],
-      "actionSeq": 215,
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -99288,48 +99186,275 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": false,
       "chosenArgs": {
-        "choice": "p70"
+        "choice": "no"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T5 Combat/Declare Attackers (Kimi25 Tactic)",
+        "board": [
           {
-            "name": "Brineborn Cutthroat",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p17",
-            "power": "3",
-            "toughness": "2"
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Brineborn Cutthroat",
+                "modified": true,
+                "rules": [
+                  "Flash",
+                  "Whenever you cast a spell during an opponent's turn, put a +1/+1 counter on {this}.",
+                  ": ",
+                  "ICON_BADIt's an opponent's turn"
+                ],
+                "id": "p17",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p21"
+              },
+              {
+                "tapped": false,
+                "name": "Thieves' Guild Enforcer",
+                "modified": true,
+                "rules": [
+                  "Flash",
+                  "Whenever {this} or another Rogue you control enters, each opponent mills two cards.",
+                  "As long as an opponent has eight or more cards in their graveyard, {this} gets +2/+1 and has deathtouch.",
+                  ": ",
+                  "ICON_BADOpponent graveyard size: 4 (need: 8)"
+                ],
+                "id": "p65",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false
+              }
+            ],
+            "name": "Kimi25 Tactic",
+            "library_size": 30,
+            "life": 19,
+            "hand": [
+              {
+                "name": "Island",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p70"
+              },
+              {
+                "mana_cost": "{3}{B}",
+                "name": "Mausoleum Turnkey",
+                "rules": [
+                  "When {this} enters, return target creature card of an opponent's choice from your graveyard to your hand."
+                ],
+                "power": "3",
+                "id": "p13",
+                "toughness": "2"
+              },
+              {
+                "mana_cost": "{1}{B}",
+                "name": "Oona's Blackguard",
+                "rules": [
+                  "Flying",
+                  "Each other Rogue creature you control enters with an additional +1/+1 counter on it.",
+                  "Whenever a creature you control with a +1/+1 counter on it deals combat damage to a player, that player discards a card."
+                ],
+                "power": "1",
+                "id": "p74",
+                "toughness": "1"
+              },
+              {
+                "mana_cost": "{3}{U}",
+                "name": "Sentinels of Glen Elendra",
+                "rules": [
+                  "Flash",
+                  "Flying"
+                ],
+                "power": "2",
+                "id": "p20",
+                "toughness": "3"
+              },
+              {
+                "mana_cost": "{4}{U}{U}",
+                "name": "Undersea Invader",
+                "rules": [
+                  "Flash",
+                  "{this} enters tapped."
+                ],
+                "power": "5",
+                "id": "p29",
+                "toughness": "6"
+              }
+            ]
           },
           {
-            "name": "Thieves' Guild Enforcer",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p65",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
+            "hand_size": 5,
+            "graveyard": [
+              {
+                "name": "Ash Barrens",
+                "rules": [
+                  "{T}: Add {C}.",
+                  "Basic landcycling {1} ({1}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+                ],
+                "id": "p3"
+              },
+              {
+                "name": "Cultivate",
+                "rules": [
+                  "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Thrashing Brontodon",
+                "rules": [
+                  "{1}, Sacrifice {this}: Destroy target artifact or enchantment."
+                ],
+                "id": "p56"
+              },
+              {
+                "name": "World Breaker",
+                "rules": [
+                  "When you cast this spell, exile target artifact, enchantment, or land.",
+                  "Devoid (This card has no color.)",
+                  "Reach",
+                  "{2}{C}, Sacrifice a land: Return this card from your graveyard to your hand."
+                ],
+                "id": "p63"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Drover of the Mighty",
+                "rules": [
+                  "{this} gets +2/+2 as long as you control a Dinosaur.",
+                  "{T}: Add one mana of any color."
+                ],
+                "id": "p38",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p28"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p41"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": false,
+                "name": "Orazca Frillback",
+                "rules": [
+                  "Trample"
+                ],
+                "id": "p8",
+                "power": "5",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Setessan Training",
+                "rules": [
+                  "Enchant creature you control",
+                  "When {this} enters, draw a card.",
+                  "Enchanted creature gets +1/+0 and has trample."
+                ],
+                "id": "p9"
+              }
+            ],
+            "name": "Grk41F Timmy",
+            "library_size": 23,
+            "life": 14
           }
         ],
+        "board_cursor": 37,
+        "untapped_lands": 3,
         "game_seq": 220,
-        "error": "Object p70 not found in current choices",
-        "success": false,
-        "error_code": "invalid_choice",
-        "retryable": true
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         213,
         217,
-        218
+        218,
+        219,
+        220,
+        221,
+        222
       ],
       "subsequentActions": [],
-      "actionSeq": 217,
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -99608,36 +99733,10 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 216
+      "actionSeq": 219
     },
     {
       "index": 97,
-      "snapshotIndex": 125,
-      "player": "Kimi25 Tactic",
-      "turn": 9,
-      "phase": "COMBAT",
-      "step": "DECLARE_ATTACKERS",
-      "actionType": "GAME_SELECT",
-      "responseType": "boolean",
-      "message": "Play instants and activated abilities",
-      "choices": [],
-      "choiceCount": 0,
-      "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
-      "actionResult": {},
-      "llmEventIndices": [
-        222,
-        223
-      ],
-      "subsequentActions": [],
-      "actionSeq": 220,
-      "pilotContext": {
-        "untappedLands": 3
-      }
-    },
-    {
-      "index": 98,
       "snapshotIndex": 124,
       "player": "Grk41F Timmy",
       "turn": 9,
@@ -99909,13 +100008,11 @@
         225,
         230
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic skip attack"
-      ],
-      "actionSeq": 219
+      "subsequentActions": [],
+      "actionSeq": 225
     },
     {
-      "index": 99,
+      "index": 98,
       "snapshotIndex": 127,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -100212,7 +100309,7 @@
       }
     },
     {
-      "index": 100,
+      "index": 99,
       "snapshotIndex": 127,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -100495,14 +100592,14 @@
         232
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 101,
+      "index": 100,
       "snapshotIndex": 126,
       "player": "Grk41F Timmy",
       "turn": 9,
@@ -100787,13 +100884,11 @@
         231,
         234
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic casts Oona's Blackguard from hand"
-      ],
-      "actionSeq": 225
+      "subsequentActions": [],
+      "actionSeq": 232
     },
     {
-      "index": 102,
+      "index": 101,
       "snapshotIndex": 130,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -101096,14 +101191,14 @@
         236
       ],
       "subsequentActions": [],
-      "actionSeq": 231,
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 103,
+      "index": 102,
       "snapshotIndex": 131,
       "player": "Grk41F Timmy",
       "turn": 9,
@@ -101407,14 +101502,11 @@
         235,
         240
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Oona's Blackguard from stack onto the Battlefield",
-        "Kimi25 Tactic - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 232
+      "subsequentActions": [],
+      "actionSeq": 236
     },
     {
-      "index": 104,
+      "index": 103,
       "snapshotIndex": 132,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -101714,11 +101806,8 @@
         237,
         238
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Savage Stomp from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Titan's Presence from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 235,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -101728,7 +101817,7 @@
       }
     },
     {
-      "index": 105,
+      "index": 104,
       "snapshotIndex": 134,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -102036,14 +102125,14 @@
         250
       ],
       "subsequentActions": [],
-      "actionSeq": 239,
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 106,
+      "index": 105,
       "snapshotIndex": 133,
       "player": "Grk41F Timmy",
       "turn": 9,
@@ -102406,15 +102495,11 @@
         241,
         242
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Savage Stomp from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Titan's Presence from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Kimi25 Tactic puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 236
+      "subsequentActions": [],
+      "actionSeq": 242
     },
     {
-      "index": 107,
+      "index": 106,
       "snapshotIndex": 136,
       "player": "Grk41F Timmy",
       "turn": 9,
@@ -102787,7 +102872,7 @@
         244
       ],
       "subsequentActions": [],
-      "actionSeq": 242,
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -102802,7 +102887,7 @@
       }
     },
     {
-      "index": 108,
+      "index": 107,
       "snapshotIndex": 137,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -103168,14 +103253,14 @@
         246
       ],
       "subsequentActions": [],
-      "actionSeq": 243,
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 109,
+      "index": 108,
       "snapshotIndex": 138,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -103525,14 +103610,14 @@
         248
       ],
       "subsequentActions": [],
-      "actionSeq": 244,
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 110,
+      "index": 109,
       "snapshotIndex": 139,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -103864,14 +103949,14 @@
         252
       ],
       "subsequentActions": [],
-      "actionSeq": 245,
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 111,
+      "index": 110,
       "snapshotIndex": 135,
       "player": "Kimi25 Tactic",
       "turn": 9,
@@ -104166,16 +104251,14 @@
         251,
         256
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Unnatural Aggression targeting Orazca Frillback, Brineborn Cutthroat from hand"
-      ],
-      "actionSeq": 241,
+      "subsequentActions": [],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 112,
+      "index": 111,
       "snapshotIndex": 143,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -104501,14 +104584,8 @@
         253,
         254
       ],
-      "subsequentActions": [
-        "Brineborn Cutthroat deals 3 damage to Orazca Frillback",
-        "Orazca Frillback deals 2 damage to Brineborn Cutthroat",
-        "Grk41F Timmy puts Unnatural Aggression from stack into their graveyard",
-        "Grk41F Timmy moves Brineborn Cutthroat from battlefield to the exile zone (source: Unnatural Aggression)",
-        "Orazca Frillback died"
-      ],
-      "actionSeq": 252,
+      "subsequentActions": [],
+      "actionSeq": 260,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -104521,7 +104598,7 @@
       }
     },
     {
-      "index": 113,
+      "index": 112,
       "snapshotIndex": 145,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -104822,14 +104899,14 @@
         258
       ],
       "subsequentActions": [],
-      "actionSeq": 260,
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 114,
+      "index": 113,
       "snapshotIndex": 144,
       "player": "Kimi25 Tactic",
       "turn": 10,
@@ -105124,20 +105201,14 @@
         257,
         260
       ],
-      "subsequentActions": [
-        "Brineborn Cutthroat deals 3 damage to Orazca Frillback",
-        "Orazca Frillback deals 2 damage to Brineborn Cutthroat",
-        "Grk41F Timmy puts Unnatural Aggression from stack into their graveyard",
-        "Grk41F Timmy moves Brineborn Cutthroat from battlefield to the exile zone (source: Unnatural Aggression)",
-        "Orazca Frillback died"
-      ],
-      "actionSeq": 253,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 115,
+      "index": 114,
       "snapshotIndex": 146,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -105439,13 +105510,13 @@
         262
       ],
       "subsequentActions": [],
-      "actionSeq": 262,
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 116,
+      "index": 115,
       "snapshotIndex": 147,
       "player": "Kimi25 Tactic",
       "turn": 10,
@@ -105740,16 +105811,14 @@
         261,
         264
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 263,
+      "subsequentActions": [],
+      "actionSeq": 267,
       "pilotContext": {
         "untappedLands": 2
       }
     },
     {
-      "index": 117,
+      "index": 116,
       "snapshotIndex": 148,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -106050,14 +106119,14 @@
         268
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 118,
+      "index": 117,
       "snapshotIndex": 149,
       "player": "Kimi25 Tactic",
       "turn": 10,
@@ -106084,7 +106153,7 @@
       }
     },
     {
-      "index": 119,
+      "index": 118,
       "snapshotIndex": 150,
       "player": "Grk41F Timmy",
       "turn": 10,
@@ -106411,13 +106480,13 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 268,
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 120,
+      "index": 119,
       "snapshotIndex": 154,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -106797,7 +106866,7 @@
       }
     },
     {
-      "index": 121,
+      "index": 120,
       "snapshotIndex": 154,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -107149,7 +107218,7 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 272,
+      "actionSeq": 278,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -107158,7 +107227,7 @@
       }
     },
     {
-      "index": 122,
+      "index": 121,
       "snapshotIndex": 153,
       "player": "Grk41F Timmy",
       "turn": 11,
@@ -107484,16 +107553,14 @@
         275,
         278
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic attacks Grk41F Timmy with 2 creatures"
-      ],
-      "actionSeq": 271,
+      "subsequentActions": [],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 123,
+      "index": 122,
       "snapshotIndex": 156,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -107845,7 +107912,7 @@
         281
       ],
       "subsequentActions": [],
-      "actionSeq": 278,
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -107854,7 +107921,7 @@
       }
     },
     {
-      "index": 124,
+      "index": 123,
       "snapshotIndex": 157,
       "player": "Grk41F Timmy",
       "turn": 11,
@@ -108180,17 +108247,14 @@
         280,
         283
       ],
-      "subsequentActions": [
-        "Attacker: Thieves' Guild Enforcer (3/2) unblocked",
-        "Attacker: Oona's Blackguard (1/1) unblocked"
-      ],
-      "actionSeq": 279,
+      "subsequentActions": [],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 125,
+      "index": 124,
       "snapshotIndex": 158,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -108534,7 +108598,7 @@
         285
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -108543,7 +108607,7 @@
       }
     },
     {
-      "index": 126,
+      "index": 125,
       "snapshotIndex": 159,
       "player": "Grk41F Timmy",
       "turn": 11,
@@ -108843,17 +108907,14 @@
         284,
         290
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 3 life at combat from Thieves' Guild Enforcer",
-        "Grk41F Timmy loses 1 life at combat from Oona's Blackguard"
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 127,
+      "index": 126,
       "snapshotIndex": 160,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -109201,7 +109262,7 @@
         297
       ],
       "subsequentActions": [],
-      "actionSeq": 288,
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -109213,7 +109274,7 @@
       }
     },
     {
-      "index": 128,
+      "index": 127,
       "snapshotIndex": 161,
       "player": "Grk41F Timmy",
       "turn": 11,
@@ -109559,13 +109620,13 @@
         292
       ],
       "subsequentActions": [],
-      "actionSeq": 289,
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 4
       }
     },
     {
-      "index": 129,
+      "index": 128,
       "snapshotIndex": 163,
       "player": "Grk41F Timmy",
       "turn": 11,
@@ -109900,7 +109961,7 @@
         294
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -109913,7 +109974,7 @@
       }
     },
     {
-      "index": 130,
+      "index": 129,
       "snapshotIndex": 164,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -110250,14 +110311,14 @@
         299
       ],
       "subsequentActions": [],
-      "actionSeq": 292,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
       }
     },
     {
-      "index": 131,
+      "index": 130,
       "snapshotIndex": 162,
       "player": "Kimi25 Tactic",
       "turn": 11,
@@ -110607,10 +110668,8 @@
         298,
         306
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Drowsing Tyrannodon from hand"
-      ],
-      "actionSeq": 290,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -110619,7 +110678,7 @@
       }
     },
     {
-      "index": 132,
+      "index": 131,
       "snapshotIndex": 167,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -110963,10 +111022,8 @@
         300,
         301
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Drowsing Tyrannodon from stack onto the Battlefield"
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -110978,7 +111035,7 @@
       }
     },
     {
-      "index": 133,
+      "index": 132,
       "snapshotIndex": 169,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -111294,10 +111351,8 @@
         302,
         303
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 301,
+      "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -111307,7 +111362,7 @@
       }
     },
     {
-      "index": 134,
+      "index": 133,
       "snapshotIndex": 170,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -111621,13 +111676,13 @@
         308
       ],
       "subsequentActions": [],
-      "actionSeq": 303,
+      "actionSeq": 311,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 135,
+      "index": 134,
       "snapshotIndex": 168,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -111985,12 +112040,8 @@
         311,
         314
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Drowsing Tyrannodon from stack onto the Battlefield",
-        "Grk41F Timmy puts Forest from hand onto the Battlefield",
-        "Grk41F Timmy casts Ghalta, Primal Hunger from hand"
-      ],
-      "actionSeq": 299,
+      "subsequentActions": [],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -111999,7 +112050,7 @@
       }
     },
     {
-      "index": 136,
+      "index": 135,
       "snapshotIndex": 177,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -112311,16 +112362,14 @@
         309,
         312
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Ghalta, Primal Hunger from stack onto the Battlefield"
-      ],
-      "actionSeq": 311,
+      "subsequentActions": [],
+      "actionSeq": 314,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 137,
+      "index": 136,
       "snapshotIndex": 179,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -112634,10 +112683,10 @@
         316
       ],
       "subsequentActions": [],
-      "actionSeq": 314
+      "actionSeq": 318
     },
     {
-      "index": 138,
+      "index": 137,
       "snapshotIndex": 180,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -112994,10 +113043,8 @@
         315,
         318
       ],
-      "subsequentActions": [
-        "Grk41F Timmy skip attack"
-      ],
-      "actionSeq": 315,
+      "subsequentActions": [],
+      "actionSeq": 319,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -113006,7 +113053,7 @@
       }
     },
     {
-      "index": 139,
+      "index": 138,
       "snapshotIndex": 181,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -113325,13 +113372,13 @@
         322
       ],
       "subsequentActions": [],
-      "actionSeq": 318,
+      "actionSeq": 320,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 140,
+      "index": 139,
       "snapshotIndex": 182,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -113670,7 +113717,7 @@
         320
       ],
       "subsequentActions": [],
-      "actionSeq": 319,
+      "actionSeq": 321,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -113679,7 +113726,7 @@
       }
     },
     {
-      "index": 141,
+      "index": 140,
       "snapshotIndex": 184,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -114015,10 +114062,10 @@
         326
       ],
       "subsequentActions": [],
-      "actionSeq": 321
+      "actionSeq": 328
     },
     {
-      "index": 142,
+      "index": 141,
       "snapshotIndex": 183,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -114343,16 +114390,14 @@
         323,
         324
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic casts Sentinels of Glen Elendra from hand"
-      ],
-      "actionSeq": 320,
+      "subsequentActions": [],
+      "actionSeq": 329,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 143,
+      "index": 142,
       "snapshotIndex": 190,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -114693,13 +114738,13 @@
         334
       ],
       "subsequentActions": [],
-      "actionSeq": 329,
+      "actionSeq": 331,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 144,
+      "index": 143,
       "snapshotIndex": 189,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -115076,13 +115121,11 @@
         327,
         328
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Sentinels of Glen Elendra from stack onto the Battlefield"
-      ],
-      "actionSeq": 328
+      "subsequentActions": [],
+      "actionSeq": 332
     },
     {
-      "index": 145,
+      "index": 144,
       "snapshotIndex": 192,
       "player": "Kimi25 Tactic",
       "turn": 12,
@@ -115478,7 +115521,7 @@
         330
       ],
       "subsequentActions": [],
-      "actionSeq": 332,
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -115490,7 +115533,7 @@
       }
     },
     {
-      "index": 146,
+      "index": 145,
       "snapshotIndex": 193,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -115854,10 +115897,8 @@
         331,
         332
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 333,
+      "subsequentActions": [],
+      "actionSeq": 337,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -115868,7 +115909,7 @@
       }
     },
     {
-      "index": 147,
+      "index": 146,
       "snapshotIndex": 194,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -116232,14 +116273,14 @@
         336
       ],
       "subsequentActions": [],
-      "actionSeq": 337,
+      "actionSeq": 341,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 148,
+      "index": 147,
       "snapshotIndex": 191,
       "player": "Grk41F Timmy",
       "turn": 12,
@@ -116596,14 +116637,11 @@
         335,
         338
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Island from hand onto the Battlefield",
-        "Kimi25 Tactic casts Nightshade Stinger from hand"
-      ],
-      "actionSeq": 331
+      "subsequentActions": [],
+      "actionSeq": 342
     },
     {
-      "index": 149,
+      "index": 148,
       "snapshotIndex": 197,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -116989,14 +117027,14 @@
         340
       ],
       "subsequentActions": [],
-      "actionSeq": 341,
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 150,
+      "index": 149,
       "snapshotIndex": 198,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -117365,14 +117403,11 @@
         339,
         344
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Nightshade Stinger from stack onto the Battlefield",
-        "Kimi25 Tactic - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 342
+      "subsequentActions": [],
+      "actionSeq": 346
     },
     {
-      "index": 151,
+      "index": 150,
       "snapshotIndex": 199,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -117746,11 +117781,8 @@
         341,
         342
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Wastes from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Warden of Geometries from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 345,
+      "subsequentActions": [],
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117760,7 +117792,7 @@
       }
     },
     {
-      "index": 152,
+      "index": 151,
       "snapshotIndex": 201,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -118150,13 +118182,13 @@
         347
       ],
       "subsequentActions": [],
-      "actionSeq": 349,
+      "actionSeq": 355,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 153,
+      "index": 152,
       "snapshotIndex": 200,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -118539,15 +118571,11 @@
         346,
         351
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Wastes from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Warden of Geometries from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Kimi25 Tactic casts Mausoleum Turnkey from hand"
-      ],
-      "actionSeq": 346
+      "subsequentActions": [],
+      "actionSeq": 356
     },
     {
-      "index": 154,
+      "index": 153,
       "snapshotIndex": 206,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -118938,16 +118966,14 @@
         348,
         349
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Mausoleum Turnkey from stack onto the Battlefield"
-      ],
-      "actionSeq": 355,
+      "subsequentActions": [],
+      "actionSeq": 358,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 155,
+      "index": 154,
       "snapshotIndex": 208,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -119336,13 +119362,13 @@
         353
       ],
       "subsequentActions": [],
-      "actionSeq": 358,
+      "actionSeq": 360,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 156,
+      "index": 155,
       "snapshotIndex": 207,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -119735,14 +119761,11 @@
         352,
         355
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic puts Mausoleum Turnkey from stack onto the Battlefield",
-        "Kimi25 Tactic - Ability triggers: Thieves' Guild Enforcer - Whenever Thieves' Guild Enforcer or another Rogue you control enters, each opponent mills two cards."
-      ],
-      "actionSeq": 356
+      "subsequentActions": [],
+      "actionSeq": 361
     },
     {
-      "index": 157,
+      "index": 156,
       "snapshotIndex": 209,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -120163,13 +120186,13 @@
         357
       ],
       "subsequentActions": [],
-      "actionSeq": 360,
+      "actionSeq": 364,
       "pilotContext": {
         "landDropsUsed": 1
       }
     },
     {
-      "index": 158,
+      "index": 157,
       "snapshotIndex": 210,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -120600,14 +120623,11 @@
         356,
         361
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Commune with Dinosaurs from library into their graveyard (source: Thieves' Guild Enforcer)",
-        "Grk41F Timmy puts Brood Monitor from library into their graveyard (source: Thieves' Guild Enforcer)"
-      ],
-      "actionSeq": 361
+      "subsequentActions": [],
+      "actionSeq": 365
     },
     {
-      "index": 159,
+      "index": 158,
       "snapshotIndex": 211,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -121075,13 +121095,13 @@
         359
       ],
       "subsequentActions": [],
-      "actionSeq": 364,
+      "actionSeq": 366,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 160,
+      "index": 159,
       "snapshotIndex": 213,
       "player": "Kimi25 Tactic",
       "turn": 13,
@@ -121107,7 +121127,7 @@
       "actionSeq": 366
     },
     {
-      "index": 161,
+      "index": 160,
       "snapshotIndex": 212,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -121577,13 +121597,11 @@
         363,
         364
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic attacks Grk41F Timmy with 3 creatures"
-      ],
-      "actionSeq": 365
+      "subsequentActions": [],
+      "actionSeq": 373
     },
     {
-      "index": 162,
+      "index": 161,
       "snapshotIndex": 217,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -121614,18 +121632,440 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "choice": "blockers"
+        "blockers": "p39:p1"
       },
       "actionResult": {
-        "error": "Unknown short ID: blockers"
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "boolean",
+        "respond_with": "choice=yes (confirm) or choice=no (pass)",
+        "context": "T7 Combat/Declare Blockers (Kimi25 Tactic)",
+        "board": [
+          {
+            "hand_size": 2,
+            "graveyard": [
+              {
+                "name": "Ash Barrens",
+                "rules": [
+                  "{T}: Add {C}.",
+                  "Basic landcycling {1} ({1}, Discard this card: Search your library for a basic land card, reveal it, put it into your hand, then shuffle.)"
+                ],
+                "id": "p3"
+              },
+              {
+                "name": "Brood Monitor",
+                "rules": [
+                  "Devoid (This card has no color.)",
+                  "When {this} enters, create three 1/1 colorless Eldrazi Scion creature tokens. They have \"Sacrifice this creature: Add {C}.\""
+                ],
+                "id": "p34"
+              },
+              {
+                "name": "Commune with Dinosaurs",
+                "rules": [
+                  "Look at the top five cards of your library. You may reveal a Dinosaur or land card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+                ],
+                "id": "p36"
+              },
+              {
+                "name": "Cultivate",
+                "rules": [
+                  "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Orazca Frillback",
+                "id": "p8"
+              },
+              {
+                "name": "Savage Stomp",
+                "rules": [
+                  "This spell costs {2} less to cast if it targets a Dinosaur you control.",
+                  "Put a +1/+1 counter on target creature you control. Then that creature fights target creature you don't control. (Each deals damage equal to its power to the other.)"
+                ],
+                "id": "p53"
+              },
+              {
+                "name": "Setessan Training",
+                "rules": [
+                  "Enchant creature you control",
+                  "When {this} enters, draw a card.",
+                  "Enchanted creature gets +1/+0 and has trample."
+                ],
+                "id": "p9"
+              },
+              {
+                "name": "Thrashing Brontodon",
+                "rules": [
+                  "{1}, Sacrifice {this}: Destroy target artifact or enchantment."
+                ],
+                "id": "p56"
+              },
+              {
+                "name": "Titan's Presence",
+                "rules": [
+                  "As an additional cost to cast this spell, reveal a colorless creature card from your hand.: ",
+                  "Exile target creature if its power is less than or equal to the revealed card's power."
+                ],
+                "id": "p58"
+              },
+              {
+                "name": "Unnatural Aggression",
+                "rules": [
+                  "Devoid (This card has no color.)",
+                  "Target creature you control fights target creature an opponent controls. If the creature an opponent controls would die this turn, exile it instead."
+                ],
+                "id": "p59"
+              },
+              {
+                "name": "Warden of Geometries",
+                "rules": [
+                  "Vigilance",
+                  "{T}: Add {C}."
+                ],
+                "id": "p60"
+              },
+              {
+                "name": "Wastes",
+                "rules": [
+                  "{T}: Add {C}."
+                ],
+                "id": "p62"
+              },
+              {
+                "name": "World Breaker",
+                "rules": [
+                  "When you cast this spell, exile target artifact, enchantment, or land.",
+                  "Devoid (This card has no color.)",
+                  "Reach",
+                  "{2}{C}, Sacrifice a land: Return this card from your graveyard to your hand."
+                ],
+                "id": "p63"
+              }
+            ],
+            "is_active": false,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Drover of the Mighty",
+                "rules": [
+                  "{this} gets +2/+2 as long as you control a Dinosaur.",
+                  "{T}: Add one mana of any color."
+                ],
+                "id": "p38",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Drowsing Tyrannodon",
+                "rules": [
+                  "Defender",
+                  "As long as you control a creature with power 4 or greater, {this} can attack as though it didn't have defender."
+                ],
+                "id": "p39",
+                "power": "3",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p28"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p41"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p42"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p43"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p44"
+              },
+              {
+                "tapped": false,
+                "name": "Ghalta, Primal Hunger",
+                "rules": [
+                  "This spell costs {X} less to cast, where X is the total power of creatures you control.",
+                  "Trample"
+                ],
+                "id": "p7",
+                "power": "12",
+                "toughness": "12",
+                "summoning_sick": true
+              }
+            ],
+            "name": "Grk41F Timmy",
+            "library_size": 15,
+            "life": 10,
+            "hand": [
+              {
+                "name": "Forest",
+                "is_land": true,
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p45"
+              },
+              {
+                "name": "Thriving Grove",
+                "is_land": true,
+                "rules": [
+                  "{this} enters tapped.",
+                  "As {this} enters, choose a color other than green.",
+                  "{T}: Add {G}.",
+                  "{T}: Add one mana of the chosen color."
+                ],
+                "id": "p57"
+              }
+            ]
+          },
+          {
+            "hand_size": 1,
+            "is_active": true,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p19"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p70"
+              },
+              {
+                "tapped": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "id": "p78"
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Mausoleum Turnkey",
+                "rules": [
+                  "When {this} enters, return target creature card of an opponent's choice from your graveyard to your hand."
+                ],
+                "id": "p13",
+                "power": "4",
+                "toughness": "3",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "counters": {
+                  "+1/+1": 1
+                },
+                "name": "Nightshade Stinger",
+                "rules": [
+                  "Flying",
+                  "{this} can't block.",
+                  ": ",
+                  "ICON_RESTRICTCan't block (Nightshade Stinger)"
+                ],
+                "id": "p14",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true
+              },
+              {
+                "tapped": true,
+                "name": "Oona's Blackguard",
+                "rules": [
+                  "Flying",
+                  "Each other Rogue creature you control enters with an additional +1/+1 counter on it.",
+                  "Whenever a creature you control with a +1/+1 counter on it deals combat damage to a player, that player discards a card."
+                ],
+                "id": "p74",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Sentinels of Glen Elendra",
+                "rules": [
+                  "Flash",
+                  "Flying"
+                ],
+                "id": "p20",
+                "power": "2",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": true,
+                "name": "Swamp",
+                "rules": [
+                  "{T}: Add {B}."
+                ],
+                "id": "p21"
+              },
+              {
+                "tapped": true,
+                "name": "Thieves' Guild Enforcer",
+                "rules": [
+                  "Flash",
+                  "Whenever {this} or another Rogue you control enters, each opponent mills two cards.",
+                  "As long as an opponent has eight or more cards in their graveyard, {this} gets +2/+1 and has deathtouch.",
+                  "Deathtouch",
+                  ": ",
+                  "ICON_GOODOpponent graveyard size: 13 (need: 8)"
+                ],
+                "id": "p65",
+                "power": "3",
+                "toughness": "2",
+                "summoning_sick": false
+              }
+            ],
+            "name": "Kimi25 Tactic",
+            "exile": [
+              {
+                "name": "Brineborn Cutthroat",
+                "rules": [
+                  "Flash",
+                  "Whenever you cast a spell during an opponent's turn, put a +1/+1 counter on {this}.",
+                  ": ",
+                  "ICON_BADIt's an opponent's turn"
+                ],
+                "id": "p17"
+              }
+            ],
+            "library_size": 28,
+            "life": 19
+          }
+        ],
+        "board_cursor": 64,
+        "combat": [
+          {
+            "blocked": true,
+            "defending": "Grk41F Timmy",
+            "attackers": [
+              {
+                "name": "Thieves' Guild Enforcer",
+                "id": "p65",
+                "power": "3",
+                "toughness": "2"
+              }
+            ],
+            "blockers": [
+              {
+                "name": "Drowsing Tyrannodon",
+                "id": "p39",
+                "power": "3",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Grk41F Timmy",
+            "attackers": [
+              {
+                "name": "Sentinels of Glen Elendra",
+                "id": "p20",
+                "power": "2",
+                "toughness": "3"
+              }
+            ]
+          },
+          {
+            "blocked": false,
+            "defending": "Grk41F Timmy",
+            "attackers": [
+              {
+                "name": "Oona's Blackguard",
+                "id": "p74",
+                "power": "1",
+                "toughness": "1"
+              }
+            ]
+          }
+        ],
+        "game_seq": 374,
+        "action_taken": "batch_block",
+        "success": true,
+        "declared": [
+          {
+            "blocks": "p1",
+            "id": "p39"
+          }
+        ]
       },
       "llmEventIndices": [
         364,
         365,
-        366
+        366,
+        369
       ],
       "subsequentActions": [],
-      "actionSeq": 373,
+      "actionSeq": 374,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -121651,7 +122091,7 @@
       }
     },
     {
-      "index": 163,
+      "index": 162,
       "snapshotIndex": 218,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -122068,15 +122508,11 @@
         370,
         373
       ],
-      "subsequentActions": [
-        "Attacker: Thieves' Guild Enforcer (3/2) blocked by Drowsing Tyrannodon (3/3)",
-        "Attacker: Sentinels of Glen Elendra (2/3) unblocked",
-        "Attacker: Oona's Blackguard (1/1) unblocked"
-      ],
-      "actionSeq": 374
+      "subsequentActions": [],
+      "actionSeq": 381
     },
     {
-      "index": 164,
+      "index": 163,
       "snapshotIndex": 221,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -122462,17 +122898,11 @@
         374,
         377
       ],
-      "subsequentActions": [
-        "Drowsing Tyrannodon deals 3 damage to Thieves' Guild Enforcer",
-        "Thieves' Guild Enforcer deals 3 damage to Drowsing Tyrannodon",
-        "Grk41F Timmy loses 2 life at combat from Sentinels of Glen Elendra",
-        "Grk41F Timmy loses 1 life at combat from Oona's Blackguard",
-        "Thieves' Guild Enforcer died"
-      ],
-      "actionSeq": 381
+      "subsequentActions": [],
+      "actionSeq": 390
     },
     {
-      "index": 165,
+      "index": 164,
       "snapshotIndex": 223,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -122898,10 +123328,10 @@
         379
       ],
       "subsequentActions": [],
-      "actionSeq": 390
+      "actionSeq": 392
     },
     {
-      "index": 166,
+      "index": 165,
       "snapshotIndex": 225,
       "player": "Grk41F Timmy",
       "turn": 13,
@@ -123336,7 +123766,7 @@
         381
       ],
       "subsequentActions": [],
-      "actionSeq": 392,
+      "actionSeq": 393,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -123348,7 +123778,7 @@
       }
     },
     {
-      "index": 167,
+      "index": 166,
       "snapshotIndex": 226,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -123779,7 +124209,7 @@
         386
       ],
       "subsequentActions": [],
-      "actionSeq": 393,
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -123791,7 +124221,7 @@
       }
     },
     {
-      "index": 168,
+      "index": 167,
       "snapshotIndex": 226,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -124222,7 +124652,7 @@
         388
       ],
       "subsequentActions": [],
-      "actionSeq": 394,
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -124234,7 +124664,7 @@
       }
     },
     {
-      "index": 169,
+      "index": 168,
       "snapshotIndex": 226,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -124639,11 +125069,8 @@
         389,
         390
       ],
-      "subsequentActions": [
-        "Thriving Grove: Grk41F Timmy has chosen Red",
-        "Grk41F Timmy puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 395,
+      "subsequentActions": [],
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -124653,7 +125080,7 @@
       }
     },
     {
-      "index": 170,
+      "index": 169,
       "snapshotIndex": 227,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -125055,17 +125482,15 @@
         391,
         392
       ],
-      "subsequentActions": [
-        "Grk41F Timmy casts Blisterpod from hand"
-      ],
-      "actionSeq": 400,
+      "subsequentActions": [],
+      "actionSeq": 403,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 171,
+      "index": 170,
       "snapshotIndex": 229,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -125491,17 +125916,15 @@
         393,
         394
       ],
-      "subsequentActions": [
-        "Grk41F Timmy puts Blisterpod from stack onto the Battlefield"
-      ],
-      "actionSeq": 403,
+      "subsequentActions": [],
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 172,
+      "index": 171,
       "snapshotIndex": 231,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -125957,14 +126380,14 @@
         397
       ],
       "subsequentActions": [],
-      "actionSeq": 406,
+      "actionSeq": 408,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 173,
+      "index": 172,
       "snapshotIndex": 233,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -126391,16 +126814,14 @@
         398,
         401
       ],
-      "subsequentActions": [
-        "Grk41F Timmy attacks Kimi25 Tactic with 2 creatures"
-      ],
-      "actionSeq": 408,
+      "subsequentActions": [],
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 174,
+      "index": 173,
       "snapshotIndex": 236,
       "player": "Kimi25 Tactic",
       "turn": 14,
@@ -126867,7 +127288,7 @@
       }
     },
     {
-      "index": 175,
+      "index": 174,
       "snapshotIndex": 234,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -127295,13 +127716,13 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 412,
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 176,
+      "index": 175,
       "snapshotIndex": 236,
       "player": "Kimi25 Tactic",
       "turn": 14,
@@ -127730,14 +128151,11 @@
         405,
         408
       ],
-      "subsequentActions": [
-        "Attacker: Drover of the Mighty (3/3) unblocked",
-        "Attacker: Ghalta, Primal Hunger (12/12) unblocked"
-      ],
-      "actionSeq": 414
+      "subsequentActions": [],
+      "actionSeq": 419
     },
     {
-      "index": 177,
+      "index": 176,
       "snapshotIndex": 237,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -128140,13 +128558,13 @@
         410
       ],
       "subsequentActions": [],
-      "actionSeq": 418,
+      "actionSeq": 423,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 178,
+      "index": 177,
       "snapshotIndex": 238,
       "player": "Kimi25 Tactic",
       "turn": 14,
@@ -128549,14 +128967,11 @@
         409,
         413
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic loses 3 life at combat from Drover of the Mighty",
-        "Kimi25 Tactic loses 12 life at combat from Ghalta, Primal Hunger"
-      ],
-      "actionSeq": 419
+      "subsequentActions": [],
+      "actionSeq": 424
     },
     {
-      "index": 179,
+      "index": 178,
       "snapshotIndex": 239,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -128958,14 +129373,14 @@
         419
       ],
       "subsequentActions": [],
-      "actionSeq": 423,
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
       }
     },
     {
-      "index": 180,
+      "index": 179,
       "snapshotIndex": 240,
       "player": "Kimi25 Tactic",
       "turn": 14,
@@ -128988,7 +129403,7 @@
       "actionSeq": 424
     },
     {
-      "index": 181,
+      "index": 180,
       "snapshotIndex": 243,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -129463,7 +129878,7 @@
       }
     },
     {
-      "index": 182,
+      "index": 181,
       "snapshotIndex": 241,
       "player": "Grk41F Timmy",
       "turn": 14,
@@ -129915,13 +130330,13 @@
         425
       ],
       "subsequentActions": [],
-      "actionSeq": 425,
+      "actionSeq": 428,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 183,
+      "index": 182,
       "snapshotIndex": 243,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -130440,14 +130855,14 @@
         423
       ],
       "subsequentActions": [],
-      "actionSeq": 427,
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 184,
+      "index": 183,
       "snapshotIndex": 245,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -130938,7 +131353,7 @@
         431
       ],
       "subsequentActions": [],
-      "actionSeq": 429,
+      "actionSeq": 434,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -130947,7 +131362,7 @@
       }
     },
     {
-      "index": 185,
+      "index": 184,
       "snapshotIndex": 244,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -131435,16 +131850,14 @@
         427,
         428
       ],
-      "subsequentActions": [
-        "Kimi25 Tactic attacks Grk41F Timmy with 4 creatures"
-      ],
-      "actionSeq": 428,
+      "subsequentActions": [],
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 186,
+      "index": 185,
       "snapshotIndex": 247,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -131919,7 +132332,7 @@
         433
       ],
       "subsequentActions": [],
-      "actionSeq": 435,
+      "actionSeq": 436,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_blockers",
@@ -131952,7 +132365,7 @@
       }
     },
     {
-      "index": 187,
+      "index": 186,
       "snapshotIndex": 246,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -132445,7 +132858,7 @@
         436
       ],
       "subsequentActions": [],
-      "actionSeq": 434,
+      "actionSeq": 443,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -132454,7 +132867,7 @@
       }
     },
     {
-      "index": 188,
+      "index": 187,
       "snapshotIndex": 248,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -132915,19 +133328,14 @@
         435,
         438
       ],
-      "subsequentActions": [
-        "Attacker: Oona's Blackguard (1/1) unblocked",
-        "Attacker: Sentinels of Glen Elendra (2/3) unblocked",
-        "Attacker: Nightshade Stinger (2/2) unblocked",
-        "Attacker: Mausoleum Turnkey (4/3) blocked by Blisterpod (1/1)"
-      ],
-      "actionSeq": 436,
+      "subsequentActions": [],
+      "actionSeq": 444,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 189,
+      "index": 188,
       "snapshotIndex": 250,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -133429,7 +133837,7 @@
         440
       ],
       "subsequentActions": [],
-      "actionSeq": 443,
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -133438,7 +133846,7 @@
       }
     },
     {
-      "index": 190,
+      "index": 189,
       "snapshotIndex": 251,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -133919,20 +134327,14 @@
         439,
         442
       ],
-      "subsequentActions": [
-        "Grk41F Timmy loses 1 life at combat from Oona's Blackguard",
-        "Grk41F Timmy loses 2 life at combat from Sentinels of Glen Elendra",
-        "Grk41F Timmy loses 2 life at combat from Nightshade Stinger",
-        "Blisterpod deals 1 damage to Mausoleum Turnkey",
-        "Mausoleum Turnkey deals 4 damage to Blisterpod"
-      ],
-      "actionSeq": 444,
+      "subsequentActions": [],
+      "actionSeq": 455,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 191,
+      "index": 190,
       "snapshotIndex": 252,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -134430,7 +134832,7 @@
         446
       ],
       "subsequentActions": [],
-      "actionSeq": 454,
+      "actionSeq": 457,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -134439,7 +134841,7 @@
       }
     },
     {
-      "index": 192,
+      "index": 191,
       "snapshotIndex": 253,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -134918,16 +135320,14 @@
         445,
         448
       ],
-      "subsequentActions": [
-        "Grk41F Timmy creates a Eldrazi Scion Token token"
-      ],
-      "actionSeq": 455,
+      "subsequentActions": [],
+      "actionSeq": 458,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 193,
+      "index": 192,
       "snapshotIndex": 254,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -135376,7 +135776,7 @@
         451
       ],
       "subsequentActions": [],
-      "actionSeq": 457,
+      "actionSeq": 460,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -135385,7 +135785,7 @@
       }
     },
     {
-      "index": 194,
+      "index": 193,
       "snapshotIndex": 255,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -135813,16 +136213,14 @@
         450,
         453
       ],
-      "subsequentActions": [
-        "Grk41F Timmy discards Forest (source: Oona's Blackguard)"
-      ],
-      "actionSeq": 458,
+      "subsequentActions": [],
+      "actionSeq": 461,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 195,
+      "index": 194,
       "snapshotIndex": 256,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -136270,7 +136668,7 @@
         458
       ],
       "subsequentActions": [],
-      "actionSeq": 460,
+      "actionSeq": 462,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -136280,7 +136678,7 @@
       }
     },
     {
-      "index": 196,
+      "index": 195,
       "snapshotIndex": 257,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -136728,13 +137126,13 @@
         455
       ],
       "subsequentActions": [],
-      "actionSeq": 461,
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 6
       }
     },
     {
-      "index": 197,
+      "index": 196,
       "snapshotIndex": 259,
       "player": "Grk41F Timmy",
       "turn": 15,
@@ -137202,7 +137600,7 @@
         460
       ],
       "subsequentActions": [],
-      "actionSeq": 463,
+      "actionSeq": 464,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -137212,7 +137610,7 @@
       }
     },
     {
-      "index": 198,
+      "index": 197,
       "snapshotIndex": 258,
       "player": "Kimi25 Tactic",
       "turn": 15,
@@ -137698,7 +138096,7 @@
         466
       ],
       "subsequentActions": [],
-      "actionSeq": 462,
+      "actionSeq": 465,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -137707,7 +138105,7 @@
       }
     },
     {
-      "index": 199,
+      "index": 198,
       "snapshotIndex": 260,
       "player": "Grk41F Timmy",
       "turn": 16,
@@ -138210,14 +138608,14 @@
         463
       ],
       "subsequentActions": [],
-      "actionSeq": 464,
+      "actionSeq": 466,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
       }
     },
     {
-      "index": 200,
+      "index": 199,
       "snapshotIndex": 262,
       "player": "Grk41F Timmy",
       "turn": 16,
@@ -138694,13 +139092,13 @@
         468
       ],
       "subsequentActions": [],
-      "actionSeq": 466,
+      "actionSeq": 471,
       "pilotContext": {
         "untappedLands": 8
       }
     },
     {
-      "index": 201,
+      "index": 200,
       "snapshotIndex": 261,
       "player": "Kimi25 Tactic",
       "turn": 16,
@@ -139185,10 +139583,8 @@
         467,
         471
       ],
-      "subsequentActions": [
-        "Grk41F Timmy attacks Kimi25 Tactic with 3 creatures"
-      ],
-      "actionSeq": 465,
+      "subsequentActions": [],
+      "actionSeq": 472,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -139197,7 +139593,7 @@
       }
     },
     {
-      "index": 202,
+      "index": 201,
       "snapshotIndex": 263,
       "player": "Grk41F Timmy",
       "turn": 16,
@@ -139240,13 +139636,13 @@
         475
       ],
       "subsequentActions": [],
-      "actionSeq": 471,
+      "actionSeq": 477,
       "pilotContext": {
         "untappedLands": 8
       }
     },
     {
-      "index": 203,
+      "index": 202,
       "snapshotIndex": 264,
       "player": "Kimi25 Tactic",
       "turn": 16,
@@ -139292,13 +139688,12 @@
         473
       ],
       "subsequentActions": [
-        "Attacker: Drover of the Mighty (3/3) unblocked",
-        "Attacker: Ghalta, Primal Hunger (12/12) unblocked",
-        "Attacker: Eldrazi Scion Token (1/1) unblocked",
         "Kimi25 Tactic loses 3 life at combat from Drover of the Mighty",
-        "Kimi25 Tactic loses 12 life at combat from Ghalta, Primal Hunger"
+        "Kimi25 Tactic loses 12 life at combat from Ghalta, Primal Hunger",
+        "Kimi25 Tactic loses 1 life at combat from Eldrazi Scion Token",
+        "Kimi25 Tactic has lost the game."
       ],
-      "actionSeq": 472,
+      "actionSeq": 478,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [

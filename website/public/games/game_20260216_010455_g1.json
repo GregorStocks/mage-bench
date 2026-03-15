@@ -40669,12 +40669,14 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p4",
         "index": 3,
-        "mana_plan": "p1",
+        "mana_plan": [
+          "p1"
+        ],
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -40684,7 +40686,8 @@
       "llmEventIndices": [
         26,
         29,
-        30
+        30,
+        31
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -40715,12 +40718,14 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p8",
         "index": 3,
-        "mana_plan": "p2",
+        "mana_plan": [
+          "p2"
+        ],
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -40735,7 +40740,8 @@
         32,
         33,
         35,
-        36
+        36,
+        37
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -40766,12 +40772,12 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p2",
         "index": 1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "Island"
       },
@@ -40830,12 +40836,12 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": -1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -40991,12 +40997,12 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p3",
         "index": 2,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "Swamp"
       },
@@ -41125,7 +41131,10 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p5,p3:0",
+        "mana_plan": [
+          "p5",
+          "p3:0"
+        ],
         "id": "p7"
       },
       "actionResult": {
@@ -41301,12 +41310,15 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p5",
         "index": 1,
-        "mana_plan": "p2,p3",
+        "mana_plan": [
+          "p2",
+          "p3"
+        ],
         "pile": 1,
         "text": "Consult the Star Charts"
       },
@@ -41342,7 +41354,8 @@
         113,
         115,
         118,
-        119
+        119,
+        121
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -41651,7 +41664,11 @@
       "chosenArgs": {
         "index": 2,
         "id": "p7",
-        "mana_plan": "p3:0,p5:0,p4:1"
+        "mana_plan": [
+          "p3:0",
+          "p5:0",
+          "p4:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -41838,12 +41855,12 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p14",
         "index": 1,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "Gloomlake Verge"
       },
@@ -41911,7 +41928,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "p14,p3"
+        "mana_plan": [
+          "p14",
+          "p3"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -42286,7 +42306,11 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p5:0,p4:1,p6:1",
+        "mana_plan": [
+          "p5:0",
+          "p4:1",
+          "p6:1"
+        ],
         "id": "p13"
       },
       "actionResult": {
@@ -42831,7 +42855,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": "p4:0"
+        "mana_plan": [
+          "p4:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -42999,12 +43025,16 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p5",
         "index": 0,
-        "mana_plan": "p2,p14,p9",
+        "mana_plan": [
+          "p2",
+          "p14",
+          "p9"
+        ],
         "pile": 1,
         "text": "Consult the Star Charts"
       },
@@ -43219,12 +43249,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -43361,17 +43391,19 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p8",
         "index": 2,
-        "mana_plan": "p9",
+        "mana_plan": [
+          "p9"
+        ],
         "pile": 1,
         "text": "Three Steps Ahead"
       },
@@ -43700,7 +43732,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p5",
+        "mana_plan": [
+          "p5"
+        ],
         "id": "p21"
       },
       "actionResult": {
@@ -44408,7 +44442,11 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p19,p3:0,p4:1"
+        "mana_plan": [
+          "p19",
+          "p3:0",
+          "p4:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -44538,7 +44576,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p6:1",
+        "mana_plan": [
+          "p6:1"
+        ],
         "id": "p9"
       },
       "actionResult": {
@@ -44789,12 +44829,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -44955,7 +44995,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p25",
-        "mana_plan": "p2"
+        "mana_plan": [
+          "p2"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -45071,12 +45113,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -45384,7 +45426,12 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p19:0,p3:0,p4:0,p5:0",
+        "mana_plan": [
+          "p19:0",
+          "p3:0",
+          "p4:0",
+          "p5:0"
+        ],
         "id": "p36"
       },
       "actionResult": {
@@ -45525,7 +45572,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p28,p34"
+        "attackers": [
+          "p28",
+          "p34"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -45973,12 +46023,12 @@
         "amount": 0,
         "amounts": [],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "p40",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "Undercity Sewers"
       },
@@ -46088,12 +46138,12 @@
         "amount": 0,
         "amounts": [],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": ""
       },
@@ -46154,7 +46204,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -46816,7 +46868,12 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p19,p33,p3:1,p44",
+        "mana_plan": [
+          "p19",
+          "p33",
+          "p3:1",
+          "p44"
+        ],
         "id": "p36"
       },
       "actionResult": {
@@ -47612,7 +47669,9 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p5:0",
+        "mana_plan": [
+          "p5:0"
+        ],
         "id": "p49"
       },
       "actionResult": {
@@ -48782,7 +48841,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p34,p39,p36"
+        "attackers": [
+          "p34",
+          "p39",
+          "p36"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -49080,7 +49143,8 @@
         1300,
         1303,
         1306,
-        1307
+        1307,
+        1309
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -49261,43 +49325,21 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          3,
-          0
-        ],
-        "answer": true,
-        "attackers": "p1,p2",
-        "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p8",
-        "index": 0,
-        "mana_plan": "p1,p5:1,RED",
-        "pile": 1,
-        "text": "Draw two cards, then discard a card."
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p8, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "3. Draw two cards, then discard a card."
-          },
-          {
-            "index": 1,
-            "description": "Cancel"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1336,
         1337,
-        1338
+        1338,
+        1339,
+        1340
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -49336,44 +49378,25 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          3,
-          0,
-          4
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p3",
-        "index": 0,
-        "mana_plan": "p1,p2",
-        "pile": 2,
-        "text": "example text"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p3, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Done"
-          },
-          {
-            "index": 1,
-            "description": "Cancel"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1342,
         1343,
-        1344
+        1344,
+        1345,
+        1346,
+        1347,
+        1348,
+        1349,
+        1350
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -49412,42 +49435,27 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "amount": 1,
-        "amounts": [
-          1,
-          3
-        ],
-        "answer": true,
-        "attackers": "all",
-        "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
-        "id": "p42",
-        "index": 0,
-        "mana_plan": "p1",
-        "pile": 1,
-        "text": "Tap for blue"
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p42, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p42 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}. Activate only if you control an Island or a Swamp."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1352,
         1353,
-        1354
+        1354,
+        1355,
+        1356,
+        1358,
+        1359,
+        1360,
+        1361,
+        1362,
+        1363
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -49484,30 +49492,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {U}."
-          },
-          {
-            "index": 1,
-            "description": "2. {T}: Add {B}. Activate only if you control an Island or a Swamp."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1365,
         1367,
-        1368
+        1368,
+        1370,
+        1373,
+        1374
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -49558,12 +49560,19 @@
           3
         ],
         "answer": false,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p4",
         "index": 0,
-        "mana_plan": "p1",
+        "mana_plan": [
+          "p1"
+        ],
         "pile": 1,
         "text": "Pass to let Three Steps Ahead resolves"
       },
@@ -49773,12 +49782,21 @@
           3
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p4",
         "index": 0,
-        "mana_plan": "p1,p14,RED",
+        "mana_plan": [
+          "p1",
+          "p14",
+          "RED"
+        ],
         "pile": 1,
         "text": "Kill Toph now!"
       },
@@ -49946,12 +49964,19 @@
           3
         ],
         "answer": true,
-        "attackers": "all",
+        "attackers": [
+          "all"
+        ],
         "auto_tap": false,
-        "blockers": "p5:p1,p6:p2",
+        "blockers": [
+          "p5:p1",
+          "p6:p2"
+        ],
         "id": "p8",
         "index": 0,
-        "mana_plan": "p2",
+        "mana_plan": [
+          "p2"
+        ],
         "pile": 1,
         "text": "Draw more cards!"
       },
@@ -50068,36 +50093,28 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
-        "id": "p8",
+        "blockers": [],
+        "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "3. Draw two cards, then discard a card."
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p8, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "3. Draw two cards, then discard a card."
-          },
-          {
-            "index": 1,
-            "description": "Cancel"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1442,
         1444,
-        1445
+        1445,
+        1446,
+        1447
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -50140,12 +50157,12 @@
           1
         ],
         "answer": true,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "Done"
       },
@@ -50303,101 +50320,35 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": -1,
+      "chosen": 0,
       "chosenArgs": {
         "amount": 1,
         "amounts": [
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
-        "index": -1,
-        "mana_plan": "",
+        "index": 0,
+        "mana_plan": [],
         "pile": 1,
         "text": "Cancel"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index -1 is out of range (valid: 0-6). Call get_action_choices to see current targets.",
-        "choices": [
-          {
-            "controller": "Gem3F Sarge",
-            "name": "Ral, Crackling Wit",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p17"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Otter Token",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p52",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Toph, Hardheaded Teacher",
-            "target_type": "permanent",
-            "index": 2,
-            "id": "p46",
-            "power": "3",
-            "toughness": "4"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Riverpyre Verge",
-            "target_type": "permanent",
-            "index": 3,
-            "id": "p44",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Otter Token",
-            "target_type": "permanent",
-            "index": 4,
-            "id": "p36",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Otter Token",
-            "target_type": "permanent",
-            "index": 5,
-            "id": "p54",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Sarge",
-            "name": "Otter Token",
-            "target_type": "permanent",
-            "index": 6,
-            "id": "p29",
-            "power": "1",
-            "toughness": "1"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_ASK. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_target_0"
       },
       "llmEventIndices": [
         1457,
         1458,
-        1459
+        1459,
+        1460,
+        1461
       ],
       "subsequentActions": [
         "spectator1 has started watching",
@@ -50431,12 +50382,12 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "No"
       },
@@ -50483,12 +50434,12 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "No"
       },
@@ -50596,12 +50547,12 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "No"
       },
@@ -50706,12 +50657,12 @@
           1
         ],
         "answer": false,
-        "attackers": "",
+        "attackers": [],
         "auto_tap": false,
-        "blockers": "",
+        "blockers": [],
         "id": "",
         "index": 0,
-        "mana_plan": "",
+        "mana_plan": [],
         "pile": 1,
         "text": "No"
       },

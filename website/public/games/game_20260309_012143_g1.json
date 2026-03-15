@@ -67428,10 +67428,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "Opus Brewer chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -67726,10 +67724,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67893,7 +67889,7 @@
         14
       ],
       "subsequentActions": [],
-      "actionSeq": 11,
+      "actionSeq": 12,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68048,7 +68044,7 @@
         16
       ],
       "subsequentActions": [],
-      "actionSeq": 12,
+      "actionSeq": 13,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68185,7 +68181,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 13,
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -68326,12 +68322,8 @@
         21,
         24
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step",
-        "Thriving Grove: Opus Brewer has chosen Red",
-        "Opus Brewer puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -68461,7 +68453,7 @@
         26
       ],
       "subsequentActions": [],
-      "actionSeq": 17
+      "actionSeq": 21
     },
     {
       "index": 9,
@@ -68598,10 +68590,8 @@
         25,
         28
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 18
+      "subsequentActions": [],
+      "actionSeq": 22
     },
     {
       "index": 10,
@@ -68740,7 +68730,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -68924,7 +68914,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 22
+      "actionSeq": 24
     },
     {
       "index": 12,
@@ -69103,7 +69093,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 24,
+      "actionSeq": 25,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69265,7 +69255,7 @@
         36
       ],
       "subsequentActions": [],
-      "actionSeq": 25,
+      "actionSeq": 29,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69447,10 +69437,8 @@
         37,
         38
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 29,
+      "subsequentActions": [],
+      "actionSeq": 33,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -69619,7 +69607,7 @@
         50
       ],
       "subsequentActions": [],
-      "actionSeq": 33,
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69992,10 +69980,8 @@
         45,
         46
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 37,
+      "subsequentActions": [],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -70157,7 +70143,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70317,7 +70303,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 43,
+      "actionSeq": 46,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70496,11 +70482,8 @@
         51,
         54
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Silhana Wayfinder from hand"
-      ],
-      "actionSeq": 35,
+      "subsequentActions": [],
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70659,7 +70642,7 @@
         56
       ],
       "subsequentActions": [],
-      "actionSeq": 46,
+      "actionSeq": 50,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70833,11 +70816,8 @@
         55,
         64
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Silhana Wayfinder from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Silhana Wayfinder - When Silhana Wayfinder enters, look at the top four cards of your library. You may reveal a creature or land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order."
-      ],
-      "actionSeq": 47,
+      "subsequentActions": [],
+      "actionSeq": 51,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71024,7 +71004,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 50,
+      "actionSeq": 52,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71204,7 +71184,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 52,
+      "actionSeq": 53,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71404,14 +71384,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "Opus Brewer reveals Forest (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the top of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)",
-        "Opus Brewer puts a card from library to the bottom of their library (source: Silhana Wayfinder)"
-      ],
-      "actionSeq": 51,
+      "subsequentActions": [],
+      "actionSeq": 60,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71585,10 +71559,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 60,
+      "subsequentActions": [],
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71795,7 +71767,7 @@
         70
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71998,7 +71970,7 @@
         72
       ],
       "subsequentActions": [],
-      "actionSeq": 66,
+      "actionSeq": 67,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -72186,10 +72158,8 @@
         73,
         74
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 67,
+      "subsequentActions": [],
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -72374,10 +72344,8 @@
         77,
         78
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 71,
+      "subsequentActions": [],
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -72573,7 +72541,7 @@
         88
       ],
       "subsequentActions": [],
-      "actionSeq": 75,
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -73021,10 +72989,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 79,
+      "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -73202,7 +73168,7 @@
         86
       ],
       "subsequentActions": [],
-      "actionSeq": 83,
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -73378,7 +73344,7 @@
         90
       ],
       "subsequentActions": [],
-      "actionSeq": 85,
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73582,11 +73548,8 @@
         89,
         92
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Elvish Archdruid from hand"
-      ],
-      "actionSeq": 77,
+      "subsequentActions": [],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -73774,7 +73737,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 92,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73992,10 +73955,8 @@
         93,
         98
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elvish Archdruid from stack onto the Battlefield"
-      ],
-      "actionSeq": 90,
+      "subsequentActions": [],
+      "actionSeq": 93,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74200,7 +74161,7 @@
         96
       ],
       "subsequentActions": [],
-      "actionSeq": 92,
+      "actionSeq": 94,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -74441,10 +74402,8 @@
         99,
         100
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks GPT53C Teach with 1 creature"
-      ],
-      "actionSeq": 93,
+      "subsequentActions": [],
+      "actionSeq": 99,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74662,10 +74621,8 @@
         101,
         102
       ],
-      "subsequentActions": [
-        "Attacker: Silhana Wayfinder (3/2) unblocked"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74869,10 +74826,8 @@
         103,
         104
       ],
-      "subsequentActions": [
-        "GPT53C Teach loses 3 life at combat from Silhana Wayfinder"
-      ],
-      "actionSeq": 103,
+      "subsequentActions": [],
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -75372,10 +75327,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 110,
+      "subsequentActions": [],
+      "actionSeq": 114,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -75592,10 +75545,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk's Harbinger from hand"
-      ],
-      "actionSeq": 114,
+      "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -75806,10 +75757,8 @@
         115,
         116
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk's Harbinger from stack onto the Battlefield"
-      ],
-      "actionSeq": 119,
+      "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -76021,10 +75970,8 @@
         117,
         118
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 122
+      "subsequentActions": [],
+      "actionSeq": 126
     },
     {
       "index": 52,
@@ -76246,7 +76193,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 126,
+      "actionSeq": 128,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -76756,10 +76703,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 130,
+      "subsequentActions": [],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -76980,7 +76925,7 @@
         128
       ],
       "subsequentActions": [],
-      "actionSeq": 134,
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -77209,7 +77154,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 136,
+      "actionSeq": 139,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -77448,11 +77393,8 @@
         131,
         134
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Dwynen's Elite from hand"
-      ],
-      "actionSeq": 128
+      "subsequentActions": [],
+      "actionSeq": 140
     },
     {
       "index": 58,
@@ -77688,7 +77630,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 139,
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -77953,11 +77895,8 @@
         135,
         146
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Dwynen's Elite - When Dwynen's Elite enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
-      ],
-      "actionSeq": 140
+      "subsequentActions": [],
+      "actionSeq": 144
     },
     {
       "index": 60,
@@ -78214,10 +78153,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 143,
+      "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -78497,7 +78434,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 146,
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -78770,7 +78707,7 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 147,
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -79022,7 +78959,7 @@
         144
       ],
       "subsequentActions": [],
-      "actionSeq": 148,
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -79248,7 +79185,7 @@
         148
       ],
       "subsequentActions": [],
-      "actionSeq": 149,
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79500,11 +79437,8 @@
         147,
         152
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token",
-        "Opus Brewer casts Band Together targeting Silhana Wayfinder Elf Warrior Token, Garruk's Harbinger from hand"
-      ],
-      "actionSeq": 144
+      "subsequentActions": [],
+      "actionSeq": 154
     },
     {
       "index": 66,
@@ -79714,13 +79648,8 @@
         149,
         150
       ],
-      "subsequentActions": [
-        "Silhana Wayfinder deals 3 damage to Garruk's Harbinger",
-        "Elf Warrior Token deals 2 damage to Garruk's Harbinger",
-        "Opus Brewer puts Band Together from stack into their graveyard",
-        "Garruk's Harbinger died"
-      ],
-      "actionSeq": 153,
+      "subsequentActions": [],
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -80007,14 +79936,8 @@
         153,
         154
       ],
-      "subsequentActions": [
-        "Silhana Wayfinder deals 3 damage to Garruk's Harbinger",
-        "Elf Warrior Token deals 2 damage to Garruk's Harbinger",
-        "Opus Brewer puts Band Together from stack into their graveyard",
-        "Garruk's Harbinger died",
-        "Opus Brewer casts Ghirapur Guide from hand"
-      ],
-      "actionSeq": 154
+      "subsequentActions": [],
+      "actionSeq": 165
     },
     {
       "index": 69,
@@ -80939,10 +80862,8 @@
         168,
         169
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -81254,10 +81175,8 @@
         170,
         171
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 189,
+      "subsequentActions": [],
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -81549,7 +81468,7 @@
         173
       ],
       "subsequentActions": [],
-      "actionSeq": 193,
+      "actionSeq": 195,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -81836,10 +81755,8 @@
         174,
         175
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 195,
+      "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -82147,10 +82064,8 @@
         176,
         187
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Turntimber Basilisk from stack onto the Battlefield"
-      ],
-      "actionSeq": 201,
+      "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -82745,10 +82660,8 @@
         180,
         181
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 206,
+      "subsequentActions": [],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -83053,7 +82966,7 @@
         183
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -83315,7 +83228,7 @@
         185
       ],
       "subsequentActions": [],
-      "actionSeq": 211,
+      "actionSeq": 213,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -83589,7 +83502,7 @@
         189
       ],
       "subsequentActions": [],
-      "actionSeq": 213,
+      "actionSeq": 217,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -83904,11 +83817,8 @@
         188,
         195
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Presence of Gond targeting Elf Warrior Token from hand"
-      ],
-      "actionSeq": 204,
+      "subsequentActions": [],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -84178,10 +84088,8 @@
         190,
         191
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Presence of Gond from stack onto the Battlefield"
-      ],
-      "actionSeq": 217,
+      "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -84446,7 +84354,7 @@
         193
       ],
       "subsequentActions": [],
-      "actionSeq": 220,
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -84720,7 +84628,7 @@
         197
       ],
       "subsequentActions": [],
-      "actionSeq": 221,
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -85053,11 +84961,8 @@
         196,
         205
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Presence of Gond from stack onto the Battlefield",
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 218,
+      "subsequentActions": [],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -85380,10 +85285,8 @@
         200,
         201
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 223,
+      "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -85711,7 +85614,7 @@
         203
       ],
       "subsequentActions": [],
-      "actionSeq": 226,
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -85988,7 +85891,7 @@
         207
       ],
       "subsequentActions": [],
-      "actionSeq": 227,
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -86321,11 +86224,8 @@
         206,
         215
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token",
-        "Opus Brewer activates: target creature you control can't be blocked this turn by creatures with power 2 or less. from Ghirapur Guide targeting Ghirapur Guide"
-      ],
-      "actionSeq": 224,
+      "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -86652,7 +86552,7 @@
         209
       ],
       "subsequentActions": [],
-      "actionSeq": 230,
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -86969,7 +86869,7 @@
         211
       ],
       "subsequentActions": [],
-      "actionSeq": 232,
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87318,10 +87218,8 @@
         216,
         217
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: target creature you control can't be blocked this turn by creatures with power 2 or less. from Ghirapur Guide targeting Dwynen's Elite"
-      ],
-      "actionSeq": 231,
+      "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -88451,12 +88349,8 @@
         228,
         229
       ],
-      "subsequentActions": [
-        "Attacker: Silhana Wayfinder (3/2) blocked by Turntimber Basilisk (2/1)",
-        "Attacker: Dwynen's Elite (3/3) unblocked",
-        "Attacker: Ghirapur Guide (4/3) unblocked"
-      ],
-      "actionSeq": 250,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -88751,14 +88645,8 @@
         230,
         231
       ],
-      "subsequentActions": [
-        "Turntimber Basilisk deals 2 damage to Silhana Wayfinder",
-        "Silhana Wayfinder deals 3 damage to Turntimber Basilisk",
-        "GPT53C Teach loses 3 life at combat from Dwynen's Elite",
-        "GPT53C Teach loses 4 life at combat from Ghirapur Guide",
-        "Silhana Wayfinder died"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -89085,7 +88973,7 @@
         233
       ],
       "subsequentActions": [],
-      "actionSeq": 266,
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -89436,7 +89324,7 @@
         235
       ],
       "subsequentActions": [],
-      "actionSeq": 268,
+      "actionSeq": 269,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -89764,10 +89652,8 @@
         236,
         237
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 269,
+      "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -90074,10 +89960,8 @@
         238,
         239
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Garruk's Gorehorn from hand"
-      ],
-      "actionSeq": 273,
+      "subsequentActions": [],
+      "actionSeq": 280,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -90377,10 +90261,8 @@
         240,
         241
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Garruk's Gorehorn from stack onto the Battlefield"
-      ],
-      "actionSeq": 280,
+      "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -90681,10 +90563,8 @@
         242,
         243
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 283
+      "subsequentActions": [],
+      "actionSeq": 287
     },
     {
       "index": 108,
@@ -91310,7 +91190,7 @@
         251
       ],
       "subsequentActions": [],
-      "actionSeq": 291,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -91624,10 +91504,8 @@
         252,
         253
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 292,
+      "subsequentActions": [],
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -91930,10 +91808,8 @@
         254,
         255
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 296,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -92234,7 +92110,7 @@
         257
       ],
       "subsequentActions": [],
-      "actionSeq": 299,
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -92538,10 +92414,8 @@
         258,
         259
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Wildheart Invoker from hand"
-      ],
-      "actionSeq": 301,
+      "subsequentActions": [],
+      "actionSeq": 306,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92863,10 +92737,8 @@
         260,
         261
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Wildheart Invoker from stack onto the Battlefield"
-      ],
-      "actionSeq": 306,
+      "subsequentActions": [],
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -93226,7 +93098,7 @@
         263
       ],
       "subsequentActions": [],
-      "actionSeq": 309,
+      "actionSeq": 311,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -94000,12 +93872,8 @@
         268,
         269
       ],
-      "subsequentActions": [
-        "Attacker: Dwynen's Elite (3/3) unblocked",
-        "Attacker: Ghirapur Guide (4/3) blocked by Garruk's Gorehorn (7/3)",
-        "Attacker: Elf Warrior Token (2/2) unblocked"
-      ],
-      "actionSeq": 319
+      "subsequentActions": [],
+      "actionSeq": 327
     },
     {
       "index": 120,
@@ -94314,14 +94182,8 @@
         270,
         271
       ],
-      "subsequentActions": [
-        "GPT53C Teach loses 3 life at combat from Dwynen's Elite",
-        "Garruk's Gorehorn deals 7 damage to Ghirapur Guide",
-        "Ghirapur Guide deals 4 damage to Garruk's Gorehorn",
-        "GPT53C Teach loses 2 life at combat from Elf Warrior Token",
-        "Ghirapur Guide died"
-      ],
-      "actionSeq": 327
+      "subsequentActions": [],
+      "actionSeq": 336
     },
     {
       "index": 121,
@@ -95057,10 +94919,8 @@
         280,
         281
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 339,
+      "subsequentActions": [],
+      "actionSeq": 343,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -95413,10 +95273,8 @@
         282,
         283
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 343,
+      "subsequentActions": [],
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -95766,7 +95624,7 @@
         289
       ],
       "subsequentActions": [],
-      "actionSeq": 347,
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -96433,7 +96291,7 @@
         291
       ],
       "subsequentActions": [],
-      "actionSeq": 349,
+      "actionSeq": 352,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -96801,7 +96659,7 @@
         295
       ],
       "subsequentActions": [],
-      "actionSeq": 352,
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -97156,10 +97014,8 @@
         294,
         297
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rampaging Growth from hand"
-      ],
-      "actionSeq": 351,
+      "subsequentActions": [],
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -97577,7 +97433,7 @@
         309
       ],
       "subsequentActions": [],
-      "actionSeq": 360,
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -97959,13 +97815,8 @@
         298,
         299
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard"
-      ],
-      "actionSeq": 361,
+      "subsequentActions": [],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -98343,7 +98194,7 @@
         301
       ],
       "subsequentActions": [],
-      "actionSeq": 367,
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -98682,7 +98533,7 @@
         303
       ],
       "subsequentActions": [],
-      "actionSeq": 368,
+      "actionSeq": 370,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -99016,10 +98867,8 @@
         304,
         305
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Hunter's Edge targeting Wildheart Invoker, Forest from hand"
-      ],
-      "actionSeq": 370,
+      "subsequentActions": [],
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -99346,7 +99195,7 @@
         307
       ],
       "subsequentActions": [],
-      "actionSeq": 375,
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -99745,14 +99594,8 @@
         310,
         311
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard",
-        "Opus Brewer casts Hunter's Edge targeting Wildheart Invoker, Forest from hand",
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 363,
+      "subsequentActions": [],
+      "actionSeq": 379,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -100111,10 +99954,8 @@
         312,
         313
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Ranger's Guile targeting Forest from hand"
-      ],
-      "actionSeq": 379,
+      "subsequentActions": [],
+      "actionSeq": 382,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -100475,10 +100316,8 @@
         314,
         315
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Ranger's Guile from stack into their graveyard"
-      ],
-      "actionSeq": 382,
+      "subsequentActions": [],
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -100834,10 +100673,8 @@
         316,
         317
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 386,
+      "subsequentActions": [],
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -102157,10 +101994,8 @@
         326,
         327
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks GPT53C Teach with 4 creatures"
-      ],
-      "actionSeq": 393,
+      "subsequentActions": [],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -102588,7 +102423,7 @@
         331
       ],
       "subsequentActions": [],
-      "actionSeq": 399,
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -102657,13 +102492,13 @@
         333
       ],
       "subsequentActions": [
-        "Attacker: Dwynen's Elite (3/3) unblocked",
-        "Attacker: Elf Warrior Token (2/2) unblocked",
-        "Attacker: Elf Warrior Token (2/2) unblocked",
-        "Attacker: Wildheart Invoker (6/5) blocked by Forest (5/4)",
-        "GPT53C Teach loses 3 life at combat from Dwynen's Elite"
+        "GPT53C Teach loses 3 life at combat from Dwynen's Elite",
+        "GPT53C Teach loses 2 life at combat from Elf Warrior Token",
+        "GPT53C Teach loses 2 life at combat from Elf Warrior Token",
+        "Forest deals 5 damage to Wildheart Invoker",
+        "Wildheart Invoker deals 6 damage to Forest"
       ],
-      "actionSeq": 400,
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 2
       }

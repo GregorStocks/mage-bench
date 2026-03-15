@@ -29927,55 +29927,22 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "auto_tap": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_value": 1,
-            "mana_cost": "{U}",
-            "name": "Consider",
-            "index": 0,
-            "action": "cast",
-            "id": "p10"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{B}",
-            "name": "Cabal Ritual",
-            "index": 1,
-            "action": "cast",
-            "id": "p6"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{B}",
-            "name": "Cabal Ritual",
-            "index": 2,
-            "action": "cast",
-            "id": "p7"
-          },
-          {
-            "name": "Flooded Strand",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         211,
         213,
-        214
+        214,
+        216,
+        217
       ],
       "subsequentActions": [
         "has started watching",
@@ -31021,81 +30988,25 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": null,
+      "chosen": 6,
       "chosenArgs": {
-        "id": "p10",
-        "mana_plan": "[{\"tap\":\"p17\"},{\"tap\":\"p3\"}]"
+        "id": "p25",
+        "mana_plan": "[{\"tap\":\"p17\"}]"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p10 not found in current choices",
-        "choices": [
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{B}",
-            "name": "Cabal Ritual",
-            "index": 0,
-            "action": "cast",
-            "id": "p6"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{U}",
-            "name": "Daze",
-            "index": 1,
-            "action": "cast",
-            "id": "p8"
-          },
-          {
-            "mana_value": 2,
-            "mana_cost": "{1}{B}",
-            "name": "Cabal Ritual",
-            "index": 2,
-            "action": "cast",
-            "id": "p7"
-          },
-          {
-            "mana_value": 5,
-            "mana_cost": "{3}{U}{U}",
-            "name": "Force of Will",
-            "index": 3,
-            "action": "cast",
-            "id": "p23"
-          },
-          {
-            "name": "Scalding Tarn",
-            "index": 4,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p3"
-          },
-          {
-            "name": "Flooded Strand",
-            "index": 5,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p4"
-          },
-          {
-            "mana_value": 1,
-            "mana_cost": "{U}",
-            "name": "Brainstorm",
-            "index": 6,
-            "action": "cast",
-            "id": "p25"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_6",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
       },
       "llmEventIndices": [
         350,
         352,
-        353
+        353,
+        355,
+        356
       ],
       "subsequentActions": [
         "has started watching",
@@ -31634,21 +31545,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "answer": false
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         434,
         436,
         439,
-        440
+        440,
+        442,
+        443
       ],
       "subsequentActions": [
         "has started watching",

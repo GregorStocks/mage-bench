@@ -192026,10 +192026,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "GPT52 Nature chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -192378,10 +192376,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "GPT52 Nature's library is shuffled"
-      ],
-      "actionSeq": 7
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -192523,10 +192519,8 @@
         13,
         14
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from hand to the bottom of their library"
-      ],
-      "actionSeq": 10
+      "subsequentActions": [],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -192667,10 +192661,8 @@
         15,
         16
       ],
-      "subsequentActions": [
-        "GPT52 Nature skips Draw step"
-      ],
-      "actionSeq": 12,
+      "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -192800,7 +192792,7 @@
         22
       ],
       "subsequentActions": [],
-      "actionSeq": 15,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -192942,13 +192934,8 @@
         21,
         24
       ],
-      "subsequentActions": [
-        "GPT52 Nature's library is shuffled",
-        "GPT52 Nature puts a card from hand to the bottom of their library",
-        "GPT52 Nature skips Draw step",
-        "GPT52 Nature puts Urza's Mine from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -193071,7 +193058,7 @@
         26
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 22,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -193211,10 +193198,8 @@
         25,
         28
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 19
+      "subsequentActions": [],
+      "actionSeq": 23
     },
     {
       "index": 10,
@@ -193346,7 +193331,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -193516,7 +193501,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 23
+      "actionSeq": 25
     },
     {
       "index": 12,
@@ -193682,7 +193667,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 25,
+      "actionSeq": 26,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -193841,7 +193826,7 @@
         38
       ],
       "subsequentActions": [],
-      "actionSeq": 26,
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -193977,10 +193962,8 @@
         37,
         40
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 24,
+      "subsequentActions": [],
+      "actionSeq": 31,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -194136,7 +194119,7 @@
         42
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -194270,10 +194253,8 @@
         41,
         44
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 31,
+      "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -194441,7 +194422,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 34,
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -194616,7 +194597,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 35,
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -194806,7 +194787,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 37,
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -194970,10 +194951,8 @@
         49,
         50
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Tower from hand onto the Battlefield"
-      ],
-      "actionSeq": 38,
+      "subsequentActions": [],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -195130,7 +195109,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 42,
+      "actionSeq": 46,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -195307,11 +195286,8 @@
         53,
         56
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Tower from hand onto the Battlefield",
-        "GPT52 Nature casts Planar Atlas from hand"
-      ],
-      "actionSeq": 36,
+      "subsequentActions": [],
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -195463,7 +195439,7 @@
         58
       ],
       "subsequentActions": [],
-      "actionSeq": 46,
+      "actionSeq": 50,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -195644,7 +195620,7 @@
         60
       ],
       "subsequentActions": [],
-      "actionSeq": 50,
+      "actionSeq": 52,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -195812,7 +195788,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 52,
+      "actionSeq": 53,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -195984,7 +195960,7 @@
         64
       ],
       "subsequentActions": [],
-      "actionSeq": 53,
+      "actionSeq": 54,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -196139,14 +196115,8 @@
         65,
         66
       ],
-      "subsequentActions": [
-        "GPT52 Nature reveals Island (source: Planar Atlas)",
-        "GPT52 Nature puts a card from library to the top of their library (source: Planar Atlas)",
-        "GPT52 Nature puts a card from library to the bottom of their library (source: Planar Atlas)",
-        "GPT52 Nature puts a card from library to the bottom of their library (source: Planar Atlas)",
-        "GPT52 Nature puts a card from library to the bottom of their library (source: Planar Atlas)"
-      ],
-      "actionSeq": 54,
+      "subsequentActions": [],
+      "actionSeq": 60,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -196307,10 +196277,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 60
+      "subsequentActions": [],
+      "actionSeq": 64
     },
     {
       "index": 30,
@@ -196471,7 +196439,7 @@
         76
       ],
       "subsequentActions": [],
-      "actionSeq": 64,
+      "actionSeq": 66,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -196853,7 +196821,7 @@
         78
       ],
       "subsequentActions": [],
-      "actionSeq": 68,
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -197007,10 +196975,8 @@
         77,
         80
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 66
+      "subsequentActions": [],
+      "actionSeq": 73
     },
     {
       "index": 34,
@@ -197191,7 +197157,7 @@
         82
       ],
       "subsequentActions": [],
-      "actionSeq": 72,
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -197344,10 +197310,8 @@
         81,
         84
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 73
+      "subsequentActions": [],
+      "actionSeq": 77
     },
     {
       "index": 36,
@@ -197540,7 +197504,7 @@
         100
       ],
       "subsequentActions": [],
-      "actionSeq": 76,
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -197984,7 +197948,7 @@
         94
       ],
       "subsequentActions": [],
-      "actionSeq": 79,
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -198175,10 +198139,8 @@
         97,
         98
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 80,
+      "subsequentActions": [],
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -198353,7 +198315,7 @@
         102
       ],
       "subsequentActions": [],
-      "actionSeq": 84,
+      "actionSeq": 90,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -198577,11 +198539,8 @@
         101,
         104
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield",
-        "GPT52 Nature casts Drownyard Explorers from hand"
-      ],
-      "actionSeq": 78,
+      "subsequentActions": [],
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -198766,7 +198725,7 @@
         106
       ],
       "subsequentActions": [],
-      "actionSeq": 90,
+      "actionSeq": 94,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -199009,11 +198968,8 @@
         105,
         108
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Drownyard Explorers from stack onto the Battlefield",
-        "GPT52 Nature - Ability triggers: Drownyard Explorers - When Drownyard Explorers enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 91,
+      "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -199299,10 +199255,8 @@
         109,
         110
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token"
-      ],
-      "actionSeq": 95,
+      "subsequentActions": [],
+      "actionSeq": 98,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -199549,10 +199503,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 98,
+      "subsequentActions": [],
+      "actionSeq": 102,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -200140,10 +200092,8 @@
         121,
         122
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 105,
+      "subsequentActions": [],
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -200438,7 +200388,7 @@
         124
       ],
       "subsequentActions": [],
-      "actionSeq": 110,
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -200749,10 +200699,9 @@
         138
       ],
       "subsequentActions": [
-        "GPT54 Sport discards down to 7 hand cards",
         "GPT54 Sport discards Blessed Sanctuary"
       ],
-      "actionSeq": 112,
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -201248,10 +201197,8 @@
         131,
         132
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield"
-      ],
-      "actionSeq": 118,
+      "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -201448,7 +201395,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 122,
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -201640,7 +201587,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 123,
+      "actionSeq": 124,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -201850,7 +201797,7 @@
         140
       ],
       "subsequentActions": [],
-      "actionSeq": 124,
+      "actionSeq": 132,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -202132,13 +202079,8 @@
         139,
         142
       ],
-      "subsequentActions": [
-        "GPT54 Sport discards Blessed Sanctuary",
-        "GPT52 Nature puts Urza's Power Plant from hand onto the Battlefield",
-        "GPT52 Nature announces a value of 4 for {X}{X} (source: Walking Ballista)",
-        "GPT52 Nature casts Walking Ballista from hand"
-      ],
-      "actionSeq": 116,
+      "subsequentActions": [],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -202372,7 +202314,7 @@
         150
       ],
       "subsequentActions": [],
-      "actionSeq": 132,
+      "actionSeq": 135,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -202648,10 +202590,8 @@
         143,
         144
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Walking Ballista from stack onto the Battlefield"
-      ],
-      "actionSeq": 133,
+      "subsequentActions": [],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -202938,7 +202878,7 @@
         146
       ],
       "subsequentActions": [],
-      "actionSeq": 136,
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -203212,7 +203152,7 @@
         148
       ],
       "subsequentActions": [],
-      "actionSeq": 137,
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -203476,7 +203416,7 @@
         160
       ],
       "subsequentActions": [],
-      "actionSeq": 138
+      "actionSeq": 142
     },
     {
       "index": 65,
@@ -203698,10 +203638,8 @@
         153,
         154
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Valorous Stance (mode 2) targeting Walking Ballista from hand"
-      ],
-      "actionSeq": 135,
+      "subsequentActions": [],
+      "actionSeq": 143,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203951,7 +203889,7 @@
         156
       ],
       "subsequentActions": [],
-      "actionSeq": 143,
+      "actionSeq": 144,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204210,7 +204148,7 @@
         158
       ],
       "subsequentActions": [],
-      "actionSeq": 144,
+      "actionSeq": 145,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204440,7 +204378,7 @@
         162
       ],
       "subsequentActions": [],
-      "actionSeq": 145,
+      "actionSeq": 147,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204691,10 +204629,8 @@
         161,
         164
       ],
-      "subsequentActions": [
-        "GPT52 Nature activates: It deals 1 damage to any target. from Walking Ballista targeting GPT54 Sport"
-      ],
-      "actionSeq": 142
+      "subsequentActions": [],
+      "actionSeq": 148
     },
     {
       "index": 70,
@@ -204917,7 +204853,7 @@
         166
       ],
       "subsequentActions": [],
-      "actionSeq": 147,
+      "actionSeq": 150,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -205164,10 +205100,8 @@
         165,
         168
       ],
-      "subsequentActions": [
-        "GPT54 Sport loses 1 life from Walking Ballista"
-      ],
-      "actionSeq": 148
+      "subsequentActions": [],
+      "actionSeq": 151
     },
     {
       "index": 72,
@@ -205707,10 +205641,8 @@
         173,
         174
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks GPT54 Sport with 1 creature"
-      ],
-      "actionSeq": 156
+      "subsequentActions": [],
+      "actionSeq": 160
     },
     {
       "index": 76,
@@ -205942,10 +205874,8 @@
         175,
         176
       ],
-      "subsequentActions": [
-        "Attacker: Drownyard Explorers (2/4) unblocked"
-      ],
-      "actionSeq": 160
+      "subsequentActions": [],
+      "actionSeq": 164
     },
     {
       "index": 77,
@@ -206771,10 +206701,8 @@
         185,
         186
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 172,
+      "subsequentActions": [],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -207039,7 +206967,7 @@
         190
       ],
       "subsequentActions": [],
-      "actionSeq": 176,
+      "actionSeq": 181,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -207285,11 +207213,8 @@
         189,
         192
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield",
-        "GPT54 Sport casts Inspiring Overseer from hand"
-      ],
-      "actionSeq": 170
+      "subsequentActions": [],
+      "actionSeq": 182
     },
     {
       "index": 83,
@@ -207564,7 +207489,7 @@
         206
       ],
       "subsequentActions": [],
-      "actionSeq": 181,
+      "actionSeq": 185,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -207805,11 +207730,8 @@
         193,
         194
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Inspiring Overseer from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Inspiring Overseer - When Inspiring Overseer enters, you gain 1 life and draw a card."
-      ],
-      "actionSeq": 182
+      "subsequentActions": [],
+      "actionSeq": 186
     },
     {
       "index": 85,
@@ -208083,7 +208005,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 186
+      "actionSeq": 187
     },
     {
       "index": 86,
@@ -208366,7 +208288,7 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 187
+      "actionSeq": 188
     },
     {
       "index": 87,
@@ -208613,10 +208535,8 @@
         199,
         200
       ],
-      "subsequentActions": [
-        "GPT52 Nature activates: It deals 1 damage to any target. from Walking Ballista targeting Inspiring Overseer"
-      ],
-      "actionSeq": 188
+      "subsequentActions": [],
+      "actionSeq": 190
     },
     {
       "index": 88,
@@ -208899,7 +208819,7 @@
         202
       ],
       "subsequentActions": [],
-      "actionSeq": 190
+      "actionSeq": 191
     },
     {
       "index": 89,
@@ -209191,7 +209111,7 @@
         204
       ],
       "subsequentActions": [],
-      "actionSeq": 191
+      "actionSeq": 192
     },
     {
       "index": 90,
@@ -209440,7 +209360,7 @@
         210
       ],
       "subsequentActions": [],
-      "actionSeq": 192
+      "actionSeq": 194
     },
     {
       "index": 91,
@@ -209701,11 +209621,8 @@
         207,
         208
       ],
-      "subsequentActions": [
-        "GPT52 Nature activates: It deals 1 damage to any target. from Walking Ballista targeting Inspiring Overseer",
-        "GPT52 Nature activates: It deals 1 damage to any target. from Walking Ballista targeting Inspiring Overseer"
-      ],
-      "actionSeq": 185,
+      "subsequentActions": [],
+      "actionSeq": 195,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -209961,7 +209878,7 @@
         212
       ],
       "subsequentActions": [],
-      "actionSeq": 195,
+      "actionSeq": 198,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -210203,11 +210120,8 @@
         211,
         214
       ],
-      "subsequentActions": [
-        "Walking Ballista deals 1 damage to Inspiring Overseer",
-        "Inspiring Overseer died"
-      ],
-      "actionSeq": 194
+      "subsequentActions": [],
+      "actionSeq": 199
     },
     {
       "index": 94,
@@ -210463,7 +210377,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 198,
+      "actionSeq": 201,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -211308,7 +211222,7 @@
         232
       ],
       "subsequentActions": [],
-      "actionSeq": 208,
+      "actionSeq": 210,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -212287,10 +212201,8 @@
         241,
         242
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Urza's Factory from hand onto the Battlefield"
-      ],
-      "actionSeq": 220,
+      "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -213405,7 +213317,7 @@
         256
       ],
       "subsequentActions": [],
-      "actionSeq": 238,
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -214263,10 +214175,8 @@
         261,
         262
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 259,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -214672,7 +214582,7 @@
         264
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -214970,10 +214880,8 @@
         265,
         278
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Faith's Fetters targeting Walking Ballista from hand"
-      ],
-      "actionSeq": 264,
+      "subsequentActions": [],
+      "actionSeq": 270,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -215587,7 +215495,7 @@
         274
       ],
       "subsequentActions": [],
-      "actionSeq": 271,
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -215899,7 +215807,7 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 272,
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -216220,11 +216128,8 @@
         279,
         280
       ],
-      "subsequentActions": [
-        "GPT52 Nature activates: It deals 1 damage to any target. from Walking Ballista targeting GPT54 Sport",
-        "Walking Ballista is put into graveyard from battlefield"
-      ],
-      "actionSeq": 270,
+      "subsequentActions": [],
+      "actionSeq": 277,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -216507,10 +216412,8 @@
         281,
         284
       ],
-      "subsequentActions": [
-        "GPT54 Sport loses 1 life from Walking Ballista"
-      ],
-      "actionSeq": 277,
+      "subsequentActions": [],
+      "actionSeq": 279,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -217077,11 +216980,8 @@
         287,
         288
       ],
-      "subsequentActions": [
-        "Faith's Fetters has been fizzled.",
-        "GPT54 Sport puts Faith's Fetters from stack into their graveyard"
-      ],
-      "actionSeq": 280,
+      "subsequentActions": [],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -217351,10 +217251,8 @@
         289,
         290
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -217663,7 +217561,7 @@
         292
       ],
       "subsequentActions": [],
-      "actionSeq": 288,
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -217979,7 +217877,7 @@
         296
       ],
       "subsequentActions": [],
-      "actionSeq": 290,
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -219091,7 +218989,7 @@
         306
       ],
       "subsequentActions": [],
-      "actionSeq": 306,
+      "actionSeq": 308,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -219818,10 +219716,8 @@
         313,
         316
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Gallant Cavalry from hand"
-      ],
-      "actionSeq": 327,
+      "subsequentActions": [],
+      "actionSeq": 335,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -220168,11 +220064,8 @@
         317,
         318
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Gallant Cavalry from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Gallant Cavalry - When Gallant Cavalry enters, create a 2/2 white Knight creature token with vigilance."
-      ],
-      "actionSeq": 335,
+      "subsequentActions": [],
+      "actionSeq": 339,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -220495,10 +220388,8 @@
         319,
         320
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Knight Token token"
-      ],
-      "actionSeq": 339,
+      "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -220822,10 +220713,8 @@
         321,
         322
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 342
+      "subsequentActions": [],
+      "actionSeq": 346
     },
     {
       "index": 144,
@@ -222485,7 +222374,7 @@
         338
       ],
       "subsequentActions": [],
-      "actionSeq": 361,
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -223275,10 +223164,8 @@
         345,
         346
       ],
-      "subsequentActions": [
-        "Attacker: Drownyard Explorers (2/4) blocked by Gallant Cavalry (2/2)"
-      ],
-      "actionSeq": 369
+      "subsequentActions": [],
+      "actionSeq": 374
     },
     {
       "index": 154,
@@ -224014,10 +223901,8 @@
         351,
         354
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Emiel the Blessed from hand"
-      ],
-      "actionSeq": 383,
+      "subsequentActions": [],
+      "actionSeq": 391,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -224399,10 +224284,8 @@
         355,
         356
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Emiel the Blessed from stack onto the Battlefield"
-      ],
-      "actionSeq": 391,
+      "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -224779,7 +224662,7 @@
         358
       ],
       "subsequentActions": [],
-      "actionSeq": 394,
+      "actionSeq": 396,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -225135,10 +225018,8 @@
         359,
         362
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks GPT52 Nature with 1 creature"
-      ],
-      "actionSeq": 396
+      "subsequentActions": [],
+      "actionSeq": 400
     },
     {
       "index": 161,
@@ -225900,7 +225781,7 @@
         366
       ],
       "subsequentActions": [],
-      "actionSeq": 400
+      "actionSeq": 405
     },
     {
       "index": 163,
@@ -226271,10 +226152,8 @@
         365,
         368
       ],
-      "subsequentActions": [
-        "Attacker: Knight Token (2/2) unblocked"
-      ],
-      "actionSeq": 402,
+      "subsequentActions": [],
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -227157,7 +227036,7 @@
         378
       ],
       "subsequentActions": [],
-      "actionSeq": 412,
+      "actionSeq": 413,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -228430,7 +228309,7 @@
         392
       ],
       "subsequentActions": [],
-      "actionSeq": 421,
+      "actionSeq": 422,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -228794,10 +228673,8 @@
         393,
         394
       ],
-      "subsequentActions": [
-        "GPT52 Nature activates: create a 2/2 colorless Assembly-Worker artifact creature token. from Urza's Factory"
-      ],
-      "actionSeq": 422,
+      "subsequentActions": [],
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -229644,10 +229521,8 @@
         401,
         408
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Daybreak Charger from hand"
-      ],
-      "actionSeq": 434,
+      "subsequentActions": [],
+      "actionSeq": 440,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -230456,7 +230331,7 @@
         406
       ],
       "subsequentActions": [],
-      "actionSeq": 441,
+      "actionSeq": 442,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -230801,7 +230676,7 @@
         418
       ],
       "subsequentActions": [],
-      "actionSeq": 442
+      "actionSeq": 446
     },
     {
       "index": 180,
@@ -231235,11 +231110,8 @@
         409,
         410
       ],
-      "subsequentActions": [
-        "GPT52 Nature sacrificed Alchemist's Vial (source: Alchemist's Vial)",
-        "GPT52 Nature activates: target creature can't attack or block this turn. from Alchemist's Vial targeting Emiel the Blessed"
-      ],
-      "actionSeq": 440,
+      "subsequentActions": [],
+      "actionSeq": 447,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -231685,7 +231557,7 @@
         412
       ],
       "subsequentActions": [],
-      "actionSeq": 447,
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -232124,7 +231996,7 @@
         414
       ],
       "subsequentActions": [],
-      "actionSeq": 448,
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -232560,7 +232432,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 449,
+      "actionSeq": 450,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -232920,7 +232792,7 @@
         420
       ],
       "subsequentActions": [],
-      "actionSeq": 450,
+      "actionSeq": 454,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233253,10 +233125,8 @@
         419,
         422
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Flicker of Fate targeting Assembly-Worker Token from hand"
-      ],
-      "actionSeq": 446
+      "subsequentActions": [],
+      "actionSeq": 455
     },
     {
       "index": 186,
@@ -233607,7 +233477,7 @@
         424
       ],
       "subsequentActions": [],
-      "actionSeq": 454,
+      "actionSeq": 458,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233934,11 +233804,8 @@
         423,
         426
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Assembly-Worker Token from battlefield to the exile zone (source: Flicker of Fate)",
-        "GPT54 Sport puts Flicker of Fate from stack into their graveyard"
-      ],
-      "actionSeq": 455
+      "subsequentActions": [],
+      "actionSeq": 459
     },
     {
       "index": 188,
@@ -234311,7 +234178,7 @@
         428
       ],
       "subsequentActions": [],
-      "actionSeq": 458,
+      "actionSeq": 460,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -234665,7 +234532,7 @@
         436
       ],
       "subsequentActions": [],
-      "actionSeq": 459
+      "actionSeq": 461
     },
     {
       "index": 190,
@@ -235104,10 +234971,8 @@
         431,
         432
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Daybreak Charger from stack onto the Battlefield"
-      ],
-      "actionSeq": 460,
+      "subsequentActions": [],
+      "actionSeq": 463,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -235548,7 +235413,7 @@
         434
       ],
       "subsequentActions": [],
-      "actionSeq": 463,
+      "actionSeq": 464,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -235928,7 +235793,7 @@
         438
       ],
       "subsequentActions": [],
-      "actionSeq": 464,
+      "actionSeq": 467,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -236326,7 +236191,7 @@
         440
       ],
       "subsequentActions": [],
-      "actionSeq": 467,
+      "actionSeq": 469,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -236685,10 +236550,8 @@
         441,
         442
       ],
-      "subsequentActions": [
-        "GPT54 Sport did not pay for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 469,
+      "subsequentActions": [],
+      "actionSeq": 471,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -237061,7 +236924,7 @@
         446
       ],
       "subsequentActions": [],
-      "actionSeq": 471,
+      "actionSeq": 473,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -237474,7 +237337,7 @@
         448
       ],
       "subsequentActions": [],
-      "actionSeq": 473,
+      "actionSeq": 475,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -237851,10 +237714,8 @@
         449,
         452
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks GPT52 Nature with 1 creature"
-      ],
-      "actionSeq": 475
+      "subsequentActions": [],
+      "actionSeq": 479
     },
     {
       "index": 200,
@@ -238598,7 +238459,7 @@
         456
       ],
       "subsequentActions": [],
-      "actionSeq": 479
+      "actionSeq": 485
     },
     {
       "index": 202,
@@ -238916,10 +238777,8 @@
         455,
         458
       ],
-      "subsequentActions": [
-        "Attacker: Knight Token (4/2) blocked by Drownyard Explorers (2/4)"
-      ],
-      "actionSeq": 481
+      "subsequentActions": [],
+      "actionSeq": 486
     },
     {
       "index": 203,
@@ -239257,7 +239116,7 @@
         460
       ],
       "subsequentActions": [],
-      "actionSeq": 485
+      "actionSeq": 492
     },
     {
       "index": 204,
@@ -239632,7 +239491,7 @@
         468
       ],
       "subsequentActions": [],
-      "actionSeq": 492,
+      "actionSeq": 494,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -240463,7 +240322,7 @@
         466
       ],
       "subsequentActions": [],
-      "actionSeq": 496,
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -240884,7 +240743,7 @@
         470
       ],
       "subsequentActions": [],
-      "actionSeq": 497,
+      "actionSeq": 505,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -241235,10 +241094,8 @@
         469,
         476
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Press for Answers targeting Emiel the Blessed from hand"
-      ],
-      "actionSeq": 494
+      "subsequentActions": [],
+      "actionSeq": 506
     },
     {
       "index": 210,
@@ -241648,11 +241505,8 @@
         473,
         474
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token",
-        "GPT52 Nature puts Press for Answers from stack into their graveyard"
-      ],
-      "actionSeq": 505,
+      "subsequentActions": [],
+      "actionSeq": 509,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -242063,7 +241917,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 509,
+      "actionSeq": 513,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -242409,13 +242263,8 @@
         477,
         480
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token",
-        "GPT52 Nature puts Press for Answers from stack into their graveyard",
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 506
+      "subsequentActions": [],
+      "actionSeq": 514
     },
     {
       "index": 213,
@@ -242813,7 +242662,7 @@
         482
       ],
       "subsequentActions": [],
-      "actionSeq": 513,
+      "actionSeq": 515,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -243234,7 +243083,7 @@
         486
       ],
       "subsequentActions": [],
-      "actionSeq": 515,
+      "actionSeq": 517,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -243599,10 +243448,8 @@
         487,
         492
       ],
-      "subsequentActions": [
-        "GPT52 Nature attacks GPT54 Sport with 2 creatures"
-      ],
-      "actionSeq": 517,
+      "subsequentActions": [],
+      "actionSeq": 522,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -244441,11 +244288,8 @@
         495,
         496
       ],
-      "subsequentActions": [
-        "Attacker: Runed Servitor (2/2) blocked by Daybreak Charger (3/1)",
-        "Attacker: Floodhound (1/2) unblocked"
-      ],
-      "actionSeq": 524
+      "subsequentActions": [],
+      "actionSeq": 531
     },
     {
       "index": 221,
@@ -244804,14 +244648,8 @@
         499,
         500
       ],
-      "subsequentActions": [
-        "Daybreak Charger deals 3 damage to Runed Servitor",
-        "Runed Servitor deals 2 damage to Daybreak Charger",
-        "GPT54 Sport loses 1 life at combat from Floodhound",
-        "Runed Servitor died",
-        "Daybreak Charger died"
-      ],
-      "actionSeq": 531
+      "subsequentActions": [],
+      "actionSeq": 540
     },
     {
       "index": 222,
@@ -245156,7 +244994,7 @@
         506
       ],
       "subsequentActions": [],
-      "actionSeq": 540
+      "actionSeq": 542
     },
     {
       "index": 223,
@@ -245824,7 +245662,7 @@
         508
       ],
       "subsequentActions": [],
-      "actionSeq": 543,
+      "actionSeq": 547,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -246174,10 +246012,8 @@
         507,
         510
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Expedition Map from hand"
-      ],
-      "actionSeq": 542
+      "subsequentActions": [],
+      "actionSeq": 548
     },
     {
       "index": 226,
@@ -246591,10 +246427,8 @@
         511,
         512
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Expedition Map from stack onto the Battlefield"
-      ],
-      "actionSeq": 548
+      "subsequentActions": [],
+      "actionSeq": 551
     },
     {
       "index": 228,
@@ -247018,10 +246852,8 @@
         513,
         514
       ],
-      "subsequentActions": [
-        "Press for Answers: Emiel the Blessed doesn't untap (Press for Answers)"
-      ],
-      "actionSeq": 551,
+      "subsequentActions": [],
+      "actionSeq": 555,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -247417,10 +247249,8 @@
         515,
         516
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 555,
+      "subsequentActions": [],
+      "actionSeq": 558,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -247805,10 +247635,8 @@
         517,
         518
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Valorous Steed from hand"
-      ],
-      "actionSeq": 558,
+      "subsequentActions": [],
+      "actionSeq": 565,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -248197,10 +248025,8 @@
         519,
         520
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Valorous Steed from stack onto the Battlefield"
-      ],
-      "actionSeq": 565,
+      "subsequentActions": [],
+      "actionSeq": 568,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -248577,11 +248403,8 @@
         524,
         525
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Valorous Steed - When Valorous Steed enters, create a 2/2 white Knight creature token with vigilance.",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 568,
+      "subsequentActions": [],
+      "actionSeq": 571,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -248949,7 +248772,7 @@
         527
       ],
       "subsequentActions": [],
-      "actionSeq": 571,
+      "actionSeq": 573,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -249334,10 +249157,8 @@
         528,
         529
       ],
-      "subsequentActions": [
-        "GPT54 Sport did not pay for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 573,
+      "subsequentActions": [],
+      "actionSeq": 575,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -249722,11 +249543,8 @@
         530,
         531
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Knight Token token",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 575,
+      "subsequentActions": [],
+      "actionSeq": 579,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -250101,7 +249919,7 @@
         533
       ],
       "subsequentActions": [],
-      "actionSeq": 579,
+      "actionSeq": 581,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -250474,10 +250292,8 @@
         534,
         535
       ],
-      "subsequentActions": [
-        "GPT54 Sport did not pay for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 581,
+      "subsequentActions": [],
+      "actionSeq": 583,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -250851,10 +250667,8 @@
         536,
         537
       ],
-      "subsequentActions": [
-        "GPT54 Sport skip attack"
-      ],
-      "actionSeq": 583
+      "subsequentActions": [],
+      "actionSeq": 587
     },
     {
       "index": 239,
@@ -251229,7 +251043,7 @@
         546
       ],
       "subsequentActions": [],
-      "actionSeq": 587,
+      "actionSeq": 589,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -252216,7 +252030,7 @@
         551
       ],
       "subsequentActions": [],
-      "actionSeq": 591,
+      "actionSeq": 597,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -252609,11 +252423,8 @@
         550,
         559
       ],
-      "subsequentActions": [
-        "GPT52 Nature sacrificed Expedition Map (source: Expedition Map)",
-        "GPT52 Nature activates: search your library for a land card, reveal it, put it into your hand, then shuffle. from Expedition Map"
-      ],
-      "actionSeq": 589
+      "subsequentActions": [],
+      "actionSeq": 598
     },
     {
       "index": 243,
@@ -253121,10 +252932,8 @@
         552,
         553
       ],
-      "subsequentActions": [
-        "GPT52 Nature searches their library (source: Expedition Map)"
-      ],
-      "actionSeq": 597,
+      "subsequentActions": [],
+      "actionSeq": 600,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -253642,12 +253451,8 @@
         554,
         555
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from library into their hand",
-        "GPT52 Nature reveals Island",
-        "GPT52 Nature's library is shuffled (source: Expedition Map)"
-      ],
-      "actionSeq": 600,
+      "subsequentActions": [],
+      "actionSeq": 604,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -254119,10 +253924,8 @@
         556,
         557
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 604,
+      "subsequentActions": [],
+      "actionSeq": 606,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -254563,7 +254366,7 @@
         561
       ],
       "subsequentActions": [],
-      "actionSeq": 606,
+      "actionSeq": 615,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -254958,14 +254761,8 @@
         560,
         563
       ],
-      "subsequentActions": [
-        "GPT52 Nature searches their library (source: Expedition Map)",
-        "GPT52 Nature puts a card from library into their hand",
-        "GPT52 Nature reveals Island",
-        "GPT52 Nature's library is shuffled (source: Expedition Map)",
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 598
+      "subsequentActions": [],
+      "actionSeq": 616
     },
     {
       "index": 248,
@@ -255396,7 +255193,7 @@
         565
       ],
       "subsequentActions": [],
-      "actionSeq": 615,
+      "actionSeq": 618,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -257197,7 +256994,7 @@
         581
       ],
       "subsequentActions": [],
-      "actionSeq": 627,
+      "actionSeq": 628,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -257646,7 +257443,7 @@
         583
       ],
       "subsequentActions": [],
-      "actionSeq": 628,
+      "actionSeq": 629,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -258113,7 +257910,7 @@
         585
       ],
       "subsequentActions": [],
-      "actionSeq": 629,
+      "actionSeq": 630,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -258555,7 +258352,7 @@
         587
       ],
       "subsequentActions": [],
-      "actionSeq": 630,
+      "actionSeq": 631,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -258974,7 +258771,7 @@
         595
       ],
       "subsequentActions": [],
-      "actionSeq": 631,
+      "actionSeq": 640,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -259426,13 +259223,8 @@
         596,
         597
       ],
-      "subsequentActions": [
-        "GPT54 Sport moves Filigree Attendant from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Sport moves Valorous Steed from battlefield to the exile zone (source: Settle Beyond Reality)",
-        "GPT54 Sport puts Valorous Steed from exile zone onto the Battlefield (source: Settle Beyond Reality)",
-        "GPT54 Sport puts Settle Beyond Reality from stack into their graveyard"
-      ],
-      "actionSeq": 640,
+      "subsequentActions": [],
+      "actionSeq": 646,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -259844,11 +259636,8 @@
         598,
         599
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Valorous Steed - When Valorous Steed enters, create a 2/2 white Knight creature token with vigilance.",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 646,
+      "subsequentActions": [],
+      "actionSeq": 649,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -260252,7 +260041,7 @@
         601
       ],
       "subsequentActions": [],
-      "actionSeq": 649,
+      "actionSeq": 651,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -260673,10 +260462,8 @@
         602,
         603
       ],
-      "subsequentActions": [
-        "GPT54 Sport did not pay for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 651,
+      "subsequentActions": [],
+      "actionSeq": 653,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -261097,11 +260884,8 @@
         604,
         605
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Knight Token token",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 653,
+      "subsequentActions": [],
+      "actionSeq": 657,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -261512,7 +261296,7 @@
         607
       ],
       "subsequentActions": [],
-      "actionSeq": 657,
+      "actionSeq": 659,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -261946,10 +261730,8 @@
         608,
         611
       ],
-      "subsequentActions": [
-        "GPT54 Sport did not pay for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 659,
+      "subsequentActions": [],
+      "actionSeq": 661,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -262424,7 +262206,7 @@
         613
       ],
       "subsequentActions": [],
-      "actionSeq": 661,
+      "actionSeq": 663,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -262855,10 +262637,8 @@
         614,
         619
       ],
-      "subsequentActions": [
-        "GPT54 Sport attacks GPT52 Nature with 1 creature"
-      ],
-      "actionSeq": 663
+      "subsequentActions": [],
+      "actionSeq": 667
     },
     {
       "index": 271,
@@ -263739,7 +263519,7 @@
         624
       ],
       "subsequentActions": [],
-      "actionSeq": 667
+      "actionSeq": 673
     },
     {
       "index": 273,
@@ -263918,7 +263698,8 @@
       "llmEventIndices": [
         626,
         628,
-        629
+        629,
+        630
       ],
       "subsequentActions": [],
       "actionSeq": 683,
@@ -264928,10 +264709,8 @@
         634,
         635
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 683,
+      "subsequentActions": [],
+      "actionSeq": 687,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -265456,7 +265235,7 @@
         639
       ],
       "subsequentActions": [],
-      "actionSeq": 687,
+      "actionSeq": 689,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -265990,10 +265769,8 @@
         640,
         641
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Universal Solvent from hand"
-      ],
-      "actionSeq": 689,
+      "subsequentActions": [],
+      "actionSeq": 693,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -266525,10 +266302,8 @@
         642,
         643
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Universal Solvent from stack onto the Battlefield"
-      ],
-      "actionSeq": 693,
+      "subsequentActions": [],
+      "actionSeq": 696,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -267058,10 +266833,8 @@
         644,
         645
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Thaumaturge's Familiar from hand"
-      ],
-      "actionSeq": 696,
+      "subsequentActions": [],
+      "actionSeq": 699,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -268139,10 +267912,8 @@
         650,
         651
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts a card from library to the bottom of their library (source: Thaumaturge's Familiar)"
-      ],
-      "actionSeq": 706,
+      "subsequentActions": [],
+      "actionSeq": 708,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -269640,7 +269411,7 @@
         669
       ],
       "subsequentActions": [],
-      "actionSeq": 718,
+      "actionSeq": 727,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -270139,10 +269910,8 @@
         664,
         665
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Rambunctious Mutt from hand"
-      ],
-      "actionSeq": 716,
+      "subsequentActions": [],
+      "actionSeq": 728,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -270632,7 +270401,7 @@
         667
       ],
       "subsequentActions": [],
-      "actionSeq": 728,
+      "actionSeq": 729,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -271064,7 +270833,7 @@
         673
       ],
       "subsequentActions": [],
-      "actionSeq": 729
+      "actionSeq": 734
     },
     {
       "index": 292,
@@ -271524,10 +271293,8 @@
         670,
         671
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Jace's Scrutiny targeting Emiel the Blessed from hand"
-      ],
-      "actionSeq": 727,
+      "subsequentActions": [],
+      "actionSeq": 735,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -272013,7 +271780,7 @@
         675
       ],
       "subsequentActions": [],
-      "actionSeq": 735,
+      "actionSeq": 738,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -272470,11 +272237,8 @@
         674,
         681
       ],
-      "subsequentActions": [
-        "GPT52 Nature creates a Clue Token token",
-        "GPT52 Nature puts Jace's Scrutiny from stack into their graveyard"
-      ],
-      "actionSeq": 734
+      "subsequentActions": [],
+      "actionSeq": 739
     },
     {
       "index": 295,
@@ -273026,10 +272790,8 @@
         676,
         677
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Rambunctious Mutt from stack onto the Battlefield"
-      ],
-      "actionSeq": 738,
+      "subsequentActions": [],
+      "actionSeq": 741,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -273574,10 +273336,8 @@
         678,
         679
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 741,
+      "subsequentActions": [],
+      "actionSeq": 743,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -274057,7 +273817,7 @@
         683
       ],
       "subsequentActions": [],
-      "actionSeq": 743,
+      "actionSeq": 745,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -274504,12 +274264,8 @@
         682,
         685
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Rambunctious Mutt from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead.",
-        "GPT54 Sport - Ability triggers: Rambunctious Mutt - When Rambunctious Mutt enters, destroy target artifact or enchantment an opponent controls. - targeting Universal Solvent"
-      ],
-      "actionSeq": 739
+      "subsequentActions": [],
+      "actionSeq": 746
     },
     {
       "index": 299,
@@ -274986,7 +274742,7 @@
         687
       ],
       "subsequentActions": [],
-      "actionSeq": 745,
+      "actionSeq": 748,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -275480,7 +275236,7 @@
         689
       ],
       "subsequentActions": [],
-      "actionSeq": 748,
+      "actionSeq": 750,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -277049,7 +276805,7 @@
         701
       ],
       "subsequentActions": [],
-      "actionSeq": 754
+      "actionSeq": 760
     },
     {
       "index": 306,
@@ -278113,7 +277869,7 @@
         705
       ],
       "subsequentActions": [],
-      "actionSeq": 760
+      "actionSeq": 771
     },
     {
       "index": 309,
@@ -278585,12 +278341,8 @@
         704,
         707
       ],
-      "subsequentActions": [
-        "Attacker: Knight Token (2/2) blocked by Locthwain Gargoyle (0/3)",
-        "Attacker: Valorous Steed (3/3) blocked by Thaumaturge's Familiar (1/3)",
-        "Attacker: Knight Token (2/2) unblocked"
-      ],
-      "actionSeq": 762
+      "subsequentActions": [],
+      "actionSeq": 772
     },
     {
       "index": 310,
@@ -279049,7 +278801,7 @@
         709
       ],
       "subsequentActions": [],
-      "actionSeq": 771
+      "actionSeq": 779
     },
     {
       "index": 311,
@@ -279550,7 +279302,7 @@
         722
       ],
       "subsequentActions": [],
-      "actionSeq": 779,
+      "actionSeq": 781,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -280612,7 +280364,7 @@
         720
       ],
       "subsequentActions": [],
-      "actionSeq": 783,
+      "actionSeq": 784,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -281137,7 +280889,7 @@
         724
       ],
       "subsequentActions": [],
-      "actionSeq": 784,
+      "actionSeq": 796,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -281684,10 +281436,8 @@
         725,
         726
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Mechanized Production from stack onto the Battlefield"
-      ],
-      "actionSeq": 796,
+      "subsequentActions": [],
+      "actionSeq": 799,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -283191,7 +282941,7 @@
         736
       ],
       "subsequentActions": [],
-      "actionSeq": 803,
+      "actionSeq": 806,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -283668,10 +283418,8 @@
         735,
         738
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 802
+      "subsequentActions": [],
+      "actionSeq": 807
     },
     {
       "index": 323,
@@ -284248,7 +283996,7 @@
         740
       ],
       "subsequentActions": [],
-      "actionSeq": 807
+      "actionSeq": 809
     },
     {
       "index": 325,
@@ -284825,7 +284573,7 @@
         747
       ],
       "subsequentActions": [],
-      "actionSeq": 809,
+      "actionSeq": 810,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -285376,10 +285124,8 @@
         748,
         749
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 810,
+      "subsequentActions": [],
+      "actionSeq": 814,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -285897,10 +285643,8 @@
         750,
         755
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Distinguished Conjurer from hand"
-      ],
-      "actionSeq": 814,
+      "subsequentActions": [],
+      "actionSeq": 818,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -286817,7 +286561,7 @@
         759
       ],
       "subsequentActions": [],
-      "actionSeq": 819
+      "actionSeq": 823
     },
     {
       "index": 330,
@@ -287322,11 +287066,8 @@
         756,
         757
       ],
-      "subsequentActions": [
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 818,
+      "subsequentActions": [],
+      "actionSeq": 824,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -287857,7 +287598,7 @@
         761
       ],
       "subsequentActions": [],
-      "actionSeq": 824,
+      "actionSeq": 825,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -288338,7 +288079,7 @@
         767
       ],
       "subsequentActions": [],
-      "actionSeq": 823
+      "actionSeq": 826
     },
     {
       "index": 333,
@@ -288889,11 +288630,8 @@
         762,
         763
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Distinguished Conjurer from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 825,
+      "subsequentActions": [],
+      "actionSeq": 829,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -289438,7 +289176,7 @@
         765
       ],
       "subsequentActions": [],
-      "actionSeq": 829,
+      "actionSeq": 830,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -289959,7 +289697,7 @@
         769
       ],
       "subsequentActions": [],
-      "actionSeq": 830,
+      "actionSeq": 835,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -291160,10 +290898,8 @@
         798,
         799
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 840,
+      "subsequentActions": [],
+      "actionSeq": 842,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -291722,10 +291458,8 @@
         800,
         801
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life."
-      ],
-      "actionSeq": 842,
+      "subsequentActions": [],
+      "actionSeq": 844,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -292234,10 +291968,8 @@
         802,
         803
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Rambunctious Mutt - When Rambunctious Mutt enters, destroy target artifact or enchantment an opponent controls. - targeting Mechanized Production"
-      ],
-      "actionSeq": 844,
+      "subsequentActions": [],
+      "actionSeq": 846,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -292743,10 +292475,8 @@
         804,
         805
       ],
-      "subsequentActions": [
-        "Mechanized Production was destroyed by Rambunctious Mutt"
-      ],
-      "actionSeq": 846,
+      "subsequentActions": [],
+      "actionSeq": 849,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -293774,10 +293504,8 @@
         810,
         811
       ],
-      "subsequentActions": [
-        "GPT54 Sport paid for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 854,
+      "subsequentActions": [],
+      "actionSeq": 857,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -294265,7 +293993,7 @@
         813
       ],
       "subsequentActions": [],
-      "actionSeq": 857,
+      "actionSeq": 859,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -295941,7 +295669,7 @@
         829
       ],
       "subsequentActions": [],
-      "actionSeq": 863
+      "actionSeq": 867
     },
     {
       "index": 351,
@@ -297091,13 +296819,8 @@
         832,
         833
       ],
-      "subsequentActions": [
-        "Attacker: Emiel the Blessed (4/4) blocked by Floodhound (1/2)",
-        "Attacker: Knight Token (2/2) blocked by Locthwain Gargoyle (0/3)",
-        "Attacker: Valorous Steed (3/3) unblocked",
-        "Attacker: Knight Token (2/2) unblocked"
-      ],
-      "actionSeq": 869
+      "subsequentActions": [],
+      "actionSeq": 880
     },
     {
       "index": 355,
@@ -297555,14 +297278,8 @@
         834,
         837
       ],
-      "subsequentActions": [
-        "Floodhound deals 1 damage to Emiel the Blessed",
-        "Emiel the Blessed deals 4 damage to Floodhound",
-        "Knight Token deals 2 damage to Locthwain Gargoyle",
-        "GPT52 Nature loses 3 life at combat from Valorous Steed",
-        "GPT52 Nature loses 2 life at combat from Knight Token"
-      ],
-      "actionSeq": 880
+      "subsequentActions": [],
+      "actionSeq": 889
     },
     {
       "index": 356,
@@ -299214,10 +298931,8 @@
         842,
         843
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield"
-      ],
-      "actionSeq": 892,
+      "subsequentActions": [],
+      "actionSeq": 896,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1,
@@ -299759,10 +299474,8 @@
         844,
         845
       ],
-      "subsequentActions": [
-        "GPT52 Nature casts Shambling Suit from hand"
-      ],
-      "actionSeq": 896,
+      "subsequentActions": [],
+      "actionSeq": 900,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -300297,7 +300010,7 @@
         849
       ],
       "subsequentActions": [],
-      "actionSeq": 900,
+      "actionSeq": 902,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -300802,11 +300515,8 @@
         848,
         853
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Island from hand onto the Battlefield",
-        "GPT52 Nature casts Shambling Suit from hand"
-      ],
-      "actionSeq": 890
+      "subsequentActions": [],
+      "actionSeq": 903
     },
     {
       "index": 363,
@@ -301360,10 +301070,8 @@
         854,
         859
       ],
-      "subsequentActions": [
-        "GPT52 Nature puts Shambling Suit from stack onto the Battlefield"
-      ],
-      "actionSeq": 903
+      "subsequentActions": [],
+      "actionSeq": 906
     },
     {
       "index": 365,
@@ -301973,10 +301681,8 @@
         860,
         861
       ],
-      "subsequentActions": [
-        "GPT52 Nature skip attack"
-      ],
-      "actionSeq": 906
+      "subsequentActions": [],
+      "actionSeq": 911
     },
     {
       "index": 368,
@@ -303338,10 +303044,8 @@
         870,
         871
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Plains from hand onto the Battlefield"
-      ],
-      "actionSeq": 914,
+      "subsequentActions": [],
+      "actionSeq": 918,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -304062,7 +303766,7 @@
         873
       ],
       "subsequentActions": [],
-      "actionSeq": 918,
+      "actionSeq": 919,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -304592,10 +304296,8 @@
         874,
         879
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Faith's Fetters targeting Shambling Suit from hand"
-      ],
-      "actionSeq": 919,
+      "subsequentActions": [],
+      "actionSeq": 925,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -305661,7 +305363,7 @@
         883
       ],
       "subsequentActions": [],
-      "actionSeq": 926,
+      "actionSeq": 931,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -306187,11 +305889,8 @@
         880,
         881
       ],
-      "subsequentActions": [
-        "GPT52 Nature sacrificed Clue Token (source: Clue Token)",
-        "GPT52 Nature activates: draw a card. from Clue Token"
-      ],
-      "actionSeq": 925,
+      "subsequentActions": [],
+      "actionSeq": 932,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -306726,7 +306425,7 @@
         885
       ],
       "subsequentActions": [],
-      "actionSeq": 932,
+      "actionSeq": 933,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -307266,7 +306965,7 @@
         887
       ],
       "subsequentActions": [],
-      "actionSeq": 931,
+      "actionSeq": 934,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -307805,7 +307504,7 @@
         893
       ],
       "subsequentActions": [],
-      "actionSeq": 933,
+      "actionSeq": 937,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -308377,10 +308076,8 @@
         894,
         895
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 4 life (source: Faith's Fetters)"
-      ],
-      "actionSeq": 937,
+      "subsequentActions": [],
+      "actionSeq": 940,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -308914,10 +308611,8 @@
         896,
         899
       ],
-      "subsequentActions": [
-        "GPT54 Sport casts Thraben Inspector from hand"
-      ],
-      "actionSeq": 940,
+      "subsequentActions": [],
+      "actionSeq": 943,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -310625,10 +310320,8 @@
         910,
         911
       ],
-      "subsequentActions": [
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-      ],
-      "actionSeq": 946,
+      "subsequentActions": [],
+      "actionSeq": 948,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -311172,7 +310865,7 @@
         915
       ],
       "subsequentActions": [],
-      "actionSeq": 948,
+      "actionSeq": 951,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -311740,13 +311433,8 @@
         914,
         917
       ],
-      "subsequentActions": [
-        "GPT54 Sport puts Thraben Inspector from stack onto the Battlefield",
-        "GPT54 Sport - Ability triggers: Emiel the Blessed - Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead.",
-        "GPT54 Sport - Ability triggers: Distinguished Conjurer - Whenever another creature you control enters, you gain 1 life.",
-        "GPT54 Sport - Ability triggers: Thraben Inspector - When Thraben Inspector enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-      ],
-      "actionSeq": 944,
+      "subsequentActions": [],
+      "actionSeq": 952,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -312296,7 +311984,7 @@
         919
       ],
       "subsequentActions": [],
-      "actionSeq": 951,
+      "actionSeq": 954,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -312861,10 +312549,8 @@
         918,
         921
       ],
-      "subsequentActions": [
-        "GPT54 Sport creates a Clue Token token"
-      ],
-      "actionSeq": 952,
+      "subsequentActions": [],
+      "actionSeq": 955,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -313403,7 +313089,7 @@
         923
       ],
       "subsequentActions": [],
-      "actionSeq": 954,
+      "actionSeq": 957,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -313960,10 +313646,8 @@
         922,
         927
       ],
-      "subsequentActions": [
-        "GPT54 Sport gains 1 life (source: Distinguished Conjurer)"
-      ],
-      "actionSeq": 955,
+      "subsequentActions": [],
+      "actionSeq": 958,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -314484,7 +314168,7 @@
         925
       ],
       "subsequentActions": [],
-      "actionSeq": 957,
+      "actionSeq": 959,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -315062,7 +314746,7 @@
         929
       ],
       "subsequentActions": [],
-      "actionSeq": 959,
+      "actionSeq": 962,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -315681,10 +315365,8 @@
         928,
         935
       ],
-      "subsequentActions": [
-        "GPT54 Sport paid for Emiel the Blessed - Pay {G/W} and put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead?"
-      ],
-      "actionSeq": 958,
+      "subsequentActions": [],
+      "actionSeq": 963,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -316338,7 +316020,7 @@
         931
       ],
       "subsequentActions": [],
-      "actionSeq": 962,
+      "actionSeq": 964,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -316930,7 +316612,7 @@
         939
       ],
       "subsequentActions": [],
-      "actionSeq": 964,
+      "actionSeq": 972,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -317030,7 +316712,7 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
         "amount": 0,
         "amounts": [],
@@ -317038,604 +316720,25 @@
         "pile": 0,
         "mana_plan": "",
         "attackers": "",
-        "blockers": "p107:p11,p6:p94",
+        "blockers": "",
         "text": "",
-        "choice": ""
+        "choice": "no"
       },
       "actionResult": {
-        "action_pending": true,
-        "action_type": "GAME_SELECT",
-        "message": "Play instants and activated abilities",
-        "response_type": "select",
-        "respond_with": "choice=pN to play, or choice=no to pass",
-        "context": "T13 Combat/Declare Blockers (GPT54 Sport)",
-        "board": [
-          {
-            "hand_size": 1,
-            "graveyard": [
-              {
-                "name": "Alchemist's Vial",
-                "rules": [
-                  "When {this} enters, draw a card.",
-                  "{1}, {T}, Sacrifice {this}: Target creature can't attack or block this turn."
-                ],
-                "id": "p54"
-              },
-              {
-                "name": "Drownyard Explorers",
-                "rules": [
-                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p17"
-              },
-              {
-                "name": "Expedition Map",
-                "rules": [
-                  "{2}, {T}, Sacrifice {this}: Search your library for a land card, reveal it, put it into your hand, then shuffle."
-                ],
-                "id": "p87"
-              },
-              {
-                "name": "Floodhound",
-                "rules": [
-                  "{3}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p68"
-              },
-              {
-                "name": "Jace's Scrutiny",
-                "rules": [
-                  "Target creature gets -4/-0 until end of turn. : Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p5"
-              },
-              {
-                "name": "Mechanized Production",
-                "rules": [
-                  "Enchant artifact you control",
-                  "At the beginning of your upkeep, create a token that's a copy of enchanted artifact. Then if you control eight or more artifacts with the same name as one another, you win the game."
-                ],
-                "id": "p57"
-              },
-              {
-                "name": "Press for Answers",
-                "rules": [
-                  "Tap target creature. It doesn't untap during its controller's next untap step. : Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p72"
-              },
-              {
-                "name": "Runed Servitor",
-                "rules": [
-                  "When {this} dies, each player draws a card."
-                ],
-                "id": "p52"
-              },
-              {
-                "name": "Thaumaturge's Familiar",
-                "rules": [
-                  "Flying",
-                  "When {this} enters, scry 1."
-                ],
-                "id": "p96"
-              },
-              {
-                "name": "Universal Solvent",
-                "rules": [
-                  "{7}, {T}, Sacrifice {this}: Destroy target permanent."
-                ],
-                "id": "p18"
-              },
-              {
-                "name": "Walking Ballista",
-                "rules": [
-                  "{this} enters with X +1/+1 counters on it.",
-                  "{4}: Put a +1/+1 counter on {this}.",
-                  "Remove a +1/+1 counter from {this}: It deals 1 damage to any target."
-                ],
-                "id": "p29"
-              }
-            ],
-            "is_active": false,
-            "is_you": true,
-            "battlefield": [
-              {
-                "tapped": false,
-                "name": "Faith's Fetters",
-                "rules": [
-                  "Enchant permanent",
-                  "When {this} enters, you gain 4 life.",
-                  "Enchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
-                ],
-                "id": "p145"
-              },
-              {
-                "tapped": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p34"
-              },
-              {
-                "tapped": false,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p102"
-              },
-              {
-                "tapped": false,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ],
-                "id": "p105"
-              },
-              {
-                "tapped": false,
-                "name": "Locthwain Gargoyle",
-                "rules": [
-                  "{4}: {this} gets +2/+0 and gains flying until end of turn."
-                ],
-                "id": "p6",
-                "power": "0",
-                "toughness": "3",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "name": "Magnifying Glass",
-                "rules": [
-                  "{T}: Add {C}.",
-                  "{4}, {T}: Investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p7"
-              },
-              {
-                "tapped": true,
-                "name": "Planar Atlas",
-                "rules": [
-                  "{this} enters tapped.",
-                  "When {this} enters, you may look at the top four cards of your library. You may reveal a land card from among them and put it on top of your library. Put the rest on the bottom of your library in a random order.",
-                  "{T}: Add {C}."
-                ],
-                "id": "p9"
-              },
-              {
-                "tapped": false,
-                "name": "Shambling Suit",
-                "modified": true,
-                "rules": [
-                  "{this}'s power is equal to the number of artifacts and/or enchantments you control.",
-                  ": ",
-                  "ICON_RESTRICTCan't attack (Faith's Fetters)",
-                  "ICON_RESTRICTCan't block (Faith's Fetters)"
-                ],
-                "id": "p107",
-                "power": "4",
-                "toughness": "3",
-                "summoning_sick": true
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Factory",
-                "rules": [
-                  "{T}: Add {C}.",
-                  "{7}, {T}: Create a 2/2 colorless Assembly-Worker artifact creature token."
-                ],
-                "id": "p19"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Mine",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Power-Plant and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p20"
-              },
-              {
-                "tapped": false,
-                "name": "Urza's Power Plant",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p40"
-              },
-              {
-                "tapped": false,
-                "name": "Urza's Power Plant",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Tower, add {C}{C} instead."
-                ],
-                "id": "p110"
-              },
-              {
-                "tapped": true,
-                "name": "Urza's Tower",
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
-                ],
-                "id": "p21"
-              }
-            ],
-            "name": "GPT52 Nature",
-            "exile": [
-              {
-                "name": "Filigree Attendant",
-                "rules": [
-                  "Flying",
-                  "{this}'s power is equal to the number of artifacts you control."
-                ],
-                "id": "p85"
-              }
-            ],
-            "library_size": 15,
-            "life": 11,
-            "hand": [
-              {
-                "name": "Urza's Tower",
-                "is_land": true,
-                "rules": [
-                  "{T}: Add {C}. If you control an Urza's Mine and an Urza's Power-Plant, add {C}{C}{C} instead."
-                ],
-                "id": "p111"
-              }
-            ]
-          },
-          {
-            "hand_size": 1,
-            "graveyard": [
-              {
-                "name": "Acrobatic Maneuver",
-                "rules": [
-                  "Exile target creature you control, then return that card to the battlefield under its owner's control. : Draw a card."
-                ],
-                "id": "p114"
-              },
-              {
-                "name": "Blessed Sanctuary",
-                "rules": [
-                  "Prevent all noncombat damage that would be dealt to you and creatures you control.",
-                  "Whenever a nontoken creature you control enters, create a 2/2 white Unicorn creature token."
-                ],
-                "id": "p10"
-              },
-              {
-                "name": "Daybreak Charger",
-                "rules": [
-                  "When {this} enters, target creature gets +2/+0 until end of turn."
-                ],
-                "id": "p76"
-              },
-              {
-                "name": "Faith's Fetters",
-                "rules": [
-                  "Enchant permanent",
-                  "When {this} enters, you gain 4 life.",
-                  "Enchanted permanent can't attack or block, and its activated abilities can't be activated unless they're mana abilities."
-                ],
-                "id": "p35"
-              },
-              {
-                "name": "Flicker of Fate",
-                "rules": [
-                  "Exile target creature or enchantment, then return it to the battlefield under its owner's control."
-                ],
-                "id": "p12"
-              },
-              {
-                "name": "Gallant Cavalry",
-                "rules": [
-                  "Vigilance",
-                  "When {this} enters, create a 2/2 white Knight creature token with vigilance."
-                ],
-                "id": "p28"
-              },
-              {
-                "name": "Inspiring Overseer",
-                "rules": [
-                  "Flying",
-                  "When {this} enters, you gain 1 life and draw a card."
-                ],
-                "id": "p13"
-              },
-              {
-                "name": "Settle Beyond Reality",
-                "rules": [
-                  "Choose one or both &mdash;: &bull Exile target creature you don't control.: &bull Exile target creature you control, then return it to the battlefield under its owner's control.: "
-                ],
-                "id": "p64"
-              },
-              {
-                "name": "Valorous Stance",
-                "rules": [
-                  "Choose one &mdash;: &bull Target creature gains indestructible until end of turn.: &bull Destroy target creature with toughness 4 or greater.: "
-                ],
-                "id": "p16"
-              }
-            ],
-            "is_active": true,
-            "is_you": false,
-            "battlefield": [
-              {
-                "tapped": false,
-                "name": "Clue Token",
-                "rules": [
-                  "{2}, Sacrifice this artifact: Draw a card."
-                ],
-                "id": "p153",
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Distinguished Conjurer",
-                "rules": [
-                  "Whenever another creature you control enters, you gain 1 life.",
-                  "{4}{W}, {T}: Exile another target creature you control, then return it to the battlefield under its owner's control."
-                ],
-                "id": "p59",
-                "power": "1",
-                "toughness": "2",
-                "summoning_sick": false
-              },
-              {
-                "tapped": true,
-                "name": "Emiel the Blessed",
-                "rules": [
-                  "{3}: Exile another target creature you control, then return it to the battlefield under its owner's control.",
-                  "Whenever another creature you control enters, you may pay {G/W}. If you do, put a +1/+1 counter on it. If it's a Unicorn, put two +1/+1 counters on it instead."
-                ],
-                "id": "p11",
-                "power": "4",
-                "toughness": "4",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "name": "Knight Token",
-                "rules": [
-                  "Vigilance"
-                ],
-                "id": "p94",
-                "power": "2",
-                "toughness": "2",
-                "summoning_sick": false,
-                "token": true
-              },
-              {
-                "tapped": false,
-                "name": "Knight Token",
-                "rules": [
-                  "Vigilance"
-                ],
-                "id": "p120",
-                "power": "2",
-                "toughness": "2",
-                "summoning_sick": false,
-                "token": true
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p14"
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p15"
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p46"
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p51"
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p88"
-              },
-              {
-                "tapped": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p134"
-              },
-              {
-                "tapped": false,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "id": "p139"
-              },
-              {
-                "tapped": true,
-                "counters": {
-                  "+1/+1": 1
-                },
-                "name": "Rambunctious Mutt",
-                "rules": [
-                  "When {this} enters, destroy target artifact or enchantment an opponent controls."
-                ],
-                "id": "p127",
-                "power": "4",
-                "toughness": "5",
-                "summoning_sick": false
-              },
-              {
-                "tapped": false,
-                "counters": {
-                  "+1/+1": 1
-                },
-                "name": "Thraben Inspector",
-                "rules": [
-                  "When {this} enters, investigate. (Create a Clue token. It's an artifact with \"{2}, Sacrifice this artifact: Draw a card.\")"
-                ],
-                "id": "p90",
-                "power": "2",
-                "toughness": "3",
-                "summoning_sick": true
-              },
-              {
-                "tapped": false,
-                "name": "Valorous Steed",
-                "rules": [
-                  "Vigilance",
-                  "When {this} enters, create a 2/2 white Knight creature token with vigilance."
-                ],
-                "id": "p39",
-                "power": "3",
-                "toughness": "3",
-                "summoning_sick": false
-              }
-            ],
-            "name": "GPT54 Sport",
-            "library_size": 17,
-            "life": 15
-          }
-        ],
-        "board_cursor": 150,
-        "choices": [
-          {
-            "name": "Locthwain Gargoyle",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}: {this} gets +2/+0 and gains flying until end..."
-            ],
-            "id": "p6"
-          },
-          {
-            "name": "Magnifying Glass",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}, {T}: Investigate. <i>(Create a Clue token. I..."
-            ],
-            "id": "p7"
-          }
-        ],
-        "combat": [
-          {
-            "blocked": false,
-            "defending": "GPT52 Nature",
-            "attackers": [
-              {
-                "name": "Emiel the Blessed",
-                "id": "p11",
-                "power": "4",
-                "toughness": "4"
-              }
-            ]
-          },
-          {
-            "blocked": true,
-            "defending": "GPT52 Nature",
-            "attackers": [
-              {
-                "name": "Knight Token",
-                "id": "p94",
-                "power": "2",
-                "toughness": "2"
-              }
-            ],
-            "blockers": [
-              {
-                "name": "Locthwain Gargoyle",
-                "id": "p6",
-                "power": "0",
-                "toughness": "3"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "GPT52 Nature",
-            "attackers": [
-              {
-                "name": "Valorous Steed",
-                "id": "p39",
-                "power": "3",
-                "toughness": "3"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "GPT52 Nature",
-            "attackers": [
-              {
-                "name": "Knight Token",
-                "id": "p120",
-                "power": "2",
-                "toughness": "2"
-              }
-            ]
-          },
-          {
-            "blocked": false,
-            "defending": "GPT52 Nature",
-            "attackers": [
-              {
-                "name": "Rambunctious Mutt",
-                "id": "p127",
-                "power": "4",
-                "toughness": "5"
-              }
-            ]
-          }
-        ],
-        "untapped_lands": 4,
-        "game_seq": 974,
-        "error": "p107: attacker p11 is not a valid block target",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [
-          {
-            "id": "p6",
-            "blocks": "p94"
-          }
-        ],
-        "failed": [
-          {
-            "reason": "attacker p11 is not a valid block target",
-            "id": "p107"
-          }
-        ]
+        "game_seq": 986,
+        "player_dead": true,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         937,
         938,
-        941
+        941,
+        942,
+        943
       ],
       "subsequentActions": [],
-      "actionSeq": 974,
+      "actionSeq": 986,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "blockers",
@@ -317710,7 +316813,7 @@
         945
       ],
       "subsequentActions": [],
-      "actionSeq": 972,
+      "actionSeq": 985,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -317771,13 +316874,13 @@
         943
       ],
       "subsequentActions": [
-        "Attacker: Emiel the Blessed (4/4) unblocked",
-        "Attacker: Knight Token (2/2) blocked by Locthwain Gargoyle (0/3)",
-        "Attacker: Valorous Steed (3/3) unblocked",
-        "Attacker: Knight Token (2/2) unblocked",
-        "Attacker: Rambunctious Mutt (4/5) unblocked"
+        "GPT52 Nature loses 4 life at combat from Emiel the Blessed",
+        "Knight Token deals 2 damage to Locthwain Gargoyle",
+        "GPT52 Nature loses 3 life at combat from Valorous Steed",
+        "GPT52 Nature loses 2 life at combat from Knight Token",
+        "GPT52 Nature loses 4 life at combat from Rambunctious Mutt"
       ],
-      "actionSeq": 974,
+      "actionSeq": 986,
       "pilotContext": {
         "untappedLands": 4
       }

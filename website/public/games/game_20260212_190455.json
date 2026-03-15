@@ -34585,13 +34585,15 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
+        "error_code": "index_out_of_range",
+        "error": "Index 0 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -34607,7 +34609,11 @@
         890,
         891,
         892,
-        893
+        893,
+        894,
+        895,
+        896,
+        897
       ],
       "subsequentActions": [
         "has started watching",

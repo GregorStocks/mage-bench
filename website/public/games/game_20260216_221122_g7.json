@@ -31791,7 +31791,9 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p7",
-        "mana_plan": "p6"
+        "mana_plan": [
+          "p6"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -31943,7 +31945,10 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p10",
-        "mana_plan": "p8,p6"
+        "mana_plan": [
+          "p8",
+          "p6"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -32749,7 +32754,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14,p13"
+        "attackers": [
+          "p14",
+          "p13"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -33110,7 +33118,13 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p17",
-        "mana_plan": "p8,p9,p7,p6,p19"
+        "mana_plan": [
+          "p8",
+          "p9",
+          "p7",
+          "p6",
+          "p19"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -34587,7 +34601,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p7:p18"
+        "blockers": [
+          "p7:p18"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -34599,7 +34615,8 @@
       "llmEventIndices": [
         424,
         425,
-        426
+        426,
+        427
       ],
       "subsequentActions": [
         "spectator7 has started watching",

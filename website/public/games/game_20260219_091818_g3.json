@@ -44209,7 +44209,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -46014,7 +46016,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p2"
+        "attackers": [
+          "p2"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -46149,7 +46153,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p32:p21"
+        "blockers": [
+          "p32:p21"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -47578,7 +47584,14 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p37",
-        "mana_plan": "p10,p11,p12,p14,p15,p16:0"
+        "mana_plan": [
+          "p10",
+          "p11",
+          "p12",
+          "p14",
+          "p15",
+          "p16:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -47717,7 +47730,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -48083,7 +48098,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -48095,7 +48112,8 @@
       "llmEventIndices": [
         508,
         509,
-        510
+        510,
+        511
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -49265,7 +49283,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

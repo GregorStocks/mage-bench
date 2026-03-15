@@ -4,33 +4,38 @@
 Reads each .json/.json.gz in website/public/games/, builds canonical decisions
 from the existing snapshots/actions/llmEvents, and writes the file back.
 
-Skips games that already have a 'decisions' field.
-
 Usage:
-    uv run python scripts/backfill_decisions.py [--dry-run]
+    uv run python scripts/backfill_decisions.py [--dry-run] [--force]
 """
 
+import argparse
 import gzip
 import json
-import sys
 from pathlib import Path
 
-from scripts.export_game import _build_decisions, _GZ_THRESHOLD
+from scripts.export_game import _build_decisions
+from scripts.migrate_exports import write_game
 
 
 GAMES_DIR = Path(__file__).resolve().parent.parent / "website" / "public" / "games"
 
 
-def backfill_game(path: Path, *, dry_run: bool = False) -> int:
-    """Add decisions to a single game export. Returns decision count."""
+def backfill_game(
+    path: Path, *, dry_run: bool = False, force: bool = False
+) -> tuple[str, int]:
+    """Backfill or rebuild decisions for a single game export."""
     if path.suffix == ".gz":
         raw = gzip.decompress(path.read_bytes())
         data = json.loads(raw)
     else:
         data = json.loads(path.read_text())
 
-    if "decisions" in data:
-        return -1  # Already has decisions
+    existing = data.get("decisions")
+    if existing is not None and not force:
+        assert isinstance(existing, list), (
+            f"{path.name}: decisions must be a list when present, got {existing!r}"
+        )
+        return "skipped", len(existing)
 
     decisions = _build_decisions(
         data.get("snapshots", []),
@@ -39,44 +44,33 @@ def backfill_game(path: Path, *, dry_run: bool = False) -> int:
         data.get("harnessEpoch", 0),
     )
 
-    if not decisions:
-        return 0
+    if existing == decisions:
+        return "unchanged", len(decisions)
 
-    data["decisions"] = decisions
+    if decisions:
+        data["decisions"] = decisions
+    elif "decisions" in data:
+        del data["decisions"]
 
     if not dry_run:
-        json_str = json.dumps(data, indent=2, ensure_ascii=False)
-        json_bytes = json_str.encode()
+        write_game(path, data)
 
-        if len(json_bytes) > _GZ_THRESHOLD:
-            out_path = path.with_suffix("") if path.suffix == ".gz" else path
-            out_path = out_path.with_suffix(".json.gz")
-            out_path.write_bytes(gzip.compress(json_bytes))
-            # Clean up alternate format
-            alt = (
-                out_path.with_suffix(".json")
-                if out_path.suffix == ".gz"
-                else out_path.with_suffix(".json.gz")
-            )
-            if alt != path and alt.exists():
-                alt.unlink()
-            if path != out_path and path.exists():
-                path.unlink()
-        else:
-            out_path = path.with_suffix("") if path.suffix == ".gz" else path
-            out_path = out_path.with_suffix(".json")
-            out_path.write_bytes(json_bytes)
-            alt = out_path.with_suffix(".json.gz")
-            if alt != path and alt.exists():
-                alt.unlink()
-            if path != out_path and path.exists():
-                path.unlink()
-
-    return len(decisions)
+    return "updated", len(decisions)
 
 
 def main() -> None:
-    dry_run = "--dry-run" in sys.argv
+    parser = argparse.ArgumentParser(
+        description="Backfill or rebuild canonical decisions on existing exports."
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Preview without writing files."
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Recompute decisions even when the export already has them.",
+    )
+    args = parser.parse_args()
 
     paths = sorted(GAMES_DIR.glob("game_*.json")) + sorted(
         GAMES_DIR.glob("game_*.json.gz")
@@ -92,17 +86,24 @@ def main() -> None:
 
     total = 0
     skipped = 0
+    unchanged = 0
+    updated = 0
     for path in unique_paths:
-        count = backfill_game(path, dry_run=dry_run)
-        if count == -1:
+        status, count = backfill_game(path, dry_run=args.dry_run, force=args.force)
+        if status == "skipped":
             skipped += 1
             continue
-        label = "(dry run)" if dry_run else ""
+        if status == "unchanged":
+            unchanged += 1
+            continue
+        updated += 1
+        label = "(dry run)" if args.dry_run else ""
         print(f"{path.name}: {count} decisions {label}")
         total += count
 
     print(
-        f"\nDone: {len(unique_paths) - skipped} games processed, {skipped} skipped (already had decisions), {total} total decisions"
+        f"\nDone: {updated} updated, {unchanged} unchanged, {skipped} skipped, "
+        f"{total} total decisions written"
     )
 
 

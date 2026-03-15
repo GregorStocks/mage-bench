@@ -166935,7 +166935,8 @@
       "llmEventIndices": [
         125,
         128,
-        129
+        129,
+        130
       ],
       "subsequentActions": [],
       "actionSeq": 211,
@@ -167017,18 +167018,31 @@
       ],
       "choiceCount": 6,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "choice": "p34",
-        "mana_plan": "p17,p18,p19,p20:1"
+        "choice": "p11",
+        "mana_plan": "p15,p16,p27:1"
       },
       "actionResult": {
-        "error": "Unknown short ID: p34"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 211,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 3,
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         131,
         132,
-        133
+        133,
+        134,
+        136,
+        137,
+        138,
+        139
       ],
       "subsequentActions": [
         "MstLg Tinker casts Bone Picker from hand",
@@ -168102,19 +168116,26 @@
       "chosen": 0,
       "chosenArgs": {
         "choice": "p50",
-        "mana_plan": "p17,p42:1"
+        "mana_plan": "p42,p45:1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
         "game_seq": 285,
-        "success": false,
-        "error_code": "invalid_mana_plan",
-        "error": "Mana plan references unknown permanent 'p17'. Check the board state for correct permanent IDs."
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2,
+        "next_action_message": "Play instants and activated abilities"
       },
       "llmEventIndices": [
         203,
         204,
-        205
+        205,
+        206,
+        208,
+        209
       ],
       "subsequentActions": [
         "MstLg Tinker casts Pit Keeper from hand"
@@ -169769,21 +169790,26 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": false,
+      "chosen": null,
       "chosenArgs": {
-        "choice": "no"
+        "amounts": [
+          0
+        ]
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_MULTI_AMOUNT",
         "game_seq": 416,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Array 'amounts' required for GAME_GET_MULTI_AMOUNT"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "multi_amount"
       },
       "llmEventIndices": [
         328,
         329,
-        330
+        330,
+        331,
+        332
       ],
       "subsequentActions": [],
       "actionSeq": 416,
@@ -169882,21 +169908,27 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": false,
+      "chosen": null,
       "chosenArgs": {
-        "choice": "no"
+        "amounts": [
+          0,
+          0
+        ]
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_MULTI_AMOUNT",
         "game_seq": 418,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "Array 'amounts' required for GAME_GET_MULTI_AMOUNT"
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "multi_amount"
       },
       "llmEventIndices": [
         340,
         341,
-        342
+        342,
+        343,
+        344
       ],
       "subsequentActions": [],
       "actionSeq": 418,
@@ -170317,7 +170349,8 @@
       "llmEventIndices": [
         370,
         371,
-        372
+        372,
+        373
       ],
       "subsequentActions": [],
       "actionSeq": 479,
@@ -170462,7 +170495,8 @@
       "llmEventIndices": [
         386,
         387,
-        388
+        388,
+        389
       ],
       "subsequentActions": [],
       "actionSeq": 488,
@@ -170851,31 +170885,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "text": "green"
+        "choice": "1"
       },
       "actionResult": {
-        "retryable": true,
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
         "game_seq": 522,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "'green' is not a valid choice",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Thriving Moor: Thriving Moor enters tapped."
-          },
-          {
-            "index": 1,
-            "description": "Thriving Moor: As Thriving Moor enters, choose a color other than black."
-          }
-        ]
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_1",
+        "next_action_message": "Choose color"
       },
       "llmEventIndices": [
         412,
         413,
-        414
+        414,
+        415,
+        416
       ],
       "subsequentActions": [],
       "actionSeq": 522,
@@ -171068,7 +171096,8 @@
       "llmEventIndices": [
         430,
         431,
-        432
+        432,
+        433
       ],
       "subsequentActions": [],
       "actionSeq": 538,
@@ -171506,7 +171535,8 @@
       "llmEventIndices": [
         459,
         460,
-        461
+        461,
+        463
       ],
       "subsequentActions": [],
       "actionSeq": 568,
@@ -174121,7 +174151,8 @@
       "llmEventIndices": [
         658,
         659,
-        660
+        660,
+        661
       ],
       "subsequentActions": [],
       "actionSeq": 764,
@@ -174175,7 +174206,8 @@
       "llmEventIndices": [
         662,
         663,
-        664
+        664,
+        665
       ],
       "subsequentActions": [],
       "actionSeq": 764,
@@ -174229,7 +174261,8 @@
       "llmEventIndices": [
         666,
         667,
-        668
+        668,
+        669
       ],
       "subsequentActions": [],
       "actionSeq": 764,
@@ -174283,7 +174316,8 @@
       "llmEventIndices": [
         670,
         671,
-        672
+        672,
+        673
       ],
       "subsequentActions": [],
       "actionSeq": 764,

@@ -110547,10 +110547,8 @@
         6,
         10
       ],
-      "subsequentActions": [
-        "Opus Brewer chooses that they take the first turn"
-      ],
-      "actionSeq": 5
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -110824,10 +110822,8 @@
         11,
         12
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step"
-      ],
-      "actionSeq": 7,
+      "subsequentActions": [],
+      "actionSeq": 11,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -110959,7 +110955,7 @@
         16
       ],
       "subsequentActions": [],
-      "actionSeq": 11,
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -111098,11 +111094,8 @@
         15,
         18
       ],
-      "subsequentActions": [
-        "Opus Brewer skips Draw step",
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 8
+      "subsequentActions": [],
+      "actionSeq": 15
     },
     {
       "index": 6,
@@ -111228,7 +111221,7 @@
         24
       ],
       "subsequentActions": [],
-      "actionSeq": 14,
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -111368,10 +111361,8 @@
         23,
         26
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 15
+      "subsequentActions": [],
+      "actionSeq": 19
     },
     {
       "index": 8,
@@ -111506,7 +111497,7 @@
         32
       ],
       "subsequentActions": [],
-      "actionSeq": 18,
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -111685,7 +111676,7 @@
         28
       ],
       "subsequentActions": [],
-      "actionSeq": 19
+      "actionSeq": 21
     },
     {
       "index": 10,
@@ -111858,7 +111849,7 @@
         30
       ],
       "subsequentActions": [],
-      "actionSeq": 21,
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -112014,7 +112005,7 @@
         34
       ],
       "subsequentActions": [],
-      "actionSeq": 22,
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -112193,10 +112184,8 @@
         35,
         36
       ],
-      "subsequentActions": [
-        "GPT53C Teach skip attack"
-      ],
-      "actionSeq": 26,
+      "subsequentActions": [],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -112359,7 +112348,7 @@
         46
       ],
       "subsequentActions": [],
-      "actionSeq": 30,
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -112690,10 +112679,8 @@
         43,
         44
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 34,
+      "subsequentActions": [],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -112851,7 +112838,7 @@
         48
       ],
       "subsequentActions": [],
-      "actionSeq": 38,
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -113024,11 +113011,8 @@
         47,
         50
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield",
-        "Opus Brewer casts Elven Bow from hand"
-      ],
-      "actionSeq": 32,
+      "subsequentActions": [],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -113182,7 +113166,7 @@
         52
       ],
       "subsequentActions": [],
-      "actionSeq": 41,
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -113350,11 +113334,8 @@
         51,
         56
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elven Bow from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Elven Bow - When Elven Bow enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it."
-      ],
-      "actionSeq": 42,
+      "subsequentActions": [],
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -113503,7 +113484,7 @@
         54
       ],
       "subsequentActions": [],
-      "actionSeq": 45,
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -113698,10 +113679,8 @@
         57,
         58
       ],
-      "subsequentActions": [
-        "Opus Brewer did not pay for Elven Bow - Pay {2} and create a 1/1 green Elf Warrior creature token, then attach Elven Bow to it?"
-      ],
-      "actionSeq": 46,
+      "subsequentActions": [],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -113868,10 +113847,8 @@
         59,
         60
       ],
-      "subsequentActions": [
-        "Opus Brewer skip attack"
-      ],
-      "actionSeq": 50,
+      "subsequentActions": [],
+      "actionSeq": 54,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -114078,7 +114055,7 @@
         62
       ],
       "subsequentActions": [],
-      "actionSeq": 54,
+      "actionSeq": 56,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -114293,7 +114270,7 @@
         66
       ],
       "subsequentActions": [],
-      "actionSeq": 56,
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -114480,10 +114457,8 @@
         67,
         68
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 57,
+      "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -114663,10 +114638,8 @@
         69,
         70
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Brushstrider from hand"
-      ],
-      "actionSeq": 61,
+      "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114841,10 +114814,8 @@
         71,
         74
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Brushstrider from stack onto the Battlefield"
-      ],
-      "actionSeq": 65,
+      "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115363,10 +115334,8 @@
         79,
         80
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 76,
+      "subsequentActions": [],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115554,10 +115523,8 @@
         81,
         82
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Llanowar Visionary from hand"
-      ],
-      "actionSeq": 80,
+      "subsequentActions": [],
+      "actionSeq": 85,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115740,11 +115707,8 @@
         83,
         84
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Llanowar Visionary from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Llanowar Visionary - When Llanowar Visionary enters, draw a card."
-      ],
-      "actionSeq": 85,
+      "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115927,7 +115891,7 @@
         86
       ],
       "subsequentActions": [],
-      "actionSeq": 89,
+      "actionSeq": 91,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -116411,10 +116375,8 @@
         93,
         94
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 99,
+      "subsequentActions": [],
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -116623,10 +116585,8 @@
         95,
         96
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Turntimber Basilisk from hand"
-      ],
-      "actionSeq": 103,
+      "subsequentActions": [],
+      "actionSeq": 108,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117776,10 +117736,8 @@
         111,
         112
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 130,
+      "subsequentActions": [],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -118034,10 +117992,8 @@
         113,
         114
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Elvish Archdruid from hand"
-      ],
-      "actionSeq": 134,
+      "subsequentActions": [],
+      "actionSeq": 139,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -118287,10 +118243,8 @@
         115,
         116
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Elvish Archdruid from stack onto the Battlefield"
-      ],
-      "actionSeq": 139,
+      "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -118542,7 +118496,7 @@
         118
       ],
       "subsequentActions": [],
-      "actionSeq": 142,
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -119226,10 +119180,8 @@
         125,
         126
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 151,
+      "subsequentActions": [],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119477,10 +119429,8 @@
         127,
         128
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Elvish Archdruid"
-      ],
-      "actionSeq": 155,
+      "subsequentActions": [],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119728,7 +119678,7 @@
         130
       ],
       "subsequentActions": [],
-      "actionSeq": 157,
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119991,7 +119941,7 @@
         132
       ],
       "subsequentActions": [],
-      "actionSeq": 159,
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -120274,7 +120224,7 @@
         134
       ],
       "subsequentActions": [],
-      "actionSeq": 160,
+      "actionSeq": 161,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -120537,7 +120487,7 @@
         136
       ],
       "subsequentActions": [],
-      "actionSeq": 161,
+      "actionSeq": 162,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -120775,10 +120725,8 @@
         137,
         138
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Hunter's Edge targeting Turntimber Basilisk, Elvish Archdruid from hand"
-      ],
-      "actionSeq": 162,
+      "subsequentActions": [],
+      "actionSeq": 168,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -121039,13 +120987,8 @@
         139,
         140
       ],
-      "subsequentActions": [
-        "Hunter's Edge: GPT53C Teach puts 1 +1/+1 counters on Turntimber Basilisk",
-        "Turntimber Basilisk deals 3 damage to Elvish Archdruid",
-        "GPT53C Teach puts Hunter's Edge from stack into their graveyard",
-        "Elvish Archdruid died"
-      ],
-      "actionSeq": 168,
+      "subsequentActions": [],
+      "actionSeq": 174,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -121336,7 +121279,7 @@
         142
       ],
       "subsequentActions": [],
-      "actionSeq": 174,
+      "actionSeq": 176,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -121402,9 +121345,9 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p13:p28"
+        "choice": "no"
       },
       "actionResult": {
         "action_pending": true,
@@ -121412,7 +121355,7 @@
         "message": "Play instants and activated abilities",
         "response_type": "select",
         "respond_with": "choice=pN to play, or choice=no to pass",
-        "context": "T4 Combat/Declare Blockers (GPT53C Teach)",
+        "context": "T4 Combat/Combat Damage (GPT53C Teach)",
         "board": [
           {
             "hand_size": 4,
@@ -121488,7 +121431,7 @@
             ],
             "name": "Opus Brewer",
             "library_size": 29,
-            "life": 17,
+            "life": 11,
             "hand": [
               {
                 "mana_cost": "{2}{G}",
@@ -121605,7 +121548,7 @@
             "life": 20
           }
         ],
-        "board_cursor": 23,
+        "board_cursor": 24,
         "choices": [
           {
             "mana_cost": "{G}",
@@ -121649,27 +121592,19 @@
           }
         ],
         "untapped_lands": 1,
-        "game_seq": 182,
-        "error": "p13: unknown attacker ID: p28",
-        "action_taken": "batch_block",
-        "success": false,
-        "error_code": "batch_failed",
-        "retryable": true,
-        "declared": [],
-        "failed": [
-          {
-            "id": "p13",
-            "reason": "unknown attacker ID: p28"
-          }
-        ]
+        "game_seq": 189,
+        "action_taken": "passed_priority",
+        "success": true
       },
       "llmEventIndices": [
         144,
         145,
-        146
+        146,
+        147,
+        148
       ],
       "subsequentActions": [],
-      "actionSeq": 182,
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -121977,11 +121912,8 @@
         147,
         148
       ],
-      "subsequentActions": [
-        "Attacker: Brushstrider (3/1) unblocked",
-        "Attacker: Turntimber Basilisk (3/2) unblocked"
-      ],
-      "actionSeq": 182,
+      "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -122249,11 +122181,8 @@
         151,
         152
       ],
-      "subsequentActions": [
-        "Opus Brewer loses 3 life at combat from Brushstrider",
-        "Opus Brewer loses 3 life at combat from Turntimber Basilisk"
-      ],
-      "actionSeq": 189,
+      "subsequentActions": [],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -122916,10 +122845,8 @@
         159,
         160
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Dwynen's Elite from hand"
-      ],
-      "actionSeq": 197,
+      "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -123241,11 +123168,8 @@
         161,
         162
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Dwynen's Elite from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Dwynen's Elite - When Dwynen's Elite enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
-      ],
-      "actionSeq": 203,
+      "subsequentActions": [],
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -123586,10 +123510,8 @@
         163,
         164
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 207,
+      "subsequentActions": [],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -123893,7 +123815,7 @@
         166
       ],
       "subsequentActions": [],
-      "actionSeq": 210,
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -124153,10 +124075,8 @@
         167,
         168
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Presence of Gond targeting Elf Warrior Token from hand"
-      ],
-      "actionSeq": 211,
+      "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -124907,10 +124827,8 @@
         175,
         176
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Evolving Wilds from hand onto the Battlefield"
-      ],
-      "actionSeq": 227,
+      "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -125228,10 +125146,8 @@
         177,
         178
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Llanowar Visionary"
-      ],
-      "actionSeq": 231,
+      "subsequentActions": [],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -125543,7 +125459,7 @@
         180
       ],
       "subsequentActions": [],
-      "actionSeq": 233,
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -125894,11 +125810,8 @@
         181,
         184
       ],
-      "subsequentActions": [
-        "GPT53C Teach sacrificed Evolving Wilds (source: Evolving Wilds)",
-        "GPT53C Teach activates: search your library for a basic land card, put it onto the battlefield tapped, then shuffle. from Evolving Wilds"
-      ],
-      "actionSeq": 234,
+      "subsequentActions": [],
+      "actionSeq": 237,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -126317,10 +126230,8 @@
         185,
         186
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Evolving Wilds)"
-      ],
-      "actionSeq": 237,
+      "subsequentActions": [],
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -126685,11 +126596,8 @@
         187,
         188
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Evolving Wilds)",
-        "GPT53C Teach's library is shuffled (source: Evolving Wilds)"
-      ],
-      "actionSeq": 240,
+      "subsequentActions": [],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -127008,10 +126916,8 @@
         189,
         190
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Turntimber Basilisk - Landfall — Whenever a land you control enters, you may have target creature block Turntimber Basilisk this turn if able. - targeting Dwynen's Elite"
-      ],
-      "actionSeq": 243,
+      "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -127326,7 +127232,7 @@
         192
       ],
       "subsequentActions": [],
-      "actionSeq": 245,
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -127640,7 +127546,7 @@
         194
       ],
       "subsequentActions": [],
-      "actionSeq": 247,
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -127944,7 +127850,7 @@
         196
       ],
       "subsequentActions": [],
-      "actionSeq": 248,
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -128270,7 +128176,7 @@
         198
       ],
       "subsequentActions": [],
-      "actionSeq": 250,
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -128627,7 +128533,7 @@
         200
       ],
       "subsequentActions": [],
-      "actionSeq": 251,
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -128965,10 +128871,8 @@
         201,
         204
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Opus Brewer with 2 creatures"
-      ],
-      "actionSeq": 253,
+      "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -129653,11 +129557,8 @@
         205,
         206
       ],
-      "subsequentActions": [
-        "Attacker: Brushstrider (3/1) unblocked",
-        "Attacker: Turntimber Basilisk (3/2) blocked by Dwynen's Elite (2/2)"
-      ],
-      "actionSeq": 257,
+      "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -130001,7 +129902,7 @@
         208
       ],
       "subsequentActions": [],
-      "actionSeq": 263,
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -130320,7 +130221,7 @@
         212
       ],
       "subsequentActions": [],
-      "actionSeq": 264,
+      "actionSeq": 269,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -130629,12 +130530,8 @@
         211,
         214
       ],
-      "subsequentActions": [
-        "Attacker: Brushstrider (3/1) unblocked",
-        "Attacker: Turntimber Basilisk (3/2) blocked by Dwynen's Elite (2/2)",
-        "GPT53C Teach casts Hunter's Insight targeting Brushstrider from hand"
-      ],
-      "actionSeq": 259
+      "subsequentActions": [],
+      "actionSeq": 270
     },
     {
       "index": 95,
@@ -130929,7 +130826,7 @@
         216
       ],
       "subsequentActions": [],
-      "actionSeq": 269,
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131217,10 +131114,8 @@
         215,
         218
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Hunter's Insight from stack into their graveyard"
-      ],
-      "actionSeq": 270
+      "subsequentActions": [],
+      "actionSeq": 273
     },
     {
       "index": 97,
@@ -131538,7 +131433,7 @@
         220
       ],
       "subsequentActions": [],
-      "actionSeq": 272,
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131821,14 +131716,8 @@
         219,
         222
       ],
-      "subsequentActions": [
-        "Opus Brewer loses 3 life at combat from Brushstrider",
-        "Dwynen's Elite deals 2 damage to Turntimber Basilisk",
-        "Turntimber Basilisk deals 3 damage to Dwynen's Elite",
-        "Turntimber Basilisk died",
-        "Dwynen's Elite died"
-      ],
-      "actionSeq": 273
+      "subsequentActions": [],
+      "actionSeq": 282
     },
     {
       "index": 99,
@@ -132128,7 +132017,7 @@
         224
       ],
       "subsequentActions": [],
-      "actionSeq": 281,
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -132458,7 +132347,7 @@
         234
       ],
       "subsequentActions": [],
-      "actionSeq": 283,
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -132826,30 +132715,300 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "1"
+        "choice": "0"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T6 Precombat Main/Precombat Main (Opus Brewer) YOUR_MAIN",
+        "board": [
           {
-            "index": 0,
-            "description": "1. {T}: Create a 1/1 green Elf Warrior creature token."
+            "hand_size": 4,
+            "graveyard": [
+              {
+                "name": "Dwynen's Elite",
+                "rules": [
+                  "When {this} enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p40"
+              },
+              {
+                "name": "Elvish Archdruid",
+                "rules": [
+                  "Other Elf creatures you control get +1/+1.",
+                  "{T}: Add {G} for each Elf you control.",
+                  ": ",
+                  "Elves you control: 2"
+                ],
+                "id": "p10"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  "{T}: Create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p43",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elven Bow",
+                "rules": [
+                  "When {this} enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach {this} to it.",
+                  "Equipped creature gets +1/+2 and has reach.",
+                  "Equip {3}"
+                ],
+                "id": "p24"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": false,
+                "name": "Llanowar Visionary",
+                "rules": [
+                  "When {this} enters, draw a card.",
+                  "{T}: Add {G}."
+                ],
+                "id": "p13",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Presence of Gond",
+                "rules": [
+                  "Enchant creature",
+                  "Enchanted creature has \"{T}: Create a 1/1 green Elf Warrior creature token.\""
+                ],
+                "id": "p15"
+              }
+            ],
+            "name": "Opus Brewer",
+            "library_size": 27,
+            "life": 8,
+            "hand": [
+              {
+                "mana_cost": "{2}{G}",
+                "name": "Band Together",
+                "rules": [
+                  "Up to two target creatures you control each deal damage equal to their power to another target creature."
+                ],
+                "id": "p32",
+                "playable": true
+              },
+              {
+                "mana_cost": "{G}",
+                "name": "Might of the Masses",
+                "rules": [
+                  "Target creature gets +1/+1 until end of turn for each creature you control."
+                ],
+                "id": "p14",
+                "playable": true
+              },
+              {
+                "mana_cost": "{G}",
+                "name": "Skyway Sniper",
+                "rules": [
+                  "Reach",
+                  "{2}{G}: {this} deals 1 damage to target creature with flying."
+                ],
+                "power": "1",
+                "id": "p80",
+                "toughness": "2"
+              },
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Titanic Growth",
+                "rules": [
+                  "Target creature gets +4/+4 until end of turn."
+                ],
+                "id": "p16",
+                "playable": true
+              }
+            ]
+          },
+          {
+            "hand_size": 6,
+            "graveyard": [
+              {
+                "name": "Evolving Wilds",
+                "rules": [
+                  "{T}, Sacrifice {this}: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Hunter's Edge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature you don't control."
+                ],
+                "id": "p23"
+              },
+              {
+                "name": "Hunter's Insight",
+                "rules": [
+                  "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards."
+                ],
+                "id": "p45"
+              },
+              {
+                "name": "Turntimber Basilisk",
+                "rules": [
+                  "Deathtouch",
+                  "Landfall &mdash; Whenever a land you control enters, you may have target creature block {this} this turn if able."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Brushstrider",
+                "rules": [
+                  "Vigilance"
+                ],
+                "id": "p3",
+                "power": "3",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p27"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p57"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 24,
+            "life": 20
           }
         ],
+        "board_cursor": 38,
+        "choices": [
+          {
+            "mana_cost": "{2}{G}",
+            "name": "Band Together",
+            "index": 0,
+            "action": "cast",
+            "id": "p32"
+          },
+          {
+            "mana_cost": "{G}",
+            "name": "Might of the Masses",
+            "index": 1,
+            "action": "cast",
+            "id": "p14"
+          },
+          {
+            "mana_cost": "{1}{G}",
+            "name": "Titanic Growth",
+            "index": 2,
+            "action": "cast",
+            "id": "p16"
+          }
+        ],
+        "stack": [
+          {
+            "name": "Ability"
+          }
+        ],
+        "untapped_lands": 4,
         "game_seq": 288,
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "success": false,
-        "error_code": "index_out_of_range",
-        "retryable": true
+        "land_drops_used": 0,
+        "action_taken": "selected_ability_0",
+        "success": true
       },
       "llmEventIndices": [
         228,
         229,
-        230
+        230,
+        231,
+        232
       ],
       "subsequentActions": [],
-      "actionSeq": 287,
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -133210,7 +133369,7 @@
         236
       ],
       "subsequentActions": [],
-      "actionSeq": 288,
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -133531,10 +133690,8 @@
         235,
         240
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 285,
+      "subsequentActions": [],
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -133880,10 +134037,8 @@
         237,
         238
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 292,
+      "subsequentActions": [],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -134235,7 +134390,7 @@
         242
       ],
       "subsequentActions": [],
-      "actionSeq": 295,
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -134578,11 +134733,8 @@
         241,
         252
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token",
-        "Opus Brewer casts Skyway Sniper from hand"
-      ],
-      "actionSeq": 293,
+      "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -134936,10 +135088,8 @@
         243,
         244
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Skyway Sniper from stack onto the Battlefield"
-      ],
-      "actionSeq": 298,
+      "subsequentActions": [],
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -135301,7 +135451,7 @@
         246
       ],
       "subsequentActions": [],
-      "actionSeq": 301,
+      "actionSeq": 302,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -135663,7 +135813,7 @@
         248
       ],
       "subsequentActions": [],
-      "actionSeq": 302,
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -136008,7 +136158,7 @@
         250
       ],
       "subsequentActions": [],
-      "actionSeq": 303,
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -136314,7 +136464,7 @@
         254
       ],
       "subsequentActions": [],
-      "actionSeq": 304,
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -136643,11 +136793,8 @@
         253,
         258
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Skyway Sniper from stack onto the Battlefield",
-        "Opus Brewer casts Band Together targeting Llanowar Visionary, Brushstrider from hand"
-      ],
-      "actionSeq": 299,
+      "subsequentActions": [],
+      "actionSeq": 310,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -136948,7 +137095,7 @@
         260
       ],
       "subsequentActions": [],
-      "actionSeq": 309,
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -137277,12 +137424,8 @@
         259,
         262
       ],
-      "subsequentActions": [
-        "Llanowar Visionary deals 2 damage to Brushstrider",
-        "Opus Brewer puts Band Together from stack into their graveyard",
-        "Brushstrider died"
-      ],
-      "actionSeq": 310,
+      "subsequentActions": [],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -138391,7 +138534,7 @@
         276
       ],
       "subsequentActions": [],
-      "actionSeq": 322,
+      "actionSeq": 331,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -138712,10 +138855,8 @@
         275,
         280
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Zendikar's Roil from hand"
-      ],
-      "actionSeq": 320,
+      "subsequentActions": [],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -139072,10 +139213,8 @@
         277,
         278
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Zendikar's Roil from stack onto the Battlefield"
-      ],
-      "actionSeq": 331,
+      "subsequentActions": [],
+      "actionSeq": 334,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -139437,7 +139576,7 @@
         282
       ],
       "subsequentActions": [],
-      "actionSeq": 334,
+      "actionSeq": 337,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -139767,12 +139906,8 @@
         281,
         286
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Zendikar's Roil from stack onto the Battlefield",
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 332,
+      "subsequentActions": [],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -140124,10 +140259,8 @@
         283,
         284
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 337,
+      "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -140477,7 +140610,7 @@
         290
       ],
       "subsequentActions": [],
-      "actionSeq": 340,
+      "actionSeq": 343,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -140813,11 +140946,8 @@
         289,
         292
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token",
-        "GPT53C Teach casts Oashra Cultivator from hand"
-      ],
-      "actionSeq": 338,
+      "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -141165,7 +141295,7 @@
         294
       ],
       "subsequentActions": [],
-      "actionSeq": 343,
+      "actionSeq": 346,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -141974,7 +142104,7 @@
         300
       ],
       "subsequentActions": [],
-      "actionSeq": 354,
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -142370,10 +142500,8 @@
         301,
         302
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 355,
+      "subsequentActions": [],
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -142753,10 +142881,8 @@
         303,
         304
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 359,
+      "subsequentActions": [],
+      "actionSeq": 362,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -143124,10 +143250,8 @@
         305,
         306
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Primeval Herald from hand"
-      ],
-      "actionSeq": 362,
+      "subsequentActions": [],
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -143484,11 +143608,8 @@
         307,
         308
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Primeval Herald from stack onto the Battlefield",
-        "Opus Brewer - Ability triggers: Primeval Herald - Whenever Primeval Herald enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
-      ],
-      "actionSeq": 368,
+      "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -143902,7 +144023,7 @@
         310
       ],
       "subsequentActions": [],
-      "actionSeq": 372,
+      "actionSeq": 374,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -144324,10 +144445,8 @@
         311,
         312
       ],
-      "subsequentActions": [
-        "Opus Brewer searches their library (source: Primeval Herald)"
-      ],
-      "actionSeq": 374,
+      "subsequentActions": [],
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -144710,11 +144829,8 @@
         313,
         314
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from library onto the Battlefield (source: Primeval Herald)",
-        "Opus Brewer's library is shuffled (source: Primeval Herald)"
-      ],
-      "actionSeq": 376,
+      "subsequentActions": [],
+      "actionSeq": 379,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -145129,7 +145245,7 @@
         316
       ],
       "subsequentActions": [],
-      "actionSeq": 379,
+      "actionSeq": 381,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -145581,10 +145697,8 @@
         317,
         318
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks GPT53C Teach with 2 creatures"
-      ],
-      "actionSeq": 381,
+      "subsequentActions": [],
+      "actionSeq": 385,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -146033,7 +146147,7 @@
         320
       ],
       "subsequentActions": [],
-      "actionSeq": 385,
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -146403,10 +146517,8 @@
         321,
         322
       ],
-      "subsequentActions": [
-        "Opus Brewer casts Might of the Masses targeting Elf Warrior Token from hand"
-      ],
-      "actionSeq": 386
+      "subsequentActions": [],
+      "actionSeq": 389
     },
     {
       "index": 145,
@@ -146789,10 +146901,8 @@
         323,
         330
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Might of the Masses from stack into their graveyard"
-      ],
-      "actionSeq": 389
+      "subsequentActions": [],
+      "actionSeq": 392
     },
     {
       "index": 146,
@@ -147712,7 +147822,7 @@
         328
       ],
       "subsequentActions": [],
-      "actionSeq": 394
+      "actionSeq": 395
     },
     {
       "index": 148,
@@ -148147,7 +148257,7 @@
         332
       ],
       "subsequentActions": [],
-      "actionSeq": 395,
+      "actionSeq": 396,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -148531,7 +148641,7 @@
         334
       ],
       "subsequentActions": [],
-      "actionSeq": 392
+      "actionSeq": 402
     },
     {
       "index": 150,
@@ -148933,11 +149043,8 @@
         333,
         336
       ],
-      "subsequentActions": [
-        "Attacker: Elf Warrior Token (7/7) blocked by Elemental Token (2/2)",
-        "Attacker: Skyway Sniper (1/2) blocked by Oashra Cultivator (0/3)"
-      ],
-      "actionSeq": 396
+      "subsequentActions": [],
+      "actionSeq": 403
     },
     {
       "index": 151,
@@ -149271,7 +149378,7 @@
         338
       ],
       "subsequentActions": [],
-      "actionSeq": 402
+      "actionSeq": 409
     },
     {
       "index": 152,
@@ -149639,13 +149746,8 @@
         337,
         342
       ],
-      "subsequentActions": [
-        "Elemental Token deals 2 damage to Elf Warrior Token",
-        "Elf Warrior Token deals 7 damage to Elemental Token",
-        "Skyway Sniper deals 1 damage to Oashra Cultivator",
-        "Elemental Token died"
-      ],
-      "actionSeq": 403
+      "subsequentActions": [],
+      "actionSeq": 410
     },
     {
       "index": 153,
@@ -149984,7 +150086,7 @@
         350
       ],
       "subsequentActions": [],
-      "actionSeq": 409,
+      "actionSeq": 411,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -150828,7 +150930,7 @@
         354
       ],
       "subsequentActions": [],
-      "actionSeq": 413,
+      "actionSeq": 423,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -151192,10 +151294,8 @@
         353,
         360
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Rampaging Baloths from hand"
-      ],
-      "actionSeq": 411
+      "subsequentActions": [],
+      "actionSeq": 424
     },
     {
       "index": 158,
@@ -151596,10 +151696,8 @@
         355,
         356
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Rampaging Baloths from stack onto the Battlefield"
-      ],
-      "actionSeq": 423,
+      "subsequentActions": [],
+      "actionSeq": 426,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -152004,10 +152102,8 @@
         357,
         358
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 426,
+      "subsequentActions": [],
+      "actionSeq": 428,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -152404,7 +152500,7 @@
         362
       ],
       "subsequentActions": [],
-      "actionSeq": 428,
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -152774,13 +152870,8 @@
         361,
         364
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Rampaging Baloths from stack onto the Battlefield",
-        "GPT53C Teach puts Forest from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token.",
-        "GPT53C Teach - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token."
-      ],
-      "actionSeq": 424
+      "subsequentActions": [],
+      "actionSeq": 432
     },
     {
       "index": 162,
@@ -153177,7 +153268,7 @@
         366
       ],
       "subsequentActions": [],
-      "actionSeq": 431,
+      "actionSeq": 434,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -153551,10 +153642,8 @@
         365,
         368
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Beast Token token"
-      ],
-      "actionSeq": 432
+      "subsequentActions": [],
+      "actionSeq": 435
     },
     {
       "index": 164,
@@ -153951,10 +154040,8 @@
         369,
         374
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 435
+      "subsequentActions": [],
+      "actionSeq": 438
     },
     {
       "index": 166,
@@ -155282,10 +155369,8 @@
         379,
         380
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from hand onto the Battlefield"
-      ],
-      "actionSeq": 446,
+      "subsequentActions": [],
+      "actionSeq": 450,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -155312,30 +155397,390 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": 1,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "1"
+        "choice": "0"
       },
       "actionResult": {
-        "choices": [
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "message": "Play instants and activated abilities",
+        "response_type": "select",
+        "respond_with": "choice=pN to play, or choice=no to pass",
+        "context": "T8 Precombat Main/Precombat Main (Opus Brewer) YOUR_MAIN",
+        "board": [
           {
-            "index": 0,
-            "description": "1. {T}: Create a 1/1 green Elf Warrior creature token."
+            "hand_size": 1,
+            "graveyard": [
+              {
+                "name": "Band Together",
+                "rules": [
+                  "Up to two target creatures you control each deal damage equal to their power to another target creature."
+                ],
+                "id": "p32"
+              },
+              {
+                "name": "Dwynen's Elite",
+                "rules": [
+                  "When {this} enters, if you control another Elf, create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p40"
+              },
+              {
+                "name": "Elvish Archdruid",
+                "rules": [
+                  "Other Elf creatures you control get +1/+1.",
+                  "{T}: Add {G} for each Elf you control.",
+                  ": ",
+                  "Elves you control: 6"
+                ],
+                "id": "p10"
+              },
+              {
+                "name": "Might of the Masses",
+                "rules": [
+                  "Target creature gets +1/+1 until end of turn for each creature you control."
+                ],
+                "id": "p14"
+              }
+            ],
+            "is_active": true,
+            "is_you": true,
+            "battlefield": [
+              {
+                "tapped": true,
+                "name": "Elf Warrior Token",
+                "modified": true,
+                "rules": [
+                  "{T}: Create a 1/1 green Elf Warrior creature token."
+                ],
+                "id": "p43",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "id": "p83",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elf Warrior Token",
+                "id": "p93",
+                "power": "1",
+                "toughness": "1",
+                "summoning_sick": false,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elven Bow",
+                "rules": [
+                  "When {this} enters, you may pay {2}. If you do, create a 1/1 green Elf Warrior creature token, then attach {this} to it.",
+                  "Equipped creature gets +1/+2 and has reach.",
+                  "Equip {3}"
+                ],
+                "id": "p24"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p11"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p12"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p29"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p35"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p106"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p107"
+              },
+              {
+                "tapped": false,
+                "name": "Llanowar Visionary",
+                "rules": [
+                  "When {this} enters, draw a card.",
+                  "{T}: Add {G}."
+                ],
+                "id": "p13",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Presence of Gond",
+                "rules": [
+                  "Enchant creature",
+                  "Enchanted creature has \"{T}: Create a 1/1 green Elf Warrior creature token.\""
+                ],
+                "id": "p15"
+              },
+              {
+                "tapped": false,
+                "name": "Primeval Herald",
+                "rules": [
+                  "Trample",
+                  "Whenever {this} enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p90",
+                "power": "3",
+                "toughness": "1",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Skyway Sniper",
+                "rules": [
+                  "Reach",
+                  "{2}{G}: {this} deals 1 damage to target creature with flying."
+                ],
+                "id": "p80",
+                "power": "1",
+                "toughness": "2",
+                "summoning_sick": false
+              }
+            ],
+            "name": "Opus Brewer",
+            "library_size": 24,
+            "life": 8,
+            "hand": [
+              {
+                "mana_cost": "{1}{G}",
+                "name": "Titanic Growth",
+                "rules": [
+                  "Target creature gets +4/+4 until end of turn."
+                ],
+                "id": "p16",
+                "playable": true
+              }
+            ]
+          },
+          {
+            "hand_size": 3,
+            "graveyard": [
+              {
+                "name": "Brushstrider",
+                "rules": [
+                  "Vigilance"
+                ],
+                "id": "p3"
+              },
+              {
+                "name": "Evolving Wilds",
+                "rules": [
+                  "{T}, Sacrifice {this}: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p4"
+              },
+              {
+                "name": "Hunter's Edge",
+                "rules": [
+                  "Put a +1/+1 counter on target creature you control. Then that creature deals damage equal to its power to target creature you don't control."
+                ],
+                "id": "p23"
+              },
+              {
+                "name": "Hunter's Insight",
+                "rules": [
+                  "Choose target creature you control. Whenever that creature deals combat damage to a player or planeswalker this turn, draw that many cards."
+                ],
+                "id": "p45"
+              },
+              {
+                "name": "Turntimber Basilisk",
+                "rules": [
+                  "Deathtouch",
+                  "Landfall &mdash; Whenever a land you control enters, you may have target creature block {this} this turn if able."
+                ],
+                "id": "p8"
+              }
+            ],
+            "is_active": false,
+            "is_you": false,
+            "battlefield": [
+              {
+                "tapped": false,
+                "name": "Beast Token",
+                "id": "p126",
+                "power": "4",
+                "toughness": "4",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": false,
+                "name": "Elemental Token",
+                "id": "p127",
+                "power": "2",
+                "toughness": "2",
+                "summoning_sick": true,
+                "token": true
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p5"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p6"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p7"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p27"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p33"
+              },
+              {
+                "tapped": false,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p37"
+              },
+              {
+                "tapped": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "id": "p57"
+              },
+              {
+                "tapped": false,
+                "name": "Oashra Cultivator",
+                "rules": [
+                  "{2}{G}, {T}, Sacrifice {this}: Search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
+                ],
+                "id": "p67",
+                "power": "0",
+                "toughness": "3",
+                "summoning_sick": false
+              },
+              {
+                "tapped": false,
+                "name": "Rampaging Baloths",
+                "rules": [
+                  "Trample",
+                  "Landfall &mdash; Whenever a land you control enters, create a 4/4 green Beast creature token."
+                ],
+                "id": "p70",
+                "power": "6",
+                "toughness": "6",
+                "summoning_sick": true
+              },
+              {
+                "tapped": false,
+                "name": "Zendikar's Roil",
+                "rules": [
+                  "Landfall &mdash; Whenever a land you control enters, create a 2/2 green Elemental creature token."
+                ],
+                "id": "p9"
+              }
+            ],
+            "name": "GPT53C Teach",
+            "library_size": 22,
+            "life": 20
           }
         ],
+        "board_cursor": 67,
+        "choices": [
+          {
+            "mana_cost": "{1}{G}",
+            "name": "Titanic Growth",
+            "index": 0,
+            "action": "cast",
+            "id": "p16"
+          }
+        ],
+        "stack": [
+          {
+            "name": "Ability"
+          }
+        ],
+        "untapped_lands": 6,
         "game_seq": 451,
-        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
-        "success": false,
-        "error_code": "index_out_of_range",
-        "retryable": true
+        "land_drops_used": 1,
+        "action_taken": "selected_ability_0",
+        "success": true
       },
       "llmEventIndices": [
         380,
         381,
-        382
+        382,
+        383,
+        384
       ],
       "subsequentActions": [],
-      "actionSeq": 450,
+      "actionSeq": 451,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -155758,10 +156203,8 @@
         385,
         386
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: create a 1/1 green Elf Warrior creature token. from Elf Warrior Token"
-      ],
-      "actionSeq": 451,
+      "subsequentActions": [],
+      "actionSeq": 453,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -156222,10 +156665,8 @@
         387,
         388
       ],
-      "subsequentActions": [
-        "Opus Brewer creates a Elf Warrior Token token"
-      ],
-      "actionSeq": 453,
+      "subsequentActions": [],
+      "actionSeq": 456,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -156750,7 +157191,7 @@
         390
       ],
       "subsequentActions": [],
-      "actionSeq": 456,
+      "actionSeq": 458,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -157218,11 +157659,8 @@
         391,
         392
       ],
-      "subsequentActions": [
-        "Opus Brewer attacks GPT53C Teach with 5 creatures",
-        "Opus Brewer - Ability triggers: Primeval Herald - Whenever Primeval Herald enters or attacks, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle."
-      ],
-      "actionSeq": 458,
+      "subsequentActions": [],
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -157737,7 +158175,7 @@
         394
       ],
       "subsequentActions": [],
-      "actionSeq": 463,
+      "actionSeq": 465,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -158260,10 +158698,8 @@
         395,
         396
       ],
-      "subsequentActions": [
-        "Opus Brewer searches their library (source: Primeval Herald)"
-      ],
-      "actionSeq": 465,
+      "subsequentActions": [],
+      "actionSeq": 467,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -158777,11 +159213,8 @@
         397,
         404
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Forest from library onto the Battlefield (source: Primeval Herald)",
-        "Opus Brewer's library is shuffled (source: Primeval Herald)"
-      ],
-      "actionSeq": 467,
+      "subsequentActions": [],
+      "actionSeq": 470,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -159994,7 +160427,7 @@
         402
       ],
       "subsequentActions": [],
-      "actionSeq": 472,
+      "actionSeq": 473,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -160562,7 +160995,7 @@
         410
       ],
       "subsequentActions": [],
-      "actionSeq": 473,
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -161194,14 +161627,8 @@
         405,
         406
       ],
-      "subsequentActions": [
-        "Attacker: Llanowar Visionary (2/2) blocked by Rampaging Baloths (6/6)",
-        "Attacker: Elf Warrior Token (1/1) blocked by Oashra Cultivator (0/3)",
-        "Attacker: Skyway Sniper (1/2) blocked by Elemental Token (2/2)",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Primeval Herald (3/1) blocked by Beast Token (4/4)"
-      ],
-      "actionSeq": 470,
+      "subsequentActions": [],
+      "actionSeq": 487,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -161799,7 +162226,7 @@
         408
       ],
       "subsequentActions": [],
-      "actionSeq": 487,
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -162291,7 +162718,7 @@
         412
       ],
       "subsequentActions": [],
-      "actionSeq": 488,
+      "actionSeq": 492,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -162815,14 +163242,8 @@
         411,
         414
       ],
-      "subsequentActions": [
-        "Attacker: Llanowar Visionary (2/2) blocked by Rampaging Baloths (6/6)",
-        "Attacker: Elf Warrior Token (1/1) blocked by Oashra Cultivator (0/3)",
-        "Attacker: Skyway Sniper (1/2) blocked by Elemental Token (2/2)",
-        "Attacker: Elf Warrior Token (1/1) unblocked",
-        "Attacker: Primeval Herald (3/1) blocked by Beast Token (4/4)"
-      ],
-      "actionSeq": 474,
+      "subsequentActions": [],
+      "actionSeq": 493,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -163281,7 +163702,7 @@
         416
       ],
       "subsequentActions": [],
-      "actionSeq": 492,
+      "actionSeq": 495,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -163772,10 +164193,8 @@
         415,
         420
       ],
-      "subsequentActions": [
-        "Opus Brewer puts Titanic Growth from stack into their graveyard"
-      ],
-      "actionSeq": 493,
+      "subsequentActions": [],
+      "actionSeq": 496,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -164174,7 +164593,7 @@
         422
       ],
       "subsequentActions": [],
-      "actionSeq": 495,
+      "actionSeq": 509,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -164603,14 +165022,8 @@
         421,
         428
       ],
-      "subsequentActions": [
-        "Rampaging Baloths deals 6 damage to Llanowar Visionary",
-        "Llanowar Visionary deals 2 damage to Rampaging Baloths",
-        "Elf Warrior Token deals 1 damage to Oashra Cultivator",
-        "Elemental Token deals 2 damage to Skyway Sniper",
-        "Skyway Sniper deals 1 damage to Elemental Token"
-      ],
-      "actionSeq": 496,
+      "subsequentActions": [],
+      "actionSeq": 510,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -165051,7 +165464,7 @@
         424
       ],
       "subsequentActions": [],
-      "actionSeq": 509,
+      "actionSeq": 511,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -165486,7 +165899,7 @@
         426
       ],
       "subsequentActions": [],
-      "actionSeq": 511,
+      "actionSeq": 512,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -165878,7 +166291,7 @@
         430
       ],
       "subsequentActions": [],
-      "actionSeq": 512,
+      "actionSeq": 518,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -166301,10 +166714,8 @@
         429,
         432
       ],
-      "subsequentActions": [
-        "Opus Brewer activates: Equip. from Elven Bow targeting Elf Warrior Token"
-      ],
-      "actionSeq": 510,
+      "subsequentActions": [],
+      "actionSeq": 519,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -166699,7 +167110,7 @@
         438
       ],
       "subsequentActions": [],
-      "actionSeq": 518,
+      "actionSeq": 520,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -167179,7 +167590,7 @@
         434
       ],
       "subsequentActions": [],
-      "actionSeq": 519,
+      "actionSeq": 521,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -167668,7 +168079,7 @@
         436
       ],
       "subsequentActions": [],
-      "actionSeq": 521,
+      "actionSeq": 522,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -168163,7 +168574,7 @@
         440
       ],
       "subsequentActions": [],
-      "actionSeq": 522,
+      "actionSeq": 528,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -168591,10 +169002,8 @@
         439,
         458
       ],
-      "subsequentActions": [
-        "GPT53C Teach casts Khalni Heart Expedition from hand"
-      ],
-      "actionSeq": 520,
+      "subsequentActions": [],
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169074,10 +169483,8 @@
         443,
         444
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Khalni Heart Expedition from stack onto the Battlefield"
-      ],
-      "actionSeq": 528,
+      "subsequentActions": [],
+      "actionSeq": 531,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -169548,7 +169955,7 @@
         446
       ],
       "subsequentActions": [],
-      "actionSeq": 531,
+      "actionSeq": 532,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -170032,7 +170439,7 @@
         448
       ],
       "subsequentActions": [],
-      "actionSeq": 532,
+      "actionSeq": 533,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -170516,11 +170923,8 @@
         451,
         452
       ],
-      "subsequentActions": [
-        "Thriving Grove: GPT53C Teach has chosen Red",
-        "GPT53C Teach puts Thriving Grove from hand onto the Battlefield"
-      ],
-      "actionSeq": 533,
+      "subsequentActions": [],
+      "actionSeq": 536,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -171004,10 +171408,8 @@
         453,
         454
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 536,
+      "subsequentActions": [],
+      "actionSeq": 538,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -171470,11 +171872,8 @@
         455,
         456
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
-        "GPT53C Teach - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
-      ],
-      "actionSeq": 538,
+      "subsequentActions": [],
+      "actionSeq": 541,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -171961,7 +172360,7 @@
         460
       ],
       "subsequentActions": [],
-      "actionSeq": 541,
+      "actionSeq": 547,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -172412,14 +172811,8 @@
         459,
         470
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Khalni Heart Expedition from stack onto the Battlefield",
-        "Thriving Grove: GPT53C Teach has chosen Red",
-        "GPT53C Teach puts Thriving Grove from hand onto the Battlefield",
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token.",
-        "GPT53C Teach - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token."
-      ],
-      "actionSeq": 529,
+      "subsequentActions": [],
+      "actionSeq": 548,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -172938,10 +173331,8 @@
         461,
         462
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)"
-      ],
-      "actionSeq": 547,
+      "subsequentActions": [],
+      "actionSeq": 550,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -173441,12 +173832,8 @@
         465,
         466
       ],
-      "subsequentActions": [
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard"
-      ],
-      "actionSeq": 550,
+      "subsequentActions": [],
+      "actionSeq": 554,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -173929,10 +174316,8 @@
         467,
         468
       ],
-      "subsequentActions": [
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 554,
+      "subsequentActions": [],
+      "actionSeq": 556,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -174403,7 +174788,7 @@
         472
       ],
       "subsequentActions": [],
-      "actionSeq": 556,
+      "actionSeq": 559,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -174854,14 +175239,8 @@
         471,
         476
       ],
-      "subsequentActions": [
-        "GPT53C Teach searches their library (source: Rampaging Growth)",
-        "GPT53C Teach puts Forest from library onto the Battlefield (source: Rampaging Growth)",
-        "GPT53C Teach's library is shuffled (source: Rampaging Growth)",
-        "GPT53C Teach puts Rampaging Growth from stack into their graveyard",
-        "GPT53C Teach - Ability triggers: Zendikar's Roil - Landfall — Whenever a land you control enters, create a 2/2 green Elemental creature token."
-      ],
-      "actionSeq": 548,
+      "subsequentActions": [],
+      "actionSeq": 560,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -175331,7 +175710,7 @@
         474
       ],
       "subsequentActions": [],
-      "actionSeq": 559,
+      "actionSeq": 561,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -175808,7 +176187,7 @@
         478
       ],
       "subsequentActions": [],
-      "actionSeq": 561,
+      "actionSeq": 562,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -176316,10 +176695,8 @@
         479,
         480
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Beast Token token"
-      ],
-      "actionSeq": 562,
+      "subsequentActions": [],
+      "actionSeq": 565,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -176801,10 +177178,8 @@
         481,
         482
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 565,
+      "subsequentActions": [],
+      "actionSeq": 568,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -177284,7 +177659,7 @@
         484
       ],
       "subsequentActions": [],
-      "actionSeq": 568,
+      "actionSeq": 570,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -177770,7 +178145,7 @@
         486
       ],
       "subsequentActions": [],
-      "actionSeq": 570,
+      "actionSeq": 571,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -178259,10 +178634,8 @@
         487,
         488
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Beast Token token"
-      ],
-      "actionSeq": 571,
+      "subsequentActions": [],
+      "actionSeq": 574,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -178799,10 +179172,8 @@
         489,
         490
       ],
-      "subsequentActions": [
-        "GPT53C Teach creates a Elemental Token token"
-      ],
-      "actionSeq": 574,
+      "subsequentActions": [],
+      "actionSeq": 577,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -179402,7 +179773,7 @@
         492
       ],
       "subsequentActions": [],
-      "actionSeq": 577,
+      "actionSeq": 579,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -179948,10 +180319,8 @@
         493,
         496
       ],
-      "subsequentActions": [
-        "GPT53C Teach attacks Opus Brewer with 4 creatures"
-      ],
-      "actionSeq": 579,
+      "subsequentActions": [],
+      "actionSeq": 586,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -180567,7 +180936,7 @@
         504
       ],
       "subsequentActions": [],
-      "actionSeq": 586,
+      "actionSeq": 596,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -180602,13 +180971,13 @@
         502
       ],
       "subsequentActions": [
-        "Attacker: Rampaging Baloths (6/6) unblocked",
-        "Attacker: Beast Token (4/4) blocked by Elf Warrior Token (2/3)",
-        "Attacker: Elemental Token (2/2) unblocked",
-        "Attacker: Forest (4/3) unblocked",
-        "Opus Brewer loses 6 life at combat from Rampaging Baloths"
+        "Opus Brewer loses 6 life at combat from Rampaging Baloths",
+        "Elf Warrior Token deals 2 damage to Beast Token",
+        "Beast Token deals 4 damage to Elf Warrior Token",
+        "Opus Brewer loses 2 life at combat from Elemental Token",
+        "Opus Brewer loses 4 life at combat from Forest"
       ],
-      "actionSeq": 588,
+      "actionSeq": 597,
       "pilotContext": {
         "untappedLands": 1
       }

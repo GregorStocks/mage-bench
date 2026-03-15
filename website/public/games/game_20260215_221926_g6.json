@@ -241364,9 +241364,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -242193,7 +242193,7 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
@@ -242201,9 +242201,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p2",
         "text": ""
       },
@@ -242261,9 +242261,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p3",
         "text": ""
       },
@@ -242314,9 +242314,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -242365,9 +242365,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -242416,9 +242416,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -242558,7 +242558,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p21",
-        "mana_plan": "p23,p25"
+        "mana_plan": [
+          "p23",
+          "p25"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -242767,30 +242770,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}: Mishra's Factory becomes a 2/2 Assembly-Worker artifact creature until end of turn. It's still a land."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         289,
         291,
-        292
+        292,
+        294,
+        295
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -243155,9 +243151,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p1",
         "text": ""
       },
@@ -243208,9 +243204,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -243622,7 +243618,10 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p23,p25",
+        "mana_plan": [
+          "p23",
+          "p25"
+        ],
         "id": "p26"
       },
       "actionResult": {
@@ -244458,9 +244457,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p8",
         "text": ""
       },
@@ -244511,9 +244510,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -244563,9 +244562,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -245417,9 +245416,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p13,p1,p8",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p8"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -245469,9 +245472,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -245882,7 +245885,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -246385,7 +246390,12 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p25,p41,p21:1,p23:1",
+        "mana_plan": [
+          "p25",
+          "p41",
+          "p21:1",
+          "p23:1"
+        ],
         "id": "p54"
       },
       "actionResult": {
@@ -246653,7 +246663,10 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p59",
-        "mana_plan": "p25,p41"
+        "mana_plan": [
+          "p25",
+          "p41"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -247169,9 +247182,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "p13,p1,p8",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p8"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p7",
         "text": ""
       },
@@ -247224,9 +247241,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p13,p1,p8",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p8"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -247286,9 +247307,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -247509,7 +247530,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -247712,42 +247735,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": false,
       "chosenArgs": {
-        "index": 2
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current targets.",
-        "choices": [
-          {
-            "tapped": true,
-            "name": "Matter Reshaper",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p5",
-            "power": "3",
-            "toughness": "2"
-          },
-          {
-            "tapped": true,
-            "name": "Oblivion Sower",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p14",
-            "power": "5",
-            "toughness": "8"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         1126,
         1128,
         1131,
         1134,
-        1135
+        1135,
+        1137,
+        1138
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -247921,7 +247927,7 @@
       ],
       "choiceCount": 5,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 3,
       "chosenArgs": {
         "id": "p34",
         "index": 0
@@ -248232,7 +248238,12 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p54",
-        "mana_plan": "p53,p21:0,p21:1,p28:1"
+        "mana_plan": [
+          "p53",
+          "p21:0",
+          "p21:1",
+          "p28:1"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -249162,9 +249173,13 @@
         "auto_tap": false,
         "pile": 0,
         "index": 4,
-        "mana_plan": "p13,p1,p8",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p8"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p10",
         "text": ""
       },
@@ -249252,9 +249267,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -249313,33 +249328,25 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p8",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p8, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p8 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}, {T}, Sacrifice Mind Stone: Draw a card."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_1"
       },
       "llmEventIndices": [
         1353,
         1355,
-        1356
+        1356,
+        1358,
+        1359
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -249627,16 +249634,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p37', 'id': 'p54'}"
+        "blockers": [
+          "p54:p37"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p37\",\"id\":\"p54\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p54",
+            "blocks": "p37"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_ASK. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         1397,
         1399,
         1402,
-        1403
+        1403,
+        1405,
+        1406
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -249880,7 +249901,15 @@
       "isForced": false,
       "chosen": 3,
       "chosenArgs": {
-        "mana_plan": "p53,p21:1,p26:1,p28:1,p23:1,p25:0,p41:0",
+        "mana_plan": [
+          "p53",
+          "p21:1",
+          "p26:1",
+          "p28:1",
+          "p23:1",
+          "p25:0",
+          "p41:0"
+        ],
         "id": "p74"
       },
       "actionResult": {
@@ -251141,34 +251170,23 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": false,
+      "chosen": 0,
       "chosenArgs": {
-        "answer": false
+        "index": 0
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "missing_param",
-        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}: Mishra's Factory becomes a 2/2 Assembly-Worker artifact creature until end of turn. It's still a land."
-          },
-          {
-            "index": 2,
-            "description": "3. {T}: Target Assembly-Worker creature gets +1/+1 until end of turn."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_0"
       },
       "llmEventIndices": [
         1583,
         1585,
-        1586
+        1586,
+        1588,
+        1589
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -251929,9 +251947,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -252012,9 +252030,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -252063,9 +252081,12 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p13,p1",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -252176,9 +252197,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 6,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p31",
         "text": ""
       },
@@ -252536,16 +252557,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p16', 'blocks': 'p57'}"
+        "blockers": [
+          "p16:p57"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p16\",\"blocks\":\"p57\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p16",
+            "blocks": "p57"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         1787,
         1789,
         1792,
-        1793
+        1793,
+        1795,
+        1802
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -252880,7 +252915,9 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p23:1",
+        "mana_plan": [
+          "p23:1"
+        ],
         "id": "p1"
       },
       "actionResult": {
@@ -253203,7 +253240,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p54:p2,p16:p2,p74:p2"
+        "attackers": [
+          "p54:p2",
+          "p16:p2",
+          "p74:p2"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -253836,40 +253877,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p7"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p7 not found in current choices",
-        "choices": [
-          {
-            "name": "Mishra's Factory",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: {this} becomes a 2/2 Assembly-Worker artifac..."
-            ],
-            "id": "p1"
-          },
-          {
-            "name": "Ebony Fly",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}: Roll a d6. Until end of turn, you may have {..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1955,
         1957,
-        1958
+        1958,
+        1960,
+        1961
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -255009,9 +255033,14 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "p13,p1,p8,p62",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p8",
+          "p62"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p10",
         "text": ""
       },
@@ -255082,9 +255111,12 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "p13,p1",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p1"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p9",
         "text": ""
       },
@@ -255148,9 +255180,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p11",
         "text": ""
       },
@@ -255515,354 +255547,35 @@
       ],
       "choiceCount": 43,
       "isForced": false,
-      "chosen": 0,
+      "chosen": 9,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
         "amounts": [],
         "auto_tap": false,
         "pile": 0,
-        "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p9",
+        "index": 9,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p57",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p9, ignored index=0",
-        "error_code": "invalid_choice",
-        "error": "Object p9 not found in current choices",
-        "choices": [
-          {
-            "tapped": true,
-            "controller": "Gem3F Optim",
-            "name": "Mind Stone",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p35"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Optim",
-            "name": "Isolated Watchtower",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p54"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Exotic Orchard",
-            "target_type": "permanent",
-            "index": 2,
-            "id": "p49"
-          },
-          {
-            "name": "Mountain",
-            "target_type": "permanent",
-            "index": 3,
-            "id": "p13"
-          },
-          {
-            "name": "Silverbluff Bridge",
-            "target_type": "permanent",
-            "index": 4,
-            "id": "p1"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Halimar Depths",
-            "target_type": "permanent",
-            "index": 5,
-            "id": "p14"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Duskmantle Seer",
-            "target_type": "permanent",
-            "index": 6,
-            "id": "p44",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Mortuary Mire",
-            "target_type": "permanent",
-            "index": 7,
-            "id": "p43"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Thought Vessel",
-            "target_type": "permanent",
-            "index": 8,
-            "id": "p47"
-          },
-          {
-            "name": "Prophetic Prism",
-            "target_type": "permanent",
-            "index": 9,
-            "id": "p57"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Transmogrifying Wand",
-            "target_type": "permanent",
-            "index": 10,
-            "id": "p29"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Optim",
-            "name": "Orzhov Guildgate",
-            "target_type": "permanent",
-            "index": 11,
-            "id": "p69"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Forest",
-            "target_type": "permanent",
-            "index": 12,
-            "id": "p67"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Sejiri Refuge",
-            "target_type": "permanent",
-            "index": 13,
-            "id": "p5"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Eldrazi Temple",
-            "target_type": "permanent",
-            "index": 14,
-            "id": "p6"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Ebony Fly",
-            "target_type": "permanent",
-            "index": 15,
-            "id": "p51"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 16,
-            "id": "p15"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Wastes",
-            "target_type": "permanent",
-            "index": 17,
-            "id": "p28"
-          },
-          {
-            "tapped": true,
-            "controller": "Gem3F Optim",
-            "name": "Tranquil Cove",
-            "target_type": "permanent",
-            "index": 18,
-            "id": "p20"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Thran Dynamo",
-            "target_type": "permanent",
-            "index": 19,
-            "id": "p46"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Sol Ring",
-            "target_type": "permanent",
-            "index": 20,
-            "id": "p50"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Tomb of the Spirit Dragon",
-            "target_type": "permanent",
-            "index": 21,
-            "id": "p22"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Forest",
-            "target_type": "permanent",
-            "index": 22,
-            "id": "p41"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Command Tower",
-            "target_type": "permanent",
-            "index": 23,
-            "id": "p33"
-          },
-          {
-            "name": "Seat of the Synod",
-            "target_type": "permanent",
-            "index": 24,
-            "id": "p48"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Azorius Chancery",
-            "target_type": "permanent",
-            "index": 25,
-            "id": "p17"
-          },
-          {
-            "controller": "GLM47 Grudge",
-            "name": "Angel of Finality",
-            "target_type": "permanent",
-            "index": 26,
-            "id": "p65",
-            "power": "5",
-            "toughness": "4"
-          },
-          {
-            "controller": "GLM47 Grudge",
-            "name": "Robe of Stars",
-            "target_type": "permanent",
-            "index": 27,
-            "id": "p66"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Urza's Mine",
-            "target_type": "permanent",
-            "index": 28,
-            "id": "p45"
-          },
-          {
-            "controller": "GLM47 Grudge",
-            "name": "Rancor",
-            "target_type": "permanent",
-            "index": 29,
-            "id": "p68"
-          },
-          {
-            "tapped": true,
-            "controller": "GLM47 Grudge",
-            "name": "Mishra's Factory",
-            "target_type": "permanent",
-            "index": 30,
-            "id": "p4"
-          },
-          {
-            "name": "Oblivion Stone",
-            "target_type": "permanent",
-            "index": 31,
-            "id": "p11"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Enigma Sphinx",
-            "target_type": "permanent",
-            "index": 32,
-            "id": "p53",
-            "power": "5",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Dimir Signet",
-            "target_type": "permanent",
-            "index": 33,
-            "id": "p16"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Azorius Signet",
-            "target_type": "permanent",
-            "index": 34,
-            "id": "p21"
-          },
-          {
-            "controller": "GLM47 Grudge",
-            "name": "Abundant Growth",
-            "target_type": "permanent",
-            "index": 35,
-            "id": "p64"
-          },
-          {
-            "name": "Island",
-            "target_type": "permanent",
-            "index": 36,
-            "id": "p2"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Sol Ring",
-            "target_type": "permanent",
-            "index": 37,
-            "id": "p27"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Azorius Chancery",
-            "target_type": "permanent",
-            "index": 38,
-            "id": "p38"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Sower of Discord",
-            "target_type": "permanent",
-            "index": 39,
-            "id": "p52",
-            "power": "6",
-            "toughness": "6"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Plains",
-            "target_type": "permanent",
-            "index": 40,
-            "id": "p26"
-          },
-          {
-            "tapped": true,
-            "controller": "KimiK2 Hothead",
-            "name": "Oblivion Sower",
-            "target_type": "permanent",
-            "index": 41,
-            "id": "p39",
-            "power": "5",
-            "toughness": "8"
-          },
-          {
-            "tapped": true,
-            "controller": "KimiK2 Hothead",
-            "name": "Ornithopter of Paradise",
-            "target_type": "permanent",
-            "index": 42,
-            "id": "p55",
-            "power": "0",
-            "toughness": "2"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_target_9",
+        "warning": "Both id and index provided; used id=p57, ignored index=9"
       },
       "llmEventIndices": [
         2108,
         2110,
-        2111
+        2111,
+        2113,
+        2116,
+        2117
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -255947,9 +255660,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 7,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p63",
         "text": ""
       },
@@ -256529,7 +256242,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -256859,7 +256574,13 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p92",
-        "mana_plan": "p53,p21:1,p21:0,p26:0,p25"
+        "mana_plan": [
+          "p53",
+          "p21:1",
+          "p21:0",
+          "p26:0",
+          "p25"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -257227,7 +256948,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p54:p29,p16:p69,p74:p96"
+        "attackers": [
+          "p54:p29",
+          "p16:p69",
+          "p74:p96"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -257953,50 +257678,24 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p18"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p18 not found in current choices",
-        "choices": [
-          {
-            "name": "Mishra's Factory",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: {this} becomes a 2/2 Assembly-Worker artifac..."
-            ],
-            "id": "p1"
-          },
-          {
-            "name": "Robe of Stars",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "<i>Astral Projection</i> &mdash; {1}{W}: Equipped..."
-            ],
-            "id": "p83"
-          },
-          {
-            "name": "Ebony Fly",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}: Roll a d6. Until end of turn, you may have {..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2372,
         2374,
         2377,
-        2378
+        2378,
+        2380,
+        2381
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -258999,37 +258698,25 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
-        "id": "p73",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p73, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p73 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. Abrade deals 3 damage to target creature."
-          },
-          {
-            "index": 1,
-            "description": "2. Destroy target artifact."
-          },
-          {
-            "index": 2,
-            "description": "Cancel"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_1"
       },
       "llmEventIndices": [
         2497,
         2499,
-        2500
+        2500,
+        2502,
+        2503
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -259207,9 +258894,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 7,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p57",
         "text": ""
       },
@@ -259259,9 +258946,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -259317,9 +259004,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p62",
         "text": ""
       },
@@ -259370,9 +259057,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -259826,7 +259513,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p76,p62,p14"
+        "attackers": [
+          "p76",
+          "p62",
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -259962,7 +259653,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p14"
+        "attackers": [
+          "p14"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -260268,7 +259961,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p92:p57,p16:p99"
+        "blockers": [
+          "p92:p57",
+          "p16:p99"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -260603,57 +260299,21 @@
       "isForced": false,
       "chosen": 1,
       "chosenArgs": {
-        "id": "p67",
         "index": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p67, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p67 not found in current choices",
-        "choices": [
-          {
-            "name": "Transmogrifying Wand",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}, {T}, Remove a charge counter from {this}: De..."
-            ],
-            "id": "p3"
-          },
-          {
-            "mana_cost": "{4}",
-            "name": "Perilous Vault",
-            "index": 1,
-            "action": "cast",
-            "id": "p68"
-          },
-          {
-            "name": "Manifest: Soul of New Phyrexia",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{6}: Turn this face-down permanent face up."
-            ],
-            "id": "p107"
-          },
-          {
-            "name": "Investigator's Journal",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, Sacrifice {this}: Draw a card.",
-              "{2}, {T}, Remove a suspect counter from {this}: D..."
-            ],
-            "id": "p54"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_CHOOSE_ABILITY. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_1"
       },
       "llmEventIndices": [
         2672,
         2674,
-        2675
+        2675,
+        2677,
+        2678
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -261281,7 +260941,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p54,p16,p74"
+        "attackers": [
+          "p54",
+          "p16",
+          "p74"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -261833,7 +261497,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p107:p59,p7:p59,p108:p52,p109:p60"
+        "blockers": [
+          "p107:p59",
+          "p7:p59",
+          "p108:p52",
+          "p109:p60"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -262602,50 +262271,23 @@
       ],
       "choiceCount": 3,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p100",
-        "auto_tap": true
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p100 not found in current choices",
-        "choices": [
-          {
-            "name": "Mishra's Factory",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: {this} becomes a 2/2 Assembly-Worker artifac..."
-            ],
-            "id": "p1"
-          },
-          {
-            "name": "Robe of Stars",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "<i>Astral Projection</i> &mdash; {1}{W}: Equipped..."
-            ],
-            "id": "p83"
-          },
-          {
-            "name": "Ebony Fly",
-            "index": 2,
-            "action": "activate",
-            "playable_abilities": [
-              "{4}: Roll a d6. Until end of turn, you may have {..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2915,
         2917,
-        2918
+        2918,
+        2920,
+        2921
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -262750,45 +262392,23 @@
       ],
       "choiceCount": 10,
       "isForced": false,
-      "chosen": 7,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p100",
-        "auto_tap": true
+        "id": "p7"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p100 not found in current choices",
-        "choices": [
-          {
-            "name": "Angel of Finality",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p7",
-            "power": "5",
-            "toughness": "4"
-          },
-          {
-            "name": "Riverwise Augur",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p99",
-            "power": "2",
-            "toughness": "2"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         2924,
         2928,
-        2929
+        2929,
+        2933,
+        2934
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -263864,33 +263484,31 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "p13,p1,p48,p32,p62",
-        "attackers": "",
-        "blockers": "",
-        "id": "p11",
+        "mana_plan": [
+          "p13",
+          "p1",
+          "p48",
+          "p32",
+          "p62"
+        ],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
         "text": ""
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Both id and index provided; used id=p11, ignored index=1",
-        "error_code": "invalid_choice",
-        "error": "Object p11 not found in current choices",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {4}, {T}: Put a fate counter on target permanent."
-          },
-          {
-            "index": 1,
-            "description": "2. {5}, {T}, Sacrifice Oblivion Stone: Destroy each nonland permanent without a fate counter on it, then remove all fate counters from all permanents."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_1"
       },
       "llmEventIndices": [
         3056,
         3058,
-        3059
+        3059,
+        3061,
+        3062
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -263925,9 +263543,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -263973,9 +263591,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -264079,9 +263697,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -264183,9 +263801,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p12",
         "text": ""
       },
@@ -264273,7 +263891,7 @@
       ],
       "choiceCount": 8,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
         "amount": 0,
         "answer": false,
@@ -264281,9 +263899,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p61",
         "text": ""
       },
@@ -264341,42 +263959,24 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Tomb of the Spirit Dragon",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}: You gain 1 life for each colorless crea..."
-            ],
-            "id": "p4"
-          },
-          {
-            "name": "Soul of New Phyrexia",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{5}, Exile this card from your graveyard: Permane..."
-            ],
-            "id": "p107"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         3129,
         3131,
         3134,
-        3135
+        3135,
+        3137,
+        3138
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -265313,106 +264913,24 @@
       ],
       "choiceCount": 9,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p116"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "recent_chat": [
-          "Gem3F Optim: The miracles are real! Believing in the top deck paid off big time. Can you hear the wings? Eight angels are here to keep the dream alive!"
-        ],
-        "error": "Object p116 not found in current choices",
-        "choices": [
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 0,
-            "id": "p141",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 1,
-            "id": "p139",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 2,
-            "id": "p143",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "KimiK2 Hothead",
-            "name": "Bane of Bala Ged",
-            "target_type": "permanent",
-            "index": 3,
-            "id": "p149",
-            "power": "7",
-            "toughness": "5"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 4,
-            "id": "p140",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 5,
-            "id": "p145",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 6,
-            "id": "p142",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 7,
-            "id": "p146",
-            "power": "4",
-            "toughness": "4"
-          },
-          {
-            "controller": "Gem3F Optim",
-            "name": "Angel Token",
-            "target_type": "permanent",
-            "index": 8,
-            "id": "p144",
-            "power": "4",
-            "toughness": "4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "cancelled"
       },
       "llmEventIndices": [
         3260,
         3266,
-        3267
+        3267,
+        3269,
+        3272,
+        3273
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -265565,9 +265083,14 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "p62,p13,p32,p48",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p62",
+          "p13",
+          "p32",
+          "p48"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p10",
         "text": ""
       },
@@ -265644,9 +265167,12 @@
         "auto_tap": false,
         "pile": 0,
         "index": 2,
-        "mana_plan": "p13,p62",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [
+          "p13",
+          "p62"
+        ],
+        "attackers": [],
+        "blockers": [],
         "id": "p99",
         "text": ""
       },
@@ -265699,9 +265225,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -265758,9 +265284,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p102",
         "text": ""
       },
@@ -265821,9 +265347,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p99",
         "text": ""
       },
@@ -265882,9 +265408,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p118",
         "text": ""
       },
@@ -265935,9 +265461,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -266027,9 +265553,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 1,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "p48",
         "text": ""
       },
@@ -266080,9 +265606,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -266132,9 +265658,14 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "p7,p8,p9,p11",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [
+          "p7",
+          "p8",
+          "p9",
+          "p11"
+        ],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -266184,9 +265715,9 @@
         "auto_tap": false,
         "pile": 0,
         "index": 0,
-        "mana_plan": "",
-        "attackers": "",
-        "blockers": "",
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
         "id": "",
         "text": ""
       },
@@ -266777,15 +266308,29 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p126', 'id': 'p131'},{'blocks': 'p126', 'id': 'p132'}"
+        "blockers": [
+          "p131:p126"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p126\",\"id\":\"p131\"},{\"blocks\":\"p126\",\"id\":\"p132\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p131",
+            "blocks": "p126"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         3464,
         3466,
-        3467
+        3467,
+        3472,
+        3473
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -267850,7 +267395,15 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132,p133,p134,p135,p136,p137,p138"
+        "attackers": [
+          "p132",
+          "p133",
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -268013,7 +267566,15 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132,p133,p134,p135,p136,p137,p138"
+        "attackers": [
+          "p132",
+          "p133",
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -268120,7 +267681,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p134,p135,p136,p137,p138"
+        "attackers": [
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -268219,7 +267786,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p135,p136,p137,p138"
+        "attackers": [
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -268316,7 +267888,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p136,p137,p138"
+        "attackers": [
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "success": true,
@@ -269786,16 +269362,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p126', 'id': 'p74'}"
+        "blockers": [
+          "p74:p126"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p126\",\"id\":\"p74\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p74",
+            "blocks": "p126"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         3841,
         3843,
         3846,
-        3847
+        3847,
+        3849,
+        3850
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -270016,7 +269606,9 @@
       "chosen": 1,
       "chosenArgs": {
         "id": "p5",
-        "mana_plan": "p87"
+        "mana_plan": [
+          "p87"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -270560,7 +270152,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132,p133,p134,p135,p136"
+        "attackers": [
+          "p132",
+          "p133",
+          "p134",
+          "p135",
+          "p136"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -270715,7 +270313,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p133,p134,p135,p136"
+        "attackers": [
+          "p133",
+          "p134",
+          "p135",
+          "p136"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -270870,7 +270473,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p134,p135,p136"
+        "attackers": [
+          "p134",
+          "p135",
+          "p136"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -271023,7 +270630,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p135,p136"
+        "attackers": [
+          "p135",
+          "p136"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -271174,7 +270784,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p136"
+        "attackers": [
+          "p136"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -273773,7 +273385,16 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132:p1,p133:p1,p134:p1,p135:p1,p136:p3,p137:p3,p138:p3,p74:p3"
+        "attackers": [
+          "p132:p1",
+          "p133:p1",
+          "p134:p1",
+          "p135:p1",
+          "p136:p3",
+          "p137:p3",
+          "p138:p3",
+          "p74:p3"
+        ]
       },
       "actionResult": {
         "declared": [],
@@ -274953,7 +274574,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p149"
+        "attackers": [
+          "p149"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -275639,7 +275262,8 @@
       "llmEventIndices": [
         4673,
         4675,
-        4676
+        4676,
+        4678
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -276288,7 +275912,15 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p132,p133,p134,p135,p136,p137,p138"
+        "attackers": [
+          "p132",
+          "p133",
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276467,7 +276099,14 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p133,p134,p135,p136,p137,p138"
+        "attackers": [
+          "p133",
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276646,7 +276285,13 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p134,p135,p136,p137,p138"
+        "attackers": [
+          "p134",
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276823,7 +276468,12 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p135,p136,p137,p138"
+        "attackers": [
+          "p135",
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -276998,7 +276648,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p136,p137,p138"
+        "attackers": [
+          "p136",
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -277171,7 +276825,10 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p137,p138"
+        "attackers": [
+          "p137",
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -277342,7 +276999,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p138"
+        "attackers": [
+          "p138"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -279354,7 +279013,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p189",
-        "mana_plan": "COLORLESS,p17,p19"
+        "mana_plan": [
+          "COLORLESS",
+          "p17",
+          "p19"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -280574,7 +280237,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p191"
+        "attackers": [
+          "p191"
+        ]
       },
       "actionResult": {
         "retryable": true,
@@ -280598,7 +280263,8 @@
         5264,
         5266,
         5271,
-        5272
+        5272,
+        5274
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -281333,32 +280999,24 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "p171,p178"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "name": "Mishra's Factory",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: {this} becomes a 2/2 Assembly-Worker artifac..."
-            ],
-            "id": "p1"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         5375,
         5377,
-        5378
+        5378,
+        5380,
+        5383,
+        5384
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -281470,31 +281128,23 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p71"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p71 not found in current choices",
-        "choices": [
-          {
-            "name": "Mishra's Factory",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{1}: {this} becomes a 2/2 Assembly-Worker artifac..."
-            ],
-            "id": "p1"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         5396,
         5398,
-        5399
+        5399,
+        5401,
+        5402
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -281555,7 +281205,11 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p191,p189,p203"
+        "attackers": [
+          "p191",
+          "p189",
+          "p203"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -281738,45 +281392,31 @@
       ],
       "choiceCount": 7,
       "isForced": false,
-      "chosen": 0,
+      "chosen": null,
       "chosenArgs": {
-        "id": "p62"
+        "attackers": [
+          "p171",
+          "p178"
+        ]
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p62 not found in current choices",
-        "choices": [
-          {
-            "name": "Cold-Eyed Selkie",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p171",
-            "power": "7",
-            "toughness": "5"
-          },
-          {
-            "name": "Paradise Druid",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p178",
-            "power": "2",
-            "toughness": "1"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "declared": [
+          "p171",
+          "p178"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_attack"
       },
       "llmEventIndices": [
         5438,
         5440,
         5447,
-        5448
+        5448,
+        5450,
+        5451
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -282251,7 +281891,8 @@
       "llmEventIndices": [
         5505,
         5507,
-        5508
+        5508,
+        5510
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -282945,15 +282586,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p171', 'id': 'p207'}"
+        "blockers": [
+          "p207:p171"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p171\",\"id\":\"p207\"}]). Check the tool schema for correct parameter types."
+        "declared": [],
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "reason": "attacker p171 is not a valid block target",
+            "id": "p207"
+          }
+        ]
       },
       "llmEventIndices": [
         5583,
         5585,
-        5586
+        5586,
+        5588,
+        5591,
+        5603
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -283182,7 +282836,12 @@
       "isForced": false,
       "chosen": 2,
       "chosenArgs": {
-        "mana_plan": "p179,p146,p23,p28",
+        "mana_plan": [
+          "p179",
+          "p146",
+          "p23",
+          "p28"
+        ],
         "id": "p216"
       },
       "actionResult": {
@@ -283324,7 +282983,11 @@
       "chosen": 2,
       "chosenArgs": {
         "id": "p194",
-        "mana_plan": "p162,p146,p53"
+        "mana_plan": [
+          "p162",
+          "p146",
+          "p53"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -283836,30 +283499,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 2,
+      "chosen": 1,
       "chosenArgs": {
-        "index": 2
+        "index": 1
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Add {C}."
-          },
-          {
-            "index": 1,
-            "description": "2. {1}, {T}, Sacrifice Bant Panorama: Search your library for a basic Forest, Plains, or Island card, put it onto the battlefield tapped, then shuffle."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_ability_1"
       },
       "llmEventIndices": [
         5718,
         5720,
-        5721
+        5721,
+        5723,
+        5724
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -285166,7 +284822,15 @@
       "chosen": 4,
       "chosenArgs": {
         "id": "p225",
-        "mana_plan": "p179,p206,p28,p146,p87,p23,p53"
+        "mana_plan": [
+          "p179",
+          "p206",
+          "p28",
+          "p146",
+          "p87",
+          "p23",
+          "p53"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -285554,7 +285218,7 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": true,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "pile": 1
       },
@@ -285738,7 +285402,11 @@
       "chosen": 6,
       "chosenArgs": {
         "id": "p231",
-        "mana_plan": "p197,p24,p230"
+        "mana_plan": [
+          "p197",
+          "p24",
+          "p230"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -287439,46 +287107,25 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "id": "p223"
+        "id": "p171"
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p223 not found in current choices",
-        "choices": [
-          {
-            "name": "Cold-Eyed Selkie",
-            "index": 0,
-            "choice_type": "attacker",
-            "id": "p171",
-            "power": "27",
-            "toughness": "28"
-          },
-          {
-            "name": "Paradise Druid",
-            "index": 1,
-            "choice_type": "attacker",
-            "id": "p178",
-            "power": "2",
-            "toughness": "1"
-          },
-          {
-            "name": "All attack",
-            "index": 2,
-            "choice_type": "special",
-            "id": "all"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "selected_0"
       },
       "llmEventIndices": [
         6092,
         6094,
         6097,
         6111,
-        6112
+        6112,
+        6114,
+        6115
       ],
       "subsequentActions": [
         "spectator6 has started watching",
@@ -288206,16 +287853,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'blocks': 'p171', 'id': 'p189'}"
+        "blockers": [
+          "p189:p171"
+        ]
       },
       "actionResult": {
-        "error": "Parameter 'blockers': expected array of strings, got JsonArray ([{\"blocks\":\"p171\",\"id\":\"p189\"}]). Check the tool schema for correct parameter types."
+        "declared": [
+          {
+            "id": "p189",
+            "blocks": "p171"
+          }
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "batch_block"
       },
       "llmEventIndices": [
         6177,
         6179,
         6185,
-        6186
+        6186,
+        6188,
+        6192
       ],
       "subsequentActions": [
         "spectator6 has started watching",

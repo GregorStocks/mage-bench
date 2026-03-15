@@ -22493,7 +22493,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p19"
+        "attackers": [
+          "p19"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -23388,18 +23390,15 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
-        "amounts": [
-          0,
-          1
-        ]
+        "index": 1
       },
       "actionResult": {
         "retryable": true,
         "success": false,
-        "error_code": "missing_param",
-        "error": "Integer 'index' required for GAME_TARGET (or answer=false to cancel)",
+        "error_code": "index_out_of_range",
+        "error": "Index 1 is out of range (no choices loaded). Call get_action_choices to see current targets.",
         "choices": [
           {
             "name": "Bloodstained Mire",
@@ -23418,7 +23417,13 @@
       "llmEventIndices": [
         271,
         273,
-        274
+        274,
+        277,
+        278,
+        280,
+        281,
+        282,
+        284
       ],
       "subsequentActions": [
         "has started watching",
@@ -25977,7 +25982,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -26102,14 +26109,21 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "{'id': 'p38', 'blocks': 'p40'}"
+        "blockers": [
+          {
+            "id": "p38",
+            "blocks": "p40"
+          }
+        ]
       },
       "actionResult": {
         "error": "JsonObject"
       },
       "llmEventIndices": [
         653,
-        654
+        654,
+        656,
+        668
       ],
       "subsequentActions": [
         "has started watching",

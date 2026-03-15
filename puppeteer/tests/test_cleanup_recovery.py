@@ -46,6 +46,12 @@ class _FakeBridgeManager:
     def assert_clean_reconnect(self, context: str) -> None:
         self.reconnect_checks.append(context)
 
+    def capture_log_offsets(self) -> tuple[int, int]:
+        return (0, 0)
+
+    def write_test_log_snapshots(self, _test_name: str, _offsets: tuple[int, int]) -> None:
+        pass
+
     def restart(self) -> None:
         self.restart_calls += 1
         if self._restart_error is not None:

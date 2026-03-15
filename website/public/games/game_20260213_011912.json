@@ -321848,37 +321848,19 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": 4,
+      "chosen": false,
       "chosenArgs": {
-        "index": 4
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "index_out_of_range",
-        "error": "Index 4 out of range (call get_action_choices first)",
-        "choices": [
-          {
-            "name": "Arid Mesa",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ]
-          },
-          {
-            "name": "Marsh Flats",
-            "index": 1,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ]
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         2266,
-        2267
+        2267,
+        2277,
+        2278
       ],
       "subsequentActions": [
         "has started watching",

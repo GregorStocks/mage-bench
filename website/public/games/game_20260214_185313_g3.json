@@ -26698,31 +26698,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p2"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p2 not found in current choices",
-        "choices": [
-          {
-            "name": "Thespian's Stage",
-            "index": 0,
-            "action": "activate",
-            "playable_abilities": [
-              "{2}, {T}: {this} becomes a copy of target land, e..."
-            ],
-            "id": "p23"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         198,
         204,
-        205
+        205,
+        209,
+        216,
+        219,
+        222,
+        223
       ],
       "subsequentActions": [
         "has started watching",
@@ -27040,7 +27034,9 @@
       "llmEventIndices": [
         263,
         265,
-        266
+        266,
+        268,
+        272
       ],
       "subsequentActions": [
         "has started watching",
@@ -27603,53 +27599,23 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p19"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p19 not found in current choices",
-        "choices": [
-          {
-            "mana_cost": "{1}{U}",
-            "name": "Daze",
-            "index": 0,
-            "action": "cast",
-            "id": "p8"
-          },
-          {
-            "mana_cost": "{B}",
-            "name": "Dark Ritual",
-            "index": 1,
-            "action": "cast",
-            "id": "p17"
-          },
-          {
-            "mana_cost": "{3}{U}{U}",
-            "name": "Force of Will",
-            "index": 2,
-            "action": "cast",
-            "id": "p6"
-          },
-          {
-            "name": "Scalding Tarn",
-            "index": 3,
-            "action": "activate",
-            "playable_abilities": [
-              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
-            ],
-            "id": "p4"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         339,
         341,
         344,
-        345
+        345,
+        347,
+        348
       ],
       "subsequentActions": [
         "has started watching",
@@ -29126,7 +29092,9 @@
       "llmEventIndices": [
         532,
         534,
-        535
+        535,
+        537,
+        540
       ],
       "subsequentActions": [
         "has started watching",
@@ -30603,7 +30571,8 @@
       "llmEventIndices": [
         712,
         714,
-        715
+        715,
+        717
       ],
       "subsequentActions": [
         "has started watching",
@@ -30835,7 +30804,8 @@
       "llmEventIndices": [
         765,
         767,
-        768
+        768,
+        770
       ],
       "subsequentActions": [
         "has started watching",
@@ -31532,20 +31502,27 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "attackers": "all"
+        "id": "p98",
+        "mana_plan": "[{\"tap\": \"p23\"}, {\"tap\": \"p5\"}]"
       },
       "actionResult": {
-        "retryable": false,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "attackers parameter only valid during declare_attackers"
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
       },
       "llmEventIndices": [
         900,
         902,
-        903
+        903,
+        905,
+        906,
+        908,
+        909
       ],
       "subsequentActions": [
         "has started watching",
@@ -32277,7 +32254,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -32288,7 +32267,9 @@
       "llmEventIndices": [
         1076,
         1079,
-        1080
+        1080,
+        1082,
+        1085
       ],
       "subsequentActions": [
         "has started watching",
@@ -32325,7 +32306,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "retryable": false,
@@ -32336,7 +32319,8 @@
       "llmEventIndices": [
         1086,
         1088,
-        1089
+        1089,
+        1091
       ],
       "subsequentActions": [
         "has started watching",

@@ -37795,20 +37795,22 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "id": "p3"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p3 not found in current choices"
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         64,
         65,
-        66
+        66,
+        67,
+        69,
+        71,
+        79
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -38186,21 +38188,23 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "mana_plan": "p5,p3",
-        "id": "p6"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "error_code": "invalid_choice",
-        "error": "Object p6 not found in current choices"
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_TARGET. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         257,
         259,
-        260
+        260,
+        262,
+        263
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -38412,7 +38416,11 @@
       "chosen": 0,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p5,p19,p4"
+        "mana_plan": [
+          "p5",
+          "p19",
+          "p4"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -38475,44 +38483,23 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "answer": false
       },
       "actionResult": {
-        "retryable": true,
-        "success": false,
-        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
-        "error_code": "missing_param",
-        "recent_chat": [
-          "[System] Spell cancelled — mana plan was incorrect or incomplete."
-        ],
-        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-        "choices": [
-          {
-            "mana_cost": "{X}{U}{U}",
-            "name": "Wan Shi Tong, Librarian",
-            "index": 0,
-            "action": "cast",
-            "id": "p7",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "mana_cost": "{1}{W}{W}",
-            "name": "Aven Interrupter",
-            "index": 1,
-            "action": "cast",
-            "id": "p8",
-            "power": "2",
-            "toughness": "2"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_hint": "Call get_action_choices or choose_action to handle the pending GAME_SELECT. Do NOT call pass_priority — it would cancel the pending action.",
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         352,
         354,
-        355
+        355,
+        357,
+        358
       ],
       "subsequentActions": [
         "spectator3 has started watching",
@@ -39124,7 +39111,10 @@
       "chosen": 3,
       "chosenArgs": {
         "id": "p6",
-        "mana_plan": "p3:0,p5:0"
+        "mana_plan": [
+          "p3:0",
+          "p5:0"
+        ]
       },
       "actionResult": {
         "next_action_pending": true,
@@ -40825,7 +40815,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [
@@ -40968,7 +40960,12 @@
       "isForced": false,
       "chosen": 0,
       "chosenArgs": {
-        "mana_plan": "p5,p3,p4,p2",
+        "mana_plan": [
+          "p5",
+          "p3",
+          "p4",
+          "p2"
+        ],
         "id": "p30"
       },
       "actionResult": {
@@ -41365,7 +41362,9 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": [
+          "all"
+        ]
       },
       "actionResult": {
         "declared": [

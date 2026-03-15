@@ -89180,20 +89180,28 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p16"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p16' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p16'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 135
       },
       "llmEventIndices": [
         115,
         116,
-        117
+        117,
+        118,
+        119,
+        120,
+        121,
+        122
       ],
-      "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 1 creature"
-      ],
-      "actionSeq": 131,
+      "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -89733,24 +89741,31 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p16"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p16' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p16'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 188
       },
       "llmEventIndices": [
         163,
         164,
-        165
+        165,
+        166,
+        167,
+        168
       ],
       "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 2 creatures",
         "Attacker: Alley Strangler (2/3) unblocked",
         "Attacker: Termination Facilitator (1/3) unblocked",
         "G31FL Villain loses 2 life at combat from Alley Strangler",
         "G31FL Villain loses 1 life at combat from Termination Facilitator"
       ],
-      "actionSeq": 183,
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -89777,30 +89792,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p13"
+        "choice": "p11"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p13 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_0",
         "game_seq": 200,
-        "choices": [
-          {
-            "mana_cost": "{2}",
-            "name": "Planar Atlas",
-            "index": 0,
-            "action": "cast",
-            "id": "p11"
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         169,
         170,
-        171
+        171,
+        172,
+        173
       ],
       "subsequentActions": [
         "Llama4 Timmy casts Planar Atlas from hand",
@@ -90328,20 +90338,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p10,p16"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 265
       },
       "llmEventIndices": [
         213,
         214,
-        215
+        215,
+        216,
+        217,
+        218
       ],
-      "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 2 creatures"
-      ],
-      "actionSeq": 261,
+      "subsequentActions": [],
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -90371,36 +90387,30 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "blockers": "p24:p160"
+        "blockers": "p24:p10"
       },
       "actionResult": {
         "success": false,
-        "action_taken": "batch_block",
-        "declared": [],
-        "failed": [
-          {
-            "reason": "unknown attacker ID: p160",
-            "id": "p24"
-          }
-        ],
-        "game_seq": 267,
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "next_action_message": "Play instants and activated abilities",
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored blockers parameter (not in declare_blockers phase)",
+        "game_seq": 274
       },
       "llmEventIndices": [
         219,
         220,
-        221
+        221,
+        222,
+        224,
+        225,
+        226
       ],
       "subsequentActions": [
-        "Attacker: Termination Facilitator (1/3) unblocked",
-        "Attacker: Alley Strangler (2/3) unblocked",
         "G31FL Villain loses 1 life at combat from Termination Facilitator",
         "G31FL Villain loses 2 life at combat from Alley Strangler"
       ],
-      "actionSeq": 267,
+      "actionSeq": 274,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -90447,23 +90457,31 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "attackers": "all"
+        "choice": "no"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 289,
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "next_action_message": "Play instants and activated abilities",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         227,
         228,
         230,
-        231
+        231,
+        232,
+        233,
+        234,
+        237
       ],
-      "subsequentActions": [
-        "G31FL Villain attacks Llama4 Timmy with 1 creature"
-      ],
-      "actionSeq": 284,
+      "subsequentActions": [],
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -91279,27 +91297,25 @@
       ],
       "choiceCount": 1,
       "isForced": false,
-      "chosen": null,
+      "chosen": 0,
       "chosenArgs": {
-        "choice": "p72"
+        "choice": "0"
       },
       "actionResult": {
-        "success": false,
-        "error": "Object p72 not found in current choices",
-        "error_code": "invalid_choice",
-        "retryable": true,
+        "success": true,
+        "action_taken": "selected_ability_0",
         "game_seq": 377,
-        "choices": [
-          {
-            "index": 0,
-            "description": "1. {T}: Put a bounty counter on target creature or planeswalker. Activate only as a sorcery."
-          }
-        ]
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "next_action_message": "Select a creature or planeswalker",
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue."
       },
       "llmEventIndices": [
         301,
         302,
-        303
+        303,
+        304,
+        305
       ],
       "subsequentActions": [],
       "actionSeq": 377,
@@ -91437,20 +91453,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p16"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p10' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'p10'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 389
       },
       "llmEventIndices": [
         311,
         312,
-        313
+        313,
+        314,
+        315,
+        316
       ],
-      "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 1 creature"
-      ],
-      "actionSeq": 385,
+      "subsequentActions": [],
+      "actionSeq": 389,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -91863,20 +91885,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "p10,p16,p31"
+        "attackers": "all"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'p16' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][1]:\n    'p16'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 447
       },
       "llmEventIndices": [
         345,
         346,
-        347
+        347,
+        348,
+        349,
+        350
       ],
-      "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 2 creatures"
-      ],
-      "actionSeq": 442,
+      "subsequentActions": [],
+      "actionSeq": 447,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -91912,25 +91940,14 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": null,
+      "chosen": false,
       "chosenArgs": {
-        "blockers": "p5:p1,p24:p105"
+        "choice": "no"
       },
       "actionResult": {
-        "success": false,
-        "action_taken": "batch_block",
-        "declared": [],
-        "failed": [
-          {
-            "reason": "attacker p1 is not a valid block target",
-            "id": "p5"
-          },
-          {
-            "reason": "unknown attacker ID: p105",
-            "id": "p24"
-          }
-        ],
-        "game_seq": 449,
+        "success": true,
+        "action_taken": "passed_priority",
+        "game_seq": 458,
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "next_action_message": "Play instants and activated abilities",
@@ -91940,15 +91957,18 @@
         351,
         352,
         353,
-        354
+        354,
+        355,
+        357,
+        358,
+        359,
+        360
       ],
       "subsequentActions": [
-        "Attacker: Alley Strangler (2/3) unblocked",
-        "Attacker: Termination Facilitator (1/3) unblocked",
         "G31FL Villain loses 2 life at combat from Alley Strangler",
         "G31FL Villain loses 1 life at combat from Termination Facilitator"
       ],
-      "actionSeq": 449,
+      "actionSeq": 458,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -92389,20 +92409,26 @@
       "isForced": false,
       "chosen": null,
       "chosenArgs": {
-        "attackers": "all"
+        "attackers": "p10,p31,p41,p75,p76,p77,p78"
       },
       "actionResult": {
-        "error": "Invalid structured content returned by tool choose_action: 'all' is not of type 'object'\n\nFailed validating 'type' in schema['properties']['declared']['items']:\n    {'type': 'object'}\n\nOn instance['declared'][0]:\n    'all'"
+        "success": false,
+        "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+        "error_code": "missing_param",
+        "retryable": true,
+        "warning": "Ignored attackers parameter (not in declare_attackers phase)",
+        "game_seq": 517
       },
       "llmEventIndices": [
         390,
         391,
-        392
+        392,
+        393,
+        394,
+        395
       ],
-      "subsequentActions": [
-        "Llama4 Timmy attacks G31FL Villain with 4 creatures"
-      ],
-      "actionSeq": 513,
+      "subsequentActions": [],
+      "actionSeq": 517,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"

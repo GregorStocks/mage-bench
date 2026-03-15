@@ -62924,18 +62924,20 @@
       "choices": [],
       "choiceCount": 0,
       "isForced": false,
-      "chosen": 0,
+      "chosen": true,
       "chosenArgs": {
-        "index": 0
+        "answer": true
       },
       "actionResult": {
-        "success": false,
-        "error": "Index 0 out of range (call get_action_choices first)"
+        "success": true,
+        "action_taken": "confirmed"
       },
       "llmEventIndices": [
         1384,
         1386,
-        1387
+        1387,
+        1389,
+        1390
       ],
       "subsequentActions": [
         "has started watching",
@@ -63434,35 +63436,21 @@
       ],
       "choiceCount": 4,
       "isForced": false,
-      "chosen": null,
-      "chosenArgs": {},
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
       "actionResult": {
-        "success": false,
-        "error": "Provide 'index' to play a card or 'answer: false' to pass priority",
-        "choices": [
-          {
-            "index": 0,
-            "description": "Force of Will {3}{U}{U} [Cast]"
-          },
-          {
-            "index": 1,
-            "description": "Force of Will {3}{U}{U} [Cast]"
-          },
-          {
-            "index": 2,
-            "description": "Emry, Lurker of the Loch — {T}: Choose target artifact card in your graveyar... [Activate]"
-          },
-          {
-            "index": 3,
-            "description": "Mishra's Bauble — {T}, Sacrifice {this}: Look at the top card of ta... [Activate]"
-          }
-        ]
+        "success": true,
+        "action_taken": "passed_priority"
       },
       "llmEventIndices": [
         1479,
         1481,
         1483,
-        1484
+        1484,
+        1486,
+        1487
       ],
       "subsequentActions": [
         "has started watching",
@@ -63543,13 +63531,13 @@
       ],
       "choiceCount": 2,
       "isForced": false,
-      "chosen": false,
+      "chosen": 1,
       "chosenArgs": {
-        "answer": false
+        "index": 1
       },
       "actionResult": {
         "success": false,
-        "error": "Integer 'index' or string 'text' required for GAME_CHOOSE_CHOICE",
+        "error": "Index 1 out of range (call get_action_choices first)",
         "choices": [
           {
             "index": 0,
@@ -63566,7 +63554,10 @@
         1504,
         1507,
         1510,
-        1511
+        1511,
+        1513,
+        1514,
+        1516
       ],
       "subsequentActions": [
         "has started watching",
