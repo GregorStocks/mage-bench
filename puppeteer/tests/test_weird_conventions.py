@@ -589,3 +589,76 @@ class TestActivePresetsExist:
         presets_data = _load_json(PUPPETEER_DIR / "presets.json")
         active = [name for name, p in presets_data["presets"].items() if p.get("status") == "active"]
         assert active, "No presets with status='active' — matchmaking needs at least one"
+
+
+# ---------------------------------------------------------------------------
+# Test 19: Golden output and harness epoch must move together
+# ---------------------------------------------------------------------------
+
+
+class TestGoldenEpochCoherence:
+    """Two-way invariant between golden output and harness epoch.
+
+    1. Modified existing golden output → harness epoch must be bumped.
+    2. Bumped harness epoch → all goldens must be regenerated.
+    """
+
+    _GOLDEN_PREFIX = "puppeteer/tests/golden/"
+    _EPOCH_FILE = "puppeteer/src/puppeteer/harness_epoch.py"
+
+    def test_golden_changes_require_epoch_bump(self) -> None:
+        """If existing golden output changed, HARNESS_EPOCH must be bumped too."""
+        changed = _changed_files_since_master()
+        if changed is None:
+            pytest.skip("On master or git unavailable")
+
+        # Only *modified* (not added) golden files — new tests don't require
+        # an epoch bump, only changes to existing golden output do.
+        merge_base = subprocess.run(
+            ["git", "merge-base", "master", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.strip()
+        result = subprocess.run(
+            ["git", "diff", "--diff-filter=M", "--name-only", merge_base, "--", self._GOLDEN_PREFIX],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        modified_goldens = set(result.stdout.strip().splitlines()) if result.stdout.strip() else set()
+        if not modified_goldens:
+            return
+
+        assert self._EPOCH_FILE in changed, (
+            f"{len(modified_goldens)} golden file(s) modified without bumping HARNESS_EPOCH.\n"
+            "Golden output changes mean the harness changed — bump the epoch.\n"
+            "Modified goldens:\n  " + "\n  ".join(sorted(modified_goldens))
+        )
+
+    def test_epoch_bump_requires_full_regen(self) -> None:
+        """If HARNESS_EPOCH was bumped, all export goldens must be regenerated.
+
+        Export goldens embed harnessEpoch, so they always change when the epoch
+        bumps.  If any export golden is untouched, ``make regen-golden`` was not
+        run.  (Prompt/blunder goldens may legitimately be unchanged if the epoch
+        bump didn't affect prompt content.)
+        """
+        changed = _changed_files_since_master()
+        if changed is None:
+            pytest.skip("On master or git unavailable")
+
+        if self._EPOCH_FILE not in changed:
+            return
+
+        exports_dir = REPO_ROOT / "puppeteer" / "tests" / "golden" / "exports"
+        all_exports = {
+            str(p.relative_to(REPO_ROOT)) for p in exports_dir.glob("*.json")
+        }
+
+        untouched = all_exports - changed
+        assert not untouched, (
+            f"HARNESS_EPOCH was bumped but {len(untouched)} export golden(s) not regenerated.\n"
+            "Run `make regen-golden` after bumping the epoch.\n"
+            "Untouched exports:\n  " + "\n  ".join(sorted(untouched))
+        )
