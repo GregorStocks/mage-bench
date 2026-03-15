@@ -48,12 +48,11 @@ public class ObserverMain {
         }
         String healthPortFile = System.getProperty("xmage.observer.healthPortFile");
         int maxRetries = 100;
-        IOException lastException = null;
+        RuntimeException lastException = null;
         for (int i = 0; i < maxRetries; i++) {
             int candidatePort = healthPort + i;
             try {
-                ObserverHealthServer server = new ObserverHealthServer(candidatePort);
-                server.start();
+                ObserverHealthServer server = startHealthServer(candidatePort);
                 if (candidatePort != healthPort) {
                     LOGGER.info("Health port " + healthPort + " was busy, bound to " + candidatePort + " instead");
                 }
@@ -61,7 +60,7 @@ public class ObserverMain {
                     writePortFile(healthPortFile, server.getPort());
                 }
                 return server;
-            } catch (IOException e) {
+            } catch (RuntimeException e) {
                 lastException = e;
                 LOGGER.debug("Port " + candidatePort + " busy, trying next");
             }

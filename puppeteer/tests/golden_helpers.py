@@ -1136,10 +1136,12 @@ def read_health_port_file(path: Path, timeout: float = 30.0) -> int:
     """
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        if path.exists():
+        try:
             text = path.read_text().strip()
             if text:
                 return int(text)
+        except (FileNotFoundError, ValueError):
+            pass
         time.sleep(0.1)
     raise RuntimeError(f"Health port file {path} was not written within {timeout}s")
 

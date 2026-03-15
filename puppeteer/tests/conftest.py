@@ -204,8 +204,7 @@ def spectator_process(xmage_server, project_root):
 
     # Health port file: Java will bind with retry and write the actual port here
     health_port_file = tmp_dir / "health_port"
-    if health_port_file.exists():
-        health_port_file.unlink()
+    health_port_file.unlink(missing_ok=True)
 
     with timed_phase("session", "spectator_classpath"):
         cp = compute_module_classpath(project_root, "Mage.Client.Observer")
