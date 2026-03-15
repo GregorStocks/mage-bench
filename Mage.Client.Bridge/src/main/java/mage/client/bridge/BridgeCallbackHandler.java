@@ -2853,11 +2853,13 @@ public class BridgeCallbackHandler {
         Map<String, Integer> emptyTurns = Map.of();
 
         var result = new GetGameLogTool.Result();
-        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0);
+        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0, true);
         result.total_length = allRendered.length();
 
         if (cursor != null) {
-            // Incremental: render only events and chat from the cursor onward
+            // Incremental: render only events from the cursor onward.
+            // Exclude chat — cursor-based deltas don't track chat position,
+            // and chat is already surfaced via recent_chat in decision prompts.
             final int c = cursor;
             List<BridgeLogEntry> responseEvents = allEvents.stream()
                     .filter(e -> e.index() >= c)
@@ -2873,7 +2875,7 @@ public class BridgeCallbackHandler {
                 }
             }
 
-            String rendered = renderGameLogFlat(responseEvents, priorTurns, c);
+            String rendered = renderGameLogFlat(responseEvents, priorTurns, c, false);
 
             // Apply max_chars truncation from the front (keep most recent)
             if (maxChars > 0 && rendered.length() > maxChars) {
@@ -2932,7 +2934,7 @@ public class BridgeCallbackHandler {
         Map<String, Integer> emptyTurns = Map.of();
         var result = new GetGameLogTool.Result();
 
-        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0);
+        String allRendered = renderGameLogFlat(allEvents, emptyTurns, 0, true);
         result.total_length = allRendered.length();
 
         // Find the event index where the player's Nth per-player turn starts,
@@ -2958,7 +2960,7 @@ public class BridgeCallbackHandler {
         if (startIdx >= 0) {
             List<BridgeLogEntry> subset = allEvents.subList(startIdx, allEvents.size());
             int minChatCursor = allEvents.get(startIdx).index();
-            result.log = renderGameLogFlat(subset, priorTurns, minChatCursor);
+            result.log = renderGameLogFlat(subset, priorTurns, minChatCursor, true);
             result.truncated = false;
             result.since_turn = sinceTurn;
             result.since_player = player;
@@ -3162,10 +3164,13 @@ public class BridgeCallbackHandler {
      *        with correct absolute turn numbers); empty map starts from turn 1
      * @param minChatCursor only include chat entries with eventCursor >= this value
      *        (prevents replaying old chat on incremental cursor-based calls)
+     * @param includeChat whether to interleave chat messages; false for cursor-based
+     *        deltas where chat is already surfaced via recent_chat in decisions
      */
     private String renderGameLogFlat(List<BridgeLogEntry> events,
                                      Map<String, Integer> initialTurnCounts,
-                                     int minChatCursor) {
+                                     int minChatCursor,
+                                     boolean includeChat) {
         StringBuilder sb = new StringBuilder();
         Map<String, Integer> perPlayerTurns = new HashMap<>(initialTurnCounts);
         String lastTurnHeader = null;
@@ -3173,15 +3178,17 @@ public class BridgeCallbackHandler {
         // Snapshot chatLog for interleaving, sorted for deterministic output.
         // Chat entries with the same eventCursor arrive in nondeterministic callback order;
         // sorting by (eventCursor, text) ensures stable rendering across runs.
-        List<ChatLogEntry> chats;
-        synchronized (chatLog) {
-            chats = new ArrayList<>(chatLog);
-        }
-        chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
-        // Skip chat entries before the requested cursor range
+        List<ChatLogEntry> chats = List.of();
         int chatIdx = 0;
-        while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
-            chatIdx++;
+        if (includeChat) {
+            synchronized (chatLog) {
+                chats = new ArrayList<>(chatLog);
+            }
+            chats.sort(Comparator.comparingInt(ChatLogEntry::eventCursor).thenComparing(ChatLogEntry::text));
+            // Skip chat entries before the requested cursor range
+            while (chatIdx < chats.size() && chats.get(chatIdx).eventCursor() < minChatCursor) {
+                chatIdx++;
+            }
         }
 
         for (BridgeLogEntry entry : events) {
