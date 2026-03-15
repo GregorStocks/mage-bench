@@ -68,10 +68,6 @@
                                     <!-- Low-noise warning gate used by make lint-java. -->
                                     <showDeprecation>true</showDeprecation>
                                     <failOnWarning>true</failOnWarning>
-                                    <!-- Repeat from base config: if Maven incremental compilation
-                                         triggers a recompile under this profile, parameter names
-                                         must be preserved for McpToolRegistry reflection. -->
-                                    <parameters>true</parameters>
                                     <compilerArgs>
                                         <arg>-Xlint:unchecked,deprecation</arg>
                                     </compilerArgs>
