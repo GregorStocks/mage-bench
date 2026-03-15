@@ -652,9 +652,7 @@ class TestGoldenEpochCoherence:
             return
 
         exports_dir = REPO_ROOT / "puppeteer" / "tests" / "golden" / "exports"
-        all_exports = {
-            str(p.relative_to(REPO_ROOT)) for p in exports_dir.glob("*.json")
-        }
+        all_exports = {str(p.relative_to(REPO_ROOT)) for p in exports_dir.glob("*.json")}
 
         untouched = all_exports - changed
         assert not untouched, (
