@@ -721,10 +721,13 @@ class BridgeManager:
 
     def restart(self) -> None:
         """Restart the bridge JVM and validate that the next game starts cleanly."""
-        self.stop()
-        time.sleep(self._SERVER_CLEANUP_DELAY)
-        with timed_phase("session", f"{self._label}_jvm_restart"):
-            self.start()
+        try:
+            self.stop()
+            time.sleep(self._SERVER_CLEANUP_DELAY)
+            with timed_phase("session", f"{self._label}_jvm_restart"):
+                self.start()
+        except (AssertionError, OSError, RuntimeError, subprocess.SubprocessError, json.JSONDecodeError) as exc:
+            raise RuntimeError(f"{self._label.title()} restart failed") from exc
         self._needs_reconnect_validation = True
 
 
@@ -1402,7 +1405,7 @@ def run_golden_scenario(
         # scenario outcome or poison the next test.
         primary_exc = sys.exc_info()[1]
         cleanup_restarts: list[BridgeManager] = []
-        cleanup_restart_failures: list[tuple[str, Exception]] = []
+        cleanup_restart_failures: list[tuple[str, RuntimeError]] = []
         replay_error_by_label = {label: exc for label, exc in replay_errors}
         for label, session, bridge in [
             ("player_a", session_a, bridge_a),
@@ -1430,7 +1433,7 @@ def run_golden_scenario(
         for bridge in cleanup_restarts:
             try:
                 bridge.restart()
-            except Exception as exc:
+            except RuntimeError as exc:
                 print(
                     f"  [{golden_name}] Restart failed for {bridge._label}: {exc}",
                     flush=True,
@@ -1438,13 +1441,10 @@ def run_golden_scenario(
                 cleanup_restart_failures.append((bridge._label, exc))
 
         if cleanup_restart_failures:
-            details = "; ".join(
-                f"{label}: {exc}" for label, exc in cleanup_restart_failures
-            )
+            details = "; ".join(f"{label}: {exc}" for label, exc in cleanup_restart_failures)
             if primary_exc is not None:
                 primary_exc.add_note(
-                    "Cleanup restart failures while preserving the primary "
-                    f"scenario exception: {details}"
+                    f"Cleanup restart failures while preserving the primary scenario exception: {details}"
                 )
             else:
                 raise RuntimeError(

@@ -291,3 +291,25 @@ def test_run_golden_scenario_fails_successful_scenario_when_restart_fails(
     assert "opponent: restart failed" in str(excinfo.value)
     assert bridge_a.restart_calls == 0
     assert bridge_b.restart_calls == 1
+
+
+def test_bridge_manager_restart_wraps_start_failures(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    bridge = golden_helpers.BridgeManager(
+        server="localhost",
+        port=17171,
+        project_root=tmp_path,
+        allowed_sets="*",
+    )
+
+    monkeypatch.setattr(bridge, "stop", lambda: None)
+    monkeypatch.setattr(golden_helpers.time, "sleep", lambda _seconds: None)
+
+    def _raise_start_failure() -> None:
+        raise AssertionError("start failed")
+
+    monkeypatch.setattr(bridge, "start", _raise_start_failure)
+
+    with pytest.raises(RuntimeError, match="Bridge restart failed") as excinfo:
+        bridge.restart()
+
+    assert isinstance(excinfo.value.__cause__, AssertionError)
