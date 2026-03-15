@@ -73,7 +73,10 @@ def test_normalize_embedded_json_strips_object_id_uuid_from_strings():
 
     normalized = _normalize_embedded_json(payload)
 
-    assert normalized["description"] == "<font color='#F0E68C' object_id='_'>Savannah Lions</font> [_], P/T: 2/1"
+    assert (
+        normalized["description"]
+        == "<font color='#F0E68C' object_id='[redacted]'>Savannah Lions</font> [redacted], P/T: 2/1"
+    )
 
 
 def test_normalize_prompt_preserves_game_seq():

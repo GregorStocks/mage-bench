@@ -1510,7 +1510,7 @@ def _normalize_embedded_json(obj: object) -> object:
 
     Some strings also still contain raw XMage HTML object handles such as
     object_id='UUID' and trailing [abc] suffixes after </font>. These UUID/hex
-    handles are run-local noise, so normalize them to "_" / "[_]" before
+    handles are run-local noise, so normalize them to "[redacted]" before
     parsing embedded JSON.
     """
     if isinstance(obj, dict):
@@ -1518,8 +1518,8 @@ def _normalize_embedded_json(obj: object) -> object:
     if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
     if isinstance(obj, str):
-        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2_\2", obj)
-        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[_]", normalized)
+        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2[redacted]\2", obj)
+        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[redacted]", normalized)
         if not normalized.startswith(("{", "[")):
             return normalized
         try:

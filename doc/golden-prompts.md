@@ -190,8 +190,8 @@ normalizer parses and re-serializes these with sorted keys.
 It also performs minimal redaction of raw XMage HTML object handles that
 survive inside those strings:
 
-- `object_id='123e4567-e89b-12d3-a456-426614174000'` -> `object_id='_'`
-- trailing `</font> [abc]` suffixes -> `</font> [_]`
+- `object_id='123e4567-e89b-12d3-a456-426614174000'` -> `object_id='[redacted]'`
+- trailing `</font> [abc]` suffixes -> `</font> [redacted]`
 
 Those UUID/hex handles are run-local presentation noise, not the MCP short
 IDs that replay scripts and tool calls use.
