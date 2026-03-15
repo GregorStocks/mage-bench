@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_234838_g2",
   "timestamp": "20260308_234838",
   "gameType": "Two Player Duel",
@@ -73286,7 +73286,8 @@
       "betterLine": "Keep the 6-card hand with 1 Plains, Mesa Unicorn, and Brightmare. Even with only 1 land, the odds of drawing into more lands are decent (~51% per draw), and a 5-card hand risks being even worse.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 3
     },
     {
       "severity": "questionable",
@@ -73295,7 +73296,8 @@
       "betterLine": "Block Daybreak Charger with Speaker of the Heavens, trading a 1/1 for a 3/1. The Speaker's activated ability is too far from being active to justify preserving it over a favorable trade.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -73304,7 +73306,8 @@
       "betterLine": "Cast Griffin Aerie for {1}{W}, leaving {W} open to hold Angelic Ascension as interaction. Griffin Aerie immediately starts building toward token generation with the lifelink creatures already in play, and Angelic Ascension provides flexible removal/protection.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -73313,7 +73316,8 @@
       "betterLine": "Bounce a Plains instead. Replay it next turn as a land drop, keeping all creatures on board. This preserves board presence and the lifelink/vigilance body of Speaker of the Heavens.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 48
     },
     {
       "severity": "major",
@@ -73322,7 +73326,8 @@
       "betterLine": "Cast Griffin Aerie ({1}{W}) and Speaker of the Heavens ({W}) for 3 mana total, establishing a life-gain engine that produces a 2/2 flying Griffin token each end step when attacking with Mesa Unicorn + Speaker. This leaves 1 Plains open for future interaction.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 80
     },
     {
       "severity": "minor",
@@ -73331,7 +73336,8 @@
       "betterLine": "Attack with both Emancipation Angel and Mesa Unicorn for 5 total damage and 2 life gain, since the opponent has no available blockers and no untapped mana for tricks.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 81
     },
     {
       "severity": "minor",
@@ -73340,7 +73346,8 @@
       "betterLine": "Cast Feat of Resistance on Mesa Unicorn (or Speaker of the Heavens) for a free permanent +1/+1 counter and 1 extra damage/life while the opponent is completely tapped out",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 115
     },
     {
       "severity": "moderate",
@@ -73349,7 +73356,8 @@
       "betterLine": "Cast Feat of Resistance targeting Emancipation Angel, choosing protection from white. This fizzles Angelic Ascension, keeps the Emancipation Angel as a 4/4 flyer with a +1/+1 counter, and effectively 2-for-0s the opponent.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -73358,7 +73366,8 @@
       "betterLine": "Cast Gallant Cavalry for 4 mana, adding a 2/2 vigilance Knight and a 2/2 vigilance Knight token to the battlefield, then attack with Daybreak Charger and/or other creatures.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 122
     },
     {
       "severity": "minor",
@@ -73367,7 +73376,8 @@
       "betterLine": "Attack with both Daybreak Charger and Brightmare. Only Speaker of the Heavens can block, so at minimum 2-3 damage gets through and Speaker likely trades. Post-combat, Gallant Cavalry (4 mana available) provides two bodies for defense, and Cloudshift on Brightmare could also be used defensively later.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 122
     },
     {
       "severity": "questionable",
@@ -73376,7 +73386,8 @@
       "betterLine": "Cast Feat of Resistance on Speaker of the Heavens choosing protection from white, then block Daybreak Charger. This kills the 3/1 Charger, permanently buffs Speaker to 2/2, and prevents 3 damage — a strong tempo and value play.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 126
     },
     {
       "severity": "moderate",
@@ -73385,7 +73396,8 @@
       "betterLine": "Cast Feat of Resistance on Speaker of the Heavens choosing protection from white, then block Daybreak Charger. Speaker becomes 2/2, kills the 3/1 Charger, and survives with protection.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 127
     },
     {
       "severity": "moderate",
@@ -73394,7 +73406,8 @@
       "betterLine": "Cast Feat of Resistance on the Angel Token, making it a 5/5 with a permanent +1/+1 counter, saving the flying threat while still killing the Brightmare.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 136
     },
     {
       "severity": "moderate",
@@ -73403,7 +73416,8 @@
       "betterLine": "Block Griffin Token 2/2 with Brightmare (survives at 2/1) and block Mesa Unicorn 3/3 with Daybreak Charger (both die, preventing 3 damage + 3 lifelink). This would reduce incoming damage to just 5 from the Angel Token instead of 7-8, and keep Brightmare alive.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 150
     },
     {
       "severity": "minor",
@@ -73412,7 +73426,8 @@
       "betterLine": "Attack with Brightmare. If opponent blocks with Speaker of the Heavens, you kill a key threat while Brightmare survives. If unblocked, deal 2 damage.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 160
     },
     {
       "severity": "major",
@@ -73421,7 +73436,8 @@
       "betterLine": "Block the 5/5 Angel Token with Brightmare (trading Brightmare to save 5 damage) and block each 2/2 Griffin with Gallant Cavalry and Knight Token (trading to save 4 more damage). This preserves 12 life and eliminates the Griffin tokens, leaving only the Angel as a threat. Even just blocking the Angel with Brightmare to stay at 7 life instead of 3 would be far better.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 166
     },
     {
       "severity": "minor",
@@ -73430,7 +73446,8 @@
       "betterLine": "Cast Feat of Resistance on one of the Griffin Tokens, choosing protection from white, to prevent Brightmare from blocking it and push through 2 additional damage (9 total vs 7), putting opponent to 3 life instead of 5.",
       "type": "blunder",
       "snapshotIndex": 240,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 165
     },
     {
       "severity": "minor",
@@ -73439,7 +73456,8 @@
       "betterLine": "Cast Swift Response targeting Brightmare (tapped attacker) to save 2 damage and remove a creature, reducing risk while sitting at 17 life with lethal on board next turn.",
       "type": "blunder",
       "snapshotIndex": 261,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 181
     },
     {
       "severity": "minor",
@@ -73448,7 +73466,8 @@
       "betterLine": "Cast Swift Response targeting Brightmare to destroy it, reducing incoming damage and eliminating a potential blocker for the lethal counterattack next turn.",
       "type": "blunder",
       "snapshotIndex": 262,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 184
     },
     {
       "severity": "minor",
@@ -73457,7 +73476,8 @@
       "betterLine": "Cast Swift Response targeting the tapped Brightmare to destroy it, saving 2 damage and removing a creature permanently.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 182
     },
     {
       "severity": "moderate",
@@ -73466,7 +73486,8 @@
       "betterLine": "Cast Swift Response targeting the tapped Brightmare to destroy it, reducing incoming damage by 2 and removing an opponent's creature when they're at 3 life. Even if the Angel token has flying and can't be blocked by Brightmare, removing threats from a near-dead opponent and preserving your own life total is clearly correct.",
       "type": "blunder",
       "snapshotIndex": 266,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 186
     }
   ],
   "blunderScriptVersion": 32,

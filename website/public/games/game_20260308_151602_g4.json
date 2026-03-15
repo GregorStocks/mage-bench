@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_151602_g4",
   "timestamp": "20260308_151602",
   "gameType": "Two Player Duel",
@@ -63698,7 +63698,8 @@
       "betterLine": "Keep the 7-card hand. It has sufficient lands, a turn-4 play, and Acrobatic Maneuver to cycle into more threats. Going to 6 risks a worse hand for marginal improvement.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -63707,7 +63708,8 @@
       "betterLine": "Cast Takenuma Bleeder (3/3 that outclasses the 2/2) to develop the board and save Diabolic Edict for a larger threat, or cast Spawning Pit to set up morbid synergies for Morkrut Banshee and Reaper from the Abyss.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -63716,7 +63718,8 @@
       "betterLine": "Play a land first, then cast Inspiring Unicorn for {2}{W}{W} to establish board presence. Alternatively, pass and hold up Flicker of Fate for a future turn when you have your own creatures to blink for value.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 54
     },
     {
       "severity": "major",
@@ -63725,7 +63728,8 @@
       "betterLine": "Play a land and pass, saving Flicker of Fate for blinking own ETB creatures (Wispweaver Angel, or creatures buffed by Emiel the Blessed) later in the game for actual card advantage.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 54
     },
     {
       "severity": "questionable",
@@ -63734,7 +63738,8 @@
       "betterLine": "Take the 7 damage (going to 10), preserve Mesa Unicorn for the powerful unicorn engine with Emiel the Blessed and Inspiring Unicorn. The lifelink on Mesa Unicorn would recoup life over subsequent turns, especially when buffed.",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 77
     },
     {
       "severity": "major",
@@ -63743,7 +63748,8 @@
       "betterLine": "Attack with all four creatures (Reaper from the Abyss, Morkrut Banshee, Suspicious Shambler, Takenuma Bleeder) for 17 damage, which is lethal against the opponent's 9 life with no blockers available.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -63752,7 +63758,8 @@
       "betterLine": "Cast Spawning Pit for {2} using two untapped Swamps. This provides a sacrifice outlet that synergizes with Reaper from the Abyss's morbid trigger and adds insurance against the opponent's 5-card hand potentially finding answers.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 110
     },
     {
       "severity": "major",
@@ -63761,7 +63768,8 @@
       "betterLine": "Cast Valorous Stance targeting Reaper from the Abyss to remove the 6/6 flyer, then cast a creature (Emiel the Blessed or Inspiring Unicorn for {2}{W}{W}) as a blocker. This at least removes the biggest threat and provides a body to block Morkrut Banshee, giving a slim chance of survival.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -63770,7 +63778,8 @@
       "betterLine": "Activate Fetid Imp's {B} deathtouch ability to make it trade with any blocker, using one of the three available untapped Swamps",
       "type": "blunder",
       "snapshotIndex": 239,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 128
     }
   ],
   "blunderScriptVersion": 32,

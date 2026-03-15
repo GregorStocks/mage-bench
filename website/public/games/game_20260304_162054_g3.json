@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_162054_g3",
   "timestamp": "20260304_162054",
   "gameType": "Two Player Duel",
@@ -24763,7 +24763,8 @@
       "betterLine": "Play Plains, then cast Anointed Chorister. Play Thriving Bluff (choosing red) on turn 2 tapped, then Mountain on turn 3 to have {1}{R}{R} for Goblin Artillery.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MiniMx Johnny"
+      "player": "MiniMx Johnny",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -24772,7 +24773,8 @@
       "betterLine": "Pass priority and save Basri's Solidarity for a later turn when you have creatures on the battlefield. The card scales with creature count and would be much more impactful after deploying Falconer Adept and Aven Gagglemaster.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "MstLg Stoic"
+      "player": "MstLg Stoic",
+      "decisionIndex": 21
     }
   ],
   "blunderScriptVersion": 32

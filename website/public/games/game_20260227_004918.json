@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260227_004918",
   "timestamp": "20260227_004918",
   "gameType": "Two Player Duel",
@@ -70519,7 +70519,8 @@
       "betterLine": "Play Eldrazi Temple first (land drops can't be interacted with), then cast Lotus Petal. This follows the fundamental 'play lands before spells' sequencing principle and denies the opponent any opportunity to interact before securing the land drop.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -70528,7 +70529,8 @@
       "betterLine": "Play Eldrazi Temple first (securing the land drop), then cast Lotus Petal. This way the land is guaranteed on the battlefield regardless of any interaction with the Petal.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 4
     },
     {
       "severity": "questionable",
@@ -70537,7 +70539,8 @@
       "betterLine": "Pass the turn, threatening Daze (returning Underground Sea). If opponent plays a threat, Daze it. Cast Consider at end of opponent's turn to maintain card selection while keeping interaction up.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -70546,7 +70549,8 @@
       "betterLine": "Exile Brainstorm - it's the most impactful single card, providing card selection that could find any answer. Taking one of two Dazes has diminished returns, and Cavern of Souls already protects creature spells from being countered.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -70555,7 +70559,8 @@
       "betterLine": "Play Polluted Delta as the land drop, then cast Brainstorm (drawing 3, putting 2 back), then crack Polluted Delta to shuffle away the unwanted cards. This is one of the most fundamental synergies in Legacy.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -70564,7 +70569,8 @@
       "betterLine": "Cast Ponder to look at 3 cards with the option to shuffle, maximizing the chance of finding relevant answers to the Eldrazi threats",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -70573,7 +70579,8 @@
       "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to the Thought-Knot Seer. Ponder's ability to see 3 cards and shuffle gives the best chance of finding relevant interaction or threats.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -70582,7 +70589,8 @@
       "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to Thought-Knot Seer, saving Consider for instant-speed use later.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -70591,7 +70599,8 @@
       "betterLine": "Cast Ponder instead of Consider to see 3 cards deep with shuffle option, maximizing chances of finding an answer to Thought-Knot Seer",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -70600,7 +70609,8 @@
       "betterLine": "Save Lotus Petal and cast Ponder (sorcery) instead, which provides much better card selection by looking at 3 cards with shuffle option.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -70609,7 +70619,8 @@
       "betterLine": "Attack with Thought-Knot Seer for 4 unblocked damage, putting the opponent to 16.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -70618,7 +70629,8 @@
       "betterLine": "Cast Grim Monolith (2 mana) + Chalice of the Void on X=1 (2 mana), locking out opponent's cheap cantrips and counterspells while also having Monolith available for massive ramp next turn to cast Reality Smasher and more.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -70627,7 +70639,8 @@
       "betterLine": "Fetch basic Island to protect against Wasteland while still having access to both blue and black mana through the existing Underground Sea and Swamp.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -70636,7 +70649,8 @@
       "betterLine": "Fetch basic Island to play around Wasteland, preserving blue mana sources for Force of Will",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 58
     },
     {
       "severity": "major",
@@ -70645,7 +70659,8 @@
       "betterLine": "Cast Eldrazi Linebreaker, then attack with all three creatures (Reality Smasher pumped to 8/5, TKS 4/4, Linebreaker 3/3) for 15 total damage against 14 life for the win.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 63
     },
     {
       "severity": "major",
@@ -70654,7 +70669,8 @@
       "betterLine": "Attack with both Reality Smasher and the non-sick Thought-Knot Seer for 9 damage, putting the opponent to 5 life. Next turn with Eldrazi Linebreaker pump and three attackers, that would likely be lethal.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -70663,7 +70679,8 @@
       "betterLine": "Cast Doomsday directly using 3 black mana from lands (Swamp + Underground Sea x3), or recognize that winning through Chalice on 1 with a Doomsday pile of mostly 1-mana cantrips may not be viable. If a pile exists using 0-mana or 2+ mana draw spells, go for Doomsday; otherwise the game may already be lost.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 88
     },
     {
       "severity": "minor",
@@ -70672,7 +70689,8 @@
       "betterLine": "Activate Wasteland targeting one of the opponent's untapped lands (Island or Underground Sea) to reduce their post-Doomsday mana and disrupt pile execution",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 89
     },
     {
       "severity": "major",
@@ -70681,7 +70699,8 @@
       "betterLine": "Build a pile using cards not affected by Chalice on 1, such as Thassa's Oracle (MV 2), Lion's Eye Diamond (MV 0), Edge of Autumn (cycle doesn't cast), and other non-1-MV cards to enable a same-turn Oracle win.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "Gem25P Lucky"
+      "player": "Gem25P Lucky",
+      "decisionIndex": 91
     },
     {
       "severity": "minor",
@@ -70690,7 +70709,8 @@
       "betterLine": "Target Eldrazi Linebreaker with its own trigger to grant it haste, enabling all 4 Eldrazi to attack. With the opponent at 2 life, having 4 attackers instead of 3 provides better insurance against removal or blocking.",
       "type": "blunder",
       "snapshotIndex": 220,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 102
     },
     {
       "severity": "major",
@@ -70699,7 +70719,8 @@
       "betterLine": "Attack with all available creatures (or even just one) to deal lethal damage to the opponent at 2 life.",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "GLM47 Gramps"
+      "player": "GLM47 Gramps",
+      "decisionIndex": 105
     }
   ],
   "blunderScriptVersion": 28,

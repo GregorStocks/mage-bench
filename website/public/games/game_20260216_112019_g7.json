@@ -15150,7 +15150,8 @@
       "betterLine": "Attack with Greasewrench Goblin first, then cast Bloodghast in second main phase to avoid revealing information unnecessarily",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "DSV3 Libby"
+      "player": "DSV3 Libby",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -15159,7 +15160,8 @@
       "betterLine": "Discard Bloodghast and one Multiversal Passage. Bloodghast has landfall recursion from the graveyard, so it's more valuable there. Keep Bitter Triumph as removal and the remaining Multiversal Passage to play next turn, triggering Bloodghast's return to the battlefield for free.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "DSV3 Libby"
+      "player": "DSV3 Libby",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -15168,7 +15170,8 @@
       "betterLine": "Discard Bloodghast and one Multiversal Passage, keeping the other Passage for turn 4 land drop and Bitter Triumph for removal. Bloodghast would recur from graveyard when the Passage is played, effectively getting it for free.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "DSV3 Libby"
+      "player": "DSV3 Libby",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -15177,7 +15180,8 @@
       "betterLine": "Discard Flamewake Phoenix instead. After putting the +1/+1 counter on Tersa Lightshatter (making it 4/4), Flamewake Phoenix would recur from graveyard for free (just paying R) at the beginning of combat on subsequent turns, while Bloodghast could be cast from hand for BB.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "DSV3 Libby"
+      "player": "DSV3 Libby",
+      "decisionIndex": 44
     },
     {
       "severity": "moderate",
@@ -15186,11 +15190,12 @@
       "betterLine": "Target Inti, Seneschal of the Sun with Burst Lightning to kill the 2/2 engine creature that generates card advantage and combat bonuses every attack step.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Qwen3 Undrdog"
+      "player": "Qwen3 Undrdog",
+      "decisionIndex": 51
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

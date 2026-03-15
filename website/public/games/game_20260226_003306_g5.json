@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_003306_g5",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -37655,7 +37655,8 @@
       "betterLine": "Choose to be on the play (select yourself as starting player) to gain tempo advantage",
       "type": "blunder",
       "snapshotIndex": 0,
-      "player": "KimiK2 Sport"
+      "player": "KimiK2 Sport",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -37664,7 +37665,8 @@
       "betterLine": "Cast Lion's Eye Diamond first (free), then cast Personal Tutor, retaining the option to crack LED in response to the tutor on the stack for 3 mana if needed",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Sonnet Tactic"
+      "player": "Sonnet Tactic",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -37673,7 +37675,8 @@
       "betterLine": "Wait for a turn where you have a cantrip available to immediately draw into the Doomsday pile after it resolves, or use Personal Tutor first to set up a better sequence. Playing the Polluted Delta from hand first would also preserve a land drop.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "Sonnet Tactic"
+      "player": "Sonnet Tactic",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -37682,7 +37685,8 @@
       "betterLine": "Play Polluted Delta as a land first, then cast Ponder (and crack LED in response to Ponder). This preserves the extra fetchland on the battlefield at zero cost.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Sonnet Tactic"
+      "player": "Sonnet Tactic",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -37691,7 +37695,8 @@
       "betterLine": "Put Broadside Bombardiers onto the battlefield via Aether Vial, attack for 2 damage with haste+menace, then use Boast to sacrifice Aether Vial dealing 3 damage to face (total 5 damage, opponent to 4 life), maximizing pressure against the Doomsday pile.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "KimiK2 Sport"
+      "player": "KimiK2 Sport",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -37700,7 +37705,8 @@
       "betterLine": "Search for Skirk Prospector (1-drop, castable off Badlands, enables sacrificing Goblin Matron for mana to help cast Muxus faster) or Goblin Warchief (cost reduction and haste for goblins, can be vialed in at 3 counters). Either provides meaningful board development rather than a redundant legendary.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "KimiK2 Sport"
+      "player": "KimiK2 Sport",
+      "decisionIndex": 49
     },
     {
       "severity": "major",
@@ -37709,7 +37715,8 @@
       "betterLine": "Play Polluted Delta as land drop first, then cast Personal Tutor (which shuffles library and puts a card on top, keeping library at 2+1=3 cards if there's a valid sorcery target), and only then cast Brainstorm safely. Alternatively, find a line that doesn't involve drawing more cards than exist in the library.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Sonnet Tactic"
+      "player": "Sonnet Tactic",
+      "decisionIndex": 57
     }
   ],
   "blunderScriptVersion": 28,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_173416_g3",
   "timestamp": "20260303_173416",
   "gameType": "Two Player Duel",
@@ -110440,7 +110440,8 @@
       "betterLine": "Keep the 7-card hand. Play Thriving Heath T1 (choosing black), Plains + Honor Guard T2, and curve toward Syr Alin on T5. Draw steps may find black sources for the other cards.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -110449,7 +110450,8 @@
       "betterLine": "Play a Mountain as land drop, then cast Lightning Visionary (1R) to start developing the board. Ash Barrens could be played next turn as a colorless land (useful for Stalking Drone's ability) or cycled later when there's spare mana.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "GPT53C Libby"
+      "player": "GPT53C Libby",
+      "decisionIndex": 18
     },
     {
       "severity": "major",
@@ -110458,7 +110460,8 @@
       "betterLine": "Cast Bloodbond Vampire (2BB) to develop a 3/3 body that synergizes with the lifegain/Silversmote Ghoul plan. Alternatively, cast Jousting Lance (2) to leave up Last Gasp (1B) mana for interaction, or cast Eternal Thirst on Silversmote Ghoul for immediate lifelink pressure.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 28
     },
     {
       "severity": "major",
@@ -110467,7 +110470,8 @@
       "betterLine": "Cast Bloodbond Vampire for {2}{B}{B} to develop the board. Alternatively, cast Jousting Lance ({2}) and Eternal Thirst on Silversmote Ghoul ({1}{B}) for a 5/1 lifelink creature with first strike on attacks.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -110476,7 +110480,8 @@
       "betterLine": "Cast Lightning Bolt targeting Silversmote Ghoul to kill it for 1 mana, preserving the remaining 4 mana for deploying creatures in the second main phase (e.g., Stalking Drone + Lightning Visionary).",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "GPT53C Libby"
+      "player": "GPT53C Libby",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -110485,7 +110490,8 @@
       "betterLine": "Cast Eternal Thirst on Silversmote Ghoul to give it lifelink, creating a powerful synergy engine with Blood Artist and Silversmote's graveyard recursion. Alternatively, cast Last Gasp on Lightning Visionary to remove a prowess threat (triggering Blood Artist).",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -110494,7 +110500,8 @@
       "betterLine": "Single-block with Stalking Drone (2/2 trades with 3/1 Ghoul, keeping Lightning Visionary alive) for only 2 Blood Artist triggers instead of 3, preserving a creature for future turns.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "GPT53C Libby"
+      "player": "GPT53C Libby",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -110503,7 +110510,8 @@
       "betterLine": "Cast Last Gasp on Stalking Drone (or Lightning Visionary) to kill it before combat damage, ensuring Silversmote Ghoul's 3 damage kills the remaining blocker, netting an additional creature kill and an extra Blood Artist trigger.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -110512,7 +110520,8 @@
       "betterLine": "Cast Last Gasp targeting Stalking Drone to kill it before combat damage, saving the attacking creature and pushing through damage while triggering Blood Artist.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 54
     },
     {
       "severity": "questionable",
@@ -110521,7 +110530,8 @@
       "betterLine": "Block Stalking Drone with Blood Artist (chump block, Blood Artist dies but triggers its own ability for 1 life drain), take 5 from Lightning Shrieker, and save Last Gasp for a higher-value target. Blood Artist's death trigger still fires, and the premium removal spell is preserved.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -110530,7 +110540,8 @@
       "betterLine": "Cast Weaver of Lightning first (2R), then cast Unnatural Aggression (2G). Weaver's trigger kills Blood Artist (0/1), Stalking Drone fights and exiles Silversmote Ghoul, and Libby keeps Weaver of Lightning as a 1/4 body on board.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT53C Libby"
+      "player": "GPT53C Libby",
+      "decisionIndex": 66
     },
     {
       "severity": "questionable",
@@ -110539,7 +110550,8 @@
       "betterLine": "Hold up Last Gasp as instant-speed removal for whatever the opponent plays next turn, or save both spells. Eternal Thirst would be much better on a larger creature like Balan later when there's more mana available.",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 75
     },
     {
       "severity": "questionable",
@@ -110548,7 +110560,8 @@
       "betterLine": "Cast Danitha Capashen, Paragon for 3 mana, developing a lifelink first-striker that enables cheaper Shining Armor and future equipment plays, while keeping Last Gasp as removal for a more threatening target later.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -110557,7 +110570,8 @@
       "betterLine": "Block Blood Artist with Eldrazi Scion Token 1/1 (or Scion Summoner 2/2). The blocker survives since Blood Artist has 0 power, and Blood Artist dies. You take 1 life from Blood Artist's death trigger but permanently remove the engine.",
       "type": "blunder",
       "snapshotIndex": 271,
-      "player": "GPT53C Libby"
+      "player": "GPT53C Libby",
+      "decisionIndex": 92
     },
     {
       "severity": "major",
@@ -110566,7 +110580,8 @@
       "betterLine": "Cast Kwende, Pride of Femeref for {3}{W} to establish a blocker and set up the knight synergy engine. Kwende's double strike ability would supercharge future plays of Balan or Danitha with Jousting Lance equipped.",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -110575,7 +110590,8 @@
       "betterLine": "Cast Kwende, Pride of Femeref for 3W to start building board presence. Kwende synergizes with Jousting Lance (giving it first strike → double strike) and enables future plays like Shining Armor, Danitha, Balan, and The Circle of Loyalty.",
       "type": "blunder",
       "snapshotIndex": 310,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 109
     },
     {
       "severity": "minor",
@@ -110584,7 +110600,8 @@
       "betterLine": "Cast Danitha Capashen, Paragon (2W) for a 2/2 first strike, vigilance, lifelink that stabilizes life total and enables future synergies with Kwende and equipment",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 120
     },
     {
       "severity": "minor",
@@ -110593,7 +110610,8 @@
       "betterLine": "Block Scion Summoner with Kwende to permanently remove a 2/2 threat, since Lightning Phoenix will return from the graveyard anyway when the 4 unblocked combat damage satisfies its trigger condition.",
       "type": "blunder",
       "snapshotIndex": 353,
-      "player": "Gem31P Tactic"
+      "player": "Gem31P Tactic",
+      "decisionIndex": 129
     }
   ],
   "blunderScriptVersion": 31,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_163336_g3",
   "timestamp": "20260303_163336",
   "gameType": "Two Player Duel",
@@ -80730,7 +80730,8 @@
       "betterLine": "Keep the 7-card hand. With two 2-mana plays, Thrill of Possibility to dig for lands, and a low curve, this hand is functional even if you only draw one more land in the first few turns.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstLg Stats"
+      "player": "MstLg Stats",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -80739,7 +80740,8 @@
       "betterLine": "Hold Alchemist's Gift for a future turn when it can be used as a combat trick during actual combat — either to win a favorable trade on attack/block or to grant deathtouch to kill a larger creature. The single black mana could have been left open or the card simply held in hand.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -80748,7 +80750,8 @@
       "betterLine": "Choose deathtouch - it makes the Enforcer a genuine threat that can trade with any creature, providing far more value than 2 life from lifelink",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -80757,7 +80760,8 @@
       "betterLine": "Play Swamp first, then cast Gonti, Lord of Luxury, leaving 1 black mana open for potential instant-speed plays (including whatever card Gonti might exile from the opponent's library).",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 34
     },
     {
       "severity": "moderate",
@@ -80766,7 +80770,8 @@
       "betterLine": "Cast Lightning Visionary from exile using two Swamps (Gonti allows any mana type), adding a 2/1 prowess creature to the board for additional pressure.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -80775,7 +80780,8 @@
       "betterLine": "Cast Lightning Visionary from exile using 2 Swamps (Gonti allows mana of any type), adding a 2/1 prowess creature to the board for additional pressure.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 69
     },
     {
       "severity": "minor",
@@ -80784,7 +80790,8 @@
       "betterLine": "Cast Lightning Visionary from exile for {1}{B} using Gonti's mana ability, adding a 2/1 to the board to increase pressure against the opponent at 6 life",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 89
     },
     {
       "severity": "major",
@@ -80793,7 +80800,8 @@
       "betterLine": "Cast Wight of Precinct Six (5/5 for 2 mana) and Living Lightning (3/2 for 4 mana) - wait, that's 6 mana. Cast Wight of Precinct Six for 2 mana, leaving 3 mana open for future plays, presenting a lethal clock against the opponent at 11 life while racing Stab Wound drain.",
       "type": "blunder",
       "snapshotIndex": 239,
-      "player": "MstLg Stats"
+      "player": "MstLg Stats",
+      "decisionIndex": 94
     },
     {
       "severity": "major",
@@ -80802,7 +80810,8 @@
       "betterLine": "Cast Dutiful Attendant (3 mana), then move to combat and attack with Nocturnal Feeder for 2 unblocked flying damage, putting opponent to 2 life. The opponent would be in a near-unrecoverable position.",
       "type": "blunder",
       "snapshotIndex": 261,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 98
     },
     {
       "severity": "major",
@@ -80811,7 +80820,8 @@
       "betterLine": "Cast Finishing Blow targeting own Nocturnal Feeder to trigger its death ability ('each opponent loses 2 life'), killing the opponent at 2 life for the win.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "MstMed Sarge"
+      "player": "MstMed Sarge",
+      "decisionIndex": 102
     }
   ],
   "blunderScriptVersion": 31,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260305_183202_g1",
   "timestamp": "20260305_183202",
   "gameType": "Two Player Duel",
@@ -92558,7 +92558,8 @@
       "betterLine": "Search for Forest to balance mana sources and ensure ability to cast Ancient Stirrings. With 2 Swamps already in hand, black mana is well covered; a second Forest provides needed green access.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -92567,7 +92568,8 @@
       "betterLine": "Play Swamp (land drop) first, then cast Ancient Stirrings with Forest for {G} to get card selection, then cast Alley Strangler with the remaining 3 Swamps for {2}{B}. This gets both spells in one turn.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -92576,7 +92578,8 @@
       "betterLine": "Discard Wailing Ghoul, which is the weakest card in hand, and keep both lands to ensure hitting land drops for the multiple 3-mana spells in hand.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "G31FL Villain"
+      "player": "G31FL Villain",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -92585,7 +92588,8 @@
       "betterLine": "Play Wastes first (to maximize mana availability and enable future Ruin in Their Wake if drawn), then cast Scion Summoner, then proceed to combat with more mana open for post-combat actions",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -92594,7 +92598,8 @@
       "betterLine": "Activate Termination Facilitator to place a bounty counter on Wailing Ghoul, then cast Unnatural Aggression. The fight damage would trigger the Facilitator's destroy effect, killing the Ghoul. Alternatively, just attack with creatures and save the Unnatural Aggression for a more meaningful target.",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -92603,7 +92608,8 @@
       "betterLine": "Play Wastes (or any land), then activate Termination Facilitator targeting Wailing Ghoul to set up its destruction, then proceed to combat.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 40
     },
     {
       "severity": "moderate",
@@ -92612,7 +92618,8 @@
       "betterLine": "Discard Goremand (6 mana, requires sacrificing a creature, unlikely to be castable for many turns) or Liliana's Standard Bearer (very situational without creatures dying). Keeping the Swamp ensures a land drop next turn to reach 4 mana for Settle the Score or to cast 3-drops while holding up interaction.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "G31FL Villain"
+      "player": "G31FL Villain",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -92621,7 +92628,8 @@
       "betterLine": "Attack with all three creatures (Alley Strangler, Scion Summoner, Eldrazi Scion Token). Alley Strangler gets through with Menace, and any block on the other creatures triggers the bounty counter destruction on Wailing Ghoul, resulting in 3-4 damage total and removing the opponent's only creature.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -92630,7 +92638,8 @@
       "betterLine": "Don't block - take 2 damage (going to 8 life) and preserve Wailing Ghoul. The Ghoul could be useful as a sacrifice for Goremand later or as a blocker against non-bounty-triggering attacks.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "G31FL Villain"
+      "player": "G31FL Villain",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -92639,7 +92648,8 @@
       "betterLine": "Play Wastes first, then cast Endbringer using Wastes for the {C} requirement, preserving the Eldrazi Scion token and Planar Atlas flexibility",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -92648,7 +92658,8 @@
       "betterLine": "Attack with all available creatures including the Eldrazi Scion Token. The opponent can only block one non-menace creature with Wailing Ghoul (which dies to bounty counter if it does), so maximum damage gets through. Every point matters at 8 life.",
       "type": "blunder",
       "snapshotIndex": 238,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -92657,7 +92668,8 @@
       "betterLine": "Play Wastes first, then go directly to combat. Attack with all creatures — opponent has only 2 blockers for 5 attackers (one with menace), guaranteeing lethal damage gets through against their 5 life.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Llama4 Timmy"
+      "player": "Llama4 Timmy",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -92666,7 +92678,8 @@
       "betterLine": "Cast Voyage's End targeting Alley Strangler (removing 2 damage and the menace threat) and flash in Spectral Sailor to block another attacker, reducing incoming damage significantly while deploying creatures.",
       "type": "blunder",
       "snapshotIndex": 280,
-      "player": "G31FL Villain"
+      "player": "G31FL Villain",
+      "decisionIndex": 63
     }
   ],
   "blunderScriptVersion": 32

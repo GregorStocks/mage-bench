@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_000030_g1",
   "timestamp": "20260303_000030",
   "gameType": "Two Player Duel",
@@ -70039,7 +70039,8 @@
       "betterLine": "Keep the 7-card hand. Erratic Visionary on turn 2 provides filtering to find green/red sources. If a Forest is found, Commune with Dinosaurs can find more lands. The hand is speculative but functional with its built-in card selection.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 2
     },
     {
       "severity": "questionable",
@@ -70048,7 +70049,8 @@
       "betterLine": "Mulligan to 5 to find a more functional hand with at least 2 lands. A 1-land hand with this curve and no card selection that works with the available mana is likely to lose more games than a random 5-card hand.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -70057,7 +70059,8 @@
       "betterLine": "Cast Lightning-Core Excavator for {1} to deploy a 0/3 blocker and artifact permanent at no cost, since the mana would otherwise go unused.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -70066,7 +70069,8 @@
       "betterLine": "Activate Aether Spellbomb's draw ability ({1}, sacrifice) using the untapped Forest to dig for a land. Being mana-screwed at 2 lands with a 4+ CMC hand makes finding lands the top priority.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -70075,7 +70079,8 @@
       "betterLine": "Activate Aether Spellbomb's '{1}, Sacrifice: Draw a card' ability using the untapped Forest to dig for lands while stuck on 2 lands with an expensive hand.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -70084,7 +70089,8 @@
       "betterLine": "Discard Double Vision instead. At 3 lands on turn 7, reaching 5 mana for Double Vision is unlikely in a timely manner. Keeping both lands (Forest and Mountain) to play on consecutive turns would help cast Hungry Flames and a meaningful Wildwood Scourge much sooner.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -70093,7 +70099,8 @@
       "betterLine": "Cast Erratic Visionary for {1}{U} to develop the board and enable looting next turn to dig for lands needed for the expensive hand.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -70102,7 +70109,8 @@
       "betterLine": "Cast Drover of the Mighty for {1}{G} using Island and Forest. This provides a mana dork to accelerate toward Cultivate next turn (with 3+ mana) and eventually Hedron Archive and Meteor Golem.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -70111,7 +70119,8 @@
       "betterLine": "Cast Drover of the Mighty for {1}{G} using Forest and Island. This deploys a mana dork that taps for any color, accelerating toward the powerful expensive cards in hand on subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -70120,7 +70129,8 @@
       "betterLine": "Cast Drover of the Mighty for {1}{G} to establish a mana dork and begin ramping toward Hedron Archive and Meteor Golem.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -70129,7 +70139,8 @@
       "betterLine": "Hold Wildwood Scourge and pass. Wait for a future turn when more mana is available to cast it with X≥1 (or ideally X≥2+ for a meaningful body). The Scourge also synergizes with Nessian Hornbeetle and Ironshell Beetle's +1/+1 counters, making it even more valuable to cast later with enough counters to survive.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -70138,7 +70149,8 @@
       "betterLine": "Block the Ironshell Beetle with Lightning-Core Excavator. The Excavator survives and 2 damage is prevented for free.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -70147,7 +70159,8 @@
       "betterLine": "Cast Thirst for Knowledge using the correct mana plan — tap two Islands and the Forest (or Thriving Grove) to pay {2}{U}. This would draw 3 cards and help find answers while at 10 life facing growing threats.",
       "type": "blunder",
       "snapshotIndex": 187,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -70156,7 +70169,8 @@
       "betterLine": "Cast Living Lightning ({3}{R}) + Nessian Hornbeetle ({1}{G}) for exactly 6 mana, deploying two creatures. Then activate Thermo-Alchemist for 1 damage (triggering Chandra's Pyreling), and attack with Pyreling and Ironshell Beetle for significant pressure against the 10-life opponent.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -70165,7 +70179,8 @@
       "betterLine": "Activate Thermo-Alchemist to deal 1 damage to opponent, triggering Chandra's Pyreling to get +1/+0 and double strike, then attack with the pumped Pyreling for potentially 4 damage (2 first strike + 2 regular) instead of just 1.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -70174,7 +70189,8 @@
       "betterLine": "Block Chandra's Pyreling with Lightning-Core Excavator to save 2 life and trade the less important creature, going to 7 life instead of 5. The Excavator's 5-mana sacrifice ability is unlikely to be relevant given the board state and mana constraints.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 91
     },
     {
       "severity": "major",
@@ -70183,7 +70199,8 @@
       "betterLine": "Activate Aether Spellbomb ({U}, sacrifice) to bounce Thermo-Alchemist back to opponent's hand, removing the most lethal threat. Then cast Drover of the Mighty ({1}{G}) as a blocker and mana source. This uses 3 of 5 available mana and significantly improves survivability.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "Qwen3L Rivals"
+      "player": "Qwen3L Rivals",
+      "decisionIndex": 97
     },
     {
       "severity": "questionable",
@@ -70192,7 +70209,8 @@
       "betterLine": "Activate Thermo-Alchemist to deal 1 damage (opponent to 2), then go to combat and attack with Ironshell Beetle (2/2) for exact lethal",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 104
     }
   ],
   "blunderScriptVersion": 31,

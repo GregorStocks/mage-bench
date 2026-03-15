@@ -131006,7 +131006,8 @@
       "betterLine": "Cast Duelist of the Mind for 1U (using Spirebluff Canal for U and Riverpyre Verge for R as the generic mana), deploying a flying vigilance creature that grows with card draw and pairs well with Frostcliff Siege on the following turn.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 202
     },
     {
       "severity": "minor",
@@ -131015,7 +131016,8 @@
       "betterLine": "Attack with the Otter Token for 1 free damage against an empty board.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 272
     },
     {
       "severity": "minor",
@@ -131024,7 +131026,8 @@
       "betterLine": "Attack with Otter first, then in second main phase consider casting Fear of Missing Out (which loots on ETB and can enable delirium/extra combats) or Frostcliff Siege (Jeskai mode for card draw on combat damage). If casting Duelist, do it post-combat to preserve information and combat trick flexibility.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 513
     },
     {
       "severity": "minor",
@@ -131033,7 +131036,8 @@
       "betterLine": "Attack with the Otter Token for 1 free damage against the empty board. There are no blockers and no reason to hold it back.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 529
     },
     {
       "severity": "questionable",
@@ -131042,7 +131046,8 @@
       "betterLine": "Attack first with Otter Token (potentially triggering Frostcliff Siege's Jeskai draw on combat damage), then cast Tiger-Seal in post-combat main to preserve the option of casting instants like Into the Flood Maw or Torch the Tower before/during combat for prowess triggers on the Otter.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 827
     },
     {
       "severity": "minor",
@@ -131051,7 +131056,8 @@
       "betterLine": "Play Multiversal Passage first (choosing Island), then cast Duelist of the Mind for {1}{U}, leaving 1 mana open for Torch the Tower or Into the Flood Maw",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 902
     },
     {
       "severity": "moderate",
@@ -131060,7 +131066,8 @@
       "betterLine": "Attack with all creatures into the empty board. Even without pre-combat spells, Fear of Missing Out deals 2, Otter deals 1, and Frostcliff Siege (Jeskai) draws a card on combat damage. Could cast spells pre-combat to further pump prowess/Duelist, but declining to attack at all is strictly worse than attacking.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 1180
     },
     {
       "severity": "minor",
@@ -131069,7 +131076,8 @@
       "betterLine": "Play Riverpyre Verge first to have maximum mana available, then cast Boomerang Basics and potentially follow up with additional spells like Torch the Tower with the extra mana.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 1180
     },
     {
       "severity": "minor",
@@ -131078,7 +131086,8 @@
       "betterLine": "Discard Riverpyre Verge and Spirebluff Canal (or the second Frostcliff Siege) as the two discards, keeping Into the Flood Maw for its cheap interaction and prowess triggering",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 1419
     },
     {
       "severity": "questionable",
@@ -131087,7 +131096,8 @@
       "betterLine": "Discard a redundant land (Riverpyre Verge or Spirebluff Canal) instead of Quantum Riddler, keeping the Warp option as a cheap 4/6 flyer that draws a card on entry",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 1419
     },
     {
       "severity": "moderate",
@@ -131096,12 +131106,13 @@
       "betterLine": "Cast Stormchaser's Talent (U) to create a fresh untapped Otter token, then cast Boomerang Basics bouncing Stormchaser's Talent to draw a card and trigger prowess, maximizing Duelist's power and total combat damage against the opponent at 6 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Kimi25 Sarge"
+      "player": "Kimi25 Sarge",
+      "decisionIndex": 1550
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 12,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

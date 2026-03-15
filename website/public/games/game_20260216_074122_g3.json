@@ -40421,7 +40421,8 @@
       "betterLine": "Play Breeding Pool (paying 2 life to have it enter untapped, or tapped if preserving life) to enable casting Formidable Speaker on turn 3 with access to green mana. Gloomlake Verge would also be a reasonable choice since it provides black mana with the Watery Grave already in play.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "MiMo Worrier"
+      "player": "MiMo Worrier",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -40430,7 +40431,8 @@
       "betterLine": "Play Willowrush Verge, which enters untapped for free and provides both U and G (since Watery Grave is an Island), saving 2 life and preserving Breeding Pool for a turn where its dual land type or specific timing matters more.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "MiMo Worrier"
+      "player": "MiMo Worrier",
+      "decisionIndex": 20
     },
     {
       "severity": "major",
@@ -40439,7 +40441,8 @@
       "betterLine": "Play Gloomlake Verge as land for turn, tap Watery Grave and Demolition Field for mana if needed, and develop mana base normally. Save Demolition Field for later when its tempo cost is less significant, or simply use it as a colorless mana source. The priority should be hitting land drops and reaching 3 mana for Stock Up or 5 mana for Deadly Cover-Up.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 24
     },
     {
       "severity": "major",
@@ -40448,7 +40451,8 @@
       "betterLine": "Tap Demolition Field for {C} mana or simply play a land from hand (Gloomlake Verge, Island, or Swamp) and pass, developing mana toward casting Stock Up on turn 4 or Deadly Cover-Up on turn 5. Demolition Field should be saved for later when mana is less constrained or when destroying a specific land is strategically important.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -40457,7 +40461,8 @@
       "betterLine": "Play Undercity Sewers first (to surveil 1 before drawing, improving Stock Up selection quality), then cast Stock Up using the three untapped lands (Watery Grave + 2x Demolition Field).",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -40466,7 +40471,8 @@
       "betterLine": "Play a land first (e.g., Gloomlake Verge or Island), then either hold up Essence Scatter/Requiting Hex for interaction, or if still wanting to use Demolition Field, do so while retaining mana for a response.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -40475,7 +40481,8 @@
       "betterLine": "Play Gloomlake Verge to maximize mana flexibility, keeping basic Swamp in hand for future turns. This gives better access to blue mana for Essence Scatter while still enabling black mana.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -40484,7 +40491,8 @@
       "betterLine": "Play a land from hand, hold Demolition Field for a more impactful moment, and keep mana up for Essence Scatter or Requiting Hex. Focus on reaching 5 mana for Deadly Cover-Up as the primary game plan.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -40493,7 +40501,8 @@
       "betterLine": "Target Willowrush Verge to cut off the opponent's green mana, which is their splash color and harder to replace with a basic land search",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -40502,7 +40511,8 @@
       "betterLine": "Play Gloomlake Verge, which enters untapped and can tap for either U or B, providing strictly better mana flexibility for casting both Deadly Cover-Up and Requiting Hex",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -40511,7 +40521,8 @@
       "betterLine": "Play Gloomlake Verge, which enters untapped and produces both U and B (since they control Islands and Swamps), maximizing available mana for holding up interaction spells.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GPT4om Gramps"
+      "player": "GPT4om Gramps",
+      "decisionIndex": 94
     },
     {
       "severity": "moderate",
@@ -40520,7 +40531,8 @@
       "betterLine": "Play Breeding Pool untapped (pay 2 life), then hardcast Deceit for {4}{U/B}{U/B} to keep the 5/5 body while still getting the ETB effect, applying more pressure against an empty board.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "MiMo Worrier"
+      "player": "MiMo Worrier",
+      "decisionIndex": 119
     },
     {
       "severity": "minor",
@@ -40529,11 +40541,12 @@
       "betterLine": "Attack first with Superior Spider-Man as a 4/4, then cast Harvester of Misery in the post-combat main phase to preserve full combat damage.",
       "type": "blunder",
       "snapshotIndex": 114,
-      "player": "MiMo Worrier"
+      "player": "MiMo Worrier",
+      "decisionIndex": 133
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

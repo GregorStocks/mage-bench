@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_162054_g1",
   "timestamp": "20260304_162054",
   "gameType": "Two Player Duel",
@@ -50170,7 +50170,8 @@
       "betterLine": "Cast Oversold Cemetery for {1}{B} to set up the graveyard recursion engine. Save Necrotic Wound for later when the graveyard has more creatures and it can actually kill a meaningful target.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "MiniMx Valley"
+      "player": "MiniMx Valley",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -50179,7 +50180,8 @@
       "betterLine": "Cast Ironroot Warlord for {1}{G}{W} using Overgrown Battlement for {G}{G}, Swamp for {B}, and Prophetic Prism to filter {B} into {W}. This puts a 3/5 attacker on board immediately.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "Gem31P Contra"
+      "player": "Gem31P Contra",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -50188,7 +50190,8 @@
       "betterLine": "Play Swamp first, then cast Oversold Cemetery, leaving 2 mana open instead of 1",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "MiniMx Valley"
+      "player": "MiniMx Valley",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -50197,7 +50200,8 @@
       "betterLine": "Cast Portcullis Vine for {G} first, then tap Overgrown Battlement for 3G (now counting 3 defenders), then cast Ironroot Warlord for {1}{G}{W} using Battlement mana + remaining lands + Prophetic Prism for white. This deploys two creatures instead of one and creates a much stronger board.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "Gem31P Contra"
+      "player": "Gem31P Contra",
+      "decisionIndex": 32
     },
     {
       "severity": "minor",
@@ -50206,7 +50210,8 @@
       "betterLine": "Cast Portcullis Vine (using Swamp + Prophetic Prism to produce {G}) to grow the defender synergy engine and prepare for casting Ironroot Warlord next turn with more mana from Overgrown Battlement",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "Gem31P Contra"
+      "player": "Gem31P Contra",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -50215,7 +50220,8 @@
       "betterLine": "Cast Portcullis Vine by tapping Swamp for {B}, using {B} to activate Prophetic Prism for {G}, then casting Portcullis Vine. This adds a defender to boost Overgrown Battlement's mana and sets up future turns.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Gem31P Contra"
+      "player": "Gem31P Contra",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -50224,7 +50230,8 @@
       "betterLine": "Attack with at least Gravecrawler (which can't block anyway, making it a free attack), and likely both creatures to guarantee damage gets through since the opponent has only one untapped blocker.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "MiniMx Valley"
+      "player": "MiniMx Valley",
+      "decisionIndex": 39
     },
     {
       "severity": "questionable",
@@ -50233,7 +50240,8 @@
       "betterLine": "Attack with only Gravecrawler and Suspicious Shambler. This forces the opponent to choose which to block with Gargoyle Sentinel - either letting 2 or 4 damage through. Wailing Ghoul as a Zombie enables Gravecrawler recursion and is more valuable staying on the battlefield.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "MiniMx Valley"
+      "player": "MiniMx Valley",
+      "decisionIndex": 48
     }
   ],
   "blunderScriptVersion": 32

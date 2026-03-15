@@ -26093,7 +26093,8 @@
       "betterLine": "Target yourself with mode 2 to draw 3 cards and lose 3 life (going to 15 life), finding action to close the game with Harvester of Misery on board. Alternatively, use both modes to tutor a key card to the top and then draw it plus 2 more.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -26102,7 +26103,8 @@
       "betterLine": "Select the draw-3 mode (+{B}{B}) instead, paying {B}{B}{B} total to draw three cards and lose 3 life, providing immediate card advantage to find relevant spells.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 73
     },
     {
       "severity": "major",
@@ -26111,7 +26113,8 @@
       "betterLine": "Target yourself (Haiku Hype) with the draw-three mode to draw 3 cards and lose 3 life. At 18 life, going to 15 is fine, and drawing 3 cards would help find lands or additional interaction to press the advantage with the Harvester of Misery on board.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -26120,7 +26123,8 @@
       "betterLine": "Cast Eddymurk Crab (UU) tapping Harvester of Misery, then cast Sunderflock (UU) bouncing Harvester, hold up Spell Pierce (U) with remaining 2 mana for protection",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Qwen3 ESPN"
+      "player": "Qwen3 ESPN",
+      "decisionIndex": 84
     },
     {
       "severity": "questionable",
@@ -26129,7 +26133,8 @@
       "betterLine": "Let Sleight of Hand resolve and save Spell Pierce to protect Eddymurk Crab or Sunderflock from removal when deploying them. The opponent denying one card of selection is much less impactful than potentially losing counter protection for a game-winning threat.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "Qwen3 ESPN"
+      "player": "Qwen3 ESPN",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -26138,7 +26143,8 @@
       "betterLine": "Cast Eddymurk Crab for UU, tap Harvester of Misery, then next turn cast Sunderflock for UU to bounce all non-Elemental creatures",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "Qwen3 ESPN"
+      "player": "Qwen3 ESPN",
+      "decisionIndex": 88
     },
     {
       "severity": "major",
@@ -26147,7 +26153,8 @@
       "betterLine": "Choose mode 3 (Put two +1/+1 counters on Harvester of Misery, giving it lifelink) to make it a 7/6 lifelink menace attacker, threatening 7 damage and gaining 7 life. Alternatively, mode 2 to return Doomsday Excruciator from graveyard to hand for future value.",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 93
     },
     {
       "severity": "minor",
@@ -26156,7 +26163,8 @@
       "betterLine": "Discard one Sunderflock as a creature card to satisfy Winternight Stories' alternative cost, keeping an extra card in hand (likely a land drop or spell)",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Qwen3 ESPN"
+      "player": "Qwen3 ESPN",
+      "decisionIndex": 112
     },
     {
       "severity": "minor",
@@ -26165,7 +26173,8 @@
       "betterLine": "Choose Mode 1 (search library for a card, put on top) to tutor for insurance without giving the opponent any cards, then attack for lethal with the 11 power of evasive creatures against 7 life.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 117
     },
     {
       "severity": "minor",
@@ -26174,7 +26183,8 @@
       "betterLine": "Skip the Insatiable Avarice entirely and just attack with both creatures for lethal (11 damage vs 7 life). If wanting to cast it for some reason, at least add the +{B}{B} mode targeting the opponent to deal 3 life loss.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 117
     },
     {
       "severity": "minor",
@@ -26183,7 +26193,8 @@
       "betterLine": "Target yourself with the draw-3-lose-3 mode to draw 3 cards for insurance (going to 13 life), then attack for lethal. Alternatively, could have just skipped casting Insatiable Avarice entirely and attacked for lethal immediately.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 117
     },
     {
       "severity": "moderate",
@@ -26192,7 +26203,8 @@
       "betterLine": "Skip to combat and attack with both Doomsday Excruciator and Harvester of Misery for 11 damage, which is lethal against the opponent's 7 life with no blockers available.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 117
     },
     {
       "severity": "minor",
@@ -26201,11 +26213,12 @@
       "betterLine": "Pass priority, proceed to combat, and attack with both creatures for 11 damage against 7 life - lethal without spending any additional resources",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Haiku Hype"
+      "player": "Haiku Hype",
+      "decisionIndex": 117
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

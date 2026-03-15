@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260305_234946_g3",
   "timestamp": "20260305_234946",
   "gameType": "Two Player Duel",
@@ -130579,7 +130579,8 @@
       "betterLine": "Actively choose to discard Ronom Unicorn, as it's the least synergistic card with the Blood Artist/Vito engine, preserving Last Gasp (removal), Eternal Thirst (lifelink synergy with Vito), and Inspiring Unicorn (board presence).",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 92
     },
     {
       "severity": "moderate",
@@ -130588,7 +130589,8 @@
       "betterLine": "Target MstLg Perfect with Blood Artist's trigger to make the opponent lose 1 life while gaining 1 life, which also triggers Vito for an additional 1 damage to the opponent.",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 100
     },
     {
       "severity": "minor",
@@ -130597,7 +130599,8 @@
       "betterLine": "Target MstLg Perfect (the opponent) with Blood Artist's trigger to deal 2 total damage to the opponent (1 from Blood Artist + 1 from Vito) instead of just 1",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -130606,7 +130609,8 @@
       "betterLine": "Cast Ronom Unicorn for 1W, leaving 1B open (with Thriving Moor) to hold up Last Gasp as instant-speed removal during opponent's combat. This provides a blocker while keeping interaction available to survive at 8 life.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 138
     },
     {
       "severity": "questionable",
@@ -130615,7 +130619,8 @@
       "betterLine": "Cast Ronom Unicorn (1W), attack with all four creatures for ~9 damage with Inspiring Unicorn trigger, keep 1B+1 open for Last Gasp to handle Keldon Raider 4/3 on opponent's turn",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 165
     },
     {
       "severity": "moderate",
@@ -130624,7 +130629,8 @@
       "betterLine": "Target MstLg Perfect (the opponent) with Blood Artist's trigger to deal 1 life loss to opponent and gain 1 life, which also triggers Vito for an additional 1 damage to opponent.",
       "type": "blunder",
       "snapshotIndex": 295,
-      "player": "G31FL Story"
+      "player": "G31FL Story",
+      "decisionIndex": 185
     }
   ],
   "blunderScriptVersion": 32

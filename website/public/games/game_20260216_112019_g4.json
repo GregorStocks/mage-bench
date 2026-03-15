@@ -15477,7 +15477,8 @@
       "betterLine": "Plot Slickshot Show-Off instead, saving the Emberheart Challengers for a more explosive future turn with the free Slickshot cast and Might of the Meek triggers",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "Qwen3 Heckler"
+      "player": "Qwen3 Heckler",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -15486,7 +15487,8 @@
       "betterLine": "Attack with Llanowar Elves for 1 free damage, then use second main phase to play land and cast spells if mana from Elves is needed.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "Gem3P Sport"
+      "player": "Gem3P Sport",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -15495,7 +15497,8 @@
       "betterLine": "Cast Slickshot Show-Off (which has haste and flying) pre-combat, attack with both Slickshot and the existing Emberheart Challenger, then cast Might of the Meek during combat targeting one of them to maximize prowess/pump triggers and evasive damage.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "Qwen3 Heckler"
+      "player": "Qwen3 Heckler",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -15504,7 +15507,8 @@
       "betterLine": "Attack with both Llanowar Elves and Sazh's Chocobo since the opponent has no untapped creatures to block, dealing maximum free damage.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Gem3P Sport"
+      "player": "Gem3P Sport",
+      "decisionIndex": 40
     },
     {
       "severity": "moderate",
@@ -15513,7 +15517,8 @@
       "betterLine": "Tap Ba Sing Se for {G} mana instead, saving resources. Focus on playing a Forest from hand to trigger Sazh's Chocobo's landfall, and set up to cast Felidar Retreat next turn for sustained value generation.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Gem3P Sport"
+      "player": "Gem3P Sport",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -15522,7 +15527,8 @@
       "betterLine": "Play Mountain first (land drop), then cast Slickshot Show-Off. The land should be played before spending mana. Additionally, plotting Slickshot for {1}{R} to cast it free next turn could be considered, preserving mana for Might of the Meek this combat, though casting it now with haste for immediate pressure is defensible.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Qwen3 Heckler"
+      "player": "Qwen3 Heckler",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -15531,11 +15537,12 @@
       "betterLine": "Let Slickshot Show-Off resolve first, then cast Might of the Meek during combat to trigger Slickshot's +2/+0, both Emberheart Challengers' prowess, and potentially Valiant",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Qwen3 Heckler"
+      "player": "Qwen3 Heckler",
+      "decisionIndex": 51
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

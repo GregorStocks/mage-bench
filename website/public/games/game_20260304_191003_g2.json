@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_191003_g2",
   "timestamp": "20260304_191003",
   "gameType": "Two Player Duel",
@@ -88964,7 +88964,8 @@
       "betterLine": "Cast Planar Atlas to start ramping toward World Breaker and use its ETB to dig for a green land, enabling Ruin in Their Wake for further mana development",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -88973,7 +88974,8 @@
       "betterLine": "Play Swamp first, then cast the 2-drop. Additionally, Erratic Visionary may have been the better creature choice here, as card filtering helps dig toward the 6-mana bombs (Ormos, Tolarian Kraken) while being unblockable by Shacklegeist.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -88982,7 +88984,8 @@
       "betterLine": "Cast Essence Flux targeting Shacklegeist to get a permanent +1/+1 counter (Spirit bonus), upgrading it to a 3/3 flyer. The opponent has minimal board presence and the aggressive upgrade likely outweighs holding for protection.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -88991,7 +88994,8 @@
       "betterLine": "Pass priority before blocks, then activate deathtouch only if Shacklegeist blocks. This preserves the option to spend that {B} on something else or leave mana open.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -89000,7 +89004,8 @@
       "betterLine": "Block Fetid Imp with Shacklegeist to kill it for free, since opponent has no mana to activate deathtouch.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -89009,7 +89014,8 @@
       "betterLine": "Cast Rousing Read on Fetid Imp for {2}{U}, drawing 2 cards and discarding 1, creating a 2/3 flying deathtoucher that pressures the opponent immediately while providing card advantage.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -89018,7 +89024,8 @@
       "betterLine": "Attack with Fetid Imp without activating deathtouch, saving the mana (even though there was likely nothing else to do with it, it's better practice to not waste resources).",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -89027,7 +89034,8 @@
       "betterLine": "Block Fetid Imp with Murmuring Phantasm for a risk-free block that prevents 1 damage.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -89036,7 +89044,8 @@
       "betterLine": "Attack with only Fetid Imp (flies over for 1 damage), then use Erratic Visionary's loot ability in second main phase to filter through the deck toward land drops needed for the expensive cards in hand (Tolarian Kraken at 6 mana, Ormos at 6 mana).",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 44
     },
     {
       "severity": "moderate",
@@ -89045,7 +89054,8 @@
       "betterLine": "Cast Oneirophage (3U), which synergizes with Erratic Visionary's draw ability and Rousing Read in hand. It would grow into a significant flying threat over subsequent turns. Alternatively, cast Rousing Read on Erratic Visionary for immediate card advantage (+2 cards drawn, +1/+1 and flying). Save Liliana's Standard Bearer for a turn when creatures actually die (e.g., after a Barter in Blood or combat deaths) to get real card advantage.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 47
     },
     {
       "severity": "questionable",
@@ -89054,7 +89064,8 @@
       "betterLine": "Bounce Erratic Visionary to remove the opponent's card advantage engine and force them to re-invest mana to replay it",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 51
     },
     {
       "severity": "questionable",
@@ -89063,7 +89074,8 @@
       "betterLine": "Cast Oneirophage (4 mana flying threat that grows with card draw) to develop the board and create a blocker/threat, or cast Library Larcenist (3 mana) and still have mana for Fetid Imp's deathtouch activation. Building board presence and leveraging the card-draw synergies in hand (Rousing Read, Oneirophage, Tolarian Kraken) likely leads to a better mid-game position.",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 65
     },
     {
       "severity": "questionable",
@@ -89072,7 +89084,8 @@
       "betterLine": "Sacrifice Liliana's Standard Bearer (3/1 vanilla at this point, ETB already used) instead of Fetid Imp, keeping the flying deathtouch blocker to deal with opponent's aerial threats",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -89081,7 +89094,8 @@
       "betterLine": "Block with Roaming Ghostlight, then cast Essence Flux on it. Ghostlight survives as a 4/3 flyer (Spirit bonus), gets to bounce an opponent's creature with its ETB, and Tome Anima is preserved for future unblockable attacks.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GPT53C Contra"
+      "player": "GPT53C Contra",
+      "decisionIndex": 71
     },
     {
       "severity": "major",
@@ -89090,7 +89104,8 @@
       "betterLine": "Cast Eternal Taskmaster (1B) to get a 2/3 body that can start recurring creatures from the graveyard, or Dutiful Attendant (2B) for a chump blocker that replaces itself with a graveyard creature when it dies. Either develops the board against imminent lethal pressure.",
       "type": "blunder",
       "snapshotIndex": 280,
-      "player": "Haiku Nature"
+      "player": "Haiku Nature",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 32

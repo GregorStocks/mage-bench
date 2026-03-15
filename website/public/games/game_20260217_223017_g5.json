@@ -38161,7 +38161,8 @@
       "betterLine": "Targeting the opponent is correct for information gathering. No better line exists for the target choice.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Grok4F Coach"
+      "player": "Grok4F Coach",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -38170,7 +38171,8 @@
       "betterLine": "Cast Pinnacle Emissary for {1}{U}{R} using available mana sources, deploying a threat that creates Drone tokens whenever artifact spells are cast.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Grok4F Coach"
+      "player": "Grok4F Coach",
+      "decisionIndex": 46
     },
     {
       "severity": "questionable",
@@ -38179,7 +38181,8 @@
       "betterLine": "Pay the full mana cost of {3}{U}{U} using 2 Seat of the Synod (UU), Mox Opal (U), and Ancient Tomb (CC) to counter Grim Monolith while preserving both Kappa Cannoneers in hand",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "Grok4F Coach"
+      "player": "Grok4F Coach",
+      "decisionIndex": 59
     },
     {
       "severity": "major",
@@ -38188,7 +38191,8 @@
       "betterLine": "Activate Tezzeret's 0 ability to untap an artifact for mana advantage or use Tezzeret's -3 to search for a 0-or-1 MV artifact (putting it into hand, to be cast later after dealing with Chalice). The Pithing Needle should never have been cast while Chalice on 1 was in play — it was a guaranteed counter. If Pithing Needle was needed, the player should have first found a way to remove or bypass Chalice.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Qwen3L Grudge"
+      "player": "Qwen3L Grudge",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -38197,11 +38201,12 @@
       "betterLine": "Cast Kappa Cannoneer using Seat of the Synod x2 + Mox Opal for colored mana, improvise with Chalice/Drone/other artifacts. Attack with unblockable Cannoneer plus other creatures for likely lethal damage against opponent at 9 life.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "Grok4F Coach"
+      "player": "Grok4F Coach",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_085801_g4",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -37059,7 +37059,8 @@
       "betterLine": "Put Abundant Countryside on the bottom, keeping Eye of Ugin for its {2} cost reduction on Eldrazi spells, enabling a turn-3 Thought-Knot Seer after a turn-2 Reality Smasher",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 1
     },
     {
       "severity": "moderate",
@@ -37068,7 +37069,8 @@
       "betterLine": "Discard one of the duplicate Broadside Bombardiers (3-mana creature that's hard to cast when mana-screwed and redundant as a second copy). Keep Aether Vial to deploy on the first land draw for massive catch-up potential.",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -37077,7 +37079,8 @@
       "betterLine": "Cast Thought-Knot Seer for {3}{C} using Ancient Tomb + Grim Monolith, stripping the best card from the opponent's 7-card hand and deploying a 4/4 threat.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 8
     },
     {
       "severity": "questionable",
@@ -37086,7 +37089,8 @@
       "betterLine": "Discard one copy of Broadside Bombardiers, keeping the cheaper and unique Battle Cry Goblin which is more castable and synergizes with Goblin Warchief's cost reduction.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -37095,7 +37099,8 @@
       "betterLine": "Play Cavern of Souls (naming Eldrazi) to have a permanent land that also makes Eldrazi uncounterable, then cast Thought-Knot Seer or Reality Smasher with the same available mana.",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -37104,7 +37109,8 @@
       "betterLine": "Activate Bloodstained Mire to fetch a Mountain, then cast Skirk Prospector or Goblin Lackey to begin developing the board while the opponent's creatures are tapped.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -37113,7 +37119,8 @@
       "betterLine": "Activate Bloodstained Mire to fetch a Mountain, ensuring access to colored mana and protecting against potential Wasteland.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 59
     },
     {
       "severity": "questionable",
@@ -37122,7 +37129,8 @@
       "betterLine": "Exile Munitions Expert - it's the opponent's only clean instant-speed removal for Reality Smasher and Thought-Knot Seer, and removing the opponent's ability to answer the big Eldrazi is more impactful than slowing their goblin deployment by one mana and haste.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -37131,7 +37139,8 @@
       "betterLine": "Play Wasteland (sacrificing City of Traitors), then activate Wasteland to destroy opponent's Bloodstained Mire, cutting them off all mana sources while ahead on board with Reality Smasher and Thought-Knot Seer.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 70
     },
     {
       "severity": "moderate",
@@ -37140,7 +37149,8 @@
       "betterLine": "Activate Bloodstained Mire to fetch a Mountain, then cast Skirk Prospector (enables mana acceleration for future turns) or Goblin Lackey (threatens to cheat in goblins if it connects).",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -37149,7 +37159,8 @@
       "betterLine": "Play Wasteland (sacrificing City of Traitors to its trigger), then activate Wasteland to destroy Bloodstained Mire, leaving the opponent with zero lands and virtually no way to stop the lethal attack next turn.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -37158,7 +37169,8 @@
       "betterLine": "Play Mountain, crack Bloodstained Mire (fetch a Mountain/Swamp), cast Skirk Prospector for {R}, then cast Goblin Lackey for {R} (sacrificing Skirk Prospector if needed for mana). This starts building a goblin board to either trade with attackers or set up Munitions Expert / Pashalik Mons on subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -37167,7 +37179,8 @@
       "betterLine": "Play Mountain from hand first (free, no life cost), tap it for mana to cast a 1-drop like Skirk Prospector, then decide whether cracking Bloodstained Mire is necessary for additional mana.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 80
     },
     {
       "severity": "major",
@@ -37176,7 +37189,8 @@
       "betterLine": "Play Mountain, activate Bloodstained Mire to fetch a second Mountain (or Swamp for Munitions Expert), cast Skirk Prospector and Goblin Lackey as blockers/enablers, potentially chain into Pashalik Mons or other goblins to establish a board against the lethal Eldrazi attack.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "GPT5n ESPN"
+      "player": "GPT5n ESPN",
+      "decisionIndex": 80
     },
     {
       "severity": "major",
@@ -37185,7 +37199,8 @@
       "betterLine": "Attack with both Reality Smasher and Thought-Knot Seer for exactly 9 damage, which is lethal against the opponent at 9 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "o3 Rambler"
+      "player": "o3 Rambler",
+      "decisionIndex": 104
     }
   ],
   "blunderScriptVersion": 28,

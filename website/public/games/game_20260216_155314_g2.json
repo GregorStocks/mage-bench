@@ -15204,7 +15204,8 @@
       "betterLine": "Play Rockface Village, which taps for R to cast a creature spell (enabling Hired Claw or Burnout Bashtronaut this turn) and provides Lizard pump utility later. Save basic Mountains for turns when you need unconditional red mana for non-creature spells.",
       "type": "blunder",
       "snapshotIndex": 8,
-      "player": "GPT5m Johnny"
+      "player": "GPT5m Johnny",
+      "decisionIndex": 7
     },
     {
       "severity": "questionable",
@@ -15213,7 +15214,8 @@
       "betterLine": "Cast Burnout Bashtronaut on turn 1 to start the speed engine as early as possible, then follow up with Hired Claws on subsequent turns to trigger Bashtronaut's speed increases through combat damage.",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "GPT5m Johnny"
+      "player": "GPT5m Johnny",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -15222,7 +15224,8 @@
       "betterLine": "Play Rockface Village, tap Sunbillow Verge for {R}, activate Rockface Village targeting a Hired Claw for +1/+0, then attack with both for 5 total damage.",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "GPT5m Johnny"
+      "player": "GPT5m Johnny",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -15231,7 +15234,8 @@
       "betterLine": "Cast Seam Rip for W to permanently exile one Hired Claw, keeping 1U open to flash in Floodpits Drowner during opponent's combat step to tap and stun another attacker",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Gem25F Philo"
+      "player": "Gem25F Philo",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -15240,7 +15244,8 @@
       "betterLine": "Play Rockface Village first, then decide on pump activations with maximum mana available before moving to combat",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GPT5m Johnny"
+      "player": "GPT5m Johnny",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -15249,11 +15254,12 @@
       "betterLine": "Activate Rockface Village for {C} (unrestricted colorless mana) to potentially pump Burnout Bashtronaut with its {2}: +1/+0 ability",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GPT5m Johnny"
+      "player": "GPT5m Johnny",
+      "decisionIndex": 52
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

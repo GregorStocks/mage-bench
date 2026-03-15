@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_234006_g2",
   "timestamp": "20260303_234006",
   "gameType": "Two Player Duel",
@@ -81509,7 +81509,8 @@
       "betterLine": "Mulligan to 6 looking for a hand with both colors of mana and at least 2-3 lands. This hand has too high a risk of being stuck on 2 Swamps with uncastable green cards.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 1
     },
     {
       "severity": "questionable",
@@ -81518,7 +81519,8 @@
       "betterLine": "Keep the 7-card hand. Mire Triton on turn 2 into Crow of Dark Tidings on turn 3 (if a land is drawn) provides a reasonable start, and Cemetery Recruitment adds card advantage. The white cards are dead weight initially but the black core is functional, and going to 6 risks a worse hand.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -81527,7 +81529,8 @@
       "betterLine": "Discard Secure the Scene — it's the most expensive and least efficient card in hand, redundant with Pacifism. Keeping both Plains ensures hitting land drops to cast Pack Leader on turn 3 and Gravedigger on turn 4.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -81536,7 +81539,8 @@
       "betterLine": "Play Thriving Moor first (choosing green), then cast Pacifism. While the mana doesn't change this turn, playing land first is strictly better sequencing — it avoids revealing information unnecessarily and ensures the land drop isn't forgotten. Additionally, saving Pacifism for a bigger threat and just racing with Pack Leader while developing the board might be better long-term.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -81545,7 +81549,8 @@
       "betterLine": "Cast Entomber Exarch choosing the hand disruption mode to strip a noncreature card (likely removal) from opponent's hand, protecting future big plays",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -81554,7 +81559,8 @@
       "betterLine": "Hold Feat of Resistance as instant-speed protection. Attack with both creatures, and if opponent responds with removal, use Feat to protect. If no removal comes, save it for future turns. The +1/+1 counter is marginal compared to the protection value against the opponent's 6-card hand.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -81563,7 +81569,8 @@
       "betterLine": "Choose mode 1 to return Bounding Wolf (3/2 flash reach) from graveyard to hand for board stabilization, or mode 2 to strip a card from opponent's hand of 4 cards while gaining information.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -81572,7 +81579,8 @@
       "betterLine": "Choose mode 1 to return Wight of Precinct Six to hand, then cast it next turn as a 7/7 for 1B to stabilize the board.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -81581,7 +81589,8 @@
       "betterLine": "Choose Secure the Scene - it's the only noncreature card and also the most dangerous card to GptOSS Villain, being premium removal that could exile their best threats.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -81590,7 +81599,8 @@
       "betterLine": "Choose Secure the Scene - the only noncreature card and the opponent's best removal spell, which could exile any of GptOSS's key threats",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -81599,7 +81609,8 @@
       "betterLine": "Choose Secure the Scene, the opponent's only removal spell, which directly threatens Villain's upcoming high-value plays like Arlinn and Fierce Witchstalker",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -81608,7 +81619,8 @@
       "betterLine": "Choose Secure the Scene, the opponent's premium removal spell and the correct noncreature target for Entomber Exarch's ability",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -81617,7 +81629,8 @@
       "betterLine": "Block Crow of Dark Tidings with Entomber Exarch to kill the Crow, preserve the Exarch, and only take 3 damage (going to 6 life instead of 4)",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -81626,7 +81639,8 @@
       "betterLine": "Cast Fierce Witchstalker to get a 4/4 trample body and a Food token for desperately needed life gain at 4 life, or cast Wicked Wolf to fight and kill the Crow of Dark Tidings (a flying threat) while having Food synergy available later",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 61
     },
     {
       "severity": "major",
@@ -81635,7 +81649,8 @@
       "betterLine": "Enchant own Entomber Exarch with Wolfkin Bond, creating a 4/4 and a 2/2 Wolf token on your side of the board",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 62
     },
     {
       "severity": "major",
@@ -81644,7 +81659,8 @@
       "betterLine": "Cast Affa Guard Hound precombat, then attack with Pack Leader, Crow of Dark Tidings, and Affa Guard Hound for guaranteed lethal regardless of how opponent blocks.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 65
     },
     {
       "severity": "moderate",
@@ -81653,7 +81669,8 @@
       "betterLine": "Block Pack Leader with Entomber Exarch AND block Crow of Dark Tidings with Wolf Token, taking 0 combat damage and staying at 4 life",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -81662,7 +81679,8 @@
       "betterLine": "Cast Affa Guard Hound for {2}{W}, adding a 2/2 body to the board and giving +0/+3 to a creature for protection. This provides an additional attacker as insurance in case the opponent removes or blocks existing threats.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "MiniMx Contra"
+      "player": "MiniMx Contra",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -81671,7 +81689,8 @@
       "betterLine": "Block Pack Leader with Fierce Witchstalker AND block Crow of Dark Tidings with Wolf Token. This prevents all combat damage to the player, keeping them alive at 2 life.",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "GptOSS Villain"
+      "player": "GptOSS Villain",
+      "decisionIndex": 76
     }
   ],
   "blunderScriptVersion": 32

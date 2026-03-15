@@ -61950,7 +61950,8 @@
       "betterLine": "Play Forest, cast Sazh's Chocobo turn 1, then play Fabled Passage turn 2 to maximize landfall triggers on Chocobo",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -61959,7 +61960,8 @@
       "betterLine": "Play Swamp untapped to have Watery Grave + Swamp available, enabling Essence Scatter to be held up against potential turn 2 creature plays. Undercity Sewers could be played tapped on a later turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -61968,7 +61970,8 @@
       "betterLine": "Play a Forest (or Ba Sing Se) first, then cast Sazh's Chocobo. The land entering would trigger landfall, putting a +1/+1 counter on the Chocobo immediately, resulting in a 1/2 creature instead of 0/1.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -61977,7 +61980,8 @@
       "betterLine": "Play a Forest first, then cast Badgermole Cub for {1}{G}, keeping one land untapped and having more earthbend target options.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 42
     },
     {
       "severity": "questionable",
@@ -61986,7 +61990,8 @@
       "betterLine": "Target one of the Forests with earthbend 2 instead, preserving Ba Sing Se's utility earthbend ability for future turns. While the Forests are currently tapped, the creature will be available to attack on subsequent turns regardless.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -61995,7 +62000,8 @@
       "betterLine": "Play Forest first to trigger landfall on the existing Earthbender Ascension, then cast the second Earthbender Ascension (or Mightform Harmonizer depending on read of opponent's hand)",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -62004,7 +62010,8 @@
       "betterLine": "Cast Three Steps Ahead in draw mode ({U} + {2} = 3 mana) to draw 2 cards and discard 1, finding answers while still having mana remaining for future plays",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 120
     },
     {
       "severity": "minor",
@@ -62013,7 +62020,8 @@
       "betterLine": "Pass turn holding Three Steps Ahead, then cast it in draw mode at opponent's end step if nothing needs countering, preserving the counter option during the opponent's turn",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 123
     },
     {
       "severity": "questionable",
@@ -62022,7 +62030,8 @@
       "betterLine": "Cast Badgermole Cub (2 mana) to bait removal, then use remaining mana for Ba Sing Se earthbend activation, creating multiple threats while preserving the stronger Mightform Harmonizer for next turn",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 129
     },
     {
       "severity": "minor",
@@ -62031,7 +62040,8 @@
       "betterLine": "Exile two Essence Scatters + Shoot the Sheriff (or Requiting Hex + two Essence Scatters, etc.) to reach 6 MV while keeping Deadly Cover-Up in the graveyard for potential future use.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 151
     },
     {
       "severity": "minor",
@@ -62040,7 +62050,8 @@
       "betterLine": "Only exile the minimum cards needed to meet evidence 6 (the 2 cards already selected), keeping Shoot the Sheriff in the graveyard for potential future use",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 151
     },
     {
       "severity": "questionable",
@@ -62049,7 +62060,8 @@
       "betterLine": "Exile Surrak, Elusive Hunter to remove the uncounterable threat that bypasses the deck's primary interaction suite of counterspells",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -62058,7 +62070,8 @@
       "betterLine": "Activate Ba Sing Se's earthbend ability on a Forest (creating a 2/2 hasty land creature) AND cast Sazh's Chocobo, maximizing board development while the opponent is tapped out with no interaction available.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 167
     },
     {
       "severity": "minor",
@@ -62067,7 +62080,8 @@
       "betterLine": "Attack with Sazh's Chocobo to deal damage and pressure the opponent's life total. With no cards in hand, there are no tricks to represent by holding back.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 182
     },
     {
       "severity": "moderate",
@@ -62076,7 +62090,8 @@
       "betterLine": "Choose Surrak, Elusive Hunter to exile all copies from graveyard, hand, and library, removing the opponent's most threatening uncounterable finisher that this control deck struggles to answer",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 202
     },
     {
       "severity": "moderate",
@@ -62085,7 +62100,8 @@
       "betterLine": "Name Surrak, Elusive Hunter to exile all copies from graveyard, hand, and library, since it's the biggest threat and can't be countered by the counterspells in hand",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 196
     },
     {
       "severity": "minor",
@@ -62094,7 +62110,8 @@
       "betterLine": "Tap Fountainport for {C} and Demolition Field's {T} plus pay {2} (using Fountainport + Demolition Field) to sacrifice Demolition Field and destroy Ba Sing Se permanently before the board wipe resolves, preventing earthbend from returning it.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 202
     },
     {
       "severity": "moderate",
@@ -62103,7 +62120,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to destroy the opponent's only creature threat. While earthbend returns it as a land, it loses its +1/+1 counters and creature status, significantly slowing the opponent's clock.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 207
     },
     {
       "severity": "minor",
@@ -62112,7 +62130,8 @@
       "betterLine": "Activate Fountainport to create a Fish token (paying 3 mana + 1 life) or a Treasure token (paying 4 mana) to generate value from otherwise unused mana. Demolition Field could also be considered to pressure the opponent's Ba Sing Se, though that's more debatable given it returns tapped.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 208
     },
     {
       "severity": "moderate",
@@ -62121,7 +62140,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se (using Swamp and Fountainport to pay {2}), destroying the animated land creature. Since no blue mana was available for counterspells, there was no opportunity cost.",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 209
     },
     {
       "severity": "minor",
@@ -62130,7 +62150,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to destroy the opponent's animated land creature. Even though it returns as a tapped land via earthbend, it loses its counters and creature status, removing the clock. Alternatively, at minimum use Fountainport to create a Treasure token for future mana advantage.",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 209
     },
     {
       "severity": "minor",
@@ -62139,7 +62160,8 @@
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life), still leaving 6 untapped lands to hold up Spell Snare and Requiting Hex for the opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 216
     },
     {
       "severity": "minor",
@@ -62148,7 +62170,8 @@
       "betterLine": "Activate Fountainport to create a 1/1 Fish token for {3}, {T}, pay 1 life, while keeping 4 lands untapped for reactive plays like Three Steps Ahead.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 217
     },
     {
       "severity": "minor",
@@ -62157,7 +62180,8 @@
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life), still leaving 4 lands untapped to hold up Spell Snare and/or Requiting Hex on the opponent's turn. The Fish token can later be sacrificed to Fountainport to draw a card.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 218
     },
     {
       "severity": "minor",
@@ -62166,7 +62190,8 @@
       "betterLine": "Activate Fountainport to create a 1/1 Fish token (3 mana + tap + 1 life), providing a chump blocker and future card draw fodder, while still having 4 mana available to hold up Spell Pierce or Spell Snare.",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 225
     },
     {
       "severity": "minor",
@@ -62175,7 +62200,8 @@
       "betterLine": "Activate Fountainport to create a Treasure token ({4}, {T}) or a Fish token ({3}, {T}, pay 1 life) to generate incremental value with unused mana before passing the turn.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 226
     },
     {
       "severity": "minor",
@@ -62184,7 +62210,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to remove the opponent's repeatable earthbend source. Both players search for basics, but removing Ba Sing Se's activated ability is worth the exchange.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 229
     },
     {
       "severity": "minor",
@@ -62193,7 +62220,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to remove the opponent's earthbend-capable nonbasic land, or at minimum activate Fountainport to create a Treasure token for future mana advantage.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 234
     },
     {
       "severity": "minor",
@@ -62202,7 +62230,8 @@
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life) while still holding up Spell Pierce ({U}) and/or Spell Snare ({U}) with remaining untapped lands. Could also save Three Steps Ahead for opponent's end step.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 236
     },
     {
       "severity": "moderate",
@@ -62211,7 +62240,8 @@
       "betterLine": "Cast Deadly Cover-Up (3BB) to destroy all animated land-creatures, resetting the opponent's board. The animated lands return as regular tapped lands without +1/+1 counters, eliminating the opponent's attacking force while Gem3F Valley still has countermagic for future threats.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 242
     },
     {
       "severity": "questionable",
@@ -62220,7 +62250,8 @@
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to deny the opponent a repeatable source of creature-lands, while still holding up countermagic with remaining mana",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 251
     },
     {
       "severity": "minor",
@@ -62229,7 +62260,8 @@
       "betterLine": "Activate Fountainport to create a Treasure token, banking mana toward next turn's Deadly Cover-Up while still keeping countermagic available with remaining untapped lands.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 252
     },
     {
       "severity": "minor",
@@ -62238,7 +62270,8 @@
       "betterLine": "Activate Fountainport to create a Treasure token (4, T), leaving 3 other lands untapped - still enough for Spell Pierce or Spell Snare on the opponent's turn, while banking mana for future turns.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 259
     },
     {
       "severity": "minor",
@@ -62247,7 +62280,8 @@
       "betterLine": "Pass the turn with all mana open, then cast Three Steps Ahead at the end of the opponent's turn. This preserves all reactive options and gives maximum information before committing to the draw spell.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 264
     },
     {
       "severity": "moderate",
@@ -62256,7 +62290,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6 (8 mana total) as a 7/7 flying vigilance that draws 3 cards, establishing a dominant threat while the opponent has no creatures to contest it.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 271
     },
     {
       "severity": "moderate",
@@ -62265,7 +62300,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian for X=4 (5/5 flier, draw 2 cards) leaving up Spell Pierce or Spell Snare to protect it, or X=6 for maximum value as a 7/7 drawing 3 cards. The opponent has no creatures to contest it and limited known removal options.",
       "type": "blunder",
       "snapshotIndex": 179,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 277
     },
     {
       "severity": "minor",
@@ -62274,7 +62310,8 @@
       "betterLine": "Pass the turn holding up Spell Pierce/Spell Snare, then cast Wan Shi Tong at opponent's end step for the same value while maintaining countermagic flexibility during opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 274
     },
     {
       "severity": "minor",
@@ -62283,7 +62320,8 @@
       "betterLine": "Flash in Wan Shi Tong, Librarian for X=3 (spending 5 mana total) to establish a 4/4 flying vigilance threat and draw a card, or at minimum activate Demolition Field to destroy Ba Sing Se and deny earthbend activations.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 280
     },
     {
       "severity": "minor",
@@ -62292,7 +62330,8 @@
       "betterLine": "Flash in Wan Shi Tong, Librarian for X=3 or X=4 at end of opponent's turn to deploy a flying threat and draw cards while holding up the second copy and countermagic for future turns.",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 280
     },
     {
       "severity": "minor",
@@ -62301,7 +62340,8 @@
       "betterLine": "Discard a basic Forest instead, since Fabled Passage can fetch Forests and the second Icetill Explorer provides redundancy for their key engine piece against an opponent with removal",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 283
     },
     {
       "severity": "major",
@@ -62310,7 +62350,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6, creating a 7/7 flying vigilance creature and drawing 3 cards. This establishes a dominant board presence and card advantage against an opponent with no creatures and no easy answers to a large flyer.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 282
     },
     {
       "severity": "moderate",
@@ -62319,7 +62360,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian for X=4 (6 mana total: 4+UU), creating a 5/5 flying vigilance that draws 2 cards, while keeping 2 mana open for Spell Pierce or Spell Snare to protect it.",
       "type": "blunder",
       "snapshotIndex": 187,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 287
     },
     {
       "severity": "minor",
@@ -62328,7 +62370,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian with X=3 (or higher) at end of opponent's turn to flash in a meaningful threat while keeping Spell Pierce/Spell Snare available earlier in the turn. At minimum, activate Fountainport to create a token or Treasure as a mana sink.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 290
     },
     {
       "severity": "minor",
@@ -62337,7 +62380,8 @@
       "betterLine": "Play Gloomlake Verge (enters untapped since they control Islands/Swamps), saving the tapped Undercity Sewers for a later turn. This maximizes available mana for holding up interaction alongside any proactive plays.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 294
     },
     {
       "severity": "questionable",
@@ -62346,7 +62390,8 @@
       "betterLine": "Discard a redundant land like Swamp, Undercity Sewers, or Gloomlake Verge instead, keeping Spell Pierce as a potential cheap interaction piece",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 305
     },
     {
       "severity": "minor",
@@ -62355,7 +62400,8 @@
       "betterLine": "Discard a Forest, since Icetill Explorer (in hand) allows playing lands from the graveyard, making the Forest discard essentially free while preserving Llanowar Elves as an additional creature option.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "GPT4om Analyst"
+      "player": "GPT4om Analyst",
+      "decisionIndex": 315
     },
     {
       "severity": "minor",
@@ -62364,7 +62410,8 @@
       "betterLine": "Play Gloomlake Verge (enters untapped, produces U or B) to maintain mana flexibility for Feed the Cycle or other instant-speed plays, saving Undercity Sewers for a later turn when tapped entry matters less.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 310
     },
     {
       "severity": "moderate",
@@ -62373,7 +62420,8 @@
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6 (8 mana total), creating a 7/7 flying vigilance that draws 3 cards, presenting lethal in 2 attacks against the opponent at 9 life while refilling the hand.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 322
     },
     {
       "severity": "minor",
@@ -62382,7 +62430,8 @@
       "betterLine": "Play Demolition Field (provides a second copy to threaten opponent's Ba Sing Se, costs no life) or Gloomlake Verge (enters untapped for free, adds U or B).",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 326
     },
     {
       "severity": "major",
@@ -62391,11 +62440,12 @@
       "betterLine": "Play Gloomlake Verge or Swamp, then cast Wan Shi Tong, Librarian for X=7, creating an 8/8 flying vigilance creature and drawing 3 cards against an opponent at 9 life with no blockers",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "Gem3F Valley"
+      "player": "Gem3F Valley",
+      "decisionIndex": 327
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

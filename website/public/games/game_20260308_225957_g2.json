@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_225957_g2",
   "timestamp": "20260308_225957",
   "gameType": "Two Player Duel",
@@ -83451,7 +83451,8 @@
       "betterLine": "Play Plains (enters untapped) to have 3 mana available, then cast Brightmare targeting River Sneak to tap it and gain 1 life. Play Thriving Heath on a later turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 20
     },
     {
       "severity": "moderate",
@@ -83460,7 +83461,8 @@
       "betterLine": "Cast Basri's Acolyte for {2}{W}{W} (using 3 Plains + Thriving Heath + Guardian Idol for mana), putting +1/+1 counters on Brightmare (making it 3/4). This develops a much stronger board with lifelink enabling Griffin Aerie in future turns.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -83469,7 +83471,8 @@
       "betterLine": "Copy River Sneak with Pirated Copy for guaranteed unblockable card draw every combat, plus Merfolk synergy with the original River Sneak",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -83478,7 +83481,8 @@
       "betterLine": "Copy River Sneak with Pirated Copy to create two unblockable creatures that each draw a card on combat damage (2 guaranteed draws per turn), creating an overwhelming card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -83487,7 +83491,8 @@
       "betterLine": "Cast Feat of Resistance on Basri's Acolyte, making it 3/4. It survives combat (takes 2 damage), kills the Brightmare, and the player retains a lifelink creature with a +1/+1 counter that synergizes with Griffin Aerie.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 80
     },
     {
       "severity": "moderate",
@@ -83496,7 +83501,8 @@
       "betterLine": "Cast Feat of Resistance targeting Basri's Acolyte, choosing protection from white. This saves the Acolyte (now 3/4) and kills the opposing Brightmare, netting a creature advantage while preserving the lifelink synergy with Griffin Aerie.",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 83
     },
     {
       "severity": "minor",
@@ -83505,7 +83511,8 @@
       "betterLine": "Cast Feat of Resistance on Basri's Acolyte to make it 3/4, winning the combat against the 2/3 Brightmare and keeping the Acolyte alive. Cast Voice of the Provinces next turn.",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 83
     },
     {
       "severity": "minor",
@@ -83514,7 +83521,8 @@
       "betterLine": "Cast Storm Sculptor, bouncing Brightmare for reuse. This gives 5 unblockable damage per turn (3 from Sculptor + 2 from pumped River Sneak), plus Shaper Apprentice keeps flying. Then cast Soul Read on opponent's end step with remaining 2 mana... wait, Soul Read costs 4. Still, the Merfolk synergy clock is significantly faster.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 87
     },
     {
       "severity": "questionable",
@@ -83523,7 +83531,8 @@
       "betterLine": "Copy Basri's Acolyte to get a 2/3 lifelink and distribute two +1/+1 counters to River Sneak and Shaper Apprentice, creating a stronger overall board with a 2/2 unblockable River Sneak and 3/2 flying Shaper Apprentice while gaining life to stabilize.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 92
     },
     {
       "severity": "moderate",
@@ -83532,7 +83541,8 @@
       "betterLine": "Attack with all three creatures (River Sneak, Shaper Apprentice, Brightmare) for 5 uncontested damage, bringing the opponent to 10 life. Then cast Storm Sculptor post-combat if desired.",
       "type": "blunder",
       "snapshotIndex": 225,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 95
     },
     {
       "severity": "questionable",
@@ -83541,7 +83551,8 @@
       "betterLine": "Block Coach's Voice of the Provinces 3/3 with Brightmare 2/3 to save 3 damage, going to 11 life instead of 8, preserving more life buffer against Coach's growing board.",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -83550,7 +83561,8 @@
       "betterLine": "Cast Chilling Trap targeting either Brightmare or Voice of the Provinces to give it -4/-0, saving 3 life (going to 5 instead of 2) and drawing a card thanks to controlling a Wizard (Shaper Apprentice).",
       "type": "blunder",
       "snapshotIndex": 252,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -83559,7 +83571,8 @@
       "betterLine": "Cast Chilling Trap targeting attacking Voice of the Provinces to make it -1/3 and draw a card (Wizard on board), enabling favorable blocks with smaller creatures while preserving board presence.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -83568,7 +83581,8 @@
       "betterLine": "Attack with River Sneak, Shaper Apprentice, and Voice of the Provinces for 6 total unblockable/evasive damage. Voice has flying and no untapped flyers exist on the opponent's side to block it.",
       "type": "blunder",
       "snapshotIndex": 265,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 117
     },
     {
       "severity": "minor",
@@ -83577,7 +83591,8 @@
       "betterLine": "Cast Chilling Trap on an opponent's potential blocker (like Basri's Acolyte) to reduce its combat damage and draw a card, getting value from the Wizard synergy for just 1 mana.",
       "type": "blunder",
       "snapshotIndex": 267,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -83586,7 +83601,8 @@
       "betterLine": "Cast Chilling Trap targeting an opponent's creature (e.g., Basri's Acolyte or Bulwark Giant) to draw a card for {U}, while still keeping 3 mana open for Lookout's Dispersal.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 119
     },
     {
       "severity": "minor",
@@ -83595,7 +83611,8 @@
       "betterLine": "Cast Chilling Trap targeting an opponent's creature (e.g., Bulwark Giant or Basri's Acolyte) to draw a card for {U}, still leaving 3 mana up for Lookout's Dispersal",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 121
     },
     {
       "severity": "minor",
@@ -83604,7 +83621,8 @@
       "betterLine": "Activate Guardian Idol for 2 mana to make it a 3/3 creature, then proceed to combat with it as an additional attacker alongside the rest of the board. This leaves 2 mana open for Feat of Resistance during combat.",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 125
     },
     {
       "severity": "moderate",
@@ -83613,7 +83631,8 @@
       "betterLine": "Play Island from hand, then cast Storm Sculptor (bouncing Human Token 1/1 or Brightmare for future ETB value) to add an unblockable 3/2 threat to the board. Save Lookout's Dispersal to counter a key opponent spell on their turn.",
       "type": "blunder",
       "snapshotIndex": 276,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -83622,7 +83641,8 @@
       "betterLine": "Activate Guardian Idol for 2 mana to make it a 3/3 creature, then attack with all available creatures including the Idol. With 15 total power against 3 blockers and the opponent at 8 life, this creates a much more threatening attack that could be close to lethal.",
       "type": "blunder",
       "snapshotIndex": 289,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 133
     }
   ],
   "blunderScriptVersion": 32,

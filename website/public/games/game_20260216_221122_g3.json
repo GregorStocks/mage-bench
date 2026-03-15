@@ -23244,7 +23244,8 @@
       "betterLine": "Discard Hired Claw instead. Being stuck on 1 land is a critical situation where every land matters. Sacred Foundry costs 2 life to come in untapped, so Mountain as a free untapped source is valuable. Hired Claw is the least impactful card for a burn-oriented aggro plan.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "GPT5m Perfect"
+      "player": "GPT5m Perfect",
+      "decisionIndex": 42
     },
     {
       "severity": "moderate",
@@ -23253,7 +23254,8 @@
       "betterLine": "Target Bloodghast with Shock to remove a recurring attacker, or save Shock for a more impactful moment. With Lightning Helix in hand to handle Inti and the life gain to stabilize, removing board threats is more important than 2 face damage when behind at 9 life.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "GPT5m Perfect"
+      "player": "GPT5m Perfect",
+      "decisionIndex": 68
     },
     {
       "severity": "minor",
@@ -23262,7 +23264,8 @@
       "betterLine": "Play Swamp (enters untapped), then cast Greasewrench Goblin with a Blazemire Verge for R. Attack with Inti + Bloodghast for 7+ damage this turn, and have Goblin ready to attack next turn for a cleaner kill.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Grk41F Teach"
+      "player": "Grk41F Teach",
+      "decisionIndex": 70
     },
     {
       "severity": "major",
@@ -23271,11 +23274,12 @@
       "betterLine": "Choose 'Each opponent loses 3 life' to drop opponent from 9 to 6 life, making lethal much easier with the existing board of attackers and potentially closing the game immediately.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Grk41F Teach"
+      "player": "Grk41F Teach",
+      "decisionIndex": 80
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_201741_g3",
   "timestamp": "20260304_201741",
   "gameType": "Two Player Duel",
@@ -53698,7 +53698,8 @@
       "betterLine": "Keep the 7-card hand. It has lands, good removal (Welding Sparks), a value engine (Trove of Temptation), and a combat trick (Sudden Breakthrough). The hand curves out and is functional despite being land-heavy.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -53707,7 +53708,8 @@
       "betterLine": "Bottom Vodalian Arcanist and keep Opt. Opt helps find additional lands and spells when going to 6 cards, while Vodalian Arcanist is a low-impact body with a mana ability that has no targets in the remaining hand.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -53716,7 +53718,8 @@
       "betterLine": "Cast Brazen Freebooter to get a 3/3 body that can meaningfully block and a Treasure token for mana flexibility. Could then cast Goldvein Pick with remaining mana next turn or equip it to the Freebooter for value.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 37
     },
     {
       "severity": "questionable",
@@ -53725,7 +53728,8 @@
       "betterLine": "Keep Goldhound back as an additional blocker. With Vodalian Arcanist, Brazen Freebooter (to be cast postcombat), and Goldhound, you'd have three blockers to handle three potential attackers and survive the swing.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -53734,7 +53738,8 @@
       "betterLine": "Cast Brazen Freebooter first (4 mana), then equip Goldvein Pick onto Freebooter (1 mana) to create a 4/4 that generates treasures on combat damage.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 51
     },
     {
       "severity": "moderate",
@@ -53743,7 +53748,8 @@
       "betterLine": "Cast Brazen Freebooter for {3}{R} to get a 3/3 blocker and a Treasure token, then potentially equip Goldvein Pick to it or Vodalian Arcanist with remaining resources.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 53
     },
     {
       "severity": "major",
@@ -53752,7 +53758,8 @@
       "betterLine": "Cast Savage Punch (2 mana, with Ferocious +2/+2) using any creature with power 4+ to fight and kill Vodalian Arcanist, then attack with Challenger Troll (6) + Rhonas (5) + Benevolent Hydra (2) = 13 damage for exact lethal.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "Kimi25 Story"
+      "player": "Kimi25 Story",
+      "decisionIndex": 55
     },
     {
       "severity": "major",
@@ -53761,7 +53768,8 @@
       "betterLine": "Block Rhonas the Indomitable with Vodalian Arcanist to prevent 11 damage, surviving at 5 life instead of dying.",
       "type": "blunder",
       "snapshotIndex": 193,
-      "player": "MstLg Critic"
+      "player": "MstLg Critic",
+      "decisionIndex": 58
     }
   ],
   "blunderScriptVersion": 32

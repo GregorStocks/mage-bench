@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_073107_g1",
   "timestamp": "20260306_073107",
   "gameType": "Two Player Duel",
@@ -431631,7 +431631,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Vodalian Arcanist to save it from combat death, draw a card, and trigger Distinguished Conjurer for 1 life. The opponent is tapped out so there's no reason to hold the mana.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -431640,7 +431641,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Vodalian Arcanist (had exactly {W}{W}{U} available for the {2}{W} cost) to save the creature, draw a card, and trigger Distinguished Conjurer.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -431649,7 +431651,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Distinguished Conjurer to draw a card and make use of available mana, since no other 3-mana or less plays were available this turn.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 78
     },
     {
       "severity": "questionable",
@@ -431658,7 +431661,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Vodalian Arcanist to cantrip (drawing toward land drops for the expensive hand), untap the Arcanist, and gain 1 life. The card draw is especially valuable when the hand is full of 4-5 mana spells and they need lands.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 80
     },
     {
       "severity": "minor",
@@ -431667,7 +431671,8 @@
       "betterLine": "Block Midnight Guard with Distinguished Conjurer, then cast Acrobatic Maneuver targeting Conjurer before damage. This prevents 2 damage, draws a card, gains 1 life, and preserves the Conjurer.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 85
     },
     {
       "severity": "questionable",
@@ -431676,7 +431681,8 @@
       "betterLine": "A safer line would be Gideon's Lawkeeper (1 mana) + Forced Worship on a blocker (2 mana) = 3 mana, leaving 2 mana open for Valorous Stance as protection. Or Lawkeeper + Dub on Skyhunter Patrol (4 mana total, leaving 1 open), which still makes a 4/5 flying first striker while keeping the aura investment smaller and deploying an additional creature.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 125
     },
     {
       "severity": "minor",
@@ -431685,7 +431691,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Distinguished Conjurer to get the same blink/life gain plus draw a card, since all 3 mana was available and unused at end of turn.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 124
     },
     {
       "severity": "major",
@@ -431694,7 +431701,8 @@
       "betterLine": "Pass priority to hold up Exclude for the opponent's turn to counter their next creature spell. If wanting to use 3 mana, Acrobatic Maneuver on Distinguished Conjurer would draw a card and gain 1 life from the ETB trigger while keeping the counterspell for later.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -431703,7 +431711,8 @@
       "betterLine": "Cast Dub on Skyhunter Patrol (3 mana) to make it a 4/5 flying first striker, then attack Teferi to kill it (4 damage vs 4 loyalty). Could also cast Gideon's Lawkeeper (1 mana) and hold 2 mana for Valorous Stance to protect against removal. Killing Teferi before it accumulates value is critical.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 198
     },
     {
       "severity": "minor",
@@ -431712,7 +431721,8 @@
       "betterLine": "Activate Teferi's +1 to loot (draw then discard), getting card selection and bringing Teferi to 5 loyalty for better survivability against the opponent's flyers.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 196
     },
     {
       "severity": "questionable",
@@ -431721,7 +431731,8 @@
       "betterLine": "Attack the opponent directly to deal 2-4 damage to their 12 life total, since Teferi will likely -3 defensively regardless and won't die from 4 damage anyway",
       "type": "blunder",
       "snapshotIndex": 262,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 212
     },
     {
       "severity": "moderate",
@@ -431730,7 +431741,8 @@
       "betterLine": "Cast Settle Beyond Reality (4W) using 2 Plains + 2 Islands + Vodalian Arcanist's mana, choosing both modes to exile Magnanimous Magistrate and flicker Distinguished Conjurer for life gain. Removing the Magistrate prevents recursive value from Archon of Justice and other creatures in the graveyard.",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 229
     },
     {
       "severity": "minor",
@@ -431739,7 +431751,8 @@
       "betterLine": "Discard Thraben Inspector instead. Teferi's Ageless Insight has extraordinary synergy with the active Teferi on board and would generate overwhelming card advantage if resolved. Thraben Inspector is the lowest-impact card in hand.",
       "type": "blunder",
       "snapshotIndex": 312,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 249
     },
     {
       "severity": "minor",
@@ -431748,7 +431761,8 @@
       "betterLine": "Attack the player with Midnight Guard (2 damage face) and send Skyhunter Patrol at Teferi to kill it in one hit (4 damage > 3 loyalty), getting maximum value from both attackers.",
       "type": "blunder",
       "snapshotIndex": 326,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 265
     },
     {
       "severity": "minor",
@@ -431757,7 +431771,8 @@
       "betterLine": "Double-block Magnanimous Magistrate with Gallant Cavalry and Knight Token to kill it (4 damage vs 4 toughness), losing one 2/2 to its 3 power but eliminating the much more dangerous threat and taking 1 less damage.",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 273
     },
     {
       "severity": "moderate",
@@ -431766,7 +431781,8 @@
       "betterLine": "Hold Valorous Stance for a later turn when it could destroy a high-toughness creature or protect against actual destroy effects. Pass priority here since the opponent's lands are all tapped and can't respond with anything except Teferi's phase-out, which indestructible doesn't stop.",
       "type": "blunder",
       "snapshotIndex": 328,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 269
     },
     {
       "severity": "minor",
@@ -431775,7 +431791,8 @@
       "betterLine": "Attack first with Knight Token 2/2 (and possibly other creatures) while Midnight Guard is tapped, then cast Thraben Inspector and other spells in the postcombat main phase.",
       "type": "blunder",
       "snapshotIndex": 348,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 284
     },
     {
       "severity": "moderate",
@@ -431784,7 +431801,8 @@
       "betterLine": "Select both modes — exile an opponent's creature AND flicker Thraben Inspector to get a free Clue token plus Distinguished Conjurer life trigger",
       "type": "blunder",
       "snapshotIndex": 361,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 291
     },
     {
       "severity": "moderate",
@@ -431793,7 +431811,8 @@
       "betterLine": "Target Distinguished Conjurer, which is untapped and has a powerful activated ability that enables ETB value loops. Tapping it prevents both blocking and its blink ability.",
       "type": "blunder",
       "snapshotIndex": 393,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 316
     },
     {
       "severity": "minor",
@@ -431802,7 +431821,8 @@
       "betterLine": "Crack a Clue token for 2 mana to draw a card, preserving Acrobatic Maneuver for potential defensive use. Alternatively, cast Acrobatic Maneuver on Vodalian Arcanist to draw a card and gain 1 life from Distinguished Conjurer's trigger.",
       "type": "blunder",
       "snapshotIndex": 413,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 331
     },
     {
       "severity": "minor",
@@ -431811,7 +431831,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Distinguished Conjurer in response to Preston on the stack, drawing a card and gaining 1 life from Conjurer's ETB trigger, without giving the opponent an Illusion token from Preston",
       "type": "blunder",
       "snapshotIndex": 418,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 332
     },
     {
       "severity": "minor",
@@ -431820,7 +431841,8 @@
       "betterLine": "Tap Preston, the Vanisher (2/5) to remove the biggest blocker and enable more profitable attacks with Midnight Guard and Magnanimous Magistrate",
       "type": "blunder",
       "snapshotIndex": 446,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 351
     },
     {
       "severity": "questionable",
@@ -431829,7 +431851,8 @@
       "betterLine": "Put Forced Worship on Preston, the Vanisher 2/5 to neutralize the larger body and force the opponent to invest mana to free it",
       "type": "blunder",
       "snapshotIndex": 477,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 374
     },
     {
       "severity": "moderate",
@@ -431838,7 +431861,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Distinguished Conjurer to get a Preston Illusion token copy, gain 1 life, and draw a card. If mana remains, also cast Opt or crack a Clue. At absolute minimum, cast Opt for free card selection.",
       "type": "blunder",
       "snapshotIndex": 484,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 379
     },
     {
       "severity": "minor",
@@ -431847,7 +431871,8 @@
       "betterLine": "Attack with all creatures including the Drake Token for 6 total damage, since the opponent has no untapped blockers.",
       "type": "blunder",
       "snapshotIndex": 485,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 380
     },
     {
       "severity": "minor",
@@ -431856,7 +431881,8 @@
       "betterLine": "Cast Opt in response to the Clue Token ability on the stack. Scry 1 (potentially bottom a bad card), draw from Opt, then draw from the Clue with improved card quality.",
       "type": "blunder",
       "snapshotIndex": 514,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 400
     },
     {
       "severity": "minor",
@@ -431865,7 +431891,8 @@
       "betterLine": "Cast Opt in response to the Clue ability on the stack. Scry 1 (put unwanted card on bottom), draw from Opt, then draw from Clue - maximizing the value of the scry by filtering before both draws.",
       "type": "blunder",
       "snapshotIndex": 515,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 401
     },
     {
       "severity": "moderate",
@@ -431874,7 +431901,8 @@
       "betterLine": "Target the Drake Token 2/2 with flying with Faith's Fetters to stop the opponent's main aerial clock and gain 4 life, going from 13 to 17. The Drake is the immediate threat dealing 2 flying damage per turn.",
       "type": "blunder",
       "snapshotIndex": 519,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 403
     },
     {
       "severity": "minor",
@@ -431883,7 +431911,8 @@
       "betterLine": "Tap the Drake Token 2/2 to prevent 2 unblockable flying damage this turn",
       "type": "blunder",
       "snapshotIndex": 535,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 416
     },
     {
       "severity": "questionable",
@@ -431892,7 +431921,8 @@
       "betterLine": "Block Midnight Guard with the 0/1 Distinguished Conjurer Illusion token to prevent 2 damage at minimal cost.",
       "type": "blunder",
       "snapshotIndex": 545,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 426
     },
     {
       "severity": "questionable",
@@ -431901,7 +431931,8 @@
       "betterLine": "Activate Forced Worship to return it to hand for 2W, giving a replayable removal spell for future turns instead of wasting the mana.",
       "type": "blunder",
       "snapshotIndex": 546,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 427
     },
     {
       "severity": "minor",
@@ -431910,7 +431941,8 @@
       "betterLine": "Crack the Clue Token for 2 mana to draw a card, then consider activating Distinguished Conjurer (5 mana remaining) to flicker a creature and generate a Preston Illusion token copy plus 1 life from Conjurer's ETB trigger.",
       "type": "blunder",
       "snapshotIndex": 553,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 434
     },
     {
       "severity": "minor",
@@ -431919,7 +431951,8 @@
       "betterLine": "Put Inspiring Overseer on top. It provides card advantage (draw without discard), evasive flying damage, life gain, and excellent synergy with Preston (blink creates token copies that also draw cards) and Distinguished Conjurer.",
       "type": "blunder",
       "snapshotIndex": 596,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 466
     },
     {
       "severity": "moderate",
@@ -431928,7 +431961,8 @@
       "betterLine": "Tap the Drake Token 2/2 (flying) to prevent it from attacking, since it's the only untapped creature that can meaningfully attack this turn and flies over the player's ground blockers.",
       "type": "blunder",
       "snapshotIndex": 615,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 469
     },
     {
       "severity": "questionable",
@@ -431937,7 +431971,8 @@
       "betterLine": "Activate Forced Worship's bounce ability for {2}{W} to get it back in hand, then replay it on the most threatening untapped creature (likely Preston, the Vanisher 2/5 or Drake Token 2/2) during the postcombat main phase.",
       "type": "blunder",
       "snapshotIndex": 622,
-      "player": "GPT53C Hothead"
+      "player": "GPT53C Hothead",
+      "decisionIndex": 474
     },
     {
       "severity": "minor",
@@ -431946,7 +431981,8 @@
       "betterLine": "Block Midnight Guard with Preston, the Vanisher. Preston survives at 2 damage marked (2/5 body vs 2 power) and Valley takes no damage. This is a completely free block.",
       "type": "blunder",
       "snapshotIndex": 624,
-      "player": "GPT54 Valley"
+      "player": "GPT54 Valley",
+      "decisionIndex": 476
     }
   ],
   "blunderScriptVersion": 32

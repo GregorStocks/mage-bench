@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_172012_g2",
   "timestamp": "20260228_172012",
   "gameType": "Two Player Duel",
@@ -97333,7 +97333,8 @@
       "betterLine": "Save Outnumber for later when it can deal 3-4+ damage to a bigger threat. Use Pillar of Flame postcombat to kill Prismite instead.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 13
     },
     {
       "severity": "major",
@@ -97342,7 +97343,8 @@
       "betterLine": "Don't cast Outnumber. Let Goblin Arsonist deal 1 combat damage unblocked. Save Outnumber for later when controlling more creatures, making it capable of killing larger threats like Prismite or better.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -97351,7 +97353,8 @@
       "betterLine": "Target Prismite with the 1 damage to kill it, removing the opponent's mana fixer and a 2/1 body",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -97360,7 +97363,8 @@
       "betterLine": "Play Mountain first, then cast Boggart Brute (3/2 menace) — a stronger creature for the same investment, especially with no opposing creatures to make Shortcutter's ETB relevant",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 21
     },
     {
       "severity": "major",
@@ -97369,7 +97373,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting one Drake token (killing it), then move to combat and attack with Boggart Brute (which has menace and can't be blocked by just one Drake). This would deal 3 damage to the opponent while removing a flying threat.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97378,7 +97383,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token (deal 3 damage to it), removing half the flying clock. Then attack with Boggart Brute (menace) into the tapped-out opponent with no untapped blockers for 3 damage.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97387,7 +97393,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token (3 damage to it), removing a flying threat while opponent is tapped out. This addresses an evasive threat that Philo's ground creatures cannot block.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97396,7 +97403,8 @@
       "betterLine": "Cast Ornery Goblin or Goblin Shortcutter ({1}{R}), then attack with Boggart Brute (3 damage, unblockable since Drakes are sick), saving Flames of the Firebrand for a future turn to remove a Drake.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97405,7 +97413,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one of the 2/2 Drake tokens (3 damage to it), then attack with Boggart Brute. This removes half the aerial threat while the opponent is tapped out. Could also consider casting Ornery Goblin or Goblin Shortcutter as a 2-drop to build board presence.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97414,7 +97423,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 3 damage to one Drake token to kill it (or split 2+1 between both Drakes), then attack with Boggart Brute unblockable (both Drakes are sick). Alternatively, cast a 2-drop creature and Flames in subsequent turns, but removing a Drake while opponent is tapped out is the priority.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97423,7 +97433,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting both Drake tokens (2 damage to one, 1 damage to the other) to kill one and weaken the other, or deal 3 to one to guarantee a kill. This addresses the most pressing threat on board.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97432,7 +97443,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token while the opponent is tapped out and can't respond, then proceed to combat with Boggart Brute.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97441,7 +97453,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one 2/2 Drake token (2 damage) and deal 1 damage to the other Drake or to the opponent, then attack with Boggart Brute through the weakened board. Alternatively, cast a 2-drop creature like Goblin Shortcutter (targeting a Drake to prevent blocking) and attack with Boggart Brute.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97450,7 +97463,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 damage to one Drake token (killing it) and 1 damage to the other (leaving it at 2/1), neutralizing half the flying threat and weakening the rest. Alternatively, cast Goblin Shortcutter or Ornery Goblin to build board presence before combat.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97459,7 +97473,8 @@
       "betterLine": "Cast Ornery Goblin or Goblin Shortcutter (2 mana), then attack with it and Boggart Brute for 5 unblockable damage (Drakes are summoning sick). Could also consider Flames of the Firebrand to kill a Drake token.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97468,7 +97483,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting one Drake token for 3 damage to kill it, reducing the flying clock. Alternatively, cast Goblin Shortcutter or Ornery Goblin to develop the board, then attack with Boggart Brute.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97477,7 +97493,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token (3 damage to it), then still have the option to develop the board next turn. Reducing the flying clock from 4 to 2 damage per turn is critical when you have no flying blockers.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97486,7 +97503,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting damage (e.g., 2 to one Drake and 1 to the other) to kill one Drake and weaken the other, or kill one Drake outright. Opponent is tapped out with no way to respond. This removes a flying threat that Boggart Brute and ground creatures cannot block.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97495,7 +97513,8 @@
       "betterLine": "Cast Goblin Shortcutter targeting a Drake token (preventing it from blocking), attack with Boggart Brute (which has menace and can't be blocked by just one Drake), dealing 3 damage. Post-combat, cast Ornery Goblin with remaining mana. Alternatively, use Flames of the Firebrand to kill a Drake token.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -97504,7 +97523,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill a 2/2 Drake token (opponent tapped out, can't respond), then attack with Boggart Brute. Alternatively, cast Goblin Shortcutter to neutralize a Drake blocker and develop the board before combat.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -97513,7 +97533,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one 2/2 Drake token (reducing the flying clock), then attack with Boggart Brute. Alternatively, cast Goblin Shortcutter or Ornery Goblin to develop the board and save Flames for next turn. Any action is far better than none.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 48
     },
     {
       "severity": "major",
@@ -97522,7 +97543,8 @@
       "betterLine": "Cast Goblin Shortcutter (2 mana) to add a body and use its ETB to prevent a Drake from blocking, then attack with Boggart Brute. Alternatively, cast Flames of the Firebrand to kill one Drake token. Either play develops the board or removes a threat during a crucial tempo window.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 48
     },
     {
       "severity": "major",
@@ -97531,7 +97553,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake with its ETB to prevent blocking), then attack with both Boggart Brute (menace, can't be blocked by one creature) and Shortcutter for 5 damage. Alternatively, cast Flames of the Firebrand to kill one Drake token, then attack with Boggart Brute. Either line develops the board and pressures the opponent while their lands are tapped.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -97540,7 +97563,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one of the 2/2 Drake tokens (3 damage to it), removing a flying threat before it can attack. Alternatively, cast Goblin Shortcutter or Ornery Goblin to develop the board, with a plan to use Flames next turn.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 52
     },
     {
       "severity": "questionable",
@@ -97549,7 +97573,8 @@
       "betterLine": "Cast Befuddle targeting Boggart Brute to draw a card, since the 3 mana would go to waste this turn and card draw helps find the green/white mana sources needed for Ironroot Warlord.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "Opus Teach"
+      "player": "Opus Teach",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -97558,7 +97583,8 @@
       "betterLine": "Play Mountain first (4 mana available), then decide between Flames of the Firebrand or deploying two creatures. Even if Flames is the correct play, sequencing land first preserves options.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 67
     },
     {
       "severity": "questionable",
@@ -97567,7 +97593,8 @@
       "betterLine": "Cast Goblin Shortcutter (2) + Ornery Goblin (2) for 4 mana, developing two creatures. Attack with Boggart Brute for 3 while Drakes are tapped. Save Flames for next turn when it can still answer a Drake while having a wider board.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 68
     },
     {
       "severity": "major",
@@ -97576,7 +97603,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token (removing 2 points of flying damage per turn), then in postcombat main cast a 2-drop with remaining mana. Alternatively, cast both Goblin Shortcutter and Ornery Goblin (4 mana) to build board presence for racing and blocking. Either line is vastly superior to doing nothing.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -97585,7 +97613,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting one Drake token (killing it), then cast Ornery Goblin with remaining mana, then attack with Boggart Brute. This removes a flying threat and develops the board.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -97594,7 +97623,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one Drake token (3 damage), then cast Goblin Shortcutter (targeting the remaining Drake to prevent blocking), then attack with Boggart Brute for 3 damage. This removes a threat, deals damage, and develops the board.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -97603,7 +97633,8 @@
       "betterLine": "Cast Goblin Shortcutter (2 mana) and Ornery Goblin (2 mana) to develop the board with two creatures, then attack with Boggart Brute. Alternatively, cast Flames of the Firebrand to kill a Drake token and cast one of the 2-drop creatures, using all available mana.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "moderate",
@@ -97612,7 +97643,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 damage to each Drake token (killing both), then cast Ornery Goblin or Goblin Shortcutter with the remaining 1R, then attack with Boggart Brute for 3 unblockable damage.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -97621,7 +97653,8 @@
       "betterLine": "Cast Goblin Shortcutter (2 mana) and Ornery Goblin (2 mana), then attack with Boggart Brute for 3 unblocked damage. Alternatively, cast Flames of the Firebrand to kill a Drake token and cast Ornery Goblin, then attack.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 69
     },
     {
       "severity": "major",
@@ -97630,7 +97663,8 @@
       "betterLine": "Cast Goblin Shortcutter ({1}{R}) and Ornery Goblin ({1}{R}) for exactly 4 mana, then attack with Boggart Brute + Goblin Shortcutter + Ornery Goblin for 7 unblocked damage (opponent's creatures all tapped).",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97639,7 +97673,8 @@
       "betterLine": "Cast Goblin Shortcutter (2 mana) and Ornery Goblin (2 mana) to develop the board, then attack with Boggart Brute for 3 damage while opponent's Drakes are tapped and can't block. Alternatively, Flames of the Firebrand a Drake + cast Ornery Goblin, then attack.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97648,7 +97683,8 @@
       "betterLine": "Cast Goblin Shortcutter and Ornery Goblin (4 mana total), using Shortcutter's ETB to prevent a Drake from blocking, then attack with Boggart Brute (menace) for 3 damage. Alternatively, cast Flames of the Firebrand to kill one Drake and deploy a 2-drop next turn.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97657,7 +97693,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake to prevent it from blocking), then cast Ornery Goblin, then attack with Boggart Brute unblockable (menace requires two blockers, only one Drake can block). This deals 3 damage and adds two bodies to the board.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97666,7 +97703,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one of the tapped Drake tokens (3 damage to a 2/2), then attack with Boggart Brute (menace, only one Drake left can't block it alone) for 3 damage. Alternatively, deploy Goblin Shortcutter + Ornery Goblin for 4 mana to build board presence before attacking.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97675,7 +97713,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake) and Ornery Goblin for 4 mana total, developing two creatures, then attack with Boggart Brute for 3 damage while Drakes are tapped. Alternatively, Flames of the Firebrand to kill a Drake + cast a 2-drop creature.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97684,7 +97723,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake to prevent blocking) and Ornery Goblin for exactly 4 mana, then attack with Boggart Brute. Alternatively, Flames of the Firebrand to kill a Drake + cast a 2-drop creature, then attack.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97693,7 +97733,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake with ETB) and Ornery Goblin for {1}{R} each, then attack with Boggart Brute for 3 unblocked damage. This develops the board with 3 creatures and deals 3 damage while opponent is tapped out.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97702,7 +97743,8 @@
       "betterLine": "Cast Goblin Shortcutter (2 mana) and Ornery Goblin (2 mana) to develop the board with two creatures, then attack with Boggart Brute. This builds toward casting Chandra next turn with 5 lands and pressures the opponent's life total.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97711,7 +97753,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting one Drake token (killing it), then cast Ornery Goblin or Goblin Shortcutter with the remaining 1R mana. This removes an evasive threat and develops the board simultaneously.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -97720,7 +97763,8 @@
       "betterLine": "Cast both Goblin Shortcutter and Ornery Goblin for exactly 4 mana, building board presence with three creatures (also enabling a stronger Chandra turn next turn with 5 lands). Alternatively, cast Flames of the Firebrand to kill one Drake token and then a 2-drop next turn.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -97729,7 +97773,8 @@
       "betterLine": "Cast Goblin Shortcutter and Ornery Goblin (4 mana total) to deploy two creatures, building board presence to support Boggart Brute and prepare for future attacks. Alternatively, cast Flames of the Firebrand to kill a Drake token.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -97738,7 +97783,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake token so it can't block) and Ornery Goblin precombat, then attack with Boggart Brute (menace, only one Drake can block) and potentially the other creatures for significant damage.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -97747,7 +97793,8 @@
       "betterLine": "Cast Goblin Shortcutter (targeting a Drake token to prevent blocking) and Ornery Goblin, using all 4 mana. Then attack with Boggart Brute for 3 unblockable damage (menace, one Drake can't block, other alone can't block menace). This develops the board and pressures the opponent.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -97756,7 +97803,8 @@
       "betterLine": "Attack with both Drake tokens for 4 unblockable flying damage, bringing opponent from 16 to 12 life.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Opus Teach"
+      "player": "Opus Teach",
+      "decisionIndex": 95
     },
     {
       "severity": "minor",
@@ -97765,7 +97813,8 @@
       "betterLine": "Decline to block, take 4 damage (16→12), and keep Boggart Brute as a menace threat to attack back. With Goblin Shortcutter and Ornery Goblin in hand plus Chandra, the board can be rebuilt offensively.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -97774,7 +97823,8 @@
       "betterLine": "Block one Drake token with Boggart Brute to kill the Drake (Brute survives at 3/2 with 2 damage), taking only 2 damage and removing half the opponent's flying clock",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -97783,7 +97833,8 @@
       "betterLine": "Play Mountain first (giving 5 Mountains), then evaluate whether to cast Chandra, Heart of Fire (a powerful planeswalker) or Flames of the Firebrand + a 2-drop creature. Playing land first preserves all options.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 104
     },
     {
       "severity": "questionable",
@@ -97792,7 +97843,8 @@
       "betterLine": "Cast Flames of the Firebrand killing one Drake token, then cast Goblin Shortcutter to develop the board and potentially enable attacks with Boggart Brute through the ETB ability",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 105
     },
     {
       "severity": "moderate",
@@ -97801,7 +97853,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to a Drake token, killing it and going to 6 loyalty",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 108
     },
     {
       "severity": "moderate",
@@ -97810,7 +97863,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, killing it, reducing incoming flying damage and building Chandra to 6 loyalty.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -97819,7 +97873,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the 2/2 Drake tokens, killing it and reducing the opponent's flying clock.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -97828,7 +97883,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the 2/2 Drake tokens, killing it and reducing the opponent's flying clock while building Chandra's loyalty to 6.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -97837,7 +97893,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the 2/2 Drake tokens, killing it and reducing incoming flying damage from 4 to 2 per turn.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 112
     },
     {
       "severity": "major",
@@ -97846,7 +97903,8 @@
       "betterLine": "Use Chandra's +1 to deal 2 damage to a Drake token, killing it and significantly reducing incoming damage pressure while preserving the strong hand of Flames of the Firebrand, Goblin Shortcutter, and Ornery Goblin for future turns.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -97855,7 +97913,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, killing it and reducing incoming flying damage",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97864,7 +97923,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, destroying it and going to 6 loyalty",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97873,7 +97933,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, killing it and going to 6 loyalty. This removes an evasive attacker that has been dealing significant damage.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "major",
@@ -97882,7 +97943,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, killing it. This removes a flying attacker, reduces incoming damage by 2 per turn, and increases Chandra's loyalty to 6.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97891,7 +97953,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the tapped 2/2 Drake tokens, killing it and reducing the opponent's flying clock while building Chandra's loyalty to 6.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97900,7 +97963,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to opponent (or a Drake token), gaining free damage and building loyalty to 6",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97909,7 +97973,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, killing it and reducing incoming flying damage while building Chandra's loyalty to 6.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "moderate",
@@ -97918,7 +97983,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to one of the Drake tokens, destroying it and reducing incoming aerial damage by 2 per turn.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 119
     },
     {
       "severity": "major",
@@ -97927,7 +97993,8 @@
       "betterLine": "Attack with both Drake tokens. Ideally send both at Chandra to reduce her from 5 to 1 loyalty, preventing her from using the -9 ultimate and making her much easier to remove. Alternatively, split damage or go face to pressure the opponent's 12 life total.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Opus Teach"
+      "player": "Opus Teach",
+      "decisionIndex": 132
     },
     {
       "severity": "minor",
@@ -97936,7 +98003,8 @@
       "betterLine": "Accept the 4 damage from the two flying Drakes (going to 8 life) since no available creatures can block flyers. Then use Chandra's +1 to deal 2 damage to a Drake next turn, or use Flames of the Firebrand to kill a Drake.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 135
     },
     {
       "severity": "minor",
@@ -97945,7 +98013,8 @@
       "betterLine": "Don't block — take 4 damage (going to 8), keep Boggart Brute as an attacker, and use Chandra's +1 to shoot down Drake tokens over the next turns.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 135
     },
     {
       "severity": "major",
@@ -97954,7 +98023,8 @@
       "betterLine": "Cast Flames of the Firebrand to kill one or both Drake tokens (creating an Elemental via Young Pyromancer), then activate Chandra's +1 to deal 2 damage to the remaining Drake or opponent, then attack with Boggart Brute through the opponent's sick blockers",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 148
     },
     {
       "severity": "major",
@@ -97963,7 +98033,8 @@
       "betterLine": "Activate Chandra's +1 to deal 2 damage to a Drake token (killing it, Chandra goes to 2 loyalty). Then cast Goblin Shortcutter (targeting Ironroot Warlord so it can't block), then attack with Boggart Brute. This removes a flying threat, develops the board, and pressures the opponent.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 151
     },
     {
       "severity": "major",
@@ -97972,7 +98043,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to a Drake token and 1 damage to Sage's Row Savant (killing both, triggering Young Pyromancer for a token, and shrinking Ironroot Warlord to 2/5). Then activate Chandra +1 to deal 2 damage to the other Drake token. Then attack with Boggart Brute through a weakened board.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 153
     },
     {
       "severity": "major",
@@ -97981,7 +98053,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to a Drake Token (killing it) and 1 to Sage's Row Savant (killing it), triggering Young Pyromancer for a 1/1 token. Then activate Chandra +1 to deal 2 to the other Drake Token. Attack with Boggart Brute (menace, only Ironroot Warlord which is sick could potentially block). This clears the opponent's board of non-sick creatures and deals 3 damage.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -97990,7 +98063,8 @@
       "betterLine": "Cast Goblin Shortcutter targeting Ironroot Warlord (can't block this turn), then activate Chandra +1 to deal 2 damage to a Drake token or Sage's Row Savant, then attack with Boggart Brute. Alternatively, cast Flames of the Firebrand (triggering Young Pyromancer) to kill a Drake token and damage another creature, then attack.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -97999,7 +98073,8 @@
       "betterLine": "Activate Chandra +1 to deal 2 damage to a Drake token (killing it, Chandra goes to 2 loyalty). Then cast Flames of the Firebrand targeting the other Drake for 3 damage (killing it, triggering Young Pyromancer for a token). This clears both flyers and creates a token, setting up a strong attack with Boggart Brute (menace) against a board with only sick creatures.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -98008,7 +98083,8 @@
       "betterLine": "Activate Chandra +1 to deal 2 damage to one Drake token (killing it), then cast Flames of the Firebrand to deal 2 to the other Drake + 1 to Sage's Row Savant (killing both and triggering Young Pyromancer), then attack with Boggart Brute unopposed.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -98017,7 +98093,8 @@
       "betterLine": "Choose 'All attack' to deal 2+2+6+2 = 12 damage for exact lethal, since opponent has no valid blocks.",
       "type": "blunder",
       "snapshotIndex": 235,
-      "player": "Opus Teach"
+      "player": "Opus Teach",
+      "decisionIndex": 166
     },
     {
       "severity": "major",
@@ -98026,7 +98103,8 @@
       "betterLine": "Block Ironroot Warlord (6/5) with one creature and a Drake Token with the other, preventing 8 damage and surviving at 8 life. Even blocking just one attacker would have prevented lethal.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 167
     },
     {
       "severity": "questionable",
@@ -98035,7 +98113,8 @@
       "betterLine": "Take the 6 damage and preserve Young Pyromancer for future token generation with Flames of the Firebrand and other spells in hand. At 6 life the situation is dire either way, but Young Pyromancer could help stabilize.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 170
     },
     {
       "severity": "minor",
@@ -98044,7 +98123,8 @@
       "betterLine": "Block a Drake Token with Young Pyromancer (trading 2/1 for 2/2 flyer, permanently removing a flying threat) and let Boggart Brute chump-block Sage's Row Savant or Ironroot Warlord. Same 8 damage taken but you remove a Drake token from the board, which matters significantly given the opponent's growing air force.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 171
     },
     {
       "severity": "minor",
@@ -98053,7 +98133,8 @@
       "betterLine": "Play Mountain first, then cast Flames of the Firebrand targeting Talrand, Sky Summoner (and potentially splitting remaining damage to another creature)",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 175
     },
     {
       "severity": "major",
@@ -98062,7 +98143,8 @@
       "betterLine": "Cast Flames of the Firebrand killing Talrand, Sky Summoner (2 damage) and a Drake token (1 damage wouldn't kill it — so better to put all 3 on Talrand or split 2 on Talrand + 1 on Sage's Row Savant to weaken the Ironroot Warlord's power). Then cast Ornery Goblin or Goblin Shortcutter as a blocker. This removes Talrand to stop Drake generation and provides a body to block with.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 176
     },
     {
       "severity": "major",
@@ -98071,7 +98153,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 damage to Talrand (killing it to stop Drake generation) and 1 damage elsewhere, then cast Goblin Shortcutter or Ornery Goblin with remaining mana to establish some board presence and blockers.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 176
     },
     {
       "severity": "major",
@@ -98080,7 +98163,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to Talrand, Sky Summoner and 1 damage to Sage's Row Savant (killing both), then cast Goblin Shortcutter or Ornery Goblin as a blocker. This removes the Drake-generating engine and adds a body to potentially chump block.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -98089,7 +98173,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (2 damage) and Sage's Row Savant (1 damage) — killing Talrand to stop Drake generation. Then cast Goblin Shortcutter (using its ETB to prevent Ironroot Warlord from blocking) to have a body on board. This develops the board and removes a key threat while at a desperate 8 life.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -98098,7 +98183,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (2/2) to kill it and prevent future Drake generation, plus deal 1 damage to Sage's Row Savant. Then cast Goblin Shortcutter or Ornery Goblin as a blocker. This uses 5 of 6 available mana and addresses the most dangerous threat while providing some board presence.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -98107,7 +98193,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 to Talrand, Sky Summoner and 1 to Sage's Row Savant (killing both), then cast Goblin Shortcutter or Ornery Goblin as a blocker. This removes the token engine and provides a body to help survive the next attack.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 179
     },
     {
       "severity": "minor",
@@ -98116,7 +98203,8 @@
       "betterLine": "Cast Goblin Shortcutter or Ornery Goblin first (2 mana), go to combat and attack for 2 damage into a tapped-out board, then cast Flames of the Firebrand post-combat to kill Talrand and/or Sage's Row Savant.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -98125,7 +98213,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (2 damage) and Sage's Row Savant (1 damage) to kill Talrand and weaken/kill Savant. Then cast Goblin Shortcutter (2 mana) to develop a body and use its ETB to prevent a creature from blocking. This removes the opponent's token engine and develops the board.",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 185
     },
     {
       "severity": "major",
@@ -98134,7 +98223,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to Talrand, Sky Summoner and 1 damage to Sage's Row Savant (killing both, reducing Ironroot Warlord's power by 2), then cast Goblin Shortcutter or Ornery Goblin as a blocker with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 185
     },
     {
       "severity": "major",
@@ -98143,7 +98233,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 to Talrand, Sky Summoner and 1 to Sage's Row Savant (killing both, reducing Ironroot Warlord to 4/5), then cast Goblin Shortcutter to develop the board. This removes the Drake engine and buys critical time.",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 185
     },
     {
       "severity": "major",
@@ -98152,7 +98243,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 damage to Talrand, Sky Summoner and 1 damage to Sage's Row Savant (killing both), then cast Goblin Shortcutter or Ornery Goblin with remaining 3 mana. This removes the Drake engine, weakens Ironroot Warlord, and develops the board.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98161,7 +98253,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to Talrand and 1 to Sage's Row Savant (killing both, reducing Ironroot Warlord's power, and preventing future Drake tokens), then cast Goblin Shortcutter or Ornery Goblin as a blocker with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98170,7 +98263,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (2 damage) and one Drake token (1 damage) or just Talrand for 3, then cast Goblin Shortcutter and/or Ornery Goblin as blockers. Removing Talrand prevents future Drake generation, and deploying creatures provides desperately needed blockers at 8 life.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98179,7 +98273,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to Talrand, Sky Summoner and 1 damage to Sage's Row Savant (killing both), then cast Goblin Shortcutter or Ornery Goblin with remaining 3 mana to establish a board presence and start applying pressure.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98188,7 +98283,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 3 damage to Talrand, Sky Summoner to kill it (preventing future Drake tokens), then cast Goblin Shortcutter or Ornery Goblin as a blocker with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98197,7 +98293,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (2 damage) and Sage's Row Savant (1 damage) to kill both. Then cast Goblin Shortcutter and Ornery Goblin as blockers. This deploys all resources to maximize survival chances against the lethal board.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98206,7 +98303,8 @@
       "betterLine": "Cast Flames of the Firebrand dealing 2 to Talrand, Sky Summoner and 1 to Sage's Row Savant (killing both, reducing Ironroot Warlord to 4/5), then cast Goblin Shortcutter or Ornery Goblin with remaining 3 mana to establish a board presence.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98215,7 +98313,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand, Sky Summoner (killing it to prevent more Drake tokens), then cast both Goblin Shortcutter and Ornery Goblin (total 7 mana needed, only 6 available, so cast Flames + one creature for 5 mana, or skip Flames and cast both creatures for 4 mana as blockers). Killing Talrand with Flames plus deploying Goblin Shortcutter (5 mana) is likely optimal.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98224,7 +98323,8 @@
       "betterLine": "Cast Flames of the Firebrand splitting 2 damage to Talrand, Sky Summoner and 1 damage to Sage's Row Savant (killing both, reducing Ironroot Warlord to 4/5), then cast Ornery Goblin or Goblin Shortcutter as a blocker with remaining 3 mana.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -98233,7 +98333,8 @@
       "betterLine": "Cast Flames of the Firebrand targeting Talrand (3 damage to kill it and stop future Drake generation), then cast Goblin Shortcutter (2 mana) and Ornery Goblin... actually Flames (3) + Shortcutter (2) = 5 mana. Cast those two, leaving 1 Mountain. Alternatively, Flames targeting Talrand for 2 + Sage's Row Savant for 1, then cast Goblin Shortcutter. Deploy blockers and remove the most dangerous threat generators.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Philo"
+      "player": "GPT52 Philo",
+      "decisionIndex": 189
     }
   ],
   "blunderScriptVersion": 28,

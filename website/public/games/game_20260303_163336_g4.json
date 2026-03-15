@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_163336_g4",
   "timestamp": "20260303_163336",
   "gameType": "Two Player Duel",
@@ -97084,7 +97084,8 @@
       "betterLine": "Keep the 7-card hand. It has early plays, removal, and a reasonable mana base. Going to 6 risks getting a worse hand and being down a card.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstLg Villain"
+      "player": "MstLg Villain",
+      "decisionIndex": 1
     },
     {
       "severity": "moderate",
@@ -97093,7 +97094,8 @@
       "betterLine": "Choose Green for Thriving Bluff to have access to both red and green mana, supporting cards like Unnatural Aggression and other green spells in the deck.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "MstLg Villain"
+      "player": "MstLg Villain",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -97102,7 +97104,8 @@
       "betterLine": "Play Forest first, then cast Unnatural Aggression. This leaves an additional untapped land available, which could matter for bluffing or unexpected interactions.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "MstLg Villain"
+      "player": "MstLg Villain",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -97111,7 +97114,8 @@
       "betterLine": "Hold Lightning Axe for a more threatening target. Wait until you have 6 mana to pay the {5} alternative cost, or save it for when the opponent plays a real threat. A 1/1 is not worth spending two cards to remove.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "MstLg Villain"
+      "player": "MstLg Villain",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -97120,7 +97124,8 @@
       "betterLine": "Block Lightning Visionary with Ingenious Leonin. Leonin survives at 4/4 (takes 2 damage), Visionary dies, take 4 from Lightning Elemental. Preserves the Leonin which has excellent synergy with Basri's Acolyte in hand and provides a strong board presence.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "GPT52 Stoic"
+      "player": "GPT52 Stoic",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -97129,7 +97134,8 @@
       "betterLine": "Block Stalking Drone with Basri's Acolyte to kill the Drone, gain 2 life from lifelink, and keep the Acolyte alive as a 2/1. This is a 4-point life swing (2 damage prevented + 2 life gained) plus removing a creature.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT52 Stoic"
+      "player": "GPT52 Stoic",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 31,

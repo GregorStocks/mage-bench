@@ -49842,7 +49842,8 @@
       "betterLine": "Bottom Thassa's Oracle instead, keeping both Unmask (free disruption) and Thoughtseize to protect the combo line. Oracle will end up in the graveyard when the library is milled and can be reanimated with Dread Return.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -49851,7 +49852,8 @@
       "betterLine": "Take Kozilek's Command, which is the only card that can directly disrupt the Balustrade Spy/Thassa's Oracle combo by exiling creatures or graveyard cards at instant speed.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 10
     },
     {
       "severity": "moderate",
@@ -49860,7 +49862,8 @@
       "betterLine": "Take Kozilek's Command with Unmask, as it's the only card in the opponent's hand that can interact with and disrupt the Balustrade Spy/Undercity Informer + Thassa's Oracle combo at instant speed",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 41
     },
     {
       "severity": "major",
@@ -49869,7 +49872,8 @@
       "betterLine": "If forced to discard, should have discarded a Simian Spirit Guide or Elvish Spirit Guide instead of Narcomoeba. Narcomoeba provides devotion to blue on the battlefield after being milled, which is critical for Thassa's Oracle's win condition. Spirit Guides in the graveyard still get milled past (they're already in hand, not library), and having fewer spirit guides is less costly than losing a devotion source for the Oracle win.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 55
     },
     {
       "severity": "major",
@@ -49878,7 +49882,8 @@
       "betterLine": "Pass the turn without exiling any Spirit Guides. Preserve all mana-producing creatures in hand until a black mana source (like drawing a Dark Ritual or Lotus Petal) enables the full combo in a single turn.",
       "type": "blunder",
       "snapshotIndex": 255,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 65
     },
     {
       "severity": "major",
@@ -49887,11 +49892,12 @@
       "betterLine": "Pass the turn without exiling any Spirit Guides. Hold them until a black mana source (Dark Ritual, Lotus Petal, etc.) is drawn to enable the Balustrade Spy combo. The Spirit Guides could also serve as sacrifice fodder for Cabal Therapy's flashback cost.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Gem25F Nature"
+      "player": "Gem25F Nature",
+      "decisionIndex": 65
     }
   ],
   "blunderScriptVersion": 18,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

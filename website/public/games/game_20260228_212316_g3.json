@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_212316_g3",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -103416,7 +103416,8 @@
       "betterLine": "In many Limited formats, choosing to be on the play is standard and correct. This is debatable enough that it's not clearly wrong — going first for tempo is a valid strategy.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -103425,7 +103426,8 @@
       "betterLine": "Attack with Goblin Arsonist for 1 free damage.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 22
     },
     {
       "severity": "major",
@@ -103434,7 +103436,8 @@
       "betterLine": "Cast Titanic Growth on their own Feral Prowler (making it 5/7) to use it as a combat trick for attacking or blocking, or simply hold it for a favorable combat situation later.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -103443,7 +103446,8 @@
       "betterLine": "Play Ash Barrens as a land to have 7 lands available next turn, enabling Brood Monitor on curve. Brood Monitor + 3 Scion tokens would dramatically shift the board state.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -103452,7 +103456,8 @@
       "betterLine": "Play Forest first, then cast Feline Sovereign ({2}{G}) and Skyway Sniper ({G}), deploying two creatures this turn with Skyway Sniper getting the +1/+1 Cat lord buff.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -103461,7 +103466,8 @@
       "betterLine": "Attack with both Boggart Brute and Goblin Arsonist for 4 unblockable damage, bringing the opponent to 12 life.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -103470,7 +103476,8 @@
       "betterLine": "Attack with all creatures (Boggart Brute + Goblin Arsonist) for 4 damage, since the opponent has no untapped/non-sick creatures to block.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -103479,7 +103486,8 @@
       "betterLine": "Play Ash Barrens to have 6 lands next turn, enabling Brood Monitor on curve. Blisterpod could be cast next turn alongside other plays.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -103488,7 +103496,8 @@
       "betterLine": "Play Ash Barrens from hand to get an additional land on the battlefield, providing extra mana for future turns.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -103497,7 +103506,8 @@
       "betterLine": "Block with Blisterpod to generate an Eldrazi Scion token, providing an extra mana source to help cast Brood Monitor next turn",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -103506,7 +103516,8 @@
       "betterLine": "Target the opponent (GPT5n Romance) for 1 damage to the face, reducing them from 16 to 15 life. This is permanent, guaranteed value rather than wasted temporary damage on a creature that won't die.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -103515,7 +103526,8 @@
       "betterLine": "Direct the 1 damage to the opponent's face (16 -> 15 life). It's small but permanent value, whereas damage on Feline Sovereign is completely wasted since it clears at end of turn.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -103524,7 +103536,8 @@
       "betterLine": "Attack with Blisterpod for 1 unblocked damage (opponent has no untapped blockers), bringing opponent to 15.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 62
     },
     {
       "severity": "minor",
@@ -103533,7 +103546,8 @@
       "betterLine": "Play Forest, then cast Keeper of Fables (4/5) which would generate card advantage whenever the non-Human creatures attack and deal combat damage.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -103542,7 +103556,8 @@
       "betterLine": "Attack with both Feline Sovereign and Sabertooth Mauler. The opponent can only chump with Blisterpod, dealing ~5-7 damage total, and Mauler untaps at end step anyway if a creature dies.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -103551,7 +103566,8 @@
       "betterLine": "Attack with both Muxus and Blisterpod to deal 1 extra damage for free (opponent can only block one).",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -103560,7 +103576,8 @@
       "betterLine": "Double-block Muxus with both Sabertooth Mauler and Elvish Archdruid to deal 7 total damage, killing Muxus. Both blockers die but the opponent loses their best creature permanently.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 73
     },
     {
       "severity": "moderate",
@@ -103569,7 +103586,8 @@
       "betterLine": "Attack with all four creatures (Blisterpod, Beetleback Chief, and both Goblin Tokens). The opponent can only block one, so at least 3 damage gets through. Next turn with Brood Monitor and Scions also available, the board becomes even more overwhelming.",
       "type": "blunder",
       "snapshotIndex": 253,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -103578,7 +103596,8 @@
       "betterLine": "Cast Crushing Canopy targeting Makeshift Munitions to destroy it before the opponent can start sacrificing tokens for damage value.",
       "type": "blunder",
       "snapshotIndex": 279,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -103587,7 +103606,8 @@
       "betterLine": "Cast Crushing Canopy targeting Makeshift Munitions to prevent the opponent from converting their token army into direct damage, which is critical at 5 life.",
       "type": "blunder",
       "snapshotIndex": 282,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 91
     },
     {
       "severity": "major",
@@ -103596,7 +103616,8 @@
       "betterLine": "Cast Crushing Canopy targeting Makeshift Munitions to remove the direct damage threat and force the opponent to win through combat, where Keeper of Fables as a 4/5 blocker could at least trade with something.",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 94
     },
     {
       "severity": "major",
@@ -103605,7 +103626,8 @@
       "betterLine": "Choose 'Destroy target enchantment' mode targeting Makeshift Munitions, which threatens lethal damage through token sacrifices at 5 life.",
       "type": "blunder",
       "snapshotIndex": 296,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 98
     },
     {
       "severity": "major",
@@ -103614,7 +103636,8 @@
       "betterLine": "Choose 'Destroy target enchantment' targeting Makeshift Munitions, which threatens to deal lethal damage through token/creature sacrifices when the player is at only 5 life.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 100
     },
     {
       "severity": "moderate",
@@ -103623,7 +103646,8 @@
       "betterLine": "Cast Crushing Canopy targeting Makeshift Munitions to remove the lethal threat. Even if planning to cast post-combat, timing out risks missing the window entirely.",
       "type": "blunder",
       "snapshotIndex": 302,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 102
     },
     {
       "severity": "major",
@@ -103632,7 +103656,8 @@
       "betterLine": "Choose 'Destroy target enchantment' to destroy Makeshift Munitions, the only card threatening immediate lethal.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -103641,7 +103666,8 @@
       "betterLine": "Choose 'Destroy target enchantment' targeting Makeshift Munitions, which threatens lethal with the opponent's many sacrifice-able tokens and creatures.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -103650,7 +103676,8 @@
       "betterLine": "Choose 'Destroy target enchantment' to destroy Makeshift Munitions, which threatens lethal damage via sacrificing tokens and creatures.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -103659,7 +103686,8 @@
       "betterLine": "Choose 'Destroy target enchantment' targeting Makeshift Munitions to eliminate the opponent's ability to deal lethal direct damage through token sacrifices.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "GPT5n Romance"
+      "player": "GPT5n Romance",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -103668,7 +103696,8 @@
       "betterLine": "Cast Ornery Goblin (2 mana available easily) to add another attacker, then move to combat and attack with all creatures for overkill lethal.",
       "type": "blunder",
       "snapshotIndex": 321,
-      "player": "Gem3P Tactic"
+      "player": "Gem3P Tactic",
+      "decisionIndex": 111
     }
   ],
   "blunderScriptVersion": 30,

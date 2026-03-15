@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_000614",
   "timestamp": "20260308_000614",
   "gameType": "Two Player Duel",
@@ -50399,7 +50399,8 @@
       "betterLine": "Either cast Initiate's Companion (sorcery-speed creature that must be cast now) or pass the turn entirely and hold Feral Invocation for the opponent's combat step to use as a surprise combat trick, potentially eating an attacker.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "QwCdr Diplom"
+      "player": "QwCdr Diplom",
+      "decisionIndex": 27
     },
     {
       "severity": "moderate",
@@ -50408,7 +50409,8 @@
       "betterLine": "Cast Oathsworn Vampire (2/2 body for 2 mana) to add a blocker, leaving mana open for Feral Invocation on Feral Prowler during combat to create a 3/5 blocker. This addresses the immediate board crisis by having two blockers including one that can wall multiple elves.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "QwCdr Diplom"
+      "player": "QwCdr Diplom",
+      "decisionIndex": 46
     },
     {
       "severity": "questionable",
@@ -50417,7 +50419,8 @@
       "betterLine": "Cast Ill-Gotten Inheritance for {3}{B} to start draining the opponent and gaining life each upkeep, with the option to sacrifice for 4 damage/4 life as a finisher. Then cast Creeping Bloodsucker next turn to double up on drain effects and enable Epicure of Blood synergies.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "QwCdr Diplom"
+      "player": "QwCdr Diplom",
+      "decisionIndex": 62
     }
   ],
   "blunderScriptVersion": 32,

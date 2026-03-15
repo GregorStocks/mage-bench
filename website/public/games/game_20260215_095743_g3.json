@@ -18527,7 +18527,8 @@
       "betterLine": "Play Cephalid Coliseum (produces {U} directly, 1 life cost is negligible), cast Hedron Crab or Ruin Crab turn 1, then play Flooded Strand turn 2 and crack it to get two landfall triggers with a crab already on board for 6 cards milled.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -18536,7 +18537,8 @@
       "betterLine": "Fetch Watery Grave (paying 2 life for it to enter untapped) to have access to both blue and black mana, enabling turn 2 Glimpse the Unthinkable with Cephalid Coliseum as the second land drop.",
       "type": "blunder",
       "snapshotIndex": 8,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -18545,7 +18547,8 @@
       "betterLine": "Activate Mishra's Bauble targeting opponent's library to gain information and draw a card next upkeep, since it's a pure-value play that replaces itself",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -18554,7 +18557,8 @@
       "betterLine": "Cast Hedron Crab first (using the untapped Island), then play Polluted Delta to trigger both Ruin Crab and Hedron Crab landfall for 6 mill instead of 3 from the Delta entering",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -18563,7 +18567,8 @@
       "betterLine": "Let Ruin Crab #2 resolve, cast Hedron Crab using Island, then crack Polluted Delta to trigger all 3 crabs for 9 mill, then play Cephalid Coliseum for another 9 mill (18 total vs ~6 from suboptimal sequencing).",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -18572,7 +18577,8 @@
       "betterLine": "Fetch Watery Grave (pay 2 life, enter untapped) to have access to black mana, enabling Glimpse the Unthinkable to be cast this turn or next turn. This maximizes the mill gameplan's speed.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -18581,7 +18587,8 @@
       "betterLine": "Cast Emry, Lurker of the Loch using Mox Opal for {U} (affinity reduces cost from {2}{U} to {U} with 3 artifacts), developing a threat that enables recurring Arcbound Ravager and Lavaspur Boots from graveyard, without triggering opponent's landfall mill. Hold the Urza's Saga for a turn where playing a land is more necessary or when crabs have been dealt with.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -18590,7 +18597,8 @@
       "betterLine": "Cast Emry, Lurker of the Loch first (costs only U with affinity from 4+ artifacts), mill four cards to fuel graveyard, then use Emry to recur key artifacts. The Mox Opal could still be played afterward if needed for the Weapons Manufacturing trigger.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 41
     },
     {
       "severity": "questionable",
@@ -18599,7 +18607,8 @@
       "betterLine": "Activate Urza's Saga to create a Construct token (likely 5/5+), which also triggers Weapons Manufacturing for a Munitions token, building board pressure without self-milling. Emry's recursive value is strong but the self-mill cost is particularly painful in this matchup.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -18608,7 +18617,8 @@
       "betterLine": "Play Field of Ruin to trigger all three crabs (mill 9), then on a future turn activate Field of Ruin to destroy an Urza's Saga, triggering opponent's library search to enable free Archive Trap (mill 13), plus getting another land enter trigger for the crabs (mill 9 more). Alternatively, if the player wanted both blue and black mana available, they could still prioritize Field of Ruin since Glimpse the Unthinkable requires UB and can wait, but removing Urza's Saga and enabling Archive Trap is far more impactful.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -18617,7 +18627,8 @@
       "betterLine": "Tap Emry targeting a high-value artifact in the graveyard (Shadowspear for lifelink/trample, Arcbound Ravager for sacrifice synergy, or Mishra's Bauble for a free artifact + card draw) to maximize resources before the mill crabs deplete the library further.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 60
     },
     {
       "severity": "major",
@@ -18626,7 +18637,8 @@
       "betterLine": "Cast Metallic Rebuke targeting Archive Trap, using Mox Opal for {U} and tapping 2 artifacts for improvise to pay the {2}{U} cost. Countering a 13-card mill spell is critical to survival in this matchup.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 71
     },
     {
       "severity": "questionable",
@@ -18635,7 +18647,8 @@
       "betterLine": "Play Field of Ruin to have future utility destroying opponent's nonbasic lands and generating additional landfall triggers when activated, while still being able to cast Glimpse the Unthinkable this turn",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem25F Coach"
+      "player": "Gem25F Coach",
+      "decisionIndex": 81
     },
     {
       "severity": "minor",
@@ -18644,11 +18657,12 @@
       "betterLine": "Activate Mishra's Bauble targeting opponent's library (for information) to get a free card draw at next upkeep, then pass priority",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 83
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

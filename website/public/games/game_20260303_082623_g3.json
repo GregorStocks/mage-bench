@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_082623_g3",
   "timestamp": "20260303_082623",
   "gameType": "Two Player Duel",
@@ -80407,7 +80407,8 @@
       "betterLine": "Mulligan to 6 cards seeking a hand with at least 2-3 lands including a green source",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 2
     },
     {
       "severity": "major",
@@ -80416,7 +80417,8 @@
       "betterLine": "Wait for Mild-Mannered Librarian to resolve and then Lightning Bolt it to kill the 1/1 creature, preventing its powerful activated ability from generating card advantage and a large body later in the game.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 9
     },
     {
       "severity": "moderate",
@@ -80425,7 +80427,8 @@
       "betterLine": "Choose Green for Thriving Moor, giving access to both black and green mana to cast the predominantly green hand.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -80434,7 +80437,8 @@
       "betterLine": "Play Thriving Bluff (choosing green) with auto_tap=true or no mana plan specification, since lands don't require mana to play. This would give access to RG mana next turn, enabling plays like Brushstrider or working toward casting Orazca Frillback.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -80443,7 +80447,8 @@
       "betterLine": "Cast Ferocious Pup to get two bodies (0/1 + 2/2 Wolf token) without sacrificing anything, or cast Takenuma Bleeder for a clean 3/3 body while preserving Mild-Mannered Librarian's future value.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 39
     },
     {
       "severity": "questionable",
@@ -80452,7 +80457,8 @@
       "betterLine": "Cast Lightning Axe (discarding a less critical card like Lightning Elemental or Brushstrider) targeting Mild-Mannered Librarian, so that when Demon's Disciple ETB resolves, the opponent must sacrifice the Disciple itself, leaving them with an empty board.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 42
     },
     {
       "severity": "questionable",
@@ -80461,7 +80467,8 @@
       "betterLine": "Sacrifice Demon's Disciple (whose ETB has already been used) and keep Mild-Mannered Librarian for its future activation value - becoming a 3/3 and drawing a card for 4 mana is better long-term than a fragile 3/1 body.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 44
     },
     {
       "severity": "questionable",
@@ -80470,7 +80477,8 @@
       "betterLine": "Pass the turn and hold Lightning Axe for a larger threat. The 3/1 Disciple can be dealt with by deploying a blocker once lands are found. Lightning Axe is best saved for 4-5 toughness creatures that other removal can't handle.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 46
     },
     {
       "severity": "major",
@@ -80479,7 +80487,8 @@
       "betterLine": "Cast Takenuma Bleeder (3/3 for 3) or Ferocious Pup (getting a 2/2 Wolf token) to develop the board. If mana supports it, Fierce Witchstalker (4/4 trample + Food) would be even better. Any creature play here is vastly superior to passing.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -80488,7 +80497,8 @@
       "betterLine": "Play Swamp (land drop) first for 5 total mana, then cast Takenuma Bleeder (2B) or Ferocious Pup (2G) to develop the board. Could still activate Food Token with remaining 2 mana after casting either creature if desired, getting both board presence AND the life gain.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -80497,7 +80507,8 @@
       "betterLine": "Cast Kothophed, Soul Hoarder (6/6 flying for {4}{B}{B}) - a much more impactful bomb that pressures the mana-screwed opponent with an evasive clock and card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -80506,7 +80517,8 @@
       "betterLine": "Cast Kothophed, Soul Hoarder (6/6 flying for 6 mana) to present lethal on board against an opponent at 12 life with no creatures.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "QwCdr Philo"
+      "player": "QwCdr Philo",
+      "decisionIndex": 94
     },
     {
       "severity": "moderate",
@@ -80515,7 +80527,8 @@
       "betterLine": "Let Disciple of Perdition resolve, then use the turn to cast Rumbling Baloth (a 4/4 blocker) or save Homing Lightning for one of the 4/4 threats. Alternatively, hold Homing Lightning to kill Fierce Witchstalker or Spectral Hunt-Caller at a more impactful moment.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "MiniMx Stats"
+      "player": "MiniMx Stats",
+      "decisionIndex": 97
     }
   ],
   "blunderScriptVersion": 31,

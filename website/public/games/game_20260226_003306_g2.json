@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_003306_g2",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -127059,7 +127059,8 @@
       "betterLine": "Play Prismatic Vista (or Tundra) as the turn 1 land, keeping basic Islands in the deck as fetch targets for later. Prismatic Vista turn 1 is standard because you can crack it on the opponent's end step if needed, and it preserves basics for future fetches.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -127068,7 +127069,8 @@
       "betterLine": "Let Manifold Key resolve and save Force of Will for a more impactful spell like Karn, the Great Creator, Glaring Fleshraker, or another major threat. Develop the board by playing lands and Thundertrap Trainer to find answers.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -127077,7 +127079,8 @@
       "betterLine": "Play Urza's Tower to activate Tron with Planar Nexus. Tap Tower for 3 + Nexus for 1 = 4 mana, enough to cast Karn, the Great Creator directly without any life loss. Or use the mana to deploy Grim Monolith + Manifold Key + Mox Opal for an explosive setup.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -127086,7 +127089,8 @@
       "betterLine": "Cast Mox Opal (free), then Manifold Key (1 mana from Planar Nexus), achieving Metalcraft, then cast Glaring Fleshraker (Ancient Tomb for CC + Mox Opal for C). This deploys 3 permanents, triggers Fleshraker once from the Manifold Key cast (creating a Spawn + dealing 1 damage), and leaves a much stronger board state.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -127095,7 +127099,8 @@
       "betterLine": "Fetch Island to have more consistent blue mana for Force of Will and Thundertrap Trainer, since there are no red spells in hand or apparent reason to need red mana",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 29
     },
     {
       "severity": "questionable",
@@ -127104,7 +127109,8 @@
       "betterLine": "Take Force of Will to have two copies — enabling the alternate cost (exile one blue card + 1 life) while still having countermagic, giving stronger protection against the opponent's powerful spells like Karn",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -127113,7 +127119,8 @@
       "betterLine": "Cast Manifold Key first (triggering Fleshraker for a Spawn + 1 damage), then cast Karn, the Great Creator with remaining mana. This nets an extra damage, extra Spawn token, and gets Manifold Key onto the battlefield.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 40
     },
     {
       "severity": "questionable",
@@ -127122,7 +127129,8 @@
       "betterLine": "Fetch Mystic Forge to enable casting artifacts off the top of the library, generating more Eldrazi Spawn tokens via Glaring Fleshraker and dealing significant damage to close the game faster. Alternatively, Portable Hole could exile a problematic permanent if needed for immediate impact.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -127131,7 +127139,8 @@
       "betterLine": "Cast Liquimetal Coating first to immediately enable the Karn +1 land destruction combo, then cast Manifold Key with remaining mana. The order doesn't matter much here since both will be cast, but leading with the more impactful piece is slightly better in case the opponent has interaction.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -127140,7 +127149,8 @@
       "betterLine": "Cast Mystic Forge first (using Urza's Tower + Mox Opal + 2 Spawn sacrifices for 4 mana), getting Fleshraker trigger (1 damage + Spawn token), then activate Karn +1 on Tundra to destroy it. Gets both plays plus extra value.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 79
     },
     {
       "severity": "questionable",
@@ -127149,7 +127159,8 @@
       "betterLine": "Use Karn's -2 to fetch a powerful artifact from the sideboard (e.g., a threat or combo piece), then deploy Mystic Forge with remaining mana to generate card advantage",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -127158,7 +127169,8 @@
       "betterLine": "At minimum, cast Mystic Forge for 4 mana (Tower + Opal or Spawn tokens). Could also first activate Manifold Key (1 + tap) to untap Liquimetal Coating, use Coating to make opponent's Mountain an artifact (locked by Karn), then cast Mystic Forge with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 193,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 82
     },
     {
       "severity": "questionable",
@@ -127167,7 +127179,8 @@
       "betterLine": "Cast Flame of Anor choosing mode 3 (deal 5 damage to target creature) targeting Glaring Fleshraker to shut down the token/damage engine and buy time to stabilize",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 84
     },
     {
       "severity": "questionable",
@@ -127176,7 +127189,8 @@
       "betterLine": "Could have targeted own Manifold Key to create a 1/1 artifact creature for additional board presence and attack potential, since the opponent is at 9 life with significant board advantage already established. The opponent's red source removal is valuable though, making this debatable.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 98
     },
     {
       "severity": "minor",
@@ -127185,7 +127199,8 @@
       "betterLine": "Cast Tezzeret, Cruel Captain first (3 mana: Ancient Tomb + 1 land), then cast Mystic Forge (4 mana: remaining land + Opal + 2 Spawns). Tezzeret would have entered at 4 loyalty and gained +2 from Mystic Forge and its Spawn token entering, reaching 6 loyalty.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 99
     },
     {
       "severity": "questionable",
@@ -127194,7 +127209,8 @@
       "betterLine": "Check if Kozilek's Command could be cast from the top using Spawn tokens and Mox Opal mana. Even a modest X value would trigger Fleshraker and potentially deal significant damage or generate value. If truly uncastable due to mana constraints, the exile is fine.",
       "type": "blunder",
       "snapshotIndex": 239,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 101
     },
     {
       "severity": "questionable",
@@ -127203,7 +127219,8 @@
       "betterLine": "Cast Karn, the Great Creator for 4 mana (sacrificing a Spawn token for the extra mana), then use -2 to fetch a key artifact from the sideboard or reclaim Kozilek's Command/Grim Monolith from exile, providing immediate card advantage and potentially enabling a lethal line",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -127212,7 +127229,8 @@
       "betterLine": "Use Tezzeret's 0 ability to put a +1/+1 counter on a non-summoning-sick Eldrazi Spawn token, then attack with both Glaring Fleshraker and the pumped Spawn for 3 total damage.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 105
     },
     {
       "severity": "questionable",
@@ -127221,7 +127239,8 @@
       "betterLine": "This is debatable — Ponder first is standard sequencing to see more cards, but deploying Loch Mare as a blocker while holding up Stern Scolding mana might have been preferable given the lethal-on-board pressure",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "o3 Undrdog"
+      "player": "o3 Undrdog",
+      "decisionIndex": 107
     },
     {
       "severity": "minor",
@@ -127230,7 +127249,8 @@
       "betterLine": "Go directly to combat and attack with the existing 2/2 Glaring Fleshraker for exactly lethal against the 2-life opponent with no untapped blockers.",
       "type": "blunder",
       "snapshotIndex": 349,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 136
     }
   ],
   "blunderScriptVersion": 18,

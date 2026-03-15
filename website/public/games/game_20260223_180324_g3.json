@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260223_180324_g3",
   "timestamp": "20260223_180324",
   "gameType": "Two Player Duel",
@@ -22218,7 +22218,8 @@
       "betterLine": "Play Scalding Tarn, crack it for an Island, then cast Ponder to dig for Show and Tell or other combo enablers to deploy Omniscience quickly.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT52 Proud"
+      "player": "GPT52 Proud",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -22227,7 +22228,8 @@
       "betterLine": "Play Mountain to cast Skirk Prospector, saving both Cavern of Souls for future turns when the opponent has countermagic available and you're casting more impactful Goblins like Goblin Matron or Broadside Bombardiers",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -22236,7 +22238,8 @@
       "betterLine": "Play Cavern of Souls (naming Goblin) first, then cast Aether Vial with the Mountain. This preserves the option to use Cavern of Souls mana for a Goblin creature spell this turn or leaves open more flexible sequencing.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -22245,7 +22248,8 @@
       "betterLine": "Play Cavern of Souls (naming Goblin) first, then use Mountain + Cavern to cast Munitions Expert (which with Flash could also be held). Vial activation with only 1-MV creatures available (none particularly needed on board right now) is less valuable than establishing the mana base and potentially deploying a 2-drop.",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -22254,7 +22258,8 @@
       "betterLine": "Hold Munitions Expert for when the opponent deploys a creature or planeswalker worth removing. Pass priority and just deal 1 damage with Skirk Prospector. The Expert is far more valuable as a flash removal spell later.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -22263,7 +22268,8 @@
       "betterLine": "Let Skirk Prospector deal combat damage and save Munitions Expert for when the opponent has a creature or planeswalker worth killing",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -22272,7 +22278,8 @@
       "betterLine": "The Cavern of Souls should have been named Goblin when it entered the battlefield, which would have allowed casting Goblin Matron (with Cavern + Mountain + Skirk Prospector sacrifice for the third mana) or enabled future Goblin casting. This was a prior decision error that is now causing downstream problems.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -22281,7 +22288,8 @@
       "betterLine": "Hold Munitions Expert in hand to use as flash removal when the opponent deploys a threat. Could instead activate Aether Vial to start ticking up counters, or simply pass.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -22290,7 +22298,8 @@
       "betterLine": "Should have tapped Cavern of Souls for {C} (option 1) to have mana available. The earlier mistake of naming 'Shapeshifter' instead of 'Goblin' for Cavern of Souls also compounded this issue.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 19
     },
     {
       "severity": "moderate",
@@ -22299,7 +22308,8 @@
       "betterLine": "Should have named 'Goblin' when Cavern of Souls entered the battlefield, enabling uncounterable casting of all Goblin creatures in the deck",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -22308,7 +22318,8 @@
       "betterLine": "Should have chosen option 1 ({T}: Add {C}) since neither option can pay for {B} in Munitions Expert's cost, but colorless mana is less restricted. The root issue is the Cavern was named Shapeshifter instead of Goblin earlier.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 19
     },
     {
       "severity": "moderate",
@@ -22317,7 +22328,8 @@
       "betterLine": "Play Cavern of Souls naming Goblin, then cast Goblin Matron using Mountain ({R}) + new Cavern of Souls ({any color for Goblin}) + existing Cavern of Souls ({C}) to search for a key Goblin like Skirk Prospector or another threat. This develops the board and advances the Goblin synergy plan.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 27
     },
     {
       "severity": "moderate",
@@ -22326,7 +22338,8 @@
       "betterLine": "N/A - passing was actually correct given no 1-MV creatures in hand for Vial and no black mana for Munitions Expert",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -22335,7 +22348,8 @@
       "betterLine": "Play Cavern of Souls (naming Goblin), then cast Goblin Matron to tutor for a key Goblin (like another Skirk Prospector or combo piece). Save Broadside Bombardiers for a precombat main phase where haste is relevant.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -22344,7 +22358,8 @@
       "betterLine": "Play Cavern of Souls (naming Goblin) as land drop, then cast Munitions Expert or Goblin Matron to develop the board. Goblin Matron would tutor for a key Goblin. Even without good ETB targets for Munitions Expert, developing the board is important.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -22353,7 +22368,8 @@
       "betterLine": "Leave Aether Vial untapped and pass through combat, or flash in a Munitions Expert if there were a valid target. The Vial should be saved until it accumulates enough counters to match a creature in hand (2 counters for Munitions Expert).",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -22362,7 +22378,8 @@
       "betterLine": "The pass is actually reasonable given no 1-CMC creatures in hand for Vial and insufficient mana for Munitions Expert. No blunder here.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -22371,7 +22388,8 @@
       "betterLine": "Discard a duplicate Ponder or duplicate Show and Tell instead — Atraxa is a critical payoff after resolving Omniscience via Show and Tell, providing massive card advantage and a 7/7 lifelink/deathtouch/vigilance/flying body",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "GPT52 Proud"
+      "player": "GPT52 Proud",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -22380,7 +22398,8 @@
       "betterLine": "Play Cavern of Souls from hand, then cast Goblin Matron (using Mountain + Cavern) to tutor for a Goblin, keeping Aether Vial untapped to flash in Munitions Expert later when the opponent presents a target.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -22389,7 +22408,8 @@
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield for free, growing the Goblin count and adding a body at no cost.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -22398,7 +22418,8 @@
       "betterLine": "Activate Aether Vial (2 charge counters) to put Munitions Expert onto the battlefield for free, triggering its ETB to deal 2 damage (2 Goblins in play) to the opponent's face or a relevant target.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 44
     },
     {
       "severity": "moderate",
@@ -22407,7 +22428,8 @@
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield, dealing 2 damage to the opponent (or saving it for opponent's turn as an instant-speed trick). At minimum, the player should recognize that Vial at 2 counters can deploy their 2-MV creatures.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -22416,7 +22438,8 @@
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield. Its ETB trigger would deal damage equal to the number of Goblins controlled (2, counting Skirk Prospector and itself) to the opponent or a relevant target. This builds board presence and deals free damage.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -22425,7 +22448,8 @@
       "betterLine": "Activate Aether Vial to put Munitions Expert (2 CMC) onto the battlefield for free, building board presence and increasing Goblin count for future Munitions Expert triggers. Even without a creature/planeswalker target, the free 1/1 body has value.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -22434,7 +22458,8 @@
       "betterLine": "Discard Ponder instead — it's the lowest-impact card in hand given the combo plan of Show and Tell + Omniscience, and keeping both Ataxas provides more flexibility for the Omniscience turn or as backup Show and Tell targets",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "GPT52 Proud"
+      "player": "GPT52 Proud",
+      "decisionIndex": 51
     },
     {
       "severity": "questionable",
@@ -22443,7 +22468,8 @@
       "betterLine": "Decline the Aether Vial trigger to keep it at 2 counters, preserving the ability to vial in Munitions Expert at instant speed for removal, since they have 3 copies in hand and no black mana source to hardcast them",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -22452,7 +22478,8 @@
       "betterLine": "Activate Aether Vial to put Broadside Bombardiers (CMC 3, haste, menace) onto the battlefield before combat, then attack with both Skirk Prospector and Broadside Bombardiers for 3 total damage against an empty board.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 58
     },
     {
       "severity": "moderate",
@@ -22461,7 +22488,8 @@
       "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, triggering its ETB to search for a Goblin card (such as a key combo piece or additional threat), then proceed to combat damage.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -22470,7 +22498,8 @@
       "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield for free, tutoring for a Goblin. Save Munitions Expert for when the opponent plays a creature or planeswalker worth removing.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -22479,7 +22508,8 @@
       "betterLine": "This was actually the correct choice given the Cavern is set to Shapeshifter, not Goblin",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -22488,7 +22518,8 @@
       "betterLine": "Should have chosen ability 1 ({T}: Add {C}) since the colorless mana can at least be used for generic costs, though neither ability directly helps with the {B}{R} colored requirements of Munitions Expert. The real issue is that Cavern was named Shapeshifter instead of Goblin when it entered.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "moderate",
@@ -22497,7 +22528,8 @@
       "betterLine": "Should not have attempted to cast Munitions Expert without a black mana source available. Should have held Munitions Expert for a turn when proper mana was available, or used Aether Vial (at 3 counters) to put a 3-drop like Goblin Matron into play instead.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -22506,7 +22538,8 @@
       "betterLine": "Should have chosen ability 1 ({C}) since neither ability can produce the {B} needed for Munitions Expert, but at least {C} is unrestricted colorless mana that could be used for other purposes.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -22515,7 +22548,8 @@
       "betterLine": "Activate Cavern of Souls option 1 to add {C}, which can pay generic mana costs for any spell",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -22524,7 +22558,8 @@
       "betterLine": "Should have played the Cavern of Souls from hand (naming Goblin) as a land drop before combat, preserving it as a permanent mana source rather than discarding it.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -22533,7 +22568,8 @@
       "betterLine": "Activate Aether Vial (3 charge counters) to put Goblin Matron onto the battlefield, tutoring for a Goblin, or put Broadside Bombardiers into play for immediate pressure with haste and menace.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GPT5n Snark"
+      "player": "GPT5n Snark",
+      "decisionIndex": 72
     }
   ],
   "blunderScriptVersion": 18,

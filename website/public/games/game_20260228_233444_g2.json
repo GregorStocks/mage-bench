@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_233444_g2",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -82145,7 +82145,8 @@
       "betterLine": "Mulligan to 6 to find a hand with a better balance of lands and spells",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Opus Folksy"
+      "player": "Opus Folksy",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -82154,7 +82155,8 @@
       "betterLine": "Play Snow-Covered Island to get a snow source online sooner, enabling Icebind Pillar's snow-activated ability and Berg Strider's freeze bonus when cast later",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -82163,7 +82165,8 @@
       "betterLine": "Cast Ornery Goblin instead, saving Goblin Shortcutter for a precombat main phase where its ETB can enable attacks past a blocker.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -82172,7 +82175,8 @@
       "betterLine": "Play Forest to improve mana diversity, since they have 4 Swamps and only 2 Forests in hand, and already have a Swamp on board for black mana needs.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Opus Folksy"
+      "player": "Opus Folksy",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -82181,7 +82185,8 @@
       "betterLine": "Play Mountain (or Snow-Covered Island) first, then cast Goblin Instigator. Land-before-spell is correct sequencing when there's no reason to delay the land drop.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 12
     },
     {
       "severity": "questionable",
@@ -82190,7 +82195,8 @@
       "betterLine": "Don't block - take 2 damage at 20 life to preserve the Goblin body for Muxus. If blocking is desired, the Goblin Token is marginally better to sacrifice since it's a token rather than a real card.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -82199,7 +82205,8 @@
       "betterLine": "Play Mountain first, then cast Icebind Pillar ({2}{U}) to deploy a powerful repeatable tap engine that works with snow lands already in play.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 23
     },
     {
       "severity": "moderate",
@@ -82208,7 +82215,8 @@
       "betterLine": "Play Mountain to reach 6 lands, enabling Muxus next turn which could be game-winning with multiple goblins in the deck.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -82217,7 +82225,8 @@
       "betterLine": "Play Forest to go to 3G/2B, preserving flexibility since hand contains 3 more Swamps and only needs future black from existing Swamps on board",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Opus Folksy"
+      "player": "Opus Folksy",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -82226,7 +82235,8 @@
       "betterLine": "Target Spark Reaper to tap down the opponent's 2/3 creature, preventing it from blocking or using its sacrifice ability",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -82235,7 +82245,8 @@
       "betterLine": "Cast Goblin Shortcutter for {1}{R} to deploy a permanent 2/1 Goblin creature, building board presence and Muxus synergy",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -82244,7 +82255,8 @@
       "betterLine": "Block with Goblin Shortcutter instead — it's expendable (ETB already used, just a 2/1 body), deals more combat damage to Spark Reaper, and preserves the much more impactful Avalanche Caller",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 40
     },
     {
       "severity": "major",
@@ -82253,7 +82265,8 @@
       "betterLine": "Cast Berg Strider (spending Snow-Covered Island for {S}) to tap down Grave Bramble and prevent it from untapping, then attack with available creatures. Alternatively, cast Frostpeak Yeti and use Icebind Pillar to tap Grave Bramble before combat.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -82262,7 +82275,8 @@
       "betterLine": "Cast Berg Strider for {4}{U} (spending snow mana for the freeze), getting a permanent 4/4 body and tapping down Grave Bramble or Spark Reaper for potentially two turns, creating much better board presence and tempo.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -82271,7 +82285,8 @@
       "betterLine": "Target Spark Reaper to keep it tapped down (especially if snow mana was spent, preventing it from untapping), denying the opponent a blocker and sacrifice outlet",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -82280,7 +82295,8 @@
       "betterLine": "Attack with all available creatures (Avalanche Caller + Goblin Shortcutter) for 3 damage since the opponent has no untapped blockers.",
       "type": "blunder",
       "snapshotIndex": 187,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -82289,7 +82305,8 @@
       "betterLine": "Attack with all three creatures (Berg Strider 4/4, Goblin Shortcutter 2/1, and Avalanche Caller 1/3) to maximize damage while the opponent's board is mostly tapped down.",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -82298,7 +82315,8 @@
       "betterLine": "Play Snow-Covered Island first (free land drop), then cast Frostpeak Yeti ({3}{U}) to develop the board with a 3/3 that threatens unblockable damage next turn against an opponent at 7 life. Save the remaining mana for Icebind Pillar activation if needed.",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 58
     },
     {
       "severity": "moderate",
@@ -82307,7 +82325,8 @@
       "betterLine": "Activate Icebind Pillar (using Snow-Covered Island to pay {S}) to tap Grave Bramble, then attack with the 4/4 Snow-Covered Island for 4 damage, putting opponent to 3 life.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -82316,7 +82335,8 @@
       "betterLine": "Activate Avalanche Caller to animate a Snow-Covered Island into a 4/4 hexproof haste, then attack with Berg Strider, Goblin Shortcutter, the animated land, and possibly Avalanche Caller. With 4 attackers vs 3 defenders, at least one significant threat gets through, dealing 4+ damage and putting opponent in critical range.",
       "type": "blunder",
       "snapshotIndex": 276,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -82325,7 +82345,8 @@
       "betterLine": "Cast Frostpeak Yeti (4 mana) to guarantee lethal next turn via its unblockable ability with snow mana, or cast Muxus (6 mana) for massive board presence. Even casting Boggart Brute would be better than nothing.",
       "type": "blunder",
       "snapshotIndex": 285,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 69
     }
   ],
   "blunderScriptVersion": 30,

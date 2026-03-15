@@ -21013,7 +21013,8 @@
       "betterLine": "Play Gloomlake Verge turn 1 for free untapped U mana, then Hallowed Fountain turn 2",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 5
     },
     {
       "severity": "questionable",
@@ -21022,7 +21023,8 @@
       "betterLine": "Cast Stormchaser's Talent on turn 1 to create a prowess Otter token that synergizes with the spell-heavy hand and provides long-term scaling through Class level-ups",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 6
     },
     {
       "severity": "questionable",
@@ -21031,7 +21033,8 @@
       "betterLine": "Cast Stormchaser's Talent to develop the board with an Otter token. The Spyglass Siren can already attack in the air, and building board presence while holding removal for bigger threats (like the 4-drops in opponent's deck) would likely be more efficient. Alternatively, Seam Rip or Boomerang Basics could handle the Elf without giving away Map tokens, but Stormchaser's Talent is the strongest proactive play.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -21040,7 +21043,8 @@
       "betterLine": "Play Hallowed Fountain first (paying 2 life for untapped), then cast Stormchaser's Talent, preserving more mana flexibility and potentially enabling additional plays this turn.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -21049,7 +21053,8 @@
       "betterLine": "Play Temple Garden (pay 2 life, untapped), then cast Seam Rip exiling Otter Token or Spyglass Siren. Save Fabled Passage for a later turn when you have 4+ lands to get the untap benefit.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 34
     },
     {
       "severity": "questionable",
@@ -21058,7 +21063,8 @@
       "betterLine": "Attack with flyers for damage, hold Nowhere to Run for a more impactful target like Mossborn Hydra or Mightform Harmonizer. Could use Boomerang Basics as tempo if needed, or just pressure with the existing board advantage.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -21067,7 +21073,8 @@
       "betterLine": "Cast both Seam Rip (targeting Stormchaser's Talent) and Llanowar Elves this turn, using all 3 available mana efficiently",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -21076,7 +21083,8 @@
       "betterLine": "Attack with only Spyglass Siren (flying, can't be blocked by ground creatures) to preserve the Otter Token for future prowess triggers and better attacks when backed by spell casts.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 60
     },
     {
       "severity": "moderate",
@@ -21085,7 +21093,8 @@
       "betterLine": "Cast Boomerang Basics (U) targeting Mossborn Hydra to reset all its accumulated +1/+1 counters, then level up Stormchaser's Talent to level 2 (3U) with remaining mana, getting back Get Lost or No More Lies from graveyard.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -21094,7 +21103,8 @@
       "betterLine": "Return No More Lies to counter the incoming Felidar Retreat (which would be devastating with the opponent's landfall engine), and use Boomerang Basics to handle creature threats",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -21103,11 +21113,12 @@
       "betterLine": "Put Mossborn Hydra's doubling trigger on the stack first (resolving last, to maximize counters doubled), then Sazh's Chocobo's counter, then Icetill Explorer's mill last on stack (resolving first) to potentially enable playing a milled land for extra landfall triggers before doubling.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 87
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

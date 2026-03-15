@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_082623_g4",
   "timestamp": "20260303_082623",
   "gameType": "Two Player Duel",
@@ -107861,7 +107861,8 @@
       "betterLine": "Block Thraben Inspector with Kami of Ancient Law. Kami kills the Inspector and survives, removing the opponent's creature for free.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -107870,7 +107871,8 @@
       "betterLine": "Play Plains first, then cast Drag Under using Island + original Plains + Thriving Isle, keeping the new Plains or Thriving Isle untapped for more flexible mana after seeing the drawn card.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -107879,7 +107881,8 @@
       "betterLine": "Attack with all creatures (Merfolk Pupil and Gideon's Lawkeeper) for 2 damage, since the opponent has no creatures and all lands are tapped. Lawkeeper will untap next turn and be available for its tap ability then.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -107888,7 +107891,8 @@
       "betterLine": "Don't block — take the 1 damage and preserve Young Pyromancer for future token generation value",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 52
     },
     {
       "severity": "major",
@@ -107897,7 +107901,8 @@
       "betterLine": "Play Memorial to Genius as land drop, then cast Midnight Guard (2W) to develop the board while opponent is tapped out. Could also cast Spectral Sailor with remaining mana for additional board presence.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -107906,7 +107911,8 @@
       "betterLine": "Play Plains first, then cast Brightmare, leaving 2 mana open instead of 1 (or 2 after postcombat land drop). Land-before-spell sequencing preserves maximum information and flexibility.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -107915,7 +107921,8 @@
       "betterLine": "Target Gideon's Lawkeeper to tap it down, preventing it from using its tap ability to lock down MiniMx Worrier's attackers, while still gaining 1 life.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -107924,7 +107931,8 @@
       "betterLine": "Block Brightmare with Midnight Guard. Both 2/3 creatures deal 2 damage to each other, both survive at 1 toughness. This prevents 2 damage and weakens the opponent's creature significantly.",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -107933,7 +107941,8 @@
       "betterLine": "Save Faith's Fetters for an opponent's threatening permanent like Gideon's Lawkeeper (which has been disrupting attacks) or hold it for a future threat. Could have cast Distinguished Conjurer instead to develop the board.",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -107942,7 +107951,8 @@
       "betterLine": "Attack with at least Midnight Guard for 2 unblockable damage. Attacking with both creatures for 3 damage was also likely correct since the Lawkeeper's tap ability may not be needed this cycle.",
       "type": "blunder",
       "snapshotIndex": 248,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 90
     },
     {
       "severity": "minor",
@@ -107951,7 +107961,8 @@
       "betterLine": "Keep Magmutt untapped for its ping ability (which triggers Pyreling's double strike). Attack with Brightmare 2/3 and Chandra's Pyreling 1/3 instead - Lawkeeper can only tap one, and Midnight Guard can only block one, so at least one creature gets through. Then in second main, ping with Magmutt to potentially give Pyreling double strike for future turns' attacks.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -107960,7 +107971,8 @@
       "betterLine": "Attack with at least Faerie Vandal for 1 free flying damage. Midnight Guard could also potentially attack profitably since Distinguished Conjurer is sick and can't block, leaving only Brightmare and Pyreling as blockers.",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 109
     },
     {
       "severity": "questionable",
@@ -107969,7 +107981,8 @@
       "betterLine": "Attack with only Brightmare and Chandra's Pyreling, keeping Distinguished Conjurer back to preserve its activated flicker ability for future turns. The Conjurer's ability to repeatedly blink Brightmare (tapping creatures and gaining life) is more valuable than the 1 damage it might deal.",
       "type": "blunder",
       "snapshotIndex": 333,
-      "player": "MiniMx Worrier"
+      "player": "MiniMx Worrier",
+      "decisionIndex": 115
     },
     {
       "severity": "moderate",
@@ -107978,7 +107991,8 @@
       "betterLine": "Block Brightmare with Midnight Guard. The trade kills Brightmare, and Magnanimous Magistrate's ability returns Midnight Guard to play (removing 3 reprieve counters). This eliminates an opposing threat at no real cost. Could also consider blocking Distinguished Conjurer with Faerie Vandal for a mutual trade.",
       "type": "blunder",
       "snapshotIndex": 335,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 116
     },
     {
       "severity": "moderate",
@@ -107987,7 +108001,8 @@
       "betterLine": "Block Brightmare with Magnanimous Magistrate (kills it, Magistrate survives) and block Distinguished Conjurer with Midnight Guard (kills it, Guard survives). Only take 1 damage from Pyreling instead of 4, while killing two opposing creatures.",
       "type": "blunder",
       "snapshotIndex": 335,
-      "player": "GPT5 Story"
+      "player": "GPT5 Story",
+      "decisionIndex": 116
     }
   ],
   "blunderScriptVersion": 31,

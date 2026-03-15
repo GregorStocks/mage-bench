@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_212316_g1",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -59414,7 +59414,8 @@
       "betterLine": "Play Thriving Bluff on turn 1 (choosing black), then Swamp on turn 2 to cast Burglar Rat or Wight of Precinct Six on curve",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -59423,7 +59424,8 @@
       "betterLine": "Play Swamp to have 2 untapped Swamps, enabling a turn-3 play like Burglar Rat (to set up Tinybones discard synergy) or Tinybones itself.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -59432,7 +59434,8 @@
       "betterLine": "Cast Tinybones, Trinket Thief this turn (after playing a land), then cast Burglar Rat next turn to trigger both the discard and Tinybones' card draw ability",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -59441,7 +59444,8 @@
       "betterLine": "Pass combat without casting Soul Sear, then in main phase 2 cast Takenuma Bleeder or Infernal Idol with the 3 available mana. Save Soul Sear for a real threat like a large creature or bomb.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "MiniMx Dreamer"
+      "player": "MiniMx Dreamer",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -59450,7 +59454,8 @@
       "betterLine": "Play Swamp first, then cast both Tinybones, Trinket Thief and Wight of Precinct Six for two bodies on 4 mana, or cast Phyrexian Rager for immediate card advantage with 1 mana held up",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -59459,7 +59464,8 @@
       "betterLine": "Play Mountain first, then cast Infernal Idol to ramp into Renegade Demon next turn. Alternatively, cast Takenuma Bleeder for immediate board presence against the opponent's 2/2 Wight.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "MiniMx Dreamer"
+      "player": "MiniMx Dreamer",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -59468,7 +59474,8 @@
       "betterLine": "Play a land (Mountain or Swamp), then cast Phyrexian Rager for immediate card advantage and a better body. Tinybones could be held for a future turn when paired with a discard effect, or simply isn't worth the slot without synergy.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -59477,7 +59484,8 @@
       "betterLine": "Block Wight of Precinct Six with Takenuma Bleeder. Bleeder survives at 3/1, Wight dies, and you only take 1 damage from Tinybones + 1 life from Bleeder's trigger (2 total), while permanently removing a scaling threat.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "MiniMx Dreamer"
+      "player": "MiniMx Dreamer",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -59486,7 +59494,8 @@
       "betterLine": "Cast Rush of Adrenaline on Wight of Precinct Six, then block Takenuma Bleeder with the 4/3 Wight — killing the Bleeder, keeping Wight alive, and taking only 2-4 damage instead of a worse outcome.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "Qwen3 Sarge"
+      "player": "Qwen3 Sarge",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -59495,7 +59504,8 @@
       "betterLine": "Don't sacrifice the Idol — either tap it for {B} or leave it alone. Attack with all three creatures for 7 damage (lethal). If removal is a concern, keep mana open to cast Renegade Demon (3BB) post-combat as backup using Idol's {B} + Swamp + 3 Mountains.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "MiniMx Dreamer"
+      "player": "MiniMx Dreamer",
+      "decisionIndex": 35
     }
   ],
   "blunderScriptVersion": 29,

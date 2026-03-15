@@ -25657,7 +25657,8 @@
       "betterLine": "Play Watery Grave (paying 2 life to enter untapped), then cast Stormchaser's Talent to create a 1/1 prowess Otter token, establishing early board presence and mana development.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 1
     },
     {
       "severity": "moderate",
@@ -25666,7 +25667,8 @@
       "betterLine": "Play Watery Grave (paying 2 life to enter untapped), then cast Stormchaser's Talent to create a 1/1 Otter with prowess, or cast Spyglass Siren to get a 1/1 flyer and a Map token.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -25675,12 +25677,13 @@
       "betterLine": "Attack with Spyglass Siren for 1 free damage, then proceed to cast Stormchaser's Talent in the second main phase.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 1
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

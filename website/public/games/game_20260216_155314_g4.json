@@ -29218,7 +29218,8 @@
       "betterLine": "Choose Plains to enable casting Aven Interrupter ({1}{W}{W}) on turn 4, since Floodfarm Verge and Fountainport still provide blue mana access",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -29227,7 +29228,8 @@
       "betterLine": "Play Agna Qel'a first, then pass the turn holding up Three Steps Ahead as a counterspell for the opponent's next turn, protecting the Quantum Riddler clock",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -29236,7 +29238,8 @@
       "betterLine": "Select mode 2 (Create a token that's a copy of Quantum Riddler) to get a 4/6 flyer and an ETB card draw, providing both board presence and card advantage",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -29245,7 +29248,8 @@
       "betterLine": "Also select 'Create a token that's a copy of target artifact or creature you control' targeting Quantum Riddler to get a 4/6 flyer + draw a card, in addition to the counter mode. The total cost would be {1}{U} + {3} + {U} = {2}{3}{U} which is 6 mana — they likely had enough lands. Even if mana was tight, the copy mode alone ({U} + {3} = 4 mana) targeting Quantum Riddler would have been excellent value.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -29254,7 +29258,8 @@
       "betterLine": "Cast Slickshot Show-Off (1R), then chain cheap spells like Wild Ride targeting Slickshot (+3/+0 and haste) and Shock/Burst Lightning at opponent's face to trigger prowess on both creatures and attack for massive damage. With 4 mana available: Slickshot (1R) + Wild Ride (R) + Shock (R) would make Slickshot a 10/2 flyer and Otter a 4/4, attacking for 14.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3P Sport"
+      "player": "Gem3P Sport",
+      "decisionIndex": 56
     },
     {
       "severity": "moderate",
@@ -29263,7 +29268,8 @@
       "betterLine": "Use Ajani's -2 to deal 4 damage to one of the tapped Otter tokens, killing it and reducing the opponent's board pressure. At 7 life, removing threats is far more important than creating a 1/1 chump blocker.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 65
     },
     {
       "severity": "major",
@@ -29272,7 +29278,8 @@
       "betterLine": "Cast Slickshot Show-Off normally for {1}{R} (it has haste and flying), then cast burn spells like Shock and Burst Lightning targeting the opponent's face. Each noncreature spell triggers prowess on both Otters and gives Slickshot +2/+0. A line like: Cast Slickshot (haste/flying 1/2), cast Shock face (2 damage, Slickshot becomes 3/2, Otters get +1/+1), cast Burst Lightning face (2 damage, Slickshot becomes 5/2, Otters get +1/+1 again) — that's 4 burn damage plus Slickshot attacking for 5 in the air, which is 9 damage against 7 life = lethal.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Gem3P Sport"
+      "player": "Gem3P Sport",
+      "decisionIndex": 69
     },
     {
       "severity": "questionable",
@@ -29281,7 +29288,8 @@
       "betterLine": "Hold both copies of Three Steps Ahead for defensive countermagic given the precarious 7 life total, and focus on using Ajani's +1 to build board presence and Aven Interrupter as flash threat/pseudo-counter.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 73
     },
     {
       "severity": "questionable",
@@ -29290,11 +29298,12 @@
       "betterLine": "Discarding Abandoned Air Temple might have been slightly better since the player has no basic lands in play (making it enter tapped) and Starting Town always provides colored mana immediately. However, this is close and depends on future draws.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "GPT5m Snark"
+      "player": "GPT5m Snark",
+      "decisionIndex": 80
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

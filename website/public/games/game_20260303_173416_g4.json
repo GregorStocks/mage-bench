@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_173416_g4",
   "timestamp": "20260303_173416",
   "gameType": "Two Player Duel",
@@ -69349,7 +69349,8 @@
       "betterLine": "Keep the 7-card hand. Pridemalkin and Bloodline Pretender are castable off Forests, and the synergy between Pridemalkin, Bloodline Pretender, and Wildwood Scourge is strong. Drawing into a 3rd land (especially a blue source) makes the hand excellent.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -69358,7 +69359,8 @@
       "betterLine": "Mulligan to 6 and scry for a more functional hand with access to both colors, or at least a hand where more spells are castable.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 2
     },
     {
       "severity": "questionable",
@@ -69367,7 +69369,8 @@
       "betterLine": "Cast Chilling Trap targeting Universal Automaton to draw a card, since the Automaton is a Wizard (Changeling) and the -4/-0 is irrelevant on a non-attacking 1/1",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -69376,7 +69379,8 @@
       "betterLine": "Cast Chilling Trap targeting own tapped Ironshell Beetle (or Universal Automaton) to draw a card for free, since Universal Automaton's Changeling makes it a Wizard.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -69385,7 +69389,8 @@
       "betterLine": "Cast Chilling Trap targeting Chillerpillar to draw a card for {U}, since Universal Automaton counts as a Wizard and the mana would be wasted otherwise",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -69394,7 +69399,8 @@
       "betterLine": "Block Universal Automaton with Pilfering Hawk - kills the 1/1, Hawk survives at 1/1, and only take 2 damage from Ironshell Beetle instead of 3.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -69403,7 +69409,8 @@
       "betterLine": "Cast Mistwalker for 2U, adding a 1/4 flying changeling that applies immediate evasive pressure against an opponent at 10 life and provides a relevant blocker",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -69412,7 +69419,8 @@
       "betterLine": "Put the +1/+1 counter on Pridemalkin, making it a 3/2 with trample — a bigger threat that pressures the opponent's 10 life total more effectively while providing the same Armorcraft Judge synergy.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT52 Humble"
+      "player": "GPT52 Humble",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -69421,7 +69429,8 @@
       "betterLine": "Successfully activate Icebind Pillar using one of the three untapped Snow-Covered Islands to tap either the Ironshell Beetle or Universal Automaton, reducing incoming damage by 2.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -69430,7 +69439,8 @@
       "betterLine": "Attack with both Chillerpillar and Pilfering Hawk for 4 total damage, since the opponent has zero untapped blockers. The Hawk's draw/discard ability is less valuable than 1 free damage in a race at 6 life.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -69439,7 +69449,8 @@
       "betterLine": "Activate Chillerpillar's Monstrosity ability to make it 5/5 with flying, dealing 5 damage instead of 3 and gaining permanent evasion.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -69448,7 +69459,8 @@
       "betterLine": "Cast Phyrexian Ironfoot (3 mana, 3/4 blocker) + Fetid Imp (1B, flying deathtouch blocker) for 5 mana, leaving 1 snow mana for Icebind Pillar activation. This provides three blockers (Ironfoot 3/4, Fetid Imp 1/2 deathtouch, Pilfering Hawk 1/2) plus Icebind Pillar tap, easily surviving the attack.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 64
     },
     {
       "severity": "major",
@@ -69457,7 +69469,8 @@
       "betterLine": "Block Ironshell Beetle with Pilfering Hawk to reduce incoming damage to 5, surviving at 1 life. Then next turn, MstMed has removal spells (Demon's Grasp, Diabolic Edict) and powerful creatures (Kothophed) to potentially stabilize.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "MstMed Optim"
+      "player": "MstMed Optim",
+      "decisionIndex": 69
     }
   ],
   "blunderScriptVersion": 31,

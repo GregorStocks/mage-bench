@@ -24809,7 +24809,8 @@
       "betterLine": "Play a land (Gloomlake Verge or Godless Shrine), attack with Spyglass Siren for 1 damage, then cast Sunpearl Kirin post-combat bouncing the Map Token to draw a card",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -24818,7 +24819,8 @@
       "betterLine": "Target the Map Token instead, which would be returned to hand but since it's a token it ceases to exist, and you draw a card. This provides card advantage without losing a relevant permanent.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -24827,7 +24829,8 @@
       "betterLine": "Play Ba Sing Se in main phase before combat to trigger landfall on Sazh's Chocobo (making it 2/3), then attack. This way a block by Sunpearl Kirin results in killing the Kirin while Chocobo survives.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "GPT5m Analyst"
+      "player": "GPT5m Analyst",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -24836,7 +24839,8 @@
       "betterLine": "Target Map Token to bounce it and draw a card, getting immediate card advantage while keeping both Sunpearl Kirins on the battlefield as attackers/blockers",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -24845,7 +24849,8 @@
       "betterLine": "Cast Kaito, Bane of Nightmares for {2}{U}{B} while the opponent is tapped out, immediately getting a 3/4 hexproof attacker that can stun creatures or generate card advantage",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -24854,7 +24859,8 @@
       "betterLine": "Bounce Spyglass Siren to replay it, generating a new Map Token ETB trigger while keeping the existing Map Tokens on the battlefield. This nets both the Siren replay and an extra Map Token, which is significantly more value than just drawing one card.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 49
     },
     {
       "severity": "major",
@@ -24863,7 +24869,8 @@
       "betterLine": "Play Forest from hand, cast Mightform Harmonizer (2GG), trigger landfall to double Surrak's power to 8, then attack with Surrak (8/3 trample), Badgermole Cub (2/2), and Mightform (4/4) for ~14 damage, leaving opponent at 2 life.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "GPT5m Analyst"
+      "player": "GPT5m Analyst",
+      "decisionIndex": 70
     },
     {
       "severity": "moderate",
@@ -24872,7 +24879,8 @@
       "betterLine": "Target Badgermole Cub (2/2) to kill it permanently, or Llanowar Elves (1/1) to remove the mana dork. Badgermole Cub is likely the best target as it removes a more significant body and its mana-adding ability.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -24881,11 +24889,12 @@
       "betterLine": "Skip straight to combat and attack with any flying creature for lethal damage. No spell casting needed.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "GPT5n Nature"
+      "player": "GPT5n Nature",
+      "decisionIndex": 88
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

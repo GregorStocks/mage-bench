@@ -31027,7 +31027,8 @@
       "betterLine": "Play Island, then cast Tiger-Seal for {U} on Turn 1. Play Riverpyre Verge Turn 2 (which now taps for both {U} and {R} since Island is in play).",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -31036,7 +31037,8 @@
       "betterLine": "Cast Tiger-Seal for {U} to deploy a 3/3 creature on turn 2, establishing early board presence.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -31045,7 +31047,8 @@
       "betterLine": "Discard Shoot the Sheriff or Enduring Curiosity instead. Shoot the Sheriff is narrow removal (can't hit outlaws) and Enduring Curiosity costs 2UU which is very far away given current mana. Keeping both Restless Reefs ensures hitting land drops to catch up.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -31054,7 +31057,8 @@
       "betterLine": "Play Multiversal Passage choosing Island (paying 2 life) to guarantee Riverpyre Verge always produces U, then cast Tiger-Seal. Save Spirebluff Canal for turn 4 where it would enter tapped anyway (4th land).",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -31063,7 +31067,8 @@
       "betterLine": "Play a land first (Island or Multiversal Passage), then cast Tiger-Seal to ensure 4 lands available for Winternight Stories on turn 4. If the land was played before this decision point, then the play is reasonable.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 11
     },
     {
       "severity": "questionable",
@@ -31072,7 +31077,8 @@
       "betterLine": "Consider casting Quantum Riddler via Warp for {1}{U} to get the ETB draw and potentially swing for 4 in the air against an opponent with no board.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -31081,7 +31087,8 @@
       "betterLine": "Cast Quantum Riddler via Warp {1}{U} to deploy a 4/6 flyer and draw a card, establishing a strong board presence while the opponent has only a single Swamp.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -31090,7 +31097,8 @@
       "betterLine": "Discard Enduring Curiosity or another expensive spell. With only 1 land in play, keeping both lands is critical to eventually deploying threats and interaction. Enduring Curiosity at 4 mana is many turns away and can be discarded most safely.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -31099,7 +31107,8 @@
       "betterLine": "Discard Winternight Stories, which has Harmonize ({4}{U} from graveyard, reducible by tapping a creature) and thus retains its utility even in the graveyard. This preserves the Mountain for a future land drop while keeping the card draw spell accessible.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -31108,7 +31117,8 @@
       "betterLine": "Play Island (which enters untapped for free), saving the flexible Multiversal Passage for a turn where color flexibility matters more.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 26
     },
     {
       "severity": "questionable",
@@ -31117,7 +31127,8 @@
       "betterLine": "Could consider casting Winternight Stories first to dig for action and set up a bigger Duelist turn later, or at minimum wait until post-combat to deploy the Duelist to preserve information and keep mana open for Into the Flood Maw or Torch the Tower during combat.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 28
     },
     {
       "severity": "moderate",
@@ -31126,7 +31137,8 @@
       "betterLine": "Cast Quantum Riddler via Warp {1}{U} to deploy a 4/6 flyer, draw a card (triggering Tiger-Seal untap as second card drawn), then attack with both Duelist of the Mind and Tiger-Seal.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -31135,7 +31147,8 @@
       "betterLine": "Cast Quantum Riddler (likely via Warp for {1}{U}) to develop a 4/6 flying threat and draw a card, putting significant pressure on an opponent with no board presence.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 30
     },
     {
       "severity": "major",
@@ -31144,7 +31157,8 @@
       "betterLine": "Discard a duplicate Floodpits Drowner or Enduring Curiosity (already have one in graveyard with death-return ability). Play Restless Reef next turn to reach 2 mana and start casting spells like Requiting Hex or Floodpits Drowner.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -31153,7 +31167,8 @@
       "betterLine": "Play Island for free, saving 2 life and keeping Steam Vents for a future turn where it might not matter or where the dual typing could be relevant.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -31162,7 +31177,8 @@
       "betterLine": "Discard Tiger-Seal instead, keeping both Quantum Riddlers for more powerful late-game threats and insurance against removal",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 36
     },
     {
       "severity": "major",
@@ -31171,7 +31187,8 @@
       "betterLine": "Discard Enduring Curiosity (already one in graveyard, expensive to cast) or one of the duplicate Floodpits Drowners. Keeping the Island is essential to have any chance of developing their board.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 39
     },
     {
       "severity": "questionable",
@@ -31180,7 +31197,8 @@
       "betterLine": "This is likely fine - no good targets for Torch the Tower exist. The decision is reasonable.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 43
     },
     {
       "severity": "major",
@@ -31189,7 +31207,8 @@
       "betterLine": "Should have kept every land drawn and discarded expensive spells like Enduring Curiosity instead. Gloomlake Verge must be kept and played to start building mana. The best discard here is Enduring Curiosity (most expensive, hardest to cast) or a duplicate Floodpits Drowner.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -31198,7 +31217,8 @@
       "betterLine": "Discard Steam Vents, as it provides almost no value with 7 lands already in play, keeping the removal spell for potential threats.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 48
     },
     {
       "severity": "major",
@@ -31207,7 +31227,8 @@
       "betterLine": "Play Watery Grave (pay 2 life), then start casting 2-mana spells like Floodpits Drowner or holding up Requiting Hex/Bitter Triumph",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 49
     },
     {
       "severity": "major",
@@ -31216,7 +31237,8 @@
       "betterLine": "Discard Requiting Hex or a duplicate Floodpits Drowner. Play Watery Grave next turn to start casting blue spells and begin recovering from severe mana screw.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 50
     },
     {
       "severity": "major",
@@ -31225,7 +31247,8 @@
       "betterLine": "Cast Winternight Stories from graveyard via Harmonize for {4}{U} (5 mana), draw 3 cards (discarding 2 or a creature card), untapping Tiger-Seal and making Duelist a 4/3. Then attack with both Duelist of the Mind and Tiger-Seal for 7 total damage, putting opponent to 4 life.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "Gem25P Timmy"
+      "player": "Gem25P Timmy",
+      "decisionIndex": 51
     },
     {
       "severity": "major",
@@ -31234,7 +31257,8 @@
       "betterLine": "Discard Enduring Curiosity (expensive 2UU spell unlikely to be cast anytime soon) or a duplicate Floodpits Drowner, and play the Island next turn to start deploying cheaper spells like Requiting Hex or work toward Floodpits Drowner/Bitter Triumph.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -31243,7 +31267,8 @@
       "betterLine": "Discard Enduring Curiosity (4 mana, already have one in graveyard, extremely far from castable) or Requiting Hex (narrow removal). Keep both lands to have any chance of deploying threats.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 58
     },
     {
       "severity": "questionable",
@@ -31252,11 +31277,12 @@
       "betterLine": "Discard Kaito, Bane of Nightmares or Preacher of the Schism, as these require significantly more mana and setup that may never materialize at 4 life with 1 land.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "GPT5m Stoic"
+      "player": "GPT5m Stoic",
+      "decisionIndex": 71
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

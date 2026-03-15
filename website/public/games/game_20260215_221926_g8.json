@@ -126646,7 +126646,8 @@
       "betterLine": "Cast Heirloom Blade first (to avoid telegraphing the creature before combat), then cast Mathas post-combat and equip next turn. Alternatively, Mathas is fine but casting creatures before combat when it doesn't matter is a minor sequencing issue.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -126655,7 +126656,8 @@
       "betterLine": "If this mana choice is for Command Tower, should have chosen White since Bloodfell Caves can produce Red and no other land produces White. The correct allocation is Command Tower=W, Bloodfell Caves=R, Swamp=B.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 22
     },
     {
       "severity": "questionable",
@@ -126664,7 +126666,8 @@
       "betterLine": "Cast Windfall for 2U to wheel all hands while you have the largest hand at 7 cards, potentially disrupting opponents' plans and drawing fresh cards. Electromancer could be played next turn.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -126673,7 +126676,8 @@
       "betterLine": "Play Bojuka Bog or Scoured Barrens first, then cast Mathas, Fiend Seeker",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 35
     },
     {
       "severity": "questionable",
@@ -126682,7 +126686,8 @@
       "betterLine": "Hold Windfall for a turn where opponents have fewer cards in hand or where Mizzix is on the battlefield with experience counters. Could have played Vivid Crag (tapped land) and passed, saving the strong hand for future turns. Steam Augury at end of an opponent's turn would also have been a reasonable play to dig for lands/ramp while keeping the powerful cards.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -126691,7 +126696,8 @@
       "betterLine": "Play Swamp (enters untapped), then cast both Farhaven Elf (2G) and Elvish Mystic (G) using all 4 mana, ramping further and building elf count for Shaman of the Pack.",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -126700,7 +126706,8 @@
       "betterLine": "Cast Farhaven Elf for 2G to fetch a basic land (likely a Swamp for color fixing), providing more resilient ramp and deck thinning while still adding to the Elf count.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -126709,7 +126716,8 @@
       "betterLine": "Play Blasted Landscape first, then cast Thundercloud Shaman. The land drop is free and provides additional mana going forward.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -126718,7 +126726,8 @@
       "betterLine": "Play Terramorphic Expanse to fetch a basic Plains or Swamp next turn for better mana flexibility and deck thinning, or Kabira Crossroads for 2 life and white mana to help cast Blind Obedience sooner.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -126727,7 +126736,8 @@
       "betterLine": "Play Swamp instead, giving 5 mana available (4 existing lands + Swamp), then cast Wirewood Channeler ({3}{G}) this turn. Play Golgari Rot Farm on a future turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -126736,7 +126746,8 @@
       "betterLine": "Play Boros Garrison (bouncing a tapped Mountain), then cast Herald of the Host for 3WW using Plains, Plains, Vivid Crag (spending a charge counter for W), Thought Vessel, and Mountain/Boros Garrison, deploying a powerful 4/4 flying vigilance myriad creature.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 74
     },
     {
       "severity": "questionable",
@@ -126745,7 +126756,8 @@
       "betterLine": "Attack Sonnet Gramps (no untapped blockers, dangerous Mizzix/spellslinger gameplan) or GPT5m Valley (though Drana could block) to pressure the more threatening opponents rather than piling on the weakest player.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 77
     },
     {
       "severity": "questionable",
@@ -126754,7 +126766,8 @@
       "betterLine": "Target Drana, Kalastria Bloodchief with Fall of the Hammer, dealing 4 damage to exactly kill the 4/4 flying threat that has a powerful repeatable removal/pump ability and is a much more dangerous creature on the board.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 78
     },
     {
       "severity": "minor",
@@ -126763,7 +126776,8 @@
       "betterLine": "Play a land (Kabira Crossroads or Terramorphic Expanse), then cast Blind Obedience (1W), then cast Malakir Bloodwitch with extort trigger available. However, mana may have been tight - all lands appear tapped, so the sequencing issue is mainly about the land drop being missed before casting spells.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 81
     },
     {
       "severity": "questionable",
@@ -126772,7 +126786,8 @@
       "betterLine": "Attack with both Drana and the Vampire Token to maximize damage output while opponents' boards are mostly tapped. Drana's flying makes her very difficult to block.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -126781,7 +126796,8 @@
       "betterLine": "Attack Sonnet Gramps or Grok4F ESPN who have no blockers, guaranteeing the full 5 damage gets through",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -126790,7 +126806,8 @@
       "betterLine": "Attack with both Drana and the Vampire Token. Drana's 4 flying damage is essentially free since no opponent can block her and there's no mana available for her activated ability.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -126799,7 +126816,8 @@
       "betterLine": "Play Swamp (enters untapped) to maximize available mana this turn. The Golgari Guildgate could be played on a future turn when the tempo loss matters less, and the player already has BG color coverage from existing lands.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 95
     },
     {
       "severity": "minor",
@@ -126808,7 +126826,8 @@
       "betterLine": "Play Swamp first (land drop), then cast Wirewood Channeler (3G) as the priority play since it's a much more impactful card, followed by Jaspera Sentinel if mana permits.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -126817,7 +126836,8 @@
       "betterLine": "Play Boros Garrison first (bouncing a basic Mountain), then cast Herald of the Host with the remaining 6 untapped mana sources. This develops the mana base while still deploying the same threat.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 100
     },
     {
       "severity": "minor",
@@ -126826,7 +126846,8 @@
       "betterLine": "Play Swamp first to go to 7 lands, then cast Wirewood Channeler, then cast Shaman of the Pack with remaining mana",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 119
     },
     {
       "severity": "minor",
@@ -126835,7 +126856,8 @@
       "betterLine": "Attack Sonnet Gramps or Grok4F ESPN (both at 36 life) where 5 damage represents a larger percentage of their life total and creates more strategic pressure.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 125
     },
     {
       "severity": "minor",
@@ -126844,7 +126866,8 @@
       "betterLine": "Attack with both the Elf Warrior Token and Lightning Rager. The extra 1 damage is free since most opposing creatures are tapped, and the player desperately needs to deal damage from such a losing position.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "Gem25P Tinker"
+      "player": "Gem25P Tinker",
+      "decisionIndex": 125
     },
     {
       "severity": "minor",
@@ -126853,7 +126876,8 @@
       "betterLine": "Cast Seer's Sundial for 4 mana to set up card draw. Next turn, playing Boros Garrison would trigger landfall, allowing a draw for 2 mana. With only 3 cards in hand, card advantage is critical.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 131
     },
     {
       "severity": "major",
@@ -126862,7 +126886,8 @@
       "betterLine": "Do not kill your own Herald of the Host. If mana needs to be spent on Drana's ability, target an opponent's creature like Thundercloud Shaman (which is a real threat as a Giant that synergizes with Giant tribal effects). Alternatively, save the mana for other uses.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 137
     },
     {
       "severity": "minor",
@@ -126871,7 +126896,8 @@
       "betterLine": "Play Plains first, then cast Kalemne for {2}{R}{W}, then cast Sun Titan for {4}{W}{W} using remaining mana. Sun Titan ETB recurs Worn Powerstone, and Kalemne gets an experience counter.",
       "type": "blunder",
       "snapshotIndex": 215,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 145
     },
     {
       "severity": "minor",
@@ -126880,7 +126906,8 @@
       "betterLine": "Play Island from hand to increase available mana, making it easier to hold up Aethersnatch (6 mana) while still having mana for other responses.",
       "type": "blunder",
       "snapshotIndex": 231,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 158
     },
     {
       "severity": "minor",
@@ -126889,7 +126916,8 @@
       "betterLine": "Play Island or Mountain from hand before passing - land drops are free and don't tap existing mana, so there's no downside to playing one even when holding up interaction.",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 159
     },
     {
       "severity": "minor",
@@ -126898,7 +126926,8 @@
       "betterLine": "Attack Sonnet Gramps (18hp) to apply meaningful pressure to the lower-life opponent who also controls the dangerous Rite of the Raging Storm",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 168
     },
     {
       "severity": "major",
@@ -126907,7 +126936,8 @@
       "betterLine": "Attack Sonnet Gramps with both Drana and the Vampire Token for exactly 5 damage lethal, eliminating an opponent and removing Rite of the Raging Storm from the game.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 177
     },
     {
       "severity": "moderate",
@@ -126916,7 +126946,8 @@
       "betterLine": "Play a land first (Swamp), then cast Consuming Vapors (3B) to force Grok4F ESPN to sacrifice Thundercloud Shaman, gaining 4 life to go to 15. This addresses the board threat and improves survivability. Damnable Pact could be cast on a later turn from a stronger position.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 227
     },
     {
       "severity": "major",
@@ -126925,7 +126956,8 @@
       "betterLine": "Target themselves with Damnable Pact to draw 3 cards (going from 11 to 8 life), gaining crucial card advantage to find ways to deal with Grok4F ESPN's board and close the game.",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 229
     },
     {
       "severity": "moderate",
@@ -126934,7 +126966,8 @@
       "betterLine": "Cast/equip Skullclamp onto the 1/1 Vampire Token to draw 2 cards for 1 mana, then assess options with the new cards before proceeding",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 229
     },
     {
       "severity": "minor",
@@ -126943,7 +126976,8 @@
       "betterLine": "Return Blasted Landscape, which enters untapped and provides immediate colorless mana, rather than another tapped red source when red mana is already abundant",
       "type": "blunder",
       "snapshotIndex": 310,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 231
     },
     {
       "severity": "major",
@@ -126952,11 +126986,12 @@
       "betterLine": "Block with Malakir Bloodwitch (4/4) to absorb maximum combat damage and survive the attack. The Bloodwitch trades with a 4/4 attacker while preventing all that damage from hitting life total.",
       "type": "blunder",
       "snapshotIndex": 310,
-      "player": "GPT5m Valley"
+      "player": "GPT5m Valley",
+      "decisionIndex": 236
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

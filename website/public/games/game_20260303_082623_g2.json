@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_082623_g2",
   "timestamp": "20260303_082623",
   "gameType": "Two Player Duel",
@@ -73778,7 +73778,8 @@
       "betterLine": "Discard Coalborn Entity (the most expensive and hardest to cast card) or Thrill of Possibility (which requires an additional discard cost they can't afford). Keep both lands to maximize chances of developing the board.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -73787,7 +73788,8 @@
       "betterLine": "Choose White for Thriving Bluff, as it's the only non-red color needed for cards in hand.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -73796,7 +73798,8 @@
       "betterLine": "Play Mountain first, then cast Chandra's Magmutt (or Spiteful Prankster) to start developing the board. At minimum, playing the Mountain was essential to not fall further behind on mana.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -73805,7 +73808,8 @@
       "betterLine": "Cast Thrill of Possibility (discarding a less useful card like Crushing Canopy or a redundant expensive spell) to dig for desperately needed lands, or cast Chandra's Pyrohelix to kill Benalish Honor Guard before it gets equipped",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -73814,7 +73818,8 @@
       "betterLine": "Play Plains first (land drop), then cast Balan, Wandering Knight for 2WW. Hero's Blade auto-attaches to Balan, making it a 6/5 first striker. Much stronger board development and pressure against an opponent at 10 life.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "QwCdr Story"
+      "player": "QwCdr Story",
+      "decisionIndex": 64
     },
     {
       "severity": "moderate",
@@ -73823,7 +73828,8 @@
       "betterLine": "Block Benalish Honor Guard with Spiteful Prankster to trade creatures and preserve life total at 10.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 70
     },
     {
       "severity": "questionable",
@@ -73832,7 +73838,8 @@
       "betterLine": "Take the 4 damage (going to 6 life), keep Spiteful Prankster alive for ongoing value. With Release the Dogs in hand, Prankster could deal significant damage when dog tokens die in combat or to removal, providing a win condition that outweighs the 3 net life saved.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 70
     },
     {
       "severity": "major",
@@ -73841,7 +73848,8 @@
       "betterLine": "Cast Chandra's Magmutt ({1}{R}) to start building a board presence, then potentially play a land from hand. Even Cathar's Companion as a 3/1 body would help stabilize. Any creature deployment was essential given the empty board at 10 life.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 72
     },
     {
       "severity": "major",
@@ -73850,7 +73858,8 @@
       "betterLine": "Cast Pacifism on Balan, Wandering Knight to prevent it from attacking. This is the only card that answers the lethal threat. Could also cast Chandra's Magmutt with the remaining mana for an additional blocker.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 93
     },
     {
       "severity": "major",
@@ -73859,7 +73868,8 @@
       "betterLine": "Cast Pacifism targeting Balan, Wandering Knight to prevent it from attacking or blocking, neutralizing the lethal threat.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "GptOSS Sport"
+      "player": "GptOSS Sport",
+      "decisionIndex": 93
     }
   ],
   "blunderScriptVersion": 31,

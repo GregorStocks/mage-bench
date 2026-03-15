@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_191003_g1",
   "timestamp": "20260304_191003",
   "gameType": "Two Player Duel",
@@ -76056,7 +76056,8 @@
       "betterLine": "Keep the 7-card hand. It has 3 lands, a good curve (T3 Visionary into T4 Invoker), card draw to find black sources, and a late-game finisher. Going to 6 risks a worse hand with fewer resources.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -76065,7 +76066,8 @@
       "betterLine": "Keep the 7-card hand. Play Wily Bandar turn 1, hope to draw a 3rd land for Vito or Nocturnal Feeder on turn 3.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -76074,7 +76076,8 @@
       "betterLine": "Play Thriving Grove (choosing black) or Thriving Moor (choosing green) to get dual-color mana next turn at no tempo cost, since nothing castable this turn anyway.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 8
     },
     {
       "severity": "questionable",
@@ -76083,7 +76086,8 @@
       "betterLine": "Cast Wall of Blossoms to draw a card immediately, gaining card advantage when there's no urgency to ramp",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -76092,7 +76096,8 @@
       "betterLine": "Choose Black to enable casting Eternal Thirst and other black cards in the deck, since the card pool clearly includes black cards (Eternal Thirst, Thriving Moor).",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -76101,7 +76106,8 @@
       "betterLine": "Cast Wily Bandar for {G}, establishing board presence. Next turn they could play Swamp, cast Kibo or Uktabi Orangutan, and start building a meaningful board.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -76110,7 +76116,8 @@
       "betterLine": "Cast Wily Bandar for {G} to establish board presence, create a Monkey for future Kibo synergy, and have a creature available for Eternal Thirst or blocking.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 32
     },
     {
       "severity": "major",
@@ -76119,7 +76126,8 @@
       "betterLine": "Cast Towering Titan as a 13/13 using Elvish Archdruid, Overgrown Battlement, and lands for mana. This creates an enormous threat that likely wins the game against an opponent with no board presence.",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -76128,7 +76136,8 @@
       "betterLine": "Skip attacks, then in post-combat main play Forest and tap Thriving Grove + Forest + Archdruid to cast Gargoyle Sentinel or Ghirapur Guide, building board presence and toughness for the Towering Titan in hand.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -76137,7 +76146,8 @@
       "betterLine": "Play Swamp first to have 4 mana available, then cast Kibo, Uktabi Prince, and potentially Wily Bandar with remaining mana",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -76146,7 +76156,8 @@
       "betterLine": "Play Forest post-combat, cast Towering Titan as a 9/9 using Elvish Archdruid + 5 lands, then later sacrifice Portcullis Vine if needed (or use Titan's own sacrifice-defender ability for trample).",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -76155,7 +76166,8 @@
       "betterLine": "Play Swamp, cast Simian Brawler or other creatures, then attack with Kibo (forcing opponent to sac an artifact if they have one). Activate Kibo's Banana ability post-combat if desired, or skip it entirely since giving the opponent resources without immediate payoff is questionable.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -76164,7 +76176,8 @@
       "betterLine": "Play Swamp from hand, then cast Simian Brawler ({3}{G}) to develop a permanent 3/3 Ape creature that synergizes with Kibo. Could still attack with Kibo next turn to force artifact sacrifice.",
       "type": "blunder",
       "snapshotIndex": 114,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 47
     },
     {
       "severity": "major",
@@ -76173,7 +76186,8 @@
       "betterLine": "Play Swamp first, then cast Eternal Thirst on Kibo (giving it lifelink and growth potential), or cast Uktabi Orangutan targeting opponent's Banana token (which would also trigger Kibo's +1/+1 counter ability for Apes/Monkeys). At the very least, play the land and cast Wily Bandar to develop the board.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 50
     },
     {
       "severity": "major",
@@ -76182,7 +76196,8 @@
       "betterLine": "Play Forest, then cast Towering Titan for {4}{G}{G} (using 5 lands + Elvish Archdruid). Titan enters as a 5/5 with the option to sacrifice Portcullis Vine for mass trample. This creates a dominant board position against opponent's lone Kibo.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 63
     },
     {
       "severity": "major",
@@ -76191,7 +76206,8 @@
       "betterLine": "Play a Forest, then cast Gargoyle Sentinel (3/3 defender) to build board presence and set up Towering Titan for next turn. Alternatively, play Forest and attempt to cast Towering Titan this turn using Archdruid + Banana for the 6th and 7th mana.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -76200,7 +76216,8 @@
       "betterLine": "Play Swamp (land drop), cast Uktabi Orangutan targeting opponent's Banana token (triggering Kibo's counter ability on all Apes/Monkeys), then attack with Kibo to force another artifact sacrifice.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -76209,7 +76226,8 @@
       "betterLine": "Play Swamp first, then cast Uktabi Orangutan. The Orangutan play itself is good (destroys opponent's Banana token, triggers Kibo for +1/+1 counters on Apes/Monkeys), but land should come down first.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 67
     },
     {
       "severity": "questionable",
@@ -76218,7 +76236,8 @@
       "betterLine": "Play Swamp from hand, tap Treetop Village for {G}, cast Wily Bandar ({G}) to have it on the battlefield as a Cat Monkey when Kibo's trigger resolves, getting a permanent 2/2 creature with the counter instead",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -76227,7 +76246,8 @@
       "betterLine": "Cast Eternal Thirst on Kibo, Uktabi Prince using Treetop Village and Swamp. This gives Kibo lifelink and +1/+1 counter growth when opponent's creatures die, significantly increasing its threat level. Alternatively, at minimum cast Wily Bandar as a free Monkey body with Kibo synergy.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -76236,7 +76256,8 @@
       "betterLine": "Tap Banana for {G} and 2 life, tap Forest for {G}, activate Portcullis Vine (pay {2}, tap, sacrifice itself) to draw a card. Lose a blocker but gain a card and 2 life while denying Kibo's trigger any meaningful sacrifice.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 94
     },
     {
       "severity": "moderate",
@@ -76245,7 +76266,8 @@
       "betterLine": "Activate Treetop Village for {1}{G} to make it a 3/3 Ape creature before Kibo's trigger resolves, gaining a permanent +1/+1 counter on it for free",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 95
     },
     {
       "severity": "major",
@@ -76254,7 +76276,8 @@
       "betterLine": "Block Kibo with Ghirapur Guide (both die in combat, removing the opponent's engine) and optionally block Uktabi Orangutan with Portcullis Vine to save 4 life. This would result in taking only 0-4 damage while eliminating the most dangerous opposing creature.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "GptOSS Nature"
+      "player": "GptOSS Nature",
+      "decisionIndex": 97
     },
     {
       "severity": "major",
@@ -76263,7 +76286,8 @@
       "betterLine": "Play Forest, activate Kibo to create Banana tokens, cast Simian Brawler (3/3 Ape), cast Wily Bandar, then potentially put Eternal Thirst on Kibo or Orangutan for lifelink, then move to combat with a much stronger board",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "MstMed Trash"
+      "player": "MstMed Trash",
+      "decisionIndex": 111
     }
   ],
   "blunderScriptVersion": 32

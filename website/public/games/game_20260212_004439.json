@@ -6573,7 +6573,8 @@
       "betterLine": "Choose to play first to maximize Urza's Saga tempo and deploy artifacts before the opponent can establish their gameplan",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -6582,7 +6583,8 @@
       "betterLine": "Play Shivan Reef as the land drop, then cast the free artifacts (Mishra's Baubles, Welding Jar) to develop the board, saving Urza's Saga for a later turn when more artifacts are in play to make larger Construct tokens",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -6591,7 +6593,8 @@
       "betterLine": "Cast Mishra's Bauble first, activate it immediately to look at opponent's top card and queue up a draw for next upkeep, then cast remaining 0-cost artifacts including Welding Jar.",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -6600,7 +6603,8 @@
       "betterLine": "Play Shivan Reef, cast Mishra's Bauble ({0}) from hand, cast Aether Spellbomb ({1} via Urza's Saga), then activate the original Mishra's Bauble to sacrifice it. This keeps artifact count higher going into future turns.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -6609,7 +6613,8 @@
       "betterLine": "Target yourself with Mishra's Bauble to see your own top card, which helps inform sequencing decisions (e.g., whether to crack Scalding Tarn to shuffle away an unwanted top card).",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -6618,7 +6623,8 @@
       "betterLine": "Target the opponent (Qwen3 Timmy) with Mishra's Bauble to gain information about what the opponent will draw, which is information you wouldn't otherwise have access to.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 15
     },
     {
       "severity": "moderate",
@@ -6627,7 +6633,8 @@
       "betterLine": "If casting Pithing Needle, name a relevant card like a fetchland (Scalding Tarn, Wooded Foothills) to disrupt the opponent's mana. Alternatively, hold Pithing Needle until more information is available about the opponent's deck.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 28
     },
     {
       "severity": "major",
@@ -6636,7 +6643,8 @@
       "betterLine": "Name a fetchland like 'Scalding Tarn' or 'Wooded Foothills' to disrupt the opponent's mana, or name another card with relevant activated abilities that the opponent's deck likely contains.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 28
     },
     {
       "severity": "moderate",
@@ -6645,12 +6653,13 @@
       "betterLine": "Activate Urza's Saga's chapter II ability to create a Construct token (which would be at least 5/5 with current artifacts). Could also consider casting Pinnacle Emissary for its Warp cost to establish board presence.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "Gem25P Sarge"
+      "player": "Gem25P Sarge",
+      "decisionIndex": 28
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

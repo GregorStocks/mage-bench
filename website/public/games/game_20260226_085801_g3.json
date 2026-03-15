@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_085801_g3",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -61959,7 +61959,8 @@
       "betterLine": "Play Flooded Strand, which can be cracked immediately to fetch Hallowed Fountain untapped (for W/U access) or saved for later flexibility. This provides immediate mana and better color fixing for the key spells in hand (Prismatic Ending, Solitude, Quantum Riddler).",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -61968,7 +61969,8 @@
       "betterLine": "Activate Flooded Strand to fetch a land (likely an Island or Plains), then play Hallowed Fountain from hand to have 2 lands on board and begin building toward casting threats or answers.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -61977,7 +61979,8 @@
       "betterLine": "Play Marsh Flats, crack Flooded Strand for Hallowed Fountain (untapped), crack Marsh Flats for a Swamp/black source, then cast Prismatic Ending (converge 2) to exile Emperor of Bones cleanly for one card",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 18
     },
     {
       "severity": "major",
@@ -61986,7 +61989,8 @@
       "betterLine": "Play Hallowed Fountain untapped (pay 2 life), crack Flooded Strand for a white-producing land, then cast Prismatic Ending targeting Emperor of Bones. Alternatively, Evoke Solitude exiling Prismatic Ending to exile Emperor of Bones immediately, then play a land.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 19
     },
     {
       "severity": "major",
@@ -61995,7 +61999,8 @@
       "betterLine": "Play Marsh Flats (or another fetchland) as the land drop, then crack Flooded Strand to fetch Hallowed Fountain (paying 2 life to have it enter untapped), getting to 2 lands in play. This sets up for casting Prismatic Ending next turn or working toward Solitude/Phlage mana.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -62004,7 +62009,8 @@
       "betterLine": "Pay 2 life to have Hallowed Fountain enter untapped, then crack Flooded Strand for a land producing a second color, and cast Prismatic Ending (converge 2) to exile Emperor of Bones before it can threaten to reanimate Archon of Cruelty.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 19
     },
     {
       "severity": "moderate",
@@ -62013,7 +62019,8 @@
       "betterLine": "Activate Flooded Strand to fetch a land providing a second color, then cast Prismatic Ending for X=1 with 2 colors (converge = 2) to exile Emperor of Bones (MV 2), saving Solitude for a bigger threat.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 19
     },
     {
       "severity": "major",
@@ -62022,7 +62029,8 @@
       "betterLine": "Evoke Solitude by exiling Prismatic Ending from hand, targeting Emperor of Bones. This prevents the opponent from using Emperor to reanimate Archon of Cruelty next combat. Could also crack Flooded Strand first for mana fixing.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 24
     },
     {
       "severity": "moderate",
@@ -62031,7 +62039,8 @@
       "betterLine": "Activate Flooded Strand to fetch a blue source, then cast Prismatic Ending spending W+U (2 colors of mana) to exile Emperor of Bones (MV=2), preventing the opponent from using it to reanimate Archon of Cruelty.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -62040,7 +62049,8 @@
       "betterLine": "Attack with Emperor of Bones for 2 uncontested damage, bringing opponent from 18 to 16 life.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 30
     },
     {
       "severity": "major",
@@ -62049,7 +62059,8 @@
       "betterLine": "Evoke Solitude by exiling Prismatic Ending (or Phlage) from hand, targeting Emperor of Bones. This exiles Emperor before Adapt resolves, preventing the +1/+1 counters and the Archon of Cruelty reanimation trigger entirely.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -62058,7 +62069,8 @@
       "betterLine": "Discard Arena of Glory instead. It's the least impactful card in hand - it enters tapped (no Mountain in play), only produces red mana, and the player already has two fetch lands (Flooded Strand, Marsh Flats) for mana development. Keeping Solitude preserves the ability to evoke it to exile Emperor of Bones or future threats.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -62067,7 +62079,8 @@
       "betterLine": "Crack Flooded Strand or Scalding Tarn for a land producing a second color, then cast Prismatic Ending for 2 colors (W + another) to exile Emperor of Bones (MV 2), preventing the Archon of Cruelty reanimation.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -62076,7 +62089,8 @@
       "betterLine": "Activate Flooded Strand and/or Scalding Tarn first to fetch lands that produce colored mana, then cast Prismatic Ending with X=2 (spending W + another color) to exile Emperor of Bones.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 45
     },
     {
       "severity": "major",
@@ -62085,7 +62099,8 @@
       "betterLine": "Activate Flooded Strand to fetch Watery Grave (paying life to have it enter untapped), then cast Prismatic Ending for WU/WB to exile Emperor of Bones before combat.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 51
     },
     {
       "severity": "moderate",
@@ -62094,7 +62109,8 @@
       "betterLine": "Attack with Emperor of Bones for 4 damage, bringing opponent to 6 life. There are no blockers and the pressure is critical at this life total.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -62103,7 +62119,8 @@
       "betterLine": "Play Arena of Glory first (enters untapped due to Sacred Foundry being a Mountain), then cast Phlage with RW from Sacred Foundry + Plains and 1 from Hallowed Fountain, keeping Arena of Glory available or exerting it for extra mana/options.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 70
     },
     {
       "severity": "major",
@@ -62112,7 +62129,8 @@
       "betterLine": "Target Psychic Frog with Phlage's 3 damage to kill it (1/2 creature dies to 3 damage), removing the threat that can fly over Phlage for lethal next turn",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -62121,7 +62139,8 @@
       "betterLine": "Discard two cards (e.g., duplicate Abhorrent Oculus and Unearth) to Psychic Frog to pump it to 3/4, setting up exactly lethal damage next turn (4+3=7) while also fueling graveyard for future Abhorrent Oculus casts",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -62130,7 +62149,8 @@
       "betterLine": "Exile Phlage, Titan of Fire's Fury to permanently remove the escape threat. This denies the opponent their most powerful graveyard recursion option.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 85
     },
     {
       "severity": "major",
@@ -62139,7 +62159,8 @@
       "betterLine": "Activate Psychic Frog twice by discarding 2 cards (e.g., Gran-Gran and an Abhorrent Oculus) to make it 3/4, then attack with both Emperor of Bones (4/4) and Psychic Frog (3/4) for exactly 7 lethal damage against a tapped-out opponent.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 85
     },
     {
       "severity": "major",
@@ -62148,7 +62169,8 @@
       "betterLine": "Attack with both Emperor of Bones and Psychic Frog for 5 damage (opponent to 2 life), plus draw a card from Psychic Frog's combat damage trigger. Lethal would be nearly guaranteed next turn.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -62157,7 +62179,8 @@
       "betterLine": "Attack with both Emperor of Bones and Psychic Frog, discard 3 cards to pump Psychic Frog to 4/2, exile 3 cards from graveyard for flying if needed. 4+4=8 damage is lethal against 7 life with opponent completely tapped out and no blockers.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -62166,7 +62189,8 @@
       "betterLine": "Discard 2 cards (e.g., Abhorrent Oculus and Gran-Gran) to Psychic Frog to pump it to 3/4, dealing 4+3=7 damage for lethal.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -62175,7 +62199,8 @@
       "betterLine": "Cast Phlage, Titan of Fire's Fury to deal 3 damage to Emperor of Bones (or Psychic Frog) and gain 3 life, going from 2 to 5 life, then use remaining mana or next turn to address the other threat",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 94
     },
     {
       "severity": "questionable",
@@ -62184,7 +62209,8 @@
       "betterLine": "Pass priority and let Phlage's trigger resolve (it's targeting Psychic Frog, not the player). Save the Marsh Flats activation for a time when the life point matters less or when Revolt is needed for Fatal Push.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 101
     },
     {
       "severity": "minor",
@@ -62193,7 +62219,8 @@
       "betterLine": "Activate Marsh Flats to fetch a land (going to 1 life temporarily, then 4 after Phlage's +3 life), giving access to 6 lands for casting Quantum Riddler next turn.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 101
     },
     {
       "severity": "major",
@@ -62202,7 +62229,8 @@
       "betterLine": "Cast Unearth targeting Psychic Frog in graveyard for {B}, then attack with both Emperor of Bones (4/4) and Psychic Frog (1/2) for exactly 5 lethal damage.",
       "type": "blunder",
       "snapshotIndex": 193,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 112
     },
     {
       "severity": "major",
@@ -62211,7 +62239,8 @@
       "betterLine": "Attack with Emperor of Bones for 4, putting the opponent to 1 life. Next turn's attack or any other source of damage would be lethal.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "DSV3 Proud"
+      "player": "DSV3 Proud",
+      "decisionIndex": 114
     },
     {
       "severity": "major",
@@ -62220,7 +62249,8 @@
       "betterLine": "Play a land (Arid Mesa), crack Marsh Flats to fetch a blue dual land, then cast Quantum Riddler to get a 4/6 flying blocker and draw a card, which is the only realistic path to surviving another turn at 1 life.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 123
     },
     {
       "severity": "minor",
@@ -62229,7 +62259,8 @@
       "betterLine": "Play Arena of Glory, which enters untapped and provides {R}, giving an extra mana source. While neither choice enables Quantum Riddler this turn, having access to more mana is strictly better than a dead fetchland.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 123
     },
     {
       "severity": "major",
@@ -62238,7 +62269,8 @@
       "betterLine": "Do not activate any fetch lands at 1 life. Pass priority and try to survive with the mana already available.",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 126
     },
     {
       "severity": "major",
@@ -62247,7 +62279,8 @@
       "betterLine": "Do not activate Marsh Flats. Use existing untapped lands (Plains, Sacred Foundry, Thundering Falls, Arid Mesa) to cast spells. Could play Arena of Glory and potentially Warp a Quantum Riddler with available mana without paying any life.",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "GPT5m Worrier"
+      "player": "GPT5m Worrier",
+      "decisionIndex": 126
     }
   ],
   "blunderScriptVersion": 28,

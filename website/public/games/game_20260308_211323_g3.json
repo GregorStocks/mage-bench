@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_211323_g3",
   "timestamp": "20260308_211323",
   "gameType": "Two Player Duel",
@@ -191218,7 +191218,8 @@
       "betterLine": "Mulligan to 6 looking for a hand with at least one colored mana source. While going to 6 is a cost, having zero colored mana makes most of the deck's spells uncastable. The Planar Atlas dig is a partial out but unreliable.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 3
     },
     {
       "severity": "questionable",
@@ -191227,7 +191228,8 @@
       "betterLine": "Cast Valorous Stance targeting Drownyard Explorers to remove the 2/4 body. The investigate trigger would still resolve, but removing the creature for otherwise-wasted mana could be worthwhile. Alternatively, holding for a bigger threat or indestructible mode on a future Emiel/Overseer is defensible.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -191236,7 +191238,8 @@
       "betterLine": "Cast Valorous Stance targeting Drownyard Explorers (toughness 4) to destroy it, removing the opponent's only creature while having no competing use for the mana this turn.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 49
     },
     {
       "severity": "moderate",
@@ -191245,7 +191248,8 @@
       "betterLine": "Discard Valorous Steed - it's the least impactful card at 5 mana (just a 3/3 vigilance + 2/2 token), while Blessed Sanctuary creates a dominant synergy engine with Emiel the Blessed and all the ETB creatures in hand.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -191254,7 +191258,8 @@
       "betterLine": "Cast Magnifying Glass for 3 mana (leaving 1 unused), then next turn with Tron complete + Magnifying Glass, cast a much larger Walking Ballista (X=4 or 5) with the 9-10 available mana.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -191263,7 +191268,8 @@
       "betterLine": "Pass priority, let Walking Ballista resolve and enter the battlefield as a 4/4, then cast Valorous Stance to destroy it before the opponent can remove counters to deal damage.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -191272,7 +191278,8 @@
       "betterLine": "Pass priority and keep the Ballista at 4/4 for future combat. The 1 damage is negligible against 20 life and the counter is more valuable on the creature.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 60
     },
     {
       "severity": "major",
@@ -191281,7 +191288,8 @@
       "betterLine": "Activate Walking Ballista's 'remove a +1/+1 counter: deal 1 damage' ability three more times in response, targeting the opponent (or relevant permanents), to extract all 4 total damage before Valorous Stance resolves and destroys it.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -191290,7 +191298,8 @@
       "betterLine": "Activate Walking Ballista's 'remove a +1/+1 counter: deal 1 damage' ability two more times (targeting the opponent or a relevant permanent) to extract all remaining value before the Ballista is destroyed.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -191299,7 +191308,8 @@
       "betterLine": "Pass priority and let the first ping resolve, killing Inspiring Overseer with 1 damage. Walking Ballista survives as a 1/1 with future growth potential.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -191308,7 +191318,8 @@
       "betterLine": "Cast Magnifying Glass to add another artifact to the board, setting up Mechanized Production next turn. Magnifying Glass is an excellent enchant target for Mechanized Production since copied Magnifying Glasses provide mana and investigation while counting toward the 8-artifact win condition.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -191317,7 +191328,8 @@
       "betterLine": "Target Urza's Factory with Faith's Fetters to neutralize the opponent's primary long-term win condition and token generation engine, especially with Tron pieces all in play",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 116
     },
     {
       "severity": "moderate",
@@ -191326,7 +191338,8 @@
       "betterLine": "Attack with both Drownyard Explorers and Runed Servitor for 4 total damage, bringing opponent to 6 life instead of 8. All opponent creatures are summoning sick so there's zero risk.",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 149
     },
     {
       "severity": "moderate",
@@ -191335,7 +191348,8 @@
       "betterLine": "Either don't block (take 2 damage, preserve Gallant Cavalry for Emiel blink value), or double-block with both Gallant Cavalry and Knight Token to actually kill the Explorers. Not blocking is likely best since Gallant Cavalry as an Emiel target generates repeated 2/2 tokens.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 152
     },
     {
       "severity": "moderate",
@@ -191344,7 +191358,8 @@
       "betterLine": "Cast Press for Answers targeting Emiel the Blessed to tap it down for a turn cycle and create a Clue token, then activate Floodhound to investigate with remaining mana, building toward Mechanized Production's artifact count.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 166
     },
     {
       "severity": "moderate",
@@ -191353,7 +191368,8 @@
       "betterLine": "Attack with at least Drownyard Explorers and Runed Servitor (and likely Floodhound too). With only one blocker available and no mana for tricks, 2-5 damage would get through for free, putting the opponent to 5-8 life and setting up a potential lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 245,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 169
     },
     {
       "severity": "moderate",
@@ -191362,7 +191378,8 @@
       "betterLine": "Target own Drownyard Explorers (becoming 4/4) or Runed Servitor (becoming 4/2) to improve attack potential against opponent at 10 life",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 177
     },
     {
       "severity": "major",
@@ -191371,7 +191388,8 @@
       "betterLine": "Target Emiel the Blessed with Flicker of Fate to counter the Alchemist's Vial ability, keeping Emiel free to attack and triggering its ETB ability.",
       "type": "blunder",
       "snapshotIndex": 266,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 182
     },
     {
       "severity": "minor",
@@ -191380,7 +191398,8 @@
       "betterLine": "Target Emiel the Blessed with +2/+0, making it a 6/4 attacker that survives any block from the opponent's creatures",
       "type": "blunder",
       "snapshotIndex": 276,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 190
     },
     {
       "severity": "questionable",
@@ -191389,7 +191408,8 @@
       "betterLine": "Attack with both Emiel the Blessed and Knight Token for 8 potential damage. Even if opponent blocks Emiel with Drownyard Explorers, you trade favorably and still get 4 through with the Knight. Pressuring the opponent's life total is critical before their engine takes over.",
       "type": "blunder",
       "snapshotIndex": 283,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 196
     },
     {
       "severity": "minor",
@@ -191398,7 +191418,8 @@
       "betterLine": "Block with Runed Servitor (2/2) instead. Both still trade with the 4/2 Knight Token, but you preserve the 2/4 Explorers as a more impactful blocker for future turns. The mutual card draw from Runed Servitor's death is acceptable.",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 200
     },
     {
       "severity": "minor",
@@ -191407,7 +191428,8 @@
       "betterLine": "Activate Floodhound ({3}, {T}: Investigate) using Urza's Power Plant + Magnifying Glass + Urza's Factory to create a Clue token, building toward the Mechanized Production artifact-copying win condition.",
       "type": "blunder",
       "snapshotIndex": 304,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 210
     },
     {
       "severity": "moderate",
@@ -191416,7 +191438,8 @@
       "betterLine": "Activate Urza's Factory ({7}, {T}) to create a 2/2 Assembly-Worker token, and potentially also activate Floodhound to investigate if mana allowed. Building the board while the opponent is tapped out is critical.",
       "type": "blunder",
       "snapshotIndex": 352,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 240
     },
     {
       "severity": "minor",
@@ -191425,7 +191448,8 @@
       "betterLine": "Activate Locthwain Gargoyle for 4 mana to get a 2/3 flyer, then attack with it into the opponent at 9 life (Emiel is tapped, only untapped blockers are sick). Use remaining 2 mana postcombat or activate Floodhound instead if preferring the Clue.",
       "type": "blunder",
       "snapshotIndex": 358,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 245
     },
     {
       "severity": "minor",
@@ -191434,7 +191458,8 @@
       "betterLine": "Attack with Floodhound for 1 free unblocked damage, bringing opponent from 9 to 8 life.",
       "type": "blunder",
       "snapshotIndex": 370,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 251
     },
     {
       "severity": "moderate",
@@ -191443,7 +191468,8 @@
       "betterLine": "Select both modes — exile an opponent's creature AND blink Valorous Steed to generate a 2/2 Knight token (and potentially get +1/+1 counters from Emiel)",
       "type": "blunder",
       "snapshotIndex": 374,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 254
     },
     {
       "severity": "minor",
@@ -191452,7 +191478,8 @@
       "betterLine": "Attack with both Emiel the Blessed (4/4) and Knight Token (2/2) to deal up to 6 damage. With all opponent lands tapped, there's no risk of combat tricks, and the opponent's offensive capability is minimal so defensive concerns are low.",
       "type": "blunder",
       "snapshotIndex": 392,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 267
     },
     {
       "severity": "questionable",
@@ -191461,7 +191488,8 @@
       "betterLine": "Pump Locthwain Gargoyle for 4 mana and attack for 2 flying damage. At 9 life, chip damage is relevant, especially since the opponent's board is growing with Emiel generating value. Could cast post-combat plays on subsequent turns instead.",
       "type": "blunder",
       "snapshotIndex": 407,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 275
     },
     {
       "severity": "minor",
@@ -191470,7 +191498,8 @@
       "betterLine": "Activate Locthwain Gargoyle for {4} to make it a 2/3 flyer, then attack with it for 2 unblockable flying damage, bringing the opponent to 7 life.",
       "type": "blunder",
       "snapshotIndex": 407,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 275
     },
     {
       "severity": "moderate",
@@ -191479,7 +191508,8 @@
       "betterLine": "Activate Urza's Factory to create a 2/2 Assembly-Worker token (using Tron lands for 6 + Planar Atlas for 1 = 7 mana, then tap Factory). This builds board presence against the opponent's growing army while still holding up Islands for Jace's Scrutiny if needed.",
       "type": "blunder",
       "snapshotIndex": 409,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 278
     },
     {
       "severity": "moderate",
@@ -191488,7 +191518,8 @@
       "betterLine": "Cast Thaumaturge's Familiar for {3} to add a 1/3 flying blocker and scry 1, or at minimum activate Floodhound to investigate and build artifact count for future Mechanized Production / Filigree Attendant value.",
       "type": "blunder",
       "snapshotIndex": 413,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 280
     },
     {
       "severity": "minor",
@@ -191497,7 +191528,8 @@
       "betterLine": "Activate Clue Token to sacrifice it and draw a card for {2}. Alternatively, cast Jace's Scrutiny on an opponent's creature to investigate and build artifact count for Mechanized Production.",
       "type": "blunder",
       "snapshotIndex": 426,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 286
     },
     {
       "severity": "minor",
@@ -191506,7 +191538,8 @@
       "betterLine": "Activate the existing Clue Token for {2} to draw a card immediately. This provides an actual card now instead of a Clue token that requires 2 more mana to crack later. The Scrutiny could be saved for the opponent's combat phase where the -4/-0 would actually reduce damage.",
       "type": "blunder",
       "snapshotIndex": 426,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 286
     },
     {
       "severity": "minor",
@@ -191515,7 +191548,8 @@
       "betterLine": "Block both Knight Tokens with Gargoyle and Familiar respectively. Both blockers survive (0/3 and 1/3 vs 2 power each), take 3 from unblocked Valorous Steed, but keep both creatures on board.",
       "type": "blunder",
       "snapshotIndex": 458,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 307
     },
     {
       "severity": "moderate",
@@ -191524,7 +191558,8 @@
       "betterLine": "Play Urza's Power Plant first (land drop), then use mana on Urza's Factory activation (create 2/2 token), Floodhound investigate, crack Clue tokens, or activate Magnifying Glass to generate card advantage and board presence rather than waste Mechanized Production into guaranteed removal.",
       "type": "blunder",
       "snapshotIndex": 467,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 313
     },
     {
       "severity": "major",
@@ -191533,7 +191568,8 @@
       "betterLine": "Cast Wispweaver Angel for 6 mana, targeting Rambunctious Mutt with its ETB trigger to blink it and destroy Mechanized Production, simultaneously deploying a 4/4 flyer.",
       "type": "blunder",
       "snapshotIndex": 486,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 325
     },
     {
       "severity": "major",
@@ -191542,7 +191578,8 @@
       "betterLine": "Use Emiel the Blessed's activated ability (3 mana) to blink Rambunctious Mutt, triggering its ETB to destroy Mechanized Production. This removes the alternate win condition threat. Alternatively, cast Acrobatic Maneuver targeting Rambunctious Mutt for the same effect plus drawing a card (even better since it's card advantage).",
       "type": "blunder",
       "snapshotIndex": 487,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 326
     },
     {
       "severity": "minor",
@@ -191551,7 +191588,8 @@
       "betterLine": "Let Distinguished Conjurer resolve first (pass priority), then cast Acrobatic Maneuver targeting Rambunctious Mutt to destroy Mechanized Production while also gaining 1 life from Distinguished Conjurer's trigger",
       "type": "blunder",
       "snapshotIndex": 495,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 331
     },
     {
       "severity": "questionable",
@@ -191560,7 +191598,8 @@
       "betterLine": "Block Emiel with Locthwain Gargoyle (chump block, Gargoyle dies) and leave Floodhound unblocked. Take 7 damage (go to 9) but preserve the repeatable investigate engine which is more valuable long-term than the 0/3 Gargoyle.",
       "type": "blunder",
       "snapshotIndex": 522,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 352
     },
     {
       "severity": "moderate",
@@ -191569,7 +191608,8 @@
       "betterLine": "Cast Shambling Suit first (3 mana), then activate Urza's Factory (7 mana + tap) to deploy both a large Shambling Suit and a 2/2 Assembly-Worker token in the same turn.",
       "type": "blunder",
       "snapshotIndex": 532,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 359
     },
     {
       "severity": "minor",
@@ -191578,7 +191618,8 @@
       "betterLine": "Activate Locthwain Gargoyle for {4} to make it a 2/3 flier and attack for 2 unblockable damage, bringing the opponent to 8 life. Then crack the Clue token with remaining mana to draw a card.",
       "type": "blunder",
       "snapshotIndex": 540,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 365
     },
     {
       "severity": "questionable",
@@ -191587,7 +191628,8 @@
       "betterLine": "Go to combat first, attack with the full board (Shambling Suit can't block since it's sick), then cast Faith's Fetters postcombat on Shambling Suit or another key permanent. This preserves all options and doesn't reveal information before attacks.",
       "type": "blunder",
       "snapshotIndex": 544,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 368
     },
     {
       "severity": "minor",
@@ -191596,7 +191638,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Rambunctious Mutt for {3}, destroying an opponent's artifact like Magnifying Glass on re-entry while gaining 1 life from Distinguished Conjurer.",
       "type": "blunder",
       "snapshotIndex": 546,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 370
     },
     {
       "severity": "minor",
@@ -191605,7 +191648,8 @@
       "betterLine": "Activate Locthwain Gargoyle for {4} to give it +2/+0 and flying, then attack for 2 damage in the air, putting opponent to 8 life.",
       "type": "blunder",
       "snapshotIndex": 552,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 372
     },
     {
       "severity": "moderate",
@@ -191614,7 +191658,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Rambunctious Mutt (3 mana). When Mutt re-enters, destroy an opponent's artifact (likely Magnifying Glass or Planar Atlas to deny mana), gain 1 life from Distinguished Conjurer, then let Faith's Fetters resolve on Shambling Suit.",
       "type": "blunder",
       "snapshotIndex": 551,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 371
     },
     {
       "severity": "minor",
@@ -191623,7 +191668,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Rambunctious Mutt (cost {3}) to get another ETB trigger destroying an opponent's artifact like Magnifying Glass, while also gaining 1 life from Distinguished Conjurer's trigger.",
       "type": "blunder",
       "snapshotIndex": 556,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 374
     },
     {
       "severity": "moderate",
@@ -191632,7 +191678,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Rambunctious Mutt (spending 3 Plains), then on re-entry destroy Magnifying Glass (opponent's mana rock and investigate engine), gaining 1 life from Distinguished Conjurer",
       "type": "blunder",
       "snapshotIndex": 557,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 375
     },
     {
       "severity": "minor",
@@ -191641,7 +191688,8 @@
       "betterLine": "Activate the Clue Token for {2} to draw a card before combat, potentially finding a combat trick or useful information to inform attack decisions.",
       "type": "blunder",
       "snapshotIndex": 569,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 387
     }
   ],
   "blunderScriptVersion": 32,

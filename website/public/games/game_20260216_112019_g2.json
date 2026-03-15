@@ -22832,7 +22832,8 @@
       "betterLine": "Cast High Noon to lock the opponent to one spell per turn, which is devastating against a prowess/spells strategy. Alternatively, hold mana open for Floodpits Drowner at flash speed to interact with the opponent's creatures.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "Qwen3 Rivals"
+      "player": "Qwen3 Rivals",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -22841,7 +22842,8 @@
       "betterLine": "Play Spirebluff Canal, which enters untapped with 2 or fewer other lands and produces both U and R, preserving Mountain for a later turn when Spirebluff Canal would enter tapped",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "GPT5m Timmy"
+      "player": "GPT5m Timmy",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -22850,11 +22852,12 @@
       "betterLine": "Activate Agna Qel'a to loot for card selection, and/or cast Floodpits Drowner to tap Fear of Missing Out with a stun counter, neutralizing the opponent's only creature.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Qwen3 Rivals"
+      "player": "Qwen3 Rivals",
+      "decisionIndex": 37
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

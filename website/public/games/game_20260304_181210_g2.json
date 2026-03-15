@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_181210_g2",
   "timestamp": "20260304_181210",
   "gameType": "Two Player Duel",
@@ -67621,7 +67621,8 @@
       "betterLine": "Mulligan is correct",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT52 Brewer"
+      "player": "GPT52 Brewer",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -67630,7 +67631,8 @@
       "betterLine": "Play Thriving Moor choosing Red, giving access to both B and R from one land with no downside since nothing can be cast this turn.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 6
     },
     {
       "severity": "questionable",
@@ -67639,7 +67641,8 @@
       "betterLine": "Cast Lightwalker, then next turn play Plains and cast Basri's Solidarity to make it a 3/2 flier - a much more proactive and threatening development.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "GPT52 Brewer"
+      "player": "GPT52 Brewer",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -67648,7 +67651,8 @@
       "betterLine": "Discard Storm Fleet Pyromancer instead, keeping Finishing Blow as a versatile answer to opponent's threats",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -67657,7 +67661,8 @@
       "betterLine": "Play Plains precombat, cast Siege Striker (2W), then attack with Siege Striker tapping Distinguished Conjurer to make it a 2/2 double striker for 4 damage through an empty board.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "GPT52 Brewer"
+      "player": "GPT52 Brewer",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -67666,7 +67671,8 @@
       "betterLine": "Play Thriving Moor (choosing red) to gain access to both black mana (for Village Rites and future black spells) and red mana, at no cost since it entering tapped doesn't matter this turn.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -67675,7 +67681,8 @@
       "betterLine": "Play Swamp to enable Village Rites (if a sacrifice opportunity arises) and diversify mana base. They already have 3 Mountains which is more than enough red for their 5-drops.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 32
     },
     {
       "severity": "minor",
@@ -67684,7 +67691,8 @@
       "betterLine": "Play Thriving Moor (choosing red) to have 5 mana sources available next turn, enabling Plundering Predator or Storm Fleet Pyromancer.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -67693,7 +67701,8 @@
       "betterLine": "Play Thriving Moor (choosing red) to have 5 mana sources next turn, enabling Plundering Predator or Storm Fleet Pyromancer on curve.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -67702,7 +67711,8 @@
       "betterLine": "Cast Siege Striker (2W), then go to combat. Attack with Siege Striker and one flyer, tapping remaining creatures to pump Siege Striker. For example, attack with Siege Striker + Lightwalker, tap Conjurer and Overseer to make Siege Striker a 3/3 double strike dealing 6 + 3 flying = 9 damage, putting opponent to 5.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "GPT52 Brewer"
+      "player": "GPT52 Brewer",
+      "decisionIndex": 53
     },
     {
       "severity": "major",
@@ -67711,7 +67721,8 @@
       "betterLine": "Play a Swamp, then cast Crypt Lurker (3B) using 3 Mountains + 1 Swamp. On ETB, sacrifice Kari Zev to draw a card, getting a 3/4 body and an extra card to potentially find an answer to the lethal flyers.",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -67720,7 +67731,8 @@
       "betterLine": "Play a Swamp (or Thriving Moor) to have 5 lands available next turn, enabling casting of Plundering Predator or Storm Fleet Pyromancer on turn 15.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -67729,7 +67741,8 @@
       "betterLine": "Discard a third Swamp, keeping Village Rites as a cheap way to dig for answers while deploying lands and creatures over the next turns.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "QwCdr Stats"
+      "player": "QwCdr Stats",
+      "decisionIndex": 66
     }
   ],
   "blunderScriptVersion": 32

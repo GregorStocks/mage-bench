@@ -23827,7 +23827,8 @@
       "betterLine": "Let Preordain resolve. Save Force of Negation for a high-impact spell like a counterspell on your Goryo's Vengeance or a game-changing threat. Preordain is card selection, not a must-counter spell.",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "o3 Grudge"
+      "player": "o3 Grudge",
+      "decisionIndex": 11
     },
     {
       "severity": "major",
@@ -23836,7 +23837,8 @@
       "betterLine": "Let Mishra's Bauble resolve - it only provides the opponent a scry-like effect and a delayed draw. Save Force of Negation for a meaningful threat or combo piece.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "o3 Grudge"
+      "player": "o3 Grudge",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -23845,7 +23847,8 @@
       "betterLine": "Cast Monastery Swiftspear first, then cast Cori-Steel Cutter as the second spell to trigger both Swiftspear's prowess and Flurry, getting a 2/3 haste Swiftspear plus a 2/2 haste trample Monk.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Gem3F Lucky"
+      "player": "Gem3F Lucky",
+      "decisionIndex": 30
     },
     {
       "severity": "moderate",
@@ -23854,7 +23857,8 @@
       "betterLine": "Cast Lava Dart targeting opponent (1 damage), flashback Lava Dart sacrificing Mountain (1 damage), then cast Mutagenic Growth on Monastery Swiftspear paying 2 life, then attack with Swiftspear and non-sick Monk for exactly lethal.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "Gem3F Lucky"
+      "player": "Gem3F Lucky",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -23863,7 +23867,8 @@
       "betterLine": "Skip the fetch. Cast Lava Dart targeting opponent (R from Thundering Falls), then cast Mutagenic Growth (pay 2 life) on Monastery Swiftspear, then attack with all creatures for exactly lethal (12 combat + 1 Lava Dart = 13 vs 12 life).",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gem3F Lucky"
+      "player": "Gem3F Lucky",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -23872,7 +23877,8 @@
       "betterLine": "Cast Lava Dart targeting opponent (1 damage, triggers Cori-Steel Cutter flurry for a 4th attacker with prowess), then attack with all 4 creatures, cast Mutagenic Growth on Swiftspear in combat for additional prowess triggers and +2/+2, potentially dealing lethal.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Gem3F Lucky"
+      "player": "Gem3F Lucky",
+      "decisionIndex": 61
     },
     {
       "severity": "major",
@@ -23881,11 +23887,12 @@
       "betterLine": "Cast Mutagenic Growth (paying 2 life) targeting the biggest attacker, then cast Lava Dart targeting the opponent, triggering prowess twice on all three attacking creatures for likely lethal damage.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Gem3F Lucky"
+      "player": "Gem3F Lucky",
+      "decisionIndex": 61
     }
   ],
   "blunderScriptVersion": 16,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

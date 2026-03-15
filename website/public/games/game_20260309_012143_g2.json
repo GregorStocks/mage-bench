@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_012143_g2",
   "timestamp": "20260309_012143",
   "gameType": "Two Player Duel",
@@ -132516,7 +132516,8 @@
       "betterLine": "Keep the 7-card hand. Distinguished Conjurer on turn 2 is a solid start, and with ~75%+ chance to find a 3rd land by turn 3, the risk is manageable given the hand's enormous synergy potential. Mulliganing to 6 risks losing both card advantage and this powerful combination of cards.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -132525,7 +132526,8 @@
       "betterLine": "Cast Revitalize to gain 3 life, draw a card, and trigger Griffin Aerie at end step for a 2/2 flying token.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 27
     },
     {
       "severity": "major",
@@ -132534,7 +132536,8 @@
       "betterLine": "Cast Revitalize to gain 3 life, draw a card, and trigger Griffin Aerie at end of turn to create a 2/2 flying Griffin token.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -132543,7 +132546,8 @@
       "betterLine": "Cast Revitalize for {1}{W} to gain 3 life (netting even on life), draw a card, and trigger Griffin Aerie to create a 2/2 flying Griffin token at end of turn.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -132552,7 +132556,8 @@
       "betterLine": "Choose Green for Thriving Heath to have potential synergy with Emiel the Blessed's {G/W} ability if drawn later",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -132561,7 +132566,8 @@
       "betterLine": "Cast Revitalize to gain 3 life, draw a card, and trigger Griffin Aerie for a 2/2 flying Griffin token at end of turn. Could also consider casting Angelic Page to develop the board.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -132570,7 +132576,8 @@
       "betterLine": "Attack with both Anointed Chorister and Basri's Acolyte for 4 unblockable damage and 2 life from lifelink. The opponent is completely tapped out with no available blockers.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 91
     },
     {
       "severity": "questionable",
@@ -132579,7 +132586,8 @@
       "betterLine": "Cast Angelic Ascension targeting Preston, the Vanisher while the opponent is tapped out. The resulting 4/4 Angel token is manageable with Baneslayer Angel, and removing Preston prevents a powerful value engine from taking over the game.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -132588,7 +132596,8 @@
       "betterLine": "Bounce Basri's Acolyte to replay later for additional +1/+1 counter value, or bounce Griffin Aerie (cheap to replay at 2 mana) to preserve all creatures and counters on the battlefield.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 109
     },
     {
       "severity": "questionable",
@@ -132597,7 +132606,8 @@
       "betterLine": "Cast Angelic Ascension targeting Preston, the Vanisher while the opponent is tapped out. The resulting 4/4 Angel token is dominated by Baneslayer Angel in combat, and removing Preston prevents future Illusion token generation and the exile ability.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 109
     },
     {
       "severity": "minor",
@@ -132606,7 +132616,8 @@
       "betterLine": "Attack with at least Basri's Acolyte (risk-free due to surviving Preston's 2 damage with its 3 toughness, plus lifelink synergy with Griffin Aerie). Ideally attack with both creatures — opponent is tapped out with no tricks available, guaranteeing 2-3 damage gets through.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 114
     },
     {
       "severity": "questionable",
@@ -132615,7 +132626,8 @@
       "betterLine": "Attack with Preston, the Vanisher. It survives any single blocker and likely forces a favorable trade. Even if double-blocked, Preston survives at 1 toughness. With opponent's lands tapped, combat tricks are very unlikely. However, keeping Preston back to protect the combo engine is a reasonable alternative plan.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 133
     },
     {
       "severity": "moderate",
@@ -132624,7 +132636,8 @@
       "betterLine": "Attack with at least Emancipation Angel and Angelic Page for 4 free flying damage. Could also send ground creatures since opponent can only block one with Preston (2/5), dealing additional damage. With opponent at 23 life, every point of pressure matters.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 141
     },
     {
       "severity": "moderate",
@@ -132633,7 +132646,8 @@
       "betterLine": "Cast Cloudshift targeting Wispweaver Angel to start the Preston/Wispweaver flicker chain, generating multiple Illusion tokens and potentially reaching 5 Illusions to exile Baneslayer Angel with Preston's activated ability.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 145
     },
     {
       "severity": "minor",
@@ -132642,7 +132656,8 @@
       "betterLine": "Let Distinguished Conjurer resolve first, then cast Cloudshift targeting Wispweaver Angel. DC would see Wispweaver enter (gain 1 life), the Preston Illusion copy of DC would also trigger, and further blink chains would generate more value.",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 146
     },
     {
       "severity": "moderate",
@@ -132651,7 +132666,8 @@
       "betterLine": "Cast Flicker of Fate targeting Distinguished Conjurer (or another creature) to get an additional Preston Illusion token copy and ETB triggers, maximizing the value of having Preston on the battlefield.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 149
     },
     {
       "severity": "minor",
@@ -132660,7 +132676,8 @@
       "betterLine": "Flicker Distinguished Conjurer to get an Illusion token from Preston's trigger, building toward the 5-Illusion exile ability while keeping the blink chain value higher",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 154
     },
     {
       "severity": "minor",
@@ -132669,7 +132686,8 @@
       "betterLine": "Cast Flicker of Fate targeting Wispweaver Angel (or Distinguished Conjurer) to generate additional Illusion tokens via Preston and life via Distinguished Conjurer, creating a chain of ETB value triggers.",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 161
     },
     {
       "severity": "moderate",
@@ -132678,7 +132696,8 @@
       "betterLine": "Target Distinguished Conjurer with the Wispweaver Angel ETB. It gets flickered and returns, triggering Preston to create a 0/1 Illusion copy of Distinguished Conjurer, and the original Conjurer then triggers on future creature entries for life gain. This generates actual value instead of destroying your own token.",
       "type": "blunder",
       "snapshotIndex": 238,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 165
     },
     {
       "severity": "minor",
@@ -132687,7 +132706,8 @@
       "betterLine": "Target the real Wispweaver Angel (p69) to create a flicker chain, generating multiple Illusion tokens and ETB triggers for significantly more value.",
       "type": "blunder",
       "snapshotIndex": 246,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -132696,7 +132716,8 @@
       "betterLine": "Attack with all creatures (Baneslayer Angel, Emancipation Angel, Anointed Chorister, Basri's Acolyte, Angelic Page) for 13 unblockable damage since every opponent creature is summoning sick and cannot block. This would put opponent to 19 instead of 27.",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 198
     },
     {
       "severity": "minor",
@@ -132705,7 +132726,8 @@
       "betterLine": "Tap Angelic Page to give an attacking creature (likely Baneslayer Angel or Emancipation Angel) +1/+1 for free extra damage. Could also consider casting Feat of Resistance on Baneslayer Angel for a permanent +1/+1 counter.",
       "type": "blunder",
       "snapshotIndex": 295,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 200
     },
     {
       "severity": "questionable",
@@ -132714,7 +132736,8 @@
       "betterLine": "Block Baneslayer Angel with one of the 0/1 Wispweaver Angel tokens to prevent 5 damage. The token has minimal combat value and preserving 5 life points is likely more important than keeping a 0/1 body for future blink synergies.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 203
     },
     {
       "severity": "minor",
@@ -132723,7 +132746,8 @@
       "betterLine": "Activate Angelic Page targeting Baneslayer Angel to get +1 damage and +1 life for free. Feat of Resistance could also be considered for a permanent +1/+1 counter, but at minimum the Page activation is pure upside.",
       "type": "blunder",
       "snapshotIndex": 296,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 201
     },
     {
       "severity": "minor",
@@ -132732,7 +132756,8 @@
       "betterLine": "Tap Angelic Page to give Baneslayer Angel +1/+1 until end of turn, dealing 6 damage instead of 5 and gaining 6 life instead of 5.",
       "type": "blunder",
       "snapshotIndex": 299,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 204
     },
     {
       "severity": "minor",
@@ -132741,7 +132766,8 @@
       "betterLine": "Activate Angelic Page targeting Baneslayer Angel to get a free +1/+1 pump, dealing 6 damage instead of 5 and gaining 6 life instead of 5. Could also consider Feat of Resistance for a permanent +1/+1 counter.",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 207
     },
     {
       "severity": "moderate",
@@ -132750,7 +132776,8 @@
       "betterLine": "Block the 4/4 Angel Token with Emancipation Angel, then cast Feat of Resistance on Emancipation Angel choosing protection from white. This kills the Angel Token, saves Emancipation Angel (now a 4/4 with protection from white), and preserves 4 life.",
       "type": "blunder",
       "snapshotIndex": 340,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 236
     },
     {
       "severity": "minor",
@@ -132759,7 +132786,8 @@
       "betterLine": "Cast Feat of Resistance targeting Emancipation Angel, choose protection from white, then block the 4/4 Angel Token. Emancipation Angel becomes 4/4, takes no damage from the white token due to protection, and the token dies. Net result: permanent +1/+1 counter on Emancipation Angel and opponent loses their 4/4 flyer.",
       "type": "blunder",
       "snapshotIndex": 345,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 241
     },
     {
       "severity": "minor",
@@ -132768,7 +132796,8 @@
       "betterLine": "Tap Angelic Page to give Griffin Token +1/+1, dealing 1 extra damage for free",
       "type": "blunder",
       "snapshotIndex": 358,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 247
     },
     {
       "severity": "minor",
@@ -132777,7 +132806,8 @@
       "betterLine": "Target Baneslayer Angel with Angelic Page's pump to get +1 damage AND +1 life from lifelink, maximizing the 2-point life differential swing",
       "type": "blunder",
       "snapshotIndex": 360,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 249
     },
     {
       "severity": "minor",
@@ -132786,7 +132816,8 @@
       "betterLine": "Cast Feat of Resistance targeting Baneslayer Angel, choosing protection from white (or any relevant color), gaining a permanent +1/+1 counter and dealing 6 lifelink damage instead of 5.",
       "type": "blunder",
       "snapshotIndex": 362,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 252
     },
     {
       "severity": "minor",
@@ -132795,7 +132826,8 @@
       "betterLine": "Cast Feat of Resistance targeting Baneslayer Angel, choosing protection from white. This permanently buffs Baneslayer to 6/6, deals 1 extra damage and gains 1 extra life this combat, and the protection could be relevant against the opponent's white creatures/removal.",
       "type": "blunder",
       "snapshotIndex": 364,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 254
     },
     {
       "severity": "minor",
@@ -132804,7 +132836,8 @@
       "betterLine": "Cast Brightmare targeting Emiel the Blessed to tap it and gain 4 life, leaving 3 mana open for Feat of Resistance to protect Baneslayer Angel or another key creature if needed. This provides nearly the same life gain, better tempo by neutralizing Emiel for a turn, and keeps mana available for interaction.",
       "type": "blunder",
       "snapshotIndex": 368,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 257
     },
     {
       "severity": "questionable",
@@ -132813,7 +132846,8 @@
       "betterLine": "Target Basri's Acolyte (untapped 2/3 lifelink) to tap it and prevent it from blocking, enabling more profitable attacks this combat. The 3 less life gained could be offset by better combat outcomes.",
       "type": "blunder",
       "snapshotIndex": 392,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 269
     }
   ],
   "blunderScriptVersion": 32,

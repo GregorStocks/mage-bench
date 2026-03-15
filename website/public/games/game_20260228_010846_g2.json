@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_010846_g2",
   "timestamp": "20260228_010846",
   "gameType": "Two Player Duel",
@@ -100008,7 +100008,8 @@
       "betterLine": "Cast Jousting Lance for {2} to deploy it to the battlefield, so it's ready to equip once creatures are played in subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -100017,7 +100018,8 @@
       "betterLine": "Attack with Fanatical Firebrand for 1 free damage. The chance opponent plays a 1-toughness creature needing an immediate ping before your next untap is low with only 1 available Plains.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -100026,7 +100028,8 @@
       "betterLine": "Attack with Fanatical Firebrand for 1 unblocked damage.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -100035,7 +100038,8 @@
       "betterLine": "Block Fanatical Firebrand with Skyhunter Prowler. The Prowler survives (1/3 vs 1/1) and the Firebrand dies, removing a threat and its sacrifice ability.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -100044,7 +100048,8 @@
       "betterLine": "Attack with Skyhunter Prowler for 1 free damage. With vigilance, flying, and the opponent tapped out, there is zero risk.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -100053,7 +100058,8 @@
       "betterLine": "Play Buried Ruin to have access to its artifact recursion ability (targeting Meteor Golem in graveyard) while still producing mana toward future plays",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -100062,7 +100068,8 @@
       "betterLine": "Play Buried Ruin to have the option of recovering Meteor Golem from the graveyard later, while still progressing toward casting Markov Warlord",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -100071,7 +100078,8 @@
       "betterLine": "Attack with Skyhunter Prowler for 1 unblockable damage. With vigilance, there is absolutely no downside to this attack.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 40
     },
     {
       "severity": "questionable",
@@ -100080,7 +100088,8 @@
       "betterLine": "Target Tempered Veteran with Fiery Conclusion to shut down the counter engine. The Prowler can be bounced with Aether Spellbomb or blocked later by Scholar of the Lost Trove's 5/5 flying body.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 47
     },
     {
       "severity": "questionable",
@@ -100089,7 +100098,8 @@
       "betterLine": "Sacrifice Aether Spellbomb for {1} to draw a card, or pay {U} to bounce Tempered Veteran and strip its +1/+1 counter. Drawing a card with unused mana is generally correct when no other plays exist.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -100098,7 +100108,8 @@
       "betterLine": "Activate Aether Spellbomb's {1} sacrifice ability to draw a card, using mana that would otherwise go to waste. Alternatively, pay {U} to bounce Tempered Veteran, removing its +1/+1 counter and forcing the opponent to replay it.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 51
     },
     {
       "severity": "moderate",
@@ -100107,7 +100118,8 @@
       "betterLine": "Attack with Markov Warlord for 4 unblockable damage, bringing the opponent from 19 to 15 life.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -100116,7 +100128,8 @@
       "betterLine": "Play Plains first, then activate Tempered Veteran ({W},{T}) to put a +1/+1 counter on Trusty Retriever (or itself), then cast Patron of the Valiant for {3}{W}{W} with the remaining 5 mana. Patron's ETB would then distribute more +1/+1 counters.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 71
     },
     {
       "severity": "moderate",
@@ -100125,7 +100138,8 @@
       "betterLine": "Attack with Markov Warlord for 4 unblockable damage (assuming ETB targeted the two non-sick creatures), bringing opponent to 11 life and maintaining pressure.",
       "type": "blunder",
       "snapshotIndex": 208,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -100134,7 +100148,8 @@
       "betterLine": "Either hold Shining Armor (flash) and cast Jousting Lance + equip for an aggressive attack, or cast Bulwark Giant to gain 5 life and stabilize. Shining Armor should be kept in hand to use as a surprise during combat or on opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 215,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 82
     },
     {
       "severity": "moderate",
@@ -100143,7 +100158,8 @@
       "betterLine": "At minimum attack with Patron of the Valiant for 4 unblockable flying damage. Ideally attack with all three creatures, as the ground creatures survive blocking from the 4/4 Markov Warlord and force unfavorable trades for the opponent.",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 88
     },
     {
       "severity": "minor",
@@ -100152,7 +100168,8 @@
       "betterLine": "Activate Tempered Veteran targeting Trusty Retriever to permanently make it 5/6 for {W}, then still have 3 mana available post-combat for Jousting Lance.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -100161,7 +100178,8 @@
       "betterLine": "Activate Tempered Veteran to put a +1/+1 counter on Trusty Retriever (making it 5/6), gaining permanent board value at minimal mana cost.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 91
     },
     {
       "severity": "questionable",
@@ -100170,7 +100188,8 @@
       "betterLine": "Activate Tempered Veteran to put a +1/+1 counter on Trusty Retriever before blocks, getting an extra point of damage through if unblocked, at minimal cost (1 white mana and tapping the Veteran which isn't attacking)",
       "type": "blunder",
       "snapshotIndex": 231,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 92
     },
     {
       "severity": "moderate",
@@ -100179,7 +100198,8 @@
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Patron of the Valiant, then block Trusty Retriever with Markov Warlord. This prevents all combat damage and keeps life total at 10, with Scholar of the Lost Trove castable next turn for a powerful recovery.",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 93
     },
     {
       "severity": "questionable",
@@ -100188,7 +100208,8 @@
       "betterLine": "Activate Tempered Veteran ({W}, {T}) to put a +1/+1 counter on Trusty Retriever (or itself) before Meteor Golem potentially destroys the Veteran. This secures incremental value that could be lost entirely if Meteor Golem targets the Veteran.",
       "type": "blunder",
       "snapshotIndex": 248,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 97
     },
     {
       "severity": "questionable",
@@ -100197,7 +100218,8 @@
       "betterLine": "Destroy Tempered Veteran to stop the counter engine, relying on Scholar of the Lost Trove to block Patron of the Valiant in subsequent turns",
       "type": "blunder",
       "snapshotIndex": 252,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 99
     },
     {
       "severity": "moderate",
@@ -100206,7 +100228,8 @@
       "betterLine": "Attack with Markov Warlord for 4 unblocked damage, reducing opponent to 11 life.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 105
     },
     {
       "severity": "minor",
@@ -100215,7 +100238,8 @@
       "betterLine": "Pass the turn and save Aether Spellbomb. Next turn with untapped Islands, use the {U} bounce mode to return the Trusty Retriever 5/6 (removing 3 +1/+1 counters) or another threatening creature, potentially enabling a lethal attack with the 5/5 flyer and other creatures.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 107
     },
     {
       "severity": "minor",
@@ -100224,7 +100248,8 @@
       "betterLine": "Cast Jousting Lance (2 mana) and equip to Trusty Retriever (3 mana), giving it +2/+0 and first strike. Then attack with both Retriever (7/6 first strike) and Tempered Veteran (3/6) for 10 total power, potentially lethal or near-lethal depending on blocks.",
       "type": "blunder",
       "snapshotIndex": 277,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 109
     },
     {
       "severity": "moderate",
@@ -100233,7 +100258,8 @@
       "betterLine": "Activate the {W} ability to put a +1/+1 counter on a creature that already has one (Trusty Retriever or Tempered Veteran), then cast Bulwark Giant for 6 mana to gain 5 life and add a 3/6 blocker.",
       "type": "blunder",
       "snapshotIndex": 277,
-      "player": "Grk41F Heckler"
+      "player": "Grk41F Heckler",
+      "decisionIndex": 109
     },
     {
       "severity": "major",
@@ -100242,7 +100268,8 @@
       "betterLine": "Attack with all creatures. Bolt Hound gives +1/+0 to others. Scholar (6 power, flying, unblockable) + two of {Markov Warlord 5/4, Meteor Golem 4/3, Bolt Hound 2/2} get through unblocked since opponent has only one ground blocker. Total unblocked damage exceeds 11 life — this is lethal.",
       "type": "blunder",
       "snapshotIndex": 311,
-      "player": "Opus Sport"
+      "player": "Opus Sport",
+      "decisionIndex": 120
     }
   ],
   "blunderScriptVersion": 28,

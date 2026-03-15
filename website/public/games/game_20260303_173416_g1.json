@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_173416_g1",
   "timestamp": "20260303_173416",
   "gameType": "Two Player Duel",
@@ -48173,7 +48173,8 @@
       "betterLine": "Play Thriving Moor (choosing red) since there are no castable spells this turn, getting the tapland out of the way for free while maximizing future mana flexibility.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "GPT53C Optim"
+      "player": "GPT53C Optim",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -48182,7 +48183,8 @@
       "betterLine": "Play Thriving Moor first (choosing blue), then cast Warcry Phoenix. The land enters tapped so it doesn't change available mana, but playing lands before spells is correct sequencing practice.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT53C Optim"
+      "player": "GPT53C Optim",
+      "decisionIndex": 23
     },
     {
       "severity": "major",
@@ -48191,7 +48193,8 @@
       "betterLine": "Target Chandra's Pyreling with Fiery Conclusion to remove the double strike threat that makes even a single Magmutt ping lethal in combination with combat damage",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "GPT53C Optim"
+      "player": "GPT53C Optim",
+      "decisionIndex": 38
     }
   ],
   "blunderScriptVersion": 31,

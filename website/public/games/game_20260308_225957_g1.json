@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_225957_g1",
   "timestamp": "20260308_225957",
   "gameType": "Two Player Duel",
@@ -103157,7 +103157,8 @@
       "betterLine": "Accept the trigger and search for a Forest (or basic land) to ramp toward casting Affectionate Indrik next turn and enable future Landfall triggers for Turntimber Basilisk.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 78
     },
     {
       "severity": "major",
@@ -103166,7 +103167,8 @@
       "betterLine": "Play Evolving Wilds, cast Turntimber Basilisk ({1}{G}{G}), then crack Evolving Wilds to trigger Basilisk's landfall (forcing an opponent's creature to block the deathtoucher). Then attack with Primeval Herald (triggering another land search/landfall). This develops the board, removes an opponent's creature via deathtouch, and advances the game plan significantly.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 105
     },
     {
       "severity": "minor",
@@ -103175,7 +103177,8 @@
       "betterLine": "Block only one Goblin with Oashra Cultivator (which survives at 0/2) and take 1 damage from the unblocked token. Going to 17 life is negligible, while preserving the Basilisk's deathtouch + landfall forced-block ability provides much more value for future turns.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 138
     },
     {
       "severity": "minor",
@@ -103184,7 +103187,8 @@
       "betterLine": "Cast Ranger's Guile targeting Turntimber Basilisk to give it +1/+1 and hexproof, saving it from combat death. The Basilisk's deathtouch and landfall ability (with Evolving Wilds in hand) make it well worth the 1 mana investment.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 141
     },
     {
       "severity": "minor",
@@ -103193,7 +103197,8 @@
       "betterLine": "Cast Ranger's Guile on Primeval Herald to make it 4/2 with hexproof, dealing 4 damage and protecting it from potential instant-speed removal from the opponent's 4 cards in hand.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 164
     },
     {
       "severity": "minor",
@@ -103202,7 +103207,8 @@
       "betterLine": "Let Chandra resolve, then hold Ranger's Guile to respond to whichever activated ability the opponent chooses. This way you can protect the actual targeted creature (if any) or save the card if Chandra targets the player.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 169
     },
     {
       "severity": "minor",
@@ -103211,7 +103217,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land (likely a Mountain for color flexibility or Forest), thinning the deck and adding a land for future turns.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 188
     },
     {
       "severity": "moderate",
@@ -103220,7 +103227,8 @@
       "betterLine": "Attack with at least Affectionate Indrik alongside Primeval Herald for 7 total damage (3+4). The opponent has no blockers and no mana to interact. Oashra Cultivator attacking for 0 is irrelevant, but the Indrik's 4 damage is critical free value.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 196
     },
     {
       "severity": "minor",
@@ -103229,7 +103237,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land, thinning the deck and ensuring an extra untapped land next turn.",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 198
     },
     {
       "severity": "minor",
@@ -103238,7 +103247,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land, thinning the deck and ensuring future land drops with 0 cards in hand.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 206
     },
     {
       "severity": "minor",
@@ -103247,7 +103257,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land (free deck thinning with no downside). Could also consider activating Oashra Cultivator since there are no cards in hand to use the mana on otherwise.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 206
     },
     {
       "severity": "minor",
@@ -103256,7 +103267,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land (likely Forest or another color if available), thinning the deck. Could also consider activating Oashra Cultivator since the opponent has no creatures and the 0/3 body has minimal defensive value, converting it into ramp for future turns.",
       "type": "blunder",
       "snapshotIndex": 231,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 208
     },
     {
       "severity": "minor",
@@ -103265,7 +103277,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic Forest (or Mountain if splashing), thinning the deck for free. Consider also activating Oashra Cultivator since there's nothing else to spend mana on.",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 210
     }
   ],
   "blunderScriptVersion": 32,

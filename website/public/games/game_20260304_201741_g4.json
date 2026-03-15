@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_201741_g4",
   "timestamp": "20260304_201741",
   "gameType": "Two Player Duel",
@@ -86303,7 +86303,8 @@
       "betterLine": "Choose Black as the additional color for Thriving Isle, since the deck appears to have more black cards that would benefit from the mana fixing",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MiniMx Heckler"
+      "player": "MiniMx Heckler",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -86312,7 +86313,8 @@
       "betterLine": "Put Island on the bottom, keeping Teferi's Tutelage on top to draw next turn. Teferi's Tutelage + Bruvac is a powerful mill engine and the player is already flooded with lands.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "MiniMx Heckler"
+      "player": "MiniMx Heckler",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -86321,7 +86323,8 @@
       "betterLine": "Activate Teferi's Protege to draw and discard, digging for better cards, then potentially cast Bruvac with remaining mana if the payment works (though with Protege tapped, only 3 mana from lands would remain which should suffice for Bruvac's {2}{U} cost).",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "MiniMx Heckler"
+      "player": "MiniMx Heckler",
+      "decisionIndex": 28
     },
     {
       "severity": "questionable",
@@ -86330,7 +86333,8 @@
       "betterLine": "Cast Bruvac the Grandiloquent for 3 mana, establishing a mill engine with Belltower Sphinx while holding up Sweep Away to bounce Lord of the Accursed or other threats",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "MiniMx Heckler"
+      "player": "MiniMx Heckler",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -86339,7 +86343,8 @@
       "betterLine": "Play Swamp first, then cast Deadly Plot. This leaves 2 mana open (including {B}) which enables Necromancer's Stockpile activation or Lord of the Accursed's menace ability if needed.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT53C Snark"
+      "player": "GPT53C Snark",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -86348,7 +86353,8 @@
       "betterLine": "Activate Necromancer's Stockpile discarding Elvish Rejuvenator to draw a card, since the 2 mana available cannot cast either hand card this turn anyway, making this essentially free card filtering.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "GPT53C Snark"
+      "player": "GPT53C Snark",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -86357,7 +86363,8 @@
       "betterLine": "Activate Necromancer's Stockpile discarding Gravedigger to draw a card and create a 2/2 Zombie token (3/3 with Lord of the Accursed), gaining both board presence and card advantage",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "GPT53C Snark"
+      "player": "GPT53C Snark",
+      "decisionIndex": 72
     },
     {
       "severity": "questionable",
@@ -86366,7 +86373,8 @@
       "betterLine": "Attack with only Belltower Sphinx (which has flying and is safe). Keep Bruvac back as a blocker and protect the mill-doubling engine. The 1 damage from Bruvac is not worth the risk of losing the deck's key synergy piece.",
       "type": "blunder",
       "snapshotIndex": 237,
-      "player": "MiniMx Heckler"
+      "player": "MiniMx Heckler",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -86375,7 +86383,8 @@
       "betterLine": "Cast both Crow of Dark Tidings (2B, flying Zombie) and Elvish Rejuvenator (2G) to deploy two creatures, get a flyer, and potentially ramp a land - using all 6 available mana efficiently",
       "type": "blunder",
       "snapshotIndex": 257,
-      "player": "GPT53C Snark"
+      "player": "GPT53C Snark",
+      "decisionIndex": 82
     },
     {
       "severity": "moderate",
@@ -86384,7 +86393,8 @@
       "betterLine": "Activate Necromancer's Stockpile, discarding Crow of Dark Tidings to draw a card and create a 3/3 Zombie token (2/2 + Lord of the Accursed buff), then proceed to combat.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "GPT53C Snark"
+      "player": "GPT53C Snark",
+      "decisionIndex": 83
     }
   ],
   "blunderScriptVersion": 32

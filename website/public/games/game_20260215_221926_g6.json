@@ -240492,7 +240492,8 @@
       "betterLine": "Play Sejiri Refuge turn 1 (enters tapped, gain 1 life, no tempo loss since nothing costs 1 mana in hand), then play Plains or Isolated Watchtower turn 2 untapped to cast a signet on curve.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -240501,7 +240502,8 @@
       "betterLine": "Actually this was correct - playing the tapped land first enables a 2-drop on turn 2",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -240510,7 +240512,8 @@
       "betterLine": "Dimir Signet was actually correct to enable casting Aminatou (WUB) by providing the missing black mana",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -240519,7 +240522,8 @@
       "betterLine": "Putting Puresteel Paladin on top is arguably better since the hand already has mana-producing enchantments (Abundant Growth, Fertile Ground) and Puresteel Paladin synergizes powerfully with the Argentum Armor in hand, but Sol Ring on top is defensible for raw acceleration",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -240528,7 +240532,8 @@
       "betterLine": "Play Mountain (untapped), then cast Mind Stone for 2 mana this turn. Play Silverbluff Bridge tapped on a later turn when there's less to do, or when the extra mana from Mind Stone covers the tempo loss.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -240537,7 +240542,8 @@
       "betterLine": "Put Argentum Armor on top of library (completely dead card costing 6 to cast and 6 to equip), keeping Terramorphic Expanse as a playable land drop for mana development",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -240546,7 +240552,8 @@
       "betterLine": "Put back Argentum Armor and Angel of Finality (the two most expensive, least castable cards), keeping Puresteel Paladin in hand for the equipment synergy plan",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -240555,7 +240562,8 @@
       "betterLine": "Return Mishra's Factory to hand, as it can be replayed untapped next turn for immediate mana access, while Halimar Depths enters tapped and the Chancery already covers the blue mana needs",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 62
     },
     {
       "severity": "questionable",
@@ -240564,7 +240572,8 @@
       "betterLine": "Discarding Angel of Finality might be slightly better since it's a mediocre 4-mana 3/4 with a situational graveyard exile ETB, while Argentum Armor has higher ceiling if the game goes long or if Galea is found to cast it from library top. However, this is close and Argentum Armor's massive cost makes it a reasonable discard too.",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -240573,7 +240582,8 @@
       "betterLine": "Cast Thran Dynamo (4 mana, taps for 3 colorless) to ramp into Oblivion Sower next turn, which is a much higher-impact play",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -240582,7 +240592,8 @@
       "betterLine": "Tap Mishra's Factory for {C}, cast Sol Ring, then play Halimar Depths as the land drop. This way they get both Sol Ring and Halimar Depths this turn, having significantly more mana available next turn.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 82
     },
     {
       "severity": "minor",
@@ -240591,7 +240602,8 @@
       "betterLine": "Take only Command Tower, which produces useful colorless mana. Skip Azorius Chancery since it produces unusable {W}{U} mana and forces bouncing a land.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 90
     },
     {
       "severity": "minor",
@@ -240600,7 +240612,8 @@
       "betterLine": "Return Wastes to hand instead, keeping the more versatile Command Tower on the battlefield",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 92
     },
     {
       "severity": "minor",
@@ -240609,7 +240622,8 @@
       "betterLine": "Play Isolated Watchtower (or Plains) first, then cast Duskmantle Seer with remaining mana",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -240618,7 +240632,8 @@
       "betterLine": "Activate Aminatou's +1 first to draw a card and see options, then decide whether to cast Duskmantle Seer or hold up resources based on what was drawn.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 103
     },
     {
       "severity": "questionable",
@@ -240627,7 +240642,8 @@
       "betterLine": "Cast Padeem, Consul of Innovation to protect artifacts (especially Oblivion Stone) with hexproof and potentially draw cards on upkeep",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 119
     },
     {
       "severity": "questionable",
@@ -240636,7 +240652,8 @@
       "betterLine": "Send at least the Oblivion Sower at Aminatou to kill her (5 damage vs likely 3-4 loyalty), and optionally send Matter Reshaper at the player for 3 damage. Removing Aminatou prevents ongoing card advantage and flickering.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 125
     },
     {
       "severity": "questionable",
@@ -240645,7 +240662,8 @@
       "betterLine": "Play Isolated Watchtower instead, saving Mortuary Mire for later when there might be a creature in the graveyard to recur. Isolated Watchtower provides immediate untapped mana and a useful scry/ramp ability.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 135
     },
     {
       "severity": "moderate",
@@ -240654,7 +240672,8 @@
       "betterLine": "Either activate Mishra's Factory to become a 2/2 Assembly-Worker first (option 2) and then potentially use the +1/+1 ability from another source, or simply tap it for {C} mana (option 1) to use toward casting a spell this turn, or leave it untapped for future use.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 146
     },
     {
       "severity": "minor",
@@ -240663,7 +240682,8 @@
       "betterLine": "Play Swamp first, then cast Padeem using Island + Silverbluff Bridge + Mind Stone + Commander's Sphere, then cast Oni-Cult Anvil with the remaining Mountain (R) and Swamp (B)",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 153
     },
     {
       "severity": "minor",
@@ -240672,7 +240692,8 @@
       "betterLine": "Play Swamp first, then cast Padeem, Consul of Innovation using the available mana (Island, Silverbluff Bridge, Mind Stone, Commander's Sphere can produce 3U). This develops a strong board presence that protects artifacts with hexproof and can draw extra cards.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 153
     },
     {
       "severity": "questionable",
@@ -240681,7 +240702,8 @@
       "betterLine": "Attack Aminatou with just Oblivion Sower (5 power is enough to kill it) and send Matter Reshaper at Gem3F Optim's face for 3 damage, or attack Gem3F with both creatures for 8 damage to pressure the lowest life total.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 156
     },
     {
       "severity": "minor",
@@ -240690,7 +240712,8 @@
       "betterLine": "Attack the most threatening opponent (likely KimiK2 at 38 life with the strongest board, or any opponent) with Duskmantle Seer for 4 free flying damage.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 175
     },
     {
       "severity": "minor",
@@ -240699,7 +240722,8 @@
       "betterLine": "Cast Abundant Growth first (on Exotic Orchard or Forest) to draw a card and potentially enable more plays, then cast Sol Ring with remaining mana, then potentially cast Fertile Ground or Ebony Fly to deploy more permanents before discarding to hand size.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -240708,7 +240732,8 @@
       "betterLine": "Tap Mishra's Factory for {C} mana instead to help cast Sol Ring or save the mana for casting other spells from hand like Ebony Fly, Fertile Ground, or Abundant Growth.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 185
     },
     {
       "severity": "moderate",
@@ -240717,7 +240742,8 @@
       "betterLine": "Tap Commander's Sphere for mana instead (or simply keep it as a mana rock). With a hand full of expensive spells and only 3 lands on board, the mana acceleration is far more valuable than drawing a 10th card. They should focus on deploying lands and ramping toward casting Padeem or Muzzio.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 198
     },
     {
       "severity": "moderate",
@@ -240726,7 +240752,8 @@
       "betterLine": "Should have discarded Scavenged Brawler (expensive, less synergistic), Oni-Cult Anvil (low impact without sacrifice fodder), and Reliquary Tower, keeping Muzzio and Hedron Archive which provide much better card advantage and ramp for the artifact strategy",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 201
     },
     {
       "severity": "minor",
@@ -240735,7 +240762,8 @@
       "betterLine": "Don't attack with Ornithopter of Paradise. Keep it back as a mana source and potential flying blocker. Only attack with Oblivion Sower (5/8) which actually deals meaningful damage.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 202
     },
     {
       "severity": "minor",
@@ -240744,7 +240772,8 @@
       "betterLine": "Play Island first, then cast Rancor (or consider Fertile Ground on a land to ramp, which provides lasting mana advantage)",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 239
     },
     {
       "severity": "minor",
@@ -240753,7 +240782,8 @@
       "betterLine": "Discard Scavenged Brawler, which has a useful graveyard exile ability (putting +1/+1 counters and keyword counters on a creature), or discard Mountain since they already have red sources and desperately need the black mana from Crumbling Necropolis to cast their key spells.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -240762,7 +240792,8 @@
       "betterLine": "Cast Perilous Vault (4 mana) + Burnished Hart (3 mana), deploying a board wipe threat and ramp creature, with mana left over",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 253
     },
     {
       "severity": "moderate",
@@ -240771,7 +240802,8 @@
       "betterLine": "Attack with all three flyers (or at minimum Enigma Sphinx and one other) at the most threatening opponent. Even with Sower of Discord's symmetry concern, 15 flying damage is too much to leave on the table.",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 273
     },
     {
       "severity": "questionable",
@@ -240780,7 +240812,8 @@
       "betterLine": "Let Riverwise Augur resolve first, see the 3 cards drawn, then decide whether to animate and attack with Mishra's Factory or use that mana elsewhere",
       "type": "blunder",
       "snapshotIndex": 240,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 285
     },
     {
       "severity": "questionable",
@@ -240789,7 +240822,8 @@
       "betterLine": "Wait for Riverwise Augur to resolve, see the 3 drawn cards, then decide whether to activate Factory and attack or hold mana for other plays",
       "type": "blunder",
       "snapshotIndex": 240,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 285
     },
     {
       "severity": "minor",
@@ -240798,7 +240832,8 @@
       "betterLine": "Keep Sram in hand and put back two of the less immediately impactful cards (e.g., Behemoth Sledge and one of the boots). Play Flood Plain, cast Sram this turn, then chain equipment casts on following turns for card draw.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 288
     },
     {
       "severity": "major",
@@ -240807,7 +240842,8 @@
       "betterLine": "Target an opponent's artifact instead - Transmogrifying Wand (KimiK2's creature removal threat) or Sol Ring (denying significant mana acceleration) would have been far superior choices.",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 300
     },
     {
       "severity": "minor",
@@ -240816,7 +240852,8 @@
       "betterLine": "Attack with only Oblivion Sower (5/8) and keep Ornithopter of Paradise back as a mana source, since it deals 0 combat damage anyway.",
       "type": "blunder",
       "snapshotIndex": 262,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 314
     },
     {
       "severity": "moderate",
@@ -240825,7 +240862,8 @@
       "betterLine": "Cast Entreat the Angels for X=1 or X=2 (depending on available white mana) to create 4/4 flying angel tokens, establishing board presence for both offense and defense.",
       "type": "blunder",
       "snapshotIndex": 271,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 328
     },
     {
       "severity": "questionable",
@@ -240834,7 +240872,8 @@
       "betterLine": "Attack Aminatou, the Fateshifter to reduce or remove the planeswalker, preventing further value generation from its abilities.",
       "type": "blunder",
       "snapshotIndex": 285,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 355
     },
     {
       "severity": "moderate",
@@ -240843,7 +240882,8 @@
       "betterLine": "Discard Scavenged Brawler (expensive, requires board presence they don't have, and is a creature-dependent card when they control no creatures) or Strionic Resonator (low impact without board presence to generate triggers)",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 372
     },
     {
       "severity": "minor",
@@ -240852,7 +240892,8 @@
       "betterLine": "Play Wastes (or Tyrite Sanctum) first, then cast Bane of Bala Ged. The land drop is free and provides an extra mana source for future turns.",
       "type": "blunder",
       "snapshotIndex": 304,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 377
     },
     {
       "severity": "minor",
@@ -240861,7 +240902,8 @@
       "betterLine": "Tap Eldrazi Temple for {C} (unrestricted, option 1) since Soul of New Phyrexia is not an Eldrazi and cannot use the restricted mana.",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 383
     },
     {
       "severity": "minor",
@@ -240870,7 +240912,8 @@
       "betterLine": "Play Flood Plain as land drop, then cast Fertile Ground on a land for additional mana production",
       "type": "blunder",
       "snapshotIndex": 316,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 393
     },
     {
       "severity": "questionable",
@@ -240879,7 +240922,8 @@
       "betterLine": "Play Izzet Boilerworks first (bouncing a Mountain), then cast Thran Dynamo with remaining mana (Island + Silverbluff Bridge + Seat of the Synod + Mountain = 4 mana), which would enable casting 6-mana threats like Brudiclad or Geth next turn. Alternatively, if keeping Strionic Resonator, at least play the land first to not waste the land drop opportunity with proper sequencing.",
       "type": "blunder",
       "snapshotIndex": 324,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 397
     },
     {
       "severity": "minor",
@@ -240888,7 +240932,8 @@
       "betterLine": "Bounce a tapped Mountain instead, preserving the artifact land for Improvise synergy with Herald of Anguish and other artifact-matters cards in hand",
       "type": "blunder",
       "snapshotIndex": 326,
-      "player": "GPT5m Romance"
+      "player": "GPT5m Romance",
+      "decisionIndex": 402
     },
     {
       "severity": "moderate",
@@ -240897,7 +240942,8 @@
       "betterLine": "Attack GPT5m Romance (15hp) to eliminate them from the game entirely, reducing the number of opponents and their future threat potential.",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 409
     },
     {
       "severity": "minor",
@@ -240906,7 +240952,8 @@
       "betterLine": "Simply tap Tomb of the Spirit Dragon for {C} if mana was needed, or leave it untapped. The 2 mana spent on this activation was wasted for zero benefit.",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 409
     },
     {
       "severity": "moderate",
@@ -240915,7 +240962,8 @@
       "betterLine": "Block with two Angel tokens to deal 8 damage total, killing the Bane of Bala Ged. Only one Angel would die (7 damage split as 4+3), trading one 4/4 token to permanently remove a devastating attacker.",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 414
     },
     {
       "severity": "questionable",
@@ -240924,7 +240972,8 @@
       "betterLine": "Consume the Artifact card type instead, preserving the ability to use/cast creature cards which tend to be higher impact in this board state",
       "type": "blunder",
       "snapshotIndex": 337,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 425
     },
     {
       "severity": "minor",
@@ -240933,7 +240982,8 @@
       "betterLine": "Cast Primordial Mist to generate recurring board presence and card advantage",
       "type": "blunder",
       "snapshotIndex": 339,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 429
     },
     {
       "severity": "minor",
@@ -240942,7 +240992,8 @@
       "betterLine": "Tap Tomb of the Spirit Dragon for {C} instead, preserving the 2 mana that was wasted on a 0-life-gain activation.",
       "type": "blunder",
       "snapshotIndex": 357,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 459
     },
     {
       "severity": "minor",
@@ -240951,7 +241002,8 @@
       "betterLine": "Hold Rancor in hand and cast it on a future turn when there's a permanent creature to enchant, or at minimum before combat on a future turn when Factory can attack with the bonus.",
       "type": "blunder",
       "snapshotIndex": 375,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 497
     },
     {
       "severity": "minor",
@@ -240960,7 +241012,8 @@
       "betterLine": "Enchant Azorius Chancery or Exotic Orchard with Fertile Ground for more reliable and efficient mana production without risking the aura if the land animates and dies",
       "type": "blunder",
       "snapshotIndex": 379,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 503
     },
     {
       "severity": "moderate",
@@ -240969,7 +241022,8 @@
       "betterLine": "At minimum, activate Primordial Mist's end step trigger to manifest the top card of library for free. Could also consider exiling the face-down Enigma Sphinx to potentially cast it.",
       "type": "blunder",
       "snapshotIndex": 382,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 507
     },
     {
       "severity": "minor",
@@ -240978,7 +241032,8 @@
       "betterLine": "At minimum, activate Primordial Mist to manifest the top card of the library for free, gaining a 2/2 body with potential to be flipped face-up later.",
       "type": "blunder",
       "snapshotIndex": 383,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 507
     },
     {
       "severity": "minor",
@@ -240987,7 +241042,8 @@
       "betterLine": "Simply tap Tomb of the Spirit Dragon for {C} if mana was needed, or save the mana for casting Hangarback Walker from hand.",
       "type": "blunder",
       "snapshotIndex": 384,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 511
     },
     {
       "severity": "moderate",
@@ -240996,7 +241052,8 @@
       "betterLine": "Attack with the face-down manifest creature, then if unblocked, activate Ninjutsu {1}{U} to put Ninja of the Deep Hours onto the battlefield attacking, draw a card from the combat damage trigger, and return the manifest (Enigma Sphinx) to hand for future casting",
       "type": "blunder",
       "snapshotIndex": 391,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 521
     },
     {
       "severity": "minor",
@@ -241005,7 +241062,8 @@
       "betterLine": "Cast Crystal Ball for {3} while opponents are tapped out, then hold up Utter End next turn with full mana available.",
       "type": "blunder",
       "snapshotIndex": 392,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 523
     },
     {
       "severity": "major",
@@ -241014,7 +241072,8 @@
       "betterLine": "Attack GLM47 Grudge with 4 Angel tokens (16 damage, lethal against 15 life) and KimiK2 Hothead with 4 Angel tokens (16 damage, lethal against 15 life) to win the game on the spot. Even attacking all at one player guarantees killing at least one opponent.",
       "type": "blunder",
       "snapshotIndex": 393,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 526
     },
     {
       "severity": "minor",
@@ -241023,7 +241082,8 @@
       "betterLine": "Play Arch of Orazca for the card draw potential, which helps rebuild from an empty board at 15 life",
       "type": "blunder",
       "snapshotIndex": 412,
-      "player": "KimiK2 Hothead"
+      "player": "KimiK2 Hothead",
+      "decisionIndex": 554
     },
     {
       "severity": "moderate",
@@ -241032,7 +241092,8 @@
       "betterLine": "Activate Primordial Mist to exile the manifested Enigma Sphinx face-up in response to Utter End, then cast Enigma Sphinx for 4WUB to get a 4/4 flyer plus cascade value",
       "type": "blunder",
       "snapshotIndex": 416,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 560
     },
     {
       "severity": "minor",
@@ -241041,7 +241102,8 @@
       "betterLine": "Block with Manifest: Plains to trade for Mishra's Factory, destroying an opponent's utility land at essentially no cost",
       "type": "blunder",
       "snapshotIndex": 425,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 584
     },
     {
       "severity": "minor",
@@ -241050,7 +241112,8 @@
       "betterLine": "Turn Loyal Unicorn face-up for {3}{W} to provide combat damage prevention for attacking creatures, or consider using Primordial Mist's exile ability on Enigma Sphinx if mana permits for cascade value.",
       "type": "blunder",
       "snapshotIndex": 426,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 587
     },
     {
       "severity": "minor",
@@ -241059,7 +241122,8 @@
       "betterLine": "Activate Primordial Mist to exile Manifest: Loyal Unicorn face-up, then cast Loyal Unicorn for {3}{W} using available untapped lands to get a real 3/4 creature instead of a 2/2 manifest token",
       "type": "blunder",
       "snapshotIndex": 427,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 587
     },
     {
       "severity": "minor",
@@ -241068,7 +241132,8 @@
       "betterLine": "Activate Mishra's Factory for {1} to make it a 2/2, then attack Gem3F Optim for 2 damage, reducing them from 22 to 20.",
       "type": "blunder",
       "snapshotIndex": 427,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 588
     },
     {
       "severity": "questionable",
@@ -241077,7 +241142,8 @@
       "betterLine": "Cast Eel Umbra on Cold-Eyed Selkie, making it a 2/2 with umbra armor that can draw cards on combat damage - more impactful in a 1v1 endgame at 15 vs 22 life where card advantage matters more than mana production",
       "type": "blunder",
       "snapshotIndex": 438,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 601
     },
     {
       "severity": "minor",
@@ -241086,7 +241152,8 @@
       "betterLine": "Either activate Mishra's Factory as a 2/2 creature and attack with it, or tap it for colorless mana to use on something else, or simply hold it untapped.",
       "type": "blunder",
       "snapshotIndex": 450,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 623
     },
     {
       "severity": "major",
@@ -241095,7 +241162,8 @@
       "betterLine": "Block with one or both Manifest creatures to prevent all combat damage and deny the massive card draw trigger",
       "type": "blunder",
       "snapshotIndex": 477,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 670
     },
     {
       "severity": "moderate",
@@ -241104,7 +241172,8 @@
       "betterLine": "Cast Primordial Mist to develop the board and generate card advantage through manifesting, while also potentially creating blockers or ninjutsu enablers for Yuriko.",
       "type": "blunder",
       "snapshotIndex": 487,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 677
     },
     {
       "severity": "moderate",
@@ -241113,7 +241182,8 @@
       "betterLine": "Attack with both Pilgrim's Eye and the Manifest creature for 3 free damage, bringing GLM47 from 14 to 11 HP. There is no possible downside since the opponent has no blockers and all permanents are tapped.",
       "type": "blunder",
       "snapshotIndex": 488,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 679
     },
     {
       "severity": "minor",
@@ -241122,7 +241192,8 @@
       "betterLine": "Use Primordial Mist to exile the manifested Loyal Subordinate face-up, then cast it for {2}{B} using untapped lands to get an additional 3/1 attacker/blocker on board",
       "type": "blunder",
       "snapshotIndex": 488,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 679
     },
     {
       "severity": "minor",
@@ -241131,7 +241202,8 @@
       "betterLine": "Accept the Primordial Mist trigger and manifest the top card, getting a free 2/2 creature that could serve as a blocker or be flipped face-up later.",
       "type": "blunder",
       "snapshotIndex": 490,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 680
     },
     {
       "severity": "minor",
@@ -241140,7 +241212,8 @@
       "betterLine": "Select only Shielding Plax, Robe of Stars, and Abundant Growth - all provide pure upside (hexproof, phasing protection, card draw, mana fixing) without the downside of turning the creature into a vanilla 3/3 Elk.",
       "type": "blunder",
       "snapshotIndex": 496,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 697
     },
     {
       "severity": "minor",
@@ -241149,7 +241222,8 @@
       "betterLine": "Skip the Factory activation and use that mana for other plays like casting Wild Growth on a land to ramp toward Netherese Puzzle-Ward, or simply save the mana.",
       "type": "blunder",
       "snapshotIndex": 497,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 697
     },
     {
       "severity": "minor",
@@ -241158,7 +241232,8 @@
       "betterLine": "Activate Mishra's Factory to make it a 2/2 creature, then attack Gem3F Optim to apply pressure toward the 6 damage needed for lethal",
       "type": "blunder",
       "snapshotIndex": 497,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 697
     },
     {
       "severity": "major",
@@ -241167,7 +241242,8 @@
       "betterLine": "Attack with all creatures (Pilgrim's Eye, both Manifests, and Conundrum Sphinx) for 9 unblocked damage, putting GLM47 at 5 HP and creating near-parity in life totals.",
       "type": "blunder",
       "snapshotIndex": 511,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 722
     },
     {
       "severity": "moderate",
@@ -241176,7 +241252,8 @@
       "betterLine": "Accept the manifest trigger to get a free 2/2 creature (Loyal Subordinate face-down). At 6 life, every blocker matters, and Primordial Mist can later exile it face-up to cast it properly.",
       "type": "blunder",
       "snapshotIndex": 513,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 724
     },
     {
       "severity": "minor",
@@ -241185,7 +241262,8 @@
       "betterLine": "Enchant Azorius Chancery with Wild Growth to get 3 mana ({W}{U}{G}) from a single land tap instead of just {G}{G}",
       "type": "blunder",
       "snapshotIndex": 518,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 734
     },
     {
       "severity": "moderate",
@@ -241194,7 +241272,8 @@
       "betterLine": "Activate Mishra's Factory to make it a 2/2, then attack Gem3F Optim for 2 damage, putting them to 4 life.",
       "type": "blunder",
       "snapshotIndex": 520,
-      "player": "GLM47 Grudge"
+      "player": "GLM47 Grudge",
+      "decisionIndex": 736
     },
     {
       "severity": "major",
@@ -241203,11 +241282,12 @@
       "betterLine": "Block Cold-Eyed Selkie with the Manifest (Loyal Subordinate) 2/2 creature to absorb all combat damage and survive.",
       "type": "blunder",
       "snapshotIndex": 522,
-      "player": "Gem3F Optim"
+      "player": "Gem3F Optim",
+      "decisionIndex": 739
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

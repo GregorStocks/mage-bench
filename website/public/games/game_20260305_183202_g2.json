@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260305_183202_g2",
   "timestamp": "20260305_183202",
   "gameType": "Two Player Duel",
@@ -68097,7 +68097,8 @@
       "betterLine": "Keep the 7-card hand. Two lands with a high curve is risky but the hand has powerful cards (Blessed Sanctuary, Valorous Steed, Inspiring Unicorn) and on-color lands. Drawing into a third land by turn 3 is likely (~75%), and the payoff of keeping 7 cards is significant.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT5 Valley"
+      "player": "GPT5 Valley",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -68106,7 +68107,8 @@
       "betterLine": "Cast Elemental Uprising targeting Forest, turning it into a 4/4 haste creature, and attack for 4 damage against the empty board. Then play a land postcombat and Cultivate next turn.",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "GPT54 Villain"
+      "player": "GPT54 Villain",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -68115,7 +68117,8 @@
       "betterLine": "Play Mountain (enters untapped), then cast Daybreak Charger for {1}{W} using Plains + Mountain to get a 3/1 creature on board immediately.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GPT5 Valley"
+      "player": "GPT5 Valley",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -68124,7 +68127,8 @@
       "betterLine": "Attack with at least the Elemental Token 2/2 for 2 free unblocked damage. The opponent has zero available blockers.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "GPT54 Villain"
+      "player": "GPT54 Villain",
+      "decisionIndex": 33
     }
   ],
   "blunderScriptVersion": 32

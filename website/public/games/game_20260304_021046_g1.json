@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_021046_g1",
   "timestamp": "20260304_021046",
   "gameType": "Two Player Duel",
@@ -46922,7 +46922,8 @@
       "betterLine": "Cast Mistwalker (1/4 flying) for immediate evasive pressure and better defense against Initiate's Companion, then play Pretender next turn",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -46931,7 +46932,8 @@
       "betterLine": "Choose 'Elemental' to synergize with Nyxathid in hand, or another type matching non-Changeling creatures in the deck",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -46940,7 +46942,8 @@
       "betterLine": "Attack with Initiate's Companion. If unblocked, deal 3 damage and untap a land (enabling potential Pouncing Cheetah flash play). If blocked by Wight, trade a 3/1 for a 1/1 which is acceptable.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GptOSS Lucky"
+      "player": "GptOSS Lucky",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -46949,7 +46952,8 @@
       "betterLine": "Attack with Bloodline Pretender (3/3). The opponent either takes 3 damage or trades their 3/1 Initiate's Companion for it, both of which are acceptable outcomes.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 23
     },
     {
       "severity": "questionable",
@@ -46958,7 +46962,8 @@
       "betterLine": "Attack with only Initiate's Companion (3/1), preserving Weaselback Redcap as Goblin Grenade fodder. The 1 extra damage from Redcap is not worth risking the 5-damage Grenade option.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GptOSS Lucky"
+      "player": "GptOSS Lucky",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -46967,7 +46972,8 @@
       "betterLine": "Target Mistwalker with Goblin Grenade to remove the flying threat that is very difficult to interact with otherwise, helping stabilize the board. Alternatively, target Bloodline Pretender to prevent it from continuing to grow. When behind on board, removal is worth more than face damage.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GptOSS Lucky"
+      "player": "GptOSS Lucky",
+      "decisionIndex": 35
     },
     {
       "severity": "questionable",
@@ -46976,7 +46982,8 @@
       "betterLine": "Cast Pirated Copy for 5 mana copying Bloodline Pretender or Wight of Precinct Six to immediately add another threat and increase board pressure while opponent is defenseless",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -46985,7 +46992,8 @@
       "betterLine": "Equip Heirloom Blade to any creature (costs 1 mana from untapped Swamp) for +3 power, then attack with all three creatures for 13 damage — lethal against opponent at 12 life.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -46994,7 +47002,8 @@
       "betterLine": "Equip Heirloom Blade to any creature (e.g., Wight of Precinct Six or Bloodline Pretender) for free value heading into what should be a lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "GPT53C Detect"
+      "player": "GPT53C Detect",
+      "decisionIndex": 42
     }
   ],
   "blunderScriptVersion": 32

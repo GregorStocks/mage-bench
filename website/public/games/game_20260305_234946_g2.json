@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260305_234946_g2",
   "timestamp": "20260305_234946",
   "gameType": "Two Player Duel",
@@ -119319,7 +119319,8 @@
       "betterLine": "Block Lightning-Core Excavator with Emancipation Angel to destroy it for free, removing the future threat of its 3-damage sacrifice ability.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GPT54 Minimal"
+      "player": "GPT54 Minimal",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -119328,7 +119329,8 @@
       "betterLine": "Pass without casting anything, take the 3 damage (go to 11 life), then next turn play a 5th land and deploy Baneslayer Angel or Serra Angel. The Sling-Gang's remaining drain potential (~2 life) is far less threatening than a 4/4 flyer. If wanting to use Angelic Ascension at all during combat, targeting Disciple of Perdition would be better to prevent its death trigger.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT54 Minimal"
+      "player": "GPT54 Minimal",
+      "decisionIndex": 156
     }
   ],
   "blunderScriptVersion": 32

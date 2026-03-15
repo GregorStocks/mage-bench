@@ -372483,7 +372483,8 @@
       "betterLine": "Play Mountain (or Plains) on turn 1, then play Boros Garrison on turn 2 bouncing the basic land. This gives access to RW mana on turn 2 instead of wasting turn 1 entirely.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -372492,7 +372493,8 @@
       "betterLine": "Play Memorial to Genius on turn 1 (enters tapped with no tempo loss), then play Island or another untapped land on turn 2 when you might have plays to make.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -372501,7 +372503,8 @@
       "betterLine": "Discard basic Swamp instead, keeping the superior dual land that also enables Nimbus Maze's W-producing ability",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -372510,7 +372513,8 @@
       "betterLine": "Play Swiftwater Cliffs to get the tapped land out of the way early, enabling a turn 3 Commander's Sphere with Island played untapped on turn 3.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -372519,7 +372523,8 @@
       "betterLine": "Play Boros Garrison, bouncing the existing Mountain back to hand. This provides RW mana starting turn 3 and effectively ramps toward the expensive spells in hand.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 16
     },
     {
       "severity": "questionable",
@@ -372528,7 +372533,8 @@
       "betterLine": "Play Memorial to Genius (or Blighted Cataract) since there are no 2-mana plays available anyway, and the tapped land would provide card draw utility later while still producing colored mana.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -372537,7 +372543,8 @@
       "betterLine": "Play Swiftwater Cliffs instead. It enters tapped but gains 1 life and provides colored mana next turn, enabling a turn 4 Commander's Sphere or setting up Pramikon. Save Temple of the False God for when closer to 5 lands.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -372546,7 +372553,8 @@
       "betterLine": "Use Fiery Fall's basic landcycling for {1}{R} to search for a basic land (likely an Island or Mountain), improving mana development while naturally reducing hand size. Alternatively, discard Elemental Masterpiece for {U/R}{U/R} to create a Treasure token.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -372555,7 +372563,8 @@
       "betterLine": "Discard Call the Skybreaker, which costs 7 mana (uncastable for many turns) and has retrace (can be cast from graveyard later by discarding a land), making it essentially free to discard. Alternatively, discard Fiery Encore which is also expensive and situational. Keep Blighted Cataract to play as a land drop next turn.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -372564,7 +372573,8 @@
       "betterLine": "Play Island (enters untapped) to have 3 untapped lands available, then cast Commander's Sphere this turn. This accelerates to 5 permanents counting as lands/mana sources faster, enabling Temple of the False God and earlier casting of Pramikon or Crackling Drake. Swiftwater Cliffs could be played on a future turn when there's less pressure to use all mana.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 38
     },
     {
       "severity": "moderate",
@@ -372573,7 +372583,8 @@
       "betterLine": "Discard Elemental Masterpiece for {U}{R} to create a Treasure token, providing ramp while mana-screwed and reducing hand size before the forced discard.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -372582,7 +372593,8 @@
       "betterLine": "Discard Desert of the Fervent or Fiery Encore. Desert is a low-impact tapped land when you have Memorial to Genius as a better land to play, and Fiery Encore requires setup that may not come together. Fiery Fall's landcycling is valuable when you're mana-light with only 2 lands in play.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -372591,7 +372603,8 @@
       "betterLine": "Cast Propaganda for 2U to establish a tax on all attacking creatures, providing broader protection in a multiplayer game where multiple opponents could attack.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -372600,7 +372613,8 @@
       "betterLine": "Tap Arcane Signet for Blue mana to enable casting Propaganda this turn, a much stronger play in a 4-player game",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -372609,7 +372623,8 @@
       "betterLine": "Cast Dungeon Map for 3 to ramp, then cast full Mulldrifter next turn for 4U to draw 2 cards and keep the body, accelerating the game plan significantly",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -372618,7 +372633,8 @@
       "betterLine": "Play Plains first (activating Temple of the False God), then cast Commander's Sphere with Temple mana, and potentially also cast Pramikon, Sky Rampart in the same turn",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -372627,7 +372643,8 @@
       "betterLine": "Play Boros Garrison (bouncing a Mountain) to improve mana production for future turns, or keep the land drop and cast Battlemage's Bracers with the 3 available mana (2 Mountains + Plains).",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 51
     },
     {
       "severity": "moderate",
@@ -372636,7 +372653,8 @@
       "betterLine": "Cast Thousand-Year Elixir for {3} to set up Osgir's activated abilities for when he's cast. This accelerates the powerful line of exiling Meteor Golem from graveyard to create two copies.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -372645,7 +372663,8 @@
       "betterLine": "Use Island and Mountain to pay {U}{R} and discard Elemental Masterpiece to create a Treasure token, reducing hand size to 7 while gaining a mana artifact.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -372654,7 +372673,8 @@
       "betterLine": "Discard Mountain instead, preserving Desert of the Fervent which has cycling utility and is otherwise equivalent as a land drop or retrace fodder.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -372663,7 +372683,8 @@
       "betterLine": "Cast Baleful Strix for {U}{B}, drawing a card, keeping the body for Phantom Steed synergy and future blocking, while leaving 1 mana open for Swords to Plowshares if needed.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 59
     },
     {
       "severity": "questionable",
@@ -372672,7 +372693,8 @@
       "betterLine": "Evoke Mulldrifter for {2}{U} to draw two cards, then use remaining mana to cast Baleful Strix (draw another card and get a 1/1 flying deathtouch blocker) for stronger board development",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -372681,7 +372703,8 @@
       "betterLine": "Cast Baleful Strix for UB (2 mana), drawing a card immediately and deploying a flying deathtouch blocker, with 1 mana left over",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -372690,7 +372713,8 @@
       "betterLine": "Play Plains to fix white mana, then cast Pramikon, Sky Rampart (using Mountain for R, Island/Swiftwater Cliffs for U, Plains for W) to establish a defensive wall with flying that restricts attack directions.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -372699,7 +372723,8 @@
       "betterLine": "Choose White from Commander's Sphere, since Islands already provide Blue and Mountain provides Red - White is the color they can only get from Commander's Sphere.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 65
     },
     {
       "severity": "moderate",
@@ -372708,7 +372733,8 @@
       "betterLine": "Cast Crackling Drake (or Gerrard, Weatherlight Hero) to develop the board and draw a card, using the available mana productively. At minimum, cast Oona's Grace to draw a card.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -372717,7 +372743,8 @@
       "betterLine": "Discard Boros Garrison, which is a low-impact tapland that bounces a land. Keeping the Elixir preserves the Feldon + Elixir engine for repeated Meteor Golem reanimation.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -372726,7 +372753,8 @@
       "betterLine": "Discard Elemental Masterpiece to create a Treasure token, using the Island and Mountain to pay {U/R}{U/R}. This accelerates mana development when stuck on only 2 lands with an extremely expensive hand.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 69
     },
     {
       "severity": "minor",
@@ -372735,7 +372763,8 @@
       "betterLine": "Evoke Mulldrifter for 2U to draw two cards instead of one, with 2 mana still available. The 1/1 deathtouch body is nice but there are no creatures threatening to attack, and the extra card is more valuable at this stage.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -372744,7 +372773,8 @@
       "betterLine": "Play Desert of the Mindful (enters tapped) to have 4 lands available next turn. With such expensive cards in hand, every land drop matters. Could also consider discarding Elemental Masterpiece for a Treasure token to further ramp.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -372753,7 +372783,8 @@
       "betterLine": "Either sacrifice Commander's Sphere to draw a card (free card draw that preserves Increasing Vengeance for a high-impact target later), or simply let Oona's Grace resolve and save resources. Increasing Vengeance should be held for copying a spell with mana value 5+ to synergize with Zaffai or for copying a game-changing spell.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 84
     },
     {
       "severity": "moderate",
@@ -372762,7 +372793,8 @@
       "betterLine": "Target themselves (Llama4 Valley) with the copy of Oona's Grace to draw an additional card.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 84
     },
     {
       "severity": "moderate",
@@ -372771,7 +372803,8 @@
       "betterLine": "Cast Pramikon, Sky Rampart for URW using the three untapped lands, choosing a direction to restrict attacks and providing a 1/5 flying blocker for defense",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -372780,7 +372813,8 @@
       "betterLine": "Discard Boros Garrison (mediocre tapped bounce-land) and Combustible Gearhulk (which becomes a Feldon target in the graveyard). This preserves Chain Reaction as a board wipe option and still sets up the Feldon + Gearhulk synergy.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 90
     },
     {
       "severity": "questionable",
@@ -372789,7 +372823,8 @@
       "betterLine": "Play Mountain (enters untapped) to have 4 mana available instead of 3, saving Desert of the Mindful for a turn where the tempo loss matters less or when the cycling ability is more relevant.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 92
     },
     {
       "severity": "minor",
@@ -372798,7 +372833,8 @@
       "betterLine": "Discard Elemental Masterpiece to create a Treasure token, accelerating toward casting Call the Skybreaker or Treasure Cruise next turn. Could still play the Mountain from hand as a land drop this turn.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 93
     },
     {
       "severity": "questionable",
@@ -372807,7 +372843,8 @@
       "betterLine": "Discard Wand of Orcus instead, keeping Cloudblazer for its powerful ETB synergy with Phantom Steed (creating a copy each attack that draws 2 cards and gains 2 life)",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -372816,7 +372853,8 @@
       "betterLine": "Cast Treasure Cruise delving away the 3 graveyard cards (Blighted Cataract, Fiery Fall, Desert of the Fervent) to draw 3 cards for 4U, getting much more card advantage and finding lands/action",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 105
     },
     {
       "severity": "questionable",
@@ -372825,7 +372863,8 @@
       "betterLine": "Attack MiMo Timmy or Llama4 Valley with Rootha for 1 free damage - there are no blockers and Rootha can still use her activated ability if needed.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 109
     },
     {
       "severity": "questionable",
@@ -372834,7 +372873,8 @@
       "betterLine": "Hold back Baleful Strix as a blocker and future Phantom Steed target. The 1 damage is negligible in a 40-life format, and the Strix has much more value staying on the battlefield for defense and synergy with Phantom Steed.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 113
     },
     {
       "severity": "major",
@@ -372843,7 +372883,8 @@
       "betterLine": "Play Island, then cast Pramikon, Sky Rampart (to establish directional attack restriction as a key defensive piece) and potentially also cast Guttersnipe or Ral Zarek with remaining mana for significant board development.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 116
     },
     {
       "severity": "minor",
@@ -372852,7 +372893,8 @@
       "betterLine": "Discard Triplicate Titan (9 mana, extremely far from being castable) or Battlemage's Bracers (narrow equipment that only shines with Feldon). Keeping the Mountain ensures continued land drops toward casting the 5-6 mana spells that could stabilize the board.",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 119
     },
     {
       "severity": "minor",
@@ -372861,7 +372903,8 @@
       "betterLine": "Hold Baleful Strix back as a deathtouch blocker to complement Propaganda's defensive strategy, especially with Sunblast Angel in hand that would destroy your own tapped creatures.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 128
     },
     {
       "severity": "minor",
@@ -372870,7 +372913,8 @@
       "betterLine": "Discard Elemental Masterpiece using its {U/R}{U/R} ability to create a Treasure token, gaining ramp toward expensive spells like Call the Skybreaker or Inferno Project while growing Inferno Project's counter count.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 132
     },
     {
       "severity": "moderate",
@@ -372879,7 +372923,8 @@
       "betterLine": "Discard Swamp (redundant with existing Swamp and Command Tower) or Island, keeping Mulldrifter as a crucial card draw spell to recover from mana screw and as a synergy piece with Phantom Steed.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 135
     },
     {
       "severity": "questionable",
@@ -372888,7 +372933,8 @@
       "betterLine": "Cast Empowered Autogenerator first (to start charge counter accumulation toward casting Zetalpa), then cast Guttersnipe with remaining mana. Both could likely be cast this turn with ~9 mana available.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 139
     },
     {
       "severity": "minor",
@@ -372897,7 +372943,8 @@
       "betterLine": "Attack with both Rootha and Talrand into an undefended opponent (MiMo Timmy with no creatures) to deal 3 damage instead of 1. Talrand's value comes from casting spells, not blocking as a 2/2.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 144
     },
     {
       "severity": "minor",
@@ -372906,7 +372953,8 @@
       "betterLine": "Attack MiMo Timmy instead to avoid paying the Propaganda tax and pressure the opponent with the weakest board position.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 144
     },
     {
       "severity": "minor",
@@ -372915,7 +372963,8 @@
       "betterLine": "Attack MiMo Timmy or Llama4 Valley with at least Rootha (1 damage) and possibly Talrand (2 damage) for free chip damage against defenseless opponents.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 144
     },
     {
       "severity": "minor",
@@ -372924,7 +372973,8 @@
       "betterLine": "Activate Memorial to Genius to draw 2 cards. Even if wanting to hold up Traumatic Visions for countermagic, this could be done on the end step of the last opponent's turn before their own turn if no threats materialized.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 158
     },
     {
       "severity": "questionable",
@@ -372933,7 +372983,8 @@
       "betterLine": "Attack MiMo Timmy (who has no blockers and no board presence) with Talrand, Sky Summoner and/or Rootha, Mercurial Artist for 2-3 free damage. Rootha could be kept back if you want the option to bounce it for spell copying, but Talrand has no reason not to swing.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 163
     },
     {
       "severity": "minor",
@@ -372942,7 +372993,8 @@
       "betterLine": "Discard Inferno Project, which is a 7-mana creature that would enter with very few counters given the sparse instant/sorcery graveyard, making it nearly useless.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 163
     },
     {
       "severity": "questionable",
@@ -372951,7 +373003,8 @@
       "betterLine": "Hold back Baleful Strix as a deathtouch blocker and potential Phantom Steed target for card advantage. The 1 flying damage is negligible in multiplayer, and the Strix provides much more value on defense and as a combo piece with Phantom Steed.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 164
     },
     {
       "severity": "moderate",
@@ -372960,7 +373013,8 @@
       "betterLine": "Pass without activating either ability, preserving Commander's Sphere as a mana source to help cast expensive cards like Zetalpa, Primal Dawn (8 mana) and Pramikon, Sky Rampart. If card draw was needed, use Oona's Grace from graveyard instead, or at minimum wait until an opponent's end step to sacrifice the Sphere.",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 172
     },
     {
       "severity": "minor",
@@ -372969,7 +373023,8 @@
       "betterLine": "Save the mana for main phase 2 to deploy a meaningful permanent like Pramikon, Sky Rampart or Ral Zarek, or at minimum wait until end of opponent's turn to use mana if nothing better presents itself",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 172
     },
     {
       "severity": "moderate",
@@ -372978,7 +373033,8 @@
       "betterLine": "Target themselves with Oona's Grace to draw a card, since the whole point of retracing Oona's Grace is card filtering/advantage for yourself.",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 172
     },
     {
       "severity": "questionable",
@@ -372987,7 +373043,8 @@
       "betterLine": "Should have identified the triggered abilities (likely from casting an instant/sorcery spell) and ordered them optimally based on which effect benefits from resolving first or last.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 178
     },
     {
       "severity": "moderate",
@@ -372996,7 +373053,8 @@
       "betterLine": "Either sacrifice Commander's Sphere to draw a card, or simply pass without spending resources. Increasing Vengeance should be saved for copying one of your own high-value spells, not wasted on an opponent's cantrip (which is an illegal target anyway).",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 178
     },
     {
       "severity": "minor",
@@ -373005,7 +373063,8 @@
       "betterLine": "Discard excess lands (Swamp, Island) and possibly Immovable Rod or Geier Reach Sanitarium instead, keeping Phantom Steed for its flash tempo and ETB synergy with Baleful Strix",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -373014,7 +373073,8 @@
       "betterLine": "Play Mountain first to maximize available mana, then cast Pramikon, Sky Rampart plus a second spell like Burnished Hart or Ral Zarek",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 191
     },
     {
       "severity": "minor",
@@ -373023,7 +373083,8 @@
       "betterLine": "Attack MiMo Timmy with Guttersnipe for 2 uncontested damage.",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 201
     },
     {
       "severity": "minor",
@@ -373032,7 +373093,8 @@
       "betterLine": "Attack MiMo Timmy with Guttersnipe for 2 free unblockable damage",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 201
     },
     {
       "severity": "minor",
@@ -373041,7 +373103,8 @@
       "betterLine": "Cast Ral Zarek (same 4 mana cost) to immediately tap down Feldon, preventing Triplicate Titan reanimation activations, while also providing ongoing utility. Alternatively, Rolling Temblor for 3 mana would outright kill Feldon (2 damage to its 3 toughness - wait, Feldon is 2/3 so it survives at 1). Ral Zarek is the clear best play to neutralize Feldon's activation each turn.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 223
     },
     {
       "severity": "minor",
@@ -373050,7 +373113,8 @@
       "betterLine": "Keep Burnished Hart back to sacrifice for ramp (need mana for Zetalpa). Keep Guttersnipe back as a value engine. At most, attack with River Kelpie which has persist as insurance.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 223
     },
     {
       "severity": "minor",
@@ -373059,7 +373123,8 @@
       "betterLine": "Attack MiMo Timmy instead (no Propaganda tax, no deathtouch blocker) or don't attack at all to protect the valuable Guttersnipe",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 223
     },
     {
       "severity": "minor",
@@ -373068,7 +373133,8 @@
       "betterLine": "Attack MiMo Timmy with at least River Kelpie (3/3 with persist). If blocked by Feldon, Kelpie returns with persist and draws a card when it re-enters. If unblocked, deal 3 damage. Burnished Hart could also swing at a defenseless opponent.",
       "type": "blunder",
       "snapshotIndex": 255,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 223
     },
     {
       "severity": "questionable",
@@ -373077,7 +373143,8 @@
       "betterLine": "Cast Hedron Archive (4 mana) for ramp, enabling Feldon activation next turn with more mana available, or cast Thopter Engineer for immediate board presence and haste for artifact creatures.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 233
     },
     {
       "severity": "questionable",
@@ -373086,7 +373153,8 @@
       "betterLine": "Attack with Talrand, Sky Summoner into Llama4 Valley or MiMo Timmy for 2 free damage. Guttersnipe trading with Talrand is possible but unlikely since Valley would lose a key piece. MiMo's Feldon could block but they might not want to risk it either.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 255
     },
     {
       "severity": "minor",
@@ -373095,7 +373163,8 @@
       "betterLine": "Discard Elemental Masterpiece instead - it's the weakest actual spell (7 mana for two 4/4s) and its best mode (discard for Treasure) means you'd want to discard it anyway. Keeping Sunbird's Invocation would provide far more long-term value with the high-MV spells in hand.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 255
     },
     {
       "severity": "questionable",
@@ -373104,7 +373173,8 @@
       "betterLine": "Keep Baleful Strix back as a blocker. Its flying deathtouch makes it an elite deterrent against any attacker, and 1 damage is nearly irrelevant in a multiplayer game at these life totals.",
       "type": "blunder",
       "snapshotIndex": 273,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 258
     },
     {
       "severity": "moderate",
@@ -373113,7 +373183,8 @@
       "betterLine": "Play Izzet Guildgate first, then cast Ral Zarek (2UR) and use the -2 ability to deal 3 damage to Feldon of the Third Path, eliminating the most dangerous threat on the board while preserving Guttersnipe",
       "type": "blunder",
       "snapshotIndex": 277,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 262
     },
     {
       "severity": "minor",
@@ -373122,7 +373193,8 @@
       "betterLine": "Cast Faithless Looting from graveyard first to trigger River Kelpie's draw, see more cards, then decide whether to cast Ral Zarek or something better drawn from the extra cards.",
       "type": "blunder",
       "snapshotIndex": 286,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 278
     },
     {
       "severity": "moderate",
@@ -373131,7 +373203,8 @@
       "betterLine": "Activate Feldon of the Third Path targeting Triplicate Titan in graveyard (cost {2}{R}) to create a 9/9 flying/vigilance/trample token with haste, then cast Mind Stone with remaining 2 mana for ramp",
       "type": "blunder",
       "snapshotIndex": 290,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 280
     },
     {
       "severity": "moderate",
@@ -373140,7 +373213,8 @@
       "betterLine": "Choose Triplicate Titan (or Combustible Gearhulk) as the artifact to return - these are high-impact threats that can win the game, whereas Thousand-Year Elixir is a support piece with marginal value given the current board state",
       "type": "blunder",
       "snapshotIndex": 291,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 282
     },
     {
       "severity": "minor",
@@ -373149,7 +373223,8 @@
       "betterLine": "Choose Excavation Technique, which provides targeted removal for key threats like Propaganda while preserving Feldon and the creature-based reanimation strategy",
       "type": "blunder",
       "snapshotIndex": 291,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 282
     },
     {
       "severity": "minor",
@@ -373158,7 +373233,8 @@
       "betterLine": "Attack Ral Zarek to remove the planeswalker, denying its recurring value and preventing it from reaching its ultimate",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 288
     },
     {
       "severity": "minor",
@@ -373167,7 +373243,8 @@
       "betterLine": "Block with Rootha, Mercurial Artist (1/4), which survives combat against a 3/3 attacker and prevents 3 damage at no cost.",
       "type": "blunder",
       "snapshotIndex": 294,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 286
     },
     {
       "severity": "minor",
@@ -373176,7 +373253,8 @@
       "betterLine": "Block Feldon with Rootha, Mercurial Artist. Both survive combat but 2 damage is prevented for free.",
       "type": "blunder",
       "snapshotIndex": 297,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 286
     },
     {
       "severity": "moderate",
@@ -373185,7 +373263,8 @@
       "betterLine": "Sol Ring should have been cast earlier in the turn (it costs only {1}), then discard would be from 7 cards. Call the Skybreaker is actually a reasonable retrace discard, but having Sol Ring uncast on turn 15 represents significant lost tempo across the game.",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 290
     },
     {
       "severity": "questionable",
@@ -373194,7 +373273,8 @@
       "betterLine": "Hold back Baleful Strix as a deathtouch flying blocker to complement Propaganda's defensive strategy, especially since 1 damage is negligible and the defensive value of deathtouch is significant",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 293
     },
     {
       "severity": "minor",
@@ -373203,7 +373283,8 @@
       "betterLine": "Attack Ral Zarek with Baleful Strix to remove a loyalty counter. The 1/1 flyer likely gets through unblocked and chipping away at a planeswalker is valuable.",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 293
     },
     {
       "severity": "minor",
@@ -373212,7 +373293,8 @@
       "betterLine": "Cast Faithless Looting flashback from graveyard (triggering River Kelpie draw) to dig for more resources, then cast Ral Zarek with remaining mana for board presence and utility, saving Zetalpa for when the board is more stable",
       "type": "blunder",
       "snapshotIndex": 309,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 298
     },
     {
       "severity": "minor",
@@ -373221,7 +373303,8 @@
       "betterLine": "Cast Refuse targeting Zetalpa on the stack to deal 8 damage to its controller. Even though it doesn't counter the spell, 8 damage is enormous value for the mana cost, especially with only 2 cards in hand limiting future opportunities for Refuse to find a higher-value target.",
       "type": "blunder",
       "snapshotIndex": 308,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 297
     },
     {
       "severity": "moderate",
@@ -373230,7 +373313,8 @@
       "betterLine": "Untap one of your own tapped lands (Temple of the False God for 2 mana, or another land) to gain mana advantage, rather than freeing up an opponent's most dangerous creature.",
       "type": "blunder",
       "snapshotIndex": 310,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 301
     },
     {
       "severity": "minor",
@@ -373239,7 +373323,8 @@
       "betterLine": "Attack MiMo Timmy for free 3 damage with no Propaganda cost and no deathtouch blocker, preserving mana for interaction.",
       "type": "blunder",
       "snapshotIndex": 311,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 305
     },
     {
       "severity": "moderate",
@@ -373248,7 +373333,8 @@
       "betterLine": "Pass and hold Refuse // Cooperate for when an opponent casts an expensive spell (like Triplicate Titan at MV 9 for 9 damage, or similar high-cost threats).",
       "type": "blunder",
       "snapshotIndex": 313,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 309
     },
     {
       "severity": "minor",
@@ -373257,7 +373343,8 @@
       "betterLine": "Attack Ral Zarek to remove loyalty counters from the planeswalker, which is a much more impactful use of the attack",
       "type": "blunder",
       "snapshotIndex": 318,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 310
     },
     {
       "severity": "minor",
@@ -373266,7 +373353,8 @@
       "betterLine": "Discard Study Hall instead, as it's the weakest card - a mediocre land providing only colorless mana, while Thousand-Year Elixir enables multiple Feldon activations per turn for massive value.",
       "type": "blunder",
       "snapshotIndex": 323,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 315
     },
     {
       "severity": "moderate",
@@ -373275,7 +373363,8 @@
       "betterLine": "Cast Deep Analysis via flashback from graveyard ({1}{U}, pay 3 life) to draw 2 cards plus trigger River Kelpie for an additional card draw, netting 3 cards. Alternatively, cast Ral Zarek to develop the board.",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 325
     },
     {
       "severity": "minor",
@@ -373284,7 +373373,8 @@
       "betterLine": "Cast Cooperate from graveyard targeting Prismatic Strands on the stack, choosing a relevant damage color. This draws a card from River Kelpie and provides extra damage prevention, all for just 3 mana with plenty of mana available.",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 325
     },
     {
       "severity": "questionable",
@@ -373293,7 +373383,8 @@
       "betterLine": "Choose Red to prevent damage from the most threatening sources, including potential Feldon activations and red spells/creatures",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 325
     },
     {
       "severity": "moderate",
@@ -373302,7 +373393,8 @@
       "betterLine": "Cast Deep Analysis from graveyard via flashback for {1}{U} and 3 life, triggering River Kelpie to draw a total of 3 cards, dramatically improving hand quality with plenty of mana available",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 322
     },
     {
       "severity": "minor",
@@ -373311,7 +373403,8 @@
       "betterLine": "Attack MiMo Timmy for free 3 damage with no Propaganda tax and no blockers available.",
       "type": "blunder",
       "snapshotIndex": 332,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 325
     },
     {
       "severity": "moderate",
@@ -373320,7 +373413,8 @@
       "betterLine": "Cast Sun Titan (4WW) using all 6 lands. Sun Titan enters and triggers, returning Thousand-Year Elixir from graveyard to battlefield, enabling double Feldon activations in future turns. This is a much higher-impact play.",
       "type": "blunder",
       "snapshotIndex": 336,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 331
     },
     {
       "severity": "questionable",
@@ -373329,7 +373423,8 @@
       "betterLine": "Attack with Rootha, Mercurial Artist (1/4) into an opponent without Propaganda for 1 free damage. Talrand could also attack safely depending on blockers available.",
       "type": "blunder",
       "snapshotIndex": 339,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 334
     },
     {
       "severity": "minor",
@@ -373338,7 +373433,8 @@
       "betterLine": "Play Mountain, then cast Sol Ring (1 mana), then cast Talisman of Creativity (2 mana from Sol Ring), and potentially cast Treasure Cruise using delve with remaining mana. At minimum, Sol Ring should have been cast this turn.",
       "type": "blunder",
       "snapshotIndex": 340,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 335
     },
     {
       "severity": "minor",
@@ -373347,7 +373443,8 @@
       "betterLine": "Flash back Deep Analysis for {1}{U} + 3 life to draw 2 cards, refilling the hand while sitting at a comfortable 39 life. This would provide more options and potentially find additional plays for the turn.",
       "type": "blunder",
       "snapshotIndex": 347,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 339
     },
     {
       "severity": "moderate",
@@ -373356,7 +373453,8 @@
       "betterLine": "Select 'All attack' to send both Zetalpa (which has vigilance so it stays untapped) and River Kelpie at MiMo Timmy, dealing significantly more damage.",
       "type": "blunder",
       "snapshotIndex": 349,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 343
     },
     {
       "severity": "moderate",
@@ -373365,7 +373463,8 @@
       "betterLine": "Activate Feldon targeting Triplicate Titan in graveyard (paying {2}{R} from untapped Plains, Mountain, Secluded Steppe) to create a 9/9 flying token to block Zetalpa, saving 8 damage and eventually generating three 3/3 golem tokens.",
       "type": "blunder",
       "snapshotIndex": 349,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 342
     },
     {
       "severity": "moderate",
@@ -373374,7 +373473,8 @@
       "betterLine": "Flashback Deep Analysis from the graveyard for {1}{U} and 3 life, drawing 2 cards plus triggering River Kelpie for a third card draw, significantly improving hand size and options.",
       "type": "blunder",
       "snapshotIndex": 354,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 344
     },
     {
       "severity": "moderate",
@@ -373383,7 +373483,8 @@
       "betterLine": "Keep Traumatic Visions as a counterspell for protection. If needing to discard to hand size, discard a lower-value card, or use Elemental Masterpiece's discard ability to create a Treasure token instead.",
       "type": "blunder",
       "snapshotIndex": 357,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 348
     },
     {
       "severity": "moderate",
@@ -373392,7 +373493,8 @@
       "betterLine": "Do not attack with Baleful Strix. Keep it untapped as a deathtouch blocker and to preserve it for when Sunblast Angel is eventually cast. The 1 damage is not worth the risk and anti-synergy with Sunblast Angel.",
       "type": "blunder",
       "snapshotIndex": 360,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 351
     },
     {
       "severity": "moderate",
@@ -373401,7 +373503,8 @@
       "betterLine": "Flash back Deep Analysis for {1}{U} and 3 life to draw 2 cards plus trigger River Kelpie for a 3rd card draw, then evaluate further plays with the new cards. Could also consider Oona's Grace retrace or other graveyard spells to maximize River Kelpie triggers.",
       "type": "blunder",
       "snapshotIndex": 363,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 354
     },
     {
       "severity": "moderate",
@@ -373410,7 +373513,8 @@
       "betterLine": "Play Darksteel Citadel, equip Battlemage's Bracers to Feldon (2 mana), activate Feldon targeting Triplicate Titan (3 mana), pay 1 for Bracers trigger to copy the ability - creating two 9/9 Triplicate Titan tokens with flying, vigilance, and trample.",
       "type": "blunder",
       "snapshotIndex": 367,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 357
     },
     {
       "severity": "minor",
@@ -373419,7 +373523,8 @@
       "betterLine": "Attack with only the Thopter Token (which has flying and can get through unblocked) while keeping Feldon back to use his activated ability and avoid risking him in combat.",
       "type": "blunder",
       "snapshotIndex": 370,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 362
     },
     {
       "severity": "questionable",
@@ -373428,7 +373533,8 @@
       "betterLine": "Keep Baleful Strix back as a blocker. At 28 life with minimal board presence, the 1 damage is not worth risking the defensive value of a flying deathtouch creature. The Strix is much more valuable as a deterrent against attacks.",
       "type": "blunder",
       "snapshotIndex": 377,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 366
     },
     {
       "severity": "minor",
@@ -373437,7 +373543,8 @@
       "betterLine": "Attack Ral Zarek with Baleful Strix to remove loyalty from the planeswalker, which provides much more value than 1 damage to a 31-life player",
       "type": "blunder",
       "snapshotIndex": 377,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 366
     },
     {
       "severity": "minor",
@@ -373446,7 +373553,8 @@
       "betterLine": "Select 'All attack' to attack MiMo Timmy with both Zetalpa and River Kelpie for 11 total damage against a defenseless opponent.",
       "type": "blunder",
       "snapshotIndex": 382,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 370
     },
     {
       "severity": "moderate",
@@ -373455,7 +373563,8 @@
       "betterLine": "Cast Prismatic Strands choosing white to prevent all damage from Zetalpa, Primal Dawn this combat.",
       "type": "blunder",
       "snapshotIndex": 383,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 370
     },
     {
       "severity": "moderate",
@@ -373464,7 +373573,8 @@
       "betterLine": "Flashback Deep Analysis (drawing 2 cards + 1 from River Kelpie trigger = 3 cards) for just {1}{U} and 3 life, dramatically improving hand quality from 1 card to 4 cards. Could also consider casting Ral Zarek.",
       "type": "blunder",
       "snapshotIndex": 387,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 371
     },
     {
       "severity": "questionable",
@@ -373473,7 +373583,8 @@
       "betterLine": "Keep Baleful Strix back as a blocker. Its deathtouch makes it an excellent defensive piece, especially when at 28 life with only Propaganda for protection. 1 damage to any opponent is negligible.",
       "type": "blunder",
       "snapshotIndex": 392,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 375
     },
     {
       "severity": "minor",
@@ -373482,7 +373593,8 @@
       "betterLine": "Attack with Baleful Strix - ideally into Ral Zarek if available to reduce planeswalker loyalty, or at minimum chip 1 damage to any opponent. Free damage should not be left on the table.",
       "type": "blunder",
       "snapshotIndex": 392,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 375
     },
     {
       "severity": "minor",
@@ -373491,7 +373603,8 @@
       "betterLine": "Cast Deep Analysis via flashback first ({1}{U}, pay 3 life) to draw 2 cards, then cast Izzet Locket with remaining mana, maximizing information and card advantage.",
       "type": "blunder",
       "snapshotIndex": 395,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 377
     },
     {
       "severity": "moderate",
@@ -373500,7 +373613,8 @@
       "betterLine": "Attack with both Zetalpa, Primal Dawn and River Kelpie to deal 11 damage, putting MiMo Timmy to 1 life and setting up lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 397,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 380
     },
     {
       "severity": "moderate",
@@ -373509,7 +373623,8 @@
       "betterLine": "Cast Deep Analysis via flashback for {1}{U} and 3 life, drawing 2 cards plus triggering River Kelpie for a third card draw. Then potentially cast Ral Zarek or other drawn spells with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 404,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 382
     },
     {
       "severity": "moderate",
@@ -373518,7 +373633,8 @@
       "betterLine": "Return Feldon of the Third Path from graveyard to battlefield. With Battlemage's Bracers available to equip, Feldon could start creating token copies of Triplicate Titan or Combustible Gearhulk, providing significant board presence to help stabilize at 5 life.",
       "type": "blunder",
       "snapshotIndex": 405,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 388
     },
     {
       "severity": "moderate",
@@ -373527,7 +373643,8 @@
       "betterLine": "Attack Ral Zarek to remove the planeswalker that threatens lethal damage given MiMo's critically low 5 life total",
       "type": "blunder",
       "snapshotIndex": 409,
-      "player": "MiMo Timmy"
+      "player": "MiMo Timmy",
+      "decisionIndex": 396
     },
     {
       "severity": "minor",
@@ -373536,7 +373653,8 @@
       "betterLine": "Attack MiMo Timmy with Rootha for 1 free damage, bringing them to 4 life with no risk.",
       "type": "blunder",
       "snapshotIndex": 414,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 399
     },
     {
       "severity": "minor",
@@ -373545,7 +373663,8 @@
       "betterLine": "Cycle Lonely Sandbar for {U} to draw a card before discarding to 7, or discard Elemental Masterpiece using its {U/R}{U/R} ability to create a Treasure token, converting the forced discard into a permanent on the battlefield.",
       "type": "blunder",
       "snapshotIndex": 414,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 399
     },
     {
       "severity": "minor",
@@ -373554,7 +373673,8 @@
       "betterLine": "Discard Forbidden Alchemy, which has flashback and can still be cast from the graveyard",
       "type": "blunder",
       "snapshotIndex": 419,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 400
     },
     {
       "severity": "minor",
@@ -373563,7 +373683,8 @@
       "betterLine": "Choose 'All attack' to send both Zetalpa and River Kelpie at MiMo Timmy, guaranteeing lethal with maximum overkill and no room for error.",
       "type": "blunder",
       "snapshotIndex": 422,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 403
     },
     {
       "severity": "minor",
@@ -373572,7 +373693,8 @@
       "betterLine": "Bounce Swiftwater Cliffs or Tranquil Cove to replay later and gain 1 life from the ETB trigger",
       "type": "blunder",
       "snapshotIndex": 427,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 405
     },
     {
       "severity": "minor",
@@ -373581,7 +373703,8 @@
       "betterLine": "Keep Baleful Strix back as a deathtouch flying blocker to deter attacks, especially since 1 damage is meaningless against opponents at 31+ life and the Strix provides excellent defensive value alongside Propaganda.",
       "type": "blunder",
       "snapshotIndex": 434,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 411
     },
     {
       "severity": "questionable",
@@ -373590,7 +373713,8 @@
       "betterLine": "Attack Ral Zarek with Baleful Strix to remove a loyalty counter from the planeswalker, which represents a more meaningful strategic impact than 1 damage to a 31-life player",
       "type": "blunder",
       "snapshotIndex": 434,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 411
     },
     {
       "severity": "moderate",
@@ -373599,7 +373723,8 @@
       "betterLine": "Choose 'All attack' to send both Zetalpa and River Kelpie. Zetalpa has vigilance so it remains untapped, is indestructible so it can't die, and has flying so Rootha can't block it. This deals an additional 8 damage.",
       "type": "blunder",
       "snapshotIndex": 438,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 415
     },
     {
       "severity": "minor",
@@ -373608,7 +373733,8 @@
       "betterLine": "Cast Prismatic Strands choosing white to prevent all damage from Zetalpa this turn, saving 4 life against a recurring threat",
       "type": "blunder",
       "snapshotIndex": 439,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 415
     },
     {
       "severity": "minor",
@@ -373617,7 +373743,8 @@
       "betterLine": "Flash back Deep Analysis first ({1}{U}, pay 3 life) to draw 3 cards with River Kelpie trigger, then cast Pristine Skywise with the remaining 7 mana.",
       "type": "blunder",
       "snapshotIndex": 443,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 417
     },
     {
       "severity": "questionable",
@@ -373626,7 +373753,8 @@
       "betterLine": "Hold back Baleful Strix as a deathtouch blocker to deter attacks, especially given the defensive game plan with Propaganda and the Sunblast Angel in hand for a future board wipe that would spare untapped creatures",
       "type": "blunder",
       "snapshotIndex": 448,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 421
     },
     {
       "severity": "questionable",
@@ -373635,7 +373763,8 @@
       "betterLine": "Attack with just Zetalpa (which has vigilance so it stays untapped) and possibly Pristine Skywise only if attacking Kimi25 Libby who has no flying deathtouch blockers. Keep River Kelpie back as a value engine and potential blocker.",
       "type": "blunder",
       "snapshotIndex": 451,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 422
     },
     {
       "severity": "minor",
@@ -373644,7 +373773,8 @@
       "betterLine": "Block River Kelpie with Rootha, Mercurial Artist. Rootha survives as a 1/4 blocking a 3/3, saving 3 damage for free.",
       "type": "blunder",
       "snapshotIndex": 451,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 425
     },
     {
       "severity": "moderate",
@@ -373653,7 +373783,8 @@
       "betterLine": "Cast Cooperate (from Refuse // Cooperate) targeting Sevinne's Reclamation to copy it, choosing a second valuable target like Guttersnipe or Commander's Sphere from the graveyard.",
       "type": "blunder",
       "snapshotIndex": 456,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 430
     },
     {
       "severity": "minor",
@@ -373662,7 +373793,8 @@
       "betterLine": "Cast Izzet Locket for {3} to develop mana and have a future card draw option, especially useful with Ignite the Future in hand.",
       "type": "blunder",
       "snapshotIndex": 457,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 430
     },
     {
       "severity": "moderate",
@@ -373671,7 +373803,8 @@
       "betterLine": "Play Wind-Scarred Crag for the land drop, then cast Sevinne's Reclamation or Deep Analysis (flashback) to generate value with River Kelpie's draw triggers. Sevinne's Reclamation targeting Commander's Sphere or Burnished Hart would trigger River Kelpie and develop the board.",
       "type": "blunder",
       "snapshotIndex": 465,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 437
     },
     {
       "severity": "moderate",
@@ -373680,7 +373813,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace (discarding Wind-Scarred Crag) to draw 2 cards with River Kelpie on the battlefield, using otherwise wasted mana.",
       "type": "blunder",
       "snapshotIndex": 468,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 437
     },
     {
       "severity": "moderate",
@@ -373689,7 +373823,8 @@
       "betterLine": "Hold Dualcaster Mage for a future high-value instant or sorcery spell to copy, such as an opponent's removal spell or a powerful draw spell. At 6 life, saving resources for defensive plays would be more prudent.",
       "type": "blunder",
       "snapshotIndex": 471,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 442
     },
     {
       "severity": "minor",
@@ -373698,7 +373833,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace, discarding Wind-Scarred Crag, to draw 2 cards (one from Oona's Grace, one from River Kelpie's trigger on casting from graveyard) at end of opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 484,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 455
     },
     {
       "severity": "minor",
@@ -373707,7 +373843,8 @@
       "betterLine": "Attack Ral Zarek to remove a loyalty counter, reducing the planeswalker's threat and delaying its ultimate.",
       "type": "blunder",
       "snapshotIndex": 485,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 454
     },
     {
       "severity": "minor",
@@ -373716,7 +373853,8 @@
       "betterLine": "Discard Arcane Endeavor instead - at 7 mana it's far too expensive to realistically cast given the severe mana shortage, while Forbidden Alchemy at 3 mana could help dig for lands.",
       "type": "blunder",
       "snapshotIndex": 490,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 456
     },
     {
       "severity": "moderate",
@@ -373725,7 +373863,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via retrace, discarding Wind-Scarred Crag, to draw 2 cards (1 from Oona's Grace + 1 from River Kelpie's 'cast from graveyard' trigger), then evaluate further plays with the new cards.",
       "type": "blunder",
       "snapshotIndex": 491,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 458
     },
     {
       "severity": "minor",
@@ -373734,7 +373873,8 @@
       "betterLine": "Discard Hama Pashar, Ruin Seeker, which requires dungeon synergy they're unlikely to leverage, and keep both lands to help climb out of severe mana screw.",
       "type": "blunder",
       "snapshotIndex": 495,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 461
     },
     {
       "severity": "minor",
@@ -373743,7 +373883,8 @@
       "betterLine": "Play Island untapped to maximize available mana this turn for casting spells like Ignite the Future, Ral Zarek, or flashback spells. If a tapped R/W land was preferred for color fixing, Wind-Scarred Crag gains 1 life and is strictly better than Stone Quarry.",
       "type": "blunder",
       "snapshotIndex": 498,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 463
     },
     {
       "severity": "moderate",
@@ -373752,7 +373893,8 @@
       "betterLine": "Cast Ray of Distortion targeting Propaganda to remove GPT5m Gramps' primary defensive enchantment, enabling future attacks without paying {2} per creature.",
       "type": "blunder",
       "snapshotIndex": 501,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 465
     },
     {
       "severity": "minor",
@@ -373761,7 +373903,8 @@
       "betterLine": "Choose White to protect against the opponent's most threatening instant-speed removal (white-based removal like Swords to Plowshares variants)",
       "type": "blunder",
       "snapshotIndex": 505,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 468
     },
     {
       "severity": "minor",
@@ -373770,7 +373913,8 @@
       "betterLine": "Discard Arcane Endeavor instead - at 7 mana cost it's extremely far from castable given the current mana situation, and keeping the land would help develop mana to actually cast the mid-cost spells in hand like Plaguecrafter, Hama Pashar, or Phantasmal Image.",
       "type": "blunder",
       "snapshotIndex": 506,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 467
     },
     {
       "severity": "minor",
@@ -373779,7 +373923,8 @@
       "betterLine": "Play Plains (or Swamp) first, then cast Phantasmal Image. This preserves mana options and is strictly better sequencing.",
       "type": "blunder",
       "snapshotIndex": 510,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 470
     },
     {
       "severity": "minor",
@@ -373788,7 +373933,8 @@
       "betterLine": "Cast Deep Analysis from graveyard via flashback ({1}{U}, pay 3 life) to draw 2 cards immediately, providing much better card advantage at this stage of the game with 8 lands already in play",
       "type": "blunder",
       "snapshotIndex": 516,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 475
     },
     {
       "severity": "minor",
@@ -373797,7 +373943,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace, discarding the Island, to draw 2 cards with River Kelpie's trigger. This could be done now or at end of turn, but the mana and resources were available.",
       "type": "blunder",
       "snapshotIndex": 516,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 475
     },
     {
       "severity": "minor",
@@ -373806,7 +373953,8 @@
       "betterLine": "Activate Armillary Sphere ({2}, {T}, Sacrifice) to search for two basic lands, improving future draws and mana consistency. Alternatively, cast Oona's Grace from graveyard via Retrace (discarding the Island from hand) to draw a card, which would also trigger River Kelpie's 'cast from graveyard' ability for an additional card draw.",
       "type": "blunder",
       "snapshotIndex": 518,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 475
     },
     {
       "severity": "moderate",
@@ -373815,7 +373963,8 @@
       "betterLine": "Play Thriving Moor or Arcane Sanctum first (they enter tapped so no mana lost), then evaluate whether to cast Despark on River Kelpie or save it for a bigger threat later",
       "type": "blunder",
       "snapshotIndex": 526,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 479
     },
     {
       "severity": "moderate",
@@ -373824,7 +373973,8 @@
       "betterLine": "Choose White mana from Arcane Signet to properly pay for Despark's {W}{B} casting cost",
       "type": "blunder",
       "snapshotIndex": 527,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 481
     },
     {
       "severity": "minor",
@@ -373833,7 +373983,8 @@
       "betterLine": "Play Island untapped to maximize available mana this turn, enabling more flexible plays including potentially casting expensive flashback spells. Save Boros Garrison for a turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 531,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 483
     },
     {
       "severity": "minor",
@@ -373842,7 +373993,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace, discarding Wind-Scarred Crag, to draw 2 cards with River Kelpie's trigger.",
       "type": "blunder",
       "snapshotIndex": 532,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 485
     },
     {
       "severity": "minor",
@@ -373851,7 +374003,8 @@
       "betterLine": "At minimum, play a land (Myriad Landscape for future ramp, or Wind-Scarred Crag for life gain). Then consider casting Deep Analysis flashback from graveyard (triggers River Kelpie for an extra draw), or deploy Ral Zarek as a planeswalker threat, or cast Izzet Locket/Armillary Sphere for mana development.",
       "type": "blunder",
       "snapshotIndex": 533,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 486
     },
     {
       "severity": "minor",
@@ -373860,7 +374013,8 @@
       "betterLine": "Cast Oona's Grace via retrace by discarding Wind-Scarred Crag (a tapped land that's least useful) to draw a card, making use of unused mana at end of turn.",
       "type": "blunder",
       "snapshotIndex": 536,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 486
     },
     {
       "severity": "minor",
@@ -373869,7 +374023,8 @@
       "betterLine": "Play Thriving Moor (or Arcane Sanctum) first to fix mana, then consider whether Plaguecrafter is even worth casting given River Kelpie's persist. Better to develop mana toward casting Sunblast Angel or Arcane Endeavor, which would be more impactful.",
       "type": "blunder",
       "snapshotIndex": 536,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 488
     },
     {
       "severity": "minor",
@@ -373878,7 +374033,8 @@
       "betterLine": "Discard Arcane Endeavor, as it costs 7 mana and is extremely unlikely to be cast anytime soon given only 2 lands in play. Despark provides crucial cheap interaction against River Kelpie and other threats from Llama4 Valley.",
       "type": "blunder",
       "snapshotIndex": 539,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 488
     },
     {
       "severity": "minor",
@@ -373887,7 +374043,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace (discarding a land like Wind-Scarred Crag or Myriad Landscape), drawing a card from Oona's Grace plus drawing a card from River Kelpie's trigger on casting from graveyard, then discard down to 7. This nets an extra card for free.",
       "type": "blunder",
       "snapshotIndex": 542,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 491
     },
     {
       "severity": "minor",
@@ -373896,7 +374053,8 @@
       "betterLine": "Discard Bloodthirsty Blade, which is a dead/harmful card in a 1v1 game since goad forces the creature to attack you anyway while giving it +2/+0.",
       "type": "blunder",
       "snapshotIndex": 544,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 491
     },
     {
       "severity": "minor",
@@ -373905,7 +374063,8 @@
       "betterLine": "Discard Arcane Endeavor, which at 7 mana is unlikely to be castable anytime soon given severe mana screw (only 2 lands on battlefield), keeping the cheaper Plaguecrafter to interact with River Kelpie",
       "type": "blunder",
       "snapshotIndex": 548,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 492
     },
     {
       "severity": "minor",
@@ -373914,7 +374073,8 @@
       "betterLine": "Activate Armillary Sphere ({2}, {T}, sacrifice) to fetch two basic lands, and/or cast Oona's Grace from graveyard via retrace (discarding a land like Wind-Scarred Crag or one of the Islands) to draw a card, making use of mana that would otherwise go to waste.",
       "type": "blunder",
       "snapshotIndex": 550,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 495
     },
     {
       "severity": "minor",
@@ -373923,7 +374083,8 @@
       "betterLine": "Play Thriving Moor or Arcane Sanctum first to develop mana, then consider casting Lightning Greaves if mana permits. With only 2 lands and no creatures, the land drop is far more important.",
       "type": "blunder",
       "snapshotIndex": 552,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 497
     },
     {
       "severity": "minor",
@@ -373932,7 +374093,8 @@
       "betterLine": "Discard Arcane Endeavor, which costs 7 mana and is far too expensive to realistically cast given the severely mana-starved board state (only 2 lands + 3 mana rocks). Keep Utter End as efficient removal for the 1v1 against Llama4 Valley.",
       "type": "blunder",
       "snapshotIndex": 556,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 497
     },
     {
       "severity": "minor",
@@ -373941,7 +374103,8 @@
       "betterLine": "Cast Oona's Grace from graveyard (via Retrace) by paying 2U and discarding one of the three Islands in hand to draw a card, making use of excess lands and open mana.",
       "type": "blunder",
       "snapshotIndex": 558,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 500
     },
     {
       "severity": "moderate",
@@ -373950,7 +374113,8 @@
       "betterLine": "Discard a duplicate Plains instead, keeping Arcane Endeavor as a powerful late-game card. With Thriving Moor, Arcane Sanctum, and Plains still in hand, there are plenty of land drops available, and one Plains is expendable.",
       "type": "blunder",
       "snapshotIndex": 563,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 501
     },
     {
       "severity": "moderate",
@@ -373959,7 +374123,8 @@
       "betterLine": "Cast Oona's Grace from graveyard via Retrace (discarding a spare land like Island), drawing 2 cards (Oona's Grace + River Kelpie trigger), then discard down to 7 with better card selection.",
       "type": "blunder",
       "snapshotIndex": 566,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 504
     },
     {
       "severity": "minor",
@@ -373968,7 +374133,8 @@
       "betterLine": "Discard Bloodthirsty Blade, which is nearly useless (or actively harmful) in a 1v1 matchup",
       "type": "blunder",
       "snapshotIndex": 567,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 504
     },
     {
       "severity": "minor",
@@ -373977,7 +374143,8 @@
       "betterLine": "Play a land first (Thriving Moor choosing white, or Plains), then cast Obsessive Stitcher with more mana available, keeping options open for the turn.",
       "type": "blunder",
       "snapshotIndex": 569,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 506
     },
     {
       "severity": "moderate",
@@ -373986,7 +374153,8 @@
       "betterLine": "Discard Meteor Golem (7 mana, nearly uncastable given current mana state) or Sunblast Angel (6 mana) and keep the land to make crucial land drops to catch up on mana development.",
       "type": "blunder",
       "snapshotIndex": 572,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 506
     },
     {
       "severity": "minor",
@@ -373995,7 +374163,8 @@
       "betterLine": "Discard a basic Island or Plains instead, keeping Command Tower as the superior mana-fixing land to play on a future turn. They already have 3 Islands on the battlefield, so discarding an Island would be most reasonable.",
       "type": "blunder",
       "snapshotIndex": 576,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 509
     },
     {
       "severity": "minor",
@@ -374004,7 +374173,8 @@
       "betterLine": "Play Plains first, then cast Fellwar Stone to accelerate toward casting Sunblast Angel or Meteor Golem. Lightning Greaves provides no value without creatures on board.",
       "type": "blunder",
       "snapshotIndex": 577,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 511
     },
     {
       "severity": "minor",
@@ -374013,7 +374183,8 @@
       "betterLine": "Play Arcane Sanctum (or Plains) first to increase mana production, then consider discarding Radiant Solar afterward if still desired.",
       "type": "blunder",
       "snapshotIndex": 583,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 515
     },
     {
       "severity": "major",
@@ -374022,7 +374193,8 @@
       "betterLine": "Attack with at least Zetalpa and Pristine Skywise (paying 4 mana for Propaganda), dealing 14 flying damage while keeping 4 mana open. Or attack with all creatures for 19 damage if comfortable tapping out.",
       "type": "blunder",
       "snapshotIndex": 593,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 522
     },
     {
       "severity": "minor",
@@ -374031,7 +374203,8 @@
       "betterLine": "Discard Highland Lake (enters tapped, redundant mana source) or a basic Island/Plains to preserve the synergy potential of Runic Repetition with the many flashback cards in the graveyard.",
       "type": "blunder",
       "snapshotIndex": 596,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 522
     },
     {
       "severity": "questionable",
@@ -374040,7 +374213,8 @@
       "betterLine": "Discard a basic land (Island or Plains) instead, keeping Burning Vengeance which has strong synergy with the flashback-heavy graveyard and Sevinne's copying ability. The deck already has 8 lands in play and multiple lands in hand.",
       "type": "blunder",
       "snapshotIndex": 602,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 525
     },
     {
       "severity": "questionable",
@@ -374049,7 +374223,8 @@
       "betterLine": "Discard Meteor Golem instead - it costs more mana (7 vs 6) and Sunblast Angel's board wipe effect against tapped creatures is more impactful in a 1v1 situation where the opponent needs to attack to win.",
       "type": "blunder",
       "snapshotIndex": 607,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 529
     },
     {
       "severity": "questionable",
@@ -374058,7 +374233,8 @@
       "betterLine": "Discard Highland Lake or Island instead, preserving Purify the Grave as potential graveyard interaction against GPT5m Gramps' loaded graveyard (containing Cataclysmic Gearhulk, Sunblast Angel, Radiant Solar, etc.)",
       "type": "blunder",
       "snapshotIndex": 608,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 528
     },
     {
       "severity": "minor",
@@ -374067,7 +374243,8 @@
       "betterLine": "Discard Unburial Rites, which has flashback {3}{W} and functions perfectly from the graveyard, preserving the mana rock for future deployment.",
       "type": "blunder",
       "snapshotIndex": 613,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 532
     },
     {
       "severity": "moderate",
@@ -374076,7 +374253,8 @@
       "betterLine": "Discard a Plains instead - with two Plains and Arcane Sanctum in hand plus Nimbus Maze on the battlefield, the extra Plains is redundant. Obsessive Stitcher provides card filtering and a backup reanimation effect that pairs well with the graveyard strategy.",
       "type": "blunder",
       "snapshotIndex": 625,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 538
     },
     {
       "severity": "minor",
@@ -374085,7 +374263,8 @@
       "betterLine": "Discard Boros Guildgate - a tapland is less useful when you already have 8 lands and need the protective ability of Cliffside Rescuer more than another mana source.",
       "type": "blunder",
       "snapshotIndex": 626,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 537
     },
     {
       "severity": "questionable",
@@ -374094,7 +374273,8 @@
       "betterLine": "Discard a Plains instead, keeping Eternal Dragon in hand for its plainscycling ability ({2} to search for a Plains to hand), which helps address the severe mana screw (only 2 lands on battlefield). Plainscycling would be more immediately useful than the slow upkeep recursion.",
       "type": "blunder",
       "snapshotIndex": 631,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 541
     },
     {
       "severity": "moderate",
@@ -374103,7 +374283,8 @@
       "betterLine": "Discard a Plains instead, keeping Karmic Guide as a powerful reanimation tool that synergizes with the large graveyard and Unburial Rites already in hand",
       "type": "blunder",
       "snapshotIndex": 637,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 544
     },
     {
       "severity": "minor",
@@ -374112,7 +374293,8 @@
       "betterLine": "Discard a basic Plains or Island instead, preserving Myriad Landscape for future ramp. Boros Guildgate would also be a reasonable discard since it enters tapped and only produces colors already available.",
       "type": "blunder",
       "snapshotIndex": 638,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 543
     },
     {
       "severity": "moderate",
@@ -374121,7 +374303,8 @@
       "betterLine": "Discard a Plains instead. With two Plains in hand plus Arcane Sanctum, one Plains is redundant. Keeping Meteor Golem preserves it as a reanimation target via Unburial Rites to destroy an opponent's nonland permanent, or it could be hardcast later. Alternatively, discard Sun Titan to set up reanimating it with Unburial Rites next turn for immediate value.",
       "type": "blunder",
       "snapshotIndex": 643,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 547
     },
     {
       "severity": "moderate",
@@ -374130,7 +374313,8 @@
       "betterLine": "Discard Boros Guildgate or a duplicate Plains, as they provide far less value than Sun Titan. Sun Titan is a 6/6 vigilance that recurs permanents every turn and should be the card you're working toward casting, not discarding.",
       "type": "blunder",
       "snapshotIndex": 644,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 546
     },
     {
       "severity": "minor",
@@ -374139,7 +374323,8 @@
       "betterLine": "Discard a Plains instead. Burnished Hart provides ramp by fetching two basics to the battlefield, which is far more valuable than a third Plains in hand, especially when only controlling 6 lands/mana sources. Additionally, Sun Titan in hand can recur 3-or-less MV permanents, making keeping Burnished Hart even more synergistic.",
       "type": "blunder",
       "snapshotIndex": 649,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 550
     },
     {
       "severity": "minor",
@@ -374148,7 +374333,8 @@
       "betterLine": "Play Exotic Orchard (enters untapped, produces W/U/B from opponent's lands) to maximize available mana this turn, saving Terramorphic Expanse for a future turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 652,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 552
     },
     {
       "severity": "minor",
@@ -374157,7 +374343,8 @@
       "betterLine": "Play Exotic Orchard instead, which provides white mana plus access to additional colors from opponents' lands, preserving the basic Plains for potential future landcycling/retrace costs or other basic-land-matters effects if needed, but Exotic Orchard's flexibility is generally more valuable.",
       "type": "blunder",
       "snapshotIndex": 660,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 556
     },
     {
       "severity": "minor",
@@ -374166,7 +374353,8 @@
       "betterLine": "Play Exotic Orchard (or Plains) first, then cast Elsha of the Infinite. This leaves an extra mana available to potentially capitalize on Elsha's top-of-library casting ability immediately.",
       "type": "blunder",
       "snapshotIndex": 662,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 558
     },
     {
       "severity": "minor",
@@ -374175,7 +374363,8 @@
       "betterLine": "Attack with only Zetalpa (vigilance, double strike = 8 damage) and Pristine Skywise (6 damage) for 14 total damage, paying only 4 mana for Propaganda and keeping remaining mana open for Magmaquake or other responses.",
       "type": "blunder",
       "snapshotIndex": 664,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 558
     },
     {
       "severity": "moderate",
@@ -374184,7 +374373,8 @@
       "betterLine": "Discard a Plains instead, keeping Clay Golem as a potential castable threat or reanimation option while still having enough lands in hand for future land drops.",
       "type": "blunder",
       "snapshotIndex": 670,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 560
     },
     {
       "severity": "moderate",
@@ -374193,7 +374383,8 @@
       "betterLine": "Select 'All attack' - pay Propaganda costs for ground creatures (8 mana for 4 ground attackers) and deal ~23 damage total, putting GPT5m Gramps within lethal range next turn.",
       "type": "blunder",
       "snapshotIndex": 670,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 561
     },
     {
       "severity": "major",
@@ -374202,7 +374393,8 @@
       "betterLine": "Attack with all or most creatures, prioritizing flyers. Zetalpa + Pristine Skywise + Elsha alone deal 17 unblockable flying damage for just 6 mana in Propaganda tax, bringing Gramps to 12 life. Sending all 6 creatures (12 mana tax) would deal 23 damage, leaving Gramps at 6.",
       "type": "blunder",
       "snapshotIndex": 670,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 561
     },
     {
       "severity": "minor",
@@ -374211,7 +374403,8 @@
       "betterLine": "Discard one of the duplicate Plains instead, keeping Merfolk Looter as a cheap source of card filtering that synergizes with the graveyard-heavy gameplan (Unburial Rites, Sun Titan, etc.)",
       "type": "blunder",
       "snapshotIndex": 677,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 564
     },
     {
       "severity": "moderate",
@@ -374220,7 +374413,8 @@
       "betterLine": "Pass without casting Magmaquake. River Kelpie is too valuable to sacrifice when there are no enemy creatures to clear. Save Magmaquake for when GPT5m Gramps deploys creatures, or use mana on other value plays like Oona's Grace retrace for card draw.",
       "type": "blunder",
       "snapshotIndex": 678,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 568
     },
     {
       "severity": "moderate",
@@ -374229,7 +374423,8 @@
       "betterLine": "Cast Prismatic Strands choosing red (assuming Magmaquake is red) to prevent all damage from the spell and save River Kelpie, or use Refuse // Cooperate's Refuse half to counter Magmaquake.",
       "type": "blunder",
       "snapshotIndex": 680,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 572
     },
     {
       "severity": "minor",
@@ -374238,7 +374433,8 @@
       "betterLine": "Target Propaganda with Ray of Distortion to remove the tax on attacking GPT5m Gramps",
       "type": "blunder",
       "snapshotIndex": 683,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 576
     },
     {
       "severity": "moderate",
@@ -374247,7 +374443,8 @@
       "betterLine": "Cast Prismatic Strands from graveyard via flashback, choosing red to prevent all damage from Magmaquake, preserving River Kelpie and Guttersnipe.",
       "type": "blunder",
       "snapshotIndex": 683,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 576
     },
     {
       "severity": "minor",
@@ -374256,7 +374453,8 @@
       "betterLine": "Play a basic Plains to unlock Nimbus Maze's {U} ability, saving Port Town for a later turn",
       "type": "blunder",
       "snapshotIndex": 691,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 581
     },
     {
       "severity": "minor",
@@ -374265,7 +374463,8 @@
       "betterLine": "Play Island (or another land) first, then cast Curator of Mysteries. This ensures you don't miss your land drop and maximizes available mana.",
       "type": "blunder",
       "snapshotIndex": 696,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 588
     },
     {
       "severity": "minor",
@@ -374274,7 +374473,8 @@
       "betterLine": "Discard Unburial Rites to use its cheaper flashback cost of {3}{W} from the graveyard, while keeping the Swamp for mana development",
       "type": "blunder",
       "snapshotIndex": 702,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 589
     },
     {
       "severity": "moderate",
@@ -374283,7 +374483,8 @@
       "betterLine": "Attack GPT5m Gramps with at least Zetalpa (8 damage with double strike, has vigilance so stays untapped) and Pristine Skywise (6 damage), paying Propaganda costs. This would deal 14 damage, bringing Gramps from 25 to 11 life, putting them in lethal range next turn.",
       "type": "blunder",
       "snapshotIndex": 703,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 595
     },
     {
       "severity": "questionable",
@@ -374292,7 +374493,8 @@
       "betterLine": "Play Exotic Orchard for color flexibility, or Plains to improve white mana access for graveyard flashback spells like Sevinne's Reclamation ({2}{W}) and Prismatic Strands",
       "type": "blunder",
       "snapshotIndex": 710,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 599
     },
     {
       "severity": "minor",
@@ -374301,7 +374503,8 @@
       "betterLine": "Play a land (e.g., Exotic Orchard for immediate untapped mana, or Mystic Monastery for color fixing), then consider casting Deep Analysis via flashback or other available spells before passing.",
       "type": "blunder",
       "snapshotIndex": 711,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 600
     },
     {
       "severity": "minor",
@@ -374310,7 +374513,8 @@
       "betterLine": "Play a land first (Plains or Island to fix mana), then decide whether to cast Rod of Absorption or save mana for other plays. Getting to 5+ mana for Unburial Rites targeting Sun Titan or other powerful creatures should be the priority.",
       "type": "blunder",
       "snapshotIndex": 715,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 602
     },
     {
       "severity": "minor",
@@ -374319,7 +374523,8 @@
       "betterLine": "Play Exotic Orchard instead of Plains, preserving Plains for a turn where no better land is available. Exotic Orchard provides the same white mana plus additional color options.",
       "type": "blunder",
       "snapshotIndex": 726,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 608
     },
     {
       "severity": "minor",
@@ -374328,7 +374533,8 @@
       "betterLine": "Play Island untapped, then cast Rod of Absorption (2U) using Island + Nimbus Maze + Port Town/Swamp to start building value and disrupting the opponent's spells.",
       "type": "blunder",
       "snapshotIndex": 731,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 610
     },
     {
       "severity": "moderate",
@@ -374337,7 +374543,8 @@
       "betterLine": "Play a land (Island or Plains), then cast Sun Titan for {4}{W}{W}, triggering its ETB to return a key permanent like Baleful Strix or Arcane Signet from graveyard, establishing a dominant board presence.",
       "type": "blunder",
       "snapshotIndex": 739,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 615
     },
     {
       "severity": "questionable",
@@ -374346,7 +374553,8 @@
       "betterLine": "Discard one of the two Plains instead, keeping Grave Endeavor as a powerful instant-speed reanimation spell that also drains opponents. With Unburial Rites already providing sorcery-speed reanimation (with flashback), Grave Endeavor adds instant-speed flexibility and the life drain component could matter in the endgame.",
       "type": "blunder",
       "snapshotIndex": 743,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 615
     },
     {
       "severity": "minor",
@@ -374355,7 +374563,8 @@
       "betterLine": "Play a land first (Plains or Island for untapped mana, or Arcane Sanctum), then cast Wall of Omens to avoid needing to discard and to have more mana available for any drawn card",
       "type": "blunder",
       "snapshotIndex": 747,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 619
     },
     {
       "severity": "minor",
@@ -374364,7 +374573,8 @@
       "betterLine": "Discard a Plains - GPT5m Gramps has two Plains and an Island in hand plus Arcane Sanctum, which is excessive land. Wall of Omens is a cheap cantrip creature that provides value whether cast from hand or reanimated by Sun Titan.",
       "type": "blunder",
       "snapshotIndex": 750,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 619
     },
     {
       "severity": "minor",
@@ -374373,7 +374583,8 @@
       "betterLine": "Attack with just Zetalpa and Pristine Skywise for 14 damage (4 mana Propaganda tax), keeping 4 mana open for interaction like Leadership Vacuum or Desperate Ravings. The extra 6 damage from Elsha and River Kelpie doesn't achieve lethal and leaves you completely tapped out.",
       "type": "blunder",
       "snapshotIndex": 751,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 621
     },
     {
       "severity": "questionable",
@@ -374382,7 +374593,8 @@
       "betterLine": "Discard Boros Guildgate or Mystic Monastery, as these are redundant tap-lands when the player already has 8 lands, while Leadership Vacuum at least cantrips and could be relevant if GPT5m Gramps replays their commander.",
       "type": "blunder",
       "snapshotIndex": 754,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 622
     },
     {
       "severity": "minor",
@@ -374391,7 +374603,8 @@
       "betterLine": "Cast Think Twice or Desperate Ravings using available mana to draw cards, since this mana would likely go unused otherwise. These are best cast at end of turn or during combat to maximize information before committing.",
       "type": "blunder",
       "snapshotIndex": 756,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 624
     },
     {
       "severity": "moderate",
@@ -374400,7 +374613,8 @@
       "betterLine": "Discard a Plains instead. With two Plains, an Island, and Arcane Sanctum in hand, one Plains is redundant. Rod of Absorption, while slow, is at least a unique effect that could provide value if the game goes long, whereas an extra basic land when you already have multiple lands to play is less valuable.",
       "type": "blunder",
       "snapshotIndex": 759,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 623
     },
     {
       "severity": "moderate",
@@ -374409,7 +374623,8 @@
       "betterLine": "Play a land first (Arcane Sanctum for color fixing, or Plains), then cast Doomed Necromancer if still desired. Prioritizing land drops to reach Unburial Rites or Sun Titan mana sooner would be more impactful.",
       "type": "blunder",
       "snapshotIndex": 763,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 627
     },
     {
       "severity": "minor",
@@ -374418,7 +374633,8 @@
       "betterLine": "Discard one of the two Plains instead, keeping the Island for blue mana diversity and to enable Nimbus Maze to produce U.",
       "type": "blunder",
       "snapshotIndex": 766,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 628
     },
     {
       "severity": "minor",
@@ -374427,7 +374643,8 @@
       "betterLine": "Discard Boros Guildgate, which enters tapped and provides colors already covered by existing lands. Thalia's Geistcaller would generate significant value with the many flashback spells available in the graveyard.",
       "type": "blunder",
       "snapshotIndex": 770,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 631
     },
     {
       "severity": "questionable",
@@ -374436,7 +374653,8 @@
       "betterLine": "Discarding a Plains instead, since GPT5m already has Plains on board and in graveyard, while keeping Reassembling Skeleton in hand preserves the option to cast it as a creature for Victimize sacrifice fodder without spending the {1}{B} recursion cost. Though the Skeleton does function from graveyard, having it in hand gives more flexibility.",
       "type": "blunder",
       "snapshotIndex": 775,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 632
     },
     {
       "severity": "questionable",
@@ -374445,7 +374663,8 @@
       "betterLine": "Discard is reasonable since Necrotic Sliver can be reanimated later, but discarding a Plains instead could also be justified since they already have Plains in graveyard for potential recursion and Necrotic Sliver's destroy ability is very relevant against Llama4 Valley's board.",
       "type": "blunder",
       "snapshotIndex": 782,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 636
     },
     {
       "severity": "questionable",
@@ -374454,7 +374673,8 @@
       "betterLine": "Discard Azorius Locket or Azorius Chancery instead, as they provide less future value than a flashback spell in a deck that benefits from casting spells from the graveyard.",
       "type": "blunder",
       "snapshotIndex": 786,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 639
     },
     {
       "severity": "minor",
@@ -374463,7 +374683,8 @@
       "betterLine": "Cast Think Twice from graveyard for its flashback cost ({2}{U}) or Desperate Ravings from graveyard for its flashback cost ({2}{U}) to draw cards with otherwise unused mana.",
       "type": "blunder",
       "snapshotIndex": 788,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 641
     },
     {
       "severity": "questionable",
@@ -374472,7 +374693,8 @@
       "betterLine": "Retrieve Sevinne's Reclamation to recur key low-MV permanents like Burning Vengeance, Dockside Extortionist, or Command Tower from the graveyard to the battlefield, providing more reliable board development",
       "type": "blunder",
       "snapshotIndex": 791,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 646
     },
     {
       "severity": "minor",
@@ -374481,7 +374703,8 @@
       "betterLine": "Should have chosen White or Black, which are the colors of the opponent's removal spells (Swords to Plowshares, Despark, Utter End in graveyard) and permanents.",
       "type": "blunder",
       "snapshotIndex": 791,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 646
     },
     {
       "severity": "questionable",
@@ -374490,7 +374713,8 @@
       "betterLine": "Could argue for discarding Devil's Play instead, since with limited red mana sources (only 1 Mountain + Temple) and expensive flashback cost (X+RRR), it's unlikely to deal significant damage. However, Devil's Play is a flexible win condition. Azorius Chancery is a reasonable discard given the tempo loss of bouncing a land, so this is debatable rather than clearly wrong.",
       "type": "blunder",
       "snapshotIndex": 795,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 649
     },
     {
       "severity": "minor",
@@ -374499,7 +374723,8 @@
       "betterLine": "Cast Think Twice from graveyard for its flashback cost ({2}{U}) or Desperate Ravings from graveyard ({2}{U}) to draw cards at instant speed while the mana would otherwise go unused.",
       "type": "blunder",
       "snapshotIndex": 797,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 649
     },
     {
       "severity": "major",
@@ -374508,7 +374733,8 @@
       "betterLine": "Cast Storm Herd ({8}{W}{W}) to create 39 1/1 flying Pegasus tokens, which would be lethal on the next attack against the sole remaining opponent at 25 life, even accounting for Propaganda costs.",
       "type": "blunder",
       "snapshotIndex": 801,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 652
     },
     {
       "severity": "minor",
@@ -374517,7 +374743,8 @@
       "betterLine": "Cast Think Twice from graveyard for {2}{U} to draw a card, and potentially also cast Desperate Ravings from graveyard for {2}{U} to draw more cards, using the available mana productively before moving to other phases.",
       "type": "blunder",
       "snapshotIndex": 805,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 654
     },
     {
       "severity": "minor",
@@ -374526,7 +374753,8 @@
       "betterLine": "Cast Think Twice or Desperate Ravings from graveyard using flashback to draw cards with unused mana, since these are instant-speed and it's the postcombat main phase with mana available",
       "type": "blunder",
       "snapshotIndex": 808,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 656
     },
     {
       "severity": "questionable",
@@ -374535,7 +374763,8 @@
       "betterLine": "Discard Storm Herd, which costs 10 mana and is unlikely to be cast soon, while keeping Pristine Angel as a more castable threat with strong protective abilities",
       "type": "blunder",
       "snapshotIndex": 813,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 658
     },
     {
       "severity": "minor",
@@ -374544,7 +374773,8 @@
       "betterLine": "Cast Think Twice from graveyard (flashback {2}{U}) or Desperate Ravings from graveyard (flashback {2}{U}) to draw cards at instant speed, using otherwise wasted mana.",
       "type": "blunder",
       "snapshotIndex": 814,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 658
     },
     {
       "severity": "moderate",
@@ -374553,7 +374783,8 @@
       "betterLine": "Cast Backdraft Hellkite for {3}{R}{R} using Mountain, Temple of the False God, and Islands (via Pramikon's color identity allowing the mana). Alternatively, at minimum cast Think Twice or Desperate Ravings from graveyard to draw cards and develop board position against the remaining opponent.",
       "type": "blunder",
       "snapshotIndex": 822,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 666
     },
     {
       "severity": "minor",
@@ -374562,11 +374793,12 @@
       "betterLine": "Discard one of the two Plains, since Arcane Sanctum already provides white mana and the deck desperately needs black mana sources for its reanimation package.",
       "type": "blunder",
       "snapshotIndex": 826,
-      "player": "GPT5m Gramps"
+      "player": "GPT5m Gramps",
+      "decisionIndex": 675
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

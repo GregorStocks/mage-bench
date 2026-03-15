@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_212316_g2",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -72899,7 +72899,8 @@
       "betterLine": "Keep the 7-card hand. It has sufficient mana, a reasonable curve with turn 3 and turn 4 plays, and synergy between Shambling Suit and the Clue from Drownyard Explorers.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 1
     },
     {
       "severity": "questionable",
@@ -72908,7 +72909,8 @@
       "betterLine": "Mulligan to 5 seeking a hand with at least one creature. A 5-card hand with a creature and lands would function much better than this hand which is effectively all blanks until a creature is drawn.",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -72917,7 +72919,8 @@
       "betterLine": "Cast Aggressive Urge targeting Vedalken Engineer to draw a card and dig deeper into the deck, since there's no reason to hold the mana open with the current hand.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -72926,7 +72929,8 @@
       "betterLine": "Play Thriving Grove first (enters tapped), then cast Dutiful Replicator (3/2) using Forest + Island + Thriving Isle. The 3/2 body is much more impactful than a 1/3, and Shambling Suit could be cast later when more artifacts/enchantments are in play to make it larger.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -72935,7 +72939,8 @@
       "betterLine": "Cast Aggressive Urge targeting Dutiful Replicator (or Vedalken Engineer) to draw a card and potentially find useful spells for upcoming turns.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -72944,7 +72949,8 @@
       "betterLine": "Cast Aggressive Urge targeting any creature to draw a card, since the mana would be wasted otherwise and digging for lands/cards is important when behind on development",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -72953,7 +72959,8 @@
       "betterLine": "Cast Aggressive Urge targeting Dutiful Replicator or Vedalken Engineer to draw a card and cycle through the deck while using the available mana",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -72962,7 +72969,8 @@
       "betterLine": "Block Dutiful Replicator with Rhonas the Indomitable to kill the 3/2 for free while taking no permanent damage due to indestructible.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 66
     },
     {
       "severity": "minor",
@@ -72971,7 +72979,8 @@
       "betterLine": "Cast Aggressive Urge on any creature (e.g., Dutiful Replicator or Shambling Suit) to draw a card, potentially play a land to get closer to 6 mana, then proceed to combat.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 76
     },
     {
       "severity": "major",
@@ -72980,7 +72989,8 @@
       "betterLine": "Attack with all three creatures (Dutiful Replicator, Shambling Suit, Vedalken Engineer) for 6 unblocked damage, potentially casting Aggressive Urge on one attacker for 7 damage and a card draw.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -72989,7 +72999,8 @@
       "betterLine": "Cast Aggressive Urge on an unblocked attacker (like Dutiful Replicator or Shambling Suit) to deal 1 extra damage and draw a card, since the mana couldn't be spent on anything more impactful this turn.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -72998,7 +73009,8 @@
       "betterLine": "Cast Aggressive Urge targeting any creature to draw a card, then potentially play a land if drawn, getting closer to casting the 6-mana threats in hand (Primordial Sage or Warden of the Woods).",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -73007,7 +73019,8 @@
       "betterLine": "Block Primeval Herald with Vedalken Engineer (1/1 kills the 3/1 Herald equally well) and preserve Shambling Suit. Take 5 from Rhonas either way since it's indestructible.",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 88
     },
     {
       "severity": "moderate",
@@ -73016,7 +73029,8 @@
       "betterLine": "Cast Aggressive Urge targeting Shambling Suit to make it 3/4, allowing it to survive the 3 damage from Primeval Herald while still killing it, plus drawing a card.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -73025,7 +73039,8 @@
       "betterLine": "Cast Aggressive Urge targeting Dutiful Replicator (or Vedalken Engineer) to draw a card for free, since the 2 mana would otherwise go unused before untapping next turn.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 90
     },
     {
       "severity": "minor",
@@ -73034,7 +73049,8 @@
       "betterLine": "Attack with Dutiful Replicator for 3 unblockable damage, bringing opponent from 17 to 14.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -73043,7 +73059,8 @@
       "betterLine": "Cast Aggressive Urge targeting the attacking Dutiful Replicator to deal 1 extra damage and draw a card for free value",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -73052,7 +73069,8 @@
       "betterLine": "Cast Aggressive Urge on Dutiful Replicator to make it 4/3 and draw a card, potentially finding an answer to survive the following turn.",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 111
     },
     {
       "severity": "moderate",
@@ -73061,7 +73079,8 @@
       "betterLine": "Cast Aggressive Urge targeting Dutiful Replicator (or any creature) to draw a card and potentially find an answer to the lethal board state. The 2-mana cantrip is essentially free value and critical when behind and at low life.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 113
     },
     {
       "severity": "major",
@@ -73070,7 +73089,8 @@
       "betterLine": "Cast Roar of Challenge targeting Rhonas the Indomitable (forcing all blockers onto indestructible Rhonas), then attack with all creatures for 8 unblocked damage, winning the game.",
       "type": "blunder",
       "snapshotIndex": 200,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 120
     },
     {
       "severity": "moderate",
@@ -73079,7 +73099,8 @@
       "betterLine": "Attack with all four creatures. Opponent must block Rhonas (or die). With only one remaining blocker, at least two creatures get through. Cast Might of the Masses on an unblocked creature for guaranteed lethal damage.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 122
     },
     {
       "severity": "major",
@@ -73088,7 +73109,8 @@
       "betterLine": "Block Rhonas with Vedalken Engineer (1/1 dies to deathtouch, no trample so 0 damage through) or Dutiful Replicator, and block Spectral Hunt-Caller with Warden of the Woods (Warden survives at 5/3, Hunt-Caller dies). This saves the Warden, kills Hunt-Caller, and only loses a 1/1.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "Gem3F Philo"
+      "player": "Gem3F Philo",
+      "decisionIndex": 124
     },
     {
       "severity": "major",
@@ -73097,7 +73119,8 @@
       "betterLine": "Target Rhonas the Indomitable (unblocked) with Might of the Masses for 10 unblocked damage against an opponent at 6 life — lethal.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 126
     },
     {
       "severity": "major",
@@ -73106,7 +73129,8 @@
       "betterLine": "Activate Rhonas the Indomitable ({2}{G}) targeting Spectral Hunt-Caller to give it +2/+0 and trample, ensuring all excess combat damage tramples through the 1/1 blocker for lethal.",
       "type": "blunder",
       "snapshotIndex": 220,
-      "player": "Haiku Lucky"
+      "player": "Haiku Lucky",
+      "decisionIndex": 129
     }
   ],
   "blunderScriptVersion": 29,

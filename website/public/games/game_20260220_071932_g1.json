@@ -191584,7 +191584,8 @@
       "betterLine": "Play Plains first (ensuring 5 mana sources for future turns), then cast Daxos of Meletis. Or consider casting Darksteel Plate to set up indestructible protection before deploying the commander.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 33
     },
     {
       "severity": "questionable",
@@ -191593,7 +191594,8 @@
       "betterLine": "Cast Darksteel Plate (3 mana, leaving 1 open) to set up indestructible Daxos next turn, or cast Rhox Faithmender for a stronger board presence",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -191602,7 +191604,8 @@
       "betterLine": "Cast Darksteel Plate for 3 mana, saving 2 mana and providing permanent indestructible protection for Daxos (equip next turn), rather than the one-time Umbra armor save. Alternatively, cast Rhox Faithmender to diversify threats.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 73
     },
     {
       "severity": "questionable",
@@ -191611,7 +191614,8 @@
       "betterLine": "Enchanting Elgaud Shieldmate with Mammoth Umbra could be considered, making it a 6/7 vigilance body that's harder to kill, better protecting the soulbond pair's hexproof. However, Daxos is also a defensible target given his combat damage trigger and the umbra armor backup.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -191620,7 +191624,8 @@
       "betterLine": "Cast Banshee's Blade (2 mana), equip it to Daxos (2 mana), then cast Darksteel Plate (3 mana), using all 7 available mana and getting Daxos equipped before combat.",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 106
     },
     {
       "severity": "questionable",
@@ -191629,7 +191634,8 @@
       "betterLine": "Attack with all three creatures (Daxos, Elgaud Shieldmate, and Beast Token) for 3 additional unblocked damage, since Gem25F has no available blockers.",
       "type": "blunder",
       "snapshotIndex": 231,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -191638,7 +191644,8 @@
       "betterLine": "Choose 'All attack' to send Elgaud Shieldmate and Beast Token alongside Daxos for 3 additional unblockable damage (9 total instead of 6).",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 141
     },
     {
       "severity": "minor",
@@ -191647,7 +191654,8 @@
       "betterLine": "Attack Gem3P Hype with Daxos to guarantee the combat damage trigger fires (no blockers available), exiling a card and potentially casting it.",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "o3 Sarge"
+      "player": "o3 Sarge",
+      "decisionIndex": 141
     },
     {
       "severity": "questionable",
@@ -191656,7 +191664,8 @@
       "betterLine": "Attack Gem3P Hype for guaranteed 2 damage and 2 life gain with no risk of losing the Nighthawk, unless specifically wanting to trade for Ixhel which is a reasonable strategic choice given MiniMx's 5 poison counters",
       "type": "blunder",
       "snapshotIndex": 326,
-      "player": "MiniMx Villain"
+      "player": "MiniMx Villain",
+      "decisionIndex": 167
     },
     {
       "severity": "questionable",
@@ -191665,7 +191674,8 @@
       "betterLine": "Cast Norn's Decree ({2}{W}) to provide defensive poison counter generation and attack deterrence while at 8 life, preserving mana to potentially cast Glissa's Retriever next turn when you might also have Norn's Decree active to punish attacks.",
       "type": "blunder",
       "snapshotIndex": 356,
-      "player": "Gem25F Perfect"
+      "player": "Gem25F Perfect",
+      "decisionIndex": 188
     },
     {
       "severity": "minor",
@@ -191674,7 +191684,8 @@
       "betterLine": "Choose 'All attack' to also send Ixhel, Scion of Atraxa at MiniMx Villain (already at 5 poison), dealing 2 combat damage and adding 2 poison counters (to 7 total) with no defensive downside due to vigilance.",
       "type": "blunder",
       "snapshotIndex": 360,
-      "player": "Gem25F Perfect"
+      "player": "Gem25F Perfect",
+      "decisionIndex": 189
     },
     {
       "severity": "minor",
@@ -191683,11 +191694,12 @@
       "betterLine": "Play a Forest (or Svogthos, the Restless Tomb) first, then cast Syphon Mind. This ensures no missed land drop and maximizes mana available on future turns.",
       "type": "blunder",
       "snapshotIndex": 370,
-      "player": "Gem3P Hype"
+      "player": "Gem3P Hype",
+      "decisionIndex": 196
     }
   ],
   "blunderScriptVersion": 18,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

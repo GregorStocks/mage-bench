@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_082623_g1",
   "timestamp": "20260303_082623",
   "gameType": "Two Player Duel",
@@ -89509,7 +89509,8 @@
       "betterLine": "Attack with Eternal Taskmaster for 2 unblockable damage.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -89518,7 +89519,8 @@
       "betterLine": "Attack with Gifted Aetherborn. Either it gets through for 2 damage + 2 life, or it kills Pestermite in combat while surviving and gaining life.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "GLM47 Philo"
+      "player": "GLM47 Philo",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -89527,7 +89529,8 @@
       "betterLine": "Play Swamp first, then cast Agonizing Syphon targeting Eternal Taskmaster to kill it AND gain 3 life, preserving Last Gasp for future use",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "GLM47 Philo"
+      "player": "GLM47 Philo",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -89536,7 +89539,8 @@
       "betterLine": "Choose 'Horror' to potentially buff Gloom Sower if drawn later, or another type with more relevance to likely future creatures in the deck",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -89545,7 +89549,8 @@
       "betterLine": "Play Swamp first, then cast Agonizing Syphon (4 mana), then cast Gifted Aetherborn with the remaining 2 black mana, deploying both a removal spell and a strong blocker in the same turn",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "GLM47 Philo"
+      "player": "GLM47 Philo",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -89554,7 +89559,8 @@
       "betterLine": "Attack with both Ronom Unicorn and Gifted Aetherborn for 4 total damage and 2 life gained from lifelink, since the opponent has no available blockers.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "GLM47 Philo"
+      "player": "GLM47 Philo",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -89563,7 +89569,8 @@
       "betterLine": "Equip Malefic Scythe to Sentinels of Glen Elendra for {1}, then attack with a 3/4 flyer for 3 unblockable damage instead of 2",
       "type": "blunder",
       "snapshotIndex": 239,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 61
     },
     {
       "severity": "major",
@@ -89572,7 +89579,8 @@
       "betterLine": "Equip Malefic Scythe to Sentinels of Glen Elendra (making it 4/5 flying) to have a stronger blocker against the Gloom Sower, then hold up Vendilion Clique for flash deployment. The equipped Sentinels could block the 8/6 Gloom Sower without dying, which is critical at 4 life. Alternatively, equip to Eternal Taskmaster to make it a 3/4 for better blocking options.",
       "type": "blunder",
       "snapshotIndex": 275,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 67
     }
   ],
   "blunderScriptVersion": 31,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_142812_g4",
   "timestamp": "20260308_142812",
   "gameType": "Two Player Duel",
@@ -93244,7 +93244,8 @@
       "betterLine": "Choose White as the secondary color for Thriving Moor to have access to both colors the deck needs",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -93253,7 +93254,8 @@
       "betterLine": "Choose Black to have access to the deck's secondary color, enabling casting of black spells drawn later",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 11
     },
     {
       "severity": "questionable",
@@ -93262,7 +93264,8 @@
       "betterLine": "Cast Tragic Slip targeting Distinguished Conjurer to remove the value engine before it can untap and start flickering creatures or gaining life. Morkrut Banshee in hand can serve as removal for larger threats later.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 41
     },
     {
       "severity": "moderate",
@@ -93271,7 +93274,8 @@
       "betterLine": "Cast Durable Coilbug or Disciple of Perdition for {1}{B} to develop the board, keeping {B} open for Tragic Slip if needed. Any board development here is important against the opponent's growing engine.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -93280,7 +93284,8 @@
       "betterLine": "Block only Soulcage Fiend with Preston (kills it, Preston survives at 2/2), and leave Distinguished Conjurer unblocked or don't block with it. Take 1 damage from Disciple of Perdition, preserving the crucial Conjurer for the Preston flicker engine. Net life: 17 vs 17 but you keep your combo pieces intact.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 88
     },
     {
       "severity": "questionable",
@@ -93289,7 +93294,8 @@
       "betterLine": "Hold Tragic Slip for a turn where morbid is active (e.g., after a creature dies in combat) to use the -13/-13 mode on Preston, the Vanisher, which is the much more threatening card on the opponent's board.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -93298,7 +93304,8 @@
       "betterLine": "Cast Bone Picker for {3}{B} (4 mana) to get a 3/2 flying deathtouch creature that can fly over Unicorn tokens and trade with any threat",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 117
     },
     {
       "severity": "major",
@@ -93307,7 +93314,8 @@
       "betterLine": "Cast Faith's Fetters on Durable Coilbug or Wakedancer to neutralize a threat and gain 4 life, then cast Brightmare with remaining mana to tap another creature, gain life, and create a 2/2 Unicorn token from Blessed Sanctuary. At minimum, cast at least one of the three available spells.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 130
     },
     {
       "severity": "minor",
@@ -93316,7 +93324,8 @@
       "betterLine": "Unicorn Token blocks Wakedancer (permanently removing it), let Durable Coilbug through for the same 2 damage",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 163
     },
     {
       "severity": "major",
@@ -93325,7 +93334,8 @@
       "betterLine": "Cast Emiel the Blessed for 4 mana, creating a powerful flicker engine with Preston and Blessed Sanctuary already on board. This would also trigger Blessed Sanctuary to create a 2/2 Unicorn token. Could potentially also cast Faith's Fetters on Bone Picker with remaining 3 mana (needs 4, so would need to sequence differently - cast Fetters first or just Emiel). At minimum, Emiel is an incredible play here.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 170
     },
     {
       "severity": "minor",
@@ -93334,7 +93344,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Brightmare for {3}, generating multiple tokens and ETB triggers with Preston and Blessed Sanctuary on the battlefield, while tapping down opponent's threats.",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 183
     },
     {
       "severity": "moderate",
@@ -93343,7 +93354,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Brightmare to flicker it, generating multiple ETB triggers through Blessed Sanctuary and Preston, creating additional tokens and tapping opponent's creatures to set up a dominant board position and likely lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -93352,7 +93364,8 @@
       "betterLine": "Pay {W} from an untapped Plains to put two +1/+1 counters on the Unicorn token, making it a 4/4 for free",
       "type": "blunder",
       "snapshotIndex": 228,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 187
     },
     {
       "severity": "moderate",
@@ -93361,7 +93374,8 @@
       "betterLine": "Play Plains (free land drop), then cast Faith's Fetters targeting Morkrut Banshee 4/4 to lock it down and gain 4 life, setting up a likely lethal attack next turn.",
       "type": "blunder",
       "snapshotIndex": 283,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 225
     }
   ],
   "blunderScriptVersion": 32,

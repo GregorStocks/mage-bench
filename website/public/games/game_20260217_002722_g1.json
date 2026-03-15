@@ -18459,7 +18459,8 @@
       "betterLine": "Named Warrior for Cavern of Souls, which is more likely to match future creature draws in a combat-oriented deck, though neither option matches current hand creatures beyond Changeling",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT5m Stats"
+      "player": "GPT5m Stats",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -18468,11 +18469,12 @@
       "betterLine": "Play Jasmine Dragon Tea Shop as land drop, then cast Earth Kingdom Protectors or Earthen Ally using the two already-untapped lands (Cavern of Souls + Starting Town) to begin developing the board. Alternatively, cast Earthen Ally with the existing lands and save the land drop, though deploying both is better.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT5m Stats"
+      "player": "GPT5m Stats",
+      "decisionIndex": 12
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

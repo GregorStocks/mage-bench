@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_172012_g1",
   "timestamp": "20260228_172012",
   "gameType": "Two Player Duel",
@@ -53262,7 +53262,8 @@
       "betterLine": "Play Thriving Bluff (choosing green) on turn 1 to get the tapped land out of the way, saving untapped lands for turns where mana matters.",
       "type": "blunder",
       "snapshotIndex": 8,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -53271,7 +53272,8 @@
       "betterLine": "Play Thriving Bluff (choosing green) since it enters tapped and no spells are castable this turn regardless. This sequences tapped lands optimally and provides a second green source for Domesticated Hydra.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -53280,7 +53282,8 @@
       "betterLine": "Attack with Nessian Hornbeetle for 2 unblockable damage.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -53289,7 +53292,8 @@
       "betterLine": "Cast Wight of Precinct Six for {1}{B} using Forest and Swamp to develop the board.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -53298,7 +53302,8 @@
       "betterLine": "Play Forest to maximize flexibility for casting Domesticated Hydra on turn 4, since having 2 green sources by turn 4 is the key constraint",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 18
     },
     {
       "severity": "questionable",
@@ -53307,7 +53312,8 @@
       "betterLine": "Consider casting Welding Sparks on Nessian Hornbeetle to prevent it from growing, though saving it for a larger threat after deploying Rapacious Dragon (for 5 damage instead of 3) is also defensible",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 19
     },
     {
       "severity": "questionable",
@@ -53316,7 +53322,8 @@
       "betterLine": "Hold Welding Sparks and pass the turn. At minimum, wait until end of opponent's turn to use it (preserving flexibility), or ideally save it for a larger threat. With Rapacious Dragon in hand coming soon (which creates Treasure tokens that boost Welding Sparks' damage), waiting has additional upside.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -53325,7 +53332,8 @@
       "betterLine": "Choose Green, which matches their R/G deck and provides useful mana for future green spells",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GLM47 Story"
+      "player": "GLM47 Story",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -53334,7 +53342,8 @@
       "betterLine": "Attack with Fell Specter for 1 damage to the opponent (16 → 15 life). There are no blockers on the opposing side.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -53343,7 +53352,8 @@
       "betterLine": "Successfully cast Fertilid by paying {G}{G}{B} (one Forest for the green requirement, one Forest and one Swamp for the generic costs), deploying a 2/2 body with useful land-fetching ability.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -53352,7 +53362,8 @@
       "betterLine": "Attack with both Fell Specter and Wight of Precinct Six for 5 unblocked damage.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 40
     },
     {
       "severity": "major",
@@ -53361,7 +53372,8 @@
       "betterLine": "Attack with all three creatures (Fell Specter, Ravenous Chupacabra, Wight of Precinct Six) for 8 unblocked damage, putting opponent to 3 life.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -53370,7 +53382,8 @@
       "betterLine": "Play Forest, cast Pridemalkin (putting +1/+1 counter on a creature), then move to combat and attack with all creatures for lethal damage against the 4-life opponent with no blockers.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 49
     },
     {
       "severity": "major",
@@ -53379,7 +53392,8 @@
       "betterLine": "Attack with all creatures (or at minimum the Wight of Precinct Six) to deal lethal damage and win the game.",
       "type": "blunder",
       "snapshotIndex": 200,
-      "player": "Gem25P Diplom"
+      "player": "Gem25P Diplom",
+      "decisionIndex": 51
     }
   ],
   "blunderScriptVersion": 28,

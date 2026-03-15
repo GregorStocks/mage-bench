@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_021046_g2",
   "timestamp": "20260304_021046",
   "gameType": "Two Player Duel",
@@ -97663,7 +97663,8 @@
       "betterLine": "Keep the 7-card hand. The curve of turn-3 Rishadan Airship into turn-4 Pirate's Cutlass (5/2 flyer) is solid, with Scholar of the Lost Trove as a finisher. Being land-heavy is better than going to 6 and potentially getting worse.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -97672,7 +97673,8 @@
       "betterLine": "Cast Teferi, Master of Time, immediately +1 to draw and discard for card selection, with the option to -3 to phase out Departed Deckhand on the opponent's turn if needed",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -97681,7 +97683,8 @@
       "betterLine": "Cast Teferi, Master of Time for 2UU while the opponent is tapped out of colored mana. Teferi immediately provides card filtering with +1 and threatens to phase out the Departed Deckhand, generating significant ongoing value.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -97690,7 +97693,8 @@
       "betterLine": "Attack with Departed Deckhand first (unblockable with all opponent creatures tapped), then cast Chart a Course postcombat to draw 2 without discarding",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -97699,7 +97703,8 @@
       "betterLine": "Discard an Island instead. With 5 lands on board and still holding one Island, mana needs are covered. Chromatic Sphere offers more flexibility as a cantrip and artifact synergy piece.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -97708,7 +97713,8 @@
       "betterLine": "Don't block - take 3 damage (going to 13 life) and preserve Siege Striker, which has significant offensive value with double strike and its ability to tap other creatures for +1/+1 counters when attacking.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -97717,7 +97723,8 @@
       "betterLine": "Choose protection from Blue, since the opponent is clearly playing a blue deck and protection from blue would guard against blue removal spells and make Siege Striker unblockable by blue creatures.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 69
     },
     {
       "severity": "questionable",
@@ -97726,7 +97733,8 @@
       "betterLine": "Discard Teferi's Ageless Insight instead, keeping Exclude as cheap interaction to counter a potential blocker or threat that could stabilize the opponent, and Secure the Scene as backup removal for Juggernaut.",
       "type": "blunder",
       "snapshotIndex": 204,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 85
     },
     {
       "severity": "minor",
@@ -97735,7 +97743,8 @@
       "betterLine": "Activate Teferi's +1 to loot (draw then discard), gaining card selection and building loyalty to 5 before the Archaeomender resolves. This could find answers to whatever the opponent retrieves from their graveyard.",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 94
     },
     {
       "severity": "minor",
@@ -97744,7 +97753,8 @@
       "betterLine": "Activate Teferi's +1 to draw a card and discard a card, gaining free card selection and building loyalty toward future abilities.",
       "type": "blunder",
       "snapshotIndex": 235,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 96
     },
     {
       "severity": "major",
@@ -97753,7 +97763,8 @@
       "betterLine": "Activate Aether Spellbomb's bounce mode ({U}, sacrifice) targeting one of the 3/3 Drake tokens, permanently removing it since tokens can't exist in hand. This removes 3 flying damage and gives a much better chance of surviving the next attack.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 103
     },
     {
       "severity": "minor",
@@ -97762,7 +97773,8 @@
       "betterLine": "Cast Lightning-Core Excavator for 1 mana to get a 0/3 blocker on board that can block Siege Striker and potentially activate for 3 damage later",
       "type": "blunder",
       "snapshotIndex": 250,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 107
     },
     {
       "severity": "minor",
@@ -97771,7 +97783,8 @@
       "betterLine": "Cast Lightning-Core Excavator for {1} to get a 0/3 blocker on board and access to its 3-damage activated ability in future turns.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "MstLg Fate"
+      "player": "MstLg Fate",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -97780,7 +97793,8 @@
       "betterLine": "Activate Teferi's +1 to draw and discard, gaining free card selection that could find relevant interaction or protection before moving to combat.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 113
     },
     {
       "severity": "minor",
@@ -97789,7 +97803,8 @@
       "betterLine": "Activate Teferi's +1 to draw a card and discard a card (likely discarding Teferi's Ageless Insight or another low-value card), gaining free card filtering before moving to combat for the likely lethal attack.",
       "type": "blunder",
       "snapshotIndex": 271,
-      "player": "QwCdr Optim"
+      "player": "QwCdr Optim",
+      "decisionIndex": 114
     }
   ],
   "blunderScriptVersion": 32

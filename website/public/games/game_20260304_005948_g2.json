@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_005948_g2",
   "timestamp": "20260304_005948",
   "gameType": "Two Player Duel",
@@ -85088,7 +85088,8 @@
       "betterLine": "Cast Ironshell Beetle, targeting itself with its ETB trigger to make a 2/2, and save Wildwood Scourge for a later turn when it can be cast at higher X and benefit from counter synergies",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -85097,7 +85098,8 @@
       "betterLine": "Attack with Mild-Mannered Librarian for 1 free damage. The 1/1 can't meaningfully block the opponent's 2/2 creatures anyway, so there's no defensive value in holding it back.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "GPT5 Minimal"
+      "player": "GPT5 Minimal",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -85106,7 +85108,8 @@
       "betterLine": "Attack with Wildwood Scourge, Fertilid, and Burglar Rat. Opponent can only block one creature with the 1/1 Librarian, so at least 7 damage gets through instead of 4, with no real risk since opponent's lands are all tapped.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 40
     },
     {
       "severity": "questionable",
@@ -85115,7 +85118,8 @@
       "betterLine": "Chump block with Ferocious Pup 0/1 to save 4 life at no meaningful cost",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "GPT5 Minimal"
+      "player": "GPT5 Minimal",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -85124,7 +85128,8 @@
       "betterLine": "Activate Fertilid ({1}{G}, remove a +1/+1 counter) to search for a basic land (likely a Swamp to ensure Eviscerate mana next turn). This costs nothing meaningful — Fertilid goes from 3/3 to 2/2 and the mana was going to waste anyway.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -85133,7 +85138,8 @@
       "betterLine": "Play Plains first, then cast Chains of Custody, leaving 1 extra mana open after the spell resolves",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "GPT5 Minimal"
+      "player": "GPT5 Minimal",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -85142,7 +85148,8 @@
       "betterLine": "Enchant the Wolf Token (2/2) with Chains of Custody — it's the most durable creature and hardest to remove in combat, making the exile most likely to stick. Alternatively, enchant Mild-Mannered Librarian to protect its valuable activated ability with Ward {2}.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "GPT5 Minimal"
+      "player": "GPT5 Minimal",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -85151,7 +85158,8 @@
       "betterLine": "Block with Fertilid 3/3, which kills the Wolf Token and survives the combat, cleanly removing an attacker at no cost",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -85160,7 +85168,8 @@
       "betterLine": "Cast Eviscerate targeting Mild-Mannered Librarian (to prevent it from transforming into a 3/3 and drawing a card) or the Wolf Token (2/2) to remove actual board presence.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 55
     },
     {
       "severity": "major",
@@ -85169,7 +85178,8 @@
       "betterLine": "Move to combat, attack with Crypt Rats and Ironshell Beetle (both unblocked since opponent's creatures are tapped), deal 2 damage putting opponent to 5, then activate Crypt Rats for X=5 in postcombat main to deal 5 to each player for lethal.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "GPT53C Humble"
+      "player": "GPT53C Humble",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 32

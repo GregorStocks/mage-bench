@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_000030_g3",
   "timestamp": "20260303_000030",
   "gameType": "Two Player Duel",
@@ -56625,7 +56625,8 @@
       "betterLine": "Play a Mountain to have 2 mana available next turn for Chandra's Magmutt, maintaining curve development.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Llama4 Rookie"
+      "player": "Llama4 Rookie",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -56634,7 +56635,8 @@
       "betterLine": "Play Island, then cast Chromatic Sphere (or Lightning-Core Excavator) with the available mana. This develops the board and sets up for Hedron Archive on turn 5 with 3 lands.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -56643,7 +56645,8 @@
       "betterLine": "Play Mountain, then cast Chandra's Magmutt for {1}{R} using the two Thriving Bluffs and/or the new Mountain. This develops the board and starts the clock toward casting bigger threats like Rapacious Dragon on curve.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Llama4 Rookie"
+      "player": "Llama4 Rookie",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -56652,7 +56655,8 @@
       "betterLine": "Cast Aether Spellbomb for {1} to deploy it on board for future use.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -56661,7 +56665,8 @@
       "betterLine": "Activate Aether Spellbomb by paying {1} and sacrificing it to draw a card, trying to find a land drop for next turn. Being stuck on 2 lands with a hand full of 4-7 mana cards means every draw counts.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -56670,7 +56675,8 @@
       "betterLine": "Activate Chandra's Magmutt to deal 1 damage to the opponent, then proceed to combat with the flying creatures.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Llama4 Rookie"
+      "player": "Llama4 Rookie",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -56679,7 +56685,8 @@
       "betterLine": "Block Chandra's Magmutt with Lightning-Core Excavator to save 2 life while the Excavator survives the block.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -56688,7 +56695,8 @@
       "betterLine": "Move to combat, declare attackers with all available creatures (Hellkite, Rapacious Dragon, Dragonloft Idol, Chandra's Magmutt), then pump Hellkite during combat after seeing if opponent uses Aether Spellbomb to bounce it",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Llama4 Rookie"
+      "player": "Llama4 Rookie",
+      "decisionIndex": 64
     },
     {
       "severity": "major",
@@ -56697,7 +56705,8 @@
       "betterLine": "Activate Aether Spellbomb (pay {U} from Thriving Isle) to bounce Hellkite Punisher, then block Chandra's Magmutt with Lightning-Core Excavator. Incoming damage becomes 4 (Dragonloft Idol) + 3 (Rapacious Dragon) = 7, surviving at 4 life.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 67
     },
     {
       "severity": "major",
@@ -56706,7 +56715,8 @@
       "betterLine": "Activate Aether Spellbomb targeting Hellkite Punisher to bounce it, and block Chandra's Magmutt with Lightning-Core Excavator. This reduces incoming damage to 7 (Dragonloft Idol 4 + Rapacious Dragon 3), surviving at 4 life.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem31P Analyst"
+      "player": "Gem31P Analyst",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -56715,7 +56725,8 @@
       "betterLine": "Activate Hellkite Punisher's pump ability with the Mountain instead, making it 8/6 and increasing total combat damage to 17. This maximizes pressure and makes it harder for the opponent to survive even with Aether Spellbomb bounce.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Llama4 Rookie"
+      "player": "Llama4 Rookie",
+      "decisionIndex": 73
     }
   ],
   "blunderScriptVersion": 31,

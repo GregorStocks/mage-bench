@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_003722_g2",
   "timestamp": "20260309_003722",
   "gameType": "Two Player Duel",
@@ -68626,7 +68626,8 @@
       "betterLine": "Keep the 7-card hand. Two Plains with an excellent mono-white curve is a reasonable keep, accepting the risk of missing the third land drop in exchange for card advantage and hand quality.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -68635,7 +68636,8 @@
       "betterLine": "Actively choose the color matching their deck's second color to ensure Thriving Heath provides the correct mana fixing for the rest of the game.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -68644,7 +68646,8 @@
       "betterLine": "Activate the Clue token to draw a card, since there are no instants in hand and no other way to use the 2 mana this turn cycle.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -68653,7 +68656,8 @@
       "betterLine": "Activate the Clue Token to sacrifice it and draw a card, using the 2 otherwise-wasted mana to gain card advantage at no tempo cost.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -68662,7 +68666,8 @@
       "betterLine": "Attack with both Inspiring Overseer and Thraben Inspector for 3 total damage, since the opponent has zero available blockers. With Inspiring Unicorn and upcoming Valorous Steed available as blockers, holding back the 1/2 Inspector is unnecessary.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -68671,7 +68676,8 @@
       "betterLine": "Attack with Basri's Acolyte. It favorably trades with or tramples over the 1/2 Inspector, gaining life in the process, with zero risk since opponent has no mana available.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 66
     },
     {
       "severity": "major",
@@ -68680,7 +68686,8 @@
       "betterLine": "Play Plains (5 lands), then cast Faith's Fetters targeting Basri's Acolyte to neutralize it and gain 4 life, then attack with Inspiring Unicorn, Inspiring Overseer, and Thraben Inspector into an opponent with no untapped blockers except Mesa Unicorn (which is sick).",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -68689,7 +68696,8 @@
       "betterLine": "Attack with all three creatures (Inspiring Overseer, Inspiring Unicorn, Thraben Inspector). Inspiring Unicorn's trigger buffs all attackers to 3/2, 3/3, and 2/3. The opponent can only block one ground creature with Basri's Acolyte, likely resulting in 6-7 damage and killing the Acolyte. Valorous Stance available as backup.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 72
     },
     {
       "severity": "minor",
@@ -68698,7 +68706,8 @@
       "betterLine": "Attack with both Basri's Acolyte and Mesa Unicorn into a tapped-out opponent to maximize damage, life gain, and reliably trigger Griffin Aerie",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 87
     },
     {
       "severity": "minor",
@@ -68707,7 +68716,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2 creature, then declare it as an attacker alongside other creatures, keeping 3 mana open for Feat of Resistance as a combat trick",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -68716,7 +68726,8 @@
       "betterLine": "Block Basri's Acolyte with Valorous Steed (3/3). The Steed kills the 2/3 Acolyte and survives with 1 damage marked, removing a key lifelink threat that feeds Griffin Aerie.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -68725,7 +68736,8 @@
       "betterLine": "Choose both modes — exile an opponent's creature AND flicker Valorous Steed (for a free 2/2 Knight token) or Inspiring Overseer (for a free card draw and 1 life)",
       "type": "blunder",
       "snapshotIndex": 167,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 103
     },
     {
       "severity": "minor",
@@ -68734,7 +68746,8 @@
       "betterLine": "Exile Basri's Acolyte - it's the bigger threat, harder to remove in combat, and the most reliable Griffin Aerie enabler.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 104
     },
     {
       "severity": "questionable",
@@ -68743,7 +68756,8 @@
       "betterLine": "Flicker Inspiring Overseer to draw a card and gain 1 life — card advantage is typically more impactful than an extra 2/2 body when you already have board presence",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -68752,7 +68766,8 @@
       "betterLine": "Target Basri's Acolyte (3/4) with Mode 1 to remove the larger lifelink threat, while still flickering Valorous Steed with Mode 2 for the extra Knight token",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -68761,7 +68776,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2 Golem, then attack with it for 2 damage. With only a Plains in hand, there was no competing use for the mana.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -68770,7 +68786,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2, then block Inspiring Overseer (3/2) to trade and save 3 damage.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -68779,7 +68796,8 @@
       "betterLine": "Block with both Guardian Idol and Griffin Token to minimize incoming damage. The Griffin Token could trade with Inspiring Overseer (3/2, both die) or chump block another attacker. Griffin Aerie can generate replacement tokens, so the token is expendable compared to preserving life total against this aggressive board.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 121
     },
     {
       "severity": "questionable",
@@ -68788,7 +68806,8 @@
       "betterLine": "Activate Clue Token (2 mana) to draw a card, since opponent has no untapped creatures and the combat trick protection from Valorous Stance is unlikely needed",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 146
     }
   ],
   "blunderScriptVersion": 32,

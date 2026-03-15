@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260301_202443",
   "timestamp": "20260301_202443",
   "gameType": "Two Player Duel",
@@ -93923,7 +93923,8 @@
       "betterLine": "Keep the 7-card hand. It has lands, early plays (Nessian Hornbeetle on 2, Crawling Sensation on 3), and powerful mid-to-late game with Talrand and Read the Tides. Two lands is slightly risky but the curve is low enough to function.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 2
     },
     {
       "severity": "questionable",
@@ -93932,7 +93933,8 @@
       "betterLine": "Cast Anointed Chorister — both are 1/1 lifelink for W, but Chorister has a relevant pump ability that can be used with the green mana the deck runs, while Speaker's activated ability (needing 27 life) is extremely unlikely to be activated in a normal game. However, Speaker's vigilance is a real upside, so this is close.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -93941,7 +93943,8 @@
       "betterLine": "Play Island first, then cast Duskshell Crawler. This follows the fundamental principle of playing lands before spells to maximize options.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -93950,7 +93953,8 @@
       "betterLine": "Play Plains first, then cast Garruk's Uprising (2G) to set up card draw triggers for the multiple power 4+ creatures in hand",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -93959,7 +93963,8 @@
       "betterLine": "Block Speaker of the Heavens with Duskshell Crawler to save 1 damage and prevent 1 lifelink life gain, at no cost (Crawler survives as 0/2).",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -93968,7 +93973,8 @@
       "betterLine": "Cast Garruk's Uprising to establish trample for all creatures and set up card draw triggers for the multiple power 4+ creatures in hand",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -93977,7 +93983,8 @@
       "betterLine": "Block Speaker of the Heavens (or Anointed Chorister) with Duskshell Crawler to prevent 1 damage and 1 lifegain at zero cost. The Crawler survives the block.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -93986,7 +93993,8 @@
       "betterLine": "Attack with at least Brushstrider and Speaker of the Heavens (vigilance means no cost), and likely Anointed Chorister too. The lifelink damage helps reach the 27-life threshold for Speaker's powerful ability, and the opponent is unlikely to sacrifice Talrand to block a 1/1.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 36
     },
     {
       "severity": "major",
@@ -93995,7 +94003,8 @@
       "betterLine": "Don't block. Taking 3 damage (going to 10 life) is a very reasonable cost to preserve Talrand, who would generate enormous value with Befuddle and Wizard's Retort in hand. Alternatively, block with Duskshell Crawler if you must block, though even that trade is unfavorable.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -94004,7 +94013,8 @@
       "betterLine": "Play Forest (or Island) first, then cast Ironshell Beetle. This follows proper sequencing of land-before-spells and costs nothing.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -94013,7 +94023,8 @@
       "betterLine": "Attack with at least Speaker of the Heavens (free due to vigilance) for incremental life gain and damage. Anointed Chorister could also attack since the opponent's only untapped blocker is Duskshell Crawler (0/3 which deals no damage back).",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -94022,7 +94033,8 @@
       "betterLine": "Activate Garruk's -2 to create a 3/3 green Beast creature token, gaining the loyalty counter back due to opponent having more creatures",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -94031,7 +94043,8 @@
       "betterLine": "Let Garruk's -2 ability resolve, creating the 3/3 Beast token, then cast Befuddle on the Beast to make it -1/3 and draw a card — more impactful since the Beast with trample is the real threat",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -94040,7 +94053,8 @@
       "betterLine": "Either attack with Vodalian Arcanist alone (3/5 with trample pushes damage and survives most blocks) or don't attack at all. Duskshell Crawler should never attack since it deals 0 damage and is a key trample enabler that shouldn't be risked. Keeping Vodalian Arcanist untapped for Wizard's Retort mana is reasonable, but then no creatures should attack.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -94049,7 +94063,8 @@
       "betterLine": "Activate Garruk's +1 on the Beast Token (making it 6/6 with trample), then attack with Beast Token, Anointed Chorister, and Speaker of the Heavens. With only Ironshell Beetle untapped to block, this deals ~7 damage (opponent to 6) while preserving Garruk at 3 loyalty.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -94058,7 +94073,8 @@
       "betterLine": "Block Speaker of the Heavens with Ironshell Beetle to trade the expendable 1/1 for a potentially dangerous creature and save 1 point of damage.",
       "type": "blunder",
       "snapshotIndex": 253,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 72
     },
     {
       "severity": "minor",
@@ -94067,7 +94083,8 @@
       "betterLine": "Block Duskshell Crawler with Beast Token (kills it for free, removes trample enabler) and block Ironshell Beetle with Drowsing Tyrannodon (kills it, taking only 1 damage)",
       "type": "blunder",
       "snapshotIndex": 280,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -94076,7 +94093,8 @@
       "betterLine": "Cast Garruk's Harbinger (1GG) precombat, draw a card from Garruk's Uprising trigger, then attack with all creatures for lethal trampling damage against the tapped-out opponent at 8 life.",
       "type": "blunder",
       "snapshotIndex": 287,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 82
     },
     {
       "severity": "major",
@@ -94085,7 +94103,8 @@
       "betterLine": "Block one of the 3/3 Beast Tokens with Caustic Caterpillar to reduce incoming damage to 5, surviving at 3 life.",
       "type": "blunder",
       "snapshotIndex": 295,
-      "player": "MiMo Proud"
+      "player": "MiMo Proud",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -94094,7 +94113,8 @@
       "betterLine": "Activate Anointed Chorister's {4}{W} ability to pump it to 4/4, providing 3 extra damage as insurance against any possible interaction when attacking for exact lethal",
       "type": "blunder",
       "snapshotIndex": 296,
-      "player": "GPT5 Teach"
+      "player": "GPT5 Teach",
+      "decisionIndex": 85
     }
   ],
   "blunderScriptVersion": 30,

@@ -29933,7 +29933,8 @@
       "betterLine": "Discard Forest instead, keeping the second Llanowar Elves for additional ramp to potentially cast Quantum Riddler on turn 3",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 13
     },
     {
       "severity": "questionable",
@@ -29942,7 +29943,8 @@
       "betterLine": "Tutor for a mid-cost creature like Ouroboroid or Spider Manifestation that could be cast sooner and contribute to board development, eventually building toward a winning board state more reliably",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 13
     },
     {
       "severity": "moderate",
@@ -29951,7 +29953,8 @@
       "betterLine": "Target Formidable Speaker with Get Lost to remove the more impactful 2/4 creature that already tutored a card and has an untap ability.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Qwen3 Vet"
+      "player": "Qwen3 Vet",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -29960,7 +29963,8 @@
       "betterLine": "Untap the tapped Breeding Pool to maximize available mana, enabling both Badgermole Cub cast and potential Map Token activation in the same turn",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -29969,7 +29973,8 @@
       "betterLine": "Play Forest from hand first, then cast Badgermole Cub for {1}{G} to develop the board with a 2/2 and earthbend a land. Save the Map Tokens and Formidable Speaker's untap ability for a later turn when the mana is less constrained.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 16
     },
     {
       "severity": "major",
@@ -29978,7 +29983,8 @@
       "betterLine": "Attack with both Formidable Speaker and Badgermole Cub. Opponent's Unagi can only block one, guaranteeing 2-3 damage against a 7-life opponent. Then use remaining mana to cast Gene Pollinator or hold up options.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -29987,7 +29993,8 @@
       "betterLine": "Let Gene Pollinator resolve first, then use Gene Pollinator's tap ability (with Badgermole Cub's extra {G} trigger) to generate more mana before casting Nature's Rhythm with a higher X value.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 29
     },
     {
       "severity": "major",
@@ -29996,7 +30003,8 @@
       "betterLine": "Search for Craterhoof Behemoth, which enters with haste and pumps all creatures, enabling a lethal attack against the opponent at 7 life",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 32
     },
     {
       "severity": "major",
@@ -30005,7 +30013,8 @@
       "betterLine": "Untap own Breeding Pool to have 5 mana available, enabling casting Quantum Riddler this turn to apply lethal pressure against an opponent at 4 life",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 34
     },
     {
       "severity": "major",
@@ -30014,11 +30023,12 @@
       "betterLine": "Choose 'All attack' to send both Formidable Speaker and Badgermole Cub, dealing 6 damage to the opponent at 4 life for lethal.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "o3 Minimal"
+      "player": "o3 Minimal",
+      "decisionIndex": 34
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

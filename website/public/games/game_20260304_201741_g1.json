@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_201741_g1",
   "timestamp": "20260304_201741",
   "gameType": "Two Player Duel",
@@ -83759,7 +83759,8 @@
       "betterLine": "Mulligan to 6 cards. A random 6-card hand with a scry is far more likely to have a functional mix of lands and spells than this hand, which is almost entirely mana-flooded from the start.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -83768,7 +83769,8 @@
       "betterLine": "Play Thriving Isle (choosing black for flexibility) which still produces blue mana for future blue spells, or play a basic Island for untapped blue mana. Thriving Isle is the best choice since it covers blue + a secondary color.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -83777,7 +83779,8 @@
       "betterLine": "Play Thriving Isle (choosing a color), then cast Warden of Evos Isle for {2}{U} (3 mana), leaving 1 mana open. Next turn, cast Tide Skimmer for {2}{U} (discounted) and have two flyers ready to trigger card draw.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 18
     },
     {
       "severity": "major",
@@ -83786,7 +83789,8 @@
       "betterLine": "Discard Fiery Conclusion (requires sacrificing a creature, which is a real cost with limited board presence) or Irreverent Revelers (a mediocre 2/2 for 3 with situational artifact destruction). Keep Chandra as the highest-impact card in hand.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -83795,7 +83799,8 @@
       "betterLine": "Play Thriving Isle (choosing black) as the land drop, then cast Warden of Evos Isle with the 4 untapped lands. This preserves Islands in hand for future turns when untapped mana might matter more, while gaining a second black source.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -83804,7 +83809,8 @@
       "betterLine": "Save Rookie Mistake for a future combat where it can save a creature from dying or create a favorable trade. At 20 life, preventing 2 damage is not worth spending a card.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -83813,7 +83819,8 @@
       "betterLine": "Cast Goblin Researcher for 4 mana, entering as a 5/3 with haste (from Ardoz), dealing more damage and getting a card exiled for future use",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -83822,7 +83829,8 @@
       "betterLine": "Block Ardoz with Tide Skimmer. Tide Skimmer (2/3) easily survives Ardoz's 1 power, Ardoz dies, and only 4 damage is taken from the unblocked Revelers. This eliminates the opponent's creature-buffing engine for free.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -83831,7 +83839,8 @@
       "betterLine": "Attack with both Ardoz and Irreverent Revelers. If opponent blocks one with Tide Skimmer, sacrifice the blocked creature to Fiery Conclusion targeting Tide Skimmer (5 damage kills it), and deal damage with the unblocked creature. This removes the opponent's only threat while advancing the clock.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -83840,7 +83849,8 @@
       "betterLine": "Play a land first (Thriving Isle choosing black, or an Island), then cast Warden of Evos Isle and Wakedancer (or Spawning Pit) to deploy multiple threats while at a precarious 12 life against three opposing creatures.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 76
     },
     {
       "severity": "moderate",
@@ -83849,7 +83859,8 @@
       "betterLine": "Cast Fiery Conclusion sacrificing Irreverent Revelers (the least impactful creature) to deal 5 damage to Tide Skimmer, destroying the opponent's key flying threat and preventing the card-draw engine with the incoming Warden of Evos Isle.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 77
     },
     {
       "severity": "major",
@@ -83858,7 +83869,8 @@
       "betterLine": "Block Bolt Hound with Warden of Evos Isle to trade and save 4 damage (12 → 7 life), removing the +1/+0 anthem effect and a key attacker",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -83867,7 +83879,8 @@
       "betterLine": "Decline to activate Spawning Pit, take the 9 damage (going to 3 life), and preserve both Tide Skimmer and Warden of Evos Isle for future blocking and attacking. These creatures are far more valuable than a single charge counter.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 92
     },
     {
       "severity": "moderate",
@@ -83876,7 +83889,8 @@
       "betterLine": "Either attack with both flyers for 4 damage (opponent at 16 life) while holding up Unsubstantiate for defense, or simply pass to preserve all blockers at 5 life.",
       "type": "blunder",
       "snapshotIndex": 225,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 106
     },
     {
       "severity": "minor",
@@ -83885,7 +83899,8 @@
       "betterLine": "Sacrifice Warden of Evos Isle to Spawning Pit, keeping the 2/3 Tide Skimmer as a better defensive body at 5 life",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 109
     },
     {
       "severity": "major",
@@ -83894,7 +83909,8 @@
       "betterLine": "Play Swamp, cast Disciple of Perdition (1B) and Wakedancer (2B) to deploy two additional blockers (1/3 and 2/2), giving three total blockers to try to survive the next attack. Hold Unsubstantiate to bounce the biggest attacker during combat.",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "GptOSS Vet"
+      "player": "GptOSS Vet",
+      "decisionIndex": 113
     },
     {
       "severity": "questionable",
@@ -83903,7 +83919,8 @@
       "betterLine": "Target Warden of Evos Isle with both points of damage to kill the only blocker, guaranteeing all 4 attackers connect plus a Spiteful Prankster trigger for a clean lethal kill that's harder to interact with.",
       "type": "blunder",
       "snapshotIndex": 244,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 116
     },
     {
       "severity": "minor",
@@ -83912,7 +83929,8 @@
       "betterLine": "Simply let combat damage resolve - the attack was already lethal regardless of how the opponent blocked. No need to sacrifice a creature or spend mana.",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "GPT52 Timmy"
+      "player": "GPT52 Timmy",
+      "decisionIndex": 120
     }
   ],
   "blunderScriptVersion": 32

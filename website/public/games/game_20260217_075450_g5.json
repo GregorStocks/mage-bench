@@ -25041,7 +25041,8 @@
       "betterLine": "Declining is correct here - save the burn spells to combine with Slickshot Show-Off triggers for maximum damage later",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Grok4 Sport"
+      "player": "Grok4 Sport",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -25050,7 +25051,8 @@
       "betterLine": "Activate Maelstrom of the Spirit Dragon's second ability to add one mana of any color for Dragon/Omen spells, since the hand contains multiple Dragons (Magmatic Hellkite, Clarion Conqueror, Dragonhawk).",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "GPT52 Trash"
+      "player": "GPT52 Trash",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -25059,7 +25061,8 @@
       "betterLine": "Tap Maelstrom of the Spirit Dragon for colored mana via option 2, which is at least as good and potentially better if any Dragon or Omen spell could be relevant",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "GPT52 Trash"
+      "player": "GPT52 Trash",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -25068,7 +25071,8 @@
       "betterLine": "Discard the second copy of Momo, Friendly Flier, since it's a legendary creature and having two copies is redundant. Magmatic Hellkite is castable next turn with 4 lands and provides a strong body plus land destruction.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GPT52 Trash"
+      "player": "GPT52 Trash",
+      "decisionIndex": 9
     },
     {
       "severity": "moderate",
@@ -25077,11 +25081,12 @@
       "betterLine": "Keep Maelstrom of the Spirit Dragon for mana production. Play Cavern of Souls (naming Dragon) as the land drop, then use lands to cast Momo, Friendly Flier this turn, building toward casting Magmatic Hellkite or Clarion Conqueror on the following turn with 5 mana sources.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GPT52 Trash"
+      "player": "GPT52 Trash",
+      "decisionIndex": 10
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

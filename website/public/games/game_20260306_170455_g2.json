@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_170455_g2",
   "timestamp": "20260306_170455",
   "gameType": "Two Player Duel",
@@ -81047,7 +81047,8 @@
       "betterLine": "Cast Aegis Turtle for U as a defensive body, saving Flicker of Fate for later when it can generate real value (e.g., flickering own ETB creatures like Wispweaver Angel or resetting a Faith's Fetters target).",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 42
     },
     {
       "severity": "major",
@@ -81056,7 +81057,8 @@
       "betterLine": "Target the opponent's Angelic Cub (5/5 flyer) with Faith's Fetters to neutralize the biggest threat and gain 4 life, buying significant time.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 95
     },
     {
       "severity": "moderate",
@@ -81065,7 +81067,8 @@
       "betterLine": "Block Angelic Cub with Aegis Turtle (blockers: 'p37:attacker_id'). The Turtle dies to the 6/6 but absorbs 6 damage, leaving Llama4 at 10 life with much more room to stabilize with Wispweaver Angel or Pursued Whale.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 108
     },
     {
       "severity": "major",
@@ -81074,7 +81077,8 @@
       "betterLine": "Cast Rousing Read on Aegis Turtle to create a 1/6 flying blocker that survives combat with the 5/5 Angelic Cub (taking 5 damage with 6 toughness). This forces the opponent to sacrifice Phyrexian Debaser to push through lethal, and the card draw might find additional answers.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 118
     },
     {
       "severity": "major",
@@ -81083,7 +81087,8 @@
       "betterLine": "Attack with all three creatures (Angelic Cub, Phyrexian Debaser, and Perilous Myr) to guarantee lethal damage regardless of how the opponent blocks.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "GPT54 Spike"
+      "player": "GPT54 Spike",
+      "decisionIndex": 130
     },
     {
       "severity": "major",
@@ -81092,7 +81097,8 @@
       "betterLine": "Block Angelic Cub with Aegis Turtle to survive at 1 life. The Turtle (1/6) survives combat against the 5/5 Cub, and only the Debaser's 3 damage gets through.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "Llama4 Valley"
+      "player": "Llama4 Valley",
+      "decisionIndex": 133
     }
   ],
   "blunderScriptVersion": 32

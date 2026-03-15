@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_184350_g3",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -59982,7 +59982,8 @@
       "betterLine": "Play an Island first, then go to combat and attack with Chandra's Magmutt for 2 damage (or trade with Lightning Visionary)",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 9
     },
     {
       "severity": "moderate",
@@ -59991,7 +59992,8 @@
       "betterLine": "Use Chandra's +1 deal 2 damage to kill Lightning Visionary (removing an attacking threat with prowess) or deal 2 to the opponent's face. Keep the hand intact, especially Chandra's Incinerator which could be cast cheaply on a future turn after dealing noncombat damage with Magmutt and Chandra.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -60000,7 +60002,8 @@
       "betterLine": "Attack with Chandra's Magmutt first (free 2 damage since all opponent creatures are tapped), then cast Pillar of Flame postcombat. This preserves information and guarantees the extra combat damage.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 35
     },
     {
       "severity": "major",
@@ -60009,7 +60012,8 @@
       "betterLine": "Activate Chandra, Heart of Fire's +1 (discard hand/exile 3) to get access to 3 cards this turn for free, then potentially play exiled cards with available mana. Also consider activating Magmutt for 1 damage before or after combat.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -60018,7 +60022,8 @@
       "betterLine": "Attack with Chandra's Magmutt for 2 unblocked damage, bringing the opponent from 16 to 14 life.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -60027,7 +60032,8 @@
       "betterLine": "Activate Chandra, Heart of Fire's +1 (discard hand, exile top 3) to find playable cards with the 3+ available mana. Then also tap Chandra's Magmutt to deal 1 damage to the opponent for free incremental damage.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "MstLg Trash"
+      "player": "MstLg Trash",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -60036,7 +60042,8 @@
       "betterLine": "Block Chandra's Magmutt with Filigree Attendant to kill the Magmutt while the Attendant survives at 2/1. This removes a persistent damage source for free.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "Grok4F Villain"
+      "player": "Grok4F Villain",
+      "decisionIndex": 51
     }
   ],
   "blunderScriptVersion": 31,

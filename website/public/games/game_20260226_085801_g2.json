@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_085801_g2",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -44201,7 +44201,8 @@
       "betterLine": "Play Cavern of Souls naming Eldrazi (or Eye of Ugin for the cost reduction on Eldrazi spells). Consider casting Chalice of the Void for X=0 if relevant against the opponent's deck.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 1
     },
     {
       "severity": "moderate",
@@ -44210,7 +44211,8 @@
       "betterLine": "Play Cavern of Souls naming Eldrazi (or Abundant Countryside) to begin mana development. Could also consider casting Chalice of the Void for X=0 afterward, though its value depends on the matchup.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 1
     },
     {
       "severity": "major",
@@ -44219,7 +44221,8 @@
       "betterLine": "Play Cavern of Souls naming Eldrazi to start developing mana and set up uncounterable Eldrazi spells. Alternatively, play Abundant Countryside for immediate colorless mana production.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -44228,7 +44231,8 @@
       "betterLine": "Cast Chalice of the Void for X=0 for free, gaining potential value against zero-cost spells.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -44237,7 +44241,8 @@
       "betterLine": "Fetch Badlands to have access to both red and black mana, enabling Sling-Gang Lieutenant ({3}{B}) while still being able to cast red spells like Goblin Warchief and Goblin Matron.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 26
     },
     {
       "severity": "major",
@@ -44246,7 +44251,8 @@
       "betterLine": "Play Cavern of Souls naming Eldrazi to have 2 mana sources, getting closer to casting Glaring Fleshraker (turn 6 with another land) or Thought-Knot Seer. Could also consider casting Chalice of the Void for X=0 as a free play.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -44255,7 +44261,8 @@
       "betterLine": "Play Cavern of Souls (naming Eldrazi) to produce mana and keep both Eye of Ugins as redundant options for future turns.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 27
     },
     {
       "severity": "moderate",
@@ -44264,7 +44271,8 @@
       "betterLine": "Cast Glaring Fleshraker for {C} using Abundant Countryside, deploying the Eldrazi token engine early to start generating value from subsequent colorless spells.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -44273,7 +44281,8 @@
       "betterLine": "Cast Chalice of the Void for X=0 to get a free Glaring Fleshraker trigger (Spawn token + 1 damage) and incidental Chalice on 0 value",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -44282,7 +44291,8 @@
       "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the opponent the {2} cost reduction on Eldrazi spells and the late-game tutor ability. Two Mountains are sufficient to begin deploying the Goblin chain with Skirk Prospector.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -44291,7 +44301,8 @@
       "betterLine": "Wasteland Abundant Countryside, leaving opponent with only Eye of Ugin which produces no mana at all, effectively stranding them until they draw another land",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -44300,7 +44311,8 @@
       "betterLine": "Attack with Glaring Fleshraker for 2 free damage against an empty board.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -44309,7 +44321,8 @@
       "betterLine": "Attack with Glaring Fleshraker for 2 unblocked damage, bringing opponent to 17.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 41
     },
     {
       "severity": "major",
@@ -44318,7 +44331,8 @@
       "betterLine": "Play Ancient Tomb, then tap Ancient Tomb ({C}{C}) to cast Chalice of the Void with X=1, getting a charge counter on Chalice that counters all 1-mana spells. This locks out key Goblin cards and triggers Glaring Fleshraker (creating a Spawn token and dealing 1 damage to opponent).",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -44327,7 +44341,8 @@
       "betterLine": "Cast Kozilek's Command for X=1 (costing {1}{C}{C}) using Ancient Tomb and Abundant Countryside, choosing 'scry 1, draw a card' and another relevant mode, while also triggering Glaring Fleshraker for a Spawn token and 1 damage to opponent.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -44336,7 +44351,8 @@
       "betterLine": "Attack with Glaring Fleshraker for 2 unblockable damage, bringing opponent to 15 life.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -44345,7 +44361,8 @@
       "betterLine": "Activate Wasteland to destroy Ancient Tomb, significantly slowing the opponent's Eldrazi mana development. The player's own spells (Goblin Warchief at 1RR, other Goblins) only need red/black mana from Mountains, making the Wasteland's {C} production largely irrelevant for their game plan.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 52
     },
     {
       "severity": "moderate",
@@ -44354,7 +44371,8 @@
       "betterLine": "Activate Wasteland targeting Ancient Tomb to deny the opponent 2 colorless mana per turn, significantly slowing their Eldrazi development while losing virtually nothing since Wasteland's colorless mana doesn't cast any goblins in hand",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 53
     },
     {
       "severity": "major",
@@ -44363,7 +44381,8 @@
       "betterLine": "Play Cavern of Souls (naming Eldrazi) or Eye of Ugin, then cast Eldrazi Linebreaker (with Cavern/Countryside for R + Ancient Tomb for CC) or Thought-Knot Seer (with Eye of Ugin's cost reduction). Either play triggers Glaring Fleshraker for a Spawn token + 1 damage, and develops a serious threat.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 57
     },
     {
       "severity": "major",
@@ -44372,7 +44391,8 @@
       "betterLine": "Cast Thought-Knot Seer using Ancient Tomb (2 colorless, with Eye of Ugin discount) to strip opponent's best card, create a Fleshraker spawn token, and deal 1 damage. Then potentially attack with Fleshraker or hold for combat phase with Linebreaker's trigger consideration.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -44381,7 +44401,8 @@
       "betterLine": "Cast Eldrazi Linebreaker first for {R} (Abundant Countryside creature mana after Eye of Ugin discount), then cast Thought-Knot Seer for {C}{C} (Ancient Tomb after discount). This deploys both threats, maximizes Fleshraker triggers, and enables a massive combat step with Linebreaker's +X/+0 ability.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -44390,7 +44411,8 @@
       "betterLine": "Cast Kozilek's Command for X=0 (free due to Eye of Ugin cost reduction), choosing 'scry 0, draw a card' and another mode, getting a free card draw plus Fleshraker triggers",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 62
     },
     {
       "severity": "questionable",
@@ -44399,7 +44421,8 @@
       "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the {2} cost reduction on future Eldrazi spells. Even though it costs a land, Eye of Ugin's mana advantage over multiple turns likely outweighs losing one colorless mana source, especially since the Goblin deck can function on 2 Mountains with Skirk Prospector for additional mana.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -44408,7 +44431,8 @@
       "betterLine": "Attack with Glaring Fleshraker for 2 unblocked damage, bringing opponent to 11 life.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -44417,7 +44441,8 @@
       "betterLine": "Attack with Glaring Fleshraker for 2 damage, bringing opponent from 13 to 11 life.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -44426,7 +44451,8 @@
       "betterLine": "Cast Chalice of the Void for X=0 to trigger Glaring Fleshraker, creating an Eldrazi Spawn token and dealing 1 damage to the opponent (who is at 11 life). Free value with no mana cost.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 75
     },
     {
       "severity": "questionable",
@@ -44435,7 +44461,8 @@
       "betterLine": "Activate Wasteland targeting Eye of Ugin to prevent cost reduction on future Eldrazi spells. Then play Wooded Foothills next turn to partially replace the lost mana source.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 78
     },
     {
       "severity": "moderate",
@@ -44444,7 +44471,8 @@
       "betterLine": "Name 'Goblin' for Cavern of Souls to enable colored mana production and uncounterability for the entire hand of Goblin spells",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 80
     },
     {
       "severity": "major",
@@ -44453,7 +44481,8 @@
       "betterLine": "Play Abundant Countryside (or Cavern of Souls naming Eldrazi), then cast Eldrazi Linebreaker for {R} (Eye of Ugin reduces cost by 2). Fleshraker triggers create spawn + deal 1 damage (opponent to 9). At combat, Linebreaker gives a creature +6/+0 (6 Eldrazi on board). Pump TKS to 10/4 trample and attack with everything for likely lethal.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 83
     },
     {
       "severity": "major",
@@ -44462,7 +44491,8 @@
       "betterLine": "Play Cavern of Souls (or any land), cast Eldrazi Linebreaker using Ancient Tomb + Abundant Countryside. Fleshraker deals 1 damage (opponent to 9). In combat, use Linebreaker's trigger to buff Thought-Knot Seer by +6/+0, then attack with everything for lethal.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 83
     },
     {
       "severity": "major",
@@ -44471,7 +44501,8 @@
       "betterLine": "Play Cavern of Souls (naming Eldrazi) or Abundant Countryside, then cast Eldrazi Linebreaker for {R} (reduced by Eye of Ugin). This triggers Fleshraker for 1 damage. Then attack with Thought-Knot Seer (boosted to 10/4 by Linebreaker), Linebreaker (3/3 trample), and Fleshraker (2/2) for likely lethal damage.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 85
     },
     {
       "severity": "minor",
@@ -44480,7 +44511,8 @@
       "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the opponent's Eldrazi cost reduction and tutoring ability, then play Wooded Foothills to maintain land count for future turns.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 86
     },
     {
       "severity": "major",
@@ -44489,7 +44521,8 @@
       "betterLine": "Attack with at least Thought-Knot Seer and Glaring Fleshraker for 6 damage (opponent to 4 life). Could also send Spawn tokens for chip damage. Next turn Eldrazi Linebreaker would likely enable lethal.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -44498,7 +44531,8 @@
       "betterLine": "Attack with at least Thought-Knot Seer and Glaring Fleshraker for 6 damage (to 4 life). Could even attack with all creatures for 6+ damage since opponent has no blockers. This would set up lethal next turn or via Kozilek's Command / Fleshraker triggers.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -44507,7 +44541,8 @@
       "betterLine": "Cast Kozilek's Command with X=4 (reduced cost via Eye of Ugin) choosing 'create X Spawn tokens' plus any second mode. The Spawn token ETBs trigger Glaring Fleshraker for 5 total damage, plus 6 combat damage = 11 total, killing the opponent at 10 life.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -44516,7 +44551,8 @@
       "betterLine": "Play Bloodstained Mire instead, preserving the option to fetch a Swamp for black mana, enabling casting multiple colored spells without relying solely on Cavern of Souls for black.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 91
     },
     {
       "severity": "major",
@@ -44525,7 +44561,8 @@
       "betterLine": "Cast Kozilek's Command with X=4 (cost reduced by Eye of Ugin to 4 mana, payable with Ancient Tomb + Abundant Countryside + 1 Spawn sacrifice), choosing to create 4 Eldrazi Spawn tokens. The cast trigger from Fleshraker creates a 5th Spawn. Each of the 5 colorless creatures entering triggers Fleshraker for 5 damage, killing the opponent at 4 life.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 93
     },
     {
       "severity": "major",
@@ -44534,7 +44571,8 @@
       "betterLine": "Play a land if desired, optionally cast Eldrazi Linebreaker for {R} (dealing 1 via Fleshraker trigger), then move to combat and attack with all creatures for lethal damage against an opponent at 3 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 97
     },
     {
       "severity": "questionable",
@@ -44543,7 +44581,8 @@
       "betterLine": "Activate Wasteland targeting Eye of Ugin to deny cost reduction on future Eldrazi spells, then proceed to cast sorcery-speed creatures (Warchief → Skirk Prospector → Matron → Sling-Gang Lieutenant) for a potential combo kill",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "Sonnet Detect"
+      "player": "Sonnet Detect",
+      "decisionIndex": 99
     },
     {
       "severity": "major",
@@ -44552,7 +44591,8 @@
       "betterLine": "Attack with all creatures (at minimum Thought-Knot Seer and Glaring Fleshraker) to deal lethal damage to the opponent at 3 life.",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 98
     },
     {
       "severity": "major",
@@ -44561,7 +44601,8 @@
       "betterLine": "Attack with all creatures (at minimum Thought-Knot Seer 4/4) to deal lethal damage to the opponent at 3 life.",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "Qwen3L Villain"
+      "player": "Qwen3L Villain",
+      "decisionIndex": 98
     }
   ],
   "blunderScriptVersion": 28,

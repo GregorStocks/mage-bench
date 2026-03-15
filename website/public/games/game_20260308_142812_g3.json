@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_142812_g3",
   "timestamp": "20260308_142812",
   "gameType": "Two Player Duel",
@@ -69083,7 +69083,8 @@
       "betterLine": "Keep the 7-card hand. Play Island turn 1, Planar Atlas turn 2 (finding a land), Dutiful Replicator turn 3, Filigree Attendant turn 4. The hand has a clear game plan and Planar Atlas mitigates the land-light concern.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -69092,7 +69093,8 @@
       "betterLine": "Cast Locthwain Gargoyle to get a 0/3 blocker on board immediately while still adding an artifact for Filigree Attendant. Deploy Universal Solvent next turn instead.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 15
     },
     {
       "severity": "questionable",
@@ -69101,7 +69103,8 @@
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Shambling Suit back to opponent's hand before combat, then attack with both creatures for significant damage",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -69110,7 +69113,8 @@
       "betterLine": "Attack with both Gearsmith Prodigy and Phyrexian Broodlings to deal at least 2 guaranteed damage (likely 4 if opponent doesn't want to chump) with zero risk of losing a creature.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 86
     },
     {
       "severity": "minor",
@@ -69119,7 +69123,8 @@
       "betterLine": "Cast Runed Servitor for {2} pre-combat (Suit still becomes 5/3), attack with Shambling Suit holding up Jace's Scrutiny as a combat trick, then evaluate post-combat options",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 93
     },
     {
       "severity": "moderate",
@@ -69128,7 +69133,8 @@
       "betterLine": "Activate Aether Spellbomb targeting Shambling Suit (paying {U} from the untapped Island) to bounce it back to opponent's hand, saving Gearsmith Prodigy and removing the 5/3 threat.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 105
     },
     {
       "severity": "moderate",
@@ -69137,7 +69143,8 @@
       "betterLine": "Activate Aether Spellbomb (paying {U} from the untapped Island) to bounce Shambling Suit back to opponent's hand, preventing 5 damage and gaining tempo against a board that threatens lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 106
     },
     {
       "severity": "minor",
@@ -69146,7 +69153,8 @@
       "betterLine": "Attack with both Phyrexian Broodlings and Entomber Exarch. Opponent must block with Gargoyle and Ballista or take 4 damage. Either way, Gem31P trades favorably or deals significant damage. Could also Douse in Gloom the Walking Ballista pre-combat to ensure 2 damage gets through and gain 2 life.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 110
     },
     {
       "severity": "moderate",
@@ -69155,7 +69163,8 @@
       "betterLine": "Activate Aether Spellbomb (pay {U}, sacrifice) targeting Shambling Suit to bounce it, preventing 5 combat damage and forcing the opponent to spend 3 mana replaying it, buying a crucial turn against the developing board.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 113
     },
     {
       "severity": "major",
@@ -69164,7 +69173,8 @@
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Filigree Attendant (6/3 flyer), reducing incoming damage to 6 and going to 10 life. Filigree Attendant is the best bounce target since it costs 4 mana to replay and its power scales with artifacts. Could also cast Douse in Gloom for the 2 life gain on top of the bounce.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 130
     },
     {
       "severity": "moderate",
@@ -69173,7 +69183,8 @@
       "betterLine": "Activate Aether Spellbomb (pay U, sacrifice) to return Filigree Attendant to opponent's hand, saving 6 life and forcing opponent to spend 4 mana to replay it. This buys a crucial turn of tempo while staying at a healthier 16 life.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 133
     },
     {
       "severity": "major",
@@ -69182,7 +69193,8 @@
       "betterLine": "Activate Aether Spellbomb ({U}, sacrifice) to bounce Filigree Attendant to opponent's hand, preventing 5 damage and staying at 10 life. The opponent's lands are all tapped so they can't replay it this turn, buying crucial tempo.",
       "type": "blunder",
       "snapshotIndex": 167,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 138
     },
     {
       "severity": "minor",
@@ -69191,7 +69203,8 @@
       "betterLine": "Let Phyrexian Rager's ETB trigger resolve first (draw a card, lose 1 life), see what was drawn, then cast Whirler Rogue in the precombat main phase. Information before commitment is a fundamental sequencing principle.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 145
     },
     {
       "severity": "questionable",
@@ -69200,7 +69213,8 @@
       "betterLine": "Attack with Filigree Attendant, Drownyard Explorers, and Walking Ballista for exactly 9 damage = lethal. While pinging with Ballista post-combat also works, attacking for clean lethal is simpler and avoids any risk of forgetting the ping.",
       "type": "blunder",
       "snapshotIndex": 200,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 160
     },
     {
       "severity": "minor",
@@ -69209,7 +69223,8 @@
       "betterLine": "Activate Walking Ballista to deal 1 damage to opponent (going to 8 life), then attack with all flyers for 8 damage for exactly lethal, playing around potential bounce effects on the Attendant.",
       "type": "blunder",
       "snapshotIndex": 235,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 187
     },
     {
       "severity": "major",
@@ -69218,7 +69233,8 @@
       "betterLine": "Activate Aether Spellbomb to bounce Filigree Attendant (6/3), block Drownyard Explorers with Phyrexian Rager, block Runed Servitor with Whirler Rogue. Take only 3 damage, survive at 6 life.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 193
     },
     {
       "severity": "major",
@@ -69227,7 +69243,8 @@
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Filigree Attendant, then block optimally to survive at ~5 life. This is the only way to survive this combat.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 193
     }
   ],
   "blunderScriptVersion": 32,

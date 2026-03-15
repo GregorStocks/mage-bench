@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_000030_g4",
   "timestamp": "20260303_000030",
   "gameType": "Two Player Duel",
@@ -91226,7 +91226,8 @@
       "betterLine": "Play Plains instead. Forest + Plains still lets you cast Naga Vitalist (1G) this turn, and guarantees white mana access for Gallant Cavalry even if you miss a land drop next turn.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -91235,7 +91236,8 @@
       "betterLine": "Take 4 damage (going to 16), preserve Merrow Reejerey to pump future Merfolk from Aquatic Incursion and Watertrap Weaver. Use Watertrap Weaver next turn to tap down an attacker while getting the +1/+1 buff.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -91244,7 +91246,8 @@
       "betterLine": "Use the Reejerey tap trigger on Gallant Cavalry or the Knight token to reduce the opponent's available attackers this turn, since the Gibbon can't attack regardless of being tapped.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -91253,7 +91256,8 @@
       "betterLine": "Attack with only Triton Shorestalker (unblockable 2 damage guaranteed) and keep Merrow Reejerey back to preserve the +1/+1 lord buff for the Merfolk synergy plan, especially with Aquatic Incursion in hand ready to create two Merfolk tokens next turn.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -91262,7 +91266,8 @@
       "betterLine": "Block Merrow Reejerey with the Knight Token (2/2 trades with 2/2), killing the Merfolk lord and reducing future damage from Shorestalker by 1 per turn",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 39
     },
     {
       "severity": "moderate",
@@ -91271,7 +91276,8 @@
       "betterLine": "Cast Brightmare targeting Watertrap Weaver to tap it and gain 2 life, adding a 2/3 body to the board. Alternatively, cast Gift of the Gargantuan for card advantage, or Flicker of Fate on Gallant Cavalry to create another 2/2 Knight token.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -91280,7 +91286,8 @@
       "betterLine": "Choose White immediately, as it's the only color needed by any card in hand.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -91289,7 +91296,8 @@
       "betterLine": "Cast Preston, the Vanisher to establish the flicker engine. Preston's 2/5 body blocks effectively, and next turn Flicker of Fate or Brightmare creates Illusion tokens while dealing with threats. Save Faith's Fetters for a larger threat.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -91298,7 +91306,8 @@
       "betterLine": "Target Aquatic Incursion with Faith's Fetters to shut down its unblockable-granting activated ability, which represents more long-term damage potential than the 1/1 Shorestalker.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -91307,7 +91316,8 @@
       "betterLine": "Block with only one Merfolk token to fully absorb the 4 damage (no trample), preserving the second token as a future attacker/blocker.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -91316,7 +91326,8 @@
       "betterLine": "Cast Settle Beyond Reality (5 mana available via 4 lands + Naga Vitalist) choosing both modes: exile Triton Shorestalker and flicker a creature like Towering Gibbon to trigger Preston, creating an Illusion token copy. This removes the unblockable threat while building board presence.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -91325,7 +91336,8 @@
       "betterLine": "Block Preston, the Vanisher with Triton Shorestalker to save 2 life (going to 8 instead of 6), buying an extra turn of breathing room against the opponent's aggressive board",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 92
     },
     {
       "severity": "major",
@@ -91334,7 +91346,8 @@
       "betterLine": "Cast Brightmare targeting Triton Shorestalker to tap it, then attack with all creatures for lethal damage (at least 9 damage against 6 life with no available blockers).",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "GPT52 Spike"
+      "player": "GPT52 Spike",
+      "decisionIndex": 100
     },
     {
       "severity": "major",
@@ -91343,7 +91356,8 @@
       "betterLine": "Block Towering Gibbon (4/4) with Primeval Herald (3/1) and block Inspiring Overseer (2/1) with Triton Shorestalker (1/1), reducing incoming damage to 3 (Naga Vitalist 1 + Preston 2) and surviving at 3 life.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "Qwen3L Philo"
+      "player": "Qwen3L Philo",
+      "decisionIndex": 103
     }
   ],
   "blunderScriptVersion": 31,

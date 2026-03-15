@@ -29147,7 +29147,8 @@
       "betterLine": "Play Botanical Sanctum (enters untapped on turn 1, taps for {G} or {U}), then cast Gene Pollinator on turn 1. Save Willowrush Verge for turn 2 when a Forest is in play to enable its green mana ability.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -29156,7 +29157,8 @@
       "betterLine": "Choose Forest for Multiversal Passage. This enables Willowrush Verge to tap for {G} (needs Forest or Island), better supports the green-heavy hand, and could allow a turn 1 Gene Pollinator if paying 2 life. Blue mana is already covered by Botanical Sanctum and Willowrush Verge's unconditional {U}.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -29165,7 +29167,8 @@
       "betterLine": "Attack with the existing Hired Claw first (triggering 1 damage to opponent, enabling the +1/+1 counter ability later), then cast the second Hired Claw in the post-combat main phase. This preserves the option to use a 1-mana combat trick during the attack if needed.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -29174,7 +29177,8 @@
       "betterLine": "Declare attackers first with both Hired Claws to trigger the Lizard attack ability, then cast Might of the Meek during combat (after blocks) or post-combat to draw a card while preserving information advantage",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -29183,7 +29187,8 @@
       "betterLine": "Choose Llanowar Elves for more efficient mana acceleration that doesn't require tapping an additional permanent",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 36
     },
     {
       "severity": "questionable",
@@ -29192,7 +29197,8 @@
       "betterLine": "Discard a third copy of Turn Inside Out instead. Leyline of Resonance would double every combat trick targeting Slickshot Show-Off, creating a massive damage multiplier. Even at 2RR, it could be castable in 1-2 turns and would make the existing hand of tricks devastatingly powerful. Three Turn Inside Outs is redundant when Leyline could effectively double the remaining two.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -29201,7 +29207,8 @@
       "betterLine": "Play Forest (or Willowrush Verge) first, then cast Spider Manifestation, potentially leaving mana open for Spider-Sense or casting Mockingbird with the additional mana from the land drop and Spider Manifestation's tap ability.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 44
     },
     {
       "severity": "moderate",
@@ -29210,7 +29217,8 @@
       "betterLine": "Cast Mockingbird for X=2 copying Spider Manifestation to get a 2/2 flying creature, adding both offensive pressure and defensive capability. Alternatively, evaluate casting Nature's Rhythm from graveyard using Harmonize, tapping Spider Manifestation to reduce the cost.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -29219,7 +29227,8 @@
       "betterLine": "Cast Slickshot Show-Off normally for {1}{R} to get a hasty 1/2 flyer on the battlefield immediately, then attack with all three creatures this turn. The haste on Slickshot is wasted when plotting since plotted cards cast on later turns already enter without timing restrictions.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -29228,7 +29237,8 @@
       "betterLine": "Cast Mockingbird using Willowrush Verge for U + additional lands for X, copying a relevant creature (like Hired Claw or Gene Pollinator) to get an additional blocker/threat, while keeping one land untapped and a tapped creature available for web-slinging Spider-Sense if needed.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 58
     },
     {
       "severity": "major",
@@ -29237,7 +29247,8 @@
       "betterLine": "Attack with Slickshot Show-Off and both Hired Claws. Hired Claw triggers deal 2 damage. Cast Turn Inside Out on Slickshot Show-Off (becomes 6/2 flying). Combat damage of 6+1+1=8 plus 2 trigger damage = 10, which is lethal against opponent's 6 life.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 64
     },
     {
       "severity": "major",
@@ -29246,7 +29257,8 @@
       "betterLine": "Cast Turn Inside Out targeting Slickshot Show-Off to deal 6 flying damage for lethal (or cast multiple pump spells for massive overkill)",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -29255,7 +29267,8 @@
       "betterLine": "Cast Mockingbird for X=2 (3 mana total) copying Slickshot Show-Off to get a 1/2 flying blocker. This blocks the opposing Slickshot and still allows holding up Spider-Sense via web-slinging (bouncing Mockingbird if needed) to counter pump spells.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 65
     },
     {
       "severity": "major",
@@ -29264,7 +29277,8 @@
       "betterLine": "Activate both Hired Claws' +1/+1 counter abilities ({1}{R} each, 4 mana total with 3 Mountains + Fire Nation Palace available) to make them 2/3s, improving the ability to push through lethal damage next turn past the opponent's Gene Pollinator blockers.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 71
     },
     {
       "severity": "moderate",
@@ -29273,7 +29287,8 @@
       "betterLine": "Cast Mockingbird for X=2 copying Spider Manifestation to get an additional 2/2 reach blocker. This helps survive the next attack phase while still holding up Spider-Sense (2 mana with web-slinging) to counter any combat tricks from the opponent.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gem25F Gramps"
+      "player": "Gem25F Gramps",
+      "decisionIndex": 75
     },
     {
       "severity": "questionable",
@@ -29282,11 +29297,12 @@
       "betterLine": "Plot one of the Slickshot Show-Offs (paying 1R from untapped Mountains) to guarantee two Slickshots next turn, enabling a lethal alpha strike with pump spells through the Spider Manifestation blocker",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "DSV3 Spike"
+      "player": "DSV3 Spike",
+      "decisionIndex": 80
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

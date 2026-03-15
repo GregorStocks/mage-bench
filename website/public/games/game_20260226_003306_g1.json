@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_003306_g1",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -187729,7 +187729,8 @@
       "betterLine": "Choose yourself (Qwen3L Teach) to go first to have the play advantage, which is the default correct choice in nearly all constructed formats.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 0
     },
     {
       "severity": "questionable",
@@ -187738,7 +187739,8 @@
       "betterLine": "Bottom Spymaster's Vault instead. The hand has 3 lands without it (Overgrown Tomb, Verdant Catacombs, plus Catacombs can fetch another), which is sufficient. Keeping GSZ provides a powerful late-game tutor that scales with available mana and can find exactly what's needed. Spymaster's Vault's activated ability requires creatures dying and the hand has no black spells to leverage it.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -187747,7 +187749,8 @@
       "betterLine": "Play Bloodstained Mire first to preserve fetch-crack flexibility for Revolt-enabled Fatal Push on the opponent's turn, then play Watery Grave next turn for Emperor of Bones mana",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -187756,7 +187759,8 @@
       "betterLine": "Play Spymaster's Vault (enters untapped since Overgrown Tomb is a Swamp), saving Verdant Catacombs for a future turn where revolt or shuffle effect is more valuable",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -187765,7 +187769,8 @@
       "betterLine": "Fetch Overgrown Tomb (paying 2 life) or Forest for better green mana access, since the hand is heavy on green 2-drops and Spymaster's Vault already enters untapped with the existing Overgrown Tomb as a Swamp.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -187774,7 +187779,8 @@
       "betterLine": "Choose Overgrown Tomb as the earthbend target, preserving the basic Swamp as a reliable untapped land and getting a more flexible animated creature that taps for B or G (with bonus G from Badgermole Cub).",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 24
     },
     {
       "severity": "moderate",
@@ -187783,7 +187789,8 @@
       "betterLine": "Play Bloodstained Mire first (free land drop), then wait. Could use Fatal Push targeting the animated Swamp land-creature after earthbend resolves (destroying a land is much higher value than killing a 2/2), or hold Fatal Push for combat/later turns to preserve options.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -187792,7 +187799,8 @@
       "betterLine": "Activate Bloodstained Mire to fetch a Swamp, then consider casting Fatal Push on the opponent's animated Swamp land-creature (destroying both a threat and a mana source), or at minimum develop mana for Emperor of Bones next turn.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -187801,7 +187809,8 @@
       "betterLine": "Fetch Blood Crypt (paying 2 life to have it enter untapped) to have access to both B and R, enabling Faithless Looting on a future turn while still casting Emperor of Bones this turn",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -187810,7 +187819,8 @@
       "betterLine": "Cast Unearth targeting Badgermole Cub from the opponent's graveyard (mana value 2, valid target) to get a creature on board, or hold mana open for Fatal Push as removal. Alternatively, if Emperor had exiled a creature earlier in combat, the Adapt could wait until a creature is exiled.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -187819,7 +187829,8 @@
       "betterLine": "Block with the animated Swamp (1/1 with +1/+1 counter). It dies to the 4/4 but returns to the battlefield tapped as a land via earthbend, saving 4 life at essentially no cost. Alternatively, chump block with the Eldrazi Spawn token to save 4 life.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -187828,7 +187839,8 @@
       "betterLine": "Play Boseiju, Who Endures first as the land drop, then cast Yawgmoth, Thran Physician with the same mana sources (Overgrown Tomb, Spymaster's Vault, animated Swamp, Eldrazi Spawn)",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -187837,7 +187849,8 @@
       "betterLine": "Attack with only the Swamp (1/1) for 1 damage, keeping the Eldrazi Spawn Token back as a mana resource and potential Yawgmoth sacrifice fodder.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -187846,7 +187859,8 @@
       "betterLine": "Activate Polluted Delta (pay 1 life, sacrifice it) to fetch an untapped Swamp, enabling revolt. Then cast Fatal Push targeting Delighted Halfling to deny the opponent mana acceleration, or save it for combat with revolt active to potentially kill a larger threat.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -187855,7 +187869,8 @@
       "betterLine": "Cast Yawgmoth, Thran Physician for {2}{B}{B} using Boseiju (G for generic), Overgrown Tomb (B), Spymaster's Vault (B), and animated Swamp (B), establishing a powerful sacrifice engine with the Eldrazi Spawn token and animated land as fodder",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -187864,7 +187879,8 @@
       "betterLine": "Cast Faithless Looting for R (from Blood Crypt) to draw 2 cards and discard Archon of Cruelty plus another card, setting up reanimation with Unearth or future Emperor of Bones triggers. Alternatively, hold up Fatal Push for Yawgmoth.",
       "type": "blunder",
       "snapshotIndex": 196,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -187873,7 +187889,8 @@
       "betterLine": "Activate Polluted Delta (enabling revolt), then cast Fatal Push targeting Yawgmoth to remove the opponent's key engine piece. Alternatively, at minimum cast Faithless Looting to improve hand quality by discarding the uncastable Archon of Cruelty.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 81
     },
     {
       "severity": "minor",
@@ -187882,7 +187899,8 @@
       "betterLine": "Exile Badgermole Cub from opponent's graveyard - it's a creature that could be reanimated by Emperor of Bones if counters are added later, and it denies the opponent a recursion target for cards like Green Sun's Zenith (already in exile, but future recursion).",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 83
     },
     {
       "severity": "major",
@@ -187891,7 +187909,8 @@
       "betterLine": "Activate Polluted Delta (triggering Revolt), fetch a land, then cast Fatal Push targeting Yawgmoth, Thran Physician to remove this critical threat before it becomes active.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 86
     },
     {
       "severity": "questionable",
@@ -187900,7 +187919,8 @@
       "betterLine": "Cast Green Sun's Zenith for X=3-4 to search for a green creature (like Endurance or another impactful creature) directly onto the battlefield to immediately pressure the opponent or stabilize the board against Emperor of Bones",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -187909,7 +187929,8 @@
       "betterLine": "Choose Agatha's Soul Cauldron — castable immediately for {2}, it exiles graveyard creatures (countering Emperor of Bones), puts +1/+1 counters on your creatures, and grants Yawgmoth access to exiled creatures' activated abilities for a powerful engine",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 90
     },
     {
       "severity": "minor",
@@ -187918,7 +187939,8 @@
       "betterLine": "Attack with Yawgmoth for 2 free damage since Emperor of Bones is tapped and cannot block.",
       "type": "blunder",
       "snapshotIndex": 231,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 95
     },
     {
       "severity": "minor",
@@ -187927,7 +187949,8 @@
       "betterLine": "Cast Thoughtseize targeting the opponent to take Boseiju, Who Endures, preventing them from destroying a nonbasic land. Could also consider casting Faithless Looting for card filtering.",
       "type": "blunder",
       "snapshotIndex": 237,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -187936,7 +187959,8 @@
       "betterLine": "Cast Thoughtseize targeting the opponent (costs {B} from Swamp or Blood Crypt) to see their hand, strip their best card, and deal 2 damage bringing them from 8 to 6 life. This makes lethal easier next turn with Emperor of Bones attack (4 damage to 2 life) plus any additional pressure.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -187945,7 +187969,8 @@
       "betterLine": "Fetch Grist, the Hunger Tide. It immediately answers Emperor of Bones with -2, creates Yawgmoth sacrifice fodder with +1, and threatens lethal with -5 given the 13 creature cards in graveyard.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -187954,7 +187979,8 @@
       "betterLine": "Exile a creature card like Formidable Speaker or Badgermole Cub to set up potential reanimation with Emperor of Bones if additional +1/+1 counters are added, and to deny the opponent potential recursion targets.",
       "type": "blunder",
       "snapshotIndex": 282,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 114
     },
     {
       "severity": "moderate",
@@ -187963,7 +187989,8 @@
       "betterLine": "Cast Fatal Push targeting Yawgmoth, Thran Physician (the opponent's most dangerous engine piece), and then cast Thoughtseize or deploy Ragavan with remaining mana. At minimum, Thoughtseize to strip a key card from the opponent's hand.",
       "type": "blunder",
       "snapshotIndex": 294,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 117
     },
     {
       "severity": "moderate",
@@ -187972,7 +187999,8 @@
       "betterLine": "Cast Young Wolf for {G} to establish a combo piece with Yawgmoth (undying + Yawgmoth sacrifice engine), then use remaining mana for Walking Ballista or other plays.",
       "type": "blunder",
       "snapshotIndex": 296,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -187981,7 +188009,8 @@
       "betterLine": "Attack with Yawgmoth, Thran Physician for 2 unblockable damage, reducing opponent from 15 to 13 life.",
       "type": "blunder",
       "snapshotIndex": 299,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 120
     },
     {
       "severity": "questionable",
@@ -187990,7 +188019,8 @@
       "betterLine": "Cast both Walking Ballista (X=1 or X=2) and Young Wolf to maximize board presence and Yawgmoth sacrifice fodder. With 5 available mana, casting Ballista X=2 (4 mana) + Young Wolf (1 mana) = 5 mana deploys both threats and gives more options with Yawgmoth.",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 121
     },
     {
       "severity": "moderate",
@@ -187999,7 +188029,8 @@
       "betterLine": "Crack Polluted Delta (enabling revolt), then cast Fatal Push targeting Yawgmoth, Thran Physician. After removing the opponent's key engine piece, deploy a threat like Psychic Frog or Ragavan with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 307,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 122
     },
     {
       "severity": "minor",
@@ -188008,7 +188039,8 @@
       "betterLine": "Cast Thoughtseize targeting the opponent to strip a key card (or cast Faithless Looting to discard Archon of Cruelty for later reanimation via Unearth/Emperor of Bones), then proceed to combat.",
       "type": "blunder",
       "snapshotIndex": 312,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 124
     },
     {
       "severity": "moderate",
@@ -188017,7 +188049,8 @@
       "betterLine": "Activate Polluted Delta to fetch a land (enabling revolt), then cast Fatal Push targeting Yawgmoth, Thran Physician. Emperor of Bones attacks unblocked for 3, and the opponent loses their most important creature.",
       "type": "blunder",
       "snapshotIndex": 323,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 127
     },
     {
       "severity": "minor",
@@ -188026,7 +188059,8 @@
       "betterLine": "Block with Young Wolf - it dies and returns with undying as a 2/2 (free value), Emperor takes 1 damage, and Yawgmoth stays at full toughness. Alternatively, use Yawgmoth's activated ability to sacrifice Young Wolf for value before/after blocking decisions.",
       "type": "blunder",
       "snapshotIndex": 324,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 128
     },
     {
       "severity": "moderate",
@@ -188035,7 +188069,8 @@
       "betterLine": "Cast Thoughtseize targeting the opponent to strip a key card (like Walking Ballista or any combo piece they might draw), then potentially also deploy Ragavan off the remaining mana via Polluted Delta fetching a Mountain-type land, or at minimum cast Thoughtseize to gain information and disrupt the opponent's plans.",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 129
     },
     {
       "severity": "moderate",
@@ -188044,7 +188079,8 @@
       "betterLine": "Cast Walking Ballista for X=3 using all 6 available mana, getting a 3/3 that can pressure the opponent or remove Psychic Frog",
       "type": "blunder",
       "snapshotIndex": 332,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 130
     },
     {
       "severity": "moderate",
@@ -188053,7 +188089,8 @@
       "betterLine": "Activate the Walking Ballista already on the battlefield (id=p116) to remove +1/+1 counters and deal damage to Psychic Frog (2 damage kills it), or use Yawgmoth to sacrifice Young Wolf targeting Psychic Frog with -1/-1 counter while drawing a card (Young Wolf returns with undying for repeated use).",
       "type": "blunder",
       "snapshotIndex": 342,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 132
     },
     {
       "severity": "moderate",
@@ -188062,7 +188099,8 @@
       "betterLine": "Activate Yawgmoth, Thran Physician by sacrificing Young Wolf to draw a card and put a -1/-1 counter on Emperor of Bones (reducing it to 2/2). Young Wolf returns with undying as a 2/2. This generates card advantage and shrinks the opponent's threat while preserving the Walking Ballista for later.",
       "type": "blunder",
       "snapshotIndex": 346,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 134
     },
     {
       "severity": "moderate",
@@ -188071,7 +188109,8 @@
       "betterLine": "Crack Polluted Delta to enable revolt, then cast Fatal Push targeting Yawgmoth (mana value 4, killed with revolt). Block Young Wolf with Psychic Frog (1/2 survives blocking 1/1). This removes Yawgmoth permanently while preserving Psychic Frog.",
       "type": "blunder",
       "snapshotIndex": 354,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 136
     },
     {
       "severity": "major",
@@ -188080,7 +188119,8 @@
       "betterLine": "Activate Yawgmoth (pay 1 life, sac Young Wolf, -1/-1 on Emperor, draw). Young Wolf returns with +1/+1. Activate Yawgmoth again (pay 1 life, sac Young Wolf, -1/-1 on Emperor, draw). Then remove a +1/+1 counter from Walking Ballista to deal 1 damage to Emperor of Bones, killing it. Net result: kill Emperor, draw 2 cards, cost 2 life.",
       "type": "blunder",
       "snapshotIndex": 360,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 139
     },
     {
       "severity": "minor",
@@ -188089,7 +188129,8 @@
       "betterLine": "Discard Archon of Cruelty and Polluted Delta, keeping Ragavan as a cheap threat to deploy next turn alongside Thoughtseize or Fatal Push",
       "type": "blunder",
       "snapshotIndex": 368,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 143
     },
     {
       "severity": "major",
@@ -188098,7 +188139,8 @@
       "betterLine": "Activate Polluted Delta to fetch a Swamp (getting {B}), then cast Fatal Push targeting Walking Ballista (MV 0, easily destroyed). This breaks the infinite combo. Could also play the second Polluted Delta from hand first as the land drop for additional mana later.",
       "type": "blunder",
       "snapshotIndex": 369,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 144
     },
     {
       "severity": "moderate",
@@ -188107,7 +188149,8 @@
       "betterLine": "Activate Yawgmoth by sacrificing Young Wolf repeatedly (paying 1 life each time, putting -1/-1 counters on Young Wolf when it returns with undying to reset it) to draw multiple cards first, then decide how to best spend mana based on what was drawn.",
       "type": "blunder",
       "snapshotIndex": 389,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 152
     },
     {
       "severity": "moderate",
@@ -188116,7 +188159,8 @@
       "betterLine": "Activate Yawgmoth sacrificing Young Wolf (pay 1 life, -1/-1 on Emperor making it 2/2, draw a card; Young Wolf returns with undying as 2/2), then remove both +1/+1 counters from Walking Ballista to deal 2 damage to Emperor killing it, letting Yawgmoth deal 4 unblocked combat damage (opponent to 9 instead of 12).",
       "type": "blunder",
       "snapshotIndex": 401,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -188125,7 +188169,8 @@
       "betterLine": "Earthbend a basic Forest instead, preserving Boseiju's availability for its Channel ability while getting the same mana benefit from Badgermole Cub's creature-mana bonus",
       "type": "blunder",
       "snapshotIndex": 411,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 158
     },
     {
       "severity": "moderate",
@@ -188134,7 +188179,8 @@
       "betterLine": "Activate Yawgmoth sacrificing Young Wolf, targeting Emperor of Bones with the -1/-1 counter. This draws a card (critical with empty hand), Young Wolf returns via undying with a +1/+1 counter, and Emperor loses its +1/+1 counter. Then could potentially chain further Yawgmoth activations or use Ballista shots more strategically.",
       "type": "blunder",
       "snapshotIndex": 413,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 159
     },
     {
       "severity": "moderate",
@@ -188143,7 +188189,8 @@
       "betterLine": "Exile Archon of Cruelty from the graveyard, then use Emperor of Bones' Adapt ability ({1}{B}) to put +1/+1 counters on it, triggering the ability to put Archon of Cruelty onto the battlefield with haste. This would be devastating against the opponent at 9 life.",
       "type": "blunder",
       "snapshotIndex": 419,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 161
     },
     {
       "severity": "moderate",
@@ -188152,7 +188199,8 @@
       "betterLine": "Block with Walking Ballista and also activate its ability to remove one +1/+1 counter to ping Emperor of Bones for 1 additional damage (total 3), killing it. Ballista dies either way, so the ping is free value.",
       "type": "blunder",
       "snapshotIndex": 425,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 163
     },
     {
       "severity": "minor",
@@ -188161,7 +188209,8 @@
       "betterLine": "Play Polluted Delta first, then cast Thoughtseize. This preserves maximum flexibility and enables revolt for Fatal Push if needed later.",
       "type": "blunder",
       "snapshotIndex": 431,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 164
     },
     {
       "severity": "moderate",
@@ -188170,7 +188219,8 @@
       "betterLine": "Play Polluted Delta, then cast Unearth targeting Psychic Frog (or Ragavan) from the graveyard to establish a threatening creature on board.",
       "type": "blunder",
       "snapshotIndex": 433,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 165
     },
     {
       "severity": "moderate",
@@ -188179,7 +188229,8 @@
       "betterLine": "Use the existing Yawgmoth's activated abilities (sacrifice Young Wolf to draw cards and put -1/-1 counters on Emperor of Bones), leveraging the undying loop with the mana that would have been spent on the redundant legendary cast.",
       "type": "blunder",
       "snapshotIndex": 435,
-      "player": "MiniMx Rules"
+      "player": "MiniMx Rules",
+      "decisionIndex": 166
     },
     {
       "severity": "major",
@@ -188188,7 +188239,8 @@
       "betterLine": "Exile Archon of Cruelty from own graveyard, then Adapt 2 Emperor of Bones for {1}{B} to put Archon onto the battlefield, triggering its devastating ETB (opponent sacs creature, discards, loses 3 life; you draw card, gain 3 life) and getting a 6/6 flying attacker.",
       "type": "blunder",
       "snapshotIndex": 471,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 178
     },
     {
       "severity": "moderate",
@@ -188197,7 +188249,8 @@
       "betterLine": "Choose Endurance to get a 3/4 attacker and use its ETB to shuffle the opponent's graveyard away, denying future Unearth/recursion targets and weakening their Dredger's Insight value engine.",
       "type": "blunder",
       "snapshotIndex": 481,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 181
     },
     {
       "severity": "questionable",
@@ -188206,7 +188259,8 @@
       "betterLine": "Discarding the second Unearth might be slightly better since you already have one copy and the Thoughtseize could provide critical disruption even at low life, but this is genuinely close given the life total consideration.",
       "type": "blunder",
       "snapshotIndex": 497,
-      "player": "Qwen3L Teach"
+      "player": "Qwen3L Teach",
+      "decisionIndex": 184
     }
   ],
   "blunderScriptVersion": 18,

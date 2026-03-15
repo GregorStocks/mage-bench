@@ -51139,7 +51139,8 @@
       "betterLine": "Choose to be on the play (select Gem3P Spike as starting player). The tempo advantage of going first in Legacy is substantial, especially with Wasteland and Force of Will in hand.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 0
     },
     {
       "severity": "questionable",
@@ -51148,7 +51149,8 @@
       "betterLine": "Play Misty Rainforest, crack it to fetch Tundra (or another blue source), then cast Ponder. This protects against opponent's Wasteland, puts a land in the graveyard for Life from the Loam, and still casts the turn 1 cantrip. The fetchland can't be saved for Brainstorm shuffle if you need blue mana now anyway, though saving it for Brainstorm is a counterargument.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -51157,7 +51159,8 @@
       "betterLine": "Put Leyline Binding at the bottom (choose it first), keeping Flooded Strand closer to the top to draw sooner. Ideal order top-to-bottom: Flooded Strand, Ponder, Leyline Binding.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -51166,7 +51169,8 @@
       "betterLine": "Fetch Badlands (B/R) to have natural access to red mana for Gamble without needing to sacrifice artifacts for color fixing.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "GPT5n Coach"
+      "player": "GPT5n Coach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -51175,7 +51179,8 @@
       "betterLine": "Play Wasteland, tap Tundra to cast Ponder, then sacrifice Wasteland to destroy the opponent's only land (Underground Sea), leaving them with zero lands. Future turns can deploy fetch lands and use Life from the Loam to recur Wasteland.",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -51184,7 +51189,8 @@
       "betterLine": "Cast Ponder first (tap Tundra for U), look at top 3 cards. If keeping cards on top, crack Flooded Strand afterward to shuffle away the unwanted card left on top. Then play Misty Rainforest as land for turn, preserving another shuffle for future cantrips.",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 26
     },
     {
       "severity": "questionable",
@@ -51193,7 +51199,8 @@
       "betterLine": "Play Misty Rainforest, fetch a dual land, cast Ponder for card selection to develop toward casting Quantum Riddler or finding more lands, while building graveyard for Life from the Loam synergy",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 30
     },
     {
       "severity": "questionable",
@@ -51202,7 +51209,8 @@
       "betterLine": "Consider casting Force of Will (pitching Quantum Riddler) to counter Life from the Loam, keeping the opponent mana-screwed with only Underground Sea while preserving one Force of Will for combo protection. The opponent recovering Bloodstained Mire and Badlands significantly improves their position and enables future combo turns.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -51211,7 +51219,8 @@
       "betterLine": "Activate Wasteland's sacrifice ability to destroy opponent's Underground Sea (their only land), then play a fetch land and develop the board. With two Force of Wills in hand, locking the Storm opponent off mana would likely win the game.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -51220,7 +51229,8 @@
       "betterLine": "Discard one of the two Swords to Plowshares, which have very few meaningful targets against the opponent's artifact-combo/Storm deck.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -51229,7 +51239,8 @@
       "betterLine": "Play Flooded Strand from hand first (land drop), then activate Wasteland to destroy Underground Sea, then cast Life from the Loam returning Wasteland + 2 Tropical Islands, leaving more mana available",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 76
     },
     {
       "severity": "moderate",
@@ -51238,7 +51249,8 @@
       "betterLine": "Sacrifice Wasteland to destroy Underground Sea, cutting off the opponent's only mana source. Then play a land (Flooded Strand or Tundra) and cast Life from the Loam to recover lands from graveyard including the two Tropical Islands.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 76
     },
     {
       "severity": "moderate",
@@ -51247,7 +51259,8 @@
       "betterLine": "Select all three available land cards (2x Tropical Island + Meticulous Archive) to return to hand, getting maximum value from the spell that was already cast.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -51256,7 +51269,8 @@
       "betterLine": "Crack Misty Rainforest to fetch Tropical Island or another dual, thinning the deck and keeping options open. With two Force of Wills in hand, having more blue sources on board is valuable.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -51265,7 +51279,8 @@
       "betterLine": "Counter Life from the Loam with Force of Will (exiling the other Force of Will or Swords to Plowshares) to prevent the opponent from recovering lands and having access to the recurring Dredge engine",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 95
     },
     {
       "severity": "questionable",
@@ -51274,7 +51289,8 @@
       "betterLine": "Discard a Mox Opal instead, since there's already one on the battlefield and the legend rule limits their utility. Keeping all 3 LEDs maximizes mana production and combo flexibility for the Beseech the Mirror line.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "GPT5n Coach"
+      "player": "GPT5n Coach",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -51283,7 +51299,8 @@
       "betterLine": "Cast Life from the Loam tapping Savannah for G and Tundra or Meticulous Archive for the generic, keeping Wasteland untapped to threaten opponent's Underground Sea.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 109
     },
     {
       "severity": "minor",
@@ -51292,7 +51309,8 @@
       "betterLine": "Play Tropical Island (or Flooded Strand) from hand to avoid having to discard a card. This preserves card advantage at zero cost.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -51301,7 +51319,8 @@
       "betterLine": "Activate Wasteland's sacrifice ability targeting Underground Sea to destroy the opponent's only real mana source, then cast Life from the Loam using other lands to recur Wasteland and fetchlands from graveyard for continued resource denial.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 121
     },
     {
       "severity": "minor",
@@ -51310,7 +51329,8 @@
       "betterLine": "Play one of the lands from hand (Tropical Island or Tundra) to avoid discarding. This costs nothing and preserves all cards in hand.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 125
     },
     {
       "severity": "minor",
@@ -51319,7 +51339,8 @@
       "betterLine": "Discard the duplicate Mox Opal, which is mostly dead due to the legend rule and can't contribute meaningful mana. Keep both Thoughtseizes to maximize chances of clearing countermagic before going off.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "GPT5n Coach"
+      "player": "GPT5n Coach",
+      "decisionIndex": 127
     },
     {
       "severity": "minor",
@@ -51328,7 +51349,8 @@
       "betterLine": "Play Tropical Island (or Flooded Strand) first to make the land drop, then activate Wasteland to destroy Underground Sea. This would leave Gem3P Spike with one more land on battlefield while still denying the opponent's land.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 131
     },
     {
       "severity": "minor",
@@ -51337,7 +51359,8 @@
       "betterLine": "Activate Wasteland's sacrifice ability targeting Underground Sea to destroy the opponent's primary land, further locking them out of the game.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 131
     },
     {
       "severity": "minor",
@@ -51346,7 +51369,8 @@
       "betterLine": "Play a land from hand first (e.g., Tropical Island or Tundra to develop mana), then activate Wasteland to destroy Underground Sea. This preserves the land drop while still denying the opponent's mana. The choice list shows land plays and Wasteland activation - playing an actual land first ensures no missed land drop before sacrificing Wasteland.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 142
     },
     {
       "severity": "moderate",
@@ -51355,7 +51379,8 @@
       "betterLine": "Activate Wasteland's sacrifice ability to destroy the opponent's Underground Sea, cutting them off from casting spells entirely (Mox Opal alone can't activate without metalcraft). Then play Misty Rainforest as the land drop for the turn. This would effectively win the game on the spot given the opponent's resource-starved position.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -51364,7 +51389,8 @@
       "betterLine": "Discard Echo of Eons to set up the flashback line ({2}{U} from graveyard using LED mana), or at minimum discard a duplicate Burning Wish to preserve the free mana source",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT5n Coach"
+      "player": "GPT5n Coach",
+      "decisionIndex": 143
     },
     {
       "severity": "moderate",
@@ -51373,7 +51399,8 @@
       "betterLine": "Play Plains (or any land from hand), then activate Wasteland targeting Underground Sea to completely mana-lock the combo opponent with no functional mana sources remaining.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 146
     },
     {
       "severity": "minor",
@@ -51382,7 +51409,8 @@
       "betterLine": "Play Tundra or Tropical Island first, then cast Quantum Riddler, preserving fetch lands for future value with Life from the Loam in graveyard.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 148
     },
     {
       "severity": "questionable",
@@ -51391,7 +51419,8 @@
       "betterLine": "Play Volcanic Island, then cast Ponder using one of the existing blue sources (Tundra, Meticulous Archive, or the new Volcanic Island) to dig for threats while still holding up Force of Will (pitch Ponder or hardcast with remaining mana). The game is stalled and finding a win condition is critical.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -51400,7 +51429,8 @@
       "betterLine": "Play Tundra (or Karakas), then cast Ponder to dig for a win condition like Murktide Regent or another threat. The game is stalling and Spike needs to find a way to close it out.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 159
     },
     {
       "severity": "questionable",
@@ -51409,7 +51439,8 @@
       "betterLine": "Consider using Wasteland on Underground Sea to cut off the storm opponent's only land source, then cast Ponder (before land drop) to dig for a win condition.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 162
     },
     {
       "severity": "questionable",
@@ -51418,7 +51449,8 @@
       "betterLine": "Draw Murktide Regent to deploy a fast clock (can delve away many instants/sorceries from graveyard for a large flier), forcing the Storm opponent to combo quickly or lose. Two Force of Wills already provide strong protection while closing the game.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "Gem3P Spike"
+      "player": "Gem3P Spike",
+      "decisionIndex": 162
     },
     {
       "severity": "major",
@@ -51427,11 +51459,12 @@
       "betterLine": "Target Gem3P Spike with Thoughtseize to see their hand and strip a counterspell or other interaction before attempting to combo off with Dark Ritual, Lion's Eye Diamond, and Echo of Eons.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT5n Coach"
+      "player": "GPT5n Coach",
+      "decisionIndex": 171
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

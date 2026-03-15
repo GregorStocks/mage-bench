@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_183307_g1",
   "timestamp": "20260308_183307",
   "gameType": "Two Player Duel",
@@ -64054,7 +64054,8 @@
       "betterLine": "Mulliganing to 5 is painful but this hand is likely to stumble badly - either stuck on 2 lands or unable to use green half of the deck. A 5-card hand with both colors and reasonable mana could outperform this. That said, going to 5 is a significant cost, making this genuinely debatable.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -64063,7 +64064,8 @@
       "betterLine": "Choose Green, as this is a GW deck and green mana is needed for the deck's green spells.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -64072,7 +64074,8 @@
       "betterLine": "Choose White as the secondary color for Thriving Grove, since the deck's second color is white and the player will need white mana to cast their white spells.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -64081,7 +64084,8 @@
       "betterLine": "Cast Anointed Chorister for {W}, leaving 2 mana open for Feat of Resistance if needed. Next turn play a 4th land and cast Basri's Acolyte, putting +1/+1 counters on Chorister for a strong curve.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -64090,7 +64094,8 @@
       "betterLine": "Cast Anointed Chorister for {W}, keeping all 3 lands on board and developing the board. Save Emancipation Angel for a later turn when there are more lands or a creature worth bouncing (like re-triggering Basri's Acolyte ETB, or bouncing the Chorister itself).",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -64099,7 +64104,8 @@
       "betterLine": "Attack with both Emancipation Angel and Anointed Chorister for at least 4 free damage. Could also cast Take Heart on one of them during combat for 6 total damage and 2 life gained.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 105
     },
     {
       "severity": "minor",
@@ -64108,7 +64114,8 @@
       "betterLine": "Cast Take Heart on Emancipation Angel (or Anointed Chorister for lifelink synergy) for 2 extra damage and 2 life, since the remaining 1-2 mana couldn't be spent on anything meaningful post-combat anyway.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -64117,7 +64124,8 @@
       "betterLine": "Play Forest from hand, then cast Armorcraft Judge (draws 1 card off the Ironshell Beetle's counters) or Gaea's Protector (4/2 must-be-blocked puts pressure on opponent) to develop the board against the opponent's Emancipation Angel.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 111
     },
     {
       "severity": "moderate",
@@ -64126,7 +64134,8 @@
       "betterLine": "Block with Emancipation Angel and cast Feat of Resistance choosing protection from green. Angel becomes 4/4 with pro-green, takes no damage, deals 4 to the Beetle leaving it at 5/1. Saves 5 life and significantly weakens the opponent's biggest threat.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 121
     },
     {
       "severity": "questionable",
@@ -64135,7 +64144,8 @@
       "betterLine": "Cast Angelic Edict targeting Ironshell Beetle 5/5 (removing 5 power permanently) or Challenger Troll 6/5 (removing the ability that prevents multi-blocking power 4+ creatures), making the next attack survivable with existing blockers.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -64144,7 +64154,8 @@
       "betterLine": "Cast Take Heart targeting Emancipation Angel to deal 7 instead of 5 damage and gain 1 life, putting the opponent to 5 life and yourself to 8.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 172
     },
     {
       "severity": "moderate",
@@ -64153,7 +64164,8 @@
       "betterLine": "Cast Primeval Bounty ({5}{G}) to establish an overwhelming value engine. Each subsequent creature spell creates a 3/3, each land gains 3 life, and noncreature spells add counters. This would likely win the game within 1-2 turns given the existing board pressure.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 175
     }
   ],
   "blunderScriptVersion": 32,

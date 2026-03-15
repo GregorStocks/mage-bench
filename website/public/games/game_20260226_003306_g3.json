@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_003306_g3",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -60380,7 +60380,8 @@
       "betterLine": "Fetch Watery Grave (U/B) to enable both Thoughtseize and Gran-Gran, covering the most important early plays in hand",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -60389,7 +60390,8 @@
       "betterLine": "Play Polluted Delta first, crack it for a Swamp or Island (likely Swamp), then cast Thoughtseize targeting the opponent to strip a key card while they're tapped out. Faithless Looting could be cast on a subsequent turn or after Thoughtseize if a second red source is found.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -60398,7 +60400,8 @@
       "betterLine": "Discard Polluted Delta instead, keeping Faithless Looting in hand for its flashback. They can still play Watery Grave as their land drop and have access to powerful card filtering later via flashback.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 23
     },
     {
       "severity": "moderate",
@@ -60407,7 +60410,8 @@
       "betterLine": "Cast Scion of Draco for {2} (domain reduces cost by 10 with 5 basic land types from Indatha Triome + Steam Vents), deploying a 4/4 flying threat that also buffs future creatures. This is a far more impactful play than 3 damage to face. Alternatively, cast Ragavan to start generating card advantage.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "GPT52 Worrier"
+      "player": "GPT52 Worrier",
+      "decisionIndex": 27
     },
     {
       "severity": "moderate",
@@ -60416,7 +60420,8 @@
       "betterLine": "Play Flooded Strand (or Arid Mesa), fetch an Island/Plains, then cast Scion of Draco for {2} with the other two lands, leaving the third land untapped to hold up Stubborn Denial as a hard counter with Ferocious active.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GPT52 Worrier"
+      "player": "GPT52 Worrier",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -60425,7 +60430,8 @@
       "betterLine": "Cast Faithless Looting first (using Blood Crypt for R) to draw and see more cards, then cast Thoughtseize with better information about your own hand's needs. Play Watery Grave before casting spells to preserve mana flexibility.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -60434,7 +60440,8 @@
       "betterLine": "Cast Lightning Bolt targeting the opponent to deal 3 damage to them, or hold it for a future threat/burn to face for lethal.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT52 Worrier"
+      "player": "GPT52 Worrier",
+      "decisionIndex": 48
     },
     {
       "severity": "moderate",
@@ -60443,7 +60450,8 @@
       "betterLine": "Cast Persist targeting Abhorrent Oculus in graveyard, putting a 4/4 flying creature onto the battlefield that generates manifest dread tokens each opponent's upkeep",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -60452,7 +60460,8 @@
       "betterLine": "Activate Polluted Delta first to fetch a land, then cast Persist targeting Abhorrent Oculus to get a 4/4 flyer with manifest dread, then potentially cast Thoughtseize or Gran-Gran with remaining mana",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -60461,7 +60470,8 @@
       "betterLine": "Fetch Swamp (or another black source like Watery Grave paying 2 life) to cast Thoughtseize this turn, disrupting the opponent who has Scion of Draco and likely threats in hand.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 58
     },
     {
       "severity": "moderate",
@@ -60470,7 +60480,8 @@
       "betterLine": "Exile a less important card (like a Faithless Looting or Polluted Delta) or even an opponent's card (Lightning Bolt or Flooded Strand), preserving Abhorrent Oculus in the graveyard to be reanimated with Persist next turn for {1}{B}.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 60
     },
     {
       "severity": "major",
@@ -60479,7 +60490,8 @@
       "betterLine": "Let Emperor of Bones trigger resolve exiling Abhorrent Oculus, then activate Adapt 2 for {1}{B} using Blood Crypt and Watery Grave. This puts Abhorrent Oculus onto the battlefield with haste and a finality counter, enabling a devastating attack with a 5/5 flyer with lifelink.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -60488,7 +60500,8 @@
       "betterLine": "Play Arid Mesa or Flooded Strand to have access to an additional untapped mana source this turn, preserving the option to hold up both Stubborn Denials or maximize mana usage.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "GPT52 Worrier"
+      "player": "GPT52 Worrier",
+      "decisionIndex": 93
     },
     {
       "severity": "major",
@@ -60497,7 +60510,8 @@
       "betterLine": "Cast Bitter Triumph targeting Scion of Draco, discarding Faithless Looting (or Gran-Gran) as the additional cost. This removes the 4/4 flying threat and strips keyword bonuses from Ragavan, while staying at 4 life instead of 2.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 99
     },
     {
       "severity": "moderate",
@@ -60506,7 +60520,8 @@
       "betterLine": "Cast Bitter Triumph targeting Scion of Draco (discarding Faithless Looting or paying 3 life is too costly at 4 life, but discarding Gran-Gran or Faithless Looting works) to remove the 4-power flyer that represents lethal next turn, then use remaining mana for Persist or Thoughtseize.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 100
     },
     {
       "severity": "minor",
@@ -60515,7 +60530,8 @@
       "betterLine": "Activate Bloodstained Mire first to fetch a land (paying 1 life to go to 3), then evaluate whether Thoughtseize or another spell is best. At 4 life, the 2 life from Thoughtseize is very costly, and they may want to prioritize Persist to reanimate Emperor of Bones or Bitter Triumph to remove Scion of Draco instead.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -60524,7 +60540,8 @@
       "betterLine": "Activate Bloodstained Mire to fetch a land (going to 3 life), hold up mana and try to find a way to cast Bitter Triumph next turn to kill Scion of Draco, or accept the position is likely lost without throwing away additional life on Thoughtseize.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GPT5n Tactic"
+      "player": "GPT5n Tactic",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -60533,7 +60550,8 @@
       "betterLine": "Fetch Temple Garden (paying 2 life to have it enter untapped) for better color flexibility, since the opponent is at 4 life and the game is well in hand.",
       "type": "blunder",
       "snapshotIndex": 200,
-      "player": "GPT52 Worrier"
+      "player": "GPT52 Worrier",
+      "decisionIndex": 122
     }
   ],
   "blunderScriptVersion": 18,

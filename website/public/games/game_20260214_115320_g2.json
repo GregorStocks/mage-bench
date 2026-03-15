@@ -43446,7 +43446,8 @@
       "betterLine": "Play Flooded Strand, fetch Island, cast Ponder to find red mana sources and set up Sneak Attack",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -43455,7 +43456,8 @@
       "betterLine": "Cast Chalice of the Void with X=1 to counter all 1-mana spells (Ponder, etc.), which is devastating against the opponent's blue deck. Alternatively, tap City of Traitors for {C}{C}, play Mountain (sacrificing City), tap Mountain for {R}, and cast Blood Moon for {2}{R} to lock the opponent's Ancient Tomb into a Mountain.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -43464,7 +43466,8 @@
       "betterLine": "Cast Chalice of the Void for X=1 using City of Traitors' {C}{C}, locking out the opponent's 1-mana spells like Ponder alongside the existing Chalice on 0.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -43473,7 +43476,8 @@
       "betterLine": "Fetch Volcanic Island to have access to both blue mana (for Stock Up, Force of Will) and red mana (for Sneak Attack). Even under Blood Moon, Volcanic Island becomes a Mountain producing red, which still enables the Sneak Attack plan.",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 19
     },
     {
       "severity": "moderate",
@@ -43482,7 +43486,8 @@
       "betterLine": "Don't play Mountain this turn. Pass turn, then next turn play Mountain (sacrificing City of Traitors) and immediately cast Blood Moon with the 3 available mana.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 25
     },
     {
       "severity": "major",
@@ -43491,7 +43496,8 @@
       "betterLine": "Play Mountain, then tap City of Traitors for {C}{C} and exile Simian Spirit Guide for {R} to cast Blood Moon, locking the opponent under a devastating prison piece on turn 2.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -43500,7 +43506,8 @@
       "betterLine": "Exile Simian Spirit Guide for {R}, tap City of Traitors for {C}{C}, then cast Blood Moon for {2}{R}. This locks the opponent's two Ancient Tombs into Mountains immediately, crippling their mana development. Mountain could be played on a subsequent turn.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 35
     },
     {
       "severity": "moderate",
@@ -43509,7 +43516,8 @@
       "betterLine": "Tap City of Traitors for {C}{C}, exile Simian Spirit Guide for {R}, cast Blood Moon for {2}{R}. This turns both of the opponent's Ancient Tombs into Mountains, devastating their mana base. Then play Mountain afterward.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 35
     },
     {
       "severity": "major",
@@ -43518,7 +43526,8 @@
       "betterLine": "Tap City of Traitors for {C}{C}, exile Simian Spirit Guide for {R}, cast Blood Moon for {2}{R} turning opponent's Ancient Tombs into Mountains, THEN play Mountain (sacrificing City of Traitors but with Blood Moon already resolved).",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 41
     },
     {
       "severity": "moderate",
@@ -43527,7 +43536,8 @@
       "betterLine": "Pass the turn without casting anything. Save Fury and red cards for when the opponent actually deploys threats. Blood Moon could potentially be cast next turn with additional mana sources.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 42
     },
     {
       "severity": "moderate",
@@ -43536,7 +43546,8 @@
       "betterLine": "Cast Chalice of the Void for X=0 (minimal cost, preserves Fury for when opponent plays creatures) or simply pass the turn, saving resources. Alternatively, hold Fury for when it can actually remove threats.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -43545,7 +43556,8 @@
       "betterLine": "Play Ancient Tomb from hand first, then cast Blood Moon using Ancient Tomb ({C}{C}) + Mountain ({R}) to lock the opponent out by turning their Ancient Tombs into Mountains.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -43554,7 +43566,8 @@
       "betterLine": "Wait to use Fury when the opponent actually has creatures or planeswalkers to target. Instead, play a land, cast Blood Moon to turn opponent's Ancient Tombs into Mountains (limiting their colorless mana), or cast Chalice of the Void at a relevant number.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 54
     },
     {
       "severity": "moderate",
@@ -43563,7 +43576,8 @@
       "betterLine": "Hold the Chalice of the Void to cast later at X=2 or X=3 when more lands are available, covering more of the opponent's spell range. Alternatively, exile Simian Spirit Guide for {R} to cast Chalice at X=1 if that's not already covered - but there's already a Chalice on 1 as well. The Chalice should be saved for X=2 or higher.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 75
     },
     {
       "severity": "moderate",
@@ -43572,7 +43586,8 @@
       "betterLine": "Cast Stock Up (using Ancient Tomb + Volcanic Island for 2U, taking 2 damage) to dig for creatures to pair with Sneak Attack. Could potentially also cast Sneak Attack this turn using both Ancient Tombs + Volcanic Island if prioritizing getting the enchantment into play.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -43581,7 +43596,8 @@
       "betterLine": "Cast Stock Up using Ancient Tomb (CC) + Volcanic Island (U) to dig 5 cards deep for creatures or lands, taking 2 damage from Ancient Tomb. This advances the Sneak Attack game plan by finding creatures to put into play.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 82
     },
     {
       "severity": "moderate",
@@ -43590,7 +43606,8 @@
       "betterLine": "Cast Stock Up using Ancient Tomb + Volcanic Island (2 life, going to 13) to dig for creatures. Could also consider casting Sneak Attack this turn to set up for future creature deployment. At minimum, Stock Up should be cast to find action pieces.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 88
     },
     {
       "severity": "major",
@@ -43599,7 +43616,8 @@
       "betterLine": "Play City of Traitors, then cast Blood Moon or Magus of the Moon using City of Traitors (2 colorless) + Mountain (1 red) to lock opponent's nonbasic lands into Mountains",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 91
     },
     {
       "severity": "questionable",
@@ -43608,7 +43626,8 @@
       "betterLine": "Cast Broadside Bombardiers (2/2 menace haste) to start pressuring the opponent's 11 life total and race before they can Sneak Attack a big creature. Alternatively, Magus of the Moon provides the same disruption with a 2/2 body for additional pressure.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -43617,7 +43636,8 @@
       "betterLine": "Exile Simian Spirit Guide for R, then cast Broadside Bombardiers (2R) as a 2/2 menace haste creature to apply pressure. Alternatively, holding resources could be justified, but the reasoning was fundamentally confused about what decision was being made.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 109
     },
     {
       "severity": "major",
@@ -43626,7 +43646,8 @@
       "betterLine": "Activate Sneak Attack for {R}, put Atraxa onto the battlefield, resolve the ETB trigger to draw multiple cards, then attack for 7 with flying and lifelink.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 112
     },
     {
       "severity": "major",
@@ -43635,7 +43656,8 @@
       "betterLine": "Tap a Mountain for {R}, activate Sneak Attack, put Atraxa, Grand Unifier onto the battlefield to get her massive ETB trigger, refilling the hand with potentially many cards.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -43644,7 +43666,8 @@
       "betterLine": "Cast Broadside Bombardiers (same mana cost 2R) to get a hasty menace attacker that pressures the opponent at 11 life and threatens the boast ability for additional damage, especially important given opponent's Sneak Attack threatens to end the game.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 116
     },
     {
       "severity": "minor",
@@ -43653,7 +43676,8 @@
       "betterLine": "Cast Broadside Bombardiers instead — it has menace, haste, and a relevant boast ability that can sacrifice permanents for direct damage. It provides much more board impact than a redundant Moon effect. Alternatively, holding mana and deploying threats more efficiently.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 122
     },
     {
       "severity": "moderate",
@@ -43662,7 +43686,8 @@
       "betterLine": "Hardcast Fury (tapping Mountain + both Cities of Traitors + exiling Simian Spirit Guide) to deploy a 3/3 double strike threat that pressures the opponent's 11 life total with a fast clock",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 129
     },
     {
       "severity": "minor",
@@ -43671,7 +43696,8 @@
       "betterLine": "Hardcast Fury (3/3 double strike) for 6 damage per attack, threatening a 2-turn clock against the 11-life opponent before Sneak Attack can take over the game",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 129
     },
     {
       "severity": "moderate",
@@ -43680,7 +43706,8 @@
       "betterLine": "Cast Pyrogoyf for {3}{R} using City of Traitors + Mountain, dealing approximately 5 damage to the opponent on ETB (bringing them to ~6 life) while deploying a large threat. Could potentially even cast two threats this turn with the remaining mana.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 134
     },
     {
       "severity": "minor",
@@ -43689,7 +43716,8 @@
       "betterLine": "Hardcast Fury for {3}{R}{R} using Mountain + 2x City of Traitors to deploy a 3/3 double striker, threatening lethal in 2 attacks against the opponent at 11 life",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 134
     },
     {
       "severity": "moderate",
@@ -43698,7 +43726,8 @@
       "betterLine": "Cast Pyrogoyf (3R) using City of Traitors + Mountain mana. With ~5 card types in graveyards, it would deal 5 damage on ETB (putting opponent to 6) and present a significant clock, while also being a body to block if opponent uses Sneak Attack.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 134
     },
     {
       "severity": "major",
@@ -43707,7 +43736,8 @@
       "betterLine": "Cast Pyrogoyf for {3}{R}, targeting the opponent with its ETB for 5 damage (5 card types in graveyards), creating a 5/6 body and dropping opponent to 6 life. This applies massive pressure against a Sneak Attack deck that needs to be raced.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 153
     },
     {
       "severity": "minor",
@@ -43716,7 +43746,8 @@
       "betterLine": "Exile Simian Spirit Guide for {R}, then cast The One Ring for {4}. The protection from everything shields against Sneak Attack threats, and the card draw engine helps find more threats to close the game.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 164
     },
     {
       "severity": "moderate",
@@ -43725,7 +43756,8 @@
       "betterLine": "Exile Simian Spirit Guide for {R}, tap 3 Mountains to cast The One Ring. This provides protection from everything until next turn (critical defense against Sneak Attack) and sets up a powerful card draw engine for subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 170
     },
     {
       "severity": "minor",
@@ -43734,7 +43766,8 @@
       "betterLine": "Play Wasteland (or any of the three lands) as it becomes a Mountain under Blood Moon, providing an additional red mana source at no cost. This is especially important with Sneak Attack in play and two Ataxas in hand.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 171
     },
     {
       "severity": "minor",
@@ -43743,7 +43776,8 @@
       "betterLine": "Play Wasteland (or Cavern of Souls) as it becomes a Mountain under Blood Moon, providing an additional {R} source at no cost. Wasteland is the least valuable card to 'use up' as a Mountain since its special ability is nullified by Blood Moon anyway.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 173
     },
     {
       "severity": "major",
@@ -43752,7 +43786,8 @@
       "betterLine": "Activate Broadside Bombardiers' Boast ability, sacrificing Magus of the Moon to deal 5 damage to the opponent, putting them from 9 to 4 life. Blood Moon remains in play to maintain the lock.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 179
     },
     {
       "severity": "minor",
@@ -43761,7 +43796,8 @@
       "betterLine": "Discard Veil of Summer, which is a completely dead card due to Chalice on 1, while Stock Up has a realistic path to being castable if Blood Moon is removed via Boseiju's channel ability.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 190
     },
     {
       "severity": "questionable",
@@ -43770,7 +43806,8 @@
       "betterLine": "Play Urza's Saga if desired, then immediately go to combat, attack with both Magus of the Moon and Broadside Bombardiers, then activate Bombardiers' Boast sacrificing Magus for exactly 5 damage to opponent at 5 life = lethal",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 187
     },
     {
       "severity": "major",
@@ -43779,7 +43816,8 @@
       "betterLine": "Cast Pyrogoyf (using City of Traitors + Mountain for mana), target opponent with ETB for 6 damage, then attack with Magus of the Moon and Broadside Bombardiers for 4 more damage = 10 total, lethal against 9 life.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -43788,7 +43826,8 @@
       "betterLine": "Go to combat, attack with both Magus of the Moon and Broadside Bombardiers for 4 damage (opponent to 5), then Boast with Bombardiers sacrificing Magus of the Moon to deal 5 damage to opponent for exact lethal.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 189
     },
     {
       "severity": "major",
@@ -43797,7 +43836,8 @@
       "betterLine": "Attack with Broadside Bombardiers (2 damage), Boast sacrificing Magus of the Moon (5 damage to face), then cast Pyrogoyf (ETB deals 5+ damage to face) for lethal.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 194
     },
     {
       "severity": "major",
@@ -43806,7 +43846,8 @@
       "betterLine": "Cast Pyrogoyf targeting opponent with its 6-damage ETB trigger, then attack with Broadside Bombardiers, Magus of the Moon, and Pyrogoyf for lethal damage.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 196
     },
     {
       "severity": "moderate",
@@ -43815,7 +43856,8 @@
       "betterLine": "Activate Broadside Bombardiers' Boast ability, sacrificing Magus of the Moon (CMC 3) to deal 5 damage to opponent's face (7→2 life). This nearly guarantees lethal next turn with any attacker. Could also sacrifice a Chalice of the Void (CMC 0) for 2 damage if wanting to preserve Magus, though Magus is less important with Blood Moon already in play.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 203
     },
     {
       "severity": "major",
@@ -43824,7 +43866,8 @@
       "betterLine": "Evoke Fury (exiling a red card from hand), then activate Broadside Bombardiers' Boast ability sacrificing Fury to deal 7 damage directly to the opponent for lethal.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "Gem25F Johnny"
+      "player": "Gem25F Johnny",
+      "decisionIndex": 205
     },
     {
       "severity": "major",
@@ -43833,7 +43876,8 @@
       "betterLine": "Cast Force of Will (exiling Stock Up as the blue card, paying 1 life to go to 6) to counter Pyrogoyf entirely, preventing 6 damage and preserving the Sneak Attack + Atraxa combo for a future winning turn",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 210
     },
     {
       "severity": "major",
@@ -43842,7 +43886,8 @@
       "betterLine": "Counter Pyrogoyf with Force of Will (exiling a blue card like Stock Up, paying 1 life to go to 6). This prevents 6 damage and keeps Qwen3 alive to potentially use Sneak Attack + Atraxa on a future turn to stabilize.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 210
     },
     {
       "severity": "major",
@@ -43851,11 +43896,12 @@
       "betterLine": "Cast Force of Will (exiling Stock Up or another blue card) to counter Pyrogoyf, staying at 7 life (minus 1 for FoW = 6 life) and surviving to attack with Atraxa's lifelink next turn.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Qwen3 Vorthos"
+      "player": "Qwen3 Vorthos",
+      "decisionIndex": 215
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

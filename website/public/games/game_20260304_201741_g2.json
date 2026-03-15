@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_201741_g2",
   "timestamp": "20260304_201741",
   "gameType": "Two Player Duel",
@@ -58450,7 +58450,8 @@
       "betterLine": "Cast Creeping Bloodsucker for 1B, using all available mana. Play Swamp next turn and cast Tormented Soul then, deploying the same creatures but with no wasted mana.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 16
     },
     {
       "severity": "questionable",
@@ -58459,7 +58460,8 @@
       "betterLine": "Cast Ranger's Guile on Drowsing Tyrannodon to make it 4/4, enabling it to attack for 4 unblocked damage. The tempo advantage of 4 damage is significant, though saving the Guile for Harbinger protection is defensible.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -58468,7 +58470,8 @@
       "betterLine": "Activate Reckless Scholar targeting themselves to draw/discard and trigger an additional Teferi's Tutelage mill for 2 cards. This costs no mana and provides both card selection and mill value.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 58
     },
     {
       "severity": "moderate",
@@ -58477,7 +58480,8 @@
       "betterLine": "Target self with Reckless Scholar to draw a card (triggering Teferi's Tutelage to mill opponent 2), then discard a card. This advances the mill plan and provides card filtering.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 62
     },
     {
       "severity": "major",
@@ -58486,7 +58490,8 @@
       "betterLine": "Cast Capture Sphere targeting Garruk's Harbinger to tap it down permanently, reducing damage to 3 (just Tyrannodon), and effectively locking down both attackers since Tyrannodon needs a power-4+ creature to attack.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 75
     },
     {
       "severity": "major",
@@ -58495,7 +58500,8 @@
       "betterLine": "Cast Capture Sphere targeting Garruk's Harbinger (4/3) to tap it, reducing incoming damage to 3 and surviving at 3 life. This also prevents the Harbinger's combat damage trigger.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 80
     },
     {
       "severity": "moderate",
@@ -58504,7 +58510,8 @@
       "betterLine": "Cast Octoprophet using own lands (3 Islands + 1 Forest) for the scry 2 and a 3/3 body, or cast Garruk's Gorehorn (5 lands available) to deploy a 7/3 threat that would threaten lethal next turn alongside existing creatures.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 81
     },
     {
       "severity": "moderate",
@@ -58513,7 +58520,8 @@
       "betterLine": "Target themselves with Reckless Scholar to trigger Teferi's Tutelage (mill opponent 2 additional cards) and gain card selection to find answers at 6 life facing lethal board pressure",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 84
     },
     {
       "severity": "major",
@@ -58522,7 +58530,8 @@
       "betterLine": "Cast Capture Sphere targeting Garruk's Harbinger to tap it down, which also prevents Drowsing Tyrannodon from attacking (no power 4+ creature), completely neutralizing the lethal attack.",
       "type": "blunder",
       "snapshotIndex": 187,
-      "player": "Sonnet Villain"
+      "player": "Sonnet Villain",
+      "decisionIndex": 95
     }
   ],
   "blunderScriptVersion": 32

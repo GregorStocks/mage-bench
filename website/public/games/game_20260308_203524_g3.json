@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_203524_g3",
   "timestamp": "20260308_203524",
   "gameType": "Two Player Duel",
@@ -53162,7 +53162,8 @@
       "betterLine": "Search for Urza's Tower to complete Tron. The massive mana advantage (going from 3 to 9 colorless from Urza lands) far outweighs the immediate need for blue mana, which can be found through normal draws. Tron online enables Universal Solvent and Urza's Factory activations that would dominate the game.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 74
     },
     {
       "severity": "questionable",
@@ -53171,7 +53172,8 @@
       "betterLine": "Target Daybreak Charger (3/1) with Press for Answers to lock down the bigger offensive threat and save 3 damage from its next attack",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 78
     },
     {
       "severity": "moderate",
@@ -53180,7 +53182,8 @@
       "betterLine": "Cast Cloudshift targeting Brightmare to untap it and trigger its ETB (gain 3 life from tapping Dutiful Replicator), then attack with Daybreak Charger and Brightmare for 5 damage. Post-combat, still have 3 mana for Valorous Stance if needed.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 88
     },
     {
       "severity": "minor",
@@ -53189,7 +53192,8 @@
       "betterLine": "Activate Clue Token to sacrifice it and draw a card for 2 mana, since there's no other use for the mana this turn.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 104
     },
     {
       "severity": "moderate",
@@ -53198,7 +53202,8 @@
       "betterLine": "Attack with Dutiful Replicator 3/2 for 3 free damage, bringing opponent to 17 life.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -53207,7 +53212,8 @@
       "betterLine": "Cast Valorous Steed (4W) to create a 3/3 vigilance and 2/2 vigilance knight, then attack with everything. Inspiring Unicorn's trigger would give all creatures +1/+1, resulting in a massive attack. Opponent only has Dutiful Replicator 3/2 as an untapped blocker.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 110
     },
     {
       "severity": "moderate",
@@ -53216,7 +53222,8 @@
       "betterLine": "Dutiful Replicator blocks Daybreak Charger (trades, killing the Charger), Drownyard Explorers blocks Brightmare or Inspiring Unicorn — same 4 damage taken, same blockers lost, but removes an attacker.",
       "type": "blunder",
       "snapshotIndex": 164,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 115
     },
     {
       "severity": "major",
@@ -53225,7 +53232,8 @@
       "betterLine": "Cast Valorous Stance targeting Drownyard Explorers (toughness 4) to destroy the blocker, letting Brightmare deal 3 unblocked damage for 7 total combat damage, putting opponent to 3 life — likely winning next turn.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -53234,7 +53242,8 @@
       "betterLine": "Attack with Drownyard Explorers for 2 uncontested damage, bringing the opponent to 18 life.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 129
     },
     {
       "severity": "minor",
@@ -53243,7 +53252,8 @@
       "betterLine": "Cast Valorous Stance targeting Drownyard Explorers to destroy it, then attack with all creatures for exactly 10 lethal damage",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 138
     }
   ],
   "blunderScriptVersion": 32,

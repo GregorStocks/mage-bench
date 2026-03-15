@@ -29142,7 +29142,8 @@
       "betterLine": "Play Forest turn 1 (free untapped green source), saving Breeding Pool for a later turn when the option to pay 2 life for an untapped dual land is more valuable.",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -29151,7 +29152,8 @@
       "betterLine": "Play Blooming Marsh (enters untapped on Turn 1) to have two lands available next turn, enabling Overlord of the Balemurk's impending cost ({1}{B}) on Turn 2.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -29160,7 +29162,8 @@
       "betterLine": "Play Breeding Pool (untapped for free with only 1 other land), preserving a Forest for turn 3. This maximizes mana flexibility and avoids paying 2 life or losing tempo on a later Breeding Pool play.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -29169,7 +29172,8 @@
       "betterLine": "Choose Forest as the earthbend target instead, preserving the more valuable dual land from creature removal vulnerability while still getting the same 1/1 attacker with haste.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 14
     },
     {
       "severity": "moderate",
@@ -29178,7 +29182,8 @@
       "betterLine": "Play Blooming Marsh (enters untapped with ≤2 other lands) to have 2 mana available next turn and avoid discarding a card. This also enables casting Requiting Hex to potentially deal with Badgermole Cub if needed.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 18
     },
     {
       "severity": "questionable",
@@ -29187,7 +29192,8 @@
       "betterLine": "Play Blooming Marsh first (enters untapped), then decide between Requiting Hex and Overlord of the Balemurk Impending. Both are reasonable targets for the turn's mana, but playing land first is better sequencing. Overlord Impending is arguably stronger since it mills 4 and can return Wistfulness from graveyard, creating long-term value, while the Cub is already tapped and less threatening if you're developing your own board.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -29196,7 +29202,8 @@
       "betterLine": "Play Gloomlake Verge first (enters untapped with ≤2 other lands), then cast Requiting Hex targeting Badgermole Cub using Blooming Marsh for B, leaving Starting Town and Gloomlake Verge untapped for future use.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -29205,7 +29212,8 @@
       "betterLine": "Cast Requiting Hex targeting Badgermole Cub to destroy the opponent's mana accelerant, then deploy Overlord of the Balemurk on a subsequent turn. This removes the ramp threat immediately while Overlord's impending deployment can wait a turn with minimal cost.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -29214,7 +29222,8 @@
       "betterLine": "Play Gloomlake Verge, then cast Requiting Hex targeting Badgermole Cub to remove the opponent's mana acceleration. Cast Overlord for impending next turn with 3 lands available.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -29223,7 +29232,8 @@
       "betterLine": "Play Willowrush Verge, which enters untapped for free and taps for G (since a Forest is already in play), saving 2 life. Save Multiversal Passage or Breeding Pool for a later turn.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -29232,7 +29242,8 @@
       "betterLine": "Attack with all creatures (at minimum both Badgermole Cubs) for 4-6 free damage into an empty board.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 56
     },
     {
       "severity": "questionable",
@@ -29241,12 +29252,13 @@
       "betterLine": "Discard the second Superior Spider-Man since it's legendary and redundant, keeping Wistfulness for its cheap evoke option",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "Gem3P Sarge"
+      "player": "Gem3P Sarge",
+      "decisionIndex": 60
     }
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

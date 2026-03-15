@@ -27002,7 +27002,8 @@
       "betterLine": "Play Arid Mesa, crack it to fetch a Mountain (pay 1 life), then cast Ragavan turn 1. Turn 2 play Arena of Glory (enters untapped with Mountain in play).",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -27011,7 +27012,8 @@
       "betterLine": "Play Sacred Foundry (pay 2 life, untapped), cast Shadowspear (1 mana), then cast Ornithopter (0 mana), equip Shadowspear to Ornithopter if possible, creating a 1/3 trample lifelink blocker against Ragavan",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Haiku Gramps"
+      "player": "Haiku Gramps",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -27020,7 +27022,8 @@
       "betterLine": "Cast Guide of Souls for W, which provides value without losing a card to the legend rule. Then attack with Ragavan. If a second Ragavan is desired later, use Dash to avoid permanent card loss.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 30
     },
     {
       "severity": "moderate",
@@ -27029,7 +27032,8 @@
       "betterLine": "Cast Ragavan with Dash for {1}{R}. Sacrifice the old Ragavan to legend rule, attack with the hasty Dash Ragavan to potentially get combat damage triggers, then it returns to hand preserving the card for future use.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -27038,7 +27042,8 @@
       "betterLine": "Either cast Ragavan with Dash ({1}{R}) so it has inherent haste and returns to hand, preserving the card, or don't cast the second Ragavan at all and instead play Guide of Souls or save mana for other plays.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -27047,7 +27052,8 @@
       "betterLine": "Activate Arid Mesa first to fetch a Mountain or Plains, then attack with Ragavan before casting Guide of Souls post-combat. This sequences land fetch before spells (deck thinning for better draws) and delays creature deployment until after combat to avoid giving the opponent information.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -27056,7 +27062,8 @@
       "betterLine": "Attack with both Ragavan and Guide of Souls into the empty board for an extra 1 damage and potential energy trigger to buff Ragavan with +1/+1 counters and flying.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -27065,7 +27072,8 @@
       "betterLine": "Play Sunbaked Canyon first, then cast Puresteel Paladin using Sacred Foundry + Sunbaked Canyon for WW. Then cast Colossus Hammer to draw a card from Puresteel Paladin's trigger, and with Metalcraft active (Mox Opal, Shadowspear, Colossus Hammer), have equip 0 available.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Haiku Gramps"
+      "player": "Haiku Gramps",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -27074,7 +27082,8 @@
       "betterLine": "Activate Arid Mesa first to fetch a land (thinning the deck), then cast Seasoned Pyromancer to draw 2 cards from the thinner library",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -27083,7 +27092,8 @@
       "betterLine": "Fetch a basic Plains to diversify mana base and ensure ability to cast white spells from future draws, since red mana was already more than sufficient for Seasoned Pyromancer and other red cards.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 59
     },
     {
       "severity": "moderate",
@@ -27092,7 +27102,8 @@
       "betterLine": "Cast Puresteel Paladin (WW via Sacred Foundry + Mox Opal) to enable free Colossus Hammer equips with Metalcraft, which is the deck's core combo. Could then equip Colossus Hammer next turn for free to any creature.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Haiku Gramps"
+      "player": "Haiku Gramps",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -27101,7 +27112,8 @@
       "betterLine": "Search for Paradise Mantle - a free equipment that synergizes with Puresteel Paladin's draw trigger and Metalcraft, while using Stoneforge's activated ability to deploy the Leyline Axe already in hand",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "Haiku Gramps"
+      "player": "Haiku Gramps",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -27110,12 +27122,13 @@
       "betterLine": "Block with both Puresteel Paladin and Stoneforge Mystic on separate attackers to prevent as much combat damage as possible when at 5 life facing 5 damage.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Haiku Gramps"
+      "player": "Haiku Gramps",
+      "decisionIndex": 97
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_003306_g4",
   "timestamp": "20260226_003306",
   "gameType": "Two Player Duel",
@@ -49312,7 +49312,8 @@
       "betterLine": "Keep the 7-card hand. It has a perfect curve with Marauding Mako on turn 1, Orcish Bowmasters or Nethergoyf on turn 2, two lands including a fetchland, and Street Wraith for free cycling/card draw.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 2
     },
     {
       "severity": "major",
@@ -49321,7 +49322,8 @@
       "betterLine": "Bottom Bloodstained Mire (or Blood Crypt), keeping the Burning Inquiry + Hollow One + Marauding Mako package with Mountain to cast Burning Inquiry turn 1 for a free 4/4 and a growing Mako.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -49330,7 +49332,8 @@
       "betterLine": "Play Bloodstained Mire, sacrifice it to fetch Blood Crypt (or a basic Mountain/Swamp) untapped, preserving the other Blood Crypt in hand for later flexibility and gaining deck thinning.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -49339,7 +49342,8 @@
       "betterLine": "Play Eldrazi Temple for 4 Eldrazi mana total, cast Glaring Fleshraker, then cast Walking Ballista X=0 to trigger Fleshraker (creating a Spawn token and dealing 1 damage)",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 14
     },
     {
       "severity": "moderate",
@@ -49348,7 +49352,8 @@
       "betterLine": "Tap Ugin's Labyrinth for {C}{C}, then in postcombat main play Eldrazi Temple, tap Boseiju for {G} and Eldrazi Temple for {C}, and cast Glaring Fleshraker for {2}{C}",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -49357,7 +49362,8 @@
       "betterLine": "Play Mountain to save 1 life and preserve fetchlands for future turns when color fixing is more relevant",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -49366,7 +49372,8 @@
       "betterLine": "Attack with Marauding Mako for 1 free damage.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -49375,7 +49382,8 @@
       "betterLine": "Fetch Mountain - enters untapped for free, provides the generic mana needed for Orcish Bowmasters alongside existing Blood Crypt, and saves 2 life",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -49384,7 +49392,8 @@
       "betterLine": "Attack with at least Marauding Mako, Orcish Bowmasters, and Orc Army Token for 3 free damage, bringing opponent from 18 to 15.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -49393,7 +49402,8 @@
       "betterLine": "Target the opponent (MiMo Rookie) with the Bowmasters trigger for 1 additional damage, preserving Marauding Mako as a threat that could grow from future discard effects",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -49402,7 +49412,8 @@
       "betterLine": "Play Urza's Saga first (land drop), then cast Haywire Mite for {1} as a blocker, and cast Kozilek's Command using Eldrazi Temple + Ugin's Labyrinth mana to exile a key threat like the 8/8 Orc Army token or create Spawn blockers.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -49411,7 +49422,8 @@
       "betterLine": "Cast Kozilek's Command for X=2 in response to Thoughtseize, choosing to exile an Orcish Bowmasters (mana value 2) and scry 2 + draw a card. This removes a threat, generates card advantage, and the Command is spent before Thoughtseize resolves so it can't be taken.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -49420,7 +49432,8 @@
       "betterLine": "Take Devourer of Destiny, which is the most realistic way for the opponent to survive by exiling the 8/8 Orc Army token. Kozilek's Command is also a reasonable consideration as it's an instant-speed answer.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 54
     },
     {
       "severity": "major",
@@ -49429,7 +49442,8 @@
       "betterLine": "Attack with all creatures (or at minimum the 8/8 Orc Army Token) for lethal damage against the opponent at 7 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "DSV3 Lucky"
+      "player": "DSV3 Lucky",
+      "decisionIndex": 62
     }
   ],
   "blunderScriptVersion": 28,

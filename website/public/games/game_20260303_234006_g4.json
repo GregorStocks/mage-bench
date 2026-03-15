@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_234006_g4",
   "timestamp": "20260303_234006",
   "gameType": "Two Player Duel",
@@ -55895,7 +55895,8 @@
       "betterLine": "Mulligan to 6 to find a hand with at least one blue source, since the deck clearly needs blue mana for most of its spells.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GptOSS Gramps"
+      "player": "GptOSS Gramps",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -55904,7 +55905,8 @@
       "betterLine": "Play Island to have access to blue mana while still being able to cast Juggernaut this turn. Save Buried Ruin for later when colored mana sources are established.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -55913,7 +55915,8 @@
       "betterLine": "Choose Black for Thriving Isle, allowing it to tap for U or B to support the UB mana base and help cast Entomber Exarch with its BB requirement.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GptOSS Gramps"
+      "player": "GptOSS Gramps",
+      "decisionIndex": 24
     },
     {
       "severity": "questionable",
@@ -55922,7 +55925,8 @@
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Phyrexian Broodlings in response to the sacrifice ability, creating a 2-for-1 since the Myr token was already sacrificed as cost. Still has 3 Mountains untapped to potentially play a land and cast Goblin Researcher or Juggernaut this turn.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -55931,7 +55935,8 @@
       "betterLine": "Play Island or Thriving Isle first, then cast Goblin Researcher, leaving 1 mana open for Aether Spellbomb's draw ability or other responses.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -55940,7 +55945,8 @@
       "betterLine": "Play Island to enable casting Thirst for Knowledge ({2}{U}) exiled under Goblin Researcher on a future attack turn, and to have blue mana available for other blue spells in the deck.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 39
     },
     {
       "severity": "moderate",
@@ -55949,7 +55955,8 @@
       "betterLine": "Block Phyrexian Broodlings 3/3 with Goblin Researcher 3/3. This forces the opponent to either trade their growing threat or sacrifice the Myr Token to save it. Either outcome is much better than letting Broodlings through for 3 unblocked damage while wasting a block on a 1/1 token that can be sacrificed.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 44
     },
     {
       "severity": "moderate",
@@ -55958,7 +55965,8 @@
       "betterLine": "Activate Aether Spellbomb targeting Phyrexian Broodlings to bounce it, removing the +1/+1 counters and saving 4 life while setting the opponent back significantly on tempo",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 47
     },
     {
       "severity": "major",
@@ -55967,7 +55975,8 @@
       "betterLine": "Play an Island (or Thriving Isle), then cast Juggernaut for {4} using 4 of the remaining untapped lands. This puts a 5/3 body on the board to stabilize against opponent's threats.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -55976,7 +55985,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B}, hold up Launch Mishap (3 mana) with 1 mana to spare. This deploys a recurring value engine while maintaining countermagic. Gearsmith Guardian could be cast next turn, potentially after Whirler Rogue to get the +2/+0 bonus.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "GptOSS Gramps"
+      "player": "GptOSS Gramps",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -55985,7 +55995,8 @@
       "betterLine": "Play an Island from hand first, then either activate Aether Spellbomb's bounce mode targeting Gearsmith Guardian or Phyrexian Broodlings, or cast Juggernaut for 4 mana as a blocker against the incoming threats.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 60
     },
     {
       "severity": "major",
@@ -55994,7 +56005,8 @@
       "betterLine": "Play Island (getting to 6 mana), then cast Juggernaut for {4}. Attack with Goblin Researcher to access the exiled Thirst for Knowledge. This develops the board and provides offensive pressure while keeping Aether Spellbomb for emergency bounce defense.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -56003,7 +56015,8 @@
       "betterLine": "Play an Island (or Thriving Isle) to advance toward casting Meteor Golem and enable Aether Spellbomb's bounce ability with blue mana. Could also consider bouncing Gearsmith Guardian or Phyrexian Broodlings with Aether Spellbomb this turn given the low life total.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 64
     },
     {
       "severity": "moderate",
@@ -56012,7 +56025,8 @@
       "betterLine": "Block Goblin Researcher with Gearsmith Guardian. Guardian survives at 3/2, Researcher dies, no damage taken, and opponent loses access to the exiled Thirst for Knowledge.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "GptOSS Gramps"
+      "player": "GptOSS Gramps",
+      "decisionIndex": 66
     },
     {
       "severity": "major",
@@ -56021,7 +56035,8 @@
       "betterLine": "Block Gearsmith Guardian with Juggernaut to trade creatures and survive at 1 life (taking only 4+2=6 damage).",
       "type": "blunder",
       "snapshotIndex": 193,
-      "player": "MstLg Rivals"
+      "player": "MstLg Rivals",
+      "decisionIndex": 71
     }
   ],
   "blunderScriptVersion": 32

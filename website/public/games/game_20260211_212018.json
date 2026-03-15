@@ -48084,7 +48084,8 @@
       "betterLine": "Play Fabled Passage, crack it to fetch a Forest (enters tapped either way on turn 1 with <4 lands), then cast Llanowar Elves. This preserves Forests in hand for later turns to maximize landfall triggers alongside other land plays.",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 5
     },
     {
       "severity": "moderate",
@@ -48093,7 +48094,8 @@
       "betterLine": "Play Gloomlake Verge to have two lands available next turn, enabling a turn 2 Deep-Cavern Bat to disrupt the opponent's hand.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 8
     },
     {
       "severity": "moderate",
@@ -48102,7 +48104,8 @@
       "betterLine": "Play Gloomlake Verge to have two lands available next turn, enabling a turn 3 Deep-Cavern Bat or Bitterbloom Bearer to pressure the opponent and disrupt their hand.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -48111,7 +48114,8 @@
       "betterLine": "Play Forest to have 3 mana (Forest + Forest + Llanowar Elves), then cast Earthbender Ascension, which fetches a land and starts accumulating quest counters. Save Fabled Passage for later when it can untap the fetched land and trigger landfall on permanents that care about it.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -48120,7 +48124,8 @@
       "betterLine": "Cast Sazh's Chocobo first using Llanowar Elves for G mana, then activate Fabled Passage to get a landfall trigger on the Chocobo, making it a 1/2 immediately.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -48129,7 +48134,8 @@
       "betterLine": "Don't attack at all. Keep Llanowar Elves untapped to use as a mana source in the second main phase, potentially casting Earthbender Ascension next turn with better sequencing. Sazh's Chocobo as a 0/1 deals no damage and shouldn't be risked in combat.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -48138,7 +48144,8 @@
       "betterLine": "Play Soulstone Sanctuary first, then cast Deep-Cavern Bat with the same 2 mana, leaving 1 mana open either way",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -48147,7 +48154,8 @@
       "betterLine": "Play a Forest first (triggering Sazh's Chocobo landfall), then cast Earthbender Ascension using the three lands plus Llanowar Elves. The Ascension's ETB would still search for a land, and the land drop this turn would have already given Sazh's Chocobo a counter and would have counted toward quest counters if Ascension were already on the battlefield — but actually, the land drop happens before Ascension is on the field either way. The key issue is that playing the land first still gives Sazh's Chocobo a +1/+1 counter from landfall, while casting Ascension first uses all available mana and may prevent the land drop from contributing a quest counter to Ascension (since the land drop would come after Ascension enters). Actually, playing land first and then casting Ascension is not possible with only 2 Forests + Llanowar Elves for {2}{G}... Wait - with 2 Forests + 1 new Forest + Llanowar Elves = 4 mana sources, Ascension costs {2}{G} = 3 mana total. So play Forest first (3 lands + Elves), then cast Ascension. Ascension's ETB fetches another land, triggering both Chocobo and Ascension's landfall. The Forest played earlier also triggers Ascension's landfall since Ascension would be on the battlefield when... no, the Forest was played before Ascension entered. The correct line is: Play Forest (Chocobo gets counter), cast Earthbender Ascension (ETB fetches land, triggering both Chocobo and Ascension landfall). This nets one extra +1/+1 counter on Chocobo from the land drop.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -48156,7 +48164,8 @@
       "betterLine": "Fetch Plains to maximize color diversity, since they already have 4 Forests in hand and plenty of green sources",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -48165,7 +48174,8 @@
       "betterLine": "Attack with both Deep-Cavern Bats for 2 damage and 2 life gain, as there are no blockers and minimal risk.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -48174,7 +48184,8 @@
       "betterLine": "Play a basic Forest for free, saving Temple Garden for a later turn when White mana might be needed or when the life payment matters less.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -48183,7 +48194,8 @@
       "betterLine": "Play a basic Forest (enters untapped, no life cost) and save Temple Garden for when white mana is needed or when entering tapped doesn't matter.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 52
     },
     {
       "severity": "questionable",
@@ -48192,7 +48204,8 @@
       "betterLine": "Attack with just Sazh's Chocobo (5/6) for guaranteed 5 damage (or 4 if blocked by the 1/1 bat), keeping Llanowar Elves for mana and the animated Forest safe from potential flash blockers",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -48201,7 +48214,8 @@
       "betterLine": "Play a Forest to trigger Landfall on Sazh's Chocobo (getting a +1/+1 counter) and Earthbender Ascension (getting a quest counter, potentially reaching 4 for the +1/+1 and trample bonus), then proceed to combat with a bigger attacker.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -48210,7 +48224,8 @@
       "betterLine": "Play a Forest to trigger Earthbender Ascension's Landfall ability, adding a quest counter and potentially enabling the +1/+1 counter and trample buff that could help push lethal damage through blockers next turn.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 69
     },
     {
       "severity": "minor",
@@ -48219,7 +48234,8 @@
       "betterLine": "This sequencing is actually correct - cast Chocobo first, then play land to trigger landfall on both Chocobos",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 75
     },
     {
       "severity": "moderate",
@@ -48228,7 +48244,8 @@
       "betterLine": "Play a Forest before combat to trigger landfall on Sazh's Chocobo (+1/+1 counter) and Earthbender Ascension (quest counter), then attack with the bigger Chocobo for additional damage.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -48237,7 +48254,8 @@
       "betterLine": "Play a Forest to trigger Sazh's Chocobo landfall (+1/+1 counter) and Earthbender Ascension landfall (quest counter), increasing board pressure against an opponent at 8 life.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 82
     },
     {
       "severity": "minor",
@@ -48246,7 +48264,8 @@
       "betterLine": "Play Island for free, then activate Restless Reef using Island + Gloomlake Verge (now has Island to enable {B}) + 2 Soulstone Sanctuaries for {2}{U}{B}, and attack with all 3 bats + Restless Reef for exactly 7 lethal damage",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 86
     },
     {
       "severity": "major",
@@ -48255,7 +48274,8 @@
       "betterLine": "Activate Restless Reef using Starting Town (B), Gloomlake Verge (U), and both Soulstone Sanctuaries (2 colorless), then attack with the 4/4 Reef and all 3 Deep-Cavern Bats for exactly 7 lethal damage.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 87
     },
     {
       "severity": "moderate",
@@ -48264,7 +48284,8 @@
       "betterLine": "Cast Requiting Hex without paying the blight cost. Destroying Sazh's Chocobo is still valuable, and keeping the Deep-Cavern Bat alive maintains the exile on Mossborn Hydra, which is far more important than gaining 2 life.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 91
     },
     {
       "severity": "minor",
@@ -48273,7 +48294,8 @@
       "betterLine": "Play Plains to diversify mana base, providing a basic white source alongside the Temple Gardens",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 101
     },
     {
       "severity": "minor",
@@ -48282,7 +48304,8 @@
       "betterLine": "Block with Floodpits Drowner (2/1), which survives combat against a 1/1 attacker, preserving both the Drowner and the Deep-Cavern Bat's exile effect.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 117
     },
     {
       "severity": "moderate",
@@ -48291,7 +48314,8 @@
       "betterLine": "Block the 3/3 Forest with Enduring Curiosity to prevent 3 damage instead of 1, going to 8 life instead of 6, and removing the largest attacking creature.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 117
     },
     {
       "severity": "major",
@@ -48300,7 +48324,8 @@
       "betterLine": "Activate Restless Reef using Gloomlake Verge (U), Starting Town paying 1 life (B), and 2 Soulstone Sanctuaries (2 colorless), then attack with Restless Reef + both Deep-Cavern Bats for 6 damage against opponent's 5 life for the win.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 122
     },
     {
       "severity": "major",
@@ -48309,7 +48334,8 @@
       "betterLine": "Before combat, activate Restless Reef using Gloomlake Verge (U), Starting Town (B, pay 1 life), and two Soulstone Sanctuaries (2 colorless). Then attack with Restless Reef (4/4) and both Deep-Cavern Bats (1/1 each) for 6 total damage, which is lethal against opponent's 5 life.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 123
     },
     {
       "severity": "major",
@@ -48318,7 +48344,8 @@
       "betterLine": "Activate Restless Reef for {2}{U}{B}, then attack with Restless Reef (4/4) and both Deep-Cavern Bats (1/1 each) for exactly 6 damage lethal against opponent at 5 life",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 126
     },
     {
       "severity": "major",
@@ -48327,7 +48354,8 @@
       "betterLine": "Activate Restless Reef using Gloomlake Verge (U), Starting Town (B, pay 1 life), and both Soulstone Sanctuaries (C, C) for {2}{U}{B}. Attack with Restless Reef (4/4) and both Deep-Cavern Bats (1/1 each) for 6 total damage, which is lethal.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 123
     },
     {
       "severity": "major",
@@ -48336,7 +48364,8 @@
       "betterLine": "Before combat: activate Restless Reef for {2}{U}{B}, then attack with Restless Reef (4/4) and both Deep-Cavern Bats (1/1 flying each) for 6 total damage, killing the opponent at 5 life.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 127
     },
     {
       "severity": "minor",
@@ -48345,7 +48374,8 @@
       "betterLine": "Target Mossborn Hydra with the stun counter to both neutralize the exponentially growing threat and tap it to prevent blocking, potentially enabling lethal next turn. The shuffle ability also permanently removes it rather than just sending an earthbent land back.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 132
     },
     {
       "severity": "moderate",
@@ -48354,7 +48384,8 @@
       "betterLine": "Block with Bitterbloom Bearer (1/1) or Floodpits Drowner (2/1) instead, which would absorb the same combat damage without returning the exiled Mossborn Hydra to the opponent.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 140
     },
     {
       "severity": "minor",
@@ -48363,7 +48394,8 @@
       "betterLine": "Block Mossborn Hydra (3/3) to prevent 3 damage instead of 2, ending at 5 life instead of 4",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 140
     },
     {
       "severity": "minor",
@@ -48372,7 +48404,8 @@
       "betterLine": "Play Gloomlake Verge (or Island) before passing, to have more mana available next turn for spells or land activations",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 151
     },
     {
       "severity": "major",
@@ -48381,7 +48414,8 @@
       "betterLine": "Activate Restless Reef for {2}{U}{B}, then attack with Restless Reef (4/4) and both Deep-Cavern Bats (1/1 each) for 6 total damage, killing the opponent at 5 life.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 154
     },
     {
       "severity": "major",
@@ -48390,7 +48424,8 @@
       "betterLine": "Flash in Tishana's Tidebinder before attacks, then attack with Tidebinder (3/2) and both Deep-Cavern Bats (1/1 each) for exactly 5 damage, which is lethal.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 159
     },
     {
       "severity": "minor",
@@ -48399,7 +48434,8 @@
       "betterLine": "Play a Forest first to trigger landfall (growing Sazh's Chocobo and adding a quest counter to Earthbender Ascension), then cast Llanowar Elves afterward.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Haiku Valley"
+      "player": "Haiku Valley",
+      "decisionIndex": 167
     },
     {
       "severity": "major",
@@ -48408,7 +48444,8 @@
       "betterLine": "Play a land (Island), cast Floodpits Drowner targeting Sazh's Chocobo to tap it, then attack with available creatures. If Enduring Curiosity is still a creature, this is lethal.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 181
     },
     {
       "severity": "major",
@@ -48417,7 +48454,8 @@
       "betterLine": "Play Island from hand, then activate Soulstone Sanctuary ({4}) to make it a 3/3 creature with vigilance, then attack with it for 3 damage = lethal against opponent at 3 life.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 181
     },
     {
       "severity": "major",
@@ -48426,7 +48464,8 @@
       "betterLine": "Activate Restless Reef for {2}{U}{B} to make it a 4/4 attacker (or ensure Enduring Curiosity attacks), guaranteeing lethal damage against the opponent at 3 life.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 182
     },
     {
       "severity": "moderate",
@@ -48435,7 +48474,8 @@
       "betterLine": "Block Sazh's Chocobo with Enduring Curiosity. The Chocobo (4/5) kills Enduring Curiosity (4/3), but Enduring Curiosity returns as an enchantment keeping its card-draw ability. The Chocobo takes 4 damage and survives at 4/1... actually it would survive. But activating Soulstone Sanctuary for 4 mana to make it a 3/3 and double-blocking with both Enduring Curiosity and the Sanctuary creature would kill the 4/5 Chocobo while preserving life total. Alternatively, just blocking with Enduring Curiosity still deals 4 damage to the Chocobo, leaving it at 4/1, which is much less threatening.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 184
     },
     {
       "severity": "major",
@@ -48444,7 +48484,8 @@
       "betterLine": "Flash in Floodpits Drowner (costs 1U, payable with Gloomlake Verge + Soulstone Sanctuary) to either block the Chocobo or use its ETB to tap it and put a stun counter on it, preventing 4 combat damage. At 11 life with the opponent at 3, preserving life total while having a path to close out the game is critical.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 184
     },
     {
       "severity": "moderate",
@@ -48453,7 +48494,8 @@
       "betterLine": "Target Sazh's Chocobo (4/5) with Requiting Hex to remove the opponent's biggest threat. Chocobo has mana value 1 ({G}), making it a legal target for the spell that destroys creatures with mana value 2 or less.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 191
     },
     {
       "severity": "major",
@@ -48462,12 +48504,13 @@
       "betterLine": "Proceed directly to combat and attack with all creatures (2 Deep-Cavern Bats and Enduring Curiosity) for 6 damage against opponent's 3 life for the win. No need to cast any spells first.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Gem3F Sarge"
+      "player": "Gem3F Sarge",
+      "decisionIndex": 194
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

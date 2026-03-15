@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_184350_g4",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -46038,7 +46038,8 @@
       "betterLine": "Mulligan aggressively. Any hand with even 1-2 spells and some lands would be dramatically better than 7 lands.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -46047,7 +46048,8 @@
       "betterLine": "Play a Forest to reach 4 mana, then cast Hunter's Edge targeting an opposing creature to gain tempo and board control.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -46056,7 +46058,8 @@
       "betterLine": "Cast Benevolent Hydra for X=2 (postcombat main would be ideal sequencing, but casting it at all is important for board development and synergy with counter-based cards in hand)",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "Haiku Sport"
+      "player": "Haiku Sport",
+      "decisionIndex": 42
     },
     {
       "severity": "major",
@@ -46065,7 +46068,8 @@
       "betterLine": "Play a Forest (land drop), then cast Orazca Frillback for {2}{G} to have a 4/2 blocker. This is critical for survival at 5 life against the opponent's board.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "GptOSS Snark"
+      "player": "GptOSS Snark",
+      "decisionIndex": 44
     }
   ],
   "blunderScriptVersion": 31,

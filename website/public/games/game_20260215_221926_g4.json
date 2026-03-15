@@ -147042,7 +147042,8 @@
       "betterLine": "Play Temple of the False God. While it can't produce mana until 5 lands are controlled, it stays on the battlefield. Next turn, play Rakdos Carnarium bouncing Temple (acceptable since Temple is weak early), giving a mana-producing land on turn 2 and staying on curve.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -147051,7 +147052,8 @@
       "betterLine": "Play a land first (Port Town revealing Plains/Island for untapped entry, or Plains/Island), then cast Shimmer Myr. Or better yet, hold Shimmer Myr to cast at end of opponent's turn since it has flash, and play a land + hold up mana for future plays.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -147060,7 +147062,8 @@
       "betterLine": "Play Port Town, revealing Plains from hand, to get an untapped dual land providing W/U flexibility while preserving the option to play basics later.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -147069,7 +147072,8 @@
       "betterLine": "Play a Plains first (land drop), then cast Arcanist's Owl with the available mana",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -147078,7 +147082,8 @@
       "betterLine": "Attack GPT5n Perfect with Zndrsplt for 1 free damage, as there are no blockers and no defensive benefit to holding it back",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 88
     },
     {
       "severity": "moderate",
@@ -147087,7 +147092,8 @@
       "betterLine": "Target an opponent (e.g., GPT5n Perfect at 36 life, or Gem3F Analyst at 37 life) or an opposing creature with the 2 damage from Burning Vengeance. Any target other than yourself or your own creatures would have been strictly better.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -147096,7 +147102,8 @@
       "betterLine": "Should have chosen White since Sonnet Rules (the player with the most threatening board including Weatherlight crewed by white creatures, Shimmer Myr, and white lands) has white sources like Aeronaut Admiral potentially, or simply saved the Prismatic Strands flashback for a turn where it could actually prevent meaningful damage. The Strands doesn't stop colorless Weatherlight regardless of color chosen, so using it here was likely a waste.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -147105,7 +147112,8 @@
       "betterLine": "Play Island or Mountain, cast The Locust God (4UR) using available mana sources, then equip Lightning Greaves for free to protect it. This establishes the Zndrsplt + Locust God engine immediately.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 109
     },
     {
       "severity": "minor",
@@ -147114,7 +147122,8 @@
       "betterLine": "Play Island or Mountain first (making the land drop), then cast Lightning Greaves with more mana available for other plays this turn",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -147123,7 +147132,8 @@
       "betterLine": "Play Island or Mountain from hand to ensure the land drop isn't missed. Could also consider casting Long-Term Plans to tutor for a key card.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 115
     },
     {
       "severity": "minor",
@@ -147132,7 +147142,8 @@
       "betterLine": "This is actually reasonable - waiting to see how many coin flips are won before deciding whether/when to cast Long-Term Plans is defensible. No clear blunder.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 120
     },
     {
       "severity": "minor",
@@ -147141,7 +147152,8 @@
       "betterLine": "This appears to be a reasonable pass - Long-Term Plans can be cast later at end of an opponent's turn for better information. No clear blunder.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 131
     },
     {
       "severity": "questionable",
@@ -147150,7 +147162,8 @@
       "betterLine": "Attack GPT5n Perfect (23hp) to put pressure on the lowest life total player, though the difference is minimal with only 1 damage",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 136
     },
     {
       "severity": "moderate",
@@ -147159,7 +147172,8 @@
       "betterLine": "Target an opponent with Burning Vengeance's damage trigger, such as GPT5n Perfect (at 23 life) or Gem3F Analyst (at 34 life), to pressure their life totals, or target an opponent's creature like Zndrsplt, Eye of Wisdom.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 137
     },
     {
       "severity": "minor",
@@ -147168,7 +147182,8 @@
       "betterLine": "Select Swamp first (and ideally two Swamps total) to better support the BB cost of Hedonist's Trove and the B cost of Bone Miser, since a Mountain is already in hand",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -147177,7 +147192,8 @@
       "betterLine": "Select Swamp to better support the double-black requirement of Hedonist's Trove and single-black of Bone Miser, since red mana is already covered by Mountain in hand and Command Tower.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -147186,7 +147202,8 @@
       "betterLine": "Play Command Tower to maximize color flexibility, saving the redundant Mountains for later turns when the flexible mana source matters less",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 143
     },
     {
       "severity": "minor",
@@ -147195,7 +147212,8 @@
       "betterLine": "Discard a Mountain, keeping the powerful Wildfire Devils which can copy In Garruk's Wake or Nightmare Unmaking from graveyards",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 146
     },
     {
       "severity": "questionable",
@@ -147204,7 +147222,8 @@
       "betterLine": "Hold Zndrsplt back as a blocker. The 1 damage is negligible against any opponent's life total, and keeping it untapped preserves blocking capability against potential attacks from Sonnet's Weatherlight or other threats.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 171
     },
     {
       "severity": "minor",
@@ -147213,7 +147232,8 @@
       "betterLine": "Cast Long-Term Plans to tutor a high-impact card (e.g., Okaun to pair with Zndrsplt, or another key piece) to third from top, since the mana would otherwise go unused",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 172
     },
     {
       "severity": "moderate",
@@ -147222,7 +147242,8 @@
       "betterLine": "Play Rogue's Passage as a land drop, then cast Lightning Greaves for {2} and equip it to Zndrsplt to protect it with shroud.",
       "type": "blunder",
       "snapshotIndex": 221,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 175
     },
     {
       "severity": "minor",
@@ -147231,7 +147252,8 @@
       "betterLine": "Play Rogue's Passage as the land for turn, then consider holding up Long-Term Plans with remaining mana. Getting closer to 6 mana for The Locust God is important.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 175
     },
     {
       "severity": "minor",
@@ -147240,7 +147262,8 @@
       "betterLine": "Attack GPT5n Perfect to apply pressure on the player at 8 HP with no blockers",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 176
     },
     {
       "severity": "minor",
@@ -147249,7 +147272,8 @@
       "betterLine": "Cast Long-Term Plans in response to Zndrsplt's trigger to tutor a key card (like a combo piece or answer) to third from top, maximizing the value of the upcoming card draws from coin flips.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 197
     },
     {
       "severity": "moderate",
@@ -147258,7 +147282,8 @@
       "betterLine": "Attack with The Locust God and all 4 Insect tokens at GPT5m Minimal (36hp, all tapped out, no flying blockers) for 8 damage, keeping Zndrsplt back for card draw value.",
       "type": "blunder",
       "snapshotIndex": 244,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 205
     },
     {
       "severity": "minor",
@@ -147267,7 +147292,8 @@
       "betterLine": "Activate The Locust God's loot ability using available mana (Island + Mountain + Arcane Signet/Command Tower), draw a card, discard the Island, and create a 1/1 insect token. Could potentially activate multiple times with all the available mana.",
       "type": "blunder",
       "snapshotIndex": 245,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 206
     },
     {
       "severity": "minor",
@@ -147276,7 +147302,8 @@
       "betterLine": "Activate The Locust God's loot ability to draw and discard, creating an Insect token and improving card quality. Could also consider casting Long-Term Plans to tutor a key card.",
       "type": "blunder",
       "snapshotIndex": 245,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 206
     },
     {
       "severity": "major",
@@ -147285,7 +147312,8 @@
       "betterLine": "Play Rogue's Passage as a land drop, then cast The Locust God for 6 mana using available lands and Arcane Signet. This establishes a powerful engine with Zndrsplt that generates flying tokens every time a coin flip is won.",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 215
     },
     {
       "severity": "moderate",
@@ -147294,7 +147322,8 @@
       "betterLine": "Play Rogue's Passage as land drop, then cast The Locust God for 6 mana. The Locust God + Zndrsplt creates massive card advantage and token generation, and Rogue's Passage enables unblockable Okaun kills.",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 215
     },
     {
       "severity": "minor",
@@ -147303,7 +147332,8 @@
       "betterLine": "Target Aeronaut Admiral (3/1) or Shimmer Myr (2/2) to remove a relevant creature from the board",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 223
     },
     {
       "severity": "minor",
@@ -147312,7 +147342,8 @@
       "betterLine": "Attack with just Aeronaut Admiral (3/1 flying, hard to block) and perhaps Shimmer Myr or other less critical creatures, keeping Silver Myr (mana), Sram (card draw), and Myrsmith (token generation) back as blockers and utility pieces.",
       "type": "blunder",
       "snapshotIndex": 257,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 230
     },
     {
       "severity": "moderate",
@@ -147321,7 +147352,8 @@
       "betterLine": "Play Rogue's Passage as land drop, cast The Locust God for 4UR, and potentially cast Lightning Greaves to protect it. This sets up a powerful card advantage + token generation engine with Zndrsplt.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 240
     },
     {
       "severity": "moderate",
@@ -147330,7 +147362,8 @@
       "betterLine": "Cast The Locust God (4UR) before Zndrsplt's trigger resolves, so each card drawn from won coin flips creates a 1/1 flying haste Insect token.",
       "type": "blunder",
       "snapshotIndex": 265,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 242
     },
     {
       "severity": "minor",
@@ -147339,7 +147372,8 @@
       "betterLine": "Activate The Locust God's ability to loot, gaining card selection and a free 1/1 Insect creature token. With Island, Mountain, Command Tower, Temple of Epiphany, Exotic Orchard, and Arcane Signet all untapped, there was more than enough mana.",
       "type": "blunder",
       "snapshotIndex": 267,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 260
     },
     {
       "severity": "questionable",
@@ -147348,7 +147382,8 @@
       "betterLine": "Play Rogue's Passage for the land drop, then cast The Locust God using available mana (Island, Mountain, Arcane Signet, Command Tower, Temple of Epiphany, Exotic Orchard provides {4}{U}{R})",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 261
     },
     {
       "severity": "minor",
@@ -147357,7 +147392,8 @@
       "betterLine": "Attack with both Sevinne and Dockside Extortionist, or at minimum attack with Sevinne since it cannot die in combat and represents free damage every turn",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 264
     },
     {
       "severity": "minor",
@@ -147366,7 +147402,8 @@
       "betterLine": "Attack with both Sevinne and Dockside Extortionist, or at minimum attack with Sevinne since it cannot be damaged and is always a free attacker.",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 264
     },
     {
       "severity": "questionable",
@@ -147375,7 +147412,8 @@
       "betterLine": "Either attack Gem3F Analyst where blockers are tapped/less threatening, or don't attack at all to preserve Dockside Extortionist as a blocker/resource.",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "GPT5m Minimal"
+      "player": "GPT5m Minimal",
+      "decisionIndex": 264
     },
     {
       "severity": "minor",
@@ -147384,7 +147422,8 @@
       "betterLine": "Target Foundry Inspector (3/2) with Kotori's trigger to maximize lifelink damage (3 life vs 2 life per attack)",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 275
     },
     {
       "severity": "questionable",
@@ -147393,7 +147432,8 @@
       "betterLine": "Attack GPT5m Minimal (20 life) for 5, bringing them to 15 and into a much more vulnerable range for elimination",
       "type": "blunder",
       "snapshotIndex": 279,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 275
     },
     {
       "severity": "minor",
@@ -147402,7 +147442,8 @@
       "betterLine": "Play Rogue's Passage first, then cast Krark's Thumb (or consider Lightning Greaves to protect Zndrsplt)",
       "type": "blunder",
       "snapshotIndex": 286,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 286
     },
     {
       "severity": "minor",
@@ -147411,7 +147452,8 @@
       "betterLine": "Cast Lightning Greaves for 2 mana and equip it to Zndrsplt, Eye of Wisdom to grant it shroud and protect the card draw engine.",
       "type": "blunder",
       "snapshotIndex": 289,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 289
     },
     {
       "severity": "minor",
@@ -147420,7 +147462,8 @@
       "betterLine": "Play Sulfur Falls first (enters untapped), then cast Krark, the Thumbless, leaving more mana open for Long-Term Plans or other instant-speed plays",
       "type": "blunder",
       "snapshotIndex": 308,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 315
     },
     {
       "severity": "minor",
@@ -147429,7 +147472,8 @@
       "betterLine": "Play Sulfur Falls (enters untapped since an Island is controlled), providing flexible colored mana. Inventors' Fair could be saved for a later turn when more artifacts are in play to activate its abilities.",
       "type": "blunder",
       "snapshotIndex": 309,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 316
     },
     {
       "severity": "minor",
@@ -147438,7 +147482,8 @@
       "betterLine": "At minimum, play a land (Desolate Lighthouse or Sulfur Falls for color fixing and utility). Could also consider Blasphemous Act to clear the opponent's board, or Long-Term Plans to set up a key card.",
       "type": "blunder",
       "snapshotIndex": 310,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 320
     },
     {
       "severity": "minor",
@@ -147447,7 +147492,8 @@
       "betterLine": "Target Silver Myr with Kotori's trigger, allowing it to attack for 1 (gaining 1 life from lifelink) while still being able to tap for blue mana thanks to vigilance",
       "type": "blunder",
       "snapshotIndex": 319,
-      "player": "Sonnet Rules"
+      "player": "Sonnet Rules",
+      "decisionIndex": 333
     },
     {
       "severity": "moderate",
@@ -147456,7 +147502,8 @@
       "betterLine": "Cast The Locust God to establish a game-winning synergy with Zndrsplt, Eye of Wisdom. Each combat's coin flips would generate cards and flying attackers, quickly closing out the game against Sonnet Rules at 16 life.",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 341
     },
     {
       "severity": "minor",
@@ -147465,7 +147512,8 @@
       "betterLine": "Cast Lightning Greaves for 2 mana and equip it to Zndrsplt for free to grant shroud, protecting the key card advantage engine. Could also consider casting Shadowspear for 1 mana.",
       "type": "blunder",
       "snapshotIndex": 331,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 342
     },
     {
       "severity": "moderate",
@@ -147474,11 +147522,12 @@
       "betterLine": "Cast Embercleave during combat (costs {2}{R}{R} with 2 attackers), attach to The Locust God for 11 total damage, putting Sonnet Rules to 5 life and threatening lethal next turn",
       "type": "blunder",
       "snapshotIndex": 332,
-      "player": "Gem3F Analyst"
+      "player": "Gem3F Analyst",
+      "decisionIndex": 344
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

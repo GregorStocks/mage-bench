@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260223_180324_g1",
   "timestamp": "20260223_180324",
   "gameType": "Two Player Duel",
@@ -43477,7 +43477,8 @@
       "betterLine": "Choose to play first (select Sonnet Critic as starting player) for the standard tempo advantage of being on the play, which is correct in the vast majority of matchups, especially when the matchup is unknown.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 0
     },
     {
       "severity": "questionable",
@@ -43486,7 +43487,8 @@
       "betterLine": "Cast Nethergoyf as a 1/2 creature that can grow over time, providing an early board presence and blocker. Seal of Fire could be cast next turn alongside a land drop for Island, enabling future Expressive Iteration or Counterspell mana.",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -43495,7 +43497,8 @@
       "betterLine": "Put Moonshadow into hand, exile Swamp to play it this turn as an untapped land drop, bottom Undercity Sewers",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 23
     },
     {
       "severity": "questionable",
@@ -43504,7 +43507,8 @@
       "betterLine": "Discard Winternight Stories instead, preserving both copies of Goryo's Vengeance for maximum combo redundancy. Winternight Stories is a slower card advantage spell that's less critical than combo pieces, especially when the deck wants to execute Solitude + Goryo's Vengeance + Ephemerate.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -43513,7 +43517,8 @@
       "betterLine": "Play Undercity Sewers first (surveil 1 to potentially grow Nethergoyf and gain information), then cast Thoughtseize with Blood Crypt",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 28
     },
     {
       "severity": "questionable",
@@ -43522,7 +43527,8 @@
       "betterLine": "Discard Solitude to remove the opponent's best removal spell and break up the Solitude + Ephemerate combo, which would generate massive value if assembled",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -43531,7 +43537,8 @@
       "betterLine": "Fetch Watery Grave (paying 2 life to enter untapped) to have access to both U and B mana, supporting both Thoughtseize this turn and future blue spells like Quantum Riddler and Winternight Stories.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -43540,7 +43547,8 @@
       "betterLine": "Hold up Counterspell by not casting another creature this turn. The opponent could draw into dangerous plays like a reanimation target + enabler, and having Counterspell ready is more valuable than an extra 2/3 body when you already have a Nethergoyf and Seal of Fire on board.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 42
     },
     {
       "severity": "major",
@@ -43549,7 +43557,8 @@
       "betterLine": "Evoke Solitude (exiling one Ephemerate), targeting a Nethergoyf with ETB, then cast second Ephemerate on Solitude to blink it and exile the second Nethergoyf, ending with a 3/2 lifelink and Ephemerate rebound",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -43558,7 +43567,8 @@
       "betterLine": "Discard one of the Counterspells to clear the way for resolving Solitude or Quantum Riddler. With two Counterspells, the opponent can counter MiMo's next two key spells; removing one significantly improves the chances of resolving a threat.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -43567,7 +43577,8 @@
       "betterLine": "Play Bloodstained Mire, then cast Moonshadow for {B} (using Blood Crypt), then move to combat with two Nethergoyfs attacking while still having Island + Undercity Sewers available for Counterspell.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -43576,7 +43587,8 @@
       "betterLine": "Activate Bloodstained Mire (pay 1 life, sacrifice, search for a land) to put a Land card type in the graveyard, pumping both Nethergoyfs to 3/4, then play Scalding Tarn as land drop, attack for 6 instead of 4, and still have mana for Counterspell or Moonshadow postcombat.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -43585,7 +43597,8 @@
       "betterLine": "Play Scalding Tarn first, potentially crack Bloodstained Mire or Scalding Tarn to add 'land' type to graveyard (pumping Nethergoyfs to 3/4 each), then cast Moonshadow with Counterspell backup",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -43594,7 +43607,8 @@
       "betterLine": "Evoke Solitude (exiling Ephemerate as the white card), targeting a Nethergoyf with the ETB exile trigger, then cast the second Ephemerate on Solitude in response to the Evoke sacrifice trigger to keep Solitude and exile a second creature. This would devastate the opponent's board.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -43603,7 +43617,8 @@
       "betterLine": "Play Scalding Tarn as land drop, then crack Bloodstained Mire to fetch a land (adding Land type to graveyard), pumping Nethergoyfs to 3/4 before attacking for 6 damage total.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 62
     },
     {
       "severity": "minor",
@@ -43612,7 +43627,8 @@
       "betterLine": "Activate Bloodstained Mire before combat damage resolves to add Land as a card type to the graveyard, pumping both Nethergoyfs to 3/4. This makes combat damage 3+3+1=7, putting opponent to 1 life. Then sacrifice Seal of Fire for 2 damage for lethal. Net life cost is 1 life from the fetch, but the opponent is dead.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 66
     },
     {
       "severity": "questionable",
@@ -43621,7 +43637,8 @@
       "betterLine": "Target Moonshadow instead - it has much higher ceiling (7/7 menace) and is harder to deal with long-term. The two 2/3 Nethergoyfs are smaller threats, and one is already being exiled by the other trigger. Removing Moonshadow + one Nethergoyf leaves only a single 2/3 on board rather than a growing menace creature.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 75
     },
     {
       "severity": "minor",
@@ -43630,7 +43647,8 @@
       "betterLine": "Play Scalding Tarn first (free action, no downside), then cast Nethergoyf. This ensures maximum mana availability for holding up both Counterspells if needed.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -43639,7 +43657,8 @@
       "betterLine": "Cast Winternight Stories ({2}{U}) using Island, Meticulous Archive, and Swamp to draw 3 cards and dig for answers to survive the lethal Seal of Fire threat.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 87
     },
     {
       "severity": "major",
@@ -43648,7 +43667,8 @@
       "betterLine": "This is actually the correct play - Seal of Fire for 2 damage kills the opponent at 2 life",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Sonnet Critic"
+      "player": "Sonnet Critic",
+      "decisionIndex": 88
     }
   ],
   "blunderScriptVersion": 18,

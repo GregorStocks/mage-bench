@@ -35678,7 +35678,8 @@
       "betterLine": "Play Sacred Foundry (paying 2 life) on turn 1 to preserve the basic Mountain against potential nonbasic land destruction and maximize mana flexibility for subsequent turns",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -35687,7 +35688,8 @@
       "betterLine": "Play Willowrush Verge to cast Badgermole Cub for free this turn, then play Multiversal Passage (choosing Forest) tapped on turn 3, enabling Willowrush Verge's green mode without paying life",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 10
     },
     {
       "severity": "moderate",
@@ -35696,7 +35698,8 @@
       "betterLine": "Play Sacred Foundry (paying 2 life for untapped) or Sunbillow Verge first, then decide whether to cast Sarkhan, Dragon Ascendant (revealing a Hellkite for a Treasure token to accelerate) or save the Burst Lightning for a more impactful target. Sarkhan + Treasure would put them at 3 mana sources, much closer to casting Hellkite.",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 15
     },
     {
       "severity": "questionable",
@@ -35705,7 +35708,8 @@
       "betterLine": "This is likely correct - removing the Cub prevents mana acceleration and board development. Saving Burst Lightning is an option but the Cub's ongoing value makes removing it now defensible.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -35714,7 +35718,8 @@
       "betterLine": "Target Badgermole Cub with Burst Lightning to remove the mana-generating creature and slow opponent's development",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -35723,7 +35728,8 @@
       "betterLine": "Cast Reclamation Sage for 2G using available lands/mana producers to develop the board with a 2/1 body, even without a worthwhile artifact/enchantment target.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -35732,7 +35738,8 @@
       "betterLine": "Play Inspiring Vantage (enters untapped with 2 or fewer other lands), then cast Sarkhan for 1R, beholding a Magmatic Hellkite to create a Treasure token. This develops the board and ramps toward a turn 5 Hellkite.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 34
     },
     {
       "severity": "moderate",
@@ -35741,7 +35748,8 @@
       "betterLine": "Cast Sarkhan, Dragon Ascendant, beholding a Magmatic Hellkite from hand to create a Treasure token. This enables a turn 5 Hellkite with 4 lands + Treasure, which destroys an opponent's nonbasic land and provides a 4/5 flyer. Burst Lightning could be saved for later or used after establishing the more impactful board presence.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -35750,7 +35758,8 @@
       "betterLine": "Target Gene Pollinator with Burst Lightning to remove the mana dork, slowing the opponent's mana development and denying the synergy with Badgermole Cub's mana-tapping ability.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -35759,7 +35768,8 @@
       "betterLine": "Play Sacred Foundry (paying 2 life) first, then cast Sarkhan, Dragon Ascendant, leaving up mana for Burst Lightning as interaction",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 44
     },
     {
       "severity": "major",
@@ -35768,7 +35778,8 @@
       "betterLine": "Target Gene Pollinator to kill the mana dork (preventing mana acceleration), or target Ouroboroid to deal 2 damage to it (though it wouldn't die at 1/3, it would need another point). Gene Pollinator is the best target as it dies to 2 damage and removes a mana source. Alternatively, targeting Badgermole Cub (2/2) would kill it.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -35777,7 +35788,8 @@
       "betterLine": "Attack with both Badgermole Cub and Ouroboroid for 5 total damage, since opponent has no blockers and no creatures to threaten a counterattack",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -35786,12 +35798,13 @@
       "betterLine": "Play Cavern of Souls naming Dragon (enters untapped, no life cost), then cast Sarkhan using Mountain + Sunbillow Verge. Save Sacred Foundry for a later turn when flexible colored mana is needed.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT5m Spike"
+      "player": "GPT5m Spike",
+      "decisionIndex": 55
     }
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

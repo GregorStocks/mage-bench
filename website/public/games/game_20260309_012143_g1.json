@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_012143_g1",
   "timestamp": "20260309_012143",
   "gameType": "Two Player Duel",
@@ -66971,7 +66971,8 @@
       "betterLine": "Put Primeval Herald on top - it's an Elf (enabling Dwynen's Elite token and getting buffed by Elvish Archdruid), provides ramp, and the Forest in hand already covers the next land drop.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 24
     },
     {
       "severity": "major",
@@ -66980,7 +66981,8 @@
       "betterLine": "Cast Rampaging Growth to fetch a Forest, creating a 4/3 hasty Insect that can attack this turn into the opponent's mostly tapped/sick board, while also ramping to 5 lands for next turn's Garruk's Gorehorn. Alternatively, cast Turntimber Basilisk for deathtouch defense and Garruk's Uprising for trample/future draw.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -66989,7 +66991,8 @@
       "betterLine": "Cast Rampaging Growth to get a land (ramping to 5), attack with the 4/3 haste Insect for 4 damage, and set up Garruk's Gorehorn or Garruk's Uprising + Turntimber Basilisk next turn.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -66998,7 +67001,8 @@
       "betterLine": "Cast Rampaging Growth for 4 mana to ramp to 5 lands, create a 4/3 blocker with reach, and enable casting Garruk's Gorehorn next turn to stabilize the board",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -67007,7 +67011,8 @@
       "betterLine": "Enchant one of the Elf Warrior Tokens (especially the summoning-sick one) with Presence of Gond, preserving Ghirapur Guide as an attacker and keeping its unblockable ability available",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 88
     },
     {
       "severity": "minor",
@@ -67016,7 +67021,8 @@
       "betterLine": "Enchant one of the Elf Warrior Tokens (2/2) with Presence of Gond, preserving Dwynen's Elite as an attacker while still generating Elf tokens that benefit from Archdruid's buff",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 92
     },
     {
       "severity": "minor",
@@ -67025,7 +67031,8 @@
       "betterLine": "Block Ghirapur Guide (4/3) with Turntimber Basilisk to kill the biggest threat with deathtouch, saving 1 life and removing the most dangerous creature and its unblockable ability.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 99
     },
     {
       "severity": "minor",
@@ -67034,7 +67041,8 @@
       "betterLine": "Go directly to combat and attack with all creatures for 13 damage lethal. No precombat actions needed.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 109
     },
     {
       "severity": "major",
@@ -67043,7 +67051,8 @@
       "betterLine": "Cast Rampaging Growth (4 mana) to create a 4/3 Insect creature with reach and haste as a blocker. This is the only way to potentially survive the opponent's next combat. Could also have sequenced Garruk's Uprising first if mana allowed, but Rampaging Growth alone is critical for survival.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 122
     },
     {
       "severity": "major",
@@ -67052,7 +67061,8 @@
       "betterLine": "Cast Rampaging Growth (4 mana) to create a 4/3 haste Insect, then cast Hunter's Insight (3 mana) targeting it, attack with the Insect into the mostly-tapped board to draw 4 cards and dig for survival options.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 123
     },
     {
       "severity": "moderate",
@@ -67061,7 +67071,8 @@
       "betterLine": "Cast Rampaging Growth ({3}{G}) to create a 4/3 Insect with reach and haste, then cast Hunter's Insight ({2}{G}) targeting it, attack the opponent (no untapped non-sick blockers available), deal 4 damage and draw 4 cards to dig for answers.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -67070,7 +67081,8 @@
       "betterLine": "Let Rampaging Growth resolve first, creating the 4/3 Insect land-creature, then potentially use Ranger's Guile on it for protection or the +1/+1 buff if needed. At 2 life, every resource matters.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 130
     },
     {
       "severity": "moderate",
@@ -67079,7 +67091,8 @@
       "betterLine": "Save Ranger's Guile for a future turn where it could protect a crucial blocker from removal, which is vital at 2 life against a board full of attackers.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 137
     }
   ],
   "blunderScriptVersion": 32,

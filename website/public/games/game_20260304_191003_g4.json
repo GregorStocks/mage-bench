@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_191003_g4",
   "timestamp": "20260304_191003",
   "gameType": "Two Player Duel",
@@ -114709,7 +114709,8 @@
       "betterLine": "Play Swamp untapped, then cast Archfiend's Vessel for {B} to develop the board and set up the Reanimate combo for later turns. Save Thriving Heath for a turn with no 1-drop to deploy.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -114718,7 +114719,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B}. This develops the board with a lifelink creature, uses available mana efficiently, and sets up the Reanimate combo for future turns.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 13
     },
     {
       "severity": "moderate",
@@ -114727,7 +114729,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B} to deploy a blocker/attacker with lifelink and set up the Reanimate synergy for future turns.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -114736,7 +114739,8 @@
       "betterLine": "Cast Sure Strike on Minotaur Skullcleaver (or Oathsworn Vampire) for 3 extra uncontested damage, bringing the opponent from 16 to 7 instead of 10.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -114745,7 +114749,8 @@
       "betterLine": "Block Oathsworn Vampire with Crypt Lurker, killing Oathsworn permanently while keeping the 3/4 alive. Take 4 from the Skullcleaver (which becomes just a 2/2 next turn). Preserving the 3/4 blocker is more valuable than 2 life points.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -114754,7 +114759,8 @@
       "betterLine": "Cast Sure Strike on Minotaur Skullcleaver to give it +3/+0 and first strike, killing the 3/4 Crypt Lurker before it deals damage and saving the Skullcleaver. The 2 mana was available (Mountain + Swamp) and the trade is excellent value.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -114763,7 +114769,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B} as a 1/1 lifelink blocker, preserving Reanimate for the Archfiend's Vessel combo. Crypt Lurker can sacrifice the Vessel later, then Reanimate brings it back as a 5/5 flying demon.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -114772,7 +114779,8 @@
       "betterLine": "Cast Falkenrath Noble (3B), then cast Mugging on Oathsworn Vampire (R) to kill it and trigger Noble's drain for 1 life. Then attack with Minotaur Skullcleaver. This removes a recursive threat, drains 1 life, and still deals 2 combat damage (opponent to 7 instead of 8).",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -114781,7 +114789,8 @@
       "betterLine": "Cast Sure Strike on unblocked Minotaur Skullcleaver for 5 total damage (opponent to 5 life), putting them in range of Mugging + any chip damage or Falkenrath Noble triggers.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -114790,7 +114799,8 @@
       "betterLine": "Cast Divine Verdict on Minotaur Skullcleaver to prevent 4 damage, staying at 10 life. At 10 life there's much more breathing room to deal with Falkenrath Noble and other threats. Valorous Stance can still handle future large creatures.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -114799,7 +114809,8 @@
       "betterLine": "Cast Sure Strike on Minotaur Skullcleaver for 5 unblocked damage (opponent to 3 life), setting up easy lethal next turn with Falkenrath Noble flying + Mugging.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -114808,7 +114819,8 @@
       "betterLine": "Cast Divine Verdict targeting the attacking Minotaur Skullcleaver to prevent 4 combat damage. Even accounting for Falkenrath Noble's 1 life drain trigger, this nets 3 life saved, which is critical at 8 life.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 58
     },
     {
       "severity": "questionable",
@@ -114817,7 +114829,8 @@
       "betterLine": "Cast Archfiend's Vessel for 1 mana (gaining a lifelink blocker) and hold up 5 mana for Divine Verdict (3W) to remove an attacking threat, maintaining both board presence and defensive interaction at a precarious life total.",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -114826,7 +114839,8 @@
       "betterLine": "Attack with both Crypt Lurker and Oathsworn Vampire for 5 free damage, since no opposing creatures can block. Tithebearer Giant stays back as a defender, and Divine Verdict/Valorous Stance provide additional defensive options.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -114835,7 +114849,8 @@
       "betterLine": "Don't block. Take 3 damage (go to 14 life). Next turn, attack with Falkenrath Noble in the air for 2 unblockable damage (opponent to 5), keeping the Noble's death trigger ability active for future value.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -114844,7 +114859,8 @@
       "betterLine": "Cast Mugging targeting Oathsworn Vampire to kill it, trigger Falkenrath Noble drain (opponent to 5), then attack with Falkenrath Noble and Minotaur Skullcleaver for 4 unblocked damage (opponent to 1). Then cast Lightning Visionary postcombat.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "Gem3F Proud"
+      "player": "Gem3F Proud",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -114853,7 +114869,8 @@
       "betterLine": "Attack with Tithebearer Giant for 4 unblocked damage, reducing opponent from 20 to 16. Divine Verdict in hand provides adequate defense for the crack-back.",
       "type": "blunder",
       "snapshotIndex": 220,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 84
     },
     {
       "severity": "moderate",
@@ -114862,7 +114879,8 @@
       "betterLine": "Cast Skyhunter Patrol for {2}{W}{W} to add a flying first strike blocker/attacker to the board. At 3 life with no instants in hand, there is no reason to hold mana open.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 104
     },
     {
       "severity": "moderate",
@@ -114871,7 +114889,8 @@
       "betterLine": "Cast Archfiend's Vessel ({B}) for a lifelink blocker, and Kami of Ancient Law ({1}{W}) for an additional 2/2 blocker. Both are critical at 3 life and cost only 3 mana total, leaving 3 mana open. Could also consider casting Goremand sacrificing Tithebearer Giant for a 5/5 flying trampler.",
       "type": "blunder",
       "snapshotIndex": 294,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 116
     },
     {
       "severity": "moderate",
@@ -114880,7 +114899,8 @@
       "betterLine": "Cast Goremand sacrificing Tithebearer Giant (or Skyhunter Patrol), putting a 5/5 flying trample into play immediately to close the game before the opponent can capitalize on the low life total.",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 122
     },
     {
       "severity": "major",
@@ -114889,7 +114909,8 @@
       "betterLine": "In precombat main, cast Goremand (4BB) sacrificing Archfiend's Vessel, then attack with all four creatures (Goremand + Tithebearer + Skyhunter + Kami) for 13 total damage — lethal against opponent at 11 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "Gem3P ESPN"
+      "player": "Gem3P ESPN",
+      "decisionIndex": 133
     }
   ],
   "blunderScriptVersion": 32

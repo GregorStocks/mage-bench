@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_234838_g1",
   "timestamp": "20260308_234838",
   "gameType": "Two Player Duel",
@@ -111249,7 +111249,8 @@
       "betterLine": "Cast Elven Bow for {G} (declining the {2} kicker) to put the equipment on the battlefield for free. It can be equipped to a creature later for meaningful stats and reach.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -111258,7 +111259,8 @@
       "betterLine": "Equip Adventuring Gear to Oashra Cultivator for {1}, setting up landfall value for the following turn at no real cost.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -111267,7 +111269,8 @@
       "betterLine": "Block Elvish Warmaster with Oashra Cultivator. The 0/3 survives combat against a 2/2, saving 2 life at no cost.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -111276,7 +111279,8 @@
       "betterLine": "Activate Oashra Cultivator ({2}{G}, tap, sacrifice) to search for a basic land, ramping to 5 mana next turn to enable casting Garruk, Unleashed or Canopy Baloth + equip Adventuring Gear.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -111285,7 +111289,8 @@
       "betterLine": "Cast Elven Bow for {G} to get it onto the battlefield for future equipping. No combat tricks are castable with just 1 mana anyway, so there's no bluffing or reactive value in holding it open.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 62
     },
     {
       "severity": "minor",
@@ -111294,7 +111299,8 @@
       "betterLine": "Play Thriving Grove (choosing no additional color needed since the deck appears mono-green), giving access to 4 mana next turn to cast Garruk, Unleashed or Canopy Baloth.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 78
     },
     {
       "severity": "major",
@@ -111303,7 +111309,8 @@
       "betterLine": "Attack with Garruk's Harbinger, then if unblocked cast Hunter's Insight on it to draw 4 cards and trigger Harbinger's ability. Even without Hunter's Insight, the attack is profitable since the opponent's best blocker is a 2/2 that trades unfavorably with the 4/3.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -111312,7 +111319,8 @@
       "betterLine": "Cast Hunter's Insight targeting Garruk's Harbinger, then attack with it for an unblockable 4 damage and draw 4 cards.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 82
     },
     {
       "severity": "minor",
@@ -111321,7 +111329,8 @@
       "betterLine": "Activate Oashra Cultivator ({2}{G}, tap, sacrifice) to search for a basic land, ramping to 5 mana next turn (4 lands + Thriving Grove from hand), enabling powerful plays like Garruk, Unleashed plus additional spells.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -111330,7 +111339,8 @@
       "betterLine": "Activate Adventuring Gear to equip it to the Beast Token 3/3 (making it effectively a 5/5) or the Forest 4/3 creature, then let the landfall trigger resolve to get the +2/+2 bonus for combat.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 144
     },
     {
       "severity": "questionable",
@@ -111339,7 +111349,8 @@
       "betterLine": "Cast Wildheart Invoker (4/3) to maximize board presence and pressure. The Adventuring Gear could be dealt with later or may never become threatening given the opponent's limited board.",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -111348,7 +111359,8 @@
       "betterLine": "Block Elvish Warmaster (2/2) with Oashra Cultivator (0/3) to prevent 2 damage instead of 1, since the Cultivator survives both blocks",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 167
     },
     {
       "severity": "minor",
@@ -111357,7 +111369,8 @@
       "betterLine": "Cast Snapping Gnarlid first, then play Thriving Grove (triggering landfall on Gnarlid for a 3/3 blocker), then cast Canopy Baloth with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 171
     },
     {
       "severity": "minor",
@@ -111366,7 +111379,8 @@
       "betterLine": "Attack with all 6 eligible creatures including Elvish Warmaster for 7 power total. Oashra Cultivator blocks one 1/1, dealing 6 damage to bring opponent from 11 to 5. The Warmaster faces no combat risk since Cultivator has 0 power.",
       "type": "blunder",
       "snapshotIndex": 285,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 202
     },
     {
       "severity": "minor",
@@ -111375,7 +111389,8 @@
       "betterLine": "Block the Skyway Sniper (1/2) with Canopy Baloth to remove the more valuable creature, while still using Oashra Cultivator to absorb another point of damage",
       "type": "blunder",
       "snapshotIndex": 294,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 207
     },
     {
       "severity": "moderate",
@@ -111384,7 +111399,8 @@
       "betterLine": "Attack with Canopy Baloth. It either deals 4 damage or kills Elvish Warmaster (the opponent's most threatening creature due to its token-generating and pump abilities) while surviving as a 4/1.",
       "type": "blunder",
       "snapshotIndex": 312,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 217
     }
   ],
   "blunderScriptVersion": 32,

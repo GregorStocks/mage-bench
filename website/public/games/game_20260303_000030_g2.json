@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_000030_g2",
   "timestamp": "20260303_000030",
   "gameType": "Two Player Duel",
@@ -51972,7 +51972,8 @@
       "betterLine": "Keep the 6-card hand. One land with a mana rock is risky but playable, especially since going to 5 severely reduces the chances of having a functional hand. Drawing any land in the first two turns (likely ~60%+) makes this hand serviceable.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -51981,7 +51982,8 @@
       "betterLine": "Activate Scroll of Avacyn to draw a card, since there's no other use for the mana this turn and the Scroll's value doesn't meaningfully increase by waiting.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT53C Stoic"
+      "player": "GPT53C Stoic",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -51990,7 +51992,8 @@
       "betterLine": "Activate Scroll of Avacyn (pay {1} with the untapped Swamp, sacrifice it, draw a card) to gain a free card draw with mana that would otherwise be wasted.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "GPT53C Stoic"
+      "player": "GPT53C Stoic",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -51999,7 +52002,8 @@
       "betterLine": "Hold Scroll of Avacyn until Baneslayer Angel is on the battlefield to gain the additional 5 life. The extra card draw now is less valuable than 5 life later, especially since the player is at 20 life and not under immediate pressure.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "GPT53C Stoic"
+      "player": "GPT53C Stoic",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -52008,7 +52012,8 @@
       "betterLine": "Block the Wakedancer 2/2 with Mistwalker 1/4. Mistwalker survives the combat (4 toughness vs 2 power), prevents 2 player damage, and deals 1 damage to the Wakedancer.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -52017,7 +52022,8 @@
       "betterLine": "Block Mistwalker with Reaper from the Abyss to kill it for free and enable Morbid trigger at end step",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "GPT53C Stoic"
+      "player": "GPT53C Stoic",
+      "decisionIndex": 39
     },
     {
       "severity": "major",
@@ -52026,7 +52032,8 @@
       "betterLine": "Cast Magma Jet targeting Reaper from the Abyss (2 damage), activate Mistwalker ({1}{U}: +1/-1 making it 2/3) to deal 2 combat damage to Reaper (4 total), then post-combat cast Spitting Earth on Reaper for 3 damage (7 total), destroying it.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 41
     },
     {
       "severity": "moderate",
@@ -52035,7 +52042,8 @@
       "betterLine": "Cast Magma Jet targeting Wakedancer to kill it and Scry 2 to dig for answers to Reaper from the Abyss (such as Angelic Edict or Pirated Copy setup). Reaper's morbid would have no legal target on Sonnet Vet's side.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 42
     },
     {
       "severity": "questionable",
@@ -52044,7 +52052,8 @@
       "betterLine": "Cast Magma Jet targeting opponent's face (or even the Reaper to set up future removal) to Scry 2 and dig for answers to the Reaper from the Abyss. The 2 face damage is minor but the Scry 2 is crucial when desperately needing to find removal.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -52053,7 +52062,8 @@
       "betterLine": "Cast Magma Jet targeting Morkrut Banshee (or even the opponent) primarily for the scry 2 to dig for answers like Angelic Edict or Baneslayer Angel. Could also consider casting Bloodline Pretender as a blocker for ground threats, though it doesn't address the flying Reaper.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -52062,7 +52072,8 @@
       "betterLine": "Cast Magma Jet targeting opponent (or Morkrut Banshee to weaken it) and scry 2 to dig for answers like Angelic Edict to deal with Reaper from the Abyss. Alternatively, deploy Bloodline Pretender as a blocker against ground threats, preserving life total.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -52071,7 +52082,8 @@
       "betterLine": "Cast Magma Jet targeting Morkrut Banshee (or opponent's face) to Scry 2 and dig for an answer to the lethal flying threats next turn",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -52080,7 +52092,8 @@
       "betterLine": "Play Plains first, then move to combat. This maximizes mana available for Feat of Resistance to protect Baneslayer Angel or Reaper from the Abyss if the opponent attempts removal during combat.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT53C Stoic"
+      "player": "GPT53C Stoic",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -52089,7 +52102,8 @@
       "betterLine": "Cast Magma Jet targeting Morkrut Banshee (or any target) to get Scry 2 and dig for answers. Even in a near-hopeless position, using available resources gives the best chance of finding a way out.",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -52098,7 +52112,8 @@
       "betterLine": "Cast Magma Jet targeting Morkrut Banshee (or opponent's face) to get the Scry 2 and potentially set up better draws for survival. Even if the game looks nearly lost, the Scry 2 is free value that costs nothing extra since the mana would go unused.",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "Sonnet Vet"
+      "player": "Sonnet Vet",
+      "decisionIndex": 64
     }
   ],
   "blunderScriptVersion": 31,

@@ -13145,7 +13145,8 @@
       "betterLine": "Discard Flitterwing Nuisance, which is the weakest card in hand - a 1/1 flyer that needs 3 mana activation to draw cards, compared to Enduring Curiosity's passive card draw engine and death resilience.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "GPT5m Villain"
+      "player": "GPT5m Villain",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -13154,7 +13155,8 @@
       "betterLine": "Plot Slickshot Show-Off for {1}{R} to set up a future explosive turn where you can cast it for free and chain pump spells with full mana available. Alternatively, if wanting to deploy it now, it still should be cast pre-combat since it has haste, but plotting is likely better given the hand full of tricks.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 16
     },
     {
       "severity": "moderate",
@@ -13163,7 +13165,8 @@
       "betterLine": "Discard Enduring Curiosity - it costs 4 mana and is uncastable for several turns given the severe mana screw, and there's already a copy in the graveyard.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT5m Villain"
+      "player": "GPT5m Villain",
+      "decisionIndex": 17
     },
     {
       "severity": "moderate",
@@ -13172,7 +13175,8 @@
       "betterLine": "Play a land if possible, then move to combat. Attack with Stadium Headliner (creating a token via Mobilize), and cast combat tricks like Bulk Up or Full Bore after blocks are declared. Better yet, save mana this turn and work toward casting Leyline of Resonance (4 mana) to multiply the value of all future combat tricks.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 21
     },
     {
       "severity": "moderate",
@@ -13181,7 +13185,8 @@
       "betterLine": "Attack with all creatures (Stadium Headliner and Slickshot Show-Off), then use pump spells like Dreadmaw's Ire or Full Bore on the unblocked Slickshot Show-Off to deal massive damage. The opponent has no blockers and only 1 untapped Island.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -13190,7 +13195,8 @@
       "betterLine": "Discard Soulstone Sanctuary instead, as it only provides colorless mana and a very expensive activation, while Essence Scatter provides crucial interaction against the aggressive opponent. Alternatively, discarding Enduring Curiosity (hardest to cast at UU with this mana base) could also be considered.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "GPT5m Villain"
+      "player": "GPT5m Villain",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -13199,7 +13205,8 @@
       "betterLine": "Move to combat first, attack with Stadium Headliner and Slickshot Show-Off, then use pump spells on the unblocked Slickshot Show-Off to maximize damage via its +2/+0 triggers. Cast Stadium Headliner post-combat.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -13208,7 +13215,8 @@
       "betterLine": "Choose 'All attack' to send all 3 creatures, generating 2 Mobilize tokens and maximizing damage against an empty board. With pump spells in hand and Leyline of Resonance's copy effect, more attackers means more potential damage.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -13217,7 +13225,8 @@
       "betterLine": "Cast Might of the Meek to trigger prowess on Slickshot Show-Off and draw a card, maintaining card advantage while still dealing significant combat damage",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -13226,7 +13235,8 @@
       "betterLine": "Declare attackers first (all creatures), then cast Turn Inside Out on Slickshot Show-Off during the declare attackers step to minimize the opponent's response window and maintain information advantage",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -13235,7 +13245,8 @@
       "betterLine": "Save Redirect Lightning and simply attack with the pump spells already on the stack plus Full Bore for lethal damage.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -13244,7 +13255,8 @@
       "betterLine": "Target Slickshot Show-Off with Turn Inside Out to stack the +3/+0 on the flying creature that already gets +2/+0 triggers from noncreature spells, maximizing evasive damage against the 8-life opponent",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 44
     },
     {
       "severity": "major",
@@ -13253,11 +13265,12 @@
       "betterLine": "Play Fire Nation Palace (enters untapped), then attack with all creatures, then cast Full Bore targeting Slickshot Show-Off for lethal damage (6 + 2 + 2 = 10 vs 8 life).",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 44
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

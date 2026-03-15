@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_211323_g2",
   "timestamp": "20260308_211323",
   "gameType": "Two Player Duel",
@@ -123775,7 +123775,8 @@
       "betterLine": "Cast Adventuring Gear ({1}), then equip it to Brushstrider ({1}), setting up landfall triggers for next turn when playing a land from hand.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -123784,7 +123785,8 @@
       "betterLine": "Attack with Brushstrider for 3 free damage. With vigilance, it stays untapped for defense, and the opponent has no blockers available.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -123793,7 +123795,8 @@
       "betterLine": "Pass priority, let Thrill of Possibility resolve, see the 2 drawn cards, then decide whether Chandra's Pyreling or a drawn card is the best use of 2 mana",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 99
     },
     {
       "severity": "questionable",
@@ -123802,7 +123805,8 @@
       "betterLine": "Cast Rapacious Dragon immediately for a 3/3 flyer and 2 Treasure tokens, providing an evasive threat the opponent's green creatures can't easily block while generating mana for future turns.",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 177
     },
     {
       "severity": "minor",
@@ -123811,7 +123815,8 @@
       "betterLine": "Attack with both Goblin Token and Dragonspeaker Shaman for 3 unblocked damage, putting opponent to 8 life",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 214
     },
     {
       "severity": "minor",
@@ -123820,7 +123825,8 @@
       "betterLine": "Attack with both Affectionate Indrik and Canopy Baloth to guarantee killing Dragonspeaker Shaman and dealing 4 damage (opponent to 6 life), putting significant pressure on the opponent at 10 life.",
       "type": "blunder",
       "snapshotIndex": 289,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 229
     },
     {
       "severity": "moderate",
@@ -123829,7 +123835,8 @@
       "betterLine": "Block with Dragonspeaker Shaman (a 2/2 with no relevant ability given empty hand) to save 4 life and stay at 10, while preserving the flying Rapacious Dragon as the main win condition.",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 233
     },
     {
       "severity": "moderate",
@@ -123838,7 +123845,8 @@
       "betterLine": "Block with Canopy Baloth (4/3) to trade with Rapacious Dragon (3/3), killing the flying threat permanently. Then use remaining ground creatures (Affectionate Indrik, Oashra Cultivator) to maintain board pressure against the opponent at 6 life.",
       "type": "blunder",
       "snapshotIndex": 326,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 257
     },
     {
       "severity": "moderate",
@@ -123847,7 +123855,8 @@
       "betterLine": "Play Forest first (landfall triggers on Baloth and Khalni Heart Expedition), then activate Oashra Cultivator (another landfall, Khalni reaches 3 counters), then sacrifice Khalni for 2 more lands, generating massive landfall triggers on the equipped Canopy Baloth for a likely lethal attack.",
       "type": "blunder",
       "snapshotIndex": 336,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 267
     },
     {
       "severity": "minor",
@@ -123856,7 +123865,8 @@
       "betterLine": "Accept the quest counter (choose yes) to bring Khalni Heart Expedition to 2 counters, one land away from activation which would fetch two basics and trigger multiple landfall effects.",
       "type": "blunder",
       "snapshotIndex": 346,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 274
     },
     {
       "severity": "questionable",
@@ -123865,7 +123875,8 @@
       "betterLine": "Activate Coalborn Entity targeting opponent for 1 damage (can do this now or later, but should definitely do it this turn with no other mana uses available)",
       "type": "blunder",
       "snapshotIndex": 387,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 309
     }
   ],
   "blunderScriptVersion": 32,

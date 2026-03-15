@@ -11601,7 +11601,8 @@
       "betterLine": "Keep Lotus Bloom and put back a less impactful card like Stern Scolding or Into the Flood Maw. Lotus Bloom can be suspended turn 1 for free and provides massive mana acceleration, especially alongside Tameshi who can recur it from the graveyard.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "GPT4om Spike"
+      "player": "GPT4om Spike",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -11610,7 +11611,8 @@
       "betterLine": "Cast Hedron Crab first using the existing Island, then play Cephalid Coliseum to trigger both Ruin Crab and Hedron Crab's landfall abilities for 6 total mills.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 12
     },
     {
       "severity": "major",
@@ -11619,7 +11621,8 @@
       "betterLine": "Exile Spell Snare or Into the Flood Maw (both MV 1) to set X=1 and actually counter Surgical Extraction. Spell Snare would be the better exile since Into the Flood Maw has utility as removal, and Whir of Invention is the most important card in hand.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT4om Spike"
+      "player": "GPT4om Spike",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -11628,11 +11631,12 @@
       "betterLine": "Fetch Undercity Sewers (enters tapped but provides U/B with no life cost and a surveil trigger for graveyard value), or fetch a basic Island if black mana isn't immediately needed this turn",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Grok4F Timmy"
+      "player": "Grok4F Timmy",
+      "decisionIndex": 47
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

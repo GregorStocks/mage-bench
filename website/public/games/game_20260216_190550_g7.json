@@ -131108,7 +131108,8 @@
       "betterLine": "Discard Rishkar's Expertise, which is the highest raw card advantage spell in the hand and could generate a massive swing if it resolves with even a moderate-power creature on board. Without it, Qwen3L Dreamer's hand is mostly fair-rate creatures and a removal spell.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -131117,7 +131118,8 @@
       "betterLine": "Put Overgrown Tomb on top to ensure the 4th land drop, enabling Pernicious Deed or Mystical Teachings on the following turn. Darkblast can be found later with Sensei's Divining Top or Sylvan Library.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -131126,7 +131128,8 @@
       "betterLine": "This is actually reasonable since the only own creature is Rishkar itself and putting counters on opponents' creatures would only help them. The selection of just Rishkar is correct given the board state.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -131135,7 +131138,8 @@
       "betterLine": "Put both counters on own creatures, or only target Rishkar (selecting only 1 target). Since Rishkar is the only creature Qwen3L controls, they should have selected only Rishkar as the single target rather than giving an opponent a free counter and mana ability.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -131144,7 +131148,8 @@
       "betterLine": "Play Mountain first, then cast Kaima, the Fractured Calm with more mana flexibility and an extra land for Blackblade Reforged",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -131153,7 +131158,8 @@
       "betterLine": "Attack with both Hada Spy Patrol and the 2/2 Knight Token (vigilance) at DSV3 Analyst who has no blockers, dealing 3 damage for free instead of 1",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 52
     },
     {
       "severity": "questionable",
@@ -131162,7 +131168,8 @@
       "betterLine": "This selection is reasonable - Island is the weakest of the three lands drawn. No clear blunder here.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -131171,7 +131178,8 @@
       "betterLine": "Tap an opponent's creature (like Kaima, Rishkar, or Sefris) to prevent it from blocking or using activated abilities, or untap one of their own lands (like Azorius Chancery) for additional mana to cast spells in the second main phase.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 65
     },
     {
       "severity": "questionable",
@@ -131180,7 +131188,8 @@
       "betterLine": "Let Doomed Necromancer resolve and use Darkblast to kill it before it can activate, saving Miscalculation for a more threatening spell later in the game.",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -131189,7 +131198,8 @@
       "betterLine": "Play a land (likely Overgrown Tomb, paying 2 life to have it untapped, or Island for free) to reach 4 mana, then potentially cast Baleful Strix for card draw or set up for Pernicious Deed next turn.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 71
     },
     {
       "severity": "moderate",
@@ -131198,7 +131208,8 @@
       "betterLine": "Attack DSV3 Analyst with all available creatures (Rishkar, Kaima, and Whiptongue Hydra) to deal maximum damage to the most vulnerable opponent at 12 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 74
     },
     {
       "severity": "major",
@@ -131207,7 +131218,8 @@
       "betterLine": "Attack DSV3 Analyst with all three creatures (Rishkar, Kaima, Whiptongue Hydra) for ~10+ damage, bringing them to 2 life or less and likely threatening lethal next turn. Kaima also benefits from end step +1/+1 counter triggers.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -131216,7 +131228,8 @@
       "betterLine": "Play Mountain first (making the land drop), then cast Rishkar's Expertise. This gives an extra land on the battlefield for Blackblade Reforged value and more mana available after the draw spell resolves.",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -131225,7 +131238,8 @@
       "betterLine": "Activate Sensei's Divining Top for {1} to see top 3 cards, then make informed decisions about land drops and spell sequencing for the turn",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 98
     },
     {
       "severity": "questionable",
@@ -131234,7 +131248,8 @@
       "betterLine": "Cast Pernicious Deed (1BG) as board wipe insurance at 5 life, and potentially also cast Baleful Strix (UB) for a deathtouch blocker and card draw, saving Putrefy as instant-speed removal for a later critical moment.",
       "type": "blunder",
       "snapshotIndex": 252,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 107
     },
     {
       "severity": "minor",
@@ -131243,7 +131258,8 @@
       "betterLine": "Play Windswept Heath (fetch a land), then deploy Pernicious Deed as a board deterrent, and hold Putrefy as instant-speed removal. Could also consider casting Baleful Strix for a deathtouch blocker that draws a card.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 107
     },
     {
       "severity": "questionable",
@@ -131252,7 +131268,8 @@
       "betterLine": "Target Kaima, the Fractured Calm with Putrefy to stop the snowballing +1/+1 counter engine, then use Pernicious Deed later if needed to clean up remaining threats",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -131261,7 +131278,8 @@
       "betterLine": "Tap Tropical Island for {G}, Overgrown Tomb or Underground Sea for {B}, and any other untapped painless land for {1} generic, avoiding the 1 life loss from Cephalid Coliseum.",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "DSV3 Analyst"
+      "player": "DSV3 Analyst",
+      "decisionIndex": 110
     },
     {
       "severity": "minor",
@@ -131270,7 +131288,8 @@
       "betterLine": "Sacrifice a duplicate Mountain or Forest - losing 1 of 5 lands is far less impactful than losing a mana-producing creature that enables faster casting of Rishkar's Expertise and Collision of Realms",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Qwen3L Dreamer"
+      "player": "Qwen3L Dreamer",
+      "decisionIndex": 111
     },
     {
       "severity": "minor",
@@ -131279,7 +131298,8 @@
       "betterLine": "Activate Saltcrusted Steppe to add a storage counter ({1}, {T}), banking mana for future turns since the mana wasn't going to be spent anyway.",
       "type": "blunder",
       "snapshotIndex": 275,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 114
     },
     {
       "severity": "moderate",
@@ -131288,7 +131308,8 @@
       "betterLine": "Cast Acidic Slime targeting Propaganda to remove the attack tax and add a relevant body to the board",
       "type": "blunder",
       "snapshotIndex": 308,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 123
     },
     {
       "severity": "minor",
@@ -131297,7 +131318,8 @@
       "betterLine": "Cast Darksteel Ingot for mana ramp/fixing, or Swiftfoot Boots to prepare for future creature protection, or save the mana for other plays.",
       "type": "blunder",
       "snapshotIndex": 320,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 128
     },
     {
       "severity": "minor",
@@ -131306,11 +131328,12 @@
       "betterLine": "Play Island from hand, then cast Skyward Eye Prophets (3GWU) to establish a powerful card advantage engine for the 1v1 matchup against Sonnet Story.",
       "type": "blunder",
       "snapshotIndex": 325,
-      "player": "MiniMx Spike"
+      "player": "MiniMx Spike",
+      "decisionIndex": 133
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

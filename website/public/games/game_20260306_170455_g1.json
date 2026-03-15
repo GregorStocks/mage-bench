@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_170455_g1",
   "timestamp": "20260306_170455",
   "gameType": "Two Player Duel",
@@ -180547,7 +180547,8 @@
       "betterLine": "Mulligan to 5 hoping for at least one creature. While going to 5 is painful, this 6-card hand is essentially a 0-spell hand since both spells are dead without creatures. A 5-card hand with even one creature would be significantly more functional.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 4
     },
     {
       "severity": "moderate",
@@ -180556,7 +180557,8 @@
       "betterLine": "Attack with Spiteful Prankster for 3 free damage. There are no possible blockers and no mana available for any interaction.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -180565,7 +180567,8 @@
       "betterLine": "Activate Malefic Scythe's equip ability targeting Bone Picker, making it a 4/3 flying deathtouch for next turn's attack.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 64
     },
     {
       "severity": "moderate",
@@ -180574,7 +180577,8 @@
       "betterLine": "Let Bone Picker resolve, then cast Burst Lightning targeting Bone Picker to kill it. Removing a 3/2 flying deathtouch creature is far more valuable than 2 damage to the opponent's face.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -180583,7 +180587,8 @@
       "betterLine": "Cast Furious Rise for {2}{R} to have it on board ready to generate card advantage as soon as a 4+ power creature is deployed.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -180592,7 +180597,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 damage to the opponent instead of 3, with zero risk since opponent has no blockers and no mana available.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -180601,7 +180607,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 damage instead of 3 to the opponent (17→11 instead of 17→14). The 2 mana spent has no better use this turn since Furious Rise won't trigger and Pitchburn Devils costs 5.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -180610,7 +180617,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 unblocked damage instead of 3. The mana spent doesn't compete with any other play this turn.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 78
     },
     {
       "severity": "moderate",
@@ -180619,7 +180627,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 combat damage to bring opponent from 14 to 8 life instead of 11.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -180628,7 +180637,8 @@
       "betterLine": "Cast Furious Rise for {2}{R}, investing the enchantment on board now to free up future mana and be ready to trigger once a 4+ power creature is deployed.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 80
     },
     {
       "severity": "minor",
@@ -180637,7 +180647,8 @@
       "betterLine": "Choose Blue to support the two blue spells in hand and the blue cards in the deck.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 82
     },
     {
       "severity": "moderate",
@@ -180646,7 +180657,8 @@
       "betterLine": "Cast Perilous Voyage targeting Spiteful Prankster (using Island + Swamp), then hold up No Escape with the remaining Island + 2 Swamps to counter whatever the opponent plays next turn.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 82
     },
     {
       "severity": "moderate",
@@ -180655,7 +180667,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 damage to bring opponent from 14 to 8 life instead of 11. Still leaves 2 mana open.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -180664,7 +180677,8 @@
       "betterLine": "Cast Perilous Voyage targeting Spiteful Prankster to bounce it, then hold No Escape to counter it when the opponent replays it next turn, permanently removing their only threat.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 90
     },
     {
       "severity": "questionable",
@@ -180673,7 +180687,8 @@
       "betterLine": "Cast Temur Battle Rage on unblocked Spiteful Prankster for 3 extra damage. While this prevents casting Furious Rise this turn, the 3 damage is guaranteed value and the opponent's low creature count means the pressure matters. Furious Rise could be cast next turn. Getting the opponent to 8 instead of 11 brings them much closer to burn/Pitchburn Devils kill range.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -180682,7 +180697,8 @@
       "betterLine": "Cast Pitchburn Devils for {4}{R} using all 5 Mountains. This develops a 3/3 body that synergizes with Spiteful Prankster (triggering 1 damage to opponent whenever Devils dies) and threatens 3 damage on death. Alternatively, cast Furious Rise to set up card advantage for future turns.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 92
     },
     {
       "severity": "moderate",
@@ -180691,7 +180707,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 damage to the opponent instead of 3, then cast Furious Rise in the postcombat main phase with the remaining 3 mana.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 95
     },
     {
       "severity": "questionable",
@@ -180700,7 +180717,8 @@
       "betterLine": "Cast Perilous Voyage targeting Spiteful Prankster to save 3 life and buy a turn of tempo. Could then counter it with No Escape when replayed, permanently removing it, or hold No Escape for a bigger threat.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -180709,7 +180727,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster to deal 6 combat damage instead of 3, bringing the opponent to 8 life. Still leaves 3 mana open and the card is doing its best impression of a Lightning Bolt here.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 96
     },
     {
       "severity": "moderate",
@@ -180718,7 +180737,8 @@
       "betterLine": "Cast Temur Battle Rage on the unblocked Spiteful Prankster for 6 combat damage (double strike), then cast Furious Rise post-combat with remaining 3 mana. Play Pitchburn Devils next turn to activate Furious Rise's ability.",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 98
     },
     {
       "severity": "moderate",
@@ -180727,7 +180747,8 @@
       "betterLine": "Cast Temur Battle Rage on Spiteful Prankster for double strike, dealing 6 damage and putting opponent to 5 life, setting up lethal threats with Pitchburn Devils next turn.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "GPT54 Coach"
+      "player": "GPT54 Coach",
+      "decisionIndex": 100
     },
     {
       "severity": "moderate",
@@ -180736,7 +180757,8 @@
       "betterLine": "Cast Perilous Voyage targeting Spiteful Prankster to bounce it, preventing 3 damage. Then use No Escape to counter it when the opponent replays it next turn, permanently exiling the threat.",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 102
     },
     {
       "severity": "major",
@@ -180745,7 +180767,8 @@
       "betterLine": "Cast Perilous Voyage targeting Spiteful Prankster to bounce it, preventing 3 combat damage and removing the opponent's only creature.",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -180754,7 +180777,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to bounce it, denying the opponent access to the exiled Pitchburn Devils and forcing them to re-spend 3 mana to replay it, slowing their card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 122
     },
     {
       "severity": "questionable",
@@ -180763,7 +180787,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to strand the exiled Pitchburn Devils and deny the opponent their card advantage engine. While saving it for a creature is defensible, eliminating Furious Rise's accumulated exile and forcing a re-cast is strong tempo at a critical moment when behind on board.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 122
     },
     {
       "severity": "questionable",
@@ -180772,7 +180797,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to strand Pitchburn Devils in exile and deny the opponent's card advantage engine, then cast Fetid Imp next turn",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 125
     },
     {
       "severity": "moderate",
@@ -180781,7 +180807,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to strand Pitchburn Devils in exile permanently and deny the opponent's card advantage engine, then cast Fetid Imp with remaining mana",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 126
     },
     {
       "severity": "minor",
@@ -180790,7 +180817,8 @@
       "betterLine": "Either pass to let Fetid Imp resolve (then equip next turn), or cast Perilous Voyage targeting Furious Rise to deny the opponent their card advantage engine and the exiled Pitchburn Devils.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 127
     },
     {
       "severity": "questionable",
@@ -180799,7 +180827,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to deny the opponent the exiled Pitchburn Devils and set back their card advantage engine by a full turn cycle. Could still equip Scythe afterward with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 128
     },
     {
       "severity": "minor",
@@ -180808,7 +180837,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to strand the exiled Pitchburn Devils and deny the opponent's card advantage engine, forcing them to re-invest 3 mana to replay it.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 138
     },
     {
       "severity": "moderate",
@@ -180817,7 +180847,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to bounce it, denying the opponent access to the exiled Pitchburn Devils and disrupting their card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 143
     },
     {
       "severity": "questionable",
@@ -180826,7 +180857,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to permanently strand the exiled Pitchburn Devils and force the opponent to spend 3 mana replaying it, denying tempo and card advantage. Alternatively, holding Voyage for a creature threat is defensible if expecting a bigger target soon.",
       "type": "blunder",
       "snapshotIndex": 237,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 153
     },
     {
       "severity": "moderate",
@@ -180835,7 +180867,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to bounce it, denying the opponent the exiled Pitchburn Devils and temporarily removing their card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -180844,7 +180877,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to disrupt the opponent's card advantage engine and potentially deny access to the exiled Pitchburn Devils. This would cost only 2 mana and leave plenty of mana open for other plays.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 175
     },
     {
       "severity": "minor",
@@ -180853,7 +180887,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to deny the opponent their card advantage engine and strand the exiled Pitchburn Devils. This is especially important since Gem3P Fate is behind on board and needs to limit the opponent's resources.",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 190
     },
     {
       "severity": "moderate",
@@ -180862,7 +180897,8 @@
       "betterLine": "Cast Liliana's Standard Bearer to add a 3/1 body to the board (can carry Malefic Scythe or attack next turn), and potentially also cast Perilous Voyage targeting Furious Rise to shut down the opponent's card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 282,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 196
     },
     {
       "severity": "minor",
@@ -180871,7 +180907,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to bounce the card advantage engine and strand Pitchburn Devils in exile. This removes both a recurring threat and an immediate castable 3/3 with a punishing death trigger.",
       "type": "blunder",
       "snapshotIndex": 321,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 227
     },
     {
       "severity": "questionable",
@@ -180880,7 +180917,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to strand the exiled Pitchburn Devils and disrupt the opponent's card advantage, then equip and attack",
       "type": "blunder",
       "snapshotIndex": 324,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 230
     },
     {
       "severity": "minor",
@@ -180889,7 +180927,8 @@
       "betterLine": "Cast Perilous Voyage targeting Furious Rise to permanently strand the exiled Pitchburn Devils and remove the card advantage engine. The opponent would need to recast Furious Rise and wait another end step to exile a new card.",
       "type": "blunder",
       "snapshotIndex": 345,
-      "player": "Gem3P Fate"
+      "player": "Gem3P Fate",
+      "decisionIndex": 242
     }
   ],
   "blunderScriptVersion": 32

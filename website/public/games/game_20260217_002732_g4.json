@@ -131755,7 +131755,8 @@
       "betterLine": "Should have discarded Swarm Intelligence instead of Commune with Lava. Swarm Intelligence costs 7 mana and is the least likely to be cast soon, while Commune with Lava is a key synergy piece with the Kalamax commander that provides scalable card advantage at instant speed.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Haiku Optim"
+      "player": "Haiku Optim",
+      "decisionIndex": 14
     },
     {
       "severity": "questionable",
@@ -131764,7 +131765,8 @@
       "betterLine": "Play Forest first (making the land drop), then cast Master of the Pearl Trident. This ensures the land drop isn't missed and maximizes available mana going forward.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -131773,7 +131775,8 @@
       "betterLine": "Play Island first (getting closer to casting Tatyova next turn with 5 lands), then cast Merfolk Sovereign. The land drop costs nothing and ensures no missed land drops.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -131782,7 +131785,8 @@
       "betterLine": "Cast Tatyova, Benthic Druid for the same mana cost (GGUUU covers 3GU), getting a repeatable card draw engine that generates value on every land drop for the rest of the game.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 22
     },
     {
       "severity": "moderate",
@@ -131791,7 +131795,8 @@
       "betterLine": "Play Rootbound Crag, then cast Tymna the Weaver (1WB) and Zhur-Taa Druid (RG) or Sylvok Explorer (1G) to develop the board and set up card draw for future turns.",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "GPT5n Memoir"
+      "player": "GPT5n Memoir",
+      "decisionIndex": 26
     },
     {
       "severity": "questionable",
@@ -131800,7 +131805,8 @@
       "betterLine": "This is actually reasonable - Kindred Discovery before combat draws 3 cards from attacking Merfolk. Tatyova could also be considered but draws fewer cards immediately. The main concern is that casting before combat rather than holding up Curse of the Swine mana leaves no interaction, but with only 5 mana total this is a minor consideration.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -131809,7 +131815,8 @@
       "betterLine": "Play Island first, cast Stonybrook Banneret (1U) to have 5 creatures on board, then cast Tishana (5GU) to draw 5 cards instead of 4.",
       "type": "blunder",
       "snapshotIndex": 297,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 37
     },
     {
       "severity": "major",
@@ -131818,7 +131825,8 @@
       "betterLine": "Attack with both Chrome Courier and Indomitable Archangel directed at Haiku Optim for exactly lethal damage (5 flying damage vs 5 life)",
       "type": "blunder",
       "snapshotIndex": 365,
-      "player": "MiMo Philo"
+      "player": "MiMo Philo",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -131827,11 +131835,12 @@
       "betterLine": "Put the +1/+1 counter on Tributary Instructor to enable its death-draw trigger and increase Inspiring Call value, or on another battlefield Merfolk without counters for maximum utility.",
       "type": "blunder",
       "snapshotIndex": 381,
-      "player": "Opus Minimal"
+      "player": "Opus Minimal",
+      "decisionIndex": 58
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

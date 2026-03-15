@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_194429_g1",
   "timestamp": "20260308_194429",
   "gameType": "Two Player Duel",
@@ -47934,7 +47934,8 @@
       "betterLine": "Keep the 7-card hand. It has a solid curve with 3 playable white spells and 4 lands. Drawing into green sources is likely given 33 cards remaining in library. Mulliganing to 6 risks a worse hand with no guarantee of green mana.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -47943,7 +47944,8 @@
       "betterLine": "Cast Savage Punch (2 mana) targeting Rhonas to fight Speaker of the Heavens, killing the Angel-generating engine immediately. This leaves 2 mana open for Rhonas's pump ability if needed, and Gaea's Protector can be deployed next turn.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 42
     },
     {
       "severity": "moderate",
@@ -47952,7 +47954,8 @@
       "betterLine": "Block Rhonas with Brightmare (2/3) to prevent 5 damage and maintain the 27+ life threshold needed for Speaker of the Heavens to keep generating 4/4 Angel tokens.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -47961,7 +47964,8 @@
       "betterLine": "Attack with all three available creatures (Angel Token, Speaker of the Heavens, and Brightmare) for 9 total damage since the opponent has zero available blockers. The 2/3 Brightmare provides minimal defensive value against the opponent's 5/5 and 4/2 threats.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 58
     },
     {
       "severity": "questionable",
@@ -47970,7 +47974,8 @@
       "betterLine": "Cast Baneslayer Angel to create a 2-turn lethal clock in the air (10 flying damage per turn vs opponent at 13 life) with lifelink to buffer against counterattacks. Save Angelic Edict for next turn if needed.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 72
     },
     {
       "severity": "major",
@@ -47979,7 +47984,8 @@
       "betterLine": "Cast Savage Punch targeting Rhonas and the Angel Token 5/5. Rhonas gets +2/+2 from Ferocious, fights as a 7/5 indestructible, kills the Angel. Then play a land and pass. Next turn, block ground threats with indestructible Rhonas and survive.",
       "type": "blunder",
       "snapshotIndex": 167,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 81
     },
     {
       "severity": "major",
@@ -47988,7 +47994,8 @@
       "betterLine": "Cast Savage Punch targeting Rhonas the Indomitable to fight the Angel Token 5/5. With Ferocious, Rhonas becomes 7/5 with deathtouch and indestructible, killing the Angel and surviving. This removes the only lethal flying threat.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "MiniMx Grudge"
+      "player": "MiniMx Grudge",
+      "decisionIndex": 92
     }
   ],
   "blunderScriptVersion": 32,

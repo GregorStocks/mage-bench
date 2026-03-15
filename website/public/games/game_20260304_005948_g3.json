@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_005948_g3",
   "timestamp": "20260304_005948",
   "gameType": "Two Player Duel",
@@ -101190,7 +101190,8 @@
       "betterLine": "Keep the 7-card hand. Two lands plus Coldsteel Heart provides sufficient mana development, Mire Triton is a great turn 2 play that enables the reanimation package, and the hand has a strong synergistic plan.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -101199,7 +101200,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B} to develop the board with a 1/1 lifelink creature that can attack or block next turn",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -101208,7 +101210,8 @@
       "betterLine": "Play Swamp (enters untapped), then cast Coldsteel Heart choosing Blue. This provides both mana acceleration and Blue mana access a turn earlier, enabling earlier casting of the multiple Blue spells in hand (Crippling Chill, Winter's Rest).",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -101217,7 +101220,8 @@
       "betterLine": "Cast Archfiend's Vessel using the untapped Swamp to develop the board and not waste mana.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 20
     },
     {
       "severity": "moderate",
@@ -101226,7 +101230,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B}. It's a free play with no downside - the mana is otherwise unused, and the 1/1 lifelink adds board presence and future graveyard synergy potential.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -101235,7 +101240,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B} to get a 1/1 lifelink on board. It provides chip damage/lifegain and has graveyard recursion upside later.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -101244,7 +101250,8 @@
       "betterLine": "Play an Island (untapped) to have 4 lands, then potentially cast Teferi's Tutelage or Reckless Scholar this turn with the available mana. At minimum, playing a land is free and should never be skipped when available.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -101253,7 +101260,8 @@
       "betterLine": "Play Island (or Thriving Isle) from hand to have 4 lands available next turn, enabling casting Teferi's Tutelage or Reckless Scholar with mana to spare.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -101262,7 +101270,8 @@
       "betterLine": "Cast Archfiend's Vessel for {B} using the untapped Swamp — the only legal play available. While just a 1/1 lifelink, it develops the board and is better than doing nothing.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -101271,7 +101280,8 @@
       "betterLine": "Play an Island (or Thriving Isle) to have 3 mana available, then cast Teferi's Tutelage (strong mill engine that synergizes with their deck) or Reckless Scholar.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -101280,7 +101290,8 @@
       "betterLine": "Play an Island (or Thriving Isle) to get to 3 lands on the battlefield, then cast Wall of Lost Thoughts to mill the opponent for 4 and add a 0/4 defender. This develops the board and advances the mill gameplan alongside the Teferi's Tutelage planned for next turn.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -101289,7 +101300,8 @@
       "betterLine": "Attack with only Pilfering Hawk, which has flying and gets through unblocked for 1 damage. Keep Archfiend's Vessel back as a blocker with lifelink rather than trading it into a 0/4 wall for nothing.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 61
     },
     {
       "severity": "questionable",
@@ -101298,7 +101310,8 @@
       "betterLine": "Play an Island first (going to 3 untapped lands), then cast Teferi's Tutelage for {2}{U}, which provides ongoing mill pressure and card filtering. The 0/4 Wall blocker could be deployed next turn.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -101307,7 +101320,8 @@
       "betterLine": "Play an Island to have 3 mana available, then cast Teferi's Tutelage (a key engine card that mills the opponent on every draw) or Wall of Lost Thoughts (immediate 4-card mill).",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 68
     },
     {
       "severity": "major",
@@ -101316,7 +101330,8 @@
       "betterLine": "Play an Island, then cast Teferi's Tutelage (sets up a mill engine that synergizes with future draws) or Wall of Lost Thoughts (immediate mill 4 + defensive body) depending on game plan. Teferi's Tutelage is likely best as it creates ongoing value with the draw/discard effects already in the deck.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -101325,7 +101340,8 @@
       "betterLine": "Block Frostpeak Yeti with Wall of Runes to take only 2 damage (1 from Hawk + 1 from Vessel). Wall survives the block.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -101334,7 +101350,8 @@
       "betterLine": "Play an Island first (enters untapped, giving 3 total mana), then evaluate whether Teferi's Tutelage or Reckless Scholar would be better than Wall of Lost Thoughts. Teferi's Tutelage provides an ongoing mill engine and card filtering that could be the stronger play.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 94
     },
     {
       "severity": "major",
@@ -101343,7 +101360,8 @@
       "betterLine": "Play an Island (or Thriving Isle) to reach 3 lands, enabling a 3-mana play next turn such as Wall of Lost Thoughts (for defense and milling), Reckless Scholar, or Teferi's Tutelage.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 95
     },
     {
       "severity": "moderate",
@@ -101352,7 +101370,8 @@
       "betterLine": "Play Thriving Isle (or an Island) to get to 4 lands, enabling Teferi's Tutelage or Reckless Scholar next turn and reducing hand size before discard.",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -101361,7 +101380,8 @@
       "betterLine": "Discard an Island instead, keeping Rain of Revelation to pair with Teferi's Tutelage for massive card advantage and mill triggers once both are deployed.",
       "type": "blunder",
       "snapshotIndex": 184,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 98
     },
     {
       "severity": "minor",
@@ -101370,7 +101390,8 @@
       "betterLine": "Cast Funeral Rites first (2B) to draw 2 cards, lose 2 life, and mill 2 cards. Then evaluate the graveyard for a better Reanimate target. If nothing better appears, Reanimate Keen Glidemaster with the remaining 1 mana.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 99
     },
     {
       "severity": "questionable",
@@ -101379,7 +101400,8 @@
       "betterLine": "Cast Funeral Rites to draw 2 cards and dig for more impactful plays, or save Winter's Rest for a more threatening creature. Funeral Rites costs the same 3 mana and provides significant card advantage to find threats or answers.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 100
     },
     {
       "severity": "minor",
@@ -101388,7 +101410,8 @@
       "betterLine": "Cast Wall of Lost Thoughts to get an immediate 4-card mill ETB trigger plus a 0/4 defensive body to help stabilize at 9 life against multiple threats",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 105
     },
     {
       "severity": "questionable",
@@ -101397,7 +101420,8 @@
       "betterLine": "Play an Island first to have 3 mana available, then consider casting Teferi's Tutelage ({2}{U}) as a persistent mill engine, or Reckless Scholar for card filtering. Wall of Lost Thoughts' 0/4 body is good defensively at 9 life, but Tutelage provides ongoing value.",
       "type": "blunder",
       "snapshotIndex": 221,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 106
     },
     {
       "severity": "moderate",
@@ -101406,7 +101430,8 @@
       "betterLine": "Play an Island (untapped) to reach 3 available mana, then cast Teferi's Tutelage or Reckless Scholar to start generating card advantage and/or milling the opponent.",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 107
     },
     {
       "severity": "moderate",
@@ -101415,7 +101440,8 @@
       "betterLine": "Play an Island (untapped) to have 3 mana available, then cast Wall of Lost Thoughts (2 mana, provides a 0/4 blocker and mills opponent) or Reckless Scholar or Towering-Wave Mystic. At minimum, play the land even if not casting anything else.",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 109
     },
     {
       "severity": "questionable",
@@ -101424,7 +101450,8 @@
       "betterLine": "Discard a third Island instead, keeping Reckless Scholar for its synergy with Teferi's Tutelage as a mill engine. With 3 lands in play, 2 Islands + Thriving Isle in hand still guarantees 3 consecutive land drops.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 110
     },
     {
       "severity": "major",
@@ -101433,7 +101460,8 @@
       "betterLine": "Cast Wall of Lost Thoughts for 2 mana, getting a 0/4 blocker that can survive combat against the opponent's threats, while also milling 4 cards and leaving 1 mana open for potential future plays",
       "type": "blunder",
       "snapshotIndex": 257,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 115
     },
     {
       "severity": "major",
@@ -101442,7 +101470,8 @@
       "betterLine": "Cast Wall of Lost Thoughts (0/4 defender) for 2 mana to block Frostpeak Yeti and survive the next attack. The ETB mill 4 is also relevant for the mill gameplan.",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 116
     },
     {
       "severity": "major",
@@ -101451,7 +101480,8 @@
       "betterLine": "Cast Wall of Lost Thoughts (0/4 defender) to provide a blocker and mill the opponent for 4, or cast Towering-Wave Mystic as a chump blocker. Either creature could be the difference between surviving and dying next turn.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 118
     },
     {
       "severity": "major",
@@ -101460,7 +101490,8 @@
       "betterLine": "Cast Wall of Lost Thoughts (0/4 defender for 2 mana) and Towering-Wave Mystic (2/1 for 2 mana) to have two blockers available. At minimum, Wall of Lost Thoughts alone would provide a 0/4 body to block the Yeti and survive.",
       "type": "blunder",
       "snapshotIndex": 291,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 124
     },
     {
       "severity": "major",
@@ -101469,7 +101500,8 @@
       "betterLine": "Cast both Wall of Lost Thoughts and Towering-Wave Mystic (2+2=4 mana) to maximize blockers. At minimum, cast Wall of Lost Thoughts for a 0/4 blocker to help survive the next attack.",
       "type": "blunder",
       "snapshotIndex": 295,
-      "player": "QwCdr Contra"
+      "player": "QwCdr Contra",
+      "decisionIndex": 126
     },
     {
       "severity": "major",
@@ -101478,7 +101510,8 @@
       "betterLine": "Attack with all available creatures (or at minimum multiple attackers for redundancy against potential interaction) to deal lethal damage to the opponent at 3 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 315,
-      "player": "MstMed Valley"
+      "player": "MstMed Valley",
+      "decisionIndex": 131
     }
   ],
   "blunderScriptVersion": 32

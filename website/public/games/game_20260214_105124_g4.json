@@ -45233,7 +45233,8 @@
       "betterLine": "Play Fiery Islet, tap it for {U} (pay 1 life), cast Preordain to scry 2 and draw a card, and also cast Mishra's Bauble. This maximizes turn 1 card quality and selection.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -45242,7 +45243,8 @@
       "betterLine": "Fetch Steam Vents (paying 2 life) to have access to blue mana and cast Preordain this turn to improve card selection early in the game",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -45251,7 +45253,8 @@
       "betterLine": "Target yourself with Mishra's Bauble to see your top card, then use a fetch land to shuffle if the top card is undesirable before the delayed draw trigger resolves",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -45260,7 +45263,8 @@
       "betterLine": "Play Forest, then cast Delighted Halfling. This enables turn 2 Agatha's Soul Cauldron and turn 3 Yawgmoth, maximizing the deck's development curve.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -45269,7 +45273,8 @@
       "betterLine": "Fetch a Forest with Verdant Catacombs, then cast Delighted Halfling on turn 1 to accelerate toward Agatha's Soul Cauldron on turn 2 and Yawgmoth on turn 3 (Halfling can produce B for the legendary Yawgmoth).",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -45278,7 +45283,8 @@
       "betterLine": "Fetch Overgrown Tomb (entering untapped, paying 2 life) to have access to both black and green mana from one land, maximizing flexibility for casting Delighted Halfling turn 1 and Yawgmoth later",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -45287,7 +45293,8 @@
       "betterLine": "Play Forest from hand, then cast Delighted Halfling for {G}. This enables a turn 3 Yawgmoth, Thran Physician (Swamp + Forest + Halfling's legendary mana = BBGG-equivalent for the 2BB cost). Even if not casting the Halfling, playing the Forest is strictly necessary to not fall behind on mana development.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -45296,7 +45303,8 @@
       "betterLine": "Cast Walking Ballista for X=0 (costs 0 mana) to put it into the graveyard, setting up the Agatha's Soul Cauldron combo line. The Ballista dies immediately as a 0/0 but its presence in the graveyard is exactly where you want it for the Cauldron to exile it later.",
       "type": "blunder",
       "snapshotIndex": 20,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -45305,7 +45313,8 @@
       "betterLine": "Activate Mishra's Bauble targeting yourself first to see the top card of your library before committing to playing a fetchland that could shuffle away relevant information. Then play the fetchland.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -45314,7 +45323,8 @@
       "betterLine": "Activate Mishra's Bauble first to see the top card of the library, then decide whether to crack the fetchland to shuffle it away before casting Preordain",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -45323,7 +45333,8 @@
       "betterLine": "Fetch Steam Vents (paying 2 life to enter untapped) to have immediate blue mana access, enabling Preordain this turn while preserving Fiery Islet for its card-draw sacrifice ability later.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -45332,7 +45343,8 @@
       "betterLine": "Cast Walking Ballista for X=0 (free), let it die to state-based actions, putting it in the graveyard ready to be exiled by Agatha's Soul Cauldron next turn. This advances the Yawgmoth combo setup at zero cost.",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -45341,7 +45353,8 @@
       "betterLine": "Cast Walking Ballista for X=0 to put it into the graveyard, setting up for Agatha's Soul Cauldron to exile it later and grant its ping ability to creatures with +1/+1 counters, enabling the Yawgmoth combo.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -45350,7 +45363,8 @@
       "betterLine": "Cast Badgermole Cub for 1G (using Forest and Delighted Halfling), earthbending a land into a creature to provide an extra sacrifice target for Yawgmoth and additional mana acceleration, or cast Agatha's Soul Cauldron for 2 mana to set up the combo engine immediately.",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 32
     },
     {
       "severity": "minor",
@@ -45359,7 +45373,8 @@
       "betterLine": "Cast Badgermole Cub using Swamp + Delighted Halfling, getting a 2/2 body plus earthbending a land into a creature with a +1/+1 counter, which would help ramp into Yawgmoth on turn 4",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -45368,7 +45383,8 @@
       "betterLine": "Cast Badgermole Cub using Dryad Arbor (G) + Swamp (B for generic), earthbend a land, and set up massive mana acceleration to cast Yawgmoth next turn.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -45377,7 +45393,8 @@
       "betterLine": "Attack with at least the creatures not needed for mana this turn. Ideally attack with all three (Dryad Arbor + 2 Delighted Halflings) for 3 unblocked damage, then cast Agatha's Soul Cauldron post-combat using the Swamp and Forest (which is already tapped, but was tapped from earlier). At minimum, attack with 1-2 creatures for free damage against an empty board.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -45386,7 +45403,8 @@
       "betterLine": "Target themselves with Mishra's Bauble, see their own top card, then on their next turn play Arid Mesa and either keep the top card or shuffle it away by fetching — gaining meaningful card selection.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 38
     },
     {
       "severity": "moderate",
@@ -45395,7 +45413,8 @@
       "betterLine": "Keep all mana creatures back and use post-combat mana to cast Agatha's Soul Cauldron + Badgermole Cub, or cast Yawgmoth (using Delighted Halfling to make it uncounterable). Developing the board with powerful 4-drops is far more valuable than 3 points of chip damage against an 18-life opponent.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -45404,7 +45423,8 @@
       "betterLine": "Play Arid Mesa, then use remaining mana to Plot Slickshot Show-Off (same 1R cost) so it can be cast for free next turn and attack immediately. Or save mana for Preordain this turn and plot/cast Slickshot next turn.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -45413,7 +45433,8 @@
       "betterLine": "Attack with Dryad Arbor and one Delighted Halfling (2 damage), keeping the other Halfling untapped for mana. This preserves the ability to cast Agatha's Soul Cauldron post-combat with better mana flexibility, or hold up options.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -45422,7 +45443,8 @@
       "betterLine": "Play Arid Mesa first, potentially crack it to thin the deck, then cast Preordain for better scry quality. Also consider activating Mishra's Bauble first to see the top card before scrying.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -45431,7 +45453,8 @@
       "betterLine": "This is actually reasonable - looking at the opponent's library is standard with Mishra's Bauble",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -45440,7 +45463,8 @@
       "betterLine": "Play Verdant Catacombs first, crack it for a land (e.g., Overgrown Tomb or Forest), then cast Yawgmoth with the additional mana available, potentially leaving mana open for another spell like Badgermole Cub or Walking Ballista.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -45449,7 +45473,8 @@
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to make it a 5/4 flyer (with the +2/+0 trigger already on the stack from casting the spell), maximizing combat damage while at 10 life facing an incoming Yawgmoth.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 86
     },
     {
       "severity": "minor",
@@ -45458,7 +45483,8 @@
       "betterLine": "Fetch basic Forest to save 2 life. Already has Swamp and Overgrown Tomb for black mana needs (Yawgmoth's proliferate). The extra green source costs nothing and preserves life total against an aggressive opponent at a stage where the combo pieces (Cauldron + Ballista) only need generic/green mana.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -45467,7 +45493,8 @@
       "betterLine": "Sacrifice the tapped Dryad Arbor instead, preserving the more valuable untapped Delighted Halfling for mana production and future utility",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 94
     },
     {
       "severity": "major",
@@ -45476,7 +45503,8 @@
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth. Combined with the +2/+0 trigger from casting a noncreature spell, Slickshot would become a 5/4 flyer, threatening significant damage against an opponent at 12 life.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 101
     },
     {
       "severity": "major",
@@ -45485,7 +45513,8 @@
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth, making it a 5/4 flyer (at minimum) for combat, dealing significantly more damage to the opponent who is at 12 life.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -45494,7 +45523,8 @@
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to maximize combat damage. Slickshot would become a 5/4 flyer (1/2 base + 2/0 from prowess trigger + 2/2 from Mutagenic Growth) heading into combat.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -45503,7 +45533,8 @@
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to maximize damage output, getting both the +2/+2 from the spell and +2/+0 from Slickshot's trigger for a 5/4 flying attacker",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 112
     },
     {
       "severity": "moderate",
@@ -45512,7 +45543,8 @@
       "betterLine": "Discard Arid Mesa (redundant with Wooded Foothills already in hand and two lands in play) or Cori-Steel Cutter (expensive and less synergistic with the burst kill plan). Keeping Mutagenic Growth maximizes the chance of a lethal Slickshot turn with Lava Dart + Mishra's Bauble + Mutagenic Growth.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 128
     },
     {
       "severity": "minor",
@@ -45521,7 +45553,8 @@
       "betterLine": "Cast Young Wolf for {G} first, potentially cast Badgermole Cub or Agatha's Soul Cauldron with remaining mana, then use Yawgmoth's sacrifice abilities to interact with the opponent's Slickshot Show-Off while drawing cards.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 127
     },
     {
       "severity": "minor",
@@ -45530,7 +45563,8 @@
       "betterLine": "Attack with both Yawgmoth and Walking Ballista to deal 3 damage total instead of 1, pressuring the opponent's 10 life total while Yawgmoth faces no profitable blocks",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 134
     },
     {
       "severity": "moderate",
@@ -45539,7 +45573,8 @@
       "betterLine": "Target Dryad Arbor (1/1) to kill it, removing both a mana source and a potential Yawgmoth sacrifice target. Alternatively, target Gem25P Gramps directly to advance the burn/aggro plan with Slickshot Show-Off attacking.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 132
     },
     {
       "severity": "minor",
@@ -45548,7 +45583,8 @@
       "betterLine": "Use Walking Ballista's remove-counter ability to ping Slickshot Show-Off for 1 before losing the counter, and/or use Yawgmoth to sacrifice Dryad Arbor to put a -1/-1 counter on Show-Off and draw a card, potentially killing it.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 141
     },
     {
       "severity": "questionable",
@@ -45557,7 +45593,8 @@
       "betterLine": "Remove a +1/+1 counter from Walking Ballista to deal 1 damage to the opponent (or to Slickshot Show-Off) in response to Lava Dart, preserving value before potentially losing the Ballista",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 134
     },
     {
       "severity": "moderate",
@@ -45566,7 +45603,8 @@
       "betterLine": "Activate Walking Ballista to deal 1 damage to Slickshot Show-Off or the opponent, and/or sacrifice it to Yawgmoth to draw a card and potentially shrink/kill the Show-Off. At minimum, ping for 1 damage as pure upside before losing the creature.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 134
     },
     {
       "severity": "major",
@@ -45575,7 +45613,8 @@
       "betterLine": "Activate Yawgmoth, sacrificing Walking Ballista to put a -1/-1 counter on Slickshot Show-Off and draw a card, or at minimum remove Walking Ballista's +1/+1 counter to ping the opponent or Slickshot Show-Off before the Lava Dart resolves.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 141
     },
     {
       "severity": "moderate",
@@ -45584,7 +45623,8 @@
       "betterLine": "Cast both Young Wolves using land mana, then attack with all ground creatures (Yawgmoth, Walking Ballista, Delighted Halfling, Dryad Arbor, both Young Wolves) for likely lethal damage against 7 life with no ground blockers.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 146
     },
     {
       "severity": "major",
@@ -45593,7 +45633,8 @@
       "betterLine": "Attack with all available creatures. Opponent at 7 life can only block one ground creature with Slickshot Show-Off. Attacking with Delighted Halfling, Dryad Arbor, Yawgmoth, and Walking Ballista would push through at least 4-5 damage (likely more), putting the opponent in range of Walking Ballista pings or Yawgmoth sacrifice loops. This could be lethal or near-lethal.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 147
     },
     {
       "severity": "major",
@@ -45602,7 +45643,8 @@
       "betterLine": "After Young Wolf resolves, use Yawgmoth to sacrifice Young Wolf (pay 1 life, draw a card, put -1/-1 on Slickshot Show-Off). Young Wolf returns with a +1/+1 counter via undying. Then sacrifice Dryad Arbor or other creatures to Yawgmoth to continue drawing cards and putting counters on opponent's creatures. With Agatha's Soul Cauldron available to exile creatures from graveyards and add counters, there may have been a combo loop available to drain the opponent or at minimum kill the Slickshot Show-Off and draw multiple cards.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 148
     },
     {
       "severity": "minor",
@@ -45611,7 +45653,8 @@
       "betterLine": "Play a fetch land (Wooded Foothills or Arid Mesa) first, then evaluate whether to cast DRC before or after combat. Playing the land first ensures the land drop isn't forgotten and preserves better sequencing options.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 150
     },
     {
       "severity": "moderate",
@@ -45620,7 +45663,8 @@
       "betterLine": "Attack with Yawgmoth (protected from Human DRC), Delighted Halfling, and Dryad Arbor. Opponent's DRC can't block Yawgmoth, so at minimum Yawgmoth's 2 damage gets through if Slickshot blocks a small creature, or significant total damage if Slickshot blocks Yawgmoth. This pressures the opponent at 6 life and could set up lethal with Yawgmoth sacrifices or Walking Ballista pings.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 152
     },
     {
       "severity": "major",
@@ -45629,7 +45673,8 @@
       "betterLine": "Use Walking Ballista to remove counters and ping the opponent for damage. If Walking Ballista has counters, fire them at the opponent's face. Additionally, with Young Wolf in hand (castable next turn) and Yawgmoth on board, the Yawgmoth + Young Wolf + Walking Ballista combo could generate repeated pings. At minimum, any Walking Ballista counters should be used to ping the opponent toward lethal or remove the attacking Dragon's Rage Channeler before damage.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 156
     },
     {
       "severity": "major",
@@ -45638,7 +45683,8 @@
       "betterLine": "Block Dragon's Rage Channeler with Yawgmoth, Thran Physician. Yawgmoth (2/4) survives blocking a 3/3, preventing 3 damage and keeping life total at 9 instead of 6. This is especially critical when the opponent has burn potential and Gramps is already at a precarious life total.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 164
     },
     {
       "severity": "minor",
@@ -45647,7 +45693,8 @@
       "betterLine": "Put Cori-Steel Cutter on top to draw it, as it provides immediate board impact with the existing creature-heavy board and the player needs to maximize damage output before Yawgmoth takes over.",
       "type": "blunder",
       "snapshotIndex": 167,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 173
     },
     {
       "severity": "major",
@@ -45656,7 +45703,8 @@
       "betterLine": "Activate Walking Ballista to remove counters and deal damage to GPT4om Coach (at 3 life). If the Ballista had enough counters, this is lethal. Even if not, combine with Yawgmoth sacrificing Dryad Arbor or Delighted Halfling to draw cards and potentially find additional damage sources, or use the Ballista pings to finish the opponent off.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 172
     },
     {
       "severity": "minor",
@@ -45665,7 +45713,8 @@
       "betterLine": "Discard the second Cori-Steel Cutter or Thundering Falls instead, keeping Expressive Iteration to dig for burn spells or combat tricks to close the game at 3 vs 3 life.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 174
     },
     {
       "severity": "major",
@@ -45674,7 +45723,8 @@
       "betterLine": "Remove +1/+1 counters from Walking Ballista to deal direct damage to the opponent (at 3 life), then attack with available creatures for lethal. Even removing 2 counters for 2 damage plus attacking with Dryad Arbor or Delighted Halfling would be lethal if the opponent can't block everything.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 181
     },
     {
       "severity": "major",
@@ -45683,7 +45733,8 @@
       "betterLine": "Remove the +1/+1 counter from Walking Ballista to deal 1 damage to GPT4om Coach (going to 2 life), then use Yawgmoth to sacrifice Dryad Arbor or Delighted Halfling targeting an opponent's creature for a -1/-1 counter and drawing a card, then attack with remaining creatures to try to push through the final 2 damage.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 181
     },
     {
       "severity": "major",
@@ -45692,7 +45743,8 @@
       "betterLine": "Activate Yawgmoth twice (sacrificing Dryad Arbor and Delighted Halfling, paying 2 life) to put two -1/-1 counters on Slickshot Show-Off, killing it. Then attack with Yawgmoth and Badgermole Cub. Swiftspear (Human) can't block Yawgmoth, so at least 2 damage gets through for lethal.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 182
     },
     {
       "severity": "major",
@@ -45701,7 +45753,8 @@
       "betterLine": "Activate Yawgmoth, Thran Physician by sacrificing Badgermole Cub to put a -1/-1 counter on Monastery Swiftspear (shrinking it to 0/1) and drawing a card, potentially finding a way to deal the last point of damage or improving combat math for a lethal attack.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 182
     },
     {
       "severity": "minor",
@@ -45710,11 +45763,12 @@
       "betterLine": "Activate Agatha's Soul Cauldron targeting Dragon's Rage Channeler in opponent's graveyard, putting a +1/+1 counter on an attacking creature to improve combat math against the 1-life opponent",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Gem25P Gramps"
+      "player": "Gem25P Gramps",
+      "decisionIndex": 182
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

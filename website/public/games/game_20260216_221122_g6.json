@@ -39826,7 +39826,8 @@
       "betterLine": "Choose Blue for Sunken Citadel, as the hand is heavily blue-dependent (Spell Snare, Two Three Steps Ahead, No More Lies all need blue). With only one Island, blue mana is the bottleneck. Fountainport and Demolition Field provide colorless, so the colored source should be blue.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 9
     },
     {
       "severity": "major",
@@ -39835,7 +39836,8 @@
       "betterLine": "Should not have cast Three Steps Ahead this turn. Should have played a land (Demolition Field or Fountainport) and passed, holding Three Steps Ahead and countermagic for future turns.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 10
     },
     {
       "severity": "moderate",
@@ -39844,7 +39846,8 @@
       "betterLine": "Warp Quantum Riddler for {1}{U} to get a 4/6 flyer plus draw a card, presenting a much stronger threat while the opponent is mostly tapped out",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "DSV3 Worrier"
+      "player": "DSV3 Worrier",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -39853,7 +39856,8 @@
       "betterLine": "Play Riverpyre Verge first, then cast Stormchaser's Talent, leaving UW open for No More Lies",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "DSV3 Worrier"
+      "player": "DSV3 Worrier",
+      "decisionIndex": 15
     },
     {
       "severity": "moderate",
@@ -39862,7 +39866,8 @@
       "betterLine": "Complete the Three Steps Ahead choosing the draw-two mode to draw 2 cards and discard 1, improving hand quality and digging for threats while the opponent has no board presence to punish tapping out.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -39871,7 +39876,8 @@
       "betterLine": "Play Fountainport or Demolition Field as a 4th land and pass the turn holding up No More Lies or Spell Snare to interact with the opponent's next play. The card advantage from Three Steps Ahead is marginal when already at 7 cards in hand.",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 21
     },
     {
       "severity": "major",
@@ -39880,7 +39886,8 @@
       "betterLine": "Should have selected 'Draw two cards, then discard a card' mode if mana was sufficient, or should not have cast Three Steps Ahead at all if unable to pay for any useful mode. The counter mode ({1}{U} + {1}{U} = {2}{U}{U}) could have been held up on the opponent's turn to counter a threat.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -39889,7 +39896,8 @@
       "betterLine": "Play Demolition Field, then next turn activate it (2 mana + tap + sacrifice) to destroy an opponent's nonbasic land and fetch a Plains, enabling Day of Judgment and other white spells.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 24
     },
     {
       "severity": "moderate",
@@ -39898,7 +39906,8 @@
       "betterLine": "Play Spirebluff Canal first, then cast Quantum Riddler using Warp {1}{U} at instant speed (on opponent's end step), keeping mana open for interaction like Into the Flood Maw or Torch the Tower.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "DSV3 Worrier"
+      "player": "DSV3 Worrier",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -39907,7 +39916,8 @@
       "betterLine": "Cast Winternight Stories precombat to draw 3 cards, making Duelist of the Mind a 3/3 flyer with vigilance and triggering Otter prowess, then attack for significantly more damage while still holding up 2 mana for interaction.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "DSV3 Worrier"
+      "player": "DSV3 Worrier",
+      "decisionIndex": 34
     },
     {
       "severity": "questionable",
@@ -39916,7 +39926,8 @@
       "betterLine": "Hold up all mana for the opponent's turn to maximize flexibility with No More Lies and Spell Snare, or wait until the opponent's end step to create the Fish if the mana isn't needed for counters.",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 35
     },
     {
       "severity": "questionable",
@@ -39925,7 +39936,8 @@
       "betterLine": "Target a Steam Vents or Spirebluff Canal instead, as these true dual lands are harder to replace with a single basic land. The difference is small but Riverpyre Verge is the least impactful target.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 37
     },
     {
       "severity": "major",
@@ -39934,11 +39946,12 @@
       "betterLine": "Cast Spell Snare targeting Fear of Missing Out (mana value 2) to counter it, preventing the extra combat phase and the additional threat on board. This preserves life total and buys time to cast Day of Judgment next turn.",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "o3 Valley"
+      "player": "o3 Valley",
+      "decisionIndex": 40
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

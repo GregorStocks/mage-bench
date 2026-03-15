@@ -63351,7 +63351,8 @@
       "betterLine": "Exile Elvish Spirit Guide for {G} mana to work toward casting Undercity Informer or hold it for a future combo turn. With two Elvish Spirit Guides and one Simian Spirit Guide, they could potentially exile all three for GGR, which doesn't cast Undercity Informer (needs 2B), but exiling the spirit guides preserves future options rather than spending them on an uncastable creature.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "Haiku Stats"
+      "player": "Haiku Stats",
+      "decisionIndex": 17
     },
     {
       "severity": "major",
@@ -63360,7 +63361,8 @@
       "betterLine": "Pass the turn without exiling any spirit guides, preserving them as potential 2/2 creatures to cast later or as mana sources when black mana becomes available through a land drop",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Haiku Stats"
+      "player": "Haiku Stats",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -63369,7 +63371,8 @@
       "betterLine": "Play Plains or Wasteland from hand, then activate Urza's Saga's chapter II ability (pay {2} from Savannah + new land, tap Saga) to create a Construct token before losing the Saga to chapter III next turn.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -63378,7 +63381,8 @@
       "betterLine": "Play Plains (untapped, produces white for Swords to Plowshares) or Wasteland (provides interaction against opponent's lands), saving Bojuka Bog for when the opponent has reanimation targets in their graveyard.",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -63387,7 +63391,8 @@
       "betterLine": "Return both Urza's Saga and Bojuka Bog to hand with Life from the Loam, maximizing card advantage and keeping the graveyard hate option available.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 24
     },
     {
       "severity": "moderate",
@@ -63396,7 +63401,8 @@
       "betterLine": "Pass the turn without exiling SSG, or hold SSG to potentially cast as a creature later. Without any source of {B} mana, there's no productive line this turn regardless.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Haiku Stats"
+      "player": "Haiku Stats",
+      "decisionIndex": 26
     },
     {
       "severity": "major",
@@ -63405,7 +63411,8 @@
       "betterLine": "Pass the turn without exiling anything. Hold Elvish Spirit Guides for a turn where they can actually contribute to casting a spell, or potentially hard-cast one as a 2/2 creature if the game goes long enough.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Haiku Stats"
+      "player": "Haiku Stats",
+      "decisionIndex": 27
     },
     {
       "severity": "major",
@@ -63414,7 +63421,8 @@
       "betterLine": "Pass without casting Swords to Plowshares. Keep Knight of the Reliquary as a powerful engine piece for land tutoring and as a growing threat. Save Swords to Plowshares for an opposing creature. Could instead activate Knight of the Reliquary to fetch a land, or simply move to main phase to play Urza's Saga, Wasteland, or Badgermole Cub.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 34
     },
     {
       "severity": "major",
@@ -63423,7 +63431,8 @@
       "betterLine": "Activate Wasteland to destroy an opponent's nonbasic land, or simply pass priority and hold Swords to Plowshares for when the opponent deploys a creature threat.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 42
     },
     {
       "severity": "moderate",
@@ -63432,7 +63441,8 @@
       "betterLine": "Tap Wasteland for {C} mana or simply hold it as a resource. Wasteland is valuable as a future threat against any nonbasic lands the opponent might play, and as a mana source in the meantime.",
       "type": "blunder",
       "snapshotIndex": 292,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -63441,11 +63451,12 @@
       "betterLine": "Simply pass priority during combat without activating Shadowspear, preserving mana for post-combat plays or future turns. The mana could potentially be used for other purposes.",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "o3 Snark"
+      "player": "o3 Snark",
+      "decisionIndex": 56
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

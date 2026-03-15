@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_163336_g1",
   "timestamp": "20260303_163336",
   "gameType": "Two Player Duel",
@@ -64059,7 +64059,8 @@
       "betterLine": "Bottom a Plains instead, keeping a 3-land, 3-spell hand (Eviscerate, Ogre Slumlord, Trusty Retriever, Plains, Plains, Thriving Heath) with better balance and more plays available.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -64068,7 +64069,8 @@
       "betterLine": "Play Plains, then cast Nezumi Bone-Reader with the two Swamps. This develops the board and preserves options for future turns.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -64077,7 +64079,8 @@
       "betterLine": "Choose Black for Thriving Heath, giving access to both W and B mana from the land, supporting cards like Sinuous Vermin's monstrosity activation and other black spells.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -64086,7 +64089,8 @@
       "betterLine": "Attack with at least Sinuous Vermin 2/2 (risk-free 2 damage or kills the 0/2 blocker), and likely Nezumi Bone-Reader as well since the only blocker deals 0 damage.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -64095,7 +64099,8 @@
       "betterLine": "Attack with all creatures (Chittering Rats + Sinuous Vermin) for 4 damage against an empty board with no blockers available.",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -64104,7 +64109,8 @@
       "betterLine": "Attack with Chittering Rats for 2 uncontested damage, bringing opponent from 21 to 19 life.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 48
     },
     {
       "severity": "major",
@@ -64113,7 +64119,8 @@
       "betterLine": "Play Plains first, then cast Gale Swooper targeting Kor Spiritdancer with flying ETB, then attack with all four flyers for 17 damage (lethal through Steel-Plume Marshal's +2/+2 to other flying attackers)",
       "type": "blunder",
       "snapshotIndex": 187,
-      "player": "Gem31P Gramps"
+      "player": "Gem31P Gramps",
+      "decisionIndex": 49
     },
     {
       "severity": "major",
@@ -64122,7 +64129,8 @@
       "betterLine": "Block Kor Spiritdancer with Typhoid Rats (deathtouch) to kill the 5/6 Spiritdancer, removing the opponent's best threat at minimal cost",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 53
     },
     {
       "severity": "minor",
@@ -64131,7 +64139,8 @@
       "betterLine": "Attack with Typhoid Rats. If unblocked, deal 1 damage. If Warded Battlements blocks, trade favorably — removing the attack buff and growing Ossuary Rats' future ETB damage.",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "GPT5 Optim"
+      "player": "GPT5 Optim",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -64140,7 +64149,8 @@
       "betterLine": "Skip casting, go directly to combat, and attack with Steel-Plume Marshal and Healer's Hawk for exactly 8 lethal flying damage.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "Gem31P Gramps"
+      "player": "Gem31P Gramps",
+      "decisionIndex": 56
     }
   ],
   "blunderScriptVersion": 31,

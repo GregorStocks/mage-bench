@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260223_175632_g2",
   "timestamp": "20260223_175632",
   "gameType": "Two Player Duel",
@@ -33099,7 +33099,8 @@
       "betterLine": "Discard Bojuka Bog to Mox Diamond, keeping the more valuable untapped fetchland that provides on-color mana and graveyard count for Elvish Reclaimer",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -33108,7 +33109,8 @@
       "betterLine": "Play Urza's Saga as land drop (starting the Saga counter), then tap Mox Diamond for colorless to cast Shadowspear, building toward Saga chapter III while developing the board more efficiently. GSZ for Dryad Arbor could come on a later turn.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -33117,7 +33119,8 @@
       "betterLine": "Activate Flooded Strand first to fetch a white source, preserving the option to play Marsh Flats afterward. This keeps more information hidden and preserves flexibility, though the end result is likely the same.",
       "type": "blunder",
       "snapshotIndex": 16,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -33126,7 +33129,8 @@
       "betterLine": "Keep Dryad Arbor back, then cast Knight of the Reliquary in the second main phase using Dryad Arbor ({G}) + Mox Diamond ({W}) + Urza's Saga ({C} for the generic mana).",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -33135,7 +33139,8 @@
       "betterLine": "Cast Shadowspear for {1} using Mox Diamond. This deploys an artifact for free (no opportunity cost since mana would be wasted), grows future Urza's Saga Constructs, and makes the equipment available for equipping on future turns.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -33144,7 +33149,8 @@
       "betterLine": "Activate Marsh Flats to fetch a Plains, preserving Flooded Strand for a future Island fetch to cast blue spells like Stifle or Cryptic Coat",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -33153,7 +33159,8 @@
       "betterLine": "Play Scalding Tarn first (free land drop), then crack Flooded Strand for a Plains/Tundra, and cast Stoneforge Mystic (searching for Batterskull or keeping it in hand) to avoid having to discard and to start deploying threats against the opponent's Urza's Saga",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -33162,7 +33169,8 @@
       "betterLine": "Discard Lush Portico to Mox Diamond, preserving Wasteland to play and threaten opponent's nonbasic lands. Lush Portico enters tapped anyway and provides colors already covered by Mox Diamond, while Wasteland provides crucial mana denial against the opponent's fetch-heavy mana base.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -33171,7 +33179,8 @@
       "betterLine": "Play Lush Portico (enters tapped, surveil 1 to potentially put a land in graveyard, produces G/W for Knight of the Reliquary next turn). Then cast Elvish Reclaimer with Dryad Arbor's mana. This provides much better color fixing and board development.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 24
     },
     {
       "severity": "questionable",
@@ -33180,7 +33189,8 @@
       "betterLine": "Cast Shadowspear for {1}, then equip it to Elvish Reclaimer next turn for an immediate combat advantage with trample and lifelink. Save GSZ for a higher X value later to fetch Knight of the Reliquary or another impactful creature.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -33189,7 +33199,8 @@
       "betterLine": "Play Scalding Tarn from hand as the land drop first, then activate one of the three fetchlands to search for the needed dual/basic land.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -33198,7 +33209,8 @@
       "betterLine": "Play Lush Portico (land drop), then cast Knight of the Reliquary for {1}{G}{W} using Dryad Arbor + 2 Mox Diamonds, deploying a 5/5 threat that also has land tutoring capability.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -33207,7 +33219,8 @@
       "betterLine": "Cast Sylvan Safekeeper first (tap Dryad Arbor for {G}), then cast Knight of the Reliquary (tap two Mox Diamonds for {G} and {W}, tap Bojuka Bog for {B} as generic mana), giving Knight immediate protection from targeted removal.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -33216,7 +33229,8 @@
       "betterLine": "Add Green or White mana from Mox Diamond, as those are the colored components of Knight of the Reliquary's mana cost",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -33225,7 +33239,8 @@
       "betterLine": "Activate Marsh Flats or Flooded Strand to fetch a second white source, then cast Stoneforge Mystic (searching for equipment like Batterskull if not already in hand), then cast Swords to Plowshares targeting Knight of the Reliquary. This deploys a key threat while also removing the opponent's biggest creature.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 39
     },
     {
       "severity": "moderate",
@@ -33234,7 +33249,8 @@
       "betterLine": "Discard one of the four Stoneforge Mystics, keeping Swords to Plowshares as crucial removal for Knight of the Reliquary or Elvish Reclaimer",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 40
     },
     {
       "severity": "moderate",
@@ -33243,7 +33259,8 @@
       "betterLine": "Cast Sylvan Safekeeper for {G} (using Mox Diamond or Dryad Arbor) to protect combo creatures, then use Knight of the Reliquary to tutor Dark Depths if needed, preserving the land drop. Alternatively, cast Life from the Loam to return lands from graveyard to fuel Knight/Reclaimer activations and grow Knight's power.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 41
     },
     {
       "severity": "moderate",
@@ -33252,7 +33269,8 @@
       "betterLine": "Cast Sylvan Safekeeper for {G} to protect key creatures from removal, or cast Green Sun's Zenith for a useful creature. The Shadowspear activation was a wasted mana point with zero impact.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -33261,7 +33279,8 @@
       "betterLine": "Discard one of the redundant Stoneforge Mystics (3rd or 4th copy), keeping Ponder for card selection to find answers to the Dark Depths/Marit Lage threat.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 49
     },
     {
       "severity": "questionable",
@@ -33270,7 +33289,8 @@
       "betterLine": "Recognize that equipping Shadowspear to Knight of the Reliquary for {2} and attacking with Knight (5/5) + Elvish Reclaimer (1/2) + Dryad Arbor (1/1) = 7 damage is exactly lethal against opponent at 7 life. Any land play works, but the priority should be ensuring the lethal attack happens.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -33279,7 +33299,8 @@
       "betterLine": "Use the 3 mana more productively - activate Elvish Reclaimer (sacrificing a land like Bojuka Bog or Dryad Arbor) to search for Thespian's Stage (if in deck) to combo with Dark Depths, or search for another utility land. Alternatively, save mana to play Sylvan Safekeeper and protect key creatures, or cast Life from the Loam to recur lands.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -33288,7 +33309,8 @@
       "betterLine": "Cast Sylvan Safekeeper for {G} using Lush Portico to protect key creatures from removal and add another attacker for next turn.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "Qwen3L ESPN"
+      "player": "Qwen3L ESPN",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -33297,7 +33319,8 @@
       "betterLine": "Discard the third Stoneforge Mystic (most redundant card), keeping Ponder for crucial card selection at 2 life",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 59
     },
     {
       "severity": "moderate",
@@ -33306,7 +33329,8 @@
       "betterLine": "Discard Quantum Riddler (5 mana, uncastable with only 3 lands and facing imminent lethal) or one of the excess Stoneforge Mystics, keeping Batterskull to deploy via Stoneforge Mystic's ability for {1}{W} to gain life and stabilize.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "GPT5n Vet"
+      "player": "GPT5n Vet",
+      "decisionIndex": 59
     }
   ],
   "blunderScriptVersion": 18,

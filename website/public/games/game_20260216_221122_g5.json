@@ -42839,7 +42839,8 @@
       "betterLine": "Play Inspiring Vantage on turn 1 (enters untapped with 0 other lands), saving Mountain for a later turn when Inspiring Vantage might enter tapped.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 6
     },
     {
       "severity": "questionable",
@@ -42848,7 +42849,8 @@
       "betterLine": "Cast Full Bore on Hired Claw to make it 4/4, dealing 4 combat damage plus 1 from trigger for 5 total damage instead of 2, maximizing damage while opponent has no interaction available.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 19
     },
     {
       "severity": "moderate",
@@ -42857,7 +42859,8 @@
       "betterLine": "Cast Nova Hellkite from exile for its warp cost of {2}{R}, attack for 4 damage (opponent to 10), and save burn spells for later turns when they can be cast alongside other plays.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -42866,7 +42869,8 @@
       "betterLine": "Cast Lightning Helix (3 damage + 3 life) and Burst Lightning (2 damage) both targeting the opponent for 5 total damage, bringing them to 9 life while gaining 3 life.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 39
     },
     {
       "severity": "moderate",
@@ -42875,7 +42879,8 @@
       "betterLine": "Cast Lightning Helix targeting opponent for 3 damage and 3 life gain, then save Nova Hellkite Warp for next turn's precombat main to attack for 4 flying damage with haste.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -42884,7 +42889,8 @@
       "betterLine": "Cast Burst Lightning targeting the opponent for 2 damage, using the untapped Sunbillow Verge. While prowess wouldn't matter post-combat, 2 damage to face with otherwise unused mana is still value in an aggressive deck.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -42893,7 +42899,8 @@
       "betterLine": "Cast Full Bore targeting Emberheart Challenger to trigger Valiant, gaining a free card from the top of the library before the creature is destroyed.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -42902,7 +42909,8 @@
       "betterLine": "Cast Full Bore on Nova Hellkite (using Sacred Foundry) to make it 7/7, dealing 7 damage and putting the opponent to 3 life — within Burst Lightning range for lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -42911,7 +42919,8 @@
       "betterLine": "Cast Full Bore targeting Nova Hellkite to give it +3/+2, dealing 7 damage total and putting the opponent to 3 life, setting up lethal with Burst Lightning next turn.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 75
     },
     {
       "severity": "major",
@@ -42920,7 +42929,8 @@
       "betterLine": "Cast Burst Lightning targeting GPT52 ESPN for 2 damage, reducing them to 4 life. With Nova Hellkite being exiled at end step regardless, there's no reason to hold mana open, and getting the opponent to 4 makes future burn/attacks more likely to be lethal.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 77
     },
     {
       "severity": "major",
@@ -42929,7 +42939,8 @@
       "betterLine": "Cast Burst Lightning targeting GPT52 ESPN (the opponent) for 2 damage, putting them to 4 life. This sets up lethal next turn with Nova Hellkite's 4 power attack, and even if the opponent has removal, the 2 damage is already locked in.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 77
     },
     {
       "severity": "major",
@@ -42938,11 +42949,12 @@
       "betterLine": "Cast Burst Lightning targeting GPT52 ESPN for 2 damage during combat. Whether or not Nova Hellkite is blocked, 4 + 2 = 6 = opponent's life total for guaranteed lethal.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "Gem3F Hype"
+      "player": "Gem3F Hype",
+      "decisionIndex": 92
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

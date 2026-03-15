@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_151602_g2",
   "timestamp": "20260308_151602",
   "gameType": "Two Player Duel",
@@ -115802,7 +115802,8 @@
       "betterLine": "Attack with Lightning Visionary for 2 free damage, then proceed to second main phase to play Mountain and cast spells.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -115811,7 +115812,8 @@
       "betterLine": "Cast Master's Rebuke targeting Turntimber Basilisk and Lightning Visionary to kill the Visionary, then attack with the unblocked Basilisk for 2 damage.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -115820,7 +115822,8 @@
       "betterLine": "Attack with Turntimber Basilisk. If blocked by Lightning Visionary, the favorable trade removes the opponent's only creature. If unblocked, deal 2 damage. Could also hold up Hunter's Insight (2G) to potentially draw cards if unblocked, or Master's Rebuke (1G) to remove the Visionary.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 54
     },
     {
       "severity": "questionable",
@@ -115829,7 +115832,8 @@
       "betterLine": "Don't block — take 5 damage (going to 15) and preserve both prowess tokens for future attacks. At 20 life, 1 point saved is worth less than a prowess creature that could deal more damage over subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 91
     },
     {
       "severity": "minor",
@@ -115838,7 +115842,8 @@
       "betterLine": "Let Garruk's +1 resolve first, making Basilisk a 5/4 with trample, then cast Hunter's Insight in the precombat main phase. The 5/4 body is much harder to remove with burn, protecting the Hunter's Insight investment.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -115847,7 +115852,8 @@
       "betterLine": "Target Garruk, Unleashed with Pillar of Flame to reduce it to 2 loyalty, then attack it down next turn with Kinetic Augur (3 power with trample)",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 144
     },
     {
       "severity": "moderate",
@@ -115856,7 +115862,8 @@
       "betterLine": "Pass priority to let the Kinetic Augur ETB resolve, saving Ranger's Guile to protect an important creature from actual removal later. Then proceed to play Forest and develop the board toward casting Zendikar's Roil or Rampaging Baloths.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 141
     },
     {
       "severity": "moderate",
@@ -115865,7 +115872,8 @@
       "betterLine": "Play Forest from hand first (land drop), then cast Rampaging Baloths for {4}{G}{G} using all 6 available mana. This gives a 6/6 trample creature plus 4/4 tokens on future landfall triggers instead of just 2/2 tokens.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 166
     },
     {
       "severity": "major",
@@ -115874,7 +115882,8 @@
       "betterLine": "Target own Turntimber Basilisk with Garruk's +1 to make it a 5/4 trampler, then attack. Alternatively, use Garruk's -2 to create a 3/3 Beast token instead.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 170
     },
     {
       "severity": "minor",
@@ -115883,7 +115892,8 @@
       "betterLine": "Target GPT53C Teach (opponent) with all 3 damage from Flames of the Firebrand, then cast Chandra's Incinerator for {2}{R} (reduced by 3). This deploys a 6/6 trampler while still having a path to deal with Garruk via Incinerator's triggered ability on subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 225,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 193
     },
     {
       "severity": "moderate",
@@ -115892,7 +115902,8 @@
       "betterLine": "Attack Garruk, Unleashed with the Goblin Wizard Token to destroy the planeswalker at 1 loyalty for free.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 203
     },
     {
       "severity": "minor",
@@ -115901,7 +115912,8 @@
       "betterLine": "Cast Rampaging Baloths (6 mana) to deploy a 6/6 trampler with landfall token generation, or cast Garruk's Harbinger (3 mana) to deploy a threat and still have 4 mana for Primeval Herald. The Magmutt could be dealt with later or simply attacked past with the massive board.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 224
     },
     {
       "severity": "major",
@@ -115910,7 +115922,8 @@
       "betterLine": "Block Turntimber Basilisk with Young Pyromancer AND block Garruk's Harbinger with Living Lightning, taking only 6 total damage (4 trample + 2 token), surviving at 1 life and getting Living Lightning's death trigger",
       "type": "blunder",
       "snapshotIndex": 326,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 266
     },
     {
       "severity": "minor",
@@ -115919,7 +115932,8 @@
       "betterLine": "Target Garruk's Harbinger with Hungry Flames to remove the 4/3 card-advantage creature instead of a 2/2 token",
       "type": "blunder",
       "snapshotIndex": 344,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 286
     },
     {
       "severity": "minor",
@@ -115928,7 +115942,8 @@
       "betterLine": "Skip straight to combat and attack with any creature for lethal damage. The opponent at 1 life with no blockers means any attacker wins the game immediately.",
       "type": "blunder",
       "snapshotIndex": 361,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 295
     }
   ],
   "blunderScriptVersion": 32,

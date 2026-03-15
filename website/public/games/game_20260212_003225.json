@@ -75806,7 +75806,8 @@
       "betterLine": "Fetch Underground Sea (Island/Swamp, produces U/B) to have access to blue mana for Echo of Eons. The LED can provide blue mana too, but Underground Sea gives more flexibility and is the correct fetch when your game plan revolves around casting a blue spell.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -75815,7 +75816,8 @@
       "betterLine": "Play Urza's Saga as the turn 1 land drop to start the saga clock immediately, then cast both Lotus Petals. Save fetchlands for later turns when they can also thin the deck after seeing more cards.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -75824,7 +75826,8 @@
       "betterLine": "Play Bloodstained Mire first, then cast Brainstorm, then crack Bloodstained Mire to shuffle away unwanted cards put on top",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 16
     },
     {
       "severity": "major",
@@ -75833,7 +75836,8 @@
       "betterLine": "Put back Commercial District and Burning Wish, keep Echo of Eons and Lion's Eye Diamond. Then play LED from hand, crack both LEDs (discarding Echo to graveyard), and flashback Echo of Eons for {2}{U} to draw 7 fresh cards this turn.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 25
     },
     {
       "severity": "major",
@@ -75842,7 +75846,8 @@
       "betterLine": "Cast Lion's Eye Diamond first (free, enables Metalcraft on Mox Opal), then cast Burning Wish for {1}{R} using Taiga + Underground Sea. While Burning Wish is on the stack, crack both LEDs to generate 6 mana (e.g., {U}{U}{U}{U}{U}{U}), discarding Echo of Eons to graveyard. After Burning Wish resolves (or even without it), flash back Echo of Eons from graveyard for {2}{U} with the floating LED mana, drawing 7 fresh cards in a very strong position with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 27
     },
     {
       "severity": "major",
@@ -75851,7 +75856,8 @@
       "betterLine": "Cast Lion's Eye Diamond first, then cast Burning Wish, hold priority and crack both LEDs (discarding Echo of Eons to graveyard and generating 6 mana), then flashback Echo of Eons from graveyard for {2}{U}",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 27
     },
     {
       "severity": "moderate",
@@ -75860,7 +75866,8 @@
       "betterLine": "Wish for Tendrils of Agony or Galvanic Relay. For example, wish for Galvanic Relay, cast it (exiling cards equal to storm count for next turn as insurance), then crack both LEDs discarding Echo, flash back Echo for 2U, draw 7, and continue storming. Or simply wish for Tendrils to have as a finisher post-Echo if storm count gets high enough.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 35
     },
     {
       "severity": "major",
@@ -75869,7 +75876,8 @@
       "betterLine": "Cast Brainstorm, hold priority, crack both LEDs for mana (discarding both Echoes to graveyard), resolve Brainstorm, then flashback Echo of Eons for {2}{U} to draw 7 new cards with a refreshed hand.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 45
     },
     {
       "severity": "major",
@@ -75878,7 +75886,8 @@
       "betterLine": "Search for Grindstone with Urza's Saga chapter III. Then cast Painter's Servant (using 2 Mountains or Lotus Petals), naming any color. Next turn (or this turn with enough mana), activate Grindstone targeting the opponent to mill their entire library for the combo kill.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -75887,7 +75896,8 @@
       "betterLine": "Play City of Traitors first, then tap it for {C}{C} to cast Painter's Servant, keeping Mountains untapped for potential other uses or future flexibility.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -75896,7 +75906,8 @@
       "betterLine": "Play a Mountain from hand first (enters untapped), tap it for {R}, then cast Goblin Welder, preserving Lotus Petal as a flexible mana source.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -75905,7 +75916,8 @@
       "betterLine": "Play Urza's Saga to start the saga progression, getting Chapter I immediately for colorless mana and eventually tutoring an artifact with Chapter III to pair with Goblin Welder's recursion ability.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 61
     },
     {
       "severity": "moderate",
@@ -75914,7 +75926,8 @@
       "betterLine": "Cast Chrome Mox (imprinting one Echo of Eons), then crack both Lion's Eye Diamonds (discarding the remaining Echo of Eons to graveyard), generating 6 mana. Then flashback Echo of Eons from the graveyard for {2}{U}, keeping Chrome Mox and Mox Opal on the battlefield, and having 3 mana floating.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 62
     },
     {
       "severity": "moderate",
@@ -75923,7 +75936,8 @@
       "betterLine": "Either skip the land drop to preserve City of Traitors' two colorless mana, or play Urza's Saga instead of Mountain to at least gain Saga's powerful chapter abilities (construct tokens and artifact tutoring) in exchange for losing City of Traitors.",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 76
     },
     {
       "severity": "moderate",
@@ -75932,7 +75946,8 @@
       "betterLine": "Target one of MiniMx Sarge's Lion's Eye Diamonds (or Chrome Mox/Mox Opal) with Pyroblast to destroy a more impactful permanent that is harder for the opponent to replace and more central to their game plan.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 77
     },
     {
       "severity": "major",
@@ -75941,7 +75956,8 @@
       "betterLine": "Target one of the opponent's important artifacts like Lion's Eye Diamond, Chrome Mox, or Mox Opal with Pyroblast (all of which are blue thanks to Painter's Servant) to disrupt the opponent's mana and resources.",
       "type": "blunder",
       "snapshotIndex": 90,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -75950,7 +75966,8 @@
       "betterLine": "Fetch Pithing Needle, which could name Lion's Eye Diamond or another key activated ability to disrupt the opponent's combo/mana plans. Pithing Needle is far more relevant against a fast mana/combo opponent.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -75959,7 +75976,8 @@
       "betterLine": "Crack one Lion's Eye Diamond for 3 blue mana (discarding both Echos to graveyard), then flashback Echo of Eons from graveyard for {2}{U}, preserving more resources on board",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -75968,7 +75986,8 @@
       "betterLine": "Deploy free artifacts (Lotus Petal, Lion's Eye Diamond, Mox Opal, etc.) first, then crack LEDs for mana while casting Echo of Eons flashback. Veil of Summer could be cast in response to a counter if needed, but the opponent appears to have no blue/black interaction, making it largely a wasted card.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -75977,7 +75996,8 @@
       "betterLine": "Hold Pyroblast for an actual blue spell/permanent. Instead, play Arid Mesa or Raucous Theater as a land drop, or cast Grindstone to develop the board.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -75986,7 +76006,8 @@
       "betterLine": "Cast Lotus Petal, sacrifice it for G, then cast Veil of Summer to protect Echo of Eons from Pyroblast, preserving the existing Mox Opal on battlefield",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 93
     },
     {
       "severity": "minor",
@@ -75995,7 +76016,8 @@
       "betterLine": "Keep the untapped Mox Opal to have access to one additional mana this turn for the combo.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 94
     },
     {
       "severity": "moderate",
@@ -76004,7 +76026,8 @@
       "betterLine": "Hold the Red Elemental Blast to counter Echo of Eons (a blue spell) when the opponent attempts to flash it back. Instead, could pass priority and let the Lotus Petal resolve, then focus on deploying the Painter's Servant + Grindstone combo.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -76013,7 +76036,8 @@
       "betterLine": "Hold Red Elemental Blast as protection for when assembling the Painter's Servant + Grindstone combo, or to counter opponent's key spells like Echo of Eons flashback. Instead, focus on deploying combo pieces (play land, cast Painter's Servant or Grindstone).",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -76022,7 +76046,8 @@
       "betterLine": "Actually, Veil of Summer wouldn't have protected Chrome Mox from Red Elemental Blast since REB is a red spell and Veil only grants hexproof from blue and black.",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 101
     },
     {
       "severity": "minor",
@@ -76031,7 +76056,8 @@
       "betterLine": "Play Arid Mesa, crack it for a Mountain (3 untapped Mountains + Lotus Petal = 4 mana), then cast both Painter's Servant (2 mana) and Grindstone (1 mana) this turn, deploying both combo pieces simultaneously to reduce the window for opponent interaction.",
       "type": "blunder",
       "snapshotIndex": 114,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 104
     },
     {
       "severity": "major",
@@ -76040,7 +76066,8 @@
       "betterLine": "Cast Veil of Summer to protect Painter's Servant from potential countermagic or removal, ensuring the combo piece resolves safely. Then after Servant resolves, proceed with the Grindstone combo plan using the LEDs and remaining mana.",
       "type": "blunder",
       "snapshotIndex": 115,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 103
     },
     {
       "severity": "minor",
@@ -76049,7 +76076,8 @@
       "betterLine": "Play Arid Mesa first, then cast Grindstone. This ensures maximum mana availability for activating Grindstone next turn (Arid Mesa fetch + Simian Spirit Guide exile + potential other source = 3 mana for activation).",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 105
     },
     {
       "severity": "major",
@@ -76058,7 +76086,8 @@
       "betterLine": "Cast Veil of Summer to gain hexproof from blue (Painter's Servant likely named blue), which would prevent Grindstone from targeting MiniMx Sarge with its activated ability, shutting down the Painter-Grindstone combo entirely",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 106
     },
     {
       "severity": "major",
@@ -76067,7 +76096,8 @@
       "betterLine": "Activate Grindstone targeting MiniMx Sarge, milling their entire library due to Painter's Servant making all cards share a color, winning the game on the spot.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 113
     },
     {
       "severity": "minor",
@@ -76076,7 +76106,8 @@
       "betterLine": "Let Goblin Engineer resolve (optionally searching for a backup artifact), then tap 3 Mountains and activate Grindstone targeting MiniMx Sarge to mill their entire library thanks to Painter's Servant, winning the game.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 118
     },
     {
       "severity": "major",
@@ -76085,7 +76116,8 @@
       "betterLine": "Activate Grindstone targeting MiniMx Sarge (paying 3 mana from Mountains) to mill their entire library with Painter's Servant on the battlefield, winning the game. For the Engineer ETB, search library for a useful artifact backup like a Lotus Petal or similar.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -76094,7 +76126,8 @@
       "betterLine": "Choose Chrome Mox as the graveyard target, since it would enter with no imprint and be completely useless, while Mox Opal retains future mana potential.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 118
     },
     {
       "severity": "major",
@@ -76103,7 +76136,8 @@
       "betterLine": "Should have either activated Grindstone targeting MiniMx Sarge to win the game with Painter's Servant already in play (all cards share a color, so Grindstone mills the entire library), or at minimum not returned LED to the opponent who has Echo of Eons flashback available.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 126
     },
     {
       "severity": "major",
@@ -76112,7 +76146,8 @@
       "betterLine": "Play Badlands, sacrifice LED for BBB (discarding hand), tap Mox Opal for {1}, cast Beseech the Mirror bargaining Lotus Petal to tutor for a specific answer (like artifact removal or a combo piece to win). Alternatively, cast Burning Wish to find a sideboard sorcery that could deal with the combo (e.g., Shattering Spree or similar).",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 137
     },
     {
       "severity": "major",
@@ -76121,7 +76156,8 @@
       "betterLine": "Activate Grindstone ({3}, {T}) targeting MiniMx Sarge. With Painter's Servant on the battlefield (all cards share the chosen color), Grindstone's ability will repeat until the opponent's entire library is milled, winning the game.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 141
     },
     {
       "severity": "major",
@@ -76130,7 +76166,8 @@
       "betterLine": "Play Ancient Tomb from hand, tap Ancient Tomb for {C}{C} and untapped Mountain for {R}, then activate Grindstone targeting MiniMx Sarge to mill their entire library with Painter's Servant in play for the win.",
       "type": "blunder",
       "snapshotIndex": 166,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 147
     },
     {
       "severity": "moderate",
@@ -76139,7 +76176,8 @@
       "betterLine": "Select yourself for Goblin Engineer's ETB to search your library for a useful artifact (like another combo piece or protection), then activate Grindstone targeting the opponent to mill their entire library with Painter's Servant making all cards share a color, winning the game.",
       "type": "blunder",
       "snapshotIndex": 167,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 152
     },
     {
       "severity": "minor",
@@ -76148,7 +76186,8 @@
       "betterLine": "Play Great Furnace (free artifact land, no life cost) to have 3 mana available, then activate Grindstone targeting opponent to mill their entire library via Painter's Servant combo",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -76157,7 +76196,8 @@
       "betterLine": "Play Ancient Tomb as land drop, then tap 2 Mountains + Ancient Tomb to pay {3} and activate Grindstone targeting the opponent, winning the game immediately with Painter's Servant ensuring all milled cards share a color.",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 155
     },
     {
       "severity": "major",
@@ -76166,7 +76206,8 @@
       "betterLine": "Play Ancient Tomb, then activate Grindstone ({3}, {T}: target opponent mills two cards) using Ancient Tomb ({C}{C}) + Mountain ({R}) to mill opponent's entire library with Painter's Servant making all cards share Blue.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 161
     },
     {
       "severity": "minor",
@@ -76175,7 +76216,8 @@
       "betterLine": "Simply not activate Goblin Engineer at all, preserving the tap ability and R mana for a future turn when the ability could provide actual value (e.g., recovering a destroyed combo piece).",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 161
     },
     {
       "severity": "minor",
@@ -76184,7 +76226,8 @@
       "betterLine": "Play Badlands first, then crack Lion's Eye Diamond for 3 blue mana (discarding hand including Echo of Eons to graveyard), then flashback Echo of Eons from graveyard for {2}{U} using the 3 blue mana plus lands.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 170
     },
     {
       "severity": "minor",
@@ -76193,7 +76236,8 @@
       "betterLine": "Play Badlands first (free land drop), then cast Echo of Eons. This preserves the land on the battlefield through the Echo reset and provides an extra mana source going forward.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 172
     },
     {
       "severity": "moderate",
@@ -76202,7 +76246,8 @@
       "betterLine": "Play Badlands, cast Chrome Mox (imprint Burning Wish or Runehorn Hellkite), then sacrifice LED for UUU (discarding Echo of Eons to graveyard), then flashback Echo of Eons for {2}{U} to draw 7 new cards and disrupt opponent's combo assembly.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 177
     },
     {
       "severity": "moderate",
@@ -76211,7 +76256,8 @@
       "betterLine": "Let Lotus Petal resolve, then activate Goblin Welder targeting the Lotus Petal (controlled artifact) and Grindstone (in graveyard), assembling the Painter's Servant + Grindstone combo to mill the opponent's entire library.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -76220,7 +76266,8 @@
       "betterLine": "Use Goblin Welder targeting one of their own artifacts they control and Grindstone in their own graveyard to return Grindstone to the battlefield, then activate Grindstone targeting the opponent to mill their entire library (since Painter's Servant makes all cards blue, every pair shares a color).",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 179
     },
     {
       "severity": "minor",
@@ -76229,7 +76276,8 @@
       "betterLine": "Let Lotus Petal resolve, then use Goblin Welder's tap ability to swap Lotus Petal for Grindstone at no mana cost, preserving the {R} and keeping Goblin Engineer untapped.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -76238,7 +76286,8 @@
       "betterLine": "Sacrifice the tapped Grindstone to Goblin Engineer, returning the Grindstone from graveyard untapped. This preserves Painter's Servant on the battlefield, and with 3 mana available (Ancient Tomb + Mountain or other sources), activate Grindstone targeting the opponent to mill their entire library and win the game.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 179
     },
     {
       "severity": "major",
@@ -76247,7 +76296,8 @@
       "betterLine": "Play Great Furnace, exile Simian Spirit Guide for {R}, activate Goblin Engineer sacrificing Great Furnace to return Painter's Servant to the battlefield. Next turn, activate Grindstone with Painter's Servant out for the combo kill.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 190
     },
     {
       "severity": "major",
@@ -76256,7 +76306,8 @@
       "betterLine": "Play Great Furnace from hand, then activate Goblin Welder targeting yourself: sacrifice Great Furnace to return Painter's Servant from graveyard to battlefield. Then on next turn, weld in Grindstone to complete the combo.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 190
     },
     {
       "severity": "moderate",
@@ -76265,7 +76316,8 @@
       "betterLine": "Play Great Furnace first (artifact land), then activate Goblin Welder targeting Great Furnace on battlefield and Painter's Servant (or Grindstone) in graveyard to get a combo piece into play",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 195
     },
     {
       "severity": "moderate",
@@ -76274,7 +76326,8 @@
       "betterLine": "Target own artifact to weld in Painter's Servant or Grindstone from graveyard, working toward assembling the Painter-Grindstone combo for a kill",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 195
     },
     {
       "severity": "major",
@@ -76283,7 +76336,8 @@
       "betterLine": "Return Painter's Servant via Goblin Engineer, play Great Furnace, use untapped Goblin Welder to swap Great Furnace for Grindstone, play Ancient Tomb + exile Simian Spirit Guide for 3 mana, activate Grindstone targeting opponent for lethal mill combo",
       "type": "blunder",
       "snapshotIndex": 199,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 195
     },
     {
       "severity": "minor",
@@ -76292,7 +76346,8 @@
       "betterLine": "Play Badlands first, then either hardcast Echo (with more mana available post-resolution) or crack LED to discard hand and flashback Echo for {2}{U}, preserving more permanents on board.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 198
     },
     {
       "severity": "major",
@@ -76301,7 +76356,8 @@
       "betterLine": "Activate Echo of Eons flashback from graveyard, hold priority and crack both LEDs for mana (one for {U}{U}{U}, one for any color), pay {2}{U} flashback cost, draw 7 fresh cards with mana still floating",
       "type": "blunder",
       "snapshotIndex": 205,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 200
     },
     {
       "severity": "major",
@@ -76310,7 +76366,8 @@
       "betterLine": "Crack both Lion's Eye Diamonds (one for {U}{U}{U}, one for any color), then flash back Echo of Eons from graveyard for {2}{U} to shuffle and draw 7 fresh cards.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 202
     },
     {
       "severity": "minor",
@@ -76319,7 +76376,8 @@
       "betterLine": "Play Urza's Saga first (free land drop), then evaluate whether to spend a Simian Spirit Guide on Research Desk or save resources for a more impactful play.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 205
     },
     {
       "severity": "moderate",
@@ -76328,7 +76386,8 @@
       "betterLine": "Cast Pyroblast or Red Elemental Blast to counter the Lightning Bolt (which is blue due to Painter's Servant's color-setting effect if it's still in play somewhere, or naturally targetable by Pyroblast's 'counter if blue' mode), protecting the combo creatures for a future Painter-Grindstone win.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 210
     },
     {
       "severity": "moderate",
@@ -76337,7 +76396,8 @@
       "betterLine": "Counter Lightning Bolt with Pyroblast, since it threatens to kill a key creature (Goblin Welder or Goblin Engineer) or deal 3 damage, while Research Desk is a minor card selection artifact.",
       "type": "blunder",
       "snapshotIndex": 215,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 212
     },
     {
       "severity": "major",
@@ -76346,7 +76406,8 @@
       "betterLine": "Crack both Lion's Eye Diamonds (e.g., one for UUU, one for BBB), discarding hand, then cast Echo of Eons from graveyard for flashback {2}{U}, drawing 7 fresh cards with BBB+U still floating, potentially enabling a combo kill.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 215
     },
     {
       "severity": "moderate",
@@ -76355,7 +76416,8 @@
       "betterLine": "Cast Brainstorm to dig for combo pieces or answers. With Echo of Eons in graveyard and LED on board, finding the right pieces could enable a combo turn. At minimum, Brainstorm at instant speed is almost always correct when you have the mana and want to improve your hand before your own turn.",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 216
     },
     {
       "severity": "moderate",
@@ -76364,7 +76426,8 @@
       "betterLine": "Cast Brainstorm (using available mana or LED) to dig for combo pieces, or cast Dark Ritual into Burning Wish to tutor for a win condition. With two LEDs and Dark Rituals available, there are likely explosive lines available to win or significantly advance the board before the opponent untaps.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 217
     },
     {
       "severity": "minor",
@@ -76373,7 +76436,8 @@
       "betterLine": "Cast Brainstorm first (U from Underground Sea) to see 3 cards and determine the best line, then decide whether/when to cast Dark Ritual(s) based on what's available",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 221
     },
     {
       "severity": "minor",
@@ -76382,7 +76446,8 @@
       "betterLine": "Cast Pyroblast or Red Elemental Blast to counter Brainstorm, denying the opponent card selection before their likely Echo of Eons flashback",
       "type": "blunder",
       "snapshotIndex": 225,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 226
     },
     {
       "severity": "questionable",
@@ -76391,7 +76456,8 @@
       "betterLine": "Counter one of the Dark Rituals to deny mana, since the opponent's combo potential with Echo of Eons flashback and LED is more constrained by mana denial than by losing card selection when they still have LED available for mana generation.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 227
     },
     {
       "severity": "moderate",
@@ -76400,7 +76466,8 @@
       "betterLine": "Take Chaos Defiler - it's the most dangerous threat given the opponent's Goblin Welder/Engineer can cheat it into play, and at 7 life the 5/4 trampler with permanent destruction is far more threatening than a conditional counterspell",
       "type": "blunder",
       "snapshotIndex": 236,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 238
     },
     {
       "severity": "moderate",
@@ -76409,7 +76476,8 @@
       "betterLine": "Play Raucous Theater (getting a surveil trigger and an additional land), or hold Pyroblast for when Painter's Servant is back in play. Could also consider activating Grindstone or setting up the Painter's Servant combo via Goblin Welder/Engineer.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 242
     },
     {
       "severity": "moderate",
@@ -76418,7 +76486,8 @@
       "betterLine": "Hold the Pyroblast for when Painter's Servant is on the battlefield, or use it to counter a blue spell from the opponent. Could instead focus on attacking with creatures (opponent is at 7 life) or setting up the Painter-Grindstone combo through Goblin Welder/Engineer.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 244
     },
     {
       "severity": "minor",
@@ -76427,7 +76496,8 @@
       "betterLine": "Hold Red Elemental Blast for a more impactful use later, such as when Painter's Servant is back on the battlefield, or to counter a blue spell from the opponent. Could have activated Mishra's Research Desk instead to find more resources.",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 244
     },
     {
       "severity": "major",
@@ -76436,7 +76506,8 @@
       "betterLine": "Activate Goblin Welder targeting Mishra's Research Desk (battlefield) and Painter's Servant (graveyard) to return Painter's Servant to play, then activate Grindstone for {3} to combo kill the opponent by milling their entire library.",
       "type": "blunder",
       "snapshotIndex": 243,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 246
     },
     {
       "severity": "questionable",
@@ -76445,7 +76516,8 @@
       "betterLine": "Cast Gamble first to search for a specific combo piece or answer (like Beseech the Mirror or a critical artifact), potentially using LED to fuel a more controlled combo line, rather than giving the opponent 7 fresh cards at low life.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 261
     },
     {
       "severity": "moderate",
@@ -76454,7 +76526,8 @@
       "betterLine": "Use Goblin Welder or Goblin Engineer to work toward getting Painter's Servant onto the battlefield (e.g., if Painter's Servant could be found/returned), or use Goblin Engineer to sacrifice an artifact and return Mishra's Research Desk for card advantage to dig for the combo piece. Alternatively, play Raucous Theater as a land drop first and hold resources.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -76463,7 +76536,8 @@
       "betterLine": "Play Raucous Theater (tapped land) and hold mana open, or consider saving resources. Could also consider whether exiling Simian Spirit Guide for mana plus other sequencing could set up Chaos Defiler next turn for board impact and damage against the 7-life opponent.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -76472,7 +76546,8 @@
       "betterLine": "Attack with all 4 creatures first (4 damage, putting opponent to 3), then use Goblin Welder post-combat if still valuable. Being at 3 life makes the opponent much more vulnerable to any future burn or attacks.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -76481,7 +76556,8 @@
       "betterLine": "Either activate Goblin Welder to interact with opponent's artifacts, or pass without activating if no beneficial swap exists, preserving the Engineer untapped as a threat",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -76490,7 +76566,8 @@
       "betterLine": "Activate Goblin Welder targeting opponent's Lion's Eye Diamond (or Mox Opal) on battlefield and a less useful artifact in opponent's graveyard, disrupting their mana/combo potential",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 250
     },
     {
       "severity": "minor",
@@ -76499,7 +76576,8 @@
       "betterLine": "Should have fetched a dual land with Mountain type (like a Volcanic Island or Badlands) that enters untapped and immediately produces mana for casting spells after Echo of Eons resolves",
       "type": "blunder",
       "snapshotIndex": 250,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 264
     },
     {
       "severity": "minor",
@@ -76508,7 +76586,8 @@
       "betterLine": "Search for a card with Island or Mountain subtypes if available (e.g., Raucous Theater which is Swamp Mountain), or fail to find if no valid targets remain in library. With Echo of Eons on the stack about to give 7 new cards, failing to find would have been acceptable.",
       "type": "blunder",
       "snapshotIndex": 250,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 264
     },
     {
       "severity": "minor",
@@ -76517,7 +76596,8 @@
       "betterLine": "Cast Lotus Petals first to build mana and artifact count, then sequence Dark Ritual into Burning Wish to advance toward a win condition.",
       "type": "blunder",
       "snapshotIndex": 252,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 266
     },
     {
       "severity": "minor",
@@ -76526,7 +76606,8 @@
       "betterLine": "Keep the untapped Mox Opal to have access to an additional mana this turn, which could be relevant for casting Burning Wish or other spells.",
       "type": "blunder",
       "snapshotIndex": 255,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 268
     },
     {
       "severity": "major",
@@ -76535,7 +76616,8 @@
       "betterLine": "Cast Lightning Bolt targeting MiniMx Sarge (3 damage, bringing them to 3), then cast the second Lightning Bolt targeting MiniMx Sarge (3 damage, bringing them to 0) for the win.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 275
     },
     {
       "severity": "major",
@@ -76544,7 +76626,8 @@
       "betterLine": "Cast Lightning Bolt targeting opponent (6→3 life), then cast second Lightning Bolt targeting opponent (3→0 life) for lethal damage.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 275
     },
     {
       "severity": "major",
@@ -76553,7 +76636,8 @@
       "betterLine": "Cast Lightning Bolt targeting the opponent (3 damage, opponent goes to 3), then cast the second Lightning Bolt targeting the opponent (3 damage, opponent goes to 0). This wins the game immediately.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 275
     },
     {
       "severity": "major",
@@ -76562,12 +76646,13 @@
       "betterLine": "Cast Lightning Bolt targeting opponent (6 -> 3 life), then cast second Lightning Bolt targeting opponent (3 -> 0 life) for lethal damage.",
       "type": "blunder",
       "snapshotIndex": 263,
-      "player": "GPT41m Analyst"
+      "player": "GPT41m Analyst",
+      "decisionIndex": 275
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

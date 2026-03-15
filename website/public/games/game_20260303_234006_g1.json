@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_234006_g1",
   "timestamp": "20260303_234006",
   "gameType": "Two Player Duel",
@@ -79600,7 +79600,8 @@
       "betterLine": "Play Island to go to 3 lands, then pass to hold Brineborn Cutthroat for the opponent's turn (where it gains value from its flash + counter ability). This sets up a turn 6 Tectonic Giant with 4 lands.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -79609,7 +79610,8 @@
       "betterLine": "Cast Weaver of Lightning (1/4 reach) to provide a strong defensive body that buys time to deploy expensive threats, with instant/sorcery ping synergy from Irresistible Prey in hand",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT5 Gramps"
+      "player": "GPT5 Gramps",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -79618,7 +79620,8 @@
       "betterLine": "Pass priority here, let Lightning Phoenix resolve, then hold Brineborn Cutthroat to cast during the opponent's turn to get a +1/+1 counter trigger",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 22
     },
     {
       "severity": "moderate",
@@ -79627,7 +79630,8 @@
       "betterLine": "Don't block. Take 2 damage (going to 18), preserve Brineborn Cutthroat to grow it on future opponent turns with instants in hand. The Cutthroat's long-term value far exceeds 2 life points, especially against a creature that can return from the graveyard.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -79636,7 +79640,8 @@
       "betterLine": "Cast Burst Lightning targeting Lightning Phoenix (using Thriving Bluff for R), killing the 2/2 flyer while keeping UU open. Alternatively, cast Furious Rise (UUR) to set up future card advantage.",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -79645,7 +79650,8 @@
       "betterLine": "Attack with Brineborn Cutthroat for 2 free damage. The opponent has no blockers available and no mana to cast anything.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 27
     },
     {
       "severity": "questionable",
@@ -79654,7 +79660,8 @@
       "betterLine": "Hold Burst Lightning for a more permanent removal target or for face damage as a finisher. The Phoenix is annoying but recurring creatures are poor removal targets. Passing the turn and potentially casting Soul Read or Synchronized Eviction on opponent's turn (at instant speed) to develop card advantage would be more efficient.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -79663,7 +79670,8 @@
       "betterLine": "Cast Furious Rise for {2}{R} to set up recurring card advantage. With Tectonic Giant in hand as a 4-power creature to enable it, Furious Rise would generate significant value over the coming turns.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 31
     },
     {
       "severity": "questionable",
@@ -79672,7 +79680,8 @@
       "betterLine": "Cast Furious Rise now while opponent is tapped out, setting up the enchantment for when Tectonic Giant eventually hits the battlefield. The 3 mana would be wasted anyway since there are no other castable spells.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -79681,7 +79690,8 @@
       "betterLine": "Cast Irresistible Prey targeting Weaver of Lightning for {G} to draw a card first, then with the drawn card's information (and potentially an extra land drop), decide whether to equip the Axe or take a different line.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "GPT5 Gramps"
+      "player": "GPT5 Gramps",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -79690,7 +79700,8 @@
       "betterLine": "Cast Dawntreader Elk for {1}{G}, adding a 2/2 body to the board. This provides more total combat damage next turn and the option to sacrifice it for ramp to cast Somberwald Stag or Lightning Diadem.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT5 Gramps"
+      "player": "GPT5 Gramps",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -79699,7 +79710,8 @@
       "betterLine": "Play a land drop first (if any land in hand - none visible, so this may not apply). Consider casting Dawntreader Elk or Lightning Visionary instead, saving Time to Feed for when you have more mana or a better fight target. Also note that targeting Tectonic Giant with any spell triggers its 3-damage ability.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "GPT5 Gramps"
+      "player": "GPT5 Gramps",
+      "decisionIndex": 60
     },
     {
       "severity": "moderate",
@@ -79708,7 +79720,8 @@
       "betterLine": "Block Weaver of Lightning with Tectonic Giant. Both 3-power/4-toughness creatures survive combat, and you only take 2 damage from Lightning Phoenix (10 → 8 life), preserving a crucial 3 life points.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -79717,7 +79730,8 @@
       "betterLine": "Play Mountain from hand first, then move to combat and attack with all three creatures for lethal damage (7 vs 5 life with no possible blockers since all opponent's lands are tapped)",
       "type": "blunder",
       "snapshotIndex": 242,
-      "player": "GPT5 Gramps"
+      "player": "GPT5 Gramps",
+      "decisionIndex": 75
     }
   ],
   "blunderScriptVersion": 32

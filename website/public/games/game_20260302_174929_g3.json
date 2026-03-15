@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_174929_g3",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -175742,7 +175742,8 @@
       "betterLine": "Activate Spark Reaper's ability (sacrifice itself, pay {3}) to draw a card and gain 1 life before damage. Then in postcombat main phase, cast Bone Picker for {B} (discounted since a creature died). This converts an ineffective ground creature into a 3/2 flying deathtouch + card advantage.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 27
     },
     {
       "severity": "major",
@@ -175751,7 +175752,8 @@
       "betterLine": "Cast Barter in Blood to force both players to sacrifice two creatures. Opponent loses Selfless Savior and Carven Caryatid; you lose only Spark Reaper (sacrificing one, then having no second creature to sacrifice). This clears the opponent's board and sets up future turns with Bone Picker (cheap after a creature dies) and Liliana's Standard Bearer.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 29
     },
     {
       "severity": "major",
@@ -175760,7 +175762,8 @@
       "betterLine": "Cast Bone Picker for {3}{B} to deploy a 3/2 flying deathtouch threat, applying significant evasive pressure. Alternatively, Suspicious Shambler (4/2 with graveyard upside) or Moodmark Painter (giving Spark Reaper menace and +1/+0) would also have been strong plays.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -175769,7 +175772,8 @@
       "betterLine": "Attack with Selfless Savior for 1 unblocked damage. The opponent has no blockers available and no mana for tricks.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -175778,7 +175782,8 @@
       "betterLine": "Block Spark Reaper with Carven Caryatid (saves 2 life, Caryatid survives). Optionally also cast Crushing Canopy targeting Bone Picker to destroy it and save 3 more life.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 37
     },
     {
       "severity": "major",
@@ -175787,7 +175792,8 @@
       "betterLine": "Activate Spark Reaper sacrificing Bone Picker (3 mana: draw 1, gain 1 life, fizzle Canopy). After combat damage kills Spark Reaper, flash in Liliana's Standard Bearer (2 mana) to draw 2 cards. Net result: 3 extra cards drawn and 1 life gained.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -175796,7 +175802,8 @@
       "betterLine": "Cast Suspicious Shambler (4/2 for 4 mana) for a bigger, more impactful body with graveyard recursion upside, while holding Liliana's Standard Bearer for a turn where creatures die to get actual card advantage from its ETB. Alternatively, hold up mana and pass, since the 3/1 body doesn't meaningfully change the board state.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -175805,7 +175812,8 @@
       "betterLine": "Attack with both Selfless Savior and Carven Caryatid for 6 total damage, since the opponent has no untapped blockers and no mana available for instant-speed interaction.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -175814,7 +175822,8 @@
       "betterLine": "Block with Pit Keeper to prevent 5 damage. Even if planning Barter in Blood next turn, having 2 creatures to sacrifice (Bearer + Reaper) while opponent loses their 2 creatures achieves the same board-clearing effect, and you save 5 life. The extra creature in graveyard also powers up Undergrowth cards.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -175823,7 +175832,8 @@
       "betterLine": "Block Liliana's Standard Bearer (3/1) with Selfless Savior (1/1), saving 3 damage and trading with a more valuable 3/1 creature.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 56
     },
     {
       "severity": "major",
@@ -175832,7 +175842,8 @@
       "betterLine": "Cast Moodmark Painter targeting Spark Reaper (giving it +4/+0 and menace), then attack with Spark Reaper (6/3) and Moodmark Painter (2/3) for 8 total damage — exactly lethal against the opponent at 8 life with no untapped blockers.",
       "type": "blunder",
       "snapshotIndex": 232,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 62
     },
     {
       "severity": "minor",
@@ -175841,7 +175852,8 @@
       "betterLine": "Attack with both 1/1 Dog tokens for 2 unblockable damage, reducing the opponent to 10 life.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 94
     },
     {
       "severity": "moderate",
@@ -175850,7 +175862,8 @@
       "betterLine": "Cast Village Rites sacrificing Ossuary Rats to draw 2 cards for {B}, since the Rats were going to die in combat anyway - pure card advantage for essentially free.",
       "type": "blunder",
       "snapshotIndex": 319,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 103
     },
     {
       "severity": "minor",
@@ -175859,7 +175872,8 @@
       "betterLine": "Choose Green for Thriving Heath to have access to additional green mana for Assault Formation's activated abilities while still producing white mana for the hand full of white spells.",
       "type": "blunder",
       "snapshotIndex": 327,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -175868,7 +175882,8 @@
       "betterLine": "Choose Green to support Assault Formation's activated abilities, or Black if there are black cards in the deck.",
       "type": "blunder",
       "snapshotIndex": 327,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 104
     },
     {
       "severity": "moderate",
@@ -175877,7 +175892,8 @@
       "betterLine": "Activate Assault Formation's {2}{G} ability to give all creatures +0/+1, making the two Dog tokens deal 4 total damage instead of 2 thanks to toughness-based combat damage.",
       "type": "blunder",
       "snapshotIndex": 335,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 110
     },
     {
       "severity": "moderate",
@@ -175886,7 +175902,8 @@
       "betterLine": "Cast Revenant as a 6/6 flyer that attacks over most blockers and threatens lethal in 2 turns against an opponent at 8 life with minimal flying defense",
       "type": "blunder",
       "snapshotIndex": 345,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 113
     },
     {
       "severity": "major",
@@ -175895,7 +175912,8 @@
       "betterLine": "Target Moodmark Painter itself, making it a 9/3 with menace. This threatens lethal damage against the 8-life opponent, as a 9/3 menace creature is extremely difficult to profitably block.",
       "type": "blunder",
       "snapshotIndex": 352,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 116
     },
     {
       "severity": "moderate",
@@ -175904,7 +175922,8 @@
       "betterLine": "Activate Assault Formation targeting Grave Bramble for {G}, then attack with Grave Bramble for 4 damage, putting the opponent to 6 life.",
       "type": "blunder",
       "snapshotIndex": 356,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 118
     },
     {
       "severity": "major",
@@ -175913,7 +175932,8 @@
       "betterLine": "Cast Pacifism on Moodmark Painter to neutralize its massive Undergrowth threat, then cast Cathar's Companion as an additional body. Use Assault Formation to enable Grave Bramble to attack, pressuring opponent's 10 life total.",
       "type": "blunder",
       "snapshotIndex": 361,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 121
     },
     {
       "severity": "moderate",
@@ -175922,7 +175942,8 @@
       "betterLine": "Attack with both Dog Tokens for 2 guaranteed damage. Ideally also activate Gargoyle Sentinel (3 mana) to attack for 3 flying damage, dealing 5 total and putting opponent to 5 life. Keep remaining mana open for Feat of Resistance or Assault Formation pump if needed.",
       "type": "blunder",
       "snapshotIndex": 363,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 123
     },
     {
       "severity": "moderate",
@@ -175931,7 +175952,8 @@
       "betterLine": "Cast Village Rites sacrificing Moodmark Painter in response to Pacifism. This fizzles Pacifism (wasting opponent's card and mana), draws 2 cards, and grows the graveyard for Revenant.",
       "type": "blunder",
       "snapshotIndex": 370,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 126
     },
     {
       "severity": "minor",
@@ -175940,7 +175962,8 @@
       "betterLine": "Play Thriving Moor (choosing an appropriate color) to have 8 mana sources available next turn, enabling more flexibility to cast multiple spells or activate abilities.",
       "type": "blunder",
       "snapshotIndex": 403,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 134
     },
     {
       "severity": "major",
@@ -175949,7 +175972,8 @@
       "betterLine": "Block Grave Bramble with the Soldier Token to prevent 6 damage, going to 8 life instead of 3 life.",
       "type": "blunder",
       "snapshotIndex": 420,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 141
     },
     {
       "severity": "questionable",
@@ -175958,7 +175982,8 @@
       "betterLine": "Attack with both Eternal Taskmaster and Soldier Token to maximize damage through the single available blocker (Gargoyle Sentinel), dealing at least 1 extra damage to the opponent at 8 life",
       "type": "blunder",
       "snapshotIndex": 440,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 143
     },
     {
       "severity": "minor",
@@ -175967,7 +175992,8 @@
       "betterLine": "Block Eternal Taskmaster with Gargoyle Sentinel to kill it while the Gargoyle survives at 3/1. This removes a recursive threat for free.",
       "type": "blunder",
       "snapshotIndex": 450,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 151
     },
     {
       "severity": "minor",
@@ -175976,7 +176002,8 @@
       "betterLine": "Do not activate Fetid Imp's ability since it has summoning sickness and can't participate in combat. Keep the mana open in case of any instant-speed needs or simply save it.",
       "type": "blunder",
       "snapshotIndex": 453,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 152
     },
     {
       "severity": "minor",
@@ -175985,7 +176012,8 @@
       "betterLine": "Cast Cathar's Companion for an additional attacker, then move to combat. Attack with both Dog tokens and activate Gargoyle Sentinel ({3} to lose defender and gain flying). Opponent only has a 1/1 Soldier token to block, so at minimum 4+ damage gets through against 2 life for lethal.",
       "type": "blunder",
       "snapshotIndex": 463,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 159
     },
     {
       "severity": "major",
@@ -175994,7 +176022,8 @@
       "betterLine": "Attack with all creatures (two Dog tokens, Gargoyle Sentinel, and Grave Bramble). The opponent can only block one attacker with the 1/1 Soldier token. Even blocking one Dog token, the remaining attackers deal at least 2 damage (another Dog token alone), which is lethal against the opponent's 2 life. Use Assault Formation's {G} ability to let Grave Bramble attack if needed.",
       "type": "blunder",
       "snapshotIndex": 465,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 160
     },
     {
       "severity": "major",
@@ -176003,7 +176032,8 @@
       "betterLine": "Activate Gargoyle Sentinel for {3} to lose defender and gain flying, then attack with Gargoyle Sentinel (3 flying damage, unblockable) for lethal. Alternatively, attack with all available creatures to overwhelm the single 1/1 blocker.",
       "type": "blunder",
       "snapshotIndex": 465,
-      "player": "Gem3P Valley"
+      "player": "Gem3P Valley",
+      "decisionIndex": 160
     },
     {
       "severity": "major",
@@ -176012,7 +176042,8 @@
       "betterLine": "Block Gargoyle Sentinel with Fetid Imp (activate deathtouch for B), block Grave Bramble with Caged Zombie, block one Dog Token with Soldier Token. This blocks 10 of 11 damage, surviving at 1 life.",
       "type": "blunder",
       "snapshotIndex": 476,
-      "player": "MstLg Tinker"
+      "player": "MstLg Tinker",
+      "decisionIndex": 167
     }
   ],
   "blunderScriptVersion": 31,

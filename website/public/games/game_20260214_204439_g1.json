@@ -41651,7 +41651,8 @@
       "betterLine": "Play Eye of Ugin turn 1, then Eldrazi Temple turn 2 to cast Glaring Fleshraker (cost reduced to {C}), then City of Traitors turn 3 to cast Reality Smasher",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 4
     },
     {
       "severity": "moderate",
@@ -41660,7 +41661,8 @@
       "betterLine": "Play Eye of Ugin (sacrificing tapped City of Traitors), then cast Glaring Fleshraker for {C}, then cast Reality Smasher for {2}{C} with haste, deploying two threats and getting Fleshraker triggers.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -41669,7 +41671,8 @@
       "betterLine": "Play Flooded Strand or Misty Rainforest first, then cast Ponder. This preserves the option to shuffle with the fetchland after seeing the top 3, and keeps mana options open depending on what Ponder reveals.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -41678,7 +41681,8 @@
       "betterLine": "Consider playing Wasteland and immediately destroying Eldrazi Temple to cripple the opponent's Eldrazi-specific mana, then play Savannah next turn for white mana. Alternatively, Savannah is defensible if the plan is to hold up Swords to Plowshares against an incoming Reality Smasher.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 21
     },
     {
       "severity": "major",
@@ -41687,7 +41691,8 @@
       "betterLine": "Let Phelia resolve and answer it with Swords to Plowshares, preserving both Force of Will and Murktide Regent for more impactful threats like Reality Smasher or other large Eldrazi.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -41696,7 +41701,8 @@
       "betterLine": "Play Eye of Ugin instead, making Reality Smasher cost only 3 mana (5 minus 2), and benefiting future turns with reduced costs for the second Reality Smasher and other Eldrazi spells.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -41705,7 +41711,8 @@
       "betterLine": "Play Eye of Ugin first (land drop), then cast Reality Smasher for {2}{C} using Eldrazi Temple + Cavern of Souls, keeping Grim Monolith untapped for casting a second Reality Smasher or Glaring Fleshraker next turn.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -41714,7 +41721,8 @@
       "betterLine": "Play Wasteland and immediately use it to destroy Eldrazi Temple (or Cavern of Souls), disrupting the opponent's mana development before they can deploy major Eldrazi threats",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 46
     },
     {
       "severity": "moderate",
@@ -41723,7 +41731,8 @@
       "betterLine": "Cast Glaring Fleshraker first (1 mana after Eye reduction), then cast Reality Smasher (3 mana after Eye reduction), getting an extra 2/2, a 0/1 Spawn token, and 2 damage to opponent.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 60
     },
     {
       "severity": "questionable",
@@ -41732,7 +41741,8 @@
       "betterLine": "Cast Wastescape Battlemage with {G} kicker to exile Leyline Binding, recovering the exiled permanent while still deploying a creature. Could then follow up with Linebreaker on a subsequent turn for more impact with multiple Eldrazi for the pump trigger.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -41741,7 +41751,8 @@
       "betterLine": "Fetch Volcanic Island to get a 4th basic land type (Mountain) for Domain, entering untapped for immediate mana availability",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -41750,7 +41761,8 @@
       "betterLine": "Play Abundant Countryside first, then cast Wastescape Battlemage with {G} kicker (using Abundant Countryside for the green mana as part of casting a creature spell) to exile Leyline Binding and free whatever permanent was exiled under it.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 107
     },
     {
       "severity": "moderate",
@@ -41759,7 +41771,8 @@
       "betterLine": "Cast Eldrazi Linebreaker precombat (costs only {R} with Eye of Ugin discount, payable via Cavern of Souls). Its beginning of combat trigger would give it haste and +2/+0, allowing it to attack as a 5/3 trampler alongside Wastescape Battlemage for potentially 7 damage instead of just 2.",
       "type": "blunder",
       "snapshotIndex": 138,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 109
     },
     {
       "severity": "moderate",
@@ -41768,7 +41781,8 @@
       "betterLine": "Put Life from the Loam on top to draw it, enabling recovery of Wasteland and fetchlands from graveyard to attack opponent's mana base and generate sustained card advantage.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 117
     },
     {
       "severity": "moderate",
@@ -41777,7 +41791,8 @@
       "betterLine": "Cast Eldrazi Linebreaker before combat (using Cavern of Souls for R, Eldrazi Temple or City of Traitors for C, with Eye of Ugin reducing cost by 2), then attack with both creatures for 7 damage total.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 119
     },
     {
       "severity": "minor",
@@ -41786,7 +41801,8 @@
       "betterLine": "Play Wasteland instead, preserving City of Traitors for free colorless mana. Wasteland could then be used to destroy an opponent's key land like Karakas (which threatens to bounce legendary creatures) or a dual land to constrain their mana.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 121
     },
     {
       "severity": "moderate",
@@ -41795,7 +41811,8 @@
       "betterLine": "Cast Eldrazi Linebreaker in precombat main phase so its beginning of combat trigger would fire, giving itself haste and +2/+0 (5/3 trample attacker) or boosting Wastescape Battlemage by +2/+0.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 121
     },
     {
       "severity": "minor",
@@ -41804,7 +41821,8 @@
       "betterLine": "Activate Wasteland to destroy Eye of Ugin (or Eldrazi Temple) to cut off the opponent's cost reduction/mana advantage, then hold Brainstorm for the opponent's end step or a future turn when a fetchland is available to shuffle away unwanted cards.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 125
     },
     {
       "severity": "minor",
@@ -41813,7 +41831,8 @@
       "betterLine": "Keep Flooded Strand in hand, put back Tundra and/or Leyline Binding (already have one in play and plenty of lands). Then play and crack Flooded Strand to shuffle away the cards put on top.",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 126
     },
     {
       "severity": "minor",
@@ -41822,7 +41841,8 @@
       "betterLine": "Play Abundant Countryside (or Wasteland to destroy Karakas) first, then cast Kozilek's Command with more available mana for a larger X value.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 130
     },
     {
       "severity": "minor",
@@ -41831,7 +41851,8 @@
       "betterLine": "Tap Ancient Tomb (2 colorless, take 2 damage) + Eldrazi Temple (1 colorless) + Cavern of Souls (1 colorless) to pay 4 and untap Grim Monolith, giving access to 3 extra mana on their next turn for bigger plays like Kozilek's Command or deploying multiple threats.",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 132
     },
     {
       "severity": "questionable",
@@ -41840,7 +41861,8 @@
       "betterLine": "This is debatable - exiling Wastescape Battlemage removes an immediate creature threat and prevents potential kicker value if it gets blinked or recurred, while exiling Grim Monolith cuts mana production. Given the opponent already has substantial mana sources and the Battlemage is tapped (already attacked), Grim Monolith may be the correct choice to prevent casting massive Eldrazi like Sire of Seven Deaths. The play is defensible.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 138
     },
     {
       "severity": "major",
@@ -41849,7 +41871,8 @@
       "betterLine": "Cast Reality Smasher (cost reduced to {2}{C} by Eye of Ugin) using Ancient Tomb + Eldrazi Temple, then attack with both Reality Smasher (5/5 haste trample) and Wastescape Battlemage for 7 total damage.",
       "type": "blunder",
       "snapshotIndex": 181,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 141
     },
     {
       "severity": "minor",
@@ -41858,7 +41881,8 @@
       "betterLine": "Cast Reality Smasher (5/5 haste trample) to attack immediately, dealing 5 damage and putting opponent to 6 life. The Reality Smasher's discard clause also makes it hard to remove. Follow up with Sire next turn for the kill.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "Sonnet Gramps"
+      "player": "Sonnet Gramps",
+      "decisionIndex": 141
     },
     {
       "severity": "minor",
@@ -41867,11 +41891,12 @@
       "betterLine": "Fetch basic Plains to have Wasteland-proof mana, since all color needs are already covered by existing lands",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "GPT4om Valley"
+      "player": "GPT4om Valley",
+      "decisionIndex": 147
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

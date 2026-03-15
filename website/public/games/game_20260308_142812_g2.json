@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_142812_g2",
   "timestamp": "20260308_142812",
   "gameType": "Two Player Duel",
@@ -71427,7 +71427,8 @@
       "betterLine": "Choose Green as the second color for Thriving Bluff, enabling it to tap for red or green mana to cast the deck's green spells.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -71436,7 +71437,8 @@
       "betterLine": "Cast Thrill of Possibility discarding a Mountain to draw 2 cards, improving hand quality significantly while using otherwise wasted mana.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -71445,7 +71447,8 @@
       "betterLine": "Attack with Chandra's Pyreling for 1 free damage since there are no possible blockers and no mana available for opponent's tricks.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 44
     },
     {
       "severity": "minor",
@@ -71454,7 +71457,8 @@
       "betterLine": "Cast Blindblast targeting Turntimber Basilisk to kill it (1 damage to a 1-toughness creature) and draw a card, neutralizing the deathtouch threat before it can use its landfall ability to force unfavorable blocks.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -71463,7 +71467,8 @@
       "betterLine": "Cast Blindblast targeting Turntimber Basilisk to kill it (1 damage to 1 toughness) and draw a card, cleanly removing the deathtouch threat before the opponent can use its landfall ability.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -71472,7 +71477,8 @@
       "betterLine": "Accept the trigger (choose yes) to force Chandra's Pyreling to block the deathtouch Basilisk, guaranteeing a favorable trade that removes a snowball threat.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -71481,7 +71487,8 @@
       "betterLine": "Don't block. Take 1 damage (going to 19), preserve Primeval Herald to attack next turn (fetching another land and dealing 3 trample damage), and use Affectionate Indrik's fight trigger next turn to cleanly remove Chandra's Pyreling.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -71490,7 +71497,8 @@
       "betterLine": "Cast Garruk's Uprising this turn (3 mana). Next turn, play Evolving Wilds/Forest, then cast Affectionate Indrik (6 mana) to fight Living Lightning while drawing a card from Uprising's trigger.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 86
     },
     {
       "severity": "moderate",
@@ -71499,7 +71507,8 @@
       "betterLine": "Cast Rampaging Growth (searching for a Forest), getting a 4/3 haste Insect with reach, then attack with both Affectionate Indrik and the Insect token for 8 damage while also ramping.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 108
     },
     {
       "severity": "minor",
@@ -71508,7 +71517,8 @@
       "betterLine": "Cast Hunter's Insight targeting Affectionate Indrik, then attack with the unblockable 4/4 trampler to draw 4 cards, generating massive card advantage",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 111
     },
     {
       "severity": "major",
@@ -71517,7 +71527,8 @@
       "betterLine": "Attack with both Affectionate Indrik and the 4/3 Forest for 8 unblocked damage (both have trample from Garruk's Uprising), bringing opponent from 20 to 12.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 116
     },
     {
       "severity": "questionable",
@@ -71526,7 +71537,8 @@
       "betterLine": "Block with Affectionate Indrik to trade for the Pyroclastic Elemental. While this loses the potential Hunter's Insight target, removing the 5/4 with a repeatable ping ability is likely worth more than preserving a vanilla 4/4 body. The Elemental threatens 5+ damage per turn going forward.",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 128
     },
     {
       "severity": "moderate",
@@ -71535,7 +71547,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a Forest, triggering a second Rampaging Baloths landfall for a second 4/4 Beast token and drawing an extra card from Garruk's Uprising, all before combat.",
       "type": "blunder",
       "snapshotIndex": 196,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 137
     },
     {
       "severity": "moderate",
@@ -71544,7 +71557,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a Forest, triggering Rampaging Baloths' landfall to create an additional 4/4 Beast token before proceeding to attacks.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 140
     },
     {
       "severity": "minor",
@@ -71553,7 +71567,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a Forest, triggering Rampaging Baloths' landfall to create a 4/4 Beast token before the opponent declares blockers.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 141
     },
     {
       "severity": "moderate",
@@ -71562,7 +71577,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a Forest, triggering Rampaging Baloths' Landfall for a 4/4 Beast token and Garruk's Uprising for a card draw.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 143
     },
     {
       "severity": "minor",
@@ -71571,7 +71587,8 @@
       "betterLine": "Attack first with Pyroclastic Elemental (5/4) and Chandra's Magmutt (2/2) for 7 unblockable damage (opponent goes to 8), keeping all 5 mana open for combat tricks like Blindblast. Then cast Goblin Wizardry postcombat. The tokens can't attack this turn regardless of when they're created.",
       "type": "blunder",
       "snapshotIndex": 220,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 154
     },
     {
       "severity": "minor",
@@ -71580,7 +71597,8 @@
       "betterLine": "Play a Forest to trigger Rampaging Baloths (create 4/4 Beast token) and Garruk's Uprising (draw a card), then move to combat and attack for lethal.",
       "type": "blunder",
       "snapshotIndex": 248,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 173
     }
   ],
   "blunderScriptVersion": 32,

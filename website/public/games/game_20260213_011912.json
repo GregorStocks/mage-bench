@@ -314010,7 +314010,8 @@
       "betterLine": "Choose to be on the play to leverage the proactive creature-based strategy and land Voice of Victory or Kinscaer Sentry a turn earlier",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -314019,7 +314020,8 @@
       "betterLine": "Play Marsh Flats or Arid Mesa, fetch a Plains, and save Karakas for later when its legendary creature bounce ability might matter or when it's safer from Wasteland.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -314028,7 +314030,8 @@
       "betterLine": "Play Karakas to produce {W} directly, preserving Arid Mesa and Marsh Flats to crack later when Sand Scout is in play to generate Sand Warrior tokens",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -314037,7 +314040,8 @@
       "betterLine": "Play Karakas (provides {W} for free), crack Arid Mesa for a Plains (1 life), and cast a 2-drop like Staff of the Storyteller or Guide of Souls. Save Marsh Flats for later Sand Scout synergy.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -314046,7 +314050,8 @@
       "betterLine": "Discard a less impactful card like Staff of the Storyteller or Amped Raptor, and play Karakas as a land drop next turn to advance the mana base and gain access to its bounce ability.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -314055,7 +314060,8 @@
       "betterLine": "Cast Guide of Souls first, then cast Ocelot Pride to trigger Guide of Souls (gain 1 life and 1 energy). This sets up the Ocelot Pride end-step token trigger (life was gained) and begins energy accumulation for Guide of Souls' attack trigger.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 14
     },
     {
       "severity": "questionable",
@@ -314064,7 +314070,8 @@
       "betterLine": "Discard Wasteland (already have one on battlefield and multiple fetchlands) or Sand Scout (more situational), keeping Staff of the Storyteller for its strong token synergy with Ocelot Pride, Voice of Victory, and other token producers in the deck.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 23
     },
     {
       "severity": "moderate",
@@ -314073,7 +314080,8 @@
       "betterLine": "Play Sunbaked Canyon or Elegant Parlor as land drop, cast Guide of Souls (triggers from Ocelot Pride's token creation), cast Kinscaer Sentry or Voice of Victory, and attack with available creatures to pressure the defenseless opponent.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -314082,7 +314090,8 @@
       "betterLine": "Cast Kinscaer Sentry (1W) using Plateau + Plains before combat, then attack with all creatures. Kinscaer Sentry's attack trigger could additionally put Ocelot Pride or Amped Raptor onto the battlefield tapped and attacking, maximizing damage against the defenseless opponent.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -314091,7 +314100,8 @@
       "betterLine": "Target Ocelot Pride to create a 3/3 first strike, lifelink, flying creature that maximizes the value of the counters through its existing keyword abilities and token generation.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -314100,7 +314110,8 @@
       "betterLine": "Play Sunbaked Canyon instead of Mountain - it provides the same R/W mana with the added option to sacrifice and draw a card, at a negligible life cost given the 32 life total and dominant board position.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -314109,12 +314120,13 @@
       "betterLine": "Cast Kinscaer Sentry pre-combat, attack with Ocelot Pride, Cat Token, and Kinscaer Sentry, use Sentry's trigger to put Sand Scout or Amped Raptor onto the battlefield tapped and attacking for 6+ damage",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Kimi25 Libby"
+      "player": "Kimi25 Libby",
+      "decisionIndex": 50
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 12,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

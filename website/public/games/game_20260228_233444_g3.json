@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_233444_g3",
   "timestamp": "20260228_233444",
   "gameType": "Two Player Duel",
@@ -97272,7 +97272,8 @@
       "betterLine": "Equip Adventuring Gear to Oashra Cultivator for {1}, then play Thriving Isle to trigger landfall, making Oashra Cultivator a 2/5 that can attack unblocked for 2 damage.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -97281,7 +97282,8 @@
       "betterLine": "Equip Adventuring Gear to Oashra Cultivator for {1}, then attack for 2 damage into an empty/tapped board.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -97290,7 +97292,8 @@
       "betterLine": "Don't block, take 2 damage (go to 18 life), keep Sage's Row Savant for future attacks or blocks. The Savant's 2 power could be relevant for racing or trading with a more important creature later.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 22
     },
     {
       "severity": "major",
@@ -97299,7 +97302,8 @@
       "betterLine": "Play Evolving Wilds, crack it to fetch a Forest (triggering Adventuring Gear landfall), then cast Turntimber Basilisk with the 3 green mana available. This develops the board with a deathtouch creature to threaten blocking Merrow Reejerey.",
       "type": "blunder",
       "snapshotIndex": 95,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -97308,7 +97312,8 @@
       "betterLine": "Don't block. Take 0 damage from the 0-power creature and keep Merrow Reejerey safe from any potential combat tricks.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -97317,7 +97322,8 @@
       "betterLine": "Play Evolving Wilds first, then cast Turntimber Basilisk with the same 3 untapped lands. The end board state is identical but proper sequencing preserves maximum flexibility.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -97326,7 +97332,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land (likely Island for blue mana), ensuring 4 mana available next turn to cast Drownyard Explorers on curve, which also creates a Clue token advancing the Mechanized Production / Gearseeker Serpent artifact synergy plan.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -97335,7 +97342,8 @@
       "betterLine": "Cast Vodalian Arcanist ({1}{U}) → Reejerey untaps an Island → Cast Exclusion Mage ({2}{U}) bouncing Turntimber Basilisk → Tap Vodalian Arcanist for {C} → Cast Opt. This deploys 2 creatures, bounces the Basilisk, and draws a card — getting significantly more value from 4 lands.",
       "type": "blunder",
       "snapshotIndex": 134,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -97344,7 +97352,8 @@
       "betterLine": "Bounce Turntimber Basilisk — it's the bigger threat with deathtouch and a landfall ability that can force unfavorable blocks, especially with Evolving Wilds available to trigger landfall.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -97353,7 +97362,8 @@
       "betterLine": "Cast Vodalian Arcanist for {1}{U}, getting a 2/4 Merfolk (with Reejerey buff), triggering Reejerey to tap/untap a permanent, and adding another attacker/blocker to the board.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 57
     },
     {
       "severity": "major",
@@ -97362,7 +97372,8 @@
       "betterLine": "Cast Drownyard Explorers for {3}{U} to get a 2/4 blocker and a Clue token, then cast Oashra Cultivator with remaining green mana for another body, and activate Evolving Wilds to fetch a land. This deploys desperately needed blockers and advances the board.",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -97371,7 +97382,8 @@
       "betterLine": "Play Island first, then cast Storm Sculptor (triggering Reejerey to untap a land for 3 remaining mana), bounce Triton Shorestalker, replay Shorestalker (1 mana), and cast Vodalian Arcanist (2 mana) — deploying maximum board presence while still attacking for 4 unblockable.",
       "type": "blunder",
       "snapshotIndex": 196,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 59
     },
     {
       "severity": "moderate",
@@ -97380,7 +97392,8 @@
       "betterLine": "Untap a tapped Island to gain extra mana, then play Island from hand for 3 available mana, cast Vodalian Arcanist (triggering Reejerey again to untap another Island), potentially chaining into Aquatic Incursion or holding up Soul Read.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -97389,7 +97402,8 @@
       "betterLine": "Untap a tapped Island to have 2 mana available, then after Storm Sculptor bounces Triton Shorestalker, recast it for 1 mana, triggering Reejerey again for further untaps and board development.",
       "type": "blunder",
       "snapshotIndex": 204,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 63
     },
     {
       "severity": "questionable",
@@ -97398,7 +97412,8 @@
       "betterLine": "Save Evolving Wilds for a future turn when a creature is equipped with Adventuring Gear to get a +2/+2 landfall trigger. The extra mana from fetching now is marginal since the land enters tapped anyway.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -97407,7 +97422,8 @@
       "betterLine": "Save Evolving Wilds for a future turn when a creature is equipped with Adventuring Gear to get a meaningful +2/+2 landfall trigger. The mana is not needed this turn since 4 untapped lands suffice for Drownyard Explorers.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 64
     },
     {
       "severity": "questionable",
@@ -97416,7 +97432,8 @@
       "betterLine": "Fetch Island to better support the blue-heavy hand (Gearseeker Serpent, Mechanized Production, Drownyard Explorers)",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 66
     },
     {
       "severity": "major",
@@ -97425,7 +97442,8 @@
       "betterLine": "Bounce Triton Shorestalker (1-drop), then replay it for U, triggering Merrow Reejerey's tap/untap ability. This keeps the 4/3 unblockable Storm Sculptor on board while only temporarily losing the Shorestalker, which can be immediately replayed.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 67
     },
     {
       "severity": "major",
@@ -97434,7 +97452,8 @@
       "betterLine": "Cast Shaper Apprentice (1U) then Vodalian Arcanist (1U), using both Reejerey triggers to tap Drownyard Explorers and Oashra Cultivator, then attack with all four creatures for 9 damage — lethal against 6 life.",
       "type": "blunder",
       "snapshotIndex": 249,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -97443,7 +97462,8 @@
       "betterLine": "Untap a tapped Island to gain an additional mana, enabling potential follow-up plays like casting Shaper Apprentice (1U) or Vodalian Arcanist (1U) after Storm Sculptor resolves and bounces a creature.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 75
     },
     {
       "severity": "major",
@@ -97452,7 +97472,8 @@
       "betterLine": "Block Merrow Reejerey with Drownyard Explorers 2/4 — Explorers survives at 2 toughness remaining while killing the 2/2 Reejerey, and you only take 2 unblockable damage instead of 4 total.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -97461,7 +97482,8 @@
       "betterLine": "Use the trigger to untap an Island (for potential mana) or untap a creature like Merrow Reejerey for blocking, since it's pure upside.",
       "type": "blunder",
       "snapshotIndex": 280,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 82
     },
     {
       "severity": "major",
@@ -97470,7 +97492,8 @@
       "betterLine": "Target Merrow Reejerey with Master's Rebuke. Without the lord, Triton Shorestalker becomes 1/1 (1 unblockable damage) and Shaper Apprentice becomes 2/1 (blockable by Drownyard Explorers 2/4), allowing survival at 1 life.",
       "type": "blunder",
       "snapshotIndex": 292,
-      "player": "Llama4 Sport"
+      "player": "Llama4 Sport",
+      "decisionIndex": 85
     },
     {
       "severity": "minor",
@@ -97479,7 +97502,8 @@
       "betterLine": "Skip directly to combat and attack with Triton Shorestalker for 2 unblockable damage to win the game. Cast nothing precombat when lethal is already on board.",
       "type": "blunder",
       "snapshotIndex": 313,
-      "player": "Qwen3 Valley"
+      "player": "Qwen3 Valley",
+      "decisionIndex": 89
     }
   ],
   "blunderScriptVersion": 30,

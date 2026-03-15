@@ -65066,7 +65066,8 @@
       "betterLine": "Play Ancient Tomb to generate 2 mana (taking 2 damage), then cast Grim Monolith. This enables a much faster start — potentially casting Voltaic Key with the remaining mana from Grim Monolith, untapping it, and having access to massive mana on turn 2 for Glaring Fleshraker or Kozilek's Command.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -65075,7 +65076,8 @@
       "betterLine": "Play a land first (likely Thespian's Stage or Urza's Saga), then cast Mox Diamond discarding a surplus land. This ensures the land drop isn't wasted and gives more information before choosing which land to discard to Mox Diamond.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -65084,7 +65086,8 @@
       "betterLine": "Discard a redundant Urza's Saga to Mox Diamond, preserving Wasteland to destroy opponent's Tron lands and keeping all unique utility lands available",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 10
     },
     {
       "severity": "minor",
@@ -65093,7 +65096,8 @@
       "betterLine": "Play Thespian's Stage or Dark Depths now, then the other combo piece turn 2, enabling the combo on turn 3 with Mox Diamond + a third land for the {2} activation cost of Stage.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -65102,7 +65106,8 @@
       "betterLine": "Play Ancient Tomb first, then use Ancient Tomb (2) + Grim Monolith (3) + Voltaic Key to untap Monolith (3 more) = 7 colorless mana. Cast Fleshraker (3) then Kozilek's Command X=2 (4) to get Fleshraker triggers and additional value.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 21
     },
     {
       "severity": "moderate",
@@ -65111,7 +65116,8 @@
       "betterLine": "Play Dark Depths as land for turn, then next turn play Thespian's Stage and activate it copying Dark Depths to create a 20/20 flying indestructible Marit Lage token. This is a two-turn kill combo that should take priority over land destruction.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -65120,7 +65126,8 @@
       "betterLine": "Play Ancient Tomb to maximize available mana this turn (enabling a larger Kozilek's Command with Glaring Fleshraker triggers), or play Urza's Tower to build toward Urza's Workshop synergy. Then use Voltaic Key to untap Grim Monolith and potentially cast a meaningful Kozilek's Command.",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -65129,7 +65136,8 @@
       "betterLine": "Play Urza's Tower (or Ancient Tomb) as land drop, untap Grim Monolith using available mana, then potentially cast Kozilek's Command with the additional mana to create Eldrazi Spawn tokens triggering Glaring Fleshraker for damage and board development.",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -65138,7 +65146,8 @@
       "betterLine": "Tap Urza's Workshop for {C}{C} (metalcraft active with 3 artifacts, 2 Urza's lands), cast Kozilek's Command for X=0 choosing 'scry 0, draw a card' plus another mode. This draws a card, triggers Glaring Fleshraker for 1 damage and a Spawn token.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -65147,7 +65156,8 @@
       "betterLine": "Cast Kozilek's Command with X=0 for {C}{C}, choosing 'target player scries 0, then draws a card' plus another mode (like exile 0 cards from graveyards), to draw an extra card.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 105
     },
     {
       "severity": "moderate",
@@ -65156,7 +65166,8 @@
       "betterLine": "Activate Wasteland to destroy opponent's Urza's Saga (preventing chapter III artifact tutor) or Urza's Workshop (cutting metalcraft mana), then use remaining plays to advance the Dark Depths + Thespian's Stage combo by playing lands",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 108
     },
     {
       "severity": "minor",
@@ -65165,7 +65176,8 @@
       "betterLine": "This is actually correct sequencing for the combo. No blunder here.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 112
     },
     {
       "severity": "major",
@@ -65174,7 +65186,8 @@
       "betterLine": "Play Thespian's Stage from hand (have Exploration for extra land drop), tap Yavimaya and Dark Depths for 2 mana (both produce G via Yavimaya), activate Thespian's Stage to copy Dark Depths, creating a 20/20 flying indestructible Marit Lage token.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 114
     },
     {
       "severity": "moderate",
@@ -65183,7 +65196,8 @@
       "betterLine": "Cast Kozilek's Command with X=0 for {C}{C}, choosing 'target player scries 0, then draws a card' plus another mode (like exile cards from graveyards) to draw a card for 2 mana.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 115
     },
     {
       "severity": "moderate",
@@ -65192,7 +65206,8 @@
       "betterLine": "Tap Grim Monolith (3C) + Urza's Workshop (1C) + Urza's Saga (1C) = 5C. Pay {4} to untap Grim Monolith. Then retap Monolith for 3C more, giving 4C total remaining. Cast Kozilek's Command for X=2 (cost {2}{C}{C}), choosing two relevant modes like scry 2 + draw a card and create 2 Eldrazi Spawn tokens (triggering Glaring Fleshraker for damage and a Spawn).",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 116
     },
     {
       "severity": "minor",
@@ -65201,7 +65216,8 @@
       "betterLine": "Should have at minimum untapped Grim Monolith by paying {4} using Urza's Workshop and other available mana sources, ensuring access to 3 additional colorless mana on the next turn. Could also have considered casting Kozilek's Command at end of opponent's turn for value.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 118
     },
     {
       "severity": "questionable",
@@ -65210,7 +65226,8 @@
       "betterLine": "Should have at minimum played a land first (Ancient Tomb), then used Voltaic Key to untap Grim Monolith, generating massive mana to cast a large Kozilek's Command with Fleshraker triggers. If the engine allows land plays after this prompt, passing is fine, but the reasoning suggests misunderstanding of game flow.",
       "type": "blunder",
       "snapshotIndex": 42,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 121
     },
     {
       "severity": "minor",
@@ -65219,7 +65236,8 @@
       "betterLine": "Tap a land for 1C, activate Voltaic Key to untap Grim Monolith, tap Monolith for 3C, then use the larger mana pool to both activate Urza's Saga for a Construct AND cast Kozilek's Command for additional value and Fleshraker triggers.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 123
     },
     {
       "severity": "minor",
@@ -65228,7 +65246,8 @@
       "betterLine": "Activate Voltaic Key to untap Grim Monolith first, tap Grim Monolith for {C}{C}{C}, then cast Kozilek's Command with a higher X value for much better scry+draw or token generation",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 123
     },
     {
       "severity": "major",
@@ -65237,7 +65256,8 @@
       "betterLine": "Tap Urza's Workshop (3 mana with metalcraft) and Ancient Tomb (2 mana) to cast Karn, the Great Creator for 4 mana. Karn shuts down opponent's Mox Diamond activated abilities and provides a -2 to find a key artifact from sideboard.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 135
     },
     {
       "severity": "major",
@@ -65246,7 +65266,8 @@
       "betterLine": "Search for Pithing Needle naming Thespian's Stage to prevent the Dark Depths combo, which threatens lethal as early as next turn",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 165
     },
     {
       "severity": "moderate",
@@ -65255,7 +65276,8 @@
       "betterLine": "Cast The One Ring to gain protection from everything until next turn, buying time against the imminent Marit Lage threat. Then use the extra turn to find answers or develop further.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 166
     },
     {
       "severity": "moderate",
@@ -65264,7 +65286,8 @@
       "betterLine": "Cast The One Ring to gain protection from everything until next turn, buying time against Marit Lage and drawing into answers. Alternatively, use Karn's -2 to fetch a sideboard artifact that could answer the Dark Depths combo (e.g., Pithing Needle naming Thespian's Stage).",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 186
     },
     {
       "severity": "moderate",
@@ -65273,7 +65296,8 @@
       "betterLine": "Target Mox Diamond with Karn's +1 to turn it into a 0/0 artifact creature, killing it and denying the opponent a mana source. This is especially important as the opponent is assembling the Dark Depths combo and needs mana to activate Thespian's Stage.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 186
     },
     {
       "severity": "major",
@@ -65282,7 +65306,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (costs {2} + tap Stage). The Stage becomes a copy of Dark Depths without ice counters, triggers the sacrifice, and creates a 20/20 flying indestructible Marit Lage token for a lethal attack next turn. Note: the opponent has protection from everything until their next turn from The One Ring, but Marit Lage would still be created and could attack on the following turn.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 193
     },
     {
       "severity": "major",
@@ -65291,7 +65316,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (pay {2} from Mox Diamond + Wasteland/other lands, tap Stage). Stage becomes Dark Depths with no ice counters, triggers, creates Marit Lage 20/20 flying indestructible. Attack for lethal.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 194
     },
     {
       "severity": "major",
@@ -65300,7 +65326,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (costs 2 mana, available from various lands/Mox Diamond). The Stage becomes a copy of Dark Depths with no ice counters, immediately triggering the sacrifice to create Marit Lage (20/20 flying indestructible). Attack next combat for lethal.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 199
     },
     {
       "severity": "major",
@@ -65309,7 +65336,8 @@
       "betterLine": "Tap Mox Diamond and Wasteland (or any two mana sources) for {2}, then activate Thespian's Stage targeting Dark Depths to create Marit Lage. Attack next turn for lethal.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 199
     },
     {
       "severity": "minor",
@@ -65318,7 +65346,8 @@
       "betterLine": "Activate The One Ring to draw cards looking for answers to the Dark Depths combo. Also consider sacrificing Eldrazi Spawn tokens to untap Grim Monolith, then play Urza's Saga from hand to develop the board.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 200
     },
     {
       "severity": "major",
@@ -65327,7 +65356,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to create Marit Lage (20/20 flying indestructible). The opponent has Karn, the Great Creator nowhere on board, and no apparent way to handle it. This would win the game in one or two attacks.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 201
     },
     {
       "severity": "major",
@@ -65336,7 +65366,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (cost {2} + tap Stage), creating Marit Lage. Attack next turn for 20 damage, winning the game.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 201
     },
     {
       "severity": "moderate",
@@ -65345,7 +65376,8 @@
       "betterLine": "Activate The One Ring to draw cards (gaining crucial card advantage to find answers to the Dark Depths + Thespian's Stage combo that is about to go off), and consider untapping Grim Monolith if mana would be useful for anything drawn.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 209
     },
     {
       "severity": "questionable",
@@ -65354,7 +65386,8 @@
       "betterLine": "Use Wasteland to destroy Urza's Workshop, cutting off the opponent's strongest mana producer. With Yavimaya making all lands Forests, Mox Diamond, and the ability to play additional lands via Exploration, there should still be enough mana to activate Thespian's Stage next turn.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 232
     },
     {
       "severity": "moderate",
@@ -65363,7 +65396,8 @@
       "betterLine": "Activate Karn's -2 to wish for an artifact that answers the Dark Depths combo (e.g., Pithing Needle naming Thespian's Stage), preventing the imminent 20/20 Marit Lage token.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 231
     },
     {
       "severity": "moderate",
@@ -65372,7 +65406,8 @@
       "betterLine": "Activate Karn's -2 to fetch Pithing Needle (or similar artifact answer) from outside the game to name Thespian's Stage and prevent the Dark Depths combo from completing next turn.",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 235
     },
     {
       "severity": "moderate",
@@ -65381,7 +65416,8 @@
       "betterLine": "Target opponent's Mox Diamond with Karn's +1, turning it into a 0/0 creature that dies immediately to state-based actions, permanently removing the opponent's mana source",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 235
     },
     {
       "severity": "minor",
@@ -65390,7 +65426,8 @@
       "betterLine": "Activate Wasteland targeting Ancient Tomb or Urza's Workshop to limit the opponent's mana while still having enough resources (Ghost Quarter, Yavimaya, Dark Depths, two Thespian's Stages) to execute the Dark Depths combo next turn with Exploration providing the extra land drop.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 243
     },
     {
       "severity": "major",
@@ -65399,7 +65436,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (costs {2} + tap Stage). The Stage becomes a copy of Dark Depths without ice counters, triggers sacrifice, creates Marit Lage 20/20 flying indestructible. Attack for lethal.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 257
     },
     {
       "severity": "minor",
@@ -65408,7 +65446,8 @@
       "betterLine": "Activate Manifold Key for {1} to untap Grim Monolith, keeping 3 mana available for potential responses or to maximize plays after playing Ancient Tomb from hand",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 258
     },
     {
       "severity": "major",
@@ -65417,7 +65456,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to create Marit Lage, a 20/20 flying indestructible token, which would win the game in one or two attacks against an opponent at 13 life",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 257
     },
     {
       "severity": "moderate",
@@ -65426,7 +65466,8 @@
       "betterLine": "At minimum, play Urza's Saga as a land drop to begin accumulating lore counters and generate Construct tokens or search for artifacts. Could also consider using Wasteland on opponent's Ancient Tomb or Urza's Workshop to slow their development, or activate Ghost Quarter on a key land.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 257
     },
     {
       "severity": "moderate",
@@ -65435,7 +65476,8 @@
       "betterLine": "Hold Mox Diamond in hand until drawing a land card to discard to it, then cast it for actual mana value. Could have instead used Ghost Quarter or Wasteland to destroy one of the opponent's key lands, or activated Dark Depths to start removing ice counters.",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 266
     },
     {
       "severity": "minor",
@@ -65444,7 +65486,8 @@
       "betterLine": "Use Voltaic Key ({1}, {T}: Untap target artifact) targeting Grim Monolith to untap it for just 1 mana, preserving 3 additional mana for The One Ring activation or other plays. Could then use Manifold Key to untap Voltaic Key or The One Ring for further value.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 274
     },
     {
       "severity": "minor",
@@ -65453,7 +65496,8 @@
       "betterLine": "Save the life and mana - play a land (Planar Nexus) and pass to combat, attacking with Glaring Fleshraker and possibly spawn tokens to pressure the opponent before they assemble the Marit Lage combo.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 274
     },
     {
       "severity": "questionable",
@@ -65462,7 +65506,8 @@
       "betterLine": "Activate Wasteland targeting Urza's Workshop to cut the opponent's mana production, since the player needs time to untap Thespian's Stage for the Dark Depths combo and slowing the opponent is critical at 13 life with no cards in hand.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 296
     },
     {
       "severity": "major",
@@ -65471,7 +65516,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (paying {2} from Forest-typed lands via Yavimaya) to create a 20/20 flying indestructible Marit Lage token, then attack for lethal or near-lethal.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 309
     },
     {
       "severity": "major",
@@ -65480,7 +65526,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to create Marit Lage (20/20 flying indestructible), which would be lethal on the next attack against an opponent at 10 life",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 309
     },
     {
       "severity": "major",
@@ -65489,7 +65536,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to create Marit Lage (20/20 flying indestructible) and win the game on the next attack",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 309
     },
     {
       "severity": "major",
@@ -65498,7 +65546,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (costs {2} + tap, easily payable with available lands/Mox Diamond). This creates Marit Lage, a 20/20 flying indestructible token that wins the game on the next attack.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 309
     },
     {
       "severity": "minor",
@@ -65507,7 +65556,8 @@
       "betterLine": "Select Lavaspur Boots, activate Thespian's Stage copying Dark Depths to create Marit Lage, equip Lavaspur Boots for {1}, and attack for lethal (21 damage vs 10 life)",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 309
     },
     {
       "severity": "minor",
@@ -65516,7 +65566,8 @@
       "betterLine": "Use Lotus Petal mana to cast Manifold Key, triggering Glaring Fleshraker for 1 damage ping and creating an additional Spawn token, then proceed to combat",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 337
     },
     {
       "severity": "minor",
@@ -65525,7 +65576,8 @@
       "betterLine": "Cast Manifold Key first (1 mana from Monolith), triggering existing Fleshraker for a spawn + 1 damage. Then activate Manifold Key to untap Grim Monolith, tap it again for 3 more mana, then cast Glaring Fleshraker for additional triggers and damage. This sequence deals more damage and develops a stronger board.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 339
     },
     {
       "severity": "major",
@@ -65534,7 +65586,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to create Marit Lage (20/20 flying indestructible) and attack for lethal",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 355
     },
     {
       "severity": "major",
@@ -65543,7 +65596,8 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths to copy it. The copy enters with no ice counters, triggers the sacrifice, and creates Marit Lage (20/20 flying indestructible). Attack for lethal next combat or on this turn.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 355
     },
     {
       "severity": "moderate",
@@ -65552,7 +65606,8 @@
       "betterLine": "Sacrifice one Eldrazi Spawn for {C}, cast Manifold Key from hand. Glaring Fleshraker triggers: create a Spawn token (cast trigger) and deal 1 damage when it enters. That's 2 free damage to the opponent, bringing them from 7 to 5 life, making lethal much more achievable on subsequent turns.",
       "type": "blunder",
       "snapshotIndex": 128,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 356
     },
     {
       "severity": "minor",
@@ -65561,12 +65616,13 @@
       "betterLine": "Use Wasteland or Ghost Quarter to destroy one of the opponent's key lands (Urza's Tower, Urza's Workshop, or Ancient Tomb) to limit their mana production, or simply pass priority. Mox Diamond without a land to discard is a dead card but keeping options open is better than wasting it.",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "Gem3F Libby"
+      "player": "Gem3F Libby",
+      "decisionIndex": 358
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

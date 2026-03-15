@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_172012_g4",
   "timestamp": "20260228_172012",
   "gameType": "Two Player Duel",
@@ -86950,7 +86950,8 @@
       "betterLine": "Keep the 7-card hand. It has a playable curve starting turn 1 with Infantry Veteran, turn 2 Daybreak Charger, and just needs to draw one more land for the mid-game plays. Two lands with low-curve spells is a reasonable keep.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -86959,7 +86960,8 @@
       "betterLine": "Play Treetop Village turn 1 (enters tapped for free since no T1 plays), then Swamp turn 2 for Oathsworn Vampire, Forest turn 3 for Uktabi Orangutan.",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -86968,7 +86970,8 @@
       "betterLine": "Play Swamp, then cast Oathsworn Vampire ({1}{B}) to develop the board. Oathsworn Vampire enters tapped so it wouldn't block anyway, but getting it down a turn earlier is meaningful tempo.",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 7
     },
     {
       "severity": "questionable",
@@ -86977,7 +86980,8 @@
       "betterLine": "Cast Uktabi Orangutan as the 2/2 that enters untapped and can immediately block, saving Oathsworn Vampire for later when its graveyard recursion is relevant",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -86986,7 +86990,8 @@
       "betterLine": "Attack with Angelic Cub for 1 free damage, then play Plains and cast Taranika, Akroan Veteran in the post-combat main phase.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -86995,7 +87000,8 @@
       "betterLine": "Play Treetop Village (enters tapped but still have 3 untapped mana to cast Uktabi Orangutan, and gain access to a 3/3 trample creature-land in future turns)",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -87004,7 +87010,8 @@
       "betterLine": "Play Treetop Village, which enters tapped but costs nothing this turn since it's postcombat. This preserves untapped land plays (Forest/Swamp) for future turns when immediate mana matters more.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -87013,7 +87020,8 @@
       "betterLine": "Attack with Angelic Cub for 2 unblocked damage, bringing the opponent to 14 life.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -87022,7 +87030,8 @@
       "betterLine": "Block Oathsworn Vampire with Taranika, Akroan Veteran. Taranika survives as a 3/1, kills the vampire, and saves 2 life with essentially no downside.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -87031,7 +87040,8 @@
       "betterLine": "Pass priority without activating the ability, saving the 3 mana for future use (e.g., contributing toward casting Hooting Mandrills next turn or activating Treetop Village).",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -87040,7 +87050,8 @@
       "betterLine": "Attack with Taranika, Akroan Veteran for 3 unblockable damage (opponent's only creature is summoning sick). Taranika has vigilance so she remains untapped for defense.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 34
     },
     {
       "severity": "moderate",
@@ -87049,7 +87060,8 @@
       "betterLine": "Don't block, take 3 damage (16 → 13), preserve Wily Bandar to use as a recurring indestructible blocker against Taranika in future turns when {2}{G} mana is available.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -87058,7 +87070,8 @@
       "betterLine": "Play Swamp first, then cast Marauding Blight-Priest ({2}{B}) and potentially also Hooting Mandrills with Delve (exiling Uktabi Orangutan and Wily Bandar but keeping Oathsworn Vampire). Or play Swamp, then cast Hooting Mandrills with proper Delve usage.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -87067,7 +87080,8 @@
       "betterLine": "Play Swamp (untapped) first, then cast Marauding Blight-Priest, preserving proper sequencing and maximizing mana availability",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -87076,7 +87090,8 @@
       "betterLine": "Pass priority and move to combat/end step, preserving mana and not exposing Treetop Village to creature removal unnecessarily.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 40
     },
     {
       "severity": "moderate",
@@ -87085,7 +87100,8 @@
       "betterLine": "Attack with Taranika for 3 free damage. She has vigilance so there's zero downside, and the opponent has no blockers available.",
       "type": "blunder",
       "snapshotIndex": 189,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -87094,7 +87110,8 @@
       "betterLine": "Play Swamp first, then cast Hooting Mandrills (delving 4 cards), leaving 5 untapped lands instead of 4 for more flexibility with Treetop Village activation",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -87103,7 +87120,8 @@
       "betterLine": "Play Thriving Grove (choosing black) now while all lands are tapped anyway, save Swamp for next turn when it can enter untapped and be used immediately",
       "type": "blunder",
       "snapshotIndex": 224,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -87112,7 +87130,8 @@
       "betterLine": "Choose Green to make Thriving Heath a W/G dual land, enabling potential green spells in the deck",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 50
     },
     {
       "severity": "moderate",
@@ -87121,7 +87140,8 @@
       "betterLine": "Attack with both Knight of the Tusk and Unicorn Token for 5 unblocked damage, then cast Falconer Adept post-combat.",
       "type": "blunder",
       "snapshotIndex": 230,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 54
     },
     {
       "severity": "minor",
@@ -87130,7 +87150,8 @@
       "betterLine": "Block the Unicorn Token (2/2) with Hooting Mandrills to permanently kill the token, leaving Mandrills healthier at 4/2, at the cost of only 1 extra damage to face (3 instead of 2).",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -87139,7 +87160,8 @@
       "betterLine": "Choose Black so Thriving Grove taps for either Green or Black, the deck's actual colors",
       "type": "blunder",
       "snapshotIndex": 250,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -87148,7 +87170,8 @@
       "betterLine": "Don't activate Treetop Village - save the mana for potential post-combat plays or future turns. The activation serves no purpose here.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -87157,7 +87180,8 @@
       "betterLine": "Pass without activating Treetop Village, preserving the mana for potential post-combat plays or future turns",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -87166,7 +87190,8 @@
       "betterLine": "Pass without activating Treetop Village, preserving mana for potential post-combat plays or future turns. The animation accomplishes nothing since it can't join the attack.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 63
     },
     {
       "severity": "minor",
@@ -87175,7 +87200,8 @@
       "betterLine": "Activate Treetop Village for {1}{G} to create a second attacker, likely dealing 3 extra damage to the opponent at 20 life",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -87184,7 +87210,8 @@
       "betterLine": "Block Hooting Mandrills with Knight of the Tusk to kill it for free (Knight survives at 3/3 toughness remaining).",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -87193,7 +87220,8 @@
       "betterLine": "Pass priority without activating Treetop Village, preserving the mana for postcombat plays and keeping the land safe from creature-targeting removal.",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 68
     },
     {
       "severity": "minor",
@@ -87202,7 +87230,8 @@
       "betterLine": "Pass priority and save the mana. Treetop Village's activation only lasts until end of turn and can't join an attack after attackers are declared. The 2 mana could be held for potential plays in the second main phase or on the opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -87211,7 +87240,8 @@
       "betterLine": "Pass priority and save the mana. The Treetop Village activation accomplishes nothing in this combat since it can't be added as an attacker after the declare attackers step.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -87220,7 +87250,8 @@
       "betterLine": "Pass priority without activating Treetop Village, keeping it safely as a land and preserving mana for potential use on the opponent's turn.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -87229,7 +87260,8 @@
       "betterLine": "Pass priority without activating Treetop Village, preserving mana for post-combat plays or opponent's turn",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -87238,7 +87270,8 @@
       "betterLine": "Pass without activating Treetop Village. Save the mana and the Village activation for blocking on the opponent's turn if needed, since attacking into a 3/7 vigilance blocker with no tricks is losing the Village for nothing.",
       "type": "blunder",
       "snapshotIndex": 266,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 75
     },
     {
       "severity": "major",
@@ -87247,7 +87280,8 @@
       "betterLine": "Attack with all creatures for 10 damage against an opponent with no available blockers, putting them to 4 life and setting up lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -87256,7 +87290,8 @@
       "betterLine": "Activate Treetop Village for {1}{G} to make it a 3/3 trampler, then use it to block a 2/2 Unicorn token (killing it and surviving) to take only 8 damage instead of 10, staying at 6 life instead of 4.",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 78
     },
     {
       "severity": "moderate",
@@ -87265,7 +87300,8 @@
       "betterLine": "Activate Treetop Village for {1}{G} to make it a 3/3 trampler, then block Falconer Adept (2/3) to kill it and reduce damage taken to 8 (14→6 life).",
       "type": "blunder",
       "snapshotIndex": 274,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -87274,7 +87310,8 @@
       "betterLine": "Activate Treetop Village for {1}{G}, then attack with both Treetop Village (3/3 trample) and Hooting Mandrills (4/4 trample) to push maximum damage through Knight of the Tusk's single block.",
       "type": "blunder",
       "snapshotIndex": 282,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 84
     },
     {
       "severity": "moderate",
@@ -87283,7 +87320,8 @@
       "betterLine": "Block Hooting Mandrills with Knight of the Tusk to kill the opponent's only creature for free, ensuring an easy lethal attack next turn.",
       "type": "blunder",
       "snapshotIndex": 287,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 91
     },
     {
       "severity": "minor",
@@ -87292,7 +87330,8 @@
       "betterLine": "Pass priority without activating Treetop Village, preserving the mana and keeping the land safe from creature-targeted effects.",
       "type": "blunder",
       "snapshotIndex": 289,
-      "player": "GPT5n Perfect"
+      "player": "GPT5n Perfect",
+      "decisionIndex": 92
     },
     {
       "severity": "major",
@@ -87301,7 +87340,8 @@
       "betterLine": "Attack with all creatures. Falconer Adept generates an additional 1/1 flyer. Flying creatures alone (Bird Token + new Bird) deal 2 unblockable damage, and the remaining ground attackers (3+2+2+2 = 9 power) far exceed what Treetop Village can block. Even with a block, at least 8+ damage gets through against 4 life.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "Sonnet Trash"
+      "player": "Sonnet Trash",
+      "decisionIndex": 100
     }
   ],
   "blunderScriptVersion": 28,

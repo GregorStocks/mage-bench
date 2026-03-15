@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_234006_g3",
   "timestamp": "20260303_234006",
   "gameType": "Two Player Duel",
@@ -60835,7 +60835,8 @@
       "betterLine": "Bottom Bone Pit Brute, which costs 6 mana with double red requirement and is the hardest card in hand to cast. With only 1 land, keeping cheaper options maximizes the chance of curving out.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT52 Grudge"
+      "player": "GPT52 Grudge",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -60844,7 +60845,8 @@
       "betterLine": "Choose Red for Thriving Moor, since they have no red sources in hand and multiple powerful red cards in their deck.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 5
     },
     {
       "severity": "moderate",
@@ -60853,7 +60855,8 @@
       "betterLine": "Attack with both Durable Coilbug and Trufflesnout. At least 2-3 damage gets through for free. Could also cast Irresistible Prey on one attacker to force the block and draw a card, guaranteeing the other gets through.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 24
     },
     {
       "severity": "major",
@@ -60862,7 +60865,8 @@
       "betterLine": "Cast Bone Picker for {3}{B} using the 4 untapped lands. A 3/2 flying deathtouch is an excellent threat that flies over the opponent's 0/5 Phantasm and pressures their 18 life total.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -60871,7 +60875,8 @@
       "betterLine": "Cast Irresistible Prey targeting Bone Picker to draw a card and set up a favorable forced block next turn that removes Murmuring Phantasm via deathtouch",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 34
     },
     {
       "severity": "minor",
@@ -60880,7 +60885,8 @@
       "betterLine": "Activate Durable Coilbug (4B) to return it to hand, then cast Liliana's Steward (B) with remaining mana to get a 1/2 blocker on board immediately, with Coilbug available to cast next turn.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 54
     },
     {
       "severity": "major",
@@ -60889,7 +60895,8 @@
       "betterLine": "Play Swamp, then cast Durable Coilbug (1B) and Liliana's Steward (B) to have two blockers. These can block the 4/2 Flametongue Kavu and 2/2 Goblin Warchief respectively, preventing lethal damage next turn.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 68
     },
     {
       "severity": "minor",
@@ -60898,7 +60905,8 @@
       "betterLine": "Play Swamp first, then cast Liliana's Steward, preserving maximum mana flexibility",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Gem31P Teach"
+      "player": "Gem31P Teach",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -60907,7 +60915,8 @@
       "betterLine": "Cast Capture Sphere targeting Durable Coilbug before blocks. The opponent is forced to choose which attacker to block with their remaining 1/2, and blocking the Warchief means lethal from the Kavu. The opponent survives at 2 but with no creatures — virtually game-winning.",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "GPT52 Grudge"
+      "player": "GPT52 Grudge",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 32

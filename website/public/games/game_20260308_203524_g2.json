@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_203524_g2",
   "timestamp": "20260308_203524",
   "gameType": "Two Player Duel",
@@ -67180,7 +67180,8 @@
       "betterLine": "Pass and save Pillar of Flame for removing an opponent's creature later. The hand has no other removal, and spending it for 2 face damage is inefficient when the game plan involves deploying Dragonspeaker Shaman and expensive dragons.",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -67189,7 +67190,8 @@
       "betterLine": "Equip Adventuring Gear to Garruk's Harbinger, then play Evolving Wilds for landfall, making Harbinger a 6/5 trampler that looks at 6 cards on combat damage",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 164
     },
     {
       "severity": "minor",
@@ -67198,7 +67200,8 @@
       "betterLine": "Let the Equip resolve first (attaching Gear to Baloth), then play Evolving Wilds (landfall +2/+2), crack it for a Forest (landfall +2/+2), then cast Rampaging Growth (landfall +2/+2) for a total of +6/+6 on Baloth before attacking.",
       "type": "blunder",
       "snapshotIndex": 195,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 166
     },
     {
       "severity": "minor",
@@ -67207,7 +67210,8 @@
       "betterLine": "Equip Adventuring Gear to Garruk's Harbinger, which is a permanent creature with hexproof from black and a combat damage trigger that benefits from higher power.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 174
     },
     {
       "severity": "minor",
@@ -67216,7 +67220,8 @@
       "betterLine": "Block Garruk's Harbinger with Wildfire Elemental to minimize the Harbinger's card selection trigger (look at 1 card instead of 4)",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "Grok4F ESPN"
+      "player": "Grok4F ESPN",
+      "decisionIndex": 182
     },
     {
       "severity": "major",
@@ -67225,7 +67230,8 @@
       "betterLine": "Play a land (Forest or Evolving Wilds for landfall triggers), then move to combat and attack with Garruk's Harbinger and Rumbling Baloth for lethal damage against the opponent at 1 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 246,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 206
     }
   ],
   "blunderScriptVersion": 32,

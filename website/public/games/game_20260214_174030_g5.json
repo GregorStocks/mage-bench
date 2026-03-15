@@ -21132,7 +21132,8 @@
       "betterLine": "Bottom Utopia Sprawl and Shifting Woodland (or Utopia Sprawl and Sowing Mycospawn), keeping World Breaker to imprint on Ugin's Labyrinth for massive mana acceleration. A hand of Ugin's Labyrinth, World Breaker, Eldrazi Temple, Talisman of Impulse, Sowing Mycospawn enables Turn 1 Labyrinth imprinting World Breaker for {C}{C}, leading to extremely fast development.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -21141,7 +21142,8 @@
       "betterLine": "Put Ugin's Labyrinth on the bottom instead. Then play Shifting Woodland turn 1 (enters tapped), turn 2 play Eldrazi Temple + Utopia Sprawl on Shifting Woodland, tap both for {C}{C}+{G}+{G} to cast Sowing Mycospawn on turn 2.",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 7
     },
     {
       "severity": "major",
@@ -21150,7 +21152,8 @@
       "betterLine": "Cast Sowing Mycospawn using available mana (Eldrazi Temple + Ugin's Labyrinth + Talisman) to search for a Forest, then cast Utopia Sprawl on their own Forest in a future turn. Alternatively, hold the Utopia Sprawl until they have their own Forest.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -21159,7 +21162,8 @@
       "betterLine": "Discard Winternight Stories, which can be cast from the graveyard via Harmonize, preserving both Lightning Bolts for interaction against the Eldrazi ramp deck.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Kimi25 Vorthos"
+      "player": "Kimi25 Vorthos",
+      "decisionIndex": 42
     },
     {
       "severity": "major",
@@ -21168,7 +21172,8 @@
       "betterLine": "Cast Sire of Seven Deaths using available mana (Eldrazi Temple for {C}{C}, Ugin's Labyrinths, Talisman, Commercial District, Ghost Quarter), deploying a near-unbeatable threat against the opponent's weak board.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 63
     },
     {
       "severity": "questionable",
@@ -21177,7 +21182,8 @@
       "betterLine": "Discard a second Scion of Draco, since it costs 8 mana with only 2 basic land types and is a duplicate. Winternight Stories' Harmonize ability works from the graveyard, but keeping it in hand preserves the option to hardcast it for 2U if blue mana is found, which is far cheaper than Scion's 8+ mana requirement.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Kimi25 Vorthos"
+      "player": "Kimi25 Vorthos",
+      "decisionIndex": 68
     },
     {
       "severity": "major",
@@ -21186,7 +21192,8 @@
       "betterLine": "Cast Sire of Seven Deaths using available mana sources, presenting a dominant threat that the opponent likely cannot answer.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 72
     },
     {
       "severity": "minor",
@@ -21195,7 +21202,8 @@
       "betterLine": "Cast Kozilek's Return (2R) to deal 2 damage to all creatures, killing Doorkeeper Thrull, saving 1 life, and putting Kozilek's Return in graveyard for the Sire of Seven Deaths trigger next turn.",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 76
     },
     {
       "severity": "questionable",
@@ -21204,7 +21212,8 @@
       "betterLine": "Cast Sire of Seven Deaths for a near-unblockable, near-unremovable 7/7 lifelink threat that likely wins in 1-2 combat steps against an 11hp opponent",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 80
     },
     {
       "severity": "major",
@@ -21213,11 +21222,12 @@
       "betterLine": "Cast Sire of Seven Deaths for {7} using available mana (Ugin's Labyrinth x2 + Eldrazi Temple + Talisman + other lands). This presents lethal on board next turn and the opponent at 7 life cannot pay the ward cost to target it.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Qwen3 Libby"
+      "player": "Qwen3 Libby",
+      "decisionIndex": 94
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

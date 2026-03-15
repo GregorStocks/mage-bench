@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_170455_g3",
   "timestamp": "20260306_170455",
   "gameType": "Two Player Duel",
@@ -189445,7 +189445,8 @@
       "betterLine": "Cast Phyrexian Debaser - a 2/2 flyer that provides an evasive clock and a sacrifice ability for removal. With no other legal plays and no reason to hold mana open, deploying the only available threat is clearly correct.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -189454,7 +189455,8 @@
       "betterLine": "Attack with Phyrexian Rager for 2 unblockable damage. There are no opposing creatures, so the attack is completely risk-free.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 74
     },
     {
       "severity": "major",
@@ -189463,7 +189465,8 @@
       "betterLine": "Cast Baneslayer Angel - it immediately dominates the board as a 5/5 flying first strike lifelink that the opponent's black creatures cannot profitably block or race against.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "G31FL Pessim"
+      "player": "G31FL Pessim",
+      "decisionIndex": 78
     },
     {
       "severity": "minor",
@@ -189472,7 +189475,8 @@
       "betterLine": "Attack with Phyrexian Rager. Opponent either takes 2 damage or blocks with Gonti (killing Rager but Gonti survives at 2/1). Even in the worst case, the Rager already drew a card and pressuring the opponent's life total is important.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 93
     },
     {
       "severity": "minor",
@@ -189481,7 +189485,8 @@
       "betterLine": "Cast Phyrexian Debaser ({3}{B}) for 4 mana, then play Forest from hand. Debaser provides a flying blocker that can interact with Baneslayer Angel (sacrifice for -2/-2), and playing the land sets up 6 mana next turn to cast the much more powerful Rampaging Baloths (6/6 trample + 4/4 tokens).",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 110
     },
     {
       "severity": "moderate",
@@ -189490,7 +189495,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land, triggering Zendikar's Roil for a 2/2 token and Courser of Kruphix for 1 life gain. Every body matters when facing a 5/5 Baneslayer Angel.",
       "type": "blunder",
       "snapshotIndex": 171,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 114
     },
     {
       "severity": "moderate",
@@ -189499,7 +189505,8 @@
       "betterLine": "Attack with both Phyrexian Rager and Courser of Kruphix for 4 free damage, since the opponent has no blockers and no untapped mana for interaction.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -189508,7 +189515,8 @@
       "betterLine": "Attack first with Baneslayer Angel (and possibly Gonti), then either cast Masked Blackguard postcombat or hold it with flash to deploy as a surprise blocker on the opponent's turn when they have multiple ground attackers.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "G31FL Pessim"
+      "player": "G31FL Pessim",
+      "decisionIndex": 129
     },
     {
       "severity": "moderate",
@@ -189517,7 +189525,8 @@
       "betterLine": "Attack with at least both Elemental Tokens (2/2 each) and potentially all four available creatures. With only 3 blockers available and Baneslayer tapped, at least 2 damage gets through on an all-out attack, and the opponent is forced into unfavorable trades with expendable tokens. Given the life total disparity and Baneslayer's looming threat, aggression is essential.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 154
     },
     {
       "severity": "moderate",
@@ -189526,7 +189535,8 @@
       "betterLine": "Choose Primeval Herald, which would generate massive landfall value with Zendikar's Roil and Rampaging Baloths already on the battlefield, creating 2/2 and 4/4 tokens each time it fetches a land.",
       "type": "blunder",
       "snapshotIndex": 254,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 161
     },
     {
       "severity": "moderate",
@@ -189535,7 +189545,8 @@
       "betterLine": "Attack with both Baneslayer Angel and Emancipation Angel for 8 unblockable flying damage, putting opponent to 6 life. Could also consider sending Gonti (deathtouch) to further pressure or force unfavorable blocks.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "G31FL Pessim"
+      "player": "G31FL Pessim",
+      "decisionIndex": 165
     },
     {
       "severity": "minor",
@@ -189544,7 +189555,8 @@
       "betterLine": "Cast Phyrexian Broodlings for {1}{B}{B} to add another creature to the already dominant board, maximizing pressure and providing an additional body for attacks or blocks.",
       "type": "blunder",
       "snapshotIndex": 286,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 179
     },
     {
       "severity": "moderate",
@@ -189553,7 +189565,8 @@
       "betterLine": "Attack with all or nearly all ground creatures (Rampaging Baloths, Beast Token, 3 Elemental Tokens, Courser, Phyrexian Rager). Opponent can only block 2 ground creatures effectively, so 12+ damage gets through. Given the desperate position against Baneslayer Angel, maximizing damage output is critical.",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 180
     },
     {
       "severity": "minor",
@@ -189562,7 +189575,8 @@
       "betterLine": "Attack with only Baneslayer Angel and Emancipation Angel (8 flying damage, opponent to 2). Keep Gonti (deathtouch), Masked Blackguard, and Mausoleum Turnkey back as blockers against the opponent's threatening board of Baloths, Beast tokens, and Elementals. Next turn the flyers finish the job.",
       "type": "blunder",
       "snapshotIndex": 297,
-      "player": "G31FL Pessim"
+      "player": "G31FL Pessim",
+      "decisionIndex": 187
     },
     {
       "severity": "questionable",
@@ -189571,7 +189585,8 @@
       "betterLine": "Attack with only Baneslayer Angel and Emancipation Angel for 8 flying damage (opponent goes to 2). Keep Gonti, Masked Blackguard, and Mausoleum Turnkey back as blockers against the opponent's growing board of tokens and Rampaging Baloths.",
       "type": "blunder",
       "snapshotIndex": 304,
-      "player": "G31FL Pessim"
+      "player": "G31FL Pessim",
+      "decisionIndex": 191
     },
     {
       "severity": "major",
@@ -189580,7 +189595,8 @@
       "betterLine": "Block Baneslayer Angel with Phyrexian Debaser, block Gonti with Beast Token (sick creatures can still block). Before first strike damage, activate Phyrexian Debaser's sacrifice ability to give Emancipation Angel -2/-2, reducing it to 1/1. Only 1 point of flying damage gets through, surviving at 2 life.",
       "type": "blunder",
       "snapshotIndex": 360,
-      "player": "Gem31P Minimal"
+      "player": "Gem31P Minimal",
+      "decisionIndex": 221
     }
   ],
   "blunderScriptVersion": 32

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_181210_g4",
   "timestamp": "20260304_181210",
   "gameType": "Two Player Duel",
@@ -120005,7 +120005,8 @@
       "betterLine": "Play Thriving Isle (choosing black) or Thriving Moor (choosing blue) to get a dual-color land while the tapped ETB drawback has minimal tempo cost",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "GPT52 Snark"
+      "player": "GPT52 Snark",
+      "decisionIndex": 17
     },
     {
       "severity": "moderate",
@@ -120014,7 +120015,8 @@
       "betterLine": "Cast Eliminate targeting Lightning-Core Excavator before damage. This saves the Accomplice (2/2 attacker survives) AND removes the Excavator, effectively gaining a 2-for-1 instead of losing a creature for nothing.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -120023,7 +120025,8 @@
       "betterLine": "Cast Crypt Lurker ({3}{B}) using 3 Swamps + Plains, then sacrifice Ghoulcaller's Accomplice to draw a card, getting a 3/4 body and card advantage. Alternatively, cast Eliminate targeting Erratic Visionary to remove the opponent's card filtering engine.",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 46
     },
     {
       "severity": "minor",
@@ -120032,7 +120035,8 @@
       "betterLine": "Cast Crypt Lurker for the same 4 mana to get a much better 3/4 body (possibly sacrificing the zombie token later for a card), or play Mesa Unicorn for 2 mana to develop the board efficiently while keeping mana open.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 53
     },
     {
       "severity": "moderate",
@@ -120041,7 +120045,8 @@
       "betterLine": "Cast Innocent Blood first ({B}) to destroy opponent's Lightning-Core Excavator for free (no friendly creatures to sacrifice), then cast Crypt Lurker ({3}{B}) with the remaining 4 mana, getting a 3/4 body on board and potentially drawing a card by discarding a creature.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -120050,7 +120055,8 @@
       "betterLine": "Attack with Mesa Unicorn first (2 lifelink damage, likely unblocked), then cast Crypt Lurker in postcombat main phase, potentially sacrificing Mesa Unicorn to its ETB trigger to draw a card",
       "type": "blunder",
       "snapshotIndex": 221,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -120059,7 +120065,8 @@
       "betterLine": "Attack with Archaeomender for 2 free, unblockable damage.",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "GPT52 Snark"
+      "player": "GPT52 Snark",
+      "decisionIndex": 77
     },
     {
       "severity": "questionable",
@@ -120068,7 +120075,8 @@
       "betterLine": "Activate Aether Spellbomb's {U} ability to bounce Crypt Lurker, gaining a full turn of tempo while the opponent is tapped out, and potentially retrieve the Spellbomb later with other effects",
       "type": "blunder",
       "snapshotIndex": 250,
-      "player": "GPT52 Snark"
+      "player": "GPT52 Snark",
+      "decisionIndex": 79
     },
     {
       "severity": "moderate",
@@ -120077,7 +120085,8 @@
       "betterLine": "Cast Valorous Steed ({4}{W}) to create a 3/3 vigilance body plus a 2/2 vigilance Knight token, yielding 5 total power across two bodies with vigilance instead of a lone 2/2 Zombie. Alternatively, could cast Valorous Steed and still have 1 mana available for Innocent Blood next turn.",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "MiniMx Sarge"
+      "player": "MiniMx Sarge",
+      "decisionIndex": 98
     },
     {
       "severity": "minor",
@@ -120086,7 +120095,8 @@
       "betterLine": "Destroy Bone Picker to clear the way for Scholar of the Lost Trove to attack freely in the air and remove the opponent's only combat-relevant creature with deathtouch.",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "GPT52 Snark"
+      "player": "GPT52 Snark",
+      "decisionIndex": 114
     }
   ],
   "blunderScriptVersion": 32

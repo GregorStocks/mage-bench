@@ -25928,7 +25928,8 @@
       "betterLine": "Play Scalding Tarn instead, keeping the option to fetch an Island at instant speed to enable Daze if the opponent tries something threatening this turn cycle.",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 13
     },
     {
       "severity": "major",
@@ -25937,7 +25938,8 @@
       "betterLine": "Cast Dark Ritual (tap Underground Sea for B, get BBB), then cast Doomsday with BBB, construct a winning pile with LED on board to crack for mana. The Doomsday pile could include cards to win immediately through LED mana generation.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 29
     },
     {
       "severity": "major",
@@ -25946,7 +25948,8 @@
       "betterLine": "Let Personal Tutor resolve to tutor Doomsday to the top of library, then on a subsequent turn execute the Doomsday combo with Dark Ritual and Lion's Eye Diamond already in play. Alternatively, crack Scalding Tarn now for mana sequencing purposes.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -25955,7 +25958,8 @@
       "betterLine": "Let Personal Tutor get countered by opponent's Force of Will. Doomsday is already in hand, and keeping Daze available would provide protection when casting Doomsday via Dark Ritual on a future turn.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 31
     },
     {
       "severity": "major",
@@ -25964,7 +25968,8 @@
       "betterLine": "Pass through combat without casting anything, then in Main Phase 2: crack Scalding Tarn for Underground Sea, tap for B, cast Dark Ritual for BBB, cast Doomsday, then use LED + the Doomsday pile to win.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -25973,7 +25978,8 @@
       "betterLine": "Activate Scalding Tarn first to fetch a Swamp, tap it for B, cast Dark Ritual to get BBB, then cast Doomsday",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 35
     },
     {
       "severity": "moderate",
@@ -25982,7 +25988,8 @@
       "betterLine": "Activate Scalding Tarn to fetch a black-producing land, then sequence Dark Ritual into Doomsday with LED on board to set up a winning Doomsday pile",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 35
     },
     {
       "severity": "moderate",
@@ -25991,7 +25998,8 @@
       "betterLine": "Cast Dark Ritual (getting BBB), then cast Doomsday, construct a winning pile using LED + Unearth to execute the combo kill",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 42
     },
     {
       "severity": "moderate",
@@ -26000,7 +26008,8 @@
       "betterLine": "Pass through combat without casting anything, then cast Dark Ritual during Main Phase 2 immediately before casting Doomsday.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 49
     },
     {
       "severity": "questionable",
@@ -26009,7 +26018,8 @@
       "betterLine": "Waiting a turn to develop more mana could allow casting Doomsday with mana left over to immediately draw into the pile (e.g., with a cantrip), rather than passing the turn with an empty hand at 8 life against an opponent who could develop their board.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 50
     },
     {
       "severity": "major",
@@ -26018,7 +26028,8 @@
       "betterLine": "Activate Thespian's Stage ({2}, {T}: copy Dark Depths) using Ancient Tomb for mana. The copied Dark Depths enters with no ice counters, triggers its sacrifice ability, and creates Marit Lage - a 20/20 flying indestructible creature that attacks for lethal next turn (opponent at 17 life with no Karakas to bounce it).",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 56
     },
     {
       "severity": "major",
@@ -26027,7 +26038,8 @@
       "betterLine": "The correct Doomsday pile with LED in play and Unearth in hand should include Thassa's Oracle as the win condition. A strong pile would be: Street Wraith (or Consider) on top, then Thassa's Oracle, then filler. With Unearth in hand and LED on board: crack LED for UUU discarding Unearth, cycle Street Wraith (pay 2 life) to draw into pile, cast Thassa's Oracle with UU, win with devotion >= library size.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -26036,7 +26048,8 @@
       "betterLine": "The pile ordering should prioritize Edge of Autumn on top (to cycle via land sacrifice into further draws), but more fundamentally, the 5 cards chosen for the Doomsday pile needed to include an actual win condition.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 67
     },
     {
       "severity": "major",
@@ -26045,7 +26058,8 @@
       "betterLine": "Do not cast the second Doomsday. Instead, pass the turn or activate Lion's Eye Diamond for mana and cast Unearth if there's a relevant creature in the graveyard. At minimum, saving the 4 life is critical when facing a 20/20 flying indestructible threat next turn.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 68
     },
     {
       "severity": "major",
@@ -26054,7 +26068,8 @@
       "betterLine": "Tap Ancient Tomb for {C}{C}, then activate Thespian's Stage targeting Dark Depths. Stage becomes a copy of Dark Depths with no ice counters, triggering the sacrifice to create Marit Lage (20/20 flying indestructible). Attack next turn for lethal against the opponent at 8 life with no apparent way to interact.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -26063,7 +26078,8 @@
       "betterLine": "Tap Ancient Tomb for {C}{C}, activate Thespian's Stage ({2}, {T}: become a copy of Dark Depths) to immediately create Marit Lage, a 20/20 flying indestructible token, winning the game next attack step.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -26072,7 +26088,8 @@
       "betterLine": "The pile should be constructed to maximize draw potential: likely Flooded Strand on bottom, then Doomsday, then Swamp, then Cabal Ritual, then Edge of Autumn on top (to cycle by sacrificing a land, drawing into Cabal Ritual, then use LED + Unearth if there's a creature in the pile). Without a win condition in the pile, the game may already be lost.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "Llama4 Coach"
+      "player": "Llama4 Coach",
+      "decisionIndex": 84
     },
     {
       "severity": "major",
@@ -26081,11 +26098,12 @@
       "betterLine": "Activate Thespian's Stage targeting Dark Depths (paying {2} from Ancient Tomb), creating Marit Lage 20/20 flying indestructible, then attack for lethal against the 4hp opponent.",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "MiMo Spike"
+      "player": "MiMo Spike",
+      "decisionIndex": 112
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

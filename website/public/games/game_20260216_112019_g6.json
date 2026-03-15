@@ -22057,7 +22057,8 @@
       "betterLine": "Play Restless Anchorage on turn 1 to use the 'enters tapped' on a turn with no plays, saving untapped lands for turns where immediate mana matters.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "GPT5n Heckler"
+      "player": "GPT5n Heckler",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -22066,7 +22067,8 @@
       "betterLine": "Play Hallowed Fountain (paying 2 life to enter untapped) to have access to both W and U mana, enabling Consult the Star Charts in future turns while still being able to cast Rest in Peace this turn and Day of Judgment on turn 4.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT5n Heckler"
+      "player": "GPT5n Heckler",
+      "decisionIndex": 22
     },
     {
       "severity": "questionable",
@@ -22075,7 +22077,8 @@
       "betterLine": "Play Spirebluff Canal, which is the slightly better land to have on battlefield since it produces U/R unconditionally",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "DSV3 Minimal"
+      "player": "DSV3 Minimal",
+      "decisionIndex": 67
     },
     {
       "severity": "major",
@@ -22084,11 +22087,12 @@
       "betterLine": "Play Restless Anchorage (or Sunbillow Verge) as land drop, then cast Day of Judgment with the 4+ mana available (2WW) to clear the board immediately and survive at 3 life",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "GPT5n Heckler"
+      "player": "GPT5n Heckler",
+      "decisionIndex": 93
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

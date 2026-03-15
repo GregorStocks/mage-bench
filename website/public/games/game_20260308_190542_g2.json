@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_190542_g2",
   "timestamp": "20260308_190542",
   "gameType": "Two Player Duel",
@@ -193435,7 +193435,8 @@
       "betterLine": "Tap Basri's Acolyte to pump Siege Striker to 3/3 double strike for 6 damage, since Acolyte provides no blocking value this cycle.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 85
     },
     {
       "severity": "minor",
@@ -193444,7 +193445,8 @@
       "betterLine": "Block Basri's Acolyte with the Soldier Token to prevent 2 damage and deny 2 lifelink, or block Siege Striker with Seafloor Oracle to trade it off entirely (preventing all 4 double strike damage and killing the Striker).",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 136
     },
     {
       "severity": "moderate",
@@ -193453,7 +193455,8 @@
       "betterLine": "Target Siege Striker with Crashing Tide to remove the +1/+1 counter and force the opponent to spend 3 mana replaying it, gaining tempo while still drawing a card. Alternatively, bounce Basri's Acolyte to remove the lifelink threat.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 147
     },
     {
       "severity": "minor",
@@ -193462,7 +193465,8 @@
       "betterLine": "Cast Chilling Trap targeting one of the opponent's tapped creatures (e.g., Basri's Acolyte or Siege Striker) to draw a card, since the -4/-0 has no impact on already-tapped creatures and the cantrip provides card advantage.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -193471,7 +193475,8 @@
       "betterLine": "Cast Chilling Trap targeting any opponent's creature (e.g., Basri's Acolyte or Siege Striker) to draw a card for {U}, since they control a Wizard (Seafloor Oracle). This is essentially a free cantrip at instant speed.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 158
     },
     {
       "severity": "minor",
@@ -193480,7 +193485,8 @@
       "betterLine": "Tap Knight of the Tusk to give Siege Striker +1/+1, making it a 3/3 double striker for 2 extra free damage (6 instead of 4 from Siege Striker alone).",
       "type": "blunder",
       "snapshotIndex": 219,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 176
     },
     {
       "severity": "minor",
@@ -193489,7 +193495,8 @@
       "betterLine": "Block Basri's Acolyte with Shaper Apprentice to save 2 damage and prevent 2 lifegain, a 4-point life swing that matters at 14 life. Shaper Apprentice as a 2/1 is expendable compared to preserving life total.",
       "type": "blunder",
       "snapshotIndex": 223,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 180
     },
     {
       "severity": "minor",
@@ -193498,7 +193505,8 @@
       "betterLine": "Accept the loot trigger, draw a card, then discard the Island (or another less useful card) to improve hand quality at no real cost",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 201
     },
     {
       "severity": "major",
@@ -193507,7 +193515,8 @@
       "betterLine": "Attack with all three creatures (Mistwalker, Seafloor Oracle, Shaper Apprentice) for 7 unblocked damage and 2-3 card draws from Seafloor Oracle triggers.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 202
     },
     {
       "severity": "minor",
@@ -193516,7 +193525,8 @@
       "betterLine": "Cast Trusty Retriever (4 mana), choosing to return Secure the Scene from graveyard, leaving 3 mana open for Feat of Resistance during combat. This recovers a key removal spell to deal with Seafloor Oracle 4/5 while maintaining combat flexibility.",
       "type": "blunder",
       "snapshotIndex": 266,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 206
     },
     {
       "severity": "moderate",
@@ -193525,7 +193535,8 @@
       "betterLine": "Block Siege Striker with Seafloor Oracle 4/5 (survives double strike at 4/1 and kills the 2/2 Striker), block Knight of the Tusk with Mistwalker 1/4 (survives at 1/1), and Sage blocks Acolyte. This kills the Striker and preserves all blockers.",
       "type": "blunder",
       "snapshotIndex": 288,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 220
     },
     {
       "severity": "minor",
@@ -193534,7 +193545,8 @@
       "betterLine": "Discard Heirloom Blade instead, keeping Mirror Image as a cheaper alternative to Gigantoplasm for copying Seafloor Oracle",
       "type": "blunder",
       "snapshotIndex": 312,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 238
     },
     {
       "severity": "moderate",
@@ -193543,7 +193555,8 @@
       "betterLine": "Accept the loot trigger (choose True), draw a card, then discard the weakest card in hand. This is pure card quality improvement at no cost.",
       "type": "blunder",
       "snapshotIndex": 314,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 240
     },
     {
       "severity": "moderate",
@@ -193552,7 +193565,8 @@
       "betterLine": "Attack with Mistwalker, Seafloor Oracle, Shaper Apprentice, and Triton Shorestalker only (8 unblockable damage), keeping Sage of the Falls back as a loot engine and potential blocker.",
       "type": "blunder",
       "snapshotIndex": 317,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 243
     },
     {
       "severity": "moderate",
@@ -193561,7 +193575,8 @@
       "betterLine": "Cast Crashing Tide targeting Knight of the Tusk to bounce it before blocks, clearing the way for attackers and drawing a card. This maximizes combat damage and Seafloor Oracle triggers.",
       "type": "blunder",
       "snapshotIndex": 319,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 245
     },
     {
       "severity": "minor",
@@ -193570,7 +193585,8 @@
       "betterLine": "Block Seafloor Oracle with Knight of the Tusk AND block Sage of the Falls with Bulwark Giant. This kills the Sage, prevents 2 damage, and removes an important card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 322,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 247
     },
     {
       "severity": "minor",
@@ -193579,7 +193595,8 @@
       "betterLine": "Cast Crashing Tide targeting Knight of the Tusk to bounce it, drawing a card, getting Sage of the Falls through unblocked for extra damage and Seafloor Oracle triggers, while setting the opponent back significant tempo.",
       "type": "blunder",
       "snapshotIndex": 320,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 246
     },
     {
       "severity": "minor",
@@ -193588,7 +193605,8 @@
       "betterLine": "Use the Reejerey trigger to tap Knight of the Tusk 3/7 (removing it as a blocker for the upcoming combat) or untap a tapped Island/Thriving Isle for additional mana.",
       "type": "blunder",
       "snapshotIndex": 383,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 290
     },
     {
       "severity": "minor",
@@ -193597,7 +193615,8 @@
       "betterLine": "Accept the trigger to untap Thriving Isle, gaining an extra mana to potentially cast additional spells this turn (e.g., a 4-mana spell + 2-mana Amoeboid Changeling with 7 total mana instead of only 6).",
       "type": "blunder",
       "snapshotIndex": 384,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 291
     },
     {
       "severity": "major",
@@ -193606,7 +193625,8 @@
       "betterLine": "Tap Knight of the Tusk with the Reejerey trigger, then attack with everything for 19 damage (opponent at 20 life) with no blockers available, plus draw multiple cards from Seafloor Oracle triggers",
       "type": "blunder",
       "snapshotIndex": 393,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 300
     },
     {
       "severity": "minor",
@@ -193615,7 +193635,8 @@
       "betterLine": "Use the Reejerey trigger to untap a tapped Island (gaining an extra mana for the turn) or tap down Knight of the Tusk to clear the way for attacks.",
       "type": "blunder",
       "snapshotIndex": 396,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 301
     },
     {
       "severity": "moderate",
@@ -193624,7 +193645,8 @@
       "betterLine": "Use the trigger to tap Knight of the Tusk, removing the opponent's best blocker before combat. This opens up much more profitable attacks with Seafloor Oracle and other Merfolk.",
       "type": "blunder",
       "snapshotIndex": 408,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 310
     },
     {
       "severity": "major",
@@ -193633,7 +193655,8 @@
       "betterLine": "Accept the trigger to tap Knight of the Tusk, removing it as a blocker before declaring attacks with unblockable creatures and other attackers",
       "type": "blunder",
       "snapshotIndex": 409,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 311
     },
     {
       "severity": "questionable",
@@ -193642,7 +193665,8 @@
       "betterLine": "Cast Feat of Resistance on Knight of the Tusk choosing protection from blue to fizzle the Reejerey trigger, keeping the Knight untapped for blocking the opponent's attacks this turn",
       "type": "blunder",
       "snapshotIndex": 410,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 312
     },
     {
       "severity": "minor",
@@ -193651,7 +193675,8 @@
       "betterLine": "Move to combat, declare attackers (at minimum Knight of the Tusk), then cast Feat of Resistance during combat to give protection from blue, making Knight of the Tusk unblockable by the opponent's blue creatures and pushing through significant damage.",
       "type": "blunder",
       "snapshotIndex": 418,
-      "player": "GLM47 Humble"
+      "player": "GLM47 Humble",
+      "decisionIndex": 320
     },
     {
       "severity": "major",
@@ -193660,7 +193685,8 @@
       "betterLine": "Play an Island from hand, then cast Watertrap Weaver targeting Knight of the Tusk 4/8 to tap it and prevent it from untapping. This maximizes chances of pushing through lethal damage next combat with the opponent at only 5 life, critical when facing imminent decking.",
       "type": "blunder",
       "snapshotIndex": 474,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 350
     }
   ],
   "blunderScriptVersion": 32,

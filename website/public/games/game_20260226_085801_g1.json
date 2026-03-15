@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260226_085801_g1",
   "timestamp": "20260226_085801",
   "gameType": "Two Player Duel",
@@ -61566,7 +61566,8 @@
       "betterLine": "Play Scalding Tarn, fetch a Mountain (or a dual that produces red), then cast Faithless Looting turn 1 to dig and fill the graveyard.",
       "type": "blunder",
       "snapshotIndex": 8,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -61575,7 +61576,8 @@
       "betterLine": "Pass the turn and crack Polluted Delta at the end of the opponent's turn to preserve information and maintain flexibility on which land to fetch.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -61584,7 +61586,8 @@
       "betterLine": "Let Watery Grave enter tapped, saving 2 life. It would be untapped by Turn 2 when the player can actually use multiple mana for their 2-drop spells.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -61593,7 +61596,8 @@
       "betterLine": "Play Scalding Tarn, crack it for a Swamp (or similar), then cast Psychic Frog (UB) or Emperor of Bones (1B) this turn. Save Raucous Theater for a turn where the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 11
     },
     {
       "severity": "questionable",
@@ -61602,7 +61606,8 @@
       "betterLine": "Cast Psychic Frog ({U}{B}), then Faithless Looting ({R}) to draw 2 and discard 2 - discards can pump Frog and stock the graveyard for later use.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -61611,7 +61616,8 @@
       "betterLine": "Pass the turn and save Snapback and the blue card for a more impactful moment, such as bouncing a larger threat or protecting a combo turn. The 2/2 Emperor of Bones doesn't warrant spending two cards to delay by one turn.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -61620,7 +61626,8 @@
       "betterLine": "Hold Snapback for a more threatening target or a situation where the tempo gain matters more. The opponent will simply replay Emperor of Bones next turn, making this a 2-for-0 card disadvantage for minimal tempo gain.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 23
     },
     {
       "severity": "questionable",
@@ -61629,7 +61636,8 @@
       "betterLine": "Let the Lotus Bloom time counter resolve and save resources. Emperor of Bones is not immediately threatening since the opponent lacks mana to adapt it this turn, and the bounce is temporary. Preserving the blue card (likely Flare of Denial or a creature) could be more valuable later.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -61638,7 +61646,8 @@
       "betterLine": "Exile Goblin Charbelcher to deny the opponent potential recursion of their combo piece via Tameshi or other graveyard-to-battlefield effects",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -61647,7 +61656,8 @@
       "betterLine": "Play Scalding Tarn (land drop), then cast Psychic Frog ({U}{B}) to develop another threat while still having mana available for Fatal Push or other plays. Alternatively, cast Faithless Looting to improve hand quality, or deploy the second Emperor of Bones.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -61656,7 +61666,8 @@
       "betterLine": "Exile Fallaji Archaeologist (mana value 2) to properly counter Psychic Frog with Disrupting Shoal, preserving Thundertrap Trainer for later card selection.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 42
     },
     {
       "severity": "major",
@@ -61665,7 +61676,8 @@
       "betterLine": "Pass priority and proceed to combat, attacking with the 4/4 Emperor of Bones to pressure the opponent's 20 life total.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 47
     },
     {
       "severity": "moderate",
@@ -61674,7 +61686,8 @@
       "betterLine": "Exile Psychic Frog from own graveyard, enabling reanimation via Emperor of Bones' adapt trigger to create a hasty Psychic Frog attacker",
       "type": "blunder",
       "snapshotIndex": 130,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 52
     },
     {
       "severity": "moderate",
@@ -61683,7 +61696,8 @@
       "betterLine": "Attack with Emperor of Bones for 4 unblockable damage, bringing the opponent from 20 to 16 life.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 53
     },
     {
       "severity": "major",
@@ -61692,7 +61706,8 @@
       "betterLine": "Sacrifice Lotus Bloom for {U}{U}{U}, cast Fallaji Archaeologist for {1}{U} (leaving {U} open), getting a 0/3 blocker, milling 3 cards, potentially finding a spell, and enabling Flare of Denial. Alternatively, cast Tameshi for {2}{U} to develop a bigger threat.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 58
     },
     {
       "severity": "questionable",
@@ -61701,7 +61716,8 @@
       "betterLine": "Cast Tameshi, Reality Architect for {2}{U}, using all 3 mana from Lotus Bloom efficiently, getting a bigger body and potential graveyard recursion",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -61710,7 +61726,8 @@
       "betterLine": "Cast Faithless Looting first for {R} to draw 2 cards and see more options, then decide whether to cast Emperor of Bones or take a different line based on what was drawn.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 67
     },
     {
       "severity": "moderate",
@@ -61719,7 +61736,8 @@
       "betterLine": "Attack with the 4/4 Emperor of Bones for 4 unblocked damage, bringing the opponent from 16 to 12 life.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -61728,7 +61746,8 @@
       "betterLine": "Let Thoughtseize resolve. Losing a card to Thoughtseize is bad but at least you keep Disrupting Shoal for a future spell that might have MV 0, or save it for when you have mana to hard-cast it with appropriate X value.",
       "type": "blunder",
       "snapshotIndex": 207,
-      "player": "GPT52 Memoir"
+      "player": "GPT52 Memoir",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -61737,7 +61756,8 @@
       "betterLine": "Take Goblin Charbelcher to prevent the combo kill, forcing the opponent to use Whir of Invention (requiring 7+ mana) to find another copy from the library, buying crucial time to attack for lethal.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 79
     },
     {
       "severity": "minor",
@@ -61746,7 +61766,8 @@
       "betterLine": "Exile Fallaji Archaeologist instead, giving this Emperor of Bones a creature reanimation target when it adapts for {1}{B}",
       "type": "blunder",
       "snapshotIndex": 214,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 81
     },
     {
       "severity": "major",
@@ -61755,7 +61776,8 @@
       "betterLine": "Discard Faithless Looting to Psychic Frog to pump it to 2/3, then attack with all creatures for exactly 12 damage (lethal).",
       "type": "blunder",
       "snapshotIndex": 230,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 86
     },
     {
       "severity": "major",
@@ -61764,7 +61786,8 @@
       "betterLine": "Attack with all creatures (11 damage total) to put the opponent to 1 life, with Psychic Frog drawing a card on damage. This likely wins the game next turn.",
       "type": "blunder",
       "snapshotIndex": 234,
-      "player": "MiMo Minimal"
+      "player": "MiMo Minimal",
+      "decisionIndex": 87
     }
   ],
   "blunderScriptVersion": 28,

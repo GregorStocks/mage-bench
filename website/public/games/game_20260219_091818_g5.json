@@ -30849,7 +30849,8 @@
       "betterLine": "Play Mistrise Village (or second Ancient Tomb) as land for turn first, then cast Ponder for {U} to set up draws while preserving mana flexibility. Stock Up could be cast on a later turn when there's less opportunity cost.",
       "type": "blunder",
       "snapshotIndex": 25,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 10
     },
     {
       "severity": "moderate",
@@ -30858,7 +30859,8 @@
       "betterLine": "Tap Wasteland for {C} mana instead (or don't activate it at all during combat), preserve the land drop, and focus on developing mana to cast Glaring Fleshraker or Eldrazi Linebreaker on turn 3 with upcoming land drops.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 17
     },
     {
       "severity": "major",
@@ -30867,7 +30869,8 @@
       "betterLine": "Hold Kozilek's Command for later when more mana is available to cast it for a meaningful X value. Instead, play Abundant Countryside or Cavern of Souls this turn to develop mana toward casting Glaring Fleshraker or Eldrazi Linebreaker on the following turn.",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -30876,7 +30879,8 @@
       "betterLine": "Cast Intuition (paying {2}{U} with Ancient Tomb + Island) to search for three cards that enable casting Omniscience, such as three copies of Show and Tell or similar enablers where getting any one is sufficient to combo off.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Haiku Coach"
+      "player": "Haiku Coach",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -30885,11 +30889,12 @@
       "betterLine": "This was the only legal choice since Grim Monolith is not an Eldrazi spell",
       "type": "blunder",
       "snapshotIndex": 84,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 38
     }
   ],
   "blunderScriptVersion": 17,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

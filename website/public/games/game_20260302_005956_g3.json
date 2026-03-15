@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_005956_g3",
   "timestamp": "20260302_005956",
   "gameType": "Two Player Duel",
@@ -67066,7 +67066,8 @@
       "betterLine": "Block Rigging Runner with Thrashing Brontodon to prevent 1 damage at no risk.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "GPT52 Rules"
+      "player": "GPT52 Rules",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -67075,7 +67076,8 @@
       "betterLine": "Cast Moment of Heroism on the unblocked Rigging Runner to deal 3 damage and gain 3 life, since the opponent had no untapped mana and couldn't respond.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -67084,7 +67086,8 @@
       "betterLine": "Hold Moment of Heroism for a future combat where it can save a creature or win a trade. Just deal 1 damage with Rigging Runner this turn and preserve the card for higher-impact use.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 30
     },
     {
       "severity": "moderate",
@@ -67093,7 +67096,8 @@
       "betterLine": "Choose Green to help cast Ghalta, Primal Hunger and other green spells in the deck.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "GPT52 Rules"
+      "player": "GPT52 Rules",
+      "decisionIndex": 32
     },
     {
       "severity": "moderate",
@@ -67102,7 +67106,8 @@
       "betterLine": "Cast Aerial Assault targeting the tapped Thrashing Brontodon to permanently remove the 3/4 threat while it's vulnerable. Could then play a Mountain and still have mana available, and deploy Celestial Enforcer on a future turn.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 39
     },
     {
       "severity": "moderate",
@@ -67111,7 +67116,8 @@
       "betterLine": "Block Gorging Vulture with Celestial Enforcer (Enforcer survives at 2/1, Vulture dies, take 7 going to 8 life), then post-combat Aerial Assault the tapped Suspicious Shambler. This removes two threats and preserves the Enforcer while staying at a safer life total. Alternatively, block Suspicious Shambler to trade and only take 5 damage (going to 10).",
       "type": "blunder",
       "snapshotIndex": 158,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 46
     },
     {
       "severity": "major",
@@ -67120,7 +67126,8 @@
       "betterLine": "Cast Ghalta, Primal Hunger for {1}{G}{G} (reduced from 12 mana by 9 power on board). This creates a 12/12 trampler that represents lethal next turn through the opponent's only blocker.",
       "type": "blunder",
       "snapshotIndex": 163,
-      "player": "GPT52 Rules"
+      "player": "GPT52 Rules",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -67129,7 +67136,8 @@
       "betterLine": "Play Mountain first, then cast Keldon Raider. With 6 mana available (3 Mountains, 2 Plains, Thriving Bluff), after spending 4 on Keldon Raider, you'd still have 2 mana open — potentially relevant for responses or if Keldon Raider's draw finds a cheap spell.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 52
     },
     {
       "severity": "minor",
@@ -67138,7 +67146,8 @@
       "betterLine": "Discard Goblin Oriflamme instead — it's the weakest card in hand given the desperate defensive situation, while the extra Mountain could help cast multiple spells in a critical turn.",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 55
     },
     {
       "severity": "major",
@@ -67147,7 +67156,8 @@
       "betterLine": "Do not attack. Keep Celestial Enforcer back as a blocker. Play Plains, and plan to double-block Ghalta next turn with Enforcer and Keldon Raider using Dauntless Onslaught to survive the trample damage.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "Llama4 Snark"
+      "player": "Llama4 Snark",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -67156,7 +67166,8 @@
       "betterLine": "Block Celestial Enforcer with Ghalta, Primal Hunger to kill it for free. No combat trick can threaten a 12/12, so this is completely risk-free removal of a potentially dangerous creature.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "GPT52 Rules"
+      "player": "GPT52 Rules",
+      "decisionIndex": 58
     },
     {
       "severity": "minor",
@@ -67165,7 +67176,8 @@
       "betterLine": "Attack with all creatures to maximize damage redundancy and guarantee lethal even through potential interaction",
       "type": "blunder",
       "snapshotIndex": 204,
-      "player": "GPT52 Rules"
+      "player": "GPT52 Rules",
+      "decisionIndex": 62
     }
   ],
   "blunderScriptVersion": 31,

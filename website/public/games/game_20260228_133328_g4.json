@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_133328_g4",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -44930,7 +44930,8 @@
       "betterLine": "Choose to be on the play (select yourself as starting player) to gain tempo advantage, which is the default correct choice in Limited.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -44939,7 +44940,8 @@
       "betterLine": "Keep the 7-card hand. Hero's Blade into Balan is an extremely strong synergy that's castable with the available mana, and 3 lands is a fine starting count.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -44948,7 +44950,8 @@
       "betterLine": "Bottom a Plains instead, keeping 2 Plains + 1 Swamp (or even 3 Plains + 1 Swamp if keeping 4 lands). This maintains access to black mana while still curving out perfectly with the white spells in hand.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -44957,7 +44960,8 @@
       "betterLine": "Play Thriving Isle (choosing black) on turn 2 so it enters tapped now and is available untapped on turn 3, enabling a turn-3 three-drop.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -44966,7 +44970,8 @@
       "betterLine": "Choose Black for Thriving Isle to have access to both Blue and Black mana, supporting the heavy black requirements in hand.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -44975,7 +44980,8 @@
       "betterLine": "Play Thriving Moor (choosing white) since it enters tapped at no cost when you have no plays, saving Swamp for a future turn when entering untapped matters.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -44984,7 +44990,8 @@
       "betterLine": "Attack with Benalish Honor Guard for 2 unblockable damage against the empty board.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 13
     },
     {
       "severity": "major",
@@ -44993,7 +45000,8 @@
       "betterLine": "Hold Chains of Custody for when the opponent plays actual threats to exile. Could pass the turn and save it for a meaningful target later.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -45002,7 +45010,8 @@
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to draw a card, since there's no better use for the U mana this turn and the hand needs to find land drops to deploy expensive threats like Yargle and Skullslither Worm.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 16
     },
     {
       "severity": "moderate",
@@ -45011,7 +45020,8 @@
       "betterLine": "Play Plains (or Swamp) to have 4 mana available and immediately cast Kwende, Pride of Femeref this turn.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -45020,7 +45030,8 @@
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to draw a card and dig toward lands. The U mana would otherwise go unused, and finding a 4th land is critical for deploying threats like Skullslither Worm next turn. Alternatively, saving it for the opponent's combat to reduce Honor Guard's damage by 1 while drawing is also reasonable, but the land-finding urgency favors casting now.",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -45029,7 +45040,8 @@
       "betterLine": "Attack with Benalish Honor Guard for 2 unblockable damage against an empty board.",
       "type": "blunder",
       "snapshotIndex": 66,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -45038,7 +45050,8 @@
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to save 1 life and draw a card for {U}",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -45047,7 +45060,8 @@
       "betterLine": "Play Plains (or Swamp) first, then cast Kwende, Pride of Femeref, leaving 1 mana open for potential interaction or flexibility.",
       "type": "blunder",
       "snapshotIndex": 87,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -45056,7 +45070,8 @@
       "betterLine": "Play Swamp to have better access to {B}{B} for Infernal Idol's sacrifice ability (would have 2 Swamps + Thriving Moor for 3 black sources)",
       "type": "blunder",
       "snapshotIndex": 94,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -45065,7 +45080,8 @@
       "betterLine": "Attack with Benalish Honor Guard for 3 unblockable damage, bringing opponent from 16 to 13 life.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 27
     },
     {
       "severity": "minor",
@@ -45074,7 +45090,8 @@
       "betterLine": "Attack with Wavebreak Hippocamp. If Kwende blocks, use Fleeting Distraction to win combat and draw a card. If Kwende doesn't block, deal 2 damage for free.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -45083,7 +45100,8 @@
       "betterLine": "Play Swamp first, then cast Infernal Idol, leaving 3 mana open instead of 2",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 34
     },
     {
       "severity": "major",
@@ -45092,7 +45110,8 @@
       "betterLine": "Attack with all. In every blocking scenario, Hippocamp dies (Kwende's first strike or Honor Guard's 3 power kills it) and MiMo Coach deals 3-7 damage while losing nothing. This pressures the opponent significantly at 13 life.",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -45101,7 +45120,8 @@
       "betterLine": "Block Benalish Honor Guard with Wavebreak Hippocamp to trade 2/2 for the 3/2 Honor Guard, taking only 4 damage from Kwende (going to 9 life) while removing a threat.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 37
     },
     {
       "severity": "moderate",
@@ -45110,7 +45130,8 @@
       "betterLine": "Play Swamp, cast Yargle Glutton of Urborg (9/3) for 4B, attack for 9 damage into tapped-out board, save Strangling Spores for opponent's turn to trigger Wavebreak Hippocamp card draw",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -45119,7 +45140,8 @@
       "betterLine": "Target Kwende, Pride of Femeref with Strangling Spores to remove the double strike threat and simultaneously weaken Honor Guard from 3/2 to 2/2",
       "type": "blunder",
       "snapshotIndex": 144,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 44
     },
     {
       "severity": "major",
@@ -45128,7 +45150,8 @@
       "betterLine": "Attack with both Kwende, Pride of Femeref and Benalish Honor Guard for 7 total damage (4 + 3), killing the opponent at 6 life.",
       "type": "blunder",
       "snapshotIndex": 168,
-      "player": "MiMo Coach"
+      "player": "MiMo Coach",
+      "decisionIndex": 52
     }
   ],
   "blunderScriptVersion": 28,

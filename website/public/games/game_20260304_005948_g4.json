@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_005948_g4",
   "timestamp": "20260304_005948",
   "gameType": "Two Player Duel",
@@ -65713,7 +65713,8 @@
       "betterLine": "Put Merfolk Pupil on the bottom and keep Nature's Way on top. The player already has Eyekite as a 2-drop, and Nature's Way serves as important removal that's difficult to replace. Early creature density matters less than having answers to opponent's threats.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "GPT5 Villain"
+      "player": "GPT5 Villain",
+      "decisionIndex": 7
     },
     {
       "severity": "moderate",
@@ -65722,7 +65723,8 @@
       "betterLine": "Cast Crashing Tide targeting Eyekite to bounce the opponent's only creature and draw a card, gaining significant tempo advantage. Alternatively, cast Amoeboid Changeling to develop the board and enable flash on future Crashing Tides.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "GPT52 Libby"
+      "player": "GPT52 Libby",
+      "decisionIndex": 25
     },
     {
       "severity": "major",
@@ -65731,7 +65733,8 @@
       "betterLine": "Play Thriving Isle (choosing green), then cast Pouncing Cheetah (3/2 flash) using the remaining lands for {2}{G}, giving a meaningful blocker. Alternatively, at minimum cast Spectral Sailor for {U} to get a flying blocker and future card draw engine.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "GPT5 Villain"
+      "player": "GPT5 Villain",
+      "decisionIndex": 49
     }
   ],
   "blunderScriptVersion": 32

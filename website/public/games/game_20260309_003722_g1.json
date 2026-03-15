@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_003722_g1",
   "timestamp": "20260309_003722",
   "gameType": "Two Player Duel",
@@ -110097,7 +110097,8 @@
       "betterLine": "Accept the landfall trigger to force Elvish Archdruid to block Turntimber Basilisk, then attack with the Basilisk to trade a 2/1 deathtouch creature for the opponent's lord/mana engine.",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -110106,7 +110107,8 @@
       "betterLine": "Cast Might of the Masses on Llanowar Visionary (making it 3/3), then block Brushstrider (3/1). Visionary kills Brushstrider and survives, only taking 3 damage from the Basilisk instead of 6 total.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 64
     },
     {
       "severity": "major",
@@ -110115,7 +110117,8 @@
       "betterLine": "Target own Brushstrider (3/1 vigilance) with Hunter's Insight, then attack. With opponent's creatures mostly tapped/sick, Brushstrider likely connects for 3 damage and draws 3 cards.",
       "type": "blunder",
       "snapshotIndex": 136,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 75
     },
     {
       "severity": "moderate",
@@ -110124,7 +110127,8 @@
       "betterLine": "Target Dwynen's Elite (2/2) with the landfall trigger to force it to block Turntimber Basilisk, guaranteeing a kill via deathtouch on the more valuable creature.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -110133,7 +110137,8 @@
       "betterLine": "Cast Hunter's Insight targeting Brushstrider before combat. Brushstrider deals 3 unblockable combat damage and draws 3 cards with zero risk of opponent interaction.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 86
     },
     {
       "severity": "moderate",
@@ -110142,7 +110147,8 @@
       "betterLine": "Cast Hunter's Insight targeting Brushstrider or Turntimber Basilisk, then attack with both. With no available blockers, the targeted creature connects and draws 3 cards, providing massive card advantage at a critical point in the game.",
       "type": "blunder",
       "snapshotIndex": 151,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 88
     },
     {
       "severity": "moderate",
@@ -110151,7 +110157,8 @@
       "betterLine": "Block Brushstrider with Elf Warrior Token to trade a 1/1 token for a 3/1 creature and prevent 3 damage.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 90
     },
     {
       "severity": "questionable",
@@ -110160,7 +110167,8 @@
       "betterLine": "Let Skyway Sniper resolve, then plan to block Brushstrider with available creatures. Save Band Together for a larger threat the opponent might deploy from their 6-card hand. Could also use Titanic Growth on a blocker if needed to trade with Brushstrider.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 107
     },
     {
       "severity": "moderate",
@@ -110169,7 +110177,8 @@
       "betterLine": "Cast Might of the Masses targeting Llanowar Visionary to save it from Band Together. With 6 creatures, it would become roughly 8/8, easily surviving the damage.",
       "type": "blunder",
       "snapshotIndex": 179,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 111
     },
     {
       "severity": "moderate",
@@ -110178,7 +110187,8 @@
       "betterLine": "Play Forest first (reaching 6 lands), then cast Rampaging Baloths. The 6/6 trample threatens lethal in 2 attacks against an 8-life opponent, and future landfall triggers create 4/4 tokens instead of 2/2s.",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 120
     },
     {
       "severity": "major",
@@ -110187,7 +110197,8 @@
       "betterLine": "Attack with only Primeval Herald (to get the landfall trigger for land search) and perhaps one expendable 1/1 token. Keep Llanowar Visionary, Skyway Sniper, and another token back as blockers. With Titanic Growth available, a blocker pumped to 5/6 or 6/6 could trade with the Baloths and survive the turn.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 173
     },
     {
       "severity": "questionable",
@@ -110196,7 +110207,8 @@
       "betterLine": "Save Titanic Growth for defensive use next turn - pumping a blocker to kill Rampaging Baloths (e.g., Skyway Sniper 1/2 becomes 5/6, killing the 6/6) would be far more impactful than 4 non-lethal damage against an opponent at 20 life",
       "type": "blunder",
       "snapshotIndex": 276,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 178
     },
     {
       "severity": "moderate",
@@ -110205,7 +110217,8 @@
       "betterLine": "Target Llanowar Visionary with Titanic Growth (making it 6/6) to trade with Rampaging Baloths 6/6, removing the most dangerous threat that generates 4/4 tokens with every land drop. Alternatively, target Primeval Herald (making it 7/5) to kill the Beast Token 4/4, survive combat, and deal 3 trample damage - keeping the Herald alive while removing a major threat.",
       "type": "blunder",
       "snapshotIndex": 283,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 182
     },
     {
       "severity": "minor",
@@ -110214,7 +110227,8 @@
       "betterLine": "Play Thriving Grove first (triggering Rampaging Baloths for a 4/4 and Zendikar's Roil for a 2/2), then cast Rampaging Growth to get another land entering (another 4/4 beast + 2/2 elemental) plus a 4/3 hasty creature that could attack immediately. Or cast Garruk's Gorehorn as a 7/3 threat to close the game next turn. KHE does almost nothing in a game that should end in 1-2 turns.",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "GPT53C Teach"
+      "player": "GPT53C Teach",
+      "decisionIndex": 195
     }
   ],
   "blunderScriptVersion": 32,

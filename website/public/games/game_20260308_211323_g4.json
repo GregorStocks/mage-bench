@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_211323_g4",
   "timestamp": "20260308_211323",
   "gameType": "Two Player Duel",
@@ -142426,7 +142426,8 @@
       "betterLine": "Choose White for Thriving Isle to produce both colors the deck needs (UW)",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 5
     },
     {
       "severity": "moderate",
@@ -142435,7 +142436,8 @@
       "betterLine": "Cast Mesa Unicorn (2/2 lifelink body that attacks next turn and synergizes with Griffin Aerie later) or Griffin Aerie (to start building the token engine early). Mesa Unicorn is likely best as it applies immediate board pressure while the opponent has no blockers.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -142444,7 +142446,8 @@
       "betterLine": "Attack with Anointed Chorister for a free 1 damage to opponent (19 -> 18) and 1 life gain from lifelink, with zero risk since no blockers are available.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -142453,7 +142456,8 @@
       "betterLine": "Attack with Watertrap Weaver for a free 2 damage (or force opponent to trade down their 1/1 Chorister).",
       "type": "blunder",
       "snapshotIndex": 86,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -142462,7 +142466,8 @@
       "betterLine": "Choose Blue as the secondary color, since the deck likely contains blue cards based on Thriving Isle being in the card pool",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 59
     },
     {
       "severity": "moderate",
@@ -142471,7 +142476,8 @@
       "betterLine": "Attack with all three creatures (Anointed Chorister, Mesa Unicorn, Brightmare). Opponent can only block one with Watertrap Weaver. If needed, use Take Heart on a blocked creature to win combat and gain 3+ life for Griffin Aerie. This deals 3+ damage, likely kills Watertrap Weaver, gains life, and potentially creates a Griffin token.",
       "type": "blunder",
       "snapshotIndex": 98,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -142480,7 +142486,8 @@
       "betterLine": "Cast Crashing Tide targeting Mesa Unicorn (removing lifelink to hinder Griffin Aerie triggers) or Brightmare (removing the biggest blocker), draw a card, then attack with both creatures for more damage.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 72
     },
     {
       "severity": "minor",
@@ -142489,7 +142496,8 @@
       "betterLine": "Attack with at least Littjara Kinseekers (2/4). It survives any single block and forces Coach to either take 2 damage or lose a creature. With Crashing Tide having flash, Tinker could also punish unfavorable blocks by bouncing a blocker mid-combat.",
       "type": "blunder",
       "snapshotIndex": 105,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 73
     },
     {
       "severity": "moderate",
@@ -142498,7 +142506,8 @@
       "betterLine": "Cast Crashing Tide targeting Mesa Unicorn to bounce it, draw a card, and prevent Griffin Aerie from triggering next turn. This is a tempo-positive, card-neutral play with no downside.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 78
     },
     {
       "severity": "minor",
@@ -142507,7 +142516,8 @@
       "betterLine": "Cast Crashing Tide targeting Brightmare to bounce it, draw a card, then attack with both creatures into a weakened board. This generates tempo advantage and card advantage simultaneously while slowing down Griffin Aerie triggers by removing the lifelink-adjacent Brightmare.",
       "type": "blunder",
       "snapshotIndex": 117,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -142516,7 +142526,8 @@
       "betterLine": "Target Mesa Unicorn with Take Heart, making it 4/4 lifelink. It survives combat, gains 6 total life (triggering Griffin Aerie for a 2/2 flyer), and preserves the lifelink creature for future Aerie triggers.",
       "type": "blunder",
       "snapshotIndex": 125,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -142525,7 +142536,8 @@
       "betterLine": "Play Island first, then cast Heirloom Blade, leaving 3 mana open instead of 2. Could also consider whether Pirated Copy (castable with 6 mana after land drop) copying Littjara Kinseekers might be stronger than Heirloom Blade.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 98
     },
     {
       "severity": "moderate",
@@ -142534,7 +142546,8 @@
       "betterLine": "Activate Heirloom Blade's equip ability targeting Littjara Kinseekers (cost {1}), making it an 8/6, then attack.",
       "type": "blunder",
       "snapshotIndex": 154,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 105
     },
     {
       "severity": "minor",
@@ -142543,7 +142556,8 @@
       "betterLine": "Attack with Anointed Chorister for 1 free damage and 1 life gain. The life point contributes toward Griffin Aerie's threshold and chips away at the opponent's life total with no downside.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 123
     },
     {
       "severity": "minor",
@@ -142552,7 +142566,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2, then attack with both Guardian Idol and Anointed Chorister for likely 3 unblocked damage.",
       "type": "blunder",
       "snapshotIndex": 193,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 138
     },
     {
       "severity": "questionable",
@@ -142561,7 +142576,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2, then block the 5/5 Kinseekers. Trading a mana rock for 5 life is generally a good deal in limited, especially when under pressure from multiple threats. Could still cast Voice of the Provinces a turn later with 5 lands.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -142570,7 +142586,8 @@
       "betterLine": "Attack with Brightmare (2/3). If blocked by the 1/1 Changeling, Brightmare kills it and survives — removing a useful utility creature. If blocked by the 2/4 Kinseekers, both survive but no damage is lost. Either way, attacking with Brightmare is low-risk and could deal 2 damage or trade favorably.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 160
     },
     {
       "severity": "minor",
@@ -142579,7 +142596,8 @@
       "betterLine": "Equip Heirloom Blade ({1}) to Bloodline Pretender (soon to be 3/3 with counter) making it a 6/4, or to Universal Automaton making it 4/2, to maximize damage potential next turn against an opponent at 5 life.",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 191
     },
     {
       "severity": "moderate",
@@ -142588,7 +142606,8 @@
       "betterLine": "Attack with only Voice of the Provinces (3 unblockable flying damage) and possibly the 1/1 Human Token. Keep Brightmare and Anointed Chorister back as blockers to survive the opponent's counterattack. Post-combat, play Plains and cast Emancipation Angel for additional defense. Brightmare blocks the 5/5, Anointed Chorister can chump, and Emancipation Angel provides another body.",
       "type": "blunder",
       "snapshotIndex": 265,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 194
     },
     {
       "severity": "moderate",
@@ -142597,7 +142616,8 @@
       "betterLine": "Block Brightmare 2/3 with Bloodline Pretender 3/3 (kills Brightmare, Pretender survives) and optionally block Anointed Chorister 1/1 with Universal Automaton 1/1 (trade, deny lifelink). This reduces damage taken to 4 and kills 1-2 of opponent's creatures.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 196
     },
     {
       "severity": "moderate",
@@ -142606,7 +142626,8 @@
       "betterLine": "Activate Anointed Chorister's {4}{W} ability to give it +3/+3, making it a 4/4 lifelink attacker. This gains 4 life (critical at 5 HP) and deals 3 additional damage. The extra life could be the difference between surviving the opponent's next attack or dying.",
       "type": "blunder",
       "snapshotIndex": 269,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 195
     },
     {
       "severity": "minor",
@@ -142615,7 +142636,8 @@
       "betterLine": "Copy Voice of the Provinces to get a 3/3 flyer and a 1/1 Human token, providing evasive damage to close out the game",
       "type": "blunder",
       "snapshotIndex": 316,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 228
     },
     {
       "severity": "minor",
@@ -142624,7 +142646,8 @@
       "betterLine": "Emancipation Angel + Griffin Token block Bloodline Pretender 4/4 (killing it), Brightmare blocks the 2/4 Kinseekers (both survive), Anointed Chorister blocks Universal Automaton (trade). Same 6 damage taken but kills the dangerous growing 4/4 Pretender instead of a 2/4.",
       "type": "blunder",
       "snapshotIndex": 328,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 237
     },
     {
       "severity": "moderate",
@@ -142633,7 +142656,8 @@
       "betterLine": "Activate Heirloom Blade to equip it to Amoeboid Changeling before combat damage. This kills Brightmare instead of dealing minimal damage, and triggers Heirloom Blade's death ability to tutor a creature card from the library.",
       "type": "blunder",
       "snapshotIndex": 340,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 244
     },
     {
       "severity": "minor",
@@ -142642,7 +142666,8 @@
       "betterLine": "Activate Guardian Idol for {2} to make it a 2/2 Golem, then proceed to combat to attack with maximum force including the Idol alongside flyers and ground creatures.",
       "type": "blunder",
       "snapshotIndex": 344,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 246
     },
     {
       "severity": "minor",
@@ -142651,7 +142676,8 @@
       "betterLine": "Attack with at least Voice of the Provinces, Griffin Token, Anointed Chorister, and Human Token for 7 damage. Could consider sending Brightmare too for 9 total, keeping Feat of Resistance for defensive tricks on the crackback.",
       "type": "blunder",
       "snapshotIndex": 344,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 246
     },
     {
       "severity": "moderate",
@@ -142660,7 +142686,8 @@
       "betterLine": "Equip Heirloom Blade to the 5/5 Littjara Kinseekers (making it 8/6) for {1}, then attack with multiple creatures to push through lethal or near-lethal damage against the 8-life opponent.",
       "type": "blunder",
       "snapshotIndex": 366,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 266
     },
     {
       "severity": "moderate",
@@ -142669,7 +142696,8 @@
       "betterLine": "Keep the 5/5 Littjara Kinseekers back as a blocker to survive the crackback. Attack with the other 4 creatures - the opponent still has to make difficult blocking decisions and Tinker survives the counter-attack.",
       "type": "blunder",
       "snapshotIndex": 367,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 267
     },
     {
       "severity": "moderate",
@@ -142678,7 +142706,8 @@
       "betterLine": "Activate Guardian Idol for 2 mana to make it a 2/2 creature, then proceed to combat and attack with Chorister, Brightmare, Human Token, and Guardian Idol (6 power total). Use Feat of Resistance in combat to grant +1/+1 and protection to push damage through blockers, potentially dealing lethal 7 damage to the opponent at 7 life.",
       "type": "blunder",
       "snapshotIndex": 368,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 268
     },
     {
       "severity": "minor",
@@ -142687,7 +142716,8 @@
       "betterLine": "Activate Guardian Idol for 2 mana to make it a 2/2, then block the 2/4 Kinseekers with it in addition to the other blocks, reducing unblocked damage to 3 and preserving 2 more life.",
       "type": "blunder",
       "snapshotIndex": 371,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 271
     },
     {
       "severity": "minor",
@@ -142696,7 +142726,8 @@
       "betterLine": "Play Plains first (free action, no downside), then activate Guardian Idol to make it a 2/2, proceed to combat and attack with all three creatures for exactly 7 lethal damage.",
       "type": "blunder",
       "snapshotIndex": 391,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 282
     },
     {
       "severity": "major",
@@ -142705,7 +142736,8 @@
       "betterLine": "Activate Guardian Idol for {2}, then declare attackers with Griffin Token, Voice of the Provinces, and Guardian Idol for exactly 7 damage lethal.",
       "type": "blunder",
       "snapshotIndex": 393,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 284
     },
     {
       "severity": "moderate",
@@ -142714,7 +142746,8 @@
       "betterLine": "Block Voice of the Provinces with Triton Shorestalker and Griffin Token with Shaper Apprentice. This takes 0 damage (no trample), trades Shaper Apprentice for the Griffin token, and only loses a 1/1 Shorestalker. Staying at 7 life is far safer than dropping to 2.",
       "type": "blunder",
       "snapshotIndex": 396,
-      "player": "Gem3F Tinker"
+      "player": "Gem3F Tinker",
+      "decisionIndex": 286
     },
     {
       "severity": "moderate",
@@ -142723,7 +142756,8 @@
       "betterLine": "Cast Feat of Resistance targeting Voice of the Provinces, choosing protection from blue. This guarantees it can't be bounced or blocked by blue creatures, securing the lethal attack.",
       "type": "blunder",
       "snapshotIndex": 400,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 290
     }
   ],
   "blunderScriptVersion": 32,

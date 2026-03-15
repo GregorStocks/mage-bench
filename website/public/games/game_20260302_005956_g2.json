@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_005956_g2",
   "timestamp": "20260302_005956",
   "gameType": "Two Player Duel",
@@ -40292,7 +40292,8 @@
       "betterLine": "Play Forest (or Mountain) first, then cast Chandra's Pyreling, leaving 1 mana open to represent tricks or have flexibility",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "Llama4 Trash"
+      "player": "Llama4 Trash",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -40301,7 +40302,8 @@
       "betterLine": "Play Forest (or Mountain) first, then cast Llanowar Visionary with the extra mana available. This preserves optionality and follows fundamental sequencing. Alternatively, consider whether Chandra's Spitfire's flying body provides better defense at 9 life.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "Llama4 Trash"
+      "player": "Llama4 Trash",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -40310,7 +40312,8 @@
       "betterLine": "Block Hotshot Mechanic (2/1) with Llanowar Visionary (2/2) - saves 2 damage instead of 1, Visionary survives, and removes the opponent's key Vehicle pilot.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "Llama4 Trash"
+      "player": "Llama4 Trash",
+      "decisionIndex": 24
     },
     {
       "severity": "major",
@@ -40319,7 +40322,8 @@
       "betterLine": "Block Hotshot Mechanic or Kitsune Ace with Elvish Archdruid to prevent 2 damage, surviving at 1 life. Blocking Hotshot Mechanic is slightly better as you kill it and keep both creatures alive (Archdruid survives the 1-toughness attacker trade).",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Llama4 Trash"
+      "player": "Llama4 Trash",
+      "decisionIndex": 31
     }
   ],
   "blunderScriptVersion": 31,

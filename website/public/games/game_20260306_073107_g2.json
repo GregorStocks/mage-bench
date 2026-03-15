@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_073107_g2",
   "timestamp": "20260306_073107",
   "gameType": "Two Player Duel",
@@ -157267,7 +157267,8 @@
       "betterLine": "Cast Planar Atlas for {2} to get a permanent mana source and filter top 4 for a land, preserving Expedition Map for later when there's spare mana.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 19
     },
     {
       "severity": "questionable",
@@ -157276,7 +157277,8 @@
       "betterLine": "Cast Planar Atlas to develop mana, search for Urza's Mine (working toward Tron), and preserve the Forest as a safe mana source. Could then cast bigger threats next turn with more mana available.",
       "type": "blunder",
       "snapshotIndex": 54,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 30
     },
     {
       "severity": "questionable",
@@ -157285,7 +157287,8 @@
       "betterLine": "Play Island, cast Sailor of Means (1/4 blocker + Treasure token), accelerating toward Courser of Kruphix next turn and Rampaging Baloths soon after. Save Waterknot or Master's Rebuke for later if the Treefolk becomes problematic.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "G31FL Stats"
+      "player": "G31FL Stats",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -157294,7 +157297,8 @@
       "betterLine": "Play Forest (enters untapped) for 4 mana this turn, enabling more efficient sequencing like Thaumaturge's Familiar + Universal Solvent. Save Urza's Factory for a turn where the tempo loss of a tapped land matters less.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -157303,7 +157307,8 @@
       "betterLine": "Cast Universal Solvent for {1} to deploy it for future use. Could also consider Walking Ballista for X=1 with the remaining mana, or save 1 mana. At minimum, Universal Solvent should have been played.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 60
     },
     {
       "severity": "minor",
@@ -157312,7 +157317,8 @@
       "betterLine": "Cast Golem Artisan (3/3 for 5 mana) to maximize board presence and set up its powerful activated abilities with Tron mana coming next turn",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -157321,7 +157327,8 @@
       "betterLine": "Cast Universal Solvent for {1} to deploy a threat that can later destroy any permanent for {7}, preserving Walking Ballista's 4/4 body for combat",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -157330,7 +157337,8 @@
       "betterLine": "Hold the counter on Walking Ballista to maintain it as a 4/4 for future combat or save the ping for a more impactful target later.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 76
     },
     {
       "severity": "minor",
@@ -157339,7 +157347,8 @@
       "betterLine": "Don't activate Walking Ballista at all. Keep it at 4/4 to maximize its combat threat next turn when summoning sickness wears off. Save counter removal for when it can finish off a creature or deal lethal damage.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 78
     },
     {
       "severity": "moderate",
@@ -157348,7 +157357,8 @@
       "betterLine": "Decline to activate the third time, keeping Walking Ballista as a 1/1. With Tron online generating 7+ mana, Ballista could be grown with its {4} ability to add counters, becoming a much larger threat over time. A 1/1 body also blocks, carries equipment, and provides future flexibility.",
       "type": "blunder",
       "snapshotIndex": 145,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 81
     },
     {
       "severity": "major",
@@ -157357,7 +157367,8 @@
       "betterLine": "Keep Walking Ballista alive with its counters. With Tron assembled, use {4} to add +1/+1 counters each turn, growing it into a major threat. A 2/2 that can grow with excess mana is far more valuable than 2 damage to a 20-life opponent.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 84
     },
     {
       "severity": "major",
@@ -157366,7 +157377,8 @@
       "betterLine": "Pass during combat, then in postcombat main phase play Forest from hand, then cast Ulvenwald Hydra (4GG) using both Forests and Tron lands. Hydra enters as ~7/7 reach and tutors another land to the battlefield.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 106
     },
     {
       "severity": "moderate",
@@ -157375,7 +157387,8 @@
       "betterLine": "Tap Factory for {C} instead, then in postcombat main phase cast Golem Artisan (3/3 with relevant pump abilities) and potentially also play the Forest from hand and cast Thaumaturge's Familiar",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 106
     },
     {
       "severity": "minor",
@@ -157384,7 +157397,8 @@
       "betterLine": "Block the Assembly-Worker Token (2/2) with Rampaging Baloths to prevent 1 more damage and kill the higher-power attacker",
       "type": "blunder",
       "snapshotIndex": 276,
-      "player": "G31FL Stats"
+      "player": "G31FL Stats",
+      "decisionIndex": 144
     },
     {
       "severity": "minor",
@@ -157393,7 +157407,8 @@
       "betterLine": "Play Urza's Mine first to grow Ulvenwald Hydra to 9/9, then activate Urza's Factory with the additional mana available, leaving more mana open for Golem Artisan activations to grant trample/flying or pump creatures.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 162
     },
     {
       "severity": "moderate",
@@ -157402,7 +157417,8 @@
       "betterLine": "Activate Universal Solvent ({7}, {T}, sacrifice) to destroy Rampaging Baloths, eliminating both the 6/6 trample threat and the ongoing landfall token generation that would quickly overwhelm the board at 4 life.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 162
     },
     {
       "severity": "moderate",
@@ -157411,7 +157427,8 @@
       "betterLine": "Cast Master's Rebuke targeting Rampaging Baloths (or any creature with 3+ power) and Golem Artisan 3/3 to remove a key blocker, ensuring lethal attack next turn with Baloths + Beast Token against only Ulvenwald Hydra as a blocker.",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "G31FL Stats"
+      "player": "G31FL Stats",
+      "decisionIndex": 161
     },
     {
       "severity": "minor",
@@ -157420,7 +157437,8 @@
       "betterLine": "Target Ulvenwald Hydra or Golem Artisan (both attacking) with the +1/+1 to deal 1 extra damage, bringing opponent from 19 to 5 instead of 6. Every point matters when you're at 4 life facing Rampaging Baloths.",
       "type": "blunder",
       "snapshotIndex": 316,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 170
     },
     {
       "severity": "moderate",
@@ -157429,7 +157447,8 @@
       "betterLine": "Choose haste to allow the summoning-sick Assembly-Worker Token to attack for 2 additional unblocked damage (15 total instead of 13)",
       "type": "blunder",
       "snapshotIndex": 321,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 174
     },
     {
       "severity": "minor",
@@ -157438,7 +157457,8 @@
       "betterLine": "Give Assembly-Worker Token haste first to add it as an attacker, then use remaining mana for +1/+1 pumps to maximize total combat damage (16 vs potentially 15)",
       "type": "blunder",
       "snapshotIndex": 322,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 175
     },
     {
       "severity": "minor",
@@ -157447,7 +157467,8 @@
       "betterLine": "Activate Golem Artisan again targeting itself for another +1/+1, making it 5/5 and dealing 15 total damage instead of 14, putting opponent to 4 instead of 5",
       "type": "blunder",
       "snapshotIndex": 323,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 177
     },
     {
       "severity": "minor",
@@ -157456,7 +157477,8 @@
       "betterLine": "Activate Golem Artisan again targeting any attacking artifact creature for +1/+1, dealing 1 additional point of combat damage to bring the opponent closer to lethal range.",
       "type": "blunder",
       "snapshotIndex": 329,
-      "player": "Haiku Perfect"
+      "player": "Haiku Perfect",
+      "decisionIndex": 181
     },
     {
       "severity": "moderate",
@@ -157465,7 +157487,8 @@
       "betterLine": "Cast Master's Rebuke targeting Beast Token 4/4 to deal 4 damage to Golem Artisan 4/4, killing it and reducing incoming damage by 4 (surviving at 8 life instead of 4)",
       "type": "blunder",
       "snapshotIndex": 335,
-      "player": "G31FL Stats"
+      "player": "G31FL Stats",
+      "decisionIndex": 184
     },
     {
       "severity": "minor",
@@ -157474,7 +157497,8 @@
       "betterLine": "Cast Master's Rebuke targeting Beast Token 4/4 to deal 4 damage to Thaumaturge's Familiar (killing the evasive flyer) or Golem Artisan (killing the pump engine), reducing incoming damage from 15 to 11 and removing a significant threat",
       "type": "blunder",
       "snapshotIndex": 337,
-      "player": "G31FL Stats"
+      "player": "G31FL Stats",
+      "decisionIndex": 184
     }
   ],
   "blunderScriptVersion": 32

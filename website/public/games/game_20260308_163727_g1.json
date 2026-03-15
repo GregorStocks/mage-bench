@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_163727_g1",
   "timestamp": "20260308_163727",
   "gameType": "Two Player Duel",
@@ -78824,7 +78824,8 @@
       "betterLine": "Keep the 7-card hand. It has adequate mana (3 lands, 2 colors matching all spells in hand), a good curve (turns 1/3/4), and can draw into green sources naturally.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -78833,7 +78834,8 @@
       "betterLine": "Play Ash Barrens as the land drop to have 2 lands on board, enabling Cultivate on turn 3 after playing a Forest.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -78842,7 +78844,8 @@
       "betterLine": "Play Ash Barrens to have 2 mana sources available, enabling faster development toward Cultivate on turn 3 (with a Forest play) or at minimum having more mana available sooner.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -78851,7 +78854,8 @@
       "betterLine": "Cast Thieves' Guild Enforcer for {B} during combat. This develops a creature, mills the opponent 2 cards, and preserves the option to block or attack next turn. There is no reason to hold it since there are no other instant-speed plays competing for that mana this turn cycle (Sentinels costs 4, Undersea Invader costs 6).",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -78860,7 +78864,8 @@
       "betterLine": "Play Forest from hand first, then cast Cultivate with the additional mana available",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -78869,7 +78874,8 @@
       "betterLine": "Play a land first (Thriving Grove for color fixing), then cast Unnatural Aggression targeting Drover of the Mighty to fight Brineborn Cutthroat, preserving the more valuable Orazca Frillback with trample.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 105
     },
     {
       "severity": "moderate",
@@ -78878,7 +78884,8 @@
       "betterLine": "Target Oona's Blackguard with Unnatural Aggression - the Frillback survives the fight (takes only 1 damage vs 2 toughness), removes a dangerous synergy piece, and keeps the 6-power trampler on board for attacking",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 107
     },
     {
       "severity": "minor",
@@ -78887,7 +78894,8 @@
       "betterLine": "Cast Sentinels of Glen Elendra for {3}{U} to get a 3/4 flying Rogue with discard synergy from Oona's Blackguard, plus mill 2 from Thieves' Guild Enforcer trigger",
       "type": "blunder",
       "snapshotIndex": 169,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 130
     },
     {
       "severity": "moderate",
@@ -78896,7 +78904,8 @@
       "betterLine": "Block Thieves' Guild Enforcer with Drowsing Tyrannodon. The Tyrannodon trades due to deathtouch but saves 3 life, going to 7 instead of 4, which survives the opponent's next flying attack and gives more time to win with Ghalta.",
       "type": "blunder",
       "snapshotIndex": 218,
-      "player": "Grk41F Timmy"
+      "player": "Grk41F Timmy",
+      "decisionIndex": 160
     },
     {
       "severity": "moderate",
@@ -78905,7 +78914,8 @@
       "betterLine": "Double-block Ghalta with Mausoleum Turnkey and Nightshade Stinger to reduce trample damage to 5, taking 8 total (19 → 11 life). At 11 life, Kimi25 could survive another turn and potentially deploy Undersea Invader (5/6 flash) as a blocker.",
       "type": "blunder",
       "snapshotIndex": 237,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 173
     },
     {
       "severity": "major",
@@ -78914,7 +78924,8 @@
       "betterLine": "Cast Instruments of War choosing Faerie (or Rogue), then attack with all flyers for lethal damage (8 flying damage vs opponent's 7 life)",
       "type": "blunder",
       "snapshotIndex": 246,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 182
     },
     {
       "severity": "major",
@@ -78923,7 +78934,8 @@
       "betterLine": "Cast Instruments of War choosing Rogue type for +1/+1 to all Rogues, dealing exactly 7 damage for lethal.",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "Kimi25 Tactic"
+      "player": "Kimi25 Tactic",
+      "decisionIndex": 186
     }
   ],
   "blunderScriptVersion": 32,

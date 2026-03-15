@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_174929_g4",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -42091,7 +42091,8 @@
       "betterLine": "Play a Forest (or Plains) to develop mana to 2 lands, enabling Pack Leader on turn 5 with another land drop, and getting closer to casting Release the Dogs and Supply Runners.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -42100,7 +42101,8 @@
       "betterLine": "Discard Release the Dogs (4 mana spell is too far away given only 1 land in play) and keep all 3 lands plus the cheaper creatures that can be deployed sooner.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 11
     },
     {
       "severity": "moderate",
@@ -42109,7 +42111,8 @@
       "betterLine": "Discard Runed Servitor, which is a mediocre 2/2 with a symmetrical (often opponent-favoring) death trigger, and keep Tolarian Kraken as a powerful late-game threat that synergizes with the deck's draw effects.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Grok4F Lucky"
+      "player": "Grok4F Lucky",
+      "decisionIndex": 14
     },
     {
       "severity": "major",
@@ -42118,7 +42121,8 @@
       "betterLine": "Play Forest (land drop), then cast Selfless Savior with the untapped Plains. This develops the board with a 1/1 body and enables green mana for future turns, allowing Fa'adiyah Seer on turn 4 mana and building toward Pack Leader + Release the Dogs.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 17
     },
     {
       "severity": "major",
@@ -42127,7 +42131,8 @@
       "betterLine": "Cast Pack Leader for {1}{W} to begin rebuilding the board and set up the Dog synergy engine. Next turn, Cultivate into Release the Dogs would create four 2/2 Dog tokens with Pack Leader's buff, providing a path back into the game.",
       "type": "blunder",
       "snapshotIndex": 107,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -42136,7 +42141,8 @@
       "betterLine": "Play Island first (6 lands available), then cast Soul Read (4 mana), then cast Suspicious Bookcase (2 mana) to deploy an additional blocker/body in the same turn",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Grok4F Lucky"
+      "player": "Grok4F Lucky",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -42145,7 +42151,8 @@
       "betterLine": "Cast Suspicious Bookcase for {2}, deploying a useful permanent with future unblockable utility at no cost.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Grok4F Lucky"
+      "player": "Grok4F Lucky",
+      "decisionIndex": 35
     },
     {
       "severity": "major",
@@ -42154,7 +42161,8 @@
       "betterLine": "Play Plains (land drop), cast Pack Leader ({1}{W}) using Plains + Plains, then cast Selfless Savior ({W}) using remaining Forest mana — deploying two creatures including the key Dog lord while the opponent is tapped out.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 40
     },
     {
       "severity": "moderate",
@@ -42163,7 +42171,8 @@
       "betterLine": "Play Plains (getting to 3 mana), then cast Pack Leader (2-drop, key lord for the Dog strategy with Release the Dogs in hand) and Selfless Savior (1-drop, provides protection). This deploys two creatures and sets up a future Release the Dogs turn with Pack Leader already in play.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 41
     },
     {
       "severity": "questionable",
@@ -42172,7 +42181,8 @@
       "betterLine": "Actively discard Fa'adiyah Seer or Cathar's Companion — the least impactful cards given the game plan of Cultivate into Pack Leader + Release the Dogs.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "GptOSS Analyst"
+      "player": "GptOSS Analyst",
+      "decisionIndex": 42
     }
   ],
   "blunderScriptVersion": 31,

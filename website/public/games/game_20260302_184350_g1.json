@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_184350_g1",
   "timestamp": "20260302_184350",
   "gameType": "Two Player Duel",
@@ -82100,7 +82100,8 @@
       "betterLine": "Keep the 7-card hand. While land-heavy, having a guaranteed turn 2 Wight and never missing land drops gives time to draw into spells. Mulliganing to 6 risks getting a worse hand with potential mana issues.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "MstMed Pessim"
+      "player": "MstMed Pessim",
+      "decisionIndex": 1
     },
     {
       "severity": "moderate",
@@ -82109,7 +82110,8 @@
       "betterLine": "Bottom a lower-impact black card like Mind Rot or Slate Street Ruffian. Keeping both Forests ensures hitting land drops for Feral Prowler on turn 2 and gives more draw steps to find black sources.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MstMed Pessim"
+      "player": "MstMed Pessim",
+      "decisionIndex": 3
     },
     {
       "severity": "major",
@@ -82118,7 +82120,8 @@
       "betterLine": "Play Forest immediately — it's the only legal action and there is zero downside. Every land drop is critical when this far behind on mana.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "MstMed Pessim"
+      "player": "MstMed Pessim",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -82127,7 +82130,8 @@
       "betterLine": "Play Snow-Covered Island first (triggering Marit Lage's Slumber scry 1), then cast Spark Reaper with the 4 available mana.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -82136,7 +82140,8 @@
       "betterLine": "Play Swamp first, then cast Isu the Abominable ({3}{U}{U}) — a 5/5 legendary snow creature that enables playing snow cards from library top and synergizes with Marit Lage's Slumber for repeated scrying",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -82145,7 +82150,8 @@
       "betterLine": "Choose Blue for Shimmerdrift Vale to maximize blue mana availability for Isu the Abominable and Avalanche Caller activations, and to add another snow permanent that synergizes with Marit Lage's Slumber counting.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -82154,7 +82160,8 @@
       "betterLine": "Attack with both Avalanche Caller and Spark Reaper for 3 unblockable damage.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 28
     },
     {
       "severity": "moderate",
@@ -82163,7 +82170,8 @@
       "betterLine": "Hold Nature's Way for when a bigger creature is available (e.g., Canopy Stalker at 4 power could kill any creature on opponent's board). For now, pass the turn or just play a land and develop the board toward casting black spells.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "MstMed Pessim"
+      "player": "MstMed Pessim",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -82172,7 +82180,8 @@
       "betterLine": "Attack with Avalanche Caller, Spark Reaper, and Suspicious Shambler. Opponent can only block one, and all three survive combat with the 1/3 Feral Prowler. This pushes 3-6 additional damage through depending on blocks.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 35
     },
     {
       "severity": "major",
@@ -82181,7 +82190,8 @@
       "betterLine": "Activate Avalanche Caller twice targeting two Snow-Covered Islands to create two 4/4 haste elementals, then attack with all available untapped creatures (two 4/4 elementals + Spark Reaper + Avalanche Caller) for 11 damage, which is lethal.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 47
     },
     {
       "severity": "major",
@@ -82190,7 +82200,8 @@
       "betterLine": "Activate Avalanche Caller targeting another Snow-Covered Island (using the 2 remaining untapped lands), then attack with both 4/4 elementals, Avalanche Caller, and Spark Reaper for 11 damage against 9 life = lethal.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 50
     },
     {
       "severity": "questionable",
@@ -82199,7 +82210,8 @@
       "betterLine": "Discard Mind Rot instead, as hand disruption is much less relevant when the opponent's threats are already on the battlefield and you need board presence to survive.",
       "type": "blunder",
       "snapshotIndex": 227,
-      "player": "MstMed Pessim"
+      "player": "MstMed Pessim",
+      "decisionIndex": 54
     },
     {
       "severity": "major",
@@ -82208,7 +82220,8 @@
       "betterLine": "Activate Avalanche Caller targeting a Snow-Covered Island to make it a 4/4 hexproof haste creature, then go to combat and attack with Isu (6/6) and the 4/4 land creature for 10 total damage against the opponent's 9 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 228,
-      "player": "GLM47 Stoic"
+      "player": "GLM47 Stoic",
+      "decisionIndex": 55
     }
   ],
   "blunderScriptVersion": 31,

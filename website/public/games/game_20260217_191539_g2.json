@@ -28277,7 +28277,8 @@
       "betterLine": "Play Mox Diamond but discard Windswept Heath instead of Thespian's Stage, preserving the Thespian's Stage + Urza's Saga synergy for future turns.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "Kimi25 Vorthos"
+      "player": "Kimi25 Vorthos",
+      "decisionIndex": 5
     },
     {
       "severity": "questionable",
@@ -28286,7 +28287,8 @@
       "betterLine": "Let Mox Diamond resolve and focus on executing the strong Turn 2 The One Ring plan (City of Traitors + Grim Monolith), saving Force of Will for a more critical threat.",
       "type": "blunder",
       "snapshotIndex": 11,
-      "player": "Grk41F Stats"
+      "player": "Grk41F Stats",
+      "decisionIndex": 7
     },
     {
       "severity": "questionable",
@@ -28295,7 +28297,8 @@
       "betterLine": "Exile Phyrexian Metamorph instead, keeping Stock Up to dig for additional resources and answers. With City of Traitors and Grim Monolith, casting Stock Up on turn 2 is straightforward and helps find more impactful cards. However, this is debatable since Metamorph copying The One Ring is a strong line too.",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Grk41F Stats"
+      "player": "Grk41F Stats",
+      "decisionIndex": 8
     },
     {
       "severity": "questionable",
@@ -28304,7 +28307,8 @@
       "betterLine": "Play Island, then cast Preordain to improve card quality. Next turn play City of Traitors, cast Grim Monolith (CC from City), tap Monolith for CCC + Island for the 4th mana to cast The One Ring.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Grk41F Stats"
+      "player": "Grk41F Stats",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -28313,7 +28317,8 @@
       "betterLine": "Cast The One Ring for 4 mana (3 from untapped Grim Monolith + 1 from Island), gaining protection from everything until next turn and setting up card draw, which is far more impactful than additional ramp when already at sufficient mana.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Grk41F Stats"
+      "player": "Grk41F Stats",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -28322,7 +28327,8 @@
       "betterLine": "Play Windswept Heath instead, which provides colored mana flexibility and can fetch lands at instant speed. Thespian's Stage has no good copy targets currently and only produces colorless mana.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Kimi25 Vorthos"
+      "player": "Kimi25 Vorthos",
+      "decisionIndex": 32
     },
     {
       "severity": "major",
@@ -28331,7 +28337,8 @@
       "betterLine": "Cast Show and Tell (using Grim Monolith for {2} and Island for {U}), putting Emrakul, the Aeons Torn onto the battlefield. Note: Show and Tell puts the card onto the battlefield but doesn't cast it, so no extra turn trigger - but a 15/15 flying annihilator 6 with protection from colored spells should still be game-winning. Alternatively, they could play Island first then cast Show and Tell with remaining mana. The key point is they must deploy a threat NOW before dying to burden counters next upkeep.",
       "type": "blunder",
       "snapshotIndex": 127,
-      "player": "Grk41F Stats"
+      "player": "Grk41F Stats",
+      "decisionIndex": 54
     },
     {
       "severity": "major",
@@ -28340,11 +28347,12 @@
       "betterLine": "Put The Tabernacle at Pendrell Vale onto the battlefield. While the opponent can likely pay {1} for their creature, Tabernacle provides ongoing pressure against any creatures and is a much more impactful permanent than a City of Traitors copy (which sacrifices when you play another land). With Crop Rotation and Windswept Heath in hand, Kimi25 has mana options already. Tabernacle taxes whatever creature the opponent puts in and has lasting strategic value.",
       "type": "blunder",
       "snapshotIndex": 132,
-      "player": "Kimi25 Vorthos"
+      "player": "Kimi25 Vorthos",
+      "decisionIndex": 60
     }
   ],
   "blunderScriptVersion": 15,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

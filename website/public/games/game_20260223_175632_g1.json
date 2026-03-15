@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260223_175632_g1",
   "timestamp": "20260223_175632",
   "gameType": "Two Player Duel",
@@ -48540,7 +48540,8 @@
       "betterLine": "Bottom the second Ruby Medallion, keeping Desperate Ritual as the critical mana engine piece for chaining Wrenn's Resolve and Reckless Impulse on a combo turn.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -48549,7 +48550,8 @@
       "betterLine": "Play Arid Mesa, crack it to fetch a Mountain for deck thinning while the 1 life cost is inconsequential",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 7
     },
     {
       "severity": "minor",
@@ -48558,7 +48560,8 @@
       "betterLine": "Fetch a basic Mountain for free, preserving life total while getting the same useful mana production.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 12
     },
     {
       "severity": "minor",
@@ -48567,7 +48570,8 @@
       "betterLine": "Cast Ancient Stirrings for {G} from one Grove, keeping the other Grove open to also cast Blade of the Bloodchief for {1} in the same turn, developing two plays instead of one",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Gem3P Romance"
+      "player": "Gem3P Romance",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -48576,7 +48580,8 @@
       "betterLine": "Choose Commercial District to secure a third permanent colored mana source, enabling casting of Basking Broodscale, Ancient Stirrings, and eventually Writhing Chrysalis. The deck desperately needs colored mana, not a temporary colorless source.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Gem3P Romance"
+      "player": "Gem3P Romance",
+      "decisionIndex": 15
     },
     {
       "severity": "moderate",
@@ -48585,7 +48590,8 @@
       "betterLine": "Cast Ruby Medallion first (using both lands), then on future turns benefit from reduced costs on Pyretic Ritual, Manamorphose, and Past in Flames for a more explosive combo turn. Also should play Arid Mesa as a land drop first before casting anything.",
       "type": "blunder",
       "snapshotIndex": 59,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -48594,7 +48600,8 @@
       "betterLine": "Play Arid Mesa first (free land drop), then cast Manamorphose to see the drawn card before deciding on further plays. This preserves maximum information and flexibility.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -48603,7 +48610,8 @@
       "betterLine": "Consider casting Kozilek's Command for X=0 using Urza's Saga and Eldrazi Spawn token to cantrip and dig for more resources, though saving it for a larger X later is also defensible.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "Gem3P Romance"
+      "player": "Gem3P Romance",
+      "decisionIndex": 39
     },
     {
       "severity": "questionable",
@@ -48612,7 +48620,8 @@
       "betterLine": "Cast Strike It Rich first for {R}, creating a Treasure, then cast Ruby Medallion for {2}, then cast Artist's Talent for {R} (reduced by Medallion), using the last Mountain and the Treasure token. This deploys all three cards in one turn instead of just one.",
       "type": "blunder",
       "snapshotIndex": 124,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -48621,7 +48630,8 @@
       "betterLine": "Cast Artist's Talent first for {R} using the untapped Mountain, then cast Strike It Rich for free (reduced by Ruby Medallion), triggering Artist's Talent's filtering ability to discard a redundant Past in Flames and draw a fresh card",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -48630,7 +48640,8 @@
       "betterLine": "Attack with both Constructs and Haywire Mite for 9 damage total (opponent 14→5). The Eldrazi Spawn could also attack for 0, but at minimum the Mite's 1 damage is free value.",
       "type": "blunder",
       "snapshotIndex": 140,
-      "player": "Gem3P Romance"
+      "player": "Gem3P Romance",
+      "decisionIndex": 45
     },
     {
       "severity": "minor",
@@ -48639,7 +48650,8 @@
       "betterLine": "Cast Past in Flames for {2}{R} (3 mana with Medallion), then flashback Pyretic Ritual for {R} (netting RR), then flashback Manamorphose to draw and generate mana, chaining into further spells to try to find a win condition or stabilize.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "MiMo Rookie"
+      "player": "MiMo Rookie",
+      "decisionIndex": 50
     }
   ],
   "blunderScriptVersion": 18,

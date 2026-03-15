@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_174929_g2",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -66126,7 +66126,8 @@
       "betterLine": "Keep the 7-card hand. It has a functional curve (2-drop into 4-drop), correct mana, and will draw into spells. Going to 6 risks a worse hand for marginal upside.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem31P Proud"
+      "player": "Gem31P Proud",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -66135,7 +66136,8 @@
       "betterLine": "Play Island from hand, then cast Bloodline Pretender choosing 'Goblin' as the creature type. Next turn, cast Hordeling Outburst to trigger Pretender three times, creating a 5/5 alongside three 1/1 tokens.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "GLM47 Pessim"
+      "player": "GLM47 Pessim",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -66144,7 +66146,8 @@
       "betterLine": "Cast Taranika, Akroan Veteran - a 3/3 vigilance that walls all three Goblin tokens and has a powerful attack trigger for future turns.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Gem31P Proud"
+      "player": "Gem31P Proud",
+      "decisionIndex": 16
     },
     {
       "severity": "questionable",
@@ -66153,7 +66156,8 @@
       "betterLine": "Cast Bloodline Pretender (3) choosing Goblin type - a 2/2 that grows with subsequent Goblin entries, providing better board presence while still leaving mana to cast Rummaging Goblin next turn for the +1/+1 counter trigger",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "GLM47 Pessim"
+      "player": "GLM47 Pessim",
+      "decisionIndex": 21
     },
     {
       "severity": "questionable",
@@ -66162,7 +66166,8 @@
       "betterLine": "Cast Flame Lash targeting Taranika, Akroan Veteran while opponent is tapped out with no mana to protect it. Deal 3 damage in combat (opponent to 15) but remove the most dangerous threat on board. Burn Bright could still be used on a future turn for a lethal push.",
       "type": "blunder",
       "snapshotIndex": 116,
-      "player": "GLM47 Pessim"
+      "player": "GLM47 Pessim",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -66171,7 +66176,8 @@
       "betterLine": "Save Chilling Trap for a more impactful moment — such as when the opponent has a lethal attack or to enable an alpha strike later. At 20 life, taking 3 from Taranika is fine.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "GLM47 Pessim"
+      "player": "GLM47 Pessim",
+      "decisionIndex": 45
     }
   ],
   "blunderScriptVersion": 31,

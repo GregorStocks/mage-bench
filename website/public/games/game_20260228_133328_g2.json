@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_133328_g2",
   "timestamp": "20260228_133328",
   "gameType": "Two Player Duel",
@@ -86307,7 +86307,8 @@
       "betterLine": "Keep the 7-card hand. Play Thriving Grove turn 1, Forests on turns 2-3, deploy Simian Brawler turn 4 with removal backup.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 1
     },
     {
       "severity": "questionable",
@@ -86316,7 +86317,8 @@
       "betterLine": "Bottom a Forest instead, keeping Thriving Grove for color fixing. The hand would be Forest, Forest, Thriving Grove, Oashra Cultivator, Ram Through, Towering Gibbon — still 3 lands with better color access for potential red spells.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -86325,7 +86327,8 @@
       "betterLine": "Cast Kibo, Uktabi Prince for 2G. Next turn, tap Kibo to create Banana tokens, giving access to 4 lands + Banana = 5 mana while having a 2/2 creature on board that pressures the opponent and synergizes with Towering Gibbon and the rest of the deck.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -86334,7 +86337,8 @@
       "betterLine": "Cast Pouncing Cheetah (same 3/2 body, uses the flash creature when flash isn't needed on an empty board) and save Dutiful Replicator for after Brazen Freebooter creates a Treasure token to copy.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 29
     },
     {
       "severity": "minor",
@@ -86343,7 +86347,8 @@
       "betterLine": "Cast Towering Gibbon for 4 mana, deploying a 4/4 reach creature that dominates the board defensively and offensively while maximizing removal spell effectiveness",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 35
     },
     {
       "severity": "moderate",
@@ -86352,7 +86357,8 @@
       "betterLine": "Cast Welding Sparks targeting Kibo, Uktabi Prince to remove it before it can generate value. Kibo is a must-answer threat that punishes artifact ownership and grows itself.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -86361,7 +86367,8 @@
       "betterLine": "Attack with both Dutiful Replicator and Initiate's Companion for 6 unblocked damage, bringing opponent to 11 instead of 14.",
       "type": "blunder",
       "snapshotIndex": 104,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 41
     },
     {
       "severity": "minor",
@@ -86370,7 +86377,8 @@
       "betterLine": "Untap Initiate's Companion to have a 3/1 blocker available for the opponent's next attack step",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 45
     },
     {
       "severity": "major",
@@ -86379,7 +86387,8 @@
       "betterLine": "Cast Canopy Baloth or Towering Gibbon (both cost 4 mana, available) to add a significant blocker/attacker. Alternatively, activate Kibo first to create Banana tokens, then cast a 4-drop. Could also cast Khalni Heart Expedition for 2 mana and still have 2 mana for Ram Through or Master's Rebuke later.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -86388,7 +86397,8 @@
       "betterLine": "Attack with Kibo, Uktabi Prince to force the opponent to sacrifice an artifact (likely the Treasure Token), triggering Kibo's +1/+1 counter ability. If the opponent blocks with Dutiful Replicator, you can use Ram Through or Master's Rebuke from hand to handle the blocker while keeping Kibo alive.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -86397,7 +86407,8 @@
       "betterLine": "Sacrifice the Treasure Token instead, preserving the 3/2 body for attacking and blocking.",
       "type": "blunder",
       "snapshotIndex": 123,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -86406,7 +86417,8 @@
       "betterLine": "Attack with Kibo, Uktabi Prince for 4 damage, bringing opponent to 16. It costs nothing since Kibo untaps for blocking duty next turn.",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 63
     },
     {
       "severity": "moderate",
@@ -86415,7 +86427,8 @@
       "betterLine": "Don't block, take 4 damage (go to 16), then next turn attack with both Cheetah and Initiate's Companion for 6 and use Welding Sparks for 3+ to threaten lethal",
       "type": "blunder",
       "snapshotIndex": 179,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -86424,7 +86437,8 @@
       "betterLine": "Don't block, take 4 damage (going to 16 life), preserve Pouncing Cheetah as an attacker to pressure the opponent at 8 life. Next turn the Cheetah could attack and help close out the game.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 67
     },
     {
       "severity": "minor",
@@ -86433,7 +86447,8 @@
       "betterLine": "Play Thriving Bluff or Thriving Grove (choosing the missing color) to maximize future mana flexibility, saving the basic Forest for a turn where all mana is needed untapped.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -86442,7 +86457,8 @@
       "betterLine": "Hold back Initiate's Companion as a blocker. With Welding Sparks in hand (3 damage) and the opponent at 8 life, preserving the creature for defense while looking for more threats or waiting for a better attack opportunity would be more prudent.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 73
     },
     {
       "severity": "moderate",
@@ -86451,7 +86467,8 @@
       "betterLine": "Block Initiate's Companion with Towering Gibbon to kill the 3/1, save 3 life, and keep the Gibbon alive.",
       "type": "blunder",
       "snapshotIndex": 200,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -86460,7 +86477,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, so the combined 6 damage (3 from Sparks + 3 from Companion) kills the 4/4 Gibbon, trading an already-dead creature plus a removal spell for their major blocker.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -86469,7 +86487,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with the 3 combat damage from Initiate's Companion, the Gibbon would die. This trades the Companion 1-for-1 with a bigger creature instead of losing it for nothing.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -86478,7 +86497,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 spell damage + 3 combat damage = 6 to the 4/4, killing it. This turns a dead Companion into a meaningful trade.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -86487,7 +86507,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before. The 3 combat damage + 3 from Welding Sparks = 6 kills the 4/4 Gibbon, turning a losing trade into a clean 1-for-1+spell exchange and removing a key blocker with the opponent at 8 life.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -86496,7 +86517,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage or before damage. The 3 damage from Welding Sparks plus 3 combat damage would kill the 4/4 Towering Gibbon, trading Initiate's Companion and a spell for a significant blocker. Alternatively, Welding Sparks could target Kibo (4/4) — 3 damage wouldn't kill it alone, so Towering Gibbon is the correct target during this combat.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -86505,7 +86527,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during the combat damage step (or before), dealing 3 damage so that combined with 3 combat damage from Companion, the Gibbon dies.",
       "type": "blunder",
       "snapshotIndex": 208,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -86514,7 +86537,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon after combat damage to kill it, turning an unfavorable block into a 2-for-1 trade that removes a key reach blocker while opponent is at 8 life.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -86523,7 +86547,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, then the Companion's 3 combat damage kills the Gibbon. This trades a 3/1 and a removal spell for a 4/4 reach creature — a strong exchange given the opponent is at 8 life and the Gibbon is a major blocker.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 85
     },
     {
       "severity": "moderate",
@@ -86532,7 +86557,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage, reducing it to 4/1, then combat damage from Initiate's Companion (3 damage) kills it. This trades Companion + Welding Sparks for the opponent's Gibbon, clearing a key blocker with the opponent at 8 life.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 88
     },
     {
       "severity": "moderate",
@@ -86541,7 +86567,8 @@
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with 3 combat damage from Companion, this kills the Gibbon (6 damage to a 4-toughness creature). Trading Companion + Welding Sparks for the 4/4 reach creature is excellent when the opponent is at 8 life.",
       "type": "blunder",
       "snapshotIndex": 212,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 88
     },
     {
       "severity": "moderate",
@@ -86550,7 +86577,8 @@
       "betterLine": "Hold Welding Sparks for a situation where it can actually kill a creature (e.g., when you control artifacts like Treasure tokens to boost the damage, or against a smaller creature). Pass priority and play a land instead.",
       "type": "blunder",
       "snapshotIndex": 220,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 92
     },
     {
       "severity": "minor",
@@ -86559,7 +86587,8 @@
       "betterLine": "Activate Kibo's tap ability to create Banana tokens for both players, setting up future +1/+1 counter triggers when the opponent's artifact goes to graveyard (especially forced by Kibo's attack trigger next turn).",
       "type": "blunder",
       "snapshotIndex": 244,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 106
     },
     {
       "severity": "minor",
@@ -86568,7 +86597,8 @@
       "betterLine": "Activate Kibo to create Banana tokens for both players. The 2 life gain from cracking your own Banana is meaningful at 8 life, and there's upside if the opponent doesn't crack theirs before Kibo attacks next turn.",
       "type": "blunder",
       "snapshotIndex": 246,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 107
     },
     {
       "severity": "major",
@@ -86577,7 +86607,8 @@
       "betterLine": "Attack with both Kibo and Towering Gibbon for 8 unblockable damage, bringing the opponent to 12 life.",
       "type": "blunder",
       "snapshotIndex": 251,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 109
     },
     {
       "severity": "minor",
@@ -86586,7 +86617,8 @@
       "betterLine": "Don't block. Take 8 damage to go to 12 life, which is still safe, and keep Pridemalkin as an offensive threat against the opponent's 8 life total.",
       "type": "blunder",
       "snapshotIndex": 257,
-      "player": "GPT52 Coach"
+      "player": "GPT52 Coach",
+      "decisionIndex": 111
     },
     {
       "severity": "major",
@@ -86595,7 +86627,8 @@
       "betterLine": "Attack with all three creatures. With 17 total power (including Silverback Shaman's trample) against a single 3/3 blocker, this deals 12-14 damage regardless of how the opponent blocks, putting them to 2-4 life and threatening lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 298,
-      "player": "Grok4 Optim"
+      "player": "Grok4 Optim",
+      "decisionIndex": 127
     }
   ],
   "blunderScriptVersion": 28,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_163727_g2",
   "timestamp": "20260308_163727",
   "gameType": "Two Player Duel",
@@ -110575,7 +110575,8 @@
       "betterLine": "Cast Preston, the Vanisher (3W) to deploy the synergy engine. Next turn, deal with Bone Picker using Brightmare (tap it + gain 3 life) or Faith's Fetters, while flickering creatures with Preston out to generate Illusion tokens and card advantage.",
       "type": "blunder",
       "snapshotIndex": 79,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -110584,7 +110585,8 @@
       "betterLine": "Block Inspiring Overseer with Bone Picker. Bone Picker survives at 3/2 (takes 2 damage, lives with 1 toughness remaining... wait, 3/2 takes 2 → survives as 3/0? No: 2 damage marked on 2 toughness = lethal). Actually Bone Picker is 3/2, takes 2 damage and dies too. This is a trade, not a free block. Still, trading Bone Picker for Inspiring Overseer removes a Preston flicker target and is likely correct, but the evaluation changes since both creatures die.",
       "type": "blunder",
       "snapshotIndex": 121,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 94
     },
     {
       "severity": "major",
@@ -110593,7 +110595,8 @@
       "betterLine": "Play Thriving Heath (choosing black), then cast Cloudshift on Inspiring Overseer to trigger Preston (creating an Illusion copy that draws a card and gains life) plus the Overseer's own ETB (another card + life). Then with remaining mana and newly drawn cards, continue developing the board. Could also chain Flicker of Fate or Acrobatic Maneuver for even more value.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 108
     },
     {
       "severity": "minor",
@@ -110602,7 +110605,8 @@
       "betterLine": "Choose Black for Thriving Heath to have access to black mana for any black spells in the library",
       "type": "blunder",
       "snapshotIndex": 153,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 117
     },
     {
       "severity": "major",
@@ -110611,7 +110615,8 @@
       "betterLine": "Cast Acrobatic Maneuver targeting Inspiring Overseer to draw 3 cards, gain 2 life, and create a 0/1 Illusion copy of Overseer via Preston's trigger.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 124
     },
     {
       "severity": "minor",
@@ -110620,7 +110625,8 @@
       "betterLine": "Attack with both Renegade Demon and Bone Picker. The opponent has no mana for tricks and only Preston as a blocker. Either both get through for 8 damage, or Preston blocks one and dies while the other deals damage.",
       "type": "blunder",
       "snapshotIndex": 188,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 140
     },
     {
       "severity": "major",
@@ -110629,7 +110635,8 @@
       "betterLine": "Cast Emiel the Blessed (4 mana) to establish the blink engine with Preston, then cast Mesa Unicorn or Ronom Unicorn (2 mana) to maximize board development. Alternatively, cast Brightmare to tap Bone Picker before combat, then cast a 2-drop postcombat.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 150
     },
     {
       "severity": "major",
@@ -110638,7 +110645,8 @@
       "betterLine": "Block Preston, the Vanisher with Bone Picker (3/2 deathtouch) to kill Preston via deathtouch. This removes the opponent's key value engine. Could also block an Overseer with Disciple of Perdition for additional value.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -110647,7 +110655,8 @@
       "betterLine": "Cast Flicker of Fate targeting Inspiring Overseer (2/1) to get ETB triggers (draw + life) and Preston's Illusion copy trigger (another draw + life from the Illusion copy entering). Additionally could crack Clue token for another card draw.",
       "type": "blunder",
       "snapshotIndex": 211,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 156
     },
     {
       "severity": "moderate",
@@ -110656,7 +110665,8 @@
       "betterLine": "Cast Flicker of Fate targeting Inspiring Overseer to draw a card, gain 1 life, and create a 0/1 Illusion token via Preston, the Vanisher. This generates card advantage, life, and board presence at no real cost.",
       "type": "blunder",
       "snapshotIndex": 215,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 160
     },
     {
       "severity": "moderate",
@@ -110665,7 +110675,8 @@
       "betterLine": "Cast Flicker of Fate targeting an Inspiring Overseer to draw a card, gain 1 life, and create an Illusion token copy via Preston (which also triggers ETB for another card draw and life gain). Alternatively, at minimum crack the Clue Token to draw a card.",
       "type": "blunder",
       "snapshotIndex": 222,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 163
     },
     {
       "severity": "major",
@@ -110674,7 +110685,8 @@
       "betterLine": "Pass priority, let Reaper from the Abyss resolve, then cast Valorous Stance targeting the 6/6 Reaper to destroy it (toughness 4 or greater).",
       "type": "blunder",
       "snapshotIndex": 233,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 168
     },
     {
       "severity": "minor",
@@ -110683,7 +110695,8 @@
       "betterLine": "Attack with all three creatures (Renegade Demon, Disciple of Perdition, and Bone Picker) for 9 damage total, since opponent has no blockers available and no mana for tricks.",
       "type": "blunder",
       "snapshotIndex": 241,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 176
     },
     {
       "severity": "moderate",
@@ -110692,7 +110705,8 @@
       "betterLine": "Take the 6 damage (going to 23 life), keep Emiel alive. Next turn, start using Emiel's {3} flicker ability with Preston on board to generate Illusion tokens and re-trigger ETB effects from Brightmare and Inspiring Overseer, building an overwhelming advantage.",
       "type": "blunder",
       "snapshotIndex": 247,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 180
     },
     {
       "severity": "minor",
@@ -110701,7 +110715,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Inspiring Overseer (3 mana) to draw a card, gain 1 life, and create an Illusion copy via Preston. Then activate Emiel again on the returned Overseer or crack the Clue token with remaining mana for additional card advantage before proceeding with attacks.",
       "type": "blunder",
       "snapshotIndex": 259,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 190
     },
     {
       "severity": "major",
@@ -110710,7 +110725,8 @@
       "betterLine": "Block Emiel the Blessed (4/4) with Bone Picker. Deathtouch kills Emiel, Haiku Villain takes only 4 damage (going to 5 life), and removes the opponent's most powerful creature. Alternatively, blocking Preston removes their token-generating engine.",
       "type": "blunder",
       "snapshotIndex": 265,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 192
     },
     {
       "severity": "questionable",
@@ -110719,7 +110735,8 @@
       "betterLine": "Cast Brightmare first targeting Bone Picker to tap it, ensuring flying creatures can attack for lethal next turn. Then cast Ronom Unicorn with remaining mana.",
       "type": "blunder",
       "snapshotIndex": 270,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 197
     },
     {
       "severity": "minor",
@@ -110728,7 +110745,8 @@
       "betterLine": "Cast Flicker of Fate targeting Inspiring Overseer (2 mana) to draw cards and create tokens via Preston, then crack Clue Token (2 mana) for another card draw, maximizing resources to close out the game against an opponent at 1 life.",
       "type": "blunder",
       "snapshotIndex": 271,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 198
     },
     {
       "severity": "minor",
@@ -110737,7 +110755,8 @@
       "betterLine": "Activate Emiel the Blessed targeting Inspiring Overseer (3 mana) to draw a card, gain 1 life, and create an Illusion token via Preston, providing an extra blocker and card advantage while still holding 2 mana for Flicker of Fate as protection",
       "type": "blunder",
       "snapshotIndex": 274,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 199
     },
     {
       "severity": "minor",
@@ -110746,7 +110765,8 @@
       "betterLine": "Pay {W} to put two +1/+1 counters on Ronom Unicorn (it's a Unicorn so gets two counters), making it a 4/4 for next turn's lethal attack",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "GPT54 Sport"
+      "player": "GPT54 Sport",
+      "decisionIndex": 203
     },
     {
       "severity": "minor",
@@ -110755,7 +110775,8 @@
       "betterLine": "Attack with both Renegade Demon and Bone Picker for 8 total damage, since the opponent has no available blockers and no mana to cast tricks.",
       "type": "blunder",
       "snapshotIndex": 309,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 227
     }
   ],
   "blunderScriptVersion": 32,

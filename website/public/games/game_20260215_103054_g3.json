@@ -12185,7 +12185,8 @@
       "betterLine": "Play Fabled Passage turn 1, crack it immediately to fetch a Forest (enters tapped, which is fine since no turn 1 plays). Turn 2 play Forest untapped, cast Sazh's Chocobo or Badgermole Cub with two untapped lands and maximize future landfall synergies.",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 3
     },
     {
       "severity": "minor",
@@ -12194,7 +12195,8 @@
       "betterLine": "Play Steam Vents (paying 2 life, entering untapped) to have {U} or {R} available, enabling Spell Pierce or Spell Snare on opponent's turn 2. Then play Riverpyre Verge turn 2, which would now produce both {U} and {R} thanks to Steam Vents being an Island Mountain.",
       "type": "blunder",
       "snapshotIndex": 13,
-      "player": "Qwen3L Gramps"
+      "player": "Qwen3L Gramps",
+      "decisionIndex": 8
     },
     {
       "severity": "minor",
@@ -12203,7 +12205,8 @@
       "betterLine": "Play Riverpyre Verge first, tap it for R to cast Burst Lightning on Sazh's Chocobo, keep Steam Vents untapped for Spell Pierce or Spell Snare.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Qwen3L Gramps"
+      "player": "Qwen3L Gramps",
+      "decisionIndex": 9
     },
     {
       "severity": "moderate",
@@ -12212,7 +12215,8 @@
       "betterLine": "Target Sazh's Chocobo with Burst Lightning to remove the growing threat while it's still a 0/1, preventing it from snowballing with landfall triggers.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "Qwen3L Gramps"
+      "player": "Qwen3L Gramps",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -12221,7 +12225,8 @@
       "betterLine": "Play Forest, then cast Badgermole Cub (using 2 Forests). This develops a 2/2 body, triggers earthbend, and gives a landfall trigger to Chocobo. Save Fabled Passage for later turns when it can be cracked with 4+ lands for an untapped fetch.",
       "type": "blunder",
       "snapshotIndex": 19,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -12230,7 +12235,8 @@
       "betterLine": "Play Riverpyre Verge as their land drop to develop mana, then potentially hold up interaction or cast Burst Lightning with the available mana",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Qwen3L Gramps"
+      "player": "Qwen3L Gramps",
+      "decisionIndex": 16
     },
     {
       "severity": "moderate",
@@ -12239,7 +12245,8 @@
       "betterLine": "Target Sazh's Chocobo with Burst Lightning to kill it before it grows out of range. A 2-damage removal spell lines up perfectly against the 1/2 Chocobo now, but won't be sufficient later as it accumulates more counters.",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "Qwen3L Gramps"
+      "player": "Qwen3L Gramps",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -12248,7 +12255,8 @@
       "betterLine": "Cast Badgermole Cub first with the 2 available Forests (earthbending one of them), then play Forest to trigger landfall on both Sazh's Chocobo and the earthbent land creature. Alternatively, consider whether Mossborn Hydra (which doubles counters on each landfall) would be a stronger turn 3 play given the remaining land drops available.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -12257,7 +12265,8 @@
       "betterLine": "Cast Earthbender Ascension for {2}{G}, earthbending 2 lands into 1/1 creature-lands with haste and fetching a basic land, providing better board development and mana acceleration. Save Mossborn Hydra for a later turn when more landfall triggers are available to grow it.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -12266,11 +12275,12 @@
       "betterLine": "Cast Earthbender Ascension for {2}{G}, earthbending 2 lands into creatures, fetching a basic land to trigger landfall on the existing Mossborn Hydra (doubling its counters) and Sazh's Chocobo, while building toward the Ascension's quest counter payoff.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Kimi25 Valley"
+      "player": "Kimi25 Valley",
+      "decisionIndex": 30
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

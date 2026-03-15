@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260305_174250_g2",
   "timestamp": "20260305_174250",
   "gameType": "Two Player Duel",
@@ -116573,7 +116573,8 @@
       "betterLine": "Keep the 7-card hand. It has adequate mana, a turn-1 play, and reasonable spells on curve. Going to 6 risks getting a worse hand with no guaranteed improvement.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT54 Worrier"
+      "player": "GPT54 Worrier",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -116582,7 +116583,8 @@
       "betterLine": "Keep the 7-card hand. The blue core (Warden, Mistral Singer, Ghostlight, Rookie Mistake) is strong enough to win without green mana, and going to 6 risks getting a worse hand while losing a card.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 2
     },
     {
       "severity": "questionable",
@@ -116591,7 +116593,8 @@
       "betterLine": "Keep the 6-card hand. While risky with one land, the curve is solid and a 5-card hand is extremely disadvantaged. Drawing even one Forest makes multiple cards castable.",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "GPT54 Worrier"
+      "player": "GPT54 Worrier",
+      "decisionIndex": 5
     },
     {
       "severity": "moderate",
@@ -116600,7 +116603,8 @@
       "betterLine": "Keep the 6-card hand. It has 2 lands, castable green spells (Benevolent Hydra and Hunter's Edge), and upside if any blue source is drawn. A 5-card hand is statistically likely to be worse.",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -116609,7 +116613,8 @@
       "betterLine": "Cast Hydra's Growth on Servant of the Scale. The Millipede is summoning sick so there's no immediate threat. Hydra's Growth creates an exponential clock (2/2 immediately, 4/4 next upkeep, 8/8 the turn after) that demands an answer, and Unsubstantiate is preserved for a more impactful moment like protecting the enchanted creature or bouncing a lethal attacker.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -116618,7 +116623,8 @@
       "betterLine": "Cast Scale the Heights targeting Servant of the Scale, gaining 2 life, drawing a card, and getting an extra land drop to accelerate toward casting Capture Sphere (3U) next turn to neutralize the 7/7 Millipede",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 47
     },
     {
       "severity": "questionable",
@@ -116627,7 +116633,8 @@
       "betterLine": "Take Island to play it immediately, reaching 3 lands and getting closer to casting Capture Sphere (3U) next turn to handle the 7/7 Moldgraf Millipede. Scale the Heights in hand can also find more lands and draw cards.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 49
     },
     {
       "severity": "questionable",
@@ -116636,7 +116643,8 @@
       "betterLine": "Activate Kami of Ancient Law's sacrifice ability to destroy Capture Sphere, freeing the enchanted creature. The 2/2 body is less valuable than unlocking whatever creature Capture Sphere is tapping down.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "GPT54 Worrier"
+      "player": "GPT54 Worrier",
+      "decisionIndex": 80
     },
     {
       "severity": "moderate",
@@ -116645,7 +116653,8 @@
       "betterLine": "Play Thriving Grove (tapped), then cast Scale the Heights targeting Domesticated Hydra — gaining 2 life, drawing a card, getting a +1/+1 counter (Hydra becomes 4/4), and an extra land drop. Next turn, cast Soul's Might on the 4/4 Hydra for 4 counters (8/8 total), plus potentially play Hydra's Growth.",
       "type": "blunder",
       "snapshotIndex": 260,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 81
     },
     {
       "severity": "major",
@@ -116654,7 +116663,8 @@
       "betterLine": "Block with Archon of Justice. Take only 2 trample damage, Archon dies and its trigger exiles the Domesticated Hydra (or Capture Sphere to free the Hornbeetle). This saves 4 life and removes the opponent's primary threat.",
       "type": "blunder",
       "snapshotIndex": 275,
-      "player": "GPT54 Worrier"
+      "player": "GPT54 Worrier",
+      "decisionIndex": 89
     },
     {
       "severity": "moderate",
@@ -116663,7 +116673,8 @@
       "betterLine": "Activate Kami of Ancient Law to destroy Capture Sphere, freeing the 7/7 Moldgraf Millipede for combat. Trading a 2/2 to unlock a 7/7 is excellent value, especially with the opponent at 13 life and vulnerable to a massive attack.",
       "type": "blunder",
       "snapshotIndex": 289,
-      "player": "GPT54 Worrier"
+      "player": "GPT54 Worrier",
+      "decisionIndex": 91
     },
     {
       "severity": "questionable",
@@ -116672,7 +116683,8 @@
       "betterLine": "Bounce Moldgraf Millipede to reset its 5 +1/+1 counters, significantly reducing the biggest threat on the board from 7/7 to likely ~4-5/4-5 when recast",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 96
     },
     {
       "severity": "minor",
@@ -116681,7 +116693,8 @@
       "betterLine": "Either block Kami of Ancient Law (2/2) to trade evenly, or don't block at all to preserve the 3/2 flyer for future attacks (taking 7 going to 6 life, but keeping a flying threat against opponent at 7 life). Not blocking preserves the ability to counter-attack with Ghostlight + Hydra for potential lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 102
     },
     {
       "severity": "major",
@@ -116690,7 +116703,8 @@
       "betterLine": "Attack with Domesticated Hydra 7/7 for exactly lethal damage (7 damage to a 7-life opponent with no available blockers).",
       "type": "blunder",
       "snapshotIndex": 355,
-      "player": "Grok4F Tactic"
+      "player": "Grok4F Tactic",
+      "decisionIndex": 109
     }
   ],
   "blunderScriptVersion": 32

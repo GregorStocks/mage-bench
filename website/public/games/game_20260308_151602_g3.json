@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260308_151602_g3",
   "timestamp": "20260308_151602",
   "gameType": "Two Player Duel",
@@ -138837,7 +138837,8 @@
       "betterLine": "Mulligan to 5 and look for a hand with 2+ lands including at least one of each color. A 1-land hand on 6 in a two-color deck with no cheap cantrips or fixing is very high-risk.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 4
     },
     {
       "severity": "moderate",
@@ -138846,7 +138847,8 @@
       "betterLine": "Pass priority and save Walking Ballista for a later turn when more mana is available. On turn 2, cast Runed Servitor or Alchemist's Vial instead. Walking Ballista scales with mana and should be saved for when it can enter with meaningful counters.",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 10
     },
     {
       "severity": "major",
@@ -138855,7 +138857,8 @@
       "betterLine": "Hold Walking Ballista and cast it later for X=1 or X=2 when more mana is available. On turn 2, cast Alchemist's Vial (draws a card) or Runed Servitor (a 2/2 body). On turn 3, cast Thaumaturge's Familiar (1/3 flyer with scry).",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -138864,7 +138867,8 @@
       "betterLine": "Cast Artificer's Epiphany now to draw 2 cards, then use the postcombat main phase to play the Island from hand plus any cheap spells drawn. This maximizes options for the turn.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 77
     },
     {
       "severity": "moderate",
@@ -138873,7 +138877,8 @@
       "betterLine": "Save Alchemist's Vial for the opponent's combat phase to prevent Whirler Rogue (2/2) or a Thopter from attacking, preserving a valuable defensive resource.",
       "type": "blunder",
       "snapshotIndex": 131,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 93
     },
     {
       "severity": "major",
@@ -138882,7 +138887,8 @@
       "betterLine": "Cast Aviation Pioneer (creating a 1/2 and a 1/1 flying Thopter) to develop the board, or cast Artificer's Epiphany to draw 2 cards without discard (since artifacts are controlled). Either play develops toward winning before the opponent's Urza lands come online.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 104
     },
     {
       "severity": "minor",
@@ -138891,7 +138897,8 @@
       "betterLine": "Cast Aviation Pioneer in the precombat main phase so the newly created Thopter token could also attack, dealing 3 damage instead of 2 this turn.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 112
     },
     {
       "severity": "minor",
@@ -138900,7 +138907,8 @@
       "betterLine": "Cast Douse in Gloom targeting Thaumaturge's Familiar for 2 damage before combat damage resolves. The 1 combat damage from the Thopter plus 2 from Douse kills the Familiar, clearing the way for future Thopter attacks and gaining 2 life. Both creatures trade instead of just losing the Thopter.",
       "type": "blunder",
       "snapshotIndex": 192,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 132
     },
     {
       "severity": "moderate",
@@ -138909,7 +138917,8 @@
       "betterLine": "Cast Douse in Gloom targeting Thaumaturge's Familiar. Combined with the 1 combat damage from the blocked Thopter, this deals 3 total damage to kill the 1/3 Familiar, saves the Thopter token, and gains 2 life.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 134
     },
     {
       "severity": "minor",
@@ -138918,7 +138927,8 @@
       "betterLine": "Attack with both Thopter tokens for 2 unblockable flying damage. The opponent's only flyer (Thaumaturge's Familiar) is tapped and Locthwain Gargoyle can't activate flying with all lands tapped.",
       "type": "blunder",
       "snapshotIndex": 226,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 154
     },
     {
       "severity": "minor",
@@ -138927,7 +138937,8 @@
       "betterLine": "Activate a Clue token to draw a card, using the 2 colorless mana that would otherwise be stranded.",
       "type": "blunder",
       "snapshotIndex": 279,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 191
     },
     {
       "severity": "minor",
@@ -138936,7 +138947,8 @@
       "betterLine": "Attack with both Thaumaturge's Familiar and Drownyard Explorers for 3 damage total, since the opponent has no available blockers",
       "type": "blunder",
       "snapshotIndex": 285,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 193
     },
     {
       "severity": "minor",
@@ -138945,7 +138957,8 @@
       "betterLine": "Block Thaumaturge's Familiar with Gearseeker Serpent to kill the 1/3 for free with no risk (opponent has no untapped mana for tricks)",
       "type": "blunder",
       "snapshotIndex": 290,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 196
     },
     {
       "severity": "moderate",
@@ -138954,7 +138967,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B}, then cast Artificer's Epiphany for {2}{U} to draw 2 cards (controlling artifacts), developing board and refilling hand while setting up recursion engine for future turns.",
       "type": "blunder",
       "snapshotIndex": 297,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 200
     },
     {
       "severity": "questionable",
@@ -138963,7 +138977,8 @@
       "betterLine": "Block Gearseeker Serpent with Locthwain Gargoyle to preserve Floodhound's investigate ability for artifact synergies with Filigree Attendant",
       "type": "blunder",
       "snapshotIndex": 303,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 204
     },
     {
       "severity": "moderate",
@@ -138972,7 +138987,8 @@
       "betterLine": "Cast Artificer's Epiphany to draw 2 cards (no discard since they control artifacts) before the turn ends and mana is lost",
       "type": "blunder",
       "snapshotIndex": 311,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 210
     },
     {
       "severity": "minor",
@@ -138981,7 +138997,8 @@
       "betterLine": "Let Filigree Attendant resolve first (getting +1 power), then crack the Clue Token later when there's spare mana and no downside.",
       "type": "blunder",
       "snapshotIndex": 318,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 212
     },
     {
       "severity": "questionable",
@@ -138990,7 +139007,8 @@
       "betterLine": "Cast Douse in Gloom targeting Thaumaturge's Familiar to kill it, saving 1 combat damage and gaining 2 life (going to 14 instead of 12). The Familiar is a flying threat that will continue to chip in, and Douse's 2 damage doesn't line up well against the opponent's other creatures.",
       "type": "blunder",
       "snapshotIndex": 330,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 221
     },
     {
       "severity": "minor",
@@ -138999,7 +139017,8 @@
       "betterLine": "Cast Douse in Gloom targeting Thaumaturge's Familiar to kill it (2 damage to 3 toughness creature), gain 2 life, and only take 2 damage from the Explorers. Net result: 11 life instead of 9, and one fewer opposing creature.",
       "type": "blunder",
       "snapshotIndex": 334,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 224
     },
     {
       "severity": "moderate",
@@ -139008,7 +139027,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B} (amazing long-term value engine), then cast Artificer's Epiphany for {2}{U} to draw 2 cards. Or at minimum, cast one of the available spells rather than passing with 3 mana unused.",
       "type": "blunder",
       "snapshotIndex": 337,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 227
     },
     {
       "severity": "major",
@@ -139017,7 +139037,8 @@
       "betterLine": "Attack with Gearseeker Serpent and the untapped Thopter Token. At minimum this deals 5 damage (Gargoyle blocks Thopter) or likely 6 damage if Gargoyle blocks the Serpent (1 Thopter damage + Gargoyle dies). This is essentially free damage with no downside while still holding up Launch Mishap (2U) with available mana.",
       "type": "blunder",
       "snapshotIndex": 338,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 230
     },
     {
       "severity": "moderate",
@@ -139026,7 +139047,8 @@
       "betterLine": "Cast Artificer's Epiphany to draw 2 cards at no card disadvantage, digging toward land drops and maintaining tempo.",
       "type": "blunder",
       "snapshotIndex": 342,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 235
     },
     {
       "severity": "questionable",
@@ -139035,7 +139057,8 @@
       "betterLine": "Activate Clue Token (tap Island + Manakin for {2}) to draw a card before combat, potentially finding a land drop or useful spell. The 1 power loss on Filigree Attendant is a real cost but likely worth a card.",
       "type": "blunder",
       "snapshotIndex": 350,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 240
     },
     {
       "severity": "questionable",
@@ -139044,7 +139067,8 @@
       "betterLine": "Cast Douse in Gloom targeting Thaumaturge's Familiar to kill it and gain 2 life, then block Filigree Attendant with the untapped Thopter token to minimize damage taken",
       "type": "blunder",
       "snapshotIndex": 368,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 256
     },
     {
       "severity": "major",
@@ -139053,7 +139077,8 @@
       "betterLine": "Cast Douse in Gloom targeting any creature (e.g., Manakin or an attacker) to gain 2 life, then block Thaumaturge's Familiar with the untapped Thopter Token to reduce total damage to 6, surviving at 1 life.",
       "type": "blunder",
       "snapshotIndex": 372,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 257
     },
     {
       "severity": "minor",
@@ -139062,7 +139087,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B} in response to Tezzeret being on the stack, getting it safely onto the battlefield before the opponent can use Tezzeret's +4 to exile it from hand",
       "type": "blunder",
       "snapshotIndex": 382,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 262
     },
     {
       "severity": "minor",
@@ -139071,7 +139097,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B} using the untapped Swamp. This deploys a powerful value engine for free board presence, enabling future recursion of Whirler Rogue, Aviation Pioneer, or Phyrexian Broodlings.",
       "type": "blunder",
       "snapshotIndex": 385,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 266
     },
     {
       "severity": "moderate",
@@ -139080,7 +139107,8 @@
       "betterLine": "Cast Phyrexian Reclamation for {B} to establish a creature recursion engine, enabling recovery of Whirler Rogue or other creatures in future turns. Alternatively, equip Malefic Scythe to the untapped Thopter Token for a larger flying blocker.",
       "type": "blunder",
       "snapshotIndex": 389,
-      "player": "Gem31P Hype"
+      "player": "Gem31P Hype",
+      "decisionIndex": 270
     },
     {
       "severity": "major",
@@ -139089,7 +139117,8 @@
       "betterLine": "Use Karn's -3 to exile the untapped Thopter Token, then attack with Filigree Attendant (5/3 flying) for exactly lethal damage against the opponent at 5 life.",
       "type": "blunder",
       "snapshotIndex": 407,
-      "player": "GPT52 Nature"
+      "player": "GPT52 Nature",
+      "decisionIndex": 281
     }
   ],
   "blunderScriptVersion": 32,

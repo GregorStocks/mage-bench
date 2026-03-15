@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260228_212316_g4",
   "timestamp": "20260228_212316",
   "gameType": "Two Player Duel",
@@ -65763,7 +65763,8 @@
       "betterLine": "Play Plains first, saving the abundant Swamps for later turns. This ensures white mana is available for the curve play (Felidar Cub) and preserves flexibility.",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "Opus Trash"
+      "player": "Opus Trash",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -65772,7 +65773,8 @@
       "betterLine": "Cast Naga Vitalist for {1}{G} to ramp into turn 4 Falconer Adept and accelerate toward the 5-mana spells in hand",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 6
     },
     {
       "severity": "moderate",
@@ -65781,7 +65783,8 @@
       "betterLine": "Don't block. Take 2 damage (going to 18) and preserve the Naga Vitalist to accelerate into Steel-Plume Marshal or Falconer Adept next turn.",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -65790,7 +65793,8 @@
       "betterLine": "Play Forest first, then cast Aerial Assault on Felidar Cub. This leaves 1 mana available after the spell resolves, which is better than 0 mana available during resolution.",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -65799,7 +65803,8 @@
       "betterLine": "Cast Ghoulraiser (1BB) and Liliana's Elite (2B) to deploy two Zombie creatures that synergize with Liliana's Devotee, creating a wider board and better board presence.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "Opus Trash"
+      "player": "Opus Trash",
+      "decisionIndex": 27
     },
     {
       "severity": "major",
@@ -65808,7 +65813,8 @@
       "betterLine": "Play Thriving Heath, then attack with Falconer Adept (creating a 1/1 flying bird token). Save Pounce for a favorable fight later, potentially combining with Enlarge to kill the Leonin while keeping the attacker alive.",
       "type": "blunder",
       "snapshotIndex": 156,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -65817,7 +65823,8 @@
       "betterLine": "Block only Liliana's Elite with Steel-Plume Marshal. Marshal's 3 power kills Elite's 2 toughness, Marshal survives, and you take only 6 damage (going to 7) while keeping your key flying threat alive for the Enlarge kill next turn.",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 38
     },
     {
       "severity": "major",
@@ -65826,7 +65833,8 @@
       "betterLine": "Cast Enlarge on Steel-Plume Marshal, making it a 10/10 flying trampler, then attack for 10 unblocked damage since all opponent creatures are tapped.",
       "type": "blunder",
       "snapshotIndex": 229,
-      "player": "GPT4om Coach"
+      "player": "GPT4om Coach",
+      "decisionIndex": 41
     }
   ],
   "blunderScriptVersion": 29,

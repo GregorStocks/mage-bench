@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260302_174929_g1",
   "timestamp": "20260302_174929",
   "gameType": "Two Player Duel",
@@ -137805,7 +137805,8 @@
       "betterLine": "Play a Forest to have 1 mana available next turn, enabling a turn 2 two-drop like Ironshell Beetle or Duskshell Crawler.",
       "type": "blunder",
       "snapshotIndex": 6,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 16
     },
     {
       "severity": "moderate",
@@ -137814,7 +137815,8 @@
       "betterLine": "Play Evolving Wilds (or Forest), then potentially cast Kami of Ancient Law using Thriving Grove for W and a Forest for the generic cost, developing the board against the opponent's growing threats.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -137823,7 +137825,8 @@
       "betterLine": "Play Evolving Wilds first, sacrifice it to search for a Plains (fixing white mana for future turns), then pass. The Thriving Grove should have been set to white when it entered earlier, given the heavy white requirements in hand.",
       "type": "blunder",
       "snapshotIndex": 49,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 39
     },
     {
       "severity": "minor",
@@ -137832,7 +137835,8 @@
       "betterLine": "Don't attack with the 0/3 Oashra Cultivator. Keep it untapped as a potential blocker against the opponent's Duskshell Crawler (1/4 with trample) or to use its sacrifice ability in future turns.",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 43
     },
     {
       "severity": "moderate",
@@ -137841,7 +137845,8 @@
       "betterLine": "Choose Red for Thriving Grove to enable casting Borderland Minotaur and Lightning Visionary.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -137850,7 +137855,8 @@
       "betterLine": "Cast Giant Ladybug to get a 4/1 reach body and tutor a land to the top of library, ensuring the next land drop and enabling the expensive spells in hand.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -137859,7 +137865,8 @@
       "betterLine": "Block only Duskshell Crawler with Midnight Guard (still the best trampler block), and let the 1/1 Ironshell Beetle through for 1 damage. Preserving Turntimber Basilisk's deathtouch for future combat is worth far more than preventing 1 damage.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 84
     },
     {
       "severity": "minor",
@@ -137868,7 +137875,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a Plains, enabling future white spell casting and getting an extra Landfall trigger",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 90
     },
     {
       "severity": "moderate",
@@ -137877,7 +137885,8 @@
       "betterLine": "Activate Evolving Wilds to fetch a basic land, triggering Turntimber Basilisk's Landfall to force Lightning Visionary to block it. The deathtouch Basilisk would kill the Visionary, removing a threat.",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 95
     },
     {
       "severity": "questionable",
@@ -137886,7 +137895,8 @@
       "betterLine": "Target Giant Ladybug (4/1) - the most threatening creature on the opponent's board - to force it into a lethal block against the deathtouch Basilisk if it attacks",
       "type": "blunder",
       "snapshotIndex": 177,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 110
     },
     {
       "severity": "moderate",
@@ -137895,7 +137905,8 @@
       "betterLine": "Block Lightning Visionary with Midnight Guard to kill the Visionary for free (Midnight Guard survives at 2/3 vs 2/1). This removes a threat and saves 2 life.",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 117
     },
     {
       "severity": "minor",
@@ -137904,7 +137915,8 @@
       "betterLine": "Cast Canopy Baloth, then play a land to trigger landfall making it 6/5, and attack with the larger board presence while the opponent is tapped out.",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 121
     },
     {
       "severity": "minor",
@@ -137913,7 +137925,8 @@
       "betterLine": "Attack with both Midnight Guard (2/3) and Turntimber Basilisk (2/1) for 4 total unblockable damage, since the opponent has no available blockers.",
       "type": "blunder",
       "snapshotIndex": 210,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 127
     },
     {
       "severity": "questionable",
@@ -137922,7 +137935,8 @@
       "betterLine": "Block Turntimber Basilisk with Giant Ladybug to trade the fragile 4/1 for the deathtouch creature, preventing future landfall-forced blocks that could kill more valuable creatures like Sethron or Moldgraf Millipede.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 128
     },
     {
       "severity": "minor",
@@ -137931,7 +137945,8 @@
       "betterLine": "Block Giant Ladybug (4/1) with Midnight Guard (2/3) — Midnight Guard survives and Ladybug dies. Then optionally block Lightning Visionary with Kami of Ancient Law. Use Divine Verdict only if needed. This prevents more damage and preserves Midnight Guard.",
       "type": "blunder",
       "snapshotIndex": 236,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 141
     },
     {
       "severity": "minor",
@@ -137940,7 +137955,8 @@
       "betterLine": "Attack with both Turntimber Basilisk and Kami of Ancient Law for 4 unblocked damage, since the opponent has no untapped blockers.",
       "type": "blunder",
       "snapshotIndex": 253,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 149
     },
     {
       "severity": "questionable",
@@ -137949,7 +137965,8 @@
       "betterLine": "Activate Kami of Ancient Law to destroy Crawling Sensation before it starts generating tokens on the opponent's next upkeep. The 2/2 body is less valuable than preventing an engine that creates tokens and fills the graveyard each turn.",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 151
     },
     {
       "severity": "minor",
@@ -137958,7 +137975,8 @@
       "betterLine": "Accept the mill trigger (choose yes/True) to get a chance at a free 1/1 Insect token and potentially grow the future Moldgraf Millipede.",
       "type": "blunder",
       "snapshotIndex": 264,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 157
     },
     {
       "severity": "minor",
@@ -137967,7 +137985,8 @@
       "betterLine": "Discard Thriving Bluff to Nantuko Cultivator, getting a +1/+1 counter, drawing a card, and creating a 1/1 Insect token via Crawling Sensation. The card draw could find another land, and the board presence is more immediately valuable than a guaranteed tapped land drop.",
       "type": "blunder",
       "snapshotIndex": 272,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 162
     },
     {
       "severity": "minor",
@@ -137976,7 +137995,8 @@
       "betterLine": "Block Ironshell Beetle with Canopy Baloth (kills it, Baloth survives) and either take 2 from Lightning Visionary (going to 10) or block with Oashra Cultivator (0/3 survives 2 damage). Preserve Kami of Ancient Law to sacrifice and destroy Crawling Sensation at an opportune time.",
       "type": "blunder",
       "snapshotIndex": 284,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 169
     },
     {
       "severity": "major",
@@ -137985,7 +138005,8 @@
       "betterLine": "Attack with all creatures (or at minimum add Kami of Ancient Law) for exactly 10 damage = lethal. Opponent has no untapped blockers and no mana to cast spells.",
       "type": "blunder",
       "snapshotIndex": 301,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 180
     },
     {
       "severity": "major",
@@ -137994,7 +138015,8 @@
       "betterLine": "Block Turntimber Basilisk with Insect Token (expendable, dies to deathtouch anyway) and block Canopy Baloth with Nantuko Cultivator (no trample, so all damage prevented). Both blockers die but 0 damage taken instead of 6.",
       "type": "blunder",
       "snapshotIndex": 305,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 182
     },
     {
       "severity": "major",
@@ -138003,7 +138025,8 @@
       "betterLine": "Pass priority and let combat damage resolve. Turntimber Basilisk (2) + Canopy Baloth (6) = 8 damage would bring the opponent to 2 life, setting up lethal next turn.",
       "type": "blunder",
       "snapshotIndex": 306,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 183
     },
     {
       "severity": "major",
@@ -138012,7 +138035,8 @@
       "betterLine": "Cast Valorous Stance choosing 'Target creature gains indestructible until end of turn' on whichever creature Divine Verdict targets (preferably Canopy Baloth as the larger threat), saving the creature and wasting the opponent's 4 mana removal spell.",
       "type": "blunder",
       "snapshotIndex": 307,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 184
     },
     {
       "severity": "major",
@@ -138021,7 +138045,8 @@
       "betterLine": "Choose Turntimber Basilisk to be destroyed, letting Canopy Baloth deal 6 damage (opponent to 4) and keeping the bigger 4/3 body for future turns",
       "type": "blunder",
       "snapshotIndex": 307,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 184
     },
     {
       "severity": "major",
@@ -138030,7 +138055,8 @@
       "betterLine": "Tap Thriving Grove and Plains to cast Valorous Stance targeting Canopy Baloth, giving it indestructible to survive Divine Verdict and deal 6 combat damage (plus 2 from Basilisk) to put opponent to 2 life.",
       "type": "blunder",
       "snapshotIndex": 308,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 186
     },
     {
       "severity": "moderate",
@@ -138039,7 +138065,8 @@
       "betterLine": "Pass priority and let the Basilisk deal its 2 damage uncontested, saving Valorous Stance for a future turn when it can destroy a large creature or protect against actual removal.",
       "type": "blunder",
       "snapshotIndex": 314,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 188
     },
     {
       "severity": "moderate",
@@ -138048,7 +138075,8 @@
       "betterLine": "Activate Kami of Ancient Law to destroy Crawling Sensation, stopping the opponent's token generation and mill engine. Save Valorous Stance for a future turn where it can protect a creature during combat or destroy a large threat.",
       "type": "blunder",
       "snapshotIndex": 320,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 190
     },
     {
       "severity": "moderate",
@@ -138057,7 +138085,8 @@
       "betterLine": "Accept the mill trigger (choose yes/True). Any land milled creates a free 1/1 Insect token, and any creature milled makes Moldgraf Millipede (in hand, castable this turn for 5 mana) enter with more +1/+1 counters.",
       "type": "blunder",
       "snapshotIndex": 324,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 191
     },
     {
       "severity": "major",
@@ -138066,7 +138095,8 @@
       "betterLine": "Block Lightning Visionary (2/1) with Kami of Ancient Law (2/2) and block Nantuko Cultivator (3/3) with Oashra Cultivator (0/3). This prevents 5 damage, only taking 2 (from Ironshell Beetle and Insect Token), staying at 7 life. Kami survives the block.",
       "type": "blunder",
       "snapshotIndex": 344,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 200
     },
     {
       "severity": "minor",
@@ -138075,7 +138105,8 @@
       "betterLine": "Cast Valorous Stance targeting Sethron (toughness 4) for 2 mana to destroy it completely, then use remaining 3 mana to cast Arrest on another threat like Nantuko Cultivator (3/3) or hold mana open for Gideon's Lawkeeper activation next turn.",
       "type": "blunder",
       "snapshotIndex": 355,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 204
     },
     {
       "severity": "minor",
@@ -138084,7 +138115,8 @@
       "betterLine": "Attack with both Turntimber Basilisk and Kami of Ancient Law for 4 total damage (opponent to 4 life), since single blockers are poor against menace and the 2 extra damage is essentially free",
       "type": "blunder",
       "snapshotIndex": 365,
-      "player": "Llama4 Rules"
+      "player": "Llama4 Rules",
+      "decisionIndex": 207
     },
     {
       "severity": "major",
@@ -138093,7 +138125,8 @@
       "betterLine": "Either don't block (take 2 damage, go to 6 life, attack for lethal next turn with Sethron giving menace to minotaurs) or block with Minotaur Token (2/3) to preserve Sethron. With the opponent at 2 life, Sethron is the most important piece for closing the game.",
       "type": "blunder",
       "snapshotIndex": 368,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 208
     },
     {
       "severity": "minor",
@@ -138102,7 +138135,8 @@
       "betterLine": "Play Forest first, then cast Borderland Minotaur, leaving 3 mana available to activate Sethron's ability for menace and haste on all Minotaurs, guaranteeing lethal attack.",
       "type": "blunder",
       "snapshotIndex": 380,
-      "player": "QwCdr Proud"
+      "player": "QwCdr Proud",
+      "decisionIndex": 217
     }
   ],
   "blunderScriptVersion": 31,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260223_180324_g2",
   "timestamp": "20260223_180324",
   "gameType": "Two Player Duel",
@@ -33244,7 +33244,8 @@
       "betterLine": "Play Sacred Foundry (paying 2 life) to have white mana available for Puresteel Paladin on turn 2 alongside another land, saving Urza's Saga for a later turn when more artifacts are in play to make bigger Constructs.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -33253,7 +33254,8 @@
       "betterLine": "Cast Mox Opal first (free, increases artifact count), then cast Shadowspear with Urza's Saga mana — same end result but Mox Opal being free should always be sequenced first to maximize information and artifact count at each decision point",
       "type": "blunder",
       "snapshotIndex": 5,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 6
     },
     {
       "severity": "minor",
@@ -33262,7 +33264,8 @@
       "betterLine": "Play Misty Rainforest, crack it to fetch a Forest (or keep it uncracked for flexibility). This thins the deck and preserves options for future land drops.",
       "type": "blunder",
       "snapshotIndex": 10,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -33271,7 +33274,8 @@
       "betterLine": "Discard Spymaster's Vault, which enters tapped without a Swamp and is the weakest card in hand given the game plan of deploying cheap creatures alongside Grist.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -33280,7 +33284,8 @@
       "betterLine": "Simply let the Urza's Saga chapter III trigger resolve without activating Shadowspear's ability, saving the mana or not wasting the activation on nothing. The mana was likely going to waste anyway since Saga is being sacrificed, but it's still a pointless activation that reveals information about the deck's plan for no gain.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -33289,7 +33294,8 @@
       "betterLine": "Fetch Overgrown Tomb to enable casting Grist, the Hunger Tide next turn and to have Spymaster's Vault enter untapped later",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 36
     },
     {
       "severity": "major",
@@ -33298,7 +33304,8 @@
       "betterLine": "Do not cast Battlefield Improvisation here. Instead, activate Inkmoth Nexus if wanting to set up an attack next turn, or simply pass and hold the Battlefield Improvisation for a future combat where it can be used on your own attacking creature (ideally Inkmoth Nexus with Colossus Hammer). The card was completely wasted.",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 42
     },
     {
       "severity": "minor",
@@ -33307,7 +33314,8 @@
       "betterLine": "Play Misty Rainforest first, fetch a Forest, then cast Strangleroot Geist (or another spell) with more mana available and better information. Playing lands before spells is fundamental sequencing.",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 46
     },
     {
       "severity": "major",
@@ -33316,7 +33324,8 @@
       "betterLine": "During pre-combat main phase: cast Mox Opal (free, achieving metalcraft with Colossus Hammer + Shadowspear + Mox Opal), then enter combat, activate Inkmoth Nexus (tap Sacred Foundry), attack with Inkmoth, cast Battlefield Improvisation (tap Mox Opal + Sunbaked Canyon for {W}{W} covering {1}{W}), attach Colossus Hammer + Shadowspear for lethal 14 infect damage",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 52
     },
     {
       "severity": "moderate",
@@ -33325,7 +33334,8 @@
       "betterLine": "Activate Inkmoth Nexus as a creature, attack with it, and hold Battlefield Improvisation for a future turn when enough mana is available to both activate Inkmoth and cast Improvisation (e.g., with an additional land drop). Alternatively, pass the turn and deploy Puresteel Paladin next turn to equip Colossus Hammer for free.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 55
     },
     {
       "severity": "questionable",
@@ -33334,7 +33344,8 @@
       "betterLine": "Tap Mox Opal (metalcraft active) for {W} and Sacred Foundry for {W} to cast Puresteel Paladin without losing any life, preserving Sunbaked Canyon for future card draw.",
       "type": "blunder",
       "snapshotIndex": 78,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 56
     },
     {
       "severity": "major",
@@ -33343,7 +33354,8 @@
       "betterLine": "Pass the turn, holding Battlefield Improvisation. Next turn, activate Inkmoth Nexus, attack with it, cast Battlefield Improvisation targeting Inkmoth Nexus during combat to attach Colossus Hammer and Shadowspear for a lethal infect attack (1+2+10+1 = 14 power with infect, trample, and lifelink).",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -33352,7 +33364,8 @@
       "betterLine": "Play Misty Rainforest as the land drop (fetching a Forest or keeping it uncracked), keeping Boseiju in hand to Channel-destroy Colossus Hammer or another artifact at instant speed before the opponent can use the free equip from Puresteel Paladin's Metalcraft.",
       "type": "blunder",
       "snapshotIndex": 88,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -33361,7 +33374,8 @@
       "betterLine": "Discard Spymaster's Vault (enters tapped, narrow ability, and the deck likely doesn't need it as much as a powerful tutor) or Malevolent Rumble (lower impact card). Green Sun's Zenith is too valuable to discard.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT5m Trash"
+      "player": "GPT5m Trash",
+      "decisionIndex": 68
     },
     {
       "severity": "minor",
@@ -33370,7 +33384,8 @@
       "betterLine": "Cast Paradise Mantle first ({0} cost, draws a card from Puresteel Paladin), then activate Inkmoth Nexus and equip Colossus Hammer + Shadowspear for the infect kill with more information.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -33379,7 +33394,8 @@
       "betterLine": "Cast Mox Opal first (legend-ruling the tapped copy to get an untapped one), then cast Paradise Mantle to trigger the draw with one mana floating/available for whatever is drawn.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -33388,7 +33404,8 @@
       "betterLine": "Cast Paradise Mantle first (draw a card via Puresteel Paladin), then cast Mox Opal (draw another card, legend rule keeps the untapped copy), then decide on equip targets with full information from the drawn cards.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "o3 Memoir"
+      "player": "o3 Memoir",
+      "decisionIndex": 73
     }
   ],
   "blunderScriptVersion": 18,

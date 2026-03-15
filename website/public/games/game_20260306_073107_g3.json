@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260306_073107_g3",
   "timestamp": "20260306_073107",
   "gameType": "Two Player Duel",
@@ -62070,7 +62070,8 @@
       "betterLine": "Put Bone Pit Brute on the bottom — it's the most expensive card at 6 mana. Keeping Seafloor Oracle gives a 4-mana creature play and a much better curve. Alternatively, Temur Battle Rage could be bottomed as it needs a creature to target and isn't useful without one.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT52 Analyst"
+      "player": "GPT52 Analyst",
+      "decisionIndex": 2
     },
     {
       "severity": "moderate",
@@ -62079,7 +62080,8 @@
       "betterLine": "Keep the 6-card hand. Three lands with Molten Birth on turn 3 and Bone Pit Brute on turn 6 is a functional Limited hand, even if not ideal.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "GPT52 Analyst"
+      "player": "GPT52 Analyst",
+      "decisionIndex": 3
     },
     {
       "severity": "moderate",
@@ -62088,7 +62090,8 @@
       "betterLine": "Discard Hedron Archive as the artifact card to only lose one card instead of two. Archaeomender can later retrieve the Hedron Archive from the graveyard, making this line strictly better.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "G31FL Tactic"
+      "player": "G31FL Tactic",
+      "decisionIndex": 52
     },
     {
       "severity": "questionable",
@@ -62097,7 +62100,8 @@
       "betterLine": "Discard Hedron Archive as the single artifact discard for Thirst for Knowledge, saving a card. Archaeomender in hand can later retrieve Hedron Archive from the graveyard, preserving both card advantage and the ramp plan.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "G31FL Tactic"
+      "player": "G31FL Tactic",
+      "decisionIndex": 52
     },
     {
       "severity": "moderate",
@@ -62106,7 +62110,8 @@
       "betterLine": "Discard Hedron Archive as the single artifact discard for Thirst for Knowledge, saving a card. Archaeomender in hand can later retrieve Hedron Archive from the graveyard if needed.",
       "type": "blunder",
       "snapshotIndex": 85,
-      "player": "G31FL Tactic"
+      "player": "G31FL Tactic",
+      "decisionIndex": 52
     },
     {
       "severity": "major",
@@ -62115,7 +62120,8 @@
       "betterLine": "Cast Crashing Tide targeting Distinguished Conjurer to remove the only blocker, then attack with all three creatures for guaranteed lethal (3 trigger + 8 combat = 11 damage vs 8 life)",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT52 Analyst"
+      "player": "GPT52 Analyst",
+      "decisionIndex": 98
     }
   ],
   "blunderScriptVersion": 32

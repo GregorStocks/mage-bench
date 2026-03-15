@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_191003_g3",
   "timestamp": "20260304_191003",
   "gameType": "Two Player Duel",
@@ -51800,7 +51800,8 @@
       "betterLine": "Mulligan to 6 looking for a hand with both colors of mana. A 6-card hand with at least one red source and reasonable spells would likely perform better than a 7-card hand missing an entire color.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT5 Spike"
+      "player": "GPT5 Spike",
+      "decisionIndex": 1
     },
     {
       "severity": "minor",
@@ -51809,7 +51810,8 @@
       "betterLine": "Bottom both Islands to dig toward spells, since hand already has 3 Islands which is sufficient to cast everything available",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "GPT5 Spike"
+      "player": "GPT5 Spike",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -51818,7 +51820,8 @@
       "betterLine": "Play a Mountain first (going to 3 lands on board), then cast Bloodrage Brawler. This costs nothing and leaves you one turn closer to casting Tectonic Giant and Terror of the Peaks.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "QwCdr Dreamer"
+      "player": "QwCdr Dreamer",
+      "decisionIndex": 25
     },
     {
       "severity": "moderate",
@@ -51827,7 +51830,8 @@
       "betterLine": "Cast Tectonic Giant for 4 mana - it's one of the best Limited cards available, applies massive pressure with its attack trigger, and has a superior body. Next turn, play a 5th Mountain and cast Terror of the Peaks for an even more devastating follow-up.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "QwCdr Dreamer"
+      "player": "QwCdr Dreamer",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -51836,7 +51840,8 @@
       "betterLine": "Cast Terror of the Peaks first as the 5/4 flyer that taxes removal and synergizes with future creature plays. Next turn, casting Rapacious Dragon would trigger Terror for 3 damage to any target while also providing Treasures.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "QwCdr Dreamer"
+      "player": "QwCdr Dreamer",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -51845,7 +51850,8 @@
       "betterLine": "Attack with Faerie Seer for 4 free damage, bringing the opponent from 19 to 15 life.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "GPT5 Spike"
+      "player": "GPT5 Spike",
+      "decisionIndex": 58
     },
     {
       "severity": "moderate",
@@ -51854,7 +51860,8 @@
       "betterLine": "Cast Terror of the Peaks. At 1 life, the opponent cannot target it with spells (costs 3 additional life), it has flying to avoid blockers, and any future creature ETB deals lethal damage.",
       "type": "blunder",
       "snapshotIndex": 176,
-      "player": "QwCdr Dreamer"
+      "player": "QwCdr Dreamer",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -51863,7 +51870,8 @@
       "betterLine": "Play a Mountain from hand (free land drop, pure upside) before passing the turn.",
       "type": "blunder",
       "snapshotIndex": 183,
-      "player": "QwCdr Dreamer"
+      "player": "QwCdr Dreamer",
+      "decisionIndex": 67
     }
   ],
   "blunderScriptVersion": 32

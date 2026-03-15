@@ -77523,7 +77523,8 @@
       "betterLine": "Play a land first (Island or Restless Anchorage), then pass with mana open to hold up Get Lost or other interaction for a more impactful threat.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "o3 ESPN"
+      "player": "o3 ESPN",
+      "decisionIndex": 14
     },
     {
       "severity": "questionable",
@@ -77532,7 +77533,8 @@
       "betterLine": "Wait until the opponent's end step to activate Fountainport's draw ability, preserving maximum flexibility and information. Play Soulstone Sanctuary first to ensure maximum mana availability for reactive spells.",
       "type": "blunder",
       "snapshotIndex": 93,
-      "player": "GPT52 Hype"
+      "player": "GPT52 Hype",
+      "decisionIndex": 15
     },
     {
       "severity": "questionable",
@@ -77541,7 +77543,8 @@
       "betterLine": "Wait until the opponent's end step to activate Fountainport's draw ability, preserving mana and flexibility during the opponent's turn for any reactive plays.",
       "type": "blunder",
       "snapshotIndex": 111,
-      "player": "GPT52 Hype"
+      "player": "GPT52 Hype",
+      "decisionIndex": 19
     },
     {
       "severity": "questionable",
@@ -77550,7 +77553,8 @@
       "betterLine": "Could consider playing Soulstone Sanctuary first for the land drop, then deciding whether to use Fountainport's draw ability or hold up more mana for countermagic/removal. Alternatively, holding all mana open for interaction (Essence Scatter + Shoot the Sheriff backup) might be safer given no board presence.",
       "type": "blunder",
       "snapshotIndex": 113,
-      "player": "GPT52 Hype"
+      "player": "GPT52 Hype",
+      "decisionIndex": 19
     },
     {
       "severity": "questionable",
@@ -77559,7 +77563,8 @@
       "betterLine": "Could have considered creating a Fish token instead (option 3) to establish board presence and later use Map tokens for exploration, though drawing for a threat is also reasonable.",
       "type": "blunder",
       "snapshotIndex": 120,
-      "player": "GPT52 Hype"
+      "player": "GPT52 Hype",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -77568,7 +77573,8 @@
       "betterLine": "Play Restless Anchorage to gain access to a creature land, enabling attacks next turn with 2 Monks + activated Restless Anchorage (2/3 flyer) for 4 damage, putting the opponent to 4 life and threatening lethal the following turn.",
       "type": "blunder",
       "snapshotIndex": 191,
-      "player": "o3 ESPN"
+      "player": "o3 ESPN",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -77577,7 +77583,8 @@
       "betterLine": "Play Restless Anchorage first (land drop), then either cast Jeskai Revelation with the remaining mana or pass the turn holding Jeskai Revelation as instant-speed interaction for the opponent's end step, maintaining flexibility",
       "type": "blunder",
       "snapshotIndex": 256,
-      "player": "o3 ESPN"
+      "player": "o3 ESPN",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -77586,7 +77593,8 @@
       "betterLine": "Play Restless Anchorage (or another land) first, then cast Jeskai Revelation. The land drop costs nothing and could matter if the game continues.",
       "type": "blunder",
       "snapshotIndex": 278,
-      "player": "o3 ESPN"
+      "player": "o3 ESPN",
+      "decisionIndex": 41
     },
     {
       "severity": "moderate",
@@ -77595,11 +77603,12 @@
       "betterLine": "Select 'Draw two cards, then discard a card' to dig for a way to deal the final 3 damage (e.g., Jeskai Revelation is already in hand and can deal 4 damage, but more cards means more options and flexibility). At minimum, the draw mode is pure upside that should never be declined.",
       "type": "blunder",
       "snapshotIndex": 318,
-      "player": "o3 ESPN"
+      "player": "o3 ESPN",
+      "decisionIndex": 50
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

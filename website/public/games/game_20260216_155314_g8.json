@@ -45923,7 +45923,8 @@
       "betterLine": "Choose GLM47 Snark to go first (elect to be on the play), gaining the tempo advantage of playing lands and deploying threats one turn earlier.",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "GLM47 Snark"
+      "player": "GLM47 Snark",
+      "decisionIndex": 0
     },
     {
       "severity": "moderate",
@@ -45932,7 +45933,8 @@
       "betterLine": "Hold Seam Rip in hand and pass the turn, saving it to exile a relevant small permanent when the opponent plays one.",
       "type": "blunder",
       "snapshotIndex": 8,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 9
     },
     {
       "severity": "questionable",
@@ -45941,7 +45943,8 @@
       "betterLine": "Hold mana open and pass, keeping Get Lost available as instant-speed interaction for the opponent's next play, or play Seam Rip targeting the opponent's Seam Rip if it exiled something relevant. Consult the Star Charts at end of opponent's turn would also provide card selection.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 14
     },
     {
       "severity": "questionable",
@@ -45950,7 +45953,8 @@
       "betterLine": "Cast Seam Rip targeting opponent's Seam Rip to recover the exiled permanent, then use Day of Judgment next turn to cleanly handle Enduring Innocence (exiled by Rest in Peace). Save Get Lost for future threats like Ajani.",
       "type": "blunder",
       "snapshotIndex": 35,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 23
     },
     {
       "severity": "moderate",
@@ -45959,7 +45963,8 @@
       "betterLine": "Target Enduring Innocence with Get Lost. With Rest in Peace on the battlefield, Enduring Innocence would be exiled instead of going to the graveyard, preventing its return-to-battlefield trigger. This permanently removes the opponent's card advantage engine.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 24
     },
     {
       "severity": "moderate",
@@ -45968,7 +45973,8 @@
       "betterLine": "Attack with all creatures (Enduring Innocence + Quantum Riddler) for 6 damage against an empty board",
       "type": "blunder",
       "snapshotIndex": 65,
-      "player": "GLM47 Snark"
+      "player": "GLM47 Snark",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -45977,7 +45983,8 @@
       "betterLine": "Activate Floodfarm Verge for {W} to have access to white mana for casting Seam Rip, High Noon, or contributing toward Ajani's cost.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "GLM47 Snark"
+      "player": "GLM47 Snark",
+      "decisionIndex": 71
     },
     {
       "severity": "questionable",
@@ -45986,7 +45993,8 @@
       "betterLine": "Cast Ajani, Outland Chaperone to start generating 1/1 tokens (triggering Enduring Innocence draws) and threatening the -2 removal ability, developing the board while still having future turns to deploy Enduring Curiosity and Seam Rip",
       "type": "blunder",
       "snapshotIndex": 82,
-      "player": "GLM47 Snark"
+      "player": "GLM47 Snark",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -45995,7 +46003,8 @@
       "betterLine": "Play Cori Mountain Monastery first, then cast Day of Judgment to permanently remove Enduring Innocence (Rest in Peace prevents its death trigger from returning it). This stops the life gain and potential card draw immediately.",
       "type": "blunder",
       "snapshotIndex": 83,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 75
     },
     {
       "severity": "moderate",
@@ -46004,7 +46013,8 @@
       "betterLine": "Cast Day of Judgment to destroy Enduring Innocence (which returns as a non-creature enchantment, stopping its attacks and lifelink) and stabilize the board while at 14 life against an opponent at 26.",
       "type": "blunder",
       "snapshotIndex": 100,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 97
     },
     {
       "severity": "moderate",
@@ -46013,7 +46023,8 @@
       "betterLine": "Cast Day of Judgment to clear the board (destroying Enduring Innocence and any creatures), or cast The Unagi of Kyoshi Island as a 5/5 flash blocker with card draw potential. Either significantly impacts the board state rather than just filtering cards.",
       "type": "blunder",
       "snapshotIndex": 106,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 110
     },
     {
       "severity": "major",
@@ -46022,7 +46033,8 @@
       "betterLine": "Cast Day of Judgment to destroy all creatures, clearing Enduring Innocence (which would return as just an enchantment without lifelink attacks) and stabilizing at 12 life. This addresses the immediate pressure and stops the life swing. The Unagi could be deployed on a later turn when the board is clean.",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 123
     },
     {
       "severity": "major",
@@ -46031,7 +46043,8 @@
       "betterLine": "Cast Day of Judgment to destroy all creatures, clearing the opponent's Enduring Innocence and stabilizing at 12 life. Save The Unagi (which has flash) for a future turn or the opponent's turn when it could be cast as the one spell that turn.",
       "type": "blunder",
       "snapshotIndex": 122,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 128
     },
     {
       "severity": "major",
@@ -46040,7 +46053,8 @@
       "betterLine": "Target High Noon with Get Lost to unlock the ability to cast multiple spells per turn, enabling a Day of Judgment on a future turn followed by card draw or Jeskai Revelation to mount a comeback.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -46049,7 +46063,8 @@
       "betterLine": "Activate Restless Anchorage for {1}{W}{U} to create a 2/3 flying attacker, dealing 2 extra damage and creating a Map token, increasing pressure on the opponent at 10 life.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "GLM47 Snark"
+      "player": "GLM47 Snark",
+      "decisionIndex": 167
     },
     {
       "severity": "minor",
@@ -46058,7 +46073,8 @@
       "betterLine": "Cast Day of Judgment immediately to clear Enduring Innocence and ensure survival at 1 life, then use remaining mana for card advantage abilities.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 185
     },
     {
       "severity": "major",
@@ -46067,7 +46083,8 @@
       "betterLine": "Cast Day of Judgment immediately to clear Enduring Innocence and survive. At 1 life, board-wiping is the only priority - a random exiled card is far less important than staying alive.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -46076,7 +46093,8 @@
       "betterLine": "Play Sunbillow Verge (enters untapped, controls Plains via Hallowed Fountain) first, then cast Consult the Star Charts seeing 7 cards instead of 6, then still cast Day of Judgment with remaining mana",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -46085,7 +46103,8 @@
       "betterLine": "Select Jeskai Revelation (and possibly Restless Anchorage or Hallowed Fountain as the untapped land) to maximize survival chances at 1 life. A second Jeskai Revelation would provide another 4 life gain option.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 185
     },
     {
       "severity": "minor",
@@ -46094,11 +46113,12 @@
       "betterLine": "Select Jeskai Revelation as one of the two picks, providing backup life gain and removal at a critical 1 life total.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "GPT5n Rivals"
+      "player": "GPT5n Rivals",
+      "decisionIndex": 185
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

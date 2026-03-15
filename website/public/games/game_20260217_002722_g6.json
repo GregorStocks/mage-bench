@@ -42240,7 +42240,8 @@
       "betterLine": "Play Swamp (untapped) first, then cast Winternight Stories using the other 3 lands, leaving the new Swamp untapped for potential plays after drawing 3 cards.",
       "type": "blunder",
       "snapshotIndex": 62,
-      "player": "Opus Valley"
+      "player": "Opus Valley",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -42249,7 +42250,8 @@
       "betterLine": "Discard Harvester of Misery as the creature card to satisfy Winternight Stories with only 1 discard, netting +2 cards. Harvester won't be castable for 2+ turns, and the extra Swamp kept is low-value given the abundance of lands already available.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "Opus Valley"
+      "player": "Opus Valley",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -42258,7 +42260,8 @@
       "betterLine": "Destroy Marauding Mako, which scales with every discard and poses a much greater long-term threat in this discard-synergy deck",
       "type": "blunder",
       "snapshotIndex": 103,
-      "player": "o3 Tinker"
+      "player": "o3 Tinker",
+      "decisionIndex": 29
     },
     {
       "severity": "major",
@@ -42267,7 +42270,8 @@
       "betterLine": "In main phase, discard Flamewake Phoenix to equip Bloodthorn Flail to Bloodghast. Monument to Endurance triggers - choose 'each opponent loses 3 life' (opponent to 3). Then attack with 4/2 Bloodghast for lethal.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "o3 Tinker"
+      "player": "o3 Tinker",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -42276,7 +42280,8 @@
       "betterLine": "Exile Stock Up (3) + Bitter Triumph (2) + Intimidation Tactics (1) for evidence 6, preserving Winternight Stories (Harmonize from graveyard) and Archenemy's Charm for potential recursion",
       "type": "blunder",
       "snapshotIndex": 190,
-      "player": "Opus Valley"
+      "player": "Opus Valley",
+      "decisionIndex": 59
     },
     {
       "severity": "major",
@@ -42285,11 +42290,12 @@
       "betterLine": "Actually, this was the only viable choice since drawing 3 and losing 3 life at 2 HP would be lethal",
       "type": "blunder",
       "snapshotIndex": 217,
-      "player": "Opus Valley"
+      "player": "Opus Valley",
+      "decisionIndex": 76
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

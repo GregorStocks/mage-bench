@@ -20770,7 +20770,8 @@
       "betterLine": "Choose to go first (select Haiku Villain as starting player) to gain tempo advantage with Urza's Saga and Dark Depths gameplan",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -20779,7 +20780,8 @@
       "betterLine": "Exile Maze of Ith to protect the combat damage clock from TKS and Linebreaker, or exile Malevolent Rumble to prevent the opponent from digging for combo pieces while keeping their hand as all-lands with no card selection.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -20788,7 +20790,8 @@
       "betterLine": "Exile Malevolent Rumble, the only nonland card, denying the opponent their card selection spell and Eldrazi Spawn token creation",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -20797,7 +20800,8 @@
       "betterLine": "Exile Malevolent Rumble to deny the opponent card selection that could find Thespian's Stage to combo with the Dark Depths already in their hand",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 18
     },
     {
       "severity": "minor",
@@ -20806,7 +20810,8 @@
       "betterLine": "Play Yavimaya, Cradle of Growth (or Boseiju), tap it for {G}, cast Exploration, then play Urza's Saga as the second land drop. This accelerates the entire game plan by a full turn.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 20
     },
     {
       "severity": "questionable",
@@ -20815,7 +20820,8 @@
       "betterLine": "Cast Chalice of the Void for X=1 using Ancient Tomb, shutting down the Lands deck's key 1-mana spells like Crop Rotation and Exploration while maintaining pressure with Thought-Knot Seer",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -20824,7 +20830,8 @@
       "betterLine": "Discard Maze of Ith to Mox Diamond. Maze produces no mana and while defensive against Thought-Knot Seer, the player needs mana development more urgently. Yavimaya would unlock green mana from all utility lands, enabling the game plan far more effectively.",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 31
     },
     {
       "severity": "moderate",
@@ -20833,7 +20840,8 @@
       "betterLine": "Tap Mox Diamond for {G}, cast Exploration, then play two lands this turn (e.g., Boseiju + Dark Depths, or Boseiju + Ghost Quarter) to maximize tempo and land deployment",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 32
     },
     {
       "severity": "major",
@@ -20842,7 +20850,8 @@
       "betterLine": "Use Boseiju's channel ability to destroy Chalice of the Void first (paying {1}{G} or less, discarding Boseiju), then cast Exploration safely. Alternatively, if unable to activate Boseiju's channel for some reason, hold Exploration and focus on other plays like developing lands.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 33
     },
     {
       "severity": "minor",
@@ -20851,7 +20860,8 @@
       "betterLine": "Play Gemstone Caverns as land drop first, then cast Reality Smasher using Gemstone Caverns + Eldrazi Temple + Ancient Tomb, keeping Wasteland untapped to potentially destroy Boseiju.",
       "type": "blunder",
       "snapshotIndex": 41,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -20860,7 +20870,8 @@
       "betterLine": "Consider activating Wasteland to destroy Boseiju, Who Endures before playing Gemstone Caverns, cutting opponent's second mana source. Then play Gemstone Caverns and still have enough mana to cast Reality Smasher next turn via Ancient Tomb + Eldrazi Temple + untapped Grim Monolith.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 49
     },
     {
       "severity": "questionable",
@@ -20869,7 +20880,8 @@
       "betterLine": "Consider untapping Grim Monolith instead (using 4 mana from other lands) to have 3 mana available from Monolith, preserving Wasteland as both a mana source and future threat to any land the opponent plays, enabling faster deployment of Reality Smasher next turn.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 51
     },
     {
       "severity": "moderate",
@@ -20878,7 +20890,8 @@
       "betterLine": "Play Maze of Ith to immediately stop Thought-Knot Seer's attacks and stabilize at 12 life. Yavimaya could be played on a subsequent turn.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 55
     },
     {
       "severity": "minor",
@@ -20887,7 +20900,8 @@
       "betterLine": "Play Maze of Ith first (critical defense against two large attackers), then cast Life from the Loam to recover Urza's Saga and Yavimaya from graveyard",
       "type": "blunder",
       "snapshotIndex": 58,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 59
     },
     {
       "severity": "major",
@@ -20896,7 +20910,8 @@
       "betterLine": "Play Maze of Ith to survive combat by neutralizing Reality Smasher each turn, then use subsequent turns to deploy Wasteland/Ghost Quarter to disrupt opponent's mana while staying alive",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 63
     },
     {
       "severity": "major",
@@ -20905,7 +20920,8 @@
       "betterLine": "Cast Eldrazi Linebreaker using Eldrazi Temple (CC for Eldrazi) + Gemstone Caverns (R), then at beginning of combat target Reality Smasher with +3/+0, attack with all three creatures for 15 damage against 12 life for the win.",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 67
     },
     {
       "severity": "major",
@@ -20914,7 +20930,8 @@
       "betterLine": "Play Maze of Ith to survive combat next turn by neutralizing one attacker. Then use Ghost Quarter or Wasteland on the opponent's lands to slow them down, and try to recover with Life from the Loam. Even with Maze of Ith, surviving two attackers is difficult, but without it, death is certain next turn.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 72
     },
     {
       "severity": "moderate",
@@ -20923,7 +20940,8 @@
       "betterLine": "Activate Urza's Saga by paying {2} and tapping it to create a Construct token, providing a crucial blocker for next turn's combat while at 3 life",
       "type": "blunder",
       "snapshotIndex": 71,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 74
     },
     {
       "severity": "major",
@@ -20932,7 +20950,8 @@
       "betterLine": "Play Maze of Ith (to fog an attacker next turn), cast Life from the Loam returning Thespian's Stage + other lands from graveyard, and activate Urza's Saga to create a Construct token. This would set up both survival (Maze of Ith fogs one attacker, Construct blocks the other) and the Thespian's Stage + Dark Depths combo for a 20/20 Marit Lage.",
       "type": "blunder",
       "snapshotIndex": 72,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 74
     },
     {
       "severity": "minor",
@@ -20941,7 +20960,8 @@
       "betterLine": "Skip straight to combat and attack with Thought-Knot Seer and/or Reality Smasher for lethal damage (either alone is sufficient to deal 3+ damage to a 3-life opponent). Save Wasteland in case something goes wrong or for future use.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 78
     },
     {
       "severity": "minor",
@@ -20950,7 +20970,8 @@
       "betterLine": "Go directly to combat and attack with Thought-Knot Seer and Reality Smasher for 9 damage against an opponent at 3 life with no blockers, winning the game immediately.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Sonnet Stoic"
+      "player": "Sonnet Stoic",
+      "decisionIndex": 78
     },
     {
       "severity": "minor",
@@ -20959,12 +20980,13 @@
       "betterLine": "Activate Urza's Saga's {2}, {T} ability to create a Construct token before it potentially gets exiled by the Battlemage's kicker trigger.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Haiku Villain"
+      "player": "Haiku Villain",
+      "decisionIndex": 82
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

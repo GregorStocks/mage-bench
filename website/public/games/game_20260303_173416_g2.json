@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260303_173416_g2",
   "timestamp": "20260303_173416",
   "gameType": "Two Player Duel",
@@ -56908,7 +56908,8 @@
       "betterLine": "Hold the Scourge and pass with 2 mana open. Next turn play Thriving Grove, cast Trufflesnout (choosing +1/+1 counter mode). On a later turn, cast Scourge for X=2+ when it's harder to remove and the board has more +1/+1 counter synergies established.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "GPT53C Trash"
+      "player": "GPT53C Trash",
+      "decisionIndex": 12
     },
     {
       "severity": "moderate",
@@ -56917,7 +56918,8 @@
       "betterLine": "Cast Narcolepsy on the opponent's Wildwood Scourge to lock it down, or simply pass and hold mana for Last Gasp as removal. Curiosity should only be cast on your own creatures.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -56926,7 +56928,8 @@
       "betterLine": "Cast Fertilid ({2}{G}), leaving 1 mana open. Next turn activate Fertilid to fetch a land, reaching 5 lands. Then cast Primeval Bounty on turn 6 lands instead of having to wait longer without ramp.",
       "type": "blunder",
       "snapshotIndex": 109,
-      "player": "GPT53C Trash"
+      "player": "GPT53C Trash",
+      "decisionIndex": 43
     },
     {
       "severity": "major",
@@ -56935,7 +56938,8 @@
       "betterLine": "Cast Silversmote Ghoul (3/1 body that synergizes with Blood Artist's life gain for recursion and provides a meaningful blocker/attacker) or Library Larcenist (card draw engine). Either play develops the board when desperately behind at 11 life.",
       "type": "blunder",
       "snapshotIndex": 135,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -56944,7 +56948,8 @@
       "betterLine": "Cast Rousing Read targeting Blood Artist to immediately draw 2 cards (discard 1), create a flying blocker/threat, and dig for answers while at 11 life facing two 3/3s",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -56953,7 +56958,8 @@
       "betterLine": "Play Forest first, then cast Time to Feed. Land drops should come before spells when there's no reason to delay them.",
       "type": "blunder",
       "snapshotIndex": 147,
-      "player": "GPT53C Trash"
+      "player": "GPT53C Trash",
+      "decisionIndex": 55
     },
     {
       "severity": "moderate",
@@ -56962,7 +56968,8 @@
       "betterLine": "Target GPT53C Trash with Blood Artist's trigger so the opponent loses 1 life and you gain 1 life, a 2-point life swing in your favor.",
       "type": "blunder",
       "snapshotIndex": 155,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 57
     },
     {
       "severity": "moderate",
@@ -56971,7 +56978,8 @@
       "betterLine": "Cast Rousing Read on Silversmote Ghoul first ({2}{U}), drawing 2 cards and creating a 4/2 flyer, then cast Erratic Visionary with the remaining {1}{U}. This maximizes mana usage, card advantage, and creates a flying clock while the opponent has no flyers and Crushing Canopy is in the graveyard.",
       "type": "blunder",
       "snapshotIndex": 178,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 68
     },
     {
       "severity": "moderate",
@@ -56980,7 +56988,8 @@
       "betterLine": "Cast Rousing Read targeting Silversmote Ghoul to immediately draw 2 cards (discard 1), create a 4/2 flyer, then cast Erratic Visionary with remaining mana. This provides both immediate card selection to find answers and a meaningful evasive clock.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 69
     },
     {
       "severity": "moderate",
@@ -56989,7 +56998,8 @@
       "betterLine": "Cast Library Larcenist (2U) and Erratic Visionary (1U) to deploy two blockers, using all 5 available mana. Alternatively, cast one creature and hold mana for potential interaction, but deploying blockers at 5 life is critical.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -56998,7 +57008,8 @@
       "betterLine": "Sacrifice Silversmote Ghoul ({1}{B}) to draw a card, hoping to find removal like another Last Gasp or a bounce spell to survive the lethal attack. Still have 3 Islands left to cast Erratic Visionary or Library Larcenist afterward.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 79
     },
     {
       "severity": "major",
@@ -57007,7 +57018,8 @@
       "betterLine": "Play Forest, optionally cast Fertilid for an additional attacker, then go to combat and attack with Trufflesnout and Armorcraft Judge for 8 damage against an opponent at 5 life with no untapped blockers - this is lethal.",
       "type": "blunder",
       "snapshotIndex": 202,
-      "player": "GPT53C Trash"
+      "player": "GPT53C Trash",
+      "decisionIndex": 80
     },
     {
       "severity": "major",
@@ -57016,7 +57028,8 @@
       "betterLine": "Activate Silversmote Ghoul's {1}{B} sacrifice ability to draw a card, hoping to find an instant-speed answer like a removal spell to survive the lethal attack.",
       "type": "blunder",
       "snapshotIndex": 206,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 82
     },
     {
       "severity": "minor",
@@ -57025,7 +57038,8 @@
       "betterLine": "Activate Silversmote Ghoul's '{1}{B}, Sacrifice: Draw a card' ability. Even though the odds of finding a relevant instant are low, it's a free draw with no downside since the Ghoul can't block and the player is dying regardless.",
       "type": "blunder",
       "snapshotIndex": 208,
-      "player": "QwCdr Folksy"
+      "player": "QwCdr Folksy",
+      "decisionIndex": 83
     }
   ],
   "blunderScriptVersion": 31,

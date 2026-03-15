@@ -16565,7 +16565,8 @@
       "betterLine": "Play Starting Town on turn 1 (enters untapped on turns 1-3 for free), saving Cavern of Souls for a later turn when the creature type choice is more informed. Alternatively, Breeding Pool or Overgrown Tomb could be played paying 2 life to enter untapped, providing colored mana immediately.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 5
     },
     {
       "severity": "moderate",
@@ -16574,7 +16575,8 @@
       "betterLine": "Name 'Demon' or 'Vampire' to cast Bringer of the Last Gift uncounterably with colored mana, or name 'Human' or 'Spider' to support the two Superior Spider-Man copies. Given that Bringer costs 6BB and is the hardest to cast and most impactful card, naming Demon or Vampire would likely be best.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -16583,7 +16585,8 @@
       "betterLine": "Play basic Mountain (enters untapped for free), saving Multiversal Passage for a later turn when the basic land type matters more or when other untapped land options are exhausted.",
       "type": "blunder",
       "snapshotIndex": 15,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 14
     },
     {
       "severity": "questionable",
@@ -16592,7 +16595,8 @@
       "betterLine": "Discarding a redundant land like Riverpyre Verge or Mountain would preserve the flexible bounce spell while still contributing a card type to the graveyard for Delirium. The player already has two lands in play and multiple lands in hand.",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -16601,7 +16605,8 @@
       "betterLine": "Play Starting Town (enters untapped on turn 3) or Overgrown Tomb first, then cast Oblivious Bookworm, leaving an extra mana available.",
       "type": "blunder",
       "snapshotIndex": 22,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -16610,7 +16615,8 @@
       "betterLine": "Play Starting Town (enters untapped on turn 3 for free), tap it for {G} (1 life) and Breeding Pool for {U} to cast Oblivious Bookworm, saving 1 life. Save Overgrown Tombs for later turns when permanent {B} sources are needed.",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -16619,7 +16625,8 @@
       "betterLine": "Play a land first (likely Steam Vents paying 2 life, or Spirebluff Canal which would enter tapped as the 4th land), then cast Fear of Missing Out. This preserves maximum flexibility for the discard/draw trigger and ensures no missed land drop.",
       "type": "blunder",
       "snapshotIndex": 28,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -16628,7 +16635,8 @@
       "betterLine": "Discard Spirebluff Canal, which will always enter tapped from this point forward, while Mountain always enters untapped.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -16637,7 +16645,8 @@
       "betterLine": "Play Spirebluff Canal, which enters untapped now (2 or fewer other lands) but would enter tapped next turn. This also provides R mana to enable Torch the Tower this turn if needed.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 23
     },
     {
       "severity": "moderate",
@@ -16646,7 +16655,8 @@
       "betterLine": "Attack with both Fear of Missing Out and Tiger-Seal for 7 total damage against an empty board, bringing opponent from 16 to 9.",
       "type": "blunder",
       "snapshotIndex": 33,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 24
     },
     {
       "severity": "minor",
@@ -16655,7 +16665,8 @@
       "betterLine": "Play Overgrown Tomb (paying 2 life to have it enter untapped) first, then cast Formidable Speaker, preserving the extra mana for potential plays after the tutor effect resolves",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 28
     },
     {
       "severity": "questionable",
@@ -16664,7 +16675,8 @@
       "betterLine": "Discard the second Superior Spider-Man since it's legendary and redundant while keeping Oblivious Bookworm for card advantage",
       "type": "blunder",
       "snapshotIndex": 39,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -16673,7 +16685,8 @@
       "betterLine": "Play a land first (e.g., Spirebluff Canal or Steam Vents), then cast Stormchaser's Talent. This preserves proper sequencing and keeps options open.",
       "type": "blunder",
       "snapshotIndex": 47,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 35
     },
     {
       "severity": "questionable",
@@ -16682,7 +16695,8 @@
       "betterLine": "Choose Temur mode to maximize damage output against an opponent with no blockers, leveraging the +1/+0 across multiple combat steps from Fear of Missing Out's delirium trigger",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 44
     },
     {
       "severity": "questionable",
@@ -16691,7 +16705,8 @@
       "betterLine": "Play Steam Vents (paying 2 life for untapped) to have maximum mana available this turn, saving Spirebluff Canal (which will always enter tapped) for a future turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 61,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 45
     },
     {
       "severity": "moderate",
@@ -16700,7 +16715,8 @@
       "betterLine": "Discard Starting Town (enters tapped after turn 3, and paying 1 life for colored mana is dangerous at 6 life) or a second copy of the legendary Superior Spider-Man. Keep Requiting Hex as cheap interaction to survive the aggressive board.",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Haiku Libby"
+      "player": "Haiku Libby",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -16709,7 +16725,8 @@
       "betterLine": "Play Island (or Steam Vents) first, then level up Stormchaser's Talent to recover Torch the Tower, potentially enabling lethal with combat damage plus 2-3 burn damage to face (if Torch could target players - it can't, so recover Torch for creature removal). At minimum, having the extra land untapped provides more flexibility.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -16718,7 +16735,8 @@
       "betterLine": "Choose Torch the Tower instead, which provides actual removal and could help push through the last points of damage against an opponent at 6 life",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -16727,12 +16745,13 @@
       "betterLine": "Play Island (free, untapped) first, then cast Boomerang Basics, preserving flexibility and ensuring the land drop isn't missed.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "GPT4om Stoic"
+      "player": "GPT4om Stoic",
+      "decisionIndex": 51
     }
   ],
   "harnessEpoch": 3,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

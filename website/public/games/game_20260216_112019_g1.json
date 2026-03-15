@@ -17815,7 +17815,8 @@
       "betterLine": "Select GPT5n Critic as the starting player (choose to play first) to maximize the tempo advantage of this aggressive curve-out hand.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -17824,7 +17825,8 @@
       "betterLine": "Play a Mountain from hand first, then attack with Burnout Bashtronaut without pumping, saving mana for future turns. The 2 mana spent on +1/+0 is inefficient when facing no blockers and the opponent is at 20 life.",
       "type": "blunder",
       "snapshotIndex": 17,
-      "player": "Qwen3 Sport"
+      "player": "Qwen3 Sport",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -17833,7 +17835,8 @@
       "betterLine": "Cast Bloodghast (2/1 with landfall recursion) for BB using Blazemire Verge + Starting Town (paying 1 life), providing more immediate pressure and long-term resilience",
       "type": "blunder",
       "snapshotIndex": 23,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 25
     },
     {
       "severity": "questionable",
@@ -17842,7 +17845,8 @@
       "betterLine": "This is borderline - casting Mako is fine for board presence and it will benefit from future discards via Tersa Lightshatter. The alternative of waiting to deploy Monument to Endurance on turn 3 and then Tersa on turn 4 (discarding with both Monument and Mako on board) could maximize value, but losing tempo against an aggressive opponent may not be worth it. Casting Mako here is defensible.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -17851,7 +17855,8 @@
       "betterLine": "Activate Starting Town's second ability ({T}, Pay 1 life: Add one mana of any color) to produce {R} and properly cast Marauding Mako.",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 26
     },
     {
       "severity": "moderate",
@@ -17860,7 +17865,8 @@
       "betterLine": "Tap Starting Town paying 1 life to add {B}, combined with Blazemire Verge's {B}, to successfully cast Bloodghast on turn 2 as a strong recursive threat.",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 28
     },
     {
       "severity": "moderate",
@@ -17869,7 +17875,8 @@
       "betterLine": "Target Tersa Lightshatter with Bitter Triumph to remove the much larger and more impactful threat",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 49
     },
     {
       "severity": "minor",
@@ -17878,7 +17885,8 @@
       "betterLine": "Attack with all creatures (Tersa Lightshatter and Hired Claw) to deal 5 damage total (3 from Tersa + 1 from Hired Claw + 1 from Hired Claw's Lizard trigger), putting opponent to 9 life",
       "type": "blunder",
       "snapshotIndex": 53,
-      "player": "Qwen3 Sport"
+      "player": "Qwen3 Sport",
+      "decisionIndex": 56
     },
     {
       "severity": "minor",
@@ -17887,7 +17895,8 @@
       "betterLine": "Activate Hired Claw's {1}{R} ability to put a +1/+1 counter on it, growing it from 1/2 to 2/3 permanently, since there was nothing else to spend mana on.",
       "type": "blunder",
       "snapshotIndex": 57,
-      "player": "Qwen3 Sport"
+      "player": "Qwen3 Sport",
+      "decisionIndex": 59
     },
     {
       "severity": "minor",
@@ -17896,7 +17905,8 @@
       "betterLine": "Activate Rockface Village targeting Hired Claw for +1/+0, then attack with both creatures to deal 6 total damage (instead of 5), bringing opponent to 3 life instead of 4.",
       "type": "blunder",
       "snapshotIndex": 67,
-      "player": "Qwen3 Sport"
+      "player": "Qwen3 Sport",
+      "decisionIndex": 69
     },
     {
       "severity": "minor",
@@ -17905,7 +17915,8 @@
       "betterLine": "Activate Hired Claw's {1}{R} ability to put a +1/+1 counter on it, making it 2/3 permanently. This costs nothing meaningful since the mana would otherwise go unused, and improves lethal chances next turn.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Qwen3 Sport"
+      "player": "Qwen3 Sport",
+      "decisionIndex": 74
     },
     {
       "severity": "moderate",
@@ -17914,11 +17925,12 @@
       "betterLine": "Cast Tersa Lightshatter (paying 1 life from Starting Town for red mana) to get a 3/3 haste blocker that can survive combat with opponent's creatures. The ETB discard/draw also helps find answers. A blocker is far more important than a value engine when facing lethal.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "GPT5n Critic"
+      "player": "GPT5n Critic",
+      "decisionIndex": 78
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

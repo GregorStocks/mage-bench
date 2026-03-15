@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_173923",
   "timestamp": "20260309_173923",
   "gameType": "Two Player Duel",
@@ -87647,7 +87647,8 @@
       "betterLine": "Bottom Celestial Enforcer instead - with only 2 lands, keeping the lower curve (two 1-drops + a 2-drop) is safer, and Enforcer's tap ability is conditional on having a flyer.",
       "type": "blunder",
       "snapshotIndex": 2,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 2
     },
     {
       "severity": "minor",
@@ -87656,7 +87657,8 @@
       "betterLine": "Cast Brightmare to get the same 2/3 body plus tap Llanowar Visionary and gain 2 life, providing immediate tempo and life advantage.",
       "type": "blunder",
       "snapshotIndex": 60,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -87665,7 +87667,8 @@
       "betterLine": "Cast Revitalize precombat to draw a card and potentially gain information that affects attack decisions, then proceed to combat.",
       "type": "blunder",
       "snapshotIndex": 148,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 79
     },
     {
       "severity": "moderate",
@@ -87674,7 +87677,8 @@
       "betterLine": "Attack with both Brightmare and Celestial Enforcer for 4 free damage, bringing opponent from 16 to 12 life.",
       "type": "blunder",
       "snapshotIndex": 149,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 80
     },
     {
       "severity": "minor",
@@ -87683,7 +87687,8 @@
       "betterLine": "Cast Revitalize precombat to draw a card and potentially use the drawn card this turn with remaining mana. Even if the draw isn't castable, there's no downside since there are no other instant-speed options to hold mana for.",
       "type": "blunder",
       "snapshotIndex": 174,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 97
     },
     {
       "severity": "minor",
@@ -87692,7 +87697,8 @@
       "betterLine": "Cast Revitalize to gain 3 life and draw a card before making blocking decisions, potentially finding a relevant card while gaining free life.",
       "type": "blunder",
       "snapshotIndex": 180,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 102
     },
     {
       "severity": "minor",
@@ -87701,7 +87707,8 @@
       "betterLine": "Cast Revitalize for {1}{W} to gain 3 life and draw a card before making blocking decisions. The extra card could reveal options, and the life gain is free value.",
       "type": "blunder",
       "snapshotIndex": 182,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 103
     },
     {
       "severity": "minor",
@@ -87710,7 +87717,8 @@
       "betterLine": "Cast Revitalize to gain 3 life and draw a card before combat, still leaving 4 mana open for Angelic Ascension or Celestial Enforcer's ability",
       "type": "blunder",
       "snapshotIndex": 185,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 105
     },
     {
       "severity": "moderate",
@@ -87719,7 +87727,8 @@
       "betterLine": "Attack with both Celestial Enforcer and Brightmare. If opponent blocks one with Wildheart Invoker, cast Angelic Ascension on the blocked creature to create a 4/4 Angel with flying, dealing 2 damage with the unblocked creature. The Angel also enables Celestial Enforcer's tap ability going forward.",
       "type": "blunder",
       "snapshotIndex": 186,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 106
     },
     {
       "severity": "questionable",
@@ -87728,7 +87737,8 @@
       "betterLine": "Put +1/+1 counter on Wildheart Invoker (4/3 → 5/4) to maximize combat damage potential this turn and future turns",
       "type": "blunder",
       "snapshotIndex": 198,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 117
     },
     {
       "severity": "questionable",
@@ -87737,7 +87747,8 @@
       "betterLine": "Cast Angelic Ascension targeting Ivy Lane Denizen in response to Dwynen's Elite on the stack. This removes the 5/7 snowballing threat and prevents future +1/+1 counter accumulation. The 4/4 Angel given to the opponent is a much more manageable threat than a continually growing Denizen.",
       "type": "blunder",
       "snapshotIndex": 197,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 116
     },
     {
       "severity": "moderate",
@@ -87746,7 +87757,8 @@
       "betterLine": "Cast Angelic Ascension targeting Ivy Lane Denizen in response to the stack triggers. This removes the growing engine (5/7 becoming 7/9+), fizzles the pending +1/+1 counter trigger, and prevents all future growth from green creatures entering. Yes, the opponent gets a 4/4 Angel, but removing a 5/7+ engine piece that threatens to snowball further is worth the trade.",
       "type": "blunder",
       "snapshotIndex": 201,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 120
     },
     {
       "severity": "minor",
@@ -87755,7 +87767,8 @@
       "betterLine": "Cast Angelic Ascension targeting Ivy Lane Denizen (6/8) in response to the Dwynen's Elite trigger. This removes the growing threat permanently and replaces it with a manageable 4/4 flyer, while also preventing the Denizen trigger from the incoming Elf token.",
       "type": "blunder",
       "snapshotIndex": 203,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 122
     },
     {
       "severity": "moderate",
@@ -87764,7 +87777,8 @@
       "betterLine": "Cast Angelic Ascension targeting Ivy Lane Denizen in response to the equip ability. This removes the 6/8 counter engine, wastes the opponent's equip mana, and replaces it with a much less threatening 4/4 Angel. The board becomes far more manageable with the Denizen gone.",
       "type": "blunder",
       "snapshotIndex": 213,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 129
     },
     {
       "severity": "moderate",
@@ -87773,7 +87787,8 @@
       "betterLine": "Block with both creatures - Celestial Enforcer on Craterhoof Behemoth (highest power, saves most damage) and Anointed Chorister on the Elf Warrior Token 5/5, going to approximately 13 life instead of 8.",
       "type": "blunder",
       "snapshotIndex": 279,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 171
     },
     {
       "severity": "moderate",
@@ -87782,7 +87797,8 @@
       "betterLine": "Attack with Anointed Chorister, then cast Take Heart in combat to deal 3 damage and gain 4 life (going to 12 life), significantly improving survival chances against the opponent's lethal board",
       "type": "blunder",
       "snapshotIndex": 290,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 187
     },
     {
       "severity": "moderate",
@@ -87791,7 +87807,8 @@
       "betterLine": "Attack with Anointed Chorister, then activate its pump ability ({4}{W}) and cast Take Heart to make it a 6/6 lifelink attacker, dealing 6 damage and gaining 7 life to stabilize at 15 life.",
       "type": "blunder",
       "snapshotIndex": 292,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 189
     },
     {
       "severity": "moderate",
@@ -87800,7 +87817,8 @@
       "betterLine": "Activate Anointed Chorister's {4}{W} ability to make it 4/4 with lifelink, declare it as an attacker into the open board, then cast Take Heart during combat for a 6/6 lifelink attack dealing 6 damage and gaining 7 life (1 from Take Heart + 6 from lifelink).",
       "type": "blunder",
       "snapshotIndex": 292,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 189
     },
     {
       "severity": "minor",
@@ -87809,7 +87827,8 @@
       "betterLine": "Cast Band Together targeting any two creatures to deal damage to Anointed Chorister, killing it and guaranteeing unblocked lethal next turn with Craterhoof + Dwynen's Elite + Elf Warrior + Llanowar Visionary (10+ power vs 8 life)",
       "type": "blunder",
       "snapshotIndex": 295,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 193
     }
   ],
   "blunderScriptVersion": 32,

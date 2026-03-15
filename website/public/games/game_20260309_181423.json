@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260309_181423",
   "timestamp": "20260309_181423",
   "gameType": "Two Player Duel",
@@ -76632,7 +76632,8 @@
       "betterLine": "Choose White for Thriving Grove to have access to the deck's second color for casting white spells like Brightmare, Celestial Enforcer, Swift Response, and Voice of the Provinces.",
       "type": "blunder",
       "snapshotIndex": 14,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -76641,7 +76642,8 @@
       "betterLine": "Attack with Silhana Wayfinder for 2 free damage, since the opponent has no available blockers.",
       "type": "blunder",
       "snapshotIndex": 74,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 41
     },
     {
       "severity": "questionable",
@@ -76650,7 +76652,8 @@
       "betterLine": "Activate Scroll of Avacyn now to draw a card, potentially finding lands or answers sooner. The immediate card advantage may be worth more than the conditional 5 life in 2+ turns.",
       "type": "blunder",
       "snapshotIndex": 91,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -76659,7 +76662,8 @@
       "betterLine": "Attack with at least the Elf Warrior Token 1/1 (risk-free chip damage), and likely also Dwynen's Elite 2/2, forcing the opponent to make blocking decisions. The Silhana Wayfinder 2/1 could reasonably stay back since it trades poorly into 2/3 blockers.",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 56
     },
     {
       "severity": "moderate",
@@ -76668,7 +76672,8 @@
       "betterLine": "Cast Swift Response targeting Wildheart Invoker (destroying it), then block Dwynen's Elite with either Brightmare or Celestial Enforcer. This preserves both valuable creatures, removes the biggest threat, and takes only 3 damage from Silhana Wayfinder and Elf token.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 73
     },
     {
       "severity": "moderate",
@@ -76677,7 +76682,8 @@
       "betterLine": "Cast Feat of Resistance targeting Anointed Chorister, choosing protection from green. This saves the Chorister from combat damage, potentially kills or damages Ivy Lane Denizen, and puts a permanent +1/+1 counter on the Chorister for future value.",
       "type": "blunder",
       "snapshotIndex": 157,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 91
     },
     {
       "severity": "moderate",
@@ -76686,7 +76692,8 @@
       "betterLine": "Cast Feat of Resistance on Anointed Chorister choosing protection from green. This gives a permanent +1/+1 counter, prevents all damage from Ivy Lane Denizen, and the Chorister survives as a 2/2 instead of 1/1. Extra lifelink damage too.",
       "type": "blunder",
       "snapshotIndex": 159,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 92
     },
     {
       "severity": "minor",
@@ -76695,7 +76702,8 @@
       "betterLine": "Cast Feat of Resistance on Brightmare or Celestial Enforcer (unblocked attackers) to get a permanent +1/+1 counter, deal 1 extra damage, and gain protection from green to blank any potential combat tricks from the opponent.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 94
     },
     {
       "severity": "minor",
@@ -76704,7 +76712,8 @@
       "betterLine": "Attack with both Elf Warrior Token and Reclamation Sage for 3 damage, since there are no available blockers.",
       "type": "blunder",
       "snapshotIndex": 230,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 138
     },
     {
       "severity": "minor",
@@ -76713,7 +76722,8 @@
       "betterLine": "Cast Feat of Resistance targeting Emancipation Angel to make it a 4/4 flyer, guaranteeing lethal evasive damage next turn regardless of ground blocking",
       "type": "blunder",
       "snapshotIndex": 252,
-      "player": "Gem3P Coach"
+      "player": "Gem3P Coach",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -76722,7 +76732,8 @@
       "betterLine": "Cast Roots of Wisdom first (2 mana) to potentially find a land, play that land, then cast Elderleaf Mentor (4 mana) with the extra land. This reaches 6 lands on board and gets closer to casting Craterhoof Behemoth.",
       "type": "blunder",
       "snapshotIndex": 258,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 158
     },
     {
       "severity": "minor",
@@ -76731,7 +76742,8 @@
       "betterLine": "Attack with all available creatures (Elf Warrior Token, Reclamation Sage, Elvish Rejuvenator) for 4 unblocked damage, bringing opponent from 26 to 22. This brings the Craterhoof lethal threshold closer while the defensive cost is minimal since the opponent's biggest threat (3/3 flyer) can't be blocked by these ground creatures anyway.",
       "type": "blunder",
       "snapshotIndex": 267,
-      "player": "Opus Brewer"
+      "player": "Opus Brewer",
+      "decisionIndex": 163
     }
   ],
   "blunderScriptVersion": 32,

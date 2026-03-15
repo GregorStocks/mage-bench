@@ -71342,7 +71342,8 @@
       "betterLine": "Target the Otter Token with Boomerang Basics. You still draw a card (since you controlled the token), the token ceases to exist upon returning to hand, and Stormchaser's Talent stays on the battlefield ready to be leveled up. When you replay Talent later, you get a fresh Otter anyway.",
       "type": "blunder",
       "snapshotIndex": 52,
-      "player": "o3 Tactic"
+      "player": "o3 Tactic",
+      "decisionIndex": 9
     },
     {
       "severity": "questionable",
@@ -71351,7 +71352,8 @@
       "betterLine": "Taking Artist's Talent, which is a powerful engine piece that synergizes with the noncreature-spell-heavy hand. The deck should find lands naturally, and Artist's Talent provides card filtering immediately plus cost reduction and damage amplification at higher levels.",
       "type": "blunder",
       "snapshotIndex": 80,
-      "player": "o3 Tactic"
+      "player": "o3 Tactic",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -71360,7 +71362,8 @@
       "betterLine": "Cast Get Lost targeting Stormchaser's Talent while the opponent is tapped out, removing a key enchantment before it can be leveled up. Grim Bauble could be saved for when there's an actual creature to target with its ETB.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 17
     },
     {
       "severity": "questionable",
@@ -71369,7 +71372,8 @@
       "betterLine": "Cast Kaito, Bane of Nightmares (4 mana available from 4 untapped lands). Kaito attacks as a hexproof 3/4 next turn, threatens card advantage with 0 ability, and preserves Get Lost for a higher-impact threat or for when the Map token downside is less relevant.",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 37
     },
     {
       "severity": "minor",
@@ -71378,7 +71382,8 @@
       "betterLine": "Activate Kaito's 0 ability to Surveil 2, improving card quality and potentially finding threats or removal rather than stacking redundant emblems when no other Ninjas are present.",
       "type": "blunder",
       "snapshotIndex": 216,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 64
     },
     {
       "severity": "questionable",
@@ -71387,7 +71392,8 @@
       "betterLine": "Use Kaito's 0 ability to Surveil 2, improving card quality to find threats or answers to close the game. Additional +1/+1 emblems beyond the first few have diminishing returns, while card selection is always valuable.",
       "type": "blunder",
       "snapshotIndex": 266,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 89
     },
     {
       "severity": "minor",
@@ -71396,7 +71402,8 @@
       "betterLine": "Bounce Stormchaser's Talent to replay it next turn, creating another 1/1 prowess Otter token and maintaining the Class for future noncreature spell synergy, accelerating the clock alongside Kaito.",
       "type": "blunder",
       "snapshotIndex": 268,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 90
     },
     {
       "severity": "minor",
@@ -71405,7 +71412,8 @@
       "betterLine": "Target Nurturing Pixie with Firebending Lesson, removing the more threatening evasive creature that can generate value through bouncing permanents",
       "type": "blunder",
       "snapshotIndex": 271,
-      "player": "o3 Tactic"
+      "player": "o3 Tactic",
+      "decisionIndex": 92
     },
     {
       "severity": "major",
@@ -71414,11 +71422,12 @@
       "betterLine": "Attack with Kaito, Bane of Nightmares (who is a 3/4 creature during your turn with 8 loyalty) to deal 3 damage, putting the opponent to 2 life. This sets up lethal on the following turn or with any incidental damage source.",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "Grk41F Memoir"
+      "player": "Grk41F Memoir",
+      "decisionIndex": 97
     }
   ],
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "id": "game_20260304_005948_g1",
   "timestamp": "20260304_005948",
   "gameType": "Two Player Duel",
@@ -70755,7 +70755,8 @@
       "betterLine": "Put a high-cost card like Plundering Predator or Sarkhan on the bottom and keep the Mountain. With 1 land, there's at least a chance to curve out with Firebolt on turn 1 and Kargan Dragonrider/Tormenting Voice on turn 2 if a second land is drawn.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 3
     },
     {
       "severity": "major",
@@ -70764,7 +70765,8 @@
       "betterLine": "Mulligan to 5 cards. A 5-card hand with lands and a scry is far more likely to produce a functional game than a 6-card hand with no lands.",
       "type": "blunder",
       "snapshotIndex": 4,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 4
     },
     {
       "severity": "minor",
@@ -70773,7 +70775,8 @@
       "betterLine": "Cast Firebolt targeting opponent for 2 damage. The mana is wasted otherwise, and Firebolt's flashback means it can still be cast from the graveyard later if needed for removal.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 10
     },
     {
       "severity": "moderate",
@@ -70782,7 +70785,8 @@
       "betterLine": "Cast Hobblefiend or Torch Fiend for {1}{R} (Mountain + Thriving Isle), putting a 2/1 body on the board that survives and can attack/block. Save Forge Devil for later when the opponent has a small creature to snipe.",
       "type": "blunder",
       "snapshotIndex": 32,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 11
     },
     {
       "severity": "minor",
@@ -70791,7 +70795,8 @@
       "betterLine": "Cast Firebolt targeting opponent's face for 2 damage. The mana would be wasted anyway, Firebolt has flashback for future use, and it sets up Mizzix synergy when later cast from the graveyard.",
       "type": "blunder",
       "snapshotIndex": 48,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 13
     },
     {
       "severity": "moderate",
@@ -70800,7 +70805,8 @@
       "betterLine": "Cast Torch Fiend for {1}{R} to establish some board presence. A 2/1 creature can attack, block, and put some pressure on the opponent while the player is stuck on 2 lands.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 20
     },
     {
       "severity": "minor",
@@ -70809,7 +70815,8 @@
       "betterLine": "Cast Torch Fiend to establish board presence. The opponent's Mountain is tapped so there's no immediate removal threat, and with 2 lands on turn 9, the player desperately needs to start developing.",
       "type": "blunder",
       "snapshotIndex": 77,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 21
     },
     {
       "severity": "minor",
@@ -70818,7 +70825,8 @@
       "betterLine": "Activate Thermo-Alchemist now to deal 1 damage, let Tormenting Voice resolve (untapping Thermo-Alchemist), then tap it again for a second point of damage — getting 2 total instead of 1.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 31
     },
     {
       "severity": "minor",
@@ -70827,7 +70835,8 @@
       "betterLine": "Tap Thermo-Alchemist to deal 1 damage to the opponent (19 → 18), as there's no reason to hold the activation with no spells castable this turn.",
       "type": "blunder",
       "snapshotIndex": 114,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 32
     },
     {
       "severity": "minor",
@@ -70836,7 +70845,8 @@
       "betterLine": "Play Mountain first (free land drop), then cast Elite Instructor for {2}{U}, leaving 1 red mana open for potential plays after the draw",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 33
     },
     {
       "severity": "moderate",
@@ -70845,7 +70855,8 @@
       "betterLine": "Discard Traitorous Greed (most situational card, requires a good steal target) or Tolarian Sentinel (weakest creature), then play Mountain to reach 4 lands and start being able to cast spells next turn.",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 36
     },
     {
       "severity": "moderate",
@@ -70854,7 +70865,8 @@
       "betterLine": "Choose Blue, since this is a UR deck and blue mana is needed for any blue spells drawn in the future. Black mana has zero utility in this deck.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -70863,7 +70875,8 @@
       "betterLine": "Return a tapped land (e.g., the tapped Island or Mountain) to hand to avoid discarding a card. The land can simply be replayed next turn since they have a land drop available.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "MiniMx Pessim"
+      "player": "MiniMx Pessim",
+      "decisionIndex": 51
     },
     {
       "severity": "minor",
@@ -70872,7 +70885,8 @@
       "betterLine": "Don't block, take 4 damage (go to 10 life), and preserve Young Pyromancer to generate elemental tokens off future spell casts like Ignite the Future and Firebolt flashback.",
       "type": "blunder",
       "snapshotIndex": 194,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 61
     },
     {
       "severity": "minor",
@@ -70881,7 +70895,8 @@
       "betterLine": "Play Mountain (untapped) to have 5 Mountains, then cast Sarkhan, the Dragonspeaker. +1 Sarkhan to attack as a 4/4 flying indestructible dragon. Play Thriving Bluff on a later turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 65
     },
     {
       "severity": "minor",
@@ -70890,7 +70905,8 @@
       "betterLine": "Choose Blue as the secondary color for Thriving Bluff, since the deck is Blue-Red and Blue mana would actually be useful for casting blue spells",
       "type": "blunder",
       "snapshotIndex": 209,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 65
     },
     {
       "severity": "major",
@@ -70899,7 +70915,8 @@
       "betterLine": "Cast Furnace Whelp (2RR) as a flying blocker/threat, or cast Ignite the Future to dig for answers. Even Spellgorger Weird would be better than nothing. Deploying a creature is critical when behind on board at 10 life.",
       "type": "blunder",
       "snapshotIndex": 221,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 73
     },
     {
       "severity": "major",
@@ -70908,7 +70925,8 @@
       "betterLine": "Cast Furnace Whelp (2/2 flyer for {2}{R}{R}) to develop a flying threat/blocker, or cast Ignite the Future ({3}{R}) to exile 3 cards for card advantage. Either play significantly improves the board position against the opponent's threatening board.",
       "type": "blunder",
       "snapshotIndex": 221,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 73
     },
     {
       "severity": "minor",
@@ -70917,7 +70935,8 @@
       "betterLine": "Block Havoc Jester with Thermo-Alchemist (0/3 defender) — both die either way to the 5/5, but preserving the Furnace Whelp keeps a flying threat on board. Alternatively, block Torch Fiend with Furnace Whelp (Whelp survives, kills Torch Fiend) and accept 7 damage to go to 3 life.",
       "type": "blunder",
       "snapshotIndex": 236,
-      "player": "MstMed Critic"
+      "player": "MstMed Critic",
+      "decisionIndex": 80
     }
   ],
   "blunderScriptVersion": 32

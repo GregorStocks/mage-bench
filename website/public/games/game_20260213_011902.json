@@ -15282,7 +15282,8 @@
       "betterLine": "Play Temple Garden (paying 2 life to enter untapped), then cast Llanowar Elves with the {G} it produces. This enables a much faster curve: turn 2 Badgermole Cub or Doc Aurlock, turn 3 Appa.",
       "type": "blunder",
       "snapshotIndex": 7,
-      "player": "Llama4 Sarge"
+      "player": "Llama4 Sarge",
+      "decisionIndex": 7
     },
     {
       "severity": "questionable",
@@ -15291,7 +15292,8 @@
       "betterLine": "Cast Razorkin Needlehead to start the damage clock immediately, saving Squelcher for when there are other creatures to protect with ward",
       "type": "blunder",
       "snapshotIndex": 12,
-      "player": "Grok4F Spike"
+      "player": "Grok4F Spike",
+      "decisionIndex": 10
     },
     {
       "severity": "questionable",
@@ -15300,7 +15302,8 @@
       "betterLine": "Cast Doc Aurlock, Grizzled Genius for GU (using Temple Garden + Floodfarm Verge) to put a more resilient 2/3 body on board that also enables future cost reduction, then play Llanowar Elves next turn alongside another 2-drop",
       "type": "blunder",
       "snapshotIndex": 18,
-      "player": "Llama4 Sarge"
+      "player": "Llama4 Sarge",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -15309,7 +15312,8 @@
       "betterLine": "Attack with both Hexing Squelcher and Razorkin Needlehead. The Needlehead has first strike on your turn and the opponent's only blocker is a 1/1, so attacking with both is strictly better for damage output with minimal risk.",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "Grok4F Spike"
+      "player": "Grok4F Spike",
+      "decisionIndex": 17
     },
     {
       "severity": "minor",
@@ -15318,7 +15322,8 @@
       "betterLine": "Cast Doc Aurlock, Grizzled Genius for {G}{U} to set up powerful synergy with Appa's airbend on future turns, or cast Llanowar Elves for {G} to enable a turn 4 Appa while leaving mana open for Airbender Ascension",
       "type": "blunder",
       "snapshotIndex": 31,
-      "player": "Llama4 Sarge"
+      "player": "Llama4 Sarge",
+      "decisionIndex": 22
     },
     {
       "severity": "minor",
@@ -15327,7 +15332,8 @@
       "betterLine": "Cast Razorkin Needlehead to develop the board, doubling the card-draw punishment clock and adding another 2/2 first-strike attacker, saving burn spells for finishing the opponent.",
       "type": "blunder",
       "snapshotIndex": 37,
-      "player": "Grok4F Spike"
+      "player": "Grok4F Spike",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -15336,7 +15342,8 @@
       "betterLine": "Play Floodfarm Verge first (land drop is free and should precede spells), then consider whether Doc Aurlock, Grizzled Genius (GU) might be a higher-impact play than Llanowar Elves given the opponent's tapped board. Doc Aurlock would reduce future exile/graveyard casting costs and has a better body (2/3 vs 1/1) against the opponent's aggressive red deck.",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Llama4 Sarge"
+      "player": "Llama4 Sarge",
+      "decisionIndex": 34
     },
     {
       "severity": "major",
@@ -15345,12 +15352,13 @@
       "betterLine": "Simply pass priority and let Shock resolve for lethal damage. If wanting insurance, cast Burst Lightning targeting the opponent rather than wasting a creature card.",
       "type": "blunder",
       "snapshotIndex": 64,
-      "player": "Grok4F Spike"
+      "player": "Grok4F Spike",
+      "decisionIndex": 45
     }
   ],
   "harnessEpoch": 2,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "decisions": [
     {
       "index": 0,
