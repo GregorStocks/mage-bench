@@ -125,6 +125,36 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void stripsHtmlNoiseFromMultiAmountDescriptions() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        GameClientMessage message = multiAmountMessage(List.of(
+            new MultiAmountMessage(
+                "<font color='#F0E68C' object_id='12345678-1234-1234-1234-123456789abc'>"
+                    + "Savannah Lions</font> [7e2], P/T: 2/1",
+                0,
+                2
+            )
+        ), 2, 2);
+
+        setField(handler, "pendingAction", new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_GET_MULTI_AMOUNT,
+            message,
+            "",
+            7
+        ));
+
+        ActionResult result = handler.getActionChoices(null);
+
+        assertThat(result.response_type).isEqualTo("multi_amount");
+        assertThat(result.items).singleElement().satisfies(item ->
+            assertThat(item).containsEntry("description", "Savannah Lions, P/T: 2/1")
+        );
+    }
+
+    @Test
     void returnsStackResolvedOnNextActionAfterPassiveUpdateClearsStack() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
