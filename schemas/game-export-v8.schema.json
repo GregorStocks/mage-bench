@@ -743,6 +743,24 @@
         "castRolledBack": {
           "type": "boolean",
           "description": "True if the cast was rolled back (failed mana payment, etc.)."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "description": "Per-item metadata for multi-amount decisions (e.g. combat damage distribution targets)."
+        },
+        "totalMin": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum total across all items (multi-amount decisions)."
+        },
+        "totalMax": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum total across all items (multi-amount decisions)."
         }
       }
     },

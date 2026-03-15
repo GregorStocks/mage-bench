@@ -1007,6 +1007,15 @@ def _build_decisions(
         if pilot_ctx:
             decision["pilotContext"] = pilot_ctx
 
+        # Multi-amount items (e.g. combat damage distribution targets)
+        multi_items = choices_result.get("items")
+        if multi_items:
+            decision["items"] = multi_items
+            if "total_min" in choices_result:
+                decision["totalMin"] = choices_result["total_min"]
+            if "total_max" in choices_result:
+                decision["totalMax"] = choices_result["total_max"]
+
         decisions.append(decision)
 
     # Detect and mark rolled-back casts

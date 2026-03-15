@@ -177,6 +177,9 @@ class Decision(TypedDict):
     chosenArgs: NotRequired[JsonObject]
     actionResult: NotRequired[JsonObject]
     castRolledBack: NotRequired[bool]
+    items: NotRequired[list[JsonObject]]
+    totalMin: NotRequired[int]
+    totalMax: NotRequired[int]
 
 
 class GameError(TypedDict):
@@ -591,6 +594,12 @@ def _is_decision(value: object, source: str) -> TypeIs[Decision]:
         _require_object(obj["actionResult"], f"{source}.actionResult")
     if "castRolledBack" in obj:
         _require_bool(obj["castRolledBack"], f"{source}.castRolledBack")
+    if "items" in obj:
+        _require_object_list(obj["items"], f"{source}.items")
+    if "totalMin" in obj:
+        _require_non_negative_int(obj["totalMin"], f"{source}.totalMin")
+    if "totalMax" in obj:
+        _require_non_negative_int(obj["totalMax"], f"{source}.totalMax")
     return True
 
 

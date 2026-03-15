@@ -147,11 +147,34 @@ def _render_decision_block(
             ctx_parts.append(f"Land drops remaining: {remaining}")
         lines.append(f"  {', '.join(ctx_parts)}")
 
-    # Message and choices
+    # Message and choices/items
     choices = decision.get("choices", [])
+    items = decision.get("items", [])
     lines.append(f"  Message: {message}")
-    choice_descs = [_format_choice(c) for c in choices]
-    lines.append(f"  Choices ({len(choices)}): {', '.join(choice_descs)}")
+    if items:
+        total_min = decision.get("totalMin")
+        total_max = decision.get("totalMax")
+        total_parts: list[str] = []
+        if total_min is not None:
+            total_parts.append(f"total_min={total_min}")
+        if total_max is not None:
+            total_parts.append(f"total_max={total_max}")
+        header = f"  Items ({len(items)})"
+        if total_parts:
+            header += f": {', '.join(total_parts)}"
+        lines.append(header)
+        for i, item in enumerate(items):
+            desc = item.get("description", "?")
+            constraints: list[str] = []
+            if "min" in item:
+                constraints.append(f"min={item['min']}")
+            if "max" in item:
+                constraints.append(f"max={item['max']}")
+            suffix = f" [{', '.join(constraints)}]" if constraints else ""
+            lines.append(f"    {i}: {desc}{suffix}")
+    else:
+        choice_descs = [_format_choice(c) for c in choices]
+        lines.append(f"  Choices ({len(choices)}): {', '.join(choice_descs)}")
 
     # Triggered ability note
     if "Pick triggered ability" in message:
