@@ -35,6 +35,8 @@ from scripts.analysis.blunder_eval_common import (
     make_audited_entry,
     save_game_ground_truth,
     snapshot_index as get_snapshot_index,
+    validate_export_filename,
+    validate_game_id,
 )
 from scripts.analysis.extract_decisions import extract_decisions
 
@@ -388,6 +390,20 @@ class AuditHandler(BaseHTTPRequestHandler):
     def _send_error(self, status: int, message: str) -> None:
         self._send_json({"error": message}, status)
 
+    def _parse_game_id(self, game_id: str) -> str | None:
+        try:
+            return validate_game_id(game_id)
+        except AssertionError as exc:
+            self._send_error(400, str(exc))
+            return None
+
+    def _parse_export_filename(self, filename: str) -> str | None:
+        try:
+            return validate_export_filename(filename)
+        except AssertionError as exc:
+            self._send_error(400, str(exc))
+            return None
+
     def _send_file(self, path: Path, content_type: str | None = None) -> None:
         if not path.exists():
             self._send_error(404, f"Not found: {path.name}")
@@ -419,18 +435,20 @@ class AuditHandler(BaseHTTPRequestHandler):
 
         # Game data files from website/public/games/
         if path.startswith("/games/"):
-            filename = path.split("/games/", 1)[1]
-            # Reject path traversal
-            if ".." in filename or "/" in filename:
-                self._send_error(400, "Invalid path")
+            filename = self._parse_export_filename(path.removeprefix("/games/"))
+            if filename is None:
                 return
             filepath = GAMES_DIR / filename
-            self._send_file(filepath)
+            self._send_file(filepath, "application/json")
             return
 
         # API: list plays
         if path == "/api/plays":
             game_filter = qs.get("game", [None])[0]
+            if game_filter is not None:
+                game_filter = self._parse_game_id(game_filter)
+                if game_filter is None:
+                    return
             all_gt = load_ground_truth()
             plays: list[dict] = []
             for gid, entries in sorted(all_gt.items(), reverse=True):
@@ -443,7 +461,9 @@ class AuditHandler(BaseHTTPRequestHandler):
         # API: play detail
         if path.startswith("/api/plays/") and path.count("/") == 4:
             parts = path.split("/")
-            game_id = parts[3]
+            game_id = self._parse_game_id(parts[3])
+            if game_id is None:
+                return
             try:
                 di = int(parts[4])
             except ValueError:
@@ -465,7 +485,9 @@ class AuditHandler(BaseHTTPRequestHandler):
                     "Expected /api/decisions-at-snapshot/{game_id}/{snapshot_index}",
                 )
                 return
-            game_id = parts[3]
+            game_id = self._parse_game_id(parts[3])
+            if game_id is None:
+                return
             try:
                 snap_idx = int(parts[4])
             except ValueError:
@@ -496,7 +518,9 @@ class AuditHandler(BaseHTTPRequestHandler):
             if len(parts) != 6:
                 self._send_error(400, "Invalid path")
                 return
-            game_id = parts[3]
+            game_id = self._parse_game_id(parts[3])
+            if game_id is None:
+                return
             try:
                 di = int(parts[4])
             except ValueError:

@@ -1225,7 +1225,7 @@ public class BridgeCallbackHandler {
                     for (Map.Entry<UUID, String> entry : choices.entrySet()) {
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
-                        String desc = stripHtml(entry.getValue());
+                        String desc = stripAbilityPickerOrdinalPrefix(stripHtml(entry.getValue()), idx);
                         choiceEntry.put("description", desc);
                         choiceList.add(choiceEntry);
                         indexToUuid.add(entry.getKey());
@@ -4848,6 +4848,15 @@ public class BridgeCallbackHandler {
         s = HTML_TAG_PATTERN.matcher(s).replaceAll("");
         s = HEX_SUFFIX_PATTERN.matcher(s).replaceAll("");
         return s;
+    }
+
+    static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
+        String normalized = Objects.requireNonNull(description, "Ability choice description must not be null");
+        String expectedPrefix = (zeroBasedIndex + 1) + ". ";
+        if (normalized.startsWith(expectedPrefix)) {
+            return normalized.substring(expectedPrefix.length());
+        }
+        return normalized;
     }
 
     /** Strip HTML tags and hex suffixes from each string in a list (e.g. card rules). */

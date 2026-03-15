@@ -12,6 +12,8 @@ import pytest
 
 import scripts.analysis.blunder_audit_web as blunder_audit_web
 
+VALID_GAME_ID = "game_20260214_005111_g1"
+
 
 @pytest.fixture()
 def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
@@ -25,7 +27,7 @@ def _temp_ground_truth(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
         {"decision_index": 0},
         {"decision_index": 5, "verdict": "blunder", "human_notes": "obvious"},
     ]
-    (gt_dir / "game_test_001.json").write_text(json.dumps(data))
+    (gt_dir / f"{VALID_GAME_ID}.json").write_text(json.dumps(data))
     return gt_dir
 
 
@@ -82,7 +84,7 @@ class TestPlaysEndpoint:
         assert len(plays) == 2
         # Should be sorted newest game first, but we only have one game
         game_ids = {p["game_id"] for p in plays}
-        assert game_ids == {"game_test_001"}
+        assert game_ids == {VALID_GAME_ID}
 
     def test_includes_verdict(self, server_port: int) -> None:
         plays = _get(server_port, "/api/plays")
@@ -140,14 +142,14 @@ class TestExpectedApiErrors:
         monkeypatch.setattr(blunder_audit_web, "_build_play_detail", _raise)
 
         with pytest.raises(HTTPError) as excinfo:
-            urlopen(f"http://127.0.0.1:{server_port}/api/plays/game_test_001/0", timeout=5)
+            urlopen(f"http://127.0.0.1:{server_port}/api/plays/{VALID_GAME_ID}/0", timeout=5)
 
         assert excinfo.value.code == 500
         assert json.loads(excinfo.value.read()) == {"error": "detail failed"}
 
     def test_post_invalid_json_returns_400(self, server_port: int) -> None:
         req = Request(
-            f"http://127.0.0.1:{server_port}/api/plays/game_test_001/5/verdict",
+            f"http://127.0.0.1:{server_port}/api/plays/{VALID_GAME_ID}/5/verdict",
             data=b"{",
             headers={"Content-Type": "application/json"},
             method="POST",
@@ -167,7 +169,7 @@ class TestExpectedApiErrors:
 
         monkeypatch.setattr(blunder_audit_web, "_handle_verdict", _raise)
         req = Request(
-            f"http://127.0.0.1:{server_port}/api/plays/game_test_001/5/verdict",
+            f"http://127.0.0.1:{server_port}/api/plays/{VALID_GAME_ID}/5/verdict",
             data=json.dumps({"verdict": "blunder"}).encode(),
             headers={"Content-Type": "application/json"},
             method="POST",
@@ -188,3 +190,76 @@ class TestNotFound:
             pytest.fail("Expected 404")
         except HTTPError as e:
             assert e.code == 404
+
+
+class TestPathValidation:
+    def test_rejects_invalid_game_filter(self, server_port: int) -> None:
+        with pytest.raises(HTTPError) as excinfo:
+            urlopen(f"http://127.0.0.1:{server_port}/api/plays?game=../../etc/passwd", timeout=5)
+
+        assert excinfo.value.code == 400
+        assert json.loads(excinfo.value.read()) == {"error": "Invalid game_id: '../../etc/passwd'"}
+
+    def test_rejects_invalid_game_export_filename(
+        self,
+        server_port: int,
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.setattr(blunder_audit_web, "GAMES_DIR", tmp_path)
+
+        with pytest.raises(HTTPError) as excinfo:
+            urlopen(f"http://127.0.0.1:{server_port}/games/{VALID_GAME_ID}/extra", timeout=5)
+
+        assert excinfo.value.code == 400
+        assert json.loads(excinfo.value.read()) == {"error": f"Invalid game export filename: '{VALID_GAME_ID}/extra'"}
+
+    def test_serves_valid_game_export_file(
+        self,
+        server_port: int,
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        monkeypatch.setattr(blunder_audit_web, "GAMES_DIR", tmp_path)
+        payload = b'{"id":"game_20260214_005111_g1"}'
+        (tmp_path / f"{VALID_GAME_ID}.json").write_bytes(payload)
+
+        resp = urlopen(
+            f"http://127.0.0.1:{server_port}/games/{VALID_GAME_ID}.json",
+            timeout=5,
+        )
+
+        assert resp.status == 200
+        assert "application/json" in resp.headers.get("Content-Type", "")
+        assert resp.read() == payload
+
+
+class TestServerBinding:
+    def test_main_keeps_explicit_all_interfaces_binding(
+        self,
+        monkeypatch: pytest.MonkeyPatch,
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+        captured: dict[str, object] = {}
+
+        class FakeServer:
+            def __init__(self, address: tuple[str, int], _handler: type) -> None:
+                captured["address"] = address
+
+            def serve_forever(self) -> None:
+                raise KeyboardInterrupt
+
+            def shutdown(self) -> None:
+                captured["shutdown"] = True
+
+        monkeypatch.setattr(blunder_audit_web, "HTTPServer", FakeServer)
+        monkeypatch.setattr(blunder_audit_web, "_find_free_port", lambda: 4567)
+        monkeypatch.setattr(blunder_audit_web, "_get_hostname", lambda: "devbox")
+        monkeypatch.setattr(blunder_audit_web, "load_ground_truth", dict)
+        monkeypatch.setattr("sys.argv", ["blunder_audit_web.py"])
+
+        blunder_audit_web.main()
+
+        assert captured["address"] == ("0.0.0.0", 4567)
+        assert captured["shutdown"] is True
+        assert "Blunder audit UI: http://devbox:4567/" in capsys.readouterr().out

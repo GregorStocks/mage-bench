@@ -99,6 +99,30 @@ class BridgeCallbackHandlerTest {
     }
 
     @Test
+    void stripsMatchingAbilityPickerOrdinalPrefix() {
+        assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("1. {T}: Add {G}.", 0))
+            .isEqualTo("{T}: Add {G}.");
+        assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix(
+            "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+            1
+        )).isEqualTo("{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.");
+    }
+
+    @Test
+    void leavesUnmatchedLeadingNumbersAlone() {
+        assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("10 damage to any target.", 0))
+            .isEqualTo("10 damage to any target.");
+        assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("10. {T}: Add {G}.", 0))
+            .isEqualTo("10. {T}: Add {G}.");
+    }
+
+    @Test
+    void stripsMultiDigitAbilityPickerOrdinalPrefix() {
+        assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("10. {T}: Add one mana of any color.", 9))
+            .isEqualTo("{T}: Add one mana of any color.");
+    }
+
+    @Test
     void returnsStackResolvedOnNextActionAfterPassiveUpdateClearsStack() throws Exception {
         CountDownLatch autoPassSent = new CountDownLatch(1);
         AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();

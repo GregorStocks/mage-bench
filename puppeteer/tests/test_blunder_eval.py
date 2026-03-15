@@ -10,6 +10,7 @@ import scripts.analysis.blunder_eval_common as blunder_eval_common
 from scripts.analysis.blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
+    game_path_for_id,
     load_game_ground_truth,
     lookup_annotation_for_decision,
     make_audited_entry,
@@ -19,6 +20,8 @@ from scripts.analysis.blunder_eval_common import (
     reverse_map_annotations,
     save_game_ground_truth,
 )
+
+VALID_GAME_ID = "game_20260214_005111_g1"
 
 
 def _write_export(path: Path) -> None:
@@ -60,6 +63,12 @@ class TestPlayKey:
 
     def test_zero_index(self) -> None:
         assert play_key("game_test_001", 0) == "game_test_001:0"
+
+
+class TestGameIdValidation:
+    def test_game_path_for_id_rejects_invalid_game_id(self) -> None:
+        with pytest.raises(AssertionError, match="Invalid game_id"):
+            game_path_for_id("../etc/passwd")
 
 
 class TestLoadGameValidation:
@@ -425,10 +434,10 @@ class TestMergeIntoGroundTruth:
             {"decision_index": 0},
             {"decision_index": 1},
         ]
-        added = merge_into_ground_truth("game_test", entries)
+        added = merge_into_ground_truth(VALID_GAME_ID, entries)
         assert added == 2
 
-        loaded = load_game_ground_truth("game_test")
+        loaded = load_game_ground_truth(VALID_GAME_ID)
         assert len(loaded) == 2
 
     def test_merge_preserves_existing(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -445,17 +454,17 @@ class TestMergeIntoGroundTruth:
                 human_notes=None,
             )
         ]
-        save_game_ground_truth("game_test", existing)
+        save_game_ground_truth(VALID_GAME_ID, existing)
 
         # Try to merge an entry with the same decision_index
         new_entries = [
             {"decision_index": 0},
             {"decision_index": 1},
         ]
-        added = merge_into_ground_truth("game_test", new_entries)
+        added = merge_into_ground_truth(VALID_GAME_ID, new_entries)
         assert added == 1  # Only decision_index=1 was new
 
-        loaded = load_game_ground_truth("game_test")
+        loaded = load_game_ground_truth(VALID_GAME_ID)
         assert len(loaded) == 2
         # Existing entry preserved
         existing_entry = next(e for e in loaded if e["decision_index"] == 0)
@@ -469,19 +478,19 @@ class TestMergeIntoGroundTruth:
             {"decision_index": 5},
             {"decision_index": 5},
         ]
-        added = merge_into_ground_truth("game_test", entries)
+        added = merge_into_ground_truth(VALID_GAME_ID, entries)
         assert added == 1
 
-        loaded = load_game_ground_truth("game_test")
+        loaded = load_game_ground_truth(VALID_GAME_ID)
         assert len(loaded) == 1
 
     def test_merge_empty_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr("scripts.analysis.blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         existing = [{"decision_index": 0}]
-        save_game_ground_truth("game_test", existing)
+        save_game_ground_truth(VALID_GAME_ID, existing)
 
-        added = merge_into_ground_truth("game_test", [])
+        added = merge_into_ground_truth(VALID_GAME_ID, [])
         assert added == 0
 
 

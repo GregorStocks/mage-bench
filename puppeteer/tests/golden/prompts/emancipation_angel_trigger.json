@@ -125,7 +125,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Emancipation Angel, Plains, Plains, Plains, Plains] lib=53 bf=[Plains] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Emancipation Angel, Plains, Plains, Plains, Plains] lib=53 bf=[Plains] | Opponent: 20hp hand=7 lib=53\n  Untapped lands: 1, Land drops remaining: 0\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)",
     "role": "tool",
     "tool_call_id": "call_6"
   },
