@@ -55,17 +55,17 @@ c. If neither exists, tell the user and stop.
 
 ### Step 3: Use reusable analysis scripts
 
-All analysis logic lives in `scripts/analysis/`. Check what already exists there before creating anything new — reuse or extend existing scripts. Run all scripts with `uv run python`.
+All analysis logic lives in `scripts/analysis/`. Standalone investigation tools live in `scripts/analysis/toolbox/`. Check what already exists before creating anything new — reuse or extend existing scripts. Run all scripts with `uv run python`.
 
-If a script you need doesn't exist yet, **create it in `scripts/analysis/`** and check it in. Do NOT write inline `python3 -c "..."` one-liners. These scripts accumulate over time into a reusable analysis toolkit.
+If a script you need doesn't exist yet, **create it in `scripts/analysis/toolbox/`** and check it in. Do NOT write inline `python3 -c "..."` one-liners. These scripts accumulate over time into a reusable analysis toolkit.
 
 Each script accepts a game file path (`.json` or `.json.gz`) as an argument:
 
 ```bash
-uv run python scripts/analysis/game_overview.py $GAME_PATH
-uv run python scripts/analysis/game_narrative.py $GAME_PATH
-uv run python scripts/analysis/llm_events.py $GAME_PATH
-uv run python scripts/analysis/llm_reasoning.py $GAME_PATH
+uv run python scripts/analysis/toolbox/game_overview.py $GAME_PATH
+uv run python scripts/analysis/toolbox/game_narrative.py $GAME_PATH
+uv run python scripts/analysis/toolbox/llm_events.py $GAME_PATH
+uv run python scripts/analysis/toolbox/llm_reasoning.py $GAME_PATH
 ```
 
 The scripts should cover:
@@ -172,7 +172,7 @@ If you discovered new recurring patterns, useful analysis techniques, broken scr
 - New model error patterns that are clearly not platform bugs (add to "Known model error patterns")
 - Scripts that are broken or have known limitations (add caveats)
 - Workflow improvements (e.g. better parallelization strategies)
-- New analysis scripts you created in `scripts/analysis/`
+- New analysis scripts you created in `scripts/analysis/toolbox/`
 
 Do **not** add issue-specific bug notes to the skill if you already filed them in `issues/`. The skill should capture reusable workflow guidance, script/tool caveats, and stable recurring model-only patterns, not duplicate the issue tracker.
 

@@ -44,7 +44,7 @@ def _run_result(stdout: str, returncode: int = 0) -> MagicMock:
     return result
 
 
-list_issues = _import_script("list-issues")
+query_issues = _import_script("query-issues")
 claim_issue = _import_script("claim-issue")
 finalize_issue_pr = _import_script("finalize-issue-pr")
 worktree_setup = _import_script("worktree-setup")
@@ -57,11 +57,11 @@ find_test_cards = _import_script("find-test-cards")
 
 
 # ===========================================================================
-# list-issues
+# query-issues
 # ===========================================================================
 
 
-class TestListIssues:
+class TestQueryIssues:
     def test_sorted_by_priority(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
         issues_dir = tmp_path / "issues"
         issues_dir.mkdir()
@@ -69,8 +69,11 @@ class TestListIssues:
         (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 1}))
         (issues_dir / "bug-c.json").write_text(json.dumps({"title": "Bug C", "priority": 2}))
 
-        with patch.object(list_issues, "ISSUES_DIR", issues_dir):
-            list_issues.main()
+        with (
+            patch.object(query_issues, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["query-issues.py"]),
+        ):
+            query_issues.main()
 
         out = capsys.readouterr().out
         lines = out.strip().splitlines()
@@ -84,8 +87,11 @@ class TestListIssues:
         issues_dir.mkdir()
         (issues_dir / "my-issue.json").write_text(json.dumps({"title": "My Title", "priority": 2}))
 
-        with patch.object(list_issues, "ISSUES_DIR", issues_dir):
-            list_issues.main()
+        with (
+            patch.object(query_issues, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["query-issues.py"]),
+        ):
+            query_issues.main()
 
         out = capsys.readouterr().out.strip()
         assert out == "my-issue: 2\tMy Title"

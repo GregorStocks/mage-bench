@@ -5,7 +5,7 @@ Loads all result files from tmp/blunder_experiment/ and performs cross-approach
 consensus analysis, snapshot accuracy checks, and cost-effectiveness comparisons.
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/blunder_quality_analysis.py
+    uv run --project puppeteer python scripts/analysis/toolbox/blunder_quality_analysis.py
 """
 
 import json
@@ -13,7 +13,7 @@ import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 RESULTS_DIR = REPO_ROOT / "tmp" / "blunder_experiment"
 
 # Consensus threshold: fraction of approaches that must flag a (game, snapshot)

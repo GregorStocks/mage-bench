@@ -39,6 +39,15 @@ def test_passes_with_optional_fields(tmp_path: Path) -> None:
     assert lint_issues(tmp_path) == []
 
 
+def test_passes_with_string_blocked(tmp_path: Path) -> None:
+    issues_dir = tmp_path / "issues"
+    issues_dir.mkdir()
+    issue = _make_valid_issue()
+    issue["blocked"] = "Waiting for upstream dependency fix."
+    _write_issue(issues_dir, "blocked-good-issue", issue)
+    assert lint_issues(tmp_path) == []
+
+
 def test_catches_missing_field(tmp_path: Path) -> None:
     issues_dir = tmp_path / "issues"
     issues_dir.mkdir()

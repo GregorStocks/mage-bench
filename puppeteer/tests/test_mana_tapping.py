@@ -1,4 +1,4 @@
-"""Tests for scripts/analysis/mana_tapping.py."""
+"""Tests for scripts/analysis/toolbox/mana_tapping.py."""
 
 import gzip
 import importlib.util
@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis"
+SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts" / "analysis" / "toolbox"
 
 spec = importlib.util.spec_from_file_location("mana_tapping", SCRIPTS_DIR / "mana_tapping.py")
 assert spec and spec.loader

@@ -5,9 +5,9 @@ General-purpose game event viewer with filtering by turn range, player,
 and mana-related events.
 
 Usage:
-    uv run python scripts/analysis/game_timeline.py <game.json.gz>
-    uv run python scripts/analysis/game_timeline.py <game_id> --mana
-    uv run python scripts/analysis/game_timeline.py <game.json.gz> --turns 3-5 --player "kimi25"
+    uv run python scripts/analysis/toolbox/game_timeline.py <game.json.gz>
+    uv run python scripts/analysis/toolbox/game_timeline.py <game_id> --mana
+    uv run python scripts/analysis/toolbox/game_timeline.py <game.json.gz> --turns 3-5 --player "kimi25"
 """
 
 import argparse
