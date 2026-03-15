@@ -610,14 +610,24 @@ class TestWorktreeSetup:
         return project_root
 
     @contextmanager
-    def _patches(self, project_root: Path, tmp_path: Path, shared_images: Path):
+    def _patches(
+        self,
+        project_root: Path,
+        tmp_path: Path,
+        shared_images: Path,
+        main_worktree_root: Path | None = None,
+    ):
         """Common patches for worktree-setup tests."""
         with (
             patch.object(worktree_setup, "PROJECT_ROOT", project_root),
             patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
             patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
             patch("pathlib.Path.home", return_value=tmp_path),
-            patch.object(worktree_setup, "_find_main_worktree_root", return_value=None),
+            patch.object(
+                worktree_setup,
+                "_find_main_worktree_root",
+                return_value=main_worktree_root,
+            ),
         ):
             yield
 
@@ -694,13 +704,7 @@ class TestWorktreeSetup:
         (main_m2 / "org").mkdir()
         (main_m2 / "org" / "example.jar").write_text("artifact")
 
-        with (
-            patch.object(worktree_setup, "PROJECT_ROOT", project_root),
-            patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
-            patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
-            patch("pathlib.Path.home", return_value=tmp_path),
-            patch.object(worktree_setup, "_find_main_worktree_root", return_value=main_root),
-        ):
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
             worktree_setup.main()
 
         # .m2-repo seeded from main worktree
@@ -724,13 +728,7 @@ class TestWorktreeSetup:
         main_m2.mkdir()
         (main_m2 / "other.jar").write_text("other")
 
-        with (
-            patch.object(worktree_setup, "PROJECT_ROOT", project_root),
-            patch.object(worktree_setup, "SHARED_IMAGES", shared_images),
-            patch.object(worktree_setup, "CLIENT_MODULES", ["Mod-A"]),
-            patch("pathlib.Path.home", return_value=tmp_path),
-            patch.object(worktree_setup, "_find_main_worktree_root", return_value=main_root),
-        ):
+        with self._patches(project_root, tmp_path, shared_images, main_worktree_root=main_root):
             worktree_setup.main()
 
         # Existing content preserved, no seed overwrite
