@@ -93,9 +93,7 @@ Pick and solve exactly **one** issue, then create a PR.
     uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
     ```
 
-    Then check CI status with `gh pr checks` (or `gh pr checks --watch` if you can wait). Do not tell the user the PR is clean/ready while required checks are still pending, and do not treat CI as the first place to notice missing golden regenerations.
-
-    Then stop — leave remaining issues for the next Claude.
+    Then mark the PR as ready-for-review. Then stop — leave remaining issues for the next Claude.
 
 ## Abandoning an Issue
 

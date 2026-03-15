@@ -44,7 +44,9 @@ Rules:
 - Pad the rest with basics unless a later specific draw is required
 - Use real set codes and collector numbers from existing decks or `Mage.Sets`
 
-Predict short IDs in comments. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
+Predict short IDs in comments and replay scripts. IDs are assigned alphabetically by card name starting at `p3` (`p1`/`p2` are players).
+
+Prompt and export goldens now keep literal MCP short IDs. Only raw XMage HTML object handles (`object_id='UUID'`, `</font> [abc]`) are minimally redacted inside strings, and embedded JSON key order is normalized.
 
 ## Script Design
 

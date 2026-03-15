@@ -263,6 +263,9 @@ GOLDEN_BLUNDER_DIR = Path(__file__).resolve().parent / "golden" / "blunder_promp
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
+# Must stay above BridgeCallbackHandler.KEEPALIVE_CONCEDE_WAIT_SECONDS so
+# defensive cleanup doesn't time out while Java is still waiting for GAME_OVER.
+DEFENSIVE_CONCEDE_TIMEOUT_SECONDS = 20
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -1074,6 +1077,16 @@ def _wait_for_health(port: int, timeout: int = 120) -> None:
             raise RuntimeError(f"Observer health returned unexpected status: {data}")
 
 
+def _wait_for_commands(port: int, timeout: int = 120) -> None:
+    """Wait for observer startup to reach the keepAlive command-loop phase."""
+    url = f"http://127.0.0.1:{port}/wait-for-commands?timeout={timeout}"
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+        data = json.loads(resp.read())
+        if data.get("status") != "ready":
+            raise RuntimeError(f"Observer wait-for-commands returned unexpected status: {data}")
+
+
 def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
     """Wait for observer to create a game table via long-poll HTTP endpoint.
 
@@ -1323,7 +1336,7 @@ def run_golden_scenario(
         # mid-script, we need this safety net.
         for session in [session_a, session_b]:
             try:
-                session.call_tool("concede", timeout=10)
+                session.call_tool("concede", timeout=DEFENSIVE_CONCEDE_TIMEOUT_SECONDS)
             except RuntimeError:
                 pass
 
@@ -1459,24 +1472,13 @@ def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int 
     return diffs
 
 
-def _is_short_id(value: object) -> bool:
-    return isinstance(value, str) and len(value) > 1 and value[0] in ("p", "l") and value[1:].isdigit()
-
-
 def _normalize_prompt_for_golden(obj: object) -> object:
     """Normalize prompt payloads for deterministic golden comparisons.
 
-    - Strip short IDs (pN) to avoid non-semantic ID churn.
     - Parse embedded JSON strings and re-serialize with sorted keys.
     """
     if isinstance(obj, dict):
-        out: dict[str, object] = {}
-        for key, value in obj.items():
-            if key in ("id", "choice") and _is_short_id(value):
-                out[key] = "_"
-                continue
-            out[key] = _normalize_prompt_for_golden(value)
-        return out
+        return {key: _normalize_prompt_for_golden(value) for key, value in obj.items()}
     if isinstance(obj, list):
         return [_normalize_prompt_for_golden(item) for item in obj]
     if isinstance(obj, str):
@@ -1513,19 +1515,24 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
 
 
 def _normalize_embedded_json(obj: object) -> object:
-    """Recursively normalize embedded JSON strings for deterministic key order.
+    """Normalize embedded JSON strings and inline XMage object handles.
 
     MCP tool results are serialized as JSON strings within the export data.
     The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
     vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
+
+    Some strings also still contain raw XMage HTML object handles such as
+    object_id='UUID' and trailing [abc] suffixes after </font>. These UUID/hex
+    handles are run-local noise, so normalize them to "[redacted]" before
+    parsing embedded JSON.
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
     if isinstance(obj, str):
-        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2_\2", obj)
-        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[_]", normalized)
+        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2[redacted]\2", obj)
+        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[redacted]", normalized)
         if not normalized.startswith(("{", "[")):
             return normalized
         try:
@@ -1537,12 +1544,13 @@ def _normalize_embedded_json(obj: object) -> object:
 
 
 def _strip_volatile(data: dict) -> None:
-    """Remove fields that vary between test runs from export data, in place."""
+    """Remove only genuinely non-semantic run-to-run noise from export data."""
     # Top-level volatile fields
     data.pop("timestamp", None)
-    data.pop("id", None)
-    # Error log entries contain wall-clock timestamps in message text
-    data.pop("errors", None)
+
+    # Keep critical errors visible in goldens; only strip their wall-clock time.
+    for error in data.get("errors", []):
+        error.pop("ts", None)
 
     # Strip volatile fields from player summaries
     for player in data.get("players", []):

@@ -1132,7 +1132,7 @@
         "board_cursor": 6,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -1188,7 +1188,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Black Lotus",
+          "description": "Cast Black Lotus",
           "index": 0
         }
       ],
@@ -1334,7 +1334,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Black Lotus",
+          "description": "Cast Black Lotus",
           "index": 0
         }
       ],
@@ -1501,11 +1501,11 @@
         "board_cursor": 8,
         "choices": [
           {
-            "description": "1. {T}: Add {C}.",
+            "description": "{T}: Add {C}.",
             "index": 0
           },
           {
-            "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+            "description": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "index": 1
           }
         ],
@@ -1572,11 +1572,11 @@
       "choiceCount": 2,
       "choices": [
         {
-          "description": "1. {T}: Add {C}.",
+          "description": "{T}: Add {C}.",
           "index": 0
         },
         {
-          "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+          "description": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
           "index": 1
         }
       ],
@@ -1745,11 +1745,11 @@
       "choiceCount": 2,
       "choices": [
         {
-          "description": "1. {T}: Add {C}.",
+          "description": "{T}: Add {C}.",
           "index": 0
         },
         {
-          "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+          "description": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
           "index": 1
         }
       ],
@@ -2528,7 +2528,8 @@
     "seq": 96
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 48,
+  "harnessEpoch": 49,
+  "id": "dark_depths_combo",
   "llmEvents": [
     {
       "availableTools": [
@@ -3715,7 +3716,7 @@
         "board_cursor": 6,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -3759,7 +3760,7 @@
         "board_unchanged": true,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -4203,11 +4204,11 @@
         "board_cursor": 8,
         "choices": [
           {
-            "description": "1. {T}: Add {C}.",
+            "description": "{T}: Add {C}.",
             "index": 0
           },
           {
-            "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+            "description": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "index": 1
           }
         ],
@@ -4251,11 +4252,11 @@
         "board_unchanged": true,
         "choices": [
           {
-            "description": "1. {T}: Add {C}.",
+            "description": "{T}: Add {C}.",
             "index": 0
           },
           {
-            "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+            "description": "{2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
             "index": 1
           }
         ],

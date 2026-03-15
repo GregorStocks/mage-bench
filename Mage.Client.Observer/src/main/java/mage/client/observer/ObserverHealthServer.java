@@ -26,6 +26,8 @@ import java.util.concurrent.TimeoutException;
  * readiness without polling log files:
  *
  * <ul>
+ *   <li>{@code GET /wait-for-commands?timeout=N} — blocks until observer startup
+ *       reaches the keepAlive command-loop phase</li>
  *   <li>{@code GET /health?timeout=N} — blocks until lobby is initialized</li>
  *   <li>{@code POST /wait-for-ready} — blocks until a game table is created for
  *       the requested gameDir and bridge clients can join it</li>
@@ -41,6 +43,7 @@ public class ObserverHealthServer {
 
     private final HttpServer httpServer;
     private final Gson gson = new Gson();
+    private final CountDownLatch commandsReady = new CountDownLatch(1);
     private final CountDownLatch lobbyReady = new CountDownLatch(1);
     private final ConcurrentHashMap<String, CompletableFuture<String>> gameReadyFutures = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, CompletableFuture<Void>> gameWatchingFutures = new ConcurrentHashMap<>();
@@ -48,6 +51,7 @@ public class ObserverHealthServer {
 
     public ObserverHealthServer(int port) throws IOException {
         httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
+        httpServer.createContext("/wait-for-commands", this::handleWaitForCommands);
         httpServer.createContext("/health", this::handleHealth);
         httpServer.createContext("/wait-for-ready", this::handleWaitForReady);
         httpServer.createContext("/wait-for-watching", this::handleWaitForWatching);
@@ -61,6 +65,15 @@ public class ObserverHealthServer {
 
     public void stop() {
         httpServer.stop(2);
+    }
+
+    int getPort() {
+        return httpServer.getAddress().getPort();
+    }
+
+    /** Signal that observer startup reached the keepAlive command-loop phase. */
+    public void signalKeepAliveReady() {
+        commandsReady.countDown();
     }
 
     /** Signal that the lobby is initialized and ready for commands. */
@@ -84,6 +97,27 @@ public class ObserverHealthServer {
     public void signalGameEnd(String gameDir) {
         CompletableFuture<Void> future = gameEndFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
         future.complete(null);
+    }
+
+    private void handleWaitForCommands(HttpExchange exchange) throws IOException {
+        if (!"GET".equalsIgnoreCase(exchange.getRequestMethod())) {
+            exchange.sendResponseHeaders(405, -1);
+            exchange.close();
+            return;
+        }
+
+        int timeout = parseQueryInt(exchange, "timeout", 120);
+
+        try {
+            if (commandsReady.await(timeout, TimeUnit.SECONDS)) {
+                sendJson(exchange, 200, "{\"status\":\"ready\"}");
+            } else {
+                sendJson(exchange, 408, "{\"status\":\"timeout\"}");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            sendJson(exchange, 500, "{\"status\":\"interrupted\"}");
+        }
     }
 
     private void handleHealth(HttpExchange exchange) throws IOException {

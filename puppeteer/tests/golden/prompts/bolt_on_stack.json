@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p14"
           },
           "name": "choose_action"
         },
@@ -134,7 +134,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p13"
           },
           "name": "choose_action"
         },
@@ -148,14 +148,14 @@
       "choices": [
         {
           "action": "cast",
-          "id": "_",
+          "id": "p11",
           "index": 0,
           "mana_cost": "{R}",
           "name": "Lightning Bolt"
         },
         {
           "action": "cast",
-          "id": "_",
+          "id": "p12",
           "index": 1,
           "mana_cost": "{R}",
           "name": "Lightning Bolt"
@@ -236,7 +236,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -379,7 +379,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p13"
           },
           "name": "choose_action"
         },
@@ -392,14 +392,14 @@
     "content": {
       "choices": [
         {
-          "id": "_",
+          "id": "p2",
           "index": 0,
           "is_you": true,
           "name": "TestPlayer",
           "target_type": "player"
         },
         {
-          "id": "_",
+          "id": "p1",
           "index": 1,
           "name": "Opponent",
           "target_type": "player"
@@ -439,7 +439,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Badlands",
               "rules": [
                 "{T}: Add {B}.",
@@ -448,7 +448,7 @@
               "tapped": false
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
@@ -458,14 +458,14 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "mana_cost": "{0}",
               "name": "Memnite",
               "power": 1,
               "toughness": 1
             },
             {
-              "id": "_",
+              "id": "p24",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -473,7 +473,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Plateau",
               "rules": [
@@ -482,7 +482,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "is_land": true,
               "name": "Taiga",
               "rules": [
@@ -501,7 +501,7 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."
@@ -519,21 +519,21 @@
       "priority_player": "TestPlayer",
       "stack": [
         {
-          "id": "_",
+          "id": "p27",
           "name": "Lightning Bolt",
           "rules": [
             "{this} deals 3 damage to any target."
           ]
         },
         {
-          "id": "_",
+          "id": "p26",
           "name": "Lightning Bolt",
           "rules": [
             "{this} deals 3 damage to any target."
           ],
           "targets": [
             {
-              "id": "_",
+              "id": "p1",
               "name": "Opponent"
             }
           ]

@@ -632,7 +632,7 @@
         "board_cursor": 4,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -782,7 +782,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Black Lotus",
+          "description": "Cast Black Lotus",
           "index": 0
         }
       ],
@@ -1058,7 +1058,8 @@
     "seq": 37
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 48,
+  "harnessEpoch": 49,
+  "id": "emancipation_angel_trigger",
   "llmEvents": [
     {
       "availableTools": [
@@ -1819,7 +1820,7 @@
         "board_cursor": 4,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],

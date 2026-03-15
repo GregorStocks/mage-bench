@@ -1,0 +1,14 @@
+{
+  "title": "Golden cleanup concede times out after successful replay",
+  "description": "During `make regen-golden` on 2026-03-14, multiple golden scenarios completed replay, wrote prompt/export fixtures, and then failed in `run_golden_scenario()` cleanup with `TimeoutError` from `session.call_tool(\"concede\", timeout=10)` in the `finally` block at `puppeteer/tests/golden_helpers.py:1326`.\n\nObserved failing scenarios:\n- `tests/test_golden_emancipation_angel_trigger.py::test_emancipation_angel_trigger`\n- `tests/test_golden_mana_drain_fact_or_fiction.py::test_mana_drain_into_fact_or_fiction`\n- `tests/test_golden_initial_decision.py::test_initial_decision`\n\nRelevant behavior from those failing runs:\n- Replay completed and fixture files were updated before the failure.\n- A player-B cleanup timeout was already logged as \"likely benign\" during replay teardown in some runs.\n- The final defensive concede then timed out again and failed the whole regen run, skipping later scenarios.\n\nFollow-up targeted runs of the same scenarios often pass immediately afterward, so this currently looks intermittent rather than deterministic. That still makes it a real golden-harness bug: a finished scenario should not sporadically fail the suite because the cleanup concede RPC stops responding after game end. Investigate whether the bridge MCP server is shutting down too early, wedged after game over, or whether the cleanup path is issuing concede against a session that is already terminal in a racey way.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "golden",
+    "puppeteer",
+    "bridge"
+  ],
+  "created_at": "2026-03-14T14:58:23-07:00",
+  "updated_at": "2026-03-14T15:48:00-07:00"
+}

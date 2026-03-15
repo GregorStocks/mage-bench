@@ -799,7 +799,7 @@
         "board_cursor": 5,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -896,7 +896,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Black Lotus",
+          "description": "Cast Black Lotus",
           "index": 0
         }
       ],
@@ -1042,7 +1042,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Black Lotus",
+          "description": "Cast Black Lotus",
           "index": 0
         }
       ],
@@ -1210,7 +1210,7 @@
         "board_cursor": 7,
         "choices": [
           {
-            "description": "1. Cast Memnite",
+            "description": "Cast Memnite",
             "index": 0
           }
         ],
@@ -1309,7 +1309,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Memnite",
+          "description": "Cast Memnite",
           "index": 0
         }
       ],
@@ -1456,7 +1456,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Cast Memnite",
+          "description": "Cast Memnite",
           "index": 0
         }
       ],
@@ -1822,7 +1822,8 @@
     "seq": 66
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 48,
+  "harnessEpoch": 49,
+  "id": "clone_copies_memnite",
   "llmEvents": [
     {
       "availableTools": [
@@ -2791,7 +2792,7 @@
         "board_cursor": 5,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -2835,7 +2836,7 @@
         "board_unchanged": true,
         "choices": [
           {
-            "description": "1. Cast Black Lotus",
+            "description": "Cast Black Lotus",
             "index": 0
           }
         ],
@@ -3300,7 +3301,7 @@
         "board_cursor": 7,
         "choices": [
           {
-            "description": "1. Cast Memnite",
+            "description": "Cast Memnite",
             "index": 0
           }
         ],
@@ -3344,7 +3345,7 @@
         "board_unchanged": true,
         "choices": [
           {
-            "description": "1. Cast Memnite",
+            "description": "Cast Memnite",
             "index": 0
           }
         ],

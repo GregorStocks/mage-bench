@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p12"
           },
           "name": "choose_action"
         },
@@ -134,7 +134,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -144,7 +144,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Black Lotus, Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -163,7 +163,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): 1. Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=7 lib=52 bf=[Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Black Lotus\n  Choices (1): Cast Black Lotus\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -214,7 +214,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p16"
           },
           "name": "choose_action"
         },
@@ -224,7 +224,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Clone, Island, Island, Island, Island, Memnite] lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -243,7 +243,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): 1. Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 2 PRECOMBAT_MAIN - You\n  Board: TestPlayer: 20hp hand=6 lib=52 bf=[Black Lotus, Island] | Opponent: 20hp hand=7 lib=52 gy=[Mountain]\n  Untapped lands: 1, Land drops remaining: 1\n  Message: Choose spell or ability to play: Memnite\n  Choices (1): Cast Memnite\n  Respond: choice=0, choice=1, etc. (not yes/no)\n\n[It's been 2 turns since you last chatted — send a message to your opponent!]",
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -294,7 +294,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -399,7 +399,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "rules": [
                 "{T}: Add {U}."
@@ -408,7 +408,7 @@
             },
             {
               "copy": true,
-              "id": "_",
+              "id": "p11",
               "modified": true,
               "name": "Memnite",
               "original_card": "Clone",
@@ -418,7 +418,7 @@
               "toughness": 1
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "power": 1,
               "summoning_sick": true,
@@ -428,7 +428,7 @@
           ],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "rules": [
                 "{T}, Sacrifice {this}: Add three mana of any one color."
@@ -437,7 +437,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -446,7 +446,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -455,7 +455,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -464,7 +464,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "is_land": true,
               "name": "Island",
               "playable": true,
@@ -483,7 +483,7 @@
         {
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "rules": [
                 "{T}: Add {R}."

@@ -1463,7 +1463,7 @@
         "board_cursor": 6,
         "choices": [
           {
-            "description": "1. Play Boggart Bog",
+            "description": "Play Boggart Bog",
             "index": 0
           }
         ],
@@ -1675,7 +1675,7 @@
       "choiceCount": 1,
       "choices": [
         {
-          "description": "1. Play Boggart Bog",
+          "description": "Play Boggart Bog",
           "index": 0
         }
       ],
@@ -2939,7 +2939,8 @@
     "seq": 175
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 48,
+  "harnessEpoch": 49,
+  "id": "mdfc_land_and_suspend",
   "llmEvents": [
     {
       "availableTools": [
@@ -4219,7 +4220,7 @@
         "board_cursor": 6,
         "choices": [
           {
-            "description": "1. Play Boggart Bog",
+            "description": "Play Boggart Bog",
             "index": 0
           }
         ],
