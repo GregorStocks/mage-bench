@@ -263,6 +263,9 @@ GOLDEN_BLUNDER_DIR = Path(__file__).resolve().parent / "golden" / "blunder_promp
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
+# Must stay above BridgeCallbackHandler.KEEPALIVE_CONCEDE_WAIT_SECONDS so
+# defensive cleanup doesn't time out while Java is still waiting for GAME_OVER.
+DEFENSIVE_CONCEDE_TIMEOUT_SECONDS = 20
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -1333,7 +1336,7 @@ def run_golden_scenario(
         # mid-script, we need this safety net.
         for session in [session_a, session_b]:
             try:
-                session.call_tool("concede", timeout=10)
+                session.call_tool("concede", timeout=DEFENSIVE_CONCEDE_TIMEOUT_SECONDS)
             except RuntimeError:
                 pass
 
