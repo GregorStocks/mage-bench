@@ -600,7 +600,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -749,31 +750,31 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p24",
+            "id": "l21",
             "index": 0,
             "name": "Ornithopter",
             "target_type": "card"
           },
           {
-            "id": "p25",
+            "id": "l17",
             "index": 1,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p26",
+            "id": "l18",
             "index": 2,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p27",
+            "id": "l19",
             "index": 3,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p28",
+            "id": "l20",
             "index": 4,
             "name": "Plains",
             "target_type": "card"
@@ -788,7 +789,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -909,25 +911,25 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p25",
+            "id": "l17",
             "index": 0,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p26",
+            "id": "l18",
             "index": 1,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p27",
+            "id": "l19",
             "index": 2,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p28",
+            "id": "l20",
             "index": 3,
             "name": "Plains",
             "target_type": "card"
@@ -942,7 +944,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -952,31 +955,31 @@
       "choiceCount": 5,
       "choices": [
         {
-          "id": "p24",
+          "id": "l21",
           "index": 0,
           "name": "Ornithopter",
           "target_type": "card"
         },
         {
-          "id": "p25",
+          "id": "l17",
           "index": 1,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p26",
+          "id": "l18",
           "index": 2,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p27",
+          "id": "l19",
           "index": 3,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p28",
+          "id": "l20",
           "index": 4,
           "name": "Plains",
           "target_type": "card"
@@ -1012,25 +1015,25 @@
       "choiceCount": 4,
       "choices": [
         {
-          "id": "p25",
+          "id": "l17",
           "index": 0,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p26",
+          "id": "l18",
           "index": 1,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p27",
+          "id": "l19",
           "index": 2,
           "name": "Plains",
           "target_type": "card"
         },
         {
-          "id": "p28",
+          "id": "l20",
           "index": 3,
           "name": "Plains",
           "target_type": "card"
@@ -1065,7 +1068,7 @@
     "seq": 29
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 52,
+  "harnessEpoch": 53,
   "id": "ancient_stirrings",
   "llmEvents": [
     {
@@ -1804,7 +1807,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -1846,7 +1850,8 @@
         "response_type": "boolean",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "stop_reason": "non_priority_action"
@@ -1955,31 +1960,31 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p24",
+            "id": "l21",
             "index": 0,
             "name": "Ornithopter",
             "target_type": "card"
           },
           {
-            "id": "p25",
+            "id": "l17",
             "index": 1,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p26",
+            "id": "l18",
             "index": 2,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p27",
+            "id": "l19",
             "index": 3,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p28",
+            "id": "l20",
             "index": 4,
             "name": "Plains",
             "target_type": "card"
@@ -1994,7 +1999,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -2113,25 +2119,25 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p25",
+            "id": "l17",
             "index": 0,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p26",
+            "id": "l18",
             "index": 1,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p27",
+            "id": "l19",
             "index": 2,
             "name": "Plains",
             "target_type": "card"
           },
           {
-            "id": "p28",
+            "id": "l20",
             "index": 3,
             "name": "Plains",
             "target_type": "card"
@@ -2146,7 +2152,8 @@
         "response_type": "index",
         "stack": [
           {
-            "name": "Ancient Stirrings"
+            "name": "Ancient Stirrings",
+            "owner": "TestPlayer"
           }
         ],
         "success": true
@@ -2264,6 +2271,7 @@
           {
             "id": "p23",
             "name": "Ancient Stirrings",
+            "owner": "TestPlayer",
             "rules": [
               "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
             ]

@@ -165,7 +165,7 @@
     ]
   },
   {
-    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=53 bf=[Forest (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Ancient Stirrings]\n  Land drops remaining: 0\n  Message: Select a colorless card (to put into your hand)\n  Choices (5): Ornithopter [id=p24], Plains [id=p25], Plains [id=p26], Plains [id=p27], Plains [id=p28]\n  Respond: choice=pN — must pick a target",
+    "content": "## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Plains, Plains, Plains, Plains, Plains] lib=53 bf=[Forest (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Ancient Stirrings]\n  Land drops remaining: 0\n  Message: Select a colorless card (to put into your hand)\n  Choices (5): Ornithopter [id=l21], Plains [id=l17], Plains [id=l18], Plains [id=l19], Plains [id=l20]\n  Respond: choice=pN — must pick a target",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -186,7 +186,7 @@
     ]
   },
   {
-    "content": "## Card Reference\n- Ornithopter {0} 0/2: Flying\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Ornithopter, Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Forest (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Ancient Stirrings]\n  Land drops remaining: 0\n  Message: Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)\n  Choices (4): Plains [id=p25], Plains [id=p26], Plains [id=p27], Plains [id=p28]\n  Respond: choice=pN — must pick a target",
+    "content": "## Card Reference\n- Ornithopter {0} 0/2: Flying\n\n## Decision\n\n[Decision 0, snapshot=0] Turn 1 POSTCOMBAT_MAIN - TestPlayer\n  Board: TestPlayer: 20hp hand=[Ornithopter, Plains, Plains, Plains, Plains, Plains] lib=52 bf=[Forest (tapped)] | Opponent: 20hp hand=7 lib=53\n  Stack: [Ancient Stirrings]\n  Land drops remaining: 0\n  Message: Select a card ORDER to put on the BOTTOM of your library (last one chosen will be bottommost)\n  Choices (4): Plains [id=l17], Plains [id=l18], Plains [id=l19], Plains [id=l20]\n  Respond: choice=pN — must pick a target",
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -296,6 +296,7 @@
         {
           "id": "p23",
           "name": "Ancient Stirrings",
+          "owner": "TestPlayer",
           "rules": [
             "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
           ]
