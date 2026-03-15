@@ -128,6 +128,7 @@ public class CardView extends SimpleCardView {
     protected List<CounterView> counters;
 
     protected boolean controlledByOwner = true;
+    protected UUID controllerId;
 
     protected Zone zone;
 
@@ -1494,6 +1495,10 @@ public class CardView extends SimpleCardView {
 
     public boolean isControlledByOwner() {
         return controlledByOwner;
+    }
+
+    public UUID getControllerId() {
+        return controllerId;
     }
 
     public Zone getZone() {
