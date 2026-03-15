@@ -1786,7 +1786,7 @@
         27,
         28
       ],
-      "message": "",
+      "message": "Assign combat damage among creatures blocking Grizzly Bears, P/T: 2/2",
       "phase": "COMBAT",
       "pilotContext": {
         "untappedLands": 2
@@ -1907,7 +1907,7 @@
     "seq": 106
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 51,
+  "harnessEpoch": 52,
   "id": "multi_amount_combat",
   "llmEvents": [
     {
@@ -3709,7 +3709,7 @@
             "min": 0
           }
         ],
-        "message": "",
+        "message": "Assign combat damage among creatures blocking Grizzly Bears, P/T: 2/2",
         "respond_with": "amounts=[N,N,...] — one per item, sum between total_min and total_max",
         "response_type": "multi_amount",
         "stop_reason": "non_priority_action",
