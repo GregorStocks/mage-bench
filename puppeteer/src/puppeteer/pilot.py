@@ -303,6 +303,10 @@ def _render_for_pilot(
         pool_str = ", ".join(f"{k}={v}" for k, v in mana_pool.items() if v > 0)
         lines.append(f"  Mana pool: {pool_str}")
 
+    recent_chat = data.get("recent_chat")
+    if recent_chat:
+        lines.append("  Recent chat: " + " | ".join(recent_chat))
+
     return "\n".join(lines), last_board
 
 
