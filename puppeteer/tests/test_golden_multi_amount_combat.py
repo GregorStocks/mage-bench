@@ -1,6 +1,6 @@
 """Golden prompt test: GAME_GET_MULTI_AMOUNT combat damage distribution.
 
-Non-trivial scenario: Craw Wurm (6/4) attacks into Savannah Lions (2/1)
+Non-trivial scenario: Craw Wurm (6/4) attacks into Grizzly Bears (2/2)
 and Durkwood Boars (4/4), giving the attacker 6 damage to distribute
 meaningfully across blockers with different toughnesses.
 """
@@ -9,7 +9,7 @@ import pytest
 
 from tests.golden_helpers import (
     DECK_CRAW_WURM,
-    DECK_LIONS_AND_BOARS,
+    DECK_BEARS_AND_BOARS,
     run_golden_scenario,
 )
 
@@ -23,17 +23,18 @@ def test_multi_amount_combat(
     opponent_session,
     spectator_process,
 ):
-    """Craw Wurm (6/4) attacks into Savannah Lions (2/1) + Durkwood Boars (4/4).
+    """Craw Wurm (6/4) attacks into Grizzly Bears (2/2) + Durkwood Boars (4/4).
 
     Script:
     - P1 T1-T5: Play Forest each turn (need 6 mana for Craw Wurm {4}{G}{G}).
-    - P2 T1: Play Plains, cast Savannah Lions.
-    - P2 T2-T4: Play Forest, skip attack.
-    - P2 T5: Play Forest, cast Durkwood Boars ({4}{G}), skip attack.
+    - P2 T1: Play Forest (Bears needs {1}{G} = 2 mana, can't cast yet).
+    - P2 T2: Play Forest, cast Grizzly Bears ({1}{G}).
+    - P2 T3-T4: Play Forest, skip attack.
+    - P2 T5: Play Forest, cast Durkwood Boars ({4}{G}).
     - P2 T6: Play Forest, skip attack (both creatures ready).
     - P1 T6: Play 6th Forest, cast Craw Wurm.
     - P1 T7: Attack with Craw Wurm.
-    - P2: Block with Savannah Lions and Durkwood Boars.
+    - P2: Block with Grizzly Bears and Durkwood Boars.
     - P1: Distribute 6 damage via GAME_GET_MULTI_AMOUNT -> amounts=[2,4].
     - All three creatures die (Craw Wurm takes 2+4=6 damage, toughness 4).
     """
@@ -44,7 +45,7 @@ def test_multi_amount_combat(
         project_root=project_root,
         game_dir=tmp_path / "multi_amount_combat",
         deck_a=DECK_CRAW_WURM,
-        deck_b=DECK_LIONS_AND_BOARS,
+        deck_b=DECK_BEARS_AND_BOARS,
         script_a=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
@@ -90,18 +91,15 @@ def test_multi_amount_combat(
             # Keep opening hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # P2 T1: Play Plains, cast Savannah Lions.
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # P2 T2: Play Forest. After a land play, choose_action(no)
-            # passes the remaining main. pass_priority(until=end_of_turn)
-            # stops at combat where we skip the attack.
+            # P2 T1: Play Forest only (Bears needs 2 mana, only 1 available).
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
+            # P2 T2: Play Forest, cast Grizzly Bears ({1}{G}).
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            # Skip T2 attack (Bears has summoning sickness).
             # P2 T3: Play Forest, skip attack.
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
@@ -114,7 +112,7 @@ def test_multi_amount_combat(
             {"name": "choose_action", "arguments": {"choice": "no"}},
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # P2 T5: Play Forest, cast Durkwood Boars ({4}{G}), skip attack.
+            # P2 T5: Play Forest, cast Durkwood Boars ({4}{G}).
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
