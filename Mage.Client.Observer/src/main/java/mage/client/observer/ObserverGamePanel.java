@@ -192,6 +192,11 @@ public class ObserverGamePanel extends GamePanel {
         this.observerGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);
+        // Watching readiness must not depend solely on a later init(GameView) call.
+        // In keepAlive goldens the observer can attach to the game before it receives
+        // a populated GameView; if the harness waits for init(), replay never starts
+        // and the observer never gets the next update that would trigger init().
+        signalWatchingReady();
     }
 
     /**

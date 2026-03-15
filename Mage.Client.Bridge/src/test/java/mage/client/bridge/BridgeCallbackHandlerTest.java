@@ -3,6 +3,7 @@ package mage.client.bridge;
 import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
 import mage.game.BridgeLogEntry;
+import mage.constants.PhaseStep;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
@@ -27,6 +28,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -122,6 +124,140 @@ class BridgeCallbackHandlerTest {
     void stripsMultiDigitAbilityPickerOrdinalPrefix() {
         assertThat(BridgeCallbackHandler.stripAbilityPickerOrdinalPrefix("10. {T}: Add one mana of any color.", 9))
             .isEqualTo("{T}: Add one mana of any color.");
+    }
+
+    @Test
+    void stepYieldStopsWhenCallbackOvershootsTargetStepInSameTurn() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
+        GameView postcombatMainView = gameView(8, 3, PhaseStep.POSTCOMBAT_MAIN);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", upkeepView);
+        setField(handler, "lastTurnNumber", 3);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("precombat_main", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(postcombatMainView, Collections.<String, Serializable>emptyMap(), "Pass after overshoot"),
+                "Pass after overshoot",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("reached_step");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(8);
+            assertThat(result.current_step).isEqualTo("Postcombat Main");
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
+    }
+
+    @Test
+    void stripsHtmlNoiseFromMultiAmountDescriptions() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        GameClientMessage message = multiAmountMessage(List.of(
+            new MultiAmountMessage(
+                "<font color='#F0E68C' object_id='12345678-1234-1234-1234-123456789abc'>"
+                    + "Savannah Lions</font> [7e2], P/T: 2/1",
+                0,
+                2
+            )
+        ), 2, 2);
+
+        setField(handler, "pendingAction", new PendingAction(
+            UUID.randomUUID(),
+            ClientCallbackMethod.GAME_GET_MULTI_AMOUNT,
+            message,
+            "",
+            7
+        ));
+
+        ActionResult result = handler.getActionChoices(null);
+
+        assertThat(result.response_type).isEqualTo("multi_amount");
+        assertThat(result.items).singleElement().satisfies(item ->
+            assertThat(item).containsEntry("description", "Savannah Lions, P/T: 2/1")
+        );
+    }
+
+    @Test
+    void stepYieldStopsOnNewTurnRegardlessOfCurrentStep() throws Exception {
+        CountDownLatch autoPassSent = new CountDownLatch(1);
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        client.setSession(sessionProxy(autoPassSent, sendPlayerBooleanCalls));
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        GameView upkeepView = gameView(7, 3, PhaseStep.UPKEEP);
+        GameView nextTurnUntapView = gameView(8, 4, PhaseStep.UNTAP);
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", upkeepView);
+        setField(handler, "lastTurnNumber", 3);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(upkeepView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            7
+        ));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        try {
+            Future<ActionResult> future = executor.submit(() -> handler.passPriority("postcombat_main", null));
+
+            assertThat(autoPassSent.await(1, TimeUnit.SECONDS)).isTrue();
+            assertThatThrownBy(() -> future.get(200, TimeUnit.MILLISECONDS))
+                .isInstanceOf(TimeoutException.class);
+
+            setField(handler, "pendingAction", new PendingAction(
+                gameId,
+                ClientCallbackMethod.GAME_SELECT,
+                new GameClientMessage(nextTurnUntapView, Collections.<String, Serializable>emptyMap(), "Pass on next turn"),
+                "Pass on next turn",
+                8
+            ));
+            notifyActionLock(handler);
+
+            ActionResult result = future.get(1, TimeUnit.SECONDS);
+            assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+            assertThat(result.stop_reason).isEqualTo("step_not_reached");
+            assertThat(result.action_pending).isTrue();
+            assertThat(result.action_type).isEqualTo("GAME_SELECT");
+            assertThat(result.game_seq).isEqualTo(8);
+            assertThat(result.current_step).isEqualTo("Untap");
+        } finally {
+            executor.shutdownNow();
+            executor.awaitTermination(1, TimeUnit.SECONDS);
+        }
     }
 
     @Test
@@ -378,6 +514,224 @@ class BridgeCallbackHandlerTest {
             .containsExactly("White", "Blue", "Black");
     }
 
+    @Test
+    void chooseActionWaitsForNextDecisionInsteadOfReturningSingleTargetFollowup() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+
+        GameView askView = gameView(10);
+        GameView targetView = gameView(11);
+        GameView nextDecisionView = gameView(12);
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose a creature to copy",
+            new CardsView(),
+            Set.of(onlyTarget),
+            true
+        );
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Play spells and abilities"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(true);
+                        setField(handler, "pendingAction", new PendingAction(
+                            gameId,
+                            ClientCallbackMethod.GAME_TARGET,
+                            targetMessage,
+                            "Choose a creature to copy",
+                            11
+                        ));
+                        notifyActionLock(handler);
+                        return true;
+                    }
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(onlyTarget);
+                        setField(handler, "pendingAction", new PendingAction(
+                            gameId,
+                            ClientCallbackMethod.GAME_SELECT,
+                            nextDecisionMessage,
+                            "Play spells and abilities",
+                            12
+                        ));
+                        notifyActionLock(handler);
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_ASK,
+            new GameClientMessage(askView, Collections.<String, Serializable>emptyMap(), "Use effect of Clone?"),
+            "Use effect of Clone?",
+            10
+        ));
+
+        var result = handler.chooseAction(
+            null, null, true, null, null, null, null, null, null, null, null
+        );
+
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+        assertThat(result.success).isTrue();
+        assertThat(result.action_taken).isEqualTo("yes");
+        assertThat(result.warning).isNull();
+        assertThat(result.game_seq).isEqualTo(12);
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_SELECT");
+        assertThat(result.response_type).isEqualTo("boolean");
+        assertThat(result.message).isEqualTo("Play spells and abilities");
+    }
+
+    @Test
+    void passPriorityAutoHandlesSingleTargetFollowupBeforeReturningDecision() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        AtomicInteger sendPlayerBooleanCalls = new AtomicInteger();
+        AtomicInteger sendPlayerUuidCalls = new AtomicInteger();
+
+        GameView initialView = gameView(30);
+        GameView targetView = gameView(31);
+        GameView nextDecisionView = gameView(32);
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose a creature to copy",
+            new CardsView(),
+            Set.of(onlyTarget),
+            true
+        );
+        GameClientMessage nextDecisionMessage = new GameClientMessage(
+            nextDecisionView,
+            Collections.<String, Serializable>emptyMap(),
+            "Mulligan hand?"
+        );
+
+        client.setSession((Session) Proxy.newProxyInstance(
+            Session.class.getClassLoader(),
+            new Class<?>[]{Session.class},
+            (proxy, method, args) -> {
+                switch (method.getName()) {
+                    case "sendPlayerBoolean" -> {
+                        sendPlayerBooleanCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(false);
+                        setField(handler, "pendingAction", new PendingAction(
+                            gameId,
+                            ClientCallbackMethod.GAME_TARGET,
+                            targetMessage,
+                            "Choose a creature to copy",
+                            31
+                        ));
+                        notifyActionLock(handler);
+                        return true;
+                    }
+                    case "sendPlayerUUID" -> {
+                        sendPlayerUuidCalls.incrementAndGet();
+                        assertThat(args[0]).isEqualTo(gameId);
+                        assertThat(args[1]).isEqualTo(onlyTarget);
+                        setField(handler, "pendingAction", new PendingAction(
+                            gameId,
+                            ClientCallbackMethod.GAME_ASK,
+                            nextDecisionMessage,
+                            "Mulligan hand?",
+                            32
+                        ));
+                        notifyActionLock(handler);
+                        return true;
+                    }
+                    default -> {
+                        return defaultReturnValue(method.getReturnType());
+                    }
+                }
+            }
+        ));
+
+        setField(handler, "currentGameId", gameId);
+        setField(handler, "lastGameView", initialView);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(initialView, Collections.<String, Serializable>emptyMap(), "Pass"),
+            "Pass",
+            30
+        ));
+
+        ActionResult result = handler.passPriority("stack_resolved", null);
+
+        assertThat(sendPlayerBooleanCalls.get()).isEqualTo(1);
+        assertThat(sendPlayerUuidCalls.get()).isEqualTo(1);
+        assertThat(result.stop_reason).isEqualTo("non_priority_action");
+        assertThat(result.warning).isNull();
+        assertThat(result.action_pending).isTrue();
+        assertThat(result.action_type).isEqualTo("GAME_ASK");
+        assertThat(result.game_seq).isEqualTo(32);
+        assertThat(result.response_type).isEqualTo("boolean");
+        assertThat(result.message).isEqualTo("Mulligan hand?");
+    }
+
+    @Test
+    void transitionToDecisionBoundaryTreatsReplacedTargetActionAsChanged() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        UUID gameId = UUID.randomUUID();
+        UUID onlyTarget = UUID.randomUUID();
+        GameView targetView = gameView(40);
+        GameClientMessage targetMessage = new GameClientMessage(
+            targetView,
+            Collections.<String, Serializable>emptyMap(),
+            "Choose a creature to copy",
+            new CardsView(),
+            Set.of(onlyTarget),
+            true
+        );
+        PendingAction staleTargetAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_TARGET,
+            targetMessage,
+            "Choose a creature to copy",
+            40
+        );
+        PendingAction replacementAction = new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_SELECT,
+            new GameClientMessage(gameView(41), Collections.<String, Serializable>emptyMap(), "Play spells and abilities"),
+            "Play spells and abilities",
+            41
+        );
+
+        setField(handler, "pendingAction", replacementAction);
+
+        assertThat(invokeDecisionBoundaryStatus(handler, staleTargetAction, "test"))
+            .isEqualTo("CHANGED");
+    }
+
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
         return new GameClientMessage(null, Collections.<String, Serializable>emptyMap(), items, min, max);
     }
@@ -397,16 +751,24 @@ class BridgeCallbackHandlerTest {
     }
 
     private static GameView gameView(int gameSeq, UUID... stackObjectIds) throws Exception {
+        return gameView(gameSeq, 1, null, stackObjectIds);
+    }
+
+    private static GameView gameView(int gameSeq, int turn, PhaseStep step, UUID... stackObjectIds) throws Exception {
         GameView view = (GameView) UNSAFE.allocateInstance(GameView.class);
         CardsView stack = new CardsView();
         for (UUID stackObjectId : stackObjectIds) {
             stack.put(stackObjectId, null);
         }
         setField(view, "players", List.of());
+        setField(view, "myHand", new CardsView());
+        setField(view, "exiles", List.of());
         setField(view, "lookedAt", List.of());
         setField(view, "stack", stack);
         setField(view, "activePlayerName", "TestPlayer");
-        setIntField(view, "turn", 1);
+        setField(view, "step", step);
+        setField(view, "priorityPlayerName", "TestPlayer");
+        setIntField(view, "turn", turn);
         setIntField(view, "gameSeq", gameSeq);
         return view;
     }
@@ -500,6 +862,24 @@ class BridgeCallbackHandlerTest {
             new Class<?>[]{Session.class},
             handler
         );
+    }
+
+    private static String invokeDecisionBoundaryStatus(
+            BridgeCallbackHandler handler,
+            PendingAction action,
+            String source
+    ) throws Exception {
+        Method method = BridgeCallbackHandler.class.getDeclaredMethod(
+            "transitionToDecisionBoundary",
+            PendingAction.class,
+            String.class
+        );
+        method.setAccessible(true);
+        Object transition = method.invoke(handler, action, source);
+        Method statusMethod = transition.getClass().getDeclaredMethod("status");
+        statusMethod.setAccessible(true);
+        Object status = statusMethod.invoke(transition);
+        return status.toString();
     }
 
     private static Object defaultReturnValue(Class<?> returnType) {

@@ -53,6 +53,7 @@ import_metagame = _import_script("import-metagame")
 conclude_season = _import_script("conclude_season")
 conclude_tournament = _import_script("conclude_tournament")
 game_gz_bootstrap = _import_script("game-gz-bootstrap")
+find_test_cards = _import_script("find-test-cards")
 
 
 # ===========================================================================
@@ -797,6 +798,131 @@ class TestImportDeck:
         main_lines, _sb_lines = import_deck.format_dck(cards, resolved)
         assert len(main_lines) == 2
         assert "1 [DGM:135] Wear/Tear" in main_lines
+
+
+# ===========================================================================
+# find-test-cards
+# ===========================================================================
+
+
+class TestFindTestCards:
+    def test_build_query_appends_filter(self) -> None:
+        recipe = find_test_cards.RECIPE_BY_NAME["clone-effect"]
+
+        query = find_test_cards.build_query(
+            recipe=recipe,
+            raw_query=None,
+            extra_filter="t:blue",
+        )
+
+        assert query.endswith("t:blue")
+        assert "function:clone" in query
+
+    def test_oracle_summary_joins_faces(self) -> None:
+        card = {
+            "name": "Boggart Trawler // Boggart Bog",
+            "mana_cost": "",
+            "type_line": "",
+            "set": "dsk",
+            "collector_number": "75",
+            "card_faces": [
+                {
+                    "name": "Boggart Trawler",
+                    "mana_cost": "{2}{B}",
+                    "type_line": "Creature — Goblin",
+                    "oracle_text": "When this enters, mill three cards.",
+                },
+                {
+                    "name": "Boggart Bog",
+                    "mana_cost": "",
+                    "type_line": "Land",
+                    "oracle_text": "As this enters, you may pay 3 life.\nIf you don't, it enters tapped.",
+                },
+            ],
+        }
+
+        summary = find_test_cards.oracle_summary(card)
+
+        assert "Boggart Trawler {2}{B} -- Creature" in summary
+        assert "Boggart Bog -- Land" in summary
+        assert "If you don't, it enters tapped." in summary
+
+    def test_main_lists_recipes(self, capsys: pytest.CaptureFixture[str]) -> None:
+        with patch.object(sys, "argv", ["find-test-cards.py", "--list-recipes"]):
+            find_test_cards.main()
+
+        out = capsys.readouterr().out
+        assert "free-mana" in out
+        assert "clone-effect" in out
+        assert "function:clone" in out
+
+    def test_main_prints_search_results(self, capsys: pytest.CaptureFixture[str]) -> None:
+        results = [
+            {
+                "name": "Memnite",
+                "mana_cost": "{0}",
+                "type_line": "Artifact Creature — Construct",
+                "oracle_text": "",
+                "set": "som",
+                "collector_number": "174",
+            },
+            {
+                "name": "Ornithopter",
+                "mana_cost": "{0}",
+                "type_line": "Artifact Creature — Thopter",
+                "oracle_text": "Flying",
+                "set": "m10",
+                "collector_number": "216",
+            },
+        ]
+
+        with (
+            patch.object(find_test_cards.scryfall, "search", return_value=results),
+            patch.object(
+                sys,
+                "argv",
+                [
+                    "find-test-cards.py",
+                    "--recipe",
+                    "zero-mana-body",
+                    "--limit",
+                    "2",
+                ],
+            ),
+        ):
+            find_test_cards.main()
+
+        out = capsys.readouterr().out
+        assert "Recipe: zero-mana-body" in out
+        assert "Query: game:paper unique:cards" in out
+        assert "1. Memnite {0}" in out
+        assert "2. Ornithopter {0}" in out
+        assert "Flying" in out
+
+    def test_main_exits_when_no_cards_found(self) -> None:
+        with (
+            patch.object(find_test_cards.scryfall, "search", return_value=[]),
+            patch.object(
+                sys,
+                "argv",
+                ["find-test-cards.py", "--query", "game:paper unique:cards t:artifact"],
+            ),
+            pytest.raises(SystemExit, match="No cards found for query"),
+        ):
+            find_test_cards.main()
+
+    def test_format_card_fails_fast_on_missing_required_field(self) -> None:
+        with pytest.raises(AssertionError, match="missing required field: set"):
+            find_test_cards.format_card(
+                {
+                    "name": "Memnite",
+                    "mana_cost": "{0}",
+                    "type_line": "Artifact Creature — Construct",
+                    "oracle_text": "",
+                    "collector_number": "174",
+                },
+                1,
+            )
 
 
 # ===========================================================================

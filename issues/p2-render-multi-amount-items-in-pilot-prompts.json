@@ -1,0 +1,13 @@
+{
+  "title": "Render multi-amount item descriptions in pilot prompts",
+  "description": "The current pilot rendering for `GAME_GET_MULTI_AMOUNT` drops the per-item descriptions entirely. In the existing `multi_amount_combat` golden, the model-facing prompt shows `Choices (0)` and only the `amounts=[N,N,...]` response format, even though the raw bridge result includes `items` with the blockers being assigned damage.\n\nThis leaves the model without the information it needs to map each amount to a concrete item, which can affect combat damage assignment and any other multi-amount decisions.\n\nReproduction:\n- Run `make regen-golden K=multi_amount_combat`\n- Inspect `puppeteer/tests/golden/prompts/multi_amount_combat.json`\n- The multi-amount decision currently renders as `Choices (0)` with no item list\n\nExpected behavior: render the multi-amount `items` in the LLM-facing decision text with stable ordering and clear index/item mapping so the model can choose amounts intentionally.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "golden"
+  ],
+  "created_at": "2026-03-14T22:01:25-07:00",
+  "updated_at": "2026-03-14T22:01:25-07:00"
+}

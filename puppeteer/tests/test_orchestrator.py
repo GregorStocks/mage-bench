@@ -44,7 +44,8 @@ def test_missing_llm_api_keys_missing():
         errors = _missing_llm_api_keys(config)
     assert len(errors) == 1
     assert "ace" in errors[0]
-    assert "OPENROUTER_API_KEY" in errors[0]
+    assert "(openrouter)" in errors[0]
+    assert "required API key" in errors[0]
 
 
 def test_missing_llm_api_keys_present():
@@ -70,7 +71,8 @@ def test_missing_llm_api_keys_uses_provider_specific_env():
         errors = _missing_llm_api_keys(config)
     assert len(errors) == 1
     assert "(openai)" in errors[0]
-    assert "OPENAI_API_KEY" in errors[0]
+    assert "required API key" in errors[0]
+    assert "OPENAI_API_KEY" not in errors[0]
 
 
 def test_missing_llm_api_keys_reports_unknown_provider():

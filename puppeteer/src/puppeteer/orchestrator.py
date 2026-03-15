@@ -112,14 +112,15 @@ def _missing_llm_api_keys(config: Config) -> list[str]:
     errors: list[str] = []
     llm_players = [*config.pilot_players]
     for player in llm_players:
-        provider = player.provider
+        configured_provider = player.provider
+        provider = configured_provider or DEFAULT_LLM_PROVIDER
         try:
-            key_env = required_api_key_env(provider)
+            key_env = required_api_key_env(configured_provider)
         except ValueError as exc:
             errors.append(f"{player.name} ({provider}): {exc}")
             continue
         if not os.environ.get(key_env, "").strip():
-            errors.append(f"{player.name} ({provider}) requires {key_env}")
+            errors.append(f"{player.name} ({provider}) is missing the required API key")
     return errors
 
 

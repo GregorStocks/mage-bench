@@ -105,11 +105,19 @@ def test_build_description():
         game_dir.mkdir()
         meta = _make_meta()
         desc = _build_description(meta, game_dir)
-        assert "Alice" in desc
-        assert "Meren of Clan Nel Toth" in desc
-        assert "openai/gpt-4" in desc
-        assert "https://mage-bench.com/games/game_20260210_120000" in desc
-        assert "https://mage-bench.com" in desc
+        assert desc == "\n".join(
+            [
+                "AI models play Commander (Magic: The Gathering) via mage-bench.",
+                "",
+                "Alice playing Meren of Clan Nel Toth (openai/gpt-4)",
+                "Bob playing Atraxa, Praetors' Voice (google/gemini-3-flash)",
+                "",
+                "Replay this game:",
+                "https://mage-bench.com/games/game_20260210_120000",
+                "",
+                "https://mage-bench.com",
+            ]
+        )
 
 
 def test_save_youtube_url():

@@ -1,0 +1,13 @@
+{
+  "title": "Spectator health port allocation can race on startup",
+  "description": "Golden tests allocate the observer health port in Python with `find_available_port(\"localhost\", 20000)` and then pass that value to `ObserverMain` via `-Dxmage.observer.healthPort`. This is a time-of-check/time-of-use race: another process can bind the chosen port before the observer health server starts.\n\nObserved failure while regenerating `multi_amount_combat` on March 14, 2026:\n- `tests/conftest.py` selected port `20000`\n- spectator startup spent ~58s waiting for health\n- `tmp/golden-spectator/spectator.log` showed `Failed to start observer health server on port 20000` with `java.net.BindException: Address already in use`\n- pytest then failed in `_wait_for_health()` with `http.client.RemoteDisconnected`\n\nThis makes golden tests intermittently fail during session-scoped spectator startup even when the actual game logic is fine.\n\nExpected behavior: spectator startup should reserve or retry the health port robustly instead of depending on a racy pre-check in Python.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "infrastructure"
+  ],
+  "created_at": "2026-03-14T22:09:22-07:00",
+  "updated_at": "2026-03-14T22:09:22-07:00"
+}

@@ -79,8 +79,6 @@ class RssSnapshot:
 
 _rss_snapshots: list[RssSnapshot] = []
 _observed_process_pids: dict[str, int] = {}
-_OBJECT_ID_ATTR_RE = re.compile(r"""(object_id=)(['"])[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}\2""")
-_HTML_OBJECT_SUFFIX_RE = re.compile(r"(?<=</font> )\[[0-9a-fA-F]{3}\](?=,)")
 
 
 @contextmanager
@@ -1629,31 +1627,24 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
 
 
 def _normalize_embedded_json(obj: object) -> object:
-    """Normalize embedded JSON strings and inline XMage object handles.
+    """Normalize embedded JSON strings for deterministic key order.
 
     MCP tool results are serialized as JSON strings within the export data.
     The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
     vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
-
-    Some strings also still contain raw XMage HTML object handles such as
-    object_id='UUID' and trailing [abc] suffixes after </font>. These UUID/hex
-    handles are run-local noise, so normalize them to "[redacted]" before
-    parsing embedded JSON.
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [_normalize_embedded_json(item) for item in obj]
     if isinstance(obj, str):
-        normalized = _OBJECT_ID_ATTR_RE.sub(r"\1\2[redacted]\2", obj)
-        normalized = _HTML_OBJECT_SUFFIX_RE.sub("[redacted]", normalized)
-        if not normalized.startswith(("{", "[")):
-            return normalized
+        if not obj.startswith(("{", "[")):
+            return obj
         try:
-            parsed = json.loads(normalized)
+            parsed = json.loads(obj)
             return _normalize_embedded_json(parsed)
         except (json.JSONDecodeError, ValueError):
-            return normalized
+            return obj
     return obj
 
 

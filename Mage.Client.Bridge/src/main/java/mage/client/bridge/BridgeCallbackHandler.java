@@ -237,6 +237,18 @@ public class BridgeCallbackHandler {
     }
     private record TargetChoice(UUID targetId, Map<String, Object> entry) {
     }
+    private enum DecisionBoundaryStatus {
+        READY,
+        AUTO_HANDLED,
+        CHANGED
+    }
+    private enum NonDecisionActionStatus {
+        NOT_HANDLED,
+        AUTO_HANDLED,
+        CHANGED
+    }
+    private record DecisionBoundaryTransition(DecisionBoundaryStatus status, PendingAction action) {
+    }
     private volatile long lastCallbackReceivedAt = 0;
     // Track actionable callbacks (GAME_SELECT, GAME_ASK, etc.) separately from passive
     // ones (CHATMESSAGE, GAME_UPDATE). Used by zombie detection and progress logging.
@@ -775,8 +787,17 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     public ActionResult getActionChoices(Long boardCursorParam) {
-        var result = new ActionResult();
         PendingAction action = pendingAction;
+        ActionResult result = buildActionChoices(action, boardCursorParam, true);
+        if (action == null) {
+            attachUnseenChat(result);
+        }
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private ActionResult buildActionChoices(PendingAction action, Long boardCursorParam, boolean allowAutoResolve) {
+        var result = new ActionResult();
         // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
         // can overwrite lastGameView with a view from a different phase (race condition).
         GameView gameView = null;
@@ -795,7 +816,6 @@ public class BridgeCallbackHandler {
         if (action == null) {
             result.action_pending = false;
             clearChoiceSnapshot();
-            attachUnseenChat(result);
             return result;
         }
 
@@ -1272,13 +1292,9 @@ public class BridgeCallbackHandler {
                 }
 
                 // Optional GAME_TARGET with no valid targets: auto-cancel
-                if (choiceList.isEmpty() && !required) {
-                    synchronized (actionLock) {
-                        if (pendingAction == action) {
-                            pendingAction = null;
-                        }
-                    }
-                    session.sendPlayerBoolean(currentGameId, false);
+                if (choiceList.isEmpty() && !required && allowAutoResolve) {
+                    clearPendingActionIfCurrent(action);
+                    session.sendPlayerBoolean(action.gameId(), false);
                     result.action_pending = false;
                     result.action_taken = "auto_cancelled_no_targets";
                     result.message = stripHtml(msg.getMessage());
@@ -1456,7 +1472,7 @@ public class BridgeCallbackHandler {
                 if (msg.getMessages() != null) {
                     for (MultiAmountMessage mam : msg.getMessages()) {
                         var item = new HashMap<String, Object>();
-                        item.put("description", mam.message);
+                        item.put("description", stripHtml(mam.message));
                         item.put("min", mam.min);
                         item.put("max", mam.max);
                         item.put("default", mam.defaultValue);
@@ -1486,6 +1502,76 @@ public class BridgeCallbackHandler {
         }
 
         return result;
+    }
+
+    private boolean clearPendingActionIfCurrent(PendingAction action) {
+        synchronized (actionLock) {
+            if (pendingAction == action) {
+                pendingAction = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private DecisionBoundaryTransition transitionToDecisionBoundary(PendingAction action, String source) {
+        if (action == null) {
+            return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
+        }
+        NonDecisionActionStatus nonDecisionStatus = maybeAutoHandleNonDecisionAction(action, source);
+        if (nonDecisionStatus == NonDecisionActionStatus.AUTO_HANDLED) {
+            return new DecisionBoundaryTransition(DecisionBoundaryStatus.AUTO_HANDLED, null);
+        }
+        if (nonDecisionStatus == NonDecisionActionStatus.CHANGED) {
+            return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
+        }
+        if (pendingAction != action) {
+            return new DecisionBoundaryTransition(DecisionBoundaryStatus.CHANGED, null);
+        }
+        return new DecisionBoundaryTransition(DecisionBoundaryStatus.READY, action);
+    }
+
+    private NonDecisionActionStatus maybeAutoHandleNonDecisionAction(PendingAction action, String source) {
+        if (action.method() != ClientCallbackMethod.GAME_TARGET) {
+            return NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        GameClientMessage targetMsg = (GameClientMessage) action.data();
+        Set<UUID> targets = findValidTargets(targetMsg);
+        boolean required = targetMsg.isFlag();
+
+        if (!required && (targets == null || targets.isEmpty())) {
+            if (clearPendingActionIfCurrent(action)) {
+                logger.info("[" + client.getUsername() + "] " + source
+                    + ": auto-cancelling optional GAME_TARGET with no valid targets");
+                lastChoices = null;
+                clearChoiceSnapshot();
+                session.sendPlayerBoolean(action.gameId(), false);
+                return NonDecisionActionStatus.AUTO_HANDLED;
+            }
+            return pendingAction != action
+                ? NonDecisionActionStatus.CHANGED
+                : NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        UUID onlyTarget = selectSingleRequiredTarget(targetMsg);
+        if (onlyTarget == null) {
+            return NonDecisionActionStatus.NOT_HANDLED;
+        }
+
+        if (clearPendingActionIfCurrent(action)) {
+            logger.info("[" + client.getUsername() + "] " + source
+                + ": auto-selecting single required GAME_TARGET " + onlyTarget.toString().substring(0, 8));
+            GameView gv = targetMsg.getGameView();
+            updateLastGameView(gv, source + ":single_required_target");
+            lastChoices = null;
+            clearChoiceSnapshot();
+            session.sendPlayerUUID(action.gameId(), onlyTarget);
+            return NonDecisionActionStatus.AUTO_HANDLED;
+        }
+        return pendingAction != action
+            ? NonDecisionActionStatus.CHANGED
+            : NonDecisionActionStatus.NOT_HANDLED;
     }
 
     private void recordChoiceSnapshot(String actionType, String responseType, int choiceCount) {
@@ -1723,10 +1809,11 @@ public class BridgeCallbackHandler {
         }
 
         // Auto-populate choices if the model skipped get_action_choices.
-        // Must happen BEFORE clearing pendingAction, because getActionChoices() reads it.
+        // Use the captured action directly so the choice snapshot matches the
+        // decision we're answering even if pendingAction changes concurrently.
         if (index != null && lastChoices == null) {
             logger.info("[" + client.getUsername() + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            getActionChoices(null);
+            buildActionChoices(action, null, false);
         }
 
         // Clear pending action only if it hasn't been overwritten by a new callback.
@@ -2122,19 +2209,18 @@ public class BridgeCallbackHandler {
             }
         }
 
-        // After successful action, block until the next pending action arrives.
-        // Populate the full ActionResult fields (board, choices, hand) via
-        // mergeActionChoices so the LLM can act immediately without a
-        // separate pass_priority round-trip.
+        // After successful action, block until the next real decision arrives.
+        // Transient callbacks that can be auto-resolved should not leak back to the model.
         if (Boolean.TRUE.equals(result.success)) {
-            PendingAction next = awaitPendingAction();
+            PendingAction next = awaitDecisionAction();
             if (next != null) {
+                result.game_seq = next.gameSeq();
+                mergeActionChoices(result, null, next);
                 String summary = "after=" + summarizePendingAction(action)
                     + ",woke_to=" + summarizePendingAction(next)
                     + ",gameOver=" + (activeGames.isEmpty() && gameEverStarted);
                 logger.info("[" + client.getUsername() + "] chooseAction wakeup: " + summary);
                 logBridgeEvent("CHOOSE_ACTION_WAKEUP", next.gameId(), summary);
-                mergeActionChoices(result, null);
             } else {
                 String summary = "after=" + summarizePendingAction(action)
                     + ",woke_to=game_over"
@@ -2171,6 +2257,43 @@ public class BridgeCallbackHandler {
             }
         }
         return pendingAction;
+    }
+
+    /**
+     * Block until the next real player decision is pending.
+     * Auto-resolves deterministic non-decisions (for example single-target mandatory
+     * selections) instead of returning them to the model.
+     */
+    private PendingAction awaitDecisionAction() {
+        while (true) {
+            PendingAction action = awaitPendingAction();
+            if (action == null) {
+                return null;
+            }
+            DecisionBoundaryTransition transition =
+                transitionToDecisionBoundary(action, "awaitDecisionAction");
+            if (transition.status() == DecisionBoundaryStatus.READY) {
+                return transition.action();
+            }
+        }
+    }
+
+    /**
+     * Inspect the current pending action and auto-resolve any deterministic
+     * non-decision callbacks. Unlike awaitDecisionAction(), this does not block.
+     */
+    private PendingAction currentDecisionAction() {
+        while (true) {
+            PendingAction action = pendingAction;
+            if (action == null) {
+                return null;
+            }
+            DecisionBoundaryTransition transition =
+                transitionToDecisionBoundary(action, "currentDecisionAction");
+            if (transition.status() == DecisionBoundaryStatus.READY) {
+                return transition.action();
+            }
+        }
     }
 
     /**
@@ -2511,9 +2634,10 @@ public class BridgeCallbackHandler {
      * Populates full ActionResult fields via mergeActionChoices.
      */
     private void waitForNextActionAfterBatch(ChooseActionTool.Result result) {
-        PendingAction next = awaitPendingAction();
+        PendingAction next = awaitDecisionAction();
         if (next != null) {
-            mergeActionChoices(result, null);
+            result.game_seq = next.gameSeq();
+            mergeActionChoices(result, null, next);
         } else {
             attachUnseenChat(result);
         }
@@ -3140,15 +3264,11 @@ public class BridgeCallbackHandler {
         "postcombat_main", PhaseStep.POSTCOMBAT_MAIN
     );
 
-    /**
-     * Merge action choices into a pass_priority result so the LLM gets choices
-     * without a separate get_action_choices round-trip.
-     */
-    private void mergeActionChoices(ActionResult result, Long boardCursorParam) {
-        ActionResult choices = getActionChoices(boardCursorParam);
+    private void mergeActionChoices(ActionResult result, Long boardCursorParam, PendingAction action) {
+        ActionResult choices = buildActionChoices(action, boardCursorParam, false);
         if (!Boolean.TRUE.equals(choices.action_pending)) {
-            // Rare race: action disappeared between pass_priority detecting it
-            // and getActionChoices() fetching it.
+            // The caller expected to merge a specific observed action, but by merge time
+            // there was no longer a stable decision to expose.
             result.warning = "Action changed before choices were fetched";
             return;
         }
@@ -3162,9 +3282,24 @@ public class BridgeCallbackHandler {
         var result = new ActionResult();
         result.action_pending = true;
         result.action_type = action.method().name();
+        result.game_seq = action.gameSeq();
         result.stop_reason = "stack_resolved";
         attachUnseenChat(result);
-        mergeActionChoices(result, boardCursorParam);
+        mergeActionChoices(result, boardCursorParam, action);
+        return result;
+    }
+
+    private ActionResult stepYieldResult(PendingAction action, GameView gv, String stopReason, Long boardCursorParam) {
+        var result = new ActionResult();
+        result.action_pending = true;
+        result.action_type = action.method().name();
+        result.game_seq = action.gameSeq();
+        if (gv != null && gv.getStep() != null) {
+            result.current_step = gv.getStep().toString();
+        }
+        result.stop_reason = stopReason;
+        attachUnseenChat(result);
+        mergeActionChoices(result, boardCursorParam, action);
         return result;
     }
 
@@ -3232,18 +3367,12 @@ public class BridgeCallbackHandler {
                     logPassPriorityReturn(until, actionsPassed, null, lastGameView, result, false);
                     return result;
                 }
-                // If the pending action is non-priority (e.g. GAME_TARGET for
-                // target selection after casting a spell), we must NOT auto-pass
-                // it — sendPlayerBoolean(false) would cancel the targeting and
-                // fizzle the spell.  Return the pending choices instead, matching
-                // the guard at the top of the main loop.
+                // If a real non-priority decision is already pending, return it
+                // instead of arming a yield that would auto-pass through it.
                 // This guard must run BEFORE the stack_resolved fast-path below,
                 // which otherwise returns early with stop_reason="stack_resolved"
                 // instead of "non_priority_action" when the stack is empty.
-                PendingAction currentAction;
-                synchronized (actionLock) {
-                    currentAction = pendingAction;
-                }
+                PendingAction currentAction = currentDecisionAction();
                 if (currentAction != null
                         && currentAction.method() != ClientCallbackMethod.GAME_SELECT) {
                     logger.info("[" + client.getUsername()
@@ -3253,9 +3382,10 @@ public class BridgeCallbackHandler {
                     var result = new ActionResult();
                     result.action_pending = true;
                     result.action_type = currentAction.method().name();
+                    result.game_seq = currentAction.gameSeq();
                     result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam);
+                    mergeActionChoices(result, boardCursorParam, currentAction);
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -3327,6 +3457,17 @@ public class BridgeCallbackHandler {
         while (true) {
             PendingAction action = pendingAction;
             if (action != null) {
+                DecisionBoundaryTransition transition =
+                    transitionToDecisionBoundary(action, "passPriority");
+                if (transition.status() == DecisionBoundaryStatus.AUTO_HANDLED) {
+                    actionsPassed++;
+                    continue;
+                }
+                if (transition.status() == DecisionBoundaryStatus.CHANGED) {
+                    continue;
+                }
+                action = transition.action();
+
                 ClientCallbackMethod method = action.method();
 
                 // Update game view and reset loop counter on turn change.
@@ -3352,20 +3493,14 @@ public class BridgeCallbackHandler {
                     }
                 }
 
-                // Step-specific yield: turn boundary — target step wasn't reached this turn
-                if (targetStep != null && lastTurnNumber != yieldStartTurn) {
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = method.name();
+                GameView actionView = (action.data() instanceof GameClientMessage)
+                    ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
 
-                    result.game_seq = action.gameSeq();
-                    GameView gvSnap = lastGameView;
-                    if (gvSnap != null && gvSnap.getStep() != null) {
-                        result.current_step = gvSnap.getStep().toString();
-                    }
-                    result.stop_reason = "step_not_reached";
-                    attachUnseenChat(result);
-                    logPassPriorityReturn(until, actionsPassed, action, gvSnap, result, false);
+                // Step-specific yield: stop on any later turn, even if the target
+                // step was skipped by auto-passes or never arrived as a callback.
+                if (targetStep != null && lastTurnNumber != yieldStartTurn) {
+                    ActionResult result = stepYieldResult(action, actionView, "step_not_reached", boardCursorParam);
+                    logPassPriorityReturn(until, actionsPassed, action, actionView, result, true);
                     return result;
                 }
 
@@ -3399,34 +3534,16 @@ public class BridgeCallbackHandler {
                     continue;
                 }
 
-                // Optional GAME_TARGET with no valid targets: auto-cancel
-                if (method == ClientCallbackMethod.GAME_TARGET) {
-                    GameClientMessage targetMsg = (GameClientMessage) action.data();
-                    boolean required = targetMsg.isFlag();
-                    if (!required) {
-                        Set<UUID> targets = findValidTargets(targetMsg);
-                        if (targets == null || targets.isEmpty()) {
-                            synchronized (actionLock) {
-                                if (pendingAction == action) {
-                                    pendingAction = null;
-                                }
-                            }
-                            session.sendPlayerBoolean(action.gameId(), false);
-                            actionsPassed++;
-                            continue;
-                        }
-                    }
-                }
-
                 // Non-GAME_SELECT always needs LLM input — return immediately
                 if (method != ClientCallbackMethod.GAME_SELECT) {
                     var result = new ActionResult();
                     result.action_pending = true;
                     result.action_type = method.name();
+                    result.game_seq = action.gameSeq();
 
                     result.stop_reason = "non_priority_action";
                     attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam);
+                    mergeActionChoices(result, boardCursorParam, action);
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -3443,11 +3560,12 @@ public class BridgeCallbackHandler {
                     var result = new ActionResult();
                     result.action_pending = true;
                     result.action_type = method.name();
+                    result.game_seq = action.gameSeq();
 
                     result.combat_phase = combatType;
                     result.stop_reason = "combat";
                     attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam);
+                    mergeActionChoices(result, boardCursorParam, action);
                     logPassPriorityReturn(
                         until,
                         actionsPassed,
@@ -3463,8 +3581,7 @@ public class BridgeCallbackHandler {
                 // our turn, clear the flag and fall through to the playable-cards
                 // check (which will return if there are meaningful choices).
                 if (yieldUntilMyTurn) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
                         // We've become the active player — stop yielding
                         yieldUntilMyTurn = false;
@@ -3485,8 +3602,7 @@ public class BridgeCallbackHandler {
                 // Client-side yield: end_of_turn
                 // Auto-pass all callbacks until the end of turn step is reached.
                 if (yieldUntilEndOfTurn) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     PhaseStep step = gv != null ? gv.getStep() : null;
                     int turnNum = gv != null ? gv.getTurn() : yieldStartTurn;
                     if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
@@ -3513,8 +3629,7 @@ public class BridgeCallbackHandler {
                 // Once the lowest of those objects is gone, the next actionable
                 // callback should wake the model instead of auto-passing again.
                 if (yieldUntilStackResolved) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     if (!stackContains(gv, yieldUntilStackResolvedObjectId)) {
                         ActionResult result = stackResolvedResult(action, boardCursorParam);
                         logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
@@ -3526,18 +3641,13 @@ public class BridgeCallbackHandler {
                 // Step-specific yield: check if we've reached the target step
                 // Use the action's own GameView — lastGameView can be clobbered by GAME_UPDATE.
                 if (targetStep != null) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
-                    if (gv != null && gv.getStep() == targetStep) {
-                        // Reached the target step — return to LLM
-                        var result = new ActionResult();
-                        result.action_pending = true;
-                        result.action_type = method.name();
-
-                        result.current_step = gv.getStep().toString();
-                        result.stop_reason = "reached_step";
-                        attachUnseenChat(result);
-                        mergeActionChoices(result, boardCursorParam);
+                    GameView gv = actionView;
+                    if (gv != null && gv.getStep() != null
+                            && (gv.getStep() == targetStep || gv.getStep().isAfter(targetStep))) {
+                        // If a later same-turn callback overtook the target-step
+                        // priority, stop immediately instead of auto-passing into
+                        // an even later prompt.
+                        ActionResult result = stepYieldResult(action, gv, "reached_step", boardCursorParam);
                         logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
                         return result;
                     }
@@ -3595,11 +3705,12 @@ public class BridgeCallbackHandler {
                     var result = new ActionResult();
                     result.action_pending = true;
                     result.action_type = method.name();
+                    result.game_seq = action.gameSeq();
 
                     result.has_playable_cards = true;
                     result.stop_reason = "playable_cards";
                     attachUnseenChat(result);
-                    mergeActionChoices(result, boardCursorParam);
+                    mergeActionChoices(result, boardCursorParam, action);
                     logPassPriorityReturn(until, actionsPassed, action, viewForPlayableCheck, result, true);
                     return result;
                 }
@@ -4674,18 +4785,15 @@ public class BridgeCallbackHandler {
                         boolean targetAutoHandled = false;
                         try {
                             GameClientMessage targetCallbackMsg = (GameClientMessage) callback.getData();
-                            if (targetCallbackMsg.isFlag()) { // required
-                                Set<UUID> autoTargets = findValidTargets(targetCallbackMsg);
-                                if (autoTargets != null && autoTargets.size() == 1) {
-                                    UUID onlyTarget = autoTargets.iterator().next();
-                                    logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
-                                    // Update game view if available
-                                    GameView gv = targetCallbackMsg.getGameView();
-                                    updateLastGameView(gv, "auto_target");
-                                    session.sendPlayerUUID(objectId, onlyTarget);
-                                    targetAutoHandled = true;
-                                    actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
-                                }
+                            UUID onlyTarget = selectSingleRequiredTarget(targetCallbackMsg);
+                            if (onlyTarget != null) {
+                                logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
+                                // Update game view if available
+                                GameView gv = targetCallbackMsg.getGameView();
+                                updateLastGameView(gv, "auto_target");
+                                session.sendPlayerUUID(objectId, onlyTarget);
+                                targetAutoHandled = true;
+                                actionableOutcome.sentResponse("auto GAME_TARGET single_required_target");
                             }
                         } catch (Exception e) {
                             logError("Target auto-select exception: " + e.getMessage());
@@ -5242,6 +5350,17 @@ public class BridgeCallbackHandler {
         }
 
         return null;
+    }
+
+    private UUID selectSingleRequiredTarget(GameClientMessage message) {
+        if (message == null || !message.isFlag()) {
+            return null;
+        }
+        Set<UUID> targets = findValidTargets(message);
+        if (targets == null || targets.size() != 1) {
+            return null;
+        }
+        return selectDeterministicTarget(targets, null);
     }
 
     /**
