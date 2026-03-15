@@ -88,8 +88,8 @@ def lint_issues(project_root: Path) -> list[str]:
         if not isinstance(issue["labels"], list):
             errors.append(f"{issue_file.name}: labels must be an array")
 
-        if "blocked" in issue and not isinstance(issue["blocked"], bool):
-            errors.append(f"{issue_file.name}: blocked must be a boolean")
+        if "blocked" in issue and not isinstance(issue["blocked"], (bool, str)):
+            errors.append(f"{issue_file.name}: blocked must be a boolean or string")
 
     return errors
 

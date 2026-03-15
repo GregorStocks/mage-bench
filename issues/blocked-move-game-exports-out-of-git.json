@@ -4,7 +4,7 @@
   "status": "open",
   "priority": 3,
   "type": "task",
-  "blocked": true,
+  "blocked": "Requires architectural decision on external datastore (R2, S3, etc.) — needs Gregor's input on infrastructure choices.",
   "labels": ["infrastructure", "ci"],
   "created_at": "2026-03-04T12:00:00.000000-08:00",
   "updated_at": "2026-03-04T12:00:00.000000-08:00"
