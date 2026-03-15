@@ -67,6 +67,8 @@ Utils/*implemented.txt
 # build tools
 mage-bundle.zip
 .env
+.mvn/maven.config
+.m2-repo/
 
 # build targets
 /deploy
