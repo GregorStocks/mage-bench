@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk17
+  - openjdk21
 dist: jammy
 git:
   depth: 3
