@@ -235,7 +235,7 @@ class TestPathValidation:
 
 
 class TestServerBinding:
-    def test_main_keeps_explicit_all_interfaces_binding(
+    def test_main_defaults_to_explicit_all_interfaces_binding(
         self,
         monkeypatch: pytest.MonkeyPatch,
         capsys: pytest.CaptureFixture[str],
@@ -260,6 +260,42 @@ class TestServerBinding:
 
         blunder_audit_web.main()
 
-        assert captured["address"] == ("0.0.0.0", 4567)
+        output = capsys.readouterr().out
+        assert captured["address"] == (blunder_audit_web.DEFAULT_BIND_HOST, 4567)
         assert captured["shutdown"] is True
-        assert "Blunder audit UI: http://devbox:4567/" in capsys.readouterr().out
+        assert "Listening on 0.0.0.0:4567" in output
+        assert "Blunder audit UI: http://devbox:4567/" in output
+
+    def test_main_allows_bind_host_override(
+        self,
+        monkeypatch: pytest.MonkeyPatch,
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+        captured: dict[str, object] = {}
+
+        class FakeServer:
+            def __init__(self, address: tuple[str, int], _handler: type) -> None:
+                captured["address"] = address
+
+            def serve_forever(self) -> None:
+                raise KeyboardInterrupt
+
+            def shutdown(self) -> None:
+                captured["shutdown"] = True
+
+        monkeypatch.setattr(blunder_audit_web, "HTTPServer", FakeServer)
+        monkeypatch.setattr(blunder_audit_web, "_find_free_port", lambda: 4567)
+        monkeypatch.setattr(blunder_audit_web, "_get_hostname", lambda: "devbox")
+        monkeypatch.setattr(blunder_audit_web, "load_ground_truth", dict)
+        monkeypatch.setattr(
+            "sys.argv",
+            ["blunder_audit_web.py", "--bind-host", "127.0.0.1"],
+        )
+
+        blunder_audit_web.main()
+
+        output = capsys.readouterr().out
+        assert captured["address"] == ("127.0.0.1", 4567)
+        assert captured["shutdown"] is True
+        assert "Listening on 127.0.0.1:4567" in output
+        assert "Blunder audit UI: http://127.0.0.1:4567/" in output
