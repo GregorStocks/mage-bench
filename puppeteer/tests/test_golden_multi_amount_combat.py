@@ -1,15 +1,10 @@
-"""Golden prompt test: GAME_GET_MULTI_AMOUNT combat damage distribution.
-
-Non-trivial scenario: Craw Wurm (6/4) attacks into Memnite (1/1) and
-Phyrexian Walker (0/3), giving the attacker 6 damage to distribute
-across blockers with different toughnesses (1 vs 3).
-"""
+"""Golden prompt test: GAME_GET_MULTI_AMOUNT combat damage distribution."""
 
 import pytest
 
 from tests.golden_helpers import (
-    DECK_CRAW_WURM,
-    DECK_MEMNITE_AND_WALKER,
+    DECK_GRIZZLY_BEARS,
+    DECK_TWO_MEMNITES,
     run_golden_scenario,
 )
 
@@ -23,17 +18,17 @@ def test_multi_amount_combat(
     opponent_session,
     spectator_process,
 ):
-    """Craw Wurm (6/4) attacks into Memnite (1/1) + Phyrexian Walker (0/3).
-
-    Both blockers cost 0, so P2 casts them on T1 (no multi-turn land setup).
+    """Grizzly Bears (2/2) attacks into two Savannah Lions (2/1), triggering GAME_GET_MULTI_AMOUNT.
 
     Script:
-    - P1 T1-T5: Play Forest each turn.
-    - P2 T1: Play Forest, cast Memnite, cast Phyrexian Walker (both cost 0).
-    - P1 T6: Play 6th Forest, cast Craw Wurm ({4}{G}{G}).
-    - P1 T7: Attack with Craw Wurm.
-    - P2: Block with both creatures.
-    - P1: Distribute 6 damage via GAME_GET_MULTI_AMOUNT -> amounts=[3,3].
+    - P1 T1: Play Forest (can't cast Bears with only G mana).
+    - P2 T1: Play Plains, cast Savannah Lions #1.
+    - P1 T2: Play Forest, cast Grizzly Bears (1G).
+    - P2 T2: Play Plains, cast Savannah Lions #2.
+    - P1 T3: Skip land, attack with Grizzly Bears.
+    - P2: Block with both Savannah Lions.
+    - P1: Distribute 2 damage via GAME_GET_MULTI_AMOUNT -> amounts=[1,1].
+    - All three creatures die (Bears takes 2+2=4 damage from Lions).
     """
     server, port = xmage_server
     run_golden_scenario(
@@ -41,45 +36,35 @@ def test_multi_amount_combat(
         port=port,
         project_root=project_root,
         game_dir=tmp_path / "multi_amount_combat",
-        deck_a=DECK_CRAW_WURM,
-        deck_b=DECK_MEMNITE_AND_WALKER,
+        deck_a=DECK_GRIZZLY_BEARS,
+        deck_b=DECK_TWO_MEMNITES,
         script_a=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # T1: Play Forest.
+            # T1: Play Forest (Bears costs 1G = 2 mana, only have 1 Forest).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T2: Play Forest.
+            # T2: Play second Forest, cast Grizzly Bears (now have GG = 2 mana).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T3: Play Forest.
-            {"name": "pass_priority", "arguments": {}},
+            # Chain: Bears is now castable.
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T4: Play Forest.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T5: Play Forest.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T6: Play 6th Forest, cast Craw Wurm ({4}{G}{G}).
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T7: Skip land, go to combat, attack with Craw Wurm.
+            # T3: Skip land play, go to combat.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
+            # Declare attackers — attack with Grizzly Bears.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"attackers": "all"}},
-            # Wait through blocking, then distribute 6 combat damage.
+            # Wait through blocking, then GAME_GET_MULTI_AMOUNT.
             {"name": "pass_priority", "arguments": {}},
             {
                 "name": "assert_action",
                 "arguments": {"action_type": "GAME_GET_MULTI_AMOUNT", "response_type": "multi_amount"},
             },
-            {"name": "choose_action", "arguments": {"amounts": [3, 3]}},
+            {"name": "choose_action", "arguments": {"amounts": [1, 1]}},
             # Pass to postcombat main, capture final state.
             {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},
             {"name": "get_game_state", "arguments": {}},
@@ -88,27 +73,22 @@ def test_multi_amount_combat(
             # Keep opening hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            # P2 T1: Play Forest, cast Memnite (0), cast Phyrexian Walker (0).
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            # P2's T1: Play Plains, cast Savannah Lions #1.
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
+            # P2's T2: Play Plains, cast Savannah Lions #2.
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # P2 T2-T6: Skip turns. Memnite is summoning sick on T1 only.
-            # pass_priority(until=end_of_turn) handles attacks by auto-passing.
-            # Block Craw Wurm when P1 attacks (T7).
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            # P2 T2: Explicitly skip the attack so P1 reaches the intended combat prompt on T3.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
-            {"name": "choose_action", "arguments": {"choice": "no"}},
-            # P1 T7: Block Craw Wurm with both creatures.
-            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            # Wait for P1's T3 attack -> declare blockers.
+            {"name": "pass_priority", "arguments": {}},
             {"name": "assert_action", "arguments": {"message_contains": "Select blockers"}},
+            # Block with both Savannah Lions against Grizzly Bears.
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},

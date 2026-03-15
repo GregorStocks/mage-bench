@@ -283,8 +283,6 @@ DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
 DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 DECK_GRIZZLY_BEARS = "puppeteer/tests/decks/grizzly_bears.dck"
 DECK_TWO_MEMNITES = "puppeteer/tests/decks/two_savannah_lions.dck"
-DECK_CRAW_WURM = "puppeteer/tests/decks/craw_wurm.dck"
-DECK_MEMNITE_AND_WALKER = "puppeteer/tests/decks/memnite_and_walker.dck"
 
 
 # Main classes for direct java -cp launches (from each module's pom.xml exec-maven-plugin config)
