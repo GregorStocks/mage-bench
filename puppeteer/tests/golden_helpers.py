@@ -658,6 +658,10 @@ class BridgeManager:
         if self.is_healthy():
             return
         print(f"{self._label.title()} unhealthy, restarting JVM...", flush=True)
+        self.restart()
+
+    def restart(self) -> None:
+        """Restart the bridge JVM and validate that the next game starts cleanly."""
         self.stop()
         time.sleep(self._SERVER_CLEANUP_DELAY)
         with timed_phase("session", f"{self._label}_jvm_restart"):
@@ -1329,13 +1333,36 @@ def run_golden_scenario(
 
     finally:
         # Defensive concede on both bridges so they're ready for the next test.
-        # _run_pilot_on_bridge already concedes on success, but if it failed
-        # mid-script, we need this safety net.
-        for session in [session_a, session_b]:
+        # If a replay worker or cleanup RPC already left a keepAlive bridge in a
+        # terminal state, restart it so the cleanup path does not mask the real
+        # scenario outcome or poison the next test.
+        cleanup_restarts: list[BridgeManager] = []
+        replay_error_by_label = {label: exc for label, exc in replay_errors}
+        for label, session, bridge in [
+            ("player_a", session_a, bridge_a),
+            ("player_b", session_b, bridge_b),
+        ]:
+            replay_exc = replay_error_by_label.get(label)
+            if replay_exc is not None:
+                print(
+                    "  "
+                    f"[{golden_name}] Skipping defensive concede for {label}: "
+                    f"replay already failed with {replay_exc}",
+                    flush=True,
+                )
+                cleanup_restarts.append(bridge)
+                continue
             try:
                 session.call_tool("concede", timeout=10)
-            except RuntimeError:
-                pass
+            except RuntimeError as exc:
+                print(
+                    f"  [{golden_name}] Cleanup concede failed for {label}: {exc}. Restarting {bridge._label}.",
+                    flush=True,
+                )
+                cleanup_restarts.append(bridge)
+
+        for bridge in cleanup_restarts:
+            bridge.restart()
 
 
 def _write_game_meta(
