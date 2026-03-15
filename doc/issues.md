@@ -52,7 +52,7 @@ jq . issues/p3-commander-zone-gy-exile-layout.json
 ### List all issue titles with priority
 
 ```bash
-uv run python scripts/list-issues.py
+uv run python scripts/query-issues.py
 ```
 
 ### Find issues by label
