@@ -46,7 +46,7 @@ def build_consensus(
 ) -> dict[str, dict[int, dict]]:
     """Build consensus sets for each game.
 
-    Returns: {game_id: {snapshotIndex: {
+    Returns: {game_id: {decisionIndex: {
         "approaches_that_found": {approach: [annotations]},
         "approaches_that_missed": [approach_names],
         "num_approaches_total": int,
@@ -55,8 +55,8 @@ def build_consensus(
     consensus: dict[str, dict[int, dict]] = {}
 
     for game_id, results in games.items():
-        # Collect all (snapshotIndex) -> {approach: [annotations]} mapping
-        snapshot_to_approaches: dict[int, dict[str, list[dict]]] = defaultdict(
+        # Collect all decisionIndex -> {approach: [annotations]} mapping
+        decision_to_approaches: dict[int, dict[str, list[dict]]] = defaultdict(
             lambda: defaultdict(list)
         )
         all_approaches = set()
@@ -65,19 +65,19 @@ def build_consensus(
             approach = r["approach"]
             all_approaches.add(approach)
             for ann in r["annotations"]:
-                snap = ann.get("snapshotIndex")
-                if isinstance(snap, int):
-                    snapshot_to_approaches[snap][approach].append(ann)
+                dec = ann.get("decisionIndex")
+                if isinstance(dec, int):
+                    decision_to_approaches[dec][approach].append(ann)
 
         num_approaches = len(all_approaches)
         game_consensus: dict[int, dict] = {}
 
-        for snap, approach_map in sorted(snapshot_to_approaches.items()):
+        for dec_idx, approach_map in sorted(decision_to_approaches.items()):
             fraction = len(approach_map) / num_approaches
             found_approaches = set(approach_map.keys())
             missed_approaches = sorted(all_approaches - found_approaches)
 
-            game_consensus[snap] = {
+            game_consensus[dec_idx] = {
                 "approaches_that_found": dict(approach_map),
                 "approaches_that_missed": missed_approaches,
                 "num_approaches_total": num_approaches,
@@ -131,15 +131,15 @@ def analyze_consensus_blunders(
             f"{len(non_consensus_snaps)} non-consensus"
         )
 
-        for snap in sorted(consensus_snaps.keys()):
-            info = consensus_snaps[snap]
+        for dec_idx in sorted(consensus_snaps.keys()):
+            info = consensus_snaps[dec_idx]
             found = info["approaches_that_found"]
             missed = info["approaches_that_missed"]
             total = info["num_approaches_total"]
             frac = info["fraction"]
 
             print(
-                f"\n  snapshot={snap}  ({len(found)}/{total} approaches = {frac:.0%})"
+                f"\n  decision={dec_idx}  ({len(found)}/{total} approaches = {frac:.0%})"
             )
 
             # Show which approaches found it with their details
@@ -150,26 +150,26 @@ def analyze_consensus_blunders(
                     sev = ann.get("severity", "?")
                     cat = ann.get("category", "?")
                     desc = abbreviate(ann.get("description", ""), 75)
-                    snap_val = ann.get("snapshotIndex", "?")
-                    print(f"    {approach:<25} {sev:<14} {cat:<25} snap={snap_val}")
+                    dec_val = ann.get("decisionIndex", "?")
+                    print(f"    {approach:<25} {sev:<14} {cat:<25} decision={dec_val}")
                     print(f"      {desc}")
 
             # Show which missed it
             if missed:
                 print(f"  MISSED BY: {', '.join(missed)}")
 
-            # Check snapshot agreement
-            all_snaps = []
+            # Check decision index agreement
+            all_decs = []
             for approach, anns in found.items():
                 for ann in anns:
-                    s = ann.get("snapshotIndex")
-                    if isinstance(s, int):
-                        all_snaps.append(s)
-            if len(set(all_snaps)) > 1:
-                print(f"  SNAPSHOT DISAGREEMENT: values={sorted(set(all_snaps))}")
+                    d = ann.get("decisionIndex")
+                    if isinstance(d, int):
+                        all_decs.append(d)
+            if len(set(all_decs)) > 1:
+                print(f"  DECISION DISAGREEMENT: values={sorted(set(all_decs))}")
             else:
                 print(
-                    f"  SNAPSHOT AGREEMENT: all say {all_snaps[0] if all_snaps else '?'}"
+                    f"  DECISION AGREEMENT: all say {all_decs[0] if all_decs else '?'}"
                 )
 
             # Check severity agreement
@@ -213,7 +213,7 @@ def analyze_per_approach(
 
     for game_id, results in games.items():
         game_consensus = consensus[game_id]
-        consensus_snaps = {s for s, d in game_consensus.items() if d["is_consensus"]}
+        consensus_decs = {s for s, d in game_consensus.items() if d["is_consensus"]}
 
         for r in results:
             approach = r["approach"]
@@ -221,24 +221,24 @@ def analyze_per_approach(
             stats["games_present"] += 1
             stats["total_cost"] += r["cost_usd"]
 
-            # Which consensus snaps did this approach find?
-            found_snaps = set()
+            # Which consensus decisions did this approach find?
+            found_decs = set()
             for ann in r["annotations"]:
-                snap = ann.get("snapshotIndex")
+                dec = ann.get("decisionIndex")
                 stats["total_annotations"] += 1
                 stats["description_lengths"].append(len(ann.get("description", "")))
                 stats["severities"].append(ann.get("severity", "?"))
 
-                if isinstance(snap, int):
-                    found_snaps.add(snap)
-                    if snap in consensus_snaps:
+                if isinstance(dec, int):
+                    found_decs.add(dec)
+                    if dec in consensus_decs:
                         stats["consensus_hits"] += 1
                     else:
                         stats["false_positives"] += 1
 
-            # How many consensus snaps did this approach miss in this game?
-            for snap in consensus_snaps:
-                if snap not in found_snaps:
+            # How many consensus decisions did this approach miss in this game?
+            for dec in consensus_decs:
+                if dec not in found_decs:
                     stats["consensus_misses"] += 1
 
     # Print table
@@ -266,23 +266,23 @@ def analyze_per_approach(
         )
 
 
-def analyze_snapshot_accuracy(
+def analyze_decision_accuracy(
     games: dict[str, list[dict]],
     consensus: dict[str, dict[int, dict]],
 ) -> None:
-    """Section 5: Snapshot attribution analysis.
+    """Section 5: Decision attribution analysis.
 
-    Approaches are given the snapshot= in the decision header, so within a single
-    exact-match consensus group there's always 100% agreement. The interesting
-    question is whether the SAME conceptual blunder gets split across nearby
-    snapshots -- e.g. the Momo legend-rule blunder in g8 gets snap=14 from some
-    approaches and snap=16 from others.
+    Approaches are given the decision index in the decision header, so within a
+    single exact-match consensus group there's always 100% agreement. The
+    interesting question is whether the SAME conceptual blunder gets split
+    across nearby decisions -- e.g. the Momo legend-rule blunder in g8 gets
+    decision 14 from some approaches and decision 16 from others.
 
-    We detect this by finding consensus blunders at nearby snapshots (within 3)
+    We detect this by finding consensus blunders at nearby decisions (within 3)
     whose descriptions share significant content, suggesting they're about the
     same underlying mistake.
     """
-    print_section("SNAPSHOT ATTRIBUTION ANALYSIS")
+    print_section("DECISION ATTRIBUTION ANALYSIS")
 
     MERGE_WINDOW = 3
     # Minimum word overlap fraction to consider two annotations about the same blunder
@@ -292,46 +292,46 @@ def analyze_snapshot_accuracy(
 
     for game_id in sorted(consensus.keys()):
         game_data = consensus[game_id]
-        consensus_snaps = sorted(s for s, d in game_data.items() if d["is_consensus"])
+        consensus_decs = sorted(s for s, d in game_data.items() if d["is_consensus"])
 
-        # Find pairs of consensus snaps within MERGE_WINDOW
+        # Find pairs of consensus decisions within MERGE_WINDOW
         used: set[int] = set()
-        for i, s1 in enumerate(consensus_snaps):
-            if s1 in used:
+        for i, d1 in enumerate(consensus_decs):
+            if d1 in used:
                 continue
-            group = [s1]
-            for j in range(i + 1, len(consensus_snaps)):
-                s2 = consensus_snaps[j]
-                if s2 - s1 <= MERGE_WINDOW and s2 not in used:
+            group = [d1]
+            for j in range(i + 1, len(consensus_decs)):
+                d2 = consensus_decs[j]
+                if d2 - d1 <= MERGE_WINDOW and d2 not in used:
                     # Check description similarity
                     descs1 = [
                         a.get("description", "").lower()
-                        for anns in game_data[s1]["approaches_that_found"].values()
+                        for anns in game_data[d1]["approaches_that_found"].values()
                         for a in anns
                     ]
                     descs2 = [
                         a.get("description", "").lower()
-                        for anns in game_data[s2]["approaches_that_found"].values()
+                        for anns in game_data[d2]["approaches_that_found"].values()
                         for a in anns
                     ]
 
                     # Check if there's meaningful keyword overlap
                     words1: set[str] = set()
-                    for d in descs1:
-                        words1.update(w for w in d.split() if len(w) > 4)
+                    for desc in descs1:
+                        words1.update(w for w in desc.split() if len(w) > 4)
                     words2: set[str] = set()
-                    for d in descs2:
-                        words2.update(w for w in d.split() if len(w) > 4)
+                    for desc in descs2:
+                        words2.update(w for w in desc.split() if len(w) > 4)
                     if words1 and words2:
                         overlap = len(words1 & words2) / min(len(words1), len(words2))
                         if overlap >= MIN_OVERLAP_FRAC:
-                            group.append(s2)
-                            used.add(s2)
+                            group.append(d2)
+                            used.add(d2)
 
             if len(group) > 1:
-                used.add(s1)
-                snap_details = {s: game_data[s] for s in group}
-                merge_candidates.append((game_id, group, snap_details))
+                used.add(d1)
+                dec_details = {d: game_data[d] for d in group}
+                merge_candidates.append((game_id, group, dec_details))
 
     print(
         f"\n  Nearby consensus blunders that may be the same mistake: "
@@ -339,35 +339,35 @@ def analyze_snapshot_accuracy(
     )
 
     if merge_candidates:
-        for game_id, snaps, details in merge_candidates:
-            # Determine majority snapshot
-            snap_votes: list[int] = []
-            for s, info in details.items():
-                snap_votes.extend([s] * len(info["approaches_that_found"]))
-            majority = Counter(snap_votes).most_common(1)[0][0]
+        for game_id, decs, details in merge_candidates:
+            # Determine majority decision
+            dec_votes: list[int] = []
+            for d, info in details.items():
+                dec_votes.extend([d] * len(info["approaches_that_found"]))
+            majority = Counter(dec_votes).most_common(1)[0][0]
 
-            print(f"\n  {game_id}: snapshots {snaps} (majority={majority})")
-            for s in snaps:
-                info = details[s]
+            print(f"\n  {game_id}: decisions {decs} (majority={majority})")
+            for d in decs:
+                info = details[d]
                 approaches = sorted(info["approaches_that_found"].keys())
-                label = "MAJORITY" if s == majority else "MINORITY"
-                print(f"    snap={s} ({label}): {', '.join(approaches)}")
+                label = "MAJORITY" if d == majority else "MINORITY"
+                print(f"    decision={d} ({label}): {', '.join(approaches)}")
 
     # Summary: for approaches that appear in merge-candidates, how often are they
     # on the majority vs minority side?
     approach_majority: dict[str, int] = defaultdict(int)
     approach_minority: dict[str, int] = defaultdict(int)
 
-    for game_id, snaps, details in merge_candidates:
-        snap_votes_list: list[int] = []
-        for s, info in details.items():
-            snap_votes_list.extend([s] * len(info["approaches_that_found"]))
-        majority = Counter(snap_votes_list).most_common(1)[0][0]
+    for game_id, decs, details in merge_candidates:
+        dec_votes_list: list[int] = []
+        for d, info in details.items():
+            dec_votes_list.extend([d] * len(info["approaches_that_found"]))
+        majority = Counter(dec_votes_list).most_common(1)[0][0]
 
-        for s in snaps:
-            info = details[s]
+        for d in decs:
+            info = details[d]
             for approach in info["approaches_that_found"]:
-                if s == majority:
+                if d == majority:
                     approach_majority[approach] += 1
                 else:
                     approach_minority[approach] += 1
@@ -431,31 +431,23 @@ def analyze_hellkite_test(
         approach = r["approach"]
         found = False
         for ann in r["annotations"]:
-            snap = ann.get("snapshotIndex", -1)
+            dec = ann.get("decisionIndex", -1)
             desc = ann.get("description", "").lower()
             # Match: annotations about the land destruction choice
-            if (snap == 75) or (
-                ("passage" in desc or "spirebluff" in desc)
-                and ("destroy" in desc or "wrong" in desc or "target" in desc)
+            if ("passage" in desc or "spirebluff" in desc) and (
+                "destroy" in desc or "wrong" in desc or "target" in desc
             ):
                 sev = ann.get("severity", "?")
                 cat = ann.get("category", "?")
                 found_hellkite.append(
-                    (approach, snap, sev, cat, ann.get("description", ""))
+                    (approach, dec, sev, cat, ann.get("description", ""))
                 )
                 found = True
         if not found:
             missed_hellkite.append(approach)
 
-    for approach, snap, sev, cat, desc in sorted(found_hellkite):
-        snap_note = ""
-        if snap == 75:
-            snap_note = " (correct)"
-        elif snap == 73:
-            snap_note = " (Hellkite cast, not land choice)"
-        elif snap == 55:
-            snap_note = " (wrong -- Sarkhan decision)"
-        print(f"  {approach:<25} snap={snap}{snap_note:<30} {sev:<14} {cat}")
+    for approach, dec, sev, cat, desc in sorted(found_hellkite):
+        print(f"  {approach:<25} decision={dec:<20} {sev:<14} {cat}")
         print(f"    {abbreviate(desc, 100)}")
     if missed_hellkite:
         print(
@@ -464,60 +456,34 @@ def analyze_hellkite_test(
         )
 
     # --- Momo legend-rule ---
-    print_subsection(
-        f"Momo legend-rule blunder (correct snap=14, {num_approaches} approaches)"
-    )
+    print_subsection(f"Momo legend-rule blunder ({num_approaches} approaches)")
     print("  Context: Cast second legendary Momo, wasting a card to legend rule.")
-    print("  snap=14 = the cast decision (correct attribution)")
-    print("  snap=16 = the forced 'which to keep' choice (wrong attribution)")
     print()
 
-    snap14_approaches: list[tuple[str, str, str]] = []
-    snap16_approaches: list[tuple[str, str, str]] = []
-    other_momo: list[tuple[str, int, str, str]] = []
+    momo_found: list[tuple[str, int, str, str]] = []
     missed_momo: list[str] = []
 
     for r in results:
         approach = r["approach"]
         found = False
         for ann in r["annotations"]:
-            snap = ann.get("snapshotIndex", -1)
+            dec = ann.get("decisionIndex", -1)
             desc = ann.get("description", "").lower()
             cat = ann.get("category", "").lower()
             if "momo" in desc or "legend" in desc or "legend" in cat:
                 found = True
                 sev = ann.get("severity", "?")
-                if snap == 14:
-                    snap14_approaches.append((approach, sev, cat))
-                elif snap == 16:
-                    snap16_approaches.append((approach, sev, cat))
-                else:
-                    other_momo.append((approach, snap, sev, cat))
+                momo_found.append((approach, dec, sev, cat))
         if not found:
             missed_momo.append(approach)
 
-    if snap14_approaches:
-        print("  snap=14 (CORRECT - the cast decision):")
-        for approach, sev, cat in sorted(snap14_approaches):
-            print(f"    {approach:<25} {sev:<14} {cat}")
-    if snap16_approaches:
-        print("  snap=16 (wrong - the legend rule resolution):")
-        for approach, sev, cat in sorted(snap16_approaches):
-            print(f"    {approach:<25} {sev:<14} {cat}")
-    if other_momo:
-        print("  other snapshots:")
-        for approach, snap, sev, cat in sorted(other_momo):
-            print(f"    {approach:<25} snap={snap:<5} {sev:<14} {cat}")
+    if momo_found:
+        for approach, dec, sev, cat in sorted(momo_found):
+            print(f"    {approach:<25} decision={dec:<5} {sev:<14} {cat}")
     if missed_momo:
         print(f"  MISSED ({len(missed_momo)}): {', '.join(sorted(missed_momo))}")
 
-    # Summary
-    total_found = len(snap14_approaches) + len(snap16_approaches) + len(other_momo)
-    correct_snap = len(snap14_approaches)
-    print(
-        f"\n  Summary: {total_found}/{num_approaches} found, "
-        f"{correct_snap} with correct snap=14 attribution"
-    )
+    print(f"\n  Summary: {len(momo_found)}/{num_approaches} found")
 
 
 def analyze_cost_effectiveness(
@@ -541,7 +507,7 @@ def analyze_cost_effectiveness(
 
     for game_id, results in games.items():
         game_consensus = consensus[game_id]
-        consensus_snaps = {s for s, d in game_consensus.items() if d["is_consensus"]}
+        consensus_decs = {s for s, d in game_consensus.items() if d["is_consensus"]}
 
         for r in results:
             approach = r["approach"]
@@ -552,8 +518,8 @@ def analyze_cost_effectiveness(
             d["wall_time"] += r["wall_time_seconds"]
 
             for ann in r["annotations"]:
-                snap = ann.get("snapshotIndex")
-                if isinstance(snap, int) and snap in consensus_snaps:
+                dec = ann.get("decisionIndex")
+                if isinstance(dec, int) and dec in consensus_decs:
                     d["consensus_hits"] += 1
                 else:
                     d["false_positives"] += 1
@@ -691,8 +657,8 @@ def main() -> None:
     # 3. Per-approach stats
     analyze_per_approach(games, consensus)
 
-    # 4. Snapshot attribution analysis
-    analyze_snapshot_accuracy(games, consensus)
+    # 4. Decision attribution analysis
+    analyze_decision_accuracy(games, consensus)
 
     # 5. Severity consistency
     analyze_severity_consistency(games, consensus)

@@ -839,9 +839,7 @@
         if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
         if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
         if (item.kind === "annotation") {
-          if (item.seq != null) return item.seq;
-          var annSnap = game.snapshots[item.data.snapshotIndex];
-          return annSnap ? (annSnap.seq || 0) : 0;
+          return item.seq || 0;
         }
         return 0;
       }
@@ -1133,41 +1131,14 @@
     });
 
     function annotationDecisionSnapshotIndex(ann) {
-      if (Number.isInteger(ann.decisionIndex)) {
-        var decision = (game.decisions || [])[ann.decisionIndex];
-        if (decision && Number.isInteger(decision.snapshotIndex)) {
-          return decision.snapshotIndex;
-        }
-      }
-
-      // Legacy v7 fallback: annotation.snapshotIndex is post-decision; the
-      // matching decision is the latest one by the same player with
-      // snapshotIndex < ann.snapshotIndex.
-      var candidates = playerDecSnaps[ann.player] || [];
-      var best = Math.max(0, ann.snapshotIndex - 1);
-      for (var i = candidates.length - 1; i >= 0; i--) {
-        if (candidates[i] < ann.snapshotIndex) {
-          best = candidates[i];
-          break;
-        }
-      }
-      return best;
+      var decision = (game.decisions || [])[ann.decisionIndex];
+      return decision.snapshotIndex;
     }
 
     // Map each annotation to its decision's snapshot index so we can show
     // the annotation alongside the decision (pre-decision board state).
     var annotationDecisionSnap = [];
     if (game.annotations) {
-      // Build per-player sorted decision snapshot indices
-      var playerDecSnaps = {};
-      (game.decisions || []).forEach(function (d) {
-        if (!playerDecSnaps[d.player]) playerDecSnaps[d.player] = [];
-        playerDecSnaps[d.player].push(d.snapshotIndex);
-      });
-      Object.keys(playerDecSnaps).forEach(function (p) {
-        playerDecSnaps[p].sort(function (a, b) { return a - b; });
-      });
-
       game.annotations.forEach(function (ann) {
         annotationDecisionSnap.push(annotationDecisionSnapshotIndex(ann));
       });

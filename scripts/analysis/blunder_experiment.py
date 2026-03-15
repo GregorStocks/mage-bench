@@ -430,7 +430,9 @@ def _parse_inline_response(text: str) -> list[dict]:
                     if depth == 0:
                         try:
                             obj = json.loads(text[start : i + 1])
-                            if isinstance(obj, dict) and "snapshotIndex" in obj:
+                            if isinstance(obj, dict) and (
+                                "decisionIndex" in obj or "snapshotIndex" in obj
+                            ):
                                 annotations.append(obj)
                         except json.JSONDecodeError:
                             pass

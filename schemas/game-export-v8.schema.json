@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "game-export-v8.schema.json",
   "title": "Game Export v8",
-  "description": "Schema for the .json.gz game export format (version 8). Adds canonical decisionIndex to annotations while retaining snapshotIndex as display metadata.",
+  "description": "Schema for the .json.gz game export format (version 8). Annotations are keyed by canonical decisionIndex.",
   "type": "object",
   "required": [
     "actions",
@@ -29,7 +29,7 @@
   "properties": {
     "version": {
       "const": 8,
-      "description": "Export format version 8: annotations carry canonical decisionIndex, with snapshotIndex retained as display metadata."
+      "description": "Export format version 8: annotations are keyed by canonical decisionIndex."
     },
     "id": {
       "type": "string",
@@ -580,7 +580,6 @@
       "type": "object",
       "required": [
         "decisionIndex",
-        "snapshotIndex",
         "player",
         "type",
         "severity",
@@ -598,7 +597,7 @@
         "snapshotIndex": {
           "type": "integer",
           "minimum": 0,
-          "description": "Index into the snapshots array used for display. New exports point to the first snapshot after the action resolved; decisionIndex is the canonical identity."
+          "description": "Optional display metadata: index into the snapshots array for the aftermath snapshot (first snapshot after the action resolved)."
         },
         "player": {
           "type": "string"

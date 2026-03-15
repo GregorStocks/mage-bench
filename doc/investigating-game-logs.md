@@ -269,7 +269,7 @@ for d in data['decisions']:
     if d.get('actionType') == 'GAME_CHOOSE_CHOICE' and d.get('chosen') is None:
         text = d.get('chosenArgs', {}).get('text', '')
         if text:
-            has_ann = any(a['snapshotIndex'] == d.get('snapshotIndex') for a in data.get('annotations', []))
+            has_ann = any(a['decisionIndex'] == d.get('index') for a in data.get('annotations', []))
             print(f"Decision {d['index']}: GAME_CHOOSE_CHOICE text='{text}' chosen=None {'<-- FALSE POSITIVE annotation' if has_ann else ''}")
 ```
 
@@ -360,17 +360,15 @@ The blunder LLM may misinterpret these as timeouts. Verify annotations against d
 ```python
 # Check which batch decisions generated false-positive annotations
 import json
-from scripts.analysis.blunder_eval_common import compute_aftermath_index
 
 with open('website/public/games/GAME_ID.json') as f:
     data = json.load(f)
 
 for d in data['decisions']:
     if d.get('chosen') is None and d.get('chosenArgs', {}).get('attackers'):
-        aft = compute_aftermath_index(d, data['snapshots'])
-        has_ann = any(a['snapshotIndex'] == aft for a in data.get('annotations', []))
+        has_ann = any(a['decisionIndex'] == d.get('index') for a in data.get('annotations', []))
         if has_ann:
-            print(f"Decision {d['index']}: batch_attack {d['chosenArgs']} -> FALSE POSITIVE annotation at snapshot {aft}")
+            print(f"Decision {d['index']}: batch_attack {d['chosenArgs']} -> FALSE POSITIVE annotation")
 ```
 
 ## Verifying `chosen` field accuracy (id vs index conflicts)

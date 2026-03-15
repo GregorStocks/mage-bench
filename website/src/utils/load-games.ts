@@ -66,7 +66,6 @@ function assertAnnotation(
   invariant(candidate.type === 'blunder', `${file}: annotation ${index} has invalid type`);
   invariant(typeof candidate.player === 'string', `${file}: annotation ${index} missing player`);
   invariant(Number.isInteger(candidate.decisionIndex), `${file}: annotation ${index} missing decisionIndex`);
-  invariant(Number.isInteger(candidate.snapshotIndex), `${file}: annotation ${index} missing snapshotIndex`);
   invariant(typeof candidate.description === 'string', `${file}: annotation ${index} missing description`);
   invariant(typeof candidate.actionTaken === 'string', `${file}: annotation ${index} missing actionTaken`);
   invariant(typeof candidate.betterLine === 'string', `${file}: annotation ${index} missing betterLine`);

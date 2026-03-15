@@ -138,7 +138,7 @@ class GameOver(TypedDict):
 
 class Annotation(TypedDict):
     decisionIndex: int
-    snapshotIndex: int
+    snapshotIndex: NotRequired[int]
     player: str
     type: Literal["blunder"]
     severity: str

@@ -14,18 +14,59 @@ TARGET_VERSION = 8
 
 
 def _annotation_to_decision_index(data: dict) -> dict[int, int]:
-    from scripts.analysis.blunder_eval_common import reverse_map_annotations
+    """Map v7 annotation indices to decision indices using snapshotIndex heuristics.
+
+    V7 annotations only have snapshotIndex, so we reverse-map by computing
+    aftermath snapshots and matching (snapshotIndex, player).
+    """
+    from scripts.analysis.blunder_eval_common import (
+        compute_aftermath_index,
+        snapshot_index,
+    )
 
     decisions = data.get("decisions", [])
     annotations = data.get("annotations", [])
     snapshots = data.get("snapshots", [])
     assert decisions, "v7 -> v8 migration requires decisions[] to be present"
-    mapping = reverse_map_annotations(annotations, decisions, snapshots)
-    assert len(mapping) == len(annotations), (
+
+    decision_aftermaths: list[int] = [
+        compute_aftermath_index(d, snapshots) for d in decisions
+    ]
+
+    result: dict[int, int] = {}
+    for ann_idx, ann in enumerate(annotations):
+        ann_snap = ann["snapshotIndex"]
+        ann_player = ann["player"]
+
+        # Try exact match on aftermath index + player
+        best: int | None = None
+        for d_idx, d in enumerate(decisions):
+            if d["player"] != ann_player:
+                continue
+            if decision_aftermaths[d_idx] == ann_snap:
+                best = d_idx
+                break
+
+        # Fallback: closest decision for same player where snapshot_index <= ann_snap
+        if best is None:
+            best_dist = float("inf")
+            for d_idx, d in enumerate(decisions):
+                if d["player"] != ann_player:
+                    continue
+                if snapshot_index(d) <= ann_snap:
+                    dist = ann_snap - snapshot_index(d)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best = d_idx
+
+        if best is not None:
+            result[ann_idx] = best
+
+    assert len(result) == len(annotations), (
         "v7 -> v8 migration could not map every annotation to a decision: "
-        f"{len(mapping)}/{len(annotations)} mapped"
+        f"{len(result)}/{len(annotations)} mapped"
     )
-    return mapping
+    return result
 
 
 def up(data: dict) -> dict:

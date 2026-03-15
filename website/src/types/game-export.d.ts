@@ -6,11 +6,11 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 8). Adds canonical decisionIndex to annotations while retaining snapshotIndex as display metadata.
+ * Schema for the .json.gz game export format (version 8). Annotations are keyed by canonical decisionIndex.
  */
 export interface GameExportV8 {
   /**
-   * Export format version 8: annotations carry canonical decisionIndex, with snapshotIndex retained as display metadata.
+   * Export format version 8: annotations are keyed by canonical decisionIndex.
    */
   version: 8;
   /**
@@ -310,9 +310,9 @@ export interface Annotation {
    */
   decisionIndex: number;
   /**
-   * Index into the snapshots array used for display. New exports point to the first snapshot after the action resolved; decisionIndex is the canonical identity.
+   * Optional display metadata: index into the snapshots array for the aftermath snapshot (first snapshot after the action resolved).
    */
-  snapshotIndex: number;
+  snapshotIndex?: number;
   player: string;
   type: "blunder";
   severity: "questionable" | "minor" | "moderate" | "major";

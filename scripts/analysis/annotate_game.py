@@ -12,7 +12,6 @@ import sys
 VALID_SEVERITIES = {"questionable", "minor", "moderate", "major"}
 REQUIRED_FIELDS = {
     "decisionIndex",
-    "snapshotIndex",
     "player",
     "type",
     "severity",
@@ -27,17 +26,19 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
     missing = REQUIRED_FIELDS - set(ann.keys())
     assert not missing, f"Annotation {index}: missing fields: {missing}"
 
-    assert isinstance(ann["snapshotIndex"], int), (
-        f"Annotation {index}: snapshotIndex must be int, got {type(ann['snapshotIndex']).__name__}"
-    )
     assert isinstance(ann["decisionIndex"], int), (
         f"Annotation {index}: decisionIndex must be int, got {type(ann['decisionIndex']).__name__}"
     )
 
-    num_snapshots = len(game_data.get("snapshots", []))
-    assert 0 <= ann["snapshotIndex"] < num_snapshots, (
-        f"Annotation {index}: snapshotIndex {ann['snapshotIndex']} out of range [0, {num_snapshots})"
-    )
+    if "snapshotIndex" in ann:
+        assert isinstance(ann["snapshotIndex"], int), (
+            f"Annotation {index}: snapshotIndex must be int, got {type(ann['snapshotIndex']).__name__}"
+        )
+        num_snapshots = len(game_data.get("snapshots", []))
+        assert 0 <= ann["snapshotIndex"] < num_snapshots, (
+            f"Annotation {index}: snapshotIndex {ann['snapshotIndex']} out of range [0, {num_snapshots})"
+        )
+
     decisions = game_data.get("decisions")
     assert isinstance(decisions, list) and decisions, (
         f"Annotation {index}: decisionIndex validation requires non-empty decisions[]"
