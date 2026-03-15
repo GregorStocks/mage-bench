@@ -98,7 +98,8 @@ def build_query(
 
 
 def _string_field(card: dict, key: str) -> str:
-    value = card.get(key, "")
+    assert key in card, f"missing required field: {key}"
+    value = card[key]
     assert isinstance(value, str), f"{key}: expected string, got {type(value).__name__}"
     return value
 

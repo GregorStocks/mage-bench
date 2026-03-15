@@ -911,6 +911,19 @@ class TestFindTestCards:
         ):
             find_test_cards.main()
 
+    def test_format_card_fails_fast_on_missing_required_field(self) -> None:
+        with pytest.raises(AssertionError, match="missing required field: set"):
+            find_test_cards.format_card(
+                {
+                    "name": "Memnite",
+                    "mana_cost": "{0}",
+                    "type_line": "Artifact Creature — Construct",
+                    "oracle_text": "",
+                    "collector_number": "174",
+                },
+                1,
+            )
+
 
 # ===========================================================================
 # conclude-season
