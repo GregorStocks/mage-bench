@@ -1588,8 +1588,12 @@ public class BridgeCallbackHandler {
             blockersArray = null;
         }
 
-        // Resolve id to index
-        if (id != null) {
+        ClientCallbackMethod method = action.method();
+
+        // Resolve id to index for action types that accept short IDs.
+        // GAME_CHOOSE_CHOICE uses text=Name or choice=N, so free-form strings
+        // like "Black" must reach the action-specific validation instead.
+        if (id != null && method != ClientCallbackMethod.GAME_CHOOSE_CHOICE) {
             if (index != null) {
                 // Both provided — prefer id (it's more specific; index is usually a default value)
                 logger.warn("[" + client.getUsername() + "] choose_action: both id=" + id + " and index=" + index + " provided, preferring id");
@@ -1653,7 +1657,6 @@ public class BridgeCallbackHandler {
         }
 
         UUID gameId = action.gameId();
-        ClientCallbackMethod method = action.method();
         Object data = action.data();
 
         result.success = true;
@@ -1955,6 +1958,12 @@ public class BridgeCallbackHandler {
                         }
                         result.action_taken = "selected_choice_text_" + text;
                         break;
+                    }
+                    if (id != null && !id.isEmpty()) {
+                        return buildError(result, "invalid_choice",
+                            "GAME_CHOOSE_CHOICE does not accept choice=\"" + id + "\" by name. "
+                            + "Use text=\"" + id + "\" or choice=N with the current options.",
+                            true, action, true);
                     }
                     if (index == null) {
                         return buildError(result, "missing_param",

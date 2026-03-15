@@ -1,5 +1,6 @@
 package mage.client.bridge;
 
+import mage.choices.ChoiceImpl;
 import mage.client.bridge.tools.ActionResult;
 import mage.game.BridgeLogEntry;
 import mage.interfaces.callback.ClientCallback;
@@ -22,6 +23,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -313,6 +315,43 @@ class BridgeCallbackHandlerTest {
         assertThat(targets).singleElement().satisfies(target ->
             assertThat((Map<String, Object>) target).containsEntry("name", "TestPlayer (you)")
         );
+    }
+
+    @Test
+    void gameChooseChoiceReturnsStructuredErrorForNamedChoiceParam() throws Exception {
+        BridgeMageClient client = new BridgeMageClient("TestPlayer");
+        BridgeCallbackHandler handler = client.getCallbackHandler();
+
+        ChoiceImpl choice = new ChoiceImpl(true);
+        choice.setMessage("Choose color");
+        choice.setChoices(new LinkedHashSet<>(List.of("White", "Blue", "Black")));
+
+        UUID gameId = UUID.randomUUID();
+        GameView view = gameView(7);
+        setField(handler, "lastGameView", view);
+        setField(handler, "pendingAction", new PendingAction(
+            gameId,
+            ClientCallbackMethod.GAME_CHOOSE_CHOICE,
+            new GameClientMessage(view, Collections.<String, Serializable>emptyMap(), choice),
+            "Choose color",
+            7
+        ));
+
+        var result = handler.chooseAction(
+            null, "Black", null, null, null, null, null, null, null, null, null
+        );
+
+        assertThat(result.success).isFalse();
+        assertThat(result.error_code).isEqualTo("invalid_choice");
+        assertThat(result.retryable).isTrue();
+        assertThat(result.error)
+            .contains("choice=\"Black\"")
+            .contains("text=\"Black\"")
+            .contains("choice=N")
+            .doesNotContain("Unknown short ID");
+        assertThat(result.choices)
+            .extracting(entry -> entry.get("description"))
+            .containsExactly("White", "Blue", "Black");
     }
 
     private static GameClientMessage multiAmountMessage(List<MultiAmountMessage> items, int min, int max) {
