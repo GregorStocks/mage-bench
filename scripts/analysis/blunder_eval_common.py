@@ -210,13 +210,26 @@ def play_key(game_id: str, decision_index: int) -> str:
     return f"{game_id}:{decision_index}"
 
 
+def _validated_child_path(root: Path, filename: str) -> Path:
+    """Resolve a direct child path and reject symlink/path escapes."""
+    resolved_root = root.resolve()
+    path = (root / filename).resolve()
+    assert path.is_relative_to(resolved_root), (
+        f"Path {path} escapes expected root {resolved_root}"
+    )
+    assert path.parent == resolved_root, (
+        f"Path {path} must be a direct child of {resolved_root}"
+    )
+    return path
+
+
 def game_path_for_id(game_id: str) -> Path:
     """Resolve the export path for a game ID (.json.gz or .json)."""
     game_id = validate_game_id(game_id)
-    gz_path = GAMES_DIR / f"{game_id}.json.gz"
+    gz_path = _validated_child_path(GAMES_DIR, f"{game_id}.json.gz")
     if gz_path.exists():
         return gz_path
-    json_path = GAMES_DIR / f"{game_id}.json"
+    json_path = _validated_child_path(GAMES_DIR, f"{game_id}.json")
     assert json_path.exists(), f"Game file not found: {gz_path} or {json_path}"
     return json_path
 
@@ -224,7 +237,7 @@ def game_path_for_id(game_id: str) -> Path:
 def _gt_path(game_id: str) -> Path:
     """Ground truth file path for a game."""
     game_id = validate_game_id(game_id)
-    return GROUND_TRUTH_DIR / f"{game_id}.json"
+    return _validated_child_path(GROUND_TRUTH_DIR, f"{game_id}.json")
 
 
 # --- Ground truth I/O ---
@@ -235,13 +248,14 @@ def load_ground_truth() -> dict[str, list[dict]]:
     result: dict[str, list[dict]] = {}
     for p in sorted(GROUND_TRUTH_DIR.glob("*.json")):
         game_id = validate_game_id(p.stem)
-        with open(p) as f:
+        path = _validated_child_path(GROUND_TRUTH_DIR, p.name)
+        with open(path) as f:
             entries = json.load(f)
-        assert isinstance(entries, list), f"{p}: expected JSON array"
+        assert isinstance(entries, list), f"{path}: expected JSON array"
         typed_entries: list[dict] = []
         for index, entry in enumerate(entries):
             assert isinstance(entry, dict), (
-                f"{p}: entries[{index}] must be an object, got {entry!r}"
+                f"{path}: entries[{index}] must be an object, got {entry!r}"
             )
             typed_entries.append(entry)
         result[game_id] = typed_entries

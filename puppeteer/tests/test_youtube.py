@@ -105,11 +105,12 @@ def test_build_description():
         game_dir.mkdir()
         meta = _make_meta()
         desc = _build_description(meta, game_dir)
+        lines = desc.splitlines()
         assert "Alice" in desc
         assert "Meren of Clan Nel Toth" in desc
         assert "openai/gpt-4" in desc
-        assert "https://mage-bench.com/games/game_20260210_120000" in desc
-        assert "https://mage-bench.com" in desc
+        assert "https://mage-bench.com/games/game_20260210_120000" in lines
+        assert "https://mage-bench.com" in lines
 
 
 def test_save_youtube_url():

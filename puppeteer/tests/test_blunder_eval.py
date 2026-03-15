@@ -70,6 +70,20 @@ class TestGameIdValidation:
         with pytest.raises(AssertionError, match="Invalid game_id"):
             game_path_for_id("../etc/passwd")
 
+    def test_game_path_for_id_rejects_symlink_escape(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+        games_dir = tmp_path / "games"
+        outside = tmp_path / "outside"
+        games_dir.mkdir()
+        outside.mkdir()
+        safe_game_id = VALID_GAME_ID
+        target = outside / f"{safe_game_id}.json"
+        _write_export(target)
+        (games_dir / f"{safe_game_id}.json").symlink_to(target)
+        monkeypatch.setattr(blunder_eval_common, "GAMES_DIR", games_dir)
+
+        with pytest.raises(AssertionError, match="escapes expected root"):
+            game_path_for_id(safe_game_id)
+
 
 class TestLoadGameValidation:
     def test_loads_export_from_games_dir(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:

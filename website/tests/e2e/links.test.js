@@ -8,6 +8,19 @@ function stripTrailingSlash(href) {
   return href.endsWith("/") && href !== "/" ? href.slice(0, -1) : href;
 }
 
+function hasBlockedScheme(raw) {
+  const normalized = raw.trimStart().toLowerCase();
+  return (
+    normalized.startsWith("http://") ||
+    normalized.startsWith("https://") ||
+    raw.startsWith("//") ||
+    normalized.startsWith("mailto:") ||
+    normalized.startsWith("javascript:") ||
+    normalized.startsWith("data:") ||
+    normalized.startsWith("vbscript:")
+  );
+}
+
 /**
  * Single walk of dist/ that collects both:
  * - links: Map of href -> Set<sourcePage> (every internal href found in HTML)
@@ -46,13 +59,9 @@ function crawlDist() {
 function extractLinks(html, sourcePage, links) {
   for (const match of html.matchAll(/href=["']([^"']*?)["']/g)) {
     const raw = match[1];
-    // Skip external, protocol-relative, mailto, javascript, anchor-only
+    // Skip external, executable, protocol-relative, and anchor-only hrefs.
     if (
-      raw.startsWith("http://") ||
-      raw.startsWith("https://") ||
-      raw.startsWith("//") ||
-      raw.startsWith("mailto:") ||
-      raw.startsWith("javascript:") ||
+      hasBlockedScheme(raw) ||
       raw.startsWith("#") ||
       raw === ""
     ) {
@@ -98,6 +107,24 @@ describe("internal links", () => {
 
   test("dist directory exists", () => {
     expect(fs.existsSync(distDir)).toBe(true);
+  });
+
+  test("extractLinks skips blocked URL schemes", () => {
+    const links = new Map();
+
+    extractLinks(
+      [
+        '<a href="javascript:alert(1)">js</a>',
+        '<a href="data:text/html,boom">data</a>',
+        '<a href="vbscript:msgbox(1)">vb</a>',
+        '<a href="https://example.com">ext</a>',
+        '<a href="/leaderboard">ok</a>',
+      ].join(""),
+      "/index.html",
+      links
+    );
+
+    expect([...links.keys()]).toEqual(["/leaderboard"]);
   });
 
   test("all internal links resolve to existing pages or files", () => {

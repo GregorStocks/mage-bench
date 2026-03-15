@@ -7,12 +7,15 @@ load validated exports without falling back to raw ``dict[str, object]`` blobs.
 
 import gzip
 import json
+import tempfile
 from pathlib import Path
 from typing import Literal, TypeAlias
 
 from typing_extensions import NotRequired, TypeIs, TypedDict
 
 JsonObject: TypeAlias = dict[str, object]
+REPO_ROOT = Path(__file__).resolve().parent.parent
+SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 
 _ACTION_TYPES = {"turn_change", "phase_change", "chat"}
 _ANNOTATION_SEVERITIES = {"questionable", "minor", "moderate", "major"}
@@ -715,8 +718,30 @@ def require_game_export(value: object, source: str = "game export") -> GameExpor
     return value
 
 
+def _allowed_export_roots() -> tuple[Path, ...]:
+    return (
+        REPO_ROOT.resolve(),
+        Path.cwd().resolve(),
+        SYSTEM_TEMP_ROOT,
+    )
+
+
+def _validate_export_path(path: str | Path) -> Path:
+    export_path = Path(path).resolve()
+    allowed_roots = _allowed_export_roots()
+    assert any(export_path.is_relative_to(root) for root in allowed_roots), (
+        f"Game export must live under one of {allowed_roots}, got {export_path}"
+    )
+    assert export_path.name.endswith((".json", ".json.gz")), (
+        f"Game export must end with .json or .json.gz: {export_path}"
+    )
+    assert export_path.exists(), f"Game export not found: {export_path}"
+    assert export_path.is_file(), f"Game export is not a file: {export_path}"
+    return export_path
+
+
 def load_game_export(path: str | Path) -> GameExport:
-    export_path = Path(path)
+    export_path = _validate_export_path(path)
     raw = (
         gzip.decompress(export_path.read_bytes())
         if export_path.suffix == ".gz"
@@ -726,7 +751,7 @@ def load_game_export(path: str | Path) -> GameExport:
 
 
 def load_built_game_export(path: str | Path) -> BuiltGameExport:
-    export_path = Path(path)
+    export_path = _validate_export_path(path)
     raw = (
         gzip.decompress(export_path.read_bytes())
         if export_path.suffix == ".gz"
