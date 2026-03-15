@@ -229,9 +229,7 @@ public class BridgeClient {
             McpServer mcpServer = new McpServer(client, keepAlive);
 
             // Run MCP server in separate thread so we can monitor client state
-            Thread mcpThread = new Thread(() -> mcpServer.start(mcpPort), "MCP-Server");
-            mcpThread.setDaemon(true);
-            mcpThread.start();
+            Thread.ofVirtual().name("MCP-Server").start(() -> mcpServer.start(mcpPort));
 
             // In keepAlive mode, stdin is the lifecycle signal — when the Python
             // side closes stdin, we shut down.  In non-keepAlive mode, we watch
@@ -239,7 +237,7 @@ public class BridgeClient {
             //
             // Start a stdin-reader thread that sets stdinClosed when EOF is reached.
             java.util.concurrent.atomic.AtomicBoolean stdinClosed = new java.util.concurrent.atomic.AtomicBoolean(false);
-            Thread stdinThread = new Thread(() -> {
+            Thread.ofVirtual().name("MCP-Stdin-Watcher").start(() -> {
                 try {
                     // Block until stdin is closed
                     for (int nextByte = System.in.read(); nextByte != -1; nextByte = System.in.read()) {
@@ -248,9 +246,7 @@ public class BridgeClient {
                 } catch (IOException ignored) {
                 }
                 stdinClosed.set(true);
-            }, "MCP-Stdin-Watcher");
-            stdinThread.setDaemon(true);
-            stdinThread.start();
+            });
 
             int reconnectAttempts = 0;
             outer:
@@ -343,7 +339,7 @@ public class BridgeClient {
             java.io.BufferedReader stdinReader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 
             // Background thread for pinging the server to stay connected
-            Thread pingThread = new Thread(() -> {
+            Thread pingThread = Thread.ofVirtual().name("Potato-Ping").start(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Thread.sleep(PING_INTERVAL_MS);
@@ -352,9 +348,7 @@ public class BridgeClient {
                         break;
                     }
                 }
-            }, "Potato-Ping");
-            pingThread.setDaemon(true);
-            pingThread.start();
+            });
 
             try {
                 String line;
