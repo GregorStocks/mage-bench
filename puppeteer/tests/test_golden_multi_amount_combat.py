@@ -95,24 +95,25 @@ def test_multi_amount_combat(
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # P2 T2: Play Forest, skip attack (Lions no longer summoning sick).
+            # After a land play with no castable spells, choose_action returns
+            # the attack decision directly (no intermediate pass_priority needed).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
             {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # P2 T3: Play Forest, skip attack.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
             {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # P2 T4: Play Forest, skip attack.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
             {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # P2 T5: Play Forest, cast Durkwood Boars ({4}{G}), skip attack.
+            # After casting a spell, pass_priority is needed to resolve the stack
+            # before reaching the attack decision.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
@@ -122,7 +123,6 @@ def test_multi_amount_combat(
             # P2 T6: Play Forest, skip attack (both creatures ready).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            {"name": "pass_priority", "arguments": {}},
             {"name": "assert_action", "arguments": {"message_contains": "Select attackers"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # P1 T7: Block Craw Wurm with both creatures.
