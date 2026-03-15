@@ -81694,7 +81694,8 @@
       "betterLine": "Play Plains (enters untapped) on turn 1, then Orzhov Basilica on turn 2 bouncing Plains, preserving Secluded Steppe for later cycling or as a future land drop.",
       "type": "blunder",
       "snapshotIndex": 3,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 5
     },
     {
       "severity": "minor",
@@ -81703,7 +81704,8 @@
       "betterLine": "Play Orzhov Basilica, bouncing Secluded Steppe back to hand, then replay Secluded Steppe on turn 3 to have 3 mana available on turn 3 instead of losing tempo later when Basilica enters tapped",
       "type": "blunder",
       "snapshotIndex": 21,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 13
     },
     {
       "severity": "minor",
@@ -81712,7 +81714,8 @@
       "betterLine": "Play Forest (or Caves of Koilos) to have 2 lands + Sol Ring for 4 mana available, getting closer to casting Odric, Karametra, or Acidic Slime on upcoming turns.",
       "type": "blunder",
       "snapshotIndex": 27,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -81721,7 +81724,8 @@
       "betterLine": "Play Caves of Koilos to maximize color flexibility in case of missing future land drops",
       "type": "blunder",
       "snapshotIndex": 29,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -81730,7 +81734,8 @@
       "betterLine": "Cast Talisman of Resilience to ramp toward Sangromancer or Yedora on turn 3-4, saving Feed the Swarm for a more impactful threat or dangerous enchantment later.",
       "type": "blunder",
       "snapshotIndex": 38,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 26
     },
     {
       "severity": "minor",
@@ -81739,7 +81744,8 @@
       "betterLine": "Play Swamp to have 3 lands available, enabling a turn 4 Orzhov Advokist or setting up turn 5 Citadel Siege. Alternatively, play Orzhov Basilica to have WB-producing land for future turns.",
       "type": "blunder",
       "snapshotIndex": 43,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -81748,7 +81754,8 @@
       "betterLine": "Play Swamp (or Orzhov Basilica) to ensure hitting land drops and progressing toward casting 4+ mana spells like Orzhov Advokist or Citadel Siege.",
       "type": "blunder",
       "snapshotIndex": 45,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 28
     },
     {
       "severity": "minor",
@@ -81757,7 +81764,8 @@
       "betterLine": "Play Caves of Koilos first, then cast Sol Ring - though in this case the end result is identical",
       "type": "blunder",
       "snapshotIndex": 46,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 30
     },
     {
       "severity": "questionable",
@@ -81766,7 +81774,8 @@
       "betterLine": "Pass the turn without casting anything. Crown of Doom could be deployed later when Devstral has board presence or enough mana to immediately pass it to an opponent (5 total mana needed to cast + activate). Deploying it early with no blockers is risky.",
       "type": "blunder",
       "snapshotIndex": 56,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 35
     },
     {
       "severity": "minor",
@@ -81775,7 +81784,8 @@
       "betterLine": "Play Swamp first, then cast Talisman of Resilience, leaving 2 lands untapped plus the Talisman for 3 total available mana",
       "type": "blunder",
       "snapshotIndex": 63,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 38
     },
     {
       "severity": "minor",
@@ -81784,7 +81794,8 @@
       "betterLine": "Play Swamp (untapped), then cast Orzhov Advokist (2W) or Cunning Rhetoric (2B) this turn. Play Orzhov Basilica on a later turn when the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 69,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 40
     },
     {
       "severity": "minor",
@@ -81793,7 +81804,8 @@
       "betterLine": "Return Plains to hand instead, since it enters untapped when replayed, preserving tempo in future turns",
       "type": "blunder",
       "snapshotIndex": 70,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 43
     },
     {
       "severity": "minor",
@@ -81802,7 +81814,8 @@
       "betterLine": "Discard Debtors' Knell instead, as it costs 7 mana and is far from castable, while Secluded Steppe could serve as a needed land drop or be cycled for card advantage later.",
       "type": "blunder",
       "snapshotIndex": 75,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 47
     },
     {
       "severity": "minor",
@@ -81811,7 +81824,8 @@
       "betterLine": "Play Forest first, then cast Karametra using Forest+Forest for G and generic, Sol Ring for 2 generic, and Caves of Koilos for W — same total but the extra land drop should always come first. Actually with the extra Forest they could potentially avoid Caves damage depending on exact mana needs, and regardless, playing lands before spells is correct sequencing.",
       "type": "blunder",
       "snapshotIndex": 76,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 48
     },
     {
       "severity": "minor",
@@ -81820,7 +81834,8 @@
       "betterLine": "Attack Devstral with Odric to deal 5 damage (3 base + 2 from Crown of Doom), taking advantage of Devstral having no blockers and no untapped mana",
       "type": "blunder",
       "snapshotIndex": 81,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 50
     },
     {
       "severity": "minor",
@@ -81829,7 +81844,8 @@
       "betterLine": "Play Swamp to improve colored mana base, saving Rogue's Passage for a later turn when colored mana requirements are better covered",
       "type": "blunder",
       "snapshotIndex": 92,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 57
     },
     {
       "severity": "minor",
@@ -81838,7 +81854,8 @@
       "betterLine": "Cast Arcane Signet for 2 mana, saving 1 mana and enabling stronger plays next turn (e.g., Cunning Rhetoric + land, or Citadel Siege with 4+ mana, or holding up Bold Plagiarist at flash speed).",
       "type": "blunder",
       "snapshotIndex": 101,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 61
     },
     {
       "severity": "questionable",
@@ -81847,7 +81864,8 @@
       "betterLine": "Cast Acidic Slime for 5 mana to destroy Crown of Doom (or another problematic permanent), trigger Karametra for a land, and save mana/life. Soul of Innistrad could be cast next turn with better mana available and potentially graveyard targets later.",
       "type": "blunder",
       "snapshotIndex": 108,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -81856,7 +81874,8 @@
       "betterLine": "Fetch Plains to get a second white source, enabling both Acidic Slime (already castable) and Sunblast Angel (needs WW) in upcoming turns.",
       "type": "blunder",
       "snapshotIndex": 110,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 64
     },
     {
       "severity": "minor",
@@ -81865,7 +81884,8 @@
       "betterLine": "Attack Devstral to benefit from Crown of Doom's +2/+0 bonus, dealing 5 damage with a likely unblocked Odric.",
       "type": "blunder",
       "snapshotIndex": 114,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -81874,7 +81894,8 @@
       "betterLine": "Pass without activating Crown of Doom, hold up 4 mana to cast Stroke of Genius for X=1 at end of opponent's turn to draw a card, maintaining card advantage while keeping mana flexible.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 70
     },
     {
       "severity": "questionable",
@@ -81883,7 +81904,8 @@
       "betterLine": "Give Crown of Doom to Gemini2.5Flash to incentivize attacks against the player with the strongest board (Karametra, Odric)",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 70
     },
     {
       "severity": "questionable",
@@ -81892,7 +81914,8 @@
       "betterLine": "Could have sent Crown of Doom to GPT-4.1-mini instead, who has an untapped Sangromancer that could attack and benefit from the +2/+0 boost. However, the choice is debatable.",
       "type": "blunder",
       "snapshotIndex": 118,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 70
     },
     {
       "severity": "minor",
@@ -81901,7 +81924,8 @@
       "betterLine": "Play Swamp first, then cast Yedora, Grave Gardener to have an extra mana available",
       "type": "blunder",
       "snapshotIndex": 129,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 83
     },
     {
       "severity": "moderate",
@@ -81910,7 +81934,8 @@
       "betterLine": "Flash in Bold Plagiarist for {3}{B} before the Orzhov Advokist upkeep trigger resolves, so that when opponents accept counters from Advokist, Bold Plagiarist copies them all, creating a large threat while opponents still can't attack you.",
       "type": "blunder",
       "snapshotIndex": 137,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 94
     },
     {
       "severity": "questionable",
@@ -81919,7 +81944,8 @@
       "betterLine": "Cast Citadel Siege (choosing Khans) for 2WW, immediately putting 2 +1/+1 counters on Orzhov Advokist this combat, building a growing threat one turn earlier",
       "type": "blunder",
       "snapshotIndex": 139,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 96
     },
     {
       "severity": "moderate",
@@ -81928,7 +81954,8 @@
       "betterLine": "Cast Citadel Siege choosing Khans for recurring +2/+2 counters on creatures, which synergizes with Orzhov Advokist's counter strategy. Alternatively, cast Cunning Rhetoric for defensive value at 31 life.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 98
     },
     {
       "severity": "minor",
@@ -81937,7 +81964,8 @@
       "betterLine": "Attack GPT-4.1-mini to benefit from Crown of Doom's +2/+0, dealing 3 damage instead of 1",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 105
     },
     {
       "severity": "minor",
@@ -81946,7 +81974,8 @@
       "betterLine": "Fetch Plains or Canopy Vista to enable casting Sunblast Angel ({4}{W}{W}), since green mana is already abundant with 3 Forests.",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 122
     },
     {
       "severity": "minor",
@@ -81955,7 +81984,8 @@
       "betterLine": "Cast Shaper Parasite face-down as a morph for 3 mana to develop the board, keeping 1 Island open, and save Stroke of Genius for a later turn when more mana is available for a bigger draw.",
       "type": "blunder",
       "snapshotIndex": 161,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 131
     },
     {
       "severity": "major",
@@ -81964,7 +81994,8 @@
       "betterLine": "Target yourself with Stroke of Genius to draw the card, or save the mana for other plays. At minimum, if casting it, always target yourself.",
       "type": "blunder",
       "snapshotIndex": 162,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 131
     },
     {
       "severity": "minor",
@@ -81973,7 +82004,8 @@
       "betterLine": "Play Swamp from hand first, then cast Verdant Sun's Avatar using the extra Swamp for black mana instead of Talisman, avoiding the 1 life loss.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -81982,7 +82014,8 @@
       "betterLine": "Choose Dragons mode to tap down opponent threats each combat, providing immediate defensive value while rebuilding board presence",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 146
     },
     {
       "severity": "questionable",
@@ -81991,7 +82024,8 @@
       "betterLine": "Let Verdant Sun's Avatar resolve first, then cast Abzan Ascendancy so the Avatar also receives a +1/+1 counter from Ascendancy's ETB trigger",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82000,7 +82034,8 @@
       "betterLine": "Be more selective with attacks. At minimum, hold back Acidic Slime (a 2/2 that already provided its ETB value and is a weak attacker). Consider holding back creatures to preserve board state, especially with Sunblast Angel in hand as a future play that punishes tapped creatures - you don't want your own creatures tapped when you might want to cast it.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "questionable",
@@ -82009,7 +82044,8 @@
       "betterLine": "Consider attacking Devstral instead, as they have a dangerous Whale token on board and pressuring them keeps their life total in check. Alternatively, the attack into Gem3Flash is fine politically but the reasoning of 'taking them out' at 31 life with 3 damage is flawed.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82018,7 +82054,8 @@
       "betterLine": "Cast Shaper Parasite face-down as a Morph for {3}, preserving the flexibility to use the +2/-2 or -2/+2 trigger at a more impactful moment",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "moderate",
@@ -82027,7 +82064,8 @@
       "betterLine": "Return Yedora, Grave Gardener from own graveyard to hand — a powerful creature that synergizes with the board and can be replayed for significant value",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "moderate",
@@ -82036,7 +82074,8 @@
       "betterLine": "Pass without activating anything. Save Rogue's Passage and mana for when it would actually matter - either during a future combat step to push through damage, or hold mana open for Pulse of Murasa or Essence Pulse.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -82045,7 +82084,8 @@
       "betterLine": "Attacking with Sangromancer is likely fine as a flying creature. The decision is reasonable.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "questionable",
@@ -82054,7 +82094,8 @@
       "betterLine": "Hold Bold Plagiarist and pass turn, keeping it available to flash in during an opponent's turn when they put counters on creatures (e.g., Orzhov Advokist triggers, Citadel Siege triggers, or Breena triggers). The flash is the key advantage of this card and casting it on your own turn wastes that surprise value.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 146
     },
     {
       "severity": "major",
@@ -82063,7 +82104,8 @@
       "betterLine": "Pass priority or use an ability that doesn't require mana, such as equipping Swiftfoot Boots (though that also costs {1} which they can't pay). The correct play is to pass since all mana is tapped.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82072,7 +82114,8 @@
       "betterLine": "Cycle Void Beckoner for {2}{B} to put a deathtouch counter on Odric or another creature, drawing a card and enabling Odric to share deathtouch to all creatures you control in combat",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82081,7 +82124,8 @@
       "betterLine": "Fetch Canopy Vista for strictly better mana flexibility since it enters tapped regardless via Karametra's ability",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82090,7 +82134,8 @@
       "betterLine": "Be selective about attacks - focus pressure on one or two opponents while keeping some creatures back as blockers, especially given Crown of Doom threatening to pump attackers coming back at you and Sangromancer rewarding creature deaths. At minimum, hold back a blocker or two.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82099,7 +82144,8 @@
       "betterLine": "Pass without activating Crown of Doom, saving mana (or the option of playing the Island from hand) to work toward casting powerful cards like Fool's Demise or Shaper Parasite sooner. The Crown of Doom's downside is manageable with the 6/6 Whale token as a blocker.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "questionable",
@@ -82108,7 +82154,8 @@
       "betterLine": "Attack with the 6/6 Whale Token (and possibly the Shaper Parasite too) to pressure opponents. The Whale has a death trigger that creates a 9/9 Kraken, making it safe to attack aggressively.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "questionable",
@@ -82117,7 +82164,8 @@
       "betterLine": "Play the Swamp from hand first to maximize available mana, then decide whether to cast Ancient Craving or hold mana open for Essence Pulse (which could be a powerful board wipe combined with Verdant Sun's Avatar's life gain trigger).",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "moderate",
@@ -82126,7 +82174,8 @@
       "betterLine": "Pass priority without activating either ability, preserving mana and Rogue's Passage for a more impactful moment. Sangromancer already has flying for evasion.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "questionable",
@@ -82135,7 +82184,8 @@
       "betterLine": "Attack first with Odric (potentially getting creatures tapped as blockers), then cast Sunblast Angel post-combat to destroy any newly tapped blockers. Alternatively, consider holding Sunblast Angel for a turn when opponents' creatures are more likely to be tapped.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82144,7 +82194,8 @@
       "betterLine": "Fetch Canopy Vista, which enters untapped and produces both green and white mana, providing more flexibility for casting both Sunblast Angel (WW) and other spells.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82153,7 +82204,8 @@
       "betterLine": "Attack selectively - send large creatures like Karametra (7/8, if active as creature) and Soul of Innistrad at the most threatening opponent, keep some creatures back as blockers, and preserve the option to cast Sunblast Angel post-combat to destroy opponents' tapped creatures while keeping your own untapped. At minimum, hold back some creatures to avoid feeding Sangromancer triggers and to maintain board presence.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82162,7 +82214,8 @@
       "betterLine": "Cast Intellectual Offering to draw 3 cards and untap permanents, gaining significant card advantage and potentially enabling further plays this turn",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -82171,7 +82224,8 @@
       "betterLine": "Play a Forest or Swamp to have more colored mana available for casting Essence Pulse or Pulse of Murasa in upcoming turns",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "major",
@@ -82180,7 +82234,8 @@
       "betterLine": "Let Verdant Sun's Avatar resolve first. Avatar enters, triggering life gain from itself (5 toughness) and Sangromancer (3 toughness) = 8 life gained. Then cast Essence Pulse gaining 2 more life for X=10 total, giving all creatures -10/-10, wiping the entire board except your own 5/5 Avatar (which becomes -5/-5... actually this kills Avatar too). Still, even with just Avatar's triggers giving 8 life, a -10/-10 wipe removes all opponent threats. Alternatively, just don't cast Essence Pulse at all and keep it for a better opportunity.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "moderate",
@@ -82189,7 +82244,8 @@
       "betterLine": "Simply tap Rogue's Passage for colorless mana ({T}: Add {C}) if mana was needed, or don't activate it at all. The 4 mana spent on unblockable is wasted when Sangromancer already has flying for evasion, and the Avatar hasn't even resolved yet.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "questionable",
@@ -82198,7 +82254,8 @@
       "betterLine": "Could consider equipping Swiftfoot Boots to Odric first (cost {1}) to give all creatures hexproof and haste via Odric's ability at beginning of combat, then cast Daring Fiendbonder. Though mana is largely tapped, so this sequencing point may be moot. The play is defensible but the reasoning was completely wrong about the card's abilities.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82207,7 +82264,8 @@
       "betterLine": "Attack selectively - send the biggest threats (Karametra 7/8, Soul of Innistrad 7/7, Void Beckoner 8/8) while keeping Odric, Acidic Slime, and Sunblast Angel back as blockers. This still deals 22 damage while maintaining board presence and defensive capability. Also, holding back Sunblast Angel preserves the option to use it as a board wipe threat later.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82216,7 +82274,8 @@
       "betterLine": "Cast Pongify targeting Verdant Sun's Avatar to remove the life-gain engine, replacing it with a much less threatening 3/3 Ape token.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "moderate",
@@ -82225,7 +82284,8 @@
       "betterLine": "Cast Riptide Survivor using Morph for {3} as a face-down 2/2, preserving the option to pay {1}{U}{U} later to flip it and draw 3 cards, discard 1.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "questionable",
@@ -82234,7 +82294,8 @@
       "betterLine": "Wait for Verdant Sun's Avatar to resolve, then equip Swiftfoot Boots to the Avatar (protecting a vulnerable 5/5) or to Odric (protecting the keyword-sharing engine). If Karametra isn't a creature, the equip would be wasted mana.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82243,7 +82304,8 @@
       "betterLine": "Equip Swiftfoot Boots to Odric, Lunarch Marshal (protecting the keyword-sharing engine and giving him hexproof+haste) or Soul of Innistrad (protecting a high-value non-indestructible threat)",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "moderate",
@@ -82252,7 +82314,8 @@
       "betterLine": "Hold back at least 1-2 creatures as blockers (e.g., Solemn Recruit or Acidic Slime) while still pressing a strong attack. With Odric sharing deathtouch and flying to all attackers, even 4-5 attackers would be devastating. Keeping some defense is important in a 4-player game where you're leaving yourself open to 3 opponents' attacks.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82261,7 +82324,8 @@
       "betterLine": "Block with Riptide Survivor 2/1 to preserve the larger Ape Token 3/3 for future combat",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -82270,7 +82334,8 @@
       "betterLine": "Block with Ape Token 3/3, which deals more combat damage, has higher toughness, and is a more expendable token creature.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -82279,7 +82344,8 @@
       "betterLine": "Block with the Ape Token 3/3, which absorbs more damage and preserves the more valuable Riptide Survivor for potential future morph activation.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -82288,7 +82354,8 @@
       "betterLine": "Block with the Riptide Survivor 2/1, preserving the more valuable 3/3 body",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 173
     },
     {
       "severity": "minor",
@@ -82297,7 +82364,8 @@
       "betterLine": "Play Radiant Fountain to gain 2 life, synergizing with Verdant Sun's Avatar ETB and Essence Pulse in hand for a larger board wipe effect",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -82306,7 +82374,8 @@
       "betterLine": "Play Grim Backwoods (untapped utility land) or Plains to have 7 lands on board instead of 6, getting closer to casting Sunblast Angel or Void Beckoner on subsequent turns",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82315,7 +82384,8 @@
       "betterLine": "Play Radiant Fountain to gain 2 life, synergizing with Essence Pulse's X value for a potential bigger board wipe effect",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -82324,7 +82394,8 @@
       "betterLine": "Choose Plains to better support the white-heavy spells in hand (Citadel Siege at 2WW, Oblation at 2W) since black mana was already sufficient",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 146
     },
     {
       "severity": "minor",
@@ -82333,7 +82404,8 @@
       "betterLine": "Play Radiant Fountain to gain 2 life, stacking with Verdant Sun's Avatar's 5 life gain to boost future Essence Pulse to -9/-9 instead of -7/-7",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -82342,7 +82414,8 @@
       "betterLine": "Cast Leyline Prowler (2/3 with deathtouch, lifelink, and mana production) to accelerate future plays and provide better keyword utility",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     },
     {
       "severity": "minor",
@@ -82351,7 +82424,8 @@
       "betterLine": "Play Myriad Landscape instead - no bounce cost, enters as a land, and can later sacrifice to fetch two basic lands for additional ramp",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 155
     },
     {
       "severity": "minor",
@@ -82360,12 +82434,13 @@
       "betterLine": "Let Verdant Sun's Avatar resolve first, then cast Leyline Prowler to trigger Avatar's ability and gain an additional 3 life. Also should play a land (Sapseep Forest) before or after.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 142
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 11,
-  "version": 7,
+  "version": 8,
   "gameType": "Commander Free For All",
   "deckType": "Variant Magic - Freeform Commander",
   "decisions": [

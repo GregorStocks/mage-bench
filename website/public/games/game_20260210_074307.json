@@ -328490,7 +328490,8 @@
       "betterLine": "Choose another player to go first, allowing yourself to draw an extra card and potentially find ramp or early plays for this expensive hand",
       "type": "blunder",
       "snapshotIndex": 1,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 0
     },
     {
       "severity": "minor",
@@ -328499,7 +328500,8 @@
       "betterLine": "Play Command Tower to maximize mana flexibility for future turns, keeping Swamps for later when color requirements are already met",
       "type": "blunder",
       "snapshotIndex": 9,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 9
     },
     {
       "severity": "minor",
@@ -328508,7 +328510,8 @@
       "betterLine": "Play Command Tower to maximize color flexibility for the multicolored spells in hand (Ikra Shidiqi, Fathom Mage, Citadel Siege)",
       "type": "blunder",
       "snapshotIndex": 24,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 14
     },
     {
       "severity": "minor",
@@ -328517,7 +328520,8 @@
       "betterLine": "Fetch Forest to better support casting Ikra Shidiqi (3BG) and Fathom Mage (2GU), since Command Tower already covers blue",
       "type": "blunder",
       "snapshotIndex": 26,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 15
     },
     {
       "severity": "minor",
@@ -328526,7 +328530,8 @@
       "betterLine": "Play Rakdos Carnarium, bouncing Forest back to hand. This gives 3 mana on turn 3 (Carnarium + replay Forest), enabling Farhaven Elf on curve, which accelerates toward Rampaging Baloths and Bloodtracker.",
       "type": "blunder",
       "snapshotIndex": 30,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 16
     },
     {
       "severity": "minor",
@@ -328535,7 +328540,8 @@
       "betterLine": "Play a Swamp or Forest to have two lands on the battlefield, developing mana toward casting spells on future turns.",
       "type": "blunder",
       "snapshotIndex": 34,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 18
     },
     {
       "severity": "moderate",
@@ -328544,7 +328550,8 @@
       "betterLine": "Play a Forest or Swamp to make the land drop, developing mana and avoiding the forced discard.",
       "type": "blunder",
       "snapshotIndex": 36,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 19
     },
     {
       "severity": "minor",
@@ -328553,7 +328560,8 @@
       "betterLine": "Fetch Forest to enable Centaur Vinecrasher on turn 4 and unlock green cards in hand",
       "type": "blunder",
       "snapshotIndex": 40,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 23
     },
     {
       "severity": "minor",
@@ -328562,7 +328570,8 @@
       "betterLine": "Play Command Tower first, then use Sylvan Reclamation's basic landcycling with the two Swamps. The end result is identical, but playing lands before spending mana is correct sequencing practice.",
       "type": "blunder",
       "snapshotIndex": 44,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 25
     },
     {
       "severity": "minor",
@@ -328571,7 +328580,8 @@
       "betterLine": "Play Forest, keeping three lands in play. Next turn play another land and cast Farhaven Elf to ramp. Save Rakdos Carnarium for a later turn when bouncing a land is less punishing.",
       "type": "blunder",
       "snapshotIndex": 50,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -328580,7 +328590,8 @@
       "betterLine": "Bounce Swamp instead of Forest. Rakdos Carnarium already produces black mana, so the Swamp is redundant. Keeping Forest on the battlefield preserves access to green mana, which is important for casting Farhaven Elf and other green spells in hand.",
       "type": "blunder",
       "snapshotIndex": 51,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 29
     },
     {
       "severity": "moderate",
@@ -328589,7 +328600,8 @@
       "betterLine": "Discard a Forest instead, preserving Farhaven Elf to cast next turn for ramp, which is critical for deploying the expensive threats in hand (Rampaging Baloths, Thantis, Bloodtracker)",
       "type": "blunder",
       "snapshotIndex": 55,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 30
     },
     {
       "severity": "minor",
@@ -328598,7 +328610,8 @@
       "betterLine": "Cast Crystalline Crawler using all 4 available mana (potentially getting 2-3 different colors via Command Tower), entering with multiple +1/+1 counters for mana acceleration, enabling faster deployment of 5-mana spells like Ikra Shidiqi or Cauldron of Souls next turn",
       "type": "blunder",
       "snapshotIndex": 68,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 36
     },
     {
       "severity": "minor",
@@ -328607,7 +328620,8 @@
       "betterLine": "Play Blighted Woodland instead, preserving both Forests in hand for future turns when Blighted Woodland's sacrifice ability or other land-matters effects become relevant.",
       "type": "blunder",
       "snapshotIndex": 73,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 38
     },
     {
       "severity": "moderate",
@@ -328616,7 +328630,8 @@
       "betterLine": "Cast Centaur Vinecrasher to develop the board, saving Eldrazi Monument for when there are enough creatures to sustain its upkeep cost. Alternatively, hold mana open for Altar's Reap if needed.",
       "type": "blunder",
       "snapshotIndex": 89,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 52
     },
     {
       "severity": "moderate",
@@ -328625,7 +328640,8 @@
       "betterLine": "Play Plains (or Island) first, then cast Crystalline Crawler for 4 mana (using all 4 colors available with Command Tower) to get it onto the battlefield with counters, or save Solidarity of Heroes for when there are actual +1/+1 counters to double.",
       "type": "blunder",
       "snapshotIndex": 96,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 66
     },
     {
       "severity": "moderate",
@@ -328634,7 +328650,8 @@
       "betterLine": "Should not have cast Solidarity of Heroes at all when no creatures have +1/+1 counters to double. The card should have been held for a turn when counters are present (e.g., after Citadel Siege's Khans mode or Fathom Mage evolve triggers).",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 71
     },
     {
       "severity": "moderate",
@@ -328643,7 +328660,8 @@
       "betterLine": "Don't cast Solidarity of Heroes at all since no creatures have +1/+1 counters to double. Save it for later when Fathom Mage or Crystalline Crawler might have counters, creating actual value.",
       "type": "blunder",
       "snapshotIndex": 97,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 71
     },
     {
       "severity": "questionable",
@@ -328652,7 +328670,8 @@
       "betterLine": "Don't attack with Fathom Mage. Keep it back as a value engine for upcoming +1/+1 counter synergies (Citadel Siege, Solidarity of Heroes). 1 damage to any opponent is not worth the risk of losing your only creature and key card draw engine.",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -328661,7 +328680,8 @@
       "betterLine": "Attack Devstral where the Corpse Augur is tapped and cannot block, preserving Fathom Mage safely while still dealing 1 damage",
       "type": "blunder",
       "snapshotIndex": 99,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 71
     },
     {
       "severity": "minor",
@@ -328670,7 +328690,8 @@
       "betterLine": "Play Plains (or Island) first, then cast Crystalline Crawler spending 4 colors of mana (e.g., WBUG) for 4 +1/+1 counters.",
       "type": "blunder",
       "snapshotIndex": 102,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 77
     },
     {
       "severity": "minor",
@@ -328679,7 +328700,8 @@
       "betterLine": "Fetch Forest + Swamp to improve black mana access for Gaze of Granite and other black-heavy spells while still having ample green sources",
       "type": "blunder",
       "snapshotIndex": 112,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 98
     },
     {
       "severity": "questionable",
@@ -328688,7 +328710,8 @@
       "betterLine": "Cast Corpse Augur to develop the board with a 4/2 creature that can be equipped with Lightning Greaves and will eventually draw cards when it dies, preserving life total while still advancing the game plan",
       "type": "blunder",
       "snapshotIndex": 119,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 106
     },
     {
       "severity": "minor",
@@ -328697,7 +328720,8 @@
       "betterLine": "Any target gives the same result (X=1), so this is fine",
       "type": "blunder",
       "snapshotIndex": 126,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 109
     },
     {
       "severity": "questionable",
@@ -328706,7 +328730,8 @@
       "betterLine": "Discard Centaur Vinecrasher instead, which has built-in graveyard recursion (pay GG when a land enters a graveyard), preserving Butcher of Malakir for hard-casting or keeping Victimize targets more flexible.",
       "type": "blunder",
       "snapshotIndex": 133,
-      "player": "Devstral"
+      "player": "Devstral",
+      "decisionIndex": 118
     },
     {
       "severity": "minor",
@@ -328715,7 +328740,8 @@
       "betterLine": "Play Forest (or Mountain) to have untapped mana available, then cast Explosive Vegetation to ramp into two more basics, setting up for Thantis or Rampaging Baloths next turn with landfall triggers.",
       "type": "blunder",
       "snapshotIndex": 141,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 122
     },
     {
       "severity": "minor",
@@ -328724,7 +328750,8 @@
       "betterLine": "Play Forest from hand, then cast Rampaging Baloths (4GG) using the 9 available mana, getting an immediate 4/4 Beast token from the Forest's landfall trigger. Save Explosive Vegetation for next turn to generate two more 4/4 tokens.",
       "type": "blunder",
       "snapshotIndex": 142,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 123
     },
     {
       "severity": "minor",
@@ -328733,7 +328760,8 @@
       "betterLine": "Fetch a Mountain and a Swamp (or at least one of them) to improve mana redundancy for Thantis and Gaze of Granite, ensuring they can cast their spells even if Rakdos Carnarium is removed.",
       "type": "blunder",
       "snapshotIndex": 143,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 126
     },
     {
       "severity": "questionable",
@@ -328742,7 +328770,8 @@
       "betterLine": "This is debatable - attacking with a growing Bloodtracker is fine if no dangerous blockers are present, but holding back to continue growing it could yield more value long-term.",
       "type": "blunder",
       "snapshotIndex": 146,
-      "player": "Gemini2.5Flash"
+      "player": "Gemini2.5Flash",
+      "decisionIndex": 133
     },
     {
       "severity": "minor",
@@ -328751,7 +328780,8 @@
       "betterLine": "Play Golgari Guildgate (enters tapped) this turn since 5 untapped mana is sufficient for current castable spells, saving Command Tower for a future turn when the extra untapped mana and flexibility matters more.",
       "type": "blunder",
       "snapshotIndex": 150,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 136
     },
     {
       "severity": "minor",
@@ -328760,7 +328790,8 @@
       "betterLine": "Play a land first (Forest for untapped mana, or Golgari Guildgate/Slippery Karst if saving the Forest), then equip Lightning Greaves to Meren",
       "type": "blunder",
       "snapshotIndex": 152,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 145
     },
     {
       "severity": "questionable",
@@ -328769,7 +328800,8 @@
       "betterLine": "Discard Golgari Guildgate - with 7 lands already in play including Command Tower and Vivid Marsh for color fixing, the tapped land is the lowest-impact card. While Spider Spawning has flashback, keeping it in hand preserves the option to cast it at its cheaper regular cost (4G vs 6B for flashback).",
       "type": "blunder",
       "snapshotIndex": 160,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 149
     },
     {
       "severity": "minor",
@@ -328778,7 +328810,8 @@
       "betterLine": "Play Forest first, then cast Wood Elves to ramp (fetching another Forest), building toward casting expensive threats like Pathbreaker Ibex or Eater of Hope sooner while generating Meren synergy",
       "type": "blunder",
       "snapshotIndex": 170,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 151
     },
     {
       "severity": "minor",
@@ -328787,7 +328820,8 @@
       "betterLine": "Play Forest (or Golgari Guildgate), then cast Mulch to find more lands and fill the graveyard for Meren's ability, or cast Wood Elves to ramp. Equip Greaves later to protect a newly deployed creature.",
       "type": "blunder",
       "snapshotIndex": 172,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 156
     },
     {
       "severity": "minor",
@@ -328796,7 +328830,8 @@
       "betterLine": "This is actually fine as a first action since equip costs 0; they can still cast Mulch afterwards with their remaining mana",
       "type": "blunder",
       "snapshotIndex": 173,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 160
     },
     {
       "severity": "moderate",
@@ -328805,7 +328840,8 @@
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth for free to give her shroud and protect her from targeted removal. Note: they should wait until after playing Wood Elves or other creatures that need to be targeted by Meren's ability, but protecting the commander with free equipment is generally correct, especially before playing the land for the turn.",
       "type": "blunder",
       "snapshotIndex": 175,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 165
     },
     {
       "severity": "minor",
@@ -328814,7 +328850,8 @@
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth for {0} to give her shroud, protecting her from targeted removal for free.",
       "type": "blunder",
       "snapshotIndex": 179,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 168
     },
     {
       "severity": "minor",
@@ -328823,7 +328860,8 @@
       "betterLine": "Play Forest or Evolving Wilds first, then cast Pathbreaker Ibex. This preserves the land drop and maximizes available mana for the turn.",
       "type": "blunder",
       "snapshotIndex": 283,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 171
     },
     {
       "severity": "minor",
@@ -328832,7 +328870,8 @@
       "betterLine": "Play Evolving Wilds (or Forest/Swamp) first, then cast Wood Elves (fetching a land), then equip Lightning Greaves to Meren or Wood Elves as appropriate after all ETB effects resolve",
       "type": "blunder",
       "snapshotIndex": 285,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 177
     },
     {
       "severity": "minor",
@@ -328841,7 +328880,8 @@
       "betterLine": "At minimum, equip Lightning Greaves to Meren of Clan Nel Toth for free shroud protection. Then play a land (Forest or Swamp) and potentially activate Evolving Wilds to fix mana and thin the deck.",
       "type": "blunder",
       "snapshotIndex": 286,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 178
     },
     {
       "severity": "minor",
@@ -328850,7 +328890,8 @@
       "betterLine": "Equip Lightning Greaves to Meren first ({0} cost) to give her shroud protection, then activate Evolving Wilds to fetch a basic land",
       "type": "blunder",
       "snapshotIndex": 290,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 184
     },
     {
       "severity": "minor",
@@ -328859,7 +328900,8 @@
       "betterLine": "Fetch Forest to better support casting Viridian Zealot (GG) and Wood Elves (2G), since black sources are already abundant and there's a Swamp in hand",
       "type": "blunder",
       "snapshotIndex": 291,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 186
     },
     {
       "severity": "questionable",
@@ -328868,7 +328910,8 @@
       "betterLine": "Select Extractor Demon - it costs 1 less mana to cast, has unearth for flexibility, and can always be the Meren target next turn if needed. Eater of Hope could be selected on a future Meren trigger when experience counters are higher for direct reanimation.",
       "type": "blunder",
       "snapshotIndex": 293,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 187
     },
     {
       "severity": "minor",
@@ -328877,7 +328920,8 @@
       "betterLine": "This is actually a reasonable discard since Scourge can be cast from graveyard and Meren can retrieve it - the play is defensible",
       "type": "blunder",
       "snapshotIndex": 348,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 193
     },
     {
       "severity": "minor",
@@ -328886,7 +328930,8 @@
       "betterLine": "Cast a creature first (like Wood Elves for ramp or Thief of Blood to remove counters from opponents' creatures), then equip Lightning Greaves to the new creature if desired. Gemini2.5Flash is at 6 life - consider lines that enable attacking for the kill.",
       "type": "blunder",
       "snapshotIndex": 366,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 204
     },
     {
       "severity": "moderate",
@@ -328895,7 +328940,8 @@
       "betterLine": "Play Forest from hand (land drop), then cast Viridian Zealot for GG (using Vivid Marsh + untapped Swamp), equip Lightning Greaves for free to give it haste, and potentially attack Gemini2.5Flash who is at 6 life. With Meren on board, developing creatures is valuable for the death trigger synergies.",
       "type": "blunder",
       "snapshotIndex": 369,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 212
     },
     {
       "severity": "major",
@@ -328904,7 +328950,8 @@
       "betterLine": "Attack Gemini2.5Flash with all creatures. Pathbreaker Ibex's trigger would give all creatures +5/+5 (from Extractor Demon's 5 power) and trample, resulting in massive lethal damage through Bloodtracker's single block, eliminating a player.",
       "type": "blunder",
       "snapshotIndex": 370,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 212
     },
     {
       "severity": "minor",
@@ -328913,7 +328960,8 @@
       "betterLine": "Play a land (Island or Azorius Chancery) and cast Commander's Sphere to develop mana base, saving Solidarity of Heroes for a more impactful target later when building a board with Citadel Siege or actual threats.",
       "type": "blunder",
       "snapshotIndex": 400,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 214
     },
     {
       "severity": "major",
@@ -328922,7 +328970,8 @@
       "betterLine": "Should not have targeted any opponent's creature with Solidarity of Heroes. If forced to choose between the two, Bloodtracker on 6-life Gemini2.5Flash is less threatening than buffing Devstral's Lotleth Troll. Ideally, decline additional targets entirely.",
       "type": "blunder",
       "snapshotIndex": 401,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 224
     },
     {
       "severity": "minor",
@@ -328931,7 +328980,8 @@
       "betterLine": "Let Solidarity of Heroes resolve first to double 3 counters to 6, then remove counters as needed for mana afterward.",
       "type": "blunder",
       "snapshotIndex": 401,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 224
     },
     {
       "severity": "questionable",
@@ -328940,7 +328990,8 @@
       "betterLine": "Cast Commander's Sphere {3} to provide ongoing mana acceleration and color fixing, enabling faster deployment of Citadel Siege and Cauldron of Souls in subsequent turns while preserving more Crawler counters",
       "type": "blunder",
       "snapshotIndex": 402,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 225
     },
     {
       "severity": "minor",
@@ -328949,7 +329000,8 @@
       "betterLine": "Cast Citadel Siege by tapping Island and removing 2 +1/+1 counters from Crystalline Crawler, choosing Khans mode to start accumulating +1/+1 counters on creatures each combat.",
       "type": "blunder",
       "snapshotIndex": 406,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 226
     },
     {
       "severity": "minor",
@@ -328958,7 +329010,8 @@
       "betterLine": "Play Forest from hand first, then cast Caller of the Pack",
       "type": "blunder",
       "snapshotIndex": 412,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 234
     },
     {
       "severity": "questionable",
@@ -328967,7 +329020,8 @@
       "betterLine": "Play Forest from hand first to ensure the land drop isn't missed, then proceed with equipping and other plays. With Gemini2.5Flash at 6 life, also consider whether Thief of Blood could be relevant this turn to push for a kill.",
       "type": "blunder",
       "snapshotIndex": 414,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 240
     },
     {
       "severity": "minor",
@@ -328976,7 +329030,8 @@
       "betterLine": "Play Forest from hand first (land drop), then consider casting Viridian Zealot as a body that synergizes with Meren's death triggers.",
       "type": "blunder",
       "snapshotIndex": 414,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 240
     },
     {
       "severity": "major",
@@ -328985,7 +329040,8 @@
       "betterLine": "Attack with at least Pathbreaker Ibex and Caller of the Pack together. Ibex trigger gives all attackers +8/+8 and trample, making Caller 16/14 and all Myriad copies 16/14 trample, likely killing Gemini2.5Flash and dealing massive damage to all opponents. Could also send all creatures for maximum damage.",
       "type": "blunder",
       "snapshotIndex": 415,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 249
     },
     {
       "severity": "major",
@@ -328994,7 +329050,8 @@
       "betterLine": "Attack with all creatures targeting Gemini2.5Flash for guaranteed lethal damage with Pathbreaker Ibex's trample buff.",
       "type": "blunder",
       "snapshotIndex": 415,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 249
     },
     {
       "severity": "minor",
@@ -329003,7 +329060,8 @@
       "betterLine": "Attack with all 3 creatures. This forces the opponent into a lose-lose: block Wood Elves and die to 7 damage, or block a bigger creature and take 4-5 damage, putting them in easy kill range next turn.",
       "type": "blunder",
       "snapshotIndex": 415,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 249
     },
     {
       "severity": "minor",
@@ -329012,7 +329070,8 @@
       "betterLine": "Play Evolving Wilds first (crack it to fetch a basic), then cast Duelist's Heritage. This ensures the land drop isn't forgotten and gets deck thinning started immediately.",
       "type": "blunder",
       "snapshotIndex": 429,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 261
     },
     {
       "severity": "minor",
@@ -329021,7 +329080,8 @@
       "betterLine": "Play Azorius Chancery, bouncing a tapped land (e.g., Island), to get the double-mana bounce land online sooner and maximize mana development for casting 4-5 mana spells in hand.",
       "type": "blunder",
       "snapshotIndex": 431,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 268
     },
     {
       "severity": "minor",
@@ -329030,7 +329090,8 @@
       "betterLine": "Tap Crystalline Crawler to put a +1/+1 counter on it (free value), and activate Evolving Wilds if available to thin the deck and fix mana",
       "type": "blunder",
       "snapshotIndex": 432,
-      "player": "GPT-4.1-mini"
+      "player": "GPT-4.1-mini",
+      "decisionIndex": 268
     },
     {
       "severity": "questionable",
@@ -329039,7 +329100,8 @@
       "betterLine": "Cast Bloodspore Thrinax (potentially devouring nothing for now to set up future synergy with Meren), or if wanting Great Oak Guardian, cast it during the declare attackers step to pump Meren for combat damage. Alternatively, play Golgari Rot Farm first to set up future mana, then consider casting Thief of Blood or Bloodspore Thrinax.",
       "type": "blunder",
       "snapshotIndex": 436,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 275
     },
     {
       "severity": "minor",
@@ -329048,7 +329110,8 @@
       "betterLine": "Choose Thief of Blood (6 mana) to return to hand - it directly answers Ishai's counter accumulation and Crystalline Crawler, while being cheaper to cast than Butcher",
       "type": "blunder",
       "snapshotIndex": 615,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 290
     },
     {
       "severity": "minor",
@@ -329057,7 +329120,8 @@
       "betterLine": "Target Shriekmaw (castable via evoke for 1B to kill Ishai) or Acidic Slime (castable at 3GG with current 7 lands) to get an immediately usable creature",
       "type": "blunder",
       "snapshotIndex": 685,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 291
     },
     {
       "severity": "minor",
@@ -329066,7 +329130,8 @@
       "betterLine": "Cast Sever the Bloodline targeting Ishai, Ojutai Dragonspeaker to exile GPT-4.1-mini's main threat, then use remaining mana for Viridian Zealot or Phyrexian Rager",
       "type": "blunder",
       "snapshotIndex": 765,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 294
     },
     {
       "severity": "minor",
@@ -329075,7 +329140,8 @@
       "betterLine": "Keep Lightning Greaves on Pathbreaker Ibex to protect the most impactful creature, or move it to Meren to protect the recursion engine.",
       "type": "blunder",
       "snapshotIndex": 767,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 301
     },
     {
       "severity": "minor",
@@ -329084,7 +329150,8 @@
       "betterLine": "Activate Terramorphic Expanse to search for a basic land, gaining incremental advantage at no cost.",
       "type": "blunder",
       "snapshotIndex": 767,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 301
     },
     {
       "severity": "minor",
@@ -329093,7 +329160,8 @@
       "betterLine": "Activate Terramorphic Expanse to search for a basic land, getting additional mana for future turns and thinning the deck",
       "type": "blunder",
       "snapshotIndex": 769,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 304
     },
     {
       "severity": "minor",
@@ -329102,7 +329170,8 @@
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth to protect the most important creature on the board from removal.",
       "type": "blunder",
       "snapshotIndex": 770,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 309
     },
     {
       "severity": "moderate",
@@ -329111,7 +329180,8 @@
       "betterLine": "Select Eternal Witness (3 mana, castable next turn to recur a key card like Pathbreaker Ibex or Overwhelming Stampede) or Butcher of Malakir/Acidic Slime for immediate board impact",
       "type": "blunder",
       "snapshotIndex": 771,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 309
     },
     {
       "severity": "minor",
@@ -329120,7 +329190,8 @@
       "betterLine": "Cast Korozda Guildmage first using Vivid Marsh (removing charge counter for G) and Swamp (for B), then equip Lightning Greaves to whichever creature needs protection most",
       "type": "blunder",
       "snapshotIndex": 848,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 319
     },
     {
       "severity": "moderate",
@@ -329129,7 +329200,8 @@
       "betterLine": "Choose Sakura-Tribe Elder or Eternal Witness - creatures with low enough CMV to potentially return directly to the battlefield via Meren, providing immediate board impact and incremental advantage.",
       "type": "blunder",
       "snapshotIndex": 851,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 324
     },
     {
       "severity": "moderate",
@@ -329138,7 +329210,8 @@
       "betterLine": "Cast Centaur Vinecrasher for 4 mana (entering as ~32/32 trample), equip Lightning Greaves for free (haste+shroud), and attack GPT-4.1-mini for lethal or near-lethal damage. Remaining 3 mana could be used for Viridian Zealot or held for Altar's Reap.",
       "type": "blunder",
       "snapshotIndex": 859,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 331
     },
     {
       "severity": "questionable",
@@ -329147,7 +329220,8 @@
       "betterLine": "Equip Lightning Greaves to Vulturous Zombie (11/11) to protect the biggest threat and ensure maximum value from Pathbreaker Ibex's attack trigger. Greaves can be moved to Ibex after attacks are declared if needed (equip 0).",
       "type": "blunder",
       "snapshotIndex": 861,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 338
     },
     {
       "severity": "minor",
@@ -329156,12 +329230,13 @@
       "betterLine": "Activate Jarad's graveyard ability, sacrificing a Swamp and a Forest to return Jarad to hand. Jarad would be enormous with all the creature cards in the graveyard and could potentially win the game with its sacrifice-drain ability.",
       "type": "blunder",
       "snapshotIndex": 862,
-      "player": "Gem3Flash"
+      "player": "Gem3Flash",
+      "decisionIndex": 345
     }
   ],
   "harnessEpoch": 1,
   "blunderScriptVersion": 12,
-  "version": 7,
+  "version": 8,
   "gameType": "Commander Free For All",
   "deckType": "Variant Magic - Freeform Commander",
   "decisions": [
