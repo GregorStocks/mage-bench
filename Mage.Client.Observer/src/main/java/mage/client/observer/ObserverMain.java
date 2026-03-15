@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
@@ -34,6 +35,24 @@ import java.nio.charset.Charset;
 public class ObserverMain {
 
     private static final Logger LOGGER = Logger.getLogger(ObserverMain.class);
+
+    static ObserverHealthServer startConfiguredHealthServer() {
+        int healthPort = Integer.getInteger("xmage.observer.healthPort", 0);
+        if (healthPort <= 0) {
+            return null;
+        }
+        return startHealthServer(healthPort);
+    }
+
+    static ObserverHealthServer startHealthServer(int healthPort) {
+        try {
+            ObserverHealthServer healthServer = new ObserverHealthServer(healthPort);
+            healthServer.start();
+            return healthServer;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to start observer health server on port " + healthPort, e);
+        }
+    }
 
     public static void main(final String[] args) {
         // Same setup as MageFrame.main()
@@ -115,7 +134,16 @@ public class ObserverMain {
 
             // Create the observer frame (instead of regular MageFrame)
             try {
+                ObserverHealthServer healthServer = null;
+                if (Boolean.getBoolean("xmage.observer.keepAlive")) {
+                    // Bind the health endpoint before MageFrame cold-start work
+                    // so the harness can long-poll readiness during startup.
+                    healthServer = startConfiguredHealthServer();
+                }
                 ObserverMageFrame observerFrame = new ObserverMageFrame();
+                if (healthServer != null) {
+                    observerFrame.setHealthServer(healthServer);
+                }
                 ObserverMageFrame.setInstance(observerFrame);
                 EDTExceptionHandler.registerMainApp(observerFrame);
                 // Prevent the observer window from ever stealing OS keyboard focus.

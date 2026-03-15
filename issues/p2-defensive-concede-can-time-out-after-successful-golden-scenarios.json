@@ -1,0 +1,10 @@
+{
+  "title": "Defensive concede can time out after a successful golden scenario",
+  "description": "A local smoke run on 2026-03-14 of `xvfb-run make test-golden K=board_cursor_dedup` completed spectator startup and the scripted scenario successfully, including `game_end_signal`, `prompt_compare`, and `export_compare`, but then failed in the `finally` cleanup block when `tests/golden_helpers.py` called `session.call_tool(\"concede\", timeout=10)` on the persistent bridge sessions. The replay phase finished in 121.6s and the captured stdout shows the scenario reaching `get_action_choices`, `choose_action`, and post-replay export comparison before the cleanup `concede` RPCs timed out. This suggests the persistent bridge can remain stuck after a nominally successful golden run, which can poison later tests and create misleading flakes that look unrelated to startup. Evidence: local run of `board_cursor_dedup` on branch `briar-ochre-dart` after the observer startup contract patch.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["golden", "bridge", "cleanup"],
+  "created_at": "2026-03-14T18:42:57-07:00",
+  "updated_at": "2026-03-14T18:42:57-07:00"
+}

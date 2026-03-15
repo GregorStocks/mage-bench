@@ -94,7 +94,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p11"
           },
           "name": "choose_action"
         },
@@ -115,7 +115,7 @@
       {
         "function": {
           "arguments": {
-            "choice": "_"
+            "choice": "p10"
           },
           "name": "choose_action"
         },
@@ -215,7 +215,7 @@
         {
           "battlefield": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Forest",
               "rules": [
                 "{T}: Add {G}."
@@ -225,7 +225,7 @@
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p24",
               "mana_cost": "{0}",
               "name": "Ornithopter",
               "power": 0,
@@ -235,7 +235,7 @@
               "toughness": 2
             },
             {
-              "id": "_",
+              "id": "p12",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -243,7 +243,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -251,7 +251,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -259,7 +259,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -267,7 +267,7 @@
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "is_land": true,
               "name": "Plains",
               "rules": [
@@ -294,7 +294,7 @@
       "priority_player": "TestPlayer",
       "stack": [
         {
-          "id": "_",
+          "id": "p23",
           "name": "Ancient Stirrings",
           "rules": [
             "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."

@@ -1225,7 +1225,7 @@ public class BridgeCallbackHandler {
                     for (Map.Entry<UUID, String> entry : choices.entrySet()) {
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
-                        String desc = stripHtml(entry.getValue());
+                        String desc = stripAbilityPickerOrdinalPrefix(stripHtml(entry.getValue()), idx);
                         choiceEntry.put("description", desc);
                         choiceList.add(choiceEntry);
                         indexToUuid.add(entry.getKey());
@@ -1588,8 +1588,12 @@ public class BridgeCallbackHandler {
             blockersArray = null;
         }
 
-        // Resolve id to index
-        if (id != null) {
+        ClientCallbackMethod method = action.method();
+
+        // Resolve id to index for action types that accept short IDs.
+        // GAME_CHOOSE_CHOICE uses text=Name or choice=N, so free-form strings
+        // like "Black" must reach the action-specific validation instead.
+        if (id != null && method != ClientCallbackMethod.GAME_CHOOSE_CHOICE) {
             if (index != null) {
                 // Both provided — prefer id (it's more specific; index is usually a default value)
                 logger.warn("[" + client.getUsername() + "] choose_action: both id=" + id + " and index=" + index + " provided, preferring id");
@@ -1653,7 +1657,6 @@ public class BridgeCallbackHandler {
         }
 
         UUID gameId = action.gameId();
-        ClientCallbackMethod method = action.method();
         Object data = action.data();
 
         result.success = true;
@@ -1955,6 +1958,12 @@ public class BridgeCallbackHandler {
                         }
                         result.action_taken = "selected_choice_text_" + text;
                         break;
+                    }
+                    if (id != null && !id.isEmpty()) {
+                        return buildError(result, "invalid_choice",
+                            "GAME_CHOOSE_CHOICE does not accept choice=\"" + id + "\" by name. "
+                            + "Use text=\"" + id + "\" or choice=N with the current options.",
+                            true, action, true);
                     }
                     if (index == null) {
                         return buildError(result, "missing_param",
@@ -4848,6 +4857,15 @@ public class BridgeCallbackHandler {
         s = HTML_TAG_PATTERN.matcher(s).replaceAll("");
         s = HEX_SUFFIX_PATTERN.matcher(s).replaceAll("");
         return s;
+    }
+
+    static String stripAbilityPickerOrdinalPrefix(String description, int zeroBasedIndex) {
+        String normalized = Objects.requireNonNull(description, "Ability choice description must not be null");
+        String expectedPrefix = (zeroBasedIndex + 1) + ". ";
+        if (normalized.startsWith(expectedPrefix)) {
+            return normalized.substring(expectedPrefix.length());
+        }
+        return normalized;
     }
 
     /** Strip HTML tags and hex suffixes from each string in a list (e.g. card rules). */

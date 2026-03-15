@@ -75,6 +75,16 @@ public class ObserverMageFrame extends MageFrame {
         SwingUtilities.invokeLater(this::hideToolbar);
     }
 
+    void setHealthServer(ObserverHealthServer healthServer) {
+        if (healthServer == null) {
+            throw new IllegalArgumentException("Observer health server cannot be null");
+        }
+        if (this.healthServer != null && this.healthServer != healthServer) {
+            throw new IllegalStateException("Observer health server already initialized");
+        }
+        this.healthServer = healthServer;
+    }
+
     /**
      * Hide the main application toolbar since observer spectators don't need it.
      */
@@ -331,13 +341,13 @@ public class ObserverMageFrame extends MageFrame {
      */
     public void startKeepAliveLoop() {
         int healthPort = Integer.getInteger("xmage.observer.healthPort", 0);
-        if (healthPort > 0) {
-            try {
-                healthServer = new ObserverHealthServer(healthPort);
-                healthServer.start();
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to start observer health server on port " + healthPort, e);
-            }
+        if (healthPort > 0 && healthServer == null) {
+            throw new IllegalStateException(
+                    "Observer health server must be initialized before keepAlive startup on port " + healthPort
+            );
+        }
+        if (healthServer != null) {
+            healthServer.signalKeepAliveReady();
         }
 
         LOGGER.info("keepAlive: ready for commands");
