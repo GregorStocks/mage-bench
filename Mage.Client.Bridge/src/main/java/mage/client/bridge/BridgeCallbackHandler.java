@@ -3168,6 +3168,20 @@ public class BridgeCallbackHandler {
         return result;
     }
 
+    private ActionResult stepYieldResult(PendingAction action, GameView gv, String stopReason, Long boardCursorParam) {
+        var result = new ActionResult();
+        result.action_pending = true;
+        result.action_type = action.method().name();
+        result.game_seq = action.gameSeq();
+        if (gv != null && gv.getStep() != null) {
+            result.current_step = gv.getStep().toString();
+        }
+        result.stop_reason = stopReason;
+        attachUnseenChat(result);
+        mergeActionChoices(result, boardCursorParam);
+        return result;
+    }
+
     private UUID lowestStackObjectId(GameView gameView) {
         if (gameView == null || gameView.getStack() == null || gameView.getStack().isEmpty()) {
             return null;
@@ -3352,20 +3366,14 @@ public class BridgeCallbackHandler {
                     }
                 }
 
-                // Step-specific yield: turn boundary — target step wasn't reached this turn
-                if (targetStep != null && lastTurnNumber != yieldStartTurn) {
-                    var result = new ActionResult();
-                    result.action_pending = true;
-                    result.action_type = method.name();
+                GameView actionView = (action.data() instanceof GameClientMessage)
+                    ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
 
-                    result.game_seq = action.gameSeq();
-                    GameView gvSnap = lastGameView;
-                    if (gvSnap != null && gvSnap.getStep() != null) {
-                        result.current_step = gvSnap.getStep().toString();
-                    }
-                    result.stop_reason = "step_not_reached";
-                    attachUnseenChat(result);
-                    logPassPriorityReturn(until, actionsPassed, action, gvSnap, result, false);
+                // Step-specific yield: stop on any later turn, even if the target
+                // step was skipped by auto-passes or never arrived as a callback.
+                if (targetStep != null && lastTurnNumber != yieldStartTurn) {
+                    ActionResult result = stepYieldResult(action, actionView, "step_not_reached", boardCursorParam);
+                    logPassPriorityReturn(until, actionsPassed, action, actionView, result, true);
                     return result;
                 }
 
@@ -3463,8 +3471,7 @@ public class BridgeCallbackHandler {
                 // our turn, clear the flag and fall through to the playable-cards
                 // check (which will return if there are meaningful choices).
                 if (yieldUntilMyTurn) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
                         // We've become the active player — stop yielding
                         yieldUntilMyTurn = false;
@@ -3485,8 +3492,7 @@ public class BridgeCallbackHandler {
                 // Client-side yield: end_of_turn
                 // Auto-pass all callbacks until the end of turn step is reached.
                 if (yieldUntilEndOfTurn) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     PhaseStep step = gv != null ? gv.getStep() : null;
                     int turnNum = gv != null ? gv.getTurn() : yieldStartTurn;
                     if (step == PhaseStep.END_TURN || step == PhaseStep.CLEANUP
@@ -3513,8 +3519,7 @@ public class BridgeCallbackHandler {
                 // Once the lowest of those objects is gone, the next actionable
                 // callback should wake the model instead of auto-passing again.
                 if (yieldUntilStackResolved) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    GameView gv = actionView;
                     if (!stackContains(gv, yieldUntilStackResolvedObjectId)) {
                         ActionResult result = stackResolvedResult(action, boardCursorParam);
                         logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
@@ -3526,18 +3531,13 @@ public class BridgeCallbackHandler {
                 // Step-specific yield: check if we've reached the target step
                 // Use the action's own GameView — lastGameView can be clobbered by GAME_UPDATE.
                 if (targetStep != null) {
-                    GameView gv = (action.data() instanceof GameClientMessage)
-                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
-                    if (gv != null && gv.getStep() == targetStep) {
-                        // Reached the target step — return to LLM
-                        var result = new ActionResult();
-                        result.action_pending = true;
-                        result.action_type = method.name();
-
-                        result.current_step = gv.getStep().toString();
-                        result.stop_reason = "reached_step";
-                        attachUnseenChat(result);
-                        mergeActionChoices(result, boardCursorParam);
+                    GameView gv = actionView;
+                    if (gv != null && gv.getStep() != null
+                            && (gv.getStep() == targetStep || gv.getStep().isAfter(targetStep))) {
+                        // If a later same-turn callback overtook the target-step
+                        // priority, stop immediately instead of auto-passing into
+                        // an even later prompt.
+                        ActionResult result = stepYieldResult(action, gv, "reached_step", boardCursorParam);
                         logPassPriorityReturn(until, actionsPassed, action, gv, result, true);
                         return result;
                     }
