@@ -94,6 +94,8 @@ The scripts should cover:
 
 **Annotation caveat after retries**: If `llmEvents` show a failed `choose_action` followed by a successful retry on the same pending action, the exported `decisions`/`annotations` can sometimes stick to the failed attempt and drop the recovery into a blank follow-up decision. If an annotation claims a timeout, default choice, or other outcome that contradicts the later tool-call stream, trust `llmEvents`/tool results over the annotation and call out the mismatch explicitly.
 
+**Annotation caveat with overlapping target prompts**: Even without retries, be careful when a turn contains multiple adjacent `Select a creature` / `Select target` prompts from different spells or abilities. The export/annotation pipeline can sometimes attach the target choice to the wrong card (for example, confusing a landfall trigger target with a later combat trick target). If an annotation says `Cast X targeting Y`, confirm the nearby `decisions[].actionResult.stack` / `subsequentActions` before trusting it.
+
 **Models with no reasoning**: Some models (Gemini Flash Lite, some GPT variants) produce no reasoning/thinking traces. `llm_reasoning.py` will return "(no reasoning samples)" — this is expected, not a bug. Don't waste time investigating empty reasoning output; just note it in the analysis and move on.
 
 ### Known model error patterns (not platform bugs)

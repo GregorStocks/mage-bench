@@ -164,3 +164,39 @@ def test_run_golden_scenario_preserves_primary_replay_failure_over_cleanup_error
 
     assert bridge_a.restart_calls == 1
     assert bridge_b.restart_calls == 0
+
+
+def test_run_golden_scenario_preserves_setup_failure_and_still_cleans_up(
+    monkeypatch: pytest.MonkeyPatch, stubbed_golden: Path, tmp_path: Path
+) -> None:
+    player_a = _FakeSession()
+    player_b = _FakeSession()
+    bridge_a = _FakeBridgeManager(player_a, "bridge")
+    bridge_b = _FakeBridgeManager(player_b, "opponent")
+    spectator = _FakeSpectator()
+
+    monkeypatch.setattr(
+        golden_helpers,
+        "_send_spectator_command",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(RuntimeError("setup failed")),
+    )
+
+    with pytest.raises(RuntimeError, match="setup failed"):
+        golden_helpers.run_golden_scenario(
+            server="localhost",
+            port=17171,
+            project_root=tmp_path,
+            game_dir=stubbed_golden,
+            deck_a="puppeteer/tests/decks/bolt_and_burn.dck",
+            deck_b="puppeteer/tests/decks/filler_opponent.dck",
+            script_a=[{"name": "pass_priority"}],
+            golden_name="cleanup_recovery",
+            bridge_a=bridge_a,
+            bridge_b=bridge_b,
+            spectator=spectator,
+        )
+
+    assert [call[0] for call in player_a.calls] == ["concede"]
+    assert [call[0] for call in player_b.calls] == ["concede"]
+    assert bridge_a.restart_calls == 0
+    assert bridge_b.restart_calls == 0

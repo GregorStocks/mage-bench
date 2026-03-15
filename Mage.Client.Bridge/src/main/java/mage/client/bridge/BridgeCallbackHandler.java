@@ -219,6 +219,7 @@ public class BridgeCallbackHandler {
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
     private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
     private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
+    private static final long KEEPALIVE_CONCEDE_WAIT_SECONDS = 15;
 
     // Keep-alive multi-game support: latches for cross-thread signaling
     private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
@@ -2980,9 +2981,15 @@ public class BridgeCallbackHandler {
         // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
         if (keepAliveAfterGame) {
             try {
-                boolean finished = gameFinishedLatch.await(15, java.util.concurrent.TimeUnit.SECONDS);
+                boolean finished = gameFinishedLatch.await(
+                    KEEPALIVE_CONCEDE_WAIT_SECONDS,
+                    java.util.concurrent.TimeUnit.SECONDS
+                );
                 if (!finished) {
-                    logger.warn("[" + client.getUsername() + "] Concede sent but GAME_OVER not received within 15s");
+                    logger.warn(
+                        "[" + client.getUsername() + "] Concede sent but GAME_OVER not received within "
+                            + KEEPALIVE_CONCEDE_WAIT_SECONDS + "s"
+                    );
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

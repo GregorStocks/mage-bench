@@ -124,12 +124,7 @@
                         <encoding>UTF-8</encoding>
                         <!-- Use the real javac binary; the in-process compiler rejects release 17 here. -->
                         <fork>true</fork>
-                        <!--
-                        Because of known error in maven-compiler-plugin 3.2 useIncrementalCompilation is inverted
-                        so remove this arg with update that fixes the problem
-                        https://jira.codehaus.org/browse/MCOMPILER-209
-                        -->
-                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                        <useIncrementalCompilation>true</useIncrementalCompilation>
                     </configuration>
                 </plugin>
                 <plugin>

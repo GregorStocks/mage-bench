@@ -263,6 +263,9 @@ GOLDEN_BLUNDER_DIR = Path(__file__).resolve().parent / "golden" / "blunder_promp
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
+# Must stay above BridgeCallbackHandler.KEEPALIVE_CONCEDE_WAIT_SECONDS so
+# defensive cleanup doesn't time out while Java is still waiting for GAME_OVER.
+DEFENSIVE_CONCEDE_TIMEOUT_SECONDS = 20
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -1196,6 +1199,8 @@ def run_golden_scenario(
     session_a = bridge_a.session
     session_b = bridge_b.session
 
+    replay_errors: list[tuple[str, Exception]] = []
+
     try:
         with timed_phase(golden_name, "spectator_command"):
             table_id = _send_spectator_command(
@@ -1254,7 +1259,6 @@ def run_golden_scenario(
 
         # Run player A's scripted production pilot and player B concurrently
         prompt_a: list[dict] | None = None
-        replay_errors: list[tuple[str, Exception]] = []
 
         def _replay_a() -> None:
             nonlocal prompt_a
@@ -1353,7 +1357,7 @@ def run_golden_scenario(
                 cleanup_restarts.append(bridge)
                 continue
             try:
-                session.call_tool("concede", timeout=10)
+                session.call_tool("concede", timeout=DEFENSIVE_CONCEDE_TIMEOUT_SECONDS)
             except RuntimeError as exc:
                 print(
                     f"  [{golden_name}] Cleanup concede failed for {label}: {exc}. Restarting {bridge._label}.",
