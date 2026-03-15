@@ -5,14 +5,14 @@ Unaudited entries (verdict=null) -> {"decision_index": N}
 Audited entries (verdict!=null) -> 6-field format with annotation_version
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/migrate_ground_truth.py
+    uv run --project puppeteer python scripts/analysis/toolbox/migrate_ground_truth.py
 """
 
 import json
 import re
 from pathlib import Path
 
-GROUND_TRUTH_DIR = Path(__file__).resolve().parent / "ground_truth"
+GROUND_TRUTH_DIR = Path(__file__).resolve().parent.parent / "ground_truth"
 
 
 def extract_version(source: str | None) -> int:

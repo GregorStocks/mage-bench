@@ -11,16 +11,16 @@ to compare quality, accuracy, and cost.
 
 Usage:
     # Dry run: print formatted inputs without calling APIs
-    uv run --project puppeteer python scripts/analysis/blunder_experiment.py --dry-run GAME.json.gz
+    uv run --project puppeteer python scripts/analysis/toolbox/blunder_experiment.py --dry-run GAME.json.gz
 
     # Run a specific approach
-    uv run --project puppeteer python scripts/analysis/blunder_experiment.py --approach baseline GAME.json.gz
+    uv run --project puppeteer python scripts/analysis/toolbox/blunder_experiment.py --approach baseline GAME.json.gz
 
     # Run all approaches on a game
-    uv run --project puppeteer python scripts/analysis/blunder_experiment.py --all GAME.json.gz
+    uv run --project puppeteer python scripts/analysis/toolbox/blunder_experiment.py --all GAME.json.gz
 
     # Compare results across approaches for a game
-    uv run --project puppeteer python scripts/analysis/blunder_experiment.py --compare GAME.json.gz
+    uv run --project puppeteer python scripts/analysis/toolbox/blunder_experiment.py --compare GAME.json.gz
 
 Requires OPENROUTER_API_KEY environment variable (except for --dry-run and --compare).
 """
@@ -122,7 +122,7 @@ decision header as snapshotIndex (NOT the decision number):
   "betterLine": "<what they should have done>"
 }"""
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 RESULTS_DIR = TMP_DIR / "blunder_experiment"
 

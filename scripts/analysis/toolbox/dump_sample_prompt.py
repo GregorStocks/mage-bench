@@ -13,7 +13,7 @@ from scripts.analysis.blunder_analysis import (
 )
 from scripts.analysis.extract_decisions import extract_decisions
 
-REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
 # Pick a game with enough turns

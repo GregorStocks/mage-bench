@@ -7,7 +7,7 @@ from unittest.mock import patch
 import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "game_timeline.py"
+GAME_TIMELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "toolbox" / "game_timeline.py"
 
 
 def _import_game_timeline():

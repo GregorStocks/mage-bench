@@ -2,7 +2,7 @@
 
 import json
 
-from scripts.analysis.blunder_experiment import _parse_inline_response
+from scripts.analysis.toolbox.blunder_experiment import _parse_inline_response
 
 
 def _ann(**overrides: object) -> dict:

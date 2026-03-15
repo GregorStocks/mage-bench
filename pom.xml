@@ -290,7 +290,7 @@
             <!-- database support - ORM -->
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-jdbc</artifactId>
-            <version>5.7</version>
+            <version>6.1</version>
         </dependency>
         <dependency>
             <!-- database support - H2 db engine (main db) -->
@@ -304,14 +304,14 @@
             <!-- junit 4 tests -->
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
-            <version>5.8.1</version>
+            <version>6.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <!-- junit 5 tests -->
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.1</version>
+            <version>6.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -346,7 +346,7 @@
                 <!-- junit compatible dependencies (xmage uses junit 5 platform for all v4 and v5 tests) -->
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.8.1</version>
+                <version>6.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
