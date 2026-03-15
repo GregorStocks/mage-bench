@@ -89,7 +89,7 @@ uv run python scripts/list-issues.py
     - `choose_action out-of-range diagnostic` in `$GAME_DIR` with glob `*_mcp.log`
     - `Index .* out of range` in `$GAME_DIR` with glob `*_errors.log` or `*_pilot.log`
   - For output schema validation errors (OpenAI structured outputs), grep for `Invalid structured content returned by tool` in `*_pilot.log`. These mean the bridge returned data that doesn't match the tool's output schema — the action succeeds server-side but the model gets an error. See `doc/investigating-game-logs.md` for details.
-- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior. Caveat: some v7 exports omit `snapshots[].ts`, which currently makes `game_timeline.py --turns ...` misclassify every event as the final turn or print zero events. Sanity-check the output before relying on that filter.
+- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `scripts/analysis/toolbox/game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior. Caveat: some v7 exports omit `snapshots[].ts`, which currently makes `game_timeline.py --turns ...` misclassify every event as the final turn or print zero events. Sanity-check the output before relying on that filter.
 
 ### Step 6: Cross-reference findings
 
@@ -159,7 +159,7 @@ Present a summary of all issues created, grouped by priority. For model-only iss
 
 ### Step 12: Create reusable analysis scripts
 
-If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `scripts/analysis/` rather than writing throwaway one-off code. Run these scripts with `uv run python scripts/analysis/your_script.py`. These scripts accumulate over time into a reusable analysis toolkit. Check what already exists in `scripts/analysis/` before creating something new — you may be able to reuse or extend an existing script. Key scripts already available: `game_timeline.py`, `mcp_errors.py`, `mana_tapping.py`, `extract_decisions.py`.
+If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `scripts/analysis/toolbox/` rather than writing throwaway one-off code. Run these scripts with `uv run python scripts/analysis/toolbox/your_script.py`. These scripts accumulate over time into a reusable analysis toolkit. Check what already exists in `scripts/analysis/toolbox/` before creating something new — you may be able to reuse or extend an existing script. Key scripts already available: `game_timeline.py`, `mcp_errors.py`, `mana_tapping.py`, `extract_decisions.py` (note: `extract_decisions.py` is in `scripts/analysis/`, not `toolbox/`).
 
 ### Step 13: Document investigation tricks
 
@@ -177,6 +177,6 @@ If you discovered new recurring patterns, useful analysis techniques, broken scr
 - New model error patterns that are clearly not platform bugs
 - Scripts that are broken or have known limitations
 - Workflow improvements (e.g. better parallelization, useful cross-referencing techniques)
-- New analysis scripts you created in `scripts/analysis/`
+- New analysis scripts you created in `scripts/analysis/toolbox/`
 
 Do **not** add issue-specific bug notes to the skill if you already filed them in `issues/`. The skill should capture reusable investigation technique, tooling caveats, and durable workflow guidance, not duplicate the issue tracker.

@@ -5,8 +5,8 @@ Reports mana_plan/auto_tap usage, auto-tap effectiveness, GAME_CHOOSE_ABILITY
 handling, and spell cancellations across all players/models.
 
 Usage:
-    uv run python scripts/analysis/mana_tapping.py <game.json.gz>
-    uv run python scripts/analysis/mana_tapping.py <directory-of-gz-files>
+    uv run python scripts/analysis/toolbox/mana_tapping.py <game.json.gz>
+    uv run python scripts/analysis/toolbox/mana_tapping.py <directory-of-gz-files>
 """
 
 import json
