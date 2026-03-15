@@ -1,4 +1,4 @@
-import type { GameExportV7 } from '../types/game-export';
+import type { GameExportV8 } from '../types/game-export';
 
 export interface ReplayBlunderCounts {
   questionable: number;
@@ -12,7 +12,7 @@ export interface ReplayBlunderSummary {
   counts: ReplayBlunderCounts;
 }
 
-export function buildReplayTitle(players: GameExportV7['players']): string {
+export function buildReplayTitle(players: GameExportV8['players']): string {
   return players
     .map((player) => {
       const deckName = player.deckName || player.commander || '';
@@ -22,7 +22,7 @@ export function buildReplayTitle(players: GameExportV7['players']): string {
 }
 
 export function summarizeReplayBlunders(
-  annotations: GameExportV7['annotations'],
+  annotations: GameExportV8['annotations'],
 ): ReplayBlunderSummary | null {
   const counts: ReplayBlunderCounts = {
     questionable: 0,

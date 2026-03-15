@@ -2,7 +2,7 @@
 
 Game exports live in `website/public/games/` as either `.json` or `.json.gz` files — the format is identical, we just gzip when the file is large enough to annoy GitHub. Both extensions should be treated the same by all consumers.
 
-Each export version has its own JSON Schema (Draft 7) in `schemas/game-export-v*.schema.json`. The latest version (`game-export-v7.schema.json`) is the source of truth for new exports. See `schemas/migrations/README.md` for the migration framework.
+Each export version has its own JSON Schema (Draft 7) in `schemas/game-export-v*.schema.json`. The latest version (`game-export-v8.schema.json`) is the source of truth for new exports. See `schemas/migrations/README.md` for the migration framework.
 
 TypeScript types are generated from the latest schema: `website/src/types/game-export.d.ts`. Regenerate with `make regen-schema-types`.
 
@@ -81,9 +81,9 @@ Code that reads the export format and would need updating if the schema changes:
 
 **Never re-export games from raw logs** to pick up schema changes. Raw logs are the pre-export format and may not be available for older games. Instead:
 
-1. **Additive optional fields** (derivable from existing export data): Add the field to the schema, update `export_game.py` for new exports, and write a backfill script in `scripts/` to patch existing exports in-place (see `backfill_decisions.py` for the pattern).
+1. **Schema or persisted-data changes**: Prefer a version bump plus a migration in `schemas/migrations/`, even if the new field is derivable from existing export data. This keeps repairs reproducible and avoids one-off patch scripts for schema history.
 
-2. **Breaking changes**: Bump the export version and write a bidirectional migration in `schemas/migrations/` (see below). Land the schema first, then migrate games incrementally.
+2. **Non-schema repairs**: Use a backfill script only when the exported contract itself is unchanged and you are repairing derived data in place.
 
 3. **Manual backfill**: As a last resort when data can't be derived from the export and raw logs must be consulted. Avoid this — it's fragile and doesn't scale.
 

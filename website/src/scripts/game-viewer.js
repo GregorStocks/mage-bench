@@ -1132,10 +1132,30 @@
       });
     });
 
+    function annotationDecisionSnapshotIndex(ann) {
+      if (Number.isInteger(ann.decisionIndex)) {
+        var decision = (game.decisions || [])[ann.decisionIndex];
+        if (decision && Number.isInteger(decision.snapshotIndex)) {
+          return decision.snapshotIndex;
+        }
+      }
+
+      // Legacy v7 fallback: annotation.snapshotIndex is post-decision; the
+      // matching decision is the latest one by the same player with
+      // snapshotIndex < ann.snapshotIndex.
+      var candidates = playerDecSnaps[ann.player] || [];
+      var best = Math.max(0, ann.snapshotIndex - 1);
+      for (var i = candidates.length - 1; i >= 0; i--) {
+        if (candidates[i] < ann.snapshotIndex) {
+          best = candidates[i];
+          break;
+        }
+      }
+      return best;
+    }
+
     // Map each annotation to its decision's snapshot index so we can show
     // the annotation alongside the decision (pre-decision board state).
-    // annotation.snapshotIndex is post-decision; the matching decision is
-    // the latest one by the same player with snapshotIndex < ann.snapshotIndex.
     var annotationDecisionSnap = [];
     if (game.annotations) {
       // Build per-player sorted decision snapshot indices
@@ -1149,15 +1169,7 @@
       });
 
       game.annotations.forEach(function (ann) {
-        var candidates = playerDecSnaps[ann.player] || [];
-        var best = Math.max(0, ann.snapshotIndex - 1); // fallback
-        for (var i = candidates.length - 1; i >= 0; i--) {
-          if (candidates[i] < ann.snapshotIndex) {
-            best = candidates[i];
-            break;
-          }
-        }
-        annotationDecisionSnap.push(best);
+        annotationDecisionSnap.push(annotationDecisionSnapshotIndex(ann));
       });
     }
 

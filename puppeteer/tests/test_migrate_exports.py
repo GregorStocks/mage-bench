@@ -13,6 +13,7 @@ from schemas.migrations import (
     v4_to_v5,
     v5_to_v6,
     v6_to_v7,
+    v7_to_v8,
 )
 from scripts.backfill_decisions import backfill_game
 from scripts.export_game import _build_decisions, _collect_card_names, _trim_card
@@ -789,6 +790,122 @@ class TestMigrateV6V7:
         v6_restored = v6_to_v7.down(v7)
 
         assert json.dumps(v6_restored, sort_keys=True) == original_json
+
+
+def _make_v7_export() -> dict:
+    """Create a minimal v7 export with decisions and annotations."""
+    return {
+        "version": 7,
+        "id": "game_20260301_120000",
+        "timestamp": "2026-03-01T12:00:00-08:00",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
+        "totalTurns": 1,
+        "winner": "Alice",
+        "harnessEpoch": 49,
+        "youtubeUrl": "",
+        "players": [
+            {
+                "name": "Alice",
+                "type": "pilot",
+                "toolCallsOk": 1,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 1.0,
+            },
+            {
+                "name": "Bob",
+                "type": "cpu",
+                "toolCallsOk": 0,
+                "toolCallsFailed": 0,
+                "thinkingTimeSecs": 0.0,
+            },
+        ],
+        "cardImages": {},
+        "snapshots": [
+            {
+                "seq": 1,
+                "ts": "2026-03-01T12:00:00-08:00",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "active_player": "Alice",
+                "priority_player": "Alice",
+                "players": [],
+                "stack": [],
+            },
+            {
+                "seq": 2,
+                "ts": "2026-03-01T12:00:01-08:00",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "step": "PRECOMBAT_MAIN",
+                "active_player": "Alice",
+                "priority_player": "Bob",
+                "players": [],
+                "stack": [],
+            },
+        ],
+        "actions": [],
+        "llmEvents": [],
+        "gameOver": None,
+        "annotations": [
+            {
+                "snapshotIndex": 1,
+                "player": "Alice",
+                "type": "blunder",
+                "severity": "minor",
+                "description": "Passed instead of committing to the board.",
+                "actionTaken": "Passed priority",
+                "betterLine": "Cast a threat",
+            }
+        ],
+        "blunderScriptVersion": 32,
+        "season": 1,
+        "tournament": None,
+        "decisions": [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "message": "Choose an action",
+                "choices": [],
+                "choiceCount": 0,
+                "isForced": False,
+                "llmEventIndices": [],
+                "subsequentActions": [],
+                "actionSeq": 1,
+            }
+        ],
+    }
+
+
+class TestMigrateV7V8:
+    def test_v7_to_v8_up_adds_annotation_decision_index(self) -> None:
+        v8 = v7_to_v8.up(_make_v7_export())
+
+        assert v8["version"] == 8
+        assert v8["annotations"][0]["decisionIndex"] == 0
+        assert v8["annotations"][0]["snapshotIndex"] == 1
+
+    def test_v8_to_v7_down_removes_annotation_decision_index(self) -> None:
+        v8 = v7_to_v8.up(_make_v7_export())
+        v7 = v7_to_v8.down(v8)
+
+        assert v7["version"] == 7
+        assert "decisionIndex" not in v7["annotations"][0]
+
+    def test_round_trip_preserves_v7_structure(self) -> None:
+        v7_original = _make_v7_export()
+        original_json = json.dumps(v7_original, sort_keys=True)
+
+        v8 = v7_to_v8.up(json.loads(original_json))
+        v7_restored = v7_to_v8.down(v8)
+
+        assert json.dumps(v7_restored, sort_keys=True) == original_json
 
 
 class TestMigrationRunner:

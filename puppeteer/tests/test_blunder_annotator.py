@@ -14,6 +14,7 @@ def _make_test_game(
     *,
     extra_llm_events: list[dict] | None = None,
     extra_snapshots: list[dict] | None = None,
+    include_decisions: bool = False,
 ) -> dict:
     """Create a minimal but valid game data structure for testing."""
     snapshots = [
@@ -120,8 +121,8 @@ def _make_test_game(
     if extra_llm_events:
         llm_events.extend(extra_llm_events)
 
-    return {
-        "version": 7,
+    game = {
+        "version": 8,
         "id": "game_test_001",
         "timestamp": "20260101_120000",
         "gameType": "Two Player Duel",
@@ -165,6 +166,31 @@ def _make_test_game(
         "season": 1,
         "tournament": None,
     }
+    if include_decisions:
+        game["decisions"] = [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "message": "Play spells and abilities",
+                "choices": [
+                    {"index": 0, "name": "Mountain"},
+                    {"index": 1, "name": "Lightning Bolt"},
+                ],
+                "choiceCount": 2,
+                "isForced": False,
+                "chosen": 0,
+                "chosenArgs": {"index": 0},
+                "actionResult": {"success": True, "action_taken": "selected_0"},
+                "llmEventIndices": [0, 1, 2],
+                "subsequentActions": ["Alice plays Mountain"],
+            }
+        ]
+    return game
 
 
 def _write_gz(data: dict, path: Path) -> None:
@@ -357,8 +383,9 @@ class TestExtractDecisions:
 # --- annotate_game tests ---
 
 
-def _make_valid_annotation(snapshot_index: int = 0) -> dict:
+def _make_valid_annotation(snapshot_index: int = 0, decision_index: int = 0) -> dict:
     return {
+        "decisionIndex": decision_index,
         "snapshotIndex": snapshot_index,
         "player": "Alice",
         "type": "blunder",
@@ -372,7 +399,7 @@ def _make_valid_annotation(snapshot_index: int = 0) -> dict:
 class TestAnnotateGame:
     def test_basic_annotation(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotations = [_make_valid_annotation()]
         ann_path = tmp_path / "annotations.json"
@@ -388,7 +415,7 @@ class TestAnnotateGame:
     def test_annotation_with_llm_reasoning(self, tmp_path: Path) -> None:
         """v5 annotations with llmReasoning still pass validation."""
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
         annotation["llmReasoning"] = "The LLM prioritized mana development over combat advantage"
@@ -402,7 +429,7 @@ class TestAnnotateGame:
         assert data["annotations"][0]["llmReasoning"] == "The LLM prioritized mana development over combat advantage"
 
     def test_replaces_existing(self, tmp_path: Path) -> None:
-        game = _make_test_game()
+        game = _make_test_game(include_decisions=True)
         game["annotations"] = [_make_valid_annotation()]
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
@@ -420,7 +447,7 @@ class TestAnnotateGame:
 
     def test_invalid_snapshot_index(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation(snapshot_index=999)
         ann_path = tmp_path / "annotations.json"
@@ -429,9 +456,20 @@ class TestAnnotateGame:
         with pytest.raises(subprocess.CalledProcessError):
             _run_annotate_game(str(gz_path), str(ann_path))
 
+    def test_invalid_decision_index(self, tmp_path: Path) -> None:
+        gz_path = tmp_path / "game_test.json.gz"
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
+
+        annotation = _make_valid_annotation(decision_index=999)
+        ann_path = tmp_path / "annotations.json"
+        ann_path.write_text(json.dumps([annotation]))
+
+        with pytest.raises(subprocess.CalledProcessError):
+            _run_annotate_game(str(gz_path), str(ann_path))
+
     def test_invalid_severity(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
         annotation["severity"] = "catastrophic"
@@ -443,7 +481,7 @@ class TestAnnotateGame:
 
     def test_invalid_player(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
         annotation["player"] = "Charlie"
@@ -454,7 +492,7 @@ class TestAnnotateGame:
             _run_annotate_game(str(gz_path), str(ann_path))
 
     def test_preserves_other_data(self, tmp_path: Path) -> None:
-        game = _make_test_game()
+        game = _make_test_game(include_decisions=True)
         gz_path = tmp_path / "game_test.json.gz"
         _write_gz(game, gz_path)
 
@@ -473,7 +511,7 @@ class TestAnnotateGame:
 
     def test_empty_annotations(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text("[]")
@@ -485,7 +523,7 @@ class TestAnnotateGame:
 
     def test_missing_field(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game_test.json.gz"
-        _write_gz(_make_test_game(), gz_path)
+        _write_gz(_make_test_game(include_decisions=True), gz_path)
 
         annotation = _make_valid_annotation()
         del annotation["description"]

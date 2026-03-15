@@ -37,7 +37,7 @@ def _make_game(
     tournament: str | None = None,
 ) -> dict:
     return {
-        "version": 7,
+        "version": 8,
         "id": game_id,
         "timestamp": timestamp,
         "gameType": deck_type,
@@ -1406,7 +1406,7 @@ def _make_game_with_events(
     tournament: str | None = None,
 ) -> dict:
     return {
-        "version": 7,
+        "version": 8,
         "id": game_id,
         "timestamp": timestamp,
         "gameType": deck_type,

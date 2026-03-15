@@ -1,6 +1,6 @@
 """Typed helpers for game export JSON.
 
-These types are backed by ``schemas/game-export-v7.schema.json``. Tests keep
+These types are backed by ``schemas/game-export-v8.schema.json``. Tests keep
 the TypedDict field sets aligned with the JSON Schema so Python callers can
 load validated exports without falling back to raw ``dict[str, object]`` blobs.
 """
@@ -137,6 +137,7 @@ class GameOver(TypedDict):
 
 
 class Annotation(TypedDict):
+    decisionIndex: int
     snapshotIndex: int
     player: str
     type: Literal["blunder"]
@@ -197,7 +198,7 @@ class CardMetadata(TypedDict, total=False):
 
 
 class _GameExportBase(TypedDict):
-    version: Literal[7]
+    version: Literal[8]
     id: str
     timestamp: str
     gameType: str
@@ -518,6 +519,9 @@ def _is_game_over(value: object, source: str) -> TypeIs[GameOver]:
 def _is_annotation(value: object, source: str) -> TypeIs[Annotation]:
     obj = _require_object(value, source)
     _require_non_negative_int(
+        _require_key(obj, "decisionIndex", source), f"{source}.decisionIndex"
+    )
+    _require_non_negative_int(
         _require_key(obj, "snapshotIndex", source), f"{source}.snapshotIndex"
     )
     _require_str(_require_key(obj, "player", source), f"{source}.player")
@@ -621,7 +625,7 @@ def _validate_common_game_export(value: object, source: str) -> JsonObject:
     obj = _require_object(value, source)
     version = _require_key(obj, "version", source)
     _require_int(version, f"{source}.version")
-    assert version == 7, f"{source}.version: expected 7, got {version!r}"
+    assert version == 8, f"{source}.version: expected 8, got {version!r}"
     _require_non_empty_str(_require_key(obj, "id", source), f"{source}.id")
     _require_str(_require_key(obj, "timestamp", source), f"{source}.timestamp")
     _require_non_empty_str(_require_key(obj, "gameType", source), f"{source}.gameType")

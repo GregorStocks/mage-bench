@@ -26,7 +26,7 @@ VALID_GAME_ID = "game_20260214_005111_g1"
 
 def _write_export(path: Path) -> None:
     data = {
-        "version": 7,
+        "version": 8,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00Z",
         "gameType": "Two Player Duel",
@@ -285,6 +285,16 @@ class TestReverseMapAnnotations:
         mapping = reverse_map_annotations(annotations, decisions, snapshots)
         assert mapping == {0: 0, 1: 1}
 
+    def test_prefers_decision_index_when_present(self) -> None:
+        snapshots = self._make_snapshots(10)
+        decisions = [
+            self._make_decision(0, 1, "Alice"),
+            self._make_decision(1, 5, "Alice"),
+        ]
+        annotations = [{"decisionIndex": 1, "snapshotIndex": 2, "player": "Alice"}]
+        mapping = reverse_map_annotations(annotations, decisions, snapshots)
+        assert mapping == {0: 1}
+
 
 # --- chosen_display ---
 
@@ -421,6 +431,26 @@ class TestLookupAnnotationForDecision:
         }
         result = lookup_annotation_for_decision(decision, [], snapshots)
         assert result is None
+
+    def test_matches_decision_index_even_if_snapshot_index_differs(self) -> None:
+        snapshots = self._make_snapshots(10)
+        decision = {
+            "decision_index": 1,
+            "snapshot_index": 2,
+            "action_ts": "2026-01-01T00:00:05.000",
+            "player": "Alice",
+        }
+        annotations = [
+            {
+                "decisionIndex": 1,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "severity": "minor",
+            },
+        ]
+        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert result is not None
+        assert result["decisionIndex"] == 1
 
 
 # --- merge_into_ground_truth ---

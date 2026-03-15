@@ -120,7 +120,8 @@ _LOG_TZ = ZoneInfo("America/Los_Angeles")
 #      mana_plan, batch combat, and other tool parameters; show mana_plan in chosen block
 # v32: fix chosen=None false positives — show actual attackers/blockers/text from
 #      chosenArgs instead of "?" for batch and text decisions
-BLUNDER_SCRIPT_VERSION = 32
+# v33: persist decisionIndex on annotations; export schema v8 makes it canonical
+BLUNDER_SCRIPT_VERSION = 33
 
 
 class BlunderAnalysisError(RuntimeError):
@@ -1169,6 +1170,7 @@ def _eval_one_decision(
     else:
         aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
     ann["type"] = "blunder"
+    ann["decisionIndex"] = d_idx
     ann["snapshotIndex"] = aftermath_idx
     ann["player"] = decision["player"]
 

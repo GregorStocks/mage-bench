@@ -6,13 +6,13 @@
  */
 
 /**
- * Schema for the .json.gz game export format (version 7). Normalizes player stats and requires season/tournament.
+ * Schema for the .json.gz game export format (version 8). Adds canonical decisionIndex to annotations while retaining snapshotIndex as display metadata.
  */
-export interface GameExportV7 {
+export interface GameExportV8 {
   /**
-   * Export format version 7: normalized player stats and required season/tournament.
+   * Export format version 8: annotations carry canonical decisionIndex, with snapshotIndex retained as display metadata.
    */
-  version: 7;
+  version: 8;
   /**
    * Game directory name, e.g. 'game_20260210_074307'.
    */
@@ -306,7 +306,11 @@ export interface GameOver {
 }
 export interface Annotation {
   /**
-   * Index into the snapshots array — points to the first snapshot after the action resolved.
+   * Index into the decisions array — the canonical identity of the annotated decision.
+   */
+  decisionIndex: number;
+  /**
+   * Index into the snapshots array used for display. New exports point to the first snapshot after the action resolved; decisionIndex is the canonical identity.
    */
   snapshotIndex: number;
   player: string;

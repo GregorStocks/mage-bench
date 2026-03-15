@@ -244,14 +244,101 @@ class TestExportSchema:
         errors = list(validator.iter_errors(v7))
         assert errors, "v7 schema should reject empty gameType/deckType"
 
+    def test_v8_schema_is_valid(self) -> None:
+        schema = _load_schema(8)
+        jsonschema.Draft7Validator.check_schema(schema)
+
+    def test_v8_schema_accepts_v8(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(8))
+        v8 = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 3,
+                    "toolCallsFailed": 1,
+                    "thinkingTimeSecs": 12.5,
+                }
+            ],
+            decisions=[
+                {
+                    "index": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "turn": 1,
+                    "phase": None,
+                    "actionType": "",
+                    "responseType": "",
+                    "message": "",
+                    "choices": [],
+                    "choiceCount": 0,
+                    "isForced": True,
+                    "llmEventIndices": [],
+                    "subsequentActions": [],
+                }
+            ],
+            annotations=[
+                {
+                    "decisionIndex": 0,
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "type": "blunder",
+                    "severity": "minor",
+                    "description": "Bad play",
+                    "actionTaken": "Pass",
+                    "betterLine": "Cast a threat",
+                }
+            ],
+        )
+        errors = list(validator.iter_errors(v8))
+        assert errors == [], f"v8 should be valid: {errors}"
+
+    def test_v8_schema_rejects_v7(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(8))
+        errors = list(validator.iter_errors(_minimal_export(7, season=1, tournament=None)))
+        assert errors, "v8 schema should reject version 7"
+
+    def test_v8_schema_requires_annotation_decision_index(self) -> None:
+        validator = jsonschema.Draft7Validator(_load_schema(8))
+        v8 = _minimal_export(
+            8,
+            season=1,
+            tournament=None,
+            players=[
+                {
+                    "name": "Alice",
+                    "type": "pilot",
+                    "toolCallsOk": 3,
+                    "toolCallsFailed": 1,
+                    "thinkingTimeSecs": 12.5,
+                }
+            ],
+            annotations=[
+                {
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "type": "blunder",
+                    "severity": "minor",
+                    "description": "Bad play",
+                    "actionTaken": "Pass",
+                    "betterLine": "Cast a threat",
+                }
+            ],
+        )
+        errors = list(validator.iter_errors(v8))
+        assert errors, "v8 schema should reject annotations without decisionIndex"
+
     def test_schema_rejects_missing_required_field(self) -> None:
         validator = jsonschema.Draft7Validator(_load_schema(5))
         bad = {"version": 5}
         errors = list(validator.iter_errors(bad))
         assert len(errors) > 0
 
-    def test_schema_backed_typed_dicts_match_v7_schema(self) -> None:
-        schema = _load_schema(7)
+    def test_schema_backed_typed_dicts_match_v8_schema(self) -> None:
+        schema = _load_schema(8)
         defs = schema["$defs"]
 
         _assert_typed_dict_matches_schema(GameExport, schema=schema)
@@ -274,10 +361,10 @@ class TestExportSchema:
         _assert_typed_dict_matches_schema(GameError, schema=defs["GameError"])
         _assert_typed_dict_matches_schema(CardMetadata, schema=defs["CardMetadata"])
 
-    def test_typed_loader_accepts_minimal_v7_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v7.json"
+    def test_typed_loader_accepts_minimal_v8_export(self, tmp_path: Path) -> None:
+        path = tmp_path / "game_v8.json"
         payload = _minimal_export(
-            7,
+            8,
             season=1,
             tournament=None,
             players=[
@@ -294,14 +381,14 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["version"] == 7
+        assert game["version"] == 8
         assert game["players"][0]["toolCallsOk"] == 3
         assert game["annotations"] == []
 
     def test_typed_loader_accepts_gzipped_exports(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v7.json.gz"
+        path = tmp_path / "game_v8.json.gz"
         payload = _minimal_export(
-            7,
+            8,
             season=1,
             tournament=None,
             players=[
@@ -318,11 +405,11 @@ class TestExportSchema:
 
         game = load_game_export(path)
 
-        assert game["id"] == "test_v7"
+        assert game["id"] == "test_v8"
 
     def test_typed_loader_rejects_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "game_v7.json"
-        payload = _minimal_export(7, season=1, tournament=None)
+        path = tmp_path / "game_v8.json"
+        payload = _minimal_export(8, season=1, tournament=None)
         del payload["annotations"]
         path.write_text(json.dumps(payload))
 
@@ -331,7 +418,7 @@ class TestExportSchema:
 
     def test_built_export_validator_allows_missing_annotation_fields(self) -> None:
         payload = _minimal_export(
-            7,
+            8,
             season=1,
             tournament=None,
             players=[
@@ -353,9 +440,9 @@ class TestExportSchema:
         assert "annotations" not in built
 
     def test_built_loader_accepts_unannotated_export(self, tmp_path: Path) -> None:
-        path = tmp_path / "built_v7.json"
+        path = tmp_path / "built_v8.json"
         payload = _minimal_export(
-            7,
+            8,
             season=1,
             tournament=None,
             players=[
@@ -374,13 +461,13 @@ class TestExportSchema:
 
         built = load_built_game_export(path)
 
-        assert built["version"] == 7
+        assert built["version"] == 8
         assert "annotations" not in built
 
     def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
         path = tmp_path / "empty_decision_strings.json"
         payload = _minimal_export(
-            7,
+            8,
             season=1,
             tournament=None,
             players=[

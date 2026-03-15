@@ -75,7 +75,7 @@ def _make_decision(**overrides: object) -> dict:
 
 def _make_game() -> dict:
     return {
-        "version": 7,
+        "version": 8,
         "id": "game_test_001",
         "timestamp": "2026-01-01T00:00:00-08:00",
         "gameType": "Two Player Duel",
@@ -771,6 +771,29 @@ class TestMainIntegration:
                 "result": json.dumps({"success": True}),
             },
         ]
+        game["decisions"] = [
+            {
+                "index": 0,
+                "snapshotIndex": 0,
+                "player": "Alice",
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "actionType": "GAME_SELECT",
+                "responseType": "select",
+                "message": "Play spells",
+                "choices": [
+                    {"index": 0, "name": "Mountain"},
+                    {"index": 1, "name": "Lightning Bolt"},
+                ],
+                "choiceCount": 2,
+                "chosen": 0,
+                "chosenArgs": {"index": 0},
+                "actionResult": {"success": True},
+                "isForced": False,
+                "llmEventIndices": [0, 1, 2],
+                "subsequentActions": [],
+            }
+        ]
         return game
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
@@ -867,6 +890,7 @@ class TestMainIntegration:
         game = self._make_game_with_decisions()
         game["annotations"] = [
             {
+                "decisionIndex": 0,
                 "snapshotIndex": 0,
                 "player": "Alice",
                 "type": "blunder",
@@ -924,6 +948,7 @@ class TestMainIntegration:
         # These fields are injected server-side
         assert ann["type"] == "blunder"
         assert ann["player"] == "Alice"
+        assert ann["decisionIndex"] == 0
         assert "snapshotIndex" in ann
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})

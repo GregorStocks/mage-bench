@@ -1212,7 +1212,7 @@ class TestGameGzBootstrap:
         game_dir = logs_dir / game_id
         export_path = games_dir / f"{game_id}.json"
         export_data = {
-            "version": 7,
+            "version": 8,
             "id": game_id,
             "timestamp": "2026-03-14T11:14:22-07:00",
             "gameType": "Two Player Duel",

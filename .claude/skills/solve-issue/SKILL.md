@@ -59,7 +59,11 @@ Pick and solve exactly **one** issue, then create a PR.
    If the issue **is already fixed**: skip the planning/implementation steps entirely. Just delete the issue file, commit it, push, and finalize the PR as a cleanup. The PR title should be something like "Clean up outdated issue: \<title\>" and the body should briefly explain that the issue was already resolved (mention the commit or change that fixed it). Conceptually this is a zero-line fix — the only change is removing the stale issue file.
 
    If the issue **is NOT fixed**: continue to step 4.
-4. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
+4. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong.
+
+   Start the plan with a short **issue context** recap in plain language: what the bug/task actually is, how it shows up today, and why the proposed fix addresses it. Do not assume the user remembers the issue details from when they filed it.
+
+   **Your plan must end with this checklist** (copy it verbatim into your plan):
 
    ```markdown
    ## Post-implementation checklist
@@ -92,6 +96,8 @@ Pick and solve exactly **one** issue, then create a PR.
     ```bash
     uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
     ```
+
+    The PR body must include a short **issue context** section near the top that explains what the original issue was and why this change fixes it. Write it for a reader who may not remember the issue they filed days earlier.
 
     Then mark the PR as ready-for-review. Then stop — leave remaining issues for the next Claude.
 

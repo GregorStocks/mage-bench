@@ -41,6 +41,9 @@ The runner automatically chains migrations (e.g., v2 → v3 → v4) and handles
   the old version's migration module stays for historical reference.
 - **Incremental adoption**: Land the new schema first, migrate games across
   multiple PRs, verify with `make check`.
+- **Prefer migrations over backfills**: if a schema or persisted-data contract
+  changes, capture it in a versioned migration instead of a one-off patch
+  script. Reserve bespoke backfills for non-schema repairs only.
 
 ## Cutting a new version
 
@@ -48,9 +51,10 @@ Use the `/new-export-version` skill for step-by-step guidance.
 
 ## Current state
 
-- v7: Active export version (`schemas/game-export-v7.schema.json`)
+- v8: Active export version (`schemas/game-export-v8.schema.json`)
 - v2 → v3: `schemas/migrations/v2_to_v3.py` (adds cardData, token images)
 - v3 → v4: `schemas/migrations/v3_to_v4.py` (adds season, tournament)
 - v4 → v5: `schemas/migrations/v4_to_v5.py` (normalize chosenArgs arrays to CSV strings)
 - v5 → v6: `schemas/migrations/v5_to_v6.py` (removes llmTrace)
 - v6 → v7: `schemas/migrations/v6_to_v7.py` (normalizes player stats, requires season/tournament)
+- v7 → v8: `schemas/migrations/v7_to_v8.py` (adds canonical annotation decisionIndex)

@@ -35,7 +35,7 @@ def _make_gz(tmp_path: Path, events: list[dict], players: list[dict] | None = No
         for player in raw_players
     ]
     data = {
-        "version": 7,
+        "version": 8,
         "id": "test_game",
         "timestamp": "2026-02-13T12:00:00-08:00",
         "gameType": "Two Player Duel",
@@ -267,7 +267,7 @@ class TestDirectoryMode:
             }
         ]
         data1 = {
-            "version": 7,
+            "version": 8,
             "id": "g1",
             "timestamp": "2026-02-13T12:00:00-08:00",
             "gameType": "Two Player Duel",
@@ -311,7 +311,7 @@ class TestDirectoryMode:
             }
         ]
         data2 = {
-            "version": 7,
+            "version": 8,
             "id": "g2",
             "timestamp": "2026-02-13T12:00:00-08:00",
             "gameType": "Two Player Duel",
@@ -366,7 +366,7 @@ class TestDirectoryMode:
             }
         ]
         data = {
-            "version": 7,
+            "version": 8,
             "id": "g1",
             "timestamp": "2026-02-13T12:00:00-08:00",
             "gameType": "Two Player Duel",

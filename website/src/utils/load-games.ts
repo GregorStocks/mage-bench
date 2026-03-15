@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 
-import type { GameExportV7 } from '../types/game-export';
+import type { GameExportV8 } from '../types/game-export';
 import type { ReplayBlunderSummary } from './replay-metadata';
 import { buildReplayTitle, summarizeReplayBlunders } from './replay-metadata';
 
@@ -17,7 +17,7 @@ export interface GameEntry {
   timestamp: string;
   totalTurns: number;
   winner: string | null;
-  players: GameExportV7['players'];
+  players: GameExportV8['players'];
   deckType: string;
   harnessEpoch: number;
   season: number;
@@ -27,11 +27,11 @@ export interface GameEntry {
   blunderScriptVersion?: number | null;
   replayTitle: string;
   replayBlunderSummary: ReplayBlunderSummary | null;
-  errors: NonNullable<GameExportV7['errors']>;
+  errors: NonNullable<GameExportV8['errors']>;
 }
 
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
-type BlunderSeverity = GameExportV7['annotations'][number]['severity'];
+type BlunderSeverity = GameExportV8['annotations'][number]['severity'];
 const BLUNDER_WEIGHTS: Record<BlunderSeverity, number> = {
   questionable: 0,
   minor: 1,
@@ -46,7 +46,7 @@ function invariant(condition: unknown, message: string): asserts condition {
   }
 }
 
-function assertPlayer(player: unknown, file: string, index: number): asserts player is GameExportV7['players'][number] {
+function assertPlayer(player: unknown, file: string, index: number): asserts player is GameExportV8['players'][number] {
   invariant(player != null && typeof player === 'object', `${file}: player ${index} must be an object`);
   const candidate = player as Record<string, unknown>;
   invariant(typeof candidate.name === 'string', `${file}: player ${index} missing name`);
@@ -60,11 +60,12 @@ function assertAnnotation(
   annotation: unknown,
   file: string,
   index: number,
-): asserts annotation is GameExportV7['annotations'][number] {
+): asserts annotation is GameExportV8['annotations'][number] {
   invariant(annotation != null && typeof annotation === 'object', `${file}: annotation ${index} must be an object`);
   const candidate = annotation as Record<string, unknown>;
   invariant(candidate.type === 'blunder', `${file}: annotation ${index} has invalid type`);
   invariant(typeof candidate.player === 'string', `${file}: annotation ${index} missing player`);
+  invariant(Number.isInteger(candidate.decisionIndex), `${file}: annotation ${index} missing decisionIndex`);
   invariant(Number.isInteger(candidate.snapshotIndex), `${file}: annotation ${index} missing snapshotIndex`);
   invariant(typeof candidate.description === 'string', `${file}: annotation ${index} missing description`);
   invariant(typeof candidate.actionTaken === 'string', `${file}: annotation ${index} missing actionTaken`);
@@ -75,10 +76,10 @@ function assertAnnotation(
   );
 }
 
-function assertGameExport(data: unknown, file: string): asserts data is GameExportV7 {
+function assertGameExport(data: unknown, file: string): asserts data is GameExportV8 {
   invariant(data != null && typeof data === 'object', `${file}: export must be an object`);
   const candidate = data as Record<string, unknown>;
-  invariant(candidate.version === 7, `${file}: expected export version 7`);
+  invariant(candidate.version === 8, `${file}: expected export version 8`);
   invariant(typeof candidate.id === 'string', `${file}: missing id`);
   invariant(typeof candidate.timestamp === 'string', `${file}: missing timestamp`);
   invariant(typeof candidate.totalTurns === 'number', `${file}: missing totalTurns`);

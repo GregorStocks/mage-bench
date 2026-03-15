@@ -1190,7 +1190,7 @@ def build_export(game_dir: Path) -> BuiltGameExport:
 
     # Build output
     output: dict = {
-        "version": 7,
+        "version": 8,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": game_type,

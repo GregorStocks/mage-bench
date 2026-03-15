@@ -21,9 +21,9 @@ function mockGameFiles(files) {
   });
 }
 
-function makeV7Export(overrides = {}) {
+function makeV8Export(overrides = {}) {
   return {
-    version: 7,
+    version: 8,
     id: "game_20260301_120000",
     timestamp: "2026-03-01T12:00:00-08:00",
     gameType: "Two Player Duel",
@@ -61,11 +61,11 @@ afterEach(() => {
 });
 
 describe("loadAllGames", () => {
-  it("loads normalized v7 exports", async () => {
+  it("loads normalized v8 exports", async () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json": JSON.stringify(
-        makeV7Export({
+        makeV8Export({
           players: [
             {
               name: "Alice",
@@ -86,6 +86,7 @@ describe("loadAllGames", () => {
           ],
           annotations: [
             {
+              decisionIndex: 0,
               snapshotIndex: 1,
               player: "Alice",
               type: "blunder",
@@ -95,6 +96,7 @@ describe("loadAllGames", () => {
               betterLine: "Attack",
             },
             {
+              decisionIndex: 1,
               snapshotIndex: 2,
               player: "Bob",
               type: "blunder",
@@ -149,7 +151,7 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json": JSON.stringify(
-        makeV7Export({
+        makeV8Export({
           totalTurns: 4,
           players: [
             {
@@ -169,6 +171,7 @@ describe("loadAllGames", () => {
           ],
           annotations: [
             {
+              decisionIndex: 0,
               snapshotIndex: 1,
               player: "Alice",
               type: "blunder",
@@ -178,6 +181,7 @@ describe("loadAllGames", () => {
               betterLine: "Hold priority",
             },
             {
+              decisionIndex: 1,
               snapshotIndex: 2,
               player: "Bob",
               type: "blunder",
@@ -204,7 +208,7 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json": JSON.stringify(
-        makeV7Export({
+        makeV8Export({
           players: [{ name: "Alice", type: "pilot" }],
         }),
       ),
@@ -218,9 +222,10 @@ describe("loadAllGames", () => {
     clearGamesCache();
     mockGameFiles({
       "game_20260301_120000.json": JSON.stringify(
-        makeV7Export({
+        makeV8Export({
           annotations: [
             {
+              decisionIndex: 0,
               snapshotIndex: 1,
               player: "Alice",
               type: "blunder",

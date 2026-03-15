@@ -57,6 +57,17 @@ def snapshot_index(d: Mapping[str, object]) -> int:
     return value
 
 
+def annotation_decision_index(annotation: Mapping[str, object]) -> int | None:
+    """Get the canonical decision index for an annotation when present."""
+    value = annotation.get("decisionIndex")
+    if value is None:
+        return None
+    assert isinstance(value, int) and not isinstance(value, bool), (
+        f"annotation decisionIndex must be an int, got {value!r}"
+    )
+    return value
+
+
 def is_forced(d: Mapping[str, object]) -> bool:
     """Check if a decision is forced (<=1 choice) in either format."""
     value = d.get("isForced", d.get("is_forced", False))
@@ -371,9 +382,10 @@ def reverse_map_annotations(
     Returns {annotation_list_index: decision_index}.
 
     Strategy:
-    1. Compute aftermath_idx for every decision.
-    2. For each annotation, find exact match (aftermath_idx == snapshotIndex, same player).
-    3. If no exact match, find closest decision where snapshot_index <= snapshotIndex (same player).
+    1. If decisionIndex is present, trust it as canonical after validation.
+    2. Otherwise compute aftermath_idx for every decision.
+    3. For legacy annotations, find exact match (aftermath_idx == snapshotIndex, same player).
+    4. If no exact match, find closest decision where snapshot_index <= snapshotIndex (same player).
     """
     result: dict[int, int] = {}
 
@@ -382,6 +394,24 @@ def reverse_map_annotations(
     ]
 
     for ann_idx, ann in enumerate(annotations):
+        direct_decision_idx = annotation_decision_index(ann)
+        if direct_decision_idx is not None:
+            assert 0 <= direct_decision_idx < len(decisions), (
+                f"annotation decisionIndex {direct_decision_idx} out of range for "
+                f"{len(decisions)} decisions"
+            )
+            ann_player = ann["player"]
+            assert isinstance(ann_player, str), (
+                f"annotation player must be a string, got {ann_player!r}"
+            )
+            decision_player = decisions[direct_decision_idx]["player"]
+            assert decision_player == ann_player, (
+                f"annotation player {ann_player!r} does not match decision "
+                f"{direct_decision_idx} player {decision_player!r}"
+            )
+            result[ann_idx] = direct_decision_idx
+            continue
+
         ann_snap = ann["snapshotIndex"]
         ann_player = ann["player"]
         assert isinstance(ann_snap, int) and not isinstance(ann_snap, bool), (
@@ -425,9 +455,15 @@ def lookup_annotation_for_decision(
 ) -> Mapping[str, object] | None:
     """Find the game-file annotation matching a decision, if any.
 
-    Computes the decision's aftermath_index and scans annotations
-    for a match on snapshotIndex + player.
+    Prefers direct decisionIndex matches, then falls back to the legacy
+    snapshotIndex + player heuristic for older exports.
     """
+    idx = decision_index(decision)
+    for ann in annotations:
+        ann_idx = annotation_decision_index(ann)
+        if ann_idx is not None and ann_idx == idx:
+            return ann
+
     aftermath = compute_aftermath_index(decision, snapshots)
     player = decision["player"]
     for ann in annotations:
