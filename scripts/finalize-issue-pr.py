@@ -18,8 +18,21 @@ import re
 import subprocess
 
 
+CLAIM_TS_RE = re.compile(r"<!-- claim-ts: \d+ -->")
+
+
 def run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
     return subprocess.run(cmd, capture_output=True, text=True)
+
+
+def extract_claim_metadata(body: str) -> str:
+    claim_match = re.search(r"<!-- claim: .+? -->", body)
+    assert claim_match, f"No claim tag found in PR body:\n{body}"
+    claim_parts = [claim_match.group(0)]
+    claim_ts_match = CLAIM_TS_RE.search(body)
+    if claim_ts_match:
+        claim_parts.append(claim_ts_match.group(0))
+    return "\n".join(claim_parts)
 
 
 def main() -> None:
@@ -39,13 +52,11 @@ def main() -> None:
         f"No open PR found for current branch: {result.stderr}"
     )
 
-    # Extract claim tag
-    m = re.search(r"<!-- claim: .+? -->", result.stdout)
-    assert m, f"No claim tag found in PR body:\n{result.stdout}"
-    claim_tag = m.group(0)
+    # Extract claim metadata
+    claim_metadata = extract_claim_metadata(result.stdout)
 
     # Update PR
-    body_with_claim = f"{args.body}\n\n{claim_tag}"
+    body_with_claim = f"{args.body}\n\n{claim_metadata}"
     subprocess.run(
         ["gh", "pr", "edit", "--title", args.title, "--body", body_with_claim],
         check=True,

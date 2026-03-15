@@ -4,13 +4,14 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
 import pytest
 
 from scripts import scryfall
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent.parent / "scripts"
+CLAIM_NS = 946688400000000000
 
 
 def _import_script(name: str):
@@ -21,8 +22,31 @@ def _import_script(name: str):
     return mod
 
 
+def _claim_body(issue: str, claim_ts: int | None = None) -> str:
+    body = f"<!-- claim: {issue} -->"
+    if claim_ts is not None:
+        body += f"\n<!-- claim-ts: {claim_ts} -->"
+    return body
+
+
+def _open_claim_pr(number: int, issue: str, created_at: str, claim_ts: int | None = None) -> dict[str, object]:
+    return {
+        "number": number,
+        "body": _claim_body(issue, claim_ts),
+        "createdAt": created_at,
+    }
+
+
+def _run_result(stdout: str, returncode: int = 0) -> MagicMock:
+    result = MagicMock()
+    result.stdout = stdout
+    result.returncode = returncode
+    return result
+
+
 list_issues = _import_script("list-issues")
 claim_issue = _import_script("claim-issue")
+finalize_issue_pr = _import_script("finalize-issue-pr")
 worktree_setup = _import_script("worktree-setup")
 import_deck = _import_script("import-deck")
 import_metagame = _import_script("import-metagame")
@@ -142,17 +166,20 @@ class TestClaimIssue:
             [
                 {
                     "number": 1059,
-                    "body": "<!-- claim: bug-b -->",
+                    "body": _claim_body("bug-b"),
                     "url": "https://example.test/pr/1059",
                 }
             ]
         )
+        winner_result = _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T00:00:00Z")]))
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
                 return branch_result
             if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
                 return branch_pr_result
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return winner_result
             raise AssertionError(f"unexpected run: {cmd}")
 
         with (
@@ -165,6 +192,185 @@ class TestClaimIssue:
             claim_issue.main()
 
         mock_subprocess.assert_not_called()
+
+    def test_stale_branch_pr_for_other_issue_is_retargeted(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        stale_branch_pr = MagicMock()
+        stale_branch_pr.returncode = 0
+        stale_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": _claim_body("bug-a"),
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        retargeted_branch_pr = MagicMock()
+        retargeted_branch_pr.returncode = 0
+        retargeted_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": _claim_body("bug-b", CLAIM_NS),
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
+
+        open_claim_results = iter(
+            [
+                _run_result(
+                    json.dumps(
+                        [
+                            _open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z"),
+                            _open_claim_pr(1059, "bug-a", "2000-01-01T01:00:00Z"),
+                        ]
+                    )
+                ),
+                _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS)])),
+                _run_result(json.dumps([_open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS)])),
+            ]
+        )
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return next(branch_pr_results)
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return next(open_claim_results)
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
+            patch("subprocess.run") as mock_subprocess,
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+        assert mock_subprocess.call_args_list == [
+            call(
+                [
+                    "gh",
+                    "pr",
+                    "edit",
+                    "1059",
+                    "--title",
+                    "Solve: Bug B",
+                    "--body",
+                    f"<!-- claim: bug-b -->\n<!-- claim-ts: {CLAIM_NS} -->",
+                ],
+                check=True,
+            ),
+            call(["git", "push", "-u", "origin", "my-branch"], check=True),
+        ]
+
+    def test_stale_branch_pr_does_not_hijack_existing_target_claim(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+        (issues_dir / "bug-b.json").write_text(json.dumps({"title": "Bug B", "priority": 2}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        stale_branch_pr = MagicMock()
+        stale_branch_pr.returncode = 0
+        stale_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": _claim_body("bug-a"),
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        retargeted_branch_pr = MagicMock()
+        retargeted_branch_pr.returncode = 0
+        retargeted_branch_pr.stdout = json.dumps(
+            [
+                {
+                    "number": 1059,
+                    "body": _claim_body("bug-b", CLAIM_NS),
+                    "url": "https://example.test/pr/1059",
+                }
+            ]
+        )
+
+        branch_pr_results = iter([stale_branch_pr, retargeted_branch_pr])
+
+        open_claim_results = iter(
+            [
+                _run_result(
+                    json.dumps(
+                        [
+                            _open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z"),
+                            _open_claim_pr(1059, "bug-a", "2000-01-01T01:00:00Z"),
+                        ]
+                    )
+                ),
+                _run_result(
+                    json.dumps(
+                        [
+                            _open_claim_pr(2000, "bug-b", "2000-01-01T00:00:00Z"),
+                            _open_claim_pr(1059, "bug-b", "2000-01-01T01:00:00Z", CLAIM_NS),
+                        ]
+                    )
+                ),
+            ]
+        )
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:3] == ["gh", "pr", "list"] and "--head" in cmd:
+                return next(branch_pr_results)
+            if cmd[:3] == ["gh", "pr", "list"]:
+                return next(open_claim_results)
+            raise AssertionError(f"unexpected run: {cmd}")
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-b"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
+            patch("subprocess.run") as mock_subprocess,
+            pytest.raises(SystemExit, match="1"),
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_not_called()
+        assert mock_subprocess.call_args_list == [
+            call(
+                [
+                    "gh",
+                    "pr",
+                    "edit",
+                    "1059",
+                    "--title",
+                    "Solve: Bug B",
+                    "--body",
+                    f"<!-- claim: bug-b -->\n<!-- claim-ts: {CLAIM_NS} -->",
+                ],
+                check=True,
+            ),
+            call(["git", "push", "-u", "origin", "my-branch"], check=True),
+        ]
 
     def test_existing_branch_pr_for_same_issue_is_idempotent(self, tmp_path: Path) -> None:
         issues_dir = tmp_path
@@ -179,14 +385,13 @@ class TestClaimIssue:
             [
                 {
                     "number": 42,
-                    "body": "<!-- claim: bug-a -->",
+                    "body": _claim_body("bug-a"),
                     "url": "https://example.test/pr/42",
                 }
             ]
         )
 
-        race_result = MagicMock()
-        race_result.stdout = "42\n"
+        race_result = _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T00:00:00Z")]))
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
@@ -226,8 +431,12 @@ class TestClaimIssue:
         create_pr_result.returncode = 0
         create_pr_result.stdout = "https://example.test/pr/42\n"
 
-        race_result = MagicMock()
-        race_result.stdout = "42\n"
+        race_results = iter(
+            [
+                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
+                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
+            ]
+        )
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
@@ -238,14 +447,14 @@ class TestClaimIssue:
                 return branch_pr_result
             if cmd[:3] == ["gh", "pr", "create"]:
                 return create_pr_result
-            # _race_winner calls
-            return race_result
+            return next(race_results)
 
         with (
             patch.object(claim_issue, "ISSUES_DIR", issues_dir),
             patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
             patch("subprocess.run"),
         ):
             claim_issue.main()
@@ -273,8 +482,15 @@ class TestClaimIssue:
 
         race_results = iter(
             [
-                MagicMock(stdout="42\n"),  # first check: we win
-                MagicMock(stdout="41\n"),  # re-check: lower PR appeared
+                _run_result(json.dumps([_open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS)])),
+                _run_result(
+                    json.dumps(
+                        [
+                            _open_claim_pr(41, "bug-a", "2000-01-01T00:00:00Z"),
+                            _open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS),
+                        ]
+                    )
+                ),
             ]
         )
 
@@ -294,12 +510,14 @@ class TestClaimIssue:
             patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch("subprocess.run"),
+            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
+            patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="1"),
         ):
             claim_issue.main()
 
         mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
 
     def test_race_first_check_fails_no_sleep(self, tmp_path: Path) -> None:
         """First check already finds lower PR — exits 1 without sleeping."""
@@ -320,8 +538,14 @@ class TestClaimIssue:
         create_pr_result.returncode = 0
         create_pr_result.stdout = "https://example.test/pr/42\n"
 
-        race_result = MagicMock()
-        race_result.stdout = "41\n"  # lower PR already claims it
+        race_result = _run_result(
+            json.dumps(
+                [
+                    _open_claim_pr(41, "bug-a", "2000-01-01T00:00:00Z"),
+                    _open_claim_pr(42, "bug-a", "2000-01-01T01:00:00Z", CLAIM_NS),
+                ]
+            )
+        )
 
         def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
             if cmd[:2] == ["git", "branch"]:
@@ -339,12 +563,29 @@ class TestClaimIssue:
             patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
             patch.object(claim_issue, "run", side_effect=fake_run),
             patch.object(claim_issue.time, "sleep") as mock_sleep,
-            patch("subprocess.run"),
+            patch.object(claim_issue.time, "time_ns", return_value=CLAIM_NS),
+            patch("subprocess.run") as mock_subprocess,
             pytest.raises(SystemExit, match="1"),
         ):
             claim_issue.main()
 
         mock_sleep.assert_not_called()
+        mock_subprocess.assert_called_once_with(["git", "push", "-u", "origin", "my-branch"], check=True)
+
+
+# ===========================================================================
+# finalize-issue-pr
+# ===========================================================================
+
+
+class TestFinalizeIssuePr:
+    def test_extract_claim_metadata_with_timestamp(self) -> None:
+        body = "Summary\n\n<!-- claim: bug-a -->\n<!-- claim-ts: 123 -->"
+        assert finalize_issue_pr.extract_claim_metadata(body) == ("<!-- claim: bug-a -->\n<!-- claim-ts: 123 -->")
+
+    def test_extract_claim_metadata_without_timestamp(self) -> None:
+        body = "Summary\n\n<!-- claim: bug-a -->"
+        assert finalize_issue_pr.extract_claim_metadata(body) == "<!-- claim: bug-a -->"
 
 
 # ===========================================================================
