@@ -56,6 +56,25 @@ function assertPlayer(player: unknown, file: string, index: number): asserts pla
   invariant(typeof candidate.thinkingTimeSecs === 'number', `${file}: player ${index} missing thinkingTimeSecs`);
 }
 
+function assertAnnotation(
+  annotation: unknown,
+  file: string,
+  index: number,
+): asserts annotation is GameExportV7['annotations'][number] {
+  invariant(annotation != null && typeof annotation === 'object', `${file}: annotation ${index} must be an object`);
+  const candidate = annotation as Record<string, unknown>;
+  invariant(candidate.type === 'blunder', `${file}: annotation ${index} has invalid type`);
+  invariant(typeof candidate.player === 'string', `${file}: annotation ${index} missing player`);
+  invariant(Number.isInteger(candidate.snapshotIndex), `${file}: annotation ${index} missing snapshotIndex`);
+  invariant(typeof candidate.description === 'string', `${file}: annotation ${index} missing description`);
+  invariant(typeof candidate.actionTaken === 'string', `${file}: annotation ${index} missing actionTaken`);
+  invariant(typeof candidate.betterLine === 'string', `${file}: annotation ${index} missing betterLine`);
+  invariant(
+    typeof candidate.severity === 'string' && candidate.severity in BLUNDER_WEIGHTS,
+    `${file}: annotation ${index} has invalid severity`,
+  );
+}
+
 function assertGameExport(data: unknown, file: string): asserts data is GameExportV7 {
   invariant(data != null && typeof data === 'object', `${file}: export must be an object`);
   const candidate = data as Record<string, unknown>;
@@ -71,6 +90,8 @@ function assertGameExport(data: unknown, file: string): asserts data is GameExpo
   invariant(candidate.tournament === null || typeof candidate.tournament === 'string', `${file}: invalid tournament`);
   invariant(Array.isArray(candidate.players), `${file}: players must be an array`);
   candidate.players.forEach((player, index) => assertPlayer(player, file, index));
+  invariant(Array.isArray(candidate.annotations), `${file}: annotations must be an array`);
+  candidate.annotations.forEach((annotation, index) => assertAnnotation(annotation, file, index));
 }
 
 function scanGames(): GameEntry[] {
