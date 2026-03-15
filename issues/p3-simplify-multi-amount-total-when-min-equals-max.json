@@ -1,0 +1,13 @@
+{
+  "title": "Simplify multi-amount total display when total_min equals total_max",
+  "description": "When `total_min == total_max` (the common case for combat damage distribution — you must assign exactly N damage), the Items header currently shows both values redundantly:\n\n```\nItems (2): total_min=2, total_max=2\n```\n\nThis should simplify to something like:\n\n```\nItems (2): total=2\n```\n\nWhen `total_min != total_max`, keep the current format showing both bounds.\n\nThe golden test `multi_amount_combat` currently covers only the equal case (total_min=total_max=2). Add or update golden test coverage so both the equal and not-equal cases are validated.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": [
+    "puppeteer",
+    "golden"
+  ],
+  "created_at": "2026-03-15T02:30:00-07:00",
+  "updated_at": "2026-03-15T02:30:00-07:00"
+}
