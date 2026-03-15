@@ -155,14 +155,17 @@ def _render_decision_block(
     if items:
         total_min = decision.get("totalMin")
         total_max = decision.get("totalMax")
-        total_parts: list[str] = []
-        if total_min is not None:
-            total_parts.append(f"total_min={total_min}")
-        if total_max is not None:
-            total_parts.append(f"total_max={total_max}")
         header = f"  Items ({len(items)})"
-        if total_parts:
-            header += f": {', '.join(total_parts)}"
+        if total_min is not None and total_max is not None and total_min == total_max:
+            header += f": total={total_min}"
+        else:
+            total_parts: list[str] = []
+            if total_min is not None:
+                total_parts.append(f"total_min={total_min}")
+            if total_max is not None:
+                total_parts.append(f"total_max={total_max}")
+            if total_parts:
+                header += f": {', '.join(total_parts)}"
         lines.append(header)
         for i, item in enumerate(items):
             assert "description" in item, f"multi-amount item {i} missing 'description': {item}"
