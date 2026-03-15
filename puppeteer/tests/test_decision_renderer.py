@@ -67,28 +67,36 @@ def _make_decision(
     player: str = "Alice",
     turn: int = 3,
     phase: str = "PRECOMBAT_MAIN",
+    step: str = "PRECOMBAT_MAIN",
+    action_type: str = "GAME_SELECT",
+    response_type: str = "select",
     message: str = "Play spells and abilities",
     choices: list | None = None,
+    items: list | None = None,
+    total_min: int | None = None,
+    total_max: int | None = None,
     pilot_context: dict | None = None,
     chosen: object = 0,
     chosen_args: dict | None = None,
     llm_event_indices: list[int] | None = None,
     subsequent_actions: list[str] | None = None,
 ) -> dict:
-    if choices is None:
+    if choices is None and items is None:
         choices = [
             {"index": 0, "name": "Lightning Bolt", "id": "p3", "action": "cast", "mana_cost": "{R}"},
             {"index": 1, "name": "Mountain", "id": "p5", "action": "land"},
         ]
+    if choices is None:
+        choices = []
     d: dict = {
         "index": index,
         "snapshotIndex": snapshot_index,
         "player": player,
         "turn": turn,
         "phase": phase,
-        "step": "PRECOMBAT_MAIN",
-        "actionType": "GAME_SELECT",
-        "responseType": "select",
+        "step": step,
+        "actionType": action_type,
+        "responseType": response_type,
         "message": message,
         "choices": choices,
         "choiceCount": len(choices),
@@ -99,6 +107,12 @@ def _make_decision(
         "llmEventIndices": llm_event_indices or [10, 11, 12],
         "subsequentActions": subsequent_actions or [],
     }
+    if items is not None:
+        d["items"] = items
+    if total_min is not None:
+        d["totalMin"] = total_min
+    if total_max is not None:
+        d["totalMax"] = total_max
     if pilot_context is not None:
         d["pilotContext"] = pilot_context
     return d
@@ -311,6 +325,48 @@ class TestRenderDecision:
         decision = _make_decision(turn=5, phase="")
         with pytest.raises(AssertionError, match="empty phase on turn 5"):
             render_decision(decision, snap)
+
+
+_ITEMS_FIXTURE = [
+    {"description": "Savannah Lions, P/T: 2/1", "min": 0, "max": 2},
+    {"description": "Grizzly Bears, P/T: 2/2", "min": 0, "max": 2},
+]
+
+
+class TestItemsRendering:
+    """Tests for multi-amount Items header rendering."""
+
+    def test_equal_totals_simplified(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(items=_ITEMS_FIXTURE, total_min=2, total_max=2)
+        text = render_decision(decision, snap)
+        assert "Items (2): total=2" in text
+        assert "total_min" not in text
+        assert "total_max" not in text
+
+    def test_unequal_totals_show_both(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(items=_ITEMS_FIXTURE, total_min=0, total_max=3)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_min=0, total_max=3" in text
+
+    def test_only_total_min_set(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(items=_ITEMS_FIXTURE, total_min=2)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_min=2" in text
+
+    def test_only_total_max_set(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(items=_ITEMS_FIXTURE, total_max=5)
+        text = render_decision(decision, snap)
+        assert "Items (2): total_max=5" in text
+
+    def test_no_totals_set(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision(items=_ITEMS_FIXTURE)
+        text = render_decision(decision, snap)
+        assert "Items (2)\n" in text or text.endswith("Items (2)")
 
 
 class TestFormatChoice:

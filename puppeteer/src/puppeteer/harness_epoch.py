@@ -65,7 +65,8 @@ epoch directly.
 #  50 - Stop step yields on same-turn overshoot and any later-turn callback (Mar 15)
 #  51 - Render multi-amount item descriptions in pilot prompts (Mar 15)
 #  52 - Surface MultiAmountType header as message for GAME_GET_MULTI_AMOUNT decisions (Mar 15)
-HARNESS_EPOCH = 52
+#  53 - Simplify multi-amount total display: total=N when min==max; consistent respond text (Mar 15)
+HARNESS_EPOCH = 53
 
 # First epoch that counts as season 1. Used only for games that predate
 # run-time season tracking (no "season" in game_meta.json). Export and
