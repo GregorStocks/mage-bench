@@ -51,19 +51,21 @@ public class ObserverMain {
         RuntimeException lastException = null;
         for (int i = 0; i < maxRetries; i++) {
             int candidatePort = healthPort + i;
+            ObserverHealthServer server;
             try {
-                ObserverHealthServer server = startHealthServer(candidatePort);
-                if (candidatePort != healthPort) {
-                    LOGGER.info("Health port " + healthPort + " was busy, bound to " + candidatePort + " instead");
-                }
-                if (healthPortFile != null) {
-                    writePortFile(healthPortFile, server.getPort());
-                }
-                return server;
+                server = startHealthServer(candidatePort);
             } catch (RuntimeException e) {
                 lastException = e;
                 LOGGER.debug("Port " + candidatePort + " busy, trying next");
+                continue;
             }
+            if (candidatePort != healthPort) {
+                LOGGER.info("Health port " + healthPort + " was busy, bound to " + candidatePort + " instead");
+            }
+            if (healthPortFile != null) {
+                writePortFile(healthPortFile, server.getPort());
+            }
+            return server;
         }
         throw new RuntimeException(
                 "Failed to bind observer health server on any port in range "
