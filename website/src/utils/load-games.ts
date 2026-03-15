@@ -31,7 +31,13 @@ export interface GameEntry {
 }
 
 const CACHE_KEY = Symbol.for('mage-bench:games-metadata');
-const BLUNDER_WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
+type BlunderSeverity = GameExportV7['annotations'][number]['severity'];
+const BLUNDER_WEIGHTS: Record<BlunderSeverity, number> = {
+  questionable: 0,
+  minor: 1,
+  moderate: 2,
+  major: 4,
+};
 type GamesCacheGlobal = typeof globalThis & { [CACHE_KEY]?: GameEntry[] };
 
 function invariant(condition: unknown, message: string): asserts condition {
