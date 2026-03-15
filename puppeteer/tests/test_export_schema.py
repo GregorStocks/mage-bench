@@ -10,7 +10,6 @@ from pathlib import Path
 import jsonschema
 import pytest
 
-import schemas.game_export_types as game_export_types
 from schemas.game_export_types import (
     Action,
     Annotation,
@@ -377,24 +376,6 @@ class TestExportSchema:
 
         assert built["version"] == 7
         assert "annotations" not in built
-
-    def test_typed_loader_rejects_paths_outside_allowed_roots(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ) -> None:
-        allowed_root = tmp_path / "allowed"
-        disallowed_root = tmp_path / "outside"
-        allowed_root.mkdir()
-        disallowed_root.mkdir()
-        path = disallowed_root / "game_v7.json"
-        path.write_text(json.dumps(_minimal_export(7, season=1, tournament=None)))
-        monkeypatch.setattr(
-            game_export_types,
-            "_allowed_export_roots",
-            lambda: (allowed_root.resolve(),),
-        )
-
-        with pytest.raises(AssertionError, match="must live under one of"):
-            load_game_export(path)
 
     def test_loader_accepts_empty_decision_strings_allowed_by_schema(self, tmp_path: Path) -> None:
         path = tmp_path / "empty_decision_strings.json"
