@@ -1343,7 +1343,7 @@ async def run_pilot_loop(
                 )
                 continue
 
-        except asyncio.TimeoutError:
+        except TimeoutError:
             await _handle_timeout(session, state, game_log)
 
         except ToolExecutionError:

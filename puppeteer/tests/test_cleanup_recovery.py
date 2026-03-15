@@ -35,6 +35,7 @@ class _FakeBridgeManager:
         self._label = label
         self.restart_calls = 0
         self.reconnect_checks: list[str] = []
+        self.events: list[str] = []
         self._restart_error = restart_error
 
     def is_healthy(self) -> bool:
@@ -50,9 +51,10 @@ class _FakeBridgeManager:
         return (0, 0)
 
     def write_test_log_snapshots(self, _test_name: str, _offsets: tuple[int, int]) -> None:
-        pass
+        self.events.append("snapshot")
 
     def restart(self) -> None:
+        self.events.append("restart")
         self.restart_calls += 1
         if self._restart_error is not None:
             raise self._restart_error
@@ -112,6 +114,8 @@ def test_run_golden_scenario_restarts_bridge_after_benign_player_b_replay_error(
     assert [call[0] for call in player_b.calls] == ["join_table"]
     assert bridge_a.restart_calls == 0
     assert bridge_b.restart_calls == 1
+    assert bridge_a.events == ["snapshot"]
+    assert bridge_b.events == ["snapshot", "restart"]
 
 
 def test_run_golden_scenario_restarts_bridge_when_cleanup_concede_times_out(
@@ -144,6 +148,8 @@ def test_run_golden_scenario_restarts_bridge_when_cleanup_concede_times_out(
     assert [call[0] for call in player_b.calls] == ["join_table", "concede"]
     assert bridge_a.restart_calls == 0
     assert bridge_b.restart_calls == 1
+    assert bridge_a.events == ["snapshot"]
+    assert bridge_b.events == ["snapshot", "restart"]
 
 
 def test_run_golden_scenario_preserves_primary_replay_failure_over_cleanup_error(

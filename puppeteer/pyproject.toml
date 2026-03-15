@@ -2,7 +2,7 @@
 name = "puppeteer"
 version = "0.1.0"
 description = "XMage AI Puppeteer orchestration tool"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "mage-scripts",
     "psutil>=5.9.0",
@@ -34,7 +34,7 @@ dev = [
 ]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 120
 
 [tool.ruff.lint]
@@ -75,7 +75,7 @@ external = []
 known-first-party = ["puppeteer", "scripts", "schemas"]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 warn_unused_ignores = true

@@ -6,12 +6,10 @@ import json
 import math
 import re
 from collections.abc import Mapping
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import Any, NotRequired, TypedDict
 from zoneinfo import ZoneInfo
-
-from typing_extensions import NotRequired
 
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION
 from schemas.game_export_types import GameExport, load_game_export
@@ -558,7 +556,7 @@ def generate_leaderboard(
     models.sort(key=rated_sort_key)
 
     benchmark_results = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": datetime.now(UTC).isoformat(),
         "totalGames": len(scored_games),
         "models": models,
     }
@@ -667,7 +665,7 @@ def generate_exhibition_leaderboard(
     models.sort(key=lambda m: (-m["winRate"], -m["gamesPlayed"], m["modelId"], m.get("reasoningEffort", "")))
 
     return {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": datetime.now(UTC).isoformat(),
         "totalGames": len(scored_games),
         "exhibition": True,
         "models": models,
@@ -984,7 +982,7 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
     sorted_models = dict(sorted(models_out.items()))
 
     output: dict[str, Any] = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": datetime.now(UTC).isoformat(),
         "models": sorted_models,
     }
 
@@ -1146,7 +1144,7 @@ def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) 
     games_out.sort(key=lambda g: g["ts"])
 
     output: dict[str, Any] = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": datetime.now(UTC).isoformat(),
         "games": games_out,
     }
 
@@ -1174,7 +1172,7 @@ def generate_blunder_stats(data_dir: Path) -> Path:
     records.sort(key=lambda r: r.get("ts", ""))
 
     output: dict[str, Any] = {
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "generatedAt": datetime.now(UTC).isoformat(),
         "runs": records,
     }
 

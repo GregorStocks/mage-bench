@@ -735,7 +735,7 @@ async def test_repeated_timeout_resets_board_context():
             return _make_llm_response("pass_priority", "{}")
         if fake_create.calls == 1:
             fake_create.calls += 1
-            raise asyncio.TimeoutError()
+            raise TimeoutError()
         fake_create.calls += 1
         return _make_llm_response("pass_priority", "{}")
 

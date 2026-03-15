@@ -1430,6 +1430,9 @@ def run_golden_scenario(
                 )
                 cleanup_restarts.append(bridge)
 
+        bridge_a.write_test_log_snapshots(golden_name, bridge_a_log_offsets)
+        bridge_b.write_test_log_snapshots(golden_name, bridge_b_log_offsets)
+
         for bridge in cleanup_restarts:
             try:
                 bridge.restart()
@@ -1450,8 +1453,6 @@ def run_golden_scenario(
                 raise RuntimeError(
                     f"Golden cleanup restart failed after scenario success: {details}"
                 ) from cleanup_restart_failures[0][1]
-        bridge_a.write_test_log_snapshots(golden_name, bridge_a_log_offsets)
-        bridge_b.write_test_log_snapshots(golden_name, bridge_b_log_offsets)
 
 
 def _write_game_meta(
